@@ -23,9 +23,8 @@ Key aspects:
 3. **Ownership Handling**: Uses the parent index's table owner to ensure the command runs with correct privileges during restore
 
 ## Parameters / Member Variables
-- : Archive pointer containing dump options and output context
-- : IndexAttachInfo structure containing:
-
+- `*fout`: Archive pointer containing dump options and output context
+- `*attachinfo`: IndexAttachInfo structure containing:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [createPQExpBuffer](../c/createPQExpBuffer.md)

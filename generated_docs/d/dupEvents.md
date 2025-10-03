@@ -18,10 +18,9 @@ dupEvents performs a specialized duplication of PGEvent arrays used in libpq's e
 The function carefully manages memory allocation, including tracking the total allocated size in the memSize parameter. If any allocation fails during the copying process, it performs complete cleanup by freeing all previously allocated names and the event array itself.
 
 ## Parameters / Member Variables
-- : Source array of PGEvent structures to duplicate
-- : Number of events in the source array
-- : Pointer to size accumulator that tracks total allocated memory
-
+- `*events`: Source array of PGEvent structures to duplicate
+- `count`: Number of events in the source array
+- `*memSize`: Pointer to size accumulator that tracks total allocated memory
 ## Dependencies
 - Functions called/Symbols referenced:
   - malloc

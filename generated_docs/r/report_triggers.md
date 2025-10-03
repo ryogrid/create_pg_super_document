@@ -18,10 +18,9 @@ The  function is responsible for reporting execution statistics for all triggers
 The output format depends on the explain format specified in the ExplainState. For text format, it provides a compact representation with optional verbose details, while non-text formats (JSON, XML, YAML) include all available information in a structured manner.
 
 ## Parameters / Member Variables
-- : ResultRelInfo structure containing relation information and trigger instrumentation data
-- : Boolean flag indicating whether to include the relation name in the output
-- : ExplainState structure containing formatting options and output buffer
-
+- `*rInfo`: ResultRelInfo structure containing relation information and trigger instrumentation data
+- `show_relname`: Boolean flag indicating whether to include the relation name in the output
+- `*es`: ExplainState structure containing formatting options and output buffer
 ## Dependencies
 - Functions called/Symbols referenced:
   - [InstrEndLoop](../I/InstrEndLoop.md)

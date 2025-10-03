@@ -16,8 +16,7 @@ xmlChar_to_encoding(const xmlChar *encoding_name)
 This function serves as a wrapper around PostgreSQL's  function, specifically designed for XML processing. It takes an XML character encoding name (as xmlChar*) and attempts to convert it to PostgreSQL's internal encoding identifier. If the encoding name is invalid or unsupported, the function reports an error rather than returning a failure code, ensuring that XML processing operations fail cleanly when encountering unsupported encodings.
 
 ## Parameters / Member Variables
-- : An xmlChar pointer containing the name of the character encoding to be converted (e.g., "UTF-8", "ISO-8859-1")
-
+- `*encoding_name`: An xmlChar pointer containing the name of the character encoding to be converted (e.g., "UTF-8", "ISO-8859-1")
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_char_to_encoding](../p/pg_char_to_encoding.md)

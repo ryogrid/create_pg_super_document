@@ -28,8 +28,7 @@ After attachment, the new participant must eventually call one of the barrier pa
 The returned phase number allows the new participant to understand which synchronization phase is currently active.
 
 ## Parameters / Member Variables
-- : Pointer to the dynamic Barrier structure to attach to
-
+- `*barrier`: Pointer to the dynamic Barrier structure to attach to
 ## Dependencies
 - Functions called/Symbols referenced:
   - SpinLockAcquire/SpinLockRelease

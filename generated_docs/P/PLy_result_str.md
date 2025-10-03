@@ -18,8 +18,7 @@ This function creates a human-readable string representation of a PLyResultObjec
 The function uses PyUnicode_FromFormat to create a Unicode string with the format "<type_name status=STATUS nrows=NROWS rows=ROWS>", where each component provides insight into the result object's state and contents.
 
 ## Parameters / Member Variables
-- : A PyObject pointer that should be cast to PLyResultObject, representing the result object to be converted to string format
-
+- `*arg`: A PyObject pointer that should be cast to PLyResultObject, representing the result object to be converted to string format
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PLyResultObject](PLyResultObject.md) (structure type cast)

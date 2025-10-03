@@ -18,8 +18,7 @@ The hash_string function provides a streamlined interface for hashing NUL-termin
 The function uses the fasthash_accum_cstring function which is specifically designed for C strings, automatically detecting the string length while accumulating the hash. The detected length is then used in the final mixing step via fasthash_final32, ensuring that strings of different lengths produce well-distributed hash values even when they share common prefixes.
 
 ## Parameters / Member Variables
-- : Pointer to a NUL-terminated C string to be hashed (const char*)
-
+- `*s`: Pointer to a NUL-terminated C string to be hashed (const char*)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [fasthash_state](../f/fasthash_state.md) (hash state structure)

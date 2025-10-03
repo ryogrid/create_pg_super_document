@@ -17,10 +17,9 @@ make_jsp_expr_node_binary(JsonPathGinNodeType type,
 This function is a helper utility that constructs a binary expression node in the JSON path GIN index tree structure. It creates a new JsonPathGinNode with exactly two child arguments, which is commonly needed for binary operations like logical AND/OR operations or comparison operations in JSON path expressions. The function serves as a convenience wrapper around  specifically for binary operations.
 
 ## Parameters / Member Variables
-- : The JsonPathGinNodeType that specifies what kind of binary operation this node represents
-- : The first child argument node in the binary expression
-- : The second child argument node in the binary expression
-
+- `type`: The JsonPathGinNodeType that specifies what kind of binary operation this node represents
+- `*arg1`: The first child argument node in the binary expression
+- `*arg2`: The second child argument node in the binary expression
 ## Dependencies
 - Functions called/Symbols referenced:
   - [make_jsp_expr_node](make_jsp_expr_node.md)

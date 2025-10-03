@@ -18,8 +18,7 @@ This function implements the core message processing loop for the PostgreSQL cli
 The function operates in a stateful manner, respecting the connection's async status and handling special cases like NOTIFY/NOTICE messages that can arrive at any time, versus other messages that should only be processed during specific states. It includes robust error handling for malformed messages and implements protocol validation to detect synchronization loss.
 
 ## Parameters / Member Variables
-- : Pointer to the PGconn structure representing the database connection, containing input buffer, connection state, and result information
-
+- `*conn`: Pointer to the PGconn structure representing the database connection, containing input buffer, connection state, and result information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pqGetc](pqGetc.md) (reads single character from input buffer)

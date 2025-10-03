@@ -24,8 +24,7 @@ The primary use case is with PL/Java, where:
 This ensures that PostgreSQL's stack depth checking mechanism works correctly regardless of which thread context the code is executing in.
 
 ## Parameters / Member Variables
-- : The previously saved stack base reference point of type pg_stack_base_t to restore
-
+- `base`: The previously saved stack base reference point of type pg_stack_base_t to restore
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_stack_base_t (type definition)

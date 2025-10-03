@@ -18,8 +18,7 @@ The  function is a utility function in psql's command processor that reads a boo
 The function works by calling  to collect all tokens that form the boolean expression into a buffer, then immediately destroys that buffer without processing its contents. This approach ensures that the input stream is properly consumed while avoiding unnecessary variable expansion and backtick command execution that would occur if the expression were evaluated.
 
 ## Parameters / Member Variables
-- : A  structure that maintains the current state of the psql command scanner, including the input buffer and parsing position
-
+- `scan_state`: A  structure that maintains the current state of the psql command scanner, including the input buffer and parsing position
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Collects boolean expression tokens into a buffer

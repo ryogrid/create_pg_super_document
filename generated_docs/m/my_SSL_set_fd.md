@@ -18,9 +18,8 @@ This function serves as a PostgreSQL-specific replacement for OpenSSL's SSL_set_
 The function creates a new BIO instance using the custom PostgreSQL BIO method, associates it with the provided file descriptor, and sets the Port structure as application data. This enables the custom read/write callbacks (my_sock_read and my_sock_write) to access PostgreSQL's connection context during SSL operations.
 
 ## Parameters / Member Variables
-- : PostgreSQL Port structure containing SSL connection state and context
-- : File descriptor for the socket connection
-
+- `*conn`: PostgreSQL Port structure containing SSL connection state and context
+- `fd`: File descriptor for the socket connection
 ## Dependencies
 - Functions called/Symbols referenced:
   - [my_BIO_s_socket](my_BIO_s_socket.md)

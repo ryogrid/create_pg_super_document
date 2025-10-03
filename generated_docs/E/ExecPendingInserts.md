@@ -27,8 +27,7 @@ The function ensures that all buffered insertions are completed before certain o
 This design optimizes performance for foreign tables by reducing the number of round trips to external systems while maintaining correctness.
 
 ## Parameters / Member Variables
-- : EState containing the pending insertion lists and execution context
-
+- `*estate`: EState containing the pending insertion lists and execution context
 ## Dependencies
 - Functions called/Symbols referenced:
   - forboth (macro for simultaneous list traversal)

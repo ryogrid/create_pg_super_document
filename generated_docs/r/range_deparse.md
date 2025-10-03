@@ -18,10 +18,9 @@ The  function takes the internal representation of a range (flags and bound stri
 The function returns a palloc'd string that represents the range in standard PostgreSQL range syntax, such as '[1,10)' for a range from 1 (inclusive) to 10 (exclusive).
 
 ## Parameters / Member Variables
-- : A byte containing range property flags (empty, bound inclusion, bound existence)
-- : The lower bound value already converted to text (NULL if no lower bound)
-- : The upper bound value already converted to text (NULL if no upper bound)
-
+- `flags`: A byte containing range property flags (empty, bound inclusion, bound existence)
+- `*lbound_str`: The lower bound value already converted to text (NULL if no lower bound)
+- `*ubound_str`: The upper bound value already converted to text (NULL if no upper bound)
 ## Dependencies
 - Functions called/Symbols referenced:
   - RANGE_EMPTY (macro for checking empty range flag)

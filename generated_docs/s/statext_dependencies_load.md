@@ -18,9 +18,8 @@ The function retrieves functional dependency statistics from the  system catalog
 The function follows PostgreSQL's standard pattern for loading statistics data: cache lookup, null checking, data extraction, deserialization, and cache cleanup. If the requested statistics kind is not available or the cache lookup fails, appropriate error messages are generated.
 
 ## Parameters / Member Variables
-- : Object ID of the multivariate statistics object whose dependencies should be loaded
-- : Boolean flag indicating whether to load statistics for inherited tables (true) or only the base table (false)
-
+- `mvoid`: Object ID of the multivariate statistics object whose dependencies should be loaded
+- `inh`: Boolean flag indicating whether to load statistics for inherited tables (true) or only the base table (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache2](../S/SearchSysCache2.md) (system cache lookup)

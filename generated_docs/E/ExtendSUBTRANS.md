@@ -20,8 +20,7 @@ The function only performs actual work when the transaction ID is the first entr
 This function is called while holding XidGenLock, so it's optimized for speed. Even when it needs to do work, no actual I/O occurs unless a dirty SUBTRANS page needs to be written out to make room in shared memory.
 
 ## Parameters / Member Variables
-- : The newest transaction ID that has been allocated and needs SUBTRANS space
-
+- `newestXact`: The newest transaction ID that has been allocated and needs SUBTRANS space
 ## Dependencies
 - Functions called/Symbols referenced:
   - TransactionIdToEntry

@@ -25,11 +25,10 @@ The process involves:
 6. Registering the snapshot for transaction-snapshot mode
 
 ## Parameters / Member Variables
-- : The source snapshot to import, containing xmin, xmax, active transaction arrays, and other MVCC state
-- : Virtual transaction ID of the source transaction (used when sourceproc is NULL)
-- : Process ID of the source process (for error reporting)
-- : PGPROC structure of the source process (used for direct validation, can be NULL)
-
+- `sourcesnap`: The source snapshot to import, containing xmin, xmax, active transaction arrays, and other MVCC state
+- `*sourcevxid`: Virtual transaction ID of the source transaction (used when sourceproc is NULL)
+- `sourcepid`: Process ID of the source process (for error reporting)
+- `*sourceproc`: PGPROC structure of the source process (used for direct validation, can be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [InvalidateCatalogSnapshot](../I/InvalidateCatalogSnapshot.md)

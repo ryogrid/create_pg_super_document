@@ -21,12 +21,11 @@ This function constructs a targetlist for Append plan nodes used in set operatio
 The function first analyzes all input targetlists to determine the most appropriate typmod for each output column, then constructs the output targetlist with the determined datatypes, typmods, and collations. All entries are simple Vars that will be resolved during execution to reference the appropriate input subplan columns.
 
 ## Parameters / Member Variables
-- : OID list of the set-operation's result column datatypes
-- : OID list of the set-operation's result column collations
-- : true to create a resjunk flag column copied up from subplans
-- : list of targetlists for sub-plans of the Append node
-- : targetlist to take column names from
-
+- `*colTypes`: OID list of the set-operation's result column datatypes
+- `*colCollations`: OID list of the set-operation's result column collations
+- `flag`: true to create a resjunk flag column copied up from subplans
+- `*input_tlists`: list of targetlists for sub-plans of the Append node
+- `*refnames_tlist`: targetlist to take column names from
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md)

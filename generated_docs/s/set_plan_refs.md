@@ -27,10 +27,9 @@ Key behaviors include:
 - Special nodes: IndexOnlyScan and SubqueryScan get specialized treatment via dedicated functions
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global planner state and context
-- : The Plan node to process and adjust references for
-- : Integer offset to add to rangetable indices for proper variable resolution
-
+- `*root`: PlannerInfo structure containing global planner state and context
+- `*plan`: The Plan node to process and adjust references for
+- `rtoffset`: Integer offset to add to rangetable indices for proper variable resolution
 ## Dependencies
 - Functions called/Symbols referenced:
   - fix_scan_list: Fixes variable references in expression lists for scan operations

@@ -29,9 +29,8 @@ Supported attributes include:
 - "alpn": Application Layer Protocol Negotiation value
 
 ## Parameters / Member Variables
-- : Pointer to the PostgreSQL connection object (PGconn structure), or NULL to query default library
-- : String specifying which SSL attribute to retrieve
-
+- `*conn`: Pointer to the PostgreSQL connection object (PGconn structure), or NULL to query default library
+- `*attribute_name`: String specifying which SSL attribute to retrieve
 ## Dependencies
 - Functions called/Symbols referenced:
   - strcmp (standard C library function for string comparison)

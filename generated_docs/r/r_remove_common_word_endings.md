@@ -26,8 +26,7 @@ This function is a critical component of the Tamil stemming process that identif
 The function uses a sophisticated pattern matching system that tries to match the longest possible suffixes first, falling back to shorter patterns if no match is found.
 
 ## Parameters / Member Variables
-- : Pointer to the Snowball environment structure () containing:
-
+- `*z`: Pointer to the Snowball environment structure () containing:
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Validates minimum word length before processing

@@ -26,8 +26,7 @@ The  function performs comprehensive validation of a btree operator class to ens
 The validation covers the entire operator family, not just the specific operator class, which may result in some redundant checks when validating multiple classes in the same family.
 
 ## Parameters / Member Variables
-- : The OID of the btree operator class to validate
-
+- `opclassoid`: The OID of the btree operator class to validate
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache1](../S/SearchSysCache1.md)

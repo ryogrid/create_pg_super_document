@@ -18,8 +18,7 @@ The dsm_pin_mapping function modifies the resource ownership of a dynamic shared
 This is particularly useful when a DSM segment needs to be shared across multiple queries within the same session, or when the segment contains data that should persist beyond individual transaction boundaries.
 
 ## Parameters / Member Variables
-- : Pointer to the dsm_segment structure representing the dynamic shared memory segment to be pinned
-
+- `*seg`: Pointer to the dsm_segment structure representing the dynamic shared memory segment to be pinned
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ResourceOwnerForgetDSM](../R/ResourceOwnerForgetDSM.md)

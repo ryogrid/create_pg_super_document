@@ -24,8 +24,7 @@ The function supports multiple strategies:
 - ICU Unicode support when available
 
 ## Parameters / Member Variables
-- : The wide character (pg_wchar) to test for whitespace property
-
+- `c`: The wide character (pg_wchar) to test for whitespace property
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_u_isspace](pg_u_isspace.md)

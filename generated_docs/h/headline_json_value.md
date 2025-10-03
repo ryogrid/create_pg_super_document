@@ -26,10 +26,9 @@ The function performs the following key operations:
 This function is specifically designed to work with PostgreSQL's full-text search functionality for JSON/JSONB data types, enabling users to generate search result snippets from JSON content.
 
 ## Parameters / Member Variables
-- : A void pointer that is cast to , containing all the configuration and state needed for headline generation
-- : A character pointer to the JSON element's string value that needs to be processed
-- : An integer specifying the length of the element value in bytes
-
+- `*_state`: A void pointer that is cast to , containing all the configuration and state needed for headline generation
+- `*elem_value`: A character pointer to the JSON element's string value that needs to be processed
+- `elem_len`: An integer specifying the length of the element value in bytes
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Parses text content using text search configuration to identify and classify words

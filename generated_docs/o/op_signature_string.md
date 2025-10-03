@@ -18,10 +18,9 @@ This utility function constructs a human-readable string representation of an op
 The function handles both unary and binary operators by checking the validity of the first argument OID. For unary operators, only the second argument type is included in the signature string.
 
 ## Parameters / Member Variables
-- : List containing the operator name components
-- : OID of the first argument type (InvalidOid for unary operators)
-- : OID of the second argument type (or the only argument for unary operators)
-
+- `*op`: List containing the operator name components
+- `arg1`: OID of the first argument type (InvalidOid for unary operators)
+- `arg2`: OID of the second argument type (or the only argument for unary operators)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [initStringInfo](../i/initStringInfo.md)

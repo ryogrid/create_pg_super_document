@@ -18,8 +18,7 @@ PQfreemem provides a safe way to free memory that was allocated by libpq functio
 The function ensures that memory is freed using the same memory management system that allocated it, which is crucial in environments where the application and the library might use different C runtime libraries.
 
 ## Parameters / Member Variables
-- : Pointer to the memory block to be freed. This should be memory that was allocated by libpq functions.
-
+- `*ptr`: Pointer to the memory block to be freed. This should be memory that was allocated by libpq functions.
 ## Dependencies
 - Functions called/Symbols referenced:
   - free (standard C library function)

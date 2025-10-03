@@ -26,9 +26,8 @@ The timing is critical because it operates on expressions after sublinks have be
 A key aspect of this function is its selective approach: it doesn't recurse into arguments of uplevel PHVs and aggregates, allowing those arguments to be processed at the appropriate parent level when  is called there.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing the current query planning context
-- : The expression tree in which to replace correlation variables with Params
-
+- `*root`: PlannerInfo structure containing the current query planning context
+- `*expr`: The expression tree in which to replace correlation variables with Params
 ## Dependencies
 - Functions called/Symbols referenced:
   - : The actual tree-walking function that performs the replacements

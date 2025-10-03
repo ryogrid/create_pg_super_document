@@ -33,13 +33,12 @@ The function performs the following key operations:
 The comment indicates this function is intended to eventually be phased out once SortGroupClause is restructured to provide more detailed sorting information directly.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing query planning context
-- : The expression to be sorted on
-- : OID of the ordering/comparison operator
-- : Boolean indicating NULL value positioning
-- : SortGroupRef from SortGroupClause, or zero if not applicable
-- : Boolean controlling EquivalenceClass creation
-
+- `*root`: PlannerInfo structure containing query planning context
+- `*expr`: The expression to be sorted on
+- `ordering_op`: OID of the ordering/comparison operator
+- `nulls_first`: Boolean indicating NULL value positioning
+- `sortref`: SortGroupRef from SortGroupClause, or zero if not applicable
+- `create_it`: Boolean controlling EquivalenceClass creation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_ordering_op_properties](../g/get_ordering_op_properties.md) (operator property extraction)

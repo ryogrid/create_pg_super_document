@@ -18,9 +18,8 @@ cached_plan_cost provides cost estimation for cached plans in PostgreSQL's plan 
 The function is crucial for the adaptive planning system's cost-based decisions between generic and custom plans. When include_planner is true, it adds planning overhead to reflect the true cost of custom plans, enabling fair comparison with generic plans that amortize planning costs across multiple executions.
 
 ## Parameters / Member Variables
-- : The CachedPlan whose cost should be calculated
-- : Whether to include estimated planning costs in the total
-
+- `*plan`: The CachedPlan whose cost should be calculated
+- `include_planner`: Whether to include estimated planning costs in the total
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PlannedStmt](../P/PlannedStmt.md) (for accessing individual statement plans)

@@ -18,6 +18,7 @@ The `initialize_acl` function is called during PostgreSQL initialization (specif
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsBootstrapProcessingMode

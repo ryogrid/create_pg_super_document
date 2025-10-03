@@ -31,14 +31,13 @@ This function sets up the infrastructure for parallel vacuum operations by:
 The function returns  if parallel vacuum cannot be performed (e.g., no suitable workers can be allocated).
 
 ## Parameters / Member Variables
-- : The heap relation being vacuumed
-- : Array of index relations to be processed in parallel
-- : Number of indexes in the  array
-- : Desired number of parallel workers
-- : Memory limit for dead tuple storage (in KB)
-- : Error level for reporting issues
-- : Buffer access strategy for I/O operations
-
+- `rel`: The heap relation being vacuumed
+- `*indrels`: Array of index relations to be processed in parallel
+- `nindexes`: Number of indexes in the  array
+- `nrequested_workers`: Desired number of parallel workers
+- `vac_work_mem`: Memory limit for dead tuple storage (in KB)
+- `elevel`: Error level for reporting issues
+- `bstrategy`: Buffer access strategy for I/O operations
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Determines optimal worker count

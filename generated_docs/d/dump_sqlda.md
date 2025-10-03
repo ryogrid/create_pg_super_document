@@ -16,8 +16,7 @@ dump_sqlda(sqlda_t *sqlda)
 The  function is a debugging utility used in PostgreSQL's ECPG (Embedded SQL in C) test framework. It iterates through all entries in an SQLDA structure and prints formatted information about each descriptor, including the variable name, data type, and value. The function handles NULL values appropriately and supports multiple SQL data types including SQLCHAR, SQLINT, SQLFLOAT, and SQLDECIMAL. For SQLDECIMAL types, it uses the  function to convert decimal values to ASCII representation.
 
 ## Parameters / Member Variables
-- : Pointer to the SQLDA structure to be dumped. If NULL, the function prints a warning message and returns early.
-
+- `*sqlda`: Pointer to the SQLDA structure to be dumped. If NULL, the function prints a warning message and returns early.
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (standard library function)

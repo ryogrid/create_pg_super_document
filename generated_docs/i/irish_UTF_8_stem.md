@@ -26,8 +26,7 @@ This function implements the complete Irish language stemming algorithm for UTF-
 Each suffix removal phase uses cursor position saving/restoration to ensure that if one phase fails, subsequent phases can still attempt processing from the original position. The algorithm processes the word from right-to-left (end-to-beginning) for suffix identification and removal.
 
 ## Parameters / Member Variables
-- : Pointer to the Snowball environment structure containing the UTF-8 encoded word and stemming state
-
+- `*z`: Pointer to the Snowball environment structure containing the UTF-8 encoded word and stemming state
 ## Dependencies
 - Functions called/Symbols referenced:
   - [r_initial_morph](../r/r_initial_morph.md): Handles initial morphological transformations

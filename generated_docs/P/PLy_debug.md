@@ -18,10 +18,9 @@ PLy_debug is a wrapper function that facilitates debug-level logging from within
 The function delegates all its work to PLy_output, passing the DEBUG2 log level constant along with the provided arguments. This allows Python code to generate debug messages that integrate with PostgreSQL's standard logging and error reporting mechanisms.
 
 ## Parameters / Member Variables
-- : Standard Python method self parameter (unused in this static context)
-- : Python tuple containing the message and positional arguments to be logged
-- : Python dictionary containing keyword arguments for additional logging details (detail, hint, sqlstate, etc.)
-
+- `*self`: Standard Python method self parameter (unused in this static context)
+- `*args`: Python tuple containing the message and positional arguments to be logged
+- `*kw`: Python dictionary containing keyword arguments for additional logging details (detail, hint, sqlstate, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PLy_output](PLy_output.md) (the core logging function that handles message formatting and PostgreSQL integration)

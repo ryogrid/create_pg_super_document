@@ -25,7 +25,6 @@ The dispatch process works as follows:
 The function ensures that signal handlers execute with appropriate signal blocking behavior, mimicking Unix signal semantics on Windows.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

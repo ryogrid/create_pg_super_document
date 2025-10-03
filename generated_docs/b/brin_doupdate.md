@@ -27,18 +27,17 @@ The  function performs atomic updates of BRIN index tuples, which represent summ
 The function includes comprehensive validation to detect concurrent modifications, ensures proper WAL logging for crash recovery, and manages buffer locking to maintain consistency. It also handles page extension when necessary and updates the free space map appropriately.
 
 ## Parameters / Member Variables
-- : The BRIN index relation being updated
-- : Number of heap pages covered by each BRIN tuple
-- : Reverse mapping structure that tracks heap block to index tuple mappings
-- : Starting heap block number for the range being updated
-- : Buffer containing the page with the original tuple
-- : Offset number of the original tuple within the page
-- : Pointer to the original tuple (used for validation)
-- : Size of the original tuple
-- : Pointer to the new tuple to be inserted
-- : Size of the new tuple
-- : Boolean flag indicating whether to attempt same-page update
-
+- `idxrel`: The BRIN index relation being updated
+- `pagesPerRange`: Number of heap pages covered by each BRIN tuple
+- `*revmap`: Reverse mapping structure that tracks heap block to index tuple mappings
+- `heapBlk`: Starting heap block number for the range being updated
+- `oldbuf`: Buffer containing the page with the original tuple
+- `oldoff`: Offset number of the original tuple within the page
+- `*origtup`: Pointer to the original tuple (used for validation)
+- `origsz`: Size of the original tuple
+- `*newtup`: Pointer to the new tuple to be inserted
+- `newsz`: Size of the new tuple
+- `samepage`: Boolean flag indicating whether to attempt same-page update
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Extends revmap to cover the required heap block

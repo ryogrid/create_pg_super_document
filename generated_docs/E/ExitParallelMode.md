@@ -17,7 +17,6 @@ This function manages the exit from parallel mode within a PostgreSQL transactio
 The function includes assertions to ensure proper usage: it verifies that the parallel mode level is greater than 0 (meaning we're actually in parallel mode), and performs additional checks to ensure that parallel contexts are properly managed. Specifically, it asserts that either the parallel mode level will remain above 1 after decrementing, or that we're in a parallel child transaction, or that no parallel context is currently active.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

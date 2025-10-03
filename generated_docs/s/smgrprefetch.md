@@ -17,11 +17,10 @@ smgrprefetch(SMgrRelation reln, ForkNumber forknum, BlockNumber blocknum,
 The smgrprefetch function is a storage manager interface for initiating asynchronous read operations on relation blocks. It is designed to improve I/O performance by prefetching blocks that are likely to be needed soon, allowing the storage system to start loading them in the background before they are actually requested. The function returns a boolean value indicating success or failure. During recovery operations, it can return false to indicate that a file doesn't exist, which may occur when a file has been dropped by a later WAL record.
 
 ## Parameters / Member Variables
-- : SMgrRelation pointer identifying the relation to prefetch from
-- : ForkNumber indicating which fork of the relation to prefetch (main, FSM, VM, etc.)
-- : BlockNumber specifying the starting block position to prefetch
-- : Integer count of consecutive blocks to prefetch
-
+- `reln`: SMgrRelation pointer identifying the relation to prefetch from
+- `forknum`: ForkNumber indicating which fork of the relation to prefetch (main, FSM, VM, etc.)
+- `blocknum`: BlockNumber specifying the starting block position to prefetch
+- `nblocks`: Integer count of consecutive blocks to prefetch
 ## Dependencies
 - Functions called/Symbols referenced:
   - smgrsw[].smgr_prefetch (storage manager implementation function)

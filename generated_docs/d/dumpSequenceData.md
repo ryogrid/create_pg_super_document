@@ -16,9 +16,8 @@ dumpSequenceData(Archive *fout, const TableDataInfo *tdinfo)
 The  function generates SQL statements to restore the current state of a sequence, specifically its last value and whether it has been called. It queries the sequence to retrieve  and  from the sequence relation, then creates a  call that will restore these values when the dump is loaded. This ensures that sequences maintain their proper state across dump/restore operations, preventing duplicate key violations or other issues that could arise from sequences starting over from their initial values.
 
 ## Parameters / Member Variables
-- : Archive structure containing dump options and output methods
-- : TableDataInfo structure containing sequence data metadata and reference to the underlying TableInfo
-
+- `*fout`: Archive structure containing dump options and output methods
+- `*tdinfo`: TableDataInfo structure containing sequence data metadata and reference to the underlying TableInfo
 ## Dependencies
 - Functions called/Symbols referenced:
   - fmtQualifiedDumpable

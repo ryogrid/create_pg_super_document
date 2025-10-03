@@ -16,8 +16,7 @@ ResOwnerReleaseFile(Datum res)
 This function serves as a resource release callback for PostgreSQL's ResourceOwner system, specifically for managing virtual file descriptors (VFDs). When a ResourceOwner is cleaning up its resources, this function is called for each File resource that needs to be released. The function retrieves the file descriptor from the Datum parameter, validates it, clears the resource owner association from the corresponding VFD cache entry, and properly closes the file. This ensures that file resources are properly cleaned up during transaction abort, subtransaction rollback, or other resource cleanup scenarios.
 
 ## Parameters / Member Variables
-- : A Datum containing the File (integer file descriptor) to be released
-
+- `res`: A Datum containing the File (integer file descriptor) to be released
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DatumGetInt32](../D/DatumGetInt32.md) (converts Datum to int32)

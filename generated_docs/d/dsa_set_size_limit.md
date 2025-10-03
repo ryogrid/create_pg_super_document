@@ -18,9 +18,8 @@ This function establishes a size limit for the total virtual memory usage of a d
 The function uses exclusive locking to ensure thread-safe modification of the area's control structure. It's important to note that the actual virtual memory usage may temporarily exceed this limit when segments have been freed but not yet detached by all backends that have attached to them.
 
 ## Parameters / Member Variables
-- : Pointer to the dynamic shared memory area whose size limit is being set
-- : The maximum total segment size in bytes that the area is allowed to consume
-
+- `*area`: Pointer to the dynamic shared memory area whose size limit is being set
+- `limit`: The maximum total segment size in bytes that the area is allowed to consume
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockAcquire](../L/LWLockAcquire.md)

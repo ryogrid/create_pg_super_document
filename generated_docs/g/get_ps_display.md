@@ -23,8 +23,7 @@ The function handles platform-specific considerations:
 The function also provides the effective length through an output parameter, which is important because some platforms may not null-terminate the status string.
 
 ## Parameters / Member Variables
-- : Pointer to an integer that will receive the effective length of the returned string. This is necessary because the returned string may not be null-terminated on some platforms.
-
+- `*displen`: Pointer to an integer that will receive the effective length of the returned string. This is necessary because the returned string may not be null-terminated on some platforms.
 ## Dependencies
 - Functions called/Symbols referenced:
   - Uses global variables: , , 

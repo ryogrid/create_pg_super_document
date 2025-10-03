@@ -18,9 +18,8 @@ The  function queries the  system catalog to retrieve information about all tran
 For each transform found, it creates a  structure containing the type OID, language OID, and function OIDs for both directions of conversion (fromsql and tosql). The function constructs descriptive names by concatenating the type name and language name for sorting purposes.
 
 ## Parameters / Member Variables
-- : Archive pointer for the pg_dump operation, used for executing SQL queries and version checking
-- : Output parameter that receives the number of transforms found
-
+- `*fout`: Archive pointer for the pg_dump operation, used for executing SQL queries and version checking
+- `*numTransforms`: Output parameter that receives the number of transforms found
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)

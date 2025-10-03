@@ -33,15 +33,14 @@ Key optimizations include:
 - **Deduplication**: Ensures only one clone state per source state even with multiple incoming arcs
 
 ## Parameters / Member Variables
-- : Pointer to the NFA structure being modified
-- : Source state to be cloned
-- : Target clone state to copy outarcs into
-- : Original predecessor state for context
-- : Reference constraint arc that was traversed to reach successors (may be NULL)
-- : Current donemap for tracking visited states (NULL for new clone states)
-- : Parent clone state's donemap for inheritance
-- : Size of donemaps (original NFA state count before cloning)
-
+- `*nfa`: Pointer to the NFA structure being modified
+- `*ssource`: Source state to be cloned
+- `*sclone`: Target clone state to copy outarcs into
+- `*spredecessor`: Original predecessor state for context
+- `*refarc`: Reference constraint arc that was traversed to reach successors (may be NULL)
+- `*curdonemap`: Current donemap for tracking visited states (NULL for new clone states)
+- `*outerdonemap`: Parent clone state's donemap for inheritance
+- `nstates`: Size of donemaps (original NFA state count before cloning)
 ## Dependencies
 - Functions called/Symbols referenced:
   - STACK_TOO_DEEP (recursion depth checking macro)

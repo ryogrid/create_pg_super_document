@@ -18,10 +18,9 @@ This internal helper function performs parameter privilege checking by convertin
 The function is part of PostgreSQL's access control system for configuration parameters, allowing fine-grained control over which users can view or modify specific server parameters.
 
 ## Parameters / Member Variables
-- : The OID of the role (user) whose privileges are being checked
-- : The name of the parameter as a PostgreSQL text type
-- : The privilege mode being checked (of type AclMode)
-
+- `roleid`: The OID of the role (user) whose privileges are being checked
+- `*parameter`: The name of the parameter as a PostgreSQL text type
+- `priv`: The privilege mode being checked (of type AclMode)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [text_to_cstring](../t/text_to_cstring.md) (converts PostgreSQL text to C string)

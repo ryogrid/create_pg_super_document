@@ -28,15 +28,14 @@ Key operations include:
 7. Transaction information recording and WAL logging
 
 ## Parameters / Member Variables
-- : Relation containing the tuple to lock
-- : Heap tuple to lock (filled in on output)
-- : Current command ID for visibility testing and storage
-- : Lock mode (KeyShare, Share, NoKeyExclusive, Exclusive)
-- : Behavior when lock unavailable (Block, Skip, Error)
-- : If true, follow update chain to lock descendant tuples
-- : Output parameter for buffer containing tuple (pinned but not locked)
-- : Output parameter filled with failure details for non-success cases
-
+- `relation`: Relation containing the tuple to lock
+- `tuple`: Heap tuple to lock (filled in on output)
+- `cid`: Current command ID for visibility testing and storage
+- `mode`: Lock mode (KeyShare, Share, NoKeyExclusive, Exclusive)
+- `wait_policy`: Behavior when lock unavailable (Block, Skip, Error)
+- `follow_updates`: If true, follow update chain to lock descendant tuples
+- `*buffer`: Output parameter for buffer containing tuple (pinned but not locked)
+- `*tmfd`: Output parameter filled with failure details for non-success cases
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReadBuffer](../R/ReadBuffer.md), LockBuffer (buffer management)

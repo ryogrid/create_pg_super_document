@@ -23,9 +23,8 @@ JsonTableInitOpaque is a static function responsible for filling in the TableFun
 The function bridges the SQL execution infrastructure with the JSON table processing system, ensuring all necessary context is properly established before JSON_TABLE evaluation begins.
 
 ## Parameters / Member Variables
-- : TableFuncScanState pointer containing the scan state for the table function
-- : Integer representing the number of attributes (columns) in the table function
-
+- `*state`: TableFuncScanState pointer containing the scan state for the table function
+- `natts`: Integer representing the number of attributes (columns) in the table function
 ## Dependencies
 - Functions called/Symbols referenced:
   - [JsonTableExecContext](JsonTableExecContext.md) (struct allocation)

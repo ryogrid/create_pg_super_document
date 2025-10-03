@@ -16,8 +16,7 @@ lseg_sl(LSEG *lseg)
 The  function is a utility function that calculates the slope of a line segment. It acts as a wrapper around the  function, passing the two endpoints of the line segment (lseg->p[0] and lseg->p[1]) to compute the slope. The slope is calculated as the ratio of the vertical distance to the horizontal distance between the two points. Special cases include returning infinity for vertical lines and 0.0 for horizontal lines.
 
 ## Parameters / Member Variables
-- : Pointer to a line segment (LSEG) structure containing two points p[0] and p[1]
-
+- `*lseg`: Pointer to a line segment (LSEG) structure containing two points p[0] and p[1]
 ## Dependencies
 - Functions called/Symbols referenced:
   - [point_sl](../p/point_sl.md): Calculates slope between two points

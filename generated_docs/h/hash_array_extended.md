@@ -20,8 +20,7 @@ Like its 32-bit counterpart, it uses the multiplicative hash algorithm  but oper
 This function is particularly important for hash partitioning and other operations where high-quality hash distribution is critical and where protection against algorithmic complexity attacks is desired.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function argument macro containing:
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument macro containing:
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Get number of array dimensions

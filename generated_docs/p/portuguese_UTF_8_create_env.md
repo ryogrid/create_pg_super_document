@@ -17,6 +17,7 @@ This function serves as a factory method for creating Portuguese stemming enviro
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SN_create_env](../S/SN_create_env.md)

@@ -23,8 +23,7 @@ The function operates by:
 5. Adding the VFD to the head of the free list by updating the nextFree pointers
 
 ## Parameters / Member Variables
-- : The File (virtual file descriptor number) to be freed and returned to the free list
-
+- `file`: The File (virtual file descriptor number) to be freed and returned to the free list
 ## Dependencies
 - Functions called/Symbols referenced:
   - File (type definition for virtual file descriptor)

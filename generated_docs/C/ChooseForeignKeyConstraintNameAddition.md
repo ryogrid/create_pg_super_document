@@ -18,8 +18,7 @@ This utility function creates a string representation of column names for use in
 The function implements careful length management to respect PostgreSQL's NAMEDATALEN limit (typically 64 characters). It builds the column name portion incrementally, stopping when the accumulated length reaches NAMEDATALEN to prevent buffer overflow. This ensures constraint names remain within PostgreSQL's identifier length limits while being as descriptive as possible.
 
 ## Parameters / Member Variables
-- : List of column names (as String nodes) that participate in the foreign key reference
-
+- `*colnames`: List of column names (as String nodes) that participate in the foreign key reference
 ## Dependencies
 - Functions called/Symbols referenced:
   - [strlcpy](../s/strlcpy.md) (safe string copying)

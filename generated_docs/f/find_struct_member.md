@@ -23,11 +23,10 @@ This function is part of the ECPG (Embedded SQL in C) preprocessor's variable re
 When a member is found, it creates and returns a new variable object with the appropriate type information. The function performs syntax validation and reports errors for malformed variable references.
 
 ## Parameters / Member Variables
-- : The original variable name being resolved (used for error reporting)
-- : The member access string to parse (e.g., ".member[0].submember")
-- : Linked list of struct members to search through
-- : Current nesting level for brace counting
-
+- `*name`: The original variable name being resolved (used for error reporting)
+- `*str`: The member access string to parse (e.g., ".member[0].submember")
+- `*members`: Linked list of struct members to search through
+- `brace_level`: Current nesting level for brace counting
 ## Dependencies
 - Functions called/Symbols referenced:
   - strpbrk (C library function for string parsing)

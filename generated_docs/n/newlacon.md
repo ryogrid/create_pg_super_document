@@ -28,11 +28,10 @@ Key operations performed:
 5. Returns the assigned lacon number for reference
 
 ## Parameters / Member Variables
-- : vars structure containing the regex compilation context and lacon array
-- : state pointer marking the beginning of the lookaround constraint
-- : state pointer marking the end of the lookaround constraint  
-- : integer indicating the type of lookaround (ahead/behind, positive/negative)
-
+- `*v`: vars structure containing the regex compilation context and lacon array
+- `*begin`: state pointer marking the beginning of the lookaround constraint
+- `*end`: state pointer marking the end of the lookaround constraint
+- `latype`: integer indicating the type of lookaround (ahead/behind, positive/negative)
 ## Dependencies
 - Functions called/Symbols referenced:
   - MALLOC - Allocates initial memory for lacons array

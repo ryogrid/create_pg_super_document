@@ -25,12 +25,11 @@ Key features include:
 - Range validation for denormalized numbers
 
 ## Parameters / Member Variables
-- : Input string containing the number to parse (modifiable for whitespace skipping)
-- : Optional pointer to receive the position where parsing stopped (NULL means require complete consumption)
-- : Name of the calling data type for error messages (e.g., "double precision", "point")
-- : Original input string for error reporting (may be larger than the parsed substring)
-- : Error context for soft error handling (NULL for normal error throwing)
-
+- `*num`: Input string containing the number to parse (modifiable for whitespace skipping)
+- `**endptr_p`: Optional pointer to receive the position where parsing stopped (NULL means require complete consumption)
+- `*type_name`: Name of the calling data type for error messages (e.g., "double precision", "point")
+- `*orig_string`: Original input string for error reporting (may be larger than the parsed substring)
+- `*escontext`: Error context for soft error handling (NULL for normal error throwing)
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereturn (error handling with context support)

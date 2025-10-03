@@ -21,11 +21,10 @@ The function first checks for REPLICA IDENTITY FULL, which includes all columns 
 The validation process involves retrieving the row filter expression from the pg_publication_rel catalog, converting it from text to a Node tree, and then using a tree walker to examine all column references in the expression.
 
 ## Parameters / Member Variables
-- : OID of the publication to validate
-- : The relation being validated for row filter compatibility
-- : List of ancestor relations (used for partitioned tables)
-- : Boolean indicating whether to publish via partition root
-
+- `pubid`: OID of the publication to validate
+- `relation`: The relation being validated for row filter compatibility
+- `*ancestors`: List of ancestor relations (used for partitioned tables)
+- `pubviaroot`: Boolean indicating whether to publish via partition root
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetTopMostAncestorInPublication](../G/GetTopMostAncestorInPublication.md)

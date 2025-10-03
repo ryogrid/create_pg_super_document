@@ -16,9 +16,8 @@ SetRWConflict(SERIALIZABLEXACT *reader, SERIALIZABLEXACT *writer)
 This function establishes a new read-write conflict relationship between a reader transaction and a writer transaction. It allocates a conflict record from the RWConflictPool, initializes it with pointers to both transactions, and adds the conflict to the appropriate conflict lists of both transactions. The function includes safety checks to ensure the conflict doesn't already exist and that pool resources are available.
 
 ## Parameters / Member Variables
-- : Pointer to the serializable transaction that is reading data
-- : Pointer to the serializable transaction that is writing data
-
+- `*reader`: Pointer to the serializable transaction that is reading data
+- `*writer`: Pointer to the serializable transaction that is writing data
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RWConflictExists](../R/RWConflictExists.md)

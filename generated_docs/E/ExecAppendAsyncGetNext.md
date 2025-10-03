@@ -24,9 +24,8 @@ The function operates in a polling loop that:
 The function returns true when a tuple is available (including end-of-scan indication) and false when control should return to synchronous subplan processing. This design allows for seamless integration between async and sync execution modes within the same Append node.
 
 ## Parameters / Member Variables
-- : Pointer to AppendState containing async execution state and remaining async subplan tracking
-- : Output parameter that receives the retrieved tuple slot or NULL if no tuple is available
-
+- `*node`: Pointer to AppendState containing async execution state and remaining async subplan tracking
+- `**result`: Output parameter that receives the retrieved tuple slot or NULL if no tuple is available
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecAppendAsyncRequest](ExecAppendAsyncRequest.md) (async tuple request processing)

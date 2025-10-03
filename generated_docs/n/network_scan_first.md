@@ -18,8 +18,7 @@ This function is specifically designed to support the PostgreSQL query planner i
 The function serves as a boundary function for index scans, helping the planner determine the lower bound when scanning network-type indexes for containment relationships. By returning the network address (the first address in the range), it enables efficient range scans on network indexes.
 
 ## Parameters / Member Variables
-- : Input Datum containing the network value for which to find the first IP address
-
+- `in`: Input Datum containing the network value for which to find the first IP address
 ## Dependencies
 - Functions called/Symbols referenced:
   - DirectFunctionCall1 (PostgreSQL function call interface)

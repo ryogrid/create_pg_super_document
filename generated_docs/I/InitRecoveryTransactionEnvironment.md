@@ -17,6 +17,7 @@ This function sets up the infrastructure needed for the Startup process to track
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hash_create](../h/hash_create.md) (creates the recovery lock hash tables)

@@ -18,8 +18,7 @@ This function is the output function for the TSVector data type, which serialize
 The function carefully calculates the required buffer size to accommodate all lexemes, their positions, weights, and necessary escape characters. It processes each word entry in the TSVector, properly escaping single quotes and backslashes within lexeme text, and formats positional data with corresponding weight letters (A=weight 3, B=weight 2, C=weight 1, D or no letter=weight 0).
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function argument macro containing the TSVector input parameter
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument macro containing the TSVector input parameter
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_TSVECTOR: Extract TSVector from function arguments

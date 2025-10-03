@@ -23,7 +23,6 @@ The function implements several important safety measures:
 For each parallel context, it processes messages from all launched workers by reading from their shared memory message queues (error_mqh). Messages are read using shm_mq_receive() and then passed to HandleParallelMessage() for specific message type processing.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

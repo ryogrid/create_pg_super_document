@@ -20,12 +20,11 @@ This function serves as a comparison callback for binary search operations when 
 The function handles both finite and infinite bounds, using the appropriate comparison function from the type cache. For finite bounds, it performs collation-aware comparisons and respects the inclusiveness/exclusiveness of the bounds.
 
 ## Parameters / Member Variables
-- : Type cache entry containing comparison function information and collation settings for the range element type
-- : Lower bound of the range being compared against
-- : Upper bound of the range being compared against  
-- : Pointer to the key element value being searched for (cast to Datum)
-- : Output parameter set to true if the key is found to be contained within the range bounds
-
+- `*typcache`: Type cache entry containing comparison function information and collation settings for the range element type
+- `*lower`: Lower bound of the range being compared against
+- `*upper`: Upper bound of the range being compared against
+- `*key`: Pointer to the key element value being searched for (cast to Datum)
+- `*match`: Output parameter set to true if the key is found to be contained within the range bounds
 ## Dependencies
 - Functions called/Symbols referenced:
   - RangeBound (struct type)

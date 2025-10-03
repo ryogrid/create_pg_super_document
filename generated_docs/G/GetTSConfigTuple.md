@@ -16,8 +16,7 @@ GetTSConfigTuple(List *names)
 GetTSConfigTuple is a static utility function that performs a two-step lookup to find a text search configuration in the system catalog. It first resolves the configuration name to an OID using get_ts_config_oid(), then retrieves the corresponding tuple from the system cache using SearchSysCache1(). The function is designed to handle missing configurations gracefully by returning NULL, making it suitable for operations where the configuration may not exist.
 
 ## Parameters / Member Variables
-- : A List containing the qualified or unqualified name components of the text search configuration to look up
-
+- `*names`: A List containing the qualified or unqualified name components of the text search configuration to look up
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_ts_config_oid](../g/get_ts_config_oid.md) (converts name list to OID)

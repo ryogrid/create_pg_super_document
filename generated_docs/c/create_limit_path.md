@@ -24,15 +24,14 @@ The function supports parallel execution when the underlying subpath is parallel
 The implementation handles cases where OFFSET or LIMIT expressions might not be present (represented as NULL) or where their values cannot be estimated at planning time (represented as -1 in the estimates).
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global planning information
-- : RelOptInfo representing the parent relation associated with the result
-- : Path representing the source of data to be limited
-- : Actual OFFSET expression node, or NULL if not present
-- : Actual LIMIT expression node, or NULL if not present
-- : LimitOption specifying additional limit behavior options
-- : Estimated value of OFFSET (0 = not present, -1 = cannot estimate)
-- : Estimated value of LIMIT (0 = not present, -1 = cannot estimate)
-
+- `*root`: PlannerInfo structure containing global planning information
+- `*rel`: RelOptInfo representing the parent relation associated with the result
+- `*subpath`: Path representing the source of data to be limited
+- `*limitOffset`: Actual OFFSET expression node, or NULL if not present
+- `*limitCount`: Actual LIMIT expression node, or NULL if not present
+- `limitOption`: LimitOption specifying additional limit behavior options
+- `offset_est`: Estimated value of OFFSET (0 = not present, -1 = cannot estimate)
+- `count_est`: Estimated value of LIMIT (0 = not present, -1 = cannot estimate)
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to create LimitPath node)

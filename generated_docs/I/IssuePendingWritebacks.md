@@ -22,9 +22,8 @@ IssuePendingWritebacks processes all pending writeback requests stored in the Wr
 The function iterates through sorted pending writebacks, looks ahead to find consecutive blocks that can be combined, and issues the coalesced writeback requests through the storage manager interface.
 
 ## Parameters / Member Variables
-- : Pointer to WritebackContext containing pending writeback requests and their count
-- : IOContext specifying the context for IO statistics tracking
-
+- `*wb_context`: Pointer to WritebackContext containing pending writeback requests and their count
+- `io_context`: IOContext specifying the context for IO statistics tracking
 ## Dependencies
 - Functions called/Symbols referenced:
   - sort_pending_writebacks

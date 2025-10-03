@@ -21,13 +21,12 @@ rbt_create(Size node_size,
 This function creates a new Red-Black Tree instance by allocating memory for the RBTree structure and initializing it with user-provided manipulation functions. The tree starts empty with its root set to RBTNIL. The function allows for complete customization of how nodes are compared, combined, allocated, and freed, making it suitable for different data types and memory management strategies. The tree itself is allocated using palloc() in the caller's memory context, while actual tree contents are managed by the caller through the provided function pointers.
 
 ## Parameters / Member Variables
-- : The actual size of tree nodes (must be greater than sizeof(RBTNode))
-- : Function pointer to compare two RBTNodes for ordering (less/equal/greater)
-- : Function pointer to merge an existing tree entry with a new one
-- : Function pointer to allocate new RBTNode instances
-- : Function pointer to free RBTNode instances (can be NULL if no cleanup needed)
-- : Passthrough pointer that will be passed to all manipulation functions
-
+- `node_size`: The actual size of tree nodes (must be greater than sizeof(RBTNode))
+- `comparator`: Function pointer to compare two RBTNodes for ordering (less/equal/greater)
+- `combiner`: Function pointer to merge an existing tree entry with a new one
+- `allocfunc`: Function pointer to allocate new RBTNode instances
+- `freefunc`: Function pointer to free RBTNode instances (can be NULL if no cleanup needed)
+- `*arg`: Passthrough pointer that will be passed to all manipulation functions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RBTree](../R/RBTree.md) (structure type)

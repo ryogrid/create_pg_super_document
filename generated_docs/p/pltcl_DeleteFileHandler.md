@@ -20,8 +20,7 @@ In a normal Tcl environment, this function would remove a previously registered 
 The empty implementation ensures that while the Tcl notifier interface is satisfied, no actual file handler management occurs that could introduce threading complications.
 
 ## Parameters / Member Variables
-- : File descriptor whose handler should be deleted (unused in this stub implementation)
-
+- `fd`: File descriptor whose handler should be deleted (unused in this stub implementation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - (None - this is an empty stub function)

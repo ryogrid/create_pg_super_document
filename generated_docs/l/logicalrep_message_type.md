@@ -20,8 +20,7 @@ The function implements a comprehensive switch statement that covers all possibl
 This design choice is intentional - since the function is often used in error reporting contexts, throwing an error would mask the original error that triggered the call.
 
 ## Parameters / Member Variables
-- : A  enumeration value representing the type of logical replication message to convert to a string
-
+- `action`: A  enumeration value representing the type of logical replication message to convert to a string
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (enumeration type)

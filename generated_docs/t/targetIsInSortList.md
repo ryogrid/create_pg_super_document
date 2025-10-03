@@ -18,10 +18,9 @@ This function determines if a target entry is already represented in a sort or g
 The function is designed to work with both ORDER BY and GROUP BY clauses. It deliberately ignores the nulls_first flag since different null ordering with the same sort operator is considered redundant. The function also handles the case where commutator operators might be equivalent for redundancy purposes.
 
 ## Parameters / Member Variables
-- : Target entry to search for in the sort list
-- : Sort operator OID to match (InvalidOid to ignore operator matching)
-- : List of SortGroupClause nodes to search through
-
+- `*tle`: Target entry to search for in the sort list
+- `sortop`: Sort operator OID to match (InvalidOid to ignore operator matching)
+- `*sortList`: List of SortGroupClause nodes to search through
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_commutator](../g/get_commutator.md)

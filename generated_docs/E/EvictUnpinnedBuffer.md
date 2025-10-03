@@ -20,8 +20,7 @@ The function performs several safety checks: it verifies the buffer is valid, en
 The raciness is intentional for testing purposes - between checking if a buffer is unpinned and actually evicting it, other processes might pin the buffer or replace its contents entirely.
 
 ## Parameters / Member Variables
-- : The Buffer identifier representing the shared buffer to be evicted
-
+- `buf`: The Buffer identifier representing the shared buffer to be evicted
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ResourceOwnerEnlarge](../R/ResourceOwnerEnlarge.md)

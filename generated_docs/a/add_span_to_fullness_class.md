@@ -22,11 +22,10 @@ The function performs the standard doubly-linked list head insertion: it updates
 This operation is typically used when a span's utilization changes (due to allocations or deallocations) and it needs to be moved to a different fullness class, or when a newly created span is being added to the appropriate fullness class for the first time.
 
 ## Parameters / Member Variables
-- : The DSA area containing the span and pool structures
-- : Pointer to the span structure to be added to the list
-- : DSA pointer value corresponding to the span
-- : The target fullness class (0 to DSA_FULLNESS_CLASSES-1) where the span should be added
-
+- `*area`: The DSA area containing the span and pool structures
+- `*span`: Pointer to the span structure to be added to the list
+- `span_pointer`: DSA pointer value corresponding to the span
+- `fclass`: The target fullness class (0 to DSA_FULLNESS_CLASSES-1) where the span should be added
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dsa_get_address](../d/dsa_get_address.md)

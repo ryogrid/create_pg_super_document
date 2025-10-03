@@ -16,9 +16,8 @@ addtt(zic_t starttime, int type)
 The addtt function is a utility function within the PostgreSQL timezone compiler (zic) that manages time transition records. It dynamically grows the attypes array to accommodate new entries and stores timezone transition information including the timestamp when the transition occurs and the timezone type that becomes active at that time. The function automatically increments the global timecnt counter to track the total number of transitions.
 
 ## Parameters / Member Variables
-- : A zic_t timestamp indicating when this timezone transition takes effect
-- : An integer identifier representing the timezone type (offset, DST rules, etc.) that becomes active at the specified time
-
+- `starttime`: A zic_t timestamp indicating when this timezone transition takes effect
+- `type`: An integer identifier representing the timezone type (offset, DST rules, etc.) that becomes active at the specified time
 ## Dependencies
 - Functions called/Symbols referenced:
   - [growalloc](../g/growalloc.md) (for dynamic array management)

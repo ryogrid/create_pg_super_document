@@ -21,11 +21,10 @@ This function is the binary counterpart to OidInputFunctionCall, handling binary
 The function reads binary data from a StringInfo buffer and converts it according to the specified datatype's receive function, which is the inverse operation of the send function.
 
 ## Parameters / Member Variables
-- : OID of the receive function to call for the datatype conversion
-- : StringInfo buffer containing the binary data to be converted
-- : Type-specific parameter passed to the receive function (often the element type OID for container types)
-- : Type modifier value providing additional type-specific information
-
+- `functionId`: OID of the receive function to call for the datatype conversion
+- `buf`: StringInfo buffer containing the binary data to be converted
+- `typioparam`: Type-specific parameter passed to the receive function (often the element type OID for container types)
+- `typmod`: Type modifier value providing additional type-specific information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [fmgr_info](../f/fmgr_info.md)

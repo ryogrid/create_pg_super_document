@@ -25,10 +25,9 @@ The function performs the following operations:
 The output format allows efficient, reentrant scanning when errors occur without requiring strtok() or similar non-reentrant functions.
 
 ## Parameters / Member Variables
-- : Pointer to the new configuration value string to be validated and processed
-- : Pointer to store the processed output data (double-null-terminated string)
-- : GucSource indicating the source of the configuration change
-
+- `**newval`: Pointer to the new configuration value string to be validated and processed
+- `**extra`: Pointer to store the processed output data (double-null-terminated string)
+- `source`: GucSource indicating the source of the configuration change
 ## Dependencies
 - Functions called/Symbols referenced:
   - GucSource (type)

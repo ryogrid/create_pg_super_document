@@ -22,9 +22,8 @@ If the subtransaction is committing and parallel contexts still exist, this indi
 The function ensures proper cleanup during both successful subtransaction commits and aborts, preventing resource leaks and maintaining system stability.
 
 ## Parameters / Member Variables
-- : Boolean flag indicating whether this is a subtransaction commit (true) or abort (false)
-- : The SubTransactionId of the subtransaction being ended, used to identify which parallel contexts to clean up
-
+- `isCommit`: Boolean flag indicating whether this is a subtransaction commit (true) or abort (false)
+- `mySubId`: The SubTransactionId of the subtransaction being ended, used to identify which parallel contexts to clean up
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dlist_is_empty](../d/dlist_is_empty.md)

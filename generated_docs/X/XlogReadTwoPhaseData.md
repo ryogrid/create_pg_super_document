@@ -16,10 +16,9 @@ XlogReadTwoPhaseData(XLogRecPtr lsn, char **buf, int *len)
 XlogReadTwoPhaseData provides the capability to retrieve two-phase commit state data directly from WAL records, which is used as an alternative to reading from disk files during certain recovery scenarios. It allocates and configures an XLog reader, seeks to the specified LSN, reads and validates the record to ensure it's a PREPARE record, then copies the data payload into a newly allocated buffer. This function is critical for checkpoint operations that move 2PC data from WAL to persistent files and for recovery operations that need to access prepare state before it's been written to disk.
 
 ## Parameters / Member Variables
-- : XLogRecPtr specifying the WAL position where the two-phase state data is located
-- : char** output parameter that receives a pointer to the palloc'd buffer containing the state data
-- : int* optional output parameter that receives the length of the data (can be NULL if length is not needed)
-
+- `lsn`: XLogRecPtr specifying the WAL position where the two-phase state data is located
+- `**buf`: char** output parameter that receives a pointer to the palloc'd buffer containing the state data
+- `*len`: int* optional output parameter that receives the length of the data (can be NULL if length is not needed)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [XLogReaderAllocate](XLogReaderAllocate.md)

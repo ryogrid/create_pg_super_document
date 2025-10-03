@@ -18,8 +18,7 @@ This static function serves as an error context callback that is registered with
 The function handles two scenarios: when a current line is available (and safe to display), it includes both the line number and the actual line content in the error context; when no safe line content is available (such as during encoding errors), it provides only the filename and line number.
 
 ## Parameters / Member Variables
-- : Generic void pointer that is cast to tsearch_readline_state pointer containing file reading state information
-
+- `*arg`: Generic void pointer that is cast to tsearch_readline_state pointer containing file reading state information
 ## Dependencies
 - Functions called/Symbols referenced:
   - errcontext

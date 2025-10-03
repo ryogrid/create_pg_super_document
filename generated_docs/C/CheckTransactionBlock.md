@@ -18,10 +18,9 @@ This function serves as the underlying implementation for both WarnNoTransaction
 The function implements a hierarchical check system: it first verifies if the command is within a transaction block, then checks for subtransaction context, and finally validates the top-level execution context. If all these conditions indicate the command is outside an appropriate transaction context, it reports the issue according to the severity level specified by the caller.
 
 ## Parameters / Member Variables
-- : bool - indicates whether the statement is being executed at the top level (not inside a function)
-- : bool - determines whether to raise an ERROR (true) or WARNING (false) when validation fails
-- : const char* - name of the statement type for warning/error message formatting
-
+- `isTopLevel`: bool - indicates whether the statement is being executed at the top level (not inside a function)
+- `throwError`: bool - determines whether to raise an ERROR (true) or WARNING (false) when validation fails
+- `*stmtType`: const char* - name of the statement type for warning/error message formatting
 ## Dependencies
 - Functions called/Symbols referenced:
   - [IsTransactionBlock](../I/IsTransactionBlock.md)

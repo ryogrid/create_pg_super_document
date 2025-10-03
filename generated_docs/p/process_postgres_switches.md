@@ -28,11 +28,10 @@ The function processes a wide range of command-line switches that control variou
 The function uses getopt() for parsing and applies configuration changes through the GUC (Grand Unified Configuration) system using SetConfigOption(). It includes comprehensive error handling and validation, ensuring that insecure options from clients cannot compromise server security.
 
 ## Parameters / Member Variables
-- : Number of command-line arguments
-- : Array of command-line argument strings, where argv[0] is ignored (assumed to be program name)
-- : GUC context indicating the source and security level of the options (PGC_POSTMASTER for secure, PGC_BACKEND/PGC_SU_BACKEND for insecure)
-- : Pointer to database name string; if initially NULL and a database name is present in arguments, it will be set to the database name
-
+- `argc`: Number of command-line arguments
+- `argv[]`: Array of command-line argument strings, where argv[0] is ignored (assumed to be program name)
+- `ctx`: GUC context indicating the source and security level of the options (PGC_POSTMASTER for secure, PGC_BACKEND/PGC_SU_BACKEND for insecure)
+- `**dbname`: Pointer to database name string; if initially NULL and a database name is present in arguments, it will be set to the database name
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SetConfigOption](../S/SetConfigOption.md) (for applying configuration changes)

@@ -28,8 +28,7 @@ The function handles PostgreSQL's identifier rules:
 - Empty or malformed names generate appropriate error messages
 
 ## Parameters / Member Variables
-- : Input text datum containing the qualified name to be parsed (e.g., 'public.users' or '"MySchema"."MyTable"')
-
+- `*textval`: Input text datum containing the qualified name to be parsed (e.g., 'public.users' or '"MySchema"."MyTable"')
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Converts text datum to null-terminated C string

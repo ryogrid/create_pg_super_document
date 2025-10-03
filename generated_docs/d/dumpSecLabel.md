@@ -27,15 +27,14 @@ Key functionality includes:
 The function queries the internal security label storage using  and generates SECURITY LABEL FOR statements for each applicable label.
 
 ## Parameters / Member Variables
-- : Archive structure for output generation and configuration
-- : Database object type string (TABLE, FUNCTION, etc.)
-- : Properly formatted object name (already quoted if necessary)
-- : Schema/namespace name for schema decoration, or NULL
-- : Object owner for archive entry metadata
-- : System catalog identifiers used to look up security labels in pg_seclabel
-- : Sub-object identifier for targeting specific parts of objects (0 for main object)
-- : Dump ID of the associated object for dependency tracking
-
+- `*fout`: Archive structure for output generation and configuration
+- `*type`: Database object type string (TABLE, FUNCTION, etc.)
+- `*name`: Properly formatted object name (already quoted if necessary)
+- `*namespace`: Schema/namespace name for schema decoration, or NULL
+- `*owner`: Object owner for archive entry metadata
+- `catalogId`: System catalog identifiers used to look up security labels in pg_seclabel
+- `subid`: Sub-object identifier for targeting specific parts of objects (0 for main object)
+- `dumpId`: Dump ID of the associated object for dependency tracking
 ## Dependencies
 - Functions called/Symbols referenced:
   - [findSecLabels](../f/findSecLabels.md)

@@ -18,8 +18,7 @@ This function is the binary send function for the TSVector data type, responsibl
 The function uses PostgreSQL's pq_send* family of functions to construct a binary representation that can be efficiently transmitted over the network or stored in binary format. Each lexeme is sent with its exact length and null-terminated, followed by position count and the raw position data containing both position and weight information encoded in WordEntryPos format.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function argument macro containing the TSVector input parameter
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument macro containing the TSVector input parameter
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_TSVECTOR: Extract TSVector from function arguments

@@ -18,10 +18,9 @@ This function manages a hash-based cache for storing operator proof relationship
 The function initializes the hash table on first use and registers a syscache callback to invalidate the cache when pg_amop changes. It handles both implication and refutation cases, caching results to avoid repeated lookups for the same operator pairs.
 
 ## Parameters / Member Variables
-- : OID of the predicate operator
-- : OID of the clause operator  
-- : When false, looks for implication proof; when true, looks for refutation proof
-
+- `pred_op`: OID of the predicate operator
+- `clause_op`: OID of the clause operator
+- `refute_it`: When false, looks for implication proof; when true, looks for refutation proof
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hash_create](../h/hash_create.md)

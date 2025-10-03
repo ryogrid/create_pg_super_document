@@ -25,9 +25,8 @@ The function is called by the archiver just prior to the dumper's  routine when 
 Unlike , this function does not initialize compression, as large object data handling may have different compression requirements managed at a higher level.
 
 ## Parameters / Member Variables
-- : Archive handle containing the overall archive state and configuration
-- : Table of Contents entry representing the specific large object data being processed
-
+- `*AH`: Archive handle containing the overall archive state and configuration
+- `*te`: Table of Contents entry representing the specific large object data being processed
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Gets current position in the archive file

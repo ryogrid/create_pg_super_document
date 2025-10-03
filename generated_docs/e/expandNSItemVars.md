@@ -27,12 +27,11 @@ The function performs several critical operations:
 This function is particularly important for handling complex query scenarios involving outer joins, subqueries, and other constructs where column nullability and syntactic representation matter.
 
 ## Parameters / Member Variables
-- : Parser state containing join information and nullability context needed for markNullableIfNeeded
-- : ParseNamespaceItem containing pre-processed column metadata and name information
-- : Nesting level for created Var nodes, indicating subquery depth
-- : Source location information to attach to created Var nodes for error reporting
-- : Optional output parameter for column name list (pass NULL if not needed); returns pointers to original strings, not copies
-
+- `*pstate`: Parser state containing join information and nullability context needed for markNullableIfNeeded
+- `*nsitem`: ParseNamespaceItem containing pre-processed column metadata and name information
+- `sublevels_up`: Nesting level for created Var nodes, indicating subquery depth
+- `location`: Source location information to attach to created Var nodes for error reporting
+- `**colnames`: Optional output parameter for column name list (pass NULL if not needed); returns pointers to original strings, not copies
 ## Dependencies
 - Functions called/Symbols referenced:
   - [makeVar](../m/makeVar.md) (creates basic Var nodes)

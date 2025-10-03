@@ -20,9 +20,8 @@ The function takes two pointer arguments: a base address and a value address, an
 The function includes an assertion to ensure that the value pointer is not before the base pointer in memory, which would be invalid for a relative pointer system.
 
 ## Parameters / Member Variables
-- : Base address from which the relative offset is calculated (typically the start of a memory segment)
-- : Pointer value to be stored as a relative offset (can be NULL)
-
+- `*base`: Base address from which the relative offset is calculated (typically the start of a memory segment)
+- `*val`: Pointer value to be stored as a relative offset (can be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (macro for debugging assertions)

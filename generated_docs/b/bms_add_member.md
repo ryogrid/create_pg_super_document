@@ -18,9 +18,8 @@ The  function adds a specified integer member  to bitmapset . If the input set i
 The function calculates which word and bit position the new member should occupy using the  and  macros, then sets the appropriate bit using bitwise OR operations. When expanding storage, it properly initializes new words to zero.
 
 ## Parameters / Member Variables
-- : Input Bitmapset to modify (can be NULL, which creates a new singleton set)
-- : Integer member to add to the set (must be non-negative)
-
+- `*a`: Input Bitmapset to modify (can be NULL, which creates a new singleton set)
+- `x`: Integer member to add to the set (must be non-negative)
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Validates the input bitmapset structure

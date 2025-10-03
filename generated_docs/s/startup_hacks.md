@@ -24,8 +24,7 @@ The function performs several critical Windows-specific operations:
 The comments explicitly note that this function exists as a workaround for platforms that don't provide a standard C execution environment, and developers are encouraged to avoid adding more platform-specific hacks here when possible.
 
 ## Parameters / Member Variables
-- : The program name (from argv[0]) used for error reporting
-
+- `*progname`: The program name (from argv[0]) used for error reporting
 ## Dependencies
 - Functions called/Symbols referenced:
   - [write_stderr](../w/write_stderr.md) (error message output)

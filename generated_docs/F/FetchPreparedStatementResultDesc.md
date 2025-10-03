@@ -16,8 +16,7 @@ FetchPreparedStatementResultDesc(PreparedStatement *stmt)
 FetchPreparedStatementResultDesc extracts and returns the result tuple descriptor from a prepared statement's plan source. The function is optimized based on the assumption that prepared statements have fixed result tuple descriptors that do not change, eliminating the need for plan revalidation. If the prepared statement will return tuples, the function creates a copy of the result descriptor in the current memory context. If the statement does not return tuples (such as INSERT, UPDATE, DELETE without RETURNING), it returns NULL.
 
 ## Parameters / Member Variables
-- : Pointer to the PreparedStatement from which to extract the result tuple descriptor
-
+- `*stmt`: Pointer to the PreparedStatement from which to extract the result tuple descriptor
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CreateTupleDescCopy](../C/CreateTupleDescCopy.md) (creates a copy of the tuple descriptor)

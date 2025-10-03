@@ -17,11 +17,10 @@ deparse_expression(Node *expr, List *dpcontext,
 This function serves as a simplified wrapper around deparse_expression_pretty, providing a convenient interface for expression deparsing when pretty printing is not needed. It converts a PostgreSQL expression node tree back into its string representation using the provided deparse context. The function always calls deparse_expression_pretty with prettyFlags=0 and startIndent=0, effectively disabling all formatting enhancements.
 
 ## Parameters / Member Variables
-- : The node tree to be deparsed. Must be a transformed expression tree (not raw gram.y output)
-- : A list of deparse_namespace nodes representing the context for interpreting Vars in the node tree. Can be NIL if no Vars are expected
-- : When true, forces all Vars to be prefixed with their table names
-- : When true, forces all implicit casts to be shown explicitly
-
+- `*expr`: The node tree to be deparsed. Must be a transformed expression tree (not raw gram.y output)
+- `*dpcontext`: A list of deparse_namespace nodes representing the context for interpreting Vars in the node tree. Can be NIL if no Vars are expected
+- `forceprefix`: When true, forces all Vars to be prefixed with their table names
+- `showimplicit`: When true, forces all implicit casts to be shown explicitly
 ## Dependencies
 - Functions called/Symbols referenced:
   - [deparse_expression_pretty](deparse_expression_pretty.md)

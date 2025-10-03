@@ -18,9 +18,8 @@ ReleaseCatCacheWithOwner performs the actual work of releasing catalog cache ent
 The function includes safety checks to ensure the provided tuple is actually a valid cache entry by verifying the magic number and reference count. It also handles the complex logic around when cache entries should be physically removed, considering both the entry's reference count and any associated catalog list reference counts.
 
 ## Parameters / Member Variables
-- : HeapTuple pointer representing the cached catalog tuple to release
-- : ResourceOwner that was tracking this cache reference (can be NULL)
-
+- `tuple`: HeapTuple pointer representing the cached catalog tuple to release
+- `resowner`: ResourceOwner that was tracking this cache reference (can be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ResourceOwnerForgetCatCacheRef](ResourceOwnerForgetCatCacheRef.md)

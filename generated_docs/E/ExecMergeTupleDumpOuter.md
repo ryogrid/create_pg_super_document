@@ -18,8 +18,7 @@ ExecMergeTupleDumpOuter is a debugging utility function within the merge join ex
 The function checks if the outer tuple slot contains a valid tuple and prints either the tuple contents (using MJ_debugtup) or "(nil)" if the slot is empty. This helps developers understand the data flow and tuple processing during merge join execution, particularly when troubleshooting join logic or performance issues.
 
 ## Parameters / Member Variables
-- : MergeJoinState structure containing the merge join execution state, specifically accessing the outer tuple slot
-
+- `*mergestate`: MergeJoinState structure containing the merge join execution state, specifically accessing the outer tuple slot
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MergeJoinState](../M/MergeJoinState.md) (merge join state structure)

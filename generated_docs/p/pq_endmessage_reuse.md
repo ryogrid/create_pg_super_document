@@ -18,8 +18,7 @@ The  function completes and sends a message to the PostgreSQL frontend without f
 The function retrieves the message type from the buffer's cursor field (where it was previously stored) and calls  to transmit the complete message. Unlike , this function intentionally preserves the buffer's memory allocation for subsequent reuse.
 
 ## Parameters / Member Variables
-- : A StringInfo buffer containing the message data to be sent, with the message type stored in the cursor field
-
+- `buf`: A StringInfo buffer containing the message data to be sent, with the message type stored in the cursor field
 ## Dependencies
 - Functions called/Symbols referenced:
   - pq_putmessage

@@ -25,8 +25,7 @@ The allocation process involves:
 If insufficient shared memory is available, the function raises an ERROR with an out-of-memory message.
 
 ## Parameters / Member Variables
-- : The number of bytes to allocate from shared memory
-
+- `size`: The number of bytes to allocate from shared memory
 ## Dependencies
 - Functions called/Symbols referenced:
   - MAXALIGN (macro for memory alignment)

@@ -16,9 +16,8 @@ pg_get_triggerdef_worker(Oid trigid, bool pretty)
 This function performs the core work of reconstructing a trigger definition from PostgreSQL's system catalogs. It queries the pg_trigger system table to retrieve trigger metadata, then constructs a complete CREATE TRIGGER statement including timing (BEFORE/AFTER/INSTEAD OF), events (INSERT/UPDATE/DELETE/TRUNCATE), target table, constraint information, transition table references, row/statement level specification, WHEN clause if present, and the trigger function with arguments. The function handles both pretty-printed output (with selective schema qualification) and non-pretty output (with full schema qualification for safety).
 
 ## Parameters / Member Variables
-- : OID of the trigger to retrieve the definition for
-- : Boolean flag controlling output formatting - when true, uses readable formatting and selective schema qualification; when false, always uses full schema qualification
-
+- `trigid`: OID of the trigger to retrieve the definition for
+- `pretty`: Boolean flag controlling output formatting - when true, uses readable formatting and selective schema qualification; when false, always uses full schema qualification
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Opens the pg_trigger system catalog

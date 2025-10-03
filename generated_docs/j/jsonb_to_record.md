@@ -22,8 +22,7 @@ The function operates by:
 4. Converting and populating the output record structure
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function call information structure containing:
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function call information structure containing:
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (the main implementation function)

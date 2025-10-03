@@ -21,10 +21,9 @@ This function analyzes a boolean restriction clause to determine if it matches a
 The function extracts the partition expression from the specified column and compares it against the restriction clause using structural equality checking. For NOT clauses, it examines the argument within the NOT to check for equality with the partition expression.
 
 ## Parameters / Member Variables
-- : RestrictInfo containing the boolean clause to be matched
-- : RelOptInfo representing the partitioned relation
-- : Zero-based index of the partition key column to match against
-
+- `*rinfo`: RestrictInfo containing the boolean clause to be matched
+- `*partrel`: RelOptInfo representing the partitioned relation
+- `partkeycol`: Zero-based index of the partition key column to match against
 ## Dependencies
 - Functions called/Symbols referenced:
   - [equal](../e/equal.md) (for structural equality comparison)

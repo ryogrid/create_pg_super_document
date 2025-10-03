@@ -23,10 +23,9 @@ This function calculates the execution cost for non-partial paths in a parallel 
 The algorithm assumes subpaths are sorted in decreasing order of cost, which ensures optimal load balancing since expensive paths are assigned first to separate workers.
 
 ## Parameters / Member Variables
-- : List of Path objects representing the subpaths to be processed
-- : Number of non-partial paths to consider from the beginning of subpaths list  
-- : Number of parallel workers available for execution
-
+- `*subpaths`: List of Path objects representing the subpaths to be processed
+- `numpaths`: Number of non-partial paths to consider from the beginning of subpaths list
+- `parallel_workers`: Number of parallel workers available for execution
 ## Dependencies
 - Functions called/Symbols referenced:
   - Cost (type)

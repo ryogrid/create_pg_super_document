@@ -24,9 +24,8 @@ The function works by:
 For example, given str="28the day12" and fmt="the day%h", it finds "the day" as the delimiter and returns a pointer to where "the day" starts in str, indicating that "28" is the complete token.
 
 ## Parameters / Member Variables
-- : Input string containing the date/time value being parsed
-- : Format string pattern that defines the expected structure
-
+- `*str`: Input string containing the date/time value being parsed
+- `*fmt`: Format string pattern that defines the expected structure
 ## Dependencies
 - Functions called/Symbols referenced:
   - strchr (standard C library function)

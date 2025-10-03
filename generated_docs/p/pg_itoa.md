@@ -18,9 +18,8 @@ The  function is a PostgreSQL utility function that converts a signed 16-bit int
 The function writes the string representation directly to the provided buffer and returns the length of the string (equivalent to ), which can be useful for applications that need to know the string length without making an additional  call.
 
 ## Parameters / Member Variables
-- : The signed 16-bit integer to convert to string representation
-- : Pointer to the output buffer where the string representation will be written. Must point to sufficient memory to hold the result (at least 7 bytes to accommodate the worst case: sign, 5 digits for -32768, and null terminator)
-
+- `i`: The signed 16-bit integer to convert to string representation
+- `*a`: Pointer to the output buffer where the string representation will be written. Must point to sufficient memory to hold the result (at least 7 bytes to accommodate the worst case: sign, 5 digits for -32768, and null terminator)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_ltoa](pg_ltoa.md) (casts input to int32 and delegates conversion)

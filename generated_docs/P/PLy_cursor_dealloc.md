@@ -20,8 +20,7 @@ The function first checks if the cursor is still open and, if so, retrieves the 
 The function follows Python's object deallocation protocol by calling the type's tp_free function to release the Python object structure itself.
 
 ## Parameters / Member Variables
-- : PyObject pointer to the PLyCursorObject being deallocated
-
+- `*arg`: PyObject pointer to the PLyCursorObject being deallocated
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetPortalByName](../G/GetPortalByName.md)

@@ -16,10 +16,9 @@ ECPGmake_struct_member(const char *name, struct ECPGtype *type, struct ECPGstruc
 The  function is responsible for creating a new struct member node and adding it to the end of a linked list of struct members. This function is part of the ECPG type system that handles C struct definitions during preprocessing. It allocates memory for a new struct member, copies the provided name, preserves the type pointer, and maintains the linked list structure by appending the new member to the end of the list. This ensures proper ordering of struct members as they are encountered during parsing.
 
 ## Parameters / Member Variables
-- : The name of the struct member (copied into the new member structure)
-- : Pointer to the ECPGtype structure representing the member's type (preserved as reference)
-- : Double pointer to the beginning of the struct member linked list (modified to point to new list head if list was empty)
-
+- `*name`: The name of the struct member (copied into the new member structure)
+- `*type`: Pointer to the ECPGtype structure representing the member's type (preserved as reference)
+- `**start`: Double pointer to the beginning of the struct member linked list (modified to point to new list head if list was empty)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [mm_alloc](../m/mm_alloc.md) (memory allocation with error checking)

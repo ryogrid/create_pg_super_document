@@ -16,9 +16,8 @@ default_desc(StringInfo buf, XLogReaderState *record)
 The  function serves as a fallback description generator for custom resource manager WAL records in pg_waldump. When a custom resource manager doesn't provide its own description function, this function is used instead. It simply outputs the resource manager ID to help identify which custom resource manager generated the WAL record, since no detailed information is available about custom resource managers' record formats.
 
 ## Parameters / Member Variables
-- : StringInfo buffer where the description text will be appended
-- : XLogReaderState pointer containing the WAL record being described
-
+- `buf`: StringInfo buffer where the description text will be appended
+- `*record`: XLogReaderState pointer containing the WAL record being described
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetRmid (to extract the resource manager ID from the record)

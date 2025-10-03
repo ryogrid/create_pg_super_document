@@ -19,10 +19,9 @@ This function performs maximum bipartite matching using the Hopcroft-Karp algori
 The algorithm validates input sizes to ensure they don't exceed SHRT_MAX limits, then iteratively improves the matching by finding augmenting paths until no more can be found, resulting in a maximum matching.
 
 ## Parameters / Member Variables
-- : Size of set U (must be >= 0 and < SHRT_MAX), vertices indexed 1..u_size
-- : Size of set V (must be >= 0 and < SHRT_MAX), vertices indexed 1..v_size  
-- : Adjacency list representation where adjacency[u] contains vertices in V adjacent to vertex u in U
-
+- `u_size`: Size of set U (must be >= 0 and < SHRT_MAX), vertices indexed 1..u_size
+- `v_size`: Size of set V (must be >= 0 and < SHRT_MAX), vertices indexed 1..v_size
+- `**adjacency`: Adjacency list representation where adjacency[u] contains vertices in V adjacent to vertex u in U
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BipartiteMatchState](BipartiteMatchState.md) (struct type)

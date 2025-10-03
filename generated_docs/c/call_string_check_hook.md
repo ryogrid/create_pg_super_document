@@ -21,12 +21,11 @@ Since string GUC values are typically malloc'd, this function must guard against
 The function follows the same basic validation pattern as other type-specific check hook callers but adds this critical memory management layer. Error messages handle NULL string values gracefully by displaying an empty string instead of NULL.
 
 ## Parameters / Member Variables
-- : Pointer to the config_string structure containing the GUC parameter configuration and its check hook
-- : Pointer to the char* string value being validated (may be freed on exception)
-- : Pointer to extra data that may be set by the check hook for use during assignment
-- : The source of the configuration change (e.g., configuration file, command line, etc.)
-- : Error level for reporting validation failures (e.g., ERROR, WARNING)
-
+- `*conf`: Pointer to the config_string structure containing the GUC parameter configuration and its check hook
+- `**newval`: Pointer to the char* string value being validated (may be freed on exception)
+- `**extra`: Pointer to extra data that may be set by the check hook for use during assignment
+- `source`: The source of the configuration change (e.g., configuration file, command line, etc.)
+- `elevel`: Error level for reporting validation failures (e.g., ERROR, WARNING)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [config_string](config_string.md) (struct type)

@@ -22,9 +22,8 @@ The function performs two critical operations:
 This function is part of PostgreSQL's internal MD5 implementation and follows the standard MD5 algorithm specification (RFC 1321).
 
 ## Parameters / Member Variables
-- : Pointer to the MD5 context structure () containing the current hash state. The context must have been previously initialized and may contain accumulated hash state from previous  calls.
-- : Pointer to a buffer where the final 16-byte MD5 digest will be stored. The caller must ensure this buffer is at least 16 bytes in size.
-
+- `*ctx`: Pointer to the MD5 context structure () containing the current hash state. The context must have been previously initialized and may contain accumulated hash state from previous  calls.
+- `*dest`: Pointer to a buffer where the final 16-byte MD5 digest will be stored. The caller must ensure this buffer is at least 16 bytes in size.
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Applies MD5 padding to complete the message block

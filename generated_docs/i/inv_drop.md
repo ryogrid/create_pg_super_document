@@ -18,8 +18,7 @@ The  function permanently removes a large object from the PostgreSQL database. I
 The function operates at the database level, removing the actual large object from storage rather than just closing a descriptor. After the deletion, it increments the command counter to ensure that the removal is visible to subsequent operations within the same transaction. This is important for transaction isolation and consistency.
 
 ## Parameters / Member Variables
-- : The OID of the large object to be permanently deleted
-
+- `lobjId`: The OID of the large object to be permanently deleted
 ## Dependencies
 - Functions called/Symbols referenced:
   - [performDeletion](../p/performDeletion.md) (performs the actual deletion with dependency handling)

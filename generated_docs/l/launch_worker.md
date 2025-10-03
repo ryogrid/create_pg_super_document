@@ -20,8 +20,7 @@ After delegating the worker startup to , this function updates the database list
 The function also handles cases where the selected database is not present in the current DatabaseList by triggering a rebuild of the entire list. This can happen with newly created databases or when the list becomes stale due to dropped databases.
 
 ## Parameters / Member Variables
-- : Current timestamp used as the base for calculating the next worker schedule time
-
+- `now`: Current timestamp used as the base for calculating the next worker schedule time
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (performs actual worker startup and database selection)

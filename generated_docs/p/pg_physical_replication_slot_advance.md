@@ -24,8 +24,7 @@ When advancing the slot, the function:
 The function ensures data consistency by marking the slot dirty, though the advanced position may still be lost in case of a crash before the next checkpoint.
 
 ## Parameters / Member Variables
-- : The target WAL LSN position to advance the slot to. Must not be InvalidXLogRecPtr.
-
+- `moveto`: The target WAL LSN position to advance the slot to. Must not be InvalidXLogRecPtr.
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Marks the slot as needing to be written to disk

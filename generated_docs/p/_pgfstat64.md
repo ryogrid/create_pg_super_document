@@ -24,9 +24,8 @@ The function handles different Windows file types:
 For non-disk files (pipes and character devices), the function sets minimal stat information including the file mode, device numbers set to the file descriptor number, and link count of 1.
 
 ## Parameters / Member Variables
-- : File descriptor number obtained from file operations
-- : Pointer to a struct stat that will be filled with file status information
-
+- `fileno`: File descriptor number obtained from file operations
+- `*buf`: Pointer to a struct stat that will be filled with file status information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pgwin32_get_file_type](pgwin32_get_file_type.md)

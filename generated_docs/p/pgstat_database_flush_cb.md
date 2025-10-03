@@ -20,9 +20,8 @@ The function uses a lock-based approach to ensure thread safety when updating sh
 The function is registered as a callback in the PostgreSQL statistics infrastructure and is automatically called when database statistics need to be flushed to shared memory.
 
 ## Parameters / Member Variables
-- : Pointer to the statistics entry reference containing both pending and shared statistics structures
-- : Boolean flag indicating whether to wait for lock acquisition. If true and lock cannot be immediately acquired, the function returns false without flushing
-
+- `*entry_ref`: Pointer to the statistics entry reference containing both pending and shared statistics structures
+- `nowait`: Boolean flag indicating whether to wait for lock acquisition. If true and lock cannot be immediately acquired, the function returns false without flushing
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pgstat_lock_entry](pgstat_lock_entry.md)

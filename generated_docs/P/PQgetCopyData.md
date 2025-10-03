@@ -25,10 +25,9 @@ Key features:
 - Provides clear return codes for different completion states
 
 ## Parameters / Member Variables
-- : PostgreSQL connection handle that must be in COPY OUT or COPY BOTH state
-- : Pointer to char* that will receive the address of the allocated data buffer
-- : Boolean flag controlling blocking behavior (1 for non-blocking, 0 for blocking)
-
+- `*conn`: PostgreSQL connection handle that must be in COPY OUT or COPY BOTH state
+- `**buffer`: Pointer to char* that will receive the address of the allocated data buffer
+- `async`: Boolean flag controlling blocking behavior (1 for non-blocking, 0 for blocking)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [libpq_append_conn_error](../l/libpq_append_conn_error.md)

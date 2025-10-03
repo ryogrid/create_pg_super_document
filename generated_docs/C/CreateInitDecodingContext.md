@@ -36,15 +36,14 @@ Key operations include:
 The function includes complex logic for determining safe decoding transaction IDs to prevent reading data that may have been vacuumed. It uses exclusive locks to ensure consistency during xmin horizon computation and slot metadata updates.
 
 ## Parameters / Member Variables
-- : Name of the output plugin to load and initialize
-- : Options to pass to the output plugin
-- : Whether full table snapshot capability is required
-- : WAL position to start from (InvalidXLogRecPtr for auto-selection)
-- : WAL reading routine function pointer
-- : Callback for preparing output buffer writes
-- : Callback for performing actual output writes
-- : Callback for progress reporting during decoding
-
+- `*plugin`: Name of the output plugin to load and initialize
+- `*output_plugin_options`: Options to pass to the output plugin
+- `need_full_snapshot`: Whether full table snapshot capability is required
+- `restart_lsn`: WAL position to start from (InvalidXLogRecPtr for auto-selection)
+- `*xl_routine`: WAL reading routine function pointer
+- `prepare_write`: Callback for preparing output buffer writes
+- `do_write`: Callback for performing actual output writes
+- `update_progress`: Callback for progress reporting during decoding
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CheckLogicalDecodingRequirements](CheckLogicalDecodingRequirements.md): Validates decoding prerequisites

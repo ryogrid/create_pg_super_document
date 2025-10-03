@@ -24,10 +24,9 @@ ExecMergeNotMatched handles the NOT MATCHED BY TARGET case in MERGE statements, 
 The function is simpler than ExecMergeMatched because NOT MATCHED cases don't need to handle concurrent updates - there's no existing target tuple to be modified concurrently.
 
 ## Parameters / Member Variables
-- : ModifyTableContext containing execution state and context information
-- : ResultRelInfo structure with information about the target relation
-- : Boolean indicating whether command tags can be set during execution
-
+- `*context`: ModifyTableContext containing execution state and context information
+- `*resultRelInfo`: ResultRelInfo structure with information about the target relation
+- `canSetTag`: Boolean indicating whether command tags can be set during execution
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecQual](ExecQual.md)

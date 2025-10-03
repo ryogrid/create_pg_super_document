@@ -21,10 +21,9 @@ This naming convention allows the shared tuple store system to:
 - Maintain organized file management within the PostgreSQL temporary file system
 
 ## Parameters / Member Variables
-- : Output buffer to store the generated filename (must be at least MAXPGPATH bytes)
-- : SharedTuplestoreAccessor containing the shared tuple store with base name information
-- : Integer identifier of the participant (parallel worker) for which to generate the filename
-
+- `*name`: Output buffer to store the generated filename (must be at least MAXPGPATH bytes)
+- `*accessor`: SharedTuplestoreAccessor containing the shared tuple store with base name information
+- `participant`: Integer identifier of the participant (parallel worker) for which to generate the filename
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Standard C library function for formatted string creation

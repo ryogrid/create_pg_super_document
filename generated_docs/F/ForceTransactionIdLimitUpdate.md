@@ -22,7 +22,6 @@ This function serves as a validation mechanism to determine when the transaction
 The function is designed to be conservative - it returns `true` (force update) in any situation where the limit data might be unreliable, ensuring that wraparound protection remains robust even in edge cases.
 
 ## Parameters / Member Variables
-This function takes no parameters and operates on shared transaction state.
 
 ## Dependencies
 - Functions called/Symbols referenced:

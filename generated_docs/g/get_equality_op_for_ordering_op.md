@@ -18,9 +18,8 @@ This function takes an ordering operator ("<" or ">") and finds its correspondin
 The function also optionally reports whether the input operator represents a "reverse" ordering (greater-than) versus normal ordering (less-than), which is useful for understanding sort direction semantics.
 
 ## Parameters / Member Variables
-- : The OID of the ordering operator ("<" or ">")
-- : Optional output parameter; set to false for "<" operators, true for ">" operators (can be NULL)
-
+- `opno`: The OID of the ordering operator ("<" or ">")
+- `*reverse`: Optional output parameter; set to false for "<" operators, true for ">" operators (can be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_ordering_op_properties](get_ordering_op_properties.md)

@@ -21,10 +21,9 @@ The function handles two scenarios for memory management:
 2. Array expansion: Doubles the current array size when the existing capacity is exceeded
 
 ## Parameters / Member Variables
-- : Pointer to the InvalidationMsgsGroup where the message will be added
-- : Integer identifier specifying the subgroup type (CatCacheMsgs or RelCacheMsgs)
-- : Pointer to the SharedInvalidationMessage to be added to the group
-
+- `*group`: Pointer to the InvalidationMsgsGroup where the message will be added
+- `subgroup`: Integer identifier specifying the subgroup type (CatCacheMsgs or RelCacheMsgs)
+- `*msg`: Pointer to the SharedInvalidationMessage to be added to the group
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContextAlloc](../M/MemoryContextAlloc.md) (for initial array allocation)

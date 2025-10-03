@@ -23,13 +23,12 @@ This function serves as a bridge between PostgreSQL's query planner and custom p
 The function initializes a support request structure with query context, function details, and index information, then invokes the support function. If the support function successfully generates index conditions, they are wrapped in RestrictInfo nodes and packaged into an IndexClause for use by the query planner.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing query planning context and global information
-- : RestrictInfo containing the original restriction clause with the function call
-- : OID of the function for which we're seeking index optimization support
-- : Argument position within the function that corresponds to the indexed column
-- : Column number within the index being considered for this optimization
-- : IndexOptInfo structure containing metadata about the target index
-
+- `*root`: PlannerInfo structure containing query planning context and global information
+- `*rinfo`: RestrictInfo containing the original restriction clause with the function call
+- `funcid`: OID of the function for which we're seeking index optimization support
+- `indexarg`: Argument position within the function that corresponds to the indexed column
+- `indexcol`: Column number within the index being considered for this optimization
+- `*index`: IndexOptInfo structure containing metadata about the target index
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_func_support](get_func_support.md)

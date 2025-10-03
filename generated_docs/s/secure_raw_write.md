@@ -20,10 +20,9 @@ The function is deliberately simple and focused, providing a thin wrapper around
 Unlike its read counterpart (secure_raw_read), this function does not handle any buffering mechanisms since write operations typically do not require the same kind of data buffering that reads do. The function directly transmits the provided data to the socket and returns the result from the underlying send() call.
 
 ## Parameters / Member Variables
-- : Pointer to Port structure containing the socket descriptor for the client connection
-- : Constant pointer to the buffer containing data to be transmitted (marked const to indicate data won't be modified)
-- : Number of bytes to write from the buffer
-
+- `*port`: Pointer to Port structure containing the socket descriptor for the client connection
+- `*ptr`: Constant pointer to the buffer containing data to be transmitted (marked const to indicate data won't be modified)
+- `len`: Number of bytes to write from the buffer
 ## Dependencies
 - Functions called/Symbols referenced:
   - send: Standard POSIX socket send function for transmitting data over network socket

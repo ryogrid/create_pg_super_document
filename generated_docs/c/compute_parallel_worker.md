@@ -25,11 +25,10 @@ The function respects several configuration parameters and constraints:
 The computation considers both heap and index scan costs separately, then takes the minimum when both are applicable, ensuring that the limiting factor determines parallelism.
 
 ## Parameters / Member Variables
-- : RelOptInfo for the relation being analyzed, contains parallel worker preferences and relation type information
-- : Expected number of heap pages to scan, or -1 if no heap scan expected
-- : Expected number of index pages to scan, or -1 if no index scan expected  
-- : Caller-imposed limit on worker count, typically from GUC parameters like max_parallel_workers_per_gather
-
+- `*rel`: RelOptInfo for the relation being analyzed, contains parallel worker preferences and relation type information
+- `heap_pages`: Expected number of heap pages to scan, or -1 if no heap scan expected
+- `index_pages`: Expected number of index pages to scan, or -1 if no index scan expected
+- `max_workers`: Caller-imposed limit on worker count, typically from GUC parameters like max_parallel_workers_per_gather
 ## Dependencies
 - Functions called/Symbols referenced:
   - RELOPT_BASEREL (constant identifying base relations vs inheritance children)

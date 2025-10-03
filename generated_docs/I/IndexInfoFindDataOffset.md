@@ -20,8 +20,7 @@ When no null values are present (INDEX_NULL_MASK bit is not set), the data begin
 The function is primarily designed to be usable at index_form_tuple time to ensure enough space is allocated for the complete tuple structure. All returned offsets are MAXALIGN-aligned to meet PostgreSQL's alignment requirements.
 
 ## Parameters / Member Variables
-- : The information mask (unsigned short) from an IndexTuple header that contains various flags including the INDEX_NULL_MASK bit indicating presence of null values
-
+- `t_info`: The information mask (unsigned short) from an IndexTuple header that contains various flags including the INDEX_NULL_MASK bit indicating presence of null values
 ## Dependencies
 - Functions called/Symbols referenced:
   - INDEX_NULL_MASK (constant: 0x8000)

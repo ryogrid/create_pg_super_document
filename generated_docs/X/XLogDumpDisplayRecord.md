@@ -16,9 +16,8 @@ XLogDumpDisplayRecord(XLogDumpConfig *config, XLogReaderState *record)
 This function produces the main output format for pg_waldump, displaying detailed information about WAL records in a structured, human-readable format. It extracts and displays key metadata including resource manager information, record lengths, transaction IDs, LSR values, and previous record pointers. The function leverages the PostgreSQL resource manager infrastructure to provide operation-specific descriptions and detailed block reference information. The output format is designed to be both human-readable for manual analysis and parseable for automated processing.
 
 ## Parameters / Member Variables
-- : XLogDumpConfig containing configuration options that control output formatting and detail level
-- : XLogReaderState containing the decoded WAL record to display
-
+- `*config`: XLogDumpConfig containing configuration options that control output formatting and detail level
+- `*record`: XLogReaderState containing the decoded WAL record to display
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetRmgrDesc](../G/GetRmgrDesc.md)

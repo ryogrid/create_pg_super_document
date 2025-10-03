@@ -16,10 +16,9 @@ statext_compute_stattarget(int stattarget, int nattrs, VacAttrStats **stats)
 This function implements a three-tier hierarchy for determining the statistics target of extended statistics objects. It first checks if the statistics object itself has an explicit target set via ALTER STATISTICS ... SET STATISTICS (any non-negative value including 0). If not found, it examines the statistics targets of all individual attributes covered by the statistics object and uses the maximum value found. Finally, if no explicit targets are found at either level, it falls back to the system default_statistics_target. The function ensures backwards compatibility with the pre-extended-statistics behavior while supporting the newer object-level target setting.
 
 ## Parameters / Member Variables
-- : The statistics target set on the extended statistics object itself (-1 if not set)
-- : Number of attributes covered by the statistics object
-- : Array of VacAttrStats structures for the attributes
-
+- `stattarget`: The statistics target set on the extended statistics object itself (-1 if not set)
+- `nattrs`: Number of attributes covered by the statistics object
+- `**stats`: Array of VacAttrStats structures for the attributes
 ## Dependencies
 - Functions called/Symbols referenced:
   - default_statistics_target (global variable)

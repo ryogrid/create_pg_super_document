@@ -17,12 +17,11 @@ smgrzeroextend(SMgrRelation reln, ForkNumber forknum, BlockNumber blocknum,
 The smgrzeroextend function is a storage manager interface for efficiently extending relation files by multiple blocks at once, with all added blocks being zero-filled. This function is similar to smgrextend but optimized for bulk extension operations. It delegates the actual zero-extension operation to the appropriate storage manager implementation through the smgrsw function pointer table. After extending the file, it updates the cached block count by the number of blocks added, maintaining consistency with the file system state.
 
 ## Parameters / Member Variables
-- : SMgrRelation pointer identifying the relation to extend
-- : ForkNumber indicating which fork of the relation to extend (main, FSM, VM, etc.)
-- : BlockNumber specifying the starting position for the new blocks
-- : Integer count of blocks to add to the file
-- : Boolean flag indicating whether to skip filesystem synchronization
-
+- `reln`: SMgrRelation pointer identifying the relation to extend
+- `forknum`: ForkNumber indicating which fork of the relation to extend (main, FSM, VM, etc.)
+- `blocknum`: BlockNumber specifying the starting position for the new blocks
+- `nblocks`: Integer count of blocks to add to the file
+- `skipFsync`: Boolean flag indicating whether to skip filesystem synchronization
 ## Dependencies
 - Functions called/Symbols referenced:
   - smgrsw[].smgr_zeroextend (storage manager implementation function)

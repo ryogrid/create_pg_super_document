@@ -20,8 +20,7 @@ The function employs a sophisticated bottom-up traversal strategy specifically d
 The implementation avoids using MemoryContextTraverseNext() because it modifies the tree structure during traversal, which would interfere with standard tree traversal algorithms.
 
 ## Parameters / Member Variables
-- : The memory context to delete along with all its descendants. Must be a valid MemoryContext.
-
+- `context`: The memory context to delete along with all its descendants. Must be a valid MemoryContext.
 ## Dependencies
 - Functions called/Symbols referenced:
   - MemoryContextIsValid

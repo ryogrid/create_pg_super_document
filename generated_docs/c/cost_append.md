@@ -28,8 +28,7 @@ This function calculates the execution cost for an Append operation, handling th
 The function also adds a small per-tuple overhead cost using APPEND_CPU_COST_MULTIPLIER to account for the Append node's processing.
 
 ## Parameters / Member Variables
-- : AppendPath object containing subpaths and configuration, which gets updated with calculated costs and row estimates
-
+- `*apath`: AppendPath object containing subpaths and configuration, which gets updated with calculated costs and row estimates
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pathkeys_contained_in](../p/pathkeys_contained_in.md)

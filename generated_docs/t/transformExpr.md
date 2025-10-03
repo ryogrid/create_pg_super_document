@@ -16,10 +16,9 @@ transformExpr(ParseState *pstate, Node *expr, ParseExprKind exprKind)
  serves as the primary interface for expression transformation in PostgreSQL's parser. It acts as a wrapper around , managing the parse state's expression kind context during the transformation process. The function ensures that the expression kind is properly set and restored, providing crucial context for the recursive expression analysis that follows. This design allows the parser to track what type of expression context it's currently processing (e.g., WHERE clause, SELECT list, etc.), which affects how certain expressions are interpreted and validated.
 
 ## Parameters / Member Variables
-- : ParseState structure containing the current parsing context and state information
-- : The raw expression node from the grammar parser that needs to be transformed
-- : Enum value indicating the context/kind of expression being parsed (cannot be EXPR_KIND_NONE)
-
+- `*pstate`: ParseState structure containing the current parsing context and state information
+- `*expr`: The raw expression node from the grammar parser that needs to be transformed
+- `exprKind`: Enum value indicating the context/kind of expression being parsed (cannot be EXPR_KIND_NONE)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [transformExprRecurse](transformExprRecurse.md) (the actual recursive transformation logic)

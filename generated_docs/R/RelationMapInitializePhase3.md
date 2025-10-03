@@ -15,7 +15,6 @@ void RelationMapInitializePhase3(void)
 This function represents the final phase of relation mapper initialization during PostgreSQL startup. It is called after MyDatabaseId has been determined and DatabasePath has been set up, enabling access to the database-specific local relation map file. Like Phase2, it handles bootstrap mode by doing nothing since map files don't exist during bootstrap. In normal operation, it loads the local relation map file that contains mappings specific to the current database, complementing the shared mappings loaded in Phase2. This enables complete relation mapping functionality for both shared and database-specific system catalogs.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

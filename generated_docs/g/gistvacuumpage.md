@@ -22,10 +22,9 @@ The function performs tuple-level deletion on leaf pages using provided callback
 For internal pages, it validates tuple integrity and detects legacy "invalid tuples" from PostgreSQL versions prior to 9.1, providing diagnostic messages when encountered.
 
 ## Parameters / Member Variables
-- : GistVacState structure containing vacuum context, statistics, page sets, and callback information
-- : Block number of the page currently being processed
-- : Highest block number reached by the outer scan (used for split detection and recursion control)
-
+- `*vstate`: GistVacState structure containing vacuum context, statistics, page sets, and callback information
+- `blkno`: Block number of the page currently being processed
+- `orig_blkno`: Highest block number reached by the outer scan (used for split detection and recursion control)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [vacuum_delay_point](../v/vacuum_delay_point.md) (vacuum throttling)

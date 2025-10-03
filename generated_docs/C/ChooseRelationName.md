@@ -27,12 +27,11 @@ The function uses a "dirty" snapshot for relation lookups, which means it can se
 The conflict resolution strategy is conservative - it continues incrementing the suffix until no conflict is found in either the relation or constraint namespace as appropriate.
 
 ## Parameters / Member Variables
-- : Primary name component, typically a table name (required)
-- : Secondary name component, typically a column name (optional, can be NULL)  
-- : Type identifier/suffix for the object type (required, unlike makeObjectName)
-- : OID of the schema/namespace where the relation will be created
-- : Whether to also check for constraint name conflicts (stricter checking)
-
+- `*name1`: Primary name component, typically a table name (required)
+- `*name2`: Secondary name component, typically a column name (optional, can be NULL)
+- `*label`: Type identifier/suffix for the object type (required, unlike makeObjectName)
+- `namespaceid`: OID of the schema/namespace where the relation will be created
+- `isconstraint`: Whether to also check for constraint name conflicts (stricter checking)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [makeObjectName](../m/makeObjectName.md) (for base name generation)

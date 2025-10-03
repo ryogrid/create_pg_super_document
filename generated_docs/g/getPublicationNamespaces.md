@@ -18,8 +18,7 @@ This function queries the  system catalog to collect information about which sch
 The function filters results based on dump options and only processes relationships where both the publication and namespace are of interest to the dump operation. Each qualifying relationship results in a  dumpable object.
 
 ## Parameters / Member Variables
-- : Archive structure containing dump configuration and state information
-
+- `*fout`: Archive structure containing dump configuration and state information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md) - executes the catalog query

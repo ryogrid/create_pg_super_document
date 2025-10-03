@@ -28,14 +28,13 @@ The function handles several specialized coercion scenarios:
 The coercion step utilizes a cache (json_coercion_cache) that gets populated during execution for performance optimization.
 
 ## Parameters / Member Variables
-- : ExprState structure being built for expression evaluation
-- : JsonReturning structure specifying the target type and type modifier
-- : ErrorSaveContext pointer for soft error handling, can be NULL for hard errors
-- : Boolean indicating whether to remove quotes from JSON string values during coercion
-- : Boolean indicating whether this is for a JSON_EXISTS operation requiring special handling
-- : Datum pointer where the coerced result value should be stored
-- : Boolean pointer where the result null flag should be stored
-
+- `*state`: ExprState structure being built for expression evaluation
+- `*returning`: JsonReturning structure specifying the target type and type modifier
+- `*escontext`: ErrorSaveContext pointer for soft error handling, can be NULL for hard errors
+- `omit_quotes`: Boolean indicating whether to remove quotes from JSON string values during coercion
+- `exists_coerce`: Boolean indicating whether this is for a JSON_EXISTS operation requiring special handling
+- `*resv`: Datum pointer where the coerced result value should be stored
+- `*resnull`: Boolean pointer where the result null flag should be stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - [getBaseType](../g/getBaseType.md)

@@ -18,9 +18,8 @@ The  function is a simple utility function that determines whether two IPv4 sock
 This function is used within PostgreSQL's Host-Based Authentication (HBA) system to compare client IP addresses with configured address ranges or specific addresses in HBA entries. The function only compares the IP address portion and ignores other socket address fields like port numbers.
 
 ## Parameters / Member Variables
-- : Pointer to the first IPv4 socket address structure to compare
-- : Pointer to the second IPv4 socket address structure to compare
-
+- `*a`: Pointer to the first IPv4 socket address structure to compare
+- `*b`: Pointer to the second IPv4 socket address structure to compare
 ## Dependencies
 - Functions called/Symbols referenced:
   - (None - uses only standard struct field access)

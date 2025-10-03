@@ -16,9 +16,8 @@ ResourceOwnerRememberCatCacheRef(ResourceOwner owner, HeapTuple tuple)
 ResourceOwnerRememberCatCacheRef is a static inline wrapper function that simplifies the process of registering catalog cache references with PostgreSQL's resource management system. It internally calls ResourceOwnerRemember() with the appropriate resource owner descriptor (catcache_resowner_desc) to track catalog cache tuple references. This ensures that if a transaction aborts or an error occurs, the catalog cache references will be properly released during cleanup. The function is part of PostgreSQL's resource management infrastructure that prevents resource leaks by tracking and automatically cleaning up resources when transactions end abnormally.
 
 ## Parameters / Member Variables
-- : The ResourceOwner object responsible for tracking this catalog cache reference
-- : The HeapTuple from the catalog cache that needs to be tracked for proper cleanup
-
+- `owner`: The ResourceOwner object responsible for tracking this catalog cache reference
+- `tuple`: The HeapTuple from the catalog cache that needs to be tracked for proper cleanup
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ResourceOwnerRemember](ResourceOwnerRemember.md)

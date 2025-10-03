@@ -27,8 +27,7 @@ The function operates differently based on the frame mode:
 The function uses tuple stores to buffer partition data and maintains frame head position tracking through  and . It employs memory context switching for proper memory management and may trigger tuple spooling when accessing rows beyond the current buffer.
 
 ## Parameters / Member Variables
-- : WindowAggState pointer containing all window function execution state including:
-
+- `*winstate`: WindowAggState pointer containing all window function execution state including:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (memory management)

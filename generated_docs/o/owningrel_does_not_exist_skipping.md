@@ -16,10 +16,9 @@ owningrel_does_not_exist_skipping(List *object, const char **msg, char **name)
 This function is used when a rule or trigger specification returns that the object doesn't exist. It checks whether the owning relation and its schema exist. If the owning relation or schema don't exist, it sets appropriate error message and name parameters and returns true (indicating the missing object should be skipped). If the owning relation exists, it returns false, meaning the rule/trigger itself is genuinely missing.
 
 ## Parameters / Member Variables
-- : List representing the object specification (typically relation.schema.rule/trigger)
-- : Output parameter for error message format string when skipping
-- : Output parameter for the name to use in the error message
-
+- `*object`: List representing the object specification (typically relation.schema.rule/trigger)
+- `**msg`: Output parameter for error message format string when skipping
+- `**name`: Output parameter for the name to use in the error message
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_copy_head](../l/list_copy_head.md): Creates a copy of the list excluding the last element (to get parent object)

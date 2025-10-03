@@ -18,8 +18,7 @@ ChooseIndexNameAddition creates a "name2" component that will be used by ChooseR
 The generated string serves as the column-specific portion of index names, helping to make index names descriptive and unique based on the columns they cover.
 
 ## Parameters / Member Variables
-- : A List of column names (as char* strings) that the index covers
-
+- `*colnames`: A List of column names (as char* strings) that the index covers
 ## Dependencies
 - Functions called/Symbols referenced:
   - NAMEDATALEN (PostgreSQL's maximum name length constant)

@@ -26,8 +26,7 @@ PSQLexec provides a standardized way to execute internal SQL queries within psql
 This function is specifically designed for internal psql operations and is not subject to the -e (echo commands) option that affects user-entered queries. The caller is responsible for handling COPY command processing if the query initiates a COPY operation.
 
 ## Parameters / Member Variables
-- : The SQL query string to be executed
-
+- `*query`: The SQL query string to be executed
 ## Dependencies
 - Functions called/Symbols referenced:
   - PSQL_ECHO_HIDDEN_OFF (enum constant)

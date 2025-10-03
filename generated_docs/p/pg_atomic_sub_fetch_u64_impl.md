@@ -18,9 +18,8 @@ This function implements the atomic subtract-and-fetch operation for 64-bit unsi
 The implementation follows the pattern: new_value = fetch_sub(ptr, sub_) - sub_, ensuring atomicity through the underlying fetch-sub operation while providing the post-operation semantics.
 
 ## Parameters / Member Variables
-- : Pointer to the atomic 64-bit unsigned integer variable to be modified
-- : The signed 64-bit value to be subtracted from the current value
-
+- `*ptr`: Pointer to the atomic 64-bit unsigned integer variable to be modified
+- `sub_`: The signed 64-bit value to be subtracted from the current value
 ## Dependencies
 - Functions called/Symbols referenced:
   - 

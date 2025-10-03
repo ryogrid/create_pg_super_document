@@ -31,10 +31,9 @@ The function works by:
 The algorithm ensures that only LSNs corresponding to locally-flushed data are reported as flushed to the publisher, maintaining data consistency and preventing premature acknowledgments that could lead to data loss.
 
 ## Parameters / Member Variables
-- : Output parameter for the write position (remote LSN) that can be reported to walsender
-- : Output parameter for the flush position (remote LSN) that can be safely reported as flushed  
-- : Output parameter indicating if there are transactions not yet flushed locally
-
+- `*write`: Output parameter for the write position (remote LSN) that can be reported to walsender
+- `*flush`: Output parameter for the flush position (remote LSN) that can be safely reported as flushed
+- `*have_pending_txes`: Output parameter indicating if there are transactions not yet flushed locally
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetFlushRecPtr](../G/GetFlushRecPtr.md)

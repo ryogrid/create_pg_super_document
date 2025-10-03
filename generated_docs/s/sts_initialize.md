@@ -23,14 +23,13 @@ The  function sets up a  in pre-allocated shared memory and creates a  for the c
 The function supports optional metadata that can be stored alongside tuples (useful for hash values in parallel hash joins) and validates that the metadata size doesn't exceed chunk limits. Each participant gets its own lock and state tracking variables initialized.
 
 ## Parameters / Member Variables
-- : Pointer to the SharedTuplestore structure in shared memory to initialize
-- : Total number of participants that will access this shared tuple store  
-- : The participant number for this calling process (must be < participants)
-- : Size of optional metadata to store with each tuple
-- : Configuration flags (e.g., SHARED_TUPLESTORE_SINGLE_PASS for eager cleanup)
-- : SharedFileSet that manages temporary files for the tuple store
-- : Unique name for this SharedTuplestore within the SharedFileSet
-
+- `*sts`: Pointer to the SharedTuplestore structure in shared memory to initialize
+- `participants`: Total number of participants that will access this shared tuple store
+- `my_participant_number`: The participant number for this calling process (must be < participants)
+- `meta_data_size`: Size of optional metadata to store with each tuple
+- `flags`: Configuration flags (e.g., SHARED_TUPLESTORE_SINGLE_PASS for eager cleanup)
+- `*fileset`: SharedFileSet that manages temporary files for the tuple store
+- `*name`: Unique name for this SharedTuplestore within the SharedFileSet
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SharedTuplestore](../S/SharedTuplestore.md) (struct type)

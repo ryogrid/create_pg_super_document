@@ -31,13 +31,12 @@ The function performs detailed type checking and coercion for each field:
 If the target type is a domain over a composite type, it applies domain constraints after building the base composite value.
 
 ## Parameters / Member Variables
-- : Parse state for error reporting and namespace resolution
-- : Input node to coerce (must be RowExpr or whole-row Var)
-- : OID of the target composite type
-- : Coercion context (implicit, assignment, or explicit)
-- : Coercion format controlling display behavior
-- : Source location for error reporting
-
+- `*pstate`: Parse state for error reporting and namespace resolution
+- `*node`: Input node to coerce (must be RowExpr or whole-row Var)
+- `targetTypeId`: OID of the target composite type
+- `ccontext`: Coercion context (implicit, assignment, or explicit)
+- `cformat`: Coercion format controlling display behavior
+- `location`: Source location for error reporting
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (node type checking)

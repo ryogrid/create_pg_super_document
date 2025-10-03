@@ -18,8 +18,7 @@ This function provides controlled line separation functionality by first cleanin
 The two-step process (cleanup then append) prevents accumulation of multiple trailing newlines while ensuring proper line separation between text segments.
 
 ## Parameters / Member Variables
-- : A StringInfo pointer to the string buffer that will be processed. The string is modified in-place to have exactly zero (if empty) or one (if non-empty) trailing newline.
-
+- `str`: A StringInfo pointer to the string buffer that will be processed. The string is modified in-place to have exactly zero (if empty) or one (if non-empty) trailing newline.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [chopStringInfoNewlines](../c/chopStringInfoNewlines.md) (removes existing trailing newlines)

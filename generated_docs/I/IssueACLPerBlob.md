@@ -24,9 +24,8 @@ The function performs sophisticated parsing of SQL commands to extract the struc
 This approach ensures that ACL commands are efficiently stored while being correctly applied to all target large objects during restoration.
 
 ## Parameters / Member Variables
-- : Archive handle containing database connection and restoration context
-- : TocEntry containing the ACL commands to be processed (depends on a BLOB METADATA entry)
-
+- `*AH`: Archive handle containing database connection and restoration context
+- `*te`: TocEntry containing the ACL commands to be processed (depends on a BLOB METADATA entry)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [getTocEntryByDumpId](../g/getTocEntryByDumpId.md)

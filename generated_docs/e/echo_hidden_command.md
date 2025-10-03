@@ -18,8 +18,7 @@ The  function implements psql's ECHO_HIDDEN functionality, which controls the vi
 The function checks the current echo_hidden setting and conditionally displays the query to both stdout and the log file (if logging is enabled). It formats the output with a distinctive comment-style border to make hidden queries easily identifiable. When the setting is PSQL_ECHO_HIDDEN_NOEXEC, it displays the query but returns false to prevent its execution, allowing users to see what would be executed without actually running it.
 
 ## Parameters / Member Variables
-- : The SQL query string to potentially echo and execute
-
+- `*query`: The SQL query string to potentially echo and execute
 ## Dependencies
 - Functions called/Symbols referenced:
   - PSQL_ECHO_HIDDEN_OFF (constant indicating echo hidden is disabled)

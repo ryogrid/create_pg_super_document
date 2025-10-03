@@ -18,9 +18,8 @@ This function provides robust string-to-64-bit-integer conversion with comprehen
 The function uses unsigned arithmetic internally to correctly handle the full range of 64-bit signed integers, including proper handling of the most negative value in two's complement representation. It provides both hard error (ereport) and soft error (ErrorSaveContext) handling modes.
 
 ## Parameters / Member Variables
-- : Input string containing the integer representation to convert  
-- : Error context node for soft error handling; if NULL, errors are thrown via ereport()
-
+- `*s`: Input string containing the integer representation to convert
+- `*escontext`: Error context node for soft error handling; if NULL, errors are thrown via ereport()
 ## Dependencies
 - Functions called/Symbols referenced:
   - likely (branch prediction macro)

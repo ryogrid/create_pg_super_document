@@ -18,10 +18,9 @@ GenerationAllocLarge is a specialized allocation function that handles large mem
 The function creates a block sized exactly for the requested chunk plus necessary headers, marks the chunk as externally managed, and adds the block to the context's block list. It includes comprehensive memory debugging support with sentinel bytes, memory randomization, and Valgrind annotations to help detect memory errors.
 
 ## Parameters / Member Variables
-- : The Generation memory context to allocate from
-- : The number of bytes to allocate
-- : Allocation flags that control behavior and validation
-
+- `context`: The Generation memory context to allocate from
+- `size`: The number of bytes to allocate
+- `flags`: Allocation flags that control behavior and validation
 ## Dependencies
 - Functions called/Symbols referenced:
   - MemoryContextCheckSize

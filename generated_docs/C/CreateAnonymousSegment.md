@@ -18,8 +18,7 @@ This function creates an anonymous shared memory segment using mmap() with suppo
 The function modifies the input size parameter to reflect the actual allocated size, which may be larger than requested due to huge page alignment requirements. On allocation failure, it provides detailed error messages with hints about reducing memory usage through configuration parameters.
 
 ## Parameters / Member Variables
-- : Pointer to requested size in bytes (modified to actual allocated size on success)
-
+- `*size`: Pointer to requested size in bytes (modified to actual allocated size on success)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetHugePageSize](../G/GetHugePageSize.md)

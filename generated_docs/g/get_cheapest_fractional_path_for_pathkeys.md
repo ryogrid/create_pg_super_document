@@ -21,11 +21,10 @@ This function is a specialized variant of path selection that optimizes for scen
 Like its counterpart get_cheapest_path_for_pathkeys, it iterates through candidate paths, prioritizing cost comparison over pathkey comparison for efficiency, then validates that the path satisfies the required ordering (pathkeys) and parameterization constraints.
 
 ## Parameters / Member Variables
-- : List of possible paths that all generate the same relation
-- : Required ordering in canonical form that the selected path must satisfy
-- : Allowable outer relations for parameterized paths  
-- : The fraction of total tuples expected to be retrieved (between 0.0 and 1.0)
-
+- `*paths`: List of possible paths that all generate the same relation
+- `*pathkeys`: Required ordering in canonical form that the selected path must satisfy
+- `required_outer`: Allowable outer relations for parameterized paths
+- `fraction`: The fraction of total tuples expected to be retrieved (between 0.0 and 1.0)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [compare_fractional_path_costs](../c/compare_fractional_path_costs.md)

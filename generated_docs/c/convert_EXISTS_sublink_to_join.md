@@ -26,11 +26,10 @@ The function performs several validation checks before attempting the conversion
 If all checks pass, it pulls up the subquery's range table into the parent query and constructs a JoinExpr node representing the semi-join or anti-join.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing query planning context and state
-- : The EXISTS SubLink node to be converted
-- : Boolean indicating if this is a NOT EXISTS (creates anti-join) vs EXISTS (creates semi-join)
-- : Relids bitmapset of relations available for joining at this point in query planning
-
+- `*root`: PlannerInfo structure containing query planning context and state
+- `*sublink`: The EXISTS SubLink node to be converted
+- `under_not`: Boolean indicating if this is a NOT EXISTS (creates anti-join) vs EXISTS (creates semi-join)
+- `available_rels`: Relids bitmapset of relations available for joining at this point in query planning
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Simplifies the EXISTS subquery by removing unnecessary elements

@@ -18,10 +18,9 @@ This function manages the update of shared dependency records when a database ob
 The function opens the shared dependency relation with exclusive row lock, then either creates a new dependency record via shdepChangeDep() or drops the existing dependency via shdepDropDependency() depending on whether the new tablespace is valid and not the default tablespace.
 
 ## Parameters / Member Variables
-- : The OID of the system catalog class containing the object (e.g., RelationRelationId for tables)
-- : The OID of the specific object whose tablespace dependency is being changed
-- : The OID of the new tablespace, or InvalidOid/DEFAULTTABLESPACE_OID if removing tablespace dependency
-
+- `classId`: The OID of the system catalog class containing the object (e.g., RelationRelationId for tables)
+- `objectId`: The OID of the specific object whose tablespace dependency is being changed
+- `newTablespaceId`: The OID of the new tablespace, or InvalidOid/DEFAULTTABLESPACE_OID if removing tablespace dependency
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md)

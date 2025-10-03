@@ -18,12 +18,11 @@ This function is responsible for finding unary prefix operators in PostgreSQL's 
 The function is particularly important in the parsing phase where prefix operators like unary minus (-x) or logical NOT need to be resolved. It ensures that the returned operator is coercion-compatible with the input datatype, though it does not guarantee exact or binary compatibility.
 
 ## Parameters / Member Variables
-- : ParseState pointer used for error reporting and context
-- : List containing the operator name to search for
-- : OID of the argument type for the unary operator
-- : Boolean flag - if true, returns NULL on failure; if false, raises an error
-- : Source location for error reporting (-1 if not available)
-
+- `*pstate`: ParseState pointer used for error reporting and context
+- `*op`: List containing the operator name to search for
+- `arg`: OID of the argument type for the unary operator
+- `noError`: Boolean flag - if true, returns NULL on failure; if false, raises an error
+- `location`: Source location for error reporting (-1 if not available)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [make_oper_cache_key](../m/make_oper_cache_key.md)

@@ -18,8 +18,7 @@ The  function provides a simple and convenient way to send messages that consist
 This function is frequently used in PostgreSQL's protocol implementation for sending acknowledgments, completion notifications, and other control messages that don't require any data beyond their message type identifier.
 
 ## Parameters / Member Variables
-- : The message type character that identifies what kind of message is being sent
-
+- `msgtype`: The message type character that identifies what kind of message is being sent
 ## Dependencies
 - Functions called/Symbols referenced:
   - pq_putmessage (with NULL data and 0 length)

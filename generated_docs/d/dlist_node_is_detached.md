@@ -22,8 +22,7 @@ The function includes an assertion that enforces the invariant that both pointer
 The function is implemented as a static inline function for performance, as it's a simple pointer check that benefits from inlining and is likely to be called frequently in list management operations.
 
 ## Parameters / Member Variables
-- : Pointer to the doubly-linked list node to check for detachment status
-
+- `*node`: Pointer to the doubly-linked list node to check for detachment status
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dlist_node](dlist_node.md) (struct type)

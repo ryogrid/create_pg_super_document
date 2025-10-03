@@ -20,8 +20,7 @@ The function includes a safety check to only call ExecEndNode on subplans that h
 As a cleanup function, ExecEndBitmapAnd does not return any value and focuses solely on resource deallocation and proper termination of child nodes. It is part of the standard executor node lifecycle, being called during the cleanup phase after query execution completes.
 
 ## Parameters / Member Variables
-- : Pointer to the BitmapAndState containing the subplan nodes to be shut down
-
+- `*node`: Pointer to the BitmapAndState containing the subplan nodes to be shut down
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecEndNode](ExecEndNode.md) (to recursively end each subplan)

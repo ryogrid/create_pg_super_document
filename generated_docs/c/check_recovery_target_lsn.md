@@ -15,10 +15,9 @@ bool check_recovery_target_lsn(char **newval, void **extra, GucSource source)
 This function serves as a validation hook for the  PostgreSQL configuration parameter. When a user attempts to set this parameter, PostgreSQL calls this function to verify that the provided value is valid. The function parses the input string as an LSN using the internal LSN parsing function and stores the parsed LSN value in the extra data structure for later use by the assign hook. If the input string is empty, it's considered valid (allowing the parameter to be unset). If the input contains an invalid LSN format, the function returns false to reject the configuration change.
 
 ## Parameters / Member Variables
-- : Pointer to the new string value being assigned to the GUC parameter
-- : Pointer to store additional data (parsed LSN) that will be passed to the assign hook
-- : The source of the GUC setting (e.g., configuration file, command line, etc.)
-
+- `**newval`: Pointer to the new string value being assigned to the GUC parameter
+- `**extra`: Pointer to store additional data (parsed LSN) that will be passed to the assign hook
+- `source`: The source of the GUC setting (e.g., configuration file, command line, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_lsn_in_internal](../p/pg_lsn_in_internal.md) (parses LSN string to XLogRecPtr)

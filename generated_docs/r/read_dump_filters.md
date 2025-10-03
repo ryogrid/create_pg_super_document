@@ -24,9 +24,8 @@ Some object types like databases, functions, indexes, and triggers have restrict
 When include filters are applied for schemas or tables, the  flag in DumpOptions is set to false, indicating selective dumping rather than dumping all objects.
 
 ## Parameters / Member Variables
-- : Path to the filter file to read, or "-" to read from STDIN
-- : DumpOptions structure that gets updated with  flag based on filter rules
-
+- `*filename`: Path to the filter file to read, or "-" to read from STDIN
+- `*dopt`: DumpOptions structure that gets updated with  flag based on filter rules
 ## Dependencies
 - Functions called/Symbols referenced:
   - [filter_init](../f/filter_init.md)

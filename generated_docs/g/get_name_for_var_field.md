@@ -35,11 +35,10 @@ This function handles the complex task of determining field names for composite 
 The function maintains proper namespace context throughout recursive calls and handles inheritance mapping appropriately.
 
 ## Parameters / Member Variables
-- : The expression (typically a Var) whose field name is needed
-- : The 1-based field number within the composite type
-- : Additional nesting level offset for interpreting varlevelsup
-- : Deparse context containing namespace stack and other formatting state
-
+- `*var`: The expression (typically a Var) whose field name is needed
+- `fieldno`: The 1-based field number within the composite type
+- `levelsup`: Additional nesting level offset for interpreting varlevelsup
+- `*context`: Deparse context containing namespace stack and other formatting state
 ## Dependencies
 - Functions called/Symbols referenced:
   - [find_param_referent](../f/find_param_referent.md) (for PARAM resolution)

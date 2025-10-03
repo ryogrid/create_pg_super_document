@@ -20,8 +20,7 @@ The function performs a safety check to ensure that only writable StringInfo str
 This function should be called when a StringInfo is no longer needed to prevent memory leaks. It's particularly important in long-running processes where temporary StringInfo objects are created and discarded frequently.
 
 ## Parameters / Member Variables
-- : The StringInfo structure to destroy (must be palloc'd, not read-only)
-
+- `str`: The StringInfo structure to destroy (must be palloc'd, not read-only)
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (validation macro)

@@ -18,9 +18,8 @@ This function serves the same purpose as  but is optimized for scenarios where a
 Like , it stores the message type character in the buffer's cursor field for later use by . The function is particularly useful in high-frequency message sending scenarios where the same buffer can be reused across multiple messages.
 
 ## Parameters / Member Variables
-- : Pre-existing StringInfo buffer to be reset and reused for message construction (must be allocated in a sufficiently long-lived memory context)
-- : Single character identifying the type of PostgreSQL protocol message
-
+- `buf`: Pre-existing StringInfo buffer to be reset and reused for message construction (must be allocated in a sufficiently long-lived memory context)
+- `msgtype`: Single character identifying the type of PostgreSQL protocol message
 ## Dependencies
 - Functions called/Symbols referenced:
   - [resetStringInfo](../r/resetStringInfo.md) (from StringInfo API)

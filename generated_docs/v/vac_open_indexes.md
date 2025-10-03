@@ -24,11 +24,10 @@ The function only considers indexes that are marked as "ready" (indisready = tru
 The function allocates memory for the maximum possible number of indexes but only stores those that pass the readiness filter, adjusting the final count accordingly.
 
 ## Parameters / Member Variables
-- : The heap relation whose indexes should be opened
-- : The type of lock to acquire on each index (must not be NoLock)
-- : Output parameter receiving the count of successfully opened indexes
-- : Output parameter receiving a dynamically allocated array of opened index relations
-
+- `relation`: The heap relation whose indexes should be opened
+- `lockmode`: The type of lock to acquire on each index (must not be NoLock)
+- `*nindexes`: Output parameter receiving the count of successfully opened indexes
+- `**Irel`: Output parameter receiving a dynamically allocated array of opened index relations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RelationGetIndexList](../R/RelationGetIndexList.md)

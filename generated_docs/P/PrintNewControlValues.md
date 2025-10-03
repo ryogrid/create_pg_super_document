@@ -18,7 +18,6 @@ This static function is part of the pg_resetwal utility and is responsible for p
 The function always prints the "First log segment after reset" information, and then conditionally prints other values only if they have been set through command-line options (checked via global variables like set_mxid, set_mxoff, set_oid, etc.).
 
 ## Parameters / Member Variables
-This function takes no parameters and operates on global variables and the global ControlFile structure.
 
 ## Dependencies
 - Functions called/Symbols referenced:

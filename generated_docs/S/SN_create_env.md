@@ -23,9 +23,8 @@ This function is the primary constructor for the Snowball stemming library's env
 The function uses defensive programming practices with proper error handling - if any allocation fails, it cleans up previously allocated resources and returns NULL.
 
 ## Parameters / Member Variables
-- : Number of symbol string slots to allocate in the S array (0 means no symbol array needed)
-- : Number of integer slots to allocate in the I array (0 means no integer array needed)
-
+- `S_size`: Number of symbol string slots to allocate in the S array (0 means no symbol array needed)
+- `I_size`: Number of integer slots to allocate in the I array (0 means no integer array needed)
 ## Dependencies
 - Functions called/Symbols referenced:
   - calloc (memory allocation)

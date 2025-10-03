@@ -31,9 +31,8 @@ The function handles both OR and AND clauses differently:
 - Other expressions: Returns unchanged
 
 ## Parameters / Member Variables
-- : The qualification expression to process (Expr pointer)
-- : Boolean flag indicating whether this is a CHECK constraint (true) or WHERE/JOIN clause (false) - affects NULL handling
-
+- `*qual`: The qualification expression to process (Expr pointer)
+- `is_check`: Boolean flag indicating whether this is a CHECK constraint (true) or WHERE/JOIN clause (false) - affects NULL handling
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - checks if expression is an OR clause

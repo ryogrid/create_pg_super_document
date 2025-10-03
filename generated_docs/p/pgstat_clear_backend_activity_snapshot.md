@@ -18,7 +18,6 @@ This function discards any backend activity data that has been collected during 
 The function ensures that subsequent requests for backend activity information will trigger fresh snapshots to be created rather than using stale data from the previous transaction.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

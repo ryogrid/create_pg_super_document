@@ -20,8 +20,7 @@ When use_exec is true, the function records the current subtransaction ID for pr
 The function is designed to work in conjunction with _SPI_end_call to provide proper bracketing of SPI operations, ensuring proper resource management and error handling.
 
 ## Parameters / Member Variables
-- : Boolean flag indicating whether the procedure's execution context will be used during this SPI operation. When true, triggers memory context switching and subtransaction tracking.
-
+- `use_exec`: Boolean flag indicating whether the procedure's execution context will be used during this SPI operation. When true, triggers memory context switching and subtransaction tracking.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetCurrentSubTransactionId](../G/GetCurrentSubTransactionId.md): Records the current subtransaction ID for cleanup purposes

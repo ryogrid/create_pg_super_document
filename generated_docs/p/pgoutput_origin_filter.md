@@ -24,9 +24,8 @@ The function works by checking the publication configuration and the origin ID o
 The filtering decision is based on whether the publication is configured to publish only changes that don't have a replication origin ( setting).
 
 ## Parameters / Member Variables
-- : LogicalDecodingContext containing output plugin state and configuration
-- : RepOriginId representing the replication origin associated with the change (InvalidRepOriginId for local changes)
-
+- `*ctx`: LogicalDecodingContext containing output plugin state and configuration
+- `origin_id`: RepOriginId representing the replication origin associated with the change (InvalidRepOriginId for local changes)
 ## Dependencies
 - Functions called/Symbols referenced:
   - InvalidRepOriginId (constant for comparison)

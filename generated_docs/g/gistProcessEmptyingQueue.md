@@ -20,8 +20,7 @@ The function continues until the buffer emptying queue is completely empty. For 
 Unlike the original Arge et al. paper which suggests stopping after processing 1/2 node buffer worth of tuples, this implementation continues until a lower-level buffer actually fills up, which is more efficient and allows slight overfilling without harm.
 
 ## Parameters / Member Variables
-- : GiST build state containing the buffer management structures and build context
-
+- `*buildstate`: GiST build state containing the buffer management structures and build context
 ## Dependencies
 - Functions called/Symbols referenced:
   - linitial

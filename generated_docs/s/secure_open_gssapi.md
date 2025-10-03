@@ -27,8 +27,7 @@ The function uses smaller buffers during authentication () then switches to larg
 Unlike the streaming read/write functions, this function will block on socket operations using  to ensure the handshake completes properly.
 
 ## Parameters / Member Variables
-- : Pointer to Port structure that will be configured with GSSAPI encryption state
-
+- `*port`: Pointer to Port structure that will be configured with GSSAPI encryption state
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Blocking read helper for complete packet reception

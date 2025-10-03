@@ -22,6 +22,7 @@ This is commonly used in scenarios where GiST operations need to coordinate betw
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [XLogBeginInsert](../X/XLogBeginInsert.md)

@@ -16,9 +16,8 @@ ParallelBackupEnd(ArchiveHandle *AH, ParallelState *pstate)
 ParallelBackupEnd handles the orderly shutdown of parallel processing infrastructure created by ParallelBackupStart. The function ensures all workers have completed their tasks, closes communication channels to signal workers to exit, waits for worker termination, and performs cleanup of allocated resources. For single-worker scenarios, it returns immediately without performing any cleanup operations. The function also unlinks the parallel state from global shutdown and signal handling structures to prevent use-after-free issues.
 
 ## Parameters / Member Variables
-- : Archive handle (not actively used but maintained for API consistency)
-- : Parallel state structure containing worker information and communication channels to be cleaned up
-
+- `*AH`: Archive handle (not actively used but maintained for API consistency)
+- `*pstate`: Parallel state structure containing worker information and communication channels to be cleaned up
 ## Dependencies
 - Functions called/Symbols referenced:
   - [IsEveryWorkerIdle](../I/IsEveryWorkerIdle.md) (verification that all workers are finished)

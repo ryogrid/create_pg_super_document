@@ -16,10 +16,9 @@ Gzip_read(void *ptr, size_t size, CompressFileHandle *CFH)
 This function provides a wrapper around zlib's gzread() function for reading compressed data. It reads up to 'size' bytes from the gzip file into the provided buffer. The function includes comprehensive error handling to distinguish between EOF conditions and actual read errors. When gzread() returns zero or negative values, it checks whether the file has reached EOF using gzeof(), and if not, it reports the specific error using gzerror(). This ensures that applications can properly handle both normal end-of-file conditions and error situations.
 
 ## Parameters / Member Variables
-- : Pointer to the buffer where read data will be stored
-- : Maximum number of bytes to read
-- : Compressed file handle containing the gzip file pointer in private_data
-
+- `*ptr`: Pointer to the buffer where read data will be stored
+- `size`: Maximum number of bytes to read
+- `*CFH`: Compressed file handle containing the gzip file pointer in private_data
 ## Dependencies
 - Functions called/Symbols referenced:
   - gzread

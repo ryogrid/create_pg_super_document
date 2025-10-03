@@ -18,10 +18,9 @@ The  function analyzes the target list and qualification conditions of an aggreg
 The function uses a tree walker approach to traverse the plan's target list and qualification expressions, employing a context structure to track whether column references are found within aggregate function calls or not. Additionally, it ensures that grouping columns specified in the aggregation plan are included in the unaggregated set, even if they don't explicitly appear in the target list.
 
 ## Parameters / Member Variables
-- : The AggState execution state node containing the aggregation plan and runtime information
-- : Output parameter - pointer to a Bitmapset that will contain column numbers referenced within aggregate functions
-- : Output parameter - pointer to a Bitmapset that will contain column numbers referenced outside of aggregate functions
-
+- `*aggstate`: The AggState execution state node containing the aggregation plan and runtime information
+- `**aggregated`: Output parameter - pointer to a Bitmapset that will contain column numbers referenced within aggregate functions
+- `**unaggregated`: Output parameter - pointer to a Bitmapset that will contain column numbers referenced outside of aggregate functions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [find_cols_walker](find_cols_walker.md)

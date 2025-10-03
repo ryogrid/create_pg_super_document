@@ -24,8 +24,7 @@ The function uses a two-stage check strategy for performance: it first checks fo
 Important limitation: This function does not check for aggregates (Aggrefs) or window functions (WindowFuncs), as it's primarily designed for WHERE clause analysis where such constructs are not expected.
 
 ## Parameters / Member Variables
-- : The expression node to evaluate for pseudo-constancy
-
+- `*clause`: The expression node to evaluate for pseudo-constancy
 ## Dependencies
 - Functions called/Symbols referenced:
   - [contain_var_clause](../c/contain_var_clause.md) (checks for variables in the expression)

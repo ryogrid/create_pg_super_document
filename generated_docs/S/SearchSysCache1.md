@@ -21,9 +21,8 @@ The function validates that the specified cache is configured for single-key loo
 Like other SearchSysCache variants, it returns a read-only cache copy of the tuple that must be released with ReleaseSysCache() when no longer needed.
 
 ## Parameters / Member Variables
-- : Integer identifier specifying which system cache to search (must be valid single-key cache)
-- : The single search key value used to locate the desired tuple
-
+- `cacheId`: Integer identifier specifying which system cache to search (must be valid single-key cache)
+- `key1`: The single search key value used to locate the desired tuple
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerIsValid

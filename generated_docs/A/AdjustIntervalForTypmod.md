@@ -24,10 +24,9 @@ The function implements PostgreSQL's interpretation that fields to the right of 
 For infinite intervals, no adjustments are applied. The function returns true on success or false on failure when using error context handling.
 
 ## Parameters / Member Variables
-- : Pointer to the Interval structure to be modified in-place
-- : Type modifier encoding both range and precision constraints (-1 means no constraints)
-- : Error context node for soft error handling (NULL for hard errors)
-
+- `*interval`: Pointer to the Interval structure to be modified in-place
+- `typmod`: Type modifier encoding both range and precision constraints (-1 means no constraints)
+- `*escontext`: Error context node for soft error handling (NULL for hard errors)
 ## Dependencies
 - Functions called/Symbols referenced:
   - INTERVAL_NOT_FINITE (macro for checking infinite intervals)

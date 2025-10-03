@@ -20,12 +20,11 @@ bbstreamer_content is a static inline function that provides a standardized inte
 The function performs a basic assertion to ensure the streamer is not NULL before delegating to the appropriate content handler based on the streamer's type. This design allows different bbstreamer implementations to handle content in their own specific ways while maintaining a consistent API.
 
 ## Parameters / Member Variables
-- : Pointer to the bbstreamer object that will process the content
-- : Pointer to bbstreamer_member struct containing metadata about the current archive member (file path, size, permissions, etc.)
-- : Pointer to the raw data buffer to be processed
-- : Length of the data buffer in bytes
-- : Enum value indicating the type of data being sent (header, content, trailer, or archive trailer)
-
+- `*streamer`: Pointer to the bbstreamer object that will process the content
+- `*member`: Pointer to bbstreamer_member struct containing metadata about the current archive member (file path, size, permissions, etc.)
+- `*data`: Pointer to the raw data buffer to be processed
+- `len`: Length of the data buffer in bytes
+- `context`: Enum value indicating the type of data being sent (header, content, trailer, or archive trailer)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bbstreamer](bbstreamer.md) (struct type)

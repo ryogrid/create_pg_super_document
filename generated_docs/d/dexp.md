@@ -23,8 +23,7 @@ The function explicitly handles:
 - Underflow conditions (throws float_underflow_error)
 
 ## Parameters / Member Variables
-- : The float8 input value for which to compute the exponential function
-
+- `PG_FUNCTION_ARGS`: The float8 input value for which to compute the exponential function
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT8 (to extract input argument)

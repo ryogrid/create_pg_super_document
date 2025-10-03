@@ -21,11 +21,10 @@ The evaluation process involves several key steps: setting up an executor state 
 Special attention is given to variable-length data types (varlena), which are forcibly detoasted to prevent storing TOAST pointers that might become invalid if the referenced data is deleted. This is crucial for expressions that might be stored in cached plans.
 
 ## Parameters / Member Variables
-- : The expression to be evaluated (must be a constant expression)
-- : The expected OID of the result data type
-- : The type modifier for the result type
-- : The collation OID for the result
-
+- `*expr`: The expression to be evaluated (must be a constant expression)
+- `result_type`: The expected OID of the result data type
+- `result_typmod`: The type modifier for the result type
+- `result_collation`: The collation OID for the result
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - creates executor state for evaluation

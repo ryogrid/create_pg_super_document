@@ -16,8 +16,7 @@ dumpStdStrings(Archive *AH)
 The  function creates an archive entry that contains a SQL command to set the standard_conforming_strings parameter to match the source database's setting. This parameter controls whether backslashes in string literals are treated as escape characters or literal backslashes. The function reads the std_strings boolean flag from the archive structure, converts it to the appropriate 'on' or 'off' string value, and creates a SET command that will be executed during restoration in the PRE_DATA section.
 
 ## Parameters / Member Variables
-- : Pointer to the Archive structure containing the std_strings boolean flag that indicates the database's standard_conforming_strings setting
-
+- `*AH`: Pointer to the Archive structure containing the std_strings boolean flag that indicates the database's standard_conforming_strings setting
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_log_info (logs the setting being saved)

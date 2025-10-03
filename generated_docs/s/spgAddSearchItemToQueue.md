@@ -18,9 +18,8 @@ This function serves as a straightforward interface for adding search items to t
 The function is designed to be called in queue context, meaning it operates on items that are ready to be processed as part of the search traversal. The pairing heap ensures that items are processed in the correct priority order as determined by the comparison function (pairingheap_SpGistSearchItem_cmp).
 
 ## Parameters / Member Variables
-- : SpGistScanOpaque structure containing the scan context, including the scanQueue pairing heap
-- : Pointer to the SpGistSearchItem to be added to the queue for future processing
-
+- `so`: SpGistScanOpaque structure containing the scan context, including the scanQueue pairing heap
+- `*item`: Pointer to the SpGistSearchItem to be added to the queue for future processing
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pairingheap_add](../p/pairingheap_add.md) (adds node to pairing heap data structure)

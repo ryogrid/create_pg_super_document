@@ -24,14 +24,13 @@ This function is a specialized path generation function that creates parallel-aw
 The function works by determining the appropriate pathkeys (ordering) for the resulting join paths and then delegates the actual path creation to  with the parallel flag set to true.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global planner state and context
-- : The target join relation for which paths are being generated
-- : The outer relation in the join operation
-- : The inner relation in the join operation  
-- : The type of join operation (INNER, LEFT, RIGHT, etc.)
-- : Additional join-specific data and constraints
-- : The cheapest total cost path for the inner relation
-
+- `*root`: PlannerInfo structure containing global planner state and context
+- `*joinrel`: The target join relation for which paths are being generated
+- `*outerrel`: The outer relation in the join operation
+- `*innerrel`: The inner relation in the join operation
+- `jointype`: The type of join operation (INNER, LEFT, RIGHT, etc.)
+- `*extra`: Additional join-specific data and constraints
+- `*inner_cheapest_total`: The cheapest total cost path for the inner relation
 ## Dependencies
 - Functions called/Symbols referenced:
   - JoinType (enum type)

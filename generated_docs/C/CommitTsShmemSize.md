@@ -20,7 +20,6 @@ This function computes the total amount of shared memory needed for the commit t
 The function is used during PostgreSQL startup to determine how much shared memory to allocate for the commit timestamp subsystem, which tracks when transactions commit.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

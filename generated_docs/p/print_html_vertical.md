@@ -16,9 +16,8 @@ print_html_vertical(const printTableContent *cont, FILE *fout)
 This function generates HTML output in vertical format, displaying table data as field-value pairs rather than traditional tabular rows and columns. Each record is presented with its fields listed vertically, where column headers become row labels and the corresponding data values are displayed alongside them. This format is particularly useful for displaying detailed information about individual records or when dealing with tables that have many columns that would be difficult to read in traditional horizontal format. The function includes record numbering and handles all HTML escaping to prevent injection attacks.
 
 ## Parameters / Member Variables
-- : Pointer to printTableContent structure containing table data, headers, formatting options, and configuration
-- : Output file stream where the vertical HTML table will be written
-
+- `*cont`: Pointer to printTableContent structure containing table data, headers, formatting options, and configuration
+- `*fout`: Output file stream where the vertical HTML table will be written
 ## Dependencies
 - Functions called/Symbols referenced:
   - [html_escaped_print](../h/html_escaped_print.md) (for escaping HTML content)

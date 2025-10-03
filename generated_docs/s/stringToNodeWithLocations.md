@@ -20,8 +20,7 @@ The function is a wrapper around stringToNodeInternal, passing true for the rest
 This function is primarily used in query processing contexts where location information needs to be preserved for accurate error reporting and debugging purposes.
 
 ## Parameters / Member Variables
-- : The string representation of the Node tree to be parsed with location information preserved
-
+- `*str`: The string representation of the Node tree to be parsed with location information preserved
 ## Dependencies
 - Functions called/Symbols referenced:
   - [stringToNodeInternal](stringToNodeInternal.md)

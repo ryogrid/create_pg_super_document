@@ -15,7 +15,6 @@ void WalSndSignals(void)
 This function initializes the signal handling infrastructure for WAL sender processes by registering appropriate handler functions for various POSIX signals. It configures handlers for configuration management (SIGHUP), query cancellation (SIGINT), process termination (SIGTERM), inter-process communication (SIGUSR1, SIGUSR2), and resets or ignores other signals as appropriate for WAL sender operation. The function also establishes timeout handling through SIGALRM and sets up the final shutdown cycle mechanism through SIGUSR2.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

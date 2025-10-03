@@ -18,9 +18,8 @@ The  function removes a node from a singly-linked list by performing a linear se
 The function includes assertion checking to ensure that the specified node is actually found in the list, which helps catch programming errors where attempts are made to delete nodes that don't belong to the list. After deletion, it calls  to validate the list's integrity in debug builds.
 
 ## Parameters / Member Variables
-- : Pointer to the singly-linked list head structure that manages the list
-- : Pointer to the node to be removed from the list (must be an existing member of the list)
-
+- `*head`: Pointer to the singly-linked list head structure that manages the list
+- `*node`: Pointer to the node to be removed from the list (must be an existing member of the list)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [slist_check](slist_check.md)

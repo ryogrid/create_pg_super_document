@@ -22,6 +22,7 @@ The function works by extracting the XID portion from the current transaction st
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - XidFromFullTransactionId

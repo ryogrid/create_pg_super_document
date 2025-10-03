@@ -23,8 +23,7 @@ The function implements careful synchronization to avoid race conditions with co
 Slots that are dropped due to local invalidation will be recreated in the next synchronization cycle, which is acceptable since these slots are not currently consumable on standby servers.
 
 ## Parameters / Member Variables
-- : List of RemoteSlot structures representing the current slots from the primary server
-
+- `*remote_slot_list`: List of RemoteSlot structures representing the current slots from the primary server
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_local_synced_slots](../g/get_local_synced_slots.md)

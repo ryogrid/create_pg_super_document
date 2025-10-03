@@ -18,9 +18,8 @@ conv_compare(const void *p1, const void *p2)
 This function is essential for efficiently searching the decomposition lookup table, which contains Unicode normalization data organized by codepoint values.
 
 ## Parameters / Member Variables
-- : Pointer to the target Unicode codepoint (uint32) being searched for
-- : Pointer to a  structure from the lookup table
-
+- `*p1`: Pointer to the target Unicode codepoint (uint32) being searched for
+- `*p2`: Pointer to a  structure from the lookup table
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_unicode_decomposition](../p/pg_unicode_decomposition.md) (struct type)

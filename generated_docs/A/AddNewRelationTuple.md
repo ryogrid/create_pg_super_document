@@ -30,18 +30,17 @@ The function performs two main operations: first, it updates the relation descri
 The function also properly initializes the relation's tuple descriptor type information, setting tdtypeid and tdtypmod to appropriate values. It ensures relispartition is initially false, as partition status is set through subsequent updates when needed.
 
 ## Parameters / Member Variables
-- : Already opened and locked relation handle for the pg_class catalog
-- : Relation descriptor for the new relation being created
-- : OID assigned to the new relation
-- : OID of the composite type associated with this relation (may be InvalidOid)
-- : OID of the type this relation is "of" (for typed tables); usually InvalidOid
-- : OID of the user who owns this relation
-- : Character indicating the kind of relation (table, index, sequence, etc.)
-- : Transaction ID for frozen tuple visibility
-- : Minimum MultiXact ID for the relation
-- : Access control list for the relation (may be NULL)
-- : Relation options (may be NULL)
-
+- `pg_class_desc`: Already opened and locked relation handle for the pg_class catalog
+- `new_rel_desc`: Relation descriptor for the new relation being created
+- `new_rel_oid`: OID assigned to the new relation
+- `new_type_oid`: OID of the composite type associated with this relation (may be InvalidOid)
+- `reloftype`: OID of the type this relation is "of" (for typed tables); usually InvalidOid
+- `relowner`: OID of the user who owns this relation
+- `relkind`: Character indicating the kind of relation (table, index, sequence, etc.)
+- `relfrozenxid`: Transaction ID for frozen tuple visibility
+- `relminmxid`: Minimum MultiXact ID for the relation
+- `relacl`: Access control list for the relation (may be NULL)
+- `reloptions`: Relation options (may be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [InsertPgClassTuple](../I/InsertPgClassTuple.md)

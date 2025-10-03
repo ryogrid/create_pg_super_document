@@ -23,9 +23,8 @@ This function is the recursive workhorse of PostgreSQL's collation assignment sy
 The function handles special cases for complex node types like aggregates (calling specialized functions like ), CASE expressions, and row comparisons. For most nodes, it follows a standard pattern: recurse to children, determine the node's collation based on type and child collations, then merge the result into the parent context.
 
 ## Parameters / Member Variables
-- : The current expression node being processed (can be NULL for empty subexpressions)
-- : Collation context containing state information including parser state and accumulated collation information
-
+- `*node`: The current expression node being processed (can be NULL for empty subexpressions)
+- `*context`: Collation context containing state information including parser state and accumulated collation information
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (for recursive traversal)

@@ -23,11 +23,10 @@ The function performs a visibility test using the provided snapshot to determine
 The function includes protection against unexpected usage during logical decoding operations, ensuring data consistency in replication scenarios.
 
 ## Parameters / Member Variables
-- : Relation (table) from which to fetch the tuple
-- : ItemPointer identifying the exact tuple location to fetch
-- : Snapshot used for visibility testing to determine if the tuple is visible to the current transaction
-- : TupleTableSlot where the fetched tuple data will be stored
-
+- `rel`: Relation (table) from which to fetch the tuple
+- `tid`: ItemPointer identifying the exact tuple location to fetch
+- `snapshot`: Snapshot used for visibility testing to determine if the tuple is visible to the current transaction
+- `*slot`: TupleTableSlot where the fetched tuple data will be stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Relation](../R/Relation.md) (table relation structure)

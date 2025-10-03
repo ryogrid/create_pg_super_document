@@ -23,8 +23,7 @@ The algorithm works as follows:
 The function enforces strict bounds checking to prevent overflow, requiring that input values do not exceed .
 
 ## Parameters / Member Variables
-- : A 32-bit unsigned integer that must be greater than 0 and not exceed  (the function asserts these preconditions)
-
+- `num`: A 32-bit unsigned integer that must be greater than 0 and not exceed  (the function asserts these preconditions)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (to find the position of the most significant bit)

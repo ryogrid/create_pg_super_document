@@ -26,9 +26,8 @@ The function performs several critical operations:
 The function includes numerous assertions to verify the process is actually waiting and that data structures are in the expected state.
 
 ## Parameters / Member Variables
-- : Pointer to the PGPROC structure representing the process to remove from the wait queue
-- : Hash code identifying the lock partition (used for lock cleanup)
-
+- `*proc`: Pointer to the PGPROC structure representing the process to remove from the wait queue
+- `hashcode`: Hash code identifying the lock partition (used for lock cleanup)
 ## Dependencies
 - Functions called/Symbols referenced:
   - LOCK_LOCKMETHOD (macro)

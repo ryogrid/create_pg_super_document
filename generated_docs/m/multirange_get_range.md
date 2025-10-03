@@ -19,10 +19,9 @@ The function reconstructs an individual range from the compressed multirange for
 The resulting RangeType is allocated as a complete, standalone range object that can be used independently of the original multirange. The function handles both lower and upper bounds according to the range flags, properly aligning data and calculating the total memory required.
 
 ## Parameters / Member Variables
-- : TypeCacheEntry containing type information for the range element type
-- : Pointer to the source MultirangeType structure
-- : Zero-based index of the range to extract
-
+- `*rangetyp`: TypeCacheEntry containing type information for the range element type
+- `*multirange`: Pointer to the source MultirangeType structure
+- `i`: Zero-based index of the range to extract
 ## Dependencies
 - Functions called/Symbols referenced:
   - [multirange_get_bounds_offset](multirange_get_bounds_offset.md)

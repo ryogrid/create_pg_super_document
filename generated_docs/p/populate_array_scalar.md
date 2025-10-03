@@ -16,10 +16,9 @@ populate_array_scalar(void *_state, char *token, JsonTokenType tokentype)
 This function serves as a JSON semantic action callback specifically designed for handling scalar values (strings, numbers, booleans, null) during the JSON array population process. It performs critical validation to ensure that the JSON structure matches the expected array dimensions, and when appropriate, stores the scalar token for later processing. The function handles dimension validation by checking if scalars appear at the correct nesting level and reports errors when the structure doesn't match expectations.
 
 ## Parameters / Member Variables
-- : A void pointer cast to PopulateArrayState containing the parsing state and context
-- : A character pointer to the scalar token string representation
-- : The JsonTokenType indicating the specific type of the scalar (string, number, boolean, null)
-
+- `*_state`: A void pointer cast to PopulateArrayState containing the parsing state and context
+- `*token`: A character pointer to the scalar token string representation
+- `tokentype`: The JsonTokenType indicating the specific type of the scalar (string, number, boolean, null)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [JsonTokenType](../J/JsonTokenType.md) (token type enumeration)

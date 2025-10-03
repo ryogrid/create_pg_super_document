@@ -18,8 +18,7 @@ This function calculates the minimum number of bits required to represent 5 rais
 The function includes safety assertions to ensure the input parameter e is within valid bounds (0 <= e <= 3528). Beyond e = 3529, the multiplication would overflow, making the approximation invalid.
 
 ## Parameters / Member Variables
-- : The exponent value (int32). Must be non-negative and <= 3528 to prevent integer overflow in the calculation.
-
+- `e`: The exponent value (int32). Must be non-negative and <= 3528 to prevent integer overflow in the calculation.
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (for input validation)

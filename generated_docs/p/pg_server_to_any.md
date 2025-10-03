@@ -24,10 +24,9 @@ This function performs encoding conversion from the database's encoding to any t
 The function assumes the input string is valid in the database encoding and handles various edge cases efficiently.
 
 ## Parameters / Member Variables
-- : Source string in database encoding to be converted
-- : Length of the source string in bytes (≤0 treated as empty string)  
-- : Target encoding identifier to convert the string to
-
+- `*s`: Source string in database encoding to be converted
+- `len`: Length of the source string in bytes (≤0 treated as empty string)
+- `encoding`: Target encoding identifier to convert the string to
 ## Dependencies
 - Functions called/Symbols referenced:
   - unconstify (type casting utility)

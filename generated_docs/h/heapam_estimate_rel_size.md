@@ -18,12 +18,11 @@ heapam_estimate_rel_size(Relation rel, int32 *attr_widths,
 This function is part of the heap table access method interface and provides size estimation for heap-based relations. It serves as a wrapper that delegates the actual estimation work to the generic  function, providing heap-specific overhead constants. The function calculates estimates for the number of pages, tuples, and all-visible fraction based on the relation's current statistics and the provided attribute width information.
 
 ## Parameters / Member Variables
-- : The relation for which to estimate size
-- : Array of average widths for each attribute in the relation
-- : Output parameter for estimated number of pages
-- : Output parameter for estimated number of tuples
-- : Output parameter for estimated fraction of all-visible pages
-
+- `rel`: The relation for which to estimate size
+- `*attr_widths`: Array of average widths for each attribute in the relation
+- `*pages`: Output parameter for estimated number of pages
+- `*tuples`: Output parameter for estimated number of tuples
+- `*allvisfrac`: Output parameter for estimated fraction of all-visible pages
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_block_relation_estimate_size](../t/table_block_relation_estimate_size.md)

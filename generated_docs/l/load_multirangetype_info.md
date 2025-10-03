@@ -21,8 +21,7 @@ When called, the function:
 3. Looks up and caches the range type information using  with the  flag
 
 ## Parameters / Member Variables
-- : A pointer to the TypeCacheEntry structure that will be populated with multirange type information. This entry represents the multirange type being processed.
-
+- `*typentry`: A pointer to the TypeCacheEntry structure that will be populated with multirange type information. This entry represents the multirange type being processed.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_multirange_range](../g/get_multirange_range.md)

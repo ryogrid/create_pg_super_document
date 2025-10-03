@@ -24,12 +24,11 @@ The function operates under MultiXactGenLock protection to ensure atomic access 
 The captured information includes the next MultiXact ID to be assigned, the next offset for member storage, and information about the oldest MultiXact still in use, which is crucial for vacuum and wraparound prevention.
 
 ## Parameters / Member Variables
-- : Boolean indicating whether this is called during database shutdown (currently unused in the function)
-- : Output parameter to receive the next MultiXact ID to be assigned
-- : Output parameter to receive the next offset for storing MultiXact members
-- : Output parameter to receive the oldest MultiXact ID still in use
-- : Output parameter to receive the database OID containing the oldest MultiXact
-
+- `is_shutdown`: Boolean indicating whether this is called during database shutdown (currently unused in the function)
+- `*nextMulti`: Output parameter to receive the next MultiXact ID to be assigned
+- `*nextMultiOffset`: Output parameter to receive the next offset for storing MultiXact members
+- `*oldestMulti`: Output parameter to receive the oldest MultiXact ID still in use
+- `*oldestMultiDB`: Output parameter to receive the database OID containing the oldest MultiXact
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockAcquire](../L/LWLockAcquire.md)

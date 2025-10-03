@@ -23,10 +23,9 @@ The function works by:
 3. If all colors are covered, replacing the multiple arcs with a single RAINBOW arc
 
 ## Parameters / Member Variables
-- : Pointer to the vars structure containing regex compilation state and context
-- : Pointer to the left state (source state) of the bracket expression
-- : Pointer to the right state (destination state) of the bracket expression
-
+- `*v`: Pointer to the vars structure containing regex compilation state and context
+- `*lp`: Pointer to the left state (source state) of the bracket expression
+- `*rp`: Pointer to the right state (destination state) of the bracket expression
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CDEND](../C/CDEND.md) (macro for color descriptor end)

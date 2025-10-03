@@ -23,13 +23,12 @@ The algorithm works in several phases:
 5. Generate the offspring by placing selected cities or inheriting from tour2
 
 ## Parameters / Member Variables
-- : PlannerInfo pointer containing query planning context and random number generation state
-- : First parent tour (gene sequence) contributing selected positions to offspring
-- : Second parent tour (gene sequence) providing remaining cities in order
-- : Output buffer to store the resulting gene sequence after crossover
-- : Number of genes (cities/relations) in each tour
-- : Working array of City structures used to track city usage and selection
-
+- `*root`: PlannerInfo pointer containing query planning context and random number generation state
+- `*tour1`: First parent tour (gene sequence) contributing selected positions to offspring
+- `*tour2`: Second parent tour (gene sequence) providing remaining cities in order
+- `*offspring`: Output buffer to store the resulting gene sequence after crossover
+- `num_gene`: Number of genes (cities/relations) in each tour
+- `*city_table`: Working array of City structures used to track city usage and selection
 ## Dependencies
 - Functions called/Symbols referenced:
   - [geqo_randint](../g/geqo_randint.md) (for random number generation)

@@ -30,8 +30,7 @@ The function performs several key operations:
 This step is crucial for Romanian stemming as it handles language-specific morphological patterns that are unique to Romanian word formation.
 
 ## Parameters / Member Variables
-- : Pointer to SN_env structure containing the stemming environment, including cursor position, string boundaries, and working buffers
-
+- `*z`: Pointer to SN_env structure containing the stemming environment, including cursor position, string boundaries, and working buffers
 ## Dependencies
 - Functions called/Symbols referenced:
   - [r_R1](r_R1.md): Validates that the operation is within the R1 region

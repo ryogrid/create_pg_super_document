@@ -20,10 +20,9 @@ The function serves a critical role in PostgreSQL's type system by bridging doma
 For RECORD types, it delegates to lookup_rowtype_tupdesc_internal(), while for other types it uses the type cache system to efficiently resolve both regular composite types and domain-wrapped composite types.
 
 ## Parameters / Member Variables
-- : OID of the type to look up (can be a composite type, domain over composite type, or RECORDOID)
-- : Type modifier value that may affect the specific variant of the type
-- : If true, returns NULL on failure instead of throwing an error
-
+- `type_id`: OID of the type to look up (can be a composite type, domain over composite type, or RECORDOID)
+- `typmod`: Type modifier value that may affect the specific variant of the type
+- `noError`: If true, returns NULL on failure instead of throwing an error
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lookup_type_cache](lookup_type_cache.md)

@@ -23,8 +23,7 @@ Key functionality:
 - Handles buffer management and cleanup
 
 ## Parameters / Member Variables
-- : XLogReaderState pointer containing the WAL record being replayed, including the full-page image of the vacuumed page
-
+- `*record`: XLogReaderState pointer containing the WAL record being replayed, including the full-page image of the vacuumed page
 ## Dependencies
 - Functions called/Symbols referenced:
   - [XLogReadBufferForRedo](../X/XLogReadBufferForRedo.md)

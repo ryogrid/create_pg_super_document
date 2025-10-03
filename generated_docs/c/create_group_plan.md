@@ -20,9 +20,8 @@ The function builds the target list for the Group node using the path informatio
 The Group node implementation assumes that input data is already sorted by the grouping columns, which is typically ensured by having a Sort node as a child or by leveraging index ordering.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global planning information and context
-- : GroupPath structure representing the chosen grouping strategy and associated GROUP BY clauses
-
+- `*root`: PlannerInfo structure containing global planning information and context
+- `*best_path`: GroupPath structure representing the chosen grouping strategy and associated GROUP BY clauses
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Recursively creates execution plans for subpaths with CP_LABEL_TLIST flag

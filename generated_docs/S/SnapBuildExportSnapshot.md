@@ -28,8 +28,7 @@ This function creates an exportable snapshot from a logical decoding builder sta
 The function ensures that the source transaction remains open so that importing sessions can verify the xmin horizon hasn't advanced, maintaining consistency guarantees.
 
 ## Parameters / Member Variables
-- : The SnapBuild structure containing the logical decoding state from which to create the exportable snapshot
-
+- `*builder`: The SnapBuild structure containing the logical decoding state from which to create the exportable snapshot
 ## Dependencies
 - Functions called/Symbols referenced:
   - [IsTransactionOrTransactionBlock](../I/IsTransactionOrTransactionBlock.md)

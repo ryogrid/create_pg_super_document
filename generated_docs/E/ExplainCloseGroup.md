@@ -24,11 +24,10 @@ ExplainCloseGroup is responsible for properly terminating a group of related obj
 The function ensures that the EXPLAIN output is properly structured and syntactically correct for each supported format.
 
 ## Parameters / Member Variables
-- : The type of object being closed (used for XML tag names)
-- : The label name for the group (must match the corresponding ExplainOpenGroup call)
-- : Boolean flag indicating whether this is a labeled group (affects JSON output - '}' vs ']')
-- : ExplainState structure containing formatting information, indentation level, and grouping stack
-
+- `*objtype`: The type of object being closed (used for XML tag names)
+- `*labelname`: The label name for the group (must match the corresponding ExplainOpenGroup call)
+- `labeled`: Boolean flag indicating whether this is a labeled group (affects JSON output - '}' vs ']')
+- `*es`: ExplainState structure containing formatting information, indentation level, and grouping stack
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExplainXMLTag](ExplainXMLTag.md) (for XML format closing tags)

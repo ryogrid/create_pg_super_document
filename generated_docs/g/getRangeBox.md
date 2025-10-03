@@ -18,8 +18,7 @@ This function performs a structural transformation from PostgreSQL's standard BO
 The RangeBox structure provides a more convenient access pattern for SP-GiST operations by organizing the coordinate ranges into left (x-axis) and right (y-axis) Range structures, each containing low and high float8 values. This representation facilitates range-based comparisons and spatial operations required by the indexing algorithms.
 
 ## Parameters / Member Variables
-- : Pointer to a BOX structure containing low and high points with x,y coordinates
-
+- `*box`: Pointer to a BOX structure containing low and high points with x,y coordinates
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BOX](../B/BOX.md) (PostgreSQL geometric box type)

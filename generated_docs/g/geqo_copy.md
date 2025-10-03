@@ -17,11 +17,10 @@ geqo_copy(PlannerInfo *root, Chromosome *chromo1, Chromosome *chromo2,
 The  function performs a complete deep copy of chromosome data from one chromosome structure to another. This function is a fundamental utility in PostgreSQL's genetic algorithm-based query optimizer (GEQO). It copies both the gene sequence (represented as an array of integers) and the fitness value (worth) from the source chromosome to the destination chromosome. The function operates by iterating through the gene string and copying each element individually, then copying the fitness score.
 
 ## Parameters / Member Variables
-- : PlannerInfo pointer containing planner context (not used in this function but follows GEQO interface conventions)
-- : Destination chromosome that will receive the copied data
-- : Source chromosome from which data will be copied
-- : Length of the gene string to be copied (number of elements in the chromosome array)
-
+- `*root`: PlannerInfo pointer containing planner context (not used in this function but follows GEQO interface conventions)
+- `*chromo1`: Destination chromosome that will receive the copied data
+- `*chromo2`: Source chromosome from which data will be copied
+- `string_length`: Length of the gene string to be copied (number of elements in the chromosome array)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Chromosome](../C/Chromosome.md) (struct type)

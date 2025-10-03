@@ -18,8 +18,7 @@ This function computes the next power of 2 for a given input by leveraging the m
 The function uses the mathematical relationship that the smallest power of 2 greater than or equal to num is 2^(ceil(log₂(num))). By using bit shifting (1L << exponent), it achieves this calculation efficiently while ensuring the result fits within the bounds of a long integer.
 
 ## Parameters / Member Variables
-- : The input number for which to find the next power of 2
-
+- `num`: The input number for which to find the next power of 2
 ## Dependencies
 - Functions called/Symbols referenced:
   - [my_log2](../m/my_log2.md) (calculates ceiling of base-2 logarithm)

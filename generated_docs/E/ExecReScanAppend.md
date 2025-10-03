@@ -25,8 +25,7 @@ The function handles several critical aspects:
 6. **Execution State Reset**: Returns the node to its initial state ready for fresh execution
 
 ## Parameters / Member Variables
-- : The AppendState containing the execution state to be reset
-
+- `*node`: The AppendState containing the execution state to be reset
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bms_overlap](../b/bms_overlap.md) (for checking parameter intersection)

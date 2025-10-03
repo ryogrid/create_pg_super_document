@@ -17,11 +17,10 @@ assignProcTypes(OpFamilyMember *member, Oid amoid, Oid typeoid,
 This comprehensive function processes support procedures being added to operator families, validating their signatures and determining their associated data types. It performs specialized validation based on the access method (btree, hash) and procedure number. For btree, it validates comparison functions, sort support functions, in_range functions, and equal image functions. For hash, it validates standard and extended hash functions. It also handles operator class options parsing functions with specific signature requirements. The function automatically infers lefttype/righttype from procedure signatures when not explicitly specified, falling back to the opclass input type.
 
 ## Parameters / Member Variables
-- : Pointer to OpFamilyMember structure containing procedure information to be processed
-- : OID of the access method that will use this procedure
-- : OID of the operator class input type, used as fallback for lefttype/righttype
-- : Procedure number designated for operator class options parsing functions
-
+- `*member`: Pointer to OpFamilyMember structure containing procedure information to be processed
+- `amoid`: OID of the access method that will use this procedure
+- `typeoid`: OID of the operator class input type, used as fallback for lefttype/righttype
+- `opclassOptsProcNum`: Procedure number designated for operator class options parsing functions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [OpFamilyMember](../O/OpFamilyMember.md) (type)

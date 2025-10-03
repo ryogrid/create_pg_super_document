@@ -16,8 +16,7 @@ BumpFree(void *pointer)
 BumpFree is an intentionally non-functional implementation of the memory context free operation for the bump allocator. Rather than performing any actual memory deallocation, this function immediately throws an ERROR with the message that 'pfree is not supported by the bump memory allocator'. This design choice reflects the fundamental philosophy of bump allocators: memory is allocated sequentially and freed only when the entire context is reset or destroyed. Individual chunk deallocation would violate the allocator's efficiency guarantees and simple implementation model.
 
 ## Parameters / Member Variables
-- : Pointer to memory that would be freed (parameter is ignored as the function always errors)
-
+- `*pointer`: Pointer to memory that would be freed (parameter is ignored as the function always errors)
 ## Dependencies
 - Functions called/Symbols referenced:
   - elog (error logging function)

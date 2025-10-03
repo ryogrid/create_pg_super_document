@@ -22,8 +22,7 @@ The function categorizes operators into several groups:
 - Comparison and positional operators (<, <=, >, >=, <<, >>, &<, &>): Use DEFAULT_INEQ_SEL constant (similar to scalar inequalities)
 
 ## Parameters / Member Variables
-- : The OID of the multirange operator for which to estimate selectivity
-
+- `operator`: The OID of the multirange operator for which to estimate selectivity
 ## Dependencies
 - Functions called/Symbols referenced:
   - DEFAULT_MULTIRANGE_INEQ_SEL

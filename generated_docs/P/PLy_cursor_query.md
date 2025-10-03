@@ -18,8 +18,7 @@ PLy_cursor_query creates a cursor object for executing and iterating through the
 The function operates within a subtransaction to ensure proper error handling and resource cleanup. It validates the query string encoding, prepares the query plan, and creates a named portal that can be used for incremental result fetching. The portal is pinned to prevent premature cleanup and the portal name is stored in the cursor object for later access.
 
 ## Parameters / Member Variables
-- : SQL query string to be executed through the cursor
-
+- `*query`: SQL query string to be executed through the cursor
 ## Dependencies
 - Functions called/Symbols referenced:
   - PyObject_New (Python C API)

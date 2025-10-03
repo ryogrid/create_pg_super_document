@@ -25,8 +25,7 @@ Key operations performed:
 - Deletes the main statistics object tuple
 
 ## Parameters / Member Variables
-- : OID of the extended statistics object to be completely removed from the system
-
+- `statsOid`: OID of the extended statistics object to be completely removed from the system
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md) (opens catalogs with appropriate locks)

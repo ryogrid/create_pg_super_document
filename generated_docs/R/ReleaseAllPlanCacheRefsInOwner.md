@@ -20,8 +20,7 @@ This function is part of PostgreSQL's resource management system, which tracks r
 The function is a simple wrapper around ResourceOwnerReleaseAllOfKind(), which is the generic mechanism for releasing all resources of a specific type from a resource owner. The planref_resowner_desc parameter identifies cached plan references as the resource type to be released.
 
 ## Parameters / Member Variables
-- : The ResourceOwner whose cached plan references should be released
-
+- `owner`: The ResourceOwner whose cached plan references should be released
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ResourceOwnerReleaseAllOfKind](ResourceOwnerReleaseAllOfKind.md) (generic resource release function)

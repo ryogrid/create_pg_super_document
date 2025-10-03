@@ -26,13 +26,12 @@ This function is responsible for setting up partition information for a join rel
 If all conditions are met, the function sets up the join relation's partitioning metadata by copying the partition scheme from the input relations and calling  to establish partition key expressions for the join.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global planner state and configuration
-- : The join relation being constructed that will potentially inherit partition information  
-- : The outer relation in the join operation
-- : The inner relation in the join operation
-- : SpecialJoinInfo containing join type and other join-specific metadata
-- : List of join restriction clauses used to determine equi-join conditions
-
+- `*root`: PlannerInfo structure containing global planner state and configuration
+- `*joinrel`: The join relation being constructed that will potentially inherit partition information
+- `*outer_rel`: The outer relation in the join operation
+- `*inner_rel`: The inner relation in the join operation
+- `*sjinfo`: SpecialJoinInfo containing join type and other join-specific metadata
+- `*restrictlist`: List of join restriction clauses used to determine equi-join conditions
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Determines if equi-join exists on partition keys

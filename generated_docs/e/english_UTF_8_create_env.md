@@ -24,6 +24,7 @@ This environment must be created before calling english_UTF_8_stem() and should 
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SN_create_env](../S/SN_create_env.md): Generic Snowball environment creation function (called with parameters 0, 3)

@@ -18,12 +18,11 @@ build_sorted_items(StatsBuildData *data, int *nitems,
 This function creates a sorted array of SortItem structures from statistical sample data. It performs several critical operations: allocates memory in a single chunk for efficiency, extracts and processes attribute values from sample rows, handles variable-length data by detoasting when necessary, filters out overly wide values that exceed WIDTH_THRESHOLD, and finally sorts the resulting items using multi-column sort support. The function is designed to support extended statistics calculations like dependency analysis and multi-column value (MCV) statistics.
 
 ## Parameters / Member Variables
-- : StatsBuildData structure containing sample rows and metadata for statistics computation
-- : Output parameter that receives the actual number of items in the resulting sorted array
-- : MultiSortSupport structure providing multi-column sorting capabilities
-- : Number of attributes to process from the sample data
-- : Array of attribute numbers specifying which attributes to include
-
+- `*data`: StatsBuildData structure containing sample rows and metadata for statistics computation
+- `*nitems`: Output parameter that receives the actual number of items in the resulting sorted array
+- `mss`: MultiSortSupport structure providing multi-column sorting capabilities
+- `numattrs`: Number of attributes to process from the sample data
+- `*attnums`: Array of attribute numbers specifying which attributes to include
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_typlen](../g/get_typlen.md)

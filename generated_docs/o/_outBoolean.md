@@ -16,9 +16,8 @@ _outBoolean(StringInfo str, const Boolean *node)
 This function converts a Boolean node into its textual representation by appending either "true" or "false" to the provided StringInfo buffer based on the boolean value stored in the node. It provides a simple and direct serialization mechanism for Boolean constants in PostgreSQL's abstract syntax tree representation.
 
 ## Parameters / Member Variables
-- : StringInfo buffer where the boolean string representation will be appended
-- : Pointer to the Boolean node containing the boolean value to be serialized
-
+- `str`: StringInfo buffer where the boolean string representation will be appended
+- `*node`: Pointer to the Boolean node containing the boolean value to be serialized
 ## Dependencies
 - Functions called/Symbols referenced:
   - [appendStringInfoString](../a/appendStringInfoString.md) (indirectly via string literal appending)

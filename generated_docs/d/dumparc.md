@@ -20,10 +20,9 @@ The  function provides a comprehensive textual representation of an individual N
 The function handles special cases like RAINBOW (match-all) colors and provides diagnostic output when arc chain inconsistencies are detected, making it an essential tool for debugging NFA structure during regex compilation.
 
 ## Parameters / Member Variables
-- : Pointer to the arc structure to be dumped
-- : Pointer to the source state (used for validation)
-- : File stream where the arc information will be written
-
+- `*a`: Pointer to the arc structure to be dumped
+- `*s`: Pointer to the source state (used for validation)
+- `*f`: File stream where the arc information will be written
 ## Dependencies
 - Functions called/Symbols referenced:
   - PLAIN (arc type for normal character transitions)

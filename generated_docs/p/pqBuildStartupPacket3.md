@@ -17,10 +17,9 @@ pqBuildStartupPacket3(PGconn *conn, int *packetlen,
 pqBuildStartupPacket3 serves as a memory-allocating wrapper around the build_startup_packet function. It first calls build_startup_packet with a NULL buffer to determine the required packet length, then allocates the necessary memory, and finally calls build_startup_packet again with the allocated buffer to construct the actual startup packet. This two-phase approach ensures efficient memory allocation by determining the exact size needed before allocation.
 
 ## Parameters / Member Variables
-- : PostgreSQL connection handle containing connection parameters
-- : Pointer to store the length of the constructed packet
-- : Array of PQEnvironmentOption structures containing environment-specific connection options
-
+- `*conn`: PostgreSQL connection handle containing connection parameters
+- `*packetlen`: Pointer to store the length of the constructed packet
+- `*options`: Array of PQEnvironmentOption structures containing environment-specific connection options
 ## Dependencies
 - Functions called/Symbols referenced:
   - [build_startup_packet](../b/build_startup_packet.md) (core packet construction function)

@@ -30,13 +30,12 @@ The function performs several key operations:
 The function is particularly intelligent about sorting: it always includes the cheapest unsorted path for set operations that don't require sorted input, but also creates sorted paths when they would benefit operations like MergeAppend in UNIONs.
 
 ## Parameters / Member Variables
-- : PlannerInfo containing the overall query planning context
-- : RelOptInfo representing the set operation child relation (must be RTE_SUBQUERY)
-- : Boolean indicating whether the target list requires no type conversions
-- : Target list for the child relation
-- : List of pathkeys that would be beneficial for sorted paths, or NIL if sorting is not needed
-- : Output parameter for estimated number of distinct groups, or NULL if not needed
-
+- `*root`: PlannerInfo containing the overall query planning context
+- `*rel`: RelOptInfo representing the set operation child relation (must be RTE_SUBQUERY)
+- `trivial_tlist`: Boolean indicating whether the target list requires no type conversions
+- `*child_tlist`: Target list for the child relation
+- `*interesting_pathkeys`: List of pathkeys that would be beneficial for sorted paths, or NIL if sorting is not needed
+- `*pNumGroups`: Output parameter for estimated number of distinct groups, or NULL if not needed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [add_setop_child_rel_equivalences](../a/add_setop_child_rel_equivalences.md)

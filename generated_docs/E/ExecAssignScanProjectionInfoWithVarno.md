@@ -18,9 +18,8 @@ ExecAssignScanProjectionInfoWithVarno provides flexibility for scan nodes that n
 Like its counterpart ExecAssignScanProjectionInfo, this function delegates the actual projection setup to ExecConditionalAssignProjectionInfo, but allows the caller to override the varno parameter rather than extracting it from the scan plan's scanrelid field. This enables more precise control over how variable references in the target list are matched against the tuple descriptor.
 
 ## Parameters / Member Variables
-- : The ScanState containing the scan tuple slot with descriptor information
-- : The variable number to be used when analyzing Vars in the target list for projection optimization
-
+- `*node`: The ScanState containing the scan tuple slot with descriptor information
+- `varno`: The variable number to be used when analyzing Vars in the target list for projection optimization
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecConditionalAssignProjectionInfo](ExecConditionalAssignProjectionInfo.md) (performs projection analysis with the specified varno)

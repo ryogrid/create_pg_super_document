@@ -24,12 +24,11 @@ The function handles the conversion of various data types to their appropriate D
 The function uses heap_form_tuple to construct the tuple from arrays of values and null indicators, then inserts it into pg_class using CatalogTupleInsert. It properly manages memory by freeing the constructed tuple after insertion.
 
 ## Parameters / Member Variables
-- : Already opened and locked relation handle for the pg_class catalog
-- : Relation descriptor for the new relation being registered; provides most field values via rd_rel
-- : OID to assign to the new relation entry in pg_class
-- : Datum containing the access control list for the relation; pass (Datum) 0 to set to NULL
-- : Datum containing relation options; pass (Datum) 0 to set to NULL
-
+- `pg_class_desc`: Already opened and locked relation handle for the pg_class catalog
+- `new_rel_desc`: Relation descriptor for the new relation being registered; provides most field values via rd_rel
+- `new_rel_oid`: OID to assign to the new relation entry in pg_class
+- `relacl`: Datum containing the access control list for the relation; pass (Datum) 0 to set to NULL
+- `reloptions`: Datum containing relation options; pass (Datum) 0 to set to NULL
 ## Dependencies
 - Functions called/Symbols referenced:
   - [heap_form_tuple](../h/heap_form_tuple.md)

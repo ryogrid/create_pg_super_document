@@ -22,8 +22,7 @@ The function implements several optimization strategies:
 - Accounts for dynamic batch number increases during execution
 
 ## Parameters / Member Variables
-- : The HashJoinState containing all state information for the hash join operation, including the hash table and batch file references
-
+- `*hjstate`: The HashJoinState containing all state information for the hash join operation, including the hash table and batch file references
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BufFileClose](../B/BufFileClose.md)

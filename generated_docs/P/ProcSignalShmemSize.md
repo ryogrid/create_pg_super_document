@@ -16,7 +16,6 @@ ProcSignalShmemSize(void)
 ProcSignalShmemSize is a memory calculation function that determines the amount of shared memory required for the process signaling infrastructure. It calculates the space needed for an array of ProcSignalSlot structures plus the ProcSignalHeader structure. The function performs safe arithmetic operations using mul_size and add_size to avoid integer overflow when computing memory requirements for large numbers of process slots.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

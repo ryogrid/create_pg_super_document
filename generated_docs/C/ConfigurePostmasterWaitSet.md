@@ -22,8 +22,7 @@ ConfigurePostmasterWaitSet manages the postmaster's event monitoring system by c
 The function always destroys and recreates the entire WaitEventSet rather than modifying existing events, as PostgreSQL's event system doesn't currently support selective event removal. The wait set is automatically cleaned up in forked child processes by ClosePostmasterPorts().
 
 ## Parameters / Member Variables
-- : Boolean flag determining whether to configure the wait set to accept new client connections
-
+- `accept_connections`: Boolean flag determining whether to configure the wait set to accept new client connections
 ## Dependencies
 - Functions called/Symbols referenced:
   - [FreeWaitEventSet](../F/FreeWaitEventSet.md)

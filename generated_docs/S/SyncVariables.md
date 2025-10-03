@@ -17,7 +17,6 @@ This function is called whenever a new database connection is established to upd
 The function updates both the global pset structure and psql's variable system with current connection details including database name, user, host, port, encoding, and server version information. It also ensures that client-side error reporting preferences are applied to the connection.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

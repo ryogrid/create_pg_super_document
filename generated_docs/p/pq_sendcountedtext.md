@@ -18,10 +18,9 @@ This function formats and appends a text string to a StringInfo buffer according
 The function intelligently handles character set conversion by checking if actual conversion occurred. If conversion was performed (indicated by a different pointer being returned), it recalculates the string length and frees the converted string. If no conversion was needed, it uses the original string directly. The input string does not need to be null-terminated, and the transmitted data is also not null-terminated.
 
 ## Parameters / Member Variables
-- : StringInfo buffer to append the counted text to
-- : Pointer to the text string to send (need not be null-terminated)
-- : Length of the input string in bytes
-
+- `buf`: StringInfo buffer to append the counted text to
+- `*str`: Pointer to the text string to send (need not be null-terminated)
+- `slen`: Length of the input string in bytes
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_server_to_client](pg_server_to_client.md) (character set conversion)

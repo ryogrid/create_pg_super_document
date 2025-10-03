@@ -15,7 +15,6 @@ void smgrinit(void)
 The `smgrinit` function is responsible for initializing all storage managers in the PostgreSQL storage system. It is called during backend startup (both normal and standalone cases), but not during postmaster start, ensuring that any resources created are backend-local. The function iterates through all available storage managers in the `smgrsw` array and calls their respective initialization functions if they exist. Additionally, it registers the `smgrshutdown` function to be called during process exit to ensure proper cleanup of storage manager resources.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

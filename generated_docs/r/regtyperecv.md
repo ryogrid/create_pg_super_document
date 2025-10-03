@@ -18,8 +18,7 @@ The  function is PostgreSQL's binary receive function for the regtype data type.
 This function is part of PostgreSQL's type system infrastructure and is called automatically when binary data needs to be converted to regtype format, such as during network communication or binary data transfer operations.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function argument macro
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument macro
 ## Dependencies
 - Functions called/Symbols referenced:
   - : OID binary receive function that handles the actual conversion

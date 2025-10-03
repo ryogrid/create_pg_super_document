@@ -21,9 +21,8 @@ When the fileset state is set to FS_SERIALIZE_DONE, the function performs additi
 The function uses spinlocks to ensure atomic updates to the shared state, preventing race conditions between the leader worker and parallel workers when accessing fileset information.
 
 ## Parameters / Member Variables
-- : Pointer to ParallelApplyWorkerShared structure containing shared state between leader and parallel workers
-- : PartialFileSetState enum value indicating the new state of the fileset (e.g., FS_SERIALIZE_DONE)
-
+- `*wshared`: Pointer to ParallelApplyWorkerShared structure containing shared state between leader and parallel workers
+- `fileset_state`: PartialFileSetState enum value indicating the new state of the fileset (e.g., FS_SERIALIZE_DONE)
 ## Dependencies
 - Functions called/Symbols referenced:
   - SpinLockAcquire

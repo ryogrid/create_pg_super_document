@@ -23,9 +23,8 @@ The output format is optimized to be as compact as possible:
 - For hours, minutes, and seconds: ±HHMMSS (e.g., +053045)
 
 ## Parameters / Member Variables
-- : Output buffer where the formatted offset string will be written
-- : The timezone offset in seconds (positive for east of UTC, negative for west)
-
+- `*buf`: Output buffer where the formatted offset string will be written
+- `offset`: The timezone offset in seconds (positive for east of UTC, negative for west)
 ## Dependencies
 - Functions called/Symbols referenced:
   - SECSPERMIN (constant for seconds per minute)

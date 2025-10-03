@@ -18,9 +18,8 @@ This function is part of PostgreSQL's statistics collection system, specifically
 The function works by preparing a pending statistics entry for the subscription and then incrementing the appropriate error counter based on the error type. This allows PostgreSQL to track subscription health and provide monitoring information about replication failures.
 
 ## Parameters / Member Variables
-- : The OID of the subscription for which to report the error
-- : Boolean flag indicating the error type - true for apply errors, false for sync errors
-
+- `subid`: The OID of the subscription for which to report the error
+- `is_apply_error`: Boolean flag indicating the error type - true for apply errors, false for sync errors
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pgstat_prep_pending_entry](pgstat_prep_pending_entry.md)

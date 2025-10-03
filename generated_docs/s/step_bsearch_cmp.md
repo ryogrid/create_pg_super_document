@@ -18,9 +18,8 @@ This function implements a comparison callback for binary searching through a so
 This function enables efficient lookup of steps by name in the isolation tester, which is crucial for resolving step references and validating test specifications.
 
 ## Parameters / Member Variables
-- : Pointer to the search key (step name as char*)
-- : Pointer to a Step pointer in the sorted array being searched
-
+- `*a`: Pointer to the search key (step name as char*)
+- `*b`: Pointer to a Step pointer in the sorted array being searched
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Step](../S/Step.md) (struct type)

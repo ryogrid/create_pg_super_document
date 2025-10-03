@@ -23,10 +23,9 @@ Like its array counterpart, it handles three key scenarios:
 3. **Whole object with subobject on stack**: When searching for a whole object but finding a subobject is present, it propagates flags to the subobject and marks it with DEPFLAG_SUBOBJECT
 
 ## Parameters / Member Variables
-- : Pointer to the ObjectAddress to search for in the stack
-- : Integer flags to OR into the found object's flag data
-- : Pointer to the ObjectAddressStack (linked list) to search within and potentially modify
-
+- `*object`: Pointer to the ObjectAddress to search for in the stack
+- `flags`: Integer flags to OR into the found object's flag data
+- `*stack`: Pointer to the ObjectAddressStack (linked list) to search within and potentially modify
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ObjectAddressStack](../O/ObjectAddressStack.md) (struct type)

@@ -20,8 +20,7 @@ The function ensures that wait event names are unique within the extension names
 Extensions can use the returned wait event ID to monitor specific waiting conditions in their code, which will then appear in PostgreSQL's wait event monitoring views like pg_stat_activity.
 
 ## Parameters / Member Variables
-- : A null-terminated string containing the name of the wait event to create or retrieve. The name should be descriptive and unique within the extension's namespace.
-
+- `*wait_event_name`: A null-terminated string containing the name of the wait event to create or retrieve. The name should be descriptive and unique within the extension's namespace.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [WaitEventCustomNew](WaitEventCustomNew.md) (underlying custom wait event creation function)

@@ -16,7 +16,6 @@ set_dl_error(void)
 The  function is part of PostgreSQL's Windows-specific dynamic loading implementation. It serves as a utility function to capture and format Windows system errors that occur during dynamic library operations (dlopen, dlsym, dlclose). The function retrieves the last error code using  and attempts to format it into a readable English message using the Windows  API. If the formatting fails, it falls back to displaying the raw error number. The formatted error message is stored in the static buffer  which can later be retrieved by the  function.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

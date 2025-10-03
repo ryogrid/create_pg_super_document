@@ -22,6 +22,7 @@ The restart timing mechanism prevents rapid restart loops and allows for control
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ValidateSlotSyncParams](../V/ValidateSlotSyncParams.md) (validates slot sync configuration parameters)

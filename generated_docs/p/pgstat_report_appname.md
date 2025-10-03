@@ -18,8 +18,7 @@ This function updates the application name stored in the backend's status entry 
 The function performs proper multi-byte character handling by clipping the application name to fit within the allocated storage space (NAMEDATALEN - 1 characters). It uses the standard change-counting protocol to ensure atomic updates to the shared status structure, preventing readers from seeing partial or inconsistent data during the update process.
 
 ## Parameters / Member Variables
-- : The application name string to be stored in the backend status (null-terminated C string)
-
+- `*appname`: The application name string to be stored in the backend status (null-terminated C string)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_mbcliplen](pg_mbcliplen.md)

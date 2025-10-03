@@ -18,8 +18,7 @@ This function is responsible for cleaning up memory allocated for a B-tree retra
 The implementation uses a simple iterative approach, maintaining a reference to the current stack node while advancing to the parent node, then freeing the current node. This continues until all nodes in the stack have been freed.
 
 ## Parameters / Member Variables
-- : The BTStack linked list to be freed, typically created by _bt_search operations
-
+- `stack`: The BTStack linked list to be freed, typically created by _bt_search operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - BTStack (structure type)

@@ -24,9 +24,8 @@ CloseServerPorts ensures orderly cleanup of network resources during postmaster 
 The function is designed to be safe to call multiple times and handles errors gracefully by logging issues rather than failing catastrophically.
 
 ## Parameters / Member Variables
-- : Exit status code (standard on_proc_exit callback parameter, unused)
-- : Datum argument (standard on_proc_exit callback parameter, unused)
-
+- `status`: Exit status code (standard on_proc_exit callback parameter, unused)
+- `arg`: Datum argument (standard on_proc_exit callback parameter, unused)
 ## Dependencies
 - Functions called/Symbols referenced:
   - closesocket: Close individual socket file descriptors

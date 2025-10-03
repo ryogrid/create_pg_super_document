@@ -18,9 +18,8 @@ This function provides a safe way to remove a node from a doubly-linked list wit
 The "thoroughly" aspect refers to the fact that after deletion, the node's next and prev pointers are set to NULL, which serves as a clear indicator that the node is not currently part of any list. This is particularly useful for debugging and preventing accidental reuse of nodes that have been removed from lists.
 
 ## Parameters / Member Variables
-- : Pointer to the list head from which the node should be removed
-- : Pointer to the node to be removed from the list
-
+- `*head`: Pointer to the list head from which the node should be removed
+- `*node`: Pointer to the node to be removed from the list
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dlist_member_check](dlist_member_check.md)

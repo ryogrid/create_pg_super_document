@@ -24,14 +24,13 @@ The function handles several key scenarios:
 The function returns DTK tokens for successful parsing or DTERR error codes for failures.
 
 ## Parameters / Member Variables
-- : Length of the input string
-- : Numeric string to be decoded (may be modified during processing)
-- : Bitmask indicating which fields have already been parsed
-- : Pointer to bitmask that will be updated with newly parsed fields
-- : Pointer to pg_tm structure to store parsed date/time components
-- : Pointer to store fractional seconds (in microseconds)
-- : Pointer to boolean indicating if a 2-digit year was encountered
-
+- `len`: Length of the input string
+- `*str`: Numeric string to be decoded (may be modified during processing)
+- `fmask`: Bitmask indicating which fields have already been parsed
+- `*tmask`: Pointer to bitmask that will be updated with newly parsed fields
+- `*tm`: Pointer to pg_tm structure to store parsed date/time components
+- `*fsec`: Pointer to store fractional seconds (in microseconds)
+- `*is2digits`: Pointer to boolean indicating if a 2-digit year was encountered
 ## Dependencies
 - Functions called/Symbols referenced:
   - strchr

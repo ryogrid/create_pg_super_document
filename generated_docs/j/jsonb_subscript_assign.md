@@ -26,10 +26,9 @@ Key behaviors include:
 The function leverages the workspace expectArray flag (set during subscript checking) to determine the appropriate container type when creating new JSONB values.
 
 ## Parameters / Member Variables
-- : Expression evaluation state (not directly used in this function)
-- : Expression evaluation step containing the SubscriptingRefState and result storage locations
-- : Expression context for evaluation (not directly used in this function)
-
+- `*state`: Expression evaluation state (not directly used in this function)
+- `*op`: Expression evaluation step containing the SubscriptingRefState and result storage locations
+- `*econtext`: Expression context for evaluation (not directly used in this function)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [JsonbToJsonbValue](../J/JsonbToJsonbValue.md)

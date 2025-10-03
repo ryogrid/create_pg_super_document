@@ -21,10 +21,9 @@ When the input node is a Var (variable reference), this function calls  with the
 For all other node types, it simply delegates to the standard  function.
 
 ## Parameters / Member Variables
-- : The parse tree node to convert to SQL text (can be NULL)
-- : Deparse context containing output buffer, formatting options, and namespace information
-- : Boolean flag controlling whether implicit casts are displayed in the output
-
+- `*node`: The parse tree node to convert to SQL text (can be NULL)
+- `*context`: Deparse context containing output buffer, formatting options, and namespace information
+- `showimplicit`: Boolean flag controlling whether implicit casts are displayed in the output
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (macro for type checking)

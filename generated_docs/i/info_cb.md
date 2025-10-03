@@ -18,10 +18,9 @@ The  function serves as an OpenSSL information callback that captures and logs v
 The callback handles multiple SSL event types including handshake start/completion, accept/connect loop states, and SSL alert conditions. Each event type is logged with descriptive text obtained from OpenSSL's state description functions.
 
 ## Parameters / Member Variables
-- : Pointer to the SSL connection structure providing context about the current SSL session
-- : Integer flag indicating the type of SSL event or state change being reported
-- : Additional arguments or status codes associated with the SSL event (used for exit codes and alert details)
-
+- `*ssl`: Pointer to the SSL connection structure providing context about the current SSL session
+- `type`: Integer flag indicating the type of SSL event or state change being reported
+- `args`: Additional arguments or status codes associated with the SSL event (used for exit codes and alert details)
 ## Dependencies
 - Functions called/Symbols referenced:
   - SSL_state_string_long (OpenSSL function)

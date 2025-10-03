@@ -18,9 +18,8 @@ This function is a simple wrapper around CheckTransactionBlock that provides a m
 The function serves as the counterpart to PreventInTransactionBlock - while PreventInTransactionBlock prevents execution entirely, WarnNoTransactionBlock allows execution but provides user feedback. It respects function and subtransaction contexts by not issuing warnings when inside these contexts, as the statement's results might be used by subsequent commands.
 
 ## Parameters / Member Variables
-- : bool - indicates whether the statement is being executed at the top level (not inside a function)
-- : const char* - name of the statement type for warning message formatting
-
+- `isTopLevel`: bool - indicates whether the statement is being executed at the top level (not inside a function)
+- `*stmtType`: const char* - name of the statement type for warning message formatting
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CheckTransactionBlock](../C/CheckTransactionBlock.md) (with isTopLevel, false, stmtType parameters)

@@ -16,9 +16,8 @@ bms_union(const Bitmapset *a, const Bitmapset *b)
 This function performs a bitwise union operation on two Bitmapsets, creating a new Bitmapset that contains all bits that are set in either input set. The function optimizes performance by copying the larger input set first and then ORing the smaller set into it. This approach minimizes the number of word-by-word operations needed. Both input sets remain unmodified, making this a pure functional operation.
 
 ## Parameters / Member Variables
-- : First input bitmapset (can be NULL)
-- : Second input bitmapset (can be NULL)
-
+- `*a`: First input bitmapset (can be NULL)
+- `*b`: Second input bitmapset (can be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bms_is_valid_set](bms_is_valid_set.md) (validation macro for input bitmapsets)

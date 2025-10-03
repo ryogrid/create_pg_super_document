@@ -16,8 +16,7 @@ collprovider_name(char c)
 The  function provides a simple mapping from single-character collation provider codes to their descriptive string names. PostgreSQL uses character codes internally to identify different collation providers, and this function translates those codes into readable names for display and debugging purposes. The function handles the three main collation providers supported by PostgreSQL: builtin, ICU, and libc.
 
 ## Parameters / Member Variables
-- : A character code representing the collation provider type. Expected values are:
-
+- `c`: A character code representing the collation provider type. Expected values are:
 ## Dependencies
 - Functions called/Symbols referenced:
   - COLLPROVIDER_BUILTIN

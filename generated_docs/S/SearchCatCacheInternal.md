@@ -23,13 +23,12 @@ SearchCatCacheInternal is the core implementation function that performs catalog
 The function implements an LRU-like optimization by moving frequently accessed cache entries to the front of their hash bucket lists. It also handles both positive cache entries (actual tuples) and negative cache entries (known non-existent tuples) to avoid repeated expensive disk I/O operations.
 
 ## Parameters / Member Variables
-- : Pointer to the CatCache structure representing the specific catalog cache to search
-- : Number of key values being used for the search (must match cache->cc_nkeys)
-- : First key value (Datum) for the search
-- : Second key value (Datum) for the search
-- : Third key value (Datum) for the search  
-- : Fourth key value (Datum) for the search
-
+- `*cache`: Pointer to the CatCache structure representing the specific catalog cache to search
+- `nkeys`: Number of key values being used for the search (must match cache->cc_nkeys)
+- `v1`: First key value (Datum) for the search
+- `v2`: Second key value (Datum) for the search
+- `v3`: Third key value (Datum) for the search
+- `v4`: Fourth key value (Datum) for the search
 ## Dependencies
 - Functions called/Symbols referenced:
   - [IsTransactionState](../I/IsTransactionState.md)

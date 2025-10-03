@@ -36,18 +36,17 @@ This function creates a complete relation cache entry for a relation that is bei
 The function handles different relation types (permanent, temporary, unlogged) and ensures proper backend assignment for temporary relations. For materialized views, it correctly sets the initially unpopulated state.
 
 ## Parameters / Member Variables
-- : Name of the relation being created
-- : OID of the namespace (schema) containing the relation  
-- : Tuple descriptor defining the relation's column structure
-- : OID assigned to the new relation
-- : OID of the table access method (for tables/sequences)
-- : Physical file number for relation storage
-- : OID of the tablespace where relation will be stored
-- : Whether this is a cluster-wide shared relation
-- : Whether this relation uses the relation mapping mechanism
-- : Persistence level (permanent, temporary, or unlogged)
-- : Type of relation (table, index, sequence, etc.)
-
+- `*relname`: Name of the relation being created
+- `relnamespace`: OID of the namespace (schema) containing the relation
+- `tupDesc`: Tuple descriptor defining the relation's column structure
+- `relid`: OID assigned to the new relation
+- `accessmtd`: OID of the table access method (for tables/sequences)
+- `relfilenumber`: Physical file number for relation storage
+- `reltablespace`: OID of the tablespace where relation will be stored
+- `shared_relation`: Whether this is a cluster-wide shared relation
+- `mapped_relation`: Whether this relation uses the relation mapping mechanism
+- `relpersistence`: Persistence level (permanent, temporary, or unlogged)
+- `relkind`: Type of relation (table, index, sequence, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetCurrentSubTransactionId](../G/GetCurrentSubTransactionId.md)

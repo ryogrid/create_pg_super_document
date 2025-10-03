@@ -18,9 +18,8 @@ This function serves as a callback within PostgreSQL's statistics system infrast
 The callback mechanism allows the statistics system to perform type-specific operations during reset procedures while maintaining a generic interface. This function ensures that when subscription statistics are reset (typically via administrative commands), the timestamp of when the reset occurred is properly recorded for monitoring and troubleshooting purposes.
 
 ## Parameters / Member Variables
-- : Generic pointer to the shared statistics structure that will be cast to subscription-specific type
-- : The timestamp to set as the statistics reset time
-
+- `*header`: Generic pointer to the shared statistics structure that will be cast to subscription-specific type
+- `ts`: The timestamp to set as the statistics reset time
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PgStatShared_Common](../P/PgStatShared_Common.md)

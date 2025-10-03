@@ -21,13 +21,12 @@ The function operates on a range defined by  and  parameters, calculating a midd
 The sampling strategy helps balance statistical accuracy with performance, particularly important when dealing with large text documents or when building statistics across many documents. The function includes bounds checking to ensure that selected positions are valid within the TSVector.
 
 ## Parameters / Member Variables
-- : Memory context for allocating StatEntry nodes that persist across function calls
-- : Pointer to the TSVectorStat structure containing the statistics tree and configuration
-- : The TSVector being sampled for statistical analysis
-- : Lower bound of the current range being processed
-- : Upper bound of the current range being processed  
-- : Base offset to adjust position calculations relative to the TSVector's word array
-
+- `persistentContext`: Memory context for allocating StatEntry nodes that persist across function calls
+- `*stat`: Pointer to the TSVectorStat structure containing the statistics tree and configuration
+- `txt`: The TSVector being sampled for statistical analysis
+- `low`: Lower bound of the current range being processed
+- `high`: Upper bound of the current range being processed
+- `offset`: Base offset to adjust position calculations relative to the TSVector's word array
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Called to process selected word entries and update statistics

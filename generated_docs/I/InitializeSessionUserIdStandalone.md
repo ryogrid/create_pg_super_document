@@ -18,6 +18,7 @@ This function provides a simplified user identity initialization for special Pos
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - AmAutoVacuumWorkerProcess (autovacuum worker check)

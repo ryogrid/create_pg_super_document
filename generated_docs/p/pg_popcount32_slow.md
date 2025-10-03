@@ -25,8 +25,7 @@ The manual approach works by:
 - Right-shifting the word by 8 bits for the next iteration
 
 ## Parameters / Member Variables
-- : The 32-bit unsigned integer for which to count the number of set bits
-
+- `word`: The 32-bit unsigned integer for which to count the number of set bits
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (when HAVE__BUILTIN_POPCOUNT is defined)

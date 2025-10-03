@@ -18,10 +18,9 @@ advance_windowaggregate_base(WindowAggState *winstate,
 This function is the counterpart to  and handles the removal of tuples from moving window aggregates. It calls the inverse transition function to efficiently remove the contribution of the oldest tuple from the aggregate's current state. The function includes several safety mechanisms: it validates that the aggregate state is not NULL (as required for moving aggregates), handles the special case of removing the last tuple by reinitializing the aggregate, and returns false if the inverse transition function indicates it cannot perform the removal (forcing a restart). Like its forward counterpart, it handles filtering, strict functions, and careful memory management.
 
 ## Parameters / Member Variables
-- : The overall window aggregate execution state containing temporary contexts and current aggregate context
-- : Per-function state containing the window function expression state, number of arguments, and collation information  
-- : Per-aggregate state containing inverse transition function info, current transition values, and memory context
-
+- `*winstate`: The overall window aggregate execution state containing temporary contexts and current aggregate context
+- `perfuncstate`: Per-function state containing the window function expression state, number of arguments, and collation information
+- `peraggstate`: Per-aggregate state containing inverse transition function info, current transition values, and memory context
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecEvalExpr](../E/ExecEvalExpr.md)

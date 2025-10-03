@@ -30,12 +30,11 @@ The function is designed to work with batched SQL commands (multiple REINDEX sta
 - Table: "reindexing of table "<name>" in database "<db>" failed"
 
 ## Parameters / Member Variables
-- : PostgreSQL database connection to execute the command against
-- : Type of reindex operation for error message context (REINDEX_DATABASE, REINDEX_SYSTEM, REINDEX_SCHEMA, REINDEX_TABLE, REINDEX_INDEX)
-- : Name of the database object being reindexed (used in error messages)
-- : Whether to print the SQL command to stdout before execution
-- : Buffer containing the SQL command(s) to execute
-
+- `*conn`: PostgreSQL database connection to execute the command against
+- `type`: Type of reindex operation for error message context (REINDEX_DATABASE, REINDEX_SYSTEM, REINDEX_SCHEMA, REINDEX_TABLE, REINDEX_INDEX)
+- `*name`: Name of the database object being reindexed (used in error messages)
+- `echo`: Whether to print the SQL command to stdout before execution
+- `*sql`: Buffer containing the SQL command(s) to execute
 ## Dependencies
 - Functions called/Symbols referenced:
   - printf

@@ -16,11 +16,10 @@ hladdword(HeadlineParsedText *prs, char *buf, int buflen, int type)
 The  function is responsible for dynamically adding word entries to the  structure during the process of parsing text for headline generation. It manages memory allocation for the words array, automatically expanding it when needed by doubling its size. Each word entry contains metadata including the word type, length, and a copy of the actual word content. This function is part of PostgreSQL's text search framework for creating highlighted text snippets.
 
 ## Parameters / Member Variables
-- : Pointer to HeadlineParsedText structure containing the words array and tracking information
-- : Character buffer containing the word to be added
-- : Length of the word buffer in bytes
-- : Integer representing the type/category of the word being added
-
+- `*prs`: Pointer to HeadlineParsedText structure containing the words array and tracking information
+- `*buf`: Character buffer containing the word to be added
+- `buflen`: Length of the word buffer in bytes
+- `type`: Integer representing the type/category of the word being added
 ## Dependencies
 - Functions called/Symbols referenced:
   - [repalloc](../r/repalloc.md) (for expanding the words array when needed)

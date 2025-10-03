@@ -16,9 +16,8 @@ slist_head_element_off(slist_head *head, size_t off)
 This function is a low-level utility used internally by the singly-linked list implementation to convert from a list node pointer to the containing structure pointer. It performs pointer arithmetic to calculate the address of the structure that contains the head element's list node. The function assumes the list is not empty and uses the provided offset to subtract from the node's address to get the containing structure's address.
 
 ## Parameters / Member Variables
-- : Pointer to the singly-linked list head structure
-- : Byte offset of the slist_node member within the containing structure
-
+- `*head`: Pointer to the singly-linked list head structure
+- `off`: Byte offset of the slist_node member within the containing structure
 ## Dependencies
 - Functions called/Symbols referenced:
   - [slist_is_empty](slist_is_empty.md) (for assertion check)

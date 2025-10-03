@@ -16,8 +16,7 @@ expand_table(HTAB *hashp)
 The expand_table function is a critical component of PostgreSQL's dynamic hash table implementation that handles table growth. When called, it adds exactly one new hash bucket to the table and redistributes existing entries between the old bucket and the newly created bucket based on their hash values. The function carefully manages the hash table's internal structures including segments, buckets, and hash masks. It allocates new segments when necessary and updates the table's masking parameters to accommodate the larger bucket space. The redistribution process ensures that only entries from one specific old bucket need to be examined and potentially moved to the new bucket, maintaining the hash table's performance characteristics.
 
 ## Parameters / Member Variables
-- : Pointer to the HTAB (hash table) structure to be expanded
-
+- `*hashp`: Pointer to the HTAB (hash table) structure to be expanded
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dir_realloc](../d/dir_realloc.md)

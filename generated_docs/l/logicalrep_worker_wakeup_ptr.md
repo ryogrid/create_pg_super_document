@@ -18,8 +18,7 @@ This function provides the core latch-based wakeup mechanism for logical replica
 The function performs a simple but critical operation: setting the worker's process latch, which causes the worker to exit any WaitLatch() calls and resume execution. This enables responsive communication between different parts of the logical replication system.
 
 ## Parameters / Member Variables
-- : Pointer to the LogicalRepWorker structure whose process should be awakened
-
+- `*worker`: Pointer to the LogicalRepWorker structure whose process should be awakened
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockHeldByMe](../L/LWLockHeldByMe.md): Asserts that the caller holds LogicalRepWorkerLock to prevent race conditions

@@ -18,9 +18,8 @@ This function serves as a hash function for the hash table used in JSON key uniq
 The function is designed to be used as a callback function for PostgreSQL's hash table implementation (HTAB), enabling efficient detection of duplicate keys within JSON objects during aggregation operations.
 
 ## Parameters / Member Variables
-- : Pointer to a  structure containing the key data to hash
-- : Size parameter (required by hash table interface but not directly used)
-
+- `*key`: Pointer to a  structure containing the key data to hash
+- `keysize`: Size parameter (required by hash table interface but not directly used)
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Structure containing key string, key length, and object ID

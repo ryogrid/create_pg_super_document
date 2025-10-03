@@ -21,11 +21,10 @@ The function uses conversion tables to find suitable target units. It prioritize
 The conversion tables are determined by the base_unit parameter - memory units use the memory_unit_conversion_table while time units use the time_unit_conversion_table.
 
 ## Parameters / Member Variables
-- : The floating-point value in base units that needs to be converted
-- : Flags indicating the type of unit (GUC_UNIT_MEMORY or time units)
-- : Output parameter - pointer to store the converted numerical value
-- : Output parameter - pointer to store the string representation of the target unit
-
+- `base_value`: The floating-point value in base units that needs to be converted
+- `base_unit`: Flags indicating the type of unit (GUC_UNIT_MEMORY or time units)
+- `*value`: Output parameter - pointer to store the converted numerical value
+- `**unit`: Output parameter - pointer to store the string representation of the target unit
 ## Dependencies
 - Functions called/Symbols referenced:
   - unit_conversion (struct type)

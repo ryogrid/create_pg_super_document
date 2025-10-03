@@ -25,9 +25,8 @@ The function works by:
 If the operation type is unrecognized by the resource manager, it will display "UNKNOWN (hex_value)" instead of the operation name. This function is essential for debugging, logging, and error reporting in PostgreSQL's WAL system.
 
 ## Parameters / Member Variables
-- : A StringInfo buffer where the formatted description will be appended
-- : An XLogReaderState pointer containing the WAL record to describe
-
+- `buf`: A StringInfo buffer where the formatted description will be appended
+- `*record`: An XLogReaderState pointer containing the WAL record to describe
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (retrieves resource manager data structure)

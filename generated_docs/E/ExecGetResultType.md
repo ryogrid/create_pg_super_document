@@ -18,8 +18,7 @@ ExecGetResultType is a simple accessor function that retrieves the result tuple 
 The function is commonly used throughout the PostgreSQL executor to determine the expected output format of plan nodes, enabling proper slot initialization, type checking, and result handling in various executor operations.
 
 ## Parameters / Member Variables
-- : Pointer to the PlanState structure containing the execution state for a plan node
-
+- `*planstate`: Pointer to the PlanState structure containing the execution state for a plan node
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TupleTableSlotOps](../T/TupleTableSlotOps.md) (indirectly through related operations)

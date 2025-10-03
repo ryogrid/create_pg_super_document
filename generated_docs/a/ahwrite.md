@@ -16,11 +16,10 @@ ahwrite(const void *ptr, size_t size, size_t nmemb, ArchiveHandle *AH)
 The  function serves as the central output mechanism for the PostgreSQL archiver, routing data to appropriate destinations based on the current context. When writing large objects, it manages a buffer and calls  when the buffer fills. For custom formats, it delegates to custom output functions. When restoring directly to a database, it executes SQL commands via . Otherwise, it writes to compressed file handles using the appropriate compression method.
 
 ## Parameters / Member Variables
-- : Pointer to the data to be written
-- : Size of each element in bytes
-- : Number of elements to write
-- : Archive handle containing output context and destination information
-
+- `*ptr`: Pointer to the data to be written
+- `size`: Size of each element in bytes
+- `nmemb`: Number of elements to write
+- `*AH`: Archive handle containing output context and destination information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dump_lo_buf](../d/dump_lo_buf.md)

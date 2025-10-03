@@ -22,10 +22,9 @@ After copying the member data, the function sorts the members array using mxactM
 To prevent unbounded cache growth, the function implements a simple LRU eviction policy: if the cache exceeds MAX_CACHE_ENTRIES (256), it removes the least recently used entry from the tail of the list and frees its memory.
 
 ## Parameters / Member Variables
-- : The MultiXactId to cache
-- : Number of MultiXactMember structures in the members array  
-- : Array of MultiXactMember structures representing the transaction set to cache
-
+- `multi`: The MultiXactId to cache
+- `nmembers`: Number of MultiXactMember structures in the members array
+- `*members`: Array of MultiXactMember structures representing the transaction set to cache
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetContextCreate (memory context creation)

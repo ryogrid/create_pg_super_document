@@ -16,8 +16,7 @@ array_ndims(PG_FUNCTION_ARGS)
 The  function is a PostgreSQL built-in function that examines an array and returns its dimensionality (number of dimensions). It performs basic sanity checks to ensure the input is a valid array structure before returning the dimension count. If the array has an invalid dimension count (≤ 0 or > MAXDIM), the function returns NULL instead of an invalid value.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function argument structure containing:
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument structure containing:
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - macro to extract array argument

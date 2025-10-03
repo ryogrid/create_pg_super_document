@@ -18,9 +18,8 @@ This static comparator function is used by qsort to order PathClauseUsage entrie
 The function extracts cost and selectivity information by calling cost_bitmap_tree_node() on the path member of each PathClauseUsage structure, then performs the comparison logic to determine the proper sort order.
 
 ## Parameters / Member Variables
-- : Pointer to the first PathClauseUsage pointer being compared
-- : Pointer to the second PathClauseUsage pointer being compared
-
+- `*a`: Pointer to the first PathClauseUsage pointer being compared
+- `*b`: Pointer to the second PathClauseUsage pointer being compared
 ## Dependencies
 - Functions called/Symbols referenced:
   - [cost_bitmap_tree_node](../c/cost_bitmap_tree_node.md)

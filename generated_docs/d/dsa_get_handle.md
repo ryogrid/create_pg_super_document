@@ -18,8 +18,7 @@ This function extracts the DSA handle from a DSA area's control structure, provi
 The handle represents the underlying DSM segment handle that contains the DSA control object, making it possible for multiple processes to coordinate access to the same shared memory region. This is essential for parallel processing scenarios where multiple backends need to share data structures.
 
 ## Parameters / Member Variables
-- : Pointer to the DSA area from which to extract the handle
-
+- `*area`: Pointer to the DSA area from which to extract the handle
 ## Dependencies
 - Functions called/Symbols referenced:
   - DSA_HANDLE_INVALID (for assertion checking)

@@ -18,7 +18,6 @@ This static function serves as an initialization routine for the LLVM JIT compil
 The function performs lazy initialization - it only sets the global variables  and  if they haven't been set previously. This approach allows the target information to be determined once and reused throughout the session.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

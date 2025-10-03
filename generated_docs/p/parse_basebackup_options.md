@@ -26,9 +26,8 @@ Key features include:
 The function ensures the basebackup_options structure is properly initialized with defaults before processing options, and performs comprehensive error reporting with specific error codes.
 
 ## Parameters / Member Variables
-- : List of DefElem structures containing the raw option specifications from SQL parsing
-- : Output basebackup_options structure to be populated with parsed and validated options
-
+- `*options`: List of DefElem structures containing the raw option specifications from SQL parsing
+- `*opt`: Output basebackup_options structure to be populated with parsed and validated options
 ## Dependencies
 - Functions called/Symbols referenced:
   - [defGetString](../d/defGetString.md)

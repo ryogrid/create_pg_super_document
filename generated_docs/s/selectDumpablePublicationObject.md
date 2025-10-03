@@ -18,9 +18,8 @@ This function implements the policy-setting logic for publication objects in pg_
 The design philosophy is that publications, along with their associated schemas and tables, are considered part of the overall database structure and are only meaningful in a complete database dump context.
 
 ## Parameters / Member Variables
-- : Pointer to the DumpableObject representing the publication object to be evaluated
-- : Pointer to the Archive structure containing dump options and configuration
-
+- `*dobj`: Pointer to the DumpableObject representing the publication object to be evaluated
+- `*fout`: Pointer to the Archive structure containing dump options and configuration
 ## Dependencies
 - Functions called/Symbols referenced:
   - [checkExtensionMembership](../c/checkExtensionMembership.md)

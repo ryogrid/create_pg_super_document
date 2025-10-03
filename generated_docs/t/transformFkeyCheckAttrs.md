@@ -24,11 +24,10 @@ The validation process includes:
 - Extracting and returning the appropriate operator classes for type compatibility
 
 ## Parameters / Member Variables
-- : The relation (table) being referenced by the foreign key
-- : Number of attributes (columns) in the foreign key
-- : Array of attribute numbers representing the referenced columns
-- : Output array to be populated with operator classes from the matching index
-
+- `pkrel`: The relation (table) being referenced by the foreign key
+- `numattrs`: Number of attributes (columns) in the foreign key
+- `*attnums`: Array of attribute numbers representing the referenced columns
+- `*opclasses`: Output array to be populated with operator classes from the matching index
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RelationGetIndexList](../R/RelationGetIndexList.md)

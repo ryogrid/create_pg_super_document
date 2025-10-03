@@ -21,7 +21,6 @@ The handler sets two critical flags:
 After setting these flags, it wakes up the process using SetLatch(MyLatch), allowing the main processing loop to check for the timeout condition and handle it appropriately at the next safe checkpoint. This approach ensures that the transaction can be terminated cleanly without corrupting data or leaving the system in an inconsistent state.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

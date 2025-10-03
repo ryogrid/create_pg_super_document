@@ -16,9 +16,8 @@ AlterDomainNotNull(List *names, bool notNull)
 This function handles both setting and dropping NOT NULL constraints on domain types. When setting a NOT NULL constraint (notNull=true), it creates a new constraint node, adds it to the domain using domainAddNotNullConstraint, and validates existing data. When dropping the constraint (notNull=false), it finds the existing NOT NULL constraint and performs deletion. The function updates the pg_type catalog to reflect the new constraint state and returns the ObjectAddress of the modified domain.
 
 ## Parameters / Member Variables
-- : List of qualified names identifying the domain to alter
-- : Boolean flag indicating whether to set (true) or drop (false) the NOT NULL constraint
-
+- `*names`: List of qualified names identifying the domain to alter
+- `notNull`: Boolean flag indicating whether to set (true) or drop (false) the NOT NULL constraint
 ## Dependencies
 - Functions called/Symbols referenced:
   - [makeTypeNameFromNameList](../m/makeTypeNameFromNameList.md)

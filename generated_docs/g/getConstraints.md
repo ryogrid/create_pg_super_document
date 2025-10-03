@@ -16,10 +16,9 @@ getConstraints(Archive *fout, TableInfo tblinfo[], int numTables)
 The getConstraints function focuses specifically on foreign key constraints, as other constraint types are handled elsewhere in the pg_dump process (unique/primary key constraints are managed with indexes, and check constraints are processed in getTableAttrs). The function constructs an optimized SQL query against pg_constraint using an OID array to limit results to tables of interest and having appropriate locks. It handles version-specific features like conindid column availability (PostgreSQL 11+) and conparentid filtering for inherited constraints. For each foreign key constraint found, it creates a ConstraintInfo structure with complete metadata and establishes proper dependencies. Special handling is implemented for foreign keys referencing partitioned tables, where the constraint must depend on partition index attach objects to ensure correct restoration order during database recovery.
 
 ## Parameters / Member Variables
-- : Archive pointer containing dump configuration and database connection information  
-- : Array of TableInfo structures representing tables to be dumped
-- : Number of entries in the tblinfo array
-
+- `*fout`: Archive pointer containing dump configuration and database connection information
+- `tblinfo[]`: Array of TableInfo structures representing tables to be dumped
+- `numTables`: Number of entries in the tblinfo array
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TableInfo](../T/TableInfo.md) (structure type)

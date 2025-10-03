@@ -18,8 +18,7 @@ p_isignore is a simple predicate function that returns the state of the parser's
 The ignore flag is typically set when the parser encounters specific patterns or contexts where subsequent tokens should not be processed as regular searchable text.
 
 ## Parameters / Member Variables
-- : Pointer to a TParser structure containing the parser state, including the ignore flag that controls whether tokens should be ignored
-
+- `*prs`: Pointer to a TParser structure containing the parser state, including the ignore flag that controls whether tokens should be ignored
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TParser](../T/TParser.md) (structure type)

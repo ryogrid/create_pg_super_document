@@ -27,10 +27,9 @@ The function operates through several key phases:
 Special handling is included for large objects, where the catalog to modify is pg_largeobject_metadata rather than the class ID itself. The function also validates namespace privileges when applicable.
 
 ## Parameters / Member Variables
-- : OID of the object's catalog class (e.g., ProcedureRelationId, TypeRelationId)
-- : OID of the specific object whose ownership should be changed
-- : OID of the role that will become the new owner
-
+- `classId`: OID of the object's catalog class (e.g., ProcedureRelationId, TypeRelationId)
+- `objectId`: OID of the specific object whose ownership should be changed
+- `new_ownerId`: OID of the role that will become the new owner
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Gets attribute numbers for OID, owner, namespace, ACL, and name columns

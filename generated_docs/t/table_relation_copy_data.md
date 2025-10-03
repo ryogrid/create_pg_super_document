@@ -18,9 +18,8 @@ This function provides a high-level interface for copying all data from an exist
 The new storage location may not have any associated storage files before this function is called - the function is responsible for creating the necessary storage structure and copying all data from the source relation. The function delegates to the table access method's specific implementation to handle the storage-specific details of the copy operation.
 
 ## Parameters / Member Variables
-- : The source relation whose data should be copied
-- : Pointer to the RelFileLocator specifying the destination storage location
-
+- `rel`: The source relation whose data should be copied
+- `*newrlocator`: Pointer to the RelFileLocator specifying the destination storage location
 ## Dependencies
 - Functions called/Symbols referenced:
   - rel->rd_tableam->relation_copy_data (table access method implementation)

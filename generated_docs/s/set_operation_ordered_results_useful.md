@@ -23,8 +23,7 @@ The function implements specific logic for different set operation types:
 This optimization decision impacts how the query planner builds execution paths, potentially leading to more efficient query execution when sorted inputs are beneficial.
 
 ## Parameters / Member Variables
-- : Pointer to a SetOperationStmt structure representing the set operation to analyze, containing operation type and modifier flags
-
+- `*setop`: Pointer to a SetOperationStmt structure representing the set operation to analyze, containing operation type and modifier flags
 ## Dependencies
 - Functions called/Symbols referenced:
   - SETOP_UNION (enum constant)

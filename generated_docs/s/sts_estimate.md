@@ -18,8 +18,7 @@ The  function provides a memory size calculation for allocating a  structure in 
 This function is typically used during parallel query planning to determine how much shared memory needs to be allocated for tuple sharing between parallel workers.
 
 ## Parameters / Member Variables
-- : The number of participants (parallel workers) that will access the shared tuple store
-
+- `participants`: The number of participants (parallel workers) that will access the shared tuple store
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SharedTuplestore](../S/SharedTuplestore.md) (struct type)

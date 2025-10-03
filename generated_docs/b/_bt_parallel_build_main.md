@@ -26,9 +26,8 @@ This function serves as the main entry point for parallel worker processes durin
 The function handles both unique and non-unique index builds, setting up secondary spools when necessary for unique constraint processing.
 
 ## Parameters / Member Variables
-- : Dynamic shared memory segment containing shared state for the parallel build operation
-- : Shared memory table of contents for locating various shared data structures within the segment
-
+- `*seg`: Dynamic shared memory segment containing shared state for the parallel build operation
+- `*toc`: Shared memory table of contents for locating various shared data structures within the segment
 ## Dependencies
 - Functions called/Symbols referenced:
   - [shm_toc_lookup](../s/shm_toc_lookup.md)

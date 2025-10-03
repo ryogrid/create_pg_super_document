@@ -16,9 +16,8 @@ ExplainModifyTarget(ModifyTable *plan, ExplainState *es)
 This function shows the nominal target relation for ModifyTable operations (INSERT, UPDATE, DELETE) in EXPLAIN output. It specifically displays the relation that was originally named in the query. If the actual target relations differ from the nominal one (such as in partitioned table scenarios), those differences are handled separately by the show_modifytable_info() function. The function serves as a bridge between the ModifyTable plan node and the generic target relation explanation functionality.
 
 ## Parameters / Member Variables
-- : Pointer to the ModifyTable plan node containing the operation details
-- : Pointer to the ExplainState structure controlling the format and options for the EXPLAIN output
-
+- `*plan`: Pointer to the ModifyTable plan node containing the operation details
+- `*es`: Pointer to the ExplainState structure controlling the format and options for the EXPLAIN output
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExplainTargetRel](ExplainTargetRel.md)

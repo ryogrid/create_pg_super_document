@@ -18,6 +18,7 @@ This function is called during normal ("smart" or "fast") database shutdown to h
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - slist_foreach_modify (macro for safely iterating and modifying singly-linked lists)

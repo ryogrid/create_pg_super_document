@@ -22,11 +22,10 @@ The function operates by:
 4. Converting the remaining fractional portion to microseconds using rint() for proper rounding
 
 ## Parameters / Member Variables
-- : The fractional seconds value to be processed (double precision)
-- : Pointer to a time structure where the whole seconds will be added to tm_sec
-- : Pointer to fractional seconds field (in microseconds) where the remaining fractional part will be stored
-- : Integer scaling factor to apply to the fractional value
-
+- `frac`: The fractional seconds value to be processed (double precision)
+- `*tm`: Pointer to a time structure where the whole seconds will be added to tm_sec
+- `*fsec`: Pointer to fractional seconds field (in microseconds) where the remaining fractional part will be stored
+- `scale`: Integer scaling factor to apply to the fractional value
 ## Dependencies
 - Functions called/Symbols referenced:
   - fsec_t (type definition for fractional seconds)

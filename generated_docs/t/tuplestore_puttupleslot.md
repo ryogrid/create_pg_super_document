@@ -26,9 +26,8 @@ The function operates by:
 The tuple is always copied, so the caller doesn't need to preserve the original slot. The function maintains specific read pointer behavior: if the active read pointer is at EOF, it remains at EOF and advances with the write pointer; otherwise, read pointers remain unchanged. This behavior is specifically designed for the convenience of nodeMaterial.c and nodeCtescan.c.
 
 ## Parameters / Member Variables
-- : Pointer to the Tuplestorestate structure representing the tuplestore
-- : TupleTableSlot containing the tuple data to be stored
-
+- `*state`: Pointer to the Tuplestorestate structure representing the tuplestore
+- `*slot`: TupleTableSlot containing the tuple data to be stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecCopySlotMinimalTuple](../E/ExecCopySlotMinimalTuple.md)

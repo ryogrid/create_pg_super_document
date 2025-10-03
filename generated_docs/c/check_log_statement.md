@@ -23,8 +23,7 @@ This function implements PostgreSQL's statement logging policy by evaluating whe
 The function handles both raw parse trees from the grammar and planned statement lists, making it versatile for use across different execution phases. It evaluates each statement in the list and returns true if any statement meets the logging criteria.
 
 ## Parameters / Member Variables
-- : List of SQL statements to evaluate, can contain either raw parse tree nodes or planned statement nodes
-
+- `*stmt_list`: List of SQL statements to evaluate, can contain either raw parse tree nodes or planned statement nodes
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetCommandLogLevel](../G/GetCommandLogLevel.md) (determines the logging level required for a specific statement type)

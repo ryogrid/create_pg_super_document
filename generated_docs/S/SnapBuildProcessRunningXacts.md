@@ -33,10 +33,9 @@ SnapBuildProcessRunningXacts is a key function in PostgreSQL's logical replicati
 The function balances between maintaining enough historical information for consistent replication while allowing the database to clean up old data that's no longer needed.
 
 ## Parameters / Member Variables
-- : The SnapBuild context tracking the current snapshot building state
-- : Log sequence number of the running xacts record being processed
-- : Pointer to the xl_running_xacts record containing transaction state information
-
+- `*builder`: The SnapBuild context tracking the current snapshot building state
+- `lsn`: Log sequence number of the running xacts record being processed
+- `*running`: Pointer to the xl_running_xacts record containing transaction state information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SnapBuildFindSnapshot](SnapBuildFindSnapshot.md)

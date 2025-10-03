@@ -18,8 +18,7 @@ The  function is a core component of the GiST operator class for range types. It
 The function iterates through a vector of GiST entries, each containing a range value, and uses  to progressively compute the smallest range that encompasses all input ranges. This bounding range becomes the key for internal nodes in the GiST tree.
 
 ## Parameters / Member Variables
-- : Vector of GiST entries containing range values to be unified
-
+- `PG_FUNCTION_ARGS`: Vector of GiST entries containing range values to be unified
 ## Dependencies
 - Functions called/Symbols referenced:
   - 

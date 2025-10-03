@@ -16,8 +16,7 @@ GetLastWalMethodError(WalWriteMethod *wwmethod)
 This function provides a unified interface for accessing error information from WAL writing methods. It implements a two-tier error reporting system: if a specific error string has been set (lasterrstring), it returns that custom message; otherwise, it falls back to using the standard system error description for the stored errno value (lasterrno). This allows for both custom error messages and standard system error reporting within the same interface.
 
 ## Parameters / Member Variables
-- : Pointer to the WalWriteMethod structure from which to retrieve error information
-
+- `*wwmethod`: Pointer to the WalWriteMethod structure from which to retrieve error information
 ## Dependencies
 - Functions called/Symbols referenced:
   - strerror (to convert errno to human-readable string)

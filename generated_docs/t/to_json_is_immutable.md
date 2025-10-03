@@ -18,8 +18,7 @@ The  function analyzes a PostgreSQL data type (identified by its OID) to determi
 The function uses  to classify the input type into one of several JSON type categories, then applies specific rules to determine immutability. Date/time types are considered mutable because they depend on timezone settings. Array and composite types are currently marked as mutable, though the comments indicate future plans to recursively analyze their elements/fields. For numeric, cast, and other types, the function checks the volatility of the type's output function.
 
 ## Parameters / Member Variables
-- : The PostgreSQL type OID to analyze for JSON immutability
-
+- `typoid`: The PostgreSQL type OID to analyze for JSON immutability
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (categorizes the type for JSON processing)

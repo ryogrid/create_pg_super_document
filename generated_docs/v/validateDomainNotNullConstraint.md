@@ -16,8 +16,7 @@ validateDomainNotNullConstraint(Oid domainoid)
 This function verifies that existing data in all tables using the specified domain type does not violate a NOT NULL constraint. It retrieves all relations containing columns of the domain type, scans each relation's tuples, and checks that domain-typed columns contain no null values. If any null values are found, it raises an error with detailed information about the violating column and table. The function uses proper snapshot isolation and maintains appropriate locks during validation.
 
 ## Parameters / Member Variables
-- : Object ID of the domain type to validate for NOT NULL compliance
-
+- `domainoid`: Object ID of the domain type to validate for NOT NULL compliance
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_rels_with_domain](../g/get_rels_with_domain.md)

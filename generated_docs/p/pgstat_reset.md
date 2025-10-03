@@ -20,10 +20,9 @@ The function first retrieves metadata about the specified statistics kind to und
 The function includes safety assertions to ensure it's not called on fixed-amount statistics kinds, as these don't support individual object reset operations with the current function signature.
 
 ## Parameters / Member Variables
-- : The type of statistics being reset (e.g., table stats, function stats, subscription stats)
-- : The OID of the database containing the object
-- : The OID of the specific object whose statistics are being reset
-
+- `kind`: The type of statistics being reset (e.g., table stats, function stats, subscription stats)
+- `dboid`: The OID of the database containing the object
+- `objoid`: The OID of the specific object whose statistics are being reset
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pgstat_get_kind_info](pgstat_get_kind_info.md) (retrieves metadata about the statistics kind)

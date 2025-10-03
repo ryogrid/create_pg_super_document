@@ -30,7 +30,6 @@ The initialization process involves several key steps:
 4. **Relation Mapper Initialization**: Calls RelationMapInitialize() to set up the relation mapping system, which handles the special mapping between system catalog OIDs and their physical file locations.
 
 ## Parameters / Member Variables
-None - this function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -18,9 +18,8 @@ This function provides a non-destructive alternative to  by creating a completel
 The function handles edge cases where either input list might be NIL by simply returning a copy of the non-NIL list. It ensures type compatibility between the input lists and creates the result list with optimal storage allocation. The implementation uses  for efficient bulk copying of list elements.
 
 ## Parameters / Member Variables
-- : The first source list whose elements will appear first in the result (marked const as it's not modified)
-- : The second source list whose elements will appear after list1's elements (marked const as it's not modified)
-
+- `*list1`: The first source list whose elements will appear first in the result (marked const as it's not modified)
+- `*list2`: The second source list whose elements will appear after list1's elements (marked const as it's not modified)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Creates a copy when one of the input lists is NIL

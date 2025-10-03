@@ -20,10 +20,9 @@ This function provides the core inequality comparison logic for multirange types
 The logic is straightforward: two multiranges are considered not equal if they differ in any way - different number of ranges, different range bounds, or different ordering of ranges.
 
 ## Parameters / Member Variables
-- : Type cache entry containing metadata and comparison functions for the underlying range type
-- : First multirange value to compare (const to prevent modification)  
-- : Second multirange value to compare (const to prevent modification)
-
+- `*rangetyp`: Type cache entry containing metadata and comparison functions for the underlying range type
+- `*mr1`: First multirange value to compare (const to prevent modification)
+- `*mr2`: Second multirange value to compare (const to prevent modification)
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Core equality comparison function that this negates

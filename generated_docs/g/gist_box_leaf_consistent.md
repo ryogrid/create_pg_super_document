@@ -18,10 +18,9 @@ This function implements leaf-level consistency checking for BOX data types in P
 The function supports all standard R-tree spatial strategies by mapping each strategy number to its corresponding box operator function and calling it via PostgreSQL's DirectFunctionCall2 interface.
 
 ## Parameters / Member Variables
-- : Pointer to the BOX stored in the leaf node of the GiST index
-- : Pointer to the BOX representing the query condition  
-- : Strategy number indicating which spatial operator to apply (e.g., overlap, contains, left-of, etc.)
-
+- `*key`: Pointer to the BOX stored in the leaf node of the GiST index
+- `*query`: Pointer to the BOX representing the query condition
+- `strategy`: Strategy number indicating which spatial operator to apply (e.g., overlap, contains, left-of, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   - DirectFunctionCall2 (for calling box operators)

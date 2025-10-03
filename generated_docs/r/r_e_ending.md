@@ -27,8 +27,7 @@ The r_e_ending function implements a sophisticated rule for Dutch stemming that 
 This function ensures that 'e' endings are only removed when they follow consonants, preventing over-stemming that could occur with vowel-e patterns.
 
 ## Parameters / Member Variables
-- : Pointer to SN_env structure containing the stemming environment with cursor positions, boundaries, state indicators, and character data
-
+- `*z`: Pointer to SN_env structure containing the stemming environment with cursor positions, boundaries, state indicators, and character data
 ## Dependencies
 - Functions called/Symbols referenced:
   - [r_R1](r_R1.md): Validates that the current position is within the R1 region

@@ -18,10 +18,9 @@ This function initializes a bitmap page that tracks the allocation status of ove
 The function handles both the page initialization (if needed) and the setup of hash-specific metadata in the page's special space. It properly sets the page boundaries to make the page compressible for WAL logging.
 
 ## Parameters / Member Variables
-- : Buffer containing the page to initialize as a bitmap page
-- : Size in bytes of the bitmap data area 
-- : Boolean flag indicating whether to perform basic page initialization
-
+- `buf`: Buffer containing the page to initialize as a bitmap page
+- `bmsize`: Size in bytes of the bitmap data area
+- `initpage`: Boolean flag indicating whether to perform basic page initialization
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BufferGetPage](../B/BufferGetPage.md)

@@ -16,8 +16,7 @@ IsReservedOriginName(const char *name)
 This function performs a case-insensitive comparison to determine if the provided origin name matches either of the two reserved replication origin names: "none" (represented by LOGICALREP_ORIGIN_NONE) or "any" (represented by LOGICALREP_ORIGIN_ANY). These reserved names have special meaning in the logical replication system and cannot be used for user-defined replication origins. The function helps enforce naming restrictions during replication origin creation.
 
 ## Parameters / Member Variables
-- : A null-terminated string containing the replication origin name to check
-
+- `*name`: A null-terminated string containing the replication origin name to check
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_strcasecmp](../p/pg_strcasecmp.md)

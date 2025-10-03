@@ -20,8 +20,7 @@ The process involves multiple phases: parameter validation and canonicalization,
 Special handling is provided for binary upgrade scenarios and in-place tablespaces (developer feature). The function integrates with PostgreSQL's object management system through dependency recording and post-creation hooks.
 
 ## Parameters / Member Variables
-- : CreateTableSpaceStmt structure containing tablespace name, location, owner specification, and options
-
+- `*stmt`: CreateTableSpaceStmt structure containing tablespace name, location, owner specification, and options
 ## Dependencies
 - Functions called/Symbols referenced:
   - [superuser](../s/superuser.md): Checks if current user has superuser privileges

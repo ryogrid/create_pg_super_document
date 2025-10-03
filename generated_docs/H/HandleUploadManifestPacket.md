@@ -24,10 +24,9 @@ HandleUploadManifestPacket is a helper function that processes one packet at a t
 The function uses interrupt handling to ensure safe processing of network messages and proper error reporting for protocol violations or connection failures.
 
 ## Parameters / Member Variables
-- : A StringInfo buffer used as scratch space for message processing; contents are overwritten by the function
-- : A pointer to an offset value (parameter appears unused in the current implementation)
-- : Pointer to an IncrementalBackupInfo structure where manifest data is accumulated
-
+- `buf`: A StringInfo buffer used as scratch space for message processing; contents are overwritten by the function
+- `*offset`: A pointer to an offset value (parameter appears unused in the current implementation)
+- `*ib`: Pointer to an IncrementalBackupInfo structure where manifest data is accumulated
 ## Dependencies
 - Functions called/Symbols referenced:
   - HOLD_CANCEL_INTERRUPTS

@@ -19,15 +19,14 @@ statext_mcv_clauselist_selectivity(PlannerInfo *root, List *clauses, int varReli
 This function implements a sophisticated selectivity estimation algorithm using extended multi-column MCV statistics. It employs a greedy approach, iteratively selecting the best statistics object that covers the most remaining clauses and applying it to estimate their combined selectivity. The function handles both AND-ed and OR-ed clause lists differently: for AND clauses, it multiplies selectivities together, while for OR clauses it uses the inclusion-exclusion principle to account for overlaps. The algorithm combines simple selectivity (assuming column independence), MCV selectivity (from actual statistics), base selectivity, and total selectivity using mcv_combine_selectivities to produce accurate estimates that leverage both traditional and extended statistics.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planning context and optimizer state
-- : List of restriction clauses to estimate selectivity for
-- : Variable relation ID (0 if this is a join relation)
-- : Type of join if this is a join selectivity estimation
-- : Special join information for outer joins
-- : RelOptInfo structure containing relation information and statistics
-- : Input/output bitmap tracking which clauses have been estimated (0-based indexes)
-- : Boolean flag indicating whether clauses are OR-ed (true) or AND-ed (false)
-
+- `*root`: PlannerInfo structure containing planning context and optimizer state
+- `*clauses`: List of restriction clauses to estimate selectivity for
+- `varRelid`: Variable relation ID (0 if this is a join relation)
+- `jointype`: Type of join if this is a join selectivity estimation
+- `*sjinfo`: Special join information for outer joins
+- `*rel`: RelOptInfo structure containing relation information and statistics
+- `**estimatedclauses`: Input/output bitmap tracking which clauses have been estimated (0-based indexes)
+- `is_or`: Boolean flag indicating whether clauses are OR-ed (true) or AND-ed (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - planner_rt_fetch

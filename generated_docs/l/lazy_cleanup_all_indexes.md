@@ -20,8 +20,7 @@ In serial mode, it iterates through all indexes and calls lazy_cleanup_one_index
 The function manages detailed progress reporting throughout the cleanup process, updating statistics on the total number of indexes and the number processed so far. It uses the vacuum relation state to pass tuple count information (both actual and estimated) to the individual index cleanup routines.
 
 ## Parameters / Member Variables
-- : LVRelState structure containing vacuum operation state, including the array of index relations, current index statistics, tuple counts, and parallel vacuum state
-
+- `*vacrel`: LVRelState structure containing vacuum operation state, including the array of index relations, current index statistics, tuple counts, and parallel vacuum state
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pgstat_progress_update_multi_param](../p/pgstat_progress_update_multi_param.md)

@@ -18,8 +18,7 @@ StrategyNotifyBgWriter is a coordination function that allows the background wri
 The function uses a spinlock (buffer_strategy_lock) to ensure atomic updates to the bgwprocno field in StrategyControl, preventing race conditions between setting the notification and the actual buffer allocation that triggers it.
 
 ## Parameters / Member Variables
-- : Process number of the background writer to notify, or -1 to clear any pending notification
-
+- `bgwprocno`: Process number of the background writer to notify, or -1 to clear any pending notification
 ## Dependencies
 - Functions called/Symbols referenced:
   - SpinLockAcquire (on StrategyControl->buffer_strategy_lock)

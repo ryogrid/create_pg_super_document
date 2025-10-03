@@ -26,6 +26,7 @@ The caller is responsible for setting the `handle` field after creation, as this
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ResourceOwnerEnlarge](../R/ResourceOwnerEnlarge.md)

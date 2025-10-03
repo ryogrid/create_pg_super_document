@@ -21,11 +21,10 @@ The function iterates through the array of subtransaction IDs, identifying conse
 This batching approach is crucial for performance when dealing with large transaction trees that span many CLOG pages, as it reduces both the number of function calls and the number of times each CLOG page needs to be locked and modified.
 
 ## Parameters / Member Variables
-- : Number of subtransaction IDs in the subxids array (must be > 0)
-- : Array of subtransaction IDs to set status for
-- : The XidStatus to set for all transactions (e.g., TRANSACTION_STATUS_SUB_COMMITTED or TRANSACTION_STATUS_COMMITTED)
-- : WAL log sequence number associated with this status change
-
+- `nsubxids`: Number of subtransaction IDs in the subxids array (must be > 0)
+- `*subxids`: Array of subtransaction IDs to set status for
+- `status`: The XidStatus to set for all transactions (e.g., TRANSACTION_STATUS_SUB_COMMITTED or TRANSACTION_STATUS_COMMITTED)
+- `lsn`: WAL log sequence number associated with this status change
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TransactionIdToPage](../T/TransactionIdToPage.md)

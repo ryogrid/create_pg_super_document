@@ -19,11 +19,10 @@ This function analyzes the page being split and decides between three splitting 
 The function returns a "perfect penalty" value that represents the theoretical best case for avoiding heap TID appendages in high keys. This value is used by _bt_bestsplitloc() to optimize split point selection and potentially terminate early when the perfect score is achieved.
 
 ## Parameters / Member Variables
-- : FindSplitData structure containing page and split candidate information
-- : SplitPoint representing the leftmost possible split point
-- : SplitPoint representing the rightmost possible split point  
-- : Output parameter for the recommended splitting strategy (SPLIT_DEFAULT, SPLIT_MANY_DUPLICATES, or SPLIT_SINGLE_VALUE)
-
+- `*state`: FindSplitData structure containing page and split candidate information
+- `*leftpage`: SplitPoint representing the leftmost possible split point
+- `*rightpage`: SplitPoint representing the rightmost possible split point
+- `*strategy`: Output parameter for the recommended splitting strategy (SPLIT_DEFAULT, SPLIT_MANY_DUPLICATES, or SPLIT_SINGLE_VALUE)
 ## Dependencies
 - Functions called/Symbols referenced:
   - IndexRelationGetNumberOfKeyAttributes

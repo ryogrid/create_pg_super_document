@@ -29,11 +29,10 @@ If recycling fails or isn't appropriate, the file is deleted. On Windows, the fu
 The function also updates checkpoint statistics and triggers WAL archive cleanup.
 
 ## Parameters / Member Variables
-- : Directory entry structure for the segment to process
-- : Upper bound segment number for recycling eligibility
-- : Pointer to current/recent end of WAL segment number (incremented if recycled)
-- : Current timeline ID for XLOG insertion - recycled segments will use this timeline
-
+- `*segment_de`: Directory entry structure for the segment to process
+- `recycleSegNo`: Upper bound segment number for recycling eligibility
+- `*endlogSegNo`: Pointer to current/recent end of WAL segment number (incremented if recycled)
+- `insertTLI`: Current timeline ID for XLOG insertion - recycled segments will use this timeline
 ## Dependencies
 - Functions called/Symbols referenced:
   - snprintf

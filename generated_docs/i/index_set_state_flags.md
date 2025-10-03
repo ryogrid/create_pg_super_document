@@ -22,9 +22,8 @@ index_set_state_flags manages the lifecycle state flags of an index stored in th
 The function ensures proper state transitions through assertions and clears related flags like indisclustered and indisreplident when appropriate. Updates are immediately visible to other sessions via cache invalidation.
 
 ## Parameters / Member Variables
-- : Object identifier of the index whose state flags need to be modified
-- : Enumerated value specifying which state transition to perform (INDEX_CREATE_SET_READY, INDEX_CREATE_SET_VALID, INDEX_DROP_CLEAR_VALID, or INDEX_DROP_SET_DEAD)
-
+- `indexId`: Object identifier of the index whose state flags need to be modified
+- `action`: Enumerated value specifying which state transition to perform (INDEX_CREATE_SET_READY, INDEX_CREATE_SET_VALID, INDEX_DROP_CLEAR_VALID, or INDEX_DROP_SET_DEAD)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md)

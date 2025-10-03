@@ -27,13 +27,12 @@ Key characteristics:
 The function creates OpFamilyMember structures that contain only the information needed to identify catalog entries for deletion (numbers and type signatures), then delegates to dropOperators and dropProcedures for the actual removal.
 
 ## Parameters / Member Variables
-- : ALTER OPERATOR FAMILY statement containing context information
-- : OID of the access method
-- : OID of the operator family being modified
-- : Maximum allowed operator strategy number for validation
-- : Maximum allowed support function number for validation
-- : List of CreateOpClassItem objects representing operators/functions to remove
-
+- `*stmt`: ALTER OPERATOR FAMILY statement containing context information
+- `amoid`: OID of the access method
+- `opfamilyoid`: OID of the operator family being modified
+- `maxOpNumber`: Maximum allowed operator strategy number for validation
+- `maxProcNumber`: Maximum allowed support function number for validation
+- `*items`: List of CreateOpClassItem objects representing operators/functions to remove
 ## Dependencies
 - Functions called/Symbols referenced:
   - [processTypesSpec](../p/processTypesSpec.md)

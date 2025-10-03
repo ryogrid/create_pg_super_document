@@ -27,9 +27,8 @@ The function creates a minimal planner context and builds cost estimates for bot
 The function returns true if sorting is cheaper, false if index scanning is more cost-effective.
 
 ## Parameters / Member Variables
-- : Object ID of the table to be clustered
-- : Object ID of the btree index to cluster on (assumed to already be validated as btree)
-
+- `tableOid`: Object ID of the table to be clustered
+- `indexOid`: Object ID of the btree index to cluster on (assumed to already be validated as btree)
 ## Dependencies
 - Functions called/Symbols referenced:
   - , , , ,  - Planner data structures

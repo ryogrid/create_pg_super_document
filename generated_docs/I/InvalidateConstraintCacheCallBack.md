@@ -23,10 +23,9 @@ This function serves as a callback for PostgreSQL's cache invalidation system wh
 The function is designed to handle high-traffic scenarios like pg_dump restores where many ALTER TABLE operations occur alongside foreign key usage.
 
 ## Parameters / Member Variables
-- : Datum argument (unused in this callback)
-- : Cache identifier for the invalidated cache
-- : Hash value of the invalidated entry, or 0 for full cache reset
-
+- `arg`: Datum argument (unused in this callback)
+- `cacheid`: Cache identifier for the invalidated cache
+- `hashvalue`: Hash value of the invalidated entry, or 0 for full cache reset
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dclist_count](../d/dclist_count.md)

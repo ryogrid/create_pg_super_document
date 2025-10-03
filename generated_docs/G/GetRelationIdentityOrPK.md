@@ -21,8 +21,7 @@ This function provides a unified way to obtain the most appropriate index OID fo
 The function is essential for logical replication as it determines which index should be used to uniquely identify rows during replication operations.
 
 ## Parameters / Member Variables
-- : The relation (table) for which to find the identity or primary key index
-
+- `rel`: The relation (table) for which to find the identity or primary key index
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RelationGetReplicaIndex](../R/RelationGetReplicaIndex.md)

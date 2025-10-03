@@ -25,10 +25,9 @@ The key differences from the regular fetch operation are:
 The function directly uses the original subscript indices from the SubscriptingRefState rather than the processed workspace indices, which is appropriate for this specialized use case.
 
 ## Parameters / Member Variables
-- : Expression evaluation state (not directly used in this function)
-- : Expression evaluation step containing the SubscriptingRefState
-- : Expression context for evaluation (not directly used in this function)
-
+- `*state`: Expression evaluation state (not directly used in this function)
+- `*op`: Expression evaluation step containing the SubscriptingRefState
+- `*econtext`: Expression context for evaluation (not directly used in this function)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DatumGetJsonbP](../D/DatumGetJsonbP.md)

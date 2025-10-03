@@ -29,19 +29,18 @@ ReadArrayBinary is a static helper function that handles the low-level deseriali
 The function also calculates the total storage space required for all elements, including alignment padding, and detects potential memory allocation overflows. For variable-length elements, it ensures data is not toasted and properly accounts for storage requirements using PostgreSQL's attribute alignment functions.
 
 ## Parameters / Member Variables
-- : StringInfo buffer containing the binary array data
-- : Number of array elements to read
-- : Function pointer to the element type's receive procedure  
-- : Type-specific parameter for the receive procedure
-- : Type modifier for elements
-- : Length of element type (-1 for variable length)
-- : Whether elements are passed by value or reference
-- : Alignment requirement for element type
-- : Output array to store converted Datum values
-- : Output array to store null indicators
-- : Output flag indicating presence of any null elements
-- : Output total size needed for data storage with alignment
-
+- `buf`: StringInfo buffer containing the binary array data
+- `nitems`: Number of array elements to read
+- `*receiveproc`: Function pointer to the element type's receive procedure
+- `typioparam`: Type-specific parameter for the receive procedure
+- `typmod`: Type modifier for elements
+- `typlen`: Length of element type (-1 for variable length)
+- `typbyval`: Whether elements are passed by value or reference
+- `typalign`: Alignment requirement for element type
+- `*values`: Output array to store converted Datum values
+- `*nulls`: Output array to store null indicators
+- `*hasnulls`: Output flag indicating presence of any null elements
+- `*nbytes`: Output total size needed for data storage with alignment
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pq_getmsgint](../p/pq_getmsgint.md)

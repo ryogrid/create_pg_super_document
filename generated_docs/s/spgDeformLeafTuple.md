@@ -19,12 +19,11 @@ The  function decomposes an SP-GiST leaf tuple back into individual column value
 The function includes special handling for the trivial case where there's only a key attribute in a nulls tree, though this is currently dead code. For normal cases, it delegates to  after setting up the appropriate pointers to the tuple data and null bitmap sections.
 
 ## Parameters / Member Variables
-- : The SP-GiST leaf tuple to be deformed
-- : Tuple descriptor defining the structure and types of the tuple columns
-- : Output array to store the extracted column values (caller must allocate sufficient space)
-- : Output array to store null indicators for each column (caller must allocate sufficient space)
-- : Flag indicating whether the key column is null (for consistency checking)
-
+- `tup`: The SP-GiST leaf tuple to be deformed
+- `tupleDescriptor`: Tuple descriptor defining the structure and types of the tuple columns
+- `*datums`: Output array to store the extracted column values (caller must allocate sufficient space)
+- `*isnulls`: Output array to store null indicators for each column (caller must allocate sufficient space)
+- `keyColumnIsNull`: Flag indicating whether the key column is null (for consistency checking)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - macro to check if tuple has a null bitmap

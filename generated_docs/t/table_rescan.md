@@ -19,9 +19,8 @@ The  function provides a way to restart an existing table scan from the beginnin
 This function is commonly used in executor nodes that need to rescan their input, such as nested loop joins where the inner scan needs to be repeated for each outer tuple. The function delegates to the table access method's scan_rescan implementation with default parameters (all boolean flags set to false).
 
 ## Parameters / Member Variables
-- : The TableScanDesc structure representing the scan to be restarted
-- : Optional new scan key data to apply during the rescan (can be NULL)
-
+- `scan`: The TableScanDesc structure representing the scan to be restarted
+- `*key`: Optional new scan key data to apply during the rescan (can be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TableScanDesc](../T/TableScanDesc.md) (scan descriptor type)

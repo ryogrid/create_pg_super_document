@@ -20,10 +20,9 @@ The function assumes that tuples were originally added to the page in item-numbe
 The restoration process involves careful memory handling since the items in the buffer may not be properly aligned, requiring the use of memcpy() for safe access.
 
 ## Parameters / Member Variables
-- : The freshly initialized page where tuples will be restored
-- : Pointer to buffer containing the saved upper part of the original page  
-- : Length of the buffer in bytes
-
+- `page`: The freshly initialized page where tuples will be restored
+- `*from`: Pointer to buffer containing the saved upper part of the original page
+- `len`: Length of the buffer in bytes
 ## Dependencies
 - Functions called/Symbols referenced:
   - IndexTupleSize

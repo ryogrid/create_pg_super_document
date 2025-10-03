@@ -20,9 +20,8 @@ The function performs type compatibility checking between the child's target lis
 For valid matches, the function preserves the original order of the set operation's group clauses while updating the tleSortGroupRef values to reference the appropriate target entries in the child's target list.
 
 ## Parameters / Member Variables
-- : SetOperationStmt containing the parent set operation's grouping clauses and column type information
-- : List of TargetEntry nodes from the child query whose grouping properties need to be defined
-
+- `*op`: SetOperationStmt containing the parent set operation's grouping clauses and column type information
+- `*targetlist`: List of TargetEntry nodes from the child query whose grouping properties need to be defined
 ## Dependencies
 - Functions called/Symbols referenced:
   - copyObject

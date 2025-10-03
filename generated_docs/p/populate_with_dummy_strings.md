@@ -18,9 +18,8 @@ This static helper function is part of PostgreSQL's Bloom filter testing module.
 The function includes interrupt checking via  to allow for graceful cancellation during long-running test operations, which is important when dealing with large numbers of elements.
 
 ## Parameters / Member Variables
-- : Pointer to the bloom_filter structure that will be populated with dummy elements
-- : The number of dummy string elements to generate and add to the filter (int64 type supports very large test datasets)
-
+- `*filter`: Pointer to the bloom_filter structure that will be populated with dummy elements
+- `nelements`: The number of dummy string elements to generate and add to the filter (int64 type supports very large test datasets)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bloom_add_element](../b/bloom_add_element.md) (adds each generated string to the Bloom filter)

@@ -16,8 +16,7 @@ initVacuum(PGconn *con)
 This function executes VACUUM ANALYZE commands on all four standard pgbench tables to reclaim storage space and update table statistics after bulk data loading. The VACUUM operation removes dead tuples and compacts table storage, while ANALYZE updates the query planner's statistics about data distribution. This step is crucial after large data loads to ensure optimal query performance during benchmark execution. The function processes all pgbench tables systematically: branches, tellers, accounts, and history tables.
 
 ## Parameters / Member Variables
-- : Active PostgreSQL database connection handle used for executing the vacuum operations
-
+- `*con`: Active PostgreSQL database connection handle used for executing the vacuum operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [executeStatement](../e/executeStatement.md): Executes VACUUM ANALYZE SQL commands for each table

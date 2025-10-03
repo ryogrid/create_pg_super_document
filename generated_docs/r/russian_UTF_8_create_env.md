@@ -23,6 +23,7 @@ The function abstracts the specific configuration requirements for Russian stemm
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SN_create_env](../S/SN_create_env.md): Generic Snowball environment creation function (called with parameters 0, 2)

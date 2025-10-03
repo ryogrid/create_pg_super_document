@@ -24,7 +24,6 @@ Key behaviors:
 - Updates timing state regardless of whether a switch occurs to prevent constant retries during idle periods
 
 ## Parameters / Member Variables
-None - the function operates on global state variables and configuration settings.
 
 ## Dependencies
 - Functions called/Symbols referenced:

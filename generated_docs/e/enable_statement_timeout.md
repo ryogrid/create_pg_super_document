@@ -15,7 +15,6 @@ static void enable_statement_timeout(void)
 `enable_statement_timeout` manages the statement timeout mechanism by intelligently starting, maintaining, or disabling timeout timers based on the current configuration. The function first checks if a statement timeout is configured and whether it should take precedence over any transaction timeout. If the statement timeout is enabled and not already active, it starts a new timeout timer. If the statement timeout is disabled or should not be active, it disables any currently running statement timeout. The function implements an optimization where it avoids restarting timers that are already running, reducing the overhead of timeout management while maintaining reasonable timeout accuracy.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

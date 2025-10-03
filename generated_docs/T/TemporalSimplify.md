@@ -23,9 +23,8 @@ The function examines the source and target precisions:
 The function operates on FuncExpr nodes representing calls to temporal coercion functions like timestamp_scale.
 
 ## Parameters / Member Variables
-- : The maximum precision allowed for the temporal type (e.g., 6 for microseconds)
-- : A FuncExpr node representing the temporal coercion function call to be analyzed
-
+- `max_precis`: The maximum precision allowed for the temporal type (e.g., 6 for microseconds)
+- `*node`: A FuncExpr node representing the temporal coercion function call to be analyzed
 ## Dependencies
 - Functions called/Symbols referenced:
   - castNode (macro for safe casting)

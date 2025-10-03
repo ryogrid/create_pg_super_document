@@ -21,17 +21,16 @@ XactLogAbortRecord(TimestampTz abort_time,
 This function constructs and logs a comprehensive abort record to the Write-Ahead Log for transaction rollback operations. It handles both regular transaction aborts and two-phase commit prepared transaction aborts. The function collects various transaction-related metadata including sub-transactions, file relationships, dropped statistics, access exclusive locks, replication origin information, and two-phase commit details, then packages them into a structured WAL record for crash recovery and replication purposes.
 
 ## Parameters / Member Variables
-- : Timestamp when the transaction abort occurred
-- : Number of sub-transactions involved in this abort
-- : Array of sub-transaction IDs that are being aborted
-- : Number of relation file locators affected by this transaction
-- : Array of RelFileLocator structures for relations modified by the transaction
-- : Number of statistics items dropped during this transaction
-- : Array of xl_xact_stats_item structures for dropped statistics
-- : Transaction flags indicating special properties (e.g., XACT_FLAGS_ACQUIREDACCESSEXCLUSIVELOCK)
-- : Transaction ID for two-phase commit operations (InvalidTransactionId for regular aborts)
-- : Global identifier string for two-phase transactions (NULL for regular aborts)
-
+- `abort_time`: Timestamp when the transaction abort occurred
+- `nsubxacts`: Number of sub-transactions involved in this abort
+- `*subxacts`: Array of sub-transaction IDs that are being aborted
+- `nrels`: Number of relation file locators affected by this transaction
+- `*rels`: Array of RelFileLocator structures for relations modified by the transaction
+- `ndroppedstats`: Number of statistics items dropped during this transaction
+- `*droppedstats`: Array of xl_xact_stats_item structures for dropped statistics
+- `xactflags`: Transaction flags indicating special properties (e.g., XACT_FLAGS_ACQUIREDACCESSEXCLUSIVELOCK)
+- `twophase_xid`: Transaction ID for two-phase commit operations (InvalidTransactionId for regular aborts)
+- `*twophase_gid`: Global identifier string for two-phase transactions (NULL for regular aborts)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [XLogBeginInsert](XLogBeginInsert.md)

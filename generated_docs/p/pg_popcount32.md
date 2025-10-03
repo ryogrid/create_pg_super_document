@@ -24,8 +24,7 @@ This function serves as the primary external interface for 32-bit population cou
 The choice between these approaches is made at runtime through  based on CPU feature detection. This design allows PostgreSQL to automatically use the fastest available popcount implementation while maintaining a consistent API.
 
 ## Parameters / Member Variables
-- : The 32-bit unsigned integer for which to count the number of set bits
-
+- `word`: The 32-bit unsigned integer for which to count the number of set bits
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (fallback implementation)

@@ -19,11 +19,10 @@ This function implements the core logic for cursor operations (FETCH and MOVE) i
 The function carefully manages the SPI global state by resetting result variables before the operation and properly updating them afterward. It also performs consistency checks on tuple counts when the destination is SPI.
 
 ## Parameters / Member Variables
-- : Portal representing the cursor to operate on
-- : Direction for the fetch/move operation (forward/backward)
-- : Number of rows to fetch or move (positive/negative values)
-- : Destination receiver for the fetched tuples
-
+- `portal`: Portal representing the cursor to operate on
+- `direction`: Direction for the fetch/move operation (forward/backward)
+- `count`: Number of rows to fetch or move (positive/negative values)
+- `*dest`: Destination receiver for the fetched tuples
 ## Dependencies
 - Functions called/Symbols referenced:
   - PortalIsValid: Validates that the portal is still valid

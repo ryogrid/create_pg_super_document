@@ -20,8 +20,7 @@ For local buffers, the function directly writes pages using smgrwrite() and hand
 The caller should typically hold AccessExclusiveLock on the target relation to prevent concurrent modifications that could dirty additional pages during the flush operation.
 
 ## Parameters / Member Variables
-- : The Relation structure representing the relation whose buffers should be flushed to disk
-
+- `rel`: The Relation structure representing the relation whose buffers should be flushed to disk
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RelationGetSmgr](../R/RelationGetSmgr.md)

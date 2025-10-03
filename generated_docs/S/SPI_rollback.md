@@ -23,7 +23,6 @@ The function performs the same critical validation checks as the commit function
 The rollback operation is wrapped in a PG_TRY/PG_CATCH block to handle errors gracefully. If the rollback fails, the function attempts to abort again and starts a new transaction to maintain a consistent state.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -18,6 +18,7 @@ The  function performs a comprehensive cleanup of all unpinned SMgrRelation obje
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - dlist_foreach_modify (safely iterates through the unpinned relations list)

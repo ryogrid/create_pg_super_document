@@ -16,8 +16,7 @@ pqWriteReady(PGconn *conn)
 pqWriteReady provides a non-blocking check to determine if the connection socket is available for writing data. It uses pqSocketCheck with parameters configured for write readiness checking and immediate return (no timeout). This function is useful when the caller wants to know if a write operation would succeed without blocking the thread.
 
 ## Parameters / Member Variables
-- : Pointer to the PGconn connection structure representing the database connection
-
+- `*conn`: Pointer to the PGconn connection structure representing the database connection
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pqSocketCheck](pqSocketCheck.md)

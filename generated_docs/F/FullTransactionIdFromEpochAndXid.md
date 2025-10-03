@@ -18,9 +18,8 @@ This inline function creates a FullTransactionId value by combining an epoch and
 The function performs a simple bit manipulation: it shifts the epoch left by 32 bits and ORs it with the transaction ID to create the full 64-bit identifier.
 
 ## Parameters / Member Variables
-- : A 32-bit unsigned integer representing the transaction ID epoch (high-order bits)
-- : A 32-bit TransactionId representing the transaction identifier (low-order bits)
-
+- `epoch`: A 32-bit unsigned integer representing the transaction ID epoch (high-order bits)
+- `xid`: A 32-bit TransactionId representing the transaction identifier (low-order bits)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [FullTransactionId](FullTransactionId.md) (struct type)

@@ -18,8 +18,7 @@ The  function is a static helper function that initializes a timezone state stru
 The function operates as a last-resort mechanism for GMT timezone initialization, which is crucial for PostgreSQL's timezone handling system since GMT serves as a fundamental reference timezone.
 
 ## Parameters / Member Variables
-- : Pointer to a  that will be populated with GMT timezone information. This structure contains timezone transition data, abbreviations, and other timezone-specific information.
-
+- `sp`: Pointer to a  that will be populated with GMT timezone information. This structure contains timezone transition data, abbreviations, and other timezone-specific information.
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (attempts to load GMT timezone from file)

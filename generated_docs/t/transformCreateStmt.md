@@ -24,9 +24,8 @@ transformCreateStmt is the main entry point for processing CREATE TABLE statemen
 The function separates different types of table elements (columns, constraints, LIKE clauses) and processes them in the correct order. It ensures that primary keys are created before foreign keys, and that all constraints are properly validated. For foreign tables, certain validations are skipped since the data resides externally.
 
 ## Parameters / Member Variables
-- : The CreateStmt node from the parser containing the raw CREATE TABLE specification
-- : The original SQL query string for error reporting and context
-
+- `*stmt`: The CreateStmt node from the parser containing the raw CREATE TABLE specification
+- `*queryString`: The original SQL query string for error reporting and context
 ## Dependencies
 - Functions called/Symbols referenced:
   - [make_parsestate](../m/make_parsestate.md)

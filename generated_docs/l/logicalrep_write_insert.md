@@ -19,13 +19,12 @@ The  function serializes an INSERT operation into the logical replication stream
 This function is a core component of PostgreSQL's logical replication system, responsible for transmitting INSERT operations to logical replication subscribers. It handles both streaming and non-streaming transaction contexts and supports binary format transmission when requested.
 
 ## Parameters / Member Variables
-- : StringInfo buffer where the serialized INSERT message will be written
-- : Transaction ID for streaming transactions (may be invalid for non-streaming contexts)  
-- : Relation object representing the table where the INSERT occurred
-- : TupleTableSlot containing the inserted tuple data
-- : Boolean flag indicating whether to use binary format for tuple transmission
-- : Bitmapset specifying which columns to include in the replication message
-
+- `out`: StringInfo buffer where the serialized INSERT message will be written
+- `xid`: Transaction ID for streaming transactions (may be invalid for non-streaming contexts)
+- `rel`: Relation object representing the table where the INSERT occurred
+- `*newslot`: TupleTableSlot containing the inserted tuple data
+- `binary`: Boolean flag indicating whether to use binary format for tuple transmission
+- `*columns`: Bitmapset specifying which columns to include in the replication message
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pq_sendbyte](../p/pq_sendbyte.md)

@@ -25,12 +25,11 @@ The function follows these main steps:
 6. Invalidates relation caches for affected relations
 
 ## Parameters / Member Variables
-- : The relation containing the constraint to be altered
-- : The ALTER TABLE command containing constraint modification details
-- : Whether to recursively apply changes to child tables
-- : Whether this call is part of a recursive operation
-- : The lock mode to use for the operation
-
+- `rel`: The relation containing the constraint to be altered
+- `*cmd`: The ALTER TABLE command containing constraint modification details
+- `recurse`: Whether to recursively apply changes to child tables
+- `recursing`: Whether this call is part of a recursive operation
+- `lockmode`: The lock mode to use for the operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - castNode

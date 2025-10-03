@@ -16,9 +16,8 @@ assign_search_path(const char *newval, void *extra)
 This function serves as the assign hook for the search_path GUC (Grand Unified Configuration) parameter. It is called whenever the search_path configuration is updated through SET commands or other configuration mechanisms. Rather than immediately recomputing the search path, it adopts a lazy evaluation strategy by simply marking the current baseSearchPath as invalid, deferring the actual recomputation until the search path is next accessed. This design avoids expensive database operations during GUC initialization or when outside a transaction context.
 
 ## Parameters / Member Variables
-- : The new string value being assigned to the search_path parameter
-- : Additional data passed by the GUC system (currently unused in this function)
-
+- `*newval`: The new string value being assigned to the search_path parameter
+- `*extra`: Additional data passed by the GUC system (currently unused in this function)
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsBootstrapProcessingMode

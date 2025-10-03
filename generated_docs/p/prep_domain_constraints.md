@@ -18,9 +18,8 @@ This static function is part of PostgreSQL's type cache system that handles doma
 The function iterates through each constraint in the input list, creating new DomainConstraintState nodes with executable expression states. This preparation step is essential for efficient constraint checking during query execution, as it pre-compiles the constraint expressions into a form that can be quickly evaluated.
 
 ## Parameters / Member Variables
-- : List of DomainConstraintState nodes containing constraint expression trees to be prepared
-- : Memory context in which the prepared constraint state trees will be allocated
-
+- `*constraints`: List of DomainConstraintState nodes containing constraint expression trees to be prepared
+- `execctx`: Memory context in which the prepared constraint state trees will be allocated
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DomainConstraintState](../D/DomainConstraintState.md) (struct for constraint state representation)

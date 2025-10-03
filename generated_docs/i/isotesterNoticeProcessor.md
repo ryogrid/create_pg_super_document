@@ -18,9 +18,8 @@ This function serves as a libpq notice processor callback that gets invoked when
 The notice tracking is particularly important for coordinating test step execution, as some steps may have PSB_NUM_NOTICES blocker conditions that wait for a specific number of notices before allowing the step to complete. The global  flag helps the step completion logic determine when to retry checking blocked steps.
 
 ## Parameters / Member Variables
-- : Void pointer that should be cast to IsoConnInfo* representing the connection that received the notice
-- : The notice message text received from the PostgreSQL backend
-
+- `*arg`: Void pointer that should be cast to IsoConnInfo* representing the connection that received the notice
+- `*message`: The notice message text received from the PostgreSQL backend
 ## Dependencies
 - Functions called/Symbols referenced:
   - [IsoConnInfo](../I/IsoConnInfo.md) (structure type for connection information)

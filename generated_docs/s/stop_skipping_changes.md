@@ -18,7 +18,6 @@ This function serves as the counterpart to maybe_start_skipping_changes, providi
 The function includes a safety check to avoid unnecessary operations if skipping is not currently active, making it safe to call regardless of the current skipping state.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

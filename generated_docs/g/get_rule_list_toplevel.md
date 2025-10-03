@@ -21,10 +21,9 @@ The function iterates through each node in the provided list using PostgreSQL's 
 The caller is responsible for providing any surrounding decoration (such as parentheses) that might be needed for the specific SQL context.
 
 ## Parameters / Member Variables
-- : A PostgreSQL List containing expression nodes to be deparsed
-- : Deparse context containing output buffer, formatting options, and namespace information  
-- : Boolean flag controlling whether implicit casts are displayed in the output
-
+- `*lst`: A PostgreSQL List containing expression nodes to be deparsed
+- `*context`: Deparse context containing output buffer, formatting options, and namespace information
+- `showimplicit`: Boolean flag controlling whether implicit casts are displayed in the output
 ## Dependencies
 - Functions called/Symbols referenced:
   - foreach (PostgreSQL list iteration macro)

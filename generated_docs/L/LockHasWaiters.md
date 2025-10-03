@@ -18,10 +18,9 @@ LockHasWaiters performs a non-intrusive check to determine if other processes ar
 The function operates by first locating the local lock entry in the current backend's hash table, then acquiring a shared lock on the appropriate partition to safely examine the shared lock state. It performs several validation steps to ensure the process actually holds the lock before checking the conflict matrix against waiting processes.
 
 ## Parameters / Member Variables
-- : Pointer to LOCKTAG structure identifying the specific lock object (table, relation, etc.)
-- : The specific lock mode to check for waiters (e.g., AccessExclusiveLock, ShareLock)
-- : Boolean indicating whether this is a session-level lock (currently unused in the implementation)
-
+- `*locktag`: Pointer to LOCKTAG structure identifying the specific lock object (table, relation, etc.)
+- `lockmode`: The specific lock mode to check for waiters (e.g., AccessExclusiveLock, ShareLock)
+- `sessionLock`: Boolean indicating whether this is a session-level lock (currently unused in the implementation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hash_search](../h/hash_search.md) (to find LOCALLOCK entry)

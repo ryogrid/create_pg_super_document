@@ -16,9 +16,8 @@ DefineRule(RuleStmt *stmt, const char *queryString)
 DefineRule acts as the primary interface for CREATE RULE command execution in PostgreSQL. It performs the initial parsing and transformation of the rule statement through transformRuleStmt, acquires the necessary locks on the target relation, and then delegates the actual rule creation to DefineQueryRewrite. This function bridges the gap between the parser's output (RuleStmt) and the lower-level rule definition machinery, ensuring proper statement transformation and relation access before rule creation.
 
 ## Parameters / Member Variables
-- : The parsed CREATE RULE statement containing rule name, target relation, event type, conditions, and actions
-- : The original SQL command string for error reporting and logging purposes
-
+- `*stmt`: The parsed CREATE RULE statement containing rule name, target relation, event type, conditions, and actions
+- `*queryString`: The original SQL command string for error reporting and logging purposes
 ## Dependencies
 - Functions called/Symbols referenced:
   - [transformRuleStmt](../t/transformRuleStmt.md)

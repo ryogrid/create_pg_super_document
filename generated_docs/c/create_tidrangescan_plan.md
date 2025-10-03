@@ -25,11 +25,10 @@ Key processing steps include:
 - Creating the final TidRangeScan plan with optimized execution order
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planner state and context information
-- : TidRangePath representing the chosen access path with TID range qualifications
-- : Target list specifying which columns to return from the scan
-- : List of restriction clauses to apply during scanning
-
+- `*root`: PlannerInfo structure containing planner state and context information
+- `*best_path`: TidRangePath representing the chosen access path with TID range qualifications
+- `*tlist`: Target list specifying which columns to return from the scan
+- `*scan_clauses`: List of restriction clauses to apply during scanning
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_member_ptr](../l/list_member_ptr.md)

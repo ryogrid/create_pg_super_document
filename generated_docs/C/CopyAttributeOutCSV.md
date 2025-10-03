@@ -23,10 +23,9 @@ This function handles the CSV formatting of individual attribute values during C
 - Null value detection to force quoting when a value matches the null representation
 
 ## Parameters / Member Variables
-- : CopyToState structure containing COPY operation configuration including delimiters, quote characters, escape characters, and encoding information
-- : The attribute value to be formatted as a null-terminated string
-- : Boolean flag indicating whether the caller has already determined that quoting is required
-
+- `cstate`: CopyToState structure containing COPY operation configuration including delimiters, quote characters, escape characters, and encoding information
+- `*string`: The attribute value to be formatted as a null-terminated string
+- `use_quote`: Boolean flag indicating whether the caller has already determined that quoting is required
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (for checking single attribute case)

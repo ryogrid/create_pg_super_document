@@ -19,11 +19,10 @@ xact_redo_commit(xl_xact_parsed_commit *parsed,
 This function performs the recovery replay of transaction commit operations during PostgreSQL's crash recovery process. It carefully orchestrates multiple critical operations in the correct order including advancing transaction IDs, setting commit timestamps, updating transaction status in pg_xact, handling invalidation messages, releasing locks, advancing replication origins, dropping relation files, and executing statistical drops. The function handles both normal recovery (standbyState == STANDBY_DISABLED) and hot standby recovery with different code paths for each scenario.
 
 ## Parameters / Member Variables
-- : Parsed commit record structure containing all transaction commit information
-- : Transaction ID of the committing transaction
-- : Log sequence number of the commit record being replayed
-- : Replication origin ID for logical replication tracking
-
+- `*parsed`: Parsed commit record structure containing all transaction commit information
+- `xid`: Transaction ID of the committing transaction
+- `lsn`: Log sequence number of the commit record being replayed
+- `origin_id`: Replication origin ID for logical replication tracking
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TransactionIdLatest](../T/TransactionIdLatest.md)

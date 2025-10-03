@@ -20,8 +20,7 @@ This function is essential for URL parsing within text search, allowing the pars
 The function includes stack depth checking before recursing to prevent stack overflow in complex parsing scenarios.
 
 ## Parameters / Member Variables
-- : Pointer to a TParser structure containing the current parser state
-
+- `*prs`: Pointer to a TParser structure containing the current parser state
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TParser](../T/TParser.md) (structure type)

@@ -17,12 +17,11 @@ spgdoinsert(Relation index, SpGistState *state,
 The  function orchestrates the entire SP-GiST tuple insertion process. It begins by preparing the leaf tuple data, optionally applying compression, and validating size constraints. The function then navigates the tree starting from the appropriate root (null or regular), following opclass-defined choose function guidance. At each inner node, it may perform match (descend), addNode (expand inner tuple), or splitTuple (restructure inner tuple) operations. When reaching a leaf page, it either directly inserts the tuple, moves the entire leaf chain to a new page, or performs a picksplit operation to redistribute tuples across multiple pages.
 
 ## Parameters / Member Variables
-- : The SP-GiST index relation to insert into
-- : SP-GiST state containing opclass information and configuration
-- : Item pointer to the heap tuple being indexed
-- : Array of column values for the index tuple
-- : Array of null flags corresponding to datums
-
+- `index`: The SP-GiST index relation to insert into
+- `*state`: SP-GiST state containing opclass information and configuration
+- `heapPtr`: Item pointer to the heap tuple being indexed
+- `*datums`: Array of column values for the index tuple
+- `*isnulls`: Array of null flags corresponding to datums
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SpGistGetLeafTupleSize](../S/SpGistGetLeafTupleSize.md)

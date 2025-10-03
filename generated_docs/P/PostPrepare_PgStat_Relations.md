@@ -20,8 +20,7 @@ The function ensures that nontransactional action counts (like tuple insert/upda
 Note that AtEOXact_PgStat_Relations is not called during the PREPARE phase, making this function responsible for the necessary state cleanup.
 
 ## Parameters / Member Variables
-- : Subtransaction status containing the prepared transaction's relation statistics
-
+- `*xact_state`: Subtransaction status containing the prepared transaction's relation statistics
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PgStat_SubXactStatus](PgStat_SubXactStatus.md) (subtransaction status structure)

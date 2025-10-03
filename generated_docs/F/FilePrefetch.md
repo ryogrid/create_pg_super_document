@@ -25,11 +25,10 @@ The implementation includes:
 The function is designed to be non-blocking - it returns immediately after issuing the prefetch hint, allowing the calling code to continue while the OS performs the actual I/O in the background.
 
 ## Parameters / Member Variables
-- : The virtual file descriptor to prefetch from
-- : Starting byte offset within the file for the prefetch operation
-- : Number of bytes to prefetch from the offset
-- : Wait event identifier for PostgreSQL's wait event monitoring system
-
+- `file`: The virtual file descriptor to prefetch from
+- `offset`: Starting byte offset within the file for the prefetch operation
+- `amount`: Number of bytes to prefetch from the offset
+- `wait_event_info`: Wait event identifier for PostgreSQL's wait event monitoring system
 ## Dependencies
 - Functions called/Symbols referenced:
   - FileIsValid: Validates the file descriptor

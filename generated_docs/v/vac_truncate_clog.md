@@ -27,11 +27,10 @@ This function performs critical system maintenance by truncating various transac
 The function implements multiple safety mechanisms including detection of already-wrapped transactions and bogus data. It ensures that commit timestamp lookups return NULL rather than file errors for truncated transactions by advancing the oldest commit timestamp XID before truncation.
 
 ## Parameters / Member Variables
-- : The updated datfrozenxid value for the current database, used to initialize minimum calculations
-- : The updated datminmxid value for the current database, used to initialize minimum calculations  
-- : The latest valid frozen XID that could be seen during the scan (used for corruption detection)
-- : The latest valid minimum MultiXactId that could be seen during the scan (used for corruption detection)
-
+- `frozenXID`: The updated datfrozenxid value for the current database, used to initialize minimum calculations
+- `minMulti`: The updated datminmxid value for the current database, used to initialize minimum calculations
+- `lastSaneFrozenXid`: The latest valid frozen XID that could be seen during the scan (used for corruption detection)
+- `lastSaneMinMulti`: The latest valid minimum MultiXactId that could be seen during the scan (used for corruption detection)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReadNextTransactionId](../R/ReadNextTransactionId.md)

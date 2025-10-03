@@ -26,8 +26,7 @@ The function scans the input looking for a DOCTYPE declaration, properly handlin
 The function is designed to be conservative - it returns false for any malformed or unrecognized input, allowing normal CONTENT parsing with proper libxml2 error reporting.
 
 ## Parameters / Member Variables
-- : UTF-8 encoded XML string to examine for DTD presence
-
+- `*str`: UTF-8 encoded XML string to examine for DTD presence
 ## Dependencies
 - Functions called/Symbols referenced:
   - SKIP_XML_SPACE (macro for skipping XML whitespace)

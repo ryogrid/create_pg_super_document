@@ -27,8 +27,7 @@ The matching process involves several steps:
 The function requires exact matches on indexed columns/expressions but allows flexible ordering. For partial indexes, the predicate must be logically implied by the ON CONFLICT WHERE clause.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing the parsed query with OnConflictExpr information
-
+- `*root`: PlannerInfo structure containing the parsed query with OnConflictExpr information
 ## Dependencies
 - Functions called/Symbols referenced:
   - rt_fetch

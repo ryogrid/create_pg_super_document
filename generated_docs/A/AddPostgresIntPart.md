@@ -17,12 +17,11 @@ AddPostgresIntPart(char *cp, int64 value, const char *units,
 This function is responsible for formatting individual components of PostgreSQL interval values in the traditional PostgreSQL interval output format. It conditionally appends interval field values (like years, months, days, etc.) to a string buffer only when the value is non-zero. The function handles proper spacing, sign formatting, and pluralization of unit names. It implements a specific behavior where each nonzero field influences the sign formatting of the subsequent field through the  parameter.
 
 ## Parameters / Member Variables
-- : Pointer to the current position in the output string buffer where the formatted interval part should be appended
-- : The numeric value of the interval component (e.g., number of years, months, days)
-- : The unit name string (e.g., "year", "month", "day")
-- : Pointer to a boolean flag indicating whether any non-zero values have been encountered yet
-- : Pointer to a boolean flag that tracks sign state for proper formatting of subsequent fields
-
+- `*cp`: Pointer to the current position in the output string buffer where the formatted interval part should be appended
+- `value`: The numeric value of the interval component (e.g., number of years, months, days)
+- `*units`: The unit name string (e.g., "year", "month", "day")
+- `*is_zero`: Pointer to a boolean flag indicating whether any non-zero values have been encountered yet
+- `*is_before`: Pointer to a boolean flag that tracks sign state for proper formatting of subsequent fields
 ## Dependencies
 - Functions called/Symbols referenced:
   - sprintf (standard C library function)

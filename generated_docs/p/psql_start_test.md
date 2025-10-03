@@ -19,11 +19,10 @@ psql_start_test(const char *testname,
 This function is a core component of PostgreSQL's regression testing framework. It creates and launches a psql subprocess to execute a specific test case. The function handles file path resolution for input SQL files and expected output files, constructs the appropriate psql command with necessary flags, and manages process spawning. It implements a vpath-like search strategy, looking first in the output directory for local test overrides, then falling back to the input directory. The function sets up environment variables for test identification and ensures proper cleanup of resources.
 
 ## Parameters / Member Variables
-- : The name of the test to run (without .sql extension)
-- : Pointer to string list that will be populated with result file paths
-- : Pointer to string list that will be populated with expected output file paths  
-- : Pointer to string list for test tags (currently unused in this function)
-
+- `*testname`: The name of the test to run (without .sql extension)
+- `**resultfiles`: Pointer to string list that will be populated with result file paths
+- `**expectfiles`: Pointer to string list that will be populated with expected output file paths
+- `**tags`: Pointer to string list for test tags (currently unused in this function)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [file_exists](../f/file_exists.md): Check if input and expected files exist

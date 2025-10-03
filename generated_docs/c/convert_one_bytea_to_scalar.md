@@ -28,11 +28,10 @@ Key characteristics:
 The function handles edge cases by clamping out-of-range values and returns 0.0 for empty data, ensuring consistent behavior across all inputs.
 
 ## Parameters / Member Variables
-- : Pointer to the unsigned char array containing the binary data
-- : The length of the binary data in bytes
-- : The lowest byte value in the expected range (typically 0)
-- : The highest byte value in the expected range (typically 255)
-
+- `*value`: Pointer to the unsigned char array containing the binary data
+- `valuelen`: The length of the binary data in bytes
+- `rangelo`: The lowest byte value in the expected range (typically 0)
+- `rangehi`: The highest byte value in the expected range (typically 255)
 ## Dependencies
 - Functions called/Symbols referenced:
   - (No external function calls - operates directly on byte data)

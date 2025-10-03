@@ -16,9 +16,8 @@ range_get_typcache(FunctionCallInfo fcinfo, Oid rngtypid)
 This function provides a standardized way for range-related functions to access cached type information about range types. It follows a common PostgreSQL pattern where the fn_extra field of the function call info structure is used to cache the TypeCacheEntry for the range type. The function checks if the cached entry exists and matches the requested type ID; if not, it fetches the type cache information using lookup_type_cache() and caches it for future use. This caching mechanism improves performance by avoiding repeated type lookups.
 
 ## Parameters / Member Variables
-- : Function call information structure containing the fn_extra field used for caching
-- : OID of the range type for which to retrieve type cache information
-
+- `fcinfo`: Function call information structure containing the fn_extra field used for caching
+- `rngtypid`: OID of the range type for which to retrieve type cache information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lookup_type_cache](../l/lookup_type_cache.md)

@@ -22,14 +22,13 @@ For CHECK constraints, it directly calls ATAddCheckConstraint. For FOREIGN KEY c
 The function includes robust error handling for duplicate constraint names and unsupported constraint types, ensuring data integrity and providing clear error messages to users.
 
 ## Parameters / Member Variables
-- : Double pointer to the work queue list for managing ALTER TABLE operations
-- : AlteredTableInfo structure containing information about the table being altered
-- : Relation object representing the target table
-- : Constraint node specifying the constraint to be added
-- : Boolean indicating whether to apply the constraint to inheritance children
-- : Boolean indicating if this is a constraint being re-added (e.g., during table rewrite)
-- : Lock mode to use during the operation
-
+- `**wqueue`: Double pointer to the work queue list for managing ALTER TABLE operations
+- `*tab`: AlteredTableInfo structure containing information about the table being altered
+- `rel`: Relation object representing the target table
+- `*newConstraint`: Constraint node specifying the constraint to be added
+- `recurse`: Boolean indicating whether to apply the constraint to inheritance children
+- `is_readd`: Boolean indicating if this is a constraint being re-added (e.g., during table rewrite)
+- `lockmode`: Lock mode to use during the operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ATAddCheckConstraint](ATAddCheckConstraint.md)

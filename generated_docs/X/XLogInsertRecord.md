@@ -20,12 +20,11 @@ XLogInsertRecord(XLogRecData *rdata,
 XLogInsertRecord is a low-level routine that inserts an XLOG record represented by a chain of pre-constructed data chunks into the WAL. This function implements a sophisticated two-step process: first reserving space in the WAL buffer, then copying the record data to that reserved space. It handles three different insertion classes: normal records, XLOG_SWITCH records (which require exclusive access), and checkpoint redo records. The function includes critical safety checks for full-page writes, manages WAL insertion locks to coordinate concurrent insertions, and updates various global state variables upon successful insertion.
 
 ## Parameters / Member Variables
-- : Chain of XLogRecData structures containing the record data, with the first chunk containing the record header
-- : Oldest LSN among pages affected by this record that were not included as full-page images; used for full-page write validation
-- : Control flags for the record insertion (see XLogSetRecordFlags for details)
-- : Number of full-page images included in this record
-- : Whether the top-transaction ID is logged with the current subtransaction
-
+- `*rdata`: Chain of XLogRecData structures containing the record data, with the first chunk containing the record header
+- `fpw_lsn`: Oldest LSN among pages affected by this record that were not included as full-page images; used for full-page write validation
+- `flags`: Control flags for the record insertion (see XLogSetRecordFlags for details)
+- `num_fpi`: Number of full-page images included in this record
+- `topxid_included`: Whether the top-transaction ID is logged with the current subtransaction
 ## Dependencies
 - Functions called/Symbols referenced:
   - [WALInsertLockAcquire](../W/WALInsertLockAcquire.md)

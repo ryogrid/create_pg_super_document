@@ -20,10 +20,9 @@ The function first writes the length value as a Size type, then writes the actua
 The function reports FATAL errors if write operations fail, ensuring data integrity in the initialization file. This is critical since a corrupted initialization file would cause backend startup failures.
 
 ## Parameters / Member Variables
-- : Pointer to the data to be written (can be NULL if len is 0)
-- : Size of the data in bytes (Size type)  
-- : File pointer to the output file
-
+- `*data`: Pointer to the data to be written (can be NULL if len is 0)
+- `len`: Size of the data in bytes (Size type)
+- `*fp`: File pointer to the output file
 ## Dependencies
 - Functions called/Symbols referenced:
   - fwrite (standard C library)

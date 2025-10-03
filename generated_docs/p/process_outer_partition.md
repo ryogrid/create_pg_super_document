@@ -30,16 +30,15 @@ This function is a key component of PostgreSQL's partitionwise join optimization
 For FULL joins involving default partitions, the function ensures proper handling of the resulting default partition index.
 
 ## Parameters / Member Variables
-- : Partition mapping structure for the outer side of the join
-- : Partition mapping structure for the inner side of the join  
-- : Boolean indicating if the outer side has a default partition
-- : Boolean indicating if the inner side has a default partition
-- : Index of the outer partition being processed (must be >= 0)
-- : Index of the inner default partition (when inner_has_default is true)
-- : Type of join operation (INNER, LEFT, RIGHT, FULL, etc.)
-- : Pointer to the next available index for merged partitions (incremented when new partition created)
-- : Pointer to store the index of the default partition in the join result
-
+- `*outer_map`: Partition mapping structure for the outer side of the join
+- `*inner_map`: Partition mapping structure for the inner side of the join
+- `outer_has_default`: Boolean indicating if the outer side has a default partition
+- `inner_has_default`: Boolean indicating if the inner side has a default partition
+- `outer_index`: Index of the outer partition being processed (must be >= 0)
+- `inner_default`: Index of the inner default partition (when inner_has_default is true)
+- `jointype`: Type of join operation (INNER, LEFT, RIGHT, FULL, etc.)
+- `*next_index`: Pointer to the next available index for merged partitions (incremented when new partition created)
+- `*default_index`: Pointer to store the index of the default partition in the join result
 ## Dependencies
 - Functions called/Symbols referenced:
   - [merge_matching_partitions](../m/merge_matching_partitions.md)

@@ -20,9 +20,8 @@ The function maintains cached low and stricthigh bounds in the insertstate struc
 The function includes comprehensive error checking for index corruption, particularly when duplicate table TIDs are encountered, which should never happen in a correctly functioning index.
 
 ## Parameters / Member Variables
-- : The B-tree index relation
-- : BTInsertState structure containing insertion context, including the target buffer, search key, cached bounds, and posting list information
-
+- `rel`: The B-tree index relation
+- `insertstate`: BTInsertState structure containing insertion context, including the target buffer, search key, cached bounds, and posting list information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BufferGetPage](../B/BufferGetPage.md)

@@ -18,10 +18,9 @@ date2j implements a calendar time to Julian date conversion algorithm that accur
 The algorithm uses a sophisticated calculation that accounts for leap years and varying month lengths by adjusting the month and year values before performing the core Julian day calculation. It handles the Gregorian calendar reform by incorporating century-based leap year corrections. The function can produce valid negative Julian dates significantly before Nov 24, -4713, extending back to Nov 1, -4713 as required by IS_VALID_JULIAN().
 
 ## Parameters / Member Variables
-- : The calendar year (can be negative for years BC)
-- : The month number (1-12, where 1 = January)
-- : The day of the month (1-31)
-
+- `y`: The calendar year (can be negative for years BC)
+- `m`: The month number (1-12, where 1 = January)
+- `d`: The day of the month (1-31)
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (uses only basic arithmetic operations)

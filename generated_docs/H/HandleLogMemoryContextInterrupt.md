@@ -17,6 +17,7 @@ This function serves as a signal handler for memory context logging requests. It
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - InterruptPending (global variable)

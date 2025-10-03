@@ -18,8 +18,7 @@ This function serves as a conversion utility in PostgreSQL's function manager (f
 The function is defined as a static inline function in the header file, meaning it will be inlined at compile time for performance optimization. This is particularly important since time-with-timezone operations are complex and frequently performed throughout PostgreSQL's date/time processing systems.
 
 ## Parameters / Member Variables
-- : A PostgreSQL Datum containing a pointer to a time-with-timezone value that needs to be converted to TimeTzADT* format
-
+- `X`: A PostgreSQL Datum containing a pointer to a time-with-timezone value that needs to be converted to TimeTzADT* format
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DatumGetPointer](DatumGetPointer.md) (underlying pointer extraction mechanism)

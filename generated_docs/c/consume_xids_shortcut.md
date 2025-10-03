@@ -17,6 +17,7 @@ This internal function implements a performance optimization for bulk XID consum
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockAcquire](../L/LWLockAcquire.md) (acquires exclusive lock on XidGenLock)

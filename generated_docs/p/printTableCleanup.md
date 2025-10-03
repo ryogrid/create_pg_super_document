@@ -18,8 +18,7 @@ This function performs comprehensive memory cleanup for a printTableContent stru
 The cleanup process traverses the singly-linked list of footers, freeing both the footer data strings and the footer nodes themselves. After cleanup, all pointers in the structure are set to NULL, making the structure safe to reuse with printTableInit() or safe to dispose of entirely.
 
 ## Parameters / Member Variables
-- : Pointer to the printTableContent structure to clean up
-
+- `content`: Pointer to the printTableContent structure to clean up
 ## Dependencies
 - Functions called/Symbols referenced:
   - free (standard C library function)

@@ -25,7 +25,6 @@ The function performs the following cleanup operations:
 The function ensures that nested SPI connections are properly unwound and that any memory allocated during SPI operations (including tuple tables) is freed.
 
 ## Parameters / Member Variables
-This function takes no parameters and operates on the current SPI connection state.
 
 ## Dependencies
 - Functions called/Symbols referenced:

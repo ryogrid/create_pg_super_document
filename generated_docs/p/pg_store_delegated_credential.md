@@ -18,8 +18,7 @@ The  function manages the storage of delegated GSS-API credentials in PostgreSQL
 The function specifically configures the credential storage to use a memory cache (), which ensures the credentials are only available to the current process and are automatically cleaned up when the process terminates. After successfully storing the credentials, it releases the original credential handle and sets the  environment variable to point to the memory cache, enabling later credential acquisition operations to find the stored delegated credentials.
 
 ## Parameters / Member Variables
-- : The GSS-API credential handle containing the delegated credentials to be stored
-
+- `cred`: The GSS-API credential handle containing the delegated credentials to be stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - gss_store_cred_into (GSS-API function for storing credentials into a specific cache)

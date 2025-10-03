@@ -22,9 +22,8 @@ The function implements a two-phase approach:
 The function uses WaitLatch with timeouts to avoid indefinite blocking, and includes proper interrupt handling and postmaster death detection.
 
 ## Parameters / Member Variables
-- : Pointer to the LogicalRepWorker structure representing the worker to be stopped
-- : Signal number to send to the worker process for termination (typically SIGTERM)
-
+- `*worker`: Pointer to the LogicalRepWorker structure representing the worker to be stopped
+- `signo`: Signal number to send to the worker process for termination (typically SIGTERM)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [WaitLatch](../W/WaitLatch.md): Used to wait with timeout during worker startup and shutdown phases

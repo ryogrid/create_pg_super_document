@@ -20,7 +20,6 @@ The function retrieves the buffer ID that the startup process is waiting on and 
 The function includes defensive checks to handle race conditions where the startup process might have already been unblocked by other backends or where interrupts arrive at inappropriate times.
 
 ## Parameters / Member Variables
-None - this function takes no parameters and checks the current backend's state.
 
 ## Dependencies
 - Functions called/Symbols referenced:

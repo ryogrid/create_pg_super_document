@@ -25,8 +25,7 @@ The function performs the following operations:
 7. Installs any requested extensions using CREATE EXTENSION IF NOT EXISTS
 
 ## Parameters / Member Variables
-- : Name of the database to create
-
+- `*dbname`: Name of the database to create
 ## Dependencies
 - Functions called/Symbols referenced:
   - [psql_start_command](../p/psql_start_command.md) (initialize psql command buffer)

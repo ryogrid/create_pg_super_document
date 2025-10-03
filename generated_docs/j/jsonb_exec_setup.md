@@ -20,10 +20,9 @@ This function initializes the execution state for JSONB subscript operations (e.
 The function allocates a type-specific workspace () that includes space for per-subscript data, collects subscript data types needed during execution, and sets up method pointers for the actual subscript operations. The workspace is carefully laid out in memory with proper alignment considerations.
 
 ## Parameters / Member Variables
-- : Pointer to SubscriptingRef structure containing the subscript reference information including upper index expressions
-- : Pointer to SubscriptingRefState structure where the allocated workspace will be stored
-- : Pointer to SubscriptExecSteps structure that will be populated with function pointers for subscript operations
-
+- `*sbsref`: Pointer to SubscriptingRef structure containing the subscript reference information including upper index expressions
+- `*sbsrefstate`: Pointer to SubscriptingRefState structure where the allocated workspace will be stored
+- `*methods`: Pointer to SubscriptExecSteps structure that will be populated with function pointers for subscript operations
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (memory allocation)

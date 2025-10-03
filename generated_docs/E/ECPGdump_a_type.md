@@ -20,19 +20,18 @@ ECPGdump_a_type(FILE *o, const char *name, struct ECPGtype *type, const int brac
 The  function is a central component of the ECPG preprocessor's code generation system. It analyzes ECPG type structures and generates the appropriate C code for variable declarations, type conversions, and SQL interface operations. The function performs comprehensive type checking, validates variable scope and shadowing, handles complex data structures (arrays, structs, unions), and manages indicator variables for null value detection. It supports all ECPG data types including simple types, arrays, structures, and PostgreSQL-specific types like varchar, bytea, and descriptors.
 
 ## Parameters / Member Variables
-- : Output file stream for generated C code
-- : Name of the variable being processed
-- : Pointer to ECPGtype structure describing the main variable's type
-- : Scope level for variable shadowing detection
-- : Name of the indicator variable (can be NULL)
-- : Pointer to ECPGtype structure for indicator variable (can be NULL)
-- : Scope level for indicator variable
-- : String prefix for generated variable names
-- : String prefix for generated indicator variable names
-- : String representing array size for variable-length arrays
-- : Size information for struct types
-- : Size information for indicator struct types
-
+- `*o`: Output file stream for generated C code
+- `*name`: Name of the variable being processed
+- `*type`: Pointer to ECPGtype structure describing the main variable's type
+- `brace_level`: Scope level for variable shadowing detection
+- `*ind_name`: Name of the indicator variable (can be NULL)
+- `*ind_type`: Pointer to ECPGtype structure for indicator variable (can be NULL)
+- `ind_brace_level`: Scope level for indicator variable
+- `*prefix`: String prefix for generated variable names
+- `*ind_prefix`: String prefix for generated indicator variable names
+- `*arr_str_size`: String representing array size for variable-length arrays
+- `*struct_sizeof`: Size information for struct types
+- `*ind_struct_sizeof`: Size information for indicator struct types
 ## Dependencies
 - Functions called/Symbols referenced:
   - [mm_strdup](../m/mm_strdup.md) (string duplication with error checking)

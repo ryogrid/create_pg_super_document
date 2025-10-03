@@ -25,10 +25,9 @@ Key implementation details:
 - Returns a properly constructed ArrayType suitable for PostgreSQL's array system
 
 ## Parameters / Member Variables
-- : The OID of the enum type whose values should be retrieved
-- : The OID of the lower bound enum value (InvalidOid for no lower bound)  
-- : The OID of the upper bound enum value (InvalidOid for no upper bound)
-
+- `enumtypoid`: The OID of the enum type whose values should be retrieved
+- `lower`: The OID of the lower bound enum value (InvalidOid for no lower bound)
+- `upper`: The OID of the upper bound enum value (InvalidOid for no upper bound)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ScanKeyInit](../S/ScanKeyInit.md)

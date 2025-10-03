@@ -18,9 +18,8 @@ The  function serves as the assignment hook for PostgreSQL's  configuration para
 This function is part of the GUC (Grand Unified Configuration) system's hook mechanism, which allows for custom validation and assignment logic for configuration parameters.
 
 ## Parameters / Member Variables
-- : The new timezone string value (not used in this function)
-- : Pointer to the pre-validated pg_tz structure from the check hook
-
+- `*newval`: The new timezone string value (not used in this function)
+- `*extra`: Pointer to the pre-validated pg_tz structure from the check hook
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_tz](../p/pg_tz.md) (type reference)

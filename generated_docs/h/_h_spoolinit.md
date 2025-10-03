@@ -18,10 +18,9 @@ This function allocates and initializes an HSpool structure that serves as the c
 The hash masks are computed using power-of-2 arithmetic where  represents the upper bound for hash values and  is half of that value, following PostgreSQL's hash bucket addressing scheme.
 
 ## Parameters / Member Variables
-- : The heap relation being indexed
-- : The hash index relation being built
-- : The number of hash buckets in the index
-
+- `heap`: The heap relation being indexed
+- `index`: The hash index relation being built
+- `num_buckets`: The number of hash buckets in the index
 ## Dependencies
 - Functions called/Symbols referenced:
   - [HSpool](../H/HSpool.md) (structure type)

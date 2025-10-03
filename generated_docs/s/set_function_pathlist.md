@@ -18,10 +18,9 @@ This function is responsible for creating access paths for function RTEs in Post
 When ORDINALITY is specified in a function call, PostgreSQL adds an ordinal column that numbers the rows returned by the function. This function detects this case and attempts to build pathkeys for the ordinality column if it's referenced in equivalence classes, allowing the optimizer to take advantage of the inherent ordering.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global information about the query being planned
-- : RelOptInfo structure representing the relation (function) for which paths are being generated
-- : RangeTblEntry representing the function in the query's range table
-
+- `*root`: PlannerInfo structure containing global information about the query being planned
+- `*rel`: RelOptInfo structure representing the relation (function) for which paths are being generated
+- `*rte`: RangeTblEntry representing the function in the query's range table
 ## Dependencies
 - Functions called/Symbols referenced:
   - [build_expression_pathkey](../b/build_expression_pathkey.md)

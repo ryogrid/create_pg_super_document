@@ -26,9 +26,8 @@ The function employs a multi-stage comparison strategy:
 The actual comparison logic for specific node types is generated and included via "equalfuncs.switch.c", which contains type-specific comparison functions that handle the detailed field-by-field comparison for each node type.
 
 ## Parameters / Member Variables
-- : First node to compare (const void pointer, typically cast from a Node*)
-- : Second node to compare (const void pointer, typically cast from a Node*)
-
+- `*a`: First node to compare (const void pointer, typically cast from a Node*)
+- `*b`: Second node to compare (const void pointer, typically cast from a Node*)
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Extracts the node type tag for type checking

@@ -23,8 +23,7 @@ This function comprehensively tests the pipeline mode support for prepared state
 The test validates that pipeline mode correctly handles the full lifecycle of prepared statements and portals, including proper result status codes, type information retrieval, and cleanup operations. It ensures that describe operations return correct metadata and that closing operations work properly in pipeline contexts.
 
 ## Parameters / Member Variables
-- : PostgreSQL connection handle for pipeline operations
-
+- `*conn`: PostgreSQL connection handle for pipeline operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQenterPipelineMode](../P/PQenterPipelineMode.md)/PQexitPipelineMode (pipeline mode control)

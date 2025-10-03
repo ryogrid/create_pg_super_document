@@ -19,6 +19,7 @@ The function uses a coarse-grained invalidation approach - any catalog change in
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pairingheap_remove](../p/pairingheap_remove.md)

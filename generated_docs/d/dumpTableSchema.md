@@ -24,9 +24,8 @@ This is a comprehensive function that constructs CREATE TABLE, CREATE VIEW, CREA
 The function generates both CREATE and DROP statements, manages column properties (types, defaults, NOT NULL, collation), processes constraints, and handles special cases for dropped columns and binary upgrade scenarios.
 
 ## Parameters / Member Variables
-- : Archive context containing dump configuration and output handling
-- : Complete table metadata including columns, constraints, inheritance, and storage properties
-
+- `*fout`: Archive context containing dump configuration and output handling
+- `*tbinfo`: Complete table metadata including columns, constraints, inheritance, and storage properties
 ## Dependencies
 - Functions called/Symbols referenced:
   - [createDummyViewAsClause](../c/createDummyViewAsClause.md)

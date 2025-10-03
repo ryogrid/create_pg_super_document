@@ -22,8 +22,7 @@ The function performs the following operations:
 4. Performs division to compute the average using numeric_div
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function argument macro containing the aggregate state
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument macro containing the aggregate state
 ## Dependencies
 - Functions called/Symbols referenced:
   - [NumericAggState](../N/NumericAggState.md) (aggregate state structure)

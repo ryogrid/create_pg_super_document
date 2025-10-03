@@ -19,11 +19,10 @@ This function provides string-to-unsigned-32-bit-integer conversion using the st
 The function includes special logic to handle cases where unsigned long is wider than uint32, ensuring consistent behavior across 32-bit and 64-bit platforms. It also provides backwards compatibility by accepting inputs with minus signs, validating the result through both signed and unsigned extension checks.
 
 ## Parameters / Member Variables
-- : Input string containing the integer representation to convert
-- : Optional pointer to store the location where parsing stopped; if NULL, entire string must be valid
-- : Type name string used in error messages for better diagnostics
-- : Error context node for soft error handling; if NULL, errors are thrown via ereport()
-
+- `*s`: Input string containing the integer representation to convert
+- `**endloc`: Optional pointer to store the location where parsing stopped; if NULL, entire string must be valid
+- `*typname`: Type name string used in error messages for better diagnostics
+- `*escontext`: Error context node for soft error handling; if NULL, errors are thrown via ereport()
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereturn (error return macro for soft error handling)

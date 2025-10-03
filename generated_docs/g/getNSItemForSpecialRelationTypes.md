@@ -16,9 +16,8 @@ getNSItemForSpecialRelationTypes(ParseState *pstate, RangeVar *rv)
 This function serves as a specialized resolver for non-ordinary relation types during FROM clause processing. It first checks whether the given RangeVar has a qualified name (schema.table format) - if so, it immediately returns NULL since CTEs and ephemeral named relations cannot be qualified. For unqualified names, it searches the parse state's namespace first for CTEs using scanNameSpaceForCTE, and if found, creates a range table entry via addRangeTableEntryForCTE. If no CTE is found, it then checks for ephemeral named relations (ENRs) using scanNameSpaceForENR and creates an appropriate entry with addRangeTableEntryForENR if found. This function is essential for PostgreSQL's support of CTEs and temporary result sets in query processing.
 
 ## Parameters / Member Variables
-- : ParseState containing the current parsing context and namespace information
-- : RangeVar representing the relation reference to be resolved
-
+- `*pstate`: ParseState containing the current parsing context and namespace information
+- `*rv`: RangeVar representing the relation reference to be resolved
 ## Dependencies
 - Functions called/Symbols referenced:
   - [scanNameSpaceForCTE](../s/scanNameSpaceForCTE.md)

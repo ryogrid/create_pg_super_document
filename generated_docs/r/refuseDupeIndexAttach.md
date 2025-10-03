@@ -20,10 +20,9 @@ The validation is crucial because each partition can have only one index attache
 The function uses index_get_partition() to search for an existing index on the partition table that is already a child of the parent index. If found, it generates a detailed error message indicating the conflict.
 
 ## Parameters / Member Variables
-- : The parent partitioned index relation to which attachment is being attempted
-- : The partition index relation that is being attached (used only for error reporting)
-- : The partition table relation to check for existing index attachments
-
+- `parentIdx`: The parent partitioned index relation to which attachment is being attempted
+- `partIdx`: The partition index relation that is being attached (used only for error reporting)
+- `partitionTbl`: The partition table relation to check for existing index attachments
 ## Dependencies
 - Functions called/Symbols referenced:
   - [index_get_partition](../i/index_get_partition.md)

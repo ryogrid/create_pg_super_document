@@ -25,9 +25,8 @@ The function supports both short and long format names:
 If an unrecognized format is provided, the function terminates the program with a fatal error.
 
 ## Parameters / Member Variables
-- : Input string specifying the desired archive format (case-insensitive)
-- : Output parameter that receives the corresponding ArchiveMode (archModeWrite or archModeAppend)
-
+- `*format`: Input string specifying the desired archive format (case-insensitive)
+- `*mode`: Output parameter that receives the corresponding ArchiveMode (archModeWrite or archModeAppend)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_strcasecmp](pg_strcasecmp.md) (string comparison)

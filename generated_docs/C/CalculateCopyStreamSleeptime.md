@@ -19,10 +19,9 @@ This function calculates how long the streaming loop should sleep before the nex
 When a standby message timeout is configured and streaming is active, the function calculates when the next status message should be sent and determines the sleep time accordingly. If no timeout is configured or streaming has stopped, it returns -1 to indicate indefinite sleep.
 
 ## Parameters / Member Variables
-- : Current timestamp for calculating time differences
-- : Timeout value in seconds for sending status messages to the server
-- : Timestamp of when the last status message was sent
-
+- `now`: Current timestamp for calculating time differences
+- `standby_message_timeout`: Timeout value in seconds for sending status messages to the server
+- `last_status`: Timestamp of when the last status message was sent
 ## Dependencies
 - Functions called/Symbols referenced:
   - [feTimestampDifference](../f/feTimestampDifference.md)

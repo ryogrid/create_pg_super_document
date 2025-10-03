@@ -16,11 +16,10 @@ text_position_setup(text *t1, text *t2, Oid collid, TextPositionState *state)
 The  function prepares the TextPositionState structure for efficient substring searching operations. It handles collation validation, multibyte encoding considerations, and most importantly, implements the Boyer-Moore-Horspool algorithm by building a skip table for fast pattern matching. The function determines the appropriate skip table size based on the search length and initializes it with optimal skip distances for each character in the pattern. It also handles special encoding cases, particularly UTF-8 and other multibyte encodings, to ensure correct character boundary detection during searches.
 
 ## Parameters / Member Variables
-- : The text string to be searched (haystack)
-- : The pattern to search for (needle)  
-- : The collation ID for text comparison operations
-- : Pointer to TextPositionState structure to initialize with search parameters
-
+- `*t1`: The text string to be searched (haystack)
+- `*t2`: The pattern to search for (needle)
+- `collid`: The collation ID for text comparison operations
+- `*state`: Pointer to TextPositionState structure to initialize with search parameters
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Validates the collation ID

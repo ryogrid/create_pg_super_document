@@ -26,10 +26,9 @@ Key design principles:
 The function carefully handles various tuple states including locked-only tuples, multi-transaction scenarios, and special cases for the current transaction.
 
 ## Parameters / Member Variables
-- : The heap tuple to check for visibility, containing tuple data and metadata
-- : The MVCC snapshot defining which transactions are visible, including xmin/xmax bounds and current command ID
-- : The buffer containing the tuple, used for setting hint bits when appropriate for performance optimization
-
+- `htup`: The heap tuple to check for visibility, containing tuple data and metadata
+- `snapshot`: The MVCC snapshot defining which transactions are visible, including xmin/xmax bounds and current command ID
+- `buffer`: The buffer containing the tuple, used for setting hint bits when appropriate for performance optimization
 ## Dependencies
 - Functions called/Symbols referenced:
   - HeapTupleHeaderXminCommitted

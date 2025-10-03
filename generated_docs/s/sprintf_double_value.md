@@ -23,10 +23,9 @@ The  function provides specialized string formatting for double-precision floati
 This function is essential for maintaining data consistency when converting floating-point values to their string representations for database operations or output formatting.
 
 ## Parameters / Member Variables
-- : Pointer to the destination buffer where the formatted string will be written
-- : The double-precision floating-point value to be formatted
-- : Delimiter string to be appended after the formatted value
-
+- `*ptr`: Pointer to the destination buffer where the formatted string will be written
+- `value`: The double-precision floating-point value to be formatted
+- `*delim`: Delimiter string to be appended after the formatted value
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Standard library function to test for NaN values

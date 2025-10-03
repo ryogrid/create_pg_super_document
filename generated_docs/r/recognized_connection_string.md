@@ -21,8 +21,7 @@ This function validates whether a connection string follows one of PostgreSQL's 
 This is a lightweight validation function that must be consistent with  - any string that returns true from this function should be parseable by the actual parsing routines. The function is noted as a duplicate of the eponymous libpq function, indicating it exists in multiple places in the codebase for different components.
 
 ## Parameters / Member Variables
-- : A null-terminated string containing the potential connection string to validate
-
+- `*connstr`: A null-terminated string containing the potential connection string to validate
 ## Dependencies
 - Functions called/Symbols referenced:
   - [uri_prefix_length](../u/uri_prefix_length.md)

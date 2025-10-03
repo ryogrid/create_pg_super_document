@@ -21,14 +21,13 @@ This function processes index expressions and partial index predicates to genera
 The function creates a separate memory context for index processing, sets up executor state and expression contexts for evaluation, and processes each sampled row to evaluate predicates and expressions. It calculates the fraction of rows that satisfy partial index predicates and uses this to estimate the total index size. Finally, it computes statistics for expression columns using the extracted values.
 
 ## Parameters / Member Variables
-- : The table relation being analyzed
-- : Total estimated number of rows in the table
-- : Array of AnlIndexData structures containing index information and statistics
-- : Number of indexes to process
-- : Array of sampled HeapTuple rows from the table
-- : Number of rows in the sample
-- : Memory context for temporary column statistics computation
-
+- `onerel`: The table relation being analyzed
+- `totalrows`: Total estimated number of rows in the table
+- `*indexdata`: Array of AnlIndexData structures containing index information and statistics
+- `nindexes`: Number of indexes to process
+- `*rows`: Array of sampled HeapTuple rows from the table
+- `numrows`: Number of rows in the sample
+- `col_context`: Memory context for temporary column statistics computation
 ## Dependencies
 - Functions called/Symbols referenced:
   - /: Executor state management for expression evaluation

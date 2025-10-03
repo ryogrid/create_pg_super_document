@@ -26,12 +26,11 @@ The function performs several key operations:
 6. Reports query statistics
 
 ## Parameters / Member Variables
-- : The raw parse tree structure produced by the SQL parser
-- : The original SQL source text (required as of PostgreSQL 8.4)
-- : Array of parameter type OIDs for  parameter references
-- : Number of parameters in the paramTypes array
-- : Query environment containing additional context like WITH clause data
-
+- `*parseTree`: The raw parse tree structure produced by the SQL parser
+- `*sourceText`: The original SQL source text (required as of PostgreSQL 8.4)
+- `*paramTypes`: Array of parameter type OIDs for  parameter references
+- `numParams`: Number of parameters in the paramTypes array
+- `*queryEnv`: Query environment containing additional context like WITH clause data
 ## Dependencies
 - Functions called/Symbols referenced:
   - [make_parsestate](../m/make_parsestate.md): Creates parse state structure

@@ -19,7 +19,6 @@ The function includes wraparound logic to ensure that when the counter reaches t
 If no temporary tablespaces are configured (`numTempTableSpaces` is 0 or negative), the function returns `InvalidOid`, indicating that the current database's default tablespace should be used.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

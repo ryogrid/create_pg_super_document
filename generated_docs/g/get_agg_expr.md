@@ -19,10 +19,9 @@ This static function serves as a convenient entry point for deparsing aggregate 
 The function acts as a thin wrapper that calls get_agg_expr_helper with NULL values for the proname and pronamespace parameters and false for the use_variadic flag, which represents the most common case for aggregate expression deparsing.
 
 ## Parameters / Member Variables
-- : Pointer to the Aggref node containing the aggregate expression to be deparsed
-- : Deparse context containing the output buffer and formatting preferences
-- : Pointer to the original Aggref node, used for comparison and context in complex aggregate expressions
-
+- `*aggref`: Pointer to the Aggref node containing the aggregate expression to be deparsed
+- `*context`: Deparse context containing the output buffer and formatting preferences
+- `*original_aggref`: Pointer to the original Aggref node, used for comparison and context in complex aggregate expressions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_agg_expr_helper](get_agg_expr_helper.md) (the main implementation function for aggregate expression deparsing)

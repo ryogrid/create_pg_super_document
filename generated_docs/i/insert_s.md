@@ -19,12 +19,11 @@ The  function inserts a string of symbols at a specified position in the working
 The function handles memory management automatically, expanding the buffer if necessary, and ensures that cursor positions remain valid after the insertion.
 
 ## Parameters / Member Variables
-- : Pointer to the Snowball environment structure containing the working string and state
-- : Start position where the replacement should begin
-- : End position where the replacement should end (exclusive)
-- : Number of symbols in the string to be inserted
-- : Pointer to the array of symbols to insert
-
+- `*z`: Pointer to the Snowball environment structure containing the working string and state
+- `bra`: Start position where the replacement should begin
+- `ket`: End position where the replacement should end (exclusive)
+- `s_size`: Number of symbols in the string to be inserted
+- `*s`: Pointer to the array of symbols to insert
 ## Dependencies
 - Functions called/Symbols referenced:
   - [replace_s](../r/replace_s.md) (performs the actual string replacement operation)

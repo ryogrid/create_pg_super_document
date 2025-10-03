@@ -23,9 +23,8 @@ The function handles several types of path items:
 Unsupported path items (like method calls) cause the function to return false, indicating that the path cannot be processed for this indexing strategy.
 
 ## Parameters / Member Variables
-- : Pointer to the JsonPathGinPath structure being built
-- : Pointer to the JsonPathItem to be processed and added to the path
-
+- `*path`: Pointer to the JsonPathGinPath structure being built
+- `*jsp`: Pointer to the JsonPathItem to be processed and added to the path
 ## Return Value
 - Returns  if the path item was successfully processed and added
 - Returns  if the path item type is not supported for jsonb_ops indexing

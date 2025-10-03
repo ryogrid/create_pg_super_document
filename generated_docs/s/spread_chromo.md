@@ -20,10 +20,9 @@ The function assumes that the pool is sorted from best to worst (smallest to lar
 The algorithm ensures that the pool maintains its sorted order and fixed size, implementing a key component of the selection pressure in the genetic algorithm.
 
 ## Parameters / Member Variables
-- : PlannerInfo pointer representing the planner context
-- : Pointer to the new Chromosome to be inserted into the pool
-- : Pointer to the Pool structure containing the chromosome population
-
+- `*root`: PlannerInfo pointer representing the planner context
+- `*chromo`: Pointer to the new Chromosome to be inserted into the pool
+- `*pool`: Pointer to the Pool structure containing the chromosome population
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (function to copy chromosome data)

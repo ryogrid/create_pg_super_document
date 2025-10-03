@@ -24,8 +24,7 @@ The function performs several key operations:
 The function is optimized to skip unnecessary work when the portal is already at the start position and hasn't been advanced.
 
 ## Parameters / Member Variables
-- : The portal to rewind to its starting position
-
+- `portal`: The portal to rewind to its starting position
 ## Dependencies
 - Functions called/Symbols referenced:
   - [tuplestore_rescan](../t/tuplestore_rescan.md)

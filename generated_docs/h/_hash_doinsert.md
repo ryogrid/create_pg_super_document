@@ -34,11 +34,10 @@ This is the core insertion function for PostgreSQL's hash index implementation. 
 The function includes restart logic to handle cases where bucket splits occur during insertion, ensuring consistency and optimal space utilization.
 
 ## Parameters / Member Variables
-- : The hash index relation being inserted into
-- : The completely filled index tuple to be inserted
-- : The heap relation (used for vacuum operations on dead tuples)
-- : Boolean flag indicating if inserts are done in hashkey order (optimization hint)
-
+- `rel`: The hash index relation being inserted into
+- `itup`: The completely filled index tuple to be inserted
+- `heapRel`: The heap relation (used for vacuum operations on dead tuples)
+- `sorted`: Boolean flag indicating if inserts are done in hashkey order (optimization hint)
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Extract hash key from tuple

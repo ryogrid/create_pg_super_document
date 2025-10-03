@@ -19,10 +19,9 @@ This function constructs and executes an SQL query to retrieve operator class in
 The query joins multiple system catalogs (, , , , and optionally ) to gather comprehensive information about operator classes. Results are sorted by access method, input type, and operator class name for consistent presentation.
 
 ## Parameters / Member Variables
-- : Optional regex pattern to filter results by index access method name (e.g., "btree", "hash"). If NULL, all access methods are included.
-- : Optional regex pattern to filter results by input data type name. Matches against both internal type names and external formatted type names. If NULL, all types are included.
-- : Boolean flag that controls whether to include additional columns (operator family and owner) in the output.
-
+- `*access_method_pattern`: Optional regex pattern to filter results by index access method name (e.g., "btree", "hash"). If NULL, all access methods are included.
+- `*type_pattern`: Optional regex pattern to filter results by input data type name. Matches against both internal type names and external formatted type names. If NULL, all types are included.
+- `verbose`: Boolean flag that controls whether to include additional columns (operator family and owner) in the output.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [initPQExpBuffer](../i/initPQExpBuffer.md)

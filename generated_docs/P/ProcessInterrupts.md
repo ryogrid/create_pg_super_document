@@ -27,7 +27,6 @@ ProcessInterrupts serves as the out-of-line portion of the CHECK_FOR_INTERRUPTS(
 The function ensures that InterruptPending is cleared before returning if INTERRUPTS_CAN_BE_PROCESSED() is true, guaranteeing that pre-existing interrupts are serviced.
 
 ## Parameters / Member Variables
-This function takes no parameters and operates on global interrupt state variables.
 
 ## Dependencies
 - Functions called/Symbols referenced:

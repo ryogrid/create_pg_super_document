@@ -18,9 +18,8 @@ The  function handles the execution of the \s backslash command in psql, which m
 When executed in an active branch, the function first attempts to parse an optional filename argument. If a filename is provided, it undergoes tilde expansion (converting ~ to the user's home directory path) before being passed to . The function provides user feedback when successfully writing to a file (unless in quiet mode) and adds a newline when displaying to screen. The success or failure of the history operation determines the return value.
 
 ## Parameters / Member Variables
-- : Scanner state object used to parse the optional filename argument from the command line
-- : Boolean flag indicating whether this command should actually execute (used for conditional execution in psql)
-
+- `scan_state`: Scanner state object used to parse the optional filename argument from the command line
+- `active_branch`: Boolean flag indicating whether this command should actually execute (used for conditional execution in psql)
 ## Dependencies
 - Functions called/Symbols referenced:
   - psql_scan_slash_option

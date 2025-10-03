@@ -18,9 +18,8 @@ This function performs a deep comparison of two RuleLock structures to determine
 The function handles null pointer cases and compares the number of rules before iterating through each rule to compare their individual properties including rule ID, event type, enabled status, instead flag, qualification conditions, and actions.
 
 ## Parameters / Member Variables
-- : First RuleLock structure to compare (may be NULL)
-- : Second RuleLock structure to compare (may be NULL)
-
+- `*rlock1`: First RuleLock structure to compare (may be NULL)
+- `*rlock2`: Second RuleLock structure to compare (may be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RuleLock](../R/RuleLock.md) (structure type)

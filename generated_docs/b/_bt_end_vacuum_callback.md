@@ -18,9 +18,8 @@ This function serves as an adapter that wraps  in the standard PostgreSQL callba
 The function converts the generic  argument back to a  pointer and calls  to perform the actual cleanup. This design ensures that B-tree VACUUM tracking slots are never permanently leaked, even in exceptional circumstances.
 
 ## Parameters / Member Variables
-- : Exit/error code (unused but required by callback interface)
-- : Datum containing the Relation pointer, typically set using 
-
+- `code`: Exit/error code (unused but required by callback interface)
+- `arg`: Datum containing the Relation pointer, typically set using
 ## Dependencies
 - Functions called/Symbols referenced:
   - [_bt_end_vacuum](_bt_end_vacuum.md)

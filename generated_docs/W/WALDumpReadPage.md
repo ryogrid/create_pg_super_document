@@ -17,12 +17,11 @@ WALDumpReadPage(XLogReaderState *state, XLogRecPtr targetPagePtr, int reqLen,
 This function serves as the page_read callback for the XLogReaderRoutine structure in pg_waldump. It handles reading WAL data pages from disk while respecting configured endpoint limits. The function manages partial reads when approaching the configured end position and provides detailed error reporting when read operations fail. It ensures that WAL data is read in complete XLOG_BLCKSZ-sized blocks when possible, or adjusts the read size when approaching the endpoint.
 
 ## Parameters / Member Variables
-- : XLogReaderState containing the current reader state and private data
-- : XLogRecPtr indicating the WAL position of the page to read
-- : Minimum number of bytes required to be read
-- : XLogRecPtr of the target record being read
-- : Buffer to store the read WAL data
-
+- `*state`: XLogReaderState containing the current reader state and private data
+- `targetPagePtr`: XLogRecPtr indicating the WAL position of the page to read
+- `reqLen`: Minimum number of bytes required to be read
+- `targetPtr`: XLogRecPtr of the target record being read
+- `*readBuff`: Buffer to store the read WAL data
 ## Dependencies
 - Functions called/Symbols referenced:
   - [WALRead](WALRead.md)

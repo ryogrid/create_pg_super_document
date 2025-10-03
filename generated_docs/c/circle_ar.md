@@ -16,8 +16,7 @@ circle_ar(CIRCLE *circle)
 The  function computes the area of a circle given a CIRCLE structure. It implements the standard geometric formula for circle area: π × radius². The function uses PostgreSQL's  function for safe floating-point multiplication and the mathematical constant  for π. This is a static internal function used by other circle-related operations for area calculations and comparisons.
 
 ## Parameters / Member Variables
-- : Pointer to a CIRCLE structure containing the circle's radius and center coordinates
-
+- `*circle`: Pointer to a CIRCLE structure containing the circle's radius and center coordinates
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - PostgreSQL safe floating-point multiplication function

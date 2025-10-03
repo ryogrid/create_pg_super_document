@@ -28,13 +28,12 @@ The function works in three phases:
 The function ensures NFA connectivity is maintained even when the complement set is empty, which is crucial for proper regex engine operation.
 
 ## Parameters / Member Variables
-- : The nondeterministic finite automaton being constructed
-- : The color map that defines character-to-color mappings
-- : The type of arc to create for complement colors
-- : The reference state whose output arcs define what to complement
-- : The source state for new complement arcs
-- : The destination state for new complement arcs
-
+- `*nfa`: The nondeterministic finite automaton being constructed
+- `*cm`: The color map that defines character-to-color mappings
+- `type`: The type of arc to create for complement colors
+- `*of`: The reference state whose output arcs define what to complement
+- `*from`: The source state for new complement arcs
+- `*to`: The destination state for new complement arcs
 ## Dependencies
 - Functions called/Symbols referenced:
   - [findarc](../f/findarc.md) (to check for RAINBOW arcs)

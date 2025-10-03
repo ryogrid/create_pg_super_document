@@ -17,9 +17,8 @@ IndexGetRelation is a utility function that performs a reverse lookup from an in
 The function uses PostgreSQL's system cache (SearchSysCache1) for efficient lookup, avoiding direct table scans of pg_index. It includes error handling that can either throw an error or return InvalidOid when the index is not found, depending on the missing_ok parameter. An assertion verifies that the returned index entry actually matches the requested indexId.
 
 ## Parameters / Member Variables
-- : Object identifier of the index whose parent table OID is needed
-- : Boolean flag controlling error behavior when index is not found - if true, returns InvalidOid; if false, throws an error
-
+- `indexId`: Object identifier of the index whose parent table OID is needed
+- `missing_ok`: Boolean flag controlling error behavior when index is not found - if true, returns InvalidOid; if false, throws an error
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache1](../S/SearchSysCache1.md)

@@ -25,10 +25,9 @@ The function operates in multiple phases:
 The function only works with simple relations and requires immutable functions to make safe deductions during planning.
 
 ## Parameters / Member Variables
-- : PlannerInfo containing global planner state and configuration
-- : RelOptInfo representing the relation being analyzed (must be a simple relation)
-- : RangeTblEntry containing metadata about the relation from the range table
-
+- `*root`: PlannerInfo containing global planner state and configuration
+- `*rel`: RelOptInfo representing the relation being analyzed (must be a simple relation)
+- `*rte`: RangeTblEntry containing metadata about the relation from the range table
 ## Dependencies
 - Functions called/Symbols referenced:
   - IS_SIMPLE_REL (macro for checking simple relation type)

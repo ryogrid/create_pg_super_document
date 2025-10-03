@@ -23,10 +23,9 @@ This allows the optimizer to choose the best path when only a portion of the res
 When fraction is <= 0 or >= 1, the function delegates to compare_path_costs with TOTAL_COST criterion.
 
 ## Parameters / Member Variables
-- : First path to compare
-- : Second path to compare
-- : Fraction of tuples to fetch (0.0 to 1.0)
-
+- `*path1`: First path to compare
+- `*path2`: Second path to compare
+- `fraction`: Fraction of tuples to fetch (0.0 to 1.0)
 ## Dependencies
 - Functions called/Symbols referenced:
   - Cost (type)

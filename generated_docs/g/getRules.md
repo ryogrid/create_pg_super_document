@@ -25,9 +25,8 @@ Key features include:
 - Integration with the dump system's dependency tracking
 
 ## Parameters / Member Variables
-- : Archive pointer containing database connection and dump context information
-- : Output parameter that receives the total number of rules found
-
+- `*fout`: Archive pointer containing database connection and dump context information
+- `*numRules`: Output parameter that receives the total number of rules found
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RuleInfo](../R/RuleInfo.md) (struct type)

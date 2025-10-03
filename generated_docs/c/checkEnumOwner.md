@@ -24,8 +24,7 @@ This function performs two critical validations before allowing enum-related ope
 The function operates on a heap tuple containing type information from the pg_type system catalog. If either validation fails, it throws an appropriate error with specific error codes and messages.
 
 ## Parameters / Member Variables
-- : HeapTuple containing the type information from pg_type catalog that needs to be validated as an enum with proper ownership
-
+- `TYPTYPE_ENUM`: HeapTuple containing the type information from pg_type catalog that needs to be validated as an enum with proper ownership
 ## Dependencies
 - Functions called/Symbols referenced:
   - Form_pg_type (macro for accessing pg_type tuple structure)

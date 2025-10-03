@@ -24,11 +24,10 @@ The  function converts human-readable time components stored in a  structure int
 7. **Final Validation**: Ensures the result is within valid timestamp bounds
 
 ## Parameters / Member Variables
-- : Input struct pg_tm containing time components (year, month, day, hour, minute, second)
-- : Fractional seconds component in microseconds
-- : Timezone offset in seconds to apply, or NULL for no timezone conversion
-- : Output parameter to store the resulting timestamp value
-
+- `*tm`: Input struct pg_tm containing time components (year, month, day, hour, minute, second)
+- `fsec`: Fractional seconds component in microseconds
+- `*tzp`: Timezone offset in seconds to apply, or NULL for no timezone conversion
+- `*result`: Output parameter to store the resulting timestamp value
 ## Dependencies
 - Functions called/Symbols referenced:
   - IS_VALID_JULIAN (macro to validate Julian date bounds)

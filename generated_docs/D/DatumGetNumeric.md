@@ -16,8 +16,7 @@ DatumGetNumeric(Datum X)
 This function serves as a conversion utility in PostgreSQL's function manager (fmgr) interface to extract Numeric data from a Datum. It wraps the PG_DETOAST_DATUM macro to ensure that if the numeric value is stored in TOAST format (for large values), it gets properly detoasted before being cast to a Numeric pointer. This is essential for accessing numeric values that may be stored externally due to PostgreSQL's TOAST (The Oversized Attribute Storage Technique) mechanism.
 
 ## Parameters / Member Variables
-- : A Datum value containing numeric data that needs to be converted to a Numeric pointer
-
+- `X`: A Datum value containing numeric data that needs to be converted to a Numeric pointer
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_DETOAST_DATUM (macro for handling TOAST decompression)

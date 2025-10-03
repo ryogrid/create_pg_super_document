@@ -36,17 +36,16 @@ Key responsibilities include:
 The function handles both streaming logical replication and two-phase commit scenarios, enabling different callback sets based on the output plugin's capabilities.
 
 ## Parameters / Member Variables
-- : List of options to pass to the output plugin
-- : WAL position from which to start logical decoding
-- : Transaction ID horizon for snapshot building
-- : Whether a complete snapshot is required
-- : Skip output plugin loading for fast-forward mode
-- : Flag indicating if this is called during slot creation
-- : WAL reading routine function pointer
-- : Callback for preparing output writes
-- : Callback for performing output writes  
-- : Callback for progress updates
-
+- `*output_plugin_options`: List of options to pass to the output plugin
+- `start_lsn`: WAL position from which to start logical decoding
+- `xmin_horizon`: Transaction ID horizon for snapshot building
+- `need_full_snapshot`: Whether a complete snapshot is required
+- `fast_forward`: Skip output plugin loading for fast-forward mode
+- `in_create`: Flag indicating if this is called during slot creation
+- `*xl_routine`: WAL reading routine function pointer
+- `prepare_write`: Callback for preparing output writes
+- `do_write`: Callback for performing output writes
+- `update_progress`: Callback for progress updates
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetContextCreate: Creates memory context for decoding

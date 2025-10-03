@@ -26,8 +26,7 @@ The  function is the WAL redo handler for the tablespace resource manager (RM_TB
 The function includes robust error handling for tablespace drop operations, recognizing that temporary files from standby users or permission issues might prevent immediate directory removal.
 
 ## Parameters / Member Variables
-- : XLogReaderState pointer containing the WAL record to be replayed, including the operation type and associated data
-
+- `*record`: XLogReaderState pointer containing the WAL record to be replayed, including the operation type and associated data
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Extracts operation type from WAL record

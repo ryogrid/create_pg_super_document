@@ -20,9 +20,8 @@ Like other similar functions in the executor utilities, it implements lazy initi
 The slot is essential for storing and formatting the result tuples that will be returned to the client when a RETURNING clause is specified. It ensures that the returned data has the correct structure and type information matching the target relation.
 
 ## Parameters / Member Variables
-- : The executor state containing query execution context and memory management information
-- : Result relation info structure that maintains various tuple slots and relation metadata for the target relation
-
+- `*estate`: The executor state containing query execution context and memory management information
+- `*relInfo`: Result relation info structure that maintains various tuple slots and relation metadata for the target relation
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (creates and initializes a new tuple slot)

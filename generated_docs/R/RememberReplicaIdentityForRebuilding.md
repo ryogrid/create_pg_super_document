@@ -22,9 +22,8 @@ This function is a utility subroutine used during ALTER TABLE operations that re
 The replica identity index is crucial for logical replication as it provides a way to uniquely identify rows when changes need to be replicated to other PostgreSQL instances. During table rebuilding operations, this information must be preserved and restored after the rebuild completes.
 
 ## Parameters / Member Variables
-- : OID of the index to check for replica identity status
-- : AlteredTableInfo structure where replica identity information is stored
-
+- `indoid`: OID of the index to check for replica identity status
+- `*tab`: AlteredTableInfo structure where replica identity information is stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_index_isreplident](../g/get_index_isreplident.md)

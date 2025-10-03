@@ -20,12 +20,11 @@ ExecARInsertTriggers is responsible for executing AFTER ROW INSERT triggers and 
 The function performs a critical validation check for foreign tables with transition capture, raising an error if this unsupported combination is detected. When appropriate triggers exist or transition capture is required, it saves the trigger event for later execution during the commit phase.
 
 ## Parameters / Member Variables
-- : Execution state containing transaction and query context information
-- : Information about the target relation including trigger descriptors and FDW routines
-- : TupleTableSlot containing the newly inserted tuple data
-- : List of indexes that need to be rechecked after the insert operation
-- : State information for capturing tuples into transition tables for trigger OLD/NEW TABLE references
-
+- `*estate`: Execution state containing transaction and query context information
+- `*relinfo`: Information about the target relation including trigger descriptors and FDW routines
+- `*slot`: TupleTableSlot containing the newly inserted tuple data
+- `*recheckIndexes`: List of indexes that need to be rechecked after the insert operation
+- `*transition_capture`: State information for capturing tuples into transition tables for trigger OLD/NEW TABLE references
 ## Dependencies
 - Functions called/Symbols referenced:
   - [AfterTriggerSaveEvent](../A/AfterTriggerSaveEvent.md)

@@ -20,6 +20,7 @@ The function demonstrates the ECPG translation of embedded SQL cursor close oper
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ECPGdo](../E/ECPGdo.md) (ECPG runtime function for SQL execution)

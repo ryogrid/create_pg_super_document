@@ -17,7 +17,6 @@ pg_get_client_encoding_name is a simple accessor function that returns the human
 This function provides a clean interface for obtaining the encoding name as a string (e.g., "UTF8", "LATIN1", "EUC_JP") rather than the numeric encoding ID. The returned string is a constant and should not be modified by the caller.
 
 ## Parameters / Member Variables
-None (void function)
 
 ## Dependencies
 - Functions called/Symbols referenced:

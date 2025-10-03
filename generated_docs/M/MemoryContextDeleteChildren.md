@@ -20,8 +20,7 @@ The implementation uses a simple but effective approach: it repeatedly deletes t
 This function is commonly used in cleanup scenarios where the main context needs to persist but all its temporary or subsidiary contexts should be removed.
 
 ## Parameters / Member Variables
-- : The parent memory context whose children will be deleted. The context itself remains valid and untouched.
-
+- `context`: The parent memory context whose children will be deleted. The context itself remains valid and untouched.
 ## Dependencies
 - Functions called/Symbols referenced:
   - MemoryContextIsValid

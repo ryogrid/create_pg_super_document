@@ -24,11 +24,10 @@ This function takes a list of column names and resolves them to their internal a
 The function is specifically tailored for foreign key processing, as evidenced by its error messages and validation logic. It returns the total number of columns processed.
 
 ## Parameters / Member Variables
-- : OID of the relation to look up columns in
-- : List of column names (as String nodes) to transform
-- : Output array to store attribute numbers (must be pre-allocated)
-- : Optional output array to store column type OIDs (can be NULL)
-
+- `relId`: OID of the relation to look up columns in
+- `*colList`: List of column names (as String nodes) to transform
+- `*attnums`: Output array to store attribute numbers (must be pre-allocated)
+- `*atttypids`: Optional output array to store column type OIDs (can be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - strVal

@@ -26,13 +26,12 @@ The algorithm works by:
 This approach ensures that even if the input entries are sorted, the resulting red-black tree remains reasonably balanced, avoiding the performance degradation that would occur with sequential insertion.
 
 ## Parameters / Member Variables
-- : BuildAccumulator structure that maintains the red-black tree for bulk index construction
-- : ItemPointer identifying the heap tuple these entries belong to
-- : Attribute number (column) these entries are associated with
-- : Array of Datum values to be inserted into the index
-- : Array of GinNullCategory values indicating null status for each entry
-- : Number of entries in the entries and categories arrays
-
+- `*accum`: BuildAccumulator structure that maintains the red-black tree for bulk index construction
+- `heapptr`: ItemPointer identifying the heap tuple these entries belong to
+- `attnum`: Attribute number (column) these entries are associated with
+- `*entries`: Array of Datum values to be inserted into the index
+- `*categories`: Array of GinNullCategory values indicating null status for each entry
+- `nentries`: Number of entries in the entries and categories arrays
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BuildAccumulator](../B/BuildAccumulator.md) (data structure)

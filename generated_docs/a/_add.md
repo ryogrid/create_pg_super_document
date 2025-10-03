@@ -20,10 +20,9 @@ The function is designed to be safe and efficient, providing a controlled way to
 Unlike standard string functions like strcpy or strcat, _add incorporates explicit bounds checking with the ptlim parameter, making it suitable for use in security-sensitive contexts where buffer overflows must be prevented.
 
 ## Parameters / Member Variables
-- : Source null-terminated string to be copied to the output buffer
-- : Current write position in the destination buffer
-- : Pointer to the end of the destination buffer (exclusive limit for bounds checking)
-
+- `*str`: Source null-terminated string to be copied to the output buffer
+- `*pt`: Current write position in the destination buffer
+- `*ptlim`: Pointer to the end of the destination buffer (exclusive limit for bounds checking)
 ## Dependencies
 - Functions called/Symbols referenced:
   - No external function calls (uses only basic C operations)

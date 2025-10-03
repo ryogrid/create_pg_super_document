@@ -16,10 +16,9 @@ pq_copymsgbytes(StringInfo msg, char *buf, int datalen)
 The  function extracts raw binary data from a PostgreSQL message buffer () and copies it into a caller-provided buffer using . Unlike  which returns a pointer directly into the message buffer, this function creates a separate copy of the data, providing data isolation and ensuring the caller owns the copied data. The function validates data availability and advances the message cursor appropriately.
 
 ## Parameters / Member Variables
-- : A  structure representing the message buffer being read from
-- : Caller-provided buffer where the data will be copied to (must be pre-allocated)
-- : The number of bytes to copy from the message buffer (must be non-negative)
-
+- `msg`: A  structure representing the message buffer being read from
+- `*buf`: Caller-provided buffer where the data will be copied to (must be pre-allocated)
+- `datalen`: The number of bytes to copy from the message buffer (must be non-negative)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (for error reporting)

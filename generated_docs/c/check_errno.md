@@ -22,6 +22,7 @@ This function is primarily used in PostgreSQL's ECPG test suite to provide clear
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - printf (multiple calls for different error conditions)

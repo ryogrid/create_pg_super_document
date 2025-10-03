@@ -22,13 +22,12 @@ The function processes blocks and rows simultaneously - each block is analyzed a
 The returned tuples are sorted by physical position (ItemPointer) to enable correlation estimates later in the analysis process. The algorithm provides unbiased estimates of average live and dead rows per block, addressing limitations of previous sampling methods that overweighted data near the start of tables.
 
 ## Parameters / Member Variables
-- : The relation (table) to sample from
-- : Error reporting level for progress messages
-- : Caller-allocated array to store sampled tuples (must have at least targrows entries)
-- : Target number of rows to sample
-- : Output parameter for estimated total live rows in the table
-- : Output parameter for estimated total dead rows in the table
-
+- `onerel`: The relation (table) to sample from
+- `elevel`: Error reporting level for progress messages
+- `*rows`: Caller-allocated array to store sampled tuples (must have at least targrows entries)
+- `targrows`: Target number of rows to sample
+- `*totalrows`: Output parameter for estimated total live rows in the table
+- `*totaldeadrows`: Output parameter for estimated total dead rows in the table
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationGetNumberOfBlocks

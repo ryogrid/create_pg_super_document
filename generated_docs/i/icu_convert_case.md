@@ -19,12 +19,11 @@ The  function serves as a generic wrapper for ICU case conversion operations (up
 The function provides robust error handling and memory management, ensuring that case conversion operations work correctly across all Unicode characters and locale-specific rules. It abstracts away the ICU-specific details and provides a consistent interface for PostgreSQL's string formatting functions.
 
 ## Parameters / Member Variables
-- : Function pointer to the specific ICU case conversion function (e.g., u_strToUpper, u_strToLower)
-- : PostgreSQL locale structure containing ICU locale information
-- : Pointer to destination buffer pointer (allocated by this function)
-- : Source Unicode string buffer to be converted
-- : Length of the source buffer in UChar units
-
+- `func`: Function pointer to the specific ICU case conversion function (e.g., u_strToUpper, u_strToLower)
+- `mylocale`: PostgreSQL locale structure containing ICU locale information
+- `**buff_dest`: Pointer to destination buffer pointer (allocated by this function)
+- `*buff_source`: Source Unicode string buffer to be converted
+- `len_source`: Length of the source buffer in UChar units
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_locale_t](../p/pg_locale_t.md) (type)

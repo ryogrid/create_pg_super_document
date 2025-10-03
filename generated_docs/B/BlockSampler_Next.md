@@ -20,8 +20,7 @@ The function calculates the probability of skipping the current block (1 - k/K, 
 The algorithm maintains the invariant that K = N - t (remaining blocks equals total blocks minus those examined) and ensures that exactly the desired number of blocks will be sampled without the possibility of running short.
 
 ## Parameters / Member Variables
-- : Pointer to the BlockSampler structure containing the current sampling state
-
+- `bs`: Pointer to the BlockSampler structure containing the current sampling state
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BlockSampler_HasMore](BlockSampler_HasMore.md) (verifies sampling should continue)

@@ -18,9 +18,8 @@ This function provides a complete solution for creating expression nodes with pr
 The function uses PostgreSQL's List data structure and associated macros (foreach, lfirst) to traverse the arguments. Each element from the list is directly assigned to the corresponding position in the node's argument array, creating a fully initialized expression node ready for use in JSONB GIN index operations.
 
 ## Parameters / Member Variables
-- : JsonPathGinNodeType enum value specifying the type of expression node to create
-- : PostgreSQL List containing the argument nodes to be stored in the expression node
-
+- `type`: JsonPathGinNodeType enum value specifying the type of expression node to create
+- `*args`: PostgreSQL List containing the argument nodes to be stored in the expression node
 ## Dependencies
 - Functions called/Symbols referenced:
   - [make_jsp_expr_node](make_jsp_expr_node.md) (creates the base expression node structure)

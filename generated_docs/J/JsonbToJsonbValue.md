@@ -18,9 +18,8 @@ This function is a utility that converts a Jsonb structure (the on-disk/wire for
 The conversion is lightweight as it doesn't parse or copy the data - it simply wraps the existing binary data in a JsonbValue container with the appropriate type marker (jbvBinary).
 
 ## Parameters / Member Variables
-- : Input Jsonb structure containing the binary JSONB data
-- : Output JsonbValue structure that will be populated to reference the Jsonb data
-
+- `*jsonb`: Input Jsonb structure containing the binary JSONB data
+- `*val`: Output JsonbValue structure that will be populated to reference the Jsonb data
 ## Dependencies
 - Functions called/Symbols referenced:
   - VARSIZE (macro for getting variable-length data size)

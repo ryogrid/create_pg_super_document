@@ -16,10 +16,9 @@ buildRelationAliases(TupleDesc tupdesc, Alias *alias, Alias *eref)
 This function builds the effective reference (eref) column name list for a relation or function RTE. It processes the physical column information from a tuple descriptor and applies user-supplied column aliases where provided. The function handles dropped columns by inserting empty strings to maintain proper alignment with physical column numbers. It also rebuilds the alias->colnames list to ensure one-to-one correspondence with physical columns, and validates that the number of user-supplied aliases doesn't exceed the number of available columns.
 
 ## Parameters / Member Variables
-- : The tuple descriptor containing physical column information for the relation
-- : The user-supplied alias structure containing column names, or NULL if no aliases provided
-- : The effective reference alias structure where the final column names will be stored
-
+- `tupdesc`: The tuple descriptor containing physical column information for the relation
+- `*alias`: The user-supplied alias structure containing column names, or NULL if no aliases provided
+- `*eref`: The effective reference alias structure where the final column names will be stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_head](../l/list_head.md) (list manipulation)

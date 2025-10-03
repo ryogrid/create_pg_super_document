@@ -18,7 +18,6 @@ This function computes the MaxBackends value by summing up all the different typ
 In EXEC_BACKEND environments, this function should only be called by the postmaster itself and processes not under postmaster control, as the value is passed down to subprocesses via BackendParameters.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -18,9 +18,8 @@ This function performs post-parsing validation of variable parameters that were 
 The function operates by accessing the VarParamState from the ParseState's reference hook state and, if parameters were generated (numParams > 0), it invokes query_tree_walker to traverse the query tree with check_parameter_resolution_walker to validate parameter consistency.
 
 ## Parameters / Member Variables
-- : ParseState containing the parser state information, including the VarParamState in p_ref_hook_state
-- : Query tree to be validated for parameter consistency
-
+- `*pstate`: ParseState containing the parser state information, including the VarParamState in p_ref_hook_state
+- `*query`: Query tree to be validated for parameter consistency
 ## Dependencies
 - Functions called/Symbols referenced:
   - [VarParamState](../V/VarParamState.md)

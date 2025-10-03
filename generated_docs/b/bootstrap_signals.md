@@ -21,6 +21,7 @@ This simplified signal handling serves both functional and documentation purpose
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pqsignal](../p/pqsignal.md) (PostgreSQL's signal handling wrapper)

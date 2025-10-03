@@ -18,9 +18,8 @@ This function retrieves the bitmap of columns that are being inserted into a rel
 The function handles the complexity of partitioned tables where child tables may have different column orders or additional columns compared to the root table. When a conversion map is needed, it uses the attribute mapping to translate column references from the root table's schema to the child table's schema.
 
 ## Parameters / Member Variables
-- : ResultRelInfo structure for the target relation
-- : Executor state containing execution context and memory information
-
+- `*relinfo`: ResultRelInfo structure for the target relation
+- `*estate`: Executor state containing execution context and memory information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetResultRTEPermissionInfo](../G/GetResultRTEPermissionInfo.md): Retrieves permission information for the result relation

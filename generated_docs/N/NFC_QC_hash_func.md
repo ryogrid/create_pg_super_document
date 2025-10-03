@@ -20,8 +20,7 @@ The function uses a dual hash approach with two different multipliers (257 and 1
 The function operates on 4-byte Unicode code point keys and returns an integer hash value that can be used to locate the corresponding normalization properties in the Unicode property tables.
 
 ## Parameters / Member Variables
-- : A pointer to a 4-byte Unicode code point value to be hashed
-
+- `*key`: A pointer to a 4-byte Unicode code point value to be hashed
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_unicode_norminfo (referenced in surrounding context)

@@ -22,8 +22,7 @@ The function handles two different ways that tuple descriptor information can be
 The function includes an assertion to ensure exactly one of these two fields is populated, as they are mutually exclusive by design. When using catalog relations for the TupleDesc, the function assumes appropriate locks are already held on the relation, as locking at this point would be too late in the processing pipeline.
 
 ## Parameters / Member Variables
-- : Pointer to EphemeralNamedRelationMetadata structure containing either a direct TupleDesc or a relation OID to derive the TupleDesc from
-
+- `enrmd`: Pointer to EphemeralNamedRelationMetadata structure containing either a direct TupleDesc or a relation OID to derive the TupleDesc from
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (assertion macro)

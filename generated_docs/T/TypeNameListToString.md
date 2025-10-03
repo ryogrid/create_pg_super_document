@@ -20,8 +20,7 @@ This functionality is particularly useful for error messages and logging when mu
 Like TypeNameToString, this function is designed to work reliably even with invalid TypeName structures, ensuring that meaningful error messages can be generated even when type lookups fail.
 
 ## Parameters / Member Variables
-- : A PostgreSQL List containing TypeName structures to be formatted
-
+- `*typenames`: A PostgreSQL List containing TypeName structures to be formatted
 ## Dependencies
 - Functions called/Symbols referenced:
   - [initStringInfo](../i/initStringInfo.md)

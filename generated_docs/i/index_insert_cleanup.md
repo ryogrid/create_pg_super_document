@@ -17,9 +17,8 @@ index_insert_cleanup(Relation indexRelation,
 This function serves as a wrapper that calls the access method-specific cleanup routine for index insertions. It checks if the index access method provides a cleanup function () and calls it if available. This allows different index types (B-tree, hash, GiST, etc.) to perform their own specific cleanup operations after batch insertions are complete. The function includes relation validation checks to ensure the index relation is in a valid state before proceeding.
 
 ## Parameters / Member Variables
-- : The index relation on which cleanup operations should be performed
-- : Structure containing metadata about the index, including information needed for cleanup operations
-
+- `indexRelation`: The index relation on which cleanup operations should be performed
+- `*indexInfo`: Structure containing metadata about the index, including information needed for cleanup operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - RELATION_CHECKS (macro for relation validation)

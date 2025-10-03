@@ -16,10 +16,9 @@ recordDependencyOnTablespace(Oid classId, Oid objectId, Oid tablespace)
 This function simplifies the process of recording tablespace dependencies in PostgreSQL. It constructs ObjectAddress structures for both the dependent object and the tablespace, then calls recordSharedDependencyOn with SHARED_DEPENDENCY_TABLESPACE type to establish the tablespace relationship. The tablespace is always referenced from the pg_tablespace catalog (TableSpaceRelationId). This dependency tracking is essential for preventing tablespaces from being dropped while objects still depend on them.
 
 ## Parameters / Member Variables
-- : OID of the system catalog that contains the dependent object  
-- : OID of the dependent object within its catalog
-- : OID of the tablespace from pg_tablespace catalog
-
+- `classId`: OID of the system catalog that contains the dependent object
+- `objectId`: OID of the dependent object within its catalog
+- `tablespace`: OID of the tablespace from pg_tablespace catalog
 ## Dependencies
 - Functions called/Symbols referenced:
   - ObjectAddressSet

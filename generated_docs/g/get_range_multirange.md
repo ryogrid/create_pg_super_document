@@ -18,8 +18,7 @@ This function performs a lookup in the PostgreSQL system catalog to find the mul
 The function queries the pg_range system catalog using the provided range type OID and extracts the rngmultitypid field, which contains the OID of the corresponding multirange type. If the provided OID does not correspond to a valid range type, the function returns InvalidOid.
 
 ## Parameters / Member Variables
-- : The OID of the range type for which to find the corresponding multirange type
-
+- `rangeOid`: The OID of the range type for which to find the corresponding multirange type
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache1](../S/SearchSysCache1.md) (system catalog lookup)

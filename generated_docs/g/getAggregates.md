@@ -18,9 +18,8 @@ This function is part of pg_dump's catalog reading functionality that specifical
 The function creates AggInfo structures for each aggregate, populating them with comprehensive metadata including OID, name, namespace, argument types, owner, and access control information. It also handles argument type parsing for aggregates that take parameters and manages ACL (Access Control List) information for privilege management during dump/restore operations.
 
 ## Parameters / Member Variables
-- : Archive structure containing connection information and dump configuration options
-- : Pointer to integer that will be set to the number of aggregates found
-
+- `*fout`: Archive structure containing connection information and dump configuration options
+- `*numAggs`: Pointer to integer that will be set to the number of aggregates found
 ## Dependencies
 - Functions called/Symbols referenced:
   - [createPQExpBuffer](../c/createPQExpBuffer.md)

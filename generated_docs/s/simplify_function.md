@@ -27,17 +27,16 @@ The function also handles argument list processing, including converting named-n
 The function accesses the pg_proc system catalog to retrieve function metadata needed for all simplification strategies.
 
 ## Parameters / Member Variables
-- : OID of the function to simplify
-- : Actual result type OID (needed for polymorphic functions)
-- : Type modifier for the result
-- : Collation OID for the result
-- : Input collation to use for the function
-- : Pointer to argument list (pass-by-reference for modification)
-- : Whether the function is variadic
-- : Whether to process arguments (convert named notation, add defaults)
-- : Whether non-constant results are allowed (suppresses transform and inline strategies when false)
-- : Context data for eval_const_expressions
-
+- `funcid`: OID of the function to simplify
+- `result_type`: Actual result type OID (needed for polymorphic functions)
+- `result_typmod`: Type modifier for the result
+- `result_collid`: Collation OID for the result
+- `input_collid`: Input collation to use for the function
+- `**args_p`: Pointer to argument list (pass-by-reference for modification)
+- `funcvariadic`: Whether the function is variadic
+- `process_args`: Whether to process arguments (convert named notation, add defaults)
+- `allow_non_const`: Whether non-constant results are allowed (suppresses transform and inline strategies when false)
+- `*context`: Context data for eval_const_expressions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [expand_function_arguments](../e/expand_function_arguments.md)

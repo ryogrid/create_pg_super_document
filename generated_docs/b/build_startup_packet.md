@@ -19,10 +19,9 @@ build_startup_packet performs the core work of constructing PostgreSQL startup p
 The function uses the ADD_STARTUP_OPTION macro to efficiently handle parameter serialization, ensuring proper null-termination and length calculation for each parameter pair.
 
 ## Parameters / Member Variables
-- : PostgreSQL connection structure containing all connection parameters and settings
-- : Target buffer for the startup packet (NULL for size calculation phase)
-- : Array of PQEnvironmentOption structures defining environment variable mappings to PostgreSQL parameters
-
+- `*conn`: PostgreSQL connection structure containing all connection parameters and settings
+- `*packet`: Target buffer for the startup packet (NULL for size calculation phase)
+- `*options`: Array of PQEnvironmentOption structures defining environment variable mappings to PostgreSQL parameters
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_hton32 (network byte order conversion)

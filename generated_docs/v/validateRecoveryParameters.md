@@ -23,7 +23,6 @@ The function handles several key validation tasks:
 - Validates and computes recovery target timeline values
 
 ## Parameters / Member Variables
-This function takes no parameters and operates on global recovery configuration variables.
 
 ## Dependencies
 - Functions called/Symbols referenced:

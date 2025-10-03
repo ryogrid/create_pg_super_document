@@ -19,11 +19,10 @@ The  function is responsible for reconstructing the complete CREATE RULE command
 The function processes rule metadata including the rule name, event type, target relation, qualification expressions, and action queries. It formats the output according to the specified pretty-printing flags and ensures proper quoting and qualification of identifiers.
 
 ## Parameters / Member Variables
-- : StringInfo buffer where the reconstructed CREATE RULE command will be written
-- : HeapTuple containing the rule data from pg_rewrite catalog
-- : TupleDesc describing the structure of the rule tuple
-- : Integer flags controlling output formatting (indentation, schema qualification, etc.)
-
+- `buf`: StringInfo buffer where the reconstructed CREATE RULE command will be written
+- `ruletup`: HeapTuple containing the rule data from pg_rewrite catalog
+- `rulettc`: TupleDesc describing the structure of the rule tuple
+- `prettyFlags`: Integer flags controlling output formatting (indentation, schema qualification, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SPI_fnumber](../S/SPI_fnumber.md) (gets attribute number by name)

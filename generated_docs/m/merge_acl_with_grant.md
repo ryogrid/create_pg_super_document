@@ -19,15 +19,14 @@ merge_acl_with_grant(Acl *old_acl, bool is_grant,
 This static function performs the core ACL modification logic for PostgreSQL's GRANT and REVOKE operations. It takes an existing ACL and either adds privileges (when is_grant is true) or removes privileges (when is_grant is false) for a list of grantees. The function iterates through each grantee in the list, creates an AclItem structure for each one, and calls aclupdate() to perform the actual ACL modification. The function handles the asymmetric semantics between GRANT and REVOKE operations as specified by SQL standards - GRANT WITH GRANT OPTION grants both basic privileges and grant options, while REVOKE removes both unless specifically revoking only the grant option. The original old_acl is freed to prevent memory leaks.
 
 ## Parameters / Member Variables
-- : The existing ACL structure to be modified (will be freed by this function)
-- : Boolean flag indicating whether this is a GRANT (true) or REVOKE (false) operation
-- : Boolean flag indicating whether grant options are being manipulated
-- : DropBehavior enum specifying how to handle dependencies during privilege removal
-- : List of OIDs representing the users/roles to grant privileges to or revoke from
-- : AclMode bitmask representing the specific privileges being granted or revoked
-- : OID of the user/role performing the grant or revoke operation
-- : OID of the object owner (used in aclupdate for privilege validation)
-
+- `*old_acl`: The existing ACL structure to be modified (will be freed by this function)
+- `is_grant`: Boolean flag indicating whether this is a GRANT (true) or REVOKE (false) operation
+- `grant_option`: Boolean flag indicating whether grant options are being manipulated
+- `behavior`: DropBehavior enum specifying how to handle dependencies during privilege removal
+- `*grantees`: List of OIDs representing the users/roles to grant privileges to or revoke from
+- `privileges`: AclMode bitmask representing the specific privileges being granted or revoked
+- `grantorId`: OID of the user/role performing the grant or revoke operation
+- `ownerId`: OID of the object owner (used in aclupdate for privilege validation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [aclupdate](../a/aclupdate.md)

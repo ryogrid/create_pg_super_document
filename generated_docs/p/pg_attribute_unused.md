@@ -21,7 +21,6 @@ The `pg_attribute_unused()` macro is a PostgreSQL-specific wrapper around the GC
 When compiled with GCC, the macro expands to `__attribute__((unused))` which tells the compiler that the marked symbol is intentionally unused. For non-GCC compilers, the macro expands to nothing, providing compatibility across different compiler environments.
 
 ## Parameters / Member Variables
-This macro takes no parameters and is typically used as a suffix to variable or function declarations.
 
 ## Dependencies
 - Functions called/Symbols referenced: None (preprocessor macro)

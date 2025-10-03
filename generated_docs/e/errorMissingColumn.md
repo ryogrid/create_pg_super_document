@@ -25,11 +25,10 @@ The function implements multiple levels of error analysis:
 The function leverages PostgreSQL's fuzzy attribute matching system to provide the most helpful error messages possible, often suggesting the exact correction needed.
 
 ## Parameters / Member Variables
-- : ParseState structure containing the current parsing context and namespace information
-- : Name of the relation/table being referenced (can be NULL for unqualified column references)
-- : Name of the column that couldn't be resolved
-- : Character position in the source query where the error occurred
-
+- `*pstate`: ParseState structure containing the current parsing context and namespace information
+- `*relname`: Name of the relation/table being referenced (can be NULL for unqualified column references)
+- `*colname`: Name of the column that couldn't be resolved
+- `location`: Character position in the source query where the error occurred
 ## Dependencies
 - Functions called/Symbols referenced:
   - [searchRangeTableForCol](../s/searchRangeTableForCol.md)

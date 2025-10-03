@@ -16,9 +16,8 @@ copy_dest_receive(TupleTableSlot *slot, DestReceiver *self)
 This function serves as the main tuple processing callback for COPY TO operations within PostgreSQL's executor framework. It receives individual tuples from the executor, extracts the COPY state information from the destination receiver, and delegates the actual row formatting and output to CopyOneRowTo. Additionally, it maintains progress tracking by incrementing the processed tuple counter and reporting progress updates through the statistics system. The function always returns true to indicate successful processing and continuation of the operation.
 
 ## Parameters / Member Variables
-- : TupleTableSlot containing the tuple data to be processed and output
-- : DestReceiver structure cast to DR_copy containing COPY operation state and configuration
-
+- `*slot`: TupleTableSlot containing the tuple data to be processed and output
+- `*self`: DestReceiver structure cast to DR_copy containing COPY operation state and configuration
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (cast type for the destination receiver)

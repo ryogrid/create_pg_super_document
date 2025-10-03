@@ -22,8 +22,7 @@ This function validates whether the character at the current position in the tex
 The function is designed as part of PostgreSQL's text search parser to identify valid URL components during text parsing operations.
 
 ## Parameters / Member Variables
-- : Pointer to TParser structure containing the current parsing state, character position, and text being parsed
-
+- `*prs`: Pointer to TParser structure containing the current parsing state, character position, and text being parsed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TParser](../T/TParser.md) (structure type)

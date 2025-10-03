@@ -16,8 +16,7 @@ ExecShutdownGatherWorkers(GatherState *node)
 ExecShutdownGatherWorkers is a static helper function that handles the shutdown of parallel workers in PostgreSQL's Gather executor node. It performs two main cleanup tasks: first, it calls ExecParallelFinish to properly terminate all parallel worker processes, and second, it deallocates the reader array that was used to communicate with those workers. This function ensures that all parallel execution resources are properly cleaned up when they are no longer needed.
 
 ## Parameters / Member Variables
-- : A pointer to the GatherState structure containing the parallel execution information and reader array to be cleaned up
-
+- `*node`: A pointer to the GatherState structure containing the parallel execution information and reader array to be cleaned up
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecParallelFinish](ExecParallelFinish.md)

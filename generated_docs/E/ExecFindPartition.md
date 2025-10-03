@@ -21,12 +21,11 @@ This function implements the core partition routing algorithm for PostgreSQL's p
 The algorithm starts at the root partitioned table and iteratively evaluates partition keys to determine the target child partition. For sub-partitioned tables, it recursively descends through the hierarchy until reaching a leaf partition. The function reuses existing ResultRelInfo structures when possible and creates new ones as needed, optimizing memory usage and performance.
 
 ## Parameters / Member Variables
-- : ModifyTableState containing information about the modify operation and available ResultRelInfo structures
-- : The ResultRelInfo for the root relation named in the query
-- : PartitionTupleRouting structure containing partition dispatch information and cached ResultRelInfo structures
-- : TupleTableSlot containing the tuple to be routed to its appropriate partition
-- : Executor state providing expression evaluation context and memory management
-
+- `*mtstate`: ModifyTableState containing information about the modify operation and available ResultRelInfo structures
+- `*rootResultRelInfo`: The ResultRelInfo for the root relation named in the query
+- `*proute`: PartitionTupleRouting structure containing partition dispatch information and cached ResultRelInfo structures
+- `*slot`: TupleTableSlot containing the tuple to be routed to its appropriate partition
+- `*estate`: Executor state providing expression evaluation context and memory management
 ## Dependencies
 - Functions called/Symbols referenced:
   - GetPerTupleExprContext

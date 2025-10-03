@@ -21,13 +21,12 @@ The function allocates a single memory chunk containing arrays for attribute num
 The resulting StatsBuildData structure provides a uniform interface for accessing both column and expression data during statistics computation, abstracting away the differences between simple column references and complex expressions.
 
 ## Parameters / Member Variables
-- : Relation for which statistics are being built
-- : StatExtEntry containing information about the extended statistics object (columns, expressions, types)
-- : Number of sample rows to process
-- : Array of HeapTuple pointers containing the sample data
-- : Array of VacAttrStats for the columns being analyzed
-- : Statistics target controlling the level of detail in statistics
-
+- `rel`: Relation for which statistics are being built
+- `*stat`: StatExtEntry containing information about the extended statistics object (columns, expressions, types)
+- `numrows`: Number of sample rows to process
+- `*rows`: Array of HeapTuple pointers containing the sample data
+- `**stats`: Array of VacAttrStats for the columns being analyzed
+- `stattarget`: Statistics target controlling the level of detail in statistics
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bms_num_members](../b/bms_num_members.md), bms_next_member, examine_expression, heap_getattr

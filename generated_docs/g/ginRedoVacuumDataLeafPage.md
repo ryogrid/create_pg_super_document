@@ -24,8 +24,7 @@ Key functionality:
 - Updates the page LSN and marks the buffer dirty for consistency
 
 ## Parameters / Member Variables
-- : XLogReaderState pointer containing the WAL record being replayed, including compression data for the vacuumed data leaf page
-
+- `*record`: XLogReaderState pointer containing the WAL record being replayed, including compression data for the vacuumed data leaf page
 ## Dependencies
 - Functions called/Symbols referenced:
   - [XLogReadBufferForRedo](../X/XLogReadBufferForRedo.md)

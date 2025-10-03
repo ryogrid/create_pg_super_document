@@ -22,6 +22,7 @@ The restoration process includes reading various types of statistics such as arc
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pgstat_read_statsfile](pgstat_read_statsfile.md)

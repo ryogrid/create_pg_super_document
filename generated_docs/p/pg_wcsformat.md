@@ -25,12 +25,11 @@ The function handles special formatting:
 - Regular characters: Copy as-is for single-byte or copy all bytes for multibyte
 
 ## Parameters / Member Variables
-- : Input multibyte character string to format
-- : Length of the input string in bytes
-- : Character encoding identifier for proper multibyte handling
-- : Array of lineptr structures to store formatted output lines
-- : Maximum number of lines available in the lines array
-
+- `*pwcs`: Input multibyte character string to format
+- `len`: Length of the input string in bytes
+- `encoding`: Character encoding identifier for proper multibyte handling
+- `*lines`: Array of lineptr structures to store formatted output lines
+- `count`: Maximum number of lines available in the lines array
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lineptr](../l/lineptr.md): Structure type for storing formatted line data

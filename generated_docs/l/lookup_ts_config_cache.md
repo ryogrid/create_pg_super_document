@@ -20,8 +20,7 @@ The function follows the familiar two-level caching pattern but adds sophisticat
 For each token type, the function maintains an array of dictionary OIDs that will be applied in sequence during text search operations. The final cache entry contains a complete mapping structure that allows fast lookup of dictionaries for any given token type produced by the configuration's parser.
 
 ## Parameters / Member Variables
-- : The Object Identifier (OID) of the text search configuration to look up
-
+- `cfgId`: The Object Identifier (OID) of the text search configuration to look up
 ## Dependencies
 - Functions called/Symbols referenced:
   - [init_ts_config_cache](../i/init_ts_config_cache.md) (initializes cache infrastructure if needed)

@@ -18,13 +18,12 @@ WALRead(XLogReaderState *state,
 WALRead provides a convenient abstraction for reading WAL data by handling segment management, file operations, and error reporting. The function automatically manages WAL segment files by opening and closing them as needed when reading data that spans multiple segments or timelines. It works in conjunction with caller-provided segment_open and segment_close callbacks to handle the underlying file operations. The function reads data in chunks, respecting segment boundaries, and provides detailed error information when failures occur.
 
 ## Parameters / Member Variables
-- : XLogReaderState containing WAL reading context, segment information, and callback routines
-- : Buffer to store the read WAL data
-- : Starting XLogRecPtr position from which to begin reading
-- : Number of bytes to read
-- : TimeLineID from which to read the WAL data
-- : WALReadError structure to receive detailed error information if the operation fails
-
+- `*state`: XLogReaderState containing WAL reading context, segment information, and callback routines
+- `*buf`: Buffer to store the read WAL data
+- `startptr`: Starting XLogRecPtr position from which to begin reading
+- `count`: Number of bytes to read
+- `tli`: TimeLineID from which to read the WAL data
+- `*errinfo`: WALReadError structure to receive detailed error information if the operation fails
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogSegmentOffset

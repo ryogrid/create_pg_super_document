@@ -18,8 +18,7 @@ This function determines how many times the value can be divided by 5 before yie
 The function uses an infinite loop with explicit break condition to count consecutive divisions by 5, making it both readable and efficient for the typical use cases in decimal conversion routines.
 
 ## Parameters / Member Variables
-- : The 64-bit unsigned integer whose power-of-5 factor is to be calculated
-
+- `value`: The 64-bit unsigned integer whose power-of-5 factor is to be calculated
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Helper function for dividing by 5

@@ -25,9 +25,8 @@ The query uses several PostgreSQL-specific features:
 Each event trigger is processed through the standard dumpable object system, allowing for selective dumping based on user preferences and dump scope.
 
 ## Parameters / Member Variables
-- : Archive pointer containing database connection and version information
-- : Output parameter that receives the total number of event triggers found
-
+- `*fout`: Archive pointer containing database connection and version information
+- `*numEventTriggers`: Output parameter that receives the total number of event triggers found
 ## Dependencies
 - Functions called/Symbols referenced:
   - EventTriggerInfo (struct type)

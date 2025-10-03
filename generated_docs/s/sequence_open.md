@@ -18,9 +18,8 @@ The  function is a specialized wrapper around  that provides type-safe access to
 The function follows PostgreSQL's standard pattern of opening relations with appropriate locking and validation, specifically tailored for sequence access patterns.
 
 ## Parameters / Member Variables
-- : The object identifier (OID) of the sequence relation to open
-- : The lock mode to acquire on the relation (e.g., AccessShareLock, RowExclusiveLock)
-
+- `relationId`: The object identifier (OID) of the sequence relation to open
+- `lockmode`: The lock mode to acquire on the relation (e.g., AccessShareLock, RowExclusiveLock)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [relation_open](../r/relation_open.md)

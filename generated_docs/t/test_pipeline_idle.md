@@ -23,8 +23,7 @@ This function tests specific edge cases and state management aspects of PostgreS
 The function demonstrates that PostgreSQL enforces proper pipeline state management by preventing premature exits from pipeline mode and ensuring all queued operations are properly handled before allowing state transitions.
 
 ## Parameters / Member Variables
-- : PostgreSQL connection handle for pipeline operations
-
+- `*conn`: PostgreSQL connection handle for pipeline operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQsetNoticeProcessor](../P/PQsetNoticeProcessor.md) (notice handler setup)

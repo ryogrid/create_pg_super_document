@@ -17,10 +17,9 @@ exec_command_elif(PsqlScanState scan_state, ConditionalStack cstack,
 This function handles the execution of the \elif (else if) backslash command in psql, which provides alternative conditional branches within an \if..\endif block. The function's behavior depends on the current state of the conditional stack: if the previous branch was true, it ignores the expression and remaining branches; if false, it evaluates the new expression; if already ignored, it continues ignoring. The function validates that \elif appears in the correct context (after \if but before any \else) and manages query buffer state appropriately by either preserving text from active branches or discarding text from inactive ones.
 
 ## Parameters / Member Variables
-- : PsqlScanState pointer that tracks the current parsing state of the psql input
-- : ConditionalStack managing the hierarchy of nested conditional blocks
-- : PQExpBuffer containing the current query text that may need preservation or disposal
-
+- `scan_state`: PsqlScanState pointer that tracks the current parsing state of the psql input
+- `cstack`: ConditionalStack managing the hierarchy of nested conditional blocks
+- `query_buf`: PQExpBuffer containing the current query text that may need preservation or disposal
 ## Dependencies
 - Functions called/Symbols referenced:
   - [conditional_stack_peek](../c/conditional_stack_peek.md) (examines current conditional state without modifying stack)

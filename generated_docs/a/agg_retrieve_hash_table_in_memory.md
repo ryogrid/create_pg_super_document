@@ -24,8 +24,7 @@ The function performs several key operations:
 6. Applies qualification checks before returning results
 
 ## Parameters / Member Variables
-- : The aggregate node's execution state containing hash tables, grouping information, and per-aggregate state
-
+- `*aggstate`: The aggregate node's execution state containing hash tables, grouping information, and per-aggregate state
 ## Dependencies
 - Functions called/Symbols referenced:
   - ScanTupleHashTable

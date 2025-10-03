@@ -21,9 +21,8 @@ The function follows the same memory management strategy as add_object_address, 
 This is the preferred interface for external callers throughout the PostgreSQL codebase when they need to add object dependencies and already have ObjectAddress structures available, which is common during catalog operations and dependency tracking.
 
 ## Parameters / Member Variables
-- : Pointer to a complete ObjectAddress structure to be copied into the array
-- : Pointer to the ObjectAddresses structure to modify
-
+- `*object`: Pointer to a complete ObjectAddress structure to be copied into the array
+- `*addrs`: Pointer to the ObjectAddresses structure to modify
 ## Dependencies
 - Functions called/Symbols referenced:
   - [repalloc](../r/repalloc.md) (memory reallocation)

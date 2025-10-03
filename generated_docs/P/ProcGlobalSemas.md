@@ -17,7 +17,6 @@ ProcGlobalSemas calculates the total number of semaphores required for PostgreSQ
 The function provides a simple calculation: one semaphore per backend process (including autovacuum workers) plus one semaphore for each auxiliary process (checkpointer, WAL writer, background writer, etc.).
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

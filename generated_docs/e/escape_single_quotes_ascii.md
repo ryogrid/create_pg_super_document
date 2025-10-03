@@ -20,8 +20,7 @@ The function is specifically designed for ASCII strings and does not consider en
 The algorithm iterates through each character of the source string, and for characters that need escaping (determined by the SQL_STR_DOUBLE macro), it first writes the character itself (as the escape) then writes it again as the actual character.
 
 ## Parameters / Member Variables
-- : Input null-terminated ASCII string that needs to be escaped. Must not be NULL.
-
+- `*src`: Input null-terminated ASCII string that needs to be escaped. Must not be NULL.
 ## Return Value
 - Returns a malloc()ed string containing the escaped version of the input
 - Returns NULL if memory allocation fails

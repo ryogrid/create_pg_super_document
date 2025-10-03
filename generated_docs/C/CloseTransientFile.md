@@ -18,8 +18,7 @@ CloseTransientFile is responsible for properly closing raw file descriptors that
 This function is part of PostgreSQL's file descriptor management system that tracks and limits the number of open file descriptors to prevent resource exhaustion. It ensures proper cleanup of file resources and maintains consistency in the internal file descriptor tracking for raw file descriptors (as opposed to FILE* handles managed by FreeFile).
 
 ## Parameters / Member Variables
-- : The file descriptor to be closed, which should have been obtained from OpenTransientFile
-
+- `fd`: The file descriptor to be closed, which should have been obtained from OpenTransientFile
 ## Dependencies
 - Functions called/Symbols referenced:
   - DO_DB (debug logging macro)

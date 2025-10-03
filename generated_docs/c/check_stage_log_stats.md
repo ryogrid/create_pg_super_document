@@ -18,10 +18,9 @@ This function serves as a validation hook for PostgreSQL's stage-specific loggin
 The function includes a note acknowledging that this is a "hack" implementation that may not work perfectly in all scenarios (such as when applying pg_db_role_setting values), but is tolerated because these are legacy settings with limited production usage.
 
 ## Parameters / Member Variables
-- : Pointer to the new boolean value being set for the stage log stats parameter
-- : Pointer to extra data (unused in this function)
-- : The source of the configuration change (GucSource enumeration)
-
+- `*newval`: Pointer to the new boolean value being set for the stage log stats parameter
+- `**extra`: Pointer to extra data (unused in this function)
+- `source`: The source of the configuration change (GucSource enumeration)
 ## Dependencies
 - Functions called/Symbols referenced:
   - GUC_check_errdetail

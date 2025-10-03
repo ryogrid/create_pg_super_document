@@ -19,10 +19,9 @@ This function is a specialized wrapper for executing boolean expressions within 
 The function ensures that nested boolean evaluations operate on the correct JSON item while preserving the outer execution context. It's a critical component in the JSON path execution engine that handles scope management for nested expressions.
 
 ## Parameters / Member Variables
-- : Pointer to the JSON path execution context containing the current evaluation state
-- : Pointer to the JSON path item representing the boolean expression to execute
-- : Pointer to the JsonbValue that should become the current item during nested execution
-
+- `*cxt`: Pointer to the JSON path execution context containing the current evaluation state
+- `*jsp`: Pointer to the JSON path item representing the boolean expression to execute
+- `*jb`: Pointer to the JsonbValue that should become the current item during nested execution
 ## Dependencies
 - Functions called/Symbols referenced:
   - [executeBoolItem](executeBoolItem.md)

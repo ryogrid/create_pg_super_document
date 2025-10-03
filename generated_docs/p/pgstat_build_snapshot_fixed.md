@@ -20,8 +20,7 @@ The function validates that the requested kind supports fixed-amount statistics 
 The actual snapshot building is delegated to the kind-specific callback function, which knows how to construct the appropriate snapshot data structure for that particular statistics type.
 
 ## Parameters / Member Variables
-- : The fixed-numbered statistics kind (PgStat_Kind) for which to build a snapshot. Must be a valid fixed-amount statistics kind with a registered snapshot callback.
-
+- `kind`: The fixed-numbered statistics kind (PgStat_Kind) for which to build a snapshot. Must be a valid fixed-amount statistics kind with a registered snapshot callback.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pgstat_get_kind_info](pgstat_get_kind_info.md)

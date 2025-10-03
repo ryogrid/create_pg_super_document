@@ -19,11 +19,10 @@ mdwriteback implements PostgreSQL's writeback mechanism for the magnetic disk (m
 The function works by splitting flush requests at segment boundaries since PostgreSQL relations are stored as separate files per segment. It uses the kernel's writeback facilities through FileWriteback to hint that specific ranges of data should be written to storage.
 
 ## Parameters / Member Variables
-- : SMgrRelation pointer representing the relation to flush
-- : ForkNumber identifying which fork of the relation to flush
-- : BlockNumber specifying the starting block position for writeback
-- : BlockNumber indicating the number of consecutive blocks to flush
-
+- `reln`: SMgrRelation pointer representing the relation to flush
+- `forknum`: ForkNumber identifying which fork of the relation to flush
+- `blocknum`: BlockNumber specifying the starting block position for writeback
+- `nblocks`: BlockNumber indicating the number of consecutive blocks to flush
 ## Dependencies
 - Functions called/Symbols referenced:
   - [_mdfd_getseg](_mdfd_getseg.md)

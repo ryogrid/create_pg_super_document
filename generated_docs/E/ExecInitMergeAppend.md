@@ -24,10 +24,9 @@ ExecInitMergeAppend is the initialization function for the MergeAppend executor 
 The function handles both cases where partition pruning is enabled and disabled, adjusting the set of valid subplans accordingly. It also ensures that abbreviated key conversion is disabled since tuples are pulled into the heap as needed rather than all at once.
 
 ## Parameters / Member Variables
-- : The MergeAppend plan node containing merge configuration (sort columns, child plans, partition pruning info)
-- : The execution state containing transaction context and other execution-wide information
-- : Execution flags that control behavior (EXEC_FLAG_BACKWARD and EXEC_FLAG_MARK are not supported)
-
+- `*node`: The MergeAppend plan node containing merge configuration (sort columns, child plans, partition pruning info)
+- `*estate`: The execution state containing transaction context and other execution-wide information
+- `eflags`: Execution flags that control behavior (EXEC_FLAG_BACKWARD and EXEC_FLAG_MARK are not supported)
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode

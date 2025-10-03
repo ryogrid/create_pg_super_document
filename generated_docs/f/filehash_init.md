@@ -18,7 +18,6 @@ The  function creates and initializes the global hash table () that stores file 
 This function is part of the pg_rewind utility's file management system, which collects information about all files in the data directories before determining what actions need to be taken during the rewind process.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

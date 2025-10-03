@@ -18,9 +18,8 @@ This utility function searches through a relation's list of cached ParamPathInfo
 The function is used by the various get_*_parampathinfo functions to avoid creating duplicate ParamPathInfo structures for the same parameterization, ensuring consistent rowcount estimates and efficient memory usage.
 
 ## Parameters / Member Variables
-- : RelOptInfo structure whose ppilist will be searched
-- : Relids bitmap specifying the parameterization to search for
-
+- `*rel`: RelOptInfo structure whose ppilist will be searched
+- `required_outer`: Relids bitmap specifying the parameterization to search for
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bms_equal](../b/bms_equal.md)

@@ -24,10 +24,9 @@ AllocSetRealloc is a sophisticated memory reallocation function that handles thr
 The function includes extensive memory debugging support, including detection of buffer overruns, proper Valgrind memory access tracking, and optional memory randomization. It carefully handles the transition of memory access permissions and maintains the integrity of the AllocSet data structures throughout the reallocation process.
 
 ## Parameters / Member Variables
-- : Pointer to the previously allocated memory chunk to be resized
-- : The new desired size for the memory allocation (in bytes)
-- : Allocation control flags (e.g., MCXT_ALLOC_NO_OOM to return NULL instead of ERROR on failure)
-
+- `*pointer`: Pointer to the previously allocated memory chunk to be resized
+- `size`: The new desired size for the memory allocation (in bytes)
+- `flags`: Allocation control flags (e.g., MCXT_ALLOC_NO_OOM to return NULL instead of ERROR on failure)
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerGetMemoryChunk

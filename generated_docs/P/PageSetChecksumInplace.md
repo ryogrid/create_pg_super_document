@@ -22,9 +22,8 @@ PageSetChecksumInplace provides an efficient checksum calculation mechanism for 
 The function is a lightweight wrapper that performs early validation checks and directly updates the page's checksum field. It's commonly used during buffer flushing operations where exclusive access is already guaranteed, and in bulk operations where pages are being prepared for writing.
 
 ## Parameters / Member Variables
-- : The page to checksum in-place (must be in private memory)
-- : The block number of the page, used in checksum calculation
-
+- `page`: The page to checksum in-place (must be in private memory)
+- `blkno`: The block number of the page, used in checksum calculation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PageIsNew](PageIsNew.md)

@@ -18,10 +18,9 @@ The  function provides a robust string-to-double conversion mechanism specifical
 The function uses  to detect range errors from  and performs additional validation to ensure the entire string represents a valid number. It provides detailed error messages when operating in non-silent mode.
 
 ## Parameters / Member Variables
-- : Input string containing the numeric value to be converted
-- : Boolean flag controlling error reporting behavior - if false, errors are logged; if true, errors are returned silently  
-- : Pointer to double variable where the converted result will be stored
-
+- `*str`: Input string containing the numeric value to be converted
+- `errorOK`: Boolean flag controlling error reporting behavior - if false, errors are logged; if true, errors are returned silently
+- `*dv`: Pointer to double variable where the converted result will be stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - strtod (standard C library function)

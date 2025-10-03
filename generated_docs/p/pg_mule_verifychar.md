@@ -20,9 +20,8 @@ This function validates a single MULE-encoded character by performing two key ch
 The function ensures that multi-byte MULE characters follow the proper encoding rules where continuation bytes must have their most significant bit set to 1. This is a fundamental requirement of the MULE encoding scheme to distinguish continuation bytes from single-byte ASCII characters.
 
 ## Parameters / Member Variables
-- : Pointer to the beginning of the character sequence to verify
-- : Maximum number of bytes available in the input buffer
-
+- `*s`: Pointer to the beginning of the character sequence to verify
+- `len`: Maximum number of bytes available in the input buffer
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_mule_mblen](pg_mule_mblen.md)

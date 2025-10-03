@@ -35,11 +35,10 @@ This function prepares object lists for parallel reindex operations by querying 
 The function uses safe search_path queries and proper identifier encoding to handle special characters and schema-qualified names.
 
 ## Parameters / Member Variables
-- : PostgreSQL database connection for catalog queries
-- : Type of reindex operation (REINDEX_DATABASE, REINDEX_SCHEMA, REINDEX_INDEX)
-- : Input list of user-specified objects (modified in-place for REINDEX_INDEX)
-- : Whether to echo the catalog query (affects relation qualification)
-
+- `*conn`: PostgreSQL database connection for catalog queries
+- `type`: Type of reindex operation (REINDEX_DATABASE, REINDEX_SCHEMA, REINDEX_INDEX)
+- `*user_list`: Input list of user-specified objects (modified in-place for REINDEX_INDEX)
+- `echo`: Whether to echo the catalog query (affects relation qualification)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [initPQExpBuffer](../i/initPQExpBuffer.md)

@@ -18,8 +18,7 @@ This function provides a mechanism to completely reset a read stream's internal 
 The function is particularly useful for scenarios where a scan needs to be restarted from a different position, or when speculative reads need to be discarded. After reset, the stream can be reused as if it were newly created, starting with conservative assumptions about data locality.
 
 ## Parameters / Member Variables
-- : The read stream object to reset
-
+- `*stream`: The read stream object to reset
 ## Dependencies
 - Functions called/Symbols referenced:
   - [read_stream_next_buffer](read_stream_next_buffer.md)

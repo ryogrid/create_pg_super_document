@@ -30,10 +30,9 @@ The  function implements a depth-first traversal of PostgreSQL plan state trees.
 The function includes stack depth checking to prevent overflow from overly complex plan trees. It returns  if any callback returns  (indicating early termination), or  if the entire tree was traversed successfully.
 
 ## Parameters / Member Variables
-- : The root PlanState node to start traversal from
-- : Callback function of type  that will be called on each plan state node. The callback signature is: 
-- : User-provided context data passed through to the callback function
-
+- `*planstate`: The root PlanState node to start traversal from
+- `walker`: Callback function of type  that will be called on each plan state node. The callback signature is:
+- `*context`: User-provided context data passed through to the callback function
 ## Dependencies
 - Functions called/Symbols referenced:
   - 

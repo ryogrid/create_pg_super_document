@@ -26,8 +26,7 @@ The function implements the complete Ident protocol workflow:
 The function includes comprehensive error handling for network operations and proper resource cleanup regardless of success or failure.
 
 ## Parameters / Member Variables
-- : Pointer to hbaPort structure containing connection information including remote/local addresses, HBA configuration, and user details
-
+- `*port`: Pointer to hbaPort structure containing connection information including remote/local addresses, HBA configuration, and user details
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_getnameinfo_all](../p/pg_getnameinfo_all.md) (PostgreSQL network utilities)

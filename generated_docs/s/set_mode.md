@@ -21,8 +21,7 @@ The function supports three shutdown modes:
 - **Immediate mode** ("i" or "immediate"): Sets  and  signal - forces immediate shutdown without cleanup
 
 ## Parameters / Member Variables
-- : String containing the shutdown mode specification (short or long form)
-
+- `*modeopt`: String containing the shutdown mode specification (short or long form)
 ## Dependencies
 - Functions called/Symbols referenced:
   - strcmp (string comparison)

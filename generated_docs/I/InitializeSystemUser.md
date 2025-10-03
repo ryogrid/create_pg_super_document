@@ -16,9 +16,8 @@ InitializeSystemUser(const char *authn_id, const char *auth_method)
 This function creates and stores the system user identifier by formatting the authentication method and authentication ID into a single string using the pattern "auth_method:authn_id". The resulting string is stored in the TopMemoryContext for session-long persistence. This identifier is used for auditing and tracking purposes to maintain information about how a user was authenticated beyond just their role identity.
 
 ## Parameters / Member Variables
-- : The authentication identifier (cannot be NULL)
-- : The authentication method used (must be valid when authn_id is provided)
-
+- `*authn_id`: The authentication identifier (cannot be NULL)
+- `*auth_method`: The authentication method used (must be valid when authn_id is provided)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [psprintf](../p/psprintf.md) (PostgreSQL's sprintf equivalent)

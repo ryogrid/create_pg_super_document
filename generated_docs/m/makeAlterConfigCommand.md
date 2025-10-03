@@ -23,14 +23,13 @@ For GUC_LIST_QUOTE variables, the function uses SplitGUCList to parse comma-sepa
 The generated command follows the pattern: ALTER {DATABASE|ROLE} name [IN {DATABASE|ROLE} name2] SET parameter TO value;
 
 ## Parameters / Member Variables
-- : PostgreSQL connection handle used to determine string-literal quoting conventions
-- : A "name=value" string containing the configuration parameter and its value
-- : The type of object being configured ("DATABASE" or "ROLE")
-- : The name of the database or role being configured
-- : Optional type for IN clause (NULL if not needed)
-- : Optional name for IN clause (NULL if not needed)
-- : PQExpBuffer where the generated ALTER command will be appended
-
+- `*conn`: PostgreSQL connection handle used to determine string-literal quoting conventions
+- `*configitem`: A "name=value" string containing the configuration parameter and its value
+- `*type`: The type of object being configured ("DATABASE" or "ROLE")
+- `*name`: The name of the database or role being configured
+- `*type2`: Optional type for IN clause (NULL if not needed)
+- `*name2`: Optional name for IN clause (NULL if not needed)
+- `buf`: PQExpBuffer where the generated ALTER command will be appended
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_strdup](../p/pg_strdup.md): Creates a copy of the configitem string for parsing

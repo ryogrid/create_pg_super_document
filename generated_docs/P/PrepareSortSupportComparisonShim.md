@@ -23,9 +23,8 @@ PrepareSortSupportComparisonShim serves as a bridge between legacy btree compari
 This approach provides significant performance benefits by avoiding the overhead of repeatedly setting up function call information for each comparison operation. Instead, the setup is done once, and the lightweight comparison_shim function handles individual comparisons efficiently.
 
 ## Parameters / Member Variables
-- : OID of the btree comparison function to be wrapped
-- : SortSupport structure to be configured with the shim
-
+- `cmpFunc`: OID of the btree comparison function to be wrapped
+- `ssup`: SortSupport structure to be configured with the shim
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SortSupport](../S/SortSupport.md) (type)

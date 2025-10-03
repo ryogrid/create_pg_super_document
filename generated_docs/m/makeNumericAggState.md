@@ -16,9 +16,8 @@ makeNumericAggState(FunctionCallInfo fcinfo, bool calcSumX2)
 This static function creates a properly initialized NumericAggState structure within the correct memory context for aggregate operations. It first validates that the function is being called in an appropriate aggregate context using . The function then switches to the aggregate memory context to allocate the state structure, ensuring the state persists for the duration of the aggregate operation. The allocated structure is zero-initialized using  and configured with the specified settings for sum-of-squares calculation and memory context reference.
 
 ## Parameters / Member Variables
-- : Function call information structure containing context and metadata for the aggregate function
-- : Boolean flag indicating whether the aggregate should calculate sum of squares in addition to sum and count
-
+- `fcinfo`: Function call information structure containing context and metadata for the aggregate function
+- `calcSumX2`: Boolean flag indicating whether the aggregate should calculate sum of squares in addition to sum and count
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Validate aggregate context and get memory context

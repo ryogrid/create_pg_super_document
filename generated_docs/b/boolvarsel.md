@@ -20,10 +20,9 @@ The function implements the logical equivalence that a Boolean variable V is equ
 This function is a key component in PostgreSQL's cost-based query optimization, helping the planner estimate how many rows will satisfy Boolean conditions and choose optimal execution plans accordingly.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planner state and context information
-- : Node representing the Boolean variable or expression to analyze
-- : Relation ID to restrict analysis to (0 if no restriction)
-
+- `*root`: PlannerInfo structure containing planner state and context information
+- `*arg`: Node representing the Boolean variable or expression to analyze
+- `varRelid`: Relation ID to restrict analysis to (0 if no restriction)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [examine_variable](../e/examine_variable.md)

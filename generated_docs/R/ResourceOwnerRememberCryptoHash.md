@@ -18,9 +18,8 @@ This function serves as a wrapper around the generic  function, specifically tai
 The function is implemented as a static inline function in the cryptohash_openssl.c file, making it efficient while providing type-safe resource management for cryptographic hash operations.
 
 ## Parameters / Member Variables
-- : The ResourceOwner that will track this cryptographic hash context
-- : Pointer to the pg_cryptohash_ctx structure to be tracked for automatic cleanup
-
+- `owner`: The ResourceOwner that will track this cryptographic hash context
+- `*ctx`: Pointer to the pg_cryptohash_ctx structure to be tracked for automatic cleanup
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ResourceOwnerRemember](ResourceOwnerRemember.md)

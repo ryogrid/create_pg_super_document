@@ -16,8 +16,7 @@ contain_window_function(Node *clause)
 This function provides a wrapper to detect the presence of window functions within a given expression clause. Unlike aggregate functions that have level fields for handling nested scopes, window functions are hard-wired to be associated with the current query level, which simplifies the detection logic. The function delegates to  from rewriteManip.c, which performs the actual recursive traversal to identify WindowFunc nodes in the expression tree.
 
 ## Parameters / Member Variables
-- : A Node pointer representing the expression clause to be examined for window functions
-
+- `*clause`: A Node pointer representing the expression clause to be examined for window functions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [contain_windowfuncs](contain_windowfuncs.md)

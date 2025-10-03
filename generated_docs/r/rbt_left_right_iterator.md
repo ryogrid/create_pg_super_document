@@ -18,8 +18,7 @@ This function provides the core logic for in-order traversal of a Red-Black tree
 The algorithm handles three main cases: initial traversal (finding the leftmost node), moving to the next node when the current node has a right subtree (finding the leftmost node in that subtree), and backtracking up the tree when no right subtree exists. The traversal continues until all nodes have been visited, at which point the iterator is marked as complete.
 
 ## Parameters / Member Variables
-- : Pointer to the RBTreeIterator structure that maintains traversal state and tree reference
-
+- `*iter`: Pointer to the RBTreeIterator structure that maintains traversal state and tree reference
 ## Dependencies
 - Functions called/Symbols referenced:
   - RBTNIL (sentinel node constant)

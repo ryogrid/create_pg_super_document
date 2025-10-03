@@ -21,8 +21,7 @@ This function is part of PostgreSQL's type system infrastructure and is automati
 - Processing binary data in replication streams
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function argument macro containing:
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument macro containing:
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Handles the actual binary-to-OID conversion since regcollation uses OID format internally

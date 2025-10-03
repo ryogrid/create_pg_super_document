@@ -20,14 +20,13 @@ The syntax_error function provides comprehensive error reporting for syntax erro
 When a line of code is provided, the function displays the problematic line and marks the exact error location with a caret (^) character, making it easier for users to identify and fix syntax issues.
 
 ## Parameters / Member Variables
-- : Source identifier (filename or builtin-script ID) where the error occurred
-- : Line number within the script (1-based counting)
-- : Complete line containing the syntax error (optional, can be NULL)
-- : Name of the backslash command that caused the error (optional, can be NULL)
-- : The primary error message describing what went wrong
-- : Additional optional error context or explanation (optional, can be NULL)
-- : Zero-based column number where the error occurred, or -1 if unknown
-
+- `*source`: Source identifier (filename or builtin-script ID) where the error occurred
+- `lineno`: Line number within the script (1-based counting)
+- `*line`: Complete line containing the syntax error (optional, can be NULL)
+- `*command`: Name of the backslash command that caused the error (optional, can be NULL)
+- `*msg`: The primary error message describing what went wrong
+- `*more`: Additional optional error context or explanation (optional, can be NULL)
+- `column`: Zero-based column number where the error occurred, or -1 if unknown
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQExpBufferData](../P/PQExpBufferData.md): Buffer structure for building formatted strings

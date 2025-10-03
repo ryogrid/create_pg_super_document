@@ -22,12 +22,11 @@ lookup_agg_function serves as the common validation and resolution function for 
 The function uses func_get_detail to resolve the function name and handle polymorphic types, then performs additional validation specific to aggregate functions. It ensures the function doesn't return a set, handles VARIADIC ANY consistency, validates that no runtime type coercion will be needed, and verifies the caller has execute permissions on the function.
 
 ## Parameters / Member Variables
-- : List representing the possibly schema-qualified function name to lookup
-- : Number of expected function arguments
-- : Array of expected argument type OIDs (must not be modified)
-- : OID of variadic argument type if any, InvalidOid otherwise
-- : Pointer to store the resolved return type OID of the function
-
+- `*fnName`: List representing the possibly schema-qualified function name to lookup
+- `nargs`: Number of expected function arguments
+- `*input_types`: Array of expected argument type OIDs (must not be modified)
+- `variadicArgType`: OID of variadic argument type if any, InvalidOid otherwise
+- `*rettype`: Pointer to store the resolved return type OID of the function
 ## Dependencies
 - Functions called/Symbols referenced:
   - [func_get_detail](../f/func_get_detail.md): Core function lookup and polymorphic resolution

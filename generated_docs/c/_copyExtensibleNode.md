@@ -18,8 +18,7 @@ The  function provides a generic copying mechanism for ExtensibleNode structures
 This design allows extensible nodes to define their own copying semantics while still participating in PostgreSQL's generic node copying system. The function retrieves the node's methods using  and uses the custom  callback to handle the type-specific copying of private fields.
 
 ## Parameters / Member Variables
-- : Pointer to the source ExtensibleNode to be copied
-
+- `*from`: Pointer to the source ExtensibleNode to be copied
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetExtensibleNodeMethods](../G/GetExtensibleNodeMethods.md) (retrieves method structure for the extensible node type)

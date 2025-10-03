@@ -20,10 +20,9 @@ The function accepts either an implicitly-ANDed list of boolean expressions or a
 This function is fundamental to PostgreSQL's cost-based optimization, as qualification evaluation costs significantly impact plan selection decisions across all scan and join methods.
 
 ## Parameters / Member Variables
-- : Output parameter receiving the calculated QualCost structure with startup and per_tuple components
-- : List of qualification expressions (Node* or RestrictInfo*) to evaluate
-- : PlannerInfo context for planning information (can be NULL, resulting in slightly worse estimates)
-
+- `*cost`: Output parameter receiving the calculated QualCost structure with startup and per_tuple components
+- `*quals`: List of qualification expressions (Node* or RestrictInfo*) to evaluate
+- `*root`: PlannerInfo context for planning information (can be NULL, resulting in slightly worse estimates)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [cost_qual_eval_walker](cost_qual_eval_walker.md)

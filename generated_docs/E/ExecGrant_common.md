@@ -19,11 +19,10 @@ ExecGrant_common performs the core work of granting or revoking privileges on da
 The function is designed to work with any catalog table that stores ACLs by accepting a classid parameter and optional object-specific validation callback. It ensures atomicity by using appropriate locking and handles duplicate objects gracefully.
 
 ## Parameters / Member Variables
-- : Internal representation of the GRANT/REVOKE statement containing grantees, privileges, and options
-- : OID of the system catalog class (e.g., RelationRelationId for tables)
-- : Default privileges to grant when ALL PRIVILEGES is specified  
-- : Optional callback function for object-type-specific validation
-
+- `*istmt`: Internal representation of the GRANT/REVOKE statement containing grantees, privileges, and options
+- `classid`: OID of the system catalog class (e.g., RelationRelationId for tables)
+- `default_privs`: Default privileges to grant when ALL PRIVILEGES is specified
+- `*object_check`: Optional callback function for object-type-specific validation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_object_catcache_oid](../g/get_object_catcache_oid.md)

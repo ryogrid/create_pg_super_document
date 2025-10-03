@@ -26,12 +26,11 @@ The function distinguishes between numeric and text values, ensuring numeric val
 This function is typically not called directly but serves as the implementation backend for the type-specific wrapper functions like ExplainPropertyText, ExplainPropertyInteger, etc.
 
 ## Parameters / Member Variables
-- : The property label/name to be displayed
-- : Optional unit string (e.g., "ms", "KB") displayed after the value in TEXT format, can be NULL
-- : The string representation of the property value
-- : Boolean flag indicating if the value should be treated as a number (affects JSON/YAML quoting)
-- : Pointer to ExplainState containing output format information and string buffer
-
+- `*qlabel`: The property label/name to be displayed
+- `*unit`: Optional unit string (e.g., "ms", "KB") displayed after the value in TEXT format, can be NULL
+- `*value`: The string representation of the property value
+- `numeric`: Boolean flag indicating if the value should be treated as a number (affects JSON/YAML quoting)
+- `*es`: Pointer to ExplainState containing output format information and string buffer
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExplainState](ExplainState.md) (struct type)

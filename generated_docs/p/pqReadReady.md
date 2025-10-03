@@ -16,8 +16,7 @@ pqReadReady(PGconn *conn)
 pqReadReady provides a non-blocking check to determine if data is available for reading on the connection socket. It uses pqSocketCheck with parameters configured for read readiness checking and immediate return (no timeout). This function is useful when the caller wants to know if a read operation would succeed without blocking the thread.
 
 ## Parameters / Member Variables
-- : Pointer to the PGconn connection structure representing the database connection
-
+- `*conn`: Pointer to the PGconn connection structure representing the database connection
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pqSocketCheck](pqSocketCheck.md)

@@ -15,7 +15,6 @@ void HandleWalSndInitStopping(void)
 This function is a signal handler for the PROCSIG_WALSND_INIT_STOPPING signal. It implements a two-phase shutdown strategy: if replication has not yet started, it immediately terminates the process using SIGTERM. However, if replication is active, it sets the got_STOPPING flag to true, which allows the main WAL sender loop to complete any outstanding WAL transmission and wait for acknowledgment from the standby before gracefully exiting. This ensures data consistency during shutdown.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -16,8 +16,7 @@ bool_substitute_hook(char *newval)
 This function serves as a variable substitution hook in psql's variable management system, specifically designed to handle boolean variables. It implements the logic to normalize boolean variable assignments by converting NULL values (from \unset commands) to "off" and empty string values (from bare \set commands) to "on". This normalization ensures consistent boolean representation across psql's variable system and supports the expected behavior where \set VAR with no value means "turn on" and \unset VAR means "turn off".
 
 ## Parameters / Member Variables
-- : The incoming variable value to be processed; may be NULL, empty string, or contain actual content
-
+- `*newval`: The incoming variable value to be processed; may be NULL, empty string, or contain actual content
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_strdup](../p/pg_strdup.md) (string duplication)

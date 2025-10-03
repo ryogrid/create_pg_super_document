@@ -20,13 +20,12 @@ This function is central to PostgreSQL's partition pruning mechanism for range-p
 The function performs sophisticated logic to handle partial key matches when fewer values are provided than partition key columns, correctly handling inclusive/exclusive bounds, and special cases like MINVALUE and MAXVALUE bounds. It returns a PruneStepResult containing the set of bound offsets that represent partitions potentially containing matching data.
 
 ## Parameters / Member Variables
-- : PartitionPruneContext containing partition information including bound data, collation, and strategy
-- : B-tree strategy number indicating the comparison operator (=, <, <=, >, >=)
-- : Array of Datum values to match against partition bounds 
-- : Number of values in the values array, must be <= context->partnatts
-- : Array of comparison functions for range partitioning operations
-- : Bitmapset indicating which partition keys are null
-
+- `*context`: PartitionPruneContext containing partition information including bound data, collation, and strategy
+- `opstrategy`: B-tree strategy number indicating the comparison operator (=, <, <=, >, >=)
+- `*values`: Array of Datum values to match against partition bounds
+- `nvalues`: Number of values in the values array, must be <= context->partnatts
+- `*partsupfunc`: Array of comparison functions for range partitioning operations
+- `*nullkeys`: Bitmapset indicating which partition keys are null
 ## Dependencies
 - Functions called/Symbols referenced:
   - partition_bound_has_default

@@ -18,9 +18,8 @@ This function is a memory allocation utility within the GEQO framework that crea
 The allocated chromosome includes space for  genes, with the extra slot likely used for termination or padding purposes. This is a fundamental building block for the genetic algorithm operations within PostgreSQL's query optimization process.
 
 ## Parameters / Member Variables
-- : PlannerInfo pointer representing the planner context (though not directly used in the current implementation)
-- : Integer specifying the number of genes the chromosome should accommodate
-
+- `*root`: PlannerInfo pointer representing the planner context (though not directly used in the current implementation)
+- `string_length`: Integer specifying the number of genes the chromosome should accommodate
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (PostgreSQL memory allocator)

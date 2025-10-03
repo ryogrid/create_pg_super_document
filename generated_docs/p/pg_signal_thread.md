@@ -18,8 +18,7 @@ This function implements the core signal handling mechanism for PostgreSQL on Wi
 The function operates in an infinite loop, handling pipe creation, client connections, signal reading, and pipe management. It provides robust error handling and recovery mechanisms, including automatic pipe recreation on failure. The function ensures proper synchronization by responding to signal senders only after the signal has been queued, providing stronger guarantees than POSIX signals.
 
 ## Parameters / Member Variables
-- : A generic parameter passed to the thread function (LPVOID type), not used in this implementation.
-
+- `param`: A generic parameter passed to the thread function (LPVOID type), not used in this implementation.
 ## Dependencies
 - Functions called/Symbols referenced:
   - snprintf

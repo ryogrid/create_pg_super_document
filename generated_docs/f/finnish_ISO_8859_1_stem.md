@@ -29,8 +29,7 @@ This function implements the complete Finnish stemming algorithm according to th
 The function uses the I[2] flag to track whether certain morphological transformations have occurred, which determines the plural processing strategy. All operations preserve the original cursor position between steps using backtracking mechanisms.
 
 ## Parameters / Member Variables
-- : Pointer to SN_env structure containing the word to be stemmed, cursor positions, morphological region boundaries, and algorithm state flags
-
+- `*z`: Pointer to SN_env structure containing the word to be stemmed, cursor positions, morphological region boundaries, and algorithm state flags
 ## Dependencies
 - Functions called/Symbols referenced:
   - [r_mark_regions](../r/r_mark_regions.md) (identifies morphological regions)

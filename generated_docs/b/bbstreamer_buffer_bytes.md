@@ -19,11 +19,10 @@ bbstreamer_buffer_bytes is a static inline convenience function designed specifi
 The function takes a portion of the input data (specified by nbytes), appends it to the streamer's internal StringInfo buffer using appendBinaryStringInfo, and then advances the data pointer while reducing the length counter. This pattern is common in streaming data processing where partial data needs to be accumulated before it can be processed.
 
 ## Parameters / Member Variables
-- : Pointer to the bbstreamer object whose buffer will receive the data
-- : Pointer to a pointer to the input data buffer (modified to advance past buffered bytes)  
-- : Pointer to the length of remaining input data (modified to reflect consumed bytes)
-- : Number of bytes to copy from the input data to the internal buffer
-
+- `*streamer`: Pointer to the bbstreamer object whose buffer will receive the data
+- `**data`: Pointer to a pointer to the input data buffer (modified to advance past buffered bytes)
+- `*len`: Pointer to the length of remaining input data (modified to reflect consumed bytes)
+- `nbytes`: Number of bytes to copy from the input data to the internal buffer
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bbstreamer](bbstreamer.md) (struct type)

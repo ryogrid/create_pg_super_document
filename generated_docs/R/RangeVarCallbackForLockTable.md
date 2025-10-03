@@ -17,11 +17,10 @@ RangeVarCallbackForLockTable(const RangeVar *rv, Oid relid, Oid oldrelid,
 RangeVarCallbackForLockTable serves as a security and validation callback invoked during the relation resolution process in LOCK TABLE commands. It performs several critical checks: validates that the relation type is lockable (tables, partitioned tables, or views only), checks user permissions for the requested lock mode, and tracks access to temporary relations for transaction flag management. This callback ensures that lock operations are both authorized and semantically valid before proceeding with actual lock acquisition.
 
 ## Parameters / Member Variables
-- : Pointer to RangeVar structure representing the relation being locked
-- : OID of the resolved relation, or InvalidOid if relation doesn't exist
-- : Previous OID if relation was concurrently modified (used for detecting concurrent DDL)
-- : Void pointer containing the requested LOCKMODE cast as argument
-
+- `*rv`: Pointer to RangeVar structure representing the relation being locked
+- `relid`: OID of the resolved relation, or InvalidOid if relation doesn't exist
+- `oldrelid`: Previous OID if relation was concurrently modified (used for detecting concurrent DDL)
+- `*arg`: Void pointer containing the requested LOCKMODE cast as argument
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RangeVar](RangeVar.md) (structure type)

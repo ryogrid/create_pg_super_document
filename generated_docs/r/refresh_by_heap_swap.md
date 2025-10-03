@@ -23,10 +23,9 @@ This function implements the simpler of two materialized view refresh strategies
 This method is typically used when concurrent access is not required or when the materialized view lacks the unique indexes necessary for the more sophisticated refresh_by_match_merge approach.
 
 ## Parameters / Member Variables
-- : Object ID of the materialized view to refresh
-- : Object ID of the transient table containing the new data to swap in
-- : Persistence characteristic of the relation (permanent, temporary, etc.)
-
+- `matviewOid`: Object ID of the materialized view to refresh
+- `OIDNewHeap`: Object ID of the transient table containing the new data to swap in
+- `relpersistence`: Persistence characteristic of the relation (permanent, temporary, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [finish_heap_swap](../f/finish_heap_swap.md)

@@ -27,9 +27,8 @@ The transformation process involves several steps:
 The function ensures proper error handling for queries that return multiple columns, as JSON_ARRAY can only construct arrays from single-column results.
 
 ## Parameters / Member Variables
-- : ParseState pointer containing current parsing context and state information for the transformation
-- : JsonArrayQueryConstructor pointer containing the source JSON_ARRAY(query) constructor expression to be transformed
-
+- `*pstate`: ParseState pointer containing current parsing context and state information for the transformation
+- `*ctor`: JsonArrayQueryConstructor pointer containing the source JSON_ARRAY(query) constructor expression to be transformed
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (for creating various AST nodes: SubLink, SelectStmt, RangeSubselect, Alias, ResTarget, JsonArrayAgg, ColumnRef, JsonAggConstructor)

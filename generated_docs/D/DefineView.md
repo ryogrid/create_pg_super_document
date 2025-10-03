@@ -35,11 +35,10 @@ DefineView is the main entry point for CREATE VIEW and CREATE OR REPLACE VIEW co
 The function performs extensive error checking and provides helpful error messages for various edge cases and unsupported scenarios.
 
 ## Parameters / Member Variables
-- : ViewStmt node containing the parsed CREATE VIEW statement structure
-- : Original SQL query string for error reporting and logging
-- : Character offset where the statement begins in the query string
-- : Length of the statement in characters
-
+- `*stmt`: ViewStmt node containing the parsed CREATE VIEW statement structure
+- `*queryString`: Original SQL query string for error reporting and logging
+- `stmt_location`: Character offset where the statement begins in the query string
+- `stmt_len`: Length of the statement in characters
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (for RawStmt creation)

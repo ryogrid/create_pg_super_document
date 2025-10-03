@@ -22,7 +22,6 @@ The handler follows the same deferred processing pattern as TransactionTimeoutHa
 This timeout mechanism is critical for preventing idle transactions from holding locks, bloating the database, or consuming resources indefinitely. Idle-in-transaction sessions can be particularly problematic as they may hold locks that block other operations while doing no useful work.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

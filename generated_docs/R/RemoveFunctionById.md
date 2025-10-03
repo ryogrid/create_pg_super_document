@@ -25,8 +25,7 @@ RemoveFunctionById is the core function responsible for physically deleting func
 This function is typically called by the dependency system during DROP operations and should not be called directly by user code.
 
 ## Parameters / Member Variables
-- : The Object ID of the function or aggregate to be removed from the system catalogs
-
+- `funcOid`: The Object ID of the function or aggregate to be removed from the system catalogs
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md)

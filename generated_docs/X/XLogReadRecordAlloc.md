@@ -23,10 +23,9 @@ The circular buffer allocation works by tracking head and tail pointers and hand
 Only the 'oversized' flag is initialized in the returned record, leaving other initialization to the caller. This design allows for easy cleanup if decoding fails.
 
 ## Parameters / Member Variables
-- : Pointer to XLogReaderState containing the decode buffer and related metadata
-- : Total length of the XLog record to be decoded
-- : Boolean flag indicating whether oversized allocation is permitted when buffer space is insufficient
-
+- `*state`: Pointer to XLogReaderState containing the decode buffer and related metadata
+- `xl_tot_len`: Total length of the XLog record to be decoded
+- `allow_oversized`: Boolean flag indicating whether oversized allocation is permitted when buffer space is insufficient
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DecodeXLogRecordRequiredSpace](../D/DecodeXLogRecordRequiredSpace.md)

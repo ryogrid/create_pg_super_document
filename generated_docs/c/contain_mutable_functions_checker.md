@@ -25,9 +25,8 @@ PostgreSQL's function volatility classifications:
 This function is designed to be used as a callback with PostgreSQL's function checking infrastructure.
 
 ## Parameters / Member Variables
-- : The OID of the function to check for mutability
-- : Context parameter (currently unused)
-
+- `func_id`: The OID of the function to check for mutability
+- `*context`: Context parameter (currently unused)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [func_volatile](../f/func_volatile.md)

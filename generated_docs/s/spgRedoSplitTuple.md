@@ -24,8 +24,7 @@ This function is part of the SP-GiST WAL recovery mechanism that replays split t
 The function ensures consistency during recovery by processing pages in the correct order and properly managing buffer locks and LSN updates.
 
 ## Parameters / Member Variables
-- : XLogReaderState pointer containing the WAL record data with split tuple information
-
+- `*record`: XLogReaderState pointer containing the WAL record data with split tuple information
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData

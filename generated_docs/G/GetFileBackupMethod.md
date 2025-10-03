@@ -37,18 +37,17 @@ The function's decision process includes:
 For incremental backups, the function outputs the exact list of blocks that need to be included and calculates the truncation length for proper reconstruction.
 
 ## Parameters / Member Variables
-- : IncrementalBackupInfo containing the block reference table and manifest data
-- : File system path to the file being analyzed
-- : Database OID (may be InvalidOid for shared relations)
-- : Tablespace OID
-- : Relation file number
-- : Fork number (main, fsm, vm, etc.)
-- : Segment number for large relations
-- : Current size of the file in bytes
-- : Output parameter for number of blocks needed in incremental backup
-- : Output array of block numbers (relative to segment) to include
-- : Output parameter for minimum reconstructed file length
-
+- `*ib`: IncrementalBackupInfo containing the block reference table and manifest data
+- `*path`: File system path to the file being analyzed
+- `dboid`: Database OID (may be InvalidOid for shared relations)
+- `spcoid`: Tablespace OID
+- `relfilenumber`: Relation file number
+- `forknum`: Fork number (main, fsm, vm, etc.)
+- `segno`: Segment number for large relations
+- `size`: Current size of the file in bytes
+- `*num_blocks_required`: Output parameter for number of blocks needed in incremental backup
+- `*relative_block_numbers`: Output array of block numbers (relative to segment) to include
+- `*truncation_block_length`: Output parameter for minimum reconstructed file length
 ## Dependencies
 - Functions called/Symbols referenced:
   - OidIsValid, RelFileNumberIsValid: Parameter validation

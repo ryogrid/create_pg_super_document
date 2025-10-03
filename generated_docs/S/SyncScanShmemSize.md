@@ -17,7 +17,6 @@ SyncScanShmemSize is a utility function that computes the total shared memory re
 The synchronized scan feature allows multiple concurrent sequential scans of the same table to coordinate their positions, reducing overall I/O by having scans start near each other rather than all starting from the beginning of the table.
 
 ## Parameters / Member Variables
-This function takes no parameters and returns a Size value representing the required shared memory in bytes.
 
 ## Dependencies
 - Functions called/Symbols referenced:

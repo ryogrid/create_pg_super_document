@@ -25,13 +25,12 @@ Key features include:
 - Automatic handling of operator characters that would be invalid in standard mode
 
 ## Parameters / Member Variables
-- : Parser state containing current position, parsing state, and context information
-- : Output parameter receiving the operator type (OP_AND, OP_OR, OP_NOT)
-- : Output parameter for the length of parsed string values
-- : Output parameter for parsed string values (operands)
-- : Output parameter for weight information (not used in websearch mode)
-- : Output parameter for prefix matching (not used in websearch mode)
-
+- `state`: Parser state containing current position, parsing state, and context information
+- `*operator`: Output parameter receiving the operator type (OP_AND, OP_OR, OP_NOT)
+- `*lenval`: Output parameter for the length of parsed string values
+- `**strval`: Output parameter for parsed string values (operands)
+- `*weight`: Output parameter for weight information (not used in websearch mode)
+- `*prefix`: Output parameter for prefix matching (not used in websearch mode)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TSQueryParserState](../T/TSQueryParserState.md)

@@ -26,10 +26,9 @@ Key responsibilities include:
 5. Managing error context stack properly
 
 ## Parameters / Member Variables
-- : ReorderBuffer instance containing the private logical decoding context
-- : ReorderBufferTXN representing the current transaction being processed
-- : XLogRecPtr indicating the current LSN position for progress reporting
-
+- `*cache`: ReorderBuffer instance containing the private logical decoding context
+- `*txn`: ReorderBufferTXN representing the current transaction being processed
+- `lsn`: XLogRecPtr indicating the current LSN position for progress reporting
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReorderBuffer](../R/ReorderBuffer.md)

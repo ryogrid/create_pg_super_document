@@ -19,10 +19,9 @@ The  function serializes replication origin information into the logical replica
 The message format includes a message type byte, the 64-bit LSN where the origin was recorded, and a null-terminated string containing the origin name. This information enables proper handling of changes that may have originated from different replication sources.
 
 ## Parameters / Member Variables
-- : StringInfo buffer where the serialized ORIGIN message will be written
-- : Null-terminated string containing the name of the replication origin
-- : XLogRecPtr indicating the LSN position associated with this origin
-
+- `out`: StringInfo buffer where the serialized ORIGIN message will be written
+- `*origin`: Null-terminated string containing the name of the replication origin
+- `origin_lsn`: XLogRecPtr indicating the LSN position associated with this origin
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pq_sendbyte](../p/pq_sendbyte.md)

@@ -20,8 +20,7 @@ For ASCII characters (A-Z), it performs direct conversion by adding the offset b
 Similar to , the function includes a note that the approach has limitations for multibyte character sets, as it operates on individual bytes rather than complete multibyte sequences.
 
 ## Parameters / Member Variables
-- : The unsigned character to convert to lowercase
-
+- `ch`: The unsigned character to convert to lowercase
 ## Dependencies
 - Functions called/Symbols referenced:
   - IS_HIGHBIT_SET (macro to check if character has high bit set)

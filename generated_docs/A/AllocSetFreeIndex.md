@@ -20,8 +20,7 @@ The algorithm computes ceil(log2(size >> ALLOC_MINBITS)) for sizes larger than t
 The function assumes that the caller has already verified that size <= ALLOC_CHUNK_LIMIT, making it safe to use optimized 16-bit arithmetic operations.
 
 ## Parameters / Member Variables
-- : The size in bytes of the memory allocation for which to compute the freelist index
-
+- `size`: The size in bytes of the memory allocation for which to compute the freelist index
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_leftmost_one_pos32](../p/pg_leftmost_one_pos32.md) (on platforms with HAVE_BITSCAN_REVERSE)

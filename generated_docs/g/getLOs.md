@@ -16,8 +16,7 @@ getLOs(Archive *fout)
 The  function queries the pg_largeobject_metadata table to retrieve information about all large objects in the database, including their OIDs, owners, and ACL settings. It groups large objects with identical ownership and ACL settings into batches (up to MAX_BLOBS_PER_ARCHIVE_ENTRY per group) for efficient processing. For each group, it creates both a metadata DumpableObject (LoInfo) containing ownership and permission information, and a separate data DumpableObject for the actual BLOB content. This design allows for proper dependency tracking and selective dumping. The function handles special cases like binary upgrade mode where BLOB data is excluded since pg_upgrade handles it separately.
 
 ## Parameters / Member Variables
-- : Pointer to the Archive structure representing the output dump file and containing dump options
-
+- `*fout`: Pointer to the Archive structure representing the output dump file and containing dump options
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md) (executes the LO metadata query)

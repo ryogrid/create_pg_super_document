@@ -16,10 +16,9 @@ lookupCreateVariable(Variables *variables, const char *context, char *name)
 The  function provides a unified interface for variable access that automatically handles variable creation when needed. It first attempts to find an existing variable with the given name using . If the variable doesn't exist, it validates the name using , ensures sufficient array capacity with , and creates a new variable at the end of the array. The function initializes the variable's name field and sets the string value to NULL, leaving the caller responsible for setting the actual value. It also marks the variables array as unsorted since new variables are appended rather than inserted in sorted order.
 
 ## Parameters / Member Variables
-- : Pointer to the Variables collection to search/modify
-- : Context string used in error messages for debugging
-- : The name of the variable to find or create
-
+- `*variables`: Pointer to the Variables collection to search/modify
+- `*context`: Context string used in error messages for debugging
+- `*name`: The name of the variable to find or create
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lookupVariable](lookupVariable.md)

@@ -19,11 +19,10 @@ This function executes the ALTER TABLE ADD CONSTRAINT USING INDEX operation by t
 The function performs several key validations: it rejects operations on partitioned tables (not currently supported), verifies the index is unique, and performs additional checks for primary key constraints. When creating primary key constraints, it calls index_check_primary_key to ensure all necessary conditions are met.
 
 ## Parameters / Member Variables
-- : AlteredTableInfo structure containing information about the table being altered
-- : Relation object representing the table to which the constraint is being added
-- : IndexStmt containing the constraint specification, including the index OID and constraint properties
-- : Lock mode to use during the operation (though not directly used in this function)
-
+- `*tab`: AlteredTableInfo structure containing information about the table being altered
+- `rel`: Relation object representing the table to which the constraint is being added
+- `*stmt`: IndexStmt containing the constraint specification, including the index OID and constraint properties
+- `lockmode`: Lock mode to use during the operation (though not directly used in this function)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [index_open](../i/index_open.md)

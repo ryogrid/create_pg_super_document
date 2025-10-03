@@ -22,9 +22,8 @@ Key aspects of the implementation:
 - **Resource management**: Assigns a special execution parameter for coordinating parallel execution and enables parallel mode globally
 
 ## Parameters / Member Variables
-- : PlannerInfo containing planner state and global execution context
-- : GatherPath specifying the parallel execution strategy, including number of workers and whether single-copy mode should be used
-
+- `*root`: PlannerInfo containing planner state and global execution context
+- `*best_path`: GatherPath specifying the parallel execution strategy, including number of workers and whether single-copy mode should be used
 ## Dependencies
 - Functions called/Symbols referenced:
   - [create_plan_recurse](create_plan_recurse.md) (with CP_EXACT_TLIST flag)

@@ -21,12 +21,11 @@ The function is designed for use by PostgreSQL subsystems that need to validate 
 This function is commonly used by procedural language implementations (PL/Perl, PL/Python, PL/Tcl) and by the expanded record system when dealing with domain-typed fields.
 
 ## Parameters / Member Variables
-- : The Datum value to be validated against domain constraints
-- : Boolean flag indicating whether the value is null
-- : OID of the domain type whose constraints should be applied
-- : Pointer to optional cache storage (can be NULL for one-off calls)
-- : Memory context for allocations (can be NULL to use CurrentMemoryContext)
-
+- `value`: The Datum value to be validated against domain constraints
+- `isnull`: Boolean flag indicating whether the value is null
+- `domainType`: OID of the domain type whose constraints should be applied
+- `**extra`: Pointer to optional cache storage (can be NULL for one-off calls)
+- `mcxt`: Memory context for allocations (can be NULL to use CurrentMemoryContext)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [domain_check_internal](domain_check_internal.md)

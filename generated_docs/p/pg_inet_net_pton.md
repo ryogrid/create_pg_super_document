@@ -18,11 +18,10 @@ This function serves as a dispatcher that converts network addresses from human-
 The function was originally authored by Paul Vixie (ISC) in June 1996 and has been adapted for PostgreSQL use. It handles both network address parsing (when size is -1) and CIDR block parsing (when size is specified).
 
 ## Parameters / Member Variables
-- : Address family specification (PGSQL_AF_INET for IPv4, PGSQL_AF_INET6 for IPv6)
-- : Source string containing the network address in presentation format
-- : Destination buffer to store the converted binary network address
-- : Size of the destination buffer in bytes, or -1 for network address parsing
-
+- `af`: Address family specification (PGSQL_AF_INET for IPv4, PGSQL_AF_INET6 for IPv6)
+- `*src`: Source string containing the network address in presentation format
+- `*dst`: Destination buffer to store the converted binary network address
+- `size`: Size of the destination buffer in bytes, or -1 for network address parsing
 ## Dependencies
 - Functions called/Symbols referenced:
   - [inet_net_pton_ipv4](../i/inet_net_pton_ipv4.md) (for IPv4 network parsing)

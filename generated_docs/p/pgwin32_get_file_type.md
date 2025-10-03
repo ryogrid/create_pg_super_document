@@ -24,8 +24,7 @@ The function performs several important validations:
 This wrapper is essential for PostgreSQL's Windows port as it ensures consistent behavior when determining file types, which is crucial for file I/O operations and platform-specific optimizations.
 
 ## Parameters / Member Variables
-- : The Windows HANDLE for which to determine the file type. Must be a valid file handle; INVALID_HANDLE_VALUE and the special value -2 (indicating unassociated streams) are rejected with EINVAL.
-
+- `hFile`: The Windows HANDLE for which to determine the file type. Must be a valid file handle; INVALID_HANDLE_VALUE and the special value -2 (indicating unassociated streams) are rejected with EINVAL.
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (Windows API)

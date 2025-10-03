@@ -22,9 +22,8 @@ This function implements sophisticated redundancy detection for PathKeys in Post
 The function relies on the canonical nature of equivalence classes, where pointer comparison is sufficient to determine equality since the equivclass.c machinery ensures only one copy of each EC exists per query.
 
 ## Parameters / Member Variables
-- : The PathKey being tested for redundancy
-- : List of existing PathKeys to check against
-
+- `*new_pathkey`: The PathKey being tested for redundancy
+- `*pathkeys`: List of existing PathKeys to check against
 ## Dependencies
 - Functions called/Symbols referenced:
   - EC_MUST_BE_REDUNDANT (macro for detecting constant equivalence classes)

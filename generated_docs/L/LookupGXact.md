@@ -21,10 +21,9 @@ The function acquires a shared lock on TwoPhaseStateLock and iterates through al
 The LSN comparison uses the prepare_end_lsn (where the prepare phase ends) because this is what gets stored as origin_lsn in the two-phase commit file. This design choice ensures consistency in LSN tracking across the two-phase commit process.
 
 ## Parameters / Member Variables
-- : The Global Transaction ID (string identifier) of the prepared transaction to search for
-- : The LSN position where the prepare phase ended, used for matching the origin_lsn stored in the transaction header
-- : The timestamp when the transaction was originally prepared, used for additional verification to distinguish transactions from different nodes
-
+- `*gid`: The Global Transaction ID (string identifier) of the prepared transaction to search for
+- `prepare_end_lsn`: The LSN position where the prepare phase ended, used for matching the origin_lsn stored in the transaction header
+- `origin_prepare_timestamp`: The timestamp when the transaction was originally prepared, used for additional verification to distinguish transactions from different nodes
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockAcquire](LWLockAcquire.md)

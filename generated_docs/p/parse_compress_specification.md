@@ -17,10 +17,9 @@ parse_compress_specification(pg_compress_algorithm algorithm, char *specificatio
 The  function parses a compression specification string for a specified algorithm and populates a  result structure. The function handles both simple bare integer compression levels and complex comma-separated keyword=value pairs. It sets appropriate default compression levels based on the algorithm type and validates build-time support for compression libraries. The parser supports compression options like "level", "workers", and "long" (long-distance mode), and provides detailed error reporting through the parse_error field.
 
 ## Parameters / Member Variables
-- : The  enumeration specifying which compression algorithm to configure
-- : A null-terminated string containing the compression specification to parse (can be NULL for defaults)
-- : A pointer to a  structure that will be populated with parsed values
-
+- `algorithm`: The  enumeration specifying which compression algorithm to configure
+- `*specification`: A null-terminated string containing the compression specification to parse (can be NULL for defaults)
+- `*result`: A pointer to a  structure that will be populated with parsed values
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (PostgreSQL string formatting function)

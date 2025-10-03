@@ -27,8 +27,7 @@ Key features:
 The function includes robust error handling for both memory allocation failures and  failures, with different error reporting mechanisms for backend (ereport/elog) and frontend (fprintf) contexts.
 
 ## Parameters / Member Variables
-- : The input pathname that may be relative or absolute, or NULL
-
+- `*path`: The input pathname that may be relative or absolute, or NULL
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Determines if a path is already absolute

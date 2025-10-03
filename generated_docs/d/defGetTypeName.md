@@ -22,8 +22,7 @@ The function handles two primary cases:
 An important design note: this function deliberately does not accept List arguments, because the parser only returns bare Lists when the name resembles an operator name, which is not appropriate for type names.
 
 ## Parameters / Member Variables
-- : Pointer to a DefElem structure containing the definition element to extract the type name from
-
+- `*def`: Pointer to a DefElem structure containing the definition element to extract the type name from
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DefElem](../D/DefElem.md) (structure type)

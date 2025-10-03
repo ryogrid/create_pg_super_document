@@ -23,7 +23,6 @@ The returned value is calculated as , where:
 This sizing ensures that snapshot data structures can accommodate subtransaction information from all possible concurrent backends and prepared transactions during Hot Standby processing.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -16,8 +16,7 @@ query_to_oid_list(const char *query)
 This function serves as a utility for XML mapping operations in PostgreSQL, specifically designed to execute SQL queries that return object identifiers (OIDs) as their first column. It uses the Server Programming Interface (SPI) to execute the provided query and collects all non-null OID values from the result set into a PostgreSQL List data structure. The function is part of the SQL to XML mapping infrastructure that supports visibility determination for database objects in XML output generation.
 
 ## Parameters / Member Variables
-- : A SQL query string that must return type oid as the first column
-
+- `*query`: A SQL query string that must return type oid as the first column
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SPI_execute](../S/SPI_execute.md)

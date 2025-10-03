@@ -20,8 +20,7 @@ This function generates fake LSN values for GiST indexes that don't participate 
 3. **Unlogged relations**: Delegates to the system-wide GetFakeLSNForUnloggedRel() function to handle cross-backend accessibility and restart survival
 
 ## Parameters / Member Variables
-- : The relation (index) for which to generate a fake LSN
-
+- `rel`: The relation (index) for which to generate a fake LSN
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationIsPermanent

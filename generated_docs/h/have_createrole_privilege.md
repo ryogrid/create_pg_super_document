@@ -18,6 +18,7 @@ This is a simple wrapper function that determines if the currently connected use
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [has_createrole_privilege](has_createrole_privilege.md)

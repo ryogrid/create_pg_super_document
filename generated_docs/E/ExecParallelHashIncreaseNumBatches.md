@@ -25,8 +25,7 @@ The operation involves several coordinated phases:
 The function handles the transition from single-batch to multi-batch mode specially, adjusting memory budgets and calculating optimal batch counts. It also implements safeguards against extreme data skew and prevents unbounded growth.
 
 ## Parameters / Member Variables
-- : The HashJoinTable structure containing the parallel hash join state and batch information
-
+- `hashtable`: The HashJoinTable structure containing the parallel hash join state and batch information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BarrierPhase](../B/BarrierPhase.md), BarrierArriveAndWait (barrier synchronization)

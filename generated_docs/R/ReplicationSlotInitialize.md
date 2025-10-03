@@ -17,7 +17,6 @@ This function registers ReplicationSlotShmemExit as a callback function to be ex
 The function serves as a safety mechanism to guarantee that replication slot resources are not left hanging when a backend process exits unexpectedly or normally.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

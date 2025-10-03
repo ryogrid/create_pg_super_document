@@ -26,11 +26,10 @@ The  function is a core component of PostgreSQL's ECPG (Embedded SQL in C) libra
 The function performs comprehensive error checking and uses the ECPG error handling system to report issues such as cardinality violations, type mismatches, and memory allocation failures.
 
 ## Parameters / Member Variables
-- : Pointer to the PostgreSQL result set containing the query data
-- : Zero-based index of the field/column in the result set to process
-- : Pointer to the statement structure containing metadata like line number and compatibility mode
-- : Pointer to the variable structure that will receive the data, including type information, size constraints, and storage pointers
-
+- `*results`: Pointer to the PostgreSQL result set containing the query data
+- `act_field`: Zero-based index of the field/column in the result set to process
+- `*stmt`: Pointer to the statement structure containing metadata like line number and compatibility mode
+- `*var`: Pointer to the variable structure that will receive the data, including type information, size constraints, and storage pointers
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Get number of tuples in result set

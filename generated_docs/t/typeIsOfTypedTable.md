@@ -24,9 +24,8 @@ The function works by:
 This is primarily used in type coercion scenarios where PostgreSQL needs to determine if one type can be safely converted to another based on typed table relationships.
 
 ## Parameters / Member Variables
-- : The OID of the relation type to check
-- : The OID of the target typed table type to match against
-
+- `reltypeId`: The OID of the relation type to check
+- `reloftypeId`: The OID of the target typed table type to match against
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Resolves the relation ID from a type, handling both direct relation types and domains

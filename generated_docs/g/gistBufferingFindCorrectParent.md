@@ -21,12 +21,11 @@ This function serves a similar purpose to gistFindCorrectParent() during normal 
 The function first attempts to verify the downlink at the previously known location for efficiency. If the downlink has moved, it performs a linear scan of the parent page to locate it. For non-leaf pages (level > 0), it uses the parent map hash table maintained during buffering construction to determine the parent block. For leaf pages, the caller must provide the correct parent block number.
 
 ## Parameters / Member Variables
-- : GiST build state containing the index relation and parent mapping structures
-- : Block number of the child page to find the parent downlink for
-- : Tree level of the child page (0 for leaf pages)
-- : Input/output parameter for parent block number (updated if found elsewhere)
-- : Input/output parameter for downlink offset number (updated when found)
-
+- `*buildstate`: GiST build state containing the index relation and parent mapping structures
+- `childblkno`: Block number of the child page to find the parent downlink for
+- `level`: Tree level of the child page (0 for leaf pages)
+- `*parentblkno`: Input/output parameter for parent block number (updated if found elsewhere)
+- `*downlinkoffnum`: Input/output parameter for downlink offset number (updated when found)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [gistGetParent](gistGetParent.md)

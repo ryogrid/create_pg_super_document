@@ -17,12 +17,11 @@ gimme_edge_table(PlannerInfo *root, Gene *tour1, Gene *tour2,
 This function fills an edge table data structure that represents the set of explicit edges between points in two input genetic algorithm tours. It assumes circular tours and bidirectional edges, meaning each connection between adjacent cities is represented in both directions. The function processes both input tours, extracting their edge information and populating the edge table. Shared edges between the two tours are marked by gimme_edge() with negative values. The function returns the average number of edges per city, which ranges from 2.0 (homogeneous tours) to 4.0 (diverse tours), providing a measure of tour diversity.
 
 ## Parameters / Member Variables
-- : PlannerInfo pointer containing planning context information
-- : Pointer to the first genetic algorithm tour (Gene array)
-- : Pointer to the second genetic algorithm tour (Gene array)  
-- : Integer specifying the number of genes (cities/relations) in the tours
-- : Pointer to the Edge table structure to be filled with edge information
-
+- `*root`: PlannerInfo pointer containing planning context information
+- `*tour1`: Pointer to the first genetic algorithm tour (Gene array)
+- `*tour2`: Pointer to the second genetic algorithm tour (Gene array)
+- `num_gene`: Integer specifying the number of genes (cities/relations) in the tours
+- `*edge_table`: Pointer to the Edge table structure to be filled with edge information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [gimme_edge](gimme_edge.md) (called to add individual edges to the table)

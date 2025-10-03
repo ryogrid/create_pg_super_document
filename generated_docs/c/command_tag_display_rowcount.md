@@ -18,8 +18,7 @@ This function checks the display_rowcount property of a command tag to determine
 The function performs a direct lookup into the tag_behavior array to retrieve the pre-configured display_rowcount boolean flag for the specified command tag. This flag is set during compile-time initialization based on the data in cmdtaglist.h.
 
 ## Parameters / Member Variables
-- : The CommandTag enumeration value to check for row count display behavior
-
+- `commandTag`: The CommandTag enumeration value to check for row count display behavior
 ## Dependencies
 - Functions called/Symbols referenced:
   - CommandTag (enum type)

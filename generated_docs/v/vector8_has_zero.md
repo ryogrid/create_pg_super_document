@@ -20,8 +20,7 @@ This function provides a simplified interface for detecting zero bytes within a 
 This function is commonly used in string processing and data validation operations where detecting null bytes is important.
 
 ## Parameters / Member Variables
-- : The Vector8 to search for zero bytes
-
+- `v`: The Vector8 to search for zero bytes
 ## Dependencies
 - Functions called/Symbols referenced:
   - Vector8 (type)

@@ -23,9 +23,8 @@ The  function decomposes a PostgreSQL interval into its constituent time compone
 The function performs no validation or overflow checking since the pg_itm structure fields are designed to accommodate all possible interval values.
 
 ## Parameters / Member Variables
-- : Input Interval value to decompose containing month, day, and time (microseconds) components
-- : Output struct pg_itm to populate with broken-down interval components (tm_year, tm_mon, tm_mday, tm_hour, tm_min, tm_sec, tm_usec)
-
+- `span`: Input Interval value to decompose containing month, day, and time (microseconds) components
+- `*itm`: Output struct pg_itm to populate with broken-down interval components (tm_year, tm_mon, tm_mday, tm_hour, tm_min, tm_sec, tm_usec)
 ## Dependencies
 - Functions called/Symbols referenced:
   - MONTHS_PER_YEAR (constant for year/month conversion)

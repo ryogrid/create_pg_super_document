@@ -18,8 +18,7 @@ The  function is a utility function that looks up the storage length () of a Pos
 This function is part of PostgreSQL's type system infrastructure and is frequently used throughout the codebase when type size information is needed for memory allocation, tuple construction, and data serialization/deserialization operations.
 
 ## Parameters / Member Variables
-- : The OID (Object Identifier) of the PostgreSQL data type whose length is to be retrieved
-
+- `typid`: The OID (Object Identifier) of the PostgreSQL data type whose length is to be retrieved
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup)

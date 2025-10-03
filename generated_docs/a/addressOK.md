@@ -22,10 +22,9 @@ The validation process involves:
 4. Iterating through bytes beyond the mask length to ensure they are zero
 
 ## Parameters / Member Variables
-- : Pointer to the byte array containing the network address
-- : The number of significant bits in the network mask (mask length)
-- : Address family identifier (PGSQL_AF_INET for IPv4, or IPv6)
-
+- `*a`: Pointer to the byte array containing the network address
+- `bits`: The number of significant bits in the network mask (mask length)
+- `family`: Address family identifier (PGSQL_AF_INET for IPv4, or IPv6)
 ## Dependencies
 - Functions called/Symbols referenced:
   - PGSQL_AF_INET (constant for IPv4 address family)

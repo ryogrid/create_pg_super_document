@@ -25,7 +25,6 @@ The function performs several essential setup tasks:
 The function relies on ShmemSegHdr being already initialized by InitShmemAccess and ensures that subsequent memory allocations through ShmemAlloc will be properly synchronized and aligned.
 
 ## Parameters / Member Variables
-None - this function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

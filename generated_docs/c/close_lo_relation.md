@@ -16,8 +16,7 @@ close_lo_relation(bool isCommit)
 This function handles the cleanup of large object relation references at transaction end. It takes a commit/abort flag to determine the appropriate cleanup behavior. When committing, it explicitly closes both the large object heap relation and its index using the appropriate close functions, switching resource ownership temporarily to TopTransactionResourceOwner for proper cleanup. When aborting, it relies on the abort cleanup mechanism to handle the closing, only resetting the global pointers to NULL. This approach optimizes cleanup by avoiding unnecessary work during transaction aborts.
 
 ## Parameters / Member Variables
-- : Boolean flag indicating whether the transaction is being committed (true) or aborted (false)
-
+- `isCommit`: Boolean flag indicating whether the transaction is being committed (true) or aborted (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [index_close](../i/index_close.md) (to close the large object index)

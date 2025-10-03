@@ -20,7 +20,6 @@ The counter increment serves as a signal to active XLog prefetcher instances tha
 The function is intentionally simple, performing only a counter increment to minimize overhead while providing a reliable change detection mechanism.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

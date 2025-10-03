@@ -21,8 +21,7 @@ This function validates whether a filename matches the expected format for timel
 This validation is essential for file processing operations that need to distinguish timeline history files from other files in the WAL directory structure.
 
 ## Parameters / Member Variables
-- : The filename string to validate against timeline history file naming convention
-
+- `*fname`: The filename string to validate against timeline history file naming convention
 ## Dependencies
 - Functions called/Symbols referenced:
   - strlen (C standard library function for string length)

@@ -28,10 +28,9 @@ Key validation steps include:
 The function modifies the existing ColumnDef in the inheritance list and increments its inheritance count, making it applicable only to regular inheritance (not partitioning).
 
 ## Parameters / Member Variables
-- : List of previously inherited ColumnDef structures from earlier parent processing
-- : Attribute number (1-based) of the existing matching attribute in the inh_columns list
-- : New parent column/attribute definition to be merged into the existing one
-
+- `*inh_columns`: List of previously inherited ColumnDef structures from earlier parent processing
+- `exist_attno`: Attribute number (1-based) of the existing matching attribute in the inh_columns list
+- `*newdef`: New parent column/attribute definition to be merged into the existing one
 ## Dependencies
 - Functions called/Symbols referenced:
   - list_nth_node

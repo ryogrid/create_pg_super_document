@@ -20,9 +20,8 @@ The function handles relations specially by iterating through all columns (inclu
 The function follows the same object type logic as its recording counterpart, skipping objects that don't have permissions (indexes, partitioned indexes, composite types) but processing relations with potential column-level privileges differently from simple sequences.
 
 ## Parameters / Member Variables
-- : OID of the database object whose privilege entries should be removed from pg_init_privs
-- : OID of the system catalog class containing the object (e.g., RelationRelationId for tables)
-
+- `objoid`: OID of the database object whose privilege entries should be removed from pg_init_privs
+- `classoid`: OID of the system catalog class containing the object (e.g., RelationRelationId for tables)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [recordExtensionInitPrivWorker](recordExtensionInitPrivWorker.md) (worker function called with NULL ACL to delete entries)

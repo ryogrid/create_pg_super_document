@@ -18,9 +18,8 @@ This function is specifically designed to handle PlaceHolderVar expressions that
 The function serves as a specialized wrapper around preprocess_expression, using the EXPRKIND_PHV expression kind to indicate that this is a PlaceHolderVar context.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planning context and state information
-- : The PlaceHolderVar expression that needs to be preprocessed
-
+- `*root`: PlannerInfo structure containing planning context and state information
+- `*expr`: The PlaceHolderVar expression that needs to be preprocessed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [preprocess_expression](preprocess_expression.md)

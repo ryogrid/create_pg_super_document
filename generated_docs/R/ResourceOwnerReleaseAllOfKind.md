@@ -20,9 +20,8 @@ The function operates by scanning both the array and hash table storage within t
 To prevent corruption during the scanning process, the function temporarily sets the 'releasing' flag, which blocks concurrent ResourceOwnerRemember operations that could modify the underlying storage and disrupt the iteration.
 
 ## Parameters / Member Variables
-- : The ResourceOwner from which to release resources of the specified type
-- : Pointer to the ResourceOwnerDesc descriptor that defines the type of resources to release
-
+- `owner`: The ResourceOwner from which to release resources of the specified type
+- `*kind`: Pointer to the ResourceOwnerDesc descriptor that defines the type of resources to release
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ResourceOwnerDesc](ResourceOwnerDesc.md) (resource type descriptor structure)

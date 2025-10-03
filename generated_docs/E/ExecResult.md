@@ -24,8 +24,7 @@ For nodes with outer plans, it continuously retrieves tuples from the outer plan
 The function uses projection to transform input tuples or generate output tuples according to the target list specified in the Result node.
 
 ## Parameters / Member Variables
-- : The PlanState containing execution state for this Result node, cast to ResultState internally
-
+- `*pstate`: The PlanState containing execution state for this Result node, cast to ResultState internally
 ## Dependencies
 - Functions called/Symbols referenced:
   - castNode (for casting PlanState to ResultState)

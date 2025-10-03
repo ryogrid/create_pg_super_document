@@ -20,8 +20,7 @@ The function works by traversing all non-leaf nodes from the bottom level upward
 This rebuilding process is essential after operations that modify leaf nodes (such as  or ) to ensure that the FSM can efficiently locate pages with sufficient free space for new tuple insertions.
 
 ## Parameters / Member Variables
-- : The FSM page whose upper levels need to be reconstructed, represented as a generic Page structure
-
+- `page`: The FSM page whose upper levels need to be reconstructed, represented as a generic Page structure
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PageGetContents](../P/PageGetContents.md): Extracts the FSM page content from the generic page structure

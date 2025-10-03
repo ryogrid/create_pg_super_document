@@ -16,9 +16,8 @@ list_int_cmp(const ListCell *p1, const ListCell *p2)
 The  function serves as a comparison function specifically designed for use with PostgreSQL's  function when sorting lists that contain integer values. It extracts integer values from two list cells and compares them using PostgreSQL's standard 32-bit signed integer comparison function. This function follows the standard C library comparator convention, returning a negative value if the first element is smaller, zero if they are equal, and a positive value if the first element is larger.
 
 ## Parameters / Member Variables
-- : Pointer to the first ListCell containing an integer value to be compared
-- : Pointer to the second ListCell containing an integer value to be compared
-
+- `*p1`: Pointer to the first ListCell containing an integer value to be compared
+- `*p2`: Pointer to the second ListCell containing an integer value to be compared
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Extracts integer value from ListCell

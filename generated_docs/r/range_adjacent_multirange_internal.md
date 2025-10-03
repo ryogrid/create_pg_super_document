@@ -20,10 +20,9 @@ This internal function implements the core logic for determining if a range is a
 The function handles empty ranges and multiranges by returning false, as empty sets cannot have meaningful adjacency relationships. The algorithm uses the  function to determine if two range bounds are touching without overlapping.
 
 ## Parameters / Member Variables
-- : TypeCacheEntry containing range type information and comparison functions
-- : The range to check for adjacency
-- : The multirange to compare against
-
+- `*rangetyp`: TypeCacheEntry containing range type information and comparison functions
+- `*r`: The range to check for adjacency
+- `*mr`: The multirange to compare against
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Check if a range is empty

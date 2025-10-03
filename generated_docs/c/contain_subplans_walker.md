@@ -23,9 +23,8 @@ The function checks for three types of nodes that indicate the presence of subpl
 When any of these node types is encountered, the function immediately returns true and aborts further tree traversal. If none are found at the current node, it continues the recursive search using .
 
 ## Parameters / Member Variables
-- : The current expression node being examined during tree traversal
-- : Context parameter (currently unused, passed as NULL)
-
+- `*node`: The current expression node being examined during tree traversal
+- `*context`: Context parameter (currently unused, passed as NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - expression_tree_walker

@@ -20,9 +20,8 @@ The function performs two main operations:
 2. Physically unlinks (deletes) the segment file from the filesystem
 
 ## Parameters / Member Variables
-- : SlruCtl structure containing SLRU control information and configuration
-- : int64 segment number identifying which SLRU segment to delete
-
+- `ctl`: SlruCtl structure containing SLRU control information and configuration
+- `segno`: int64 segment number identifying which SLRU segment to delete
 ## Dependencies
 - Functions called/Symbols referenced:
   - INIT_SLRUFILETAG (macro to initialize file tag)

@@ -32,7 +32,6 @@ This function sets up the platform-specific infrastructure needed for latch oper
 - Ignores SIGURG signal since kqueue will handle events
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -25,8 +25,7 @@ The recycling process involves:
 For contexts that cannot be recycled (freeListIndex < 0), it performs traditional destruction by freeing all blocks individually, including the final free() of the context header and keeper block.
 
 ## Parameters / Member Variables
-- : The AllocSet memory context to delete (cast internally to AllocSet)
-
+- `context`: The AllocSet memory context to delete (cast internally to AllocSet)
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetIsValid (context validation)

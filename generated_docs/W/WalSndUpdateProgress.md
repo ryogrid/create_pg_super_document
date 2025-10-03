@@ -19,11 +19,10 @@ WalSndUpdateProgress serves as the 'update_progress' callback for logical decodi
 The function implements throttling for lag tracking, recording position samples at most once per second (WALSND_LOGICAL_LAG_TRACK_INTERVAL_MS) and only at transaction end boundaries to avoid flooding the lag tracker during frequent commits. For synchronous replication scenarios where empty transactions are skipped, it proactively sends keepalive messages to prevent downstream timeouts.
 
 ## Parameters / Member Variables
-- : LogicalDecodingContext containing the current decoding state and transaction information
-- : WAL location (XLogRecPtr) representing the current position being processed
-- : Transaction ID of the current transaction being processed
-- : Boolean indicating whether this transaction was skipped (empty transaction)
-
+- `*ctx`: LogicalDecodingContext containing the current decoding state and transaction information
+- `lsn`: WAL location (XLogRecPtr) representing the current position being processed
+- `xid`: Transaction ID of the current transaction being processed
+- `skipped_xact`: Boolean indicating whether this transaction was skipped (empty transaction)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md) (gets current time for lag tracking)

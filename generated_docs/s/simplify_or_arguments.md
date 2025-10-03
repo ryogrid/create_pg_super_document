@@ -28,11 +28,10 @@ This function serves as a subroutine for  to optimize OR clause arguments throug
 The function implements sophisticated memory management to avoid list leakage during the flattening process and handles the edge case where simplification of a non-OR clause might produce an OR clause.
 
 ## Parameters / Member Variables
-- : Input list of OR clause arguments to be processed and simplified
-- : Evaluation context passed to recursive constant expression evaluation calls
-- : Output parameter set to true if any NULL constant is found (must be initialized to false by caller)
-- : Output parameter set to true if any TRUE constant is found (must be initialized to false by caller)
-
+- `*args`: Input list of OR clause arguments to be processed and simplified
+- `*context`: Evaluation context passed to recursive constant expression evaluation calls
+- `*haveNull`: Output parameter set to true if any NULL constant is found (must be initialized to false by caller)
+- `*forceTrue`: Output parameter set to true if any TRUE constant is found (must be initialized to false by caller)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Creates a copy of the input arguments list

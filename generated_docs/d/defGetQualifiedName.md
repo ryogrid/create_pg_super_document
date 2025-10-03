@@ -22,8 +22,7 @@ The  function is a utility function that extracts qualified names from DefElem s
 This flexibility allows the function to handle various syntax forms that users might employ when specifying object names in DDL statements.
 
 ## Parameters / Member Variables
-- : Pointer to a DefElem structure containing the definition element to extract the qualified name from
-
+- `*def`: Pointer to a DefElem structure containing the definition element to extract the qualified name from
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DefElem](../D/DefElem.md) (structure type)

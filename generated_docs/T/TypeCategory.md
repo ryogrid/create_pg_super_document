@@ -20,8 +20,7 @@ The function is a simple wrapper around  that extracts only the category informa
 Type categories help PostgreSQL determine which types can be implicitly converted to which other types. For example, types within the same category may have more liberal coercion rules between them, while cross-category coercion may be more restricted or require explicit casting.
 
 ## Parameters / Member Variables
-- : The OID of the type for which to retrieve the category
-
+- `type`: The OID of the type for which to retrieve the category
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_type_category_preferred](../g/get_type_category_preferred.md)

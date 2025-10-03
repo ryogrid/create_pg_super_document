@@ -21,8 +21,7 @@ RemoveConstraintById is responsible for removing a constraint entry from the pg_
 The function ensures proper locking semantics by holding AccessExclusiveLock on the target relation until transaction end, preventing concurrent modifications during constraint removal.
 
 ## Parameters / Member Variables
-- : The OID of the constraint to be removed from the pg_constraint catalog
-
+- `conId`: The OID of the constraint to be removed from the pg_constraint catalog
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md)

@@ -24,11 +24,10 @@ When creating a new buffer, the function:
 The function uses a hash table lookup for O(1) average-case buffer retrieval, making it efficient even for large indexes with many blocks.
 
 ## Parameters / Member Variables
-- : The GiST build buffers structure containing all buffer management data
-- : Current GiST state information (used for context but not directly manipulated in this function)  
-- : Block number of the index page for which to retrieve/create a buffer
-- : Tree level of the node, used for organizing buffers by level
-
+- `*gfbb`: The GiST build buffers structure containing all buffer management data
+- `*giststate`: Current GiST state information (used for context but not directly manipulated in this function)
+- `nodeBlocknum`: Block number of the index page for which to retrieve/create a buffer
+- `level`: Tree level of the node, used for organizing buffers by level
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hash_search](../h/hash_search.md)

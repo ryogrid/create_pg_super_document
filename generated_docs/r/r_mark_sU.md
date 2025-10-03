@@ -17,8 +17,7 @@ static int r_mark_sU(struct SN_env * z)
 This function is part of the Turkish language stemming implementation that handles suffixes containing the vowel 'U' (which represents both 'u' and 'ü' in Turkish vowel harmony). The function first performs vowel harmony checking to ensure the suffix is compatible with the word stem according to Turkish phonological rules. It then checks if the current character belongs to the U vowel group (105, 305 representing 'ı' and 'İ' in UTF-8). Finally, it marks the suffix while handling optional 's' consonant variations that are common in Turkish morphology.
 
 ## Parameters / Member Variables
-- : Pointer to the Snowball environment structure containing the word being processed, current position markers, and other stemming state information
-
+- `*z`: Pointer to the Snowball environment structure containing the word being processed, current position markers, and other stemming state information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [r_check_vowel_harmony](r_check_vowel_harmony.md) (validates Turkish vowel harmony rules)

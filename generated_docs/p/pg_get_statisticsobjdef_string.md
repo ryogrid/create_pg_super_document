@@ -16,8 +16,7 @@ pg_get_statisticsobjdef_string(Oid statextid)
 This function is an internal version of the statistics object definition retrieval functionality, specifically designed for use by ALTER TABLE commands. It generates a complete definition string for a statistics object that includes tablespace information, which is necessary when recreating statistics objects during table alterations. The function returns a palloc'd C string without pretty-printing formatting.
 
 ## Parameters / Member Variables
-- : The OID of the statistics object for which to generate the definition string
-
+- `statextid`: The OID of the statistics object for which to generate the definition string
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_get_statisticsobj_worker](pg_get_statisticsobj_worker.md)

@@ -24,7 +24,6 @@ The statistics reset include:
 All operations use atomic writes to ensure consistency in a multi-process environment where multiple backends might be accessing the statistics concurrently.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

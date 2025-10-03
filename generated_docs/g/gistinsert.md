@@ -22,15 +22,14 @@ This function serves as the main entry point for inserting tuples into GiST inde
 The function ensures proper memory management by using a temporary context and resetting it after each insertion to prevent memory leaks. It also maintains the GISTSTATE cache in the index's memory context for reuse across multiple insertions within the same statement.
 
 ## Parameters / Member Variables
-- : The GiST index relation to insert into
-- : Array of Datum values for the index tuple
-- : Array of boolean flags indicating null values
-- : Item pointer to the heap tuple being indexed
-- : The heap relation containing the tuple
-- : Uniqueness checking mode (not used in GiST)
-- : Flag indicating if index values changed (optimization hint)
-- : Index information structure containing cached state
-
+- `r`: The GiST index relation to insert into
+- `*values`: Array of Datum values for the index tuple
+- `*isnull`: Array of boolean flags indicating null values
+- `ht_ctid`: Item pointer to the heap tuple being indexed
+- `heapRel`: The heap relation containing the tuple
+- `checkUnique`: Uniqueness checking mode (not used in GiST)
+- `indexUnchanged`: Flag indicating if index values changed (optimization hint)
+- `*indexInfo`: Index information structure containing cached state
 ## Dependencies
 - Functions called/Symbols referenced:
   - [initGISTstate](../i/initGISTstate.md) (initializes GiST state structure)

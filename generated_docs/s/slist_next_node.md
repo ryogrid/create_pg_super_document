@@ -18,9 +18,8 @@ This function provides safe traversal capability for PostgreSQL's singly linked 
 The operation runs in O(1) constant time and is implemented as an inline function for optimal performance. The function assumes that the caller has verified the existence of a next node, making it suitable for controlled list traversal scenarios where the list structure is well understood.
 
 ## Parameters / Member Variables
-- : Pointer to the list head structure (used for integrity checking in slist_has_next)
-- : Pointer to the current node whose next node should be returned
-
+- `*head`: Pointer to the list head structure (used for integrity checking in slist_has_next)
+- `*node`: Pointer to the current node whose next node should be returned
 ## Dependencies
 - Functions called/Symbols referenced:
   - [slist_has_next](slist_has_next.md) (to verify that a next node exists)

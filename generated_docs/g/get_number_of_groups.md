@@ -26,11 +26,10 @@ The function processes different cases:
 - **No grouping**: Returns 1 (pass-through case)
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing query planning information and statistics
-- : Number of output rows from the scan/join step, used as input for group estimation
-- : Grouping sets data structure containing list of grouping sets and their clauses
-- : Target list containing group clause references used to extract grouping expressions
-
+- `*root`: PlannerInfo structure containing query planning information and statistics
+- `path_rows`: Number of output rows from the scan/join step, used as input for group estimation
+- `*gd`: Grouping sets data structure containing list of grouping sets and their clauses
+- `*target_list`: Target list containing group clause references used to extract grouping expressions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_sortgrouplist_exprs](get_sortgrouplist_exprs.md)

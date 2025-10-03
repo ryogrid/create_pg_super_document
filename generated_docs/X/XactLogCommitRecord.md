@@ -23,20 +23,19 @@ XactLogCommitRecord(TimestampTz commit_time,
 XactLogCommitRecord is a critical function in PostgreSQL's transaction logging system that creates comprehensive WAL records for transaction commits. It handles both regular commits and two-phase commit prepared transactions, determining the record type based on whether a valid two-phase XID is provided. The function meticulously collects and organizes various types of transaction metadata including sub-transactions, relation file changes, dropped statistics, invalidation messages, and replication origin information. It constructs a complex WAL record structure with conditional components based on the transaction's characteristics, ensuring that all necessary information for transaction recovery and replication is properly logged. The function uses PostgreSQL's WAL insertion API to register multiple data segments in the proper order, creating a complete record that can be used for crash recovery, replication, and logical decoding.
 
 ## Parameters / Member Variables
-- : The timestamp when the transaction was committed
-- : Number of committed sub-transactions
-- : Array of sub-transaction IDs that were committed
-- : Number of relations affected by the transaction
-- : Array of RelFileLocator structures for relations that need special handling
-- : Number of dropped statistics items
-- : Array of dropped statistics information
-- : Number of shared invalidation messages
-- : Array of SharedInvalidationMessage structures for cache invalidation
-- : Boolean indicating if relation cache invalidation is needed
-- : Transaction flags including access exclusive lock information
-- : Transaction ID for two-phase commit (InvalidTransactionId for regular commits)
-- : Global identifier string for two-phase transactions
-
+- `commit_time`: The timestamp when the transaction was committed
+- `nsubxacts`: Number of committed sub-transactions
+- `*subxacts`: Array of sub-transaction IDs that were committed
+- `nrels`: Number of relations affected by the transaction
+- `*rels`: Array of RelFileLocator structures for relations that need special handling
+- `ndroppedstats`: Number of dropped statistics items
+- `*droppedstats`: Array of dropped statistics information
+- `nmsgs`: Number of shared invalidation messages
+- `*msgs`: Array of SharedInvalidationMessage structures for cache invalidation
+- `relcacheInval`: Boolean indicating if relation cache invalidation is needed
+- `xactflags`: Transaction flags including access exclusive lock information
+- `twophase_xid`: Transaction ID for two-phase commit (InvalidTransactionId for regular commits)
+- `*twophase_gid`: Global identifier string for two-phase transactions
 ## Dependencies
 - Functions called/Symbols referenced:
   - TransactionIdIsValid

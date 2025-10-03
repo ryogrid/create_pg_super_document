@@ -16,9 +16,8 @@ exec_command_html(PsqlScanState scan_state, bool active_branch)
 This function handles the execution of the \H (short form) and \html (long form) backslash commands in psql. It toggles the output format between HTML and aligned formatting. When the current format is not HTML, it switches to HTML format. When already in HTML format, it switches back to aligned format. The function respects the active_branch parameter for conditional execution in psql scripts and uses the do_pset function to actually change the formatting setting.
 
 ## Parameters / Member Variables
-- : PsqlScanState pointer that tracks the current parsing state of the psql input (unused in this function)
-- : Boolean flag indicating whether this command is being executed in an active conditional branch
-
+- `scan_state`: PsqlScanState pointer that tracks the current parsing state of the psql input (unused in this function)
+- `active_branch`: Boolean flag indicating whether this command is being executed in an active conditional branch
 ## Dependencies
 - Functions called/Symbols referenced:
   - do_pset (modifies psql settings like output format)

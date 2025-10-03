@@ -27,20 +27,19 @@ distribute_quals_to_rels(PlannerInfo *root, List *clauses,
 This function serves as a wrapper that iterates through a list of qualification clauses and applies distribute_qual_to_rels to each individual clause. It's part of PostgreSQL's query planning phase, specifically handling the distribution of WHERE clause conditions and join conditions to appropriate relations in the query plan. The function maintains the same parameters as distribute_qual_to_rels but operates on a list of clauses rather than a single clause.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global planner state
-- : List of qualification clauses to be distributed
-- : JoinTreeItem representing the current join tree context
-- : SpecialJoinInfo for handling special join conditions
-- : Index indicating the security level for row-level security
-- : Relids representing the scope of qualification applicability
-- : Relids representing outer join scope
-- : Relids that are known to be non-nullable due to outer joins
-- : Relids that are incompatible with the current context
-- : Boolean flag controlling equivalence class creation
-- : Boolean indicating if relation has clones
-- : Boolean indicating if this is a clone relation
-- : Output list for outer join qualifications that need later processing
-
+- `*root`: PlannerInfo structure containing global planner state
+- `*clauses`: List of qualification clauses to be distributed
+- `*jtitem`: JoinTreeItem representing the current join tree context
+- `*sjinfo`: SpecialJoinInfo for handling special join conditions
+- `security_level`: Index indicating the security level for row-level security
+- `qualscope`: Relids representing the scope of qualification applicability
+- `ojscope`: Relids representing outer join scope
+- `outerjoin_nonnullable`: Relids that are known to be non-nullable due to outer joins
+- `incompatible_relids`: Relids that are incompatible with the current context
+- `allow_equivalence`: Boolean flag controlling equivalence class creation
+- `has_clone`: Boolean indicating if relation has clones
+- `is_clone`: Boolean indicating if this is a clone relation
+- `**postponed_oj_qual_list`: Output list for outer join qualifications that need later processing
 ## Dependencies
 - Functions called/Symbols referenced:
   - [distribute_qual_to_rels](distribute_qual_to_rels.md)

@@ -18,11 +18,10 @@ PQescapeByteaConn(PGconn *conn,
 PQescapeByteaConn provides a connection-aware interface for bytea escaping that automatically determines the best encoding format based on the PostgreSQL server version and connection settings. It calls PQescapeByteaInternal with connection-specific parameters: uses the connection's standard_conforming_strings setting and automatically enables hexadecimal encoding for server versions 9.0 and later (which introduced more efficient hex format support). The function validates the connection handle, clears any previous error state, and delegates the actual escaping work to the internal implementation.
 
 ## Parameters / Member Variables
-- : PostgreSQL connection handle containing server version and string settings
-- : Source binary data to be escaped
-- : Length of the source data in bytes
-- : Pointer to store the length of the resulting escaped string
-
+- `*conn`: PostgreSQL connection handle containing server version and string settings
+- `*from`: Source binary data to be escaped
+- `from_length`: Length of the source data in bytes
+- `*to_length`: Pointer to store the length of the resulting escaped string
 ## Dependencies
 - Functions called/Symbols referenced:
   - pqClearConnErrorState

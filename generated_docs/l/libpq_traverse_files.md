@@ -20,9 +20,8 @@ The function handles special cases for tablespaces by joining with the  catalog 
 For each file or directory found, the function determines its type (regular file, directory, or symbolic link) and invokes the provided callback function with the file information.
 
 ## Parameters / Member Variables
-- : Pointer to the rewind_source structure containing the libpq connection information
-- : Function pointer to the callback that will be invoked for each file/directory found during traversal
-
+- `*source`: Pointer to the rewind_source structure containing the libpq connection information
+- `callback`: Function pointer to the callback that will be invoked for each file/directory found during traversal
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQexec](../P/PQexec.md) (executes the recursive directory listing SQL query)

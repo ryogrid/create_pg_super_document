@@ -16,8 +16,7 @@ do_array_start(void *state)
 This function is part of the incremental JSON parser test framework in PostgreSQL. It serves as a semantic action callback that gets invoked when the JSON parser encounters the start of an array (opening bracket '['). The function performs two main actions: it outputs the opening bracket to stdout for visual representation of the parsing progress, and it sets a flag in the parser state to indicate that the first array element is being processed. This flag is used to manage comma placement between array elements during the parsing output.
 
 ## Parameters / Member Variables
-- : A void pointer to the parser state, which gets cast to  internally. This contains the parsing context including lexer information, element tracking flags, and output buffer.
-
+- `*state`: A void pointer to the parser state, which gets cast to  internally. This contains the parsing context including lexer information, element tracking flags, and output buffer.
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (struct type for parser state)

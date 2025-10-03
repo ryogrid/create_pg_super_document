@@ -18,8 +18,7 @@ The  function reads the system identifier directly from the PostgreSQL control f
 This local approach is more efficient than establishing a database connection and provides access to the system identifier even when the database server is not running. The function includes comprehensive error handling for control file corruption and uses logging to provide operational visibility.
 
 ## Parameters / Member Variables
-- : A file system path to the PostgreSQL data directory containing the control file (typically named )
-
+- `*datadir`: A file system path to the PostgreSQL data directory containing the control file (typically named )
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ControlFileData](../C/ControlFileData.md) (PostgreSQL structure representing control file contents)

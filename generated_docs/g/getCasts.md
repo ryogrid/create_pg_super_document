@@ -18,9 +18,8 @@ The  function queries the  system catalog to retrieve information about type cas
 The function constructs different SQL queries based on the server version: for PostgreSQL 14.0 and later, it includes a subquery to filter out range-to-multirange casts that are automatically created by the system. For each cast found, it creates a  structure and attempts to construct a descriptive name by concatenating the source and target type names.
 
 ## Parameters / Member Variables
-- : Archive pointer for the pg_dump operation, used for executing SQL queries and version checking
-- : Output parameter that receives the number of casts found
-
+- `*fout`: Archive pointer for the pg_dump operation, used for executing SQL queries and version checking
+- `*numCasts`: Output parameter that receives the number of casts found
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)

@@ -22,8 +22,7 @@ This function terminates a parallel apply worker, which requires special handlin
 The function first extracts worker identification information (slot number and generation) from the shared parallel worker info, then performs message queue cleanup, and finally delegates to the internal stop function.
 
 ## Parameters / Member Variables
-- : Pointer to ParallelApplyWorkerInfo structure containing information about the parallel apply worker to stop
-
+- `*winfo`: Pointer to ParallelApplyWorkerInfo structure containing information about the parallel apply worker to stop
 ## Dependencies
 - Functions called/Symbols referenced:
   - SpinLockAcquire/SpinLockRelease: Protects access to shared parallel worker information

@@ -18,8 +18,7 @@ The PQconnectionUsedPassword function determines whether password authentication
 This function is useful for client applications that want to understand what authentication method was used for the connection, particularly for logging, security auditing, or informational purposes.
 
 ## Parameters / Member Variables
-- : Pointer to the PGconn connection object to query for password usage information. If NULL, the function returns false.
-
+- `*conn`: Pointer to the PGconn connection object to query for password usage information. If NULL, the function returns false.
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (accesses conn->password_needed directly)

@@ -25,7 +25,6 @@ The detachment process involves two main phases:
 The function ensures proper synchronization using different lock levels: shared locks for reading worker information and exclusive locks for modifying worker state.
 
 ## Parameters / Member Variables
-This function takes no parameters and operates on the global MyLogicalRepWorker variable.
 
 ## Dependencies
 - Functions called/Symbols referenced:

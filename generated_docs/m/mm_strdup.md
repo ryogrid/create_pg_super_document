@@ -16,8 +16,7 @@ mm_strdup(const char *string)
 The  function serves as a safe wrapper around the standard  function specifically designed for the ECPG (Embedded SQL in C) preprocessor. It creates a duplicate copy of the input string with automatic error checking, ensuring that allocation failures during string duplication are handled gracefully by terminating the program with an appropriate error message. This function is essential for reliable string management throughout the ECPG preprocessing pipeline.
 
 ## Parameters / Member Variables
-- : The null-terminated string to be duplicated
-
+- `*string`: The null-terminated string to be duplicated
 ## Dependencies
 - Functions called/Symbols referenced:
   - strdup (standard C library function)

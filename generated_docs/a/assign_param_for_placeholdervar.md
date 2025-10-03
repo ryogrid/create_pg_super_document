@@ -18,9 +18,8 @@ This function is analogous to assign_param_for_var but specifically handles Plac
 The function navigates up the planner hierarchy to find the appropriate query level where the PlaceHolderVar belongs, then searches for an existing matching PlannerParamItem based on the PHV's unique identifier (phid). If no match is found, it creates a new parameter entry. The function uses IncrementVarSublevelsUp to adjust the PHV's level references and ensures the phlevelsup is set to 0 for the parameterized version.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planner state and context for the current query level
-- : PlaceHolderVar node representing a placeholder expression that needs to be parameterized
-
+- `*root`: PlannerInfo structure containing planner state and context for the current query level
+- `*phv`: PlaceHolderVar node representing a placeholder expression that needs to be parameterized
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PlaceHolderVar](../P/PlaceHolderVar.md) (structure handling)

@@ -21,11 +21,10 @@ The function performs several critical operations: it allocates memory for a new
 The function maintains archive statistics by incrementing the TOC count and tracking the maximum dump ID. It carefully manages memory allocation for variable-length fields like object names, statements, and dependency arrays. The resulting TOC entry contains all necessary information for both dumping the object's data and recreating the object during restore.
 
 ## Parameters / Member Variables
-- : Archive pointer representing the current dump session context
-- : PostgreSQL system catalog identifier for the database object
-- : Unique identifier for this object within the dump session
-- : ArchiveOpts structure containing all metadata and options for the object being archived
-
+- `*AHX`: Archive pointer representing the current dump session context
+- `catalogId`: PostgreSQL system catalog identifier for the database object
+- `dumpId`: Unique identifier for this object within the dump session
+- `*opts`: ArchiveOpts structure containing all metadata and options for the object being archived
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_malloc0](../p/pg_malloc0.md) (for TocEntry allocation)

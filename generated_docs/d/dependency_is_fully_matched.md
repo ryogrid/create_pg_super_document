@@ -23,9 +23,8 @@ This function determines if a given functional dependency can be applied to opti
 This is a critical validation step used by the query planner to determine when functional dependencies can be applied for selectivity estimation and optimization purposes.
 
 ## Parameters / Member Variables
-- : MVDependency structure containing the functional dependency to check
-- : Bitmapset containing attribute numbers that have equality clauses available
-
+- `*dependency`: MVDependency structure containing the functional dependency to check
+- `*attnums`: Bitmapset containing attribute numbers that have equality clauses available
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bms_is_member](../b/bms_is_member.md) (bitmap set membership test function)

@@ -19,9 +19,8 @@ This function implements the core mechanism for maintaining color-based arc chai
 The color chain structure allows the regex engine to efficiently find all arcs of a particular color, which is essential for operations like color promotion, arc relabeling, and color optimization. By maintaining these chains, the engine can quickly iterate through all arcs that share the same color without scanning the entire NFA.
 
 ## Parameters / Member Variables
-- : Pointer to the colormap structure containing color descriptors
-- : Pointer to the arc to be added to the color chain
-
+- `*cm`: Pointer to the colormap structure containing color descriptors
+- `*a`: Pointer to the arc to be added to the color chain
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Structure representing color descriptor information

@@ -18,10 +18,9 @@ This function serves as a callback for PostgreSQL's cache invalidation system. W
 The function iterates through all entries in the TableSpaceCacheHash hash table, properly deallocates any allocated options data, and removes each entry from the hash table.
 
 ## Parameters / Member Variables
-- : Callback-specific data (unused in this implementation)
-- : The cache ID that triggered the invalidation
-- : Hash value associated with the invalidated entry (unused in this implementation)
-
+- `arg`: Callback-specific data (unused in this implementation)
+- `cacheid`: The cache ID that triggered the invalidation
+- `hashvalue`: Hash value associated with the invalidated entry (unused in this implementation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hash_seq_init](../h/hash_seq_init.md): Initialize hash table sequential scan

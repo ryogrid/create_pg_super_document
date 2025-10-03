@@ -29,7 +29,6 @@ The function operates by:
 These GUC parameters are set with  context and  source, indicating they are internal parameters computed dynamically at startup.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

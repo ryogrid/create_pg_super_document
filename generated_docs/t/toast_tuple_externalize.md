@@ -20,10 +20,9 @@ The function saves the attribute data to external storage using toast_save_datum
 After externalization, the attribute is marked as TOASTCOL_IGNORE since no further TOAST processing is needed for it. The function also handles proper memory cleanup of the original value when necessary.
 
 ## Parameters / Member Variables
-- : ToastTupleContext containing the tuple data and metadata
-- : Index of the attribute to externalize (0-based array index)
-- : Options controlling the externalization process (passed to toast_save_datum)
-
+- `*ttc`: ToastTupleContext containing the tuple data and metadata
+- `attribute`: Index of the attribute to externalize (0-based array index)
+- `options`: Options controlling the externalization process (passed to toast_save_datum)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [toast_save_datum](toast_save_datum.md)

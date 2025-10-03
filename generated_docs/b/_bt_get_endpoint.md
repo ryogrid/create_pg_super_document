@@ -18,10 +18,9 @@ This function locates either the leftmost or rightmost page at a specified level
 The algorithm ensures that only live pages are returned by stepping right when encountering deleted or ignored pages. For rightmost searches, it continues stepping right until reaching the actual rightmost page, accounting for concurrent page splits. The function performs level validation and provides appropriate error handling for corrupted index structures.
 
 ## Parameters / Member Variables
-- : Relation - The B-tree index relation to search within
-- : uint32 - The tree level to search (0 for leaf level, higher numbers for internal levels)
-- : bool - If true, finds the rightmost page; if false, finds the leftmost page
-
+- `rel`: Relation - The B-tree index relation to search within
+- `level`: uint32 - The tree level to search (0 for leaf level, higher numbers for internal levels)
+- `rightmost`: bool - If true, finds the rightmost page; if false, finds the leftmost page
 ## Dependencies
 - Functions called/Symbols referenced:
   - [_bt_getroot](_bt_getroot.md)

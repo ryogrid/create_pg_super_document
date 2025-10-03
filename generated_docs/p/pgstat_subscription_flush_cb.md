@@ -18,9 +18,8 @@ This function is a callback used by the PostgreSQL statistics system to flush pe
 The function performs atomic updates by acquiring a lock on the statistics entry, accumulating error counts from the local backend entry to the shared subscription entry, and then releasing the lock. This ensures consistent and thread-safe updates to subscription statistics across multiple backends.
 
 ## Parameters / Member Variables
-- : Pointer to PgStat_EntryRef structure containing references to both pending (backend-local) and shared statistics entries
-- : Boolean flag indicating whether to wait for the entry lock; if true and lock cannot be immediately acquired, the function returns false without flushing
-
+- `*entry_ref`: Pointer to PgStat_EntryRef structure containing references to both pending (backend-local) and shared statistics entries
+- `nowait`: Boolean flag indicating whether to wait for the entry lock; if true and lock cannot be immediately acquired, the function returns false without flushing
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pgstat_lock_entry](pgstat_lock_entry.md)

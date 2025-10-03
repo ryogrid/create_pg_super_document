@@ -23,8 +23,7 @@ The regprocin function is the input conversion function for PostgreSQL's regproc
 The function performs name resolution using the current search path to find matching pg_proc entries. It ensures that exactly one function matches the given name - throwing errors for both non-existent and ambiguous function references.
 
 ## Parameters / Member Variables
-- : Input C-string containing the procedure name, schema-qualified name, numeric OID, or "-" for unknown
-
+- `PG_FUNCTION_ARGS`: Input C-string containing the procedure name, schema-qualified name, numeric OID, or "-" for unknown
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Handles "-" notation and numeric OID parsing  

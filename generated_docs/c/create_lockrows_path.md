@@ -21,12 +21,11 @@ The function initializes a LockRowsPath structure with appropriate cost estimate
 Cost estimation includes the base cost from the subpath plus an additional cpu_tuple_cost per row to account for the overhead of row locking and possible tuple refetches during EvalPlanQual processing.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global planning information
-- : RelOptInfo representing the parent relation associated with the result
-- : Path representing the source of data that will have locks applied
-- : List of PlanRowMark structures specifying the locking requirements
-- : Parameter ID used for EvalPlanQual re-evaluation when concurrent updates occur
-
+- `*root`: PlannerInfo structure containing global planning information
+- `*rel`: RelOptInfo representing the parent relation associated with the result
+- `*subpath`: Path representing the source of data that will have locks applied
+- `*rowMarks`: List of PlanRowMark structures specifying the locking requirements
+- `epqParam`: Parameter ID used for EvalPlanQual re-evaluation when concurrent updates occur
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to create LockRowsPath node)

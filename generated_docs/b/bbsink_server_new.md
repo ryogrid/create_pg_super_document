@@ -18,9 +18,8 @@ This function creates and initializes a new 'server' bbsink instance for storing
 The function implements a security model requiring explicit pg_write_server_files role privileges, beyond standard replication permissions. It also enforces absolute path requirements to prevent accidentally storing backups within the data directory being backed up.
 
 ## Parameters / Member Variables
-- : Pointer to the next bbsink in the chain for chaining multiple backup destinations
-- : Absolute path to the directory where backup files will be stored on the server
-
+- `*next`: Pointer to the next bbsink in the chain for chaining multiple backup destinations
+- `*pathname`: Absolute path to the directory where backup files will be stored on the server
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc0](../p/palloc0.md)

@@ -24,8 +24,7 @@ The function performs comprehensive memory management by:
 This cleanup mechanism ensures that typedefs defined in inner scopes (higher brace levels) are properly removed when those scopes are exited, preventing memory leaks and maintaining correct symbol visibility.
 
 ## Parameters / Member Variables
-- : The minimum brace level threshold; typedefs at this level or deeper will be removed
-
+- `brace_level`: The minimum brace level threshold; typedefs at this level or deeper will be removed
 ## Dependencies
 - Functions called/Symbols referenced:
   - free (C library function for memory deallocation)

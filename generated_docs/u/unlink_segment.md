@@ -22,9 +22,8 @@ The  function removes a segment from a bin (doubly-linked list) within the dynam
 The function maintains the integrity of the doubly-linked list by ensuring all pointers are properly updated when a segment is removed from its bin.
 
 ## Parameters / Member Variables
-- : Pointer to the dynamic shared area containing the segment management structures
-- : Pointer to the segment map structure representing the segment to be unlinked from its bin
-
+- `*area`: Pointer to the dynamic shared area containing the segment management structures
+- `*segment_map`: Pointer to the segment map structure representing the segment to be unlinked from its bin
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_segment_by_index](../g/get_segment_by_index.md)

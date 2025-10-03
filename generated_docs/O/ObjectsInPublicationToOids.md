@@ -19,11 +19,10 @@ This function processes a list of PublicationObjSpec objects that represent diff
 The function automatically filters out duplicate schema OIDs when the same schema is specified multiple times. For PUBLICATIONOBJ_TABLES_IN_CUR_SCHEMA, it uses the search path to resolve the current schema, reporting an error if no valid schema is found in the search path.
 
 ## Parameters / Member Variables
-- : Input list of PublicationObjSpec objects to process
-- : ParseState context for error reporting (currently unused in function body)
-- : Output parameter - pointer to list that will contain PublicationTable objects for individual tables
-- : Output parameter - pointer to list that will contain schema OIDs for schema-based publications
-
+- `*pubobjspec_list`: Input list of PublicationObjSpec objects to process
+- `*pstate`: ParseState context for error reporting (currently unused in function body)
+- `**rels`: Output parameter - pointer to list that will contain PublicationTable objects for individual tables
+- `**schemas`: Output parameter - pointer to list that will contain schema OIDs for schema-based publications
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_namespace_oid](../g/get_namespace_oid.md)

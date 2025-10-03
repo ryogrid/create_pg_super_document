@@ -25,10 +25,9 @@ The function handles several scenarios:
 The returned buffer is always locked in exclusive mode, even when no replay is needed, to satisfy requirements of functions like MarkBufferDirty and to maintain consistency in hot standby mode.
 
 ## Parameters / Member Variables
-- : XLogReaderState pointer containing the WAL record being replayed
-- : ID number identifying which block from the WAL record to process
-- : Output parameter receiving the locked buffer containing the requested page
-
+- `*record`: XLogReaderState pointer containing the WAL record being replayed
+- `block_id`: ID number identifying which block from the WAL record to process
+- `*buf`: Output parameter receiving the locked buffer containing the requested page
 ## Dependencies
 - Functions called/Symbols referenced:
   - [XLogReadBufferForRedoExtended](XLogReadBufferForRedoExtended.md)

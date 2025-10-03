@@ -18,8 +18,7 @@ This function serves as the finalization callback for the bbstreamer_extractor t
 This function is part of the bbstreamer framework's three-phase lifecycle: content processing, finalization, and memory cleanup. As the finalization phase, it bridges the gap between active content processing and final memory deallocation.
 
 ## Parameters / Member Variables
-- : A pointer to the bbstreamer base structure, which is cast internally to bbstreamer_extractor for access to extractor-specific fields
-
+- `*streamer`: A pointer to the bbstreamer base structure, which is cast internally to bbstreamer_extractor for access to extractor-specific fields
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bbstreamer](bbstreamer.md) (base type casting)

@@ -28,10 +28,9 @@ ApplyWalRecord processes and applies a single WAL record during PostgreSQL recov
 The function handles special XLOG records (checkpoints, end-of-recovery) differently and coordinates with various PostgreSQL subsystems during recovery.
 
 ## Parameters / Member Variables
-- : XLogReaderState pointer containing the current WAL record and reading state
-- : XLogRecord pointer to the specific WAL record being applied
-- : TimeLineID pointer that tracks the current replay timeline and may be updated during timeline switches
-
+- `*xlogreader`: XLogReaderState pointer containing the current WAL record and reading state
+- `*record`: XLogRecord pointer to the specific WAL record being applied
+- `*replayTLI`: TimeLineID pointer that tracks the current replay timeline and may be updated during timeline switches
 ## Dependencies
 - Functions called/Symbols referenced:
   - [xlogrecovery_redo](../x/xlogrecovery_redo.md)

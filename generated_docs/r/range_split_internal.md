@@ -21,12 +21,11 @@ The function first deserializes both input ranges to access their boundary infor
 The inclusivity inversion is crucial for proper range semantics - when splitting at a boundary, the boundary point should not be included in both resulting ranges.
 
 ## Parameters / Member Variables
-- : Type cache entry containing comparison functions and metadata for the range type
-- : The range to be split (const RangeType pointer)
-- : The range to subtract from r1 (const RangeType pointer) 
-- : Pointer to store the first resulting range (the left portion)
-- : Pointer to store the second resulting range (the right portion)
-
+- `*typcache`: Type cache entry containing comparison functions and metadata for the range type
+- `*r1`: The range to be split (const RangeType pointer)
+- `*r2`: The range to subtract from r1 (const RangeType pointer)
+- `**output1`: Pointer to store the first resulting range (the left portion)
+- `**output2`: Pointer to store the second resulting range (the right portion)
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Extracts boundary information from range values

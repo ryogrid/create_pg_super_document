@@ -18,9 +18,8 @@ This function extracts the actual data type OID of a function argument at a spec
 The function supports various types of expression nodes including function calls, operators, distinct expressions, scalar array operations, null-if expressions, and window functions. It includes special handling for ScalarArrayOpExpr where the second argument (argnum == 1) requires extracting the element type from an array type.
 
 ## Parameters / Member Variables
-- : The expression node representing a function call or operator expression to analyze
-- : Zero-based index of the argument whose type should be retrieved
-
+- `*expr`: The expression node representing a function call or operator expression to analyze
+- `argnum`: Zero-based index of the argument whose type should be retrieved
 ## Dependencies
 - Functions called/Symbols referenced:
   - [exprType](../e/exprType.md)

@@ -25,10 +25,9 @@ The function handles two scenarios:
 This optimization is particularly valuable because it can turn potentially expensive table scans into trivial constant-time operations.
 
 ## Parameters / Member Variables
-- : PlannerInfo containing query planning context and configuration
-- : RelOptInfo representing the input relation (which will be discarded in this optimization)
-- : RelOptInfo representing the target grouping relation where the new paths will be added
-
+- `*root`: PlannerInfo containing query planning context and configuration
+- `*input_rel`: RelOptInfo representing the input relation (which will be discarded in this optimization)
+- `*grouped_rel`: RelOptInfo representing the target grouping relation where the new paths will be added
 ## Dependencies
 - Functions called/Symbols referenced:
   - [create_group_result_path](create_group_result_path.md)

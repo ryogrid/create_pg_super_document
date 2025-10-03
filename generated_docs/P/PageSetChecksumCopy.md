@@ -24,9 +24,8 @@ The function uses several optimization strategies:
 The returned pointer must be used immediately for I/O operations and cannot be retained, as subsequent calls will overwrite the same static buffer.
 
 ## Parameters / Member Variables
-- : The original page to be copied and checksummed
-- : The block number of the page, used in checksum calculation
-
+- `page`: The original page to be copied and checksummed
+- `blkno`: The block number of the page, used in checksum calculation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PageIsNew](PageIsNew.md)

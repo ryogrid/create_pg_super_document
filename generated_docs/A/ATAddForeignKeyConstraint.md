@@ -24,14 +24,13 @@ For partitioned tables, the function coordinates the creation of multiple pg_con
 The implementation follows a three-phase approach: first creating the catalog entry, then processing action triggers on the referenced side, and finally creating check triggers on the referencing side, with appropriate recursion handling for inheritance hierarchies.
 
 ## Parameters / Member Variables
-- : Double pointer to the work queue for coordinating ALTER TABLE operations across multiple tables
-- : AlteredTableInfo structure containing information about the table being altered
-- : Relation object representing the referencing (foreign key) table
-- : Constraint specification containing all foreign key definition details
-- : Boolean indicating whether to apply the constraint to inheritance children
-- : Boolean indicating if this is a recursive call (affects permission handling)
-- : Lock mode to use when accessing related tables during the operation
-
+- `**wqueue`: Double pointer to the work queue for coordinating ALTER TABLE operations across multiple tables
+- `*tab`: AlteredTableInfo structure containing information about the table being altered
+- `rel`: Relation object representing the referencing (foreign key) table
+- `*fkconstraint`: Constraint specification containing all foreign key definition details
+- `recurse`: Boolean indicating whether to apply the constraint to inheritance children
+- `recursing`: Boolean indicating if this is a recursive call (affects permission handling)
+- `lockmode`: Lock mode to use when accessing related tables during the operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md), table_openrv

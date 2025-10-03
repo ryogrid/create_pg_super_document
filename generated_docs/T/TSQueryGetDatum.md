@@ -18,8 +18,7 @@ TSQueryGetDatum is a type conversion utility function that wraps a TSQueryData p
 This function is part of PostgreSQL's text search functionality infrastructure, specifically designed to handle TSQuery (text search query) data structures within the PostgreSQL function calling conventions. It enables TSQuery objects to be seamlessly integrated with PostgreSQL's type system and function interface.
 
 ## Parameters / Member Variables
-- : A const pointer to TSQueryData structure representing a text search query. This parameter cannot be NULL as it's directly passed to PointerGetDatum.
-
+- `*X`: A const pointer to TSQueryData structure representing a text search query. This parameter cannot be NULL as it's directly passed to PointerGetDatum.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PointerGetDatum](../P/PointerGetDatum.md) (from src/include/postgres.h)

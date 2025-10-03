@@ -18,8 +18,7 @@ This function is responsible for maintaining the global record of the latest com
 The function includes several assertions to ensure it's called in the correct context: during normal processing (not recovery), with proper locking, and with valid transaction IDs. It uses PostgreSQL's transaction ID comparison logic that handles wraparound.
 
 ## Parameters / Member Variables
-- : The transaction ID that potentially represents a newly completed transaction
-
+- `latestXid`: The transaction ID that potentially represents a newly completed transaction
 ## Dependencies
 - Functions called/Symbols referenced:
   - FullTransactionIdIsValid

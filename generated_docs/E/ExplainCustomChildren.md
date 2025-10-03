@@ -16,10 +16,9 @@ ExplainCustomChildren(CustomScanState *css, List *ancestors, ExplainState *es)
 This function iterates through the list of child PlanState nodes associated with a CustomScanState and explains each one. It automatically determines the appropriate label ('child' for single children, 'children' for multiple) based on the number of child plans present. The function provides a standardized way to explain the child nodes of custom scan implementations.
 
 ## Parameters / Member Variables
-- : CustomScanState containing the list of child plan states to be explained
-- : List of ancestor nodes in the execution tree for context
-- : ExplainState structure containing formatting options and state information
-
+- `*css`: CustomScanState containing the list of child plan states to be explained
+- `*ancestors`: List of ancestor nodes in the execution tree for context
+- `*es`: ExplainState structure containing formatting options and state information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_length](../l/list_length.md) (determines number of child plans)

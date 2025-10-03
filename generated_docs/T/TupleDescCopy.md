@@ -16,9 +16,8 @@ TupleDescCopy(TupleDesc dst, TupleDesc src)
 This function performs a flat copy of a tuple descriptor into pre-allocated memory provided by the caller. Unlike CreateTupleDescCopyConstr, this function explicitly does NOT copy constraints, defaults, or other metadata. It performs a direct memory copy of the header and attribute array, then clears all constraint-related fields in the destination. The function is designed for scenarios where the tuple descriptor needs to be placed in specific memory locations, such as shared memory, and where constraints are not needed.
 
 ## Parameters / Member Variables
-- : Destination TupleDesc (must be pre-allocated with sufficient memory)
-- : Source TupleDesc to copy from
-
+- `dst`: Destination TupleDesc (must be pre-allocated with sufficient memory)
+- `src`: Source TupleDesc to copy from
 ## Dependencies
 - Functions called/Symbols referenced:
   - TupleDescSize

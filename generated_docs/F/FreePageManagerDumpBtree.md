@@ -17,12 +17,11 @@ FreePageManagerDumpBtree(FreePageManager *fpm, FreePageBtree *btp,
 This function performs a depth-first traversal of the Free Page Manager's B-tree structure, generating a formatted textual representation of the tree's contents and structure. It serves as a debugging aid by displaying page numbers, tree levels, node types (internal vs leaf), parent-child relationships, and key information for each node in the tree. The function validates parent pointers and recursively processes child nodes for internal nodes.
 
 ## Parameters / Member Variables
-- : Pointer to the FreePageManager instance containing the B-tree
-- : Pointer to the current FreePageBtree node being processed
-- : Expected parent node pointer for validation purposes  
-- : Current depth level in the tree (used for formatting)
-- : StringInfo buffer to append the formatted dump output
-
+- `*fpm`: Pointer to the FreePageManager instance containing the B-tree
+- `*btp`: Pointer to the current FreePageBtree node being processed
+- `*parent`: Expected parent node pointer for validation purposes
+- `level`: Current depth level in the tree (used for formatting)
+- `buf`: StringInfo buffer to append the formatted dump output
 ## Dependencies
 - Functions called/Symbols referenced:
   - fpm_segment_base

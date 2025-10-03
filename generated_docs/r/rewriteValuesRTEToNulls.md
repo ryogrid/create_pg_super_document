@@ -18,9 +18,8 @@ This function provides a simpler cleanup mechanism for handling DEFAULT items in
 Unlike rewriteValuesRTE, this function unconditionally replaces all SetToDefault nodes with NULL constants, treating the queries as if they were attached to a rule-updatable view.
 
 ## Parameters / Member Variables
-- : The query being rewritten (not directly used but passed for consistency)
-- : The VALUES range table entry containing the VALUES lists to be processed
-
+- `*parsetree`: The query being rewritten (not directly used but passed for consistency)
+- `*rte`: The VALUES range table entry containing the VALUES lists to be processed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SetToDefault](../S/SetToDefault.md) (type checking and casting)

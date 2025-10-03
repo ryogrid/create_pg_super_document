@@ -24,8 +24,7 @@ The function operates by:
 The implementation is efficient in that it first checks whether any files can actually be removed before proceeding with the more expensive operations.
 
 ## Parameters / Member Variables
-- : The oldest transaction ID that needs to be preserved; all commit timestamp data for older transactions will be removed
-
+- `oldestXact`: The oldest transaction ID that needs to be preserved; all commit timestamp data for older transactions will be removed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TransactionIdToCTsPage](TransactionIdToCTsPage.md) (oldestXact)

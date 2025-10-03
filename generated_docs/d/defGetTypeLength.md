@@ -25,8 +25,7 @@ The function processes several input formats:
 The function includes comprehensive error handling and provides detailed error messages for invalid inputs.
 
 ## Parameters / Member Variables
-- : Pointer to a DefElem structure containing the definition element to extract the type length from
-
+- `*def`: Pointer to a DefElem structure containing the definition element to extract the type length from
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DefElem](../D/DefElem.md) (structure type)

@@ -16,8 +16,7 @@ CopyMultiInsertInfoIsEmpty(CopyMultiInsertInfo *miinfo)
 This function provides a straightforward check to determine if a CopyMultiInsertInfo structure has any tuples currently buffered for insertion. It serves as an optimization check to avoid unnecessary processing when no tuples are waiting to be inserted. The function simply examines the bufferedTuples field of the CopyMultiInsertInfo structure to make this determination.
 
 ## Parameters / Member Variables
-- : Pointer to the CopyMultiInsertInfo structure to check for buffered tuples
-
+- `*miinfo`: Pointer to the CopyMultiInsertInfo structure to check for buffered tuples
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CopyMultiInsertInfo](CopyMultiInsertInfo.md) (structure type)

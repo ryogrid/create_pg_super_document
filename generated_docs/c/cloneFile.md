@@ -23,11 +23,10 @@ The function provides two platform-specific implementations:
 If cloning fails at any point, the function terminates the program with a fatal error message that includes the schema name, relation name, and file paths for debugging.
 
 ## Parameters / Member Variables
-- : Source file path to clone from
-- : Destination file path to create as a clone
-- : SQL schema name of the relation (used only for error reporting)
-- : SQL relation name (used only for error reporting)
-
+- `*src`: Source file path to clone from
+- `*dst`: Destination file path to create as a clone
+- `*schemaName`: SQL schema name of the relation (used only for error reporting)
+- `*relName`: SQL relation name (used only for error reporting)
 ## Dependencies
 - Functions called/Symbols referenced:
   - copyfile (macOS implementation)

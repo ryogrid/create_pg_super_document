@@ -22,8 +22,7 @@ The function supports four compression algorithms:
 - PG_COMPRESSION_ZSTD (requires USE_ZSTD)
 
 ## Parameters / Member Variables
-- : A pg_compress_specification structure containing the compression algorithm and related configuration to be validated
-
+- `compression_spec`: A pg_compress_specification structure containing the compression algorithm and related configuration to be validated
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_compress_algorithm_name](../g/get_compress_algorithm_name.md)

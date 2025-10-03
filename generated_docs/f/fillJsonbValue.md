@@ -27,12 +27,11 @@ The function handles all JSONB data types:
 For variable-length data, it relies on caller-provided offset calculations for performance optimization, allowing callers to amortize offset computation across multiple elements. The function handles memory alignment requirements, particularly for numeric data and nested containers.
 
 ## Parameters / Member Variables
-- : The JSONB container holding the element
-- : Index of the element within the container's JEntry array
-- : Base address where variable-length element data begins
-- : Byte offset from base_addr to this element's data
-- : Pre-allocated JsonbValue structure to fill with element data
-
+- `*container`: The JSONB container holding the element
+- `index`: Index of the element within the container's JEntry array
+- `*base_addr`: Base address where variable-length element data begins
+- `offset`: Byte offset from base_addr to this element's data
+- `*result`: Pre-allocated JsonbValue structure to fill with element data
 ## Dependencies
 - Functions called/Symbols referenced:
   - [getJsonbLength](../g/getJsonbLength.md)

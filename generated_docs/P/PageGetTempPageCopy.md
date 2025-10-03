@@ -16,8 +16,7 @@ PageGetTempPageCopy(Page page)
 PageGetTempPageCopy creates a temporary page buffer in local memory that is an exact copy of the provided source page. Unlike PageGetTempPage which returns uninitialized memory, this function performs a complete bitwise copy of the source page including all headers, line pointers, and item data. This is particularly useful for algorithms that need to work with a complete page copy while preserving the original page structure, such as during page reorganization or split operations where the original page layout needs to be preserved.
 
 ## Parameters / Member Variables
-- : Source page to be copied to the temporary page buffer
-
+- `page`: Source page to be copied to the temporary page buffer
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PageGetPageSize](PageGetPageSize.md) (retrieves the size of the source page)

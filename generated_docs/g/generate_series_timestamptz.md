@@ -18,8 +18,7 @@ This function serves as the public SQL-callable wrapper for generating timestamp
 The function takes three arguments: start timestamp, end timestamp, and step interval, and returns a set of timestamp values with timezone information. All arithmetic operations are performed in the session's current timezone context.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function argument macro containing:
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument macro containing:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [generate_series_timestamptz_internal](generate_series_timestamptz_internal.md) (core implementation function)

@@ -18,10 +18,9 @@ The construct_array_builtin function provides a specialized version of construct
 The function uses a switch statement to map common built-in type OIDs to their corresponding type properties, then delegates the actual array construction to construct_array. If an unsupported type is provided, the function raises an ERROR.
 
 ## Parameters / Member Variables
-- : Array of Datum items that will become the contents of the constructed array (NULL values not supported)
-- : Number of items in the elems array
-- : OID of the built-in data type for the array elements
-
+- `*elems`: Array of Datum items that will become the contents of the constructed array (NULL values not supported)
+- `nelems`: Number of items in the elems array
+- `elmtype`: OID of the built-in data type for the array elements
 ## Dependencies
 - Functions called/Symbols referenced:
   - [construct_array](construct_array.md)

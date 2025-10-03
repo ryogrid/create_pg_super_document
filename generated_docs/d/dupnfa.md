@@ -20,12 +20,11 @@ dupnfa(struct nfa *nfa,
 This function performs a recursive traversal to duplicate a portion of an NFA between two states (start and stop). It uses the tmp pointer in states to both mark already-seen states and point to their duplicates during the duplication process. The duplicated sub-NFA is connected from the 'from' state to the 'to' state. If the start and stop states are the same, it simply creates an empty arc between from and to.
 
 ## Parameters / Member Variables
-- : The NFA structure containing the automaton being modified
-- : The starting state of the sub-NFA to be duplicated
-- : The ending state of the sub-NFA to be duplicated  
-- : The state from which the duplicated sub-NFA should be connected
-- : The state to which the duplicated sub-NFA should be connected
-
+- `*nfa`: The NFA structure containing the automaton being modified
+- `*start`: The starting state of the sub-NFA to be duplicated
+- `*stop`: The ending state of the sub-NFA to be duplicated
+- `*from`: The state from which the duplicated sub-NFA should be connected
+- `*to`: The state to which the duplicated sub-NFA should be connected
 ## Dependencies
 - Functions called/Symbols referenced:
   - [newarc](../n/newarc.md)

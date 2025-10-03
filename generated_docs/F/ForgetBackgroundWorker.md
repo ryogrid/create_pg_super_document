@@ -16,8 +16,7 @@ ForgetBackgroundWorker(slist_mutable_iter *cur)
 This function performs the final cleanup steps when a background worker is no longer needed. It removes the worker from the postmaster's private BackgroundWorkerList and marks the corresponding shared memory slot as available for reuse. The function uses a mutable iterator parameter to enable efficient deletion during list traversal without requiring additional searches. It handles parallel worker accounting by incrementing the parallel_terminate_count for parallel workers, and uses memory barriers to ensure proper ordering of shared memory updates. The caller is responsible for any necessary notification to bgw_notify_pid processes.
 
 ## Parameters / Member Variables
-- : A mutable iterator pointing to the worker to be removed from the list (allows efficient deletion during traversal)
-
+- `*cur`: A mutable iterator pointing to the worker to be removed from the list (allows efficient deletion during traversal)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (extracts RegisteredBgWorker from list node)

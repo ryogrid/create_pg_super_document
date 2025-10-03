@@ -22,7 +22,6 @@ The function operates in two phases:
 This complete detachment is essential for processes like utility programs or child processes that inherit the parent's memory mappings but should not maintain active connections to the DSM system. Unlike , this function also unmaps the control segment, making it suitable for scenarios where the process continues to run but should not access DSM.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -24,8 +24,7 @@ The function performs several checks:
 The function ensures that only truly safe relative paths that remain within the current working directory subtree are accepted.
 
 ## Parameters / Member Variables
-- : A null-terminated string containing the canonicalized file system path to be validated. The path must have been previously processed by canonicalize_path functions.
-
+- `*path`: A null-terminated string containing the canonicalized file system path to be validated. The path must have been previously processed by canonicalize_path functions.
 ## Dependencies
 - Functions called/Symbols referenced:
   - 

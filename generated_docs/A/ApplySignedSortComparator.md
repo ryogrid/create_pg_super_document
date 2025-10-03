@@ -20,12 +20,11 @@ This function provides a specialized comparison for signed integer values stored
 The function is specifically designed for signed integer data types and provides better performance than using a generic comparator function pointer by performing direct comparison after type conversion.
 
 ## Parameters / Member Variables
-- : The first Datum value to compare (converted to signed int64)
-- : Boolean flag indicating whether datum1 is NULL
-- : The second Datum value to compare (converted to signed int64)
-- : Boolean flag indicating whether datum2 is NULL
-- : SortSupport structure containing sort configuration
-
+- `datum1`: The first Datum value to compare (converted to signed int64)
+- `isNull1`: Boolean flag indicating whether datum1 is NULL
+- `datum2`: The second Datum value to compare (converted to signed int64)
+- `isNull2`: Boolean flag indicating whether datum2 is NULL
+- `ssup`: SortSupport structure containing sort configuration
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SortSupport](../S/SortSupport.md) (struct type)

@@ -18,9 +18,8 @@ The  function creates WAL records specifically for tracking command IDs of catal
 The function differentiates between tuples that have combo CIDs (inserted and deleted in the same transaction) versus those with simple command IDs. It also handles special cases like lock-only operations where xmax is set but the tuple is not actually deleted.
 
 ## Parameters / Member Variables
-- : The catalog relation containing the tuple
-- : The heap tuple whose command ID information needs to be logged
-
+- `relation`: The catalog relation containing the tuple
+- `tup`: The heap tuple whose command ID information needs to be logged
 ## Dependencies
 - Functions called/Symbols referenced:
   - [xl_heap_new_cid](../x/xl_heap_new_cid.md) (WAL record structure)

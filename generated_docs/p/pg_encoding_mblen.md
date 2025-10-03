@@ -20,9 +20,8 @@ The function includes built-in validation that falls back to SQL_ASCII behavior 
 The function is designed for use cases where the input string is either zero-terminated, known to be valid in the specified encoding, or the encoding is not GB18030. For cases that don't meet these criteria, callers should use pg_encoding_mblen_or_incomplete() instead to handle potential buffer boundary issues.
 
 ## Parameters / Member Variables
-- : PostgreSQL encoding identifier (e.g., PG_UTF8, PG_EUC_JP, PG_LATIN1)
-- : Pointer to the start of the multibyte character sequence
-
+- `encoding`: PostgreSQL encoding identifier (e.g., PG_UTF8, PG_EUC_JP, PG_LATIN1)
+- `*mbstr`: Pointer to the start of the multibyte character sequence
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_VALID_ENCODING (encoding validation macro)

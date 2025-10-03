@@ -20,6 +20,7 @@ Division by zero is a fundamental mathematical error that occurs when a number i
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (PostgreSQL's error reporting function)

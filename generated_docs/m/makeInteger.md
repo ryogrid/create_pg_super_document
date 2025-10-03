@@ -18,8 +18,7 @@ makeInteger is a factory function that allocates and initializes a new Integer n
 The Integer node type is specifically designed to represent integer literals found during parsing and to pass integer constants throughout the parser and planner. Unlike plain int values, Integer nodes can be stored in PostgreSQL's List structures and participate in the node copying, serialization, and other node operations.
 
 ## Parameters / Member Variables
-- : The integer value to store in the newly created Integer node
-
+- `i`: The integer value to store in the newly created Integer node
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (macro for node allocation and initialization)

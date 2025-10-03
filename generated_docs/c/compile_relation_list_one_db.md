@@ -33,11 +33,10 @@ The constructed SQL query uses multiple CTEs:
 - : Toast table index selection (if enabled)
 
 ## Parameters / Member Variables
-- : Active PostgreSQL connection to the database being processed
-- : SimplePtrList to which discovered RelationInfo structures are appended
-- : DatabaseInfo structure containing connection details and amcheck extension information for the relations
-- : Pointer to uint64 counter that gets incremented by the total number of blocks to check across all added relations
-
+- `*conn`: Active PostgreSQL connection to the database being processed
+- `*relations`: SimplePtrList to which discovered RelationInfo structures are appended
+- `*dat`: DatabaseInfo structure containing connection details and amcheck extension information for the relations
+- `*pagecount`: Pointer to uint64 counter that gets incremented by the total number of blocks to check across all added relations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [initPQExpBuffer](../i/initPQExpBuffer.md)

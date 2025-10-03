@@ -20,13 +20,12 @@ The construct_array function provides a simple interface for creating 1-dimensio
 The function assumes that NULL element values are not supported - all elements must be valid Datum values. Element values are always copied into the array object regardless of whether the data type is pass-by-value or pass-by-reference.
 
 ## Parameters / Member Variables
-- : Array of Datum items that will become the contents of the constructed array (NULL values not supported)
-- : Number of items in the elems array
-- : OID of the data type for the array elements
-- : Length of the element data type (-1 for variable-length types)
-- : Boolean indicating whether elements are passed by value (true) or by reference (false)
-- : Alignment requirement for the element data type ('c', 's', 'i', or 'd')
-
+- `*elems`: Array of Datum items that will become the contents of the constructed array (NULL values not supported)
+- `nelems`: Number of items in the elems array
+- `elmtype`: OID of the data type for the array elements
+- `elmlen`: Length of the element data type (-1 for variable-length types)
+- `elmbyval`: Boolean indicating whether elements are passed by value (true) or by reference (false)
+- `elmalign`: Alignment requirement for the element data type ('c', 's', 'i', or 'd')
 ## Dependencies
 - Functions called/Symbols referenced:
   - [construct_md_array](construct_md_array.md)

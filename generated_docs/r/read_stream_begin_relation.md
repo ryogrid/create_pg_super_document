@@ -24,14 +24,13 @@ This function initializes a read stream that optimizes sequential and random acc
 The function calculates optimal buffer queue sizes, I/O concurrency limits, and prefetch behavior based on the relation type, access flags, and system configuration. It supports both catalog relations (with conservative settings) and user relations (with configurable tablespace-specific settings).
 
 ## Parameters / Member Variables
-- : Control flags including READ_STREAM_MAINTENANCE, READ_STREAM_SEQUENTIAL, and READ_STREAM_FULL
-- : Buffer access strategy to control buffer replacement policy and pin limits
-- : The relation to read from
-- : Fork number (main, FSM, VM, etc.) of the relation to read
-- : Function to call for determining the next block number to read
-- : Private data passed to the callback function
-- : Size of additional data to allocate per buffer for callback use
-
+- `flags`: Control flags including READ_STREAM_MAINTENANCE, READ_STREAM_SEQUENTIAL, and READ_STREAM_FULL
+- `strategy`: Buffer access strategy to control buffer replacement policy and pin limits
+- `rel`: The relation to read from
+- `forknum`: Fork number (main, FSM, VM, etc.) of the relation to read
+- `callback`: Function to call for determining the next block number to read
+- `*callback_private_data`: Private data passed to the callback function
+- `per_buffer_data_size`: Size of additional data to allocate per buffer for callback use
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RelationGetSmgr](../R/RelationGetSmgr.md)

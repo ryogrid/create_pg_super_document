@@ -19,7 +19,6 @@ The function examines all incoming conflicts (transactions that this transaction
 If the current transaction has already been marked as doomed by another transaction, it will abort with a serialization failure error. Special handling is provided for prepared transactions - if a pivot transaction is already prepared (in a two-phase commit), the current transaction aborts instead since prepared transactions cannot be easily rolled back.
 
 ## Parameters / Member Variables
-This function takes no parameters and operates on global transaction state.
 
 ## Dependencies
 - Functions called/Symbols referenced:

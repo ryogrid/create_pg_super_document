@@ -16,10 +16,9 @@ assignOperTypes(OpFamilyMember *member, Oid amoid, Oid typeoid)
 This function processes an operator that is being added to an operator family, determining its left and right operand types and validating that it meets the requirements for index operations. It fetches the operator definition from the system catalog, enforces that the operator is binary, and performs different validation based on whether it's a search operator or an ordering operator. For search operators, it ensures the return type is boolean. For ordering operators, it verifies that the access method supports ordering operations. If the member's lefttype or righttype are not explicitly specified, it uses the operator's intrinsic input types.
 
 ## Parameters / Member Variables
-- : Pointer to OpFamilyMember structure containing operator information to be processed
-- : OID of the access method that will use this operator
-- : OID of the data type (currently unused in the implementation)
-
+- `*member`: Pointer to OpFamilyMember structure containing operator information to be processed
+- `amoid`: OID of the access method that will use this operator
+- `typeoid`: OID of the data type (currently unused in the implementation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [OpFamilyMember](../O/OpFamilyMember.md) (type)

@@ -17,11 +17,10 @@ appendBoolResult(JsonPathExecContext *cxt, JsonPathItem *jsp,
 This function is responsible for converting a boolean execution result from jsonpath operations into a proper JSON boolean value and continuing the execution chain. It handles the conversion of JsonPathBool values (jpbTrue, jpbFalse, jpbUnknown) to appropriate JsonbValue representations. When the result is jpbUnknown, it converts to a JSON null value, otherwise it creates a JSON boolean. The function then delegates to executeNextItem to continue processing the jsonpath expression.
 
 ## Parameters / Member Variables
-- : JsonPathExecContext pointer containing the execution context for the jsonpath operation
-- : JsonPathItem pointer representing the current jsonpath item being processed
-- : JsonValueList pointer to store found values, can be NULL for singleton operations
-- : JsonPathBool enumeration value representing the boolean result (jpbTrue, jpbFalse, or jpbUnknown)
-
+- `*cxt`: JsonPathExecContext pointer containing the execution context for the jsonpath operation
+- `*jsp`: JsonPathItem pointer representing the current jsonpath item being processed
+- `*found`: JsonValueList pointer to store found values, can be NULL for singleton operations
+- `res`: JsonPathBool enumeration value representing the boolean result (jpbTrue, jpbFalse, or jpbUnknown)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [jspGetNext](../j/jspGetNext.md) (gets the next jsonpath item)

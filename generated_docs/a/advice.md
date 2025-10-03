@@ -17,6 +17,7 @@ The advice function is a minimal helper that provides guidance to users when the
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - fprintf (standard C library function)

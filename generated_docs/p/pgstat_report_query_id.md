@@ -20,9 +20,8 @@ The function enforces a "top-level only" policy where once a query ID is set, su
 Query identifiers are automatically reset when a backend transitions to STATE_RUNNING via pgstat_report_activity(), preparing for the next top-level command.
 
 ## Parameters / Member Variables
-- : The 64-bit query identifier to be stored (typically computed from the query text hash)
-- : Boolean flag to override the top-level-only policy and force an update even if a query ID is already set
-
+- `query_id`: The 64-bit query identifier to be stored (typically computed from the query text hash)
+- `force`: Boolean flag to override the top-level-only policy and force an update even if a query ID is already set
 ## Dependencies
 - Functions called/Symbols referenced:
   - PGSTAT_BEGIN_WRITE_ACTIVITY

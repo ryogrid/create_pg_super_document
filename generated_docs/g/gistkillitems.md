@@ -24,8 +24,7 @@ This function implements a performance optimization for GiST index scans by mark
 This optimization helps reduce repeated visibility checks for tuples that are known to be dead, improving scan performance.
 
 ## Parameters / Member Variables
-- : IndexScanDesc containing the index scan state, including the opaque GiST scan data with killed items information
-
+- `scan`: IndexScanDesc containing the index scan state, including the opaque GiST scan data with killed items information
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecPtrIsInvalid

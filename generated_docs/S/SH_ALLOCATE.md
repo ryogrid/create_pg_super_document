@@ -23,9 +23,8 @@ The function is designed to handle the specific memory requirements of hash tabl
 The SH_USE_NONDEFAULT_ALLOCATOR macro can be defined to skip the default implementation entirely, allowing users to provide their own custom allocator functions.
 
 ## Parameters / Member Variables
-- : Pointer to the hash table structure containing allocation context information
-- : Number of bytes to allocate
-
+- `*type`: Pointer to the hash table structure containing allocation context information
+- `size`: Number of bytes to allocate
 ## Dependencies
 - Functions called/Symbols referenced:
   - SH_MAKE_NAME (macro for name generation)

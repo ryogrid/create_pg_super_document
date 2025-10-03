@@ -23,13 +23,12 @@ The function creates a  record containing metadata about the split, then registe
 The WAL record includes the original page's right link and NSN (Next Split Number), information about whether the original page was a leaf, the number of new pages created, and whether the follow-right flag should be marked during replay.
 
 ## Parameters / Member Variables
-- : Boolean indicating whether the original page being split is a leaf page
-- : Linked list of SplitPageLayout structures describing the new pages created by the split
-- : Block number of the original page's right link before the split
-- : Original Next Split Number of the page being split
-- : Buffer containing left child page (may be invalid if not needed)
-- : Boolean indicating whether to mark the follow-right flag during replay
-
+- `page_is_leaf`: Boolean indicating whether the original page being split is a leaf page
+- `*dist`: Linked list of SplitPageLayout structures describing the new pages created by the split
+- `origrlink`: Block number of the original page's right link before the split
+- `orignsn`: Original Next Split Number of the page being split
+- `leftchildbuf`: Buffer containing left child page (may be invalid if not needed)
+- `markfollowright`: Boolean indicating whether to mark the follow-right flag during replay
 ## Dependencies
 - Functions called/Symbols referenced:
   - [XLogBeginInsert](../X/XLogBeginInsert.md)

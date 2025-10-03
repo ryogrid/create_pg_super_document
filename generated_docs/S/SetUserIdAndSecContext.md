@@ -18,9 +18,8 @@ SetUserIdAndSecContext is a low-level function that directly updates two critica
 The function bypasses normal validation checks and is specifically intended for internal PostgreSQL operations where the caller is responsible for ensuring the validity of the parameters. It's commonly used during transaction abort/commit operations and in security-sensitive contexts like SECURITY DEFINER functions.
 
 ## Parameters / Member Variables
-- : The user OID to set as the current effective user ID
-- : Bit flags indicating security restrictions and operational context
-
+- `userid`: The user OID to set as the current effective user ID
+- `sec_context`: Bit flags indicating security restrictions and operational context
 ## Dependencies
 - Functions called/Symbols referenced:
   - CurrentUserId (global variable)

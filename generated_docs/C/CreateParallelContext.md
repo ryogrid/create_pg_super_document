@@ -19,10 +19,9 @@ CreateParallelContext establishes a new parallel context that serves as the foun
 The parallel context tracks the library and function name that workers will execute, manages the number of workers to launch, and maintains error context information. It also initializes a shared memory table-of-contents estimator that will be used to calculate space requirements for worker communication.
 
 ## Parameters / Member Variables
-- : Name of the dynamic library containing the worker entry point function
-- : Name of the function that parallel workers will execute as their main entry point
-- : Number of parallel worker processes to create (must be non-negative)
-
+- `*library_name`: Name of the dynamic library containing the worker entry point function
+- `*function_name`: Name of the function that parallel workers will execute as their main entry point
+- `nworkers`: Number of parallel worker processes to create (must be non-negative)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [IsInParallelMode](../I/IsInParallelMode.md) (validates parallel mode is active)

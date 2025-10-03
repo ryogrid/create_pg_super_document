@@ -18,7 +18,6 @@ This function computes the total number of entries needed in per-child-process a
 The function provides a fixed maximum size for these arrays, ensuring they can accommodate all possible live child processes. The formula uses a factor of 2 to provide a safety margin beyond the theoretical maximum, aligning with the same too-many-children limit enforced by canAcceptConnections().
 
 ## Parameters / Member Variables
-This function takes no parameters and returns an integer representing the maximum number of live postmaster children.
 
 ## Dependencies
 - Functions called/Symbols referenced:

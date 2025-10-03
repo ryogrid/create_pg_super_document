@@ -23,9 +23,8 @@ The function constructs a complex SQL query that joins multiple system catalogs 
 The query supports pattern matching on both source and target type names and includes optional verbose output with descriptions.
 
 ## Parameters / Member Variables
-- : A SQL name pattern (with optional wildcards) to filter which casts to display based on source or target type names. If NULL, all casts are shown.
-- : If true, includes cast descriptions from the  catalog in the output.
-
+- `*pattern`: A SQL name pattern (with optional wildcards) to filter which casts to display based on source or target type names. If NULL, all casts are shown.
+- `verbose`: If true, includes cast descriptions from the  catalog in the output.
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Initializes a dynamic string buffer

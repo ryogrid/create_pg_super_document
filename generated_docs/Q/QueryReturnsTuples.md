@@ -23,8 +23,7 @@ QueryReturnsTuples is a comprehensive function that analyzes a parsed query to d
 This function is essential for the query processing infrastructure to determine the appropriate execution strategy and result handling mechanisms.
 
 ## Parameters / Member Variables
-- : Pointer to a Query structure representing the parsed SQL command
-
+- `*parsetree`: Pointer to a Query structure representing the parsed SQL command
 ## Dependencies
 - Functions called/Symbols referenced:
   - [UtilityReturnsTuples](../U/UtilityReturnsTuples.md) (for utility command analysis)

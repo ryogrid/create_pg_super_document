@@ -20,9 +20,8 @@ The function searches pg_amop for registrations of the equality operator in btre
 If multiple possibilities exist, the function returns the first valid one found, as any compatible ordering operator will suffice for sorting purposes.
 
 ## Parameters / Member Variables
-- : The OID of the equality operator
-- : Boolean flag indicating whether to use the left-hand side data type (true) or right-hand side data type (false) when searching for the ordering operator
-
+- `opno`: The OID of the equality operator
+- `use_lhs_type`: Boolean flag indicating whether to use the left-hand side data type (true) or right-hand side data type (false) when searching for the ordering operator
 ## Dependencies
 - Functions called/Symbols referenced:
   - SearchSysCacheList1

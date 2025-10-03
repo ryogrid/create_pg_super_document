@@ -16,8 +16,7 @@ DatumGetJsonbP(Datum d)
 This inline function provides a convenient way to extract a Jsonb pointer from a Datum value. It internally uses the PG_DETOAST_DATUM macro to handle potentially TOASTed (The Oversized-Attribute Storage Technique) data, ensuring that if the Jsonb value was stored in compressed or out-of-line format, it gets properly decompressed and made accessible. The function is commonly used throughout PostgreSQL's JSONB handling code to safely convert Datum values received from the PostgreSQL type system into usable Jsonb structures.
 
 ## Parameters / Member Variables
-- : The input Datum value that contains a JSONB value, potentially in TOASTed form
-
+- `d`: The input Datum value that contains a JSONB value, potentially in TOASTed form
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_DETOAST_DATUM

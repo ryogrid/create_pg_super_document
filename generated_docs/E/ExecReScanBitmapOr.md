@@ -20,8 +20,7 @@ The function implements an important optimization: it manually handles parameter
 This approach avoids unnecessary rescan operations while ensuring that all relevant subplans are properly notified of parameter changes and will be re-executed when needed.
 
 ## Parameters / Member Variables
-- : Pointer to the BitmapOrState structure containing the child subplans to be rescanned
-
+- `*node`: Pointer to the BitmapOrState structure containing the child subplans to be rescanned
 ## Dependencies
 - Functions called/Symbols referenced:
   - [UpdateChangedParamSet](../U/UpdateChangedParamSet.md) (propagates parameter changes to child subplans)

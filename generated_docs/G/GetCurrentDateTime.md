@@ -18,8 +18,7 @@ This function provides a simplified interface to obtain the current transaction 
 The function fills the provided pg_tm structure with the current transaction time, properly converted to the session's configured timezone. This ensures consistent behavior within a transaction, as all calls to "now()" functions return the same timestamp throughout a transaction's lifetime.
 
 ## Parameters / Member Variables
-- : Pointer to a struct pg_tm that will be filled with the current date and time components
-
+- `*tm`: Pointer to a struct pg_tm that will be filled with the current date and time components
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetCurrentTimeUsec](GetCurrentTimeUsec.md)

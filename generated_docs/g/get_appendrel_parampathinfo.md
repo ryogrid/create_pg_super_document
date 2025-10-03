@@ -18,9 +18,8 @@ This function creates a ParamPathInfo structure for parameterized append relatio
 The function creates a minimal ParamPathInfo with zero ppi_rows and empty ppi_clauses, serving primarily as a flag to indicate that the path requires parameterization. The actual rowcount estimation for append paths is handled elsewhere by summing estimates from the child relations.
 
 ## Parameters / Member Variables
-- : RelOptInfo structure representing the append relation
-- : Relids bitmap specifying the outer relations that must be available for parameter values
-
+- `*appendrel`: RelOptInfo structure representing the append relation
+- `required_outer`: Relids bitmap specifying the outer relations that must be available for parameter values
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bms_is_subset](../b/bms_is_subset.md)

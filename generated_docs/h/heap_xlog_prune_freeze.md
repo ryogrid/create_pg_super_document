@@ -26,8 +26,7 @@ The function handles multiple aspects of page recovery:
 The function is designed to work with or without full-page images and ensures proper recovery semantics for vacuum operations.
 
 ## Parameters / Member Variables
-- : XLogReaderState containing the WAL record to replay
-
+- `*record`: XLogReaderState containing the WAL record to replay
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData

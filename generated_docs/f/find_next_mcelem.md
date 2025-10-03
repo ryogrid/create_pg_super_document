@@ -19,12 +19,11 @@ This function performs a binary search on an array of most common elements (mcel
 The function updates the *index parameter to point to the position of the found element (exact match) or the position where the value would be inserted (first element >= value). It returns true for an exact match and false otherwise.
 
 ## Parameters / Member Variables
-- : Array of Datum values representing the most common elements, assumed to be sorted
-- : Number of elements in the mcelem array
-- : The Datum value to search for
-- : Pointer to starting search position; updated to position of match or insertion point
-- : Type cache entry used for element comparison operations
-
+- `*mcelem`: Array of Datum values representing the most common elements, assumed to be sorted
+- `nmcelem`: Number of elements in the mcelem array
+- `value`: The Datum value to search for
+- `*index`: Pointer to starting search position; updated to position of match or insertion point
+- `*typentry`: Type cache entry used for element comparison operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [element_compare](../e/element_compare.md)

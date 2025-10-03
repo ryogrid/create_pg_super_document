@@ -25,10 +25,9 @@ The function operates by:
 The function is designed to be recursive, allowing it to drill down through multiple layers of subqueries to find the ultimate source of statistical data.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing the current planning context and query information
-- : The variable (column reference) being examined for statistical information
-- : Output structure that will be populated with statistical data and metadata about the variable
-
+- `*root`: PlannerInfo structure containing the current planning context and query information
+- `*var`: The variable (column reference) being examined for statistical information
+- `*vardata`: Output structure that will be populated with statistical data and metadata about the variable
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache3](../S/SearchSysCache3.md) (for pg_statistic lookup)

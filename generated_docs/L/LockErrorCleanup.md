@@ -25,7 +25,6 @@ The function performs several key operations:
 The function uses interrupt handling to ensure atomic cleanup operations and prevent race conditions during the cleanup process.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

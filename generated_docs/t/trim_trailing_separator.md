@@ -18,8 +18,7 @@ This function modifies a path string in-place to remove any trailing directory s
 The function is designed to normalize path strings by removing superfluous trailing slashes while maintaining the essential structure of the path. This is particularly useful in path canonicalization and normalization processes where consistent path formatting is required.
 
 ## Parameters / Member Variables
-- : Input/output string containing the file path to be modified in-place (must be writable)
-
+- `*path`: Input/output string containing the file path to be modified in-place (must be writable)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [skip_drive](../s/skip_drive.md)

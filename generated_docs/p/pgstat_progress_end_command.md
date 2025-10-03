@@ -20,7 +20,6 @@ The function operates on the current backend's entry in the shared status array 
 The progress tracking mechanism allows PostgreSQL to report the status of long-running operations like VACUUM, REINDEX, CLUSTER, COPY, and others to monitoring tools and the  system views.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

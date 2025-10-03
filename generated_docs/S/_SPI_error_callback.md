@@ -18,8 +18,7 @@ This function serves as an error callback handler within the SPI framework. When
 The function uses the SPICallbackArg structure to access the query string and parsing mode, then applies appropriate error context formatting based on whether it's a PL/pgSQL expression, assignment, or regular SQL statement.
 
 ## Parameters / Member Variables
-- : Void pointer to SPICallbackArg structure containing query information and parsing mode
-
+- `*arg`: Void pointer to SPICallbackArg structure containing query information and parsing mode
 ## Dependencies
 - Functions called/Symbols referenced:
   - [geterrposition](../g/geterrposition.md): Gets current error position information

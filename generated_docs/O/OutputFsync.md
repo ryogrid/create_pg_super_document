@@ -23,8 +23,7 @@ This function handles the fsync operation for logical replication output in pg_r
 The function is crucial for ensuring data durability in logical replication scenarios where the client must guarantee that received logical changes have been safely persisted to disk before confirming receipt to the server.
 
 ## Parameters / Member Variables
-- : Current timestamp used to update the last fsync time tracking
-
+- `now`: Current timestamp used to update the last fsync time tracking
 ## Dependencies
 - Functions called/Symbols referenced:
   - fsync (system call to synchronize file data with storage device)

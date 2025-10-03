@@ -18,9 +18,8 @@ This function provides the public interface for deleting nodes from a Red-Black 
 An important design consideration is that this function does not handle the deallocation of any subsidiary data that may be attached to the node being deleted. The caller is explicitly responsible for freeing such data before calling rbt_delete, as the actual physical node that gets freed may be different from the logically deleted node due to the tree successor replacement strategy used in the underlying implementation.
 
 ## Parameters / Member Variables
-- : Pointer to the Red-Black tree from which the node will be deleted
-- : Pointer to the node to be removed from the tree (must have been previously found via rbt_find or rbt_leftmost)
-
+- `*rbt`: Pointer to the Red-Black tree from which the node will be deleted
+- `*node`: Pointer to the node to be removed from the tree (must have been previously found via rbt_find or rbt_leftmost)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [rbt_delete_node](rbt_delete_node.md)

@@ -26,12 +26,11 @@ The  function is a comprehensive data conversion utility in ECPG that transforms
 The function performs comprehensive type-specific processing, with special handling for complex types like numeric, interval, date, timestamp, bytea, and varchar types.
 
 ## Parameters / Member Variables
-- : Source line number for error reporting and debugging
-- : Boolean flag to force checking of indicator variables for null detection
-- : Pointer to the variable structure containing data type, value, size information, and indicator details
-- : Output parameter that receives a pointer to the allocated string representation
-- : Boolean flag indicating whether string values should be quoted for SQL context
-
+- `lineno`: Source line number for error reporting and debugging
+- `force_indicator`: Boolean flag to force checking of indicator variables for null detection
+- `*var`: Pointer to the variable structure containing data type, value, size information, and indicator details
+- `**tobeinserted_p`: Output parameter that receives a pointer to the allocated string representation
+- `quote`: Boolean flag indicating whether string values should be quoted for SQL context
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Check if non-indicator variable contains null value

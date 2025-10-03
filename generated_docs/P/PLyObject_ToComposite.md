@@ -26,11 +26,10 @@ The conversion strategy depends on the Python object type:
 The function ensures proper resource management by releasing tuple descriptors after conversion.
 
 ## Parameters / Member Variables
-- : Conversion argument structure containing type information and cached conversion data
-- : Python object to convert to PostgreSQL composite type
-- : Output parameter set to true if the result should be NULL
-- : Boolean indicating if this conversion is part of an array element conversion
-
+- `*arg`: Conversion argument structure containing type information and cached conversion data
+- `*plrv`: Python object to convert to PostgreSQL composite type
+- `*isnull`: Output parameter set to true if the result should be NULL
+- `inarray`: Boolean indicating if this conversion is part of an array element conversion
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PLyUnicode_ToComposite](PLyUnicode_ToComposite.md)

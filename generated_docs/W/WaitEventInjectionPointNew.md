@@ -20,8 +20,7 @@ Injection points are a testing and debugging mechanism that allows developers to
 Like other wait event creation functions, this ensures name uniqueness - if a wait event with the given name already exists within the injection point namespace, it returns the existing event's information rather than creating a duplicate entry.
 
 ## Parameters / Member Variables
-- : A null-terminated string containing the name of the injection point wait event to create or retrieve. The name should be descriptive and correspond to the specific injection point being monitored.
-
+- `*wait_event_name`: A null-terminated string containing the name of the injection point wait event to create or retrieve. The name should be descriptive and correspond to the specific injection point being monitored.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [WaitEventCustomNew](WaitEventCustomNew.md) (underlying custom wait event creation function)

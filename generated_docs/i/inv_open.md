@@ -18,10 +18,9 @@ The  function provides access to an existing large object in PostgreSQL. It crea
 The function supports different access modes through flags and handles memory allocation in the specified memory context. For write operations, it uses an instantaneous snapshot, while read operations use the currently active snapshot. The caller is responsible for ensuring the memory context and any associated snapshots have appropriate lifetimes.
 
 ## Parameters / Member Variables
-- : The OID of the large object to open
-- : Access mode flags (INV_READ for read access, INV_WRITE for write access, or both)
-- : Memory context in which to allocate the descriptor and subsidiary data
-
+- `lobjId`: The OID of the large object to open
+- `flags`: Access mode flags (INV_READ for read access, INV_WRITE for write access, or both)
+- `mcxt`: Memory context in which to allocate the descriptor and subsidiary data
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetActiveSnapshot](../G/GetActiveSnapshot.md)

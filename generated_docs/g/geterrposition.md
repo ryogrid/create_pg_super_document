@@ -20,6 +20,7 @@ The function is intended only for internal use within error handling contexts, a
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ErrorData](../E/ErrorData.md) (struct type)

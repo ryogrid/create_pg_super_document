@@ -25,9 +25,8 @@ The function performs the following operations:
 The relcache invalidation is crucial because it forces other backends to rebuild their cached relation information, ensuring they see the updated constraint information. This is particularly important for constraint checking and query planning.
 
 ## Parameters / Member Variables
-- : The relation whose check constraint count is being updated
-- : The new number of check constraints for the relation
-
+- `rel`: The relation whose check constraint count is being updated
+- `numchecks`: The new number of check constraints for the relation
 ## Dependencies
 - Functions called/Symbols referenced:
   - Form_pg_class

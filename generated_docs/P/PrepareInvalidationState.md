@@ -24,7 +24,6 @@ Key behaviors:
 The function ensures that invalidation messages are properly scoped and processed according to transaction boundaries, maintaining cache consistency across transaction rollbacks and commits.
 
 ## Parameters / Member Variables
-None (void function)
 
 ## Dependencies
 - Functions called/Symbols referenced:

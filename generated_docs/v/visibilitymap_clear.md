@@ -18,11 +18,10 @@ The visibilitymap_clear function removes visibility map bits for a given heap bl
 The function includes safety assertions to prevent invalid bit combinations, specifically ensuring that the all_visible bit cannot be cleared while leaving the all_frozen bit set, which would create an inconsistent state.
 
 ## Parameters / Member Variables
-- : The relation whose visibility map is being modified
-- : Block number of the heap page whose visibility bits are being cleared
-- : Pre-pinned buffer containing the correct visibility map page
-- : Bitmask specifying which visibility bits to clear (must include valid bits)
-
+- `rel`: The relation whose visibility map is being modified
+- `heapBlk`: Block number of the heap page whose visibility bits are being cleared
+- `vmbuf`: Pre-pinned buffer containing the correct visibility map page
+- `flags`: Bitmask specifying which visibility bits to clear (must include valid bits)
 ## Dependencies
 - Functions called/Symbols referenced:
   - HEAPBLK_TO_MAPBLOCK (macro for converting heap block to map block)

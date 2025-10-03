@@ -21,9 +21,8 @@ This function computes a hash value for memoize cache lookups. It operates on th
 The function combines hash values from multiple key attributes by rotating the accumulated hash left by 1 bit and XORing with each attribute's hash. NULL values are treated as having a hash value of 0. The final result is processed through  for better distribution.
 
 ## Parameters / Member Variables
-- : Pointer to the memoize hash table structure containing private data
-- : MemoizeKey pointer (unused - function uses probeslot instead)
-
+- `*tb`: Pointer to the memoize hash table structure containing private data
+- `*key`: MemoizeKey pointer (unused - function uses probeslot instead)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoizeKey](MemoizeKey.md)

@@ -17,11 +17,10 @@ run_ifaddr_callback(PgIfAddrCallback callback, void *cb_data,
 This static function serves as a wrapper that validates and sanitizes network interface address and mask data before invoking a user-provided callback function. It performs several validation checks: ensures the address is not NULL, verifies that the mask matches the address family, and checks that the mask is not an unspecified address (INADDR_ANY for IPv4 or unspecified for IPv6). If the provided mask is invalid or missing, the function generates a fully-set mask using pg_sockaddr_cidr_mask. This ensures that the callback always receives valid address and mask parameters.
 
 ## Parameters / Member Variables
-- : Function pointer to the callback that will process the address and mask
-- : User-provided data to be passed to the callback function
-- : Network interface address to be processed
-- : Network mask associated with the address (can be NULL or invalid)
-
+- `callback`: Function pointer to the callback that will process the address and mask
+- `*cb_data`: User-provided data to be passed to the callback function
+- `*addr`: Network interface address to be processed
+- `*mask`: Network mask associated with the address (can be NULL or invalid)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [callback](../c/callback.md) (function pointer parameter)

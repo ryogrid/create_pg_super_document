@@ -18,8 +18,7 @@ The  function extracts the type name from a PostgreSQL type structure and return
 The type name returned is the internal PostgreSQL name for the type (e.g., "int4", "text", "varchar"), not necessarily the SQL standard name that users might see.
 
 ## Parameters / Member Variables
-- : A Type structure (HeapTuple) representing a row from the pg_type system catalog
-
+- `t`: A Type structure (HeapTuple) representing a row from the pg_type system catalog
 ## Dependencies
 - Functions called/Symbols referenced:
   - Type (typedef for HeapTuple)

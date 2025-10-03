@@ -25,8 +25,7 @@ The function performs several key operations:
 This design allows the leader to seamlessly continue with the merge phase of external sorting, treating the worker-generated runs as if they were locally generated.
 
 ## Parameters / Member Variables
-- : Pointer to the leader's Tuplesortstate structure that needs to be configured to take over from workers
-
+- `*state`: Pointer to the leader's Tuplesortstate structure that needs to be configured to take over from workers
 ## Dependencies
 - Functions called/Symbols referenced:
   - LEADER (macro to check if this is the leader process)

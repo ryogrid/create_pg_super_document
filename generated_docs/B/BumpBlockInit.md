@@ -16,10 +16,9 @@ BumpBlockInit(BumpContext *context, BumpBlock *block, Size blksize)
 This function performs the essential initialization of a bump memory block after it has been allocated but before it can be used for chunk allocations. It sets up the free pointer to point just after the block header, establishes the end pointer to mark the block boundary, and optionally stores a back-reference to the context for debugging. The function also integrates with Valgrind memory debugging by marking the unallocated portion of the block as NOACCESS to catch invalid memory access errors during development.
 
 ## Parameters / Member Variables
-- : The bump context that owns this block (used for debugging builds)
-- : The allocated memory block to initialize
-- : The total size of the allocated block in bytes
-
+- `*context`: The bump context that owns this block (used for debugging builds)
+- `*block`: The allocated memory block to initialize
+- `blksize`: The total size of the allocated block in bytes
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BumpContext](BumpContext.md) (context structure type)

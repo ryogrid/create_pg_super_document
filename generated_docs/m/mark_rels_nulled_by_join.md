@@ -19,10 +19,9 @@ The  function processes relations that can be nulled by an outer join operation.
 The function handles only base relations (not outer joins themselves) and updates their RelOptInfo structures to track which outer joins can null their tuples. This metadata is essential for correct query optimization, particularly for understanding when expressions involving these relations might evaluate to NULL.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global planning state and optimizer information
-- : Range table index of the outer join RTE that performs the nulling (must not be 0)
-- : Bitmap of base relation and outer join Relids that are syntactically below the nullable side of the join
-
+- `*root`: PlannerInfo structure containing global planning state and optimizer information
+- `ojrelid`: Range table index of the outer join RTE that performs the nulling (must not be 0)
+- `lower_rels`: Bitmap of base relation and outer join Relids that are syntactically below the nullable side of the join
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bms_next_member](../b/bms_next_member.md)

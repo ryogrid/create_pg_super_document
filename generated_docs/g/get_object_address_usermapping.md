@@ -18,9 +18,8 @@ This function resolves a user mapping object address by taking a list containing
 The function performs a two-stage lookup process: first resolving the username to a user ID (or InvalidOid for "public"), then looking up the foreign server by name, and finally searching for the user mapping entry in pg_user_mapping using both the user ID and server ID as keys.
 
 ## Parameters / Member Variables
-- : List containing exactly two string values - the username and server name for the user mapping
-- : Boolean flag indicating whether to return an invalid ObjectAddress (true) or raise an error (false) when the user mapping is not found
-
+- `*object`: List containing exactly two string values - the username and server name for the user mapping
+- `missing_ok`: Boolean flag indicating whether to return an invalid ObjectAddress (true) or raise an error (false) when the user mapping is not found
 ## Dependencies
 - Functions called/Symbols referenced:
   - ObjectAddressSet

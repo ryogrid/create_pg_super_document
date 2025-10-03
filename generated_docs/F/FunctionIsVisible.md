@@ -18,8 +18,7 @@ FunctionIsVisible is a simple wrapper function that provides the standard interf
 The function delegates all actual work to FunctionIsVisibleExt, passing NULL for the is_missing parameter to indicate that standard error handling (throwing exceptions for missing functions) should be used.
 
 ## Parameters / Member Variables
-- : The OID of the function to check for visibility
-
+- `funcid`: The OID of the function to check for visibility
 ## Dependencies
 - Functions called/Symbols referenced:
   - [FunctionIsVisibleExt](FunctionIsVisibleExt.md)

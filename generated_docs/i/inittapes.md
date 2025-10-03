@@ -24,9 +24,8 @@ This static function transitions a tuplesort operation from in-memory sorting to
 4. **Status Transition**: Changes the sort status to TSS_BUILDRUNS and selects the first output tape, signaling that the sort is now ready to begin writing runs to external storage.
 
 ## Parameters / Member Variables
-- : The Tuplesortstate containing all sort context and configuration
-- : Boolean indicating whether this sort will need to merge multiple runs (affects tape count calculation)
-
+- `*state`: The Tuplesortstate containing all sort context and configuration
+- `mergeruns`: Boolean indicating whether this sort will need to merge multiple runs (affects tape count calculation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - LEADER/WORKER (macros for checking parallel sort process roles)

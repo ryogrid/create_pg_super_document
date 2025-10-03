@@ -29,6 +29,7 @@ The compiler uses this information to:
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - `__attribute__((noreturn))` (GCC builtin)

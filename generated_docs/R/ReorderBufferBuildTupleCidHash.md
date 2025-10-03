@@ -37,9 +37,8 @@ The function operates as follows:
 The resulting hash table provides O(1) lookup time for tuple command ID information, which is crucial for performance when HeapTupleSatisfiesHistoricMVCC needs to determine tuple visibility.
 
 ## Parameters / Member Variables
-- : Pointer to the main ReorderBuffer structure containing the memory context for hash table allocation
-- : Pointer to the ReorderBufferTXN structure containing the tuplecids to be indexed and where the resulting hash table will be stored
-
+- `*rb`: Pointer to the main ReorderBuffer structure containing the memory context for hash table allocation
+- `*txn`: Pointer to the ReorderBufferTXN structure containing the tuplecids to be indexed and where the resulting hash table will be stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - rbtxn_has_catalog_changes

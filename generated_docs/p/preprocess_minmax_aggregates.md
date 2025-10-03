@@ -24,8 +24,7 @@ This function analyzes queries containing MIN/MAX aggregate functions to determi
 The optimization works by using index scans to directly fetch the minimum or maximum values without scanning all table rows, providing significant performance improvements for eligible queries.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing query planning context and state information
-
+- `*root`: PlannerInfo structure containing query planning context and state information
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Validates that all aggregates are MIN/MAX functions

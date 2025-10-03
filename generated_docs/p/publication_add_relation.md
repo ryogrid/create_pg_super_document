@@ -25,10 +25,9 @@ The function performs several key operations:
 6. Invalidates relation caches to ensure publication information is properly updated
 
 ## Parameters / Member Variables
-- : Object ID of the publication to which the relation should be added
-- : PublicationRelInfo structure containing the relation, optional column list, and optional WHERE clause
-- : Boolean flag indicating whether to silently skip if the relation is already a member of the publication
-
+- `pubid`: Object ID of the publication to which the relation should be added
+- `*pri`: PublicationRelInfo structure containing the relation, optional column list, and optional WHERE clause
+- `if_not_exists`: Boolean flag indicating whether to silently skip if the relation is already a member of the publication
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetPublication](../G/GetPublication.md)

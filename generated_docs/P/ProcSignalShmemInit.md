@@ -16,7 +16,6 @@ ProcSignalShmemInit(void)
 ProcSignalShmemInit is responsible for setting up the shared memory infrastructure for inter-process signaling in PostgreSQL. It allocates shared memory using ShmemInitStruct and initializes all the data structures if this is the first process to access the memory segment. The function initializes the global barrier generation counter and sets up each process signal slot with default values, including process ID (set to 0), signal flags (cleared), barrier generation (set to maximum), barrier check mask (cleared), and condition variables for barrier synchronization.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

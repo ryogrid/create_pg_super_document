@@ -16,9 +16,8 @@ json_count_array_elements(JsonLexContext *lex, int *elements)
 json_count_array_elements provides a specialized function for determining the number of elements in a JSON array. It operates by creating a shallow copy of the provided lexing context and parsing through the array structure, counting each element encountered. The function is designed to be called from array_start semantic action routines and safely uses a copy of the lexing context to avoid modifying the original parser state. It handles proper array syntax validation, including checking for opening/closing brackets and comma separators between elements.
 
 ## Parameters / Member Variables
-- : JsonLexContext pointer containing the current parsing state positioned at the start of an array token
-- : Pointer to integer that will receive the count of array elements found
-
+- `*lex`: JsonLexContext pointer containing the current parsing state positioned at the start of an array token
+- `*elements`: Pointer to integer that will receive the count of array elements found
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lex_expect](../l/lex_expect.md) (for array start/end token validation)

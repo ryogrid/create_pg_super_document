@@ -20,8 +20,7 @@ The function determines which type of visibility horizon applies to the relation
 The function must be called while a snapshot is active or registered to avoid wraparound and other safety issues.
 
 ## Parameters / Member Variables
-- : The relation for which to get the visibility state. If NULL, returns state usable for all relations.
-
+- `rel`: The relation for which to get the visibility state. If NULL, returns state usable for all relations.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GlobalVisHorizonKindForRel](GlobalVisHorizonKindForRel.md)

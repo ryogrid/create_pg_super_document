@@ -20,8 +20,7 @@ This function is the SQL-callable interface for the array overlap operation, han
 The function properly manages memory by freeing any detoasted copies of the input arrays to prevent memory leaks when dealing with large or compressed arrays.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function argument macro containing:
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument macro containing:
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Extract array arguments from function call

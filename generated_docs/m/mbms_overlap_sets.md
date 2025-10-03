@@ -18,9 +18,8 @@ This function compares two multibitmapsets (represented as Lists of Bitmapset st
 The function iterates through both lists simultaneously using the forboth macro, comparing each pair of corresponding Bitmapsets using bms_overlap. When an overlap is detected, it adds the current list index to the result Bitmapset using bms_add_member and foreach_current_index.
 
 ## Parameters / Member Variables
-- : The first List representing a multibitmapset to compare (read-only)
-- : The second List representing a multibitmapset to compare (read-only)
-
+- `*a`: The first List representing a multibitmapset to compare (read-only)
+- `*b`: The second List representing a multibitmapset to compare (read-only)
 ## Dependencies
 - Functions called/Symbols referenced:
   - forboth

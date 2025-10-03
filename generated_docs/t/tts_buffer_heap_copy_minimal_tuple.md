@@ -24,8 +24,7 @@ The function operates in two phases:
 The returned MinimalTuple is independent of the original slot and provides a memory-efficient representation suitable for contexts where the full HeapTuple metadata is not required.
 
 ## Parameters / Member Variables
-- : The TupleTableSlot from which to create a MinimalTuple (must be a BufferHeapTupleTableSlot)
-
+- `*slot`: The TupleTableSlot from which to create a MinimalTuple (must be a BufferHeapTupleTableSlot)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BufferHeapTupleTableSlot](../B/BufferHeapTupleTableSlot.md) (cast to access slot-specific fields)

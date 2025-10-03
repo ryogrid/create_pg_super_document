@@ -18,10 +18,9 @@ BlockRefTableReaderGetBlocks(BlockRefTableReader *reader,
 BlockRefTableReaderGetBlocks retrieves block numbers of modified blocks from the relation fork currently selected by the most recent call to BlockRefTableReaderNextRelation. The function handles two different data formats: bitmap format (when chunk size equals MAX_ENTRIES_PER_CHUNK) where each bit represents a block, and offset list format where each entry is a 2-byte block offset. It processes chunks sequentially, reading chunk data on demand and maintaining position within the current chunk. The function continues until either the requested number of blocks is found or all chunks for the current relation are exhausted.
 
 ## Parameters / Member Variables
-- : Pointer to the BlockRefTableReader containing the current read state and chunk information
-- : Output array where block numbers will be written
-- : Maximum number of block numbers that can be stored in the blocks array
-
+- `*reader`: Pointer to the BlockRefTableReader containing the current read state and chunk information
+- `*blocks`: Output array where block numbers will be written
+- `nblocks`: Maximum number of block numbers that can be stored in the blocks array
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BlockRefTableRead](BlockRefTableRead.md)

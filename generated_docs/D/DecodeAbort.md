@@ -20,12 +20,11 @@ DecodeAbort handles the abortion of transactions in logical replication by proce
 For two-phase transactions, it calls ReorderBufferFinishPrepared with a false commit flag to indicate rollback. For regular transactions, it directly calls ReorderBufferAbort for both the main transaction and all its subtransactions. The function also handles origin tracking for logical replication scenarios involving multiple nodes.
 
 ## Parameters / Member Variables
-- : LogicalDecodingContext containing the decoding state and configuration
-- : XLogRecordBuffer containing the WAL record being processed
-- : xl_xact_parsed_abort structure containing parsed abort record data including transaction timing and subtransaction information
-- : TransactionId of the transaction being aborted
-- : Boolean indicating whether this is aborting a prepared transaction (rollback prepared) or a regular transaction abort
-
+- `*ctx`: LogicalDecodingContext containing the decoding state and configuration
+- `*buf`: XLogRecordBuffer containing the WAL record being processed
+- `*parsed`: xl_xact_parsed_abort structure containing parsed abort record data including transaction timing and subtransaction information
+- `xid`: TransactionId of the transaction being aborted
+- `two_phase`: Boolean indicating whether this is aborting a prepared transaction (rollback prepared) or a regular transaction abort
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetOrigin

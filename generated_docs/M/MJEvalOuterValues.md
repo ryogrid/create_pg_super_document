@@ -25,8 +25,7 @@ This function evaluates the merge join expressions for the current outer tuple a
 The function assumes that mergejoin operators are strict (return NULL when any input is NULL), which enables these optimizations.
 
 ## Parameters / Member Variables
-- : The MergeJoinState containing the current join state, tuple slots, merge clauses, and execution context
-
+- `*mergestate`: The MergeJoinState containing the current join state, tuple slots, merge clauses, and execution context
 ## Dependencies
 - Functions called/Symbols referenced:
   - TupIsNull

@@ -18,9 +18,8 @@ BufFileCreateFileSet creates a new BufFile that is backed by a SharedFileSet inf
 The function initializes the BufFile with a single segment (segment 0) and sets it up for read-write operations. The naming scheme is flexible and left to the calling code, with the name appearing as part of filenames on disk. Since each SharedFileSet is backed by uniquely named temporary directories, name conflicts between different SharedFileSet objects are avoided.
 
 ## Parameters / Member Variables
-- : Pointer to the FileSet that will back this BufFile
-- : String identifier for the BufFile that other backends can use to discover it
-
+- `*fileset`: Pointer to the FileSet that will back this BufFile
+- `*name`: String identifier for the BufFile that other backends can use to discover it
 ## Dependencies
 - Functions called/Symbols referenced:
   - [makeBufFileCommon](../m/makeBufFileCommon.md): Creates basic BufFile structure with specified number of files

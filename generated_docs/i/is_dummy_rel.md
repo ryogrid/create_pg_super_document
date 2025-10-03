@@ -22,8 +22,7 @@ To handle these layered paths, the function uses a loop to descend through any P
 This mechanism allows the optimizer to efficiently handle cases where entire relations or join results can be eliminated due to contradictory constraints, significantly improving query performance.
 
 ## Parameters / Member Variables
-- : Pointer to the RelOptInfo being tested for emptiness
-
+- `*rel`: Pointer to the RelOptInfo being tested for emptiness
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - [Path](../P/Path.md) node type for projection operations

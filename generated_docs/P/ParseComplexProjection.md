@@ -25,11 +25,10 @@ The function employs two different strategies depending on the nature of the fir
 If the funcname matches a valid, non-dropped column in the tuple descriptor, the function generates a  expression node that represents the column projection.
 
 ## Parameters / Member Variables
-- : Parse state context for the current parsing operation
-- : The name being looked up as a potential column/field name
-- : The complex-type expression that might contain the named field
-- : Source location information for error reporting
-
+- `*pstate`: Parse state context for the current parsing operation
+- `*funcname`: The name being looked up as a potential column/field name
+- `*first_arg`: The complex-type expression that might contain the named field
+- `location`: Source location information for error reporting
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetNSItemByRangeTablePosn](../G/GetNSItemByRangeTablePosn.md)

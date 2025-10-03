@@ -16,8 +16,7 @@ EvalPlanQualNext(EPQState *epqstate)
 This function advances EPQ testing by executing one iteration of the recheck plan state and returning the resulting tuple slot. It operates within the appropriate memory context (the recheck estate's query context) to ensure proper memory management during plan execution. The function is designed to be called repeatedly to iterate through potential matching rows during EPQ processing, though in practice there should rarely be more than one row to process. It serves as the core execution driver for EPQ operations after the EPQ state has been properly initialized and begun.
 
 ## Parameters / Member Variables
-- : Pointer to the EPQState containing the recheck plan state and estate information
-
+- `*epqstate`: Pointer to the EPQState containing the recheck plan state and estate information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecProcNode](ExecProcNode.md)

@@ -17,9 +17,8 @@ This function is part of PostgreSQL's sort support framework for GiST spatial in
 The decision to never abort is based on the effectiveness of Z-order abbreviation: on 64-bit systems, the abbreviation is lossless (preserves full precision), making it always beneficial. While 32-bit systems use a lossy abbreviation (only most significant bits), the implementation chooses simplicity over conditional logic and maintains the abbreviation regardless of platform.
 
 ## Parameters / Member Variables
-- : The number of tuples being sorted (unused in this implementation)
-- : SortSupport structure containing sorting context and configuration (unused in this implementation)
-
+- `memtupcount`: The number of tuples being sorted (unused in this implementation)
+- `ssup`: SortSupport structure containing sorting context and configuration (unused in this implementation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SortSupport](../S/SortSupport.md) (parameter type reference)

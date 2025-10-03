@@ -18,10 +18,9 @@ tuplesort_begin_index_brin(int workMem,
 This function creates and configures a tuplesort state specifically optimized for BRIN index operations. BRIN indexes work with block ranges, so this variant is designed to sort index tuples primarily by block number. The function sets up specialized comparison, read/write, and abbreviation removal functions that are tailored for BRIN index tuple handling. It configures the sort to use only one sort column (the block number) and enables datum-based sorting optimizations.
 
 ## Parameters / Member Variables
-- : Amount of work memory (in kilobytes) available for the sort operation
-- : Shared state for coordinating parallel sorts (can be NULL for non-parallel sorts)
-- : Bitwise flags controlling sort behavior (e.g., TUPLESORT_RANDOMACCESS for random access capability)
-
+- `workMem`: Amount of work memory (in kilobytes) available for the sort operation
+- `coordinate`: Shared state for coordinating parallel sorts (can be NULL for non-parallel sorts)
+- `sortopt`: Bitwise flags controlling sort behavior (e.g., TUPLESORT_RANDOMACCESS for random access capability)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [tuplesort_begin_common](tuplesort_begin_common.md)

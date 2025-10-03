@@ -18,8 +18,7 @@ This function wraps a completed plan with a Material node when materialization i
 The function includes what the code calls a "horrid kluge" - moving initPlans up to the Material node because the Material node becomes the effective top-level node for its query level. It also carefully manages cost accounting by removing initPlan costs from the subplan and adding them back to the Material node after computing the base materialization costs.
 
 ## Parameters / Member Variables
-- : The completed Plan node that needs to be materialized
-
+- `*subplan`: The completed Plan node that needs to be materialized
 ## Dependencies
 - Functions called/Symbols referenced:
   - Cost (type for cost calculations)

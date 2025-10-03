@@ -16,8 +16,7 @@ l_sbool_const(bool i)
 This utility function creates LLVM constant boolean values specifically designed for storage contexts. Unlike boolean values used for conditional operations, storage booleans need to match the memory representation expected by PostgreSQL's data structures. The function uses , which represents the LLVM type corresponding to PostgreSQL's storage representation of boolean values. It converts the C boolean parameter to an integer representation suitable for LLVM IR generation. This function is extensively used throughout expression compilation where boolean values need to be stored or compared against stored boolean values.
 
 ## Parameters / Member Variables
-- : The boolean value to be converted into an LLVM constant suitable for storage
-
+- `i`: The boolean value to be converted into an LLVM constant suitable for storage
 ## Dependencies
 - Functions called/Symbols referenced:
   - LLVMConstInt (LLVM C API function)

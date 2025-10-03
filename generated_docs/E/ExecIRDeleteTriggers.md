@@ -21,10 +21,9 @@ The function iterates through all triggers defined on the relation, filtering fo
 INSTEAD OF triggers are commonly used to make views updatable by defining custom logic for how DELETE operations should be handled on the underlying base tables.
 
 ## Parameters / Member Variables
-- : Executor state containing execution context and memory management information
-- : ResultRelInfo containing relation metadata and trigger information for the view
-- : HeapTuple representing the row being deleted from the view
-
+- `*estate`: Executor state containing execution context and memory management information
+- `*relinfo`: ResultRelInfo containing relation metadata and trigger information for the view
+- `trigtuple`: HeapTuple representing the row being deleted from the view
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecGetTriggerOldSlot](ExecGetTriggerOldSlot.md)

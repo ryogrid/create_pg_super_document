@@ -18,9 +18,8 @@ This function serves as a simplified interface to  for IPv6 network address conv
 The function delegates all the actual parsing work to , providing a simpler interface for cases where the destination buffer size is known to be adequate for IPv6 addresses.
 
 ## Parameters / Member Variables
-- : Input string containing the IPv6 network address in presentation format (human-readable form)
-- : Output buffer where the converted network address will be stored in binary network format
-
+- `*src`: Input string containing the IPv6 network address in presentation format (human-readable form)
+- `*dst`: Output buffer where the converted network address will be stored in binary network format
 ## Dependencies
 - Functions called/Symbols referenced:
   - [inet_cidr_pton_ipv6](inet_cidr_pton_ipv6.md)

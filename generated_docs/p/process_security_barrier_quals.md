@@ -19,10 +19,9 @@ The  function handles the processing of security-barrier conditions that were pr
 The function processes security quals in levels, where each sublist of clauses gets assigned incrementally higher security levels. This ensures that security-barrier views are properly enforced with the correct precedence. In inheritance scenarios, it only processes quals attached to the parent relation, as these will be valid for all child relations and can be used for equivalence class creation.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global planning state and context
-- : Range table index identifying the specific relation being processed
-- : JoinTreeItem representing the relation's position in the join tree structure
-
+- `*root`: PlannerInfo structure containing global planning state and context
+- `rti`: Range table index identifying the specific relation being processed
+- `*jtitem`: JoinTreeItem representing the relation's position in the join tree structure
 ## Dependencies
 - Functions called/Symbols referenced:
   - [distribute_quals_to_rels](../d/distribute_quals_to_rels.md)

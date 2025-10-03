@@ -23,8 +23,7 @@ Key cleanup operations include:
 The function is designed to be safe to call multiple times and handles cases where resources may already be cleaned up. Most memory contexts are automatically cleaned up by the logical decoding machinery, so only specific plugin resources need manual cleanup.
 
 ## Parameters / Member Variables
-- : LogicalDecodingContext containing the logical decoding session state (used for context but not directly accessed in cleanup)
-
+- `*ctx`: LogicalDecodingContext containing the logical decoding session state (used for context but not directly accessed in cleanup)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hash_destroy](../h/hash_destroy.md) (for cleaning up RelationSyncCache)

@@ -26,12 +26,11 @@ Key behaviors:
 - Handles RECORD type resolution at runtime
 
 ## Parameters / Member Variables
-- : Function call information containing arguments and execution context
-- : Name of the calling function (for error reporting)
-- : Boolean indicating whether input is JSON text (true) or JSONB (false)
-- : Boolean indicating whether function has a record argument (populate functions vs to_record functions)
-- : Error context for soft error handling
-
+- `fcinfo`: Function call information containing arguments and execution context
+- `*funcname`: Name of the calling function (for error reporting)
+- `is_json`: Boolean indicating whether input is JSON text (true) or JSONB (false)
+- `have_record_arg`: Boolean indicating whether function has a record argument (populate functions vs to_record functions)
+- `*escontext`: Error context for soft error handling
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md)

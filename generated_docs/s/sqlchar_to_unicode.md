@@ -18,8 +18,7 @@ This function performs character encoding conversion by taking a character in th
 The function is designed to handle multi-byte characters correctly by determining the character length in the source encoding using pg_mblen() and the UTF-8 length using pg_encoding_mblen(). Memory management is handled carefully - if a conversion to UTF-8 was necessary (i.e., the server encoding is not UTF-8), the allocated UTF-8 string is freed after use.
 
 ## Parameters / Member Variables
-- : A pointer to the character string in the server's current encoding. Note that this is not assumed to be null-terminated, so the function relies on encoding-specific length functions to determine character boundaries.
-
+- `*s`: A pointer to the character string in the server's current encoding. Note that this is not assumed to be null-terminated, so the function relies on encoding-specific length functions to determine character boundaries.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_server_to_any](../p/pg_server_to_any.md) (converts from server encoding to UTF-8)

@@ -23,8 +23,7 @@ The function follows a three-step process:
 The resulting union key maintains GiST's requirement that all child values must be contained within (or equal to) the parent key's representation. For inet types, this means the union key's network range encompasses all input network ranges.
 
 ## Parameters / Member Variables
-- : GistEntryVector containing all the keys to be combined into a union
-
+- `PG_FUNCTION_ARGS`: GistEntryVector containing all the keys to be combined into a union
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_POINTER, PG_RETURN_POINTER

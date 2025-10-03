@@ -18,8 +18,7 @@ InvalidatePublicationRels is a utility function that invalidates the relation ca
 The function is commonly used in publication-related operations where changes to publication definitions require updating the cached information about which tables are included in publications and their associated metadata.
 
 ## Parameters / Member Variables
-- : List of relation OIDs that need their cache entries invalidated
-
+- `*relids`: List of relation OIDs that need their cache entries invalidated
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_length](../l/list_length.md): Gets the number of elements in the relation OID list

@@ -16,9 +16,8 @@ assign_query_collations(ParseState *pstate, Query *query)
 This function serves as the main entry point for assigning collation information to all expressions within a parsed Query structure. It utilizes query_tree_walker() to traverse the query tree and apply collation assignment to contained expressions. The function specifically avoids recursing into sub-Queries since those should have been processed when they were built. It also skips the range table and CTE subqueries, as RTEs and subqueries must have been processed already to ensure that Vars referring to them are created with the correct collation.
 
 ## Parameters / Member Variables
-- : ParseState context containing parsing state information
-- : The Query structure whose expressions need collation assignment
-
+- `*pstate`: ParseState context containing parsing state information
+- `*query`: The Query structure whose expressions need collation assignment
 ## Dependencies
 - Functions called/Symbols referenced:
   - query_tree_walker

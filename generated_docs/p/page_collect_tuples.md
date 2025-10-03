@@ -19,15 +19,14 @@ page_collect_tuples(HeapScanDesc scan, Snapshot snapshot,
 This function iterates through all item identifiers on a heap page and evaluates each tuple's visibility according to the provided snapshot. It's designed as an always-inline function to maximize performance during sequential scans. The function handles both optimized paths (when all tuples are known to be visible) and general paths (requiring full visibility checks). For each visible tuple, it records the offset number in the scan descriptor's rs_vistuples array, enabling efficient tuple retrieval in subsequent operations.
 
 ## Parameters / Member Variables
-- : HeapScanDesc containing the scan state and result storage
-- : Snapshot defining transaction visibility rules
-- : The heap page being scanned
-- : Buffer containing the page (needed for visibility checks)
-- : Block number of the page being scanned
-- : Number of line pointers (item identifiers) on the page
-- : Optimization flag indicating all tuples are known to be visible
-- : Whether to perform serializable conflict detection
-
+- `scan`: HeapScanDesc containing the scan state and result storage
+- `snapshot`: Snapshot defining transaction visibility rules
+- `page`: The heap page being scanned
+- `buffer`: Buffer containing the page (needed for visibility checks)
+- `block`: Block number of the page being scanned
+- `lines`: Number of line pointers (item identifiers) on the page
+- `all_visible`: Optimization flag indicating all tuples are known to be visible
+- `check_serializable`: Whether to perform serializable conflict detection
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PageGetItemId](../P/PageGetItemId.md)

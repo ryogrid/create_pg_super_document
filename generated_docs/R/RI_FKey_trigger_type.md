@@ -24,8 +24,7 @@ This function analyzes a given trigger function OID to classify it as one of thr
 The function uses a switch statement to categorize trigger function OIDs based on predefined constants representing different RI trigger types. This classification is essential for PostgreSQL's foreign key constraint enforcement system, allowing the system to properly handle cascade operations, constraint validation, and other referential integrity actions.
 
 ## Parameters / Member Variables
-- : The OID (Object Identifier) of the trigger function to be classified
-
+- `tgfoid`: The OID (Object Identifier) of the trigger function to be classified
 ## Dependencies
 - Functions called/Symbols referenced:
   - F_RI_FKEY_CASCADE_DEL (constant for cascade delete trigger)

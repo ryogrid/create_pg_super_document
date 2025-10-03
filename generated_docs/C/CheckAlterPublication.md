@@ -17,11 +17,10 @@ CheckAlterPublication(AlterPublicationStmt *stmt, HeapTuple tup,
 This internal validation function performs comprehensive checks before allowing publication alterations. It enforces PostgreSQL's publication security model by requiring superuser privileges for schema operations and prevents logical conflicts by blocking table/schema additions to FOR ALL TABLES publications. The function acts as a gatekeeper to ensure publication modifications maintain system integrity and follow access control policies.
 
 ## Parameters / Member Variables
-- : AlterPublicationStmt pointer containing the publication alteration statement with action type (AP_AddObjects, AP_SetObjects, etc.)
-- : HeapTuple representing the existing publication record from pg_publication catalog
-- : List of table OIDs to be added/modified in the publication (can be NULL)
-- : List of schema OIDs to be added/modified in the publication (can be NULL)
-
+- `*stmt`: AlterPublicationStmt pointer containing the publication alteration statement with action type (AP_AddObjects, AP_SetObjects, etc.)
+- `tup`: HeapTuple representing the existing publication record from pg_publication catalog
+- `*tables`: List of table OIDs to be added/modified in the publication (can be NULL)
+- `*schemaidlist`: List of schema OIDs to be added/modified in the publication (can be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [superuser](../s/superuser.md) (privilege checking)

@@ -16,10 +16,9 @@ JsonbToCString(StringInfo out, JsonbContainer *in, int estimated_len)
 This function provides a simple interface for converting JSONB data to its string representation. It serves as a wrapper around JsonbToCStringWorker with indentation disabled (false). The function can either allocate a new string or append to an existing StringInfo buffer, making it flexible for different use cases. It is commonly used for JSONB output functions and when converting JSONB values to text format. The function ensures efficient memory usage by accepting an estimated length parameter for buffer pre-allocation.
 
 ## Parameters / Member Variables
-- : Optional StringInfo buffer where the result will be stored; if NULL, a new string is allocated
-- : Pointer to the JsonbContainer structure containing the JSONB data to be converted
-- : Estimated length of the resulting string for buffer pre-allocation optimization
-
+- `out`: Optional StringInfo buffer where the result will be stored; if NULL, a new string is allocated
+- `*in`: Pointer to the JsonbContainer structure containing the JSONB data to be converted
+- `estimated_len`: Estimated length of the resulting string for buffer pre-allocation optimization
 ## Dependencies
 - Functions called/Symbols referenced:
   - [JsonbToCStringWorker](JsonbToCStringWorker.md) (the core conversion function with indentation control)

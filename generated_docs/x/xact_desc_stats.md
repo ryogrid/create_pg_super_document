@@ -17,11 +17,10 @@ xact_desc_stats(StringInfo buf, const char *label,
 This function appends formatted information about dropped statistics to a StringInfo buffer. It iterates through an array of dropped statistics items and formats each one with its kind, database OID, and object OID. The function is used internally by transaction description functions to provide detailed information about statistics that were dropped during transaction operations like commit, abort, or prepare.
 
 ## Parameters / Member Variables
-- : StringInfo buffer to append the formatted description to
-- : String label prefix for the dropped stats description (e.g., "" for normal, "sub" for subtransaction)
-- : Number of dropped statistics items in the array
-- : Array of xl_xact_stats_item structures containing the dropped statistics information
-
+- `buf`: StringInfo buffer to append the formatted description to
+- `*label`: String label prefix for the dropped stats description (e.g., "" for normal, "sub" for subtransaction)
+- `ndropped`: Number of dropped statistics items in the array
+- `*dropped_stats`: Array of xl_xact_stats_item structures containing the dropped statistics information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [xl_xact_stats_item](xl_xact_stats_item.md) (struct type)

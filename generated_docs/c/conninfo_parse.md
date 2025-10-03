@@ -29,10 +29,9 @@ The function supports two value formats:
 - **Quoted values**: Enclosed in single quotes, support backslash escaping, must be properly terminated
 
 ## Parameters / Member Variables
-- : The connection string to parse, containing space-separated key=value pairs
-- : Buffer for storing detailed error messages if parsing fails
-- : Boolean flag indicating whether to add default values for unspecified connection parameters
-
+- `*conninfo`: The connection string to parse, containing space-separated key=value pairs
+- `errorMessage`: Buffer for storing detailed error messages if parsing fails
+- `use_defaults`: Boolean flag indicating whether to add default values for unspecified connection parameters
 ## Dependencies
 - Functions called/Symbols referenced:
   - [conninfo_init](conninfo_init.md)

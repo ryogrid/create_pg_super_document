@@ -24,8 +24,7 @@ TransactionIdDidCommit is a core function in PostgreSQL's transaction visibility
 The function is critical for MVCC (Multi-Version Concurrency Control) implementation, determining tuple visibility and transaction consistency throughout the database system.
 
 ## Parameters / Member Variables
-- : The transaction ID to check for commit status
-
+- `transactionId`: The transaction ID to check for commit status
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TransactionLogFetch](TransactionLogFetch.md)

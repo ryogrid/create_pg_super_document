@@ -24,9 +24,8 @@ This function is specifically designed for grouped or partially grouped relation
 The function ensures optimal parallel result collection by balancing sorting costs against merge benefits, particularly for group-by operations where maintaining order can significantly improve performance.
 
 ## Parameters / Member Variables
-- : PlannerInfo containing query planning context, group pathkeys, and other metadata
-- : RelOptInfo representing the grouped or partially grouped relation for which to generate gather paths
-
+- `*root`: PlannerInfo containing query planning context, group pathkeys, and other metadata
+- `*rel`: RelOptInfo representing the grouped or partially grouped relation for which to generate gather paths
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_copy_head](../l/list_copy_head.md)

@@ -16,8 +16,7 @@ findObjectByCatalogId(CatalogId catalogId)
 This function performs a lookup operation to find a DumpableObject associated with a given CatalogId. It uses the global catalogIdHash hash table to efficiently locate objects based on their PostgreSQL catalog identifiers (typically consisting of table OID and row OID). The function includes safety checks for uninitialized state and returns NULL for unknown catalog IDs. This is a fundamental function in pg_dump's object resolution system, enabling the tool to locate database objects based on their PostgreSQL internal identifiers during the dump process.
 
 ## Parameters / Member Variables
-- : The CatalogId to look up, representing a PostgreSQL catalog object identifier
-
+- `catalogId`: The CatalogId to look up, representing a PostgreSQL catalog object identifier
 ## Dependencies
 - Functions called/Symbols referenced:
   - catalogid_lookup (hash table lookup function)

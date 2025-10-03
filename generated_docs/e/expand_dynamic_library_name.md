@@ -24,8 +24,7 @@ This function attempts to locate a dynamic library by expanding the given librar
 The function ensures that the result is always freshly allocated memory using .
 
 ## Parameters / Member Variables
-- : The library name to expand, which may be a simple name or include path components
-
+- `*name`: The library name to expand, which may be a simple name or include path components
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - checks for directory separators in the name

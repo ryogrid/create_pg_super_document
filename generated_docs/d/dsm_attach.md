@@ -23,8 +23,7 @@ The  function provides the mechanism for attaching to an existing DSM segment th
 The function handles both main region segments (allocated from PostgreSQL's main shared memory) and system-level segments (created via OS-specific mechanisms). It includes robust error handling for cases where the segment may have been destroyed between the time the handle was obtained and the attachment attempt.
 
 ## Parameters / Member Variables
-- : The DSM handle identifying the segment to attach to, typically obtained from another process or a persistent store
-
+- `h`: The DSM handle identifying the segment to attach to, typically obtained from another process or a persistent store
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dsm_backend_startup](dsm_backend_startup.md) (initialization if needed)

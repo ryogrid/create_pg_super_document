@@ -20,7 +20,6 @@ In this specific implementation from the ldap_password_func test module, the fun
 The _PG_fini function is the counterpart to _PG_init and together they provide the module lifecycle management hooks for PostgreSQL extensions.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

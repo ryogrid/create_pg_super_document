@@ -16,9 +16,8 @@ calc_bucket(HASHHDR *hctl, uint32 hash_val)
 This internal function maps a hash value to the appropriate bucket number within the dynamic hash table structure. It uses a two-level masking approach to handle the table's dynamic expansion: first applying the high_mask, then conditionally applying the low_mask if the result exceeds the current maximum bucket. This allows the hash table to grow incrementally while maintaining proper distribution of entries.
 
 ## Parameters / Member Variables
-- : Pointer to the HASHHDR structure containing the hash table control information
-- : The hash value to be mapped to a bucket number
-
+- `*hctl`: Pointer to the HASHHDR structure containing the hash table control information
+- `hash_val`: The hash value to be mapped to a bucket number
 ## Dependencies
 - Functions called/Symbols referenced:
   - [HASHHDR](../H/HASHHDR.md) (hash table header structure)

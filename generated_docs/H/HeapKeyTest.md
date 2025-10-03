@@ -27,11 +27,10 @@ The function performs the following key operations:
 This function is a critical component of PostgreSQL's tuple scanning mechanism, providing efficient filtering during table scans and index operations.
 
 ## Parameters / Member Variables
-- : HeapTuple pointer to the heap tuple being tested
-- : TupleDesc pointer describing the tuple's structure and attributes  
-- : Integer specifying the number of scan keys to evaluate
-- : ScanKey array containing the scan key conditions to test against
-
+- `tuple`: HeapTuple pointer to the heap tuple being tested
+- `tupdesc`: TupleDesc pointer describing the tuple's structure and attributes
+- `nkeys`: Integer specifying the number of scan keys to evaluate
+- `keys`: ScanKey array containing the scan key conditions to test against
 ## Dependencies
 - Functions called/Symbols referenced:
   - [heap_getattr](../h/heap_getattr.md): Extracts attribute values from heap tuples

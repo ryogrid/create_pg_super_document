@@ -33,9 +33,8 @@ The parsing process involves:
 The function is defensive in its parsing, validating each step and handling malformed responses gracefully by returning false for any parsing failures.
 
 ## Parameters / Member Variables
-- : Input string containing the complete response received from the Ident server
-- : Output buffer where the extracted username will be stored (must be pre-allocated)
-
+- `*ident_response`: Input string containing the complete response received from the Ident server
+- `*ident_user`: Output buffer where the extracted username will be stored (must be pre-allocated)
 ## Dependencies
 - Functions called/Symbols referenced:
   - strlen (C standard library)

@@ -20,8 +20,7 @@ The function is used primarily in tri-consistent functions where a ternary value
 The conversion is a simple cast operation since both types have the same underlying representation -  is typedef'd as  and  can hold a char value.
 
 ## Parameters / Member Variables
-- : The GinTernaryValue to convert to Datum. This can be one of the predefined constants:
-
+- `X`: The GinTernaryValue to convert to Datum. This can be one of the predefined constants:
 ## Dependencies
 - Functions called/Symbols referenced:
   - GinTernaryValue (parameter type)

@@ -18,8 +18,7 @@ The  function is a specialized copy function for A_Const nodes, which represent 
 The function only copies the value if it's not null, and uses different copying strategies depending on the value type: scalar copying for integers and booleans, string copying for floats, strings, and bit strings. This ensures that string values are properly duplicated in memory rather than just copying pointers.
 
 ## Parameters / Member Variables
-- : Pointer to the source A_Const node to be copied
-
+- `*from`: Pointer to the source A_Const node to be copied
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to create new A_Const node)

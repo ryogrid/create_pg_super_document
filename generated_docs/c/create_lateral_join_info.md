@@ -27,8 +27,7 @@ The function operates in several phases:
 This comprehensive analysis is essential for join ordering, as relations with lateral dependencies must be processed in the correct sequence during plan generation.
 
 ## Parameters / Member Variables
-- : The PlannerInfo structure containing the query tree and planning state
-
+- `*root`: The PlannerInfo structure containing the query tree and planning state
 ## Dependencies
 - Functions called/Symbols referenced:
   - [find_placeholder_info](../f/find_placeholder_info.md)

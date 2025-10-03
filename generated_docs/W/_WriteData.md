@@ -20,10 +20,9 @@ This function acts as a thin wrapper around the compression system, delegating t
 The function includes built-in error handling through the compressor's  method, which internally throws write errors when issues occur.
 
 ## Parameters / Member Variables
-- : Archive handle containing the overall archive state and format configuration
-- : Pointer to the data buffer to be written to the archive
-- : Size of the data buffer in bytes
-
+- `*AH`: Archive handle containing the overall archive state and format configuration
+- `*data`: Pointer to the data buffer to be written to the archive
+- `dLen`: Size of the data buffer in bytes
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Compressor's data writing method that handles compression and actual I/O

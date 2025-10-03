@@ -21,12 +21,11 @@ Enum GUC parameters internally store their values as integers (typically corresp
 The validation workflow mirrors other check hook callers: check for hook existence, reset global error variables, call the validation hook, and report detailed errors on failure. The enum-specific enhancement is the value-to-name lookup for user-friendly error reporting.
 
 ## Parameters / Member Variables
-- : Pointer to the config_enum structure containing the GUC parameter configuration and its check hook
-- : Pointer to the integer enum value being validated (internal representation)
-- : Pointer to extra data that may be set by the check hook for use during assignment
-- : The source of the configuration change (e.g., configuration file, command line, etc.)
-- : Error level for reporting validation failures (e.g., ERROR, WARNING)
-
+- `*conf`: Pointer to the config_enum structure containing the GUC parameter configuration and its check hook
+- `*newval`: Pointer to the integer enum value being validated (internal representation)
+- `**extra`: Pointer to extra data that may be set by the check hook for use during assignment
+- `source`: The source of the configuration change (e.g., configuration file, command line, etc.)
+- `elevel`: Error level for reporting validation failures (e.g., ERROR, WARNING)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [config_enum](config_enum.md) (struct type)

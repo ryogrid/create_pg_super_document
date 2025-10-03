@@ -19,10 +19,9 @@ This function implements server signature verification as part of the SCRAM (Sal
 The function computes the ServerSignature by first deriving the ServerKey from the SaltedPassword, then creating an HMAC of the concatenated authentication messages using this ServerKey. The calculated signature is then compared with the server-provided signature to determine authenticity.
 
 ## Parameters / Member Variables
-- : Pointer to fe_scram_state structure containing SCRAM authentication state including SaltedPassword, hash type, key length, and authentication messages
-- : Output parameter set to true if server signature matches expected value, false otherwise
-- : Output parameter pointing to error message string if processing fails
-
+- `*state`: Pointer to fe_scram_state structure containing SCRAM authentication state including SaltedPassword, hash type, key length, and authentication messages
+- `*match`: Output parameter set to true if server signature matches expected value, false otherwise
+- `**errstr`: Output parameter pointing to error message string if processing fails
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_hmac_create](../p/pg_hmac_create.md)

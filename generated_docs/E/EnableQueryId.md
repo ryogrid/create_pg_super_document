@@ -18,6 +18,7 @@ EnableQueryId provides a programmatic interface for third-party plugins to signa
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - COMPUTE_QUERY_ID_OFF (constant for checking if query ID computation is disabled)

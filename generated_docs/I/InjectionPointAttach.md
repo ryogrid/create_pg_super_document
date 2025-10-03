@@ -28,12 +28,11 @@ The registration process involves:
 6. Atomically updating the generation counter to mark the entry as active
 
 ## Parameters / Member Variables
-- : The unique identifier for the injection point (max length INJ_NAME_MAXLEN)
-- : The dynamic library containing the injection function (max length INJ_LIB_MAXLEN)
-- : The function name to call when the injection point is triggered (max length INJ_FUNC_MAXLEN)
-- : Optional user-defined data passed to the injection function (can be NULL)
-- : Size of the private data in bytes (max INJ_PRIVATE_MAXLEN)
-
+- `*name`: The unique identifier for the injection point (max length INJ_NAME_MAXLEN)
+- `*library`: The dynamic library containing the injection function (max length INJ_LIB_MAXLEN)
+- `*function`: The function name to call when the injection point is triggered (max length INJ_FUNC_MAXLEN)
+- `*private_data`: Optional user-defined data passed to the injection function (can be NULL)
+- `private_data_size`: Size of the private data in bytes (max INJ_PRIVATE_MAXLEN)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_atomic_read_u32](../p/pg_atomic_read_u32.md)

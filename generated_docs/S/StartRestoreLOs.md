@@ -16,8 +16,7 @@ StartRestoreLOs(ArchiveHandle *AH)
 This function is called by format handlers before beginning to restore a group of Large Objects. It ensures that LO restoration occurs within a proper transaction context, which is essential because LO handles must remain open during the restoration process. The function conditionally starts a transaction if one is not already active globally (through single_txn or txn_size options), and initializes the LO counter to track the number of LOs being restored.
 
 ## Parameters / Member Variables
-- : Archive handle containing restoration context and options
-
+- `*AH`: Archive handle containing restoration context and options
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RestoreOptions](../R/RestoreOptions.md)

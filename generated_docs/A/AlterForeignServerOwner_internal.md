@@ -16,10 +16,9 @@ AlterForeignServerOwner_internal(Relation rel, HeapTuple tup, Oid newOwnerId)
 This internal function handles the core logic for changing the ownership of a foreign server. It performs comprehensive permission checks to ensure the operation is authorized, validates that the new owner has appropriate privileges on the associated foreign-data wrapper, and updates both the server ownership and access control list (ACL) in the catalog. The function follows PostgreSQL's standard pattern for ownership changes by checking current ownership, validating permissions, and updating dependency records.
 
 ## Parameters / Member Variables
-- : Relation object for the pg_foreign_server catalog table
-- : HeapTuple representing the foreign server record to be modified  
-- : Object ID of the new owner to be assigned to the foreign server
-
+- `rel`: Relation object for the pg_foreign_server catalog table
+- `tup`: HeapTuple representing the foreign server record to be modified
+- `newOwnerId`: Object ID of the new owner to be assigned to the foreign server
 ## Dependencies
 - Functions called/Symbols referenced:
   - [superuser](../s/superuser.md): Check if current user has superuser privileges

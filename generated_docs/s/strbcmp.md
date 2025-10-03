@@ -25,9 +25,8 @@ The function works by:
 This backward comparison is particularly useful for suffix-based affix operations where the ending of the replacement string determines the sorting order and matching behavior.
 
 ## Parameters / Member Variables
-- : Pointer to the first null-terminated string to compare
-- : Pointer to the second null-terminated string to compare
-
+- `*s1`: Pointer to the first null-terminated string to compare
+- `*s2`: Pointer to the second null-terminated string to compare
 ## Dependencies
 - Functions called/Symbols referenced:
   - strlen (standard C library function)

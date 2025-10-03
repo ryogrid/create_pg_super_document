@@ -18,8 +18,7 @@ This function initializes a TocEntry to serve as the header of a pending-items l
 The pending list uses separate list links (pending_prev and pending_next) from the main TOC list links, allowing a single TocEntry to exist simultaneously in both the main TOC list and the pending list. This design enables efficient management of items that are waiting to be processed during the restore operation.
 
 ## Parameters / Member Variables
-- : Pointer to the TocEntry that will serve as the dummy header node for the pending list. After initialization, this entry's pending_prev and pending_next pointers will both point back to itself, creating an empty circular list.
-
+- `*l`: Pointer to the TocEntry that will serve as the dummy header node for the pending list. After initialization, this entry's pending_prev and pending_next pointers will both point back to itself, creating an empty circular list.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TocEntry](../T/TocEntry.md) (struct type)

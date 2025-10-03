@@ -22,10 +22,9 @@ This function serializes an IndexTuple to a logical tape during the external sor
 The function is essential for external sorting when memory is insufficient to hold all tuples, allowing sorted runs to be written to temporary storage and later merged.
 
 ## Parameters / Member Variables
-- : Tuplesortstate containing sorting configuration and context
-- : LogicalTape to write the tuple data to
-- : SortTuple containing the IndexTuple to serialize
-
+- `*state`: Tuplesortstate containing sorting configuration and context
+- `*tape`: LogicalTape to write the tuple data to
+- `*stup`: SortTuple containing the IndexTuple to serialize
 ## Dependencies
 - Functions called/Symbols referenced:
   - TuplesortstateGetPublic

@@ -19,9 +19,8 @@ The  function provides a detailed textual representation of an individual NFA st
 This function is part of the debugging infrastructure (compiled only when  is defined) and helps developers understand the internal structure of NFA states during regex compilation and optimization processes.
 
 ## Parameters / Member Variables
-- : Pointer to the NFA state structure to be dumped
-- : File stream where the dump output will be written
-
+- `*s`: Pointer to the NFA state structure to be dumped
+- `*f`: File stream where the dump output will be written
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dumparcs](dumparcs.md) (for dumping outgoing arcs from this state)

@@ -16,8 +16,7 @@ pgstat_bgwriter_reset_all_cb(TimestampTz ts)
 The  function implements the callback mechanism for resetting background writer statistics. It follows a specific reset protocol that ensures thread-safe operations when resetting statistics in shared memory. The function acquires an exclusive lock on the bgwriter statistics shared memory structure, copies the current statistics to the reset offset (preserving a snapshot of values before reset), and updates the reset timestamp. This ensures that any ongoing statistics collection operations can continue safely while the reset occurs.
 
 ## Parameters / Member Variables
-- : TimestampTz parameter representing the timestamp when the statistics reset occurred. This timestamp is stored in the statistics structure to track when the last reset happened.
-
+- `ts`: TimestampTz parameter representing the timestamp when the statistics reset occurred. This timestamp is stored in the statistics structure to track when the last reset happened.
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (structure type for shared memory bgwriter statistics)

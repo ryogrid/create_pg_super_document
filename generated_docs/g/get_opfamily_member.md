@@ -17,11 +17,10 @@ get_opfamily_member(Oid opfamily, Oid lefttype, Oid righttype,
 This function performs a reverse lookup in the pg_amop catalog to find the specific operator that implements a given strategy number for particular data types within an operator family. Unlike the previous functions that start with a known operator, this function starts with the desired strategy and data types to find the appropriate operator. It uses the AMOPSTRATEGY cache which indexes by operator family, left type, right type, and strategy number. This is essential for query planning when the system needs to find operators that can handle specific data type combinations with desired semantics.
 
 ## Parameters / Member Variables
-- : The OID of the operator family to search within
-- : The OID of the left operand data type
-- : The OID of the right operand data type  
-- : The strategy number of the desired operator (typically 1-5 for comparison operators)
-
+- `opfamily`: The OID of the operator family to search within
+- `lefttype`: The OID of the left operand data type
+- `righttype`: The OID of the right operand data type
+- `strategy`: The strategy number of the desired operator (typically 1-5 for comparison operators)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache4](../S/SearchSysCache4.md) (system cache lookup function with 4 keys)

@@ -18,8 +18,7 @@ The pg_isblank function provides a custom implementation of the isblank() functi
 Unlike the standard isblank() which typically only checks for space and tab, this PostgreSQL version also includes carriage return ('\r') as a blank character, which is useful for parsing configuration files and handling different line ending conventions.
 
 ## Parameters / Member Variables
-- : The character to test for being a blank/whitespace character
-
+- `c`: The character to test for being a blank/whitespace character
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (uses only basic character comparisons)

@@ -26,7 +26,6 @@ The function performs the following essential operations:
 This function assumes that the CLOG directory structure has already been created by initdb and that CLOGShmemInit() has been called to initialize the shared memory structures.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

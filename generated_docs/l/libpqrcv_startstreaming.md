@@ -19,9 +19,8 @@ This function constructs and executes a START_REPLICATION command to begin strea
 The function performs version-specific feature checking, ensuring that advanced features like two-phase commit and origin tracking are only used with compatible server versions. It handles proper string escaping and memory management throughout the command construction process.
 
 ## Parameters / Member Variables
-- : Pointer to WalReceiverConn structure containing the connection to the primary server
-- : Pointer to WalRcvStreamOptions structure containing all streaming configuration parameters including start point, slot name, and replication mode-specific settings
-
+- `*conn`: Pointer to WalReceiverConn structure containing the connection to the primary server
+- `*options`: Pointer to WalRcvStreamOptions structure containing all streaming configuration parameters including start point, slot name, and replication mode-specific settings
 ## Dependencies
 - Functions called/Symbols referenced:
   - [initStringInfo](../i/initStringInfo.md)

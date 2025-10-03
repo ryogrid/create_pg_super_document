@@ -24,8 +24,7 @@ This function creates and initializes a CopyMultiInsertBuffer structure that is 
 The function specifically handles the distinction between regular tables and foreign tables - for regular tables it obtains a BulkInsertState to optimize buffer allocation, while for foreign tables (identified by non-NULL ri_FdwRoutine) it leaves the bulk insert state as NULL since foreign data wrappers handle their own buffer management.
 
 ## Parameters / Member Variables
-- : A pointer to ResultRelInfo structure representing the target relation for the COPY operation, containing metadata about the relation and its properties
-
+- `*rri`: A pointer to ResultRelInfo structure representing the target relation for the COPY operation, containing metadata about the relation and its properties
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CopyMultiInsertBuffer](CopyMultiInsertBuffer.md) (struct type)

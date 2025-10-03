@@ -25,6 +25,7 @@ This is a language-specific wrapper around the generic Snowball environment crea
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SN_create_env](../S/SN_create_env.md) (creates the generic Snowball environment with 0 string variables and 2 integer variables)

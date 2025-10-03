@@ -18,8 +18,7 @@ CacheInvalidateRelcacheByTuple provides the same functionality as CacheInvalidat
 This variant is particularly useful during catalog operations where relations are being manipulated at the tuple level, such as during system table updates or when processing catalog changes where the relation may not be currently open.
 
 ## Parameters / Member Variables
-- : HeapTuple representing a row from the pg_class system catalog
-
+- `classTuple`: HeapTuple representing a row from the pg_class system catalog
 ## Dependencies
 - Functions called/Symbols referenced:
   - Form_pg_class (type cast)

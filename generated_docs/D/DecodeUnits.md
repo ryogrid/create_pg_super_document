@@ -18,10 +18,9 @@ DecodeUnits recognizes keywords associated with time interval units by performin
 The function first checks if there's a cached entry for the given field, and if the cached token matches the input. If not, it performs a binary search using datebsearch() on the deltatktbl table. When a match is found, the result is cached for future use. The input string must already be lowercased before calling this function.
 
 ## Parameters / Member Variables
-- : Index for the cache array to store/retrieve cached tokens
-- : The lowercased string token representing a time unit to decode
-- : Output parameter that receives the decoded numeric value of the time unit
-
+- `field`: Index for the cache array to store/retrieve cached tokens
+- `*lowtoken`: The lowercased string token representing a time unit to decode
+- `*val`: Output parameter that receives the decoded numeric value of the time unit
 ## Dependencies
 - Functions called/Symbols referenced:
   - datetkn (structure type for date/time tokens)

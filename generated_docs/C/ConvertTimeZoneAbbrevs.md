@@ -26,9 +26,8 @@ The function handles two types of timezone abbreviations:
 The result is a single guc_malloc'd memory chunk containing the complete timezone abbreviation lookup table.
 
 ## Parameters / Member Variables
-- : Array of tzEntry structures containing timezone abbreviation data, pre-sorted by name
-- : Number of entries in the abbrevs array
-
+- `*abbrevs`: Array of tzEntry structures containing timezone abbreviation data, pre-sorted by name
+- `n`: Number of entries in the abbrevs array
 ## Dependencies
 - Functions called/Symbols referenced:
   - [guc_malloc](../g/guc_malloc.md) (GUC memory allocation)

@@ -22,12 +22,11 @@ The function supports a predefined set of built-in types including CHAR, CSTRING
 This function is particularly useful when working with system catalog arrays or other contexts where the element types are known to be built-in PostgreSQL types, simplifying the caller's code by eliminating type information management.
 
 ## Parameters / Member Variables
-- : The PostgreSQL array object to deconstruct (must not be NULL)
-- : The OID of the array element data type (must be a supported built-in type)
-- : Output parameter, set to point to palloc'd array of Datum values
-- : Output parameter, set to point to palloc'd array of null indicators (may be NULL)
-- : Output parameter, set to the number of elements extracted
-
+- `*array`: The PostgreSQL array object to deconstruct (must not be NULL)
+- `elmtype`: The OID of the array element data type (must be a supported built-in type)
+- `**elemsp`: Output parameter, set to point to palloc'd array of Datum values
+- `**nullsp`: Output parameter, set to point to palloc'd array of null indicators (may be NULL)
+- `*nelemsp`: Output parameter, set to the number of elements extracted
 ## Dependencies
 - Functions called/Symbols referenced:
   - [deconstruct_array](deconstruct_array.md) (the main array deconstruction function)

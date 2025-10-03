@@ -31,13 +31,12 @@ Key responsibilities include:
 The function implements adaptive behavior, starting with direct insertion and potentially switching to buffering mode when beneficial. It supports multiple buffering modes: AUTO (switches based on cache size), STATS (switches after collecting tuple statistics), and ACTIVE (buffering already enabled).
 
 ## Parameters / Member Variables
-- : The index relation being built
-- : ItemPointer to the heap tuple being indexed
-- : Array of Datum values extracted from the heap tuple
-- : Array indicating which values are NULL
-- : Boolean indicating if the tuple is alive (used for concurrent builds)
-- : Pointer to GISTBuildState structure containing build context and statistics
-
+- `index`: The index relation being built
+- `tid`: ItemPointer to the heap tuple being indexed
+- `*values`: Array of Datum values extracted from the heap tuple
+- `*isnull`: Array indicating which values are NULL
+- `tupleIsAlive`: Boolean indicating if the tuple is alive (used for concurrent builds)
+- `*state`: Pointer to GISTBuildState structure containing build context and statistics
 ## Dependencies
 - Functions called/Symbols referenced:
   - [gistFormTuple](gistFormTuple.md)

@@ -26,10 +26,9 @@ The function performs these key operations:
 This enables database administrators to monitor autovacuum work item progress through standard PostgreSQL monitoring views.
 
 ## Parameters / Member Variables
-- : AutoVacuumWorkItem structure containing work item type, target relation, and optional block number
-- : Namespace (schema) name of the target relation
-- : Name of the target relation
-
+- `*workitem`: AutoVacuumWorkItem structure containing work item type, target relation, and optional block number
+- `*nspname`: Namespace (schema) name of the target relation
+- `*relname`: Name of the target relation
 ## Dependencies
 - Functions called/Symbols referenced:
   - BlockNumberIsValid

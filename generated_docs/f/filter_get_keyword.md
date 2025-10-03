@@ -16,9 +16,8 @@ filter_get_keyword(const char **line, int *size)
 This function searches for keywords (strings of non-whitespace characters) in the passed line buffer. It skips any initial whitespace and then extracts the first sequence of non-whitespace characters as a keyword. The function returns a pointer to the start of the keyword in the original buffer, and updates the line pointer to point past the found keyword. If no keyword is found (buffer is empty or contains only whitespace), it returns NULL and sets the size to 0.
 
 ## Parameters / Member Variables
-- : Pointer to a pointer to the current position in the line buffer (updated to point past the found keyword)
-- : Pointer to an integer that will receive the length of the found keyword (set to 0 if no keyword found)
-
+- `**line`: Pointer to a pointer to the current position in the line buffer (updated to point past the found keyword)
+- `*size`: Pointer to an integer that will receive the length of the found keyword (set to 0 if no keyword found)
 ## Dependencies
 - Functions called/Symbols referenced:
   - isspace (standard C library function)

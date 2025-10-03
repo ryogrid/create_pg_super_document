@@ -21,10 +21,9 @@ The function iterates through each non-junk entry in the target list and compare
 The function assumes that typmod differences are acceptable as long as the base types match, since the only allowed typmod difference is from a specific typmod to -1 (generic), which doesn't require coercion.
 
 ## Parameters / Member Variables
-- : The target list of a component subquery in the set operation
-- : List of OID values representing the output column types of the top-level set operation
-- : Pointer to pushdown_safety_info structure where unsafeFlags array will be updated
-
+- `*tlist`: The target list of a component subquery in the set operation
+- `*colTypes`: List of OID values representing the output column types of the top-level set operation
+- `*safetyInfo`: Pointer to pushdown_safety_info structure where unsafeFlags array will be updated
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_head](../l/list_head.md)

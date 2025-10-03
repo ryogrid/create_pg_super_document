@@ -23,9 +23,8 @@ The function follows the standard comparator contract:
 It uses PostgreSQL's  function to perform the actual comparison, which provides consistent and safe 32-bit signed integer comparison.
 
 ## Parameters / Member Variables
-- : Pointer to the first integer to compare (cast from void*)
-- : Pointer to the second integer to compare (cast from void*)
-
+- `*va`: Pointer to the first integer to compare (cast from void*)
+- `*vb`: Pointer to the second integer to compare (cast from void*)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_cmp_s32](../p/pg_cmp_s32.md) (PostgreSQL's 32-bit signed integer comparison function)

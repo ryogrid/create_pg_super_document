@@ -18,10 +18,9 @@ The  function performs comprehensive attribute collection for tables that are ma
 The function operates in three main phases: 1) Collect basic column information from pg_attribute, 2) Retrieve column default expressions from pg_attrdef, and 3) Gather CHECK constraint definitions from pg_constraint. It uses array-based queries with unnest() to efficiently batch operations while maintaining proper locking constraints.
 
 ## Parameters / Member Variables
-- : Archive pointer for the pg_dump operation, containing version info and dump options
-- : Array of TableInfo structures to populate with attribute information
-- : Number of tables in the tblinfo array
-
+- `*fout`: Archive pointer for the pg_dump operation, containing version info and dump options
+- `*tblinfo`: Array of TableInfo structures to populate with attribute information
+- `numTables`: Number of tables in the tblinfo array
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)

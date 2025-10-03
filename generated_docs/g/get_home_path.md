@@ -18,8 +18,7 @@ This function returns the user's home directory path on Unix/Linux systems, or t
 The function is designed to provide a consistent interface for obtaining a user-specific directory path across different platforms, which is essential for storing user configuration files and application data.
 
 ## Parameters / Member Variables
-- : Output buffer to store the retrieved home path (must be at least MAXPGPATH bytes)
-
+- `*ret_path`: Output buffer to store the retrieved home path (must be at least MAXPGPATH bytes)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_get_user_home_dir](../p/pg_get_user_home_dir.md)

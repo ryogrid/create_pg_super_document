@@ -18,10 +18,9 @@ The  function extends the functionality of  by adding special handling for the d
 The function first checks if the input string is exactly "-", and if so, sets the result to InvalidOid and returns true. Otherwise, it delegates to  to handle standard numeric OID parsing.
 
 ## Parameters / Member Variables
-- : Input C string to be parsed, expected to be either "-" or a numeric OID representation
-- : Pointer to Oid where the parsed result will be stored (InvalidOid for "-", or the numeric OID value)
-- : Error context node for soft error handling, allowing errors to be captured rather than thrown as exceptions
-
+- `*string`: Input C string to be parsed, expected to be either "-" or a numeric OID representation
+- `*result`: Pointer to Oid where the parsed result will be stored (InvalidOid for "-", or the numeric OID value)
+- `*escontext`: Error context node for soft error handling, allowing errors to be captured rather than thrown as exceptions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [parseNumericOid](parseNumericOid.md)

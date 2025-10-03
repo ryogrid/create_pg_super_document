@@ -18,10 +18,9 @@ This function determines which comparison operator should be used to compare two
 The function acts as a simple accessor to the cached proof information, delegating the complex lookup logic to lookup_proof_cache and returning the appropriate test operator OID from the cache entry.
 
 ## Parameters / Member Variables
-- : OID of the predicate operator
-- : OID of the clause operator
-- : When false, returns implication test operator; when true, returns refutation test operator
-
+- `pred_op`: OID of the predicate operator
+- `clause_op`: OID of the clause operator
+- `refute_it`: When false, returns implication test operator; when true, returns refutation test operator
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lookup_proof_cache](../l/lookup_proof_cache.md)

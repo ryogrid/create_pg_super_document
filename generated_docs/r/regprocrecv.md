@@ -18,8 +18,7 @@ The regprocrecv function is the binary input conversion function for PostgreSQL'
 Since regproc values are internally stored as OIDs, this function is implemented as a simple wrapper that delegates to the standard oidrecv function. This approach ensures consistent binary format handling between regproc and OID data types while maintaining the type system distinctions at the SQL level.
 
 ## Parameters / Member Variables
-- : Function call information structure containing the binary input data to be converted
-
+- `PG_FUNCTION_ARGS`: Function call information structure containing the binary input data to be converted
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Standard OID binary input function that performs the actual conversion

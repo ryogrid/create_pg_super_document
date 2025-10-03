@@ -25,8 +25,7 @@ This function sets up the executor state infrastructure required for applying lo
 The function is specifically designed for logical replication workers and ensures that all necessary executor infrastructure is properly initialized before applying INSERT, UPDATE, or DELETE operations to the target relation.
 
 ## Parameters / Member Variables
-- : A LogicalRepRelMapEntry pointer containing the mapping information for the target relation, including both the local relation handle and replication metadata
-
+- `*rel`: A LogicalRepRelMapEntry pointer containing the mapping information for the target relation, including both the local relation handle and replication metadata
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CreateExecutorState](../C/CreateExecutorState.md)

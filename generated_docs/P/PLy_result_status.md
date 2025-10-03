@@ -16,9 +16,8 @@ PLy_result_status(PyObject *self, PyObject *args)
 This function is a Python method implementation that provides access to the status information of a PLython result object. The status typically contains a string describing the command that was executed and its outcome, such as 'SELECT 5' for a SELECT query that returned 5 rows, or 'INSERT 0 1' for an INSERT that affected 1 row. The function returns the pre-stored status string from the PLyResultObject structure, properly managing reference counting.
 
 ## Parameters / Member Variables
-- : PLyResultObject pointer cast as PyObject, representing the result object instance
-- : Python tuple containing method arguments (currently unused but required for METH_VARARGS signature)
-
+- `*self`: PLyResultObject pointer cast as PyObject, representing the result object instance
+- `*args`: Python tuple containing method arguments (currently unused but required for METH_VARARGS signature)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PLyResultObject](PLyResultObject.md) (cast target type)

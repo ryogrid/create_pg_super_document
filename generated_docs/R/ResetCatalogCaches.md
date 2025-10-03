@@ -17,6 +17,7 @@ ResetCatalogCaches is a public function that provides a simple interface for res
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ResetCatalogCachesExt](ResetCatalogCachesExt.md)

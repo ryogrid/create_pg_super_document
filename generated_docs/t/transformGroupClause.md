@@ -18,14 +18,13 @@ transformGroupClause(ParseState *pstate, List *grouplist, List **groupingSets,
 This function processes GROUP BY clauses and window PARTITION BY clauses, handling both simple grouping and complex grouping sets (CUBE, ROLLUP, GROUPING SETS). It performs two main tasks: (1) creates a flat list of SortGroupClause nodes referencing each distinct grouping expression, adding them to the targetlist as resjunk columns if needed, and (2) builds the groupingSets tree using ressortgrouprefs stored in GroupingSet nodes. The function first flattens implicit RowExprs recursively, then processes each item in the flattened list. For GroupingSet nodes, it handles different kinds (EMPTY, SETS, CUBE, ROLLUP) appropriately, while simple expressions are transformed via transformGroupClauseExpr. The function maintains proper nesting constraints where GROUPING_SET_SETS can contain SIMPLE, CUBE, or ROLLUP nodes, but CUBE and ROLLUP can only contain SIMPLE nodes.
 
 ## Parameters / Member Variables
-- : ParseState containing parsing context and state information
-- : Input clause to transform (GROUP BY or PARTITION BY expressions)
-- : Reference to list that will contain the grouping set tree structure
-- : Reference to TargetEntry list where grouping expressions are added as resjunk
-- : ORDER BY clause containing SortGroupClause nodes for reference
-- : ParseExprKind enum value specifying the type of expression being parsed
-- : Boolean flag indicating whether to use SQL99 syntax rather than SQL92 syntax
-
+- `*pstate`: ParseState containing parsing context and state information
+- `*grouplist`: Input clause to transform (GROUP BY or PARTITION BY expressions)
+- `**groupingSets`: Reference to list that will contain the grouping set tree structure
+- `**targetlist`: Reference to TargetEntry list where grouping expressions are added as resjunk
+- `*sortClause`: ORDER BY clause containing SortGroupClause nodes for reference
+- `exprKind`: ParseExprKind enum value specifying the type of expression being parsed
+- `useSQL99`: Boolean flag indicating whether to use SQL99 syntax rather than SQL92 syntax
 ## Dependencies
 - Functions called/Symbols referenced:
   - [flatten_grouping_sets](../f/flatten_grouping_sets.md)

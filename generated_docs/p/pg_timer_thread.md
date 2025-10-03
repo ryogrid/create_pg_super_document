@@ -16,8 +16,7 @@ pg_timer_thread(LPVOID param)
 The  function implements the core timer thread for PostgreSQL's Windows port timer emulation. It runs in an infinite loop, waiting for timer events or timeout expiration. When the main thread signals a timer change via the communication area event, this thread updates its wait time accordingly. When a timeout occurs, it signals SIGALRM to the main process and resets to infinite wait time. This provides POSIX-style timer functionality on Windows systems that lack native setitimer() support.
 
 ## Parameters / Member Variables
-- : Thread parameter (unused, expected to be NULL)
-
+- `param`: Thread parameter (unused, expected to be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - WaitForSingleObjectEx (Windows API)

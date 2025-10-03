@@ -20,10 +20,9 @@ This function creates a separate skew hash table with dedicated buckets for the 
 The function retrieves statistics from the system catalog (pg_statistic) to identify MCVs and their frequencies. It only proceeds if the total frequency of MCVs exceeds SKEW_MIN_OUTER_FRACTION to ensure the optimization is worthwhile. Skew buckets are created in order of decreasing MCV frequency, which is important for proper bucket removal during memory pressure.
 
 ## Parameters / Member Variables
-- : The HashJoinTable structure being optimized with skew buckets
-- : Hash node containing skew optimization metadata (skewTable, skewColumn, skewInherit)
-- : Maximum number of MCV values to create skew buckets for, based on available memory
-
+- `hashtable`: The HashJoinTable structure being optimized with skew buckets
+- `*node`: Hash node containing skew optimization metadata (skewTable, skewColumn, skewInherit)
+- `mcvsToUse`: Maximum number of MCV values to create skew buckets for, based on available memory
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache3](../S/SearchSysCache3.md) (retrieves statistics from pg_statistic)

@@ -18,10 +18,9 @@ This function serves as a comparison function for sorting JsonbPair structures u
 The function also provides an optional binary equality check through the binequal parameter, allowing callers to determine if two pairs have complete binary equality rather than just equivalent keys.
 
 ## Parameters / Member Variables
-- : Pointer to the first JsonbPair to compare (cast from void*)
-- : Pointer to the second JsonbPair to compare (cast from void*)  
-- : Optional pointer to a bool that will be set to true if the pairs have full binary equality
-
+- `*a`: Pointer to the first JsonbPair to compare (cast from void*)
+- `*b`: Pointer to the second JsonbPair to compare (cast from void*)
+- `*binequal`: Optional pointer to a bool that will be set to true if the pairs have full binary equality
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lengthCompareJsonbStringValue](lengthCompareJsonbStringValue.md)

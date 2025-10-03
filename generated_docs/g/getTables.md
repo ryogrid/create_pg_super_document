@@ -20,9 +20,8 @@ The function performs several critical operations: it collects comprehensive met
 A key feature is its table locking mechanism that acquires ACCESS SHARE locks on dumpable tables in batches to prevent concurrent schema modifications during the dump process. The function also implements sophisticated dependency tracking for sequences and their owning tables, and handles toast table relationships while avoiding issues with partitioned table toast OIDs in certain PostgreSQL versions.
 
 ## Parameters / Member Variables
-- : Archive structure containing connection information and dump configuration options
-- : Pointer to integer that will be set to the number of tables found
-
+- `*fout`: Archive structure containing connection information and dump configuration options
+- `*numTables`: Pointer to integer that will be set to the number of tables found
 ## Dependencies
 - Functions called/Symbols referenced:
   - [createPQExpBuffer](../c/createPQExpBuffer.md)

@@ -25,9 +25,8 @@ This function sorts all outgoing arcs from a given NFA state using a temporary a
 The function handles the special case where there are 1 or fewer arcs (no sorting needed) and optimizes the rebuilding of the chain by special-casing the first and last items.
 
 ## Parameters / Member Variables
-- : Pointer to the NFA structure (though not directly used in this function)
-- : Pointer to the state whose outgoing arcs should be sorted
-
+- `*nfa`: Pointer to the NFA structure (though not directly used in this function)
+- `*s`: Pointer to the state whose outgoing arcs should be sorted
 ## Dependencies
 - Functions called/Symbols referenced:
   - MALLOC (memory allocation macro)

@@ -18,6 +18,7 @@ This function serves as a central control point for vacuum operations, providing
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - CHECK_FOR_INTERRUPTS (macro)

@@ -32,10 +32,9 @@ Key behaviors:
 The function handles all major expression node types including operators, functions, aggregates, window functions, subqueries, joins, and many specialized constructs.
 
 ## Parameters / Member Variables
-- : The current node being processed in the expression tree
-- : Callback function that processes nodes and returns bool for continuation control
-- : Arbitrary context data passed through to walker calls
-
+- `*node`: The current node being processed in the expression tree
+- `walker`: Callback function that processes nodes and returns bool for continuation control
+- `*context`: Arbitrary context data passed through to walker calls
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_stack_depth](../c/check_stack_depth.md)

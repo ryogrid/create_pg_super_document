@@ -20,9 +20,8 @@ The function accepts a potentially modified link target that may have been proce
 Although the function is designed primarily for tablespace links, the implementation doesn't restrict its use to pg_tblspc directory entries, making it a general-purpose symbolic link creator. As noted in the comments, this can be considered an "undocumented feature" for mapping any symbolic links that might exist in the data directory.
 
 ## Parameters / Member Variables
-- : Path where the symbolic link should be created
-- : Target path that the symbolic link should point to (may be modified by tablespace mapping)
-
+- `*filename`: Path where the symbolic link should be created
+- `*linktarget`: Target path that the symbolic link should point to (may be modified by tablespace mapping)
 ## Dependencies
 - Functions called/Symbols referenced:
   - symlink

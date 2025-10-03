@@ -16,8 +16,7 @@ JsonTableResetNestedPlan(JsonTablePlanState *planstate)
 This function recursively resets nested JSON table plans to re-evaluate their row patterns based on updated parent row data. It handles two types of plans: JsonTablePathScan plans are reset by calling JsonTableResetRowPattern with the parent's current row value, while JsonTableSiblingJoin plans are handled by recursively resetting both left and right child plans. The function ensures that nested paths are properly re-evaluated when their parent context changes, maintaining the hierarchical relationship between different levels of JSON path evaluation.
 
 ## Parameters / Member Variables
-- : Pointer to JsonTablePlanState structure representing the nested plan to be reset. Must have a non-NULL parent (assertion enforced)
-
+- `*planstate`: Pointer to JsonTablePlanState structure representing the nested plan to be reset. Must have a non-NULL parent (assertion enforced)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [JsonTableResetRowPattern](JsonTableResetRowPattern.md) (resets row pattern evaluation for path scan plans)

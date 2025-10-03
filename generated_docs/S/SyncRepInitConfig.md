@@ -21,6 +21,7 @@ When a priority change is detected, the function logs a debug message indicating
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SyncRepGetStandbyPriority](SyncRepGetStandbyPriority.md) (determines standby's sync priority)

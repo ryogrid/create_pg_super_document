@@ -22,7 +22,6 @@ ProcGlobalShmemSize calculates the total shared memory requirements for PostgreS
 The calculation uses safe arithmetic functions (add_size, mul_size) to prevent integer overflow when computing large memory requirements.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

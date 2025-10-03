@@ -20,9 +20,8 @@ This function is particularly useful when replaying WAL records that create enti
 Unlike , this function doesn't need to return a redo action because the intent is always to reinitialize the page completely - there's no conditional logic about whether changes need to be applied.
 
 ## Parameters / Member Variables
-- : XLogReaderState pointer containing the WAL record being replayed
-- : ID number identifying which block from the WAL record to process
-
+- `*record`: XLogReaderState pointer containing the WAL record being replayed
+- `block_id`: ID number identifying which block from the WAL record to process
 ## Dependencies
 - Functions called/Symbols referenced:
   - [XLogReadBufferForRedoExtended](XLogReadBufferForRedoExtended.md)

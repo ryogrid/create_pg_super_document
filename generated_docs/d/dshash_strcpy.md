@@ -16,11 +16,10 @@ dshash_strcpy(void *dest, const void *src, size_t size, void *arg)
 dshash_strcpy is a copy function that forwards to the standard library strcpy() function. It serves as an adapter function that matches the signature expected by the dynamic shared hash table system for copying string data. The function includes an assertion to ensure that the source string length is less than the specified size to prevent buffer overflows.
 
 ## Parameters / Member Variables
-- : Pointer to the destination buffer where the string will be copied
-- : Pointer to the source string to be copied
-- : The size of the destination buffer
-- : Additional argument (unused in this implementation)
-
+- `*dest`: Pointer to the destination buffer where the string will be copied
+- `*src`: Pointer to the source string to be copied
+- `size`: The size of the destination buffer
+- `*arg`: Additional argument (unused in this implementation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - strlen (from standard C library)

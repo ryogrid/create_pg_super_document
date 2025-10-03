@@ -23,13 +23,12 @@ The  function processes the contents of a backup label file stored in a StringIn
 The function uses a bitmask approach to track which required components have been found and ensures all mandatory elements are present. If incremental backup information is provided, both LSN and TLI must be specified together. The function terminates with fatal errors if required information is missing or malformed.
 
 ## Parameters / Member Variables
-- : Name of the backup label file being parsed (used for error reporting)
-- : StringInfo buffer containing the backup label file contents to parse
-- : Output parameter to store the timeline ID where the backup started
-- : Output parameter to store the LSN where the backup started
-- : Output parameter to store the timeline ID of the previous backup (for incremental backups)
-- : Output parameter to store the LSN of the previous backup (for incremental backups)
-
+- `*filename`: Name of the backup label file being parsed (used for error reporting)
+- `buf`: StringInfo buffer containing the backup label file contents to parse
+- `*start_tli`: Output parameter to store the timeline ID where the backup started
+- `*start_lsn`: Output parameter to store the LSN where the backup started
+- `*previous_tli`: Output parameter to store the timeline ID of the previous backup (for incremental backups)
+- `*previous_lsn`: Output parameter to store the LSN of the previous backup (for incremental backups)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_eol_offset](../g/get_eol_offset.md)

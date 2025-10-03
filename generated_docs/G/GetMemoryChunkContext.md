@@ -18,8 +18,7 @@ This function provides a way to discover which memory context is responsible for
 The function is essential for memory management operations that need to understand the ownership and lifecycle of memory chunks. Different memory context implementations (like AllocSet, Generation, etc.) may store context information differently, so this function abstracts away those implementation details.
 
 ## Parameters / Member Variables
-- : A pointer to an allocated memory chunk
-
+- `*pointer`: A pointer to an allocated memory chunk
 ## Dependencies
 - Functions called/Symbols referenced:
   - MCXT_METHOD (macro for calling context-specific methods)

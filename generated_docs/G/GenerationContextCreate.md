@@ -22,12 +22,11 @@ GenerationContextCreate initializes a new Generation memory context, which is op
 The Generation context maintains a doubly-linked list of blocks and tracks the current allocation block. It calculates an allocation chunk limit based on the maximum block size to ensure efficient memory usage. The context is designed to handle both small chunks (allocated from blocks) and large allocations (handled separately).
 
 ## Parameters / Member Variables
-- : Parent memory context, or NULL if this is a top-level context
-- : Name of the context (must be statically allocated for the lifetime of the context)
-- : Minimum size for the context's first block, or 0 to use initBlockSize
-- : Initial size for allocation blocks (must be MAXALIGN'd and >= 1024 bytes)
-- : Maximum size that blocks can grow to (must be MAXALIGN'd and <= MEMORYCHUNK_MAX_BLOCKOFFSET)
-
+- `parent`: Parent memory context, or NULL if this is a top-level context
+- `*name`: Name of the context (must be statically allocated for the lifetime of the context)
+- `minContextSize`: Minimum size for the context's first block, or 0 to use initBlockSize
+- `initBlockSize`: Initial size for allocation blocks (must be MAXALIGN'd and >= 1024 bytes)
+- `maxBlockSize`: Maximum size that blocks can grow to (must be MAXALIGN'd and <= MEMORYCHUNK_MAX_BLOCKOFFSET)
 ## Dependencies
 - Functions called/Symbols referenced:
   - malloc

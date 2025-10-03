@@ -25,8 +25,7 @@ Key responsibilities include:
 - Exiting PostgreSQL's parallel execution mode
 
 ## Parameters / Member Variables
-- : Pointer to BTLeader structure containing parallel context, worker information, performance monitoring arrays, and snapshot data
-
+- `*btleader`: Pointer to BTLeader structure containing parallel context, worker information, performance monitoring arrays, and snapshot data
 ## Dependencies
 - Functions called/Symbols referenced:
   - [WaitForParallelWorkersToFinish](../W/WaitForParallelWorkersToFinish.md): Wait for all worker processes to complete

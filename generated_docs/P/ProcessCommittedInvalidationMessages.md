@@ -22,12 +22,11 @@ The function follows a specific sequence for relcache init file invalidation: it
 When processing relcache init file invalidation for a specific database, the function temporarily sets DatabasePath to allow proper invalidation processing, then cleans it up afterward. This is necessary because SetDatabasePath is intended for use only once by normal backends, not during recovery.
 
 ## Parameters / Member Variables
-- : Array of SharedInvalidationMessage structures containing the invalidation messages to process
-- : Number of messages in the msgs array
-- : Boolean flag indicating whether relation cache initialization files should be invalidated
-- : Database OID for which invalidation is being processed (used for relcache file invalidation)
-- : Tablespace OID associated with the database
-
+- `*msgs`: Array of SharedInvalidationMessage structures containing the invalidation messages to process
+- `nmsgs`: Number of messages in the msgs array
+- `RelcacheInitFileInval`: Boolean flag indicating whether relation cache initialization files should be invalidated
+- `dbid`: Database OID for which invalidation is being processed (used for relcache file invalidation)
+- `tsid`: Tablespace OID associated with the database
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetDatabasePath](../G/GetDatabasePath.md)

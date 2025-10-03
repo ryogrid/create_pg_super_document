@@ -16,9 +16,8 @@ WriteInt(ArchiveHandle *AH, int i)
 WriteInt is a fundamental serialization function in pg_dump's archiver that writes a signed integer to an archive stream. The function uses a custom binary format that explicitly handles the sign bit to ensure portability across different architectures and integer representations. It first writes a sign byte (1 for negative, 0 for positive), then writes the absolute value in little-endian byte order. This approach avoids dependencies on platform-specific two's complement representation.
 
 ## Parameters / Member Variables
-- : Archive handle containing the output stream and configuration (including intSize)
-- : The signed integer value to be written to the archive
-
+- `*AH`: Archive handle containing the output stream and configuration (including intSize)
+- `i`: The signed integer value to be written to the archive
 ## Dependencies
 - Functions called/Symbols referenced:
   - AH->WriteBytePtr (function pointer for writing single bytes)

@@ -27,11 +27,10 @@ The function handles platform-specific timezone implementations:
 Error handling includes setting errno to PGTYPES_TS_BAD_TIMESTAMP when time conversion fails, and managing timezone name buffer overflow by setting tm_isdst to -1.
 
 ## Parameters / Member Variables
-- : Input AbsoluteTime value to be converted
-- : Output pointer for timezone offset in seconds from UTC (NULL for UTC conversion)
-- : Output tm structure to be filled with broken-down time components
-- : Output pointer for timezone name string (can be NULL if not needed)
-
+- `_time`: Input AbsoluteTime value to be converted
+- `*tzp`: Output pointer for timezone offset in seconds from UTC (NULL for UTC conversion)
+- `*tm`: Output tm structure to be filled with broken-down time components
+- `**tzn`: Output pointer for timezone name string (can be NULL if not needed)
 ## Dependencies
 - Functions called/Symbols referenced:
   - localtime, gmtime (standard C library time conversion functions)

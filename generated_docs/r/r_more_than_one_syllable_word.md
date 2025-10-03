@@ -26,8 +26,7 @@ This function implements syllable counting for Turkish words by detecting vowel 
 This check is crucial because many Turkish stemming operations should only be applied to multi-syllabic words to avoid over-stemming short words.
 
 ## Parameters / Member Variables
-- : Pointer to the Snowball environment structure containing the string being processed and cursor positions
-
+- `*z`: Pointer to the Snowball environment structure containing the string being processed and cursor positions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [out_grouping_U](../o/out_grouping_U.md) (Snowball function for forward vowel group testing using g_vowel character group)

@@ -19,11 +19,10 @@ isolation_start_test(const char *testname,
 This function is responsible for launching an isolation test by executing the  binary with the appropriate input and output files. It performs path lookups for test specification files, manages file paths for input, output, and expected result files, constructs the command line for the isolationtester process, and spawns the process. The function handles file location logic that searches in both output and input directories, following a vpath-like search pattern for flexibility in test execution environments.
 
 ## Parameters / Member Variables
-- : The name of the isolation test to run (without file extension)
-- : Pointer to string list where the output file path will be added
-- : Pointer to string list where the expected results file path will be added  
-- : Pointer to string list for test tags (currently unused in function body)
-
+- `*testname`: The name of the isolation test to run (without file extension)
+- `**resultfiles`: Pointer to string list where the output file path will be added
+- `**expectfiles`: Pointer to string list where the expected results file path will be added
+- `**tags`: Pointer to string list for test tags (currently unused in function body)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [find_other_exec](../f/find_other_exec.md)

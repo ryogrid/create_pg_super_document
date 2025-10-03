@@ -18,9 +18,8 @@ This function completes the SHA-224 hash computation by performing the final pad
 The function implements the key difference between SHA-224 and SHA-256: while both algorithms process data identically, SHA-224 only outputs the first 224 bits (28 bytes) of the 256-bit internal state, effectively truncating the result. After extracting the digest, the function securely zeroes out the context structure to prevent potential information leakage.
 
 ## Parameters / Member Variables
-- : Pointer to the SHA-224 context structure containing the current hash state
-- : Output buffer to receive the 28-byte SHA-224 hash digest (can be NULL to skip output)
-
+- `*context`: Pointer to the SHA-224 context structure containing the current hash state
+- `*digest`: Output buffer to receive the 28-byte SHA-224 hash digest (can be NULL to skip output)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SHA256_Last](../S/SHA256_Last.md)

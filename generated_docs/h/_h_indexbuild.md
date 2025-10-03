@@ -16,9 +16,8 @@ _h_indexbuild(HSpool *hspool, Relation heapRel)
 This function completes the hash index construction process by first performing the sort operation on all spooled tuples, then retrieving them in sorted order and inserting each tuple into the hash index. The sorting is primarily a performance optimization to improve locality of access during insertion. The function includes assertion checking to verify that tuples are indeed returned in hash key order, ensuring the tuplesort subsystem correctly handles hash index tuple sorting. Progress is tracked and reported during the insertion phase, and the operation can be interrupted.
 
 ## Parameters / Member Variables
-- : Pointer to the HSpool structure containing the sorted tuple data
-- : The heap relation being indexed (used for insertion context)
-
+- `*hspool`: Pointer to the HSpool structure containing the sorted tuple data
+- `heapRel`: The heap relation being indexed (used for insertion context)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [HSpool](../H/HSpool.md) (structure type)

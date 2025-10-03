@@ -17,11 +17,10 @@ executeStartsWith(JsonPathItem *jsp, JsonbValue *whole, JsonbValue *initial,
 The  function implements the STARTS_WITH predicate functionality for JSON path expressions in PostgreSQL. It performs a string prefix comparison operation by checking if the 'whole' string begins with the 'initial' string. The function handles JSON string values and performs binary comparison using  for efficiency. Both input values are validated and converted to string scalars before comparison.
 
 ## Parameters / Member Variables
-- : JsonPathItem pointer (currently unused in the implementation)
-- : JsonbValue pointer representing the string to be checked
-- : JsonbValue pointer representing the prefix string to match against
-- : void pointer for additional parameters (currently unused)
-
+- `*jsp`: JsonPathItem pointer (currently unused in the implementation)
+- `*whole`: JsonbValue pointer representing the string to be checked
+- `*initial`: JsonbValue pointer representing the prefix string to match against
+- `*param`: void pointer for additional parameters (currently unused)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [getScalar](../g/getScalar.md): Converts JsonbValue to scalar string type

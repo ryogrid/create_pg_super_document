@@ -19,12 +19,11 @@ This static function is similar to addTargetToSortList but specifically designed
 The function performs the same type coercion for UNKNOWN literals as addTargetToSortList and uses default sort/group semantics. It creates SortGroupClause nodes with equality operators required for grouping, optional sort operators, and hashability information for optimization purposes.
 
 ## Parameters / Member Variables
-- : Parse state containing context information for query parsing
-- : Target entry to be added to the group list
-- : Current list of SortGroupClause nodes for grouping
-- : Complete target list for the query  
-- : Parse location for error reporting (cannot rely on tle->expr location)
-
+- `*pstate`: Parse state containing context information for query parsing
+- `*tle`: Target entry to be added to the group list
+- `*grouplist`: Current list of SortGroupClause nodes for grouping
+- `*targetlist`: Complete target list for the query
+- `location`: Parse location for error reporting (cannot rely on tle->expr location)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [coerce_type](../c/coerce_type.md)

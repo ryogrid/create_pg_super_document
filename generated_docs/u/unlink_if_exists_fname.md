@@ -28,10 +28,9 @@ Key characteristics:
 - Suitable for use in cleanup and recovery scenarios
 
 ## Parameters / Member Variables
-- : Full path to the file or directory to be removed
-- : Boolean flag indicating whether the path is a directory
-- : Error reporting level for logging deletion issues
-
+- `*fname`: Full path to the file or directory to be removed
+- `isdir`: Boolean flag indicating whether the path is a directory
+- `elevel`: Error reporting level for logging deletion issues
 ## Dependencies
 - Functions called/Symbols referenced:
   - rmdir: System call to remove empty directories

@@ -26,9 +26,8 @@ This function manages the abort processing for streaming transactions that have 
 The function uses reverse iteration when scanning subtransactions for efficiency, as recent subtransactions are more likely to be aborted. It handles empty subtransactions gracefully and maintains transaction boundaries properly.
 
 ## Parameters / Member Variables
-- : TransactionId of the top-level streaming transaction
-- : TransactionId of the subtransaction being aborted (equals xid for top-level aborts)
-
+- `xid`: TransactionId of the top-level streaming transaction
+- `subxid`: TransactionId of the subtransaction being aborted (equals xid for top-level aborts)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [stream_cleanup_files](stream_cleanup_files.md)

@@ -18,9 +18,8 @@ iteratorFromContainer is an internal static function that constructs a new Jsonb
 The function handles both regular arrays/objects and scalar containers, with special logic for scalar arrays that must contain exactly one element. It establishes parent-child relationships between iterators to support proper memory management and nested traversal.
 
 ## Parameters / Member Variables
-- : Pointer to the JsonbContainer to iterate over
-- : Pointer to parent JsonbIterator (NULL for root level iterators)
-
+- `*container`: Pointer to the JsonbContainer to iterate over
+- `*parent`: Pointer to parent JsonbIterator (NULL for root level iterators)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc0](../p/palloc0.md)

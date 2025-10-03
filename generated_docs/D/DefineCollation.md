@@ -24,11 +24,10 @@ This function processes the CREATE COLLATION command by:
 The function supports IF NOT EXISTS semantics and handles complex parameter combinations with appropriate error checking for conflicting or missing options.
 
 ## Parameters / Member Variables
-- : ParseState for error reporting with location information
-- : List of qualified names specifying the collation name and schema
-- : List of DefElem structures containing collation options
-- : Boolean flag for IF NOT EXISTS behavior
-
+- `*pstate`: ParseState for error reporting with location information
+- `*names`: List of qualified names specifying the collation name and schema
+- `*parameters`: List of DefElem structures containing collation options
+- `if_not_exists`: Boolean flag for IF NOT EXISTS behavior
 ## Dependencies
 - Functions called/Symbols referenced:
   - [QualifiedNameGetCreationNamespace](../Q/QualifiedNameGetCreationNamespace.md)

@@ -26,8 +26,7 @@ The function implements a sophisticated algorithm for determining which keys mus
 The preprocessing handles incomplete operator families gracefully - if cross-type operators are missing, redundant keys may not be eliminated, but the scan will still work correctly.
 
 ## Parameters / Member Variables
-- : Index scan descriptor containing input keys in keyData[] and receiving processed keys in opaque->keyData[]
-
+- `scan`: Index scan descriptor containing input keys in keyData[] and receiving processed keys in opaque->keyData[]
 ## Dependencies
 - Functions called/Symbols referenced:
   - [_bt_verify_keys_with_arraykeys](_bt_verify_keys_with_arraykeys.md)

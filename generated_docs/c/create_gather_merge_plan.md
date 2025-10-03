@@ -24,9 +24,8 @@ Key implementation details:
 The function creates the necessary sort infrastructure by populating sortColIdx, sortOperators, collations, and nullsFirst arrays that specify how to perform the ordered merge.
 
 ## Parameters / Member Variables
-- : PlannerInfo containing planner state and execution context
-- : GatherMergePath specifying the parallel merge strategy, pathkeys for ordering, and number of workers
-
+- `*root`: PlannerInfo containing planner state and execution context
+- `*best_path`: GatherMergePath specifying the parallel merge strategy, pathkeys for ordering, and number of workers
 ## Dependencies
 - Functions called/Symbols referenced:
   - [build_path_tlist](../b/build_path_tlist.md)

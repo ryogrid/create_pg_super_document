@@ -24,7 +24,6 @@ The  function initializes three global signal mask sets that control which signa
 The function uses a "fill then remove" approach: it first fills the blocking sets with all possible signals using , then selectively removes critical signals that should never be blocked using conditional compilation guards to handle platform differences.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

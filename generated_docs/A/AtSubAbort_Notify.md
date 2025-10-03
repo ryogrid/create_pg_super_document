@@ -19,7 +19,6 @@ The function operates by "popping the stack" - it removes ActionList and Notific
 The function is designed to be safe for reentrant calls during error recovery, handling cases where there may be no entries at the current subtransaction level.
 
 ## Parameters / Member Variables
-This function takes no parameters and operates on global state variables.
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -29,13 +29,12 @@ gistdoinsert(Relation r, IndexTuple itup, Size freespace,
 The function operates in a short-lived memory context and doesn't bother releasing palloc'd allocations, assuming cleanup will happen when the context is destroyed.
 
 ## Parameters / Member Variables
-- : The GiST index relation being inserted into
-- : The index tuple to be inserted
-- : Amount of free space required on the target page
-- : GiST-specific state information including operator classes and support functions
-- : The heap relation corresponding to this index
-- : Boolean indicating whether this insertion is part of an index build operation
-
+- `r`: The GiST index relation being inserted into
+- `itup`: The index tuple to be inserted
+- `freespace`: Amount of free space required on the target page
+- `*giststate`: GiST-specific state information including operator classes and support functions
+- `heapRel`: The heap relation corresponding to this index
+- `is_build`: Boolean indicating whether this insertion is part of an index build operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [gistcheckpage](gistcheckpage.md)

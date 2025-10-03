@@ -26,10 +26,9 @@ brinbuild(Relation heap, Relation index, IndexInfo *indexInfo)
 The function supports both serial and parallel index building modes, with parallel mode being chosen based on the  setting in .
 
 ## Parameters / Member Variables
-- : The heap relation (table) being indexed
-- : The BRIN index relation being built
-- : Contains index metadata including parallel worker configuration and concurrent build settings
-
+- `heap`: The heap relation (table) being indexed
+- `index`: The BRIN index relation being built
+- `*indexInfo`: Contains index metadata including parallel worker configuration and concurrent build settings
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Get table size in blocks

@@ -18,7 +18,6 @@ This function is a simple flag-setting mechanism used during PostgreSQL's recove
 The function provides a clean interface for other parts of the recovery system to request walreceiver communication without directly manipulating the underlying flag variable.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

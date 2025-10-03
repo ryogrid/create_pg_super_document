@@ -22,8 +22,7 @@ The function checks if the size of the value is less than or equal to the size o
 - When RT_VARLEN_VALUE_SIZE is not defined, it performs a compile-time check of the value size
 
 ## Parameters / Member Variables
-- : Pointer to the value being checked for embeddability
-
+- `*value_p`: Pointer to the value being checked for embeddability
 ## Dependencies
 - Functions called/Symbols referenced:
   - RT_MAKE_NAME (macro for generating function names)

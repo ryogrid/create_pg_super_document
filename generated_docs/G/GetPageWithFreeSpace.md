@@ -18,9 +18,8 @@ This function serves as the primary entry point for finding pages with sufficien
 The function can trigger FSM updates if it encounters FSM entries pointing to blocks beyond the end of the relation, helping maintain FSM consistency. If no suitable page is found, callers should extend the relation to create new pages.
 
 ## Parameters / Member Variables
-- : The relation (table/index) to search for free space
-- : The minimum amount of free space required in bytes
-
+- `rel`: The relation (table/index) to search for free space
+- `spaceNeeded`: The minimum amount of free space required in bytes
 ## Dependencies
 - Functions called/Symbols referenced:
   - [fsm_space_needed_to_cat](../f/fsm_space_needed_to_cat.md)

@@ -26,11 +26,10 @@ Key behaviors include:
 - Proper cleanup of security context and GUC settings
 
 ## Parameters / Member Variables
-- : CreateSchemaStmt containing schema name, owner role spec, IF NOT EXISTS flag, and embedded statement list
-- : Original SQL query string for error reporting and logging
-- : Character offset of the statement in the query string
-- : Length of the statement in characters
-
+- `*stmt`: CreateSchemaStmt containing schema name, owner role spec, IF NOT EXISTS flag, and embedded statement list
+- `*queryString`: Original SQL query string for error reporting and logging
+- `stmt_location`: Character offset of the statement in the query string
+- `stmt_len`: Length of the statement in characters
 ## Dependencies
 - Functions called/Symbols referenced:
   - [NamespaceCreate](../N/NamespaceCreate.md) (creates the actual namespace)

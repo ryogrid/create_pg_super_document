@@ -22,8 +22,7 @@ The function performs two levels of validation:
 This strict validation makes the function suitable for DDL parameters that specifically require lists of string literals, such as lists of column names, option values, or other textual parameters.
 
 ## Parameters / Member Variables
-- : Pointer to a DefElem structure containing the definition element to extract the string list from
-
+- `*def`: Pointer to a DefElem structure containing the definition element to extract the string list from
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DefElem](../D/DefElem.md) (structure type)

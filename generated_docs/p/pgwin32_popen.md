@@ -18,9 +18,8 @@ The  function is a Windows-specific implementation that wraps the Microsoft-spec
 The function creates a pipe to the specified command, allowing the caller to read from or write to the command's standard input/output streams. It follows the same memory management pattern as , dynamically allocating a buffer for the quoted command string and properly cleaning up afterward while preserving errno values.
 
 ## Parameters / Member Variables
-- : A null-terminated string containing the system command to execute via pipe
-- : A string specifying the pipe mode ("r" for reading, "w" for writing)
-
+- `*command`: A null-terminated string containing the system command to execute via pipe
+- `*type`: A string specifying the pipe mode ("r" for reading, "w" for writing)
 ## Dependencies
 - Functions called/Symbols referenced:
   - malloc

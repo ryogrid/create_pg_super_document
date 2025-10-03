@@ -26,11 +26,10 @@ The cost model is simpler than physical table scans since there's no I/O involve
 - Standard tuple processing overhead
 
 ## Parameters / Member Variables
-- : The Path node to store the calculated costs (startup_cost and total_cost fields are set)
-- : PlannerInfo structure containing global planning information and cost parameters
-- : RelOptInfo representing the result relation (must have rtekind == RTE_RESULT)
-- : ParamPathInfo for parameterized paths, or NULL for non-parameterized scans
-
+- `*path`: The Path node to store the calculated costs (startup_cost and total_cost fields are set)
+- `*root`: PlannerInfo structure containing global planning information and cost parameters
+- `*baserel`: RelOptInfo representing the result relation (must have rtekind == RTE_RESULT)
+- `*param_info`: ParamPathInfo for parameterized paths, or NULL for non-parameterized scans
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_restriction_qual_cost](../g/get_restriction_qual_cost.md) (calculates cost of applying restriction qualifiers)

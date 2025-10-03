@@ -26,13 +26,12 @@ The algorithm processes each MCV value by:
 The result represents the selectivity for the MCV portion of the join and still needs to be scaled according to the fraction of the right-hand side's population represented by the histogram.
 
 ## Parameters / Member Variables
-- : Array of Datum values from the MCV list (left-hand side)
-- : Array of frequency values corresponding to each MCV value
-- : Number of entries in the MCV list
-- : Array of Datum values representing histogram bucket boundaries (right-hand side)
-- : Number of values in the histogram array
-- : Operator code number for the join operation (gets commuted internally)
-
+- `*mcv_values`: Array of Datum values from the MCV list (left-hand side)
+- `*mcv_numbers`: Array of frequency values corresponding to each MCV value
+- `mcv_nvalues`: Number of entries in the MCV list
+- `*hist_values`: Array of Datum values representing histogram bucket boundaries (right-hand side)
+- `hist_nvalues`: Number of values in the histogram array
+- `opr_codenum`: Operator code number for the join operation (gets commuted internally)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [inet_hist_value_sel](inet_hist_value_sel.md)

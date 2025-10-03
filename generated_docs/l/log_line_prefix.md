@@ -16,9 +16,8 @@ log_line_prefix(StringInfo buf, ErrorData *edata)
 The  function is a simple wrapper that delegates to  to format log line prefixes according to the global  configuration variable. This function provides a standardized way to prepend status information to log messages, allowing administrators to configure what contextual information appears at the beginning of each log line (such as timestamps, process IDs, user names, etc.).
 
 ## Parameters / Member Variables
-- : StringInfo buffer where the formatted prefix will be written
-- : ErrorData structure containing the error/log message context and metadata
-
+- `buf`: StringInfo buffer where the formatted prefix will be written
+- `*edata`: ErrorData structure containing the error/log message context and metadata
 ## Dependencies
 - Functions called/Symbols referenced:
   - [log_status_format](log_status_format.md)

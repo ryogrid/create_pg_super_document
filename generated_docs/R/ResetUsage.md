@@ -15,7 +15,6 @@ void ResetUsage(void)
 `ResetUsage` establishes a baseline for resource usage measurements by capturing the current process resource usage and wall-clock time into global variables (`Save_r` and `Save_t`). This function is typically called at the beginning of operations that need to be monitored for performance analysis. It works in conjunction with `ShowUsage` to provide before-and-after resource consumption measurements, enabling PostgreSQL to track CPU time, memory usage, and other system resources consumed during specific operations.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

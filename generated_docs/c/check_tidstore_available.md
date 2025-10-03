@@ -20,6 +20,7 @@ The function checks if the global tidstore pointer is NULL and immediately throw
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - elog (for error logging and exception throwing)

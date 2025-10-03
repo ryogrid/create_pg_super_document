@@ -16,8 +16,7 @@ make_attrmap(int maplen)
 The  function creates a new attribute map structure () with a specified length. It allocates memory for both the main AttrMap structure and its internal array of attribute numbers (). The function uses  to ensure that all allocated memory is zero-initialized, providing a clean starting state for the attribute map. This is a foundational utility used by other attribute mapping functions to establish the basic data structure.
 
 ## Parameters / Member Variables
-- : The length of the attribute map, specifying how many attribute number mappings this map can hold
-
+- `maplen`: The length of the attribute map, specifying how many attribute number mappings this map can hold
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (memory allocation function)

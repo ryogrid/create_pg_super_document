@@ -23,11 +23,10 @@ The function operates in two passes:
 The logic assumes that the parser has already enforced type consistency and coerced ANYCOMPATIBLE arguments to a common supertype. This is the same logic used by resolve_polymorphic_tupdesc but with different argument representation.
 
 ## Parameters / Member Variables
-- : Number of arguments in the function signature
-- : Array of argument type OIDs that may contain polymorphic types to be resolved
-- : Array of argument modes (IN, OUT, INOUT, TABLE) or NULL if all are IN mode
-- : Function call expression containing actual argument values for type deduction
-
+- `numargs`: Number of arguments in the function signature
+- `*argtypes`: Array of argument type OIDs that may contain polymorphic types to be resolved
+- `*argmodes`: Array of argument modes (IN, OUT, INOUT, TABLE) or NULL if all are IN mode
+- `*call_expr`: Function call expression containing actual argument values for type deduction
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_call_expr_argtype](../g/get_call_expr_argtype.md)

@@ -26,11 +26,10 @@ The function workflow:
 This approach is more efficient than name-based lookup when the OID is already available, avoiding the need for name conversion and text processing.
 
 ## Parameters / Member Variables
-- : The OID of the pg_parameter_acl entry to check permissions for
-- : The OID of the role whose permissions are being checked
-- : Bitmask specifying which permissions to check (typically ACL_SET for parameter modification)
-- : Specifies how to combine multiple ACL entries (ACLMASK_ALL or ACLMASK_ANY)
-
+- `acl_oid`: The OID of the pg_parameter_acl entry to check permissions for
+- `roleid`: The OID of the role whose permissions are being checked
+- `mask`: Bitmask specifying which permissions to check (typically ACL_SET for parameter modification)
+- `how`: Specifies how to combine multiple ACL entries (ACLMASK_ALL or ACLMASK_ANY)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [superuser_arg](../s/superuser_arg.md)

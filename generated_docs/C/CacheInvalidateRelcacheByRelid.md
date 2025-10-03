@@ -18,8 +18,7 @@ CacheInvalidateRelcacheByRelid provides relcache invalidation functionality when
 Despite being less efficient, this function is often the most convenient to use in contexts where only the relation OID is known and obtaining a Relation structure or pg_class tuple would require additional overhead.
 
 ## Parameters / Member Variables
-- : The OID of the relation whose relcache entry should be invalidated
-
+- `relid`: The OID of the relation whose relcache entry should be invalidated
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PrepareInvalidationState](../P/PrepareInvalidationState.md)

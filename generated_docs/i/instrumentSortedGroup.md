@@ -19,9 +19,8 @@ This function is responsible for collecting performance statistics from a comple
 The function retrieves instrumentation data from the tuplesort state and updates the group information with cumulative statistics including total and maximum space usage (memory or disk), and tracks which sort methods have been employed.
 
 ## Parameters / Member Variables
-- : Pointer to IncrementalSortGroupInfo structure that accumulates statistics for a group of sort operations (either fullsort or prefixsort groups)
-- : Pointer to the Tuplesortstate from which to extract instrumentation statistics
-
+- `*groupInfo`: Pointer to IncrementalSortGroupInfo structure that accumulates statistics for a group of sort operations (either fullsort or prefixsort groups)
+- `*sortState`: Pointer to the Tuplesortstate from which to extract instrumentation statistics
 ## Dependencies
 - Functions called/Symbols referenced:
   - [tuplesort_get_stats](../t/tuplesort_get_stats.md) (retrieves instrumentation data from sort state)

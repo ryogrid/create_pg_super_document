@@ -19,7 +19,6 @@ The function uses a caching mechanism with a local variable `LocalHotStandbyActi
 The implementation uses a spinlock to safely read the shared state variable `XLogRecoveryCtl->SharedHotStandbyActive`, which is essential on machines with weak memory ordering to ensure memory consistency.
 
 ## Parameters / Member Variables
-This function takes no parameters and returns a boolean value indicating Hot Standby status.
 
 ## Dependencies
 - Functions called/Symbols referenced:

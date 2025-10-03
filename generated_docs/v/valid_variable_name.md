@@ -18,8 +18,7 @@ This function checks whether a variable name is allowed according to PostgreSQL'
 The function is designed to be consistent with variable name character definitions across multiple PostgreSQL scanner components (psqlscan.l, psqlscanslash.l, and exprscan.l). It's adapted from a similar function in psql/variables.c but modified specifically for pgbench to disallow digit-starting names.
 
 ## Parameters / Member Variables
-- : A null-terminated string containing the variable name to validate
-
+- `*name`: A null-terminated string containing the variable name to validate
 ## Dependencies
 - Functions called/Symbols referenced:
   - IS_HIGHBIT_SET (macro for checking high-bit characters)

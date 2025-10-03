@@ -25,10 +25,9 @@ The function implements several key features:
 The block insertion strategy places new large blocks as the second block in the chain (after the current active block), preserving remaining space in active blocks for smaller allocations while maintaining efficient block list management.
 
 ## Parameters / Member Variables
-- : The AllocSet memory context for the allocation (cast internally to AllocSet)
-- : Size in bytes of the requested allocation 
-- : Allocation flags controlling behavior and error handling
-
+- `context`: The AllocSet memory context for the allocation (cast internally to AllocSet)
+- `size`: Size in bytes of the requested allocation
+- `flags`: Allocation flags controlling behavior and error handling
 ## Dependencies
 - Functions called/Symbols referenced:
   - MemoryContextCheckSize (validates size against context limits and flags)

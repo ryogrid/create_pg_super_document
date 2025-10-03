@@ -20,10 +20,9 @@ This function extracts and formats error information from a PGresult object with
 The function handles memory allocation failures gracefully by returning appropriate error messages. It uses PostgreSQL's internal error message building functionality to construct comprehensive error reports.
 
 ## Parameters / Member Variables
-- : Pointer to the PGresult containing the error information to format
-- : Controls the amount of detail included in the error message (PGVerbosity enum)
-- : Determines whether to include context information in the error message (PGContextVisibility enum)
-
+- `*res`: Pointer to the PGresult containing the error information to format
+- `verbosity`: Controls the amount of detail included in the error message (PGVerbosity enum)
+- `show_context`: Determines whether to include context information in the error message (PGContextVisibility enum)
 ## Dependencies
 - Functions called/Symbols referenced:
   - strdup

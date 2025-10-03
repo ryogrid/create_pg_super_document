@@ -18,9 +18,8 @@ This function implements a precedence comparison for MultiXact IDs using modular
 The function is fundamental to MultiXact management operations, including vacuum, freeze operations, and cleanup procedures. It's used throughout the system to determine the relative age of MultiXact IDs for various maintenance and consistency operations.
 
 ## Parameters / Member Variables
-- : First MultiXact ID to compare (MultiXactId)
-- : Second MultiXact ID to compare (MultiXactId)
-
+- `multi1`: First MultiXact ID to compare (MultiXactId)
+- `multi2`: Second MultiXact ID to compare (MultiXactId)
 ## Dependencies
 - Functions called/Symbols referenced:
   - MultiXactId (type)

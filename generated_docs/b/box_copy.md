@@ -18,8 +18,7 @@ This utility function performs a deep copy of a BOX structure, which represents 
 The copy operation transfers all coordinate data from the original box (including low and high corner points) to the newly allocated memory space.
 
 ## Parameters / Member Variables
-- : Pointer to the original BOX structure to be copied
-
+- `*orig`: Pointer to the original BOX structure to be copied
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BOX](../B/BOX.md) (geometric box data structure)

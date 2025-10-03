@@ -27,9 +27,8 @@ The function performs two critical operations:
 This cleanup ensures that plan tree optimizations don't lose critical execution metadata or alter the visible query results.
 
 ## Parameters / Member Variables
-- : The plan node being eliminated from the tree
-- : The child plan node that will replace the parent in the tree
-
+- `*parent`: The plan node being eliminated from the tree
+- `*child`: The child plan node that will replace the parent in the tree
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SS_compute_initplan_cost](../S/SS_compute_initplan_cost.md): Calculates cost and safety implications of initplans

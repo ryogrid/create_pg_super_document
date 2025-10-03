@@ -18,8 +18,7 @@ This function analyzes a text search query tree to determine if the query requir
 The function recursively traverses the query tree and applies boolean logic rules: for AND operations (including PHRASE), only one side needs to require a match; for OR operations, both sides must require a match; NOT operations are assumed to not require matches to avoid complex nested analysis.
 
 ## Parameters / Member Variables
-- : Pointer to the current QueryItem being analyzed in the query tree
-
+- `*curitem`: Pointer to the current QueryItem being analyzed in the query tree
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_stack_depth](../c/check_stack_depth.md)

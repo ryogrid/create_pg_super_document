@@ -18,8 +18,7 @@ This function implements arithmetic decrement operation for ItemPointer structur
 The function assumes that FirstOffsetNumber is 1 rather than 0, which affects the boundary conditions. The resulting ItemPointer may become invalid according to PostgreSQL's offset numbering conventions, but this is intentional for complete type range iteration.
 
 ## Parameters / Member Variables
-- : ItemPointer structure to decrement (modified in-place) - must point to valid memory
-
+- `pointer`: ItemPointer structure to decrement (modified in-place) - must point to valid memory
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ItemPointerGetBlockNumberNoCheck](ItemPointerGetBlockNumberNoCheck.md): Safely extracts current block number without validation

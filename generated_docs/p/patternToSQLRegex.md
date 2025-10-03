@@ -28,15 +28,14 @@ Key transformations:
 The function intelligently distributes pattern components across the provided buffers based on the number of separators found and available output buffers.
 
 ## Parameters / Member Variables
-- : Character encoding for the input pattern
-- : Output buffer for database name pattern (can be NULL)
-- : Output buffer for schema name pattern (can be NULL) 
-- : Output buffer for object name pattern (can be NULL)
-- : Input shell-style pattern string
-- : If true, always escape regex special characters
-- : If true, don't convert dbname to regex format
-- : Output parameter receiving count of separators found
-
+- `encoding`: Character encoding for the input pattern
+- `dbnamebuf`: Output buffer for database name pattern (can be NULL)
+- `schemabuf`: Output buffer for schema name pattern (can be NULL)
+- `namebuf`: Output buffer for object name pattern (can be NULL)
+- `*pattern`: Input shell-style pattern string
+- `force_escape`: If true, always escape regex special characters
+- `want_literal_dbname`: If true, don't convert dbname to regex format
+- `*dotcnt`: Output parameter receiving count of separators found
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQExpBufferData](../P/PQExpBufferData.md)

@@ -18,8 +18,7 @@ The dshash_destroy function performs complete cleanup of a shared hash table by 
 The caller must ensure that no other backend will attempt to access the hash table after destruction. Other backends that were previously attached should call dshash_detach to clean up their local resources, but the backend calling dshash_destroy should not call dshash_detach as the local structure is freed as part of the destruction process.
 
 ## Parameters / Member Variables
-- : Pointer to the dshash_table structure to destroy completely
-
+- `*hash_table`: Pointer to the dshash_table structure to destroy completely
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (validates DSHASH_MAGIC)

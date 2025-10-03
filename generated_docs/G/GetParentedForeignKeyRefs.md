@@ -26,8 +26,7 @@ This function searches for foreign key constraints that reference the specified 
 The function is optimized to avoid unnecessary catalog scans when the partition cannot possibly be referenced by foreign keys (no indexes or no key columns).
 
 ## Parameters / Member Variables
-- : The partition relation to find foreign key references for
-
+- `partition`: The partition relation to find foreign key references for
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RelationGetIndexList](../R/RelationGetIndexList.md)

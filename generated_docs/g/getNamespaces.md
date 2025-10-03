@@ -23,9 +23,8 @@ The function performs several important tasks:
 5. Sets up component flags to indicate whether ACL information should be dumped
 
 ## Parameters / Member Variables
-- : Archive structure containing dump configuration and output methods
-- : Output parameter that receives the total number of namespaces found
-
+- `*fout`: Archive structure containing dump configuration and output methods
+- `*numNamespaces`: Output parameter that receives the total number of namespaces found
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)

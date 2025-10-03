@@ -25,11 +25,10 @@ Key design considerations include:
 The function validates input format, performs range checking, extracts integer and fractional components, and returns appropriate error codes for various failure conditions.
 
 ## Parameters / Member Variables
-- : Input string containing the number to parse
-- : Output pointer that will be set to the character after the parsed number
-- : Output pointer for the integer part of the parsed number (int64)
-- : Output pointer for the fractional part of the parsed number (double, |fpart| < 1.0)
-
+- `*str`: Input string containing the number to parse
+- `**endptr`: Output pointer that will be set to the character after the parsed number
+- `*ipart`: Output pointer for the integer part of the parsed number (int64)
+- `*fpart`: Output pointer for the fractional part of the parsed number (double, |fpart| < 1.0)
 ## Dependencies
 - Functions called/Symbols referenced:
   - DTERR_BAD_FORMAT (error code for malformed input)

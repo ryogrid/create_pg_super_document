@@ -29,9 +29,8 @@ The function follows the GUC check_hook interface:
 - Receives a pointer to the new value being validated
 
 ## Parameters / Member Variables
-- : The name of the GUC parameter being validated (used in error messages)
-- : Pointer to the new value being set for the SLRU buffer count parameter
-
+- `*name`: The name of the GUC parameter being validated (used in error messages)
+- `*newval`: Pointer to the new value being set for the SLRU buffer count parameter
 ## Dependencies
 - Functions called/Symbols referenced:
   - SLRU_BANK_SIZE (constant defining buffers per bank)

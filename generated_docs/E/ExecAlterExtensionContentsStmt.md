@@ -24,9 +24,8 @@ Key operations include:
 5. Triggering post-alter hooks and cleaning up resources
 
 ## Parameters / Member Variables
-- : AlterExtensionContentsStmt structure containing the parsed command details including extension name, object type, object specification, and operation type (ADD/DROP)
-- : Output parameter that receives the ObjectAddress of the added/dropped object if not NULL
-
+- `*stmt`: AlterExtensionContentsStmt structure containing the parsed command details including extension name, object type, object specification, and operation type (ADD/DROP)
+- `*objAddr`: Output parameter that receives the ObjectAddress of the added/dropped object if not NULL
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_object_address](../g/get_object_address.md)

@@ -29,8 +29,7 @@ The parser supports:
 - Comprehensive tracing support for debugging (when WPARSER_TRACE is enabled)
 
 ## Parameters / Member Variables
-- : Pointer to TParser structure containing:
-
+- `*prs`: Pointer to TParser structure containing:
 ## Dependencies
 - Functions called/Symbols referenced:
   - CHECK_FOR_INTERRUPTS (PostgreSQL interrupt handling)

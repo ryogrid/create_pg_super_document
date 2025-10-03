@@ -17,10 +17,9 @@ save_query_text_state(PsqlScanState scan_state, ConditionalStack cstack,
 This function captures the current state of the query buffer and scanner to allow for potential rollback during conditional command execution (\if, \elif, \else constructs). It saves two key pieces of state information: the current length of the query buffer and the parenthesis nesting depth from the lexer. This state can later be restored using  if needed during conditional processing.
 
 ## Parameters / Member Variables
-- : The current psql scanner state containing lexer information including parenthesis depth
-- : The conditional stack that stores saved state information 
-- : The query buffer whose length needs to be saved (can be NULL)
-
+- `scan_state`: The current psql scanner state containing lexer information including parenthesis depth
+- `cstack`: The conditional stack that stores saved state information
+- `query_buf`: The query buffer whose length needs to be saved (can be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [conditional_stack_set_query_len](../c/conditional_stack_set_query_len.md)

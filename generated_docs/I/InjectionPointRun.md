@@ -22,8 +22,7 @@ This function serves as the main entry point for executing injection points in P
 The function is designed to be lightweight and fast, suitable for embedding throughout the PostgreSQL codebase without significant performance impact when injection points are not active.
 
 ## Parameters / Member Variables
-- : The unique identifier of the injection point to execute
-
+- `*name`: The unique identifier of the injection point to execute
 ## Dependencies
 - Functions called/Symbols referenced:
   - [InjectionPointCacheRefresh](InjectionPointCacheRefresh.md)

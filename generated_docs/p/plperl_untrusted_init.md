@@ -24,7 +24,6 @@ Unlike plperl_trusted_init, this function does not:
 - Set operation masks
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

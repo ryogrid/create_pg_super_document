@@ -20,9 +20,8 @@ The function uses bit shifting operations to extract each byte of the 32-bit int
 This endian conversion ensures that timezone database files created by  are portable across different computer architectures, regardless of the host system's native endianness.
 
 ## Parameters / Member Variables
-- : The 32-bit integer value to convert to big-endian byte order
-- : Output buffer to store the 4-byte big-endian representation (must be at least 4 bytes)
-
+- `val`: The 32-bit integer value to convert to big-endian byte order
+- `buf`: Output buffer to store the 4-byte big-endian representation (must be at least 4 bytes)
 ## Dependencies
 - Functions called/Symbols referenced:
   - No external function calls (uses only basic C operations)

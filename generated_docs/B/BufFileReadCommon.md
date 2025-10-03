@@ -29,12 +29,11 @@ Key behavioral aspects:
 - Advances file position accurately across buffer boundaries
 
 ## Parameters / Member Variables
-- : Pointer to the BufFile structure to read from
-- : Destination buffer to store the read data
-- : Number of bytes to attempt to read
-- : If true, requires exactly 'size' bytes to be read (no short reads allowed)
-- : If true (and exact is true), allows zero-byte reads at end-of-file without error
-
+- `*file`: Pointer to the BufFile structure to read from
+- `*ptr`: Destination buffer to store the read data
+- `size`: Number of bytes to attempt to read
+- `exact`: If true, requires exactly 'size' bytes to be read (no short reads allowed)
+- `eofOK`: If true (and exact is true), allows zero-byte reads at end-of-file without error
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BufFileFlush](BufFileFlush.md) (ensures any pending writes are completed before reading)

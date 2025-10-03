@@ -18,10 +18,9 @@ The  function implements the actual intersection algorithm for PostgreSQL range 
 The function handles several edge cases: if either input range is empty or if the ranges do not overlap, it returns an empty range. Otherwise, it carefully compares the boundaries using the appropriate comparison function for the range's element type to determine the correct intersection boundaries.
 
 ## Parameters / Member Variables
-- : Type cache entry containing comparison functions and other metadata for the range type
-- : First input range (const RangeType pointer)
-- : Second input range (const RangeType pointer)
-
+- `*typcache`: Type cache entry containing comparison functions and other metadata for the range type
+- `*r1`: First input range (const RangeType pointer)
+- `*r2`: Second input range (const RangeType pointer)
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Extracts boundary and empty flag information from range values

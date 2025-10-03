@@ -18,6 +18,7 @@ XLogInsertAllowed is a critical function that controls access to WAL insertion o
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RecoveryInProgress](../R/RecoveryInProgress.md) (to check if system is still recovering)

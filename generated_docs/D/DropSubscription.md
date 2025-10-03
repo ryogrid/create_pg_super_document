@@ -26,9 +26,8 @@ The function handles multiple cleanup phases:
 The function enforces transaction block restrictions when dropping replication slots, since slot dropping is not transactional and cannot be rolled back. It also handles missing_ok behavior for graceful handling of non-existent subscriptions.
 
 ## Parameters / Member Variables
-- : DROP SUBSCRIPTION statement containing subscription name and options like missing_ok flag
-- : Boolean indicating if this is a top-level command, used to prevent running in transaction blocks when dropping slots
-
+- `*stmt`: DROP SUBSCRIPTION statement containing subscription name and options like missing_ok flag
+- `isTopLevel`: Boolean indicating if this is a top-level command, used to prevent running in transaction blocks when dropping slots
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetSubscriptionRelations](../G/GetSubscriptionRelations.md): Retrieves subscription relation states for cleanup

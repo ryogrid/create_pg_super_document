@@ -29,13 +29,12 @@ This function processes the mergejoinable expressions provided by the planner in
 The function ensures that abbreviation optimization is disabled for merge joins since there's no convenient opportunity to convert to alternative representations during the merge process.
 
 ## Parameters / Member Variables
-- : List of mergejoinable expression trees from the planner
-- : Array of btree operator family OIDs for each merge key
-- : Array of collation OIDs for each merge key  
-- : Array of btree strategy numbers (BTLessStrategyNumber or BTGreaterStrategyNumber)
-- : Array of nulls-first flags indicating null placement in sort order
-- : Parent plan state node for expression initialization context
-
+- `*mergeclauses`: List of mergejoinable expression trees from the planner
+- `*mergefamilies`: Array of btree operator family OIDs for each merge key
+- `*mergecollations`: Array of collation OIDs for each merge key
+- `*mergestrategies`: Array of btree strategy numbers (BTLessStrategyNumber or BTGreaterStrategyNumber)
+- `*mergenullsfirst`: Array of nulls-first flags indicating null placement in sort order
+- `*parent`: Parent plan state node for expression initialization context
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecInitExpr](../E/ExecInitExpr.md)

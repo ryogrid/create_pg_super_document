@@ -30,8 +30,7 @@ This function serves as the main message dispatcher for PostgreSQL's logical rep
 The function is designed to be recursively callable, which is essential when processing spooled messages that may contain nested message sequences.
 
 ## Parameters / Member Variables
-- : StringInfo buffer containing the incoming logical replication message with the message type as the first byte followed by message-specific data
-
+- `s`: StringInfo buffer containing the incoming logical replication message with the message type as the first byte followed by message-specific data
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pq_getmsgbyte](../p/pq_getmsgbyte.md)

@@ -23,9 +23,8 @@ EventTriggerInvoke iterates through a list of event trigger function OIDs and ex
 The function operates in a temporary memory context that is reset after each trigger execution and deleted when all triggers complete.
 
 ## Parameters / Member Variables
-- : List of function OIDs representing the event triggers to be invoked
-- : EventTriggerData structure containing context information passed to each trigger function
-
+- `*fn_oid_list`: List of function OIDs representing the event triggers to be invoked
+- `*trigdata`: EventTriggerData structure containing context information passed to each trigger function
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_stack_depth](../c/check_stack_depth.md) (stack overflow protection)

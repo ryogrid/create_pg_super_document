@@ -22,8 +22,7 @@ This function is called during the commit phase of a LISTEN command to officiall
 The function includes a note about potential out-of-memory conditions occurring after commit, which could theoretically cause issues but are currently not guarded against.
 
 ## Parameters / Member Variables
-- : The name of the notification channel to start listening on (null-terminated string)
-
+- `*channel`: The name of the notification channel to start listening on (null-terminated string)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Checks if already listening on the specified channel

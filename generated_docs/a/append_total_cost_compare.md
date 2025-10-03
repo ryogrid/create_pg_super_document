@@ -18,9 +18,8 @@ This static function serves as a comparison function for list_sort to order appe
 The descending order ensures that the most expensive paths are processed first, which helps balance the workload across parallel workers and reduces overall execution time.
 
 ## Parameters / Member Variables
-- : First ListCell containing a Path pointer for comparison
-- : Second ListCell containing a Path pointer for comparison
-
+- `*a`: First ListCell containing a Path pointer for comparison
+- `*b`: Second ListCell containing a Path pointer for comparison
 ## Dependencies
 - Functions called/Symbols referenced:
   - [compare_path_costs](../c/compare_path_costs.md) (with TOTAL_COST flag)

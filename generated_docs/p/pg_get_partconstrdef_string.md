@@ -16,9 +16,8 @@ pg_get_partconstrdef_string(Oid partitionId, char *aliasname)
 This function provides a simplified interface to retrieve partition constraint definitions as unformatted C-strings. Unlike , this function is designed for internal use and returns a plain string without pretty-printing or indentation. It allows specifying a custom alias name for the relation, which is useful when the constraint needs to be referenced in a different context (such as in subqueries or joins). The function is commonly used in scenarios where the constraint definition needs to be embedded in larger SQL constructs or when performance is more important than readability.
 
 ## Parameters / Member Variables
-- : Object identifier (OID) of the partition relation whose constraint definition should be retrieved
-- : Custom alias name to use for the relation in the generated constraint expression (can be different from the actual table name)
-
+- `partitionId`: Object identifier (OID) of the partition relation whose constraint definition should be retrieved
+- `*aliasname`: Custom alias name to use for the relation in the generated constraint expression (can be different from the actual table name)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_partition_qual_relid](../g/get_partition_qual_relid.md) (retrieves the partition constraint expression from system catalogs)

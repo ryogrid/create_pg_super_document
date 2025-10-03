@@ -20,10 +20,9 @@ This function handles tuple insertion for non-parallel hash joins by determining
 For tuples belonging to future batches, the function saves them to temporary files for later processing. The function works with various tuple formats (regular, minimal, or virtual) and handles memory management appropriately for each case.
 
 ## Parameters / Member Variables
-- : The HashJoinTable structure containing bucket arrays, batch information, and memory tracking state
-- : TupleTableSlot containing the tuple to insert, which may be in regular, minimal, or virtual format  
-- : Pre-computed hash value for the tuple used to determine bucket and batch placement
-
+- `hashtable`: The HashJoinTable structure containing bucket arrays, batch information, and memory tracking state
+- `*slot`: TupleTableSlot containing the tuple to insert, which may be in regular, minimal, or virtual format
+- `hashvalue`: Pre-computed hash value for the tuple used to determine bucket and batch placement
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecFetchSlotMinimalTuple](ExecFetchSlotMinimalTuple.md)

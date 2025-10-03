@@ -30,9 +30,8 @@ The function automatically extracts the current type and collation from the inpu
 This ensures that the relabeling operation is both safe and maintains proper expression tree structure.
 
 ## Parameters / Member Variables
-- : The expression node whose typmod should be changed
-- : The new type modifier value to apply
-
+- `*expr`: The expression node whose typmod should be changed
+- `typmod`: The new type modifier value to apply
 ## Dependencies
 - Functions called/Symbols referenced:
   - [applyRelabelType](../a/applyRelabelType.md) (the underlying implementation for relabeling)

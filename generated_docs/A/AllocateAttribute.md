@@ -18,7 +18,6 @@ This function provides a simple memory allocation wrapper specifically designed 
 The function is optimized for bootstrap scenarios where per-column ACLs are never set, so only the fixed-size portion of the pg_attribute structure is needed. This avoids the complexity and overhead of variable-length attribute storage that would be required for ACL information.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

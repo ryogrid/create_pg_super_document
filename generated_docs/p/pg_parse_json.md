@@ -16,9 +16,8 @@ pg_parse_json(JsonLexContext *lex, JsonSemAction *sem)
 pg_parse_json serves as the main interface for parsing JSON data in PostgreSQL. It accepts a pre-configured lexing context and semantic action structure, then performs recursive descent parsing to process JSON objects, arrays, or scalar values. The function supports two parsing modes: a standard recursive parser and an optional non-recursive parser (when FORCE_JSON_PSTACK is defined) for validation purposes. The parser handles the complete JSON grammar including nested structures and validates proper JSON syntax while invoking appropriate semantic actions during parsing.
 
 ## Parameters / Member Variables
-- : JsonLexContext pointer containing the lexical analysis context, input data, and parsing state
-- : JsonSemAction pointer containing function pointers to semantic action routines and state object for callback execution
-
+- `*lex`: JsonLexContext pointer containing the lexical analysis context, input data, and parsing state
+- `*sem`: JsonSemAction pointer containing function pointers to semantic action routines and state object for callback execution
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_parse_json_incremental](pg_parse_json_incremental.md) (for non-recursive mode)

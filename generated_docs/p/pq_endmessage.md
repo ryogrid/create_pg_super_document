@@ -20,8 +20,7 @@ The function performs two critical operations: first, it calls pq_putmessage() t
 This function is designed to be the standard way to complete message transmission in PostgreSQL's client-server protocol, ensuring both proper network transmission and memory management.
 
 ## Parameters / Member Variables
-- : StringInfo buffer containing the completed message to send and clean up
-
+- `buf`: StringInfo buffer containing the completed message to send and clean up
 ## Dependencies
 - Functions called/Symbols referenced:
   - pq_putmessage (performs the actual network transmission of the message)

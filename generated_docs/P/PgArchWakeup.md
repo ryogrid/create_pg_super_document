@@ -17,6 +17,7 @@ This function provides a mechanism to wake up the sleeping archiver process when
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SetLatch](../S/SetLatch.md): Sets the process latch to wake up the target process

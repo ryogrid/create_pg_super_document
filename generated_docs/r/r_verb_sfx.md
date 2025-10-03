@@ -25,8 +25,7 @@ This function handles Irish verb suffix removal as part of the stemming algorith
 The pre-filtering optimization (using bit pattern 282896) helps avoid expensive suffix table lookups when the word structure indicates no valid verb suffix can be present.
 
 ## Parameters / Member Variables
-- : Pointer to the Snowball environment structure containing the word being processed and stemming state information
-
+- `*z`: Pointer to the Snowball environment structure containing the word being processed and stemming state information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [r_RV](r_RV.md): Checks if current position is within RV (vowel) region

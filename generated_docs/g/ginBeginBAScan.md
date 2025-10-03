@@ -18,8 +18,7 @@ This function prepares the BuildAccumulator for sequential reading of its accumu
 The function is a thin wrapper around the red-black tree library's rbt_begin_iterate function, setting up the tree walk state within the BuildAccumulator structure. This scanning mechanism is essential for the bulk construction phase of GIN indexes, where entries need to be processed in sorted order for optimal index page construction.
 
 ## Parameters / Member Variables
-- : BuildAccumulator containing the red-black tree to be scanned and the tree_walk state structure
-
+- `*accum`: BuildAccumulator containing the red-black tree to be scanned and the tree_walk state structure
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BuildAccumulator](../B/BuildAccumulator.md) (data structure)

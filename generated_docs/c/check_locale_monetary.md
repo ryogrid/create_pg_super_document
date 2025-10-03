@@ -16,10 +16,9 @@ check_locale_monetary(char **newval, void **extra, GucSource source)
 This function serves as a PostgreSQL GUC check hook specifically for validating LC_MONETARY locale settings. It acts as a thin wrapper around the generic check_locale() function, specifically targeting the LC_MONETARY category. The function is part of PostgreSQL's configuration validation system and is called when the lc_monetary configuration parameter is being set or modified. It accepts empty string ("") values which represent the postmaster's environment locale setting.
 
 ## Parameters / Member Variables
-- : Pointer to the new locale value being set (can be modified by the function)
-- : Pointer to extra data that can be passed to the assign hook (not used in this implementation)
-- : The source of the configuration change (command line, config file, etc.)
-
+- `**newval`: Pointer to the new locale value being set (can be modified by the function)
+- `**extra`: Pointer to extra data that can be passed to the assign hook (not used in this implementation)
+- `source`: The source of the configuration change (command line, config file, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (with LC_MONETARY category)

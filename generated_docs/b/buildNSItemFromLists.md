@@ -17,12 +17,11 @@ buildNSItemFromLists(RangeTblEntry *rte, Index rtindex,
 This function creates a ParseNamespaceItem for relations that don't have physical tuple descriptors, such as subqueries, table functions, VALUES clauses, and CTEs. It takes separate lists of column types, type modifiers, and collations, and builds the corresponding ParseNamespaceColumn array. Unlike buildNSItemFromTupleDesc, this function doesn't need to handle dropped columns since it works with logical column definitions. The function validates that all input lists have matching lengths and constructs the namespace item with default visibility settings.
 
 ## Parameters / Member Variables
-- : The RangeTblEntry for the relation being processed
-- : The index position of this RTE in the range table list
-- : List of column datatype OIDs
-- : List of per-column type modifiers
-- : List of per-column collation OIDs
-
+- `*rte`: The RangeTblEntry for the relation being processed
+- `rtindex`: The index position of this RTE in the range table list
+- `*coltypes`: List of column datatype OIDs
+- `*coltypmods`: List of per-column type modifiers
+- `*colcollations`: List of per-column collation OIDs
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_length](../l/list_length.md) (list operations)

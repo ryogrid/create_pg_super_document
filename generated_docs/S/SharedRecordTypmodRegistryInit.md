@@ -22,10 +22,9 @@ The initialization process involves creating dshash tables in shared memory, cop
 This function is called by the leader process in parallel query execution and automatically attaches the leader to the shared registry. Worker processes must attach separately using SharedRecordTypmodRegistryAttach().
 
 ## Parameters / Member Variables
-- : Pointer to the SharedRecordTypmodRegistry structure to initialize in shared memory
-- : DSM segment containing the shared memory area 
-- : DSA area for allocating additional shared memory as needed for typmod registration
-
+- `*registry`: Pointer to the SharedRecordTypmodRegistry structure to initialize in shared memory
+- `*segment`: DSM segment containing the shared memory area
+- `*area`: DSA area for allocating additional shared memory as needed for typmod registration
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsParallelWorker

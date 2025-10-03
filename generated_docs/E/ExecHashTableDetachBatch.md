@@ -20,8 +20,7 @@ The function implements special logic for handling early abandonment of batches 
 The function also tracks peak memory usage statistics that can be reported by EXPLAIN for performance analysis.
 
 ## Parameters / Member Variables
-- : The HashJoinTable structure containing the current batch information and parallel state
-
+- `hashtable`: The HashJoinTable structure containing the current batch information and parallel state
 ## Dependencies
 - Functions called/Symbols referenced:
   - [sts_end_parallel_scan](../s/sts_end_parallel_scan.md)

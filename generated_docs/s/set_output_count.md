@@ -24,9 +24,8 @@ The function uses a switch statement to handle four different set operation type
 The calculated count is stored in setopstate->numOutput for use by the tuple emission logic.
 
 ## Parameters / Member Variables
-- : Pointer to SetOpState execution state where the output count will be stored
-- : Pointer to SetOpStatePerGroup containing the duplicate counts (numLeft, numRight) for the current tuple group
-
+- `*setopstate`: Pointer to SetOpState execution state where the output count will be stored
+- `pergroup`: Pointer to SetOpStatePerGroup containing the duplicate counts (numLeft, numRight) for the current tuple group
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SetOpState](../S/SetOpState.md) (execution state structure)

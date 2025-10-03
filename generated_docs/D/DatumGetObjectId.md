@@ -16,8 +16,7 @@ DatumGetObjectId(Datum X)
 DatumGetObjectId performs a simple type cast from a Datum to an Oid (Object Identifier). This function is part of PostgreSQL's datum conversion interface, which provides consistent methods for extracting typed values from the generic Datum representation. The function performs no validation or transformation - it simply casts the input Datum directly to an Oid type. This is a zero-cost abstraction that enhances code readability and type safety when working with object identifiers stored as Datums.
 
 ## Parameters / Member Variables
-- : A Datum value that contains an object identifier to be extracted
-
+- `X`: A Datum value that contains an object identifier to be extracted
 ## Dependencies
 - Functions called/Symbols referenced:
   - (None - performs direct cast)

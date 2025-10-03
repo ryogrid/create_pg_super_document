@@ -18,8 +18,7 @@ This function serves as a callback handler in the JSONB input parsing pipeline. 
 The function works as the counterpart to jsonb_in_object_start, completing the bracketing of object parsing within PostgreSQL's streaming JSON parser framework. Together, these callbacks ensure proper nesting and state management during complex JSON object parsing.
 
 ## Parameters / Member Variables
-- : A void pointer that is cast to JsonbInState*, containing the current parsing state and accumulated results
-
+- `*pstate`: A void pointer that is cast to JsonbInState*, containing the current parsing state and accumulated results
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pushJsonbValue](../p/pushJsonbValue.md) (pushes parsing tokens onto the state stack)

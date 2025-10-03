@@ -20,9 +20,8 @@ The function first calls  to determine the appropriate number of parallel worker
 The generated partial path represents an unordered parallel sequential scan that can be executed by multiple worker processes, with each worker scanning a portion of the relation's pages. These partial paths can later be combined with gather operations to collect results from all workers.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global optimizer state and parallel execution configuration
-- : RelOptInfo structure representing the relation for which to create parallel paths
-
+- `*root`: PlannerInfo structure containing global optimizer state and parallel execution configuration
+- `*rel`: RelOptInfo structure representing the relation for which to create parallel paths
 ## Dependencies
 - Functions called/Symbols referenced:
   - [compute_parallel_worker](compute_parallel_worker.md) (calculates optimal number of parallel workers)

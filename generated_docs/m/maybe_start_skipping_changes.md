@@ -23,8 +23,7 @@ The function includes several safety assertions to ensure it's called in the cor
 The function uses a fast-path optimization with the likely() macro, assuming that transaction skipping is not commonly used, allowing the normal case to execute efficiently.
 
 ## Parameters / Member Variables
-- : The LSN (Log Sequence Number) representing the end position of the transaction being evaluated
-
+- `finish_lsn`: The LSN (Log Sequence Number) representing the end position of the transaction being evaluated
 ## Dependencies
 - Functions called/Symbols referenced:
   - is_skipping_changes (state checking function)

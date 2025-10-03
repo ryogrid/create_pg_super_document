@@ -24,9 +24,8 @@ This function handles the high-level logic for moving a table between schemas. I
 The function uses AccessExclusiveLock to ensure exclusive access during the schema change operation. It maintains referential integrity by moving related objects together and validates ownership relationships for sequences.
 
 ## Parameters / Member Variables
-- : AlterObjectSchemaStmt containing the relation reference, new schema name, and missing_ok flag
-- : Optional output parameter to return the OID of the old schema
-
+- `*stmt`: AlterObjectSchemaStmt containing the relation reference, new schema name, and missing_ok flag
+- `*oldschema`: Optional output parameter to return the OID of the old schema
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RangeVarGetRelidExtended](../R/RangeVarGetRelidExtended.md)

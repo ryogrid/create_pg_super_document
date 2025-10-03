@@ -16,8 +16,7 @@ checkMembershipInCurrentExtension(const ObjectAddress *object)
 This function provides critical security validation for CREATE IF NOT EXISTS operations within extensions. When an extension uses CREATE IF NOT EXISTS and discovers that an object with the desired name already exists, this function ensures that the existing object is actually owned by the current extension. This prevents a serious security vulnerability where a hostile user could create objects with names that an extension might later try to create, potentially substituting malicious objects with arbitrary properties. The function only operates during CREATE EXTENSION operations and throws an error if the conflicting object is not owned by the current extension.
 
 ## Parameters / Member Variables
-- : Pointer to ObjectAddress of the existing object to check for extension membership (must have objectSubId == 0)
-
+- `*object`: Pointer to ObjectAddress of the existing object to check for extension membership (must have objectSubId == 0)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [getExtensionOfObject](../g/getExtensionOfObject.md)

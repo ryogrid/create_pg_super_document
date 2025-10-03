@@ -18,8 +18,7 @@ This function serves as the entry point for detecting external recursive self-re
 The function acts as a wrapper that initializes the depth tracking to 0 and delegates the actual traversal work to . The depth parameter is crucial because it tracks the current nesting level of queries as the walker traverses the query tree, allowing the system to determine whether a self-reference crosses query boundaries.
 
 ## Parameters / Member Variables
-- : The root Node of the query tree to examine (expected to be a Query node)
-
+- `*node`: The root Node of the query tree to examine (expected to be a Query node)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [contain_outer_selfref_walker](contain_outer_selfref_walker.md)

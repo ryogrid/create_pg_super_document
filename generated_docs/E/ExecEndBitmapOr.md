@@ -20,8 +20,7 @@ The function includes a safety check to ensure that only initialized subplans (n
 As a cleanup function, it does not return any value and focuses solely on resource deallocation and proper shutdown of the execution tree.
 
 ## Parameters / Member Variables
-- : Pointer to the BitmapOrState structure containing the child subplan states to be cleaned up
-
+- `*node`: Pointer to the BitmapOrState structure containing the child subplan states to be cleaned up
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecEndNode](ExecEndNode.md) (recursively shuts down child subplans)

@@ -31,11 +31,8 @@ uniqueWORD(ParsedWord *a, int32 l)
 The function enforces several limits: maximum number of positions per word (), maximum position value (), and ensures position uniqueness within each word's array.
 
 ## Parameters / Member Variables
-- : Array of ParsedWord structures to process
-- : Length of the input array (number of elements)
-
-Returns: Number of unique words in the resulting deduplicated array
-
+- `*a`: Array of ParsedWord structures to process
+- `l`: Length of the input array (number of elements)
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Comparison function for sorting ParsedWord structures

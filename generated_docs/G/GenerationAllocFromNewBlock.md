@@ -19,11 +19,10 @@ GenerationAllocFromNewBlock is a specialized allocation function that handles th
 The function uses a doubling strategy for block sizes, starting with initBlockSize and doubling with each allocation until reaching maxBlockSize. This approach balances memory efficiency with allocation performance by reducing the frequency of system malloc calls for larger working sets.
 
 ## Parameters / Member Variables
-- : The memory context requesting the allocation (cast to GenerationContext)
-- : The original size requested by the caller
-- : Allocation flags that control error handling behavior
-- : The actual chunk size to allocate (may be larger than size due to alignment)
-
+- `context`: The memory context requesting the allocation (cast to GenerationContext)
+- `size`: The original size requested by the caller
+- `flags`: Allocation flags that control error handling behavior
+- `chunk_size`: The actual chunk size to allocate (may be larger than size due to alignment)
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_nextpower2_size_t (rounds size up to next power of 2)

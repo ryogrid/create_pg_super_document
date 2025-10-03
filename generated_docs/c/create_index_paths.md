@@ -27,9 +27,8 @@ The function processes each index by:
 All generated paths are added to the relation's pathlist via add_path() for cost-based selection by the optimizer.
 
 ## Parameters / Member Variables
-- : PlannerInfo containing query planning context and global information
-- : RelOptInfo for the relation to generate index paths for (must have check_index_predicates() run previously)
-
+- `*root`: PlannerInfo containing query planning context and global information
+- `*rel`: RelOptInfo for the relation to generate index paths for (must have check_index_predicates() run previously)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [match_restriction_clauses_to_index](../m/match_restriction_clauses_to_index.md)

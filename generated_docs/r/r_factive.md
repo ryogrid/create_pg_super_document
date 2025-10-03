@@ -27,8 +27,7 @@ The function operates through several steps:
 This processing is essential for Hungarian morphological analysis since factive forms are common in expressing causal relationships and need to be reduced to their base forms for effective full-text search and linguistic processing.
 
 ## Parameters / Member Variables
-- : Pointer to the SN_env structure containing the word being processed, cursor positions, and string boundaries
-
+- `*z`: Pointer to the SN_env structure containing the word being processed, cursor positions, and string boundaries
 ## Dependencies
 - Functions called/Symbols referenced:
   - [find_among_b](../f/find_among_b.md) (searches for factive patterns from array a_7 containing 'á', 'é')

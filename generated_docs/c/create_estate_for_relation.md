@@ -16,8 +16,7 @@ create_estate_for_relation(Relation rel)
 This function prepares the PostgreSQL executor infrastructure needed to evaluate row filter expressions for logical replication. It creates an EState object, constructs a range table entry (RTE) for the specified relation, and initializes the executor's range table with the relation information. The function sets up the necessary metadata including relation ID, kind, and lock mode (AccessShareLock), and configures permission information. The resulting EState can then be used to execute filter expressions against tuples from the relation.
 
 ## Parameters / Member Variables
-- : Relation representing the table for which the executor state is being created
-
+- `rel`: Relation representing the table for which the executor state is being created
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CreateExecutorState](../C/CreateExecutorState.md)

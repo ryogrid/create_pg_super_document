@@ -22,10 +22,9 @@ The safety rule is simple but critical: if a function returns INTERNAL type, it 
 Functions that both accept and return INTERNAL types are typically system functions used for implementing complex features like aggregates, where INTERNAL values are passed between related functions (like aggregate transition functions) but never exposed to end users.
 
 ## Parameters / Member Variables
-- : The return type OID of the function being validated
-- : Array of declared argument type OIDs for the function
-- : Number of function arguments
-
+- `ret_type`: The return type OID of the function being validated
+- `*declared_arg_types`: Array of declared argument type OIDs for the function
+- `nargs`: Number of function arguments
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pstrdup](../p/pstrdup.md)

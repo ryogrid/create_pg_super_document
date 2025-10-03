@@ -23,10 +23,9 @@ This function performs validation of authentication methods during initdb execut
 The function ensures that only supported and secure authentication methods are configured during database cluster initialization, preventing misconfigurations that could lead to connection issues or security vulnerabilities.
 
 ## Parameters / Member Variables
-- : The authentication method string to validate (e.g., "md5", "scram-sha-256", "trust", "peer")
-- : Null-terminated array of strings containing valid authentication methods for the connection type
-- : Description of the connection type being validated (e.g., "local", "host", "hostssl") for error reporting
-
+- `*authmethod`: The authentication method string to validate (e.g., "md5", "scram-sha-256", "trust", "peer")
+- `*valid_methods`: Null-terminated array of strings containing valid authentication methods for the connection type
+- `*conntype`: Description of the connection type being validated (e.g., "local", "host", "hostssl") for error reporting
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Standard C library function for string comparison

@@ -25,13 +25,12 @@ The function employs several optimization strategies: it first checks for existi
 For locks that conflict with the fast-path mechanism, it transfers existing fast-path locks to the shared table. The function integrates with PostgreSQL's deadlock detection system and can optionally wait for lock availability or return immediately based on the dontWait parameter.
 
 ## Parameters / Member Variables
-- : Pointer to LOCKTAG structure uniquely identifying the lockable object
-- : The specific lock mode to acquire (ShareLock, ExclusiveLock, etc.)
-- : If true, acquire lock for session rather than current transaction
-- : If true, return immediately if lock cannot be acquired without waiting
-- : If true, generate ERROR on memory exhaustion; if false, return LOCKACQUIRE_NOT_AVAIL
-- : Optional output parameter to receive pointer to LOCALLOCK entry
-
+- `*locktag`: Pointer to LOCKTAG structure uniquely identifying the lockable object
+- `lockmode`: The specific lock mode to acquire (ShareLock, ExclusiveLock, etc.)
+- `sessionLock`: If true, acquire lock for session rather than current transaction
+- `dontWait`: If true, return immediately if lock cannot be acquired without waiting
+- `reportMemoryError`: If true, generate ERROR on memory exhaustion; if false, return LOCKACQUIRE_NOT_AVAIL
+- `**locallockp`: Optional output parameter to receive pointer to LOCALLOCK entry
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SetupLockInTable](../S/SetupLockInTable.md) (creates/finds shared lock and proclock entries)

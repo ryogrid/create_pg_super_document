@@ -18,8 +18,7 @@ MarkPortalActive performs a critical state transition that marks a portal as act
 Upon successful validation, the function updates the portal's status to ACTIVE and records the current subtransaction ID. This subtransaction tracking is essential for proper cleanup and rollback behavior, allowing PostgreSQL to correctly manage portal lifecycles within nested transactions.
 
 ## Parameters / Member Variables
-- : The Portal structure to transition to active state. Must be in READY state.
-
+- `portal`: The Portal structure to transition to active state. Must be in READY state.
 ## Dependencies
 - Functions called/Symbols referenced:
   - PORTAL_READY (constant for ready state check)

@@ -18,8 +18,7 @@ This function is a convenience wrapper around lowerstr_with_len() that handles n
 The underlying implementation (lowerstr_with_len) uses different strategies based on the database encoding: for multi-byte encodings with non-C locales, it converts to wide characters, applies towlower(), and converts back; for single-byte encodings or C locale, it uses simple tolower() on each byte.
 
 ## Parameters / Member Variables
-- : Null-terminated input string to convert to lowercase
-
+- `*str`: Null-terminated input string to convert to lowercase
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lowerstr_with_len](lowerstr_with_len.md)

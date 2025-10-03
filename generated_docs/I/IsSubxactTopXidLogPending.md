@@ -26,6 +26,7 @@ Only when all these conditions are satisfied does the function return true, indi
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogLogicalInfoActive

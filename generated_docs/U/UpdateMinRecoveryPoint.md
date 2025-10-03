@@ -24,9 +24,8 @@ The function implements several important safety mechanisms:
 The function acquires an exclusive lock on the control file to ensure atomic updates and maintains both the recovery point LSN and its associated timeline ID.
 
 ## Parameters / Member Variables
-- : The WAL log sequence number that should be the new minimum recovery point
-- : If true, ignores the lsn parameter and forces an update to the current replay position
-
+- `lsn`: The WAL log sequence number that should be the new minimum recovery point
+- `force`: If true, ignores the lsn parameter and forces an update to the current replay position
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecPtrIsInvalid

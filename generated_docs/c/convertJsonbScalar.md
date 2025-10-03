@@ -23,10 +23,9 @@ The  function is responsible for converting leaf-level JSON values into their bi
 The function serves as the foundation for JSONB's binary format by properly encoding each scalar value type with its corresponding metadata, ensuring efficient storage and retrieval.
 
 ## Parameters / Member Variables
-- : StringInfo buffer where the serialized scalar data will be appended
-- : Pointer to JEntry that will be filled with type flags and length information for this scalar
-- : JsonbValue containing the scalar data to be converted
-
+- `buffer`: StringInfo buffer where the serialized scalar data will be appended
+- `*header`: Pointer to JEntry that will be filled with type flags and length information for this scalar
+- `*scalarVal`: JsonbValue containing the scalar data to be converted
 ## Dependencies
 - Functions called/Symbols referenced:
   - [appendToBuffer](../a/appendToBuffer.md) (appends string and numeric data to buffer)

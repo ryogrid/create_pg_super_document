@@ -20,9 +20,8 @@ The function creates a new ExprContext using CreateExprContext and assigns it to
 This initialization is only necessary for plan nodes that actually evaluate expressions. Nodes that don't perform expression evaluation (such as pure data flow nodes) don't need to call this function.
 
 ## Parameters / Member Variables
-- : The EState structure that will own the created ExprContext
-- : The PlanState node that will receive the ExprContext in its ps_ExprContext field
-
+- `*estate`: The EState structure that will own the created ExprContext
+- `*planstate`: The PlanState node that will receive the ExprContext in its ps_ExprContext field
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CreateExprContext](../C/CreateExprContext.md) (creates the ExprContext and associates it with the EState)

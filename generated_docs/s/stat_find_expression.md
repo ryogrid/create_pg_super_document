@@ -16,9 +16,8 @@ stat_find_expression(StatisticExtInfo *stat, Node *expr)
 This static function performs a linear search through a statistics object's expression list to locate a specific expression node. It uses PostgreSQL's equal() function to perform deep structural comparison between expression trees. The function is essential for extended statistics operations that involve expressions rather than simple column references, allowing the system to determine if a particular expression is covered by existing statistical data.
 
 ## Parameters / Member Variables
-- : StatisticExtInfo structure containing the statistics object with its expression list
-- : Node representing the expression to search for in the statistics object
-
+- `*stat`: StatisticExtInfo structure containing the statistics object with its expression list
+- `*expr`: Node representing the expression to search for in the statistics object
 ## Dependencies
 - Functions called/Symbols referenced:
   - [equal](../e/equal.md) (PostgreSQL node comparison function)

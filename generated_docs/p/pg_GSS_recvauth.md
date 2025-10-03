@@ -16,8 +16,7 @@ pg_GSS_recvauth(Port *port)
 pg_GSS_recvauth is the core function for server-side GSSAPI authentication in PostgreSQL. It establishes a GSS security context by exchanging GSSAPI tokens with the client through a multi-round protocol. The function handles Kerberos keytab configuration, manages the complete token exchange loop, processes delegated credentials if configured, and performs all necessary GSSAPI security context operations. It accepts any service principal present in the server's keytab for maximum interoperability between different Kerberos implementations.
 
 ## Parameters / Member Variables
-- : Connection port structure containing client connection information and GSS-specific authentication state
-
+- `*port`: Connection port structure containing client connection information and GSS-specific authentication state
 ## Dependencies
 - Functions called/Symbols referenced:
   - setenv (configures KRB5_KTNAME environment variable for keytab)

@@ -24,9 +24,8 @@ The function performs several masking operations:
 - Clears the "has garbage" flag since it's never set during redo operations
 
 ## Parameters / Member Variables
-- : Pointer to the raw page data to be masked (cast to Page internally)
-- : Block number of the page being masked (currently unused in implementation)
-
+- `*pagedata`: Pointer to the raw page data to be masked (cast to Page internally)
+- `blkno`: Block number of the page being masked (currently unused in implementation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [mask_page_lsn_and_checksum](../m/mask_page_lsn_and_checksum.md)

@@ -16,10 +16,9 @@ defGetCopyOnErrorChoice(DefElem *def, ParseState *pstate, bool is_from)
 This function parses and validates the ON_ERROR option value for COPY statements. The ON_ERROR option controls how COPY FROM handles data conversion errors and constraint violations. It accepts two string values: "stop" (the default behavior, which stops execution on first error) and "ignore" (which skips problematic rows and continues processing). This option is strictly limited to COPY FROM operations and will generate an error if used with COPY TO. The function provides precise error reporting with parser position information for better user feedback.
 
 ## Parameters / Member Variables
-- : DefElem structure containing the ON_ERROR parameter definition and string value
-- : ParseState used for generating error messages with accurate source position information  
-- : Boolean flag indicating whether this is a COPY FROM operation (true) or COPY TO operation (false)
-
+- `*def`: DefElem structure containing the ON_ERROR parameter definition and string value
+- `*pstate`: ParseState used for generating error messages with accurate source position information
+- `is_from`: Boolean flag indicating whether this is a COPY FROM operation (true) or COPY TO operation (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [defGetString](defGetString.md)

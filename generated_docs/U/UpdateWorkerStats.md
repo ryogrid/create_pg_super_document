@@ -16,10 +16,9 @@ UpdateWorkerStats(XLogRecPtr last_lsn, TimestampTz send_time, bool reply)
 This function maintains the operational statistics for a logical replication worker by updating key timestamps and LSN (Log Sequence Number) values in the MyLogicalRepWorker global structure. It records when messages were last received and processed, enabling monitoring of replication lag and worker activity. When the reply parameter is true, it additionally updates reply-specific statistics to track the last position that was acknowledged back to the publisher.
 
 ## Parameters / Member Variables
-- : The LSN of the last processed WAL record or message
-- : The timestamp when the message was sent by the publisher
-- : Boolean flag indicating whether this update corresponds to a reply message being sent
-
+- `last_lsn`: The LSN of the last processed WAL record or message
+- `send_time`: The timestamp when the message was sent by the publisher
+- `reply`: Boolean flag indicating whether this update corresponds to a reply message being sent
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)

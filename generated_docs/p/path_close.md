@@ -16,8 +16,7 @@ path_close(PG_FUNCTION_ARGS)
 The  function is a PostgreSQL built-in function that takes a PATH geometric type as input and returns a copy of that path with its closed flag set to true. This effectively converts an open path (polyline) into a closed path (polygon). The function creates a copy of the input path to avoid modifying the original data structure, then sets the  field to true before returning the modified path.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function argument macro that contains the input path parameter
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument macro that contains the input path parameter
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Geometric path data type structure

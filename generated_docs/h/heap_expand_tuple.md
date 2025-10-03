@@ -18,9 +18,8 @@ The  function is a public wrapper around the internal  function specifically for
 This function is essential for schema evolution scenarios where existing tuples need to be adapted to evolved table schemas that have additional columns. The function ensures that the resulting HeapTuple has the proper structure and metadata expected by the rest of the PostgreSQL system, including proper tuple headers, OIDs, and other HeapTuple-specific information.
 
 ## Parameters / Member Variables
-- : The source HeapTuple that has fewer attributes than required
-- : The target tuple descriptor that defines the required number and types of attributes
-
+- `sourceTuple`: The source HeapTuple that has fewer attributes than required
+- `tupleDesc`: The target tuple descriptor that defines the required number and types of attributes
 ## Dependencies
 - Functions called/Symbols referenced:
   - [expand_tuple](../e/expand_tuple.md) (internal expansion function)

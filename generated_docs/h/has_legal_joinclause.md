@@ -20,9 +20,8 @@ The function implements a conservative heuristic approach - it only considers jo
 The function is specifically designed to work within the context of sub-joinlist planning, where clauseless joins within  might be forced even when join clauses exist linking to other parts of the query.
 
 ## Parameters / Member Variables
-- : Pointer to the PlannerInfo structure containing global planner state and context
-- : The RelOptInfo representing the relation being tested for legal join opportunities
-
+- `relids`: Pointer to the PlannerInfo structure containing global planner state and context
+- `relids`: The RelOptInfo representing the relation being tested for legal join opportunities
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Tests if two bitmapsets have overlapping bits

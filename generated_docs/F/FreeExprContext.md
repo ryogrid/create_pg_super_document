@@ -20,9 +20,8 @@ The function handles both normal shutdown scenarios (when isCommit is true) and 
 An important consequence of this function is that any previously computed pass-by-reference expression results stored in the per-tuple memory context will be invalidated and freed.
 
 ## Parameters / Member Variables
-- : The ExprContext structure to be freed
-- : Boolean flag indicating whether this is a normal commit (true) or error cleanup (false). Affects whether shutdown callbacks are executed.
-
+- `*econtext`: The ExprContext structure to be freed
+- `isCommit`: Boolean flag indicating whether this is a normal commit (true) or error cleanup (false). Affects whether shutdown callbacks are executed.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ShutdownExprContext](../S/ShutdownExprContext.md) (executes registered shutdown callbacks)

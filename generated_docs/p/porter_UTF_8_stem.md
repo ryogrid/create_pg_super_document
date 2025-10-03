@@ -32,8 +32,7 @@ This function implements the complete Porter stemming algorithm for UTF-8 encode
 The algorithm ensures proper morphological analysis by respecting region boundaries and applying rules in the correct sequence.
 
 ## Parameters / Member Variables
-- : Pointer to the SN_env stemming environment structure containing:
-
+- `*z`: Pointer to the SN_env stemming environment structure containing:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [in_grouping_U](../i/in_grouping_U.md) (tests character group membership for UTF-8)

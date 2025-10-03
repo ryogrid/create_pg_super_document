@@ -16,9 +16,8 @@ fetch_statentries_for_relation(Relation pg_statext, Oid relid)
 This function performs a catalog scan of pg_statistic_ext to find all extended statistics objects defined on the specified relation. For each statistics object found, it extracts and parses the metadata including the object OID, schema name, object name, target columns, statistics target, enabled statistics types, and any expression definitions. The function handles the complex parsing of catalog array fields (stxkind for statistics types, stxkeys for column numbers) and deserializes expression strings back into parse trees when present. Expression parse trees are processed through eval_const_expressions and fix_opfuncids to ensure they match the planner's expected format.
 
 ## Parameters / Member Variables
-- : Open relation handle for the pg_statistic_ext catalog
-- : OID of the relation whose statistics objects to retrieve
-
+- `pg_statext`: Open relation handle for the pg_statistic_ext catalog
+- `relid`: OID of the relation whose statistics objects to retrieve
 ## Dependencies
 - Functions called/Symbols referenced:
   - [systable_beginscan](../s/systable_beginscan.md)

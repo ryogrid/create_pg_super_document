@@ -33,16 +33,15 @@ This function serves as the final step in parameterized index path generation, r
 The function implements a special rule for EquivalenceClass clauses: since clauses generated for each column are redundant, it uses only the first applicable clause per column, breaking after finding one.
 
 ## Parameters / Member Variables
-- : PlannerInfo containing query planning context
-- : RelOptInfo for the index's heap relation  
-- : IndexOptInfo for the index to generate paths for
-- : IndexClauseSet containing indexable restriction clauses
-- : IndexClauseSet containing indexable simple join clauses
-- : IndexClauseSet containing indexable EquivalenceClass clauses
-- : Output list for bitmap index paths
-- : Current set of relation IDs to consider (target rel plus outer rels)
-- : Input/output list tracking processed relation sets
-
+- `*root`: PlannerInfo containing query planning context
+- `*rel`: RelOptInfo for the index's heap relation
+- `*index`: IndexOptInfo for the index to generate paths for
+- `*rclauseset`: IndexClauseSet containing indexable restriction clauses
+- `*jclauseset`: IndexClauseSet containing indexable simple join clauses
+- `*eclauseset`: IndexClauseSet containing indexable EquivalenceClass clauses
+- `**bitindexpaths`: Output list for bitmap index paths
+- `relids`: Current set of relation IDs to consider (target rel plus outer rels)
+- `**considered_relids`: Input/output list tracking processed relation sets
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_member](../l/list_member.md)

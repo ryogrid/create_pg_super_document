@@ -22,9 +22,8 @@ This function performs a critical conversion in PostgreSQL's hash index overflow
 The function is essential for translating between the logical bitmap representation of free overflow pages and their physical storage locations in the index file.
 
 ## Parameters / Member Variables
-- : Pointer to the hash index metadata page containing split point information and spares array
-- : Zero-based bit number representing the overflow page's position in the bitmap
-
+- `metap`: Pointer to the hash index metadata page containing split point information and spares array
+- `ovflbitnum`: Zero-based bit number representing the overflow page's position in the bitmap
 ## Dependencies
 - Functions called/Symbols referenced:
   - HashMetaPage (metadata structure)

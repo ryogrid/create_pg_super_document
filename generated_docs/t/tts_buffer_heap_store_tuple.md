@@ -21,11 +21,10 @@ The function implements an important optimization for sequential scans: when the
 The function handles memory management by freeing any previously materialized tuple if the TTS_SHOULDFREE flag is set, ensures proper buffer reference counting, and maintains the slot's metadata including the tuple identifier and validity flags.
 
 ## Parameters / Member Variables
-- : The TupleTableSlot to store the tuple in, must be a BufferHeapTupleTableSlot
-- : The HeapTuple to be stored in the slot
-- : The buffer containing the tuple's data page
-- : If true, transfers ownership of the caller's buffer pin to the slot; if false, creates a new pin
-
+- `*slot`: The TupleTableSlot to store the tuple in, must be a BufferHeapTupleTableSlot
+- `tuple`: The HeapTuple to be stored in the slot
+- `buffer`: The buffer containing the tuple's data page
+- `transfer_pin`: If true, transfers ownership of the caller's buffer pin to the slot; if false, creates a new pin
 ## Dependencies
 - Functions called/Symbols referenced:
   - [heap_freetuple](../h/heap_freetuple.md)

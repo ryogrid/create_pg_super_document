@@ -21,10 +21,9 @@ This function handles three different echo-style commands in psql:
 The function processes command arguments, handling the special "-n" flag to suppress the trailing newline. Arguments are separated by spaces in the output. If the command is executed within an inactive conditional branch, the arguments are simply ignored.
 
 ## Parameters / Member Variables
-- : Scanner state for parsing the command line arguments
-- : Boolean indicating whether this command should be executed (used for conditional processing)
-- : String identifying which specific command is being executed ("echo", "qecho", or "warn")
-
+- `scan_state`: Scanner state for parsing the command line arguments
+- `active_branch`: Boolean indicating whether this command should be executed (used for conditional processing)
+- `*cmd`: String identifying which specific command is being executed ("echo", "qecho", or "warn")
 ## Dependencies
 - Functions called/Symbols referenced:
   - psql_scan_slash_option

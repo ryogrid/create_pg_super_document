@@ -22,9 +22,8 @@ The function handles two distinct cases:
 The implementation creates a named pipe with the pattern  and attempts to communicate with the target process. The target process must be running PostgreSQL code that sets up a corresponding named pipe server to receive these signals.
 
 ## Parameters / Member Variables
-- : Process ID of the target process to send the signal to (must be > 0)
-- : Signal number to send (must be >= 0 and < PG_SIGNAL_COUNT)
-
+- `pid`: Process ID of the target process to send the signal to (must be > 0)
+- `sig`: Signal number to send (must be >= 0 and < PG_SIGNAL_COUNT)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (constant defining maximum signal number)

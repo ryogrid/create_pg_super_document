@@ -19,15 +19,14 @@ doPickSplit(Relation index, SpGistState *state,
 The  function handles the complex process of splitting leaf tuple chains in SP-GiST when a page lacks sufficient space for a new tuple. It creates one or more new chains distributed across the current page and an additional leaf page, while creating a new inner tuple to organize the split result. The function uses the opclass-defined picksplit method to determine how to redistribute tuples, potentially stripping prefixes to make tuples smaller. The split ensures at least two chains are created, guaranteeing forward progress even with unbalanced splits.
 
 ## Parameters / Member Variables
-- : The SP-GiST index relation being modified
-- : SP-GiST state information containing opclass details and configuration
-- : Page descriptor for the current page containing the leaf tuple chain
-- : Page descriptor for the parent page (containing the downlink to current)
-- : The new leaf tuple that triggered the need for splitting
-- : Current tree level for prefix stripping decisions
-- : Whether this operation is on the nulls tree
-- : Whether the current page is newly created
-
+- `index`: The SP-GiST index relation being modified
+- `*state`: SP-GiST state information containing opclass details and configuration
+- `*current`: Page descriptor for the current page containing the leaf tuple chain
+- `*parent`: Page descriptor for the parent page (containing the downlink to current)
+- `newLeafTuple`: The new leaf tuple that triggered the need for splitting
+- `level`: Current tree level for prefix stripping decisions
+- `isNulls`: Whether this operation is on the nulls tree
+- `isNew`: Whether the current page is newly created
 ## Dependencies
 - Functions called/Symbols referenced:
   - [checkAllTheSame](../c/checkAllTheSame.md)

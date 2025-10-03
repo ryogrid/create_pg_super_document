@@ -18,8 +18,7 @@ This function provides a simple boundary check to determine if a given memory ad
 The function is straightforward: it returns true if the address is greater than or equal to ShmemBase and less than ShmemEnd, effectively checking if the address lies within the [ShmemBase, ShmemEnd) range.
 
 ## Parameters / Member Variables
-- : A constant pointer to the memory address to be validated
-
+- `*addr`: A constant pointer to the memory address to be validated
 ## Dependencies
 - Functions called/Symbols referenced:
   - ShmemBase (global variable - start of shared memory segment)

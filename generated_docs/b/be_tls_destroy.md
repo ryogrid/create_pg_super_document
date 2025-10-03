@@ -24,7 +24,6 @@ The function performs the following operations:
 This ensures a clean state and prevents memory leaks when the SSL subsystem is torn down.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

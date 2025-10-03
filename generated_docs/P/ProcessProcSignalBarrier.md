@@ -27,7 +27,6 @@ ProcessProcSignalBarrier is the core function responsible for handling barrier p
 The function implements sophisticated retry logic - if a barrier processing function returns false (indicating the barrier couldn't be absorbed at the current time), it resets the barrier bits for later retry and skips the generation update.
 
 ## Parameters / Member Variables
-This function takes no parameters and operates on global state.
 
 ## Dependencies
 - Functions called/Symbols referenced:

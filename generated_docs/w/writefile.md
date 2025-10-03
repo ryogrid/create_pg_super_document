@@ -16,9 +16,8 @@ writefile(char *path, char **lines)
 This function takes an array of malloc'd strings and writes them to a specified file path as text. It opens the file in text mode (not binary) to ensure proper line ending handling on Windows systems, making the resulting configuration files easily editable across platforms. The function performs comprehensive error checking for file operations and automatically frees all input memory including both the individual strings and the array itself. This design makes it a convenient cleanup function that both writes data and deallocates resources.
 
 ## Parameters / Member Variables
-- : The file system path where the content should be written
-- : A malloc'd array of individually malloc'd strings to write, terminated by NULL pointer
-
+- `*path`: The file system path where the content should be written
+- `**lines`: A malloc'd array of individually malloc'd strings to write, terminated by NULL pointer
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (standard library function for file opening in text mode)

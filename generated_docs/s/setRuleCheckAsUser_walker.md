@@ -16,9 +16,8 @@ setRuleCheckAsUser_walker(Node *node, Oid *context)
 This function implements a tree-walking algorithm that traverses PostgreSQL expression trees to modify permission checking behavior. It works in conjunction with setRuleCheckAsUser() to recursively scan query and expression trees, setting the checkAsUser field to a specified user ID in all RTEPermissionInfo structures. When it encounters a Query node, it delegates to setRuleCheckAsUser_Query() for specialized query handling. For all other node types, it continues the recursive traversal using the standard expression_tree_walker() mechanism.
 
 ## Parameters / Member Variables
-- : The current node in the expression tree being processed (can be NULL)
-- : Pointer to an Oid containing the user ID to be set in checkAsUser fields
-
+- `*node`: The current node in the expression tree being processed (can be NULL)
+- `*context`: Pointer to an Oid containing the user ID to be set in checkAsUser fields
 ## Dependencies
 - Functions called/Symbols referenced:
   - [setRuleCheckAsUser_Query](setRuleCheckAsUser_Query.md)

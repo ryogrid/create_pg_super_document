@@ -23,8 +23,7 @@ This function handles the replay of a BRIN desummarization operation during cras
 This operation ensures that the BRIN index correctly reflects the invalidated state of summary information during recovery.
 
 ## Parameters / Member Variables
-- : XLogReaderState pointer containing the WAL record being replayed, including the desummarization data and references to the affected revmap and regular page blocks
-
+- `*record`: XLogReaderState pointer containing the WAL record being replayed, including the desummarization data and references to the affected revmap and regular page blocks
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData: Extract record data from WAL

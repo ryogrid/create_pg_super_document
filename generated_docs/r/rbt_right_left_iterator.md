@@ -18,8 +18,7 @@ This function provides the core logic for reverse in-order traversal of a Red-Bl
 The algorithm mirrors the left-right iterator but with reversed logic: it handles initial traversal by finding the rightmost node, moves to the next node when the current node has a left subtree (finding the rightmost node in that subtree), and backtracks up the tree when no left subtree exists. This provides an efficient way to iterate through tree elements in reverse sorted order.
 
 ## Parameters / Member Variables
-- : Pointer to the RBTreeIterator structure that maintains traversal state and tree reference
-
+- `*iter`: Pointer to the RBTreeIterator structure that maintains traversal state and tree reference
 ## Dependencies
 - Functions called/Symbols referenced:
   - RBTNIL (sentinel node constant)

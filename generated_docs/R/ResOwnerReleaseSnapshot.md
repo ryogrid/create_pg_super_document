@@ -18,8 +18,7 @@ ResOwnerReleaseSnapshot is a callback function used by PostgreSQL's resource man
 This mechanism prevents snapshot reference leaks by ensuring that all registered snapshots are properly unregistered even if the code that registered them doesn't explicitly call the cleanup functions.
 
 ## Parameters / Member Variables
-- : A Datum containing a pointer to the snapshot that needs to be released
-
+- `res`: A Datum containing a pointer to the snapshot that needs to be released
 ## Dependencies
 - Functions called/Symbols referenced:
   - [UnregisterSnapshotNoOwner](../U/UnregisterSnapshotNoOwner.md) (performs the actual snapshot unregistration)

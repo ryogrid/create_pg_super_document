@@ -24,10 +24,9 @@ The function includes extensive version-specific logic to handle the evolution o
 The query filters collations based on the current database encoding to show only usable collations and can optionally exclude system collations.
 
 ## Parameters / Member Variables
-- : A SQL name pattern (with optional wildcards) to filter which collations to display. If NULL, all visible collations are shown.
-- : If true, includes collation descriptions from the  catalog in the output.
-- : If true, includes system collations from  and  schemas; if false, excludes them (unless a pattern is specified).
-
+- `*pattern`: A SQL name pattern (with optional wildcards) to filter which collations to display. If NULL, all visible collations are shown.
+- `verbose`: If true, includes collation descriptions from the  catalog in the output.
+- `showSystem`: If true, includes system collations from  and  schemas; if false, excludes them (unless a pattern is specified).
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Initializes a dynamic string buffer

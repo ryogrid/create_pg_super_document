@@ -20,9 +20,8 @@ The function iterates through all 16 bytes of the IPv6 address, comparing each b
 This function is used within PostgreSQL's Host-Based Authentication (HBA) system to compare client IPv6 addresses with configured address ranges or specific addresses in HBA entries, similar to its IPv4 counterpart .
 
 ## Parameters / Member Variables
-- : Pointer to the first IPv6 socket address structure to compare
-- : Pointer to the second IPv6 socket address structure to compare
-
+- `*a`: Pointer to the first IPv6 socket address structure to compare
+- `*b`: Pointer to the second IPv6 socket address structure to compare
 ## Dependencies
 - Functions called/Symbols referenced:
   - (None - uses only standard struct field access and basic control flow)

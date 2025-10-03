@@ -18,8 +18,7 @@ The  function provides a simplified interface to operator formatting by calling 
 The function generates output in the format "opr_name(lefttype,righttype)" with schema qualification applied only when necessary for disambiguation based on the current search_path visibility.
 
 ## Parameters / Member Variables
-- : The OID of the operator to format
-
+- `operator_oid`: The OID of the operator to format
 ## Dependencies
 - Functions called/Symbols referenced:
   - [format_operator_extended](format_operator_extended.md)

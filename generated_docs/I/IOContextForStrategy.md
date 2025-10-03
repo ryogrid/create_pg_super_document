@@ -18,8 +18,7 @@ This function serves as a mapping utility that translates buffer access strategi
 The function handles NULL strategy inputs by returning IOCONTEXT_NORMAL, and includes error handling for unrecognized strategy types. It contains an unreachable case for BAS_NORMAL since GetAccessStrategy() currently returns NULL for normal buffer access patterns.
 
 ## Parameters / Member Variables
-- : BufferAccessStrategy pointer that defines the buffer access pattern; can be NULL
-
+- `strategy`: BufferAccessStrategy pointer that defines the buffer access pattern; can be NULL
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_unreachable (for unreachable code paths)

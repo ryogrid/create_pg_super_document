@@ -35,10 +35,9 @@ ExecInitFunctionScan performs comprehensive initialization for function scan ope
 The function handles various complexity levels from simple single-function scans to complex multi-function scans with ordinality columns.
 
 ## Parameters / Member Variables
-- : FunctionScan plan node containing the function list and configuration
-- : EState providing the executor state and memory contexts
-- : Execution flags controlling scan behavior (EXEC_FLAG_BACKWARD supported)
-
+- `*node`: FunctionScan plan node containing the function list and configuration
+- `*estate`: EState providing the executor state and memory contexts
+- `eflags`: Execution flags controlling scan behavior (EXEC_FLAG_BACKWARD supported)
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode

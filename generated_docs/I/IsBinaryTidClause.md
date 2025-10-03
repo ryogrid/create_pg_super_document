@@ -16,9 +16,8 @@ IsBinaryTidClause(RestrictInfo *rinfo, RelOptInfo *rel)
 This function examines a RestrictInfo to check if it represents a clause of the form "CTID OP pseudoconstant" or "pseudoconstant OP CTID", where OP is a binary operation. It validates that one operand is a CTID variable belonging to the specified relation, while the other operand is a pseudoconstant (an expression that doesn't reference the relation and contains no volatile functions). This is essential for identifying clauses that can be used for TID-based access paths in query optimization.
 
 ## Parameters / Member Variables
-- : A RestrictInfo structure containing the clause to be examined
-- : A RelOptInfo structure representing the relation being analyzed
-
+- `*rinfo`: A RestrictInfo structure containing the clause to be examined
+- `*rel`: A RelOptInfo structure representing the relation being analyzed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [is_opclause](../i/is_opclause.md) (checks if clause is an OpExpr)

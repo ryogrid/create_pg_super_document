@@ -30,14 +30,13 @@ The function supports two matching modes:
 The function also performs comprehensive error checking for regex compilation errors and invalid substitution patterns.
 
 ## Parameters / Member Variables
-- : Pointer to IdentLine structure containing the parsed mapping rule
-- : Name of the user map being searched (must match identLine->usermap)
-- : PostgreSQL role name being requested
-- : System username from authentication (ident, peer, etc.)
-- : Whether matching should be case-insensitive
-- : Output parameter set to true if mapping succeeds
-- : Output parameter set to true if error occurs during processing
-
+- `*identLine`: Pointer to IdentLine structure containing the parsed mapping rule
+- `*usermap_name`: Name of the user map being searched (must match identLine->usermap)
+- `*pg_user`: PostgreSQL role name being requested
+- `*system_user`: System username from authentication (ident, peer, etc.)
+- `case_insensitive`: Whether matching should be case-insensitive
+- `*found_p`: Output parameter set to true if mapping succeeds
+- `*error_p`: Output parameter set to true if error occurs during processing
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_role_oid](../g/get_role_oid.md) (converts role name to OID)

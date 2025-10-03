@@ -18,8 +18,7 @@ This function is the primary entry point for validating schema names when creati
 Unlike LookupExplicitNamespace (which checks for USAGE rights), this function specifically validates CREATE permissions, making it appropriate for DDL operations that will create new objects in the target schema. When dealing with the temporary namespace, it automatically initializes it if needed and may trigger a CommandCounterIncrement operation.
 
 ## Parameters / Member Variables
-- : The name of the namespace/schema to look up and validate
-
+- `*nspname`: The name of the namespace/schema to look up and validate
 ## Dependencies
 - Functions called/Symbols referenced:
   - [AccessTempTableNamespace](../A/AccessTempTableNamespace.md) (for pg_temp initialization)

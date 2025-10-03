@@ -20,9 +20,8 @@ The function operates under a spinlock to ensure atomic updates to the replicati
 When either xmin value changes, the function marks the slot as dirty for eventual persistence and triggers a recomputation of the required xmin across all replication slots, which affects VACUUM behavior on the primary server.
 
 ## Parameters / Member Variables
-- : The oldest transaction ID still visible to regular queries on the standby server
-- : The oldest transaction ID still visible to catalog queries on the standby server
-
+- `feedbackXmin`: The oldest transaction ID still visible to regular queries on the standby server
+- `feedbackCatalogXmin`: The oldest transaction ID still visible to catalog queries on the standby server
 ## Dependencies
 - Functions called/Symbols referenced:
   - TransactionIdIsNormal (transaction ID validation)

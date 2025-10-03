@@ -20,8 +20,7 @@ The function generates a unique token to distinguish multiple speculative insert
 The token wrapping logic ensures that zero is never used as a token value, as zero typically represents "no token held" in the system.
 
 ## Parameters / Member Variables
-- : The transaction ID that is performing the speculative insertion
-
+- `xid`: The transaction ID that is performing the speculative insertion
 ## Dependencies
 - Functions called/Symbols referenced:
   - SET_LOCKTAG_SPECULATIVE_INSERTION

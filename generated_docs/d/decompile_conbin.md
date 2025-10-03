@@ -23,9 +23,8 @@ The function performs these steps:
 5. Converts the result to a C string and returns it
 
 ## Parameters / Member Variables
-- : HeapTuple containing the pg_constraint row with the constraint information
-- : TupleDesc describing the structure of the pg_constraint tuple
-
+- `contup`: HeapTuple containing the pg_constraint row with the constraint information
+- `tupdesc`: TupleDesc describing the structure of the pg_constraint tuple
 ## Dependencies
 - Functions called/Symbols referenced:
   - GETSTRUCT (macro)

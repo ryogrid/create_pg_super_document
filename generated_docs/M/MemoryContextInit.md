@@ -24,7 +24,6 @@ The function includes important safeguards and design considerations:
 - Allows ErrorContext allocations during critical sections to ensure error reporting works even under memory pressure
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

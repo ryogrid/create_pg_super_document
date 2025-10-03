@@ -24,10 +24,9 @@ The  function performs a right shift operation on a 128-bit value represented by
 The function includes assertions to ensure the shift distance is less than 64 bits, which is guaranteed by the current Ryu algorithm implementation. The shift ranges are [49, 58] when RYU_OPTIMIZE_SIZE == 0, otherwise [2, 59].
 
 ## Parameters / Member Variables
-- : Low 64 bits of the 128-bit integer to be shifted
-- : High 64 bits of the 128-bit integer to be shifted  
-- : Number of bits to shift right (must be < 64)
-
+- `lo`: Low 64 bits of the 128-bit integer to be shifted
+- `hi`: High 64 bits of the 128-bit integer to be shifted
+- `dist`: Number of bits to shift right (must be < 64)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (when HAS_64_BIT_INTRINSICS is defined)

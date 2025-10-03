@@ -18,8 +18,7 @@ This function performs a system catalog lookup to find the array type that corre
 The function uses the system cache (syscache) for efficient lookups, which provides faster access to frequently accessed catalog information compared to direct table scans.
 
 ## Parameters / Member Variables
-- : The OID of the base type for which to find the corresponding array type
-
+- `typid`: The OID of the base type for which to find the corresponding array type
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache1](../S/SearchSysCache1.md)

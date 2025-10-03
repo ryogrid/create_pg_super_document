@@ -22,11 +22,10 @@ The function supports parameterized messages by accepting two integer parameters
 The level parameter determines whether the message is treated as a warning (level 0) or error (level != 0), with errors setting the global  flag to indicate that problems were encountered during processing.
 
 ## Parameters / Member Variables
-- : Diagnostic level (0 for warning, non-zero for error)
-- : Format string for the diagnostic message (similar to printf format)
-- : First integer parameter for message formatting
-- : Second integer parameter for message formatting
-
+- `level`: Diagnostic level (0 for warning, non-zero for error)
+- `*msg`: Format string for the diagnostic message (similar to printf format)
+- `a`: First integer parameter for message formatting
+- `b`: Second integer parameter for message formatting
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Standard C library function for formatted output

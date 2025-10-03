@@ -29,9 +29,8 @@ The function implements an intelligent padding algorithm that:
 The PostgreSQL tab rules add special logic to prevent using tabs in certain scenarios where spaces provide better alignment consistency.
 
 ## Parameters / Member Variables
-- : The current column position (integer)
-- : The desired target column position (integer)
-
+- `current`: The current column position (integer)
+- `target`: The desired target column position (integer)
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Standard C library function for character output

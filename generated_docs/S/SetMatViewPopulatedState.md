@@ -18,9 +18,8 @@ This function updates the relispopulated field in the pg_class system catalog fo
 The function requires that the caller holds an appropriate lock on the relation and verifies that the relation is indeed a materialized view through an assertion. After updating the catalog, it advances the command counter to make the change locally visible within the same transaction.
 
 ## Parameters / Member Variables
-- : The Relation structure representing the materialized view to update
-- : Boolean flag indicating whether the materialized view should be marked as populated (true) or unpopulated (false)
-
+- `relation`: The Relation structure representing the materialized view to update
+- `newstate`: Boolean flag indicating whether the materialized view should be marked as populated (true) or unpopulated (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - RELKIND_MATVIEW (constant for materialized view relation kind)

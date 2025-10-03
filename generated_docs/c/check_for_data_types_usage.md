@@ -20,9 +20,8 @@ For each check that applies to the current cluster version, the function connect
 The checks are driven by a DataTypesUsageChecks structure array that defines the metadata, SQL queries, version thresholds, and output files for each validation.
 
 ## Parameters / Member Variables
-- : Pointer to ClusterInfo structure containing database cluster information and connection details
-- : Array of DataTypesUsageChecks structures defining the validation rules, each containing status messages, base queries, report filenames, and version hooks
-
+- `*cluster`: Pointer to ClusterInfo structure containing database cluster information and connection details
+- `*checks`: Array of DataTypesUsageChecks structures defining the validation rules, each containing status messages, base queries, report filenames, and version hooks
 ## Dependencies
 - Functions called/Symbols referenced:
   - [prep_status](../p/prep_status.md)

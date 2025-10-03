@@ -23,9 +23,8 @@ The  function is responsible for creating the SQL DDL statements necessary to re
 The function operates as part of pg_dump's comprehensive database export process and ensures that foreign server definitions are properly preserved and can be restored with all their associated properties and permissions.
 
 ## Parameters / Member Variables
-- : Archive structure containing dump configuration and output methods for writing the generated SQL statements
-- : ForeignServerInfo structure containing all the metadata about the foreign server to be dumped, including name, type, version, foreign data wrapper reference, options, owner, and access control information
-
+- `*fout`: Archive structure containing dump configuration and output methods for writing the generated SQL statements
+- `*srvinfo`: ForeignServerInfo structure containing all the metadata about the foreign server to be dumped, including name, type, version, foreign data wrapper reference, options, owner, and access control information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [createPQExpBuffer](../c/createPQExpBuffer.md)

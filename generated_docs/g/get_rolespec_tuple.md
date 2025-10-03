@@ -26,8 +26,7 @@ Unlike get_rolespec_oid, this function does not have a missing_ok parameter and 
 This function is typically used when role DDL operations need access to complete role information, not just the role's identity.
 
 ## Parameters / Member Variables
-- : Pointer to a RoleSpec node containing the role specification
-
+- `*role`: Pointer to a RoleSpec node containing the role specification
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RoleSpec](../R/RoleSpec.md) (parser node type for role specifications)

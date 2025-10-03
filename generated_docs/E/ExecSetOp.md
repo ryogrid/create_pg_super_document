@@ -23,8 +23,7 @@ The function maintains state to handle cases where a tuple needs to be returned 
 The function follows PostgreSQL's executor pattern of returning one tuple per call, maintaining internal state between calls to track progress through the result set.
 
 ## Parameters / Member Variables
-- : Pointer to the PlanState structure containing the SetOp node state and execution context
-
+- `*pstate`: Pointer to the PlanState structure containing the SetOp node state and execution context
 ## Dependencies
 - Functions called/Symbols referenced:
   - castNode (for type casting to SetOpState)

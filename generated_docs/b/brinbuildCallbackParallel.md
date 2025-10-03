@@ -32,13 +32,12 @@ The function handles range transitions by:
 - Re-initializing summary state for the new range
 
 ## Parameters / Member Variables
-- : The BRIN index relation being built
-- : ItemPointer (TID) of the current heap tuple being processed
-- : Array of Datum values for the indexed attributes of the current tuple
-- : Array indicating which values are NULL
-- : Boolean indicating if the tuple is visible (not used in current implementation)
-- : BrinBuildState structure containing parallel build state information
-
+- `index`: The BRIN index relation being built
+- `tid`: ItemPointer (TID) of the current heap tuple being processed
+- `*values`: Array of Datum values for the indexed attributes of the current tuple
+- `*isnull`: Array indicating which values are NULL
+- `tupleIsAlive`: Boolean indicating if the tuple is visible (not used in current implementation)
+- `*brstate`: BrinBuildState structure containing parallel build state information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md): Extracts block number from tuple ID

@@ -17,6 +17,7 @@ WALInsertLockAcquire implements a smart lock acquisition strategy for WAL insert
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockAcquire](../L/LWLockAcquire.md)

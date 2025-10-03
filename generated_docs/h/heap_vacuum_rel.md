@@ -27,10 +27,9 @@ heap_vacuum_rel is the main entry point for vacuuming a single heap relation. It
 The function handles both aggressive and non-aggressive vacuum modes, supports parallel vacuum operations, implements failsafe mechanisms, and provides detailed instrumentation and logging.
 
 ## Parameters / Member Variables
-- : The heap relation to be vacuumed
-- : VacuumParams structure containing vacuum options and settings
-- : Buffer access strategy to use during vacuum operations
-
+- `rel`: The heap relation to be vacuumed
+- `*params`: VacuumParams structure containing vacuum options and settings
+- `bstrategy`: Buffer access strategy to use during vacuum operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lazy_scan_heap](../l/lazy_scan_heap.md) (core vacuum work)

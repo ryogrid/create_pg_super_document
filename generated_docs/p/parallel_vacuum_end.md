@@ -23,9 +23,8 @@ This function performs the orderly shutdown of parallel vacuum operations by:
 The function must run in the leader process (not a parallel worker) and carefully handles the order of operations since writes are not allowed during parallel mode. Statistics must be copied before exiting parallel mode to avoid unsafe operations.
 
 ## Parameters / Member Variables
-- : Pointer to the parallel vacuum state structure to be cleaned up
-- : Output array of index bulk delete result pointers; filled with copied statistics from workers, or NULL for indexes that weren't updated
-
+- `*pvs`: Pointer to the parallel vacuum state structure to be cleaned up
+- `**istats`: Output array of index bulk delete result pointers; filled with copied statistics from workers, or NULL for indexes that weren't updated
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Verifies this is running in the leader process

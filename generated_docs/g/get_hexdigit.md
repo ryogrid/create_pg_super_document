@@ -21,9 +21,8 @@ This utility function provides case-insensitive conversion of hexadecimal digit 
 The function validates the input character and returns false for any character that is not a valid hexadecimal digit. This makes it suitable for use in URI percent-decoding where malformed hex sequences need to be detected and reported as errors.
 
 ## Parameters / Member Variables
-- : The character to convert (must be a valid hexadecimal digit)
-- : Pointer to integer where the converted value (0-15) will be stored
-
+- `digit`: The character to convert (must be a valid hexadecimal digit)
+- `*value`: Pointer to integer where the converted value (0-15) will be stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - (none - uses only basic character operations)

@@ -18,8 +18,7 @@ The  function is a type send function that handles the conversion from PostgreSQ
 The implementation is remarkably simple - it directly delegates all work to the general  function, which handles the binary serialization of array types. Since oidvector is implemented as a specialized array type with OID elements, the generic array sending logic is sufficient for proper binary encoding.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function calling convention macro that provides:
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function calling convention macro that provides:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [array_send](../a/array_send.md) (general array send function)

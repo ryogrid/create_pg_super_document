@@ -16,9 +16,8 @@ brinGetStats(Relation index, BrinStatsData *stats)
 This function reads the metadata page of a BRIN index to extract essential statistical information. It accesses the first block of the index (the metadata page), reads the metadata structure, and extracts key statistics including the number of pages per range and the number of revmap pages. The function handles proper buffer locking to ensure safe concurrent access to the metadata page.
 
 ## Parameters / Member Variables
-- : The BRIN index relation from which to extract statistics
-- : Pointer to a BrinStatsData structure that will be populated with the index statistics
-
+- `index`: The BRIN index relation from which to extract statistics
+- `*stats`: Pointer to a BrinStatsData structure that will be populated with the index statistics
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReadBuffer](../R/ReadBuffer.md)

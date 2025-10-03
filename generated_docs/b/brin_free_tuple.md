@@ -18,8 +18,7 @@ This function provides a simple memory deallocation interface for BRIN tuples th
 The function performs a straightforward memory release operation, freeing the entire tuple structure that was allocated as a single memory block during tuple creation.
 
 ## Parameters / Member Variables
-- : Pointer to the BrinTuple structure to be freed, previously allocated by brin_form_tuple or related functions
-
+- `*tuple`: Pointer to the BrinTuple structure to be freed, previously allocated by brin_form_tuple or related functions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BrinTuple](../B/BrinTuple.md) (structure type)

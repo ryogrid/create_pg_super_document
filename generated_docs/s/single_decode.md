@@ -20,13 +20,12 @@ The  function serves as a wrapper around  to parse a single floating-point numbe
 This function is part of PostgreSQL's geometric data type parsing infrastructure, which handles points, line segments, boxes, paths, and polygons. It ensures consistent numeric parsing behavior across all geometric types.
 
 ## Parameters / Member Variables
-- : Input string containing the numeric value to be parsed
-- : Output parameter where the parsed float8 value is stored
-- : Pointer to a char pointer that will be set to the character following the parsed number
-- : Name of the geometric type being parsed (used for error messages)
-- : Original input string (used for error context)
-- : Error handling context for soft error reporting
-
+- `*num`: Input string containing the numeric value to be parsed
+- `*x`: Output parameter where the parsed float8 value is stored
+- `**endptr_p`: Pointer to a char pointer that will be set to the character following the parsed number
+- `*type_name`: Name of the geometric type being parsed (used for error messages)
+- `*orig_string`: Original input string (used for error context)
+- `*escontext`: Error handling context for soft error reporting
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Core function for parsing float8 values from strings

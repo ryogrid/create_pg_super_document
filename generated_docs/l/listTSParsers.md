@@ -20,9 +20,8 @@ The function provides a simple listing mode that shows schema, name, and descrip
 The query joins with the namespace catalog to show schema information and uses the visibility function to respect search path settings.
 
 ## Parameters / Member Variables
-- : A SQL name pattern (with optional wildcards) to filter which text search parsers to display. If NULL, all visible parsers are shown.
-- : If true, delegates to  for detailed parser information; if false, shows basic parser listing with schema, name, and description.
-
+- `*pattern`: A SQL name pattern (with optional wildcards) to filter which text search parsers to display. If NULL, all visible parsers are shown.
+- `verbose`: If true, delegates to  for detailed parser information; if false, shows basic parser listing with schema, name, and description.
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Called when verbose output is requested for detailed parser information

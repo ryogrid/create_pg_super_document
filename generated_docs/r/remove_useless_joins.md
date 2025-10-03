@@ -24,9 +24,8 @@ The function operates by:
 The optimization is particularly important for queries with views or subqueries that may introduce unnecessary joins.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing all planner state and context information
-- : List representing the current join structure of the query
-
+- `*root`: PlannerInfo structure containing all planner state and context information
+- `*joinlist`: List representing the current join structure of the query
 ## Dependencies
 - Functions called/Symbols referenced:
   - [join_is_removable](../j/join_is_removable.md): Determines if a specific join can be safely removed

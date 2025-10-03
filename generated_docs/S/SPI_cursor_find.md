@@ -16,8 +16,7 @@ SPI_cursor_find(const char *name)
 This function provides a straightforward way to retrieve the Portal associated with a named cursor that has been previously opened through the SPI interface. It serves as a wrapper around the internal GetPortalByName function, making it accessible through the SPI API. The function is commonly used when you need to operate on a cursor that was opened earlier in the same session or transaction.
 
 ## Parameters / Member Variables
-- : The name of the cursor to find (must be a null-terminated string)
-
+- `*name`: The name of the cursor to find (must be a null-terminated string)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetPortalByName](../G/GetPortalByName.md) (internal portal lookup function)

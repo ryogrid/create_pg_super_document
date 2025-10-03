@@ -22,7 +22,6 @@ The function applies a 10% safety margin to account for the fact that NLOCKENTS(
 The calculation uses PostgreSQL's standard shared memory sizing functions (hash_estimate_size, add_size) to ensure proper alignment and overflow protection.
 
 ## Parameters / Member Variables
-This function takes no parameters and returns a Size value representing the estimated shared memory requirement.
 
 ## Dependencies
 - Functions called/Symbols referenced:

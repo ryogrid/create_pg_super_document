@@ -25,11 +25,10 @@ Key features:
 - Implements retry logic for UDP socket readiness edge cases
 
 ## Parameters / Member Variables
-- : The Windows socket descriptor ( type) to send data through
-- : Pointer to the buffer containing data to send (const void* for type safety)
-- : Number of bytes to send from the buffer
-- : Socket send flags passed through to 
-
+- `s`: The Windows socket descriptor ( type) to send data through
+- `*buf`: Pointer to the buffer containing data to send (const void* for type safety)
+- `len`: Number of bytes to send from the buffer
+- `flags`: Socket send flags passed through to
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Check for and handle pending PostgreSQL signals

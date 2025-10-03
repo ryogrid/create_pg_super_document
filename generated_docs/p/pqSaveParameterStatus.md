@@ -18,10 +18,9 @@ This function manages the storage of server parameter status information in a PG
 Additionally, the function maintains cached copies of several critical parameters directly in the PGconn structure for performance reasons. These include client_encoding, standard_conforming_strings, server_version (converted to numeric form), default_transaction_read_only, in_hot_standby, and scram_iterations. Some parameters like client_encoding and standard_conforming_strings are also stored in static variables to support legacy functions like PQescapeString and PQescapeBytea in single-connection programs.
 
 ## Parameters / Member Variables
-- : Pointer to the PGconn structure that will store the parameter status
-- : String containing the parameter name (e.g., "client_encoding", "server_version")
-- : String containing the parameter value as sent by the server
-
+- `*conn`: Pointer to the PGconn structure that will store the parameter status
+- `*name`: String containing the parameter name (e.g., "client_encoding", "server_version")
+- `*value`: String containing the parameter value as sent by the server
 ## Dependencies
 - Functions called/Symbols referenced:
   - malloc (for allocating parameter status structures)

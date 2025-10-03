@@ -25,7 +25,6 @@ Each slot is recreated with its original properties including:
 The function uses a PQExpBuffer to construct dynamic SQL queries for each slot creation, ensuring proper escaping of slot names and plugin names through appendStringLiteralConn. It provides progress feedback during the restoration process and ensures proper cleanup of database connections and query buffers.
 
 ## Parameters / Member Variables
-This function takes no parameters as it operates on global cluster information stored in the old_cluster structure.
 
 ## Dependencies
 - Functions called/Symbols referenced:

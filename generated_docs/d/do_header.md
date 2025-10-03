@@ -26,15 +26,14 @@ The  function creates formatted column headers for PostgreSQL query results in l
 The function constructs borders by calculating total width needed, including field separators and padding, then dynamically allocates and builds the border string character by character.
 
 ## Parameters / Member Variables
-- : Output file stream for writing the formatted header
-- : Print options structure containing formatting preferences (html3, standard, fieldSep)
-- : Total number of fields (columns) in the result set
-- : Array tracking maximum field width for each column (updated by this function)
-- : Array of column names for the result set
-- : Array indicating which fields contain non-numeric data for alignment
-- : Length of the field separator string
-- : PostgreSQL result set for accessing column metadata
-
+- `*fout`: Output file stream for writing the formatted header
+- `*po`: Print options structure containing formatting preferences (html3, standard, fieldSep)
+- `nFields`: Total number of fields (columns) in the result set
+- `*fieldMax`: Array tracking maximum field width for each column (updated by this function)
+- `**fieldNames`: Array of column names for the result set
+- `*fieldNotNum`: Array indicating which fields contain non-numeric data for alignment
+- `fs_len`: Length of the field separator string
+- `*res`: PostgreSQL result set for accessing column metadata
 ## Dependencies
 - Functions called/Symbols referenced:
   - malloc

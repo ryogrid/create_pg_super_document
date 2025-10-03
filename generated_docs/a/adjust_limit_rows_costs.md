@@ -26,12 +26,11 @@ The function handles two main scenarios:
 When offset or count values cannot be estimated (indicated by negative values), the function uses a conservative estimate of 10% of the input rows, clamped to a reasonable range using clamp_row_est(). The function ensures row counts never drop below 1, maintaining validity for further planning operations.
 
 ## Parameters / Member Variables
-- : Pointer to row count estimate (modified in place)
-- : Pointer to startup cost estimate (modified in place)
-- : Pointer to total cost estimate (modified in place)
-- : Estimated OFFSET value (0 = not present, -1 = cannot estimate, >0 = actual estimate)
-- : Estimated LIMIT value (0 = not present, -1 = cannot estimate, >0 = actual estimate)
-
+- `*rows`: Pointer to row count estimate (modified in place)
+- `*startup_cost`: Pointer to startup cost estimate (modified in place)
+- `*total_cost`: Pointer to total cost estimate (modified in place)
+- `offset_est`: Estimated OFFSET value (0 = not present, -1 = cannot estimate, >0 = actual estimate)
+- `count_est`: Estimated LIMIT value (0 = not present, -1 = cannot estimate, >0 = actual estimate)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [clamp_row_est](../c/clamp_row_est.md) (ensures row estimates are within reasonable bounds)

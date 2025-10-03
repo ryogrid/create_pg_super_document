@@ -16,10 +16,9 @@ getFormattedTypeName(Archive *fout, Oid oid, OidOptions opts)
 This function converts a PostgreSQL type OID into a human-readable, formatted type name using the pg_catalog.format_type() function. It includes caching mechanism to avoid repeated database queries for the same type, and provides special handling for zero OID values based on options. The function does not guarantee schema-qualified output, so it should not be used for CREATE or ALTER command target names. The result is cached in the TypeInfo record and must not be freed by the caller.
 
 ## Parameters / Member Variables
-- : Archive pointer for database connection context
-- : PostgreSQL Object Identifier for the type
-- : OidOptions flags controlling special behaviors (zeroAsStar, zeroAsNone)
-
+- `*fout`: Archive pointer for database connection context
+- `oid`: PostgreSQL Object Identifier for the type
+- `opts`: OidOptions flags controlling special behaviors (zeroAsStar, zeroAsNone)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [findTypeByOid](../f/findTypeByOid.md)

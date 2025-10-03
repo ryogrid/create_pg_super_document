@@ -26,8 +26,7 @@ The function operates by:
 This reorganization maintains all tuples in memory while redistributing them across more buckets, resulting in shorter bucket chains and faster hash lookups. The operation is performed only in non-parallel hash joins since parallel hash joins use different memory management strategies.
 
 ## Parameters / Member Variables
-- : The HashJoinTable containing the hash table structure, current bucket configuration, and memory chunks to be reorganized
-
+- `hashtable`: The HashJoinTable containing the hash table structure, current bucket configuration, and memory chunks to be reorganized
 ## Dependencies
 - Functions called/Symbols referenced:
   - repalloc_array (memory reallocation)

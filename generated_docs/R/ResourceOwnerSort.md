@@ -27,8 +27,7 @@ This function implements a comprehensive sorting strategy for resource elements 
 The result is always a single, contiguous, sorted array containing all resources, ordered by release priority and phase using the  comparison function. This ordering ensures proper dependency management during resource cleanup operations.
 
 ## Parameters / Member Variables
-- : Pointer to the ResourceOwner structure whose resources need to be sorted
-
+- `owner`: Pointer to the ResourceOwner structure whose resources need to be sorted
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ResourceOwner](ResourceOwner.md) (struct type)

@@ -18,9 +18,8 @@ This is a utility function in PostgreSQL's query optimizer that searches through
 The function performs a linear search through the join_domains list and returns the first JoinDomain whose jd_relids are a subset of the input relids. The search is designed to find the "highest" domain, meaning the most restrictive one that still fits within the given relation set. If no appropriate JoinDomain is found, the function throws an error, as this indicates an internal inconsistency in the optimizer.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global information about the query being planned, including the list of JoinDomains
-- : Bitmapset of relation IDs within which to search for an enclosed JoinDomain
-
+- `*root`: PlannerInfo structure containing global information about the query being planned, including the list of JoinDomains
+- `relids`: Bitmapset of relation IDs within which to search for an enclosed JoinDomain
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bms_is_subset](../b/bms_is_subset.md)

@@ -24,11 +24,10 @@ PredicateLockTID is a core component of PostgreSQL's serializable snapshot isola
 The function is essential for maintaining consistency in SERIALIZABLE isolation level by ensuring that reads are tracked and can be checked against concurrent writes.
 
 ## Parameters / Member Variables
-- : The relation containing the tuple to be locked
-- : ItemPointer identifying the specific tuple (block number + offset number)
-- : The snapshot under which the read is occurring
-- : Transaction ID that created/last modified the tuple
-
+- `relation`: The relation containing the tuple to be locked
+- `tid`: ItemPointer identifying the specific tuple (block number + offset number)
+- `snapshot`: The snapshot under which the read is occurring
+- `tuple_xid`: Transaction ID that created/last modified the tuple
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SerializationNeededForRead](../S/SerializationNeededForRead.md)

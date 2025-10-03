@@ -16,9 +16,8 @@ parse_bool(const char *value, bool *result)
 The  function is a convenience wrapper around  that attempts to interpret a null-terminated string as a boolean value. It calculates the string length using  and delegates the actual parsing logic to . The function accepts various string representations of boolean values and their unique prefixes, providing flexible boolean parsing for PostgreSQL configuration and data processing.
 
 ## Parameters / Member Variables
-- : Null-terminated string to be parsed as a boolean value
-- : Pointer to a bool variable where the parsed result will be stored (can be NULL if only validation is needed)
-
+- `*value`: Null-terminated string to be parsed as a boolean value
+- `*result`: Pointer to a bool variable where the parsed result will be stored (can be NULL if only validation is needed)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [parse_bool_with_len](parse_bool_with_len.md)

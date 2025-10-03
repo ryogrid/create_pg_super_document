@@ -18,9 +18,8 @@ The  function is a comparison function specifically designed for use with  to so
 The function compares the  field within the  union of two SPELL structures. It uses standard string comparison () to determine the lexicographic order of the affix flags. This sorting is performed before the dictionary data is reorganized into a more efficient format where flag strings are replaced with integer indices.
 
 ## Parameters / Member Variables
-- : Pointer to the first SPELL structure pointer to compare (cast from void*)
-- : Pointer to the second SPELL structure pointer to compare (cast from void*)
-
+- `*s1`: Pointer to the first SPELL structure pointer to compare (cast from void*)
+- `*s2`: Pointer to the second SPELL structure pointer to compare (cast from void*)
 ## Dependencies
 - Functions called/Symbols referenced:
   - strcmp (standard C library function)

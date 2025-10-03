@@ -18,8 +18,7 @@ This function creates a PathTarget structure by extracting expressions and sort 
 The function iterates through each TargetEntry in the input list, extracting the expression (tle->expr) and sort group reference (tle->ressortgroupref), and stores them in the corresponding arrays within the PathTarget structure. The volatility status is initially marked as unknown and will be determined later when contain_volatile_functions is called.
 
 ## Parameters / Member Variables
-- : A List of TargetEntry nodes representing the targetlist to be converted into a PathTarget
-
+- `*tlist`: A List of TargetEntry nodes representing the targetlist to be converted into a PathTarget
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PathTarget](../P/PathTarget.md) (data structure)

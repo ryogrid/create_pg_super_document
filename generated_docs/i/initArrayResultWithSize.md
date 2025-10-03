@@ -23,11 +23,10 @@ The function supports flexible memory management through the subcontext paramete
 The function allocates arrays for both element values (Datum) and null flags (bool) based on the specified initial size, and retrieves type-specific information including length, pass-by-value status, and alignment requirements.
 
 ## Parameters / Member Variables
-- : OID of the array element type (must be a valid array element type)
-- : Memory context where working state should be kept  
-- : Flag determining whether to use a separate memory context for this build state
-- : Initial size for the allocated value and null arrays
-
+- `element_type`: OID of the array element type (must be a valid array element type)
+- `rcontext`: Memory context where working state should be kept
+- `subcontext`: Flag determining whether to use a separate memory context for this build state
+- `initsize`: Initial size for the allocated value and null arrays
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetContextCreate (creates new memory context when subcontext=true)

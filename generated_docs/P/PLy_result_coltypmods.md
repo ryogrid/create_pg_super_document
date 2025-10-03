@@ -16,9 +16,8 @@ PLy_result_coltypmods(PyObject *self, PyObject *unused)
 This function is a Python method implementation that extracts type modifier information from all columns in a PostgreSQL result set accessed through PLython. Type modifiers provide additional information about data types, such as precision for numeric types, maximum length for varchar types, etc. The function creates a Python list containing the atttypmod values for each column in the result set's tuple descriptor.
 
 ## Parameters / Member Variables
-- : PLyResultObject pointer cast as PyObject, representing the result object instance
-- : Unused parameter required by Python C API method signature (METH_NOARGS)
-
+- `*self`: PLyResultObject pointer cast as PyObject, representing the result object instance
+- `*unused`: Unused parameter required by Python C API method signature (METH_NOARGS)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PLyResultObject](PLyResultObject.md) (cast target type)

@@ -20,9 +20,8 @@ The generated SQL performs a conditional delete by selecting from pg_largeobject
 The function is typically used in pg_restore scenarios where large objects may already exist and need to be replaced, or where the restore process needs to handle potential conflicts gracefully.
 
 ## Parameters / Member Variables
-- : Archive handle used for output formatting and database connection context
-- : The OID (Object Identifier) of the large object to be dropped
-
+- `*AH`: Archive handle used for output formatting and database connection context
+- `oid`: The OID (Object Identifier) of the large object to be dropped
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ahprintf](../a/ahprintf.md)

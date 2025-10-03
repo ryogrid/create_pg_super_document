@@ -20,13 +20,12 @@ This function identifies either the minimum or maximum element from an array of 
 The function is designed to work with B-tree index preprocessing, particularly for handling array values in scan keys where finding boundary elements is necessary for optimization.
 
 ## Parameters / Member Variables
-- : IndexScanDesc containing information about the index scan, including the index relation
-- : ScanKey identifying the index column and providing collation information
-- : OID of the element type being compared
-- : Strategy number indicating comparison direction (BTLessStrategyNumber for minimum, BTGreaterStrategyNumber for maximum)
-- : Array of Datum values to search through
-- : Number of elements in the elems array
-
+- `scan`: IndexScanDesc containing information about the index scan, including the index relation
+- `skey`: ScanKey identifying the index column and providing collation information
+- `elemtype`: OID of the element type being compared
+- `strat`: Strategy number indicating comparison direction (BTLessStrategyNumber for minimum, BTGreaterStrategyNumber for maximum)
+- `*elems`: Array of Datum values to search through
+- `nelems`: Number of elements in the elems array
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_opfamily_member](../g/get_opfamily_member.md)

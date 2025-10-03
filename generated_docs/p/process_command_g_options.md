@@ -17,11 +17,10 @@ process_command_g_options(char *first_option, PsqlScanState scan_state,
 This function handles the parsing and application of pset (print settings) options enclosed in parentheses that follow \g commands in psql. It iterates through options separated by spaces or commas, supporting both "name" and "name=value" formats. The function temporarily modifies print settings and can restore them if parsing fails. Options are applied only when active_branch is true, allowing for conditional execution in psql scripts.
 
 ## Parameters / Member Variables
-- : The first option string (may be modified but not freed by this function)
-- : Scanner state for reading additional options from input stream
-- : Whether to actually apply the options (true) or just parse them (false)
-- : The command name for error reporting
-
+- `*first_option`: The first option string (may be modified but not freed by this function)
+- `scan_state`: Scanner state for reading additional options from input stream
+- `active_branch`: Whether to actually apply the options (true) or just parse them (false)
+- `*cmd`: The command name for error reporting
 ## Dependencies
 - Functions called/Symbols referenced:
   - psql_scan_slash_option

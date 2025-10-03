@@ -20,8 +20,7 @@ The function handles the NIL (empty list) case gracefully by returning NIL witho
 An important performance consideration is that this operation takes O(n) time proportional to the list length, since all remaining entries must be shifted forward. The documentation suggests considering list_delete_last() instead if the application can reverse the list order, as that operation is more efficient.
 
 ## Parameters / Member Variables
-- : The PostgreSQL List from which to remove the first element. Can be NIL (empty list).
-
+- `*list`: The PostgreSQL List from which to remove the first element. Can be NIL (empty list).
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_list_invariants](../c/check_list_invariants.md): Validates list structure integrity

@@ -26,8 +26,7 @@ Key functionality:
 The function demonstrates best practices for handling binary query results, including proper byte order conversion and safe handling of binary data that may contain null bytes.
 
 ## Parameters / Member Variables
-- : A PGresult pointer containing the binary-format query results to be displayed
-
+- `*res`: A PGresult pointer containing the binary-format query results to be displayed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQfnumber](../P/PQfnumber.md) (libpq function to get field number by name)

@@ -22,8 +22,7 @@ After ensuring that all runtime keys are current, the function restarts the unde
 This design integrates runtime key evaluation directly into the rescan process, which was historically handled separately, providing better uniformity across different scan types and improved efficiency.
 
 ## Parameters / Member Variables
-- : IndexOnlyScanState containing all scan state information, including runtime keys, scan descriptors, and context information
-
+- `*node`: IndexOnlyScanState containing all scan state information, including runtime keys, scan descriptors, and context information
 ## Dependencies
 - Functions called/Symbols referenced:
   - ResetExprContext: Clears expression context to prevent memory leaks during key recalculation

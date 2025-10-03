@@ -20,9 +20,8 @@ The function uses PostgreSQL's function volatility classification system to make
 Volatile functions are never considered safe for constant expression evaluation as they can return different results on each call, even with identical parameters.
 
 ## Parameters / Member Variables
-- : The OID (object identifier) of the function to check for evaluation safety
-- : Pointer to evaluation context containing flags that influence safety decisions, particularly the  flag
-
+- `funcid`: The OID (object identifier) of the function to check for evaluation safety
+- `*context`: Pointer to evaluation context containing flags that influence safety decisions, particularly the  flag
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Retrieves the volatility classification of the specified function

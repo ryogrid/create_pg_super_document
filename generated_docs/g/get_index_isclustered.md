@@ -18,8 +18,7 @@ This function performs a lookup in the PostgreSQL system cache to determine if a
 The function uses the system cache (INDEXRELID cache) to find the index's metadata and extracts the indisclustered boolean field from the Form_pg_index structure. If the index OID is invalid or not found, the function raises an ERROR.
 
 ## Parameters / Member Variables
-- : The object identifier (OID) of the index to check for clustering status
-
+- `index_oid`: The object identifier (OID) of the index to check for clustering status
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache1](../S/SearchSysCache1.md)

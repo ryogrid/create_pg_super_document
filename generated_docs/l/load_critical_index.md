@@ -30,9 +30,8 @@ The function performs several important operations:
 6. **Attribute Options**: Calls RelationGetIndexAttOptions() to load any index-specific attribute options, discarding the result but ensuring the information is cached.
 
 ## Parameters / Member Variables
-- : OID of the target critical system index to load
-- : OID of the system catalog that the index belongs to
-
+- `indexoid`: OID of the target critical system index to load
+- `heapoid`: OID of the system catalog that the index belongs to
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LockRelationOid](../L/LockRelationOid.md)

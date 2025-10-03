@@ -19,6 +19,7 @@ The function registers callbacks for both relation cache invalidations (PlanCach
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CacheRegisterRelcacheCallback](../C/CacheRegisterRelcacheCallback.md)

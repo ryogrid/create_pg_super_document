@@ -26,11 +26,10 @@ The function supports:
 For unsupported operations like NOT EXISTS or inequality comparisons with negation, the function returns NULL, indicating the query cannot be optimized using GIN indexes.
 
 ## Parameters / Member Variables
-- : JsonPathGinContext containing extraction state and configuration
-- : Current JsonPathGinPath representing the path context for extraction
-- : JsonPathItem pointer to the current boolean expression node being processed
-- : Boolean flag indicating whether the current expression should be logically negated
-
+- `*cxt`: JsonPathGinContext containing extraction state and configuration
+- `path`: Current JsonPathGinPath representing the path context for extraction
+- `*jsp`: JsonPathItem pointer to the current boolean expression node being processed
+- `not`: Boolean flag indicating whether the current expression should be logically negated
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_stack_depth](../c/check_stack_depth.md) (stack overflow protection)

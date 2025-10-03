@@ -18,8 +18,7 @@ This function takes a file path and modifies it in-place to represent the parent
 Important behavioral notes: If the input is just a filename with no directory component, the result will be an empty string rather than ".". The function may not produce desirable results if the input string ends with "..", so callers should consider applying  first when dealing with potentially non-canonical paths.
 
 ## Parameters / Member Variables
-- : Input/output string containing the file path to be modified in-place (must be writable)
-
+- `*path`: Input/output string containing the file path to be modified in-place (must be writable)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [trim_directory](../t/trim_directory.md)

@@ -21,7 +21,6 @@ This function is called during PostgreSQL shutdown to initiate a coordinated sto
 The function is part of PostgreSQL's graceful shutdown mechanism, ensuring that WAL senders can complete their current operations and transition to a state where they stop generating new WAL records.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

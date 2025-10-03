@@ -19,10 +19,9 @@ This function processes comments associated with the columns of a composite type
 The function creates archive entries for each column comment with proper dependencies to ensure they are applied after the type creation. Comments for dropped columns are ignored to maintain consistency with the type structure.
 
 ## Parameters / Member Variables
-- : Archive handle for the dump output stream
-- : TypeInfo structure containing metadata about the composite type
-- : PGresult containing pre-queried column information (attnum, attname, attisdropped)
-
+- `*fout`: Archive handle for the dump output stream
+- `*tyinfo`: TypeInfo structure containing metadata about the composite type
+- `*res`: PGresult containing pre-queried column information (attnum, attname, attisdropped)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [findComments](../f/findComments.md)

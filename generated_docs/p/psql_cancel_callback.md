@@ -18,6 +18,7 @@ psql_cancel_callback serves as the signal handler callback for interruption requ
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - siglongjmp (for non-local jumps on non-Windows platforms)

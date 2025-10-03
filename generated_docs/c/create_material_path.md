@@ -18,9 +18,8 @@ The  function constructs a MaterialPath node that corresponds to a Material plan
 The function initializes all necessary fields of the MaterialPath structure, copies relevant properties from the subpath, and calculates the cost using the  function. The resulting path maintains the same ordering (pathkeys) as its subpath and inherits parallelization properties appropriately.
 
 ## Parameters / Member Variables
-- : The RelOptInfo representing the relation that this material path will produce
-- : The input Path whose output will be materialized
-
+- `*rel`: The RelOptInfo representing the relation that this material path will produce
+- `*subpath`: The input Path whose output will be materialized
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to create the MaterialPath node)

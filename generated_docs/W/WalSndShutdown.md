@@ -17,7 +17,6 @@ WalSndShutdown is a static function that provides a clean shutdown mechanism for
 The function operates by first checking if output is currently directed to a remote destination (the standby server) and redirecting it to nowhere (DestNone) to prevent further communication attempts. It then immediately exits the process using proc_exit(0), ensuring a clean termination. The abort() call at the end is included only to satisfy compiler warnings about the function potentially returning, but it should never be reached in normal execution.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

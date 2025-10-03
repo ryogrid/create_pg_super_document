@@ -16,9 +16,8 @@ print_unaligned_text(const printTableContent *cont, FILE *fout)
 This function renders tabular data in a simple unaligned text format, primarily used for machine-readable output or when visual alignment is not required. The function processes the table content sequentially, printing the title, headers, data cells, and footers separated by configurable field and record separators. It supports both human-readable and machine-readable output modes through the tuples_only option, and handles special cases like zero-byte record separators for compatibility with Unix tools like find -print0 and xargs.
 
 ## Parameters / Member Variables
-- : Pointer to printTableContent structure containing the table data, headers, options, and formatting settings
-- : FILE pointer to the output stream where the formatted text will be written
-
+- `*cont`: Pointer to printTableContent structure containing the table data, headers, options, and formatting settings
+- `*fout`: FILE pointer to the output stream where the formatted text will be written
 ## Dependencies
 - Functions called/Symbols referenced:
   - [print_separator](print_separator.md) (for field and record separation)

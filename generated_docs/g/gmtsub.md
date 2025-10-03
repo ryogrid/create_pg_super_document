@@ -25,10 +25,9 @@ Key features include:
 The function is a critical component in PostgreSQL's timezone system, providing the foundation for GMT-based time operations and serving as a fallback for timezone conversions.
 
 ## Parameters / Member Variables
-- : Pointer to a  value representing the UTC timestamp to convert to GMT representation.
-- : A 32-bit signed integer representing the timezone offset in seconds to apply to the base GMT time.
-- : Pointer to a  structure that will be populated with the converted GMT time values.
-
+- `*timep`: Pointer to a  value representing the UTC timestamp to convert to GMT representation.
+- `offset`: A 32-bit signed integer representing the timezone offset in seconds to apply to the base GMT time.
+- `*tmp`: Pointer to a  structure that will be populated with the converted GMT time values.
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (memory allocation for GMT state structure)

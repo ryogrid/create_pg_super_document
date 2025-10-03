@@ -16,9 +16,8 @@ gistPlaceItupToPage(GISTNodeBufferPage *pageBuffer, IndexTuple itup)
 This function places an index tuple into a buffer page by finding the appropriate location at the end of the free space area and copying the tuple data there. It updates the page's free space tracking to account for the space consumed by the new tuple. The function assumes there is sufficient space available and uses an assertion to verify this precondition.
 
 ## Parameters / Member Variables
-- : Pointer to the GISTNodeBufferPage where the tuple should be placed
-- : The IndexTuple to be added to the page
-
+- `*pageBuffer`: Pointer to the GISTNodeBufferPage where the tuple should be placed
+- `itup`: The IndexTuple to be added to the page
 ## Dependencies
 - Functions called/Symbols referenced:
   - IndexTupleSize

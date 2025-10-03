@@ -16,11 +16,10 @@ print_pool(FILE *fp, Pool *pool, int start, int stop)
 This function prints detailed information about chromosomes within a specified range of a GEQO population pool. For each chromosome in the range, it outputs the chromosome index, the complete gene sequence (string representation), and the fitness value (worth). The function includes bounds checking to ensure valid start and stop indices, automatically correcting invalid ranges. Output is formatted with each chromosome on a separate line, showing its index, gene sequence separated by spaces, and fitness value.
 
 ## Parameters / Member Variables
-- : File pointer where the output will be written
-- : Pointer to the Pool structure containing the population of chromosomes
-- : Starting index of chromosomes to print (inclusive)
-- : Ending index of chromosomes to print (exclusive)
-
+- `*fp`: File pointer where the output will be written
+- `*pool`: Pointer to the Pool structure containing the population of chromosomes
+- `start`: Starting index of chromosomes to print (inclusive)
+- `stop`: Ending index of chromosomes to print (exclusive)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Pool](../P/Pool.md) (structure type)

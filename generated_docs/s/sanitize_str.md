@@ -18,8 +18,7 @@ The  function provides a safety mechanism for displaying potentially unsafe stri
 The function uses a static buffer to store the sanitized result, making it suitable for quick error message formatting but requiring caution in multi-threaded environments or when multiple sanitized strings need to be preserved simultaneously.
 
 ## Parameters / Member Variables
-- : The input string to be sanitized. Can contain any characters including non-printable ones.
-
+- `*s`: The input string to be sanitized. Can contain any characters including non-printable ones.
 ## Dependencies
 - Functions called/Symbols referenced:
   - (No external function calls - uses only basic C operations)

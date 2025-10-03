@@ -16,8 +16,7 @@ threadRun(void *arg)
 This function implements the core execution engine for pgbench's multi-threaded benchmark operations. Each thread manages multiple client connections (represented by CState structures) through a sophisticated state machine that handles connection establishment, transaction execution, result waiting, throttling, and error handling. The function uses an event-driven approach with socket polling to efficiently manage multiple concurrent database connections. It coordinates with other threads through barriers, handles progress reporting (only from thread 0), manages connection timeouts and retries, and maintains detailed statistics and optional transaction logging. The main execution loop continues until all client connections have completed or been aborted.
 
 ## Parameters / Member Variables
-- : Void pointer cast to TState structure containing thread-specific data including client states, thread ID, timing information, and logging configuration
-
+- `*arg`: Void pointer cast to TState structure containing thread-specific data including client states, thread ID, timing information, and logging configuration
 ## Dependencies
 - Functions called/Symbols referenced:
   - [alloc_socket_set](../a/alloc_socket_set.md)/free_socket_set (socket set management)

@@ -18,8 +18,7 @@ The  function calculates e raised to the power of a numeric input value. It impl
 The implementation converts the input to a double for scale estimation while using high-precision numeric arithmetic for the actual calculation via . Result scale bounds are carefully managed to prevent integer overflow and ensure reasonable precision.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function argument structure containing the input numeric value
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument structure containing the input numeric value
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_NUMERIC: Extract numeric argument from function args

@@ -24,8 +24,7 @@ The function operates by:
 Unlike , this function requires an existing record as a template and updates its fields rather than creating a record type from scratch.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function call information structure containing:
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function call information structure containing:
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (the main implementation function)

@@ -24,13 +24,12 @@ The comparison algorithm works in three phases:
 The function handles PostgreSQL's base-NBASE representation where each 'digit' actually represents up to DEC_DIGITS decimal digits, and the weight indicates the position of the most significant digit.
 
 ## Parameters / Member Variables
-- : Pointer to the digit array of the first number
-- : Number of digits in the first number's array  
-- : Weight (position of most significant digit) of the first number
-- : Pointer to the digit array of the second number
-- : Number of digits in the second number's array
-- : Weight (position of most significant digit) of the second number
-
+- `*var1digits`: Pointer to the digit array of the first number
+- `var1ndigits`: Number of digits in the first number's array
+- `var1weight`: Weight (position of most significant digit) of the first number
+- `*var2digits`: Pointer to the digit array of the second number
+- `var2ndigits`: Number of digits in the second number's array
+- `var2weight`: Weight (position of most significant digit) of the second number
 ## Dependencies
 - Functions called/Symbols referenced:
   - NumericDigit (type definition for individual digits)

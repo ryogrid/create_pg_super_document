@@ -19,7 +19,6 @@ The function performs an assertion to ensure that `myTempToastNamespace` is a va
 Toast tables are used by PostgreSQL to store large attribute values that exceed the page size limit. When a temporary table requires a toast table, it must be created in the temporary toast namespace to maintain the temporary nature and proper isolation from other backends.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -22,8 +22,7 @@ The function performs validation by:
 4. Ensuring the constant is not null
 
 ## Parameters / Member Variables
-- : Pointer to FmgrInfo structure containing function metadata and expression information. May be NULL.
-
+- `*flinfo`: Pointer to FmgrInfo structure containing function metadata and expression information. May be NULL.
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (macro for node type checking)

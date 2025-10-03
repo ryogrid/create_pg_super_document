@@ -18,10 +18,9 @@ This function is a callback handler used during JSON parsing to process the begi
 The function checks if the current JSON string being built already has content beyond the opening brace, and if so, adds a comma separator before the new field. It then re-escapes the field name (since the original escaped version is no longer available) and appends a colon to prepare for the field value.
 
 ## Parameters / Member Variables
-- : Pointer to TransformJsonStringValuesState containing the parser context and output buffer
-- : The field name string to be processed and escaped
-- : Boolean indicating if the field name is null (parameter appears unused in this implementation)
-
+- `*state`: Pointer to TransformJsonStringValuesState containing the parser context and output buffer
+- `*fname`: The field name string to be processed and escaped
+- `isnull`: Boolean indicating if the field name is null (parameter appears unused in this implementation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TransformJsonStringValuesState](../T/TransformJsonStringValuesState.md) (state structure)

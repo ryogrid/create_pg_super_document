@@ -25,10 +25,9 @@ The function handles several types of clauses:
 The function validates that the operator used is an equality operator by checking if  returns , ensuring compatibility with functional dependency logic.
 
 ## Parameters / Member Variables
-- : The clause node to examine for compatibility with functional dependencies
-- : The relation index that the clause should reference
-- : Output parameter that receives the attribute number of the variable on success
-
+- `*clause`: The clause node to examine for compatibility with functional dependencies
+- `relid`: The relation index that the clause should reference
+- `*attnum`: Output parameter that receives the attribute number of the variable on success
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bms_membership](../b/bms_membership.md)

@@ -23,9 +23,8 @@ This function serves as the preparation phase for SET LOGGED/UNLOGGED operations
 The function examines both incoming and outgoing foreign key relationships and ensures that changing persistence will not violate PostgreSQL's referential integrity rules. Self-referencing foreign keys are safely ignored during this validation.
 
 ## Parameters / Member Variables
-- : The Relation structure representing the table whose persistence is being changed
-- : Boolean indicating whether the change is to LOGGED (true) or UNLOGGED (false)
-
+- `rel`: The Relation structure representing the table whose persistence is being changed
+- `toLogged`: Boolean indicating whether the change is to LOGGED (true) or UNLOGGED (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationGetRelationName

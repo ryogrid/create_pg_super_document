@@ -19,10 +19,9 @@ findPartialMatch performs a comprehensive scan of an entire hash table to detect
 The function is specifically designed for subplan execution scenarios where cross-type comparisons are involved, requiring custom equality functions rather than the hash table's internal comparison functions. It uses the execTuplesUnequal function to perform the actual tuple comparison, implementing SQL's NULL semantics for proper partial match detection.
 
 ## Parameters / Member Variables
-- : The TupleHashTable to search through for potential matches
-- : The TupleTableSlot containing the tuple to find partial matches for
-- : Array of FmgrInfo structures containing the equality functions to use for comparison (required for cross-type cases)
-
+- `hashtable`: The TupleHashTable to search through for potential matches
+- `*slot`: The TupleTableSlot containing the tuple to find partial matches for
+- `*eqfunctions`: Array of FmgrInfo structures containing the equality functions to use for comparison (required for cross-type cases)
 ## Dependencies
 - Functions called/Symbols referenced:
   - InitTupleHashIterator

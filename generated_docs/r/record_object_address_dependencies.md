@@ -24,10 +24,9 @@ The function performs two key operations:
 This approach ensures optimal performance by avoiding redundant dependency records in the system catalogs while maintaining the integrity of the dependency graph.
 
 ## Parameters / Member Variables
-- : Pointer to the ObjectAddress that depends on the referenced objects
-- : Pointer to ObjectAddresses array containing all objects that the depender depends on
-- : DependencyType enum value specifying the type of dependency relationship (e.g., NORMAL, AUTO, INTERNAL)
-
+- `*depender`: Pointer to the ObjectAddress that depends on the referenced objects
+- `*referenced`: Pointer to ObjectAddresses array containing all objects that the depender depends on
+- `behavior`: DependencyType enum value specifying the type of dependency relationship (e.g., NORMAL, AUTO, INTERNAL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [eliminate_duplicate_dependencies](../e/eliminate_duplicate_dependencies.md) (deduplication function)

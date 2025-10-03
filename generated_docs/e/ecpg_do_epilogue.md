@@ -25,8 +25,7 @@ This function performs essential cleanup tasks after ECPG statement execution or
 The function uses conditional compilation to handle different locale management approaches across platforms, ensuring proper cleanup regardless of the available system functions.
 
 ## Parameters / Member Variables
-- : Pointer to statement structure to be cleaned up (safely handles NULL pointers)
-
+- `*stmt`: Pointer to statement structure to be cleaned up (safely handles NULL pointers)
 ## Dependencies
 - Functions called/Symbols referenced:
   - uselocale: Restores thread-specific locale (when HAVE_USELOCALE defined)

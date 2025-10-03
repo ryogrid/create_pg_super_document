@@ -17,7 +17,6 @@ BuildEventTriggerCache is a static function responsible for constructing or rebu
 The function implements a robust caching strategy that handles both initial cache creation and subsequent rebuilds due to invalidation events. It uses a dedicated memory context (EventTriggerCacheContext) to isolate cache memory and includes logic to handle invalidations that occur during the rebuild process.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

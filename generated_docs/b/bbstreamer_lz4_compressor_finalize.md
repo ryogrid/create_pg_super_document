@@ -18,8 +18,7 @@ This function performs end-of-stream processing for LZ4 compression. It calculat
 The function handles buffer management by forwarding existing compressed data if there isn't enough space for the footer, dynamically resizing the buffer if needed, and ensuring all remaining compressed data is properly forwarded to the next streamer in the chain before finalizing the downstream processing.
 
 ## Parameters / Member Variables
-- : The LZ4 compressor streamer instance to finalize
-
+- `*streamer`: The LZ4 compressor streamer instance to finalize
 ## Dependencies
 - Functions called/Symbols referenced:
   - LZ4F_compressBound

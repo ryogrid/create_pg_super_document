@@ -16,8 +16,7 @@ operationPriority(JsonPathItemType op)
 This static function assigns numeric priority values to JSON path operations according to standard mathematical and logical operator precedence rules. Lower numbers indicate higher precedence (higher priority). The function is used primarily during JSON path expression printing and parsing to determine when parentheses are needed to preserve the intended order of operations. The precedence follows conventional operator precedence: unary operators (highest), multiplicative operators, additive operators, comparison operators, logical AND, and logical OR (lowest).
 
 ## Parameters / Member Variables
-- : A JsonPathItemType enumeration value representing the JSON path operation whose precedence level is requested
-
+- `op`: A JsonPathItemType enumeration value representing the JSON path operation whose precedence level is requested
 ## Dependencies
 - Functions called/Symbols referenced:
   - JsonPathItemType (enum parameter)

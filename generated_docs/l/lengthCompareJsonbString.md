@@ -21,11 +21,10 @@ The  function implements the fundamental comparison logic used throughout the JS
 This approach provides a well-defined, consistent ordering that is optimized for performance in JSONB operations, particularly binary searches on sorted containers. The length-first strategy often eliminates the need for expensive byte-by-byte comparisons.
 
 ## Parameters / Member Variables
-- : Pointer to the first string to compare
-- : Length of the first string in bytes
-- : Pointer to the second string to compare  
-- : Length of the second string in bytes
-
+- `*val1`: Pointer to the first string to compare
+- `len1`: Length of the first string in bytes
+- `*val2`: Pointer to the second string to compare
+- `len2`: Length of the second string in bytes
 ## Dependencies
 - Functions called/Symbols referenced:
   - memcmp (standard C library function for binary memory comparison)

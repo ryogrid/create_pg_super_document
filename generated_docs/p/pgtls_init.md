@@ -25,10 +25,9 @@ The initialization process includes several key steps:
 The function respects application-level choices about which components to initialize, allowing fine-grained control over OpenSSL setup through the  and  parameters.
 
 ## Parameters / Member Variables
-- : PostgreSQL connection object that tracks crypto library loading state
-- : Boolean flag indicating whether to initialize the SSL library component
-- : Boolean flag indicating whether to initialize the crypto library component
-
+- `*conn`: PostgreSQL connection object that tracks crypto library loading state
+- `do_ssl`: Boolean flag indicating whether to initialize the SSL library component
+- `do_crypto`: Boolean flag indicating whether to initialize the crypto library component
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Provides thread-safe initialization

@@ -18,8 +18,7 @@ DatumGetJsonPathP is a type conversion utility function that safely extracts a J
 The JsonPath structure represents a compiled JSON path expression used for querying and manipulating JSON and JSONB data in PostgreSQL. It contains a varlena header, version/flags information, and the compiled path expression data.
 
 ## Parameters / Member Variables
-- : The input Datum containing a JsonPath value that may be stored in TOAST format
-
+- `d`: The input Datum containing a JsonPath value that may be stored in TOAST format
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_DETOAST_DATUM (macro for detoasting PostgreSQL data)

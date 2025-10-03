@@ -16,9 +16,8 @@ pa_unlock_stream(TransactionId xid, LOCKMODE lockmode)
 This function is part of PostgreSQL's logical replication parallel apply worker system. It releases a stream lock that was previously acquired for a specific transaction. The function acts as a wrapper around UnlockApplyTransactionForSession, specifically targeting the PARALLEL_APPLY_LOCK_STREAM lock type. This mechanism ensures proper coordination between parallel apply workers when processing logical replication streams.
 
 ## Parameters / Member Variables
-- : The transaction ID for which to unlock the stream lock
-- : The lock mode that was used when acquiring the lock (must match the original lock mode)
-
+- `xid`: The transaction ID for which to unlock the stream lock
+- `lockmode`: The lock mode that was used when acquiring the lock (must match the original lock mode)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [UnlockApplyTransactionForSession](../U/UnlockApplyTransactionForSession.md)

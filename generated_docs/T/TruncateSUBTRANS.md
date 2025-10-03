@@ -20,8 +20,7 @@ The function calculates a cutoff page based on the oldest active transaction ID.
 All SUBTRANS pages before the cutoff page are removed using SimpleLruTruncate, freeing up disk space and shared memory resources that are no longer needed.
 
 ## Parameters / Member Variables
-- : The oldest TransactionXmin of any running transaction, representing the boundary before which subtransaction status is no longer needed
-
+- `oldestXact`: The oldest TransactionXmin of any running transaction, representing the boundary before which subtransaction status is no longer needed
 ## Dependencies
 - Functions called/Symbols referenced:
   - TransactionIdRetreat

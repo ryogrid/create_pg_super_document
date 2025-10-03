@@ -19,6 +19,7 @@ The function uses the GUC system to re-set the wal_consistency_checking paramete
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [find_option](../f/find_option.md)

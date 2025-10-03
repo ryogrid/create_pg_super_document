@@ -29,16 +29,15 @@ LocalToUtf serves as the core conversion engine for transforming text from Postg
 The function processes multi-byte characters by first validating their structure using , then packing them into a 32-bit integer for lookup operations. If all conversion methods fail and  is false, the function reports translation errors.
 
 ## Parameters / Member Variables
-- : Input string in local encoding (need not be null-terminated)
-- : Length of input string in bytes
-- : Pointer to output area (must be large enough, output will be null-terminated)
-- : Conversion map for single characters using radix tree structure
-- : Optional conversion map for combined characters that produce multiple UTF-8 codepoints
-- : Number of entries in the combined character conversion map (0 if none)
-- : Optional algorithmic encoding conversion function for complex cases
-- : PostgreSQL identifier for the local encoding
-- : If true, stops conversion on first error rather than reporting it
-
+- `*iso`: Input string in local encoding (need not be null-terminated)
+- `len`: Length of input string in bytes
+- `*utf`: Pointer to output area (must be large enough, output will be null-terminated)
+- `*map`: Conversion map for single characters using radix tree structure
+- `*cmap`: Optional conversion map for combined characters that produce multiple UTF-8 codepoints
+- `cmapsize`: Number of entries in the combined character conversion map (0 if none)
+- `conv_func`: Optional algorithmic encoding conversion function for complex cases
+- `encoding`: PostgreSQL identifier for the local encoding
+- `noError`: If true, stops conversion on first error rather than reporting it
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_VALID_ENCODING: Validates encoding identifier

@@ -17,7 +17,6 @@ PreRestoreCommand is called before executing a restore command (typically for ar
 The function also performs a critical safety check by examining the shutdown_requested flag. If a shutdown was already requested before entering this function, it immediately exits with code 1, ensuring that shutdown requests are not missed due to timing issues between signal delivery and entering the restore command state.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -20,14 +20,13 @@ heap_hot_search_buffer traverses a HOT chain starting from a given TID to find a
 The function handles both initial calls and continuation calls (when first_call is false), ensuring it doesn't return the same tuple repeatedly. It optionally tracks global deadness of all chain members for vacuum planning purposes and performs proper serializable isolation checks.
 
 ## Parameters / Member Variables
-- : Input/output TID pointer; updated to point to the visible tuple if found
-- : The heap relation containing the HOT chain
-- : Pinned and locked buffer containing the page with the HOT chain
-- : Snapshot for visibility testing
-- : Caller-provided buffer filled with tuple data when a match is found
-- : Optional output flag indicating if all chain members are globally dead
-- : If true, this is the initial search; if false, skip the first tuple found
-
+- `tid`: Input/output TID pointer; updated to point to the visible tuple if found
+- `relation`: The heap relation containing the HOT chain
+- `buffer`: Pinned and locked buffer containing the page with the HOT chain
+- `snapshot`: Snapshot for visibility testing
+- `heapTuple`: Caller-provided buffer filled with tuple data when a match is found
+- `*all_dead`: Optional output flag indicating if all chain members are globally dead
+- `first_call`: If true, this is the initial search; if false, skip the first tuple found
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BufferGetPage](../B/BufferGetPage.md): Get page from buffer

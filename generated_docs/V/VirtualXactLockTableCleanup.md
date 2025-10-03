@@ -19,7 +19,6 @@ The function determines whether a lock was materialized by checking if fpVXIDLoc
 This cleanup is essential for transaction isolation and preventing lock leaks, ensuring that virtual transaction locks are properly released regardless of whether they remained in fast-path or were materialized.
 
 ## Parameters / Member Variables
-None (void function)
 
 ## Dependencies
 - Functions called/Symbols referenced:

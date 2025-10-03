@@ -27,8 +27,7 @@ The function follows a multi-step process:
 The function is designed to be retry-safe, meaning callers are expected to retry the operation until the desired outcome is achieved, as various concurrency scenarios may prevent immediate success.
 
 ## Parameters / Member Variables
-- : Pointer to the BrinRevmap structure containing the reverse mapping metadata and cached information
-
+- `*revmap`: Pointer to the BrinRevmap structure containing the reverse mapping metadata and cached information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LockBuffer](../L/LockBuffer.md)

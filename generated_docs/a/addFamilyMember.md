@@ -16,9 +16,8 @@ addFamilyMember(List **list, OpFamilyMember *member)
 This function safely adds a new OpFamilyMember to a list while ensuring uniqueness constraints are maintained. It checks for duplicates by comparing the member number, lefttype, and righttype against existing members in the list. If a duplicate is found, it reports an appropriate error message indicating whether it's a function or operator conflict. The function prevents invalid operator family definitions by enforcing that each strategy/procedure number can only be defined once for a given type combination.
 
 ## Parameters / Member Variables
-- : Double pointer to the List structure containing OpFamilyMember entries
-- : Pointer to the OpFamilyMember structure to be added to the list
-
+- `**list`: Double pointer to the List structure containing OpFamilyMember entries
+- `*member`: Pointer to the OpFamilyMember structure to be added to the list
 ## Dependencies
 - Functions called/Symbols referenced:
   - [OpFamilyMember](../O/OpFamilyMember.md) (type)

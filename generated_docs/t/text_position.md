@@ -16,10 +16,9 @@ text_position(text *t1, text *t2, Oid collid)
 The  function is the internal implementation that performs the actual substring search work for PostgreSQL's text position functions. It takes a haystack string (t1), a needle pattern (t2), and a collation ID, then returns the 1-based character position of the first occurrence of the pattern within the string. The function handles special cases like empty patterns (which always match at position 1) and cases where the haystack is shorter than the needle (which cannot match). It uses a state-based approach with setup, iteration, and cleanup phases to efficiently perform the search while respecting collation rules.
 
 ## Parameters / Member Variables
-- : The text string to be searched (haystack)
-- : The pattern to match within t1 (needle)
-- : The collation ID to use for text comparison operations
-
+- `*t1`: The text string to be searched (haystack)
+- `*t2`: The pattern to match within t1 (needle)
+- `collid`: The collation ID to use for text comparison operations
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Initializes the search state

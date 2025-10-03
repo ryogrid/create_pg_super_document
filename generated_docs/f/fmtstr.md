@@ -19,13 +19,12 @@ This function handles the formatting and output of string values (%s format spec
 The function first determines the actual length of the string to be printed, respecting any precision limit. It then calculates necessary padding, outputs leading padding for right-justified strings, outputs the string content itself, and finally outputs trailing padding for left-justified strings.
 
 ## Parameters / Member Variables
-- : The null-terminated string to be formatted and output
-- : Flag indicating left justification (1 for left-justified, 0 for right-justified)
-- : Minimum field width; if string is shorter, it will be padded to this width
-- : Maximum number of characters to output from the string (precision limit)
-- : Flag indicating whether precision (maxwidth) was specified in the format string
-- : Output destination structure containing formatting state and output buffer
-
+- `*value`: The null-terminated string to be formatted and output
+- `leftjust`: Flag indicating left justification (1 for left-justified, 0 for right-justified)
+- `minlen`: Minimum field width; if string is shorter, it will be padded to this width
+- `maxwidth`: Maximum number of characters to output from the string (precision limit)
+- `pointflag`: Flag indicating whether precision (maxwidth) was specified in the format string
+- `*target`: Output destination structure containing formatting state and output buffer
 ## Dependencies
 - Functions called/Symbols referenced:
   - PrintfTarget (struct type for output destination)

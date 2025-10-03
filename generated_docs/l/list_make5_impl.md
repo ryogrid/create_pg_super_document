@@ -19,13 +19,12 @@ The list_make5_impl function is the underlying implementation for creating lists
 The function ensures list integrity by calling check_list_invariants before returning, which validates the internal consistency of the newly created list structure.
 
 ## Parameters / Member Variables
-- : NodeTag specifying the type of nodes this list will contain (e.g., T_List for generic lists, T_IntList for integer lists)
-- : First ListCell value to be stored at position 0 in the list
-- : Second ListCell value to be stored at position 1 in the list  
-- : Third ListCell value to be stored at position 2 in the list
-- : Fourth ListCell value to be stored at position 3 in the list
-- : Fifth ListCell value to be stored at position 4 in the list
-
+- `t`: NodeTag specifying the type of nodes this list will contain (e.g., T_List for generic lists, T_IntList for integer lists)
+- `datum1`: First ListCell value to be stored at position 0 in the list
+- `datum2`: Second ListCell value to be stored at position 1 in the list
+- `datum3`: Third ListCell value to be stored at position 2 in the list
+- `datum4`: Fourth ListCell value to be stored at position 3 in the list
+- `datum5`: Fifth ListCell value to be stored at position 4 in the list
 ## Dependencies
 - Functions called/Symbols referenced:
   - [new_list](../n/new_list.md) (creates the base list structure with specified capacity)

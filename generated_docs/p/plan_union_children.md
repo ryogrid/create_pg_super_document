@@ -31,12 +31,11 @@ This function implements an optimization for nested UNION operations by flatteni
 This optimization reduces the number of Append/MergeAppend nodes in the final plan and can improve performance.
 
 ## Parameters / Member Variables
-- : PlannerInfo containing the global planning context and configuration
-- : The top-level SetOperationStmt that defines the properties for flattening compatibility
-- : List of reference names used for target list construction
-- : Output parameter returning list of target lists for each planned child
-- : Output parameter returning list of boolean flags indicating trivial target lists
-
+- `*root`: PlannerInfo containing the global planning context and configuration
+- `*top_union`: The top-level SetOperationStmt that defines the properties for flattening compatibility
+- `*refnames_tlist`: List of reference names used for target list construction
+- `**tlist_list`: Output parameter returning list of target lists for each planned child
+- `**istrivial_tlist`: Output parameter returning list of boolean flags indicating trivial target lists
 ## Dependencies
 - Functions called/Symbols referenced:
   - list_make1

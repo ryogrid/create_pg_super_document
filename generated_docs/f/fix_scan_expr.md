@@ -26,11 +26,10 @@ The fix_scan_expr function is a core component of PostgreSQL's query plan refere
 The function optimizes performance by choosing between two processing paths: if no transformations are needed (rtoffset == 0 and no special parameters/placeholders), it processes the tree in-place using fix_scan_expr_walker. Otherwise, it creates a copy using fix_scan_expr_mutator.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global planning information and context
-- : The expression tree node to be processed and potentially modified
-- : Integer offset to add to variable numbers (varnos) for range table adjustment
-- : Estimated number of times this expression will be executed (for optimization decisions)
-
+- `*root`: PlannerInfo structure containing global planning information and context
+- `*node`: The expression tree node to be processed and potentially modified
+- `rtoffset`: Integer offset to add to variable numbers (varnos) for range table adjustment
+- `num_exec`: Estimated number of times this expression will be executed (for optimization decisions)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [fix_scan_expr_context](fix_scan_expr_context.md)

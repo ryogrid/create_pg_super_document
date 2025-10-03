@@ -22,9 +22,8 @@ The function also provides two important statistics if the caller requests them:
 2. **Buffer allocation count**: The number of buffer allocations since the last call, which is atomically reset to zero after reading.
 
 ## Parameters / Member Variables
-- : Optional output parameter for the total number of complete buffer pool passes
-- : Optional output parameter for recent buffer allocation count (reset after reading)
-
+- `*complete_passes`: Optional output parameter for the total number of complete buffer pool passes
+- `*num_buf_alloc`: Optional output parameter for recent buffer allocation count (reset after reading)
 ## Dependencies
 - Functions called/Symbols referenced:
   - SpinLockAcquire

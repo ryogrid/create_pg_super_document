@@ -21,10 +21,9 @@ The function performs a straightforward switch on the object type and calls the 
 The supported object types include access methods, databases, extensions, tablespaces, roles, schemas, languages, foreign data wrappers, foreign servers, event triggers, parameter ACLs, publications, and subscriptions. These represent the major categories of PostgreSQL objects that exist at the cluster or database level rather than within specific schemas.
 
 ## Parameters / Member Variables
-- : The type of object being looked up (from ObjectType enumeration)
-- : String node containing the object name
-- : If true, return invalid ObjectAddress instead of throwing error when object not found
-
+- `objtype`: The type of object being looked up (from ObjectType enumeration)
+- `*strval`: String node containing the object name
+- `missing_ok`: If true, return invalid ObjectAddress instead of throwing error when object not found
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_am_oid](get_am_oid.md) (for access methods)

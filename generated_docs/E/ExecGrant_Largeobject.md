@@ -18,8 +18,7 @@ ExecGrant_Largeobject implements privilege management for PostgreSQL large objec
 Large objects have their own privilege set (SELECT and UPDATE privileges) defined by ACL_ALL_RIGHTS_LARGEOBJECT. The function handles ACL modification, dependency tracking, and extension privilege recording specifically for the large object subsystem.
 
 ## Parameters / Member Variables
-- : Internal representation of the GRANT/REVOKE statement containing target large object OIDs, grantees, privileges, and options
-
+- `*istmt`: Internal representation of the GRANT/REVOKE statement containing target large object OIDs, grantees, privileges, and options
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md), table_close (with LargeObjectMetadataRelationId)

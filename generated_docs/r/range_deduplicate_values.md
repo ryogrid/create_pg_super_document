@@ -26,8 +26,7 @@ The function operates through a multi-step process:
 The function is designed to be more efficient than full range consolidation because it avoids calling potentially expensive distance functions and doesn't attempt to merge values into ranges. It assumes that values don't duplicate with existing ranges since this is checked before values are added.
 
 ## Parameters / Member Variables
-- : Pointer to the Ranges structure to deduplicate
-
+- `*range`: Pointer to the Ranges structure to deduplicate
 ## Dependencies
 - Functions called/Symbols referenced:
   - qsort_arg

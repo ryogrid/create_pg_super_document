@@ -20,10 +20,9 @@ The function is designed to be used by domain input functions ( and ) to prepare
 An important note is that the cache struct cannot be reused for different domain types due to the lack of provision for releasing . If a call site needs to handle a new domain type, the old struct is leaked for the query duration.
 
 ## Parameters / Member Variables
-- : OID of the domain type to set up cache for
-- : Boolean flag indicating whether to set up for binary (true) or text (false) input
-- : Memory context in which to allocate the cache structure
-
+- `domainType`: OID of the domain type to set up cache for
+- `binary`: Boolean flag indicating whether to set up for binary (true) or text (false) input
+- `mcxt`: Memory context in which to allocate the cache structure
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DomainIOData](../D/DomainIOData.md) (struct type)

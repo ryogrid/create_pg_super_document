@@ -37,9 +37,8 @@ The function creates a range that encompasses all ranges in the multirange by ta
 For empty multiranges, the function returns an empty range. For non-empty multiranges, it extracts bounds from the first (index 0) and last (index rangeCount-1) ranges, then constructs a new range with those bounds. The resulting range represents the total span covered by the multirange, potentially including gaps between the constituent ranges.
 
 ## Parameters / Member Variables
-- : TypeCacheEntry containing type information for range construction
-- : Pointer to the source MultirangeType structure
-
+- `*rangetyp`: TypeCacheEntry containing type information for range construction
+- `*mr`: Pointer to the source MultirangeType structure
 ## Dependencies
 - Functions called/Symbols referenced:
   - MultirangeIsEmpty

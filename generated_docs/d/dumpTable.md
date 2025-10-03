@@ -20,9 +20,8 @@ The function operates in several phases: first, it dumps the table definition it
 For column ACLs, the function uses prepared statements that adapt to different PostgreSQL versions, handling the evolution of the privilege system including the addition of initial privileges tracking in version 9.6. Each column ACL is dumped as a dependent object that relies on the table-level ACL.
 
 ## Parameters / Member Variables
-- : Archive structure for output, containing database connection and dump options
-- : TableInfo structure containing complete metadata about the table including columns, ACLs, and relationships
-
+- `*fout`: Archive structure for output, containing database connection and dump options
+- `*tbinfo`: TableInfo structure containing complete metadata about the table including columns, ACLs, and relationships
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dumpSequence](dumpSequence.md): Dumps sequence definition for RELKIND_SEQUENCE tables

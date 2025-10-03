@@ -28,12 +28,11 @@ This function implements view expansion by taking an ON SELECT rule and transfor
 7. **Column count adjustment**: Handles CREATE OR REPLACE VIEW scenarios where column counts may have changed
 
 ## Parameters / Member Variables
-- : The query being rewritten that references the view
-- : The ON SELECT rule defining the view
-- : The range table index of the view being expanded
-- : The view relation being expanded
-- : List of active Rules in Rangetable (for recursion detection)
-
+- `*parsetree`: The query being rewritten that references the view
+- `*rule`: The ON SELECT rule defining the view
+- `rt_index`: The range table index of the view being expanded
+- `relation`: The view relation being expanded
+- `*activeRIRs`: List of active Rules in Rangetable (for recursion detection)
 ## Dependencies
 - Functions called/Symbols referenced:
   - copyObject

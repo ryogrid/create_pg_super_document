@@ -18,8 +18,7 @@ The free_command function serves as a destructor for Command structures in pgben
 The function handles the PQExpBuffer for SQL text using the appropriate termPQExpBuffer function, iterates through all command arguments to free parameter names, and deallocates optional fields like first_line and varprefix. A notable limitation mentioned in the code is that expression trees (expr field) are not recursively freed, as they are currently not needed for the commands that typically get freed (gset commands).
 
 ## Parameters / Member Variables
-- : Pointer to the Command structure to be deallocated, including all its associated memory
-
+- `*command`: Pointer to the Command structure to be deallocated, including all its associated memory
 ## Dependencies
 - Functions called/Symbols referenced:
   - [termPQExpBuffer](../t/termPQExpBuffer.md): Properly deallocates the PQExpBuffer used for SQL text storage

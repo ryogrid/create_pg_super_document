@@ -20,9 +20,8 @@ On Windows, the function closes the extra handle that was duplicated into the po
 On non-Windows platforms, this function performs no operations since those systems don't require special handling for segment lifetime management.
 
 ## Parameters / Member Variables
-- : Unique identifier for the shared memory segment to be unpinned
-- : Pointer to implementation-specific private data containing the postmaster handle to be closed
-
+- `handle`: Unique identifier for the shared memory segment to be unpinned
+- `**impl_private`: Pointer to implementation-specific private data containing the postmaster handle to be closed
 ## Dependencies  
 - Functions called/Symbols referenced:
   - DuplicateHandle (Windows API)

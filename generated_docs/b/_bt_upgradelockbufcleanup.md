@@ -20,9 +20,8 @@ A cleanup lock is a special type of exclusive lock that provides stronger guaran
 The upgrade is atomic in the sense that the function maintains continuous exclusive access throughout the operation, preventing other backends from accessing the buffer during the transition.
 
 ## Parameters / Member Variables
-- : The relation (table/index) that owns the buffer
-- : The buffer descriptor for the page whose lock should be upgraded
-
+- `rel`: The relation (table/index) that owns the buffer
+- `buf`: The buffer descriptor for the page whose lock should be upgraded
 ## Dependencies
 - Functions called/Symbols referenced:
   - VALGRIND_CHECK_MEM_IS_DEFINED

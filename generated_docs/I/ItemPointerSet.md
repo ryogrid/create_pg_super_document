@@ -18,10 +18,9 @@ ItemPointerSet is a fundamental inline function in PostgreSQL's storage subsyste
 The function performs validation through assertions and delegates the actual block ID setting to BlockIdSet while directly assigning the offset number. This design maintains the separation of concerns between block-level and intra-block positioning while providing a unified interface for complete item pointer initialization.
 
 ## Parameters / Member Variables
-- : Pointer to the ItemPointerData structure to be initialized (must be valid)
-- : The block number within the relation where the tuple is located
-- : The offset number within the block identifying the specific tuple position
-
+- `*pointer`: Pointer to the ItemPointerData structure to be initialized (must be valid)
+- `blockNumber`: The block number within the relation where the tuple is located
+- `offNum`: The offset number within the block identifying the specific tuple position
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerIsValid (assertion validation)

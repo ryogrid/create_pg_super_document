@@ -18,10 +18,9 @@ This function serves as an adapter between the standard qsort interface and Post
 The function enables sorting of range boundaries according to their natural ordering, taking into account both the boundary values and their inclusive/exclusive nature. This is essential for range statistics computation where boundaries need to be processed in sorted order.
 
 ## Parameters / Member Variables
-- : Pointer to the first RangeBound structure to compare
-- : Pointer to the second RangeBound structure to compare  
-- : Pointer to TypeCacheEntry containing type-specific comparison information
-
+- `*a1`: Pointer to the first RangeBound structure to compare
+- `*a2`: Pointer to the second RangeBound structure to compare
+- `*arg`: Pointer to TypeCacheEntry containing type-specific comparison information
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (structure representing a range boundary)

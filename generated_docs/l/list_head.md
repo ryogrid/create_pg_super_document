@@ -18,8 +18,7 @@ The list_head function is a small inline utility function that provides access t
 The function operates on PostgreSQL's internal List data structure, which stores elements as an array of ListCell objects. By returning the first element of this array (l->elements[0]), it provides access to the head of the list.
 
 ## Parameters / Member Variables
-- : A const pointer to the List structure. Can be NULL, in which case the function returns NULL.
-
+- `*l`: A const pointer to the List structure. Can be NULL, in which case the function returns NULL.
 ## Dependencies
 - Functions called/Symbols referenced: None (simple array access)
 - Called from (representative examples):

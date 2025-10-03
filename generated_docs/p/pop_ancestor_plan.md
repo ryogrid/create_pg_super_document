@@ -18,9 +18,8 @@ The  function undoes the effects of  by restoring the previous deparse namespace
 The function ensures that the deparse context is properly restored to its state before the ancestor plan was pushed, maintaining the integrity of the deparsing operation stack and preventing memory leaks.
 
 ## Parameters / Member Variables
-- : Pointer to the current deparse namespace context that will be restored
-- : The saved deparse namespace state that was preserved by 
-
+- `*dpns`: Pointer to the current deparse namespace context that will be restored
+- `*save_dpns`: The saved deparse namespace state that was preserved by
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_free](../l/list_free.md) (frees memory allocated for a list)

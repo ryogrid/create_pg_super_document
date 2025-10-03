@@ -18,8 +18,7 @@ ExecEndLimit is the cleanup function for Limit execution nodes, responsible for 
 The function is minimal because Limit nodes have minimal resource requirements beyond their child plan. The PostgreSQL memory management system handles automatic cleanup of the LimitState structure and associated memory contexts, so explicit resource deallocation is generally not required.
 
 ## Parameters / Member Variables
-- : LimitState containing the execution state to be cleaned up
-
+- `*node`: LimitState containing the execution state to be cleaned up
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecEndNode](ExecEndNode.md) (recursively shuts down child plan)

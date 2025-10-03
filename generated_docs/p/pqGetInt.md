@@ -18,10 +18,9 @@ The  function is a utility function used in the libpq library to read integer va
 The function performs bounds checking to ensure sufficient data is available in the input buffer before attempting to read. If insufficient data is available, it returns EOF. The function advances the input cursor position after successfully reading the data.
 
 ## Parameters / Member Variables
-- : Pointer to an integer where the converted value will be stored
-- : Number of bytes to read (must be 2 or 4)
-- : PostgreSQL connection object containing the input buffer and cursor position
-
+- `*result`: Pointer to an integer where the converted value will be stored
+- `bytes`: Number of bytes to read (must be 2 or 4)
+- `*conn`: PostgreSQL connection object containing the input buffer and cursor position
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_ntoh16 (converts 16-bit value from network to host byte order)

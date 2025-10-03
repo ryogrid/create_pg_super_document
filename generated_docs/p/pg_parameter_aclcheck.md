@@ -16,10 +16,9 @@ pg_parameter_aclcheck(const char *name, Oid roleid, AclMode mode)
 This function serves as an exported routine for checking access privileges to PostgreSQL configuration parameters (GUCs). It acts as a wrapper around the more complex  function, simplifying the access control check by returning a straightforward success/failure result. The function determines whether a given role has the specified access mode to a named configuration parameter.
 
 ## Parameters / Member Variables
-- : The name of the configuration parameter (GUC) to check access for
-- : The OID of the role whose privileges are being checked
-- : The type of access being requested (AclMode enumeration)
-
+- `*name`: The name of the configuration parameter (GUC) to check access for
+- `roleid`: The OID of the role whose privileges are being checked
+- `mode`: The type of access being requested (AclMode enumeration)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_parameter_aclmask](pg_parameter_aclmask.md)

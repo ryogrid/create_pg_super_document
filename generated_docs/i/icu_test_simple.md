@@ -18,8 +18,7 @@ This function performs a comparative test between PostgreSQL's internal Unicode 
 The function is part of PostgreSQL's Unicode case conversion testing infrastructure, ensuring that PostgreSQL's Unicode handling remains consistent with the ICU standard.
 
 ## Parameters / Member Variables
-- : A Unicode codepoint (pg_wchar) to be tested for case conversion accuracy
-
+- `code`: A Unicode codepoint (pg_wchar) to be tested for case conversion accuracy
 ## Dependencies
 - Functions called/Symbols referenced:
   - [unicode_lowercase_simple](../u/unicode_lowercase_simple.md)

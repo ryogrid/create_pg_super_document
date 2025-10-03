@@ -22,10 +22,9 @@ The  function performs 64-bit × 64-bit → 128-bit unsigned multiplication. Thi
 The function is critical for the Ryu algorithm's precision requirements, as it needs to perform exact arithmetic on large integers during the floating-point conversion process.
 
 ## Parameters / Member Variables
-- : First 64-bit unsigned integer operand
-- : Second 64-bit unsigned integer operand  
-- : Pointer to store the high 64 bits of the 128-bit product
-
+- `a`: First 64-bit unsigned integer operand
+- `b`: Second 64-bit unsigned integer operand
+- `productHi`: Pointer to store the high 64 bits of the 128-bit product
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (when HAS_64_BIT_INTRINSICS is defined)

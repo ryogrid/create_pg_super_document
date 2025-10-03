@@ -18,8 +18,7 @@ This function retrieves the Dynamic Shared Area (DSA) pointer handle for a share
 The function delegates to the internal  function to obtain the actual DSA pointer from the shared radix tree structure.
 
 ## Parameters / Member Variables
-- : Pointer to the TidStore from which to retrieve the DSA handle. Must be a shared TidStore.
-
+- `*ts`: Pointer to the TidStore from which to retrieve the DSA handle. Must be a shared TidStore.
 ## Dependencies
 - Functions called/Symbols referenced:
   - TidStoreIsShared (macro to verify the TidStore is shared)

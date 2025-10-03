@@ -16,9 +16,8 @@ union(root->curOuterRels,
 This function creates a NestLoop execution plan node from a NestPath. Nested loop joins are the most basic join algorithm where for each row in the outer relation, the inner relation is scanned to find matching rows. The function handles path reparameterization to ensure proper parameter passing between outer and inner relations, manages the curOuterRels context for nested parameter handling, and processes join clauses appropriately for different join types (inner vs outer joins). It also identifies and sets up nestloop parameters that allow the inner scan to be parameterized by values from the outer relation.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global planning context and state information
-- : NestPath representing the chosen nested loop join access path
-
+- `curOuterRels`: PlannerInfo structure containing global planning context and state information
+- `relids`: NestPath representing the chosen nested loop join access path
 ## Dependencies
 - Functions called/Symbols referenced:
   - [build_path_tlist](../b/build_path_tlist.md)

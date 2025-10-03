@@ -29,12 +29,11 @@ For each tuple in the input array, the function:
 The function maintains the same locking and ordering requirements as  but processes multiple tuples in a single operation for efficiency.
 
 ## Parameters / Member Variables
-- : The hash index relation
-- : Buffer containing the target page (must be pinned and write-locked)
-- : Array of index tuples to be inserted
-- : Output array to store the offset numbers where each tuple was inserted
-- : Number of tuples in the input array
-
+- `rel`: The hash index relation
+- `buf`: Buffer containing the target page (must be pinned and write-locked)
+- `*itups`: Array of index tuples to be inserted
+- `*itup_offsets`: Output array to store the offset numbers where each tuple was inserted
+- `nitups`: Number of tuples in the input array
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Validate page type (bucket or overflow page)

@@ -16,10 +16,9 @@ changeDependencyOnOwner(Oid classId, Oid objectId, Oid newOwnerId)
 This function manages the complex process of changing object ownership in PostgreSQL's shared dependency system. It performs two key operations: 1) Updates the SHARED_DEPENDENCY_OWNER entry to point to the new owner, and 2) Removes any SHARED_DEPENDENCY_ACL entry for the new owner to prevent conflicts (since owners don't need explicit ACL entries for their own objects). This cleanup prevents issues that could arise from ownership transfer scenarios where the new owner previously had explicit privileges on the object.
 
 ## Parameters / Member Variables
-- : OID of the catalog containing the object whose owner is changing
-- : OID of the object whose owner is changing
-- : OID of the new owner (from pg_authid catalog)
-
+- `classId`: OID of the catalog containing the object whose owner is changing
+- `objectId`: OID of the object whose owner is changing
+- `newOwnerId`: OID of the new owner (from pg_authid catalog)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md)

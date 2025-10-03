@@ -21,9 +21,8 @@ The function handles different message types based on their length:
 - Other lengths: Unknown message types
 
 ## Parameters / Member Variables
-- : PostgreSQL connection object containing trace configuration and output stream
-- : Raw message buffer containing the protocol message to be traced
-
+- `*conn`: PostgreSQL connection object containing trace configuration and output stream
+- `*message`: Raw message buffer containing the protocol message to be traced
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pqTraceFormatTimestamp](pqTraceFormatTimestamp.md)

@@ -29,8 +29,7 @@ The function examines the current parallel vacuum status and generates appropria
 The error messages are designed to match those used in the sequential vacuum error context () to maintain consistency in error reporting across both parallel and non-parallel vacuum operations.
 
 ## Parameters / Member Variables
-- : Void pointer to ParallelVacuumState structure containing current vacuum context information
-
+- `*arg`: Void pointer to ParallelVacuumState structure containing current vacuum context information
 ## Dependencies
 - Functions called/Symbols referenced:
   - errcontext

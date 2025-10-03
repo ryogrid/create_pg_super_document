@@ -24,8 +24,7 @@ The function uses a switch statement to handle three different worker types:
 This design allows different worker types to have specialized synchronization logic while providing a unified interface.
 
 ## Parameters / Member Variables
-- : XLogRecPtr representing the current log sequence number (LSN) in the WAL stream, used to determine synchronization progress and state transitions
-
+- `current_lsn`: XLogRecPtr representing the current log sequence number (LSN) in the WAL stream, used to determine synchronization progress and state transitions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [process_syncing_tables_for_sync](process_syncing_tables_for_sync.md)

@@ -18,8 +18,7 @@ This function serves as a compatibility wrapper around the main  function. It ex
 The underlying functionality reads the LOG_METAINFO_DATAFILE to find the current log file path for the specified log format (stderr, csvlog, or jsonlog). When no specific format is provided, it returns the first available log file.
 
 ## Parameters / Member Variables
-- : Function call information structure containing the single argument (log format parameter)
-
+- `PG_FUNCTION_ARGS`: Function call information structure containing the single argument (log format parameter)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_current_logfile](pg_current_logfile.md)

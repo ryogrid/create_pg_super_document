@@ -18,14 +18,13 @@ init_int_reloption(bits32 kinds, const char *name, const char *desc,
 This function serves as an internal constructor for integer-type relation options (reloptions) in PostgreSQL. It creates a new  structure by first calling the generic  function to handle common initialization, then sets the integer-specific properties including default value, minimum value, and maximum value constraints. The function is marked as static, indicating it's an internal helper function used within the reloptions subsystem.
 
 ## Parameters / Member Variables
-- : A bitmask specifying which relation kinds (table, index, etc.) this option applies to
-- : The name of the reloption as it appears in SQL
-- : A human-readable description of the option for documentation/help
-- : The default integer value for this option
-- : The minimum allowed integer value
-- : The maximum allowed integer value
-- : The lock mode required to change this option
-
+- `kinds`: A bitmask specifying which relation kinds (table, index, etc.) this option applies to
+- `*name`: The name of the reloption as it appears in SQL
+- `*desc`: A human-readable description of the option for documentation/help
+- `default_val`: The default integer value for this option
+- `min_val`: The minimum allowed integer value
+- `max_val`: The maximum allowed integer value
+- `lockmode`: The lock mode required to change this option
 ## Dependencies
 - Functions called/Symbols referenced:
   - [allocate_reloption](../a/allocate_reloption.md)

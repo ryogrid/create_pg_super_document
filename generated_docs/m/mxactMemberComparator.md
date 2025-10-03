@@ -18,9 +18,8 @@ This function serves as a comparator for the standard library's qsort function w
 The comparison follows standard qsort conventions: returning negative values when the first argument is "less than" the second, positive values when "greater than", and zero when equal.
 
 ## Parameters / Member Variables
-- : Pointer to the first MultiXactMember structure to compare (cast from void*)
-- : Pointer to the second MultiXactMember structure to compare (cast from void*)
-
+- `*arg1`: Pointer to the first MultiXactMember structure to compare (cast from void*)
+- `*arg2`: Pointer to the second MultiXactMember structure to compare (cast from void*)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MultiXactMember](../M/MultiXactMember.md) (structure type)

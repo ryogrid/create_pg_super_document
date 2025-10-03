@@ -26,10 +26,9 @@ The function performs several key operations:
 7. Optionally injects a projection node if the target list was modified during sort preparation
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planner state and context information
-- : MergeAppendPath representing the chosen path with multiple sorted subpaths to merge
-- : Control flags (CP_EXACT_TLIST, CP_SMALL_TLIST, etc.) that affect target list handling
-
+- `*root`: PlannerInfo structure containing planner state and context information
+- `*best_path`: MergeAppendPath representing the chosen path with multiple sorted subpaths to merge
+- `flags`: Control flags (CP_EXACT_TLIST, CP_SMALL_TLIST, etc.) that affect target list handling
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to create MergeAppend node)

@@ -20,9 +20,8 @@ This sanitization is critical for preventing corruption of PostgreSQL dumps, whi
 The function allocates a new string using pg_strdup and modifies it in place, ensuring the original input string remains unchanged.
 
 ## Parameters / Member Variables
-- : The input string to be sanitized. If NULL, the function returns an empty string or hyphen based on want_hyphen parameter
-- : Boolean flag that determines the return value when str is NULL. If true, returns "-", otherwise returns an empty string ""
-
+- `*str`: The input string to be sanitized. If NULL, the function returns an empty string or hyphen based on want_hyphen parameter
+- `want_hyphen`: Boolean flag that determines the return value when str is NULL. If true, returns "-", otherwise returns an empty string ""
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_strdup](../p/pg_strdup.md) (for memory allocation and string duplication)

@@ -18,9 +18,8 @@ The  function is used during relation truncation operations to clear the availab
 The function is part of PostgreSQL's Free Space Map implementation, which tracks available space in heap pages to optimize insertion operations. When a relation is truncated, the corresponding FSM pages must also be updated to reflect that the truncated blocks no longer exist and should not be considered for space allocation.
 
 ## Parameters / Member Variables
-- : The FSM page to be truncated, represented as a generic Page structure
-- : The starting slot number from which all subsequent slots should be cleared (must be >= 0 and < LeafNodesPerPage)
-
+- `page`: The FSM page to be truncated, represented as a generic Page structure
+- `nslots`: The starting slot number from which all subsequent slots should be cleared (must be >= 0 and < LeafNodesPerPage)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PageGetContents](../P/PageGetContents.md): Extracts the FSM page content from the generic page structure

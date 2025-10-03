@@ -28,12 +28,11 @@ tsquery_opr_selec(QueryItem *item, char *operand,
 The function gracefully handles cases with insufficient or missing statistics by falling back to default estimates. It includes stack depth checking for protection against deeply nested queries.
 
 ## Parameters / Member Variables
-- : Current QueryItem in the TSQuery tree being processed
-- : String buffer containing all lexeme text for the query
-- : Array of TextFreq structures containing most-common-elements statistics
-- : Number of elements in the lookup array
-- : Minimum frequency from statistics, used for estimation bounds
-
+- `*item`: Current QueryItem in the TSQuery tree being processed
+- `*operand`: String buffer containing all lexeme text for the query
+- `*lookup`: Array of TextFreq structures containing most-common-elements statistics
+- `length`: Number of elements in the lookup array
+- `minfreq`: Minimum frequency from statistics, used for estimation bounds
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_stack_depth](../c/check_stack_depth.md): Prevents stack overflow from deep recursion

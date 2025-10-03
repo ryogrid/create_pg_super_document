@@ -18,8 +18,7 @@ The hash_xlog_split_cleanup function is a WAL replay handler that processes spli
 During replay, the function reads the buffer specified in the WAL record, checks if redo is needed, and if so, removes the LH_BUCKET_NEEDS_SPLIT_CLEANUP flag from the bucket page's opaque data structure. This ensures the page state is correctly restored during recovery.
 
 ## Parameters / Member Variables
-- : XLogReaderState pointer containing the WAL record being replayed, including buffer references and LSN information
-
+- `*record`: XLogReaderState pointer containing the WAL record being replayed, including buffer references and LSN information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [XLogReadBufferForRedo](../X/XLogReadBufferForRedo.md)

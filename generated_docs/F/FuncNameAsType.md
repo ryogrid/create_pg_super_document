@@ -18,8 +18,7 @@ The  function serves as a utility to determine whether a given function name cor
 The function uses  in the type lookup to maintain security contracts when writing SECURITY DEFINER functions safely. It only returns valid type OIDs for fully defined types that are not composite types.
 
 ## Parameters / Member Variables
-- : List of strings representing the qualified or unqualified function/type name to check
-
+- `*funcname`: List of strings representing the qualified or unqualified function/type name to check
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LookupTypeNameExtended](../L/LookupTypeNameExtended.md)

@@ -21,12 +21,11 @@ For EXISTS queries (JsonbJsonpathExistsStrategyNumber), it uses  to handle path 
 The function configures different extraction behaviors for the two supported operator classes: jsonb_ops (which extracts keys and values separately) and jsonb_path_ops (which extracts hash-based path representations). It also respects the jsonpath LAX/STRICT mode setting.
 
 ## Parameters / Member Variables
-- : JsonPath structure containing the parsed jsonpath expression
-- : StrategyNumber indicating the type of jsonpath operation (EXISTS, boolean expressions, etc.)
-- : Boolean flag indicating whether to use jsonb_path_ops (true) or jsonb_ops (false) extraction strategy
-- : Output parameter receiving the number of GIN entries extracted
-- : Output parameter receiving additional query data, with the root expression node at index 0
-
+- `*jp`: JsonPath structure containing the parsed jsonpath expression
+- `strat`: StrategyNumber indicating the type of jsonpath operation (EXISTS, boolean expressions, etc.)
+- `pathOps`: Boolean flag indicating whether to use jsonb_path_ops (true) or jsonb_ops (false) extraction strategy
+- `*nentries`: Output parameter receiving the number of GIN entries extracted
+- `**extra_data`: Output parameter receiving additional query data, with the root expression node at index 0
 ## Dependencies
 - Functions called/Symbols referenced:
   - [jspInit](../j/jspInit.md) (initializes jsonpath item from JsonPath structure)

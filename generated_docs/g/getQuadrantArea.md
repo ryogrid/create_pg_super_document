@@ -16,10 +16,9 @@ getQuadrantArea(BOX *bbox, Point *centroid, int quadrant)
 The  function calculates the bounding box that represents a specific quadrant's area within a larger bounding box. Given a parent bounding box and a centroid point that divides it into four quadrants, this function returns a newly allocated BOX structure representing the specified quadrant's spatial bounds. This is crucial for SP-GiST quadtree operations where spatial queries need to determine which quadrants to search based on their geometric boundaries.
 
 ## Parameters / Member Variables
-- : Pointer to the parent BOX structure representing the overall bounding area
-- : Pointer to the Point structure that serves as the center point dividing the box into quadrants  
-- : Integer specifying which quadrant (1-4) to compute the area for
-
+- `*bbox`: Pointer to the parent BOX structure representing the overall bounding area
+- `*centroid`: Pointer to the Point structure that serves as the center point dividing the box into quadrants
+- `quadrant`: Integer specifying which quadrant (1-4) to compute the area for
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (structure type)

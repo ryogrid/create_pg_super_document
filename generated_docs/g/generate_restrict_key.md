@@ -18,7 +18,6 @@ This function generates a 63-character random alphanumeric string that serves as
 The function allocates memory for a 64-byte buffer (63 characters plus null terminator) and fills it with randomly selected characters from the restrict_chars character set. The random selection process uses modulo arithmetic to map random bytes to valid character indices.
 
 ## Parameters / Member Variables
-This function takes no parameters and returns a dynamically allocated string.
 
 ## Dependencies
 - Functions called/Symbols referenced:

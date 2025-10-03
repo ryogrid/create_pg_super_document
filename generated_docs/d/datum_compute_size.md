@@ -19,13 +19,12 @@ This function is part of PostgreSQL's range type serialization infrastructure. I
 For packable types with short varlena capability, it calculates the converted short size without additional alignment padding. For other types, it applies proper alignment using  and adds the appropriate length using .
 
 ## Parameters / Member Variables
-- : Current accumulated data length before adding this datum
-- : The datum value to be sized
-- : Whether the type is passed by value
-- : Type alignment requirement ('c', 's', 'i', 'd')
-- : Type length (-1 for variable length, -2 for cstring, positive for fixed length)
-- : Type storage strategy ('p', 'e', 'm', 'x')
-
+- `data_length`: Current accumulated data length before adding this datum
+- `val`: The datum value to be sized
+- `typbyval`: Whether the type is passed by value
+- `typalign`: Type alignment requirement ('c', 's', 'i', 'd')
+- `typlen`: Type length (-1 for variable length, -2 for cstring, positive for fixed length)
+- `typstorage`: Type storage strategy ('p', 'e', 'm', 'x')
 ## Dependencies
 - Functions called/Symbols referenced:
   - TYPE_IS_PACKABLE

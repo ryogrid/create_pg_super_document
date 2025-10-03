@@ -39,10 +39,9 @@ All of the following properties must match exactly for identical aggregates:
 This strict matching ensures that optimization is only applied when it's completely safe and will produce identical results.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing the agginfos list of previously processed aggregates
-- : Aggref node representing the new aggregate being processed
-- : Output parameter that receives a list of transition numbers for aggregates with compatible inputs but different functions
-
+- `*root`: PlannerInfo structure containing the agginfos list of previously processed aggregates
+- `*newagg`: Aggref node representing the new aggregate being processed
+- `**same_input_transnos`: Output parameter that receives a list of transition numbers for aggregates with compatible inputs but different functions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [contain_volatile_functions](../c/contain_volatile_functions.md)

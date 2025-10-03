@@ -22,14 +22,13 @@ This function constructs a WHERE clause fragment that compares two operands usin
 The function delegates the actual operator clause generation to , which handles the complex logic of operator resolution, type casting, and schema qualification.
 
 ## Parameters / Member Variables
-- : StringInfo buffer to which the WHERE clause fragment will be appended
-- : Separator string (typically "AND" or "OR") to be added before the comparison clause
-- : String representation of the left operand (should be parenthesized if not a simple variable or parameter)
-- : OID of the data type of the left operand
-- : OID of the operator to be used for the comparison
-- : String representation of the right operand (should be parenthesized if not a simple variable or parameter)
-- : OID of the data type of the right operand
-
+- `buf`: StringInfo buffer to which the WHERE clause fragment will be appended
+- `*sep`: Separator string (typically "AND" or "OR") to be added before the comparison clause
+- `*leftop`: String representation of the left operand (should be parenthesized if not a simple variable or parameter)
+- `leftoptype`: OID of the data type of the left operand
+- `opoid`: OID of the operator to be used for the comparison
+- `*rightop`: String representation of the right operand (should be parenthesized if not a simple variable or parameter)
+- `rightoptype`: OID of the data type of the right operand
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Appends the separator to the buffer

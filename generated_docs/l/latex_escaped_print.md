@@ -16,9 +16,8 @@ latex_escaped_print(const char *in, FILE *fout)
 This function processes input text character by character and converts special LaTeX metacharacters to their escaped equivalents. It follows recommendations from Scott Pakin's "The Comprehensive LATEX Symbol List" for ASCII character conversions. The function handles characters that have special meaning in LaTeX (like #, $, %, &, etc.) by prefixing them with backslashes or replacing them with appropriate LaTeX commands. For non-ASCII characters, no special handling is performed.
 
 ## Parameters / Member Variables
-- : Input string containing the text to be escaped for LaTeX output
-- : File stream where the escaped LaTeX text will be written
-
+- `*in`: Input string containing the text to be escaped for LaTeX output
+- `*fout`: File stream where the escaped LaTeX text will be written
 ## Dependencies
 - Functions called/Symbols referenced:
   - fputs (for outputting escaped character sequences)

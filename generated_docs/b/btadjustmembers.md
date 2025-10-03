@@ -31,11 +31,10 @@ The  function manages the dependency relationships between btree operators/funct
 This approach optimizes dependency management while avoiding the creation of incomplete operator classes, which could cause system inconsistencies.
 
 ## Parameters / Member Variables
-- : The OID of the btree operator family being modified
-- : The OID of the operator class context (may be InvalidOid)
-- : List of operators to be added to the family
-- : List of support functions to be added to the family
-
+- `opfamilyoid`: The OID of the btree operator family being modified
+- `opclassoid`: The OID of the operator class context (may be InvalidOid)
+- `*operators`: List of operators to be added to the family
+- `*functions`: List of support functions to be added to the family
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CommandCounterIncrement](../C/CommandCounterIncrement.md)

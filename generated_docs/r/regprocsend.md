@@ -18,8 +18,7 @@ The regprocsend function is the binary output conversion function for PostgreSQL
 Since regproc values are internally represented as OIDs, this function is implemented as a simple wrapper that delegates to the standard oidsend function. This approach ensures consistent binary format handling between regproc and OID data types while maintaining the type system distinctions at the SQL level.
 
 ## Parameters / Member Variables
-- : Function call information structure containing the regproc value to be converted to binary format
-
+- `PG_FUNCTION_ARGS`: Function call information structure containing the regproc value to be converted to binary format
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Standard OID binary output function that performs the actual conversion

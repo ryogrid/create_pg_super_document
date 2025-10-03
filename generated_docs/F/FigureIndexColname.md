@@ -25,8 +25,7 @@ The function applies the same sophisticated heuristics as FigureColname:
 - Returns the derived name only if FigureColnameInternal determines a suitable name exists
 
 ## Parameters / Member Variables
-- : The untransformed parse tree node representing the index expression from which to derive a column name
-
+- `*node`: The untransformed parse tree node representing the index expression from which to derive a column name
 ## Dependencies
 - Functions called/Symbols referenced:
   - [FigureColnameInternal](FigureColnameInternal.md)

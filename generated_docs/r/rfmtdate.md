@@ -18,10 +18,9 @@ The  function is part of PostgreSQL's ECPG Informix compatibility library. It ta
 The function handles memory allocation errors specifically by checking for  errno and returns appropriate Informix error codes. For other formatting errors, it returns a general date conversion error code.
 
 ## Parameters / Member Variables
-- : Input date value to be formatted
-- : Format string specifying the desired output format
-- : Output buffer where the formatted date string will be stored
-
+- `d`: Input date value to be formatted
+- `*fmt`: Format string specifying the desired output format
+- `*str`: Output buffer where the formatted date string will be stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Internal PostgreSQL function for formatting dates to strings

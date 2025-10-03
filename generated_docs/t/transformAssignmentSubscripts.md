@@ -38,19 +38,18 @@ The function performs several key operations:
 The function handles the distinction between direct container assignments and assignments through domains, ensuring proper type coercion and constraint application.
 
 ## Parameters / Member Variables
-- : Parse state containing context for the current query parsing
-- : Base node representing the container being subscripted
-- : Name of the target being assigned to (for error reporting)
-- : Data type OID of the target container
-- : Type modifier of the target container
-- : Collation of the target container
-- : List of subscript expressions (A_Indices nodes)
-- : Complete list of indirection nodes for recursive processing
-- : Position in indirection list for further processing
-- : Right-hand side expression to be assigned
-- : Coercion context level for type conversions
-- : Cursor position for error reporting
-
+- `*pstate`: Parse state containing context for the current query parsing
+- `*basenode`: Base node representing the container being subscripted
+- `*targetName`: Name of the target being assigned to (for error reporting)
+- `targetTypeId`: Data type OID of the target container
+- `targetTypMod`: Type modifier of the target container
+- `targetCollation`: Collation of the target container
+- `*subscripts`: List of subscript expressions (A_Indices nodes)
+- `*indirection`: Complete list of indirection nodes for recursive processing
+- `*next_indirection`: Position in indirection list for further processing
+- `*rhs`: Right-hand side expression to be assigned
+- `ccontext`: Coercion context level for type conversions
+- `location`: Cursor position for error reporting
 ## Dependencies
 - Functions called/Symbols referenced:
   - [transformContainerType](transformContainerType.md)

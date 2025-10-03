@@ -19,11 +19,10 @@ This function handles the expansion of subquery relations that have been flatten
 The function iterates through all append relations in the planner's append_rel_list, identifies those that belong to the current parent relation, and builds RelOptInfo structures for each child. If a child relation is itself an inherited relation (either a table inheritance or another subquery), the function recursively expands it as well.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planner state including append_rel_list
-- : RelOptInfo for the parent subquery relation (the flattened UNION ALL)
-- : RangeTblEntry for the parent subquery relation  
-- : Range table index of the parent relation
-
+- `*root`: PlannerInfo structure containing planner state including append_rel_list
+- `*rel`: RelOptInfo for the parent subquery relation (the flattened UNION ALL)
+- `*rte`: RangeTblEntry for the parent subquery relation
+- `rti`: Range table index of the parent relation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [build_simple_rel](../b/build_simple_rel.md) (creates RelOptInfo for child relations)

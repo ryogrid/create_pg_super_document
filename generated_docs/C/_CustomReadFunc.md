@@ -18,10 +18,9 @@ The  function serves as a callback for the archive reading mechanism in PostgreS
 The function follows a two-step process: first reading the length of the compressed block from the archive, then reading the actual data block. It dynamically manages memory allocation for the buffer, ensuring it's large enough to hold the incoming data block.
 
 ## Parameters / Member Variables
-- : Archive handle containing file handle and archive metadata
-- : Pointer to buffer pointer that will hold the read data (may be reallocated)
-- : Pointer to current buffer length (updated if buffer is reallocated)
-
+- `*AH`: Archive handle containing file handle and archive metadata
+- `**buf`: Pointer to buffer pointer that will hold the read data (may be reallocated)
+- `*buflen`: Pointer to current buffer length (updated if buffer is reallocated)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReadInt](../R/ReadInt.md) (reads the block length from archive)

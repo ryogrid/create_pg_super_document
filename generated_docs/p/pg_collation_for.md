@@ -18,8 +18,7 @@ This function provides SQL access to determine the collation of a given expressi
 The function performs several validation steps: it ensures the argument type is known, verifies that the type supports collations (with a special case for UNKNOWN type), and checks that a collation is actually assigned to the expression. If any of these conditions fail, it either returns NULL or raises an appropriate error.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function argument structure containing the expression whose collation is to be determined
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument structure containing the expression whose collation is to be determined
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (to extract the argument's data type)

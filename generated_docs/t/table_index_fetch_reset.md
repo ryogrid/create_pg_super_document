@@ -18,8 +18,7 @@ This function is part of PostgreSQL's table access method (tableam) interface th
 The function serves as a thin wrapper around the table access method's implementation, allowing different storage engines to handle resource cleanup in their own specific way while maintaining a consistent interface.
 
 ## Parameters / Member Variables
-- : Pointer to IndexFetchTableData structure containing the index fetch state and associated table relation information
-
+- `*scan`: Pointer to IndexFetchTableData structure containing the index fetch state and associated table relation information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [IndexFetchTableData](../I/IndexFetchTableData.md) (structure type)

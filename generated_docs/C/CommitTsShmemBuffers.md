@@ -19,7 +19,6 @@ The function implements two allocation strategies:
 2. **Manual configuration mode**: When a specific value is configured, it enforces bounds between 16 (minimum) and `SLRU_MAX_ALLOWED_BUFFERS` (maximum)
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

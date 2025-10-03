@@ -16,9 +16,8 @@ compareJsonbScalarValue(JsonbValue *a, JsonbValue *b)
 This static function implements lexicographic ordering comparison for JsonbValue scalar types, designed specifically for B-tree operators where consistent sort ordering is required. It handles type-specific comparison logic: null values are always equal (return 0), string values are compared using varstr_cmp with the default collation for proper lexical ordering, numeric values use PostgreSQL's numeric_cmp function to ensure mathematically correct ordering, and boolean values are compared with false < true ordering. The function enforces type safety by requiring identical types and generating errors for mismatched or invalid types.
 
 ## Parameters / Member Variables
-- : Pointer to the first JsonbValue scalar for comparison
-- : Pointer to the second JsonbValue scalar for comparison
-
+- `*a`: Pointer to the first JsonbValue scalar for comparison
+- `*b`: Pointer to the second JsonbValue scalar for comparison
 ## Dependencies
 - Functions called/Symbols referenced:
   - [varstr_cmp](../v/varstr_cmp.md) (for string comparison with collation)

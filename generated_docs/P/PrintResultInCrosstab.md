@@ -27,8 +27,7 @@ The function supports up to 4 optional arguments via pset.ctv_args:
 - [3]: Sort column for horizontal headers (optional)
 
 ## Parameters / Member Variables
-- : Pointer to PGresult containing the query result data to be cross-tabulated
-
+- `*res`: Pointer to PGresult containing the query result data to be cross-tabulated
 ## Dependencies
 - Functions called/Symbols referenced:
   - [avlInit](../a/avlInit.md), avlFree, avlMergeValue, avlCollectFields

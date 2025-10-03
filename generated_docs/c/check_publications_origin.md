@@ -18,14 +18,13 @@ check_publications_origin(WalReceiverConn *wrconn, List *publications,
 This function performs a critical validation check for logical replication subscriptions to detect potential data origin conflicts. When creating or refreshing a subscription with copy_data=true and origin=none, it queries the publisher to determine if any of the subscribed tables are also being written to by other subscriptions (indicating potential origin conflicts). The function constructs a complex SQL query that examines publication tables, their partition hierarchies, and existing subscription relationships to identify overlapping publications. If conflicts are detected, it logs a warning to alert administrators about potential data origin issues during initial synchronization.
 
 ## Parameters / Member Variables
-- : Active WAL receiver connection to the publisher database
-- : List of publication names being subscribed to
-- : Boolean indicating whether initial data copy is requested
-- : Origin setting for the subscription (checked for 'none' value)
-- : Array of relation OIDs already present on the subscriber
-- : Number of relations in the subrel_local_oids array
-- : Name of the subscription being created/modified
-
+- `*wrconn`: Active WAL receiver connection to the publisher database
+- `*publications`: List of publication names being subscribed to
+- `copydata`: Boolean indicating whether initial data copy is requested
+- `*origin`: Origin setting for the subscription (checked for 'none' value)
+- `*subrel_local_oids`: Array of relation OIDs already present on the subscriber
+- `subrel_count`: Number of relations in the subrel_local_oids array
+- `*subname`: Name of the subscription being created/modified
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_strcasecmp](../p/pg_strcasecmp.md)

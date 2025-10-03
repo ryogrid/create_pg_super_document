@@ -16,8 +16,7 @@ finishCon(CState *st)
 This function provides a safe wrapper around PostgreSQL's PQfinish() function to properly close database connections associated with pgbench client states. It includes a null pointer check to prevent attempting to close already-closed or uninitialized connections, and sets the connection pointer to NULL after closing to prevent double-close scenarios. This function is essential for proper resource cleanup in pgbench's connection management system.
 
 ## Parameters / Member Variables
-- : Pointer to CState structure representing a client connection state whose database connection should be closed
-
+- `*st`: Pointer to CState structure representing a client connection state whose database connection should be closed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQfinish](../P/PQfinish.md) (PostgreSQL libpq function for closing connections)

@@ -25,10 +25,9 @@ The function calculates four key limits:
 The function also handles offset vacuum limits separately and can trigger autovacuum processes when limits are approached. It includes comprehensive error reporting with database-specific messages to help administrators identify which databases need attention.
 
 ## Parameters / Member Variables
-- : The oldest MultiXact ID that might exist in any database of the cluster
-- : The OID of the database containing the oldest MultiXact ID
-- : Boolean indicating whether this is called during startup (affects logging only)
-
+- `oldest_datminmxid`: The oldest MultiXact ID that might exist in any database of the cluster
+- `oldest_datoid`: The OID of the database containing the oldest MultiXact ID
+- `is_startup`: Boolean indicating whether this is called during startup (affects logging only)
 ## Dependencies
 - Functions called/Symbols referenced:
   - MultiXactIdIsValid

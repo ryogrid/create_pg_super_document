@@ -28,10 +28,9 @@ The function iterates through each RestrictInfo in the list and performs the fol
 This optimization prevents the generation of expensive cartesian products when the result would inevitably be empty.
 
 ## Parameters / Member Variables
-- : List of RestrictInfo nodes representing the restriction clauses to examine
-- : RelOptInfo for the join relation, used to determine which restrictions are pushed down
-- : Boolean flag indicating whether to consider only pushed-down restrictions
-
+- `*restrictlist`: List of RestrictInfo nodes representing the restriction clauses to examine
+- `*joinrel`: RelOptInfo for the join relation, used to determine which restrictions are pushed down
+- `only_pushed_down`: Boolean flag indicating whether to consider only pushed-down restrictions
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Macro to check if a RestrictInfo is pushed down to a specific relation set

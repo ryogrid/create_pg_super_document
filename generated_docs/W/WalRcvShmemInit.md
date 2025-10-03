@@ -18,6 +18,7 @@ This function is responsible for setting up the shared memory area used by the W
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [WalRcvData](WalRcvData.md)

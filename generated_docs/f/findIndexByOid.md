@@ -18,8 +18,7 @@ This function serves as a specialized lookup utility for finding IndxInfo object
 The function is declared as static, indicating it's used internally within the common.c module. It provides a type-safe way to locate index objects when only the OID is available, which is essential for processing index-related dependencies and relationships during the dump process.
 
 ## Parameters / Member Variables
-- : The database OID of the index to find
-
+- `oid`: The database OID of the index to find
 ## Dependencies
 - Functions called/Symbols referenced:
   - [findObjectByCatalogId](findObjectByCatalogId.md) (generic object lookup by catalog ID)

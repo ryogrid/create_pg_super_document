@@ -23,10 +23,9 @@ This function implements the insertion logic for the ResourceOwner's hash table 
 The function uses open addressing with linear probing, which provides good cache locality and simple implementation. The capacity is always kept as a power of 2, allowing the use of bitwise AND (&) with a mask instead of expensive modulo operations for wrapping around the table.
 
 ## Parameters / Member Variables
-- : Pointer to the ResourceOwner structure that contains the hash table where the resource will be added
-- : A Datum representing the resource value to be stored (typically a pointer or integer identifier)
-- : Pointer to ResourceOwnerDesc that identifies the type/category of resource being added
-
+- `owner`: Pointer to the ResourceOwner structure that contains the hash table where the resource will be added
+- `value`: A Datum representing the resource value to be stored (typically a pointer or integer identifier)
+- `*kind`: Pointer to ResourceOwnerDesc that identifies the type/category of resource being added
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ResourceOwner](ResourceOwner.md) (struct type)

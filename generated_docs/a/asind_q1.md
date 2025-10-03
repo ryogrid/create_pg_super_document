@@ -16,8 +16,7 @@ asind_q1(double x)
 The  function calculates the arcsine of a value and returns the result in degrees rather than radians. It is designed specifically for first-quadrant calculations where the input x is between 0 and 1, and the output is between 0 and 90 degrees. The function uses a clever "stitching" approach that combines arcsine and arccosine calculations over different ranges to ensure exact results for special cases (0, 0.5, and 1 input values return exactly 0, 30, and 90 degrees respectively). It uses volatile variables to ensure consistent floating-point precision across different compiler optimizations.
 
 ## Parameters / Member Variables
-- : A double precision floating-point input value in the range [0, 1] representing the sine value for which to find the angle
-
+- `x`: A double precision floating-point input value in the range [0, 1] representing the sine value for which to find the angle
 ## Dependencies
 - Functions called/Symbols referenced:
   - asin (standard C library arcsine function)

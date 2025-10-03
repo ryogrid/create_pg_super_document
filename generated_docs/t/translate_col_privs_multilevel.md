@@ -22,11 +22,10 @@ The function works by first checking if the immediate parent of the target relat
 Note that like its underlying translate_col_privs function, this will expand whole-row references into all inherited columns, which is acceptable for current PostgreSQL usages but should be considered when extending functionality.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planner state and append relation information
-- : Target RelOptInfo representing the descendant relation to translate privileges to
-- : RelOptInfo representing the ancestor relation to translate privileges from  
-- : Bitmapset of column numbers in the parent relation's attribute numbering
-
+- `*root`: PlannerInfo structure containing planner state and append relation information
+- `*rel`: Target RelOptInfo representing the descendant relation to translate privileges to
+- `*parent_rel`: RelOptInfo representing the ancestor relation to translate privileges from
+- `*parent_cols`: Bitmapset of column numbers in the parent relation's attribute numbering
 ## Dependencies
 - Functions called/Symbols referenced:
   - [translate_col_privs_multilevel](translate_col_privs_multilevel.md) (recursive call)

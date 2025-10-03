@@ -20,8 +20,7 @@ The function essentially extracts the string content from PostgreSQL's text type
 The conversion handles the TOAST (The Oversized-Attribute Storage Technique) decompression implicitly through text_to_cstring, ensuring that even large XML documents stored in compressed form are properly accessible.
 
 ## Parameters / Member Variables
-- : PostgreSQL text value containing XML string data
-
+- `*in`: PostgreSQL text value containing XML string data
 ## Dependencies
 - Functions called/Symbols referenced:
   - [text_to_cstring](../t/text_to_cstring.md) (PostgreSQL function to convert text to null-terminated C string)

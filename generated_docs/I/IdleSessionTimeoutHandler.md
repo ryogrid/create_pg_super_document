@@ -22,7 +22,6 @@ The handler follows the same deferred processing pattern as other timeout handle
 This timeout mechanism helps manage system resources by automatically terminating sessions that are no longer active. Unlike idle-in-transaction timeouts which target sessions with open transactions, this handler targets completely idle sessions that may have been abandoned by clients or are no longer needed.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

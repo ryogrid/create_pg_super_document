@@ -23,12 +23,11 @@ GenericMatchText serves as a smart dispatcher in PostgreSQL's LIKE pattern match
 This design allows PostgreSQL to provide optimal performance for each encoding type while maintaining a unified interface for LIKE operations. The function ensures that collation requirements are met while routing to the most efficient implementation available.
 
 ## Parameters / Member Variables
-- : Input text string to match against the pattern
-- : Length of the input text string in bytes
-- : LIKE pattern string containing wildcards and literal characters
-- : Length of the pattern string in bytes
-- : OID of the collation to use for comparison operations
-
+- `*s`: Input text string to match against the pattern
+- `slen`: Length of the input text string in bytes
+- `*p`: LIKE pattern string containing wildcards and literal characters
+- `plen`: Length of the pattern string in bytes
+- `collation`: OID of the collation to use for comparison operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lc_ctype_is_c](../l/lc_ctype_is_c.md) (check if collation is C locale)

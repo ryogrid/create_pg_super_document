@@ -18,6 +18,7 @@ This function reports the current role ID following the semantics of PostgreSQL'
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - SetRoleIsActive (global variable check)

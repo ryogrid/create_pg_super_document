@@ -18,9 +18,8 @@ This is a utility function that performs a linear search through a list of Colum
 The search is case-sensitive and uses standard C string comparison (strcmp). The function follows PostgreSQL's convention of using 1-based indexing for attribute numbers, which aligns with how PostgreSQL internally numbers table columns.
 
 ## Parameters / Member Variables
-- : The name of the column to search for (null-terminated C string)
-- : List of ColumnDef structures to search through
-
+- `*attributeName`: The name of the column to search for (null-terminated C string)
+- `*columns`: List of ColumnDef structures to search through
 ## Dependencies
 - Functions called/Symbols referenced:
   - strcmp

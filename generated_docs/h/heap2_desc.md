@@ -24,9 +24,8 @@ heap2_desc(StringInfo buf, XLogReaderState *record)
 The function extracts structured data from the WAL record and formats it into a string buffer for display in PostgreSQL logs and debugging tools.
 
 ## Parameters / Member Variables
-- : StringInfo buffer to append the formatted description text
-- : XLogReaderState pointer containing the WAL record data to be described
-
+- `buf`: StringInfo buffer to append the formatted description text
+- `*record`: XLogReaderState pointer containing the WAL record data to be described
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData

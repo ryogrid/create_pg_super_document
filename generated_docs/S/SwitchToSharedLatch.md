@@ -19,7 +19,6 @@ The function updates the global MyLatch pointer to reference the shared latch (M
 This switch typically occurs after a process has been allocated a slot in the shared process array and is ready to participate in the broader PostgreSQL process coordination mechanisms.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

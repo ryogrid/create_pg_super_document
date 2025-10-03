@@ -25,8 +25,7 @@ This function is called during subtransaction abort to clean up all active snaps
 The function ensures that aborted subtransactions do not leave dangling snapshot references and that memory is properly reclaimed when snapshots are no longer needed by any transaction level.
 
 ## Parameters / Member Variables
-- : The subtransaction level being aborted (all snapshots at this level and above will be cleaned up)
-
+- `level`: The subtransaction level being aborted (all snapshots at this level and above will be cleaned up)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ActiveSnapshotElt](ActiveSnapshotElt.md)

@@ -19,6 +19,7 @@ The function is part of the PQcommMethods interface that allows PostgreSQL to ab
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (no-op implementation)

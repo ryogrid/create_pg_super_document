@@ -18,10 +18,9 @@ This function serves as a callback handler in the JSONB input parsing pipeline. 
 The function is more complex than the simple start/end callbacks as it handles actual data content rather than just structural elements. It performs validation to ensure the field name meets PostgreSQL's constraints and properly formats the key for internal storage in the JSONB structure.
 
 ## Parameters / Member Variables
-- : A void pointer that is cast to JsonbInState*, containing the current parsing state and configuration
-- : A null-terminated string containing the field name (object key)
-- : Boolean indicating whether the field name is null (though the function asserts fname is not NULL)
-
+- `*pstate`: A void pointer that is cast to JsonbInState*, containing the current parsing state and configuration
+- `*fname`: A null-terminated string containing the field name (object key)
+- `isnull`: Boolean indicating whether the field name is null (though the function asserts fname is not NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [JsonbValue](../J/JsonbValue.md) (value structure for JSONB data)

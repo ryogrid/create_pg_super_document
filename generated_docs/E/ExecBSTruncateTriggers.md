@@ -16,9 +16,8 @@ ExecBSTruncateTriggers(EState *estate, ResultRelInfo *relinfo)
 This function executes BEFORE STATEMENT TRUNCATE triggers, which fire once per TRUNCATE statement before any rows are actually removed from the table. These triggers operate at the statement level rather than per-row, making them suitable for validation, logging, or other preparatory actions. The function validates that triggers do not attempt to return values (which is prohibited for statement-level triggers) and will raise an error if any trigger violates this protocol.
 
 ## Parameters / Member Variables
-- : Executor state containing execution context and memory management
-- : Relation information including trigger descriptors and table metadata
-
+- `*estate`: Executor state containing execution context and memory management
+- `*relinfo`: Relation information including trigger descriptors and table metadata
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TriggerEnabled](../T/TriggerEnabled.md)

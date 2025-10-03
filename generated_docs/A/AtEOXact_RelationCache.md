@@ -28,8 +28,7 @@ This function is called during transaction termination (either commit or abort) 
 The function must be called before processing invalidation messages because during abort, we cannot safely perform database accesses to rebuild invalidated cache entries.
 
 ## Parameters / Member Variables
-- : Boolean indicating whether this is being called at transaction commit (true) or abort (false)
-
+- `isCommit`: Boolean indicating whether this is being called at transaction commit (true) or abort (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hash_seq_init](../h/hash_seq_init.md)

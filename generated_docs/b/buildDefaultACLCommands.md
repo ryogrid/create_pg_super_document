@@ -24,14 +24,13 @@ The function constructs an appropriate "ALTER DEFAULT PRIVILEGES" command prefix
 The function incorporates the target role directly into the command rather than using SET ROLE, ensuring that permission errors result in no changes rather than changing default privileges for the wrong user.
 
 ## Parameters / Member Variables
-- : The object type for default privileges (TABLES, FUNCTIONS, SEQUENCES, etc.)
-- : Schema name for schema-specific default privileges, or NULL for global defaults
-- : The ACL string fetched from the pg_default_acl table
-- : The appropriate default ACL for the specified object type and owner
-- : Username of the privileges owner (will be formatted through fmtId)
-- : Version of the source database
-- : PQExpBuffer to append the generated ALTER DEFAULT PRIVILEGES commands to
-
+- `*type`: The object type for default privileges (TABLES, FUNCTIONS, SEQUENCES, etc.)
+- `*nspname`: Schema name for schema-specific default privileges, or NULL for global defaults
+- `*acls`: The ACL string fetched from the pg_default_acl table
+- `*acldefault`: The appropriate default ACL for the specified object type and owner
+- `*owner`: Username of the privileges owner (will be formatted through fmtId)
+- `remoteVersion`: Version of the source database
+- `sql`: PQExpBuffer to append the generated ALTER DEFAULT PRIVILEGES commands to
 ## Dependencies
 - Functions called/Symbols referenced:
   - [createPQExpBuffer](../c/createPQExpBuffer.md)/destroyPQExpBuffer (for buffer management)

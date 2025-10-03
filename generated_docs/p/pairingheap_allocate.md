@@ -18,9 +18,8 @@ The  function creates a new pairing heap instance by allocating memory for the h
 The newly allocated heap starts empty with its root pointer set to NULL. The comparison function and argument are stored in the heap structure to be used throughout the lifetime of the heap for maintaining the heap property during insertions, deletions, and merges.
 
 ## Parameters / Member Variables
-- : A function pointer of type  that defines how elements should be compared to maintain the heap property
-- : An optional void pointer argument that will be passed to the comparison function during heap operations
-
+- `compare`: A function pointer of type  that defines how elements should be compared to maintain the heap property
+- `*arg`: An optional void pointer argument that will be passed to the comparison function during heap operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc](palloc.md) (memory allocation function)

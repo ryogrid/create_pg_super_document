@@ -19,10 +19,9 @@ This function serves as a lightweight heuristic to determine whether two relatio
 The function is designed to be optimistic and may occasionally return false positives (saying "yes" when no actual join clause could be generated), but this is acceptable as it only influences join pathway exploration priority. It deliberately avoids checking complex details like cross-type operator availability or equivalence class integrity (ec_broken), as these would be expensive to verify for a heuristic function.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global planning state and equivalence class information
-- : First RelOptInfo to check for potential join clauses
-- : Second RelOptInfo to check for potential join clauses
-
+- `*root`: PlannerInfo structure containing global planning state and equivalence class information
+- `*rel1`: First RelOptInfo to check for potential join clauses
+- `*rel2`: Second RelOptInfo to check for potential join clauses
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_common_eclass_indexes](../g/get_common_eclass_indexes.md)

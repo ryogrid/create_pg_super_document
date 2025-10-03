@@ -25,8 +25,7 @@ The function performs these key operations:
 7. Handles both persistent and ephemeral slots with appropriate error handling
 
 ## Parameters / Member Variables
-- : Pointer to the ReplicationSlot structure to be dropped permanently
-
+- `*slot`: Pointer to the ReplicationSlot structure to be dropped permanently
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockAcquire](../L/LWLockAcquire.md) (ReplicationSlotAllocationLock, ReplicationSlotControlLock)

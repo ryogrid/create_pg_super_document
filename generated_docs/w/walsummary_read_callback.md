@@ -16,10 +16,9 @@ walsummary_read_callback(void *callback_arg, void *data, int length)
 This callback function handles reading data from WAL summary files through a standardized interface. It receives a ws_file_info structure containing file descriptor and filename, then performs a read operation to fill the provided buffer with the requested number of bytes. If the read operation fails, it terminates the program with a fatal error message including the filename and system error details. The function returns the actual number of bytes read, which may be less than requested if end-of-file is reached or fewer bytes are available.
 
 ## Parameters / Member Variables
-- : Pointer to ws_file_info structure containing file descriptor and filename
-- : Buffer to receive the read data
-- : Number of bytes to attempt to read
-
+- `*callback_arg`: Pointer to ws_file_info structure containing file descriptor and filename
+- `*data`: Buffer to receive the read data
+- `length`: Number of bytes to attempt to read
 ## Dependencies
 - Functions called/Symbols referenced:
   - read (POSIX file read system call)

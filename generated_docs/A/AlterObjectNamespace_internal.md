@@ -26,10 +26,9 @@ The function operates through several key phases:
 The function includes specialized duplicate checking for functions, collations, operator classes, and operator families, with a generic fallback for other object types.
 
 ## Parameters / Member Variables
-- : Catalog relation containing the object (must be opened with RowExclusiveLock by caller)
-- : OID of the object whose namespace should be changed
-- : OID of the target namespace/schema
-
+- `rel`: Catalog relation containing the object (must be opened with RowExclusiveLock by caller)
+- `objid`: OID of the object whose namespace should be changed
+- `nspOid`: OID of the target namespace/schema
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Gets system cache ID for object lookups by OID

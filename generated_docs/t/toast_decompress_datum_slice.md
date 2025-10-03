@@ -20,9 +20,8 @@ The function includes intelligent optimization logic - if the requested slice le
 Like its full decompression counterpart, this function supports multiple compression algorithms and acts as a dispatch mechanism, routing to the appropriate algorithm-specific slice decompression routine.
 
 ## Parameters / Member Variables
-- : Pointer to a varlena structure containing compressed data
-- : Number of bytes to decompress from the beginning of the datum
-
+- `*attr`: Pointer to a varlena structure containing compressed data
+- `slicelength`: Number of bytes to decompress from the beginning of the datum
 ## Dependencies
 - Functions called/Symbols referenced:
   - VARATT_IS_COMPRESSED

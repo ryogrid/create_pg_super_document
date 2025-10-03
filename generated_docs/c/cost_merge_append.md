@@ -26,14 +26,13 @@ The costing model accounts for:
 The algorithm assumes the heap is never spilled to disk since N (number of streams) is typically not very large, making this simpler than sort costing. Each tuple comparison is charged as two operator evaluations.
 
 ## Parameters / Member Variables
-- : The Path node to store the calculated costs in
-- : PlannerInfo structure containing planner context (currently unused)
-- : List of sort keys used for the merge operation
-- : Number of input streams to be merged
-- : Sum of startup costs from all input streams
-- : Sum of total costs from all input streams  
-- : Total number of tuples across all input streams
-
+- `*path`: The Path node to store the calculated costs in
+- `*root`: PlannerInfo structure containing planner context (currently unused)
+- `*pathkeys`: List of sort keys used for the merge operation
+- `n_streams`: Number of input streams to be merged
+- `input_startup_cost`: Sum of startup costs from all input streams
+- `input_total_cost`: Sum of total costs from all input streams
+- `tuples`: Total number of tuples across all input streams
 ## Dependencies
 - Functions called/Symbols referenced:
   - LOG2 (logarithm base 2 calculation)

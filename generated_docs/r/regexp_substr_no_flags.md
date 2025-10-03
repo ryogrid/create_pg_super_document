@@ -18,8 +18,7 @@ regexp_substr_no_flags(PG_FUNCTION_ARGS)
 When flags are not provided,  uses default regex behavior without special flags. This wrapper ensures that SQL queries can use a simpler function signature while still accessing the complete pattern matching functionality of the underlying implementation.
 
 ## Parameters / Member Variables
-- : Function call information containing all passed arguments, forwarded directly to 
-
+- `PG_FUNCTION_ARGS`: Function call information containing all passed arguments, forwarded directly to
 ## Dependencies
 - Functions called/Symbols referenced:
   - 

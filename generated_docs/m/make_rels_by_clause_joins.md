@@ -21,11 +21,10 @@ The  function systematically creates join relations between a specified relation
 The function leverages the join_rel_level mechanism to automatically ensure that each new join relation is only added to the result list once, even when the same joined relation could be generated through multiple join sequences (e.g., (a join b) join c vs (b join c) join a).
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing the query planning context
-- : The relation entry for the relation to be joined with others
-- : A list containing the other relations to be considered for joining
-- : The index of the first relation to consider in 'other_rels' (allows partial iteration)
-
+- `*root`: PlannerInfo structure containing the query planning context
+- `*old_rel`: The relation entry for the relation to be joined with others
+- `*other_rels`: A list containing the other relations to be considered for joining
+- `first_rel_idx`: The index of the first relation to consider in 'other_rels' (allows partial iteration)
 ## Dependencies
 - Functions called/Symbols referenced:
   - for_each_from

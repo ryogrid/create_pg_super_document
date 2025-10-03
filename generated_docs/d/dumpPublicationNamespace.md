@@ -18,9 +18,8 @@ This function generates the SQL DDL necessary to recreate a publication's schema
 The function skips operation in data-only dumps since schema membership is a structural definition. It creates archive entries in the SECTION_POST_DATA section to ensure proper ordering during restore operations.
 
 ## Parameters / Member Variables
-- : Archive structure for writing dump output
-- : Publication schema info containing the relationship details between publication and schema
-
+- `*fout`: Archive structure for writing dump output
+- `*pubsinfo`: Publication schema info containing the relationship details between publication and schema
 ## Dependencies
 - Functions called/Symbols referenced:
   - [psprintf](../p/psprintf.md) - formats strings safely

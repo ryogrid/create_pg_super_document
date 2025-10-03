@@ -30,8 +30,7 @@ The function performs the following operations:
 This function is designed to be shared between relation deletion and index deletion workflows, as both types of database objects have attribute definitions in pg_attribute that must be removed when the object is dropped. The function removes all attributes associated with the relation, including both user-defined columns and system-defined attributes.
 
 ## Parameters / Member Variables
-- : The OID of the relation whose pg_attribute entries should be deleted
-
+- `relid`: The OID of the relation whose pg_attribute entries should be deleted
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md) (opens pg_attribute catalog for modification)

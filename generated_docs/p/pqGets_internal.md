@@ -20,10 +20,9 @@ The function operates by scanning through the connection's inBuffer starting fro
 This function is used as a building block for higher-level string reading functions and is critical for parsing protocol messages that contain null-terminated strings, such as error messages, field names, and various textual data.
 
 ## Parameters / Member Variables
-- : PQExpBuffer where the extracted string will be stored
-- : Pointer to the PGconn structure representing the database connection  
-- : Boolean flag indicating whether to reset the buffer before appending the string
-
+- `buf`: PQExpBuffer where the extracted string will be stored
+- `*conn`: Pointer to the PGconn structure representing the database connection
+- `resetbuffer`: Boolean flag indicating whether to reset the buffer before appending the string
 ## Dependencies
 - Functions called/Symbols referenced:
   - [resetPQExpBuffer](../r/resetPQExpBuffer.md) (clears the buffer if resetbuffer is true)

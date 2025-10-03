@@ -22,9 +22,8 @@ InitCompressorGzip is a public API function that configures a CompressorState st
 The function assigns specific gzip-related handlers for reading, writing, and cleanup operations, copies the compression specification, and conditionally initializes the deflate compressor for write operations.
 
 ## Parameters / Member Variables
-- : Pointer to a CompressorState structure to be initialized with gzip compression capabilities
-- : Structure containing compression parameters including compression level and other options
-
+- `*cs`: Pointer to a CompressorState structure to be initialized with gzip compression capabilities
+- `compression_spec`: Structure containing compression parameters including compression level and other options
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReadDataFromArchiveGzip](../R/ReadDataFromArchiveGzip.md)

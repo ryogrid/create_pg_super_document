@@ -22,8 +22,7 @@ The function handles all authentication methods supported by PostgreSQL includin
 If authentication succeeds, it sends an AUTH_REQ_OK message to the client. If it fails, it calls auth_failed() to terminate the connection with appropriate error messaging. The function never returns on authentication failure as the backend process is terminated.
 
 ## Parameters / Member Variables
-- : Pointer to Port structure containing all connection information, authentication state, and HBA configuration
-
+- `*port`: Pointer to Port structure containing all connection information, authentication state, and HBA configuration
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hba_getauthmethod](../h/hba_getauthmethod.md) (retrieve authentication method from HBA rules)

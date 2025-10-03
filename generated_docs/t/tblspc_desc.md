@@ -20,9 +20,8 @@ The function handles two types of tablespace WAL records:
 - **XLOG_TBLSPC_DROP**: Formats only the tablespace ID when a tablespace is dropped
 
 ## Parameters / Member Variables
-- : StringInfo buffer where the formatted description will be appended
-- : XLogReaderState containing the WAL record data to be described
-
+- `buf`: StringInfo buffer where the formatted description will be appended
+- `*record`: XLogReaderState containing the WAL record data to be described
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData

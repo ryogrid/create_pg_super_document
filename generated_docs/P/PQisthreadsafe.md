@@ -24,6 +24,7 @@ However, it's important to note that individual PGconn objects are not inherentl
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (returns constant value)

@@ -16,8 +16,7 @@ bbstreamer_tar_parser_new(bbstreamer *next)
 This function creates and initializes a bbstreamer_tar_parser instance that serves as a tar format parser in the backup streaming pipeline. The parser takes input as a series of BBSTREAMER_UNKNOWN chunks and processes them to produce typed chunks (such as BBSTREAMER_MEMBER_HEADER, BBSTREAMER_MEMBER_CONTENTS, etc.) that downstream components can understand. The parser maintains state to track its position within tar file structure and handles the transition between different tar member components.
 
 ## Parameters / Member Variables
-- : The next bbstreamer in the processing chain that will receive the parsed, typed chunks
-
+- `*next`: The next bbstreamer in the processing chain that will receive the parsed, typed chunks
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc0](../p/palloc0.md)

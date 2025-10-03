@@ -25,9 +25,8 @@ For each qualifying relation, the function calls expandNSItemAttrs() to generate
 The function includes a special validation case for "SELECT *;" (a SELECT with no FROM clause), which is explicitly prohibited and generates a syntax error. This check is performed by tracking whether any p_cols_visible tables were found, rather than simply checking if the result is empty, to accommodate zero-column tables.
 
 ## Parameters / Member Variables
-- : ParseState structure containing the current parsing context and namespace information
-- : Source location information for error reporting purposes
-
+- `*pstate`: ParseState structure containing the current parsing context and namespace information
+- `location`: Source location information for error reporting purposes
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ParseNamespaceItem](../P/ParseNamespaceItem.md) (data structure access)

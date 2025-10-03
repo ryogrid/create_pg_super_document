@@ -24,10 +24,9 @@ Key behaviors:
 Note that this function does not support SET FROM CURRENT functionality - it only handles SET TO value and SET TO DEFAULT operations.
 
 ## Parameters / Member Variables
-- : The name of the GUC variable to set
-- : List of argument nodes to be flattened into a value string (NULL/NIL for DEFAULT)
-- : Boolean flag indicating whether this is a transaction-local setting
-
+- `*name`: The name of the GUC variable to set
+- `*args`: List of argument nodes to be flattened into a value string (NULL/NIL for DEFAULT)
+- `is_local`: Boolean flag indicating whether this is a transaction-local setting
 ## Dependencies
 - Functions called/Symbols referenced:
   - [flatten_set_variable_args](../f/flatten_set_variable_args.md)

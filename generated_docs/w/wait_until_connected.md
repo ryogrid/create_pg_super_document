@@ -23,8 +23,7 @@ Key behaviors include:
 - **Error resilience**: Handles various connection states and socket errors without reporting them directly (error reporting is delegated to the caller)
 
 ## Parameters / Member Variables
-- : PGconn pointer representing the database connection being established
-
+- `*conn`: PGconn pointer representing the database connection being established
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Retrieves the current socket file descriptor for the connection

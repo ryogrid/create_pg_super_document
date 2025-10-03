@@ -20,8 +20,7 @@ The process involves several phases: creating a temporary memory context for the
 The function ensures atomicity by performing all potentially failing operations (memory allocations and copies) before marking the plan as saved and reparenting to the cache context. This prevents partial states that could lead to memory leaks or corruption.
 
 ## Parameters / Member Variables
-- : The SPIPlan to be saved. Must not be a one-shot plan, as those cannot be saved for reuse.
-
+- `plan`: The SPIPlan to be saved. Must not be a one-shot plan, as those cannot be saved for reuse.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SPIPlanPtr](SPIPlanPtr.md): Type definition for SPI plan pointers

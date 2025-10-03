@@ -18,9 +18,8 @@ This function implements the core logic for traversing PostgreSQL expression tre
 The walker returns false to indicate that traversal should continue, which is the typical pattern for collection operations where all nodes need to be visited.
 
 ## Parameters / Member Variables
-- : Current node in the expression tree being examined
-- : Pointer to Bitmapset that accumulates found PARAM_EXEC parameter IDs
-
+- `*node`: Current node in the expression tree being examined
+- `**context`: Pointer to Bitmapset that accumulates found PARAM_EXEC parameter IDs
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (macro for type checking)

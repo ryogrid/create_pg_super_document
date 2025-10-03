@@ -29,12 +29,11 @@ The function's workflow:
 The snapshot parameter is crucial for maintaining consistency when large objects are opened for reading using the caller's snapshot, as documented in the PostgreSQL large object documentation.
 
 ## Parameters / Member Variables
-- : The OID of the large object to check permissions for
-- : The OID of the role whose permissions are being checked
-- : Bitmask specifying which permissions to check (ACL_SELECT for reading, ACL_UPDATE for writing)
-- : Specifies how to combine multiple ACL entries (ACLMASK_ALL or ACLMASK_ANY)
-- : The MVCC snapshot to use for consistent metadata access (NULL for current snapshot)
-
+- `lobj_oid`: The OID of the large object to check permissions for
+- `roleid`: The OID of the role whose permissions are being checked
+- `mask`: Bitmask specifying which permissions to check (ACL_SELECT for reading, ACL_UPDATE for writing)
+- `how`: Specifies how to combine multiple ACL entries (ACLMASK_ALL or ACLMASK_ANY)
+- `snapshot`: The MVCC snapshot to use for consistent metadata access (NULL for current snapshot)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [superuser_arg](../s/superuser_arg.md)

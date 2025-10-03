@@ -17,11 +17,10 @@ chooseScalarFunctionAlias(Node *funcexpr, char *funcname,
 This function implements a priority-based algorithm to determine the best column name for scalar functions in FROM clauses. It first attempts to use the function's named OUT parameter if available, then falls back to using the RTE alias name if there's only one function and an alias is provided, and finally defaults to the function name itself. This ensures meaningful and predictable column naming for scalar function results.
 
 ## Parameters / Member Variables
-- : The transformed expression tree for the function call (Node pointer)
-- : The function name as determined by FigureColname
-- : The user-supplied alias for the RTE, or NULL if none provided
-- : The number of functions appearing in the function RTE
-
+- `*funcexpr`: The transformed expression tree for the function call (Node pointer)
+- `*funcname`: The function name as determined by FigureColname
+- `*alias`: The user-supplied alias for the RTE, or NULL if none provided
+- `nfuncs`: The number of functions appearing in the function RTE
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (type checking macro)

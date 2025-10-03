@@ -18,8 +18,7 @@ lookup_ts_parser_cache is the primary function for accessing text search parser 
 When a parser entry is not found or is invalid, the function performs a system catalog lookup to retrieve the parser definition from pg_ts_parser. It validates that all required parser methods (prsstart, prstoken, prsend) are defined and caches the function manager information for efficient subsequent calls. The function also handles initialization of the hash table cache and registers a syscache callback to maintain cache consistency.
 
 ## Parameters / Member Variables
-- : The Object Identifier (OID) of the text search parser to look up
-
+- `prsId`: The Object Identifier (OID) of the text search parser to look up
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hash_create](../h/hash_create.md) (creates the parser cache hash table)

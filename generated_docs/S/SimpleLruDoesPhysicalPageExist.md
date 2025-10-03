@@ -25,9 +25,8 @@ The function operates by:
 This function is particularly important for systems that need to verify page availability before attempting read operations, helping to avoid unnecessary I/O errors and providing better error handling in recovery scenarios.
 
 ## Parameters / Member Variables
-- : SlruCtl control structure containing SLRU configuration and shared state information
-- : 64-bit logical page number to check for existence on disk
-
+- `ctl`: SlruCtl control structure containing SLRU configuration and shared state information
+- `pageno`: 64-bit logical page number to check for existence on disk
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pgstat_count_slru_page_exists](../p/pgstat_count_slru_page_exists.md)

@@ -29,8 +29,7 @@ The function validates the following GIN support functions:
 -  (7): Parse reloptions for index (optional)
 
 ## Parameters / Member Variables
-- : OID of the operator class to validate
-
+- `opclassoid`: OID of the operator class to validate
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache1](../S/SearchSysCache1.md)

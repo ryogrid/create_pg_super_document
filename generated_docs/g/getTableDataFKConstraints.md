@@ -18,6 +18,7 @@ This function is specifically designed for data-only dump scenarios where foreig
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [getDumpableObjects](getDumpableObjects.md)

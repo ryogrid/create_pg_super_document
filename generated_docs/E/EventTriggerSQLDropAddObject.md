@@ -25,10 +25,9 @@ The function performs several important tasks:
 The function supports reentrancy, allowing event trigger functions to drop objects recursively while maintaining proper state management through a stack of EventTriggerQueryState structures.
 
 ## Parameters / Member Variables
-- : Pointer to ObjectAddress structure identifying the dropped object (classId, objectId, objectSubId)
-- : Boolean indicating if this is an original drop (true) or a cascaded drop (false)
-- : Boolean indicating if this is a normal drop operation
-
+- `*object`: Pointer to ObjectAddress structure identifying the dropped object (classId, objectId, objectSubId)
+- `original`: Boolean indicating if this is an original drop (true) or a cascaded drop (false)
+- `normal`: Boolean indicating if this is a normal drop operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [EventTriggerSupportsObject](EventTriggerSupportsObject.md) (validates object support)

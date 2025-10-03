@@ -25,7 +25,6 @@ CheckRecoveryConsistency is a critical function that manages the transition from
 The function maintains several global state variables and coordinates with the postmaster to allow read-only connections once the database reaches a consistent state.
 
 ## Parameters / Member Variables
-This function takes no parameters and operates on global recovery state variables and shared memory structures.
 
 ## Dependencies
 - Functions called/Symbols referenced:

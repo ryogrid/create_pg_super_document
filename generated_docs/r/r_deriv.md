@@ -22,8 +22,7 @@ This function processes Irish derivational suffixes that modify the meaning or g
 The replacement operations are particularly important in Irish morphology as they often restore original word forms that have been modified through derivational processes. The function follows the standard Snowball pattern of setting ket/bra boundaries around the identified suffix.
 
 ## Parameters / Member Variables
-- : Pointer to the Snowball environment structure containing the word being processed and stemming state information
-
+- `*z`: Pointer to the Snowball environment structure containing the word being processed and stemming state information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [r_R2](r_R2.md): Checks if current position is within R2 region

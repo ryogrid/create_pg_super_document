@@ -18,10 +18,9 @@ This static function generates detailed error reports when a relation from one c
 The function performs lookups to find related tables when dealing with indexes (via indtable field) or TOAST tables (via toastheap field), providing human-readable descriptions that help administrators understand what relation failed to match and why. It handles cases where the related table information might also be missing.
 
 ## Parameters / Member Variables
-- : Pointer to RelInfo structure containing information about the unmatched relation
-- : Pointer to DbInfo structure containing database information where the relation exists
-- : Boolean flag indicating whether the unmatched relation is from the new cluster (true) or old cluster (false)
-
+- `*rel`: Pointer to RelInfo structure containing information about the unmatched relation
+- `*db`: Pointer to DbInfo structure containing database information where the relation exists
+- `is_new_db`: Boolean flag indicating whether the unmatched relation is from the new cluster (true) or old cluster (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - snprintf

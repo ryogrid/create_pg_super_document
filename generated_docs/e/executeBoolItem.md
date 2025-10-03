@@ -17,11 +17,10 @@ executeBoolItem(JsonPathExecContext *cxt, JsonPathItem *jsp,
 The  function is the core boolean expression evaluator for JSONPath. It implements a comprehensive set of boolean operations including logical AND/OR/NOT, comparison operations, pattern matching, and existence checks. The function uses three-valued logic (true/false/unknown) to handle SQL/JSON semantics correctly. It processes various JSONPath item types recursively, implementing proper short-circuit evaluation for logical operations and delegating predicate evaluation to specialized functions. The function includes stack depth checking to prevent overflow during recursive evaluation.
 
 ## Parameters / Member Variables
-- : JSONPath execution context containing state and configuration
-- : JSONPath item representing the boolean expression to evaluate
-- : JsonbValue containing the input data to evaluate against
-- : Boolean flag indicating whether the item can have subsequent items
-
+- `*cxt`: JSONPath execution context containing state and configuration
+- `*jsp`: JSONPath item representing the boolean expression to evaluate
+- `*jb`: JsonbValue containing the input data to evaluate against
+- `canHaveNext`: Boolean flag indicating whether the item can have subsequent items
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_stack_depth](../c/check_stack_depth.md)

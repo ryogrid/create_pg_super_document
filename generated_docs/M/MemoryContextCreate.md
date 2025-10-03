@@ -28,12 +28,11 @@ The function follows a carefully orchestrated creation procedure:
 The function initializes all standard fields of the memory context header, establishes parent-child relationships in the context tree, and ensures proper inheritance of critical section permissions. It also integrates with Valgrind for memory debugging support.
 
 ## Parameters / Member Variables
-- : The uninitialized common part of the context header node to be initialized
-- : NodeTag code that identifies the specific memory context type being created
-- : MemoryContextMethodID specifying which context implementation methods to use
-- : Parent memory context, or NULL if creating a top-level context
-- : Human-readable name for the context (must be statically allocated string)
-
+- `node`: The uninitialized common part of the context header node to be initialized
+- `tag`: NodeTag code that identifies the specific memory context type being created
+- `method_id`: MemoryContextMethodID specifying which context implementation methods to use
+- `parent`: Parent memory context, or NULL if creating a top-level context
+- `*name`: Human-readable name for the context (must be statically allocated string)
 ## Dependencies
 - Functions called/Symbols referenced:
   - MemoryContextMethodID (for method dispatch table access)

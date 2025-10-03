@@ -20,8 +20,7 @@ Like its private counterpart, it handles both lossy chunks and exact pages, ensu
 The function uses shared page and chunk index arrays to access the actual PagetableEntry data, allowing multiple processes to coordinate iteration over the same bitmap data structure.
 
 ## Parameters / Member Variables
-- : TBMSharedIterator pointer containing shared iteration state and references to shared memory segments
-
+- `*iterator`: TBMSharedIterator pointer containing shared iteration state and references to shared memory segments
 ## Dependencies
 - Functions called/Symbols referenced:
   - [tbm_advance_schunkbit](tbm_advance_schunkbit.md)

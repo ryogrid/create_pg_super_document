@@ -18,9 +18,8 @@ The bms_int_members function computes the intersection of two bitmap sets, simil
 The function performs the intersection by ANDing corresponding words from both bitmap sets, keeping only bits that are set in both sets. It automatically handles cases where the sets have different sizes by working with the shorter length. The function also optimizes memory usage by removing trailing zero words from the result.
 
 ## Parameters / Member Variables
-- : The left bitmap set to intersect and potentially recycle (can be NULL)
-- : The right bitmap set to intersect with (const, not modified, can be NULL)
-
+- `*a`: The left bitmap set to intersect and potentially recycle (can be NULL)
+- `*b`: The right bitmap set to intersect with (const, not modified, can be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bms_is_valid_set](bms_is_valid_set.md) (validation of both inputs)

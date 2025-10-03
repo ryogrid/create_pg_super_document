@@ -18,9 +18,8 @@ This function is a callback implementation for the bbsink interface that handles
 The function ensures data integrity by verifying that all requested bytes are successfully written to disk. If a write operation fails or results in a partial write, it reports appropriate errors with helpful hints about checking disk space.
 
 ## Parameters / Member Variables
-- : Pointer to the base bbsink structure, which is cast to bbsink_server for access to server-specific fields
-- : Number of bytes to write from the sink's buffer to the file
-
+- `*sink`: Pointer to the base bbsink structure, which is cast to bbsink_server for access to server-specific fields
+- `len`: Number of bytes to write from the sink's buffer to the file
 ## Dependencies
 - Functions called/Symbols referenced:
   - [FileWrite](../F/FileWrite.md): Performs the actual file write operation

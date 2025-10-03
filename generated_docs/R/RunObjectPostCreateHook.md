@@ -19,11 +19,10 @@ This function serves as the entry point for the OAT_POST_CREATE object access ho
 The function constructs an ObjectAccessPostCreate structure with the provided parameters and invokes any registered object access hooks through the global object_access_hook function pointer. This enables extensions to extend PostgreSQL's functionality by responding to object creation events.
 
 ## Parameters / Member Variables
-- : The OID of the system catalog (pg_class, pg_proc, etc.) containing the created object
-- : The OID of the newly created object within the specified catalog
-- : Sub-object identifier (e.g., column number for table columns, 0 for whole objects)  
-- : Boolean flag indicating whether this creation is internal to PostgreSQL operations (true) or user-initiated (false)
-
+- `classId`: The OID of the system catalog (pg_class, pg_proc, etc.) containing the created object
+- `objectId`: The OID of the newly created object within the specified catalog
+- `subId`: Sub-object identifier (e.g., column number for table columns, 0 for whole objects)
+- `is_internal`: Boolean flag indicating whether this creation is internal to PostgreSQL operations (true) or user-initiated (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ObjectAccessPostCreate](../O/ObjectAccessPostCreate.md) (struct type)

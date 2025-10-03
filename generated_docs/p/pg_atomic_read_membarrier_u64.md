@@ -18,8 +18,7 @@ This function provides a thread-safe way to read a 64-bit atomic variable with m
 The function is implemented as an inline wrapper around the platform-specific implementation . When atomic 64-bit operations are not simulated (PG_HAVE_ATOMIC_U64_SIMULATION is not defined), it includes pointer alignment assertions to ensure the atomic variable is properly aligned on an 8-byte boundary, which is required for efficient atomic operations on most architectures.
 
 ## Parameters / Member Variables
-- : A pointer to the volatile atomic 64-bit unsigned integer to be read. Must be 8-byte aligned when not using simulation.
-
+- `*ptr`: A pointer to the volatile atomic 64-bit unsigned integer to be read. Must be 8-byte aligned when not using simulation.
 ## Dependencies
 - Functions called/Symbols referenced:
   - 

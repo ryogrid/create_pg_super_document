@@ -18,10 +18,9 @@ index_beginscan_bitmap(Relation indexRelation,
 This function creates and initializes an index scan descriptor specifically for bitmap scanning operations. Unlike regular index scans that retrieve tuples one by one, bitmap scans are designed to collect all matching tuple identifiers (TIDs) at once and return them as a bitmap. The function internally calls  with specific parameters optimized for bitmap operations (norderbys=0 since bitmap scans don't preserve order). It's simpler than  because bitmap scans don't need heap tuple fetching setup - that's handled separately when the bitmap is later used to fetch actual tuples.
 
 ## Parameters / Member Variables
-- : The index relation to be scanned for bitmap creation
-- : The snapshot to use for visibility checking during the scan (must not be InvalidSnapshot)  
-- : Number of scan keys (search conditions) for the scan
-
+- `indexRelation`: The index relation to be scanned for bitmap creation
+- `snapshot`: The snapshot to use for visibility checking during the scan (must not be InvalidSnapshot)
+- `nkeys`: Number of scan keys (search conditions) for the scan
 ## Dependencies
 - Functions called/Symbols referenced:
   - [index_beginscan_internal](index_beginscan_internal.md) (internal scan initialization with bitmap-specific parameters)

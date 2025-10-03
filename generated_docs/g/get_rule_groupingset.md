@@ -25,11 +25,10 @@ This function is a recursive SQL deparsing utility that converts internal Groupi
 The function recursively processes nested grouping sets and formats column references through the target list, building the output string in the provided context buffer.
 
 ## Parameters / Member Variables
-- : Pointer to the GroupingSet structure containing the grouping specification
-- : List of target expressions used to resolve column references
-- : Boolean flag indicating whether to omit outer parentheses for simple single-element groups
-- : Deparse context containing the output buffer and formatting state
-
+- `*gset`: Pointer to the GroupingSet structure containing the grouping specification
+- `*targetlist`: List of target expressions used to resolve column references
+- `omit_parens`: Boolean flag indicating whether to omit outer parentheses for simple single-element groups
+- `*context`: Deparse context containing the output buffer and formatting state
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_rule_sortgroupclause](get_rule_sortgroupclause.md) (for resolving individual grouping columns)

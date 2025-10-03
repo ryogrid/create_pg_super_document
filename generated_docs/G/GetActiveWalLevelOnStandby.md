@@ -17,6 +17,7 @@ This function returns the WAL level stored in the control file, which represents
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - ControlFile (global variable access)

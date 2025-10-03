@@ -24,13 +24,12 @@ ExecUpdateEpilogue is responsible for completing the update operation after Exec
 The function ensures that all post-update processing is completed in the correct order to maintain referential integrity and trigger semantics.
 
 ## Parameters / Member Variables
-- : ModifyTableContext containing execution state and metadata
-- : UpdateContext tracking update-specific information including index update requirements
-- : ResultRelInfo for the relation that was updated
-- : ItemPointer identifying the updated tuple
-- : HeapTuple containing the original tuple data before update
-- : TupleTableSlot containing the new tuple values after update
-
+- `*context`: ModifyTableContext containing execution state and metadata
+- `*updateCxt`: UpdateContext tracking update-specific information including index update requirements
+- `*resultRelInfo`: ResultRelInfo for the relation that was updated
+- `tupleid`: ItemPointer identifying the updated tuple
+- `oldtuple`: HeapTuple containing the original tuple data before update
+- `*slot`: TupleTableSlot containing the new tuple values after update
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecInsertIndexTuples](ExecInsertIndexTuples.md)

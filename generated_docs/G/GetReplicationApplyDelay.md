@@ -18,6 +18,7 @@ This function measures the replication lag by calculating the time difference be
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [WalRcvData](../W/WalRcvData.md) (shared memory structure)

@@ -18,9 +18,8 @@ This function implements a critical part of the slab allocator's block managemen
 The algorithm exploits the property that 0 and -0 are identical in two's complement representation. By negating the free chunk count, bit-shifting right by blocklist_shift positions, and then negating again, it efficiently maps the free chunk count to the appropriate blocklist index.
 
 ## Parameters / Member Variables
-- : Pointer to the SlabContext containing configuration information including blocklist_shift
-- : Number of free chunks in the block (must be >= 0 and <= slab->chunksPerBlock)
-
+- `*slab`: Pointer to the SlabContext containing configuration information including blocklist_shift
+- `nfree`: Number of free chunks in the block (must be >= 0 and <= slab->chunksPerBlock)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SlabContext](SlabContext.md) (struct type)

@@ -18,8 +18,7 @@ This function serves as a wrapper around pull_exec_paramids_walker to extract ex
 PARAM_EXEC parameters are commonly used in subquery execution, correlated queries, and other scenarios where values need to be passed between different execution nodes in the query plan.
 
 ## Parameters / Member Variables
-- : Expression tree to analyze for PARAM_EXEC parameters
-
+- `*expr`: Expression tree to analyze for PARAM_EXEC parameters
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pull_exec_paramids_walker](pull_exec_paramids_walker.md)

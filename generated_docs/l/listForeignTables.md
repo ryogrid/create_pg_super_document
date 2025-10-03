@@ -23,9 +23,8 @@ The query retrieves:
 - Table description (in verbose mode)
 
 ## Parameters / Member Variables
-- : SQL name pattern for filtering foreign tables (can be NULL for all tables)
-- : Boolean flag to include additional information like FDW options and descriptions
-
+- `*pattern`: SQL name pattern for filtering foreign tables (can be NULL for all tables)
+- `verbose`: Boolean flag to include additional information like FDW options and descriptions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQExpBufferData](../P/PQExpBufferData.md) (data structure)

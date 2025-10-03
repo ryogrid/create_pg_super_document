@@ -23,8 +23,7 @@ Key behaviors:
 - Raises an error for oversized bit strings
 
 ## Parameters / Member Variables
-- : The input variable-length bit string (VarBit) to convert
-
+- `PG_FUNCTION_ARGS`: The input variable-length bit string (VarBit) to convert
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_VARBIT_P (extract bit string argument)

@@ -20,9 +20,8 @@ The function implements a two-threshold system:
 2. **Low cardinality threshold**: If cardinality falls below 1 per ~2000 non-null inputs (plus a 0.5 fudge factor), abbreviation is aborted as it's not providing sufficient benefit
 
 ## Parameters / Member Variables
-- : The number of tuples currently in memory for sorting
-- : Sort support structure containing optimization state and callbacks
-
+- `memtupcount`: The number of tuples currently in memory for sorting
+- `ssup`: Sort support structure containing optimization state and callbacks
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SortSupport](../S/SortSupport.md) (structure type)

@@ -24,9 +24,8 @@ This function implements the core logic for parallel scanning of shared tuple st
 The function uses a lock-based protocol where each participant has a  pointer that advances in  increments to claim the next chunk for processing. This ensures parallel workers don't duplicate work.
 
 ## Parameters / Member Variables
-- : SharedTuplestoreAccessor containing the current scan state, participant information, and file handles
-- : Metadata buffer passed to tuple reading functions for additional tuple information
-
+- `*accessor`: SharedTuplestoreAccessor containing the current scan state, participant information, and file handles
+- `*meta_data`: Metadata buffer passed to tuple reading functions for additional tuple information
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Reads individual tuples from the current chunk

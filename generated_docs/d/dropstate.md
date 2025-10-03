@@ -17,9 +17,8 @@ dropstate(struct nfa *nfa,
 The  function performs complete removal of a state from an NFA structure. It systematically deletes all arcs connected to the state by iterating through the state's incoming arcs (ins) and outgoing arcs (outs), calling  for each one. After all arcs are removed, it calls  to deallocate the state itself. This ensures proper cleanup and prevents memory leaks when states need to be removed during NFA optimization or error handling.
 
 ## Parameters / Member Variables
-- : Pointer to the NFA structure containing the state
-- : Pointer to the state to be dropped/removed
-
+- `*nfa`: Pointer to the NFA structure containing the state
+- `*s`: Pointer to the state to be dropped/removed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [freearc](../f/freearc.md)

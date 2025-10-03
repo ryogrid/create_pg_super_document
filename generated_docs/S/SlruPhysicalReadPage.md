@@ -26,10 +26,9 @@ Key functionality includes:
 The function is designed to never call ereport(ERROR) directly since callers may have modified shared memory state that must be cleaned up before error reporting.
 
 ## Parameters / Member Variables
-- : SlruCtl control structure containing SLRU configuration and shared memory pointers
-- : 64-bit logical page number to read from disk
-- : Integer identifying the shared memory buffer slot to read data into
-
+- `ctl`: SlruCtl control structure containing SLRU configuration and shared memory pointers
+- `pageno`: 64-bit logical page number to read from disk
+- `slotno`: Integer identifying the shared memory buffer slot to read data into
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SlruFileName](SlruFileName.md)

@@ -19,10 +19,9 @@ This function initializes the working buffer of a Snowball stemming environment 
 The function uses  to perform the actual string replacement, replacing the entire current content (from position 0 to current length) with the new input string. After setting the content, it resets the cursor position () to 0, positioning it at the start of the string for processing.
 
 ## Parameters / Member Variables
-- : Pointer to the SN_env stemming environment structure
-- : Length of the input string in symbols/characters
-- : Pointer to the input string data to be processed
-
+- `*z`: Pointer to the SN_env stemming environment structure
+- `size`: Length of the input string in symbols/characters
+- `*s`: Pointer to the input string data to be processed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [replace_s](../r/replace_s.md) (performs the actual string replacement operation)

@@ -18,9 +18,8 @@ ItemPointerCopy performs a complete bitwise copy of an ItemPointerData structure
 The function uses simple structure assignment (*toPointer = *fromPointer) which copies both the block ID and offset number components atomically. The implementation includes validation for both source and destination pointers and explicitly notes that padding considerations may be important since ItemPointer structures are used as hash keys in various contexts.
 
 ## Parameters / Member Variables
-- : Source ItemPointerData structure to copy from (must be valid, const)
-- : Destination ItemPointerData structure to copy to (must be valid)
-
+- `*fromPointer`: Source ItemPointerData structure to copy from (must be valid, const)
+- `*toPointer`: Destination ItemPointerData structure to copy to (must be valid)
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerIsValid (assertion validation for both parameters)

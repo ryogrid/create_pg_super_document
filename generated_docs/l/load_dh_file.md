@@ -18,9 +18,8 @@ This function loads DH parameters from a PEM-formatted file and performs compreh
 The function handles errors differently based on the server state - during server startup, invalid parameters cause a FATAL error, while during runtime they generate LOG messages.
 
 ## Parameters / Member Variables
-- : Path to the DH parameters file in PEM format
-- : Boolean flag indicating if called during server startup (affects error severity)
-
+- `*filename`: Path to the DH parameters file in PEM format
+- `isServerStart`: Boolean flag indicating if called during server startup (affects error severity)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [AllocateFile](../A/AllocateFile.md) (opens the DH parameters file)

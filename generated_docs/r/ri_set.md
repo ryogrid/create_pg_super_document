@@ -16,10 +16,9 @@ ri_set(TriggerData *trigdata, bool is_set_null, int tgkind)
 ri_set is the central workhorse function that implements the actual logic for ON DELETE SET NULL, ON DELETE SET DEFAULT, ON UPDATE SET NULL, and ON UPDATE SET DEFAULT foreign key constraint actions. It dynamically builds and executes SQL UPDATE statements to modify foreign key values in the referencing table when the referenced primary key is deleted or updated. The function handles query plan caching, column-specific updates based on constraint configuration, and ensures referential integrity through validation checks.
 
 ## Parameters / Member Variables
-- : TriggerData structure containing trigger context information including relation references and tuple data
-- : Boolean flag indicating whether to set values to NULL (true) or DEFAULT (false)
-- : Integer specifying the trigger type (RI_TRIGTYPE_DELETE or RI_TRIGTYPE_UPDATE)
-
+- `*trigdata`: TriggerData structure containing trigger context information including relation references and tuple data
+- `is_set_null`: Boolean flag indicating whether to set values to NULL (true) or DEFAULT (false)
+- `tgkind`: Integer specifying the trigger type (RI_TRIGTYPE_DELETE or RI_TRIGTYPE_UPDATE)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ri_FetchConstraintInfo](ri_FetchConstraintInfo.md) (retrieves constraint metadata)

@@ -20,10 +20,9 @@ The function validates that unsupported execution flags (EXEC_FLAG_BACKWARD and 
 Unlike many other executor nodes, BitmapAnd nodes do not require expression contexts or tuple slots since they never call ExecQual or ExecProject - they only produce bitmap results by combining bitmaps from their children.
 
 ## Parameters / Member Variables
-- : Pointer to the BitmapAnd plan node containing the list of subplans to be ANDed
-- : Execution state context for the current query
-- : Execution flags controlling behavior (EXEC_FLAG_BACKWARD and EXEC_FLAG_MARK are explicitly prohibited)
-
+- `*node`: Pointer to the BitmapAnd plan node containing the list of subplans to be ANDed
+- `*estate`: Execution state context for the current query
+- `eflags`: Execution flags controlling behavior (EXEC_FLAG_BACKWARD and EXEC_FLAG_MARK are explicitly prohibited)
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to create BitmapAndState)

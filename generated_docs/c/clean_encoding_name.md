@@ -18,9 +18,8 @@ The  function processes an encoding name string to create a normalized version s
 The function iterates through each character of the input string, filters out irrelevant characters, performs case conversion, and stores the result in the provided buffer. This approach ensures consistent encoding name representation across the PostgreSQL system.
 
 ## Parameters / Member Variables
-- : The original encoding name string to be normalized
-- : Output buffer where the cleaned encoding name will be stored (caller must ensure sufficient buffer size)
-
+- `*key`: The original encoding name string to be normalized
+- `*newkey`: Output buffer where the cleaned encoding name will be stored (caller must ensure sufficient buffer size)
 ## Dependencies
 - Functions called/Symbols referenced:
   - isalnum (standard C library function for checking alphanumeric characters)

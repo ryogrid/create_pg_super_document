@@ -22,9 +22,8 @@ After the tree transformation, the function constructs a dummy target list for t
 A key restriction is that ORDER BY clauses can only reference result columns by name or number (SQL92-style), not arbitrary expressions, which is enforced by checking that no new target list entries are added during ORDER BY processing.
 
 ## Parameters / Member Variables
-- : ParseState structure containing parsing context and range table information
-- : SelectStmt node representing the set operation tree to be transformed
-
+- `*pstate`: ParseState structure containing parsing context and range table information
+- `*stmt`: SelectStmt node representing the set operation tree to be transformed
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (Query creation)

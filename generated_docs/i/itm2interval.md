@@ -24,9 +24,8 @@ The  function reconstructs a PostgreSQL interval from its component parts stored
 The function prioritizes safety and finite results, rejecting any computation that would produce overflow or infinite intervals.
 
 ## Parameters / Member Variables
-- : Input struct pg_itm containing interval components (tm_year, tm_mon, tm_mday, tm_hour, tm_min, tm_sec, tm_usec)
-- : Output Interval structure to populate with month, day, and time (microseconds) fields
-
+- `*itm`: Input struct pg_itm containing interval components (tm_year, tm_mon, tm_mday, tm_hour, tm_min, tm_sec, tm_usec)
+- `*span`: Output Interval structure to populate with month, day, and time (microseconds) fields
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_mul_s64_overflow](../p/pg_mul_s64_overflow.md) (safe 64-bit multiplication with overflow detection)

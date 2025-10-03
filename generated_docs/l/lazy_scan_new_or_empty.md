@@ -35,13 +35,12 @@ lazy_scan_new_or_empty provides specialized handling for new and empty heap page
 - Ensures proper lock escalation for empty page modifications
 
 ## Parameters / Member Variables
-- : LVRelState containing vacuum state and relation information
-- : Buffer containing the page to process
-- : Block number of the page being processed
-- : Page pointer for direct page access
-- : Boolean indicating if caller holds only shared lock (vs cleanup lock)
-- : Buffer for visibility map access
-
+- `*vacrel`: LVRelState containing vacuum state and relation information
+- `buf`: Buffer containing the page to process
+- `blkno`: Block number of the page being processed
+- `page`: Page pointer for direct page access
+- `sharelock`: Boolean indicating if caller holds only shared lock (vs cleanup lock)
+- `vmbuffer`: Buffer for visibility map access
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PageIsNew](../P/PageIsNew.md) / PageIsEmpty (page state detection)

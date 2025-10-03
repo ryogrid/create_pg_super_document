@@ -18,9 +18,8 @@ The  function handles the  command in psql, which displays comprehensive informa
 When connected via Unix socket, it displays the socket path, but if a hostaddr is specified, it shows the address instead. For network connections, it shows both host and address when they differ. Additionally, it displays SSL and GSS authentication information if applicable.
 
 ## Parameters / Member Variables
-- : Scanner state for parsing command line arguments (unused in this function)
-- : Boolean indicating whether this command should be executed or just parsed
-
+- `scan_state`: Scanner state for parsing command line arguments (unused in this function)
+- `active_branch`: Boolean indicating whether this command should be executed or just parsed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQdb](../P/PQdb.md): Gets the database name from the connection

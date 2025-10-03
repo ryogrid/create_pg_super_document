@@ -25,11 +25,10 @@ The function performs a complete dependency analysis by:
 5. Recording all unique dependencies in batch
 
 ## Parameters / Member Variables
-- : Pointer to ObjectAddress of the object that depends on the expression
-- : Node tree representing the expression to analyze for dependencies
-- : Range table list for interpreting Vars with varlevelsup=0 (can be NIL)
-- : Type of dependency to record (normal, auto, etc.)
-
+- `*depender`: Pointer to ObjectAddress of the object that depends on the expression
+- `*expr`: Node tree representing the expression to analyze for dependencies
+- `*rtable`: Range table list for interpreting Vars with varlevelsup=0 (can be NIL)
+- `behavior`: Type of dependency to record (normal, auto, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [new_object_addresses](../n/new_object_addresses.md)

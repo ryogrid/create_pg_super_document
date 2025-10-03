@@ -20,7 +20,6 @@ The function distinguishes between the process-local  flag and the shared memory
 This check is useful for various components that need to modify their behavior when slot synchronization is in progress, such as restricting certain operations during sync or applying different validation rules.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

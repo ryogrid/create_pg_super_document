@@ -19,9 +19,8 @@ The  function iterates through and displays all outgoing arcs from a specified N
 The function uses the arc's outchain and outchainRev pointers to navigate through the linked list of arcs efficiently, ensuring all outgoing transitions are displayed systematically.
 
 ## Parameters / Member Variables
-- : Pointer to the NFA state whose outgoing arcs should be dumped
-- : File stream where the arc information will be written
-
+- `*s`: Pointer to the NFA state whose outgoing arcs should be dumped
+- `*f`: File stream where the arc information will be written
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dumparc](dumparc.md) (for dumping individual arc information)

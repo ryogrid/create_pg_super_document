@@ -32,9 +32,8 @@ The function includes safety assertions to verify it's called in the correct con
 - Verifies it's running in a backend process under the postmaster or in single-user mode
 
 ## Parameters / Member Variables
-- : Process exit code (unused but required for exit hook signature)  
-- : Datum argument (unused but required for exit hook signature)
-
+- `code`: Process exit code (unused but required for exit hook signature)
+- `arg`: Datum argument (unused but required for exit hook signature)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pgstat_report_disconnect](pgstat_report_disconnect.md)

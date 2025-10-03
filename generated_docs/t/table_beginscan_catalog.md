@@ -22,10 +22,9 @@ This function is specifically designed for scanning PostgreSQL system catalog ta
 The function is part of the table access method abstraction layer but provides catalog-specific behavior, ensuring that system catalog scans use appropriate snapshots that are sufficiently up-to-date for catalog consistency.
 
 ## Parameters / Member Variables
-- : The catalog relation to scan
-- : Number of scan keys (filters) to apply during the scan
-- : Array of ScanKeyData structures defining the scan conditions/filters
-
+- `relation`: The catalog relation to scan
+- `nkeys`: Number of scan keys (filters) to apply during the scan
+- `*key`: Array of ScanKeyData structures defining the scan conditions/filters
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetCatalogSnapshot](../G/GetCatalogSnapshot.md) (to obtain appropriate snapshot for catalog access)

@@ -25,11 +25,10 @@ For partitioned tables, the function calls expand_partitioned_rtentry to recursi
 The function also handles row locking (FOR UPDATE/SHARE) by updating PlanRowMark structures and may add resjunk columns to the target list for row identification purposes.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global planner state and query information
-- : RelOptInfo for the parent relation being expanded
-- : RangeTblEntry that has the inheritance flag set and needs expansion
-- : Index of the RTE in the range table
-
+- `*root`: PlannerInfo structure containing global planner state and query information
+- `*rel`: RelOptInfo for the parent relation being expanded
+- `*rte`: RangeTblEntry that has the inheritance flag set and needs expansion
+- `rti`: Index of the RTE in the range table
 ## Dependencies
 - Functions called/Symbols referenced:
   - [expand_appendrel_subquery](expand_appendrel_subquery.md)

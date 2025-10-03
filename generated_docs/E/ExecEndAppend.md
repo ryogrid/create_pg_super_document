@@ -23,8 +23,7 @@ The function operates by:
 This function is part of the standard executor cleanup protocol and ensures that all resources allocated during the execution of the Append node and its subplans are properly released.
 
 ## Parameters / Member Variables
-- : The AppendState containing the initialized subplans that need to be terminated
-
+- `*node`: The AppendState containing the initialized subplans that need to be terminated
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecEndNode](ExecEndNode.md) (for recursive cleanup of each subplan)

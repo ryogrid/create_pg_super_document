@@ -20,8 +20,7 @@ The function handles NULL input gracefully by returning immediately if the input
 This function is essential for preventing memory leaks when working with file contents read by , ensuring complete cleanup of the dynamically allocated memory structures.
 
 ## Parameters / Member Variables
-- : A NULL-terminated array of strings allocated by , where both the array and individual strings need to be freed
-
+- `**optlines`: A NULL-terminated array of strings allocated by , where both the array and individual strings need to be freed
 ## Dependencies
 - Functions called/Symbols referenced:
   -                total        used        free      shared  buff/cache   available

@@ -16,9 +16,8 @@ _WorkerJobDumpDirectory(ArchiveHandle *AH, TocEntry *te)
 This function is specifically designed for parallel backup operations in the pg_dump utility when using directory-format archives. It runs in child processes spawned during parallel backup and is responsible for dumping the actual data content for one Table of Contents (TOC) entry. The function acts as a wrapper that delegates the core data writing functionality to . It's designed with a simple success/failure model where any failure results in the child process terminating, which is then detected by the parent process.
 
 ## Parameters / Member Variables
-- : Archive handle containing the backup context and configuration
-- : TOC entry representing the database object whose data needs to be dumped
-
+- `*AH`: Archive handle containing the backup context and configuration
+- `*te`: TOC entry representing the database object whose data needs to be dumped
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Core function that performs the actual data writing

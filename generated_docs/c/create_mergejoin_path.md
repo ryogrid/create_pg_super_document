@@ -28,20 +28,19 @@ create_mergejoin_path(PlannerInfo *root,
 This function constructs a MergePath node that represents a merge join execution plan. Merge joins are used when both input relations can be sorted on the join keys, allowing for an efficient merge operation. The function initializes all path metadata including cost estimates, parallelism settings, and join-specific information. It calls final_cost_mergejoin to compute accurate cost estimates based on the provided workspace and extra data.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global planning information
-- : RelOptInfo representing the result relation of the join
-- : Type of join operation (inner, left outer, etc.)
-- : Pre-computed cost workspace from initial_cost_mergejoin
-- : Additional join-specific information and flags
-- : Path representing the outer (left) input relation
-- : Path representing the inner (right) input relation  
-- : List of RestrictInfo nodes for join conditions
-- : Ordering specification for the resulting path
-- : Set of outer relations required for parameterized plans
-- : Subset of restrict_clauses used as merge conditions
-- : Sort keys needed for the outer relation
-- : Sort keys needed for the inner relation
-
+- `*root`: PlannerInfo structure containing global planning information
+- `*joinrel`: RelOptInfo representing the result relation of the join
+- `jointype`: Type of join operation (inner, left outer, etc.)
+- `*workspace`: Pre-computed cost workspace from initial_cost_mergejoin
+- `*extra`: Additional join-specific information and flags
+- `*outer_path`: Path representing the outer (left) input relation
+- `*inner_path`: Path representing the inner (right) input relation
+- `*restrict_clauses`: List of RestrictInfo nodes for join conditions
+- `*pathkeys`: Ordering specification for the resulting path
+- `required_outer`: Set of outer relations required for parameterized plans
+- `*mergeclauses`: Subset of restrict_clauses used as merge conditions
+- `*outersortkeys`: Sort keys needed for the outer relation
+- `*innersortkeys`: Sort keys needed for the inner relation
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode

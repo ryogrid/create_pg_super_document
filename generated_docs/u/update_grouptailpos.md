@@ -24,8 +24,7 @@ The function implements an optimized approach:
 - Unlike frame tail tracking, it doesn't need persistent storage since group tail is always advanced
 
 ## Parameters / Member Variables
-- : WindowAggState pointer containing window function execution state including:
-
+- `*winstate`: WindowAggState pointer containing window function execution state including:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [spool_tuples](../s/spool_tuples.md) (ensures tuple availability for group boundary detection)

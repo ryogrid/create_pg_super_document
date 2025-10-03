@@ -20,7 +20,6 @@ This function performs prerequisite checks to ensure that the PostgreSQL server 
 If either requirement is not met, the function raises an ERROR with an appropriate error message explaining the configuration issue. The function includes a note that any new requirements added here should likely also be checked in RestoreSlotFromDisk().
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

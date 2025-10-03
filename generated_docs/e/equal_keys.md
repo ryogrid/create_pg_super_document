@@ -18,10 +18,9 @@ The  function is a utility function within PostgreSQL's dynamic shared hash tabl
 The function delegates the actual comparison to the  stored in the hash table's parameters, passing the two keys, the key size, and any additional arguments. It returns true if the keys are equal (when the comparison function returns 0) and false otherwise.
 
 ## Parameters / Member Variables
-- : Pointer to the dshash_table structure containing the hash table configuration and comparison function
-- : Pointer to the first key to compare
-- : Pointer to the second key to compare
-
+- `*hash_table`: Pointer to the dshash_table structure containing the hash table configuration and comparison function
+- `*a`: Pointer to the first key to compare
+- `*b`: Pointer to the second key to compare
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dshash_table](../d/dshash_table.md) (structure accessed)

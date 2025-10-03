@@ -16,9 +16,8 @@ library_name_compare(const void *p1, const void *p2)
 This function implements a specialized comparison algorithm for LibraryInfo structures during pg_upgrade operations. It sorts libraries using a three-tier comparison strategy: first by name length (shorter names first), then alphabetically for names of the same length, and finally by database array index as a tiebreaker. This specific ordering ensures that extension modules like "hstore_plpython" are sorted after their dependencies ("hstore" and "plpython"), which is critical for proper LOAD testing of transform modules during the upgrade process.
 
 ## Parameters / Member Variables
-- : Pointer to the first LibraryInfo structure to compare
-- : Pointer to the second LibraryInfo structure to compare
-
+- `*p1`: Pointer to the first LibraryInfo structure to compare
+- `*p2`: Pointer to the second LibraryInfo structure to compare
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LibraryInfo](../L/LibraryInfo.md) (structure type)

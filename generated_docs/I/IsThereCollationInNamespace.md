@@ -20,9 +20,8 @@ This utility function performs duplicate name checking for collation operations 
 If either check finds a match, it raises an appropriate error with detailed information about the conflict.
 
 ## Parameters / Member Variables
-- : The name of the collation to check for conflicts
-- : The OID of the namespace where the collision check is performed
-
+- `*collname`: The name of the collation to check for conflicts
+- `nspOid`: The OID of the namespace where the collision check is performed
 ## Dependencies
 - Functions called/Symbols referenced:
   - SearchSysCacheExists3

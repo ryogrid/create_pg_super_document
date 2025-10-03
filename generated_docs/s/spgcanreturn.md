@@ -18,9 +18,8 @@ This function implements the canreturn interface for SPGiST (Space-Partitioned G
 The function checks two conditions: first, it automatically allows index-only scans for INCLUDE attributes (attributes beyond the first indexed column), as these are always stored in the index. For the primary indexed attribute, it consults the operator class configuration to determine if the index implementation supports returning the original data values from the index structure.
 
 ## Parameters / Member Variables
-- : The SPGiST index relation being queried
-- : Attribute number (1-based) to check for index-only scan capability
-
+- `index`: The SPGiST index relation being queried
+- `attno`: Attribute number (1-based) to check for index-only scan capability
 ## Dependencies
 - Functions called/Symbols referenced:
   - [spgGetCache](spgGetCache.md)

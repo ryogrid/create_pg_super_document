@@ -28,10 +28,9 @@ The function employs two different strategies for character class implementation
 The function supports all standard POSIX character classes: alnum, alpha, blank, cntrl, digit, graph, lower, print, punct, space, upper, word, xdigit, and ascii.
 
 ## Parameters / Member Variables
-- : Context structure containing regex compilation state and error handling
-- : Enumerated value identifying which character class to generate (CC_ALPHA, CC_DIGIT, etc.)
-- : Flag indicating case-independent matching (non-zero remaps lower/upper to alpha)
-
+- `*v`: Context structure containing regex compilation state and error handling
+- `cclasscode`: Enumerated value identifying which character class to generate (CC_ALPHA, CC_DIGIT, etc.)
+- `cases`: Flag indicating case-independent matching (non-zero remaps lower/upper to alpha)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_ctype_get_cache](../p/pg_ctype_get_cache.md) (retrieve cached locale-aware character sets)

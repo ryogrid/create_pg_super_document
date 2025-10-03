@@ -25,9 +25,8 @@ The finalization process includes:
 - Closing the JSON structure and file
 
 ## Parameters / Member Variables
-- : Manifest writer structure containing the accumulated manifest data
-- : Head of linked list containing WAL range information for backup
-
+- `*mwriter`: Manifest writer structure containing the accumulated manifest data
+- `*first_wal_range`: Head of linked list containing WAL range information for backup
 ## Dependencies
 - Functions called/Symbols referenced:
   - [manifest_writer](../m/manifest_writer.md) (structure type)

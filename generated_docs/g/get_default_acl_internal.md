@@ -18,10 +18,9 @@ This internal static function performs a direct lookup in the pg_default_acl sys
 The function searches using a three-part key consisting of the role ID, namespace OID, and object type character. If a matching entry is found, it extracts the ACL data from the defaclacl column and returns a copy. The object type parameter must be encoded according to pg_default_acl's internal representation (e.g., 'r' for tables, 'S' for sequences, 'f' for functions, 'T' for types).
 
 ## Parameters / Member Variables
-- : OID of the role whose default ACL is being queried
-- : OID of the namespace (schema) for which the default ACL applies
-- : Character code representing the object type using pg_default_acl encoding
-
+- `roleId`: OID of the role whose default ACL is being queried
+- `nsp_oid`: OID of the namespace (schema) for which the default ACL applies
+- `objtype`: Character code representing the object type using pg_default_acl encoding
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache3](../S/SearchSysCache3.md) (system cache lookup with 3 keys)

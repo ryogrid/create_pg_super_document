@@ -32,9 +32,8 @@ processCancelRequest handles PostgreSQL's query cancellation mechanism, which al
 The function sends SIGINT to the target backend, which triggers PostgreSQL's standard query interruption handling. No response is sent back to the client, maintaining the protocol's fire-and-forget semantics.
 
 ## Parameters / Member Variables
-- : Process ID of the backend to cancel
-- : Secret authentication code that must match the backend's stored cancel key
-
+- `backendPID`: Process ID of the backend to cancel
+- `cancelAuthCode`: Secret authentication code that must match the backend's stored cancel key
 ## Dependencies
 - Functions called/Symbols referenced:
   - dlist_foreach (non-EXEC_BACKEND)

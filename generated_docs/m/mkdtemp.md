@@ -22,8 +22,7 @@ The function uses the internal  helper function with parameters indicating it sh
 This implementation includes safeguards against denial-of-service attacks by limiting the number of attempts to create unique names and validating that parent directories exist before attempting to create the temporary directory.
 
 ## Parameters / Member Variables
-- : A null-terminated string containing the template path for the temporary directory. Must end with one or more 'X' characters that will be replaced with unique identifiers. The string is modified in-place if successful.
-
+- `*path`: A null-terminated string containing the template path for the temporary directory. Must end with one or more 'X' characters that will be replaced with unique identifiers. The string is modified in-place if successful.
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (assertion macro for parameter validation)

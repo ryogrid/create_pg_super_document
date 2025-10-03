@@ -25,10 +25,9 @@ The function processes the target list of the child query, creating Var nodes fo
 This translation mechanism is essential for PostgreSQL's append relation optimization, which allows UNION ALL queries to be processed more efficiently by treating them as a single relation with multiple data sources.
 
 ## Parameters / Member Variables
-- : The child Query node whose target list will be processed to create the translation mappings
-- : The range table index that the translated variables should reference (typically the child RTE index)  
-- : The AppendRelInfo structure that will be populated with the translation information
-
+- `*query`: The child Query node whose target list will be processed to create the translation mappings
+- `newvarno`: The range table index that the translated variables should reference (typically the child RTE index)
+- `*appinfo`: The AppendRelInfo structure that will be populated with the translation information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_length](../l/list_length.md)

@@ -19,10 +19,9 @@ set_desc_attr configures a descriptor item's attributes based on the input varia
 The function also manages memory by freeing any existing data in the descriptor item before assigning the new data pointer. This prevents memory leaks when updating descriptor items.
 
 ## Parameters / Member Variables
-- : Pointer to the descriptor item structure to be configured
-- : Pointer to the variable structure containing type information
-- : Pointer to the data string to be stored in the descriptor item
-
+- `*desc_item`: Pointer to the descriptor item structure to be configured
+- `*var`: Pointer to the variable structure containing type information
+- `*tobeinserted`: Pointer to the data string to be stored in the descriptor item
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ecpg_free](../e/ecpg_free.md)

@@ -18,9 +18,8 @@ The  function is part of PostgreSQL's ECPG Informix compatibility library. It pr
 The function returns an integer indicating whether the value at the specified memory location is NULL (non-zero) or not NULL (zero). The actual NULL-checking logic is delegated to the underlying ECPG library function .
 
 ## Parameters / Member Variables
-- : Integer representing the data type identifier for the value to be checked
-- : Pointer to the memory location where the value should be checked for NULL
-
+- `t`: Integer representing the data type identifier for the value to be checked
+- `*ptr`: Pointer to the memory location where the value should be checked for NULL
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ECPGis_noind_null](../E/ECPGis_noind_null.md)

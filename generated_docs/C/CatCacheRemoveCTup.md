@@ -25,9 +25,8 @@ Key operations performed:
 The function ensures data integrity by requiring zero reference counts, preventing premature deletion of actively used cache entries.
 
 ## Parameters / Member Variables
-- : Pointer to the CatCache structure containing the entry to be removed
-- : Pointer to the CatCTup (catalog cache tuple) entry to be removed
-
+- `*cache`: Pointer to the CatCache structure containing the entry to be removed
+- `*ct`: Pointer to the CatCTup (catalog cache tuple) entry to be removed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CatCacheRemoveCList](CatCacheRemoveCList.md) (for removing associated cache lists)

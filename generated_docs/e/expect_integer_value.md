@@ -16,10 +16,9 @@ expect_integer_value(char *keyword, char *value, pg_compress_specification *resu
 The  function is a helper function used during compression specification parsing to convert string values to integers. It validates that the provided value is not NULL and contains a valid integer representation. If parsing fails, it sets an appropriate error message in the result structure's parse_error field and returns -1. The function uses  for string-to-integer conversion and performs comprehensive validation to ensure the entire string represents a valid integer.
 
 ## Parameters / Member Variables
-- : The name of the compression option being parsed (used for error reporting)
-- : The string value to be parsed as an integer (may be NULL)
-- : A pointer to the  structure where parse errors will be recorded
-
+- `*keyword`: The name of the compression option being parsed (used for error reporting)
+- `*value`: The string value to be parsed as an integer (may be NULL)
+- `*result`: A pointer to the  structure where parse errors will be recorded
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (PostgreSQL string formatting function)

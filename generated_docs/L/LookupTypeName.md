@@ -17,11 +17,10 @@ LookupTypeName(ParseState *pstate, const TypeName *typeName,
 LookupTypeName serves as a convenience wrapper around LookupTypeNameExtended, providing the most commonly used interface for type name resolution in PostgreSQL's parser. It delegates to LookupTypeNameExtended with the 'temp_ok' parameter set to true, allowing temporary types to be found during the lookup process. This function is part of the type resolution system that converts textual type names into internal Type structures during SQL parsing.
 
 ## Parameters / Member Variables
-- : ParseState pointer containing the current parsing context and state information
-- : TypeName structure containing the type name to be looked up, including schema qualification if present
-- : Pointer to int32 where the type modifier will be stored (output parameter)
-- : Boolean flag indicating whether to raise an error if the type is not found (false) or return NULL silently (true)
-
+- `*pstate`: ParseState pointer containing the current parsing context and state information
+- `*typeName`: TypeName structure containing the type name to be looked up, including schema qualification if present
+- `*typmod_p`: Pointer to int32 where the type modifier will be stored (output parameter)
+- `missing_ok`: Boolean flag indicating whether to raise an error if the type is not found (false) or return NULL silently (true)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LookupTypeNameExtended](LookupTypeNameExtended.md)

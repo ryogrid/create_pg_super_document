@@ -27,9 +27,8 @@ Key responsibilities include:
 The function differentiates between complete portal execution and fetch operations (re-execution of existing portals) and handles transaction control statements specially by committing them immediately.
 
 ## Parameters / Member Variables
-- : Name of the portal to execute (empty string for unnamed portal)
-- : Maximum number of rows to return (0 or negative means fetch all rows)
-
+- `*portal_name`: Name of the portal to execute (empty string for unnamed portal)
+- `max_rows`: Maximum number of rows to return (0 or negative means fetch all rows)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetPortalByName](../G/GetPortalByName.md) (locate portal by name)

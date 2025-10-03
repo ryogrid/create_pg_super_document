@@ -18,8 +18,7 @@ This function serves as an error callback handler specifically designed for SQL 
 The callback checks if the current error is a syntax error by examining the error position. If a syntax error is detected (position > 0), it clears the external error position, converts it to an internal error position, and associates it with the original function source code. This conversion is crucial for providing accurate error location information to the user, as the error position needs to be mapped back to the original function definition rather than the inlined version.
 
 ## Parameters / Member Variables
-- : A void pointer that points to an  structure containing callback context information including the function name () and source code ()
-
+- `*arg`: A void pointer that points to an  structure containing callback context information including the function name () and source code ()
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (structure type)

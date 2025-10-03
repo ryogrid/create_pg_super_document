@@ -27,14 +27,13 @@ Key features include:
 - Proper JSON comma separation between file entries
 
 ## Parameters / Member Variables
-- : Manifest writer structure maintaining the JSON build state
-- : Relative path of the file within the backup
-- : File size in bytes
-- : File modification time as Unix timestamp
-- : Type of checksum algorithm used (if any)
-- : Length of the checksum payload in bytes
-- : Binary checksum data to be hex-encoded
-
+- `*mwriter`: Manifest writer structure maintaining the JSON build state
+- `*manifest_path`: Relative path of the file within the backup
+- `size`: File size in bytes
+- `mtime`: File modification time as Unix timestamp
+- `checksum_type`: Type of checksum algorithm used (if any)
+- `checksum_length`: Length of the checksum payload in bytes
+- `*checksum_payload`: Binary checksum data to be hex-encoded
 ## Dependencies
 - Functions called/Symbols referenced:
   - [manifest_writer](../m/manifest_writer.md) (structure type)

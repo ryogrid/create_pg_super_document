@@ -25,10 +25,9 @@ Key authorization rules enforced:
 4. Different error messages for grant vs revoke operations
 
 ## Parameters / Member Variables
-- : OID of the role attempting to perform the membership operation
-- : OID of the target role whose membership is being modified
-- : Boolean flag indicating whether this is a grant (true) or revoke (false) operation
-
+- `currentUserId`: OID of the role attempting to perform the membership operation
+- `roleid`: OID of the target role whose membership is being modified
+- `is_grant`: Boolean flag indicating whether this is a grant (true) or revoke (false) operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetUserNameFromId](../G/GetUserNameFromId.md)

@@ -17,12 +17,11 @@ scanNSItemForColumn(ParseState *pstate, ParseNamespaceItem *nsitem,
 This function performs column name resolution within a specific namespace item (typically representing a table, view, or subquery in the FROM clause). It searches for the specified column name within the item's column names or aliases, applying various access control checks and expression context restrictions. The function handles both regular user columns and system columns, ensuring proper privilege checking and context-specific validation (such as restrictions in CHECK constraints, generated columns, and MERGE WHEN conditions). Upon successful match, it constructs and returns a Var node representing the column reference.
 
 ## Parameters / Member Variables
-- : ParseState pointer representing the current parser state context
-- : ParseNamespaceItem pointer representing the specific namespace item to search
-- : Integer indicating query nesting level for the variable reference
-- : String containing the column name to search for
-- : Integer representing the parse location for error reporting
-
+- `*pstate`: ParseState pointer representing the current parser state context
+- `*nsitem`: ParseNamespaceItem pointer representing the specific namespace item to search
+- `sublevels_up`: Integer indicating query nesting level for the variable reference
+- `*colname`: String containing the column name to search for
+- `location`: Integer representing the parse location for error reporting
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ParseNamespaceItem](../P/ParseNamespaceItem.md)

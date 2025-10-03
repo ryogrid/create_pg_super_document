@@ -21,11 +21,10 @@ heapam_fetch_row_version is a static callback function used by the heap access m
 The function ensures that the slot is of the correct type (BufferHeapTupleTableSlot) and handles the buffer pin transfer from the heap_fetch operation to the slot, maintaining proper resource management.
 
 ## Parameters / Member Variables
-- : The heap relation from which to fetch the tuple
-- : ItemPointer containing the tuple identifier (block number and offset) of the target tuple
-- : Snapshot used for visibility checking to determine if the tuple version is visible to the current transaction
-- : TupleTableSlot where the fetched tuple will be stored (must be a BufferHeapTupleTableSlot)
-
+- `relation`: The heap relation from which to fetch the tuple
+- `tid`: ItemPointer containing the tuple identifier (block number and offset) of the target tuple
+- `snapshot`: Snapshot used for visibility checking to determine if the tuple version is visible to the current transaction
+- `*slot`: TupleTableSlot where the fetched tuple will be stored (must be a BufferHeapTupleTableSlot)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BufferHeapTupleTableSlot](../B/BufferHeapTupleTableSlot.md) (type cast)

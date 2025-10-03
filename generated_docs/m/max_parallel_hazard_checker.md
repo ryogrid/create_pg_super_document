@@ -23,9 +23,8 @@ The function operates by:
 This design separates the concern of function lookup (handled here) from the hazard level evaluation logic (handled in ). The callback pattern allows the generic tree walking infrastructure to remain agnostic about the specific parallel safety logic while providing a clean interface for function-specific checks.
 
 ## Parameters / Member Variables
-- : Object identifier (OID) of the function to check for parallel safety
-- : Void pointer to max_parallel_hazard_context structure, cast appropriately within the function
-
+- `func_id`: Object identifier (OID) of the function to check for parallel safety
+- `*context`: Void pointer to max_parallel_hazard_context structure, cast appropriately within the function
 ## Dependencies
 - Functions called/Symbols referenced:
   - [max_parallel_hazard_test](max_parallel_hazard_test.md)

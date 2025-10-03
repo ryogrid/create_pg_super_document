@@ -20,6 +20,7 @@ The function outputs detailed information for each pinned buffer including the b
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetBufferDescriptor](../G/GetBufferDescriptor.md)

@@ -23,9 +23,8 @@ The function performs the following operations:
 5. Supports binary upgrade mode with OID preservation
 
 ## Parameters / Member Variables
-- : Archive object containing dump configuration and state information
-- : TypeInfo structure containing metadata about the range type to be dumped
-
+- `*fout`: Archive object containing dump configuration and state information
+- `*tyinfo`: TypeInfo structure containing metadata about the range type to be dumped
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecuteSqlStatement](../E/ExecuteSqlStatement.md)

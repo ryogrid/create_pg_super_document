@@ -24,8 +24,7 @@ The function performs these key operations:
 Unlike ginbuild, this function doesn't scan any heap data and creates only the minimal index structure needed for a valid but empty GIN index.
 
 ## Parameters / Member Variables
-- : The GIN index relation for which to create an empty structure
-
+- `index`: The GIN index relation for which to create an empty structure
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExtendBufferedRel](../E/ExtendBufferedRel.md)

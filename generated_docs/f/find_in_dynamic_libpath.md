@@ -30,8 +30,7 @@ The search process involves:
 The function includes robust error checking, reporting errors for zero-length path components and non-absolute paths in the search configuration.
 
 ## Parameters / Member Variables
-- : The simple filename (without directory components) to search for in the library path
-
+- `*basename`: The simple filename (without directory components) to search for in the library path
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - validates that basename contains no directory separators

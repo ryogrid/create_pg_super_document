@@ -21,9 +21,8 @@ The function employs a preference hierarchy when selecting the constant member, 
 For the trivial case of exactly two members with one source clause (a simple "var = const"), the function optimizes by reusing the original clause rather than rebuilding an equivalent one.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planner state information
-- : EquivalenceClass containing constant members to process
-
+- `*root`: PlannerInfo structure containing planner state information
+- `*ec`: EquivalenceClass containing constant members to process
 ## Dependencies
 - Functions called/Symbols referenced:
   - [distribute_restrictinfo_to_rels](../d/distribute_restrictinfo_to_rels.md)

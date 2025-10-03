@@ -23,10 +23,9 @@ The function handles three types of nodes:
 The ternary flag determines whether the check array contains boolean values or GinTernaryValue enums, allowing the function to work with both simple boolean matching and more sophisticated tri-state logic used in advanced GIN consistency checking.
 
 ## Parameters / Member Variables
-- : JsonPathGinNode pointer to the current expression node being evaluated
-- : Void pointer to an array containing match results - either bool[] or GinTernaryValue[] depending on ternary flag
-- : Boolean flag indicating whether check array contains GinTernaryValue (true) or bool (false) elements
-
+- `*node`: JsonPathGinNode pointer to the current expression node being evaluated
+- `*check`: Void pointer to an array containing match results - either bool[] or GinTernaryValue[] depending on ternary flag
+- `ternary`: Boolean flag indicating whether check array contains GinTernaryValue (true) or bool (false) elements
 ## Dependencies
 - Functions called/Symbols referenced:
   - [execute_jsp_gin_node](execute_jsp_gin_node.md) (recursive self-calls for child node evaluation)

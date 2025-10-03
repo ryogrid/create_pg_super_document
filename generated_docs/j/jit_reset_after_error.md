@@ -15,7 +15,6 @@ void jit_reset_after_error(void)
 This function serves as a cleanup mechanism for the JIT subsystem after error conditions. When PostgreSQL encounters an error during execution, it uses a longjmp-based error handling mechanism that can leave subsystems in inconsistent states. This function provides a way for the JIT provider to reset its internal state and recover from such error conditions. It only calls the provider's reset function if a JIT provider has been successfully loaded, avoiding unnecessary operations when JIT is not available.
 
 ## Parameters / Member Variables
-This function takes no parameters and returns void.
 
 ## Dependencies
 - Functions called/Symbols referenced:

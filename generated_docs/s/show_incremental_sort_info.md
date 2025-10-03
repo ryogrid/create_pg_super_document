@@ -30,9 +30,8 @@ Key behavioral aspects include:
 The function implements intelligent filtering logic - it only shows prefix sort groups if full sort groups exist, reflecting the reality that incremental sort transitions from full sorting to prefix sorting as data becomes more ordered.
 
 ## Parameters / Member Variables
-- : Pointer to IncrementalSortState structure containing execution state and statistics for the incremental sort node
-- : Pointer to ExplainState structure containing output formatting context and control flags
-
+- `*incrsortstate`: Pointer to IncrementalSortState structure containing execution state and statistics for the incremental sort node
+- `*es`: Pointer to ExplainState structure containing output formatting context and control flags
 ## Dependencies
 - Functions called/Symbols referenced:
   - [show_incremental_sort_group_info](show_incremental_sort_group_info.md): Displays statistics for individual sort groups

@@ -20,9 +20,8 @@ The function performs validation to ensure the plan is valid (checking the magic
 Parameters are indexed starting from 0, so the first parameter is at index 0, the second at index 1, and so on.
 
 ## Parameters / Member Variables
-- : An SPIPlanPtr pointing to a previously prepared SPI plan. Must be a valid, non-NULL plan.
-- : Zero-based index of the parameter whose type is requested. Must be >= 0 and < plan->nargs.
-
+- `plan`: An SPIPlanPtr pointing to a previously prepared SPI plan. Must be a valid, non-NULL plan.
+- `argIndex`: Zero-based index of the parameter whose type is requested. Must be >= 0 and < plan->nargs.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SPIPlanPtr](SPIPlanPtr.md) (typedef for struct _SPI_plan *)

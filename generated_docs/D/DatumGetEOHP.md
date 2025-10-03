@@ -18,8 +18,7 @@ DatumGetEOHP is a utility function that safely extracts an ExpandedObjectHeader 
 The function first casts the Datum to a varattrib_1b_e pointer, then uses memcpy to safely copy the expanded object pointer from the variable-length attribute data, avoiding potential alignment issues. It includes assertions to verify that the input is indeed an external expanded reference and that the extracted pointer is valid.
 
 ## Parameters / Member Variables
-- : The Datum containing an expanded-object reference to be extracted
-
+- `d`: The Datum containing an expanded-object reference to be extracted
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DatumGetPointer](DatumGetPointer.md) (macro)

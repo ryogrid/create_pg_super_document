@@ -20,9 +20,8 @@ Sequential scanning allows traversal of all entries in a hash table without need
 The function supports both regular and partitioned hash tables. For partitioned tables, the caller must hold at least shared locks on all partitions throughout the scan to ensure consistency and prevent issues with concurrent modifications by other backends.
 
 ## Parameters / Member Variables
-- : Pointer to a HASH_SEQ_STATUS structure that will track the scan state
-- : Pointer to the hash table (HTAB) to be scanned
-
+- `*status`: Pointer to a HASH_SEQ_STATUS structure that will track the scan state
+- `*hashp`: Pointer to the hash table (HTAB) to be scanned
 ## Dependencies
 - Functions called/Symbols referenced:
   - [register_seq_scan](../r/register_seq_scan.md) (registers the scan for cleanup tracking on non-frozen tables)

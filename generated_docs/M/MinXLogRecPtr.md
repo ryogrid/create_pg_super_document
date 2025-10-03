@@ -21,9 +21,8 @@ The function uses a three-way conditional logic:
 3. If both parameters are valid, return the standard minimum
 
 ## Parameters / Member Variables
-- : First XLogRecPtr value to compare
-- : Second XLogRecPtr value to compare
-
+- `a`: First XLogRecPtr value to compare
+- `b`: Second XLogRecPtr value to compare
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecPtrIsInvalid (macro to check if XLogRecPtr is invalid)

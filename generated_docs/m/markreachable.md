@@ -23,11 +23,10 @@ The function includes stack overflow protection by checking if the recursion dep
 The marking mechanism uses the tmp field of state structures to track which states have been processed, preventing infinite loops in cyclic NFAs and ensuring each state is processed only once.
 
 ## Parameters / Member Variables
-- : Pointer to the NFA structure being processed
-- : The current state from which to mark reachable states
-- : Only states with this mark value will be considered for processing
-- : The new mark value to assign to reachable states
-
+- `*nfa`: Pointer to the NFA structure being processed
+- `*s`: The current state from which to mark reachable states
+- `*okay`: Only states with this mark value will be considered for processing
+- `*mark`: The new mark value to assign to reachable states
 ## Dependencies
 - Functions called/Symbols referenced:
   - STACK_TOO_DEEP (stack overflow protection macro)

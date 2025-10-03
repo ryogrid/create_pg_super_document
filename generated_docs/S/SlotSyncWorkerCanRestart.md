@@ -16,7 +16,6 @@ SlotSyncWorkerCanRestart(void)
 This function serves as a safety mechanism to prevent rapid, continuous restart attempts of the slot synchronization worker process. It implements a time-based throttling mechanism that ensures a minimum interval (SLOTSYNC_RESTART_INTERVAL_SEC) passes between worker restart attempts. This prevents system resource exhaustion and log flooding that could occur if the worker process repeatedly fails immediately upon startup. The function updates the last start time when returning true, effectively starting the next restart interval. This is a critical safety valve in PostgreSQL's slot synchronization infrastructure.
 
 ## Parameters / Member Variables
-This function takes no parameters and returns a boolean value.
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -18,8 +18,7 @@ This static function is part of a family of helper routines designed to determin
 The function uses a caching mechanism through the type cache entry flags to avoid repeated expensive lookups. If the element properties haven't been checked yet (indicated by the TCFLAGS_CHECKED_ELEM_PROPERTIES flag), it calls cache_array_element_properties to populate all element property information at once. This design assumes that if one property is needed, others will likely be needed as well, making the comprehensive caching approach more efficient.
 
 ## Parameters / Member Variables
-- : Pointer to the TypeCacheEntry structure for the array type being checked
-
+- `*typentry`: Pointer to the TypeCacheEntry structure for the array type being checked
 ## Dependencies
 - Functions called/Symbols referenced:
   - TCFLAGS_CHECKED_ELEM_PROPERTIES (flag indicating element properties have been cached)

@@ -21,10 +21,9 @@ The function maintains backward compatibility with PostgreSQL versions 11 and ea
 The function performs several optimizations: it uses  for efficient string copying, assumes ASCII command names (no encoding conversion needed), and includes assertion checks to prevent buffer overruns. The output buffer must be at least  bytes to accommodate the longest possible completion string.
 
 ## Parameters / Member Variables
-- : Pre-allocated output buffer that must be at least COMPLETION_TAG_BUFSIZE bytes in length
-- : Pointer to QueryCompletion structure containing the command tag and number of processed rows
-- : Boolean flag - if true, only the command tag name is included; if false, row count may be appended based on command type
-
+- `*buff`: Pre-allocated output buffer that must be at least COMPLETION_TAG_BUFSIZE bytes in length
+- `*qc`: Pointer to QueryCompletion structure containing the command tag and number of processed rows
+- `nameonly`: Boolean flag - if true, only the command tag name is included; if false, row count may be appended based on command type
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (retrieves command tag name and length)

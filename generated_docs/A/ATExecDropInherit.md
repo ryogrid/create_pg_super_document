@@ -16,10 +16,9 @@ ATExecDropInherit(Relation rel, RangeVar *parent, LOCKMODE lockmode)
 ATExecDropInherit implements the core logic for the ALTER TABLE NO INHERIT SQL command. This function removes an inheritance relationship between a child table (rel) and a specified parent table. The function validates that the child table is not a partition (as partitions cannot have their inheritance changed), opens the parent relation with appropriate locking, and delegates the actual inheritance removal work to the RemoveInheritance function. It returns an ObjectAddress representing the parent relation that is no longer inherited from.
 
 ## Parameters / Member Variables
-- : The child relation from which inheritance is being removed
-- : RangeVar structure identifying the parent table to be removed from inheritance
-- : Lock mode parameter (though not directly used in the function body)
-
+- `rel`: The child relation from which inheritance is being removed
+- `*parent`: RangeVar structure identifying the parent table to be removed from inheritance
+- `lockmode`: Lock mode parameter (though not directly used in the function body)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_openrv](../t/table_openrv.md)

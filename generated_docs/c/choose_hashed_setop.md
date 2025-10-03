@@ -29,13 +29,12 @@ This function implements a cost-based decision algorithm for choosing between ha
 The function accounts for the fact that set operation inputs are always unsorted (coming from appended sub-relations) and considers both startup and total costs in the comparison.
 
 ## Parameters / Member Variables
-- : PlannerInfo containing global planning context and configuration settings
-- : List of grouping clauses that define the grouping/comparison semantics for the operation
-- : Path representing the input to the set operation (typically an Append path)
-- : Estimated number of distinct groups expected in the operation
-- : Estimated number of rows in the final output
-- : String name of the operation ("INTERSECT" or "EXCEPT") for error reporting
-
+- `*root`: PlannerInfo containing global planning context and configuration settings
+- `*groupClauses`: List of grouping clauses that define the grouping/comparison semantics for the operation
+- `*input_path`: Path representing the input to the set operation (typically an Append path)
+- `dNumGroups`: Estimated number of distinct groups expected in the operation
+- `dNumOutputRows`: Estimated number of rows in the final output
+- `*construct`: String name of the operation ("INTERSECT" or "EXCEPT") for error reporting
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_hash_memory_limit](../g/get_hash_memory_limit.md)

@@ -19,11 +19,10 @@ The setup_connection function performs comprehensive initialization of a databas
 The function handles both single-process and parallel dump scenarios, with special logic for coordinating snapshots across multiple worker processes. It sets various PostgreSQL parameters to ensure the dump output is deterministic and portable across different PostgreSQL installations.
 
 ## Parameters / Member Variables
-- : Archive handle containing connection information and dump configuration
-- : Client encoding to use for the connection (can be NULL)
-- : Specific snapshot ID to use for consistent reads (can be NULL)
-- : Database role to assume for the dump operation (can be NULL)
-
+- `*AH`: Archive handle containing connection information and dump configuration
+- `*dumpencoding`: Client encoding to use for the connection (can be NULL)
+- `*dumpsnapshot`: Specific snapshot ID to use for consistent reads (can be NULL)
+- `*use_role`: Database role to assume for the dump operation (can be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetConnection](../G/GetConnection.md) (retrieve database connection from archive)

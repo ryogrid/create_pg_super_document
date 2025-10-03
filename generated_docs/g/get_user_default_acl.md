@@ -20,10 +20,9 @@ The function performs ACL merging logic where schema-specific permissions take p
 The function includes a bootstrap mode check to avoid accessing pg_default_acl during system initialization when the catalog might not be available yet.
 
 ## Parameters / Member Variables
-- : The type of object being created (OBJECT_TABLE, OBJECT_SEQUENCE, OBJECT_FUNCTION, OBJECT_TYPE, OBJECT_SCHEMA)
-- : OID of the role that will own the new object
-- : OID of the namespace (schema) where the object is being created
-
+- `objtype`: The type of object being created (OBJECT_TABLE, OBJECT_SEQUENCE, OBJECT_FUNCTION, OBJECT_TYPE, OBJECT_SCHEMA)
+- `ownerId`: OID of the role that will own the new object
+- `nsp_oid`: OID of the namespace (schema) where the object is being created
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsBootstrapProcessingMode (checks if in bootstrap mode)

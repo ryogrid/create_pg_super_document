@@ -22,9 +22,8 @@ This function is a utility subroutine used during ALTER TABLE operations that re
 A clustered index indicates that the table's physical storage order matches the index order, which can provide performance benefits for certain queries. During table rebuilding operations, this clustering information must be preserved and restored after the rebuild completes to maintain the intended storage organization.
 
 ## Parameters / Member Variables
-- : OID of the index to check for clustered status
-- : AlteredTableInfo structure where clustered index information is stored
-
+- `indoid`: OID of the index to check for clustered status
+- `*tab`: AlteredTableInfo structure where clustered index information is stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_index_isclustered](../g/get_index_isclustered.md)

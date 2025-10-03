@@ -24,10 +24,9 @@ The function operates by:
 This function is specifically designed for "ordinary" window function arguments that should be evaluated on the current row, such as the offset parameter in LAG/LEAD functions or the bucket count in NTILE. It will succeed even when the window object's mark has been positioned beyond the current row, making it reliable for parameter evaluation.
 
 ## Parameters / Member Variables
-- : Window object containing the argument expressions and state
-- : Zero-based index of the argument expression to evaluate
-- : Output parameter receiving null status of the evaluated expression
-
+- `winobj`: Window object containing the argument expressions and state
+- `argno`: Zero-based index of the argument expression to evaluate
+- `*isnull`: Output parameter receiving null status of the evaluated expression
 ## Dependencies
 - Functions called/Symbols referenced:
   - WindowObjectIsValid

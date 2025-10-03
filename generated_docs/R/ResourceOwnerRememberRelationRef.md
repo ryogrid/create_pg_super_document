@@ -18,9 +18,8 @@ This inline function serves as a convenience wrapper around the generic Resource
 The function is part of PostgreSQL's resource management system that ensures proper cleanup of resources when transactions abort or complete. By registering relation references with resource owners, PostgreSQL can automatically release relation references during error recovery, preventing resource leaks.
 
 ## Parameters / Member Variables
-- : The ResourceOwner that should track this relation reference
-- : The Relation whose reference should be remembered for cleanup
-
+- `owner`: The ResourceOwner that should track this relation reference
+- `rel`: The Relation whose reference should be remembered for cleanup
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ResourceOwnerRemember](ResourceOwnerRemember.md)

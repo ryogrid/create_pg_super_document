@@ -23,6 +23,7 @@ The design choice to use max_replication_slots is noted as arguably imperfect si
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [add_size](../a/add_size.md): Safely adds sizes with overflow checking

@@ -24,7 +24,6 @@ When called, it merges any pending updates into the corresponding active update 
 This mechanism ensures that relation mapping changes follow PostgreSQL's MVCC semantics, where changes become visible at well-defined transaction boundaries.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

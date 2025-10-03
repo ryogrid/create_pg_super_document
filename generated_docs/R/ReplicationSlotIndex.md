@@ -16,8 +16,7 @@ ReplicationSlotIndex(ReplicationSlot *slot)
 ReplicationSlotIndex computes and returns the zero-based index of a given ReplicationSlot pointer within the ReplicationSlotCtl->replication_slots array. This function performs pointer arithmetic to determine the slot's position and includes an assertion to validate that the provided slot pointer is within the valid range of the replication slots array. The function is primarily used as an efficient key for storing and accessing replication slot statistics.
 
 ## Parameters / Member Variables
-- : Pointer to a ReplicationSlot structure that must be within the replication slots array
-
+- `*slot`: Pointer to a ReplicationSlot structure that must be within the replication slots array
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert macro for bounds checking

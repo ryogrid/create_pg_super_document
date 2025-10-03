@@ -16,8 +16,7 @@ copyTSLexeme(TheSubstitute *ts)
 The  function creates a complete deep copy of a  array stored within a  structure. It allocates memory for a new array with space for all result lexemes plus a NULL terminator, then copies each  structure while also duplicating the lexeme strings using . The function ensures that the copied array is properly null-terminated by setting the final element's lexeme field to NULL.
 
 ## Parameters / Member Variables
-- : Pointer to the  structure containing the source  array to copy
-
+- `*ts`: Pointer to the  structure containing the source  array to copy
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (structure type containing the source TSLexeme array)

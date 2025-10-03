@@ -20,8 +20,7 @@ The function handles platform differences between Unix and Windows socket repres
 The socket descriptor allows applications to integrate PostgreSQL connections into their own event loops, enabling non-blocking operations and efficient handling of multiple connections.
 
 ## Parameters / Member Variables
-- : A pointer to the PGconn structure representing the database connection. Must not be NULL for valid results.
-
+- `*conn`: A pointer to the PGconn structure representing the database connection. Must not be NULL for valid results.
 ## Dependencies
 - Functions called/Symbols referenced:
   - PGINVALID_SOCKET (constant representing an invalid socket)

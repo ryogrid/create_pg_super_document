@@ -17,7 +17,6 @@ DllRegisterServer implements the standard COM DLL self-registration interface fo
 The function retrieves the current DLL's full path and creates a registry key for the event source (defaulting to "PostgreSQL" or custom name from DllInstall). It configures the EventMessageFile registry value to point to the DLL itself, enabling Windows to locate event message resources. The TypesSupported value is set to allow Error, Warning, and Information event types.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

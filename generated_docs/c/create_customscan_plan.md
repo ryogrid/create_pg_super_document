@@ -17,11 +17,10 @@ create_customscan_plan(PlannerInfo *root, CustomPath *best_path,
 This function creates a CustomScan execution plan node from a CustomPath. Custom scans allow extensions and plugins to implement their own scan methods beyond PostgreSQL's built-in scan types. The function first recursively creates plans for any child paths, then delegates the main plan creation to the custom scan provider's PlanCustomPath callback. It handles cost information copying and manages nestloop parameter replacement for parameterized scans. This provides a framework for extensible scan implementations while maintaining consistency with PostgreSQL's planning infrastructure.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global planning context and state information  
-- : CustomPath representing the chosen custom scan access path
-- : Target list specifying which columns/expressions should be returned by the scan
-- : List of restriction clauses to be applied during the scan
-
+- `*root`: PlannerInfo structure containing global planning context and state information
+- `*best_path`: CustomPath representing the chosen custom scan access path
+- `*tlist`: Target list specifying which columns/expressions should be returned by the scan
+- `*scan_clauses`: List of restriction clauses to be applied during the scan
 ## Dependencies
 - Functions called/Symbols referenced:
   - [create_plan_recurse](create_plan_recurse.md)

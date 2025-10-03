@@ -18,9 +18,8 @@ RT_NODE_SEARCH is a macro-generated function that implements the core search fun
 For RT_NODE_KIND_4 nodes, it performs a linear search through the chunks array. For RT_NODE_KIND_16 nodes, it delegates to RT_NODE_16_SEARCH_EQ for optimized searching. For RT_NODE_KIND_48 nodes, it uses the slot_idxs array for direct indexing. For RT_NODE_KIND_256 nodes, it first checks if the chunk is used, then retrieves the child directly.
 
 ## Parameters / Member Variables
-- : Pointer to the radix tree node to search within (must be a local pointer, not NULL)
-- : 8-bit key fragment (byte) to search for within the node
-
+- `*node`: Pointer to the radix tree node to search within (must be a local pointer, not NULL)
+- `chunk`: 8-bit key fragment (byte) to search for within the node
 ## Dependencies
 - Functions called/Symbols referenced:
   - RT_MAKE_NAME (macro expansion)

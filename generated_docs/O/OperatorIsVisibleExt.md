@@ -16,9 +16,8 @@ OperatorIsVisibleExt(Oid oprid, bool *is_missing)
 This function provides extended operator visibility checking with enhanced error handling capabilities. It performs a comprehensive visibility test by first checking if the operator's namespace is in the current search path, then verifying that this specific operator would be found by name resolution (not masked by another operator with the same name and arguments earlier in the path). The function supports graceful handling of missing operators through the is_missing parameter, allowing callers to distinguish between invisible and non-existent operators.
 
 ## Parameters / Member Variables
-- : OID of the operator to check for visibility
-- : Optional pointer to boolean flag that will be set to true if the operator doesn't exist (caller must initialize to false)
-
+- `oprid`: OID of the operator to check for visibility
+- `*is_missing`: Optional pointer to boolean flag that will be set to true if the operator doesn't exist (caller must initialize to false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache1](../S/SearchSysCache1.md)

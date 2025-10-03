@@ -16,8 +16,7 @@ replorigin_redo(XLogReaderState *record)
 replorigin_redo is a WAL record replay function that processes replication origin-related operations during PostgreSQL recovery. It handles two types of operations: XLOG_REPLORIGIN_SET (which advances the replication progress of a specific origin) and XLOG_REPLORIGIN_DROP (which removes/resets a replication origin state). The function extracts the operation type from the WAL record info and executes the corresponding action, ensuring that replication state is properly maintained during recovery scenarios.
 
 ## Parameters / Member Variables
-- : XLogReaderState pointer containing the WAL record to be processed
-
+- `*record`: XLogReaderState pointer containing the WAL record to be processed
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetInfo

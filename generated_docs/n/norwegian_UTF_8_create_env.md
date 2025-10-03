@@ -19,7 +19,6 @@ This function is part of the Snowball stemming library integration in PostgreSQL
 The function calls SN_create_env(0, 2), where the first parameter (0) represents the string size and the second parameter (2) represents the number of integer variables required for the Norwegian stemming algorithm.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

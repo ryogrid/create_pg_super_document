@@ -18,8 +18,7 @@ This function provides a SQL-callable interface to clear PostgreSQL's statistics
 The function is a simple wrapper around the internal pgstat_clear_snapshot() function, making it accessible from SQL as a system administration function.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function argument structure (no actual parameters used)
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument structure (no actual parameters used)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pgstat_clear_snapshot](pgstat_clear_snapshot.md) (clears the internal statistics snapshot)

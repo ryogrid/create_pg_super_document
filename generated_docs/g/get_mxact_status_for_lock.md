@@ -22,9 +22,8 @@ The function operates by:
 4. Returning the appropriate MultiXactStatus value
 
 ## Parameters / Member Variables
-- : LockTupleMode indicating the type of lock being requested
-- : Boolean flag indicating whether this is for an update operation
-
+- `mode`: LockTupleMode indicating the type of lock being requested
+- `is_update`: Boolean flag indicating whether this is for an update operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - tupleLockExtraInfo (global array mapping lock modes to status info)

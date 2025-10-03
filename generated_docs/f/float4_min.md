@@ -18,9 +18,8 @@ This inline function implements the minimum operation for single-precision float
 The function performs a simple conditional selection: if val1 is less than val2 according to float4_lt, it returns val1; otherwise, it returns val2.
 
 ## Parameters / Member Variables
-- : The first single-precision floating-point value to compare
-- : The second single-precision floating-point value to compare
-
+- `val1`: The first single-precision floating-point value to compare
+- `val2`: The second single-precision floating-point value to compare
 ## Dependencies
 - Functions called/Symbols referenced:
   - [float4_lt](float4_lt.md) (for less-than comparison with NaN handling)

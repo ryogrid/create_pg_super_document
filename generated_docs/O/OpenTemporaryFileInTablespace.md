@@ -24,9 +24,8 @@ This internal function creates a uniquely named temporary file in the specified 
 The function uses a specific naming scheme (PG_TEMP_FILE_PREFIX + ProcPid + counter) to ensure uniqueness and facilitate cleanup of orphaned files. It deliberately avoids O_EXCL to allow reuse of orphaned temporary files.
 
 ## Parameters / Member Variables
-- : OID of the target tablespace where the temporary file should be created
-- : If true, the function will emit an ERROR on failure; if false, it returns an invalid file handle silently
-
+- `tblspcOid`: OID of the target tablespace where the temporary file should be created
+- `rejectError`: If true, the function will emit an ERROR on failure; if false, it returns an invalid file handle silently
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TempTablespacePath](../T/TempTablespacePath.md) (constructs temp directory path)

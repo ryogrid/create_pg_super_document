@@ -25,9 +25,8 @@ The function performs several key operations:
 This ensures that extension scripts can be written in different encodings but will always be executed with proper encoding compatibility.
 
 ## Parameters / Member Variables
-- : Pointer to ExtensionControlFile containing extension metadata, including encoding information
-- : Path to the SQL script file to be read and processed
-
+- `*control`: Pointer to ExtensionControlFile containing extension metadata, including encoding information
+- `*filename`: Path to the SQL script file to be read and processed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [read_whole_file](read_whole_file.md) (reads entire file into memory)

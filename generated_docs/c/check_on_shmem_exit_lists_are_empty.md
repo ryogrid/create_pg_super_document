@@ -17,7 +17,6 @@ The `check_on_shmem_exit_lists_are_empty` function serves as a debugging and val
 If either index is non-zero, the function reports a FATAL error, indicating that cleanup handlers were registered prematurely. This helps catch programming errors where exit callbacks might be registered before the process is properly initialized or in contexts where they shouldn't exist.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

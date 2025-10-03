@@ -27,14 +27,13 @@ ExecUpdateAct is responsible for the core logic of updating a tuple in a Postgre
 The function uses a retry mechanism (via the  label) to handle cases where cross-partition updates require recomputation of GENERATED values and constraint rechecking for the destination partition.
 
 ## Parameters / Member Variables
-- : ModifyTableContext containing execution state and metadata
-- : ResultRelInfo for the target relation being updated
-- : ItemPointer identifying the specific tuple to update
-- : HeapTuple containing the original tuple data
-- : TupleTableSlot containing the new tuple values
-- : Boolean indicating whether command tags can be set
-- : UpdateContext for tracking update-specific state and results
-
+- `*context`: ModifyTableContext containing execution state and metadata
+- `*resultRelInfo`: ResultRelInfo for the target relation being updated
+- `tupleid`: ItemPointer identifying the specific tuple to update
+- `oldtuple`: HeapTuple containing the original tuple data
+- `*slot`: TupleTableSlot containing the new tuple values
+- `canSetTag`: Boolean indicating whether command tags can be set
+- `*updateCxt`: UpdateContext for tracking update-specific state and results
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecUpdatePrepareSlot](ExecUpdatePrepareSlot.md)

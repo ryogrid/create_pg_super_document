@@ -18,9 +18,8 @@ guc_strdup(int elevel, const char *src)
 The function leverages the existing  infrastructure for memory allocation, which ensures consistent error handling and memory context management. It uses  branch prediction hints to optimize for the common case where memory allocation succeeds.
 
 ## Parameters / Member Variables
-- : Error level to use when reporting out-of-memory conditions (e.g., ERROR, WARNING, LOG)
-- : Pointer to the null-terminated source string to duplicate
-
+- `elevel`: Error level to use when reporting out-of-memory conditions (e.g., ERROR, WARNING, LOG)
+- `*src`: Pointer to the null-terminated source string to duplicate
 ## Dependencies
 - Functions called/Symbols referenced:
   - [guc_malloc](guc_malloc.md) (for memory allocation)

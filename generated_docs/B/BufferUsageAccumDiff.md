@@ -22,10 +22,9 @@ This function is essential for PostgreSQL's query instrumentation system, allowi
 The function handles all three categories of buffer usage (shared, local, and temporary) and their associated timing measurements, using specialized macros for proper time arithmetic.
 
 ## Parameters / Member Variables
-- : Pointer to the destination BufferUsage structure that will accumulate the computed differences
-- : Pointer to the BufferUsage structure representing the ending state (higher counter values)
-- : Pointer to the BufferUsage structure representing the starting state (lower counter values)
-
+- `*dst`: Pointer to the destination BufferUsage structure that will accumulate the computed differences
+- `*add`: Pointer to the BufferUsage structure representing the ending state (higher counter values)
+- `*sub`: Pointer to the BufferUsage structure representing the starting state (lower counter values)
 ## Dependencies
 - Functions called/Symbols referenced:
   - INSTR_TIME_ACCUM_DIFF (macro for computing and accumulating timing differences)

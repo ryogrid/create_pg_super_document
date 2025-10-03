@@ -20,13 +20,12 @@ manifest_process_file(JsonManifestParseContext *context,
 This function is a callback that gets invoked during backup manifest parsing for every file entry encountered. It extracts and stores essential file metadata (path and size) in the IncrementalBackupInfo structure's manifest_files hash table. The function performs memory management by duplicating the pathname string in the appropriate memory context and only processes new entries (avoiding duplicates). While checksum-related parameters are provided, they are not currently used by this implementation, focusing instead on basic file tracking for incremental backup validation.
 
 ## Parameters / Member Variables
-- : JsonManifestParseContext pointer containing parsing state and private data
-- : Path string of the file being processed from the manifest
-- : Size of the file in bytes
-- : Type of checksum algorithm used (not currently utilized)
-- : Length of the checksum data (not currently utilized)  
-- : Actual checksum bytes (not currently utilized)
-
+- `*context`: JsonManifestParseContext pointer containing parsing state and private data
+- `*pathname`: Path string of the file being processed from the manifest
+- `size`: Size of the file in bytes
+- `checksum_type`: Type of checksum algorithm used (not currently utilized)
+- `checksum_length`: Length of the checksum data (not currently utilized)
+- `*checksum_payload`: Actual checksum bytes (not currently utilized)
 ## Dependencies
 - Functions called/Symbols referenced:
   - backup_file_insert

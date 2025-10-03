@@ -21,8 +21,7 @@ The implementation uses platform-specific optimizations:
 3. Fallback implementation that processes bytes from right to left using a lookup table
 
 ## Parameters / Member Variables
-- : A 32-bit unsigned integer that must not be zero (the function asserts this precondition)
-
+- `word`: A 32-bit unsigned integer that must not be zero (the function asserts this precondition)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (GCC/Clang builtin, when available)

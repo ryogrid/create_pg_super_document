@@ -18,9 +18,8 @@ This static function manages the dynamic growth of a GinEntries buffer by adding
 The function is essential for building GIN index entries during JSONB processing, where the number of entries to be extracted is not known in advance. It provides a clean interface for incrementally building the entry collection while managing memory allocation internally.
 
 ## Parameters / Member Variables
-- : Pointer to the GinEntries structure to add the entry to
-- : The Datum value to be added to the buffer
-
+- `*entries`: Pointer to the GinEntries structure to add the entry to
+- `entry`: The Datum value to be added to the buffer
 ## Return Value
 - Returns the index (ID) of the newly added entry within the buffer (0-based)
 

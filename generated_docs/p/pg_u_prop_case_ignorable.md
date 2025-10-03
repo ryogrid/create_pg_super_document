@@ -20,8 +20,7 @@ The function uses a two-tier approach for efficiency:
 2. For non-ASCII characters, it performs a binary search in the  range table
 
 ## Parameters / Member Variables
-- : The Unicode code point (pg_wchar) to test for the Case_Ignorable property
-
+- `code`: The Unicode code point (pg_wchar) to test for the Case_Ignorable property
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_U_PROP_CASE_IGNORABLE (constant/macro)

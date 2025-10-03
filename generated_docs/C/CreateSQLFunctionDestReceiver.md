@@ -25,6 +25,7 @@ The created receiver is marked with DestSQLFunction destination type, identifyin
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc0](../p/palloc0.md) (allocates zero-initialized memory)

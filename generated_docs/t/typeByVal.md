@@ -18,8 +18,7 @@ The  function extracts the  attribute from a PostgreSQL type structure. This boo
 This function provides a clean interface to access the  field from the  system catalog without requiring direct manipulation of the type structure.
 
 ## Parameters / Member Variables
-- : A Type structure (HeapTuple) representing a row from the pg_type system catalog
-
+- `t`: A Type structure (HeapTuple) representing a row from the pg_type system catalog
 ## Dependencies
 - Functions called/Symbols referenced:
   - Type (typedef for HeapTuple)

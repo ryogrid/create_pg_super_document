@@ -20,7 +20,6 @@ The function serves a specific optimization purpose: while syscaches can be init
 The function iterates through all system caches and calls InitCatCachePhase2() for each one, enabling immediate database access for cache population.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

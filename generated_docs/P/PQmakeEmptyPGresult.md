@@ -18,9 +18,8 @@ PQmakeEmptyPGresult allocates and initializes a new PGresult structure with all 
 The function carefully handles memory allocation and ensures proper initialization of all PGresult fields. For error status types, it automatically copies the connection's current error message, providing consistent error reporting. The event duplication occurs last to ensure the result is in a valid state before potentially failing operations.
 
 ## Parameters / Member Variables
-- : Connection object to copy properties from (can be NULL for minimal initialization)
-- : ExecStatusType indicating the result status (success, error, etc.)
-
+- `*conn`: Connection object to copy properties from (can be NULL for minimal initialization)
+- `status`: ExecStatusType indicating the result status (success, error, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   - malloc

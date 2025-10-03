@@ -18,10 +18,9 @@ The  function serves as the validation hook for PostgreSQL's  configuration para
 The function attempts to load the timezone using  and performs additional validation to ensure the timezone is acceptable for PostgreSQL's use. If validation succeeds, it allocates memory to store the timezone information for the subsequent assignment operation.
 
 ## Parameters / Member Variables
-- : Pointer to the new timezone string value to be validated
-- : Pointer to store additional data (pg_tz structure) for the assign hook
-- : The source of the GUC setting (not used in validation logic)
-
+- `**newval`: Pointer to the new timezone string value to be validated
+- `**extra`: Pointer to store additional data (pg_tz structure) for the assign hook
+- `source`: The source of the GUC setting (not used in validation logic)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_tzset](../p/pg_tzset.md)

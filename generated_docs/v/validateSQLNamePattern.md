@@ -26,17 +26,16 @@ This function serves as a validation wrapper around the processSQLNamePattern fu
 The function integrates pattern processing with safety checks to prevent common errors and security issues in psql's describe commands.
 
 ## Parameters / Member Variables
-- : PQExpBuffer to append the generated WHERE clause to
-- : The input pattern string (may contain wildcards, dots for qualification)
-- : Whether the query already has a WHERE clause (affects AND/WHERE choice)
-- : Whether to force escaping of special characters
-- : SQL variable name for the schema column
-- : SQL variable name for the object name column
-- : Alternative name variable (can be NULL)
-- : SQL expression for visibility checking (can be NULL)
-- : Output parameter indicating whether a clause was actually added
-- : Maximum number of dotted name parts allowed (e.g., 3 for database.schema.table)
-
+- `buf`: PQExpBuffer to append the generated WHERE clause to
+- `*pattern`: The input pattern string (may contain wildcards, dots for qualification)
+- `have_where`: Whether the query already has a WHERE clause (affects AND/WHERE choice)
+- `force_escape`: Whether to force escaping of special characters
+- `*schemavar`: SQL variable name for the schema column
+- `*namevar`: SQL variable name for the object name column
+- `*altnamevar`: Alternative name variable (can be NULL)
+- `*visibilityrule`: SQL expression for visibility checking (can be NULL)
+- `*added_clause`: Output parameter indicating whether a clause was actually added
+- `maxparts`: Maximum number of dotted name parts allowed (e.g., 3 for database.schema.table)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQExpBufferData](../P/PQExpBufferData.md) (data structure)

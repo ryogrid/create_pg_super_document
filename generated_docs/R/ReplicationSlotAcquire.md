@@ -18,9 +18,8 @@ ReplicationSlotAcquire locates a replication slot by name and attempts to acquir
 The function uses a combination of lightweight locks and condition variables to coordinate slot access between processes. It employs a retry mechanism for the blocking case, using condition variables to sleep until the owning process releases the slot. Upon successful acquisition, it sets up statistics tracking for logical slots and logs the acquisition for WAL senders.
 
 ## Parameters / Member Variables
-- : The name of the replication slot to acquire (must not be NULL)
-- : If true, error immediately if slot is in use; if false, wait for slot to become available
-
+- `*name`: The name of the replication slot to acquire (must not be NULL)
+- `nowait`: If true, error immediately if slot is in use; if false, wait for slot to become available
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchNamedReplicationSlot](../S/SearchNamedReplicationSlot.md)

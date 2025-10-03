@@ -16,8 +16,7 @@ JsonTablePlanNextRow(JsonTablePlanState *planstate)
 This function serves as a polymorphic dispatcher for different types of JSON table plans. It examines the plan type stored in the planstate and calls the appropriate specialized function to advance to the next row. The function supports two main plan types: JsonTablePathScan for scanning operations and JsonTableSiblingJoin for join operations. If an invalid plan type is encountered, the function raises an error.
 
 ## Parameters / Member Variables
-- : Pointer to JsonTablePlanState structure containing the current state of the JSON table plan execution, including the plan type and associated data
-
+- `*planstate`: Pointer to JsonTablePlanState structure containing the current state of the JSON table plan execution, including the plan type and associated data
 ## Dependencies
 - Functions called/Symbols referenced:
   - [JsonTablePlanScanNextRow](JsonTablePlanScanNextRow.md) (for JsonTablePathScan plans)

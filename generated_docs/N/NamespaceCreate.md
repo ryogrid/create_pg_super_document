@@ -16,10 +16,9 @@ NamespaceCreate(const char *nspName, Oid ownerId, bool isTemp)
 NamespaceCreate is the core function responsible for creating new namespaces (schemas) in PostgreSQL's catalog system. It performs comprehensive validation, inserts the new namespace record into the pg_namespace system catalog, and establishes all necessary dependencies. The function handles both regular schemas and temporary schemas, with special treatment for temporary schemas to prevent them from being linked as extension members and to skip default ACL processing. The function ensures proper locking, generates a unique OID for the namespace, and invokes post-creation hooks for extensibility.
 
 ## Parameters / Member Variables
-- : The name of the namespace to be created; must not be NULL and must be unique within the database
-- : The OID of the role that will own the new namespace
-- : Boolean flag indicating whether this is a temporary schema; affects extension membership and ACL processing
-
+- `*nspName`: The name of the namespace to be created; must not be NULL and must be unique within the database
+- `ownerId`: The OID of the role that will own the new namespace
+- `isTemp`: Boolean flag indicating whether this is a temporary schema; affects extension membership and ACL processing
 ## Dependencies
 - Functions called/Symbols referenced:
   - SearchSysCacheExists1: Check for existing namespace with the same name

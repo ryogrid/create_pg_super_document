@@ -21,6 +21,7 @@ This initialization function is part of the WAL resource manager interface and i
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [createTempGistContext](../c/createTempGistContext.md): Creates a temporary memory context for GiST operations

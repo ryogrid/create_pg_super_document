@@ -23,8 +23,7 @@ This function is a wrapper around the system's kill() function that sends a sign
 The function is typically used by pg_ctl for sending various signals to PostgreSQL server processes, such as SIGTERM for shutdown, SIGHUP for configuration reload, etc.
 
 ## Parameters / Member Variables
-- : The process ID of the target process to send the signal to
-
+- `pid`: The process ID of the target process to send the signal to
 ## Dependencies
 - Functions called/Symbols referenced:
   - kill (system call)

@@ -21,7 +21,6 @@ The function operates by:
 4. Initializing the state pointer to NULL for the new subtransaction level
 
 ## Parameters / Member Variables
-None - the function takes no parameters and determines the transaction level internally.
 
 ## Dependencies
 - Functions called/Symbols referenced:

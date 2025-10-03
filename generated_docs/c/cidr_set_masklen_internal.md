@@ -24,9 +24,8 @@ The function performs several key operations:
 6. Sets the proper variable-length header
 
 ## Parameters / Member Variables
-- : Source  structure containing the original network address
-- : New mask length in bits (must be valid for the address family)
-
+- `*src`: Source  structure containing the original network address
+- `bits`: New mask length in bits (must be valid for the address family)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (memory allocation)

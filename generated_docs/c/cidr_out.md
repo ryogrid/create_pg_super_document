@@ -16,8 +16,7 @@ cidr_out(PG_FUNCTION_ARGS)
 The  function is a PostgreSQL type output function that converts a CIDR network address from its internal binary representation to a human-readable string format. It serves as the external representation function for the CIDR data type, which is used to represent network addresses with subnet masks in PostgreSQL. The function delegates the actual formatting work to the  helper function, specifying that it should format the output as a CIDR value (with the subnet mask included).
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function argument macro that provides access to function arguments and context. The first argument (index 0) contains the inet/cidr value to be converted.
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument macro that provides access to function arguments and context. The first argument (index 0) contains the inet/cidr value to be converted.
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Extracts the inet pointer from function arguments

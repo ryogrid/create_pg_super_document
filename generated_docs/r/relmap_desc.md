@@ -18,9 +18,8 @@ The  function is a WAL record description function specifically designed for rel
 The function examines the WAL record type and, for  records, extracts and displays the database ID, tablespace ID, and the size of the relmap data being updated.
 
 ## Parameters / Member Variables
-- : A StringInfo buffer where the formatted description will be appended
-- : A pointer to the XLogReaderState containing the WAL record data to be described
-
+- `buf`: A StringInfo buffer where the formatted description will be appended
+- `*record`: A pointer to the XLogReaderState containing the WAL record data to be described
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Retrieves the data portion of the WAL record

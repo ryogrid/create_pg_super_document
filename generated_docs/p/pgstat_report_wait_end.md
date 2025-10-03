@@ -20,7 +20,6 @@ The function performs an atomic write to clear the wait event status, complement
 This function is typically called immediately after the corresponding wait condition is resolved, such as after completing I/O operations, acquiring locks, or finishing other blocking operations.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

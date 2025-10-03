@@ -18,8 +18,7 @@ The  function writes the current write chunk buffer to the backing BufFile and p
 This function is called internally when the current write chunk becomes full and needs to be persisted to disk, allowing the buffer to be reused for additional tuple data.
 
 ## Parameters / Member Variables
-- : SharedTuplestoreAccessor containing the write state and buffer to flush
-
+- `*accessor`: SharedTuplestoreAccessor containing the write state and buffer to flush
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SharedTuplestoreAccessor](../S/SharedTuplestoreAccessor.md) (struct type)

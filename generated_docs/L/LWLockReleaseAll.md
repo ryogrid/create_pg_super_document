@@ -19,7 +19,6 @@ A critical aspect of this function is that it preserves the InterruptHoldoffCoun
 The function operates by iterating through the held_lwlocks array from the most recently acquired lock backward, calling HOLD_INTERRUPTS() before each LWLockRelease() call to maintain proper interrupt handling.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -20,9 +20,8 @@ The function handles special cases for IEEE floating-point arithmetic, particula
 The binary search algorithm efficiently narrows down the search space by comparing the operand against the middle threshold value and adjusting the search bounds accordingly.
 
 ## Parameters / Member Variables
-- : The float8 value to be bucketed (passed as Datum)
-- : ArrayType containing sorted float8 threshold values with no NULLs
-
+- `operand`: The float8 value to be bucketed (passed as Datum)
+- `*thresholds`: ArrayType containing sorted float8 threshold values with no NULLs
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DatumGetFloat8](../D/DatumGetFloat8.md)

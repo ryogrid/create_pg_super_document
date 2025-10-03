@@ -20,10 +20,9 @@ PrefetchSharedBuffer is the core implementation function for prefetching blocks 
 The function follows a non-blocking approach - it only performs a shared lock on the buffer partition during the lookup phase and does not pin buffers or modify usage counts. This design prevents interference with normal buffer management while providing performance benefits for sequential access patterns.
 
 ## Parameters / Member Variables
-- : Storage manager relation handle for the target relation
-- : Fork number identifying which fork of the relation to prefetch from
-- : Block number within the fork to prefetch
-
+- `smgr_reln`: Storage manager relation handle for the target relation
+- `forkNum`: Fork number identifying which fork of the relation to prefetch from
+- `blockNum`: Block number within the fork to prefetch
 ## Dependencies
 - Functions called/Symbols referenced:
   - [InitBufferTag](../I/InitBufferTag.md): Creates buffer tag for block identification

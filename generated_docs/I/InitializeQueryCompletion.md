@@ -18,8 +18,7 @@ This function performs basic initialization of a QueryCompletion structure by se
 The function is typically called before executing queries to ensure the completion information starts from a clean state, preventing stale data from previous operations from persisting.
 
 ## Parameters / Member Variables
-- : Pointer to the QueryCompletion structure to initialize
-
+- `*qc`: Pointer to the QueryCompletion structure to initialize
 ## Dependencies
 - Functions called/Symbols referenced:
   - [QueryCompletion](../Q/QueryCompletion.md) (struct type)

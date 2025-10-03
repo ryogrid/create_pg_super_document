@@ -20,9 +20,8 @@ The function uses a switch statement to handle different wakeup reasons, each wi
 The calculated wakeup times are stored in a global wakeup array indexed by the wakeup reason, allowing the main WAL receiver loop to efficiently determine when to perform each type of operation.
 
 ## Parameters / Member Variables
-- : WalRcvWakeupReason enum value indicating which type of wakeup time to compute (TERMINATE, PING, HSFEEDBACK, or REPLY)
-- : TimestampTz representing the current time, provided by the caller to avoid redundant timestamp calls
-
+- `reason`: WalRcvWakeupReason enum value indicating which type of wakeup time to compute (TERMINATE, PING, HSFEEDBACK, or REPLY)
+- `now`: TimestampTz representing the current time, provided by the caller to avoid redundant timestamp calls
 ## Dependencies
 - Functions called/Symbols referenced:
   - TimestampTzPlusMilliseconds

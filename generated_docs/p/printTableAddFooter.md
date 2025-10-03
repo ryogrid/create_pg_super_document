@@ -18,9 +18,8 @@ This function adds a footer to a printTableContent structure by creating a new p
 The design assumes that footers are typically composed of individually translated components rather than being translated as complete strings, which is why the translation behavior differs from other table elements.
 
 ## Parameters / Member Variables
-- : Pointer to the printTableContent structure that will contain the footer
-- : The string content to add as a footer (will be duplicated via pg_strdup)
-
+- `content`: Pointer to the printTableContent structure that will contain the footer
+- `*footer`: The string content to add as a footer (will be duplicated via pg_strdup)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_malloc0](pg_malloc0.md) (PostgreSQL memory allocation)

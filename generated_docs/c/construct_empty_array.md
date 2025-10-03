@@ -18,8 +18,7 @@ The construct_empty_array function creates the most basic form of array in Postg
 The resulting array has ndim set to 0, dataoffset set to 0 (indicating no null bitmap), and only contains the element type information. This represents the canonical empty array in PostgreSQL's type system.
 
 ## Parameters / Member Variables
-- : OID of the data type that the empty array would contain if it had elements
-
+- `elmtype`: OID of the data type that the empty array would contain if it had elements
 ## Dependencies
 - Functions called/Symbols referenced:
   - SET_VARSIZE

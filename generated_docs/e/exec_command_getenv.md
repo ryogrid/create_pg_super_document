@@ -17,10 +17,9 @@ exec_command_getenv(PsqlScanState scan_state, bool active_branch,
 This function handles the \getenv backslash command which takes two arguments: a psql variable name and an environment variable name. It reads the value from the specified environment variable and assigns it to the psql variable. If the environment variable doesn't exist, the psql variable is not set. The function performs argument validation and provides error messages for missing required arguments.
 
 ## Parameters / Member Variables
-- : Scanner state for reading command arguments from input stream
-- : Whether to actually execute the command (true) or just parse arguments (false)
-- : The command name for error reporting
-
+- `scan_state`: Scanner state for reading command arguments from input stream
+- `active_branch`: Whether to actually execute the command (true) or just parse arguments (false)
+- `*cmd`: The command name for error reporting
 ## Dependencies
 - Functions called/Symbols referenced:
   - psql_scan_slash_option

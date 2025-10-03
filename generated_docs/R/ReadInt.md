@@ -16,8 +16,7 @@ ReadInt(ArchiveHandle *AH)
 ReadInt is the counterpart to WriteInt, deserializing a signed integer from an archive stream. The function handles backward compatibility with older archive versions (1.0 and earlier) that did not include a sign byte. For newer versions, it reads an explicit sign byte followed by the magnitude in little-endian byte order, then applies the sign to reconstruct the original integer value. The function reconstructs the integer by accumulating bytes with appropriate bit shifting.
 
 ## Parameters / Member Variables
-- : Archive handle containing the input stream and configuration (including version and intSize)
-
+- `*AH`: Archive handle containing the input stream and configuration (including version and intSize)
 ## Dependencies
 - Functions called/Symbols referenced:
   - K_VERS_1_0 (archive version constant for backward compatibility)

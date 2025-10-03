@@ -17,13 +17,12 @@ LookupOperName(ParseState *pstate, List *opername, Oid oprleft, Oid oprright,
 LookupOperName searches for an operator given its name (possibly schema-qualified) and the exact OIDs of its left and right operand types. The function uses the current namespace search path when the operator name is not schema-qualified. It provides flexible error handling - either returning InvalidOid or raising an error when the operator is not found. The function specifically checks for unsupported postfix operators and provides detailed error messages with position information.
 
 ## Parameters / Member Variables
-- : Parse state for error reporting context (can be NULL)
-- : List containing the operator name (possibly schema-qualified)
-- : OID of the left operand type (use InvalidOid for prefix operators)
-- : OID of the right operand type
-- : If true, return InvalidOid on failure; if false, raise an error
-- : Token location for error reporting (use -1 if not available)
-
+- `*pstate`: Parse state for error reporting context (can be NULL)
+- `*opername`: List containing the operator name (possibly schema-qualified)
+- `oprleft`: OID of the left operand type (use InvalidOid for prefix operators)
+- `oprright`: OID of the right operand type
+- `noError`: If true, return InvalidOid on failure; if false, raise an error
+- `location`: Token location for error reporting (use -1 if not available)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [OpernameGetOprid](../O/OpernameGetOprid.md)

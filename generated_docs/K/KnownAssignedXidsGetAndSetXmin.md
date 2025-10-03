@@ -26,10 +26,9 @@ This function extends the functionality of KnownAssignedXidsGet by not only retr
 The function is critical for snapshot creation and transaction visibility determination in PostgreSQL's Hot Standby implementation.
 
 ## Parameters / Member Variables
-- : Output array where retrieved transaction IDs will be stored. Caller must ensure sufficient space.
-- : Pointer to the minimum transaction ID value. Will be updated to the lowest transaction ID found if applicable.
-- : Maximum transaction ID threshold. Transaction IDs >= this value are filtered out.
-
+- `*xarray`: Output array where retrieved transaction IDs will be stored. Caller must ensure sufficient space.
+- `*xmin`: Pointer to the minimum transaction ID value. Will be updated to the lowest transaction ID found if applicable.
+- `xmax`: Maximum transaction ID threshold. Transaction IDs >= this value are filtered out.
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_read_barrier

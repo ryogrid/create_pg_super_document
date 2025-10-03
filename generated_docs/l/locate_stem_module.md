@@ -16,9 +16,8 @@ locate_stem_module(DictSnowball *d, const char *lang)
 The function searches for a compatible Snowball stemmer module through a two-phase approach. First, it attempts to find an exact match for the specified language that works with the current database encoding (ASCII stemmers are considered compatible with any encoding). If no exact match is found, it falls back to searching for a UTF-8 version of the stemmer and sets up encoding conversion if necessary. The function throws an error if no suitable stemmer is available for the language-encoding combination.
 
 ## Parameters / Member Variables
-- : Pointer to DictSnowball structure that will be configured with the found stemmer
-- : String specifying the target language for stemming (e.g., "english", "spanish")
-
+- `*d`: Pointer to DictSnowball structure that will be configured with the found stemmer
+- `*lang`: String specifying the target language for stemming (e.g., "english", "spanish")
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md)

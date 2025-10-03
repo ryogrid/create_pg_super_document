@@ -18,10 +18,9 @@ This function executes a prepared SQL plan (PLyPlanObject) with the provided par
 The execution occurs within a subtransaction to provide proper error handling and resource cleanup. Parameter conversion is handled through PLy_output_convert, which uses the pre-configured conversion functions set up when the plan was prepared. The function respects the read-only status of the current procedure and applies any specified row limit.
 
 ## Parameters / Member Variables
-- : PLyPlanObject containing the prepared plan and parameter type information
-- : Python sequence containing parameter values (can be NULL for parameterless plans)
-- : Maximum number of rows to return (0 for no limit)
-
+- `*ob`: PLyPlanObject containing the prepared plan and parameter type information
+- `*list`: Python sequence containing parameter values (can be NULL for parameterless plans)
+- `limit`: Maximum number of rows to return (0 for no limit)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PLy_current_execution_context](PLy_current_execution_context.md): Gets current execution context

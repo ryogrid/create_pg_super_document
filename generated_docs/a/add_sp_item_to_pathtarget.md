@@ -20,9 +20,8 @@ The function first searches for a pre-existing entry in the PathTarget that matc
 The design assumes that the target PathTarget does not already contain duplicate sortgrouprefs, which should be guaranteed if the original target passed to split_pathtarget_at_srfs was properly formed.
 
 ## Parameters / Member Variables
-- : The PathTarget to which the item should be added
-- : The split_pathtarget_item containing the expression and sortgroupref to be added
-
+- `*target`: The PathTarget to which the item should be added
+- `*item`: The split_pathtarget_item containing the expression and sortgroupref to be added
 ## Dependencies
 - Functions called/Symbols referenced:
   - get_pathtarget_sortgroupref

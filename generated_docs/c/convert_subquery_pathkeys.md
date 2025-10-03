@@ -26,11 +26,10 @@ For non-volatile classes, the function evaluates each possible representation by
 The conversion process stops when a subquery pathkey cannot be represented in the outer query, as subsequent pathkeys would also be unusable.
 
 ## Parameters / Member Variables
-- : PlannerInfo containing the outer query's planning context and equivalence classes
-- : RelOptInfo representing the subquery relation in the outer query
-- : List of PathKey objects representing the subquery's output ordering
-- : The subquery's target list for matching expressions to outer query variables
-
+- `*root`: PlannerInfo containing the outer query's planning context and equivalence classes
+- `*rel`: RelOptInfo representing the subquery relation in the outer query
+- `*subquery_pathkeys`: List of PathKey objects representing the subquery's output ordering
+- `*subquery_tlist`: The subquery's target list for matching expressions to outer query variables
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_sortgroupref_tle](../g/get_sortgroupref_tle.md) (to find targetlist entries by sortref)

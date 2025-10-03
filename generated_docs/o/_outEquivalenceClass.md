@@ -20,9 +20,8 @@ The function first traverses any merge chain by following ec_merged pointers to 
 The output includes security-related fields (ec_min_security, ec_max_security) and optimization hints (ec_has_const, ec_has_volatile, ec_broken) that influence how the query planner uses this equivalence class for optimization decisions.
 
 ## Parameters / Member Variables
-- : StringInfo buffer where the serialized output is appended
-- : Pointer to the EquivalenceClass node to be serialized
-
+- `str`: StringInfo buffer where the serialized output is appended
+- `*node`: Pointer to the EquivalenceClass node to be serialized
 ## Dependencies
 - Functions called/Symbols referenced:
   - WRITE_NODE_TYPE

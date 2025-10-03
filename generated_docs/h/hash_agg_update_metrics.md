@@ -18,10 +18,9 @@ This function updates various metrics related to hash aggregation performance af
 The function only operates when the aggregation strategy is either AGG_MIXED or AGG_HASHED, returning early for other strategies.
 
 ## Parameters / Member Variables
-- : The AggState structure containing the hash aggregation state and metrics
-- : Boolean indicating whether data is being read from tape (true) or from the outer plan (false)
-- : Number of partitions used in the hash aggregation, affects buffer memory calculation
-
+- `*aggstate`: The AggState structure containing the hash aggregation state and metrics
+- `from_tape`: Boolean indicating whether data is being read from tape (true) or from the outer plan (false)
+- `npartitions`: Number of partitions used in the hash aggregation, affects buffer memory calculation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContextMemAllocated](../M/MemoryContextMemAllocated.md)

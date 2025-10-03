@@ -18,10 +18,9 @@ This function is called during WAL replay of COMMIT/ROLLBACK operations when Pos
 The function operates by first releasing locks for the main transaction, then iterating through all subtransactions to release their locks as well. This ensures complete cleanup of the lock tree structure during transaction completion in standby recovery.
 
 ## Parameters / Member Variables
-- : The main transaction ID whose locks should be released
-- : The number of subtransactions in the transaction tree
-- : Array of subtransaction IDs whose locks should also be released
-
+- `xid`: The main transaction ID whose locks should be released
+- `nsubxids`: The number of subtransactions in the transaction tree
+- `*subxids`: Array of subtransaction IDs whose locks should also be released
 ## Dependencies
 - Functions called/Symbols referenced:
   - [StandbyReleaseLocks](StandbyReleaseLocks.md)

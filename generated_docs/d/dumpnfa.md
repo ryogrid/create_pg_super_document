@@ -19,9 +19,8 @@ The  function provides a comprehensive textual dump of an NFA structure, includi
 The function iterates through all states in the NFA, calling  for each one to provide detailed state information. It also displays color information if the NFA is a top-level (parent) NFA, and provides summary statistics about the total structure size.
 
 ## Parameters / Member Variables
-- : Pointer to the NFA structure to be dumped
-- : File stream where the dump output will be written
-
+- `*nfa`: Pointer to the NFA structure to be dumped
+- `*f`: File stream where the dump output will be written
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dumpstate](dumpstate.md) (for dumping individual state information)

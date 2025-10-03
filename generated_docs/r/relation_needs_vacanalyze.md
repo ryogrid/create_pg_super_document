@@ -32,15 +32,14 @@ The vacuum threshold formula is:
 The analyze threshold uses similar logic for tuples modified since last analyze.
 
 ## Parameters / Member Variables
-- : OID of the relation being evaluated
-- : Autovacuum options from table's reloptions (NULL if using defaults)
-- : pg_class catalog entry containing relation metadata
-- : Statistics entry from pgstats (NULL if no stats available)
-- : Maximum age for multixact freeze decisions
-- : (Output) Whether vacuum is needed
-- : (Output) Whether analyze is needed  
-- : (Output) Whether vacuum is forced due to wraparound risk
-
+- `relid`: OID of the relation being evaluated
+- `*relopts`: Autovacuum options from table's reloptions (NULL if using defaults)
+- `classForm`: pg_class catalog entry containing relation metadata
+- `*tabentry`: Statistics entry from pgstats (NULL if no stats available)
+- `effective_multixact_freeze_max_age`: Maximum age for multixact freeze decisions
+- `*dovacuum`: (Output) Whether vacuum is needed
+- `*doanalyze`: (Output) Whether analyze is needed
+- `*wraparound`: (Output) Whether vacuum is forced due to wraparound risk
 ## Dependencies
 - Functions called/Symbols referenced:
   - TransactionIdIsNormal

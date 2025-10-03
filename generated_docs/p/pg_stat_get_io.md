@@ -18,8 +18,7 @@ This function implements the backend logic for PostgreSQL's pg_stat_io system vi
 The function uses a set-returning function (SRF) pattern to generate multiple rows of data, iterating through all valid combinations of backend types, I/O objects, and I/O contexts. For each valid combination, it reports statistics for different I/O operations (reads, writes, extends, etc.) including both operation counts and timing data converted from microseconds to milliseconds.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function argument structure for set-returning functions
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument structure for set-returning functions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [InitMaterializedSRF](../I/InitMaterializedSRF.md) (initialize set-returning function)

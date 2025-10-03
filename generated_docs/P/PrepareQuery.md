@@ -17,11 +17,10 @@ PrepareQuery(ParseState *pstate, PrepareStmt *stmt,
 PrepareQuery processes a PREPARE SQL statement by creating a cached plan source that can be executed multiple times with different parameter values. The function validates the statement name, wraps the query in a RawStmt node, performs parse analysis and query rewriting, and stores the resulting prepared statement for future use. It handles parameter type resolution either from explicitly specified types or by inferring them from the query context.
 
 ## Parameters / Member Variables
-- : Parse state containing parsing context and source text information
-- : PrepareStmt node containing the statement name, query, and optional parameter types
-- : Starting location of the statement in the source text
-- : Length of the statement in the source text
-
+- `*pstate`: Parse state containing parsing context and source text information
+- `*stmt`: PrepareStmt node containing the statement name, query, and optional parameter types
+- `stmt_location`: Starting location of the statement in the source text
+- `stmt_len`: Length of the statement in the source text
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (creates RawStmt)

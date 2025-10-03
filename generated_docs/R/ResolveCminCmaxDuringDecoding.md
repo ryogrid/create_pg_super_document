@@ -27,13 +27,12 @@ The function works by:
 This function is essential for maintaining MVCC (Multi-Version Concurrency Control) semantics during logical replication, ensuring that tuple visibility is correctly determined based on transaction boundaries and command sequences.
 
 ## Parameters / Member Variables
-- : Hash table containing tuple command ID mappings; NULL when streaming in-progress transactions
-- : Snapshot context providing transaction visibility information
-- : The heap tuple for which command IDs need to be resolved
-- : Buffer containing the tuple, used to extract relation file locator information
-- : Output parameter for the minimum command ID (when tuple was created/modified)
-- : Output parameter for the maximum command ID (when tuple was deleted/updated)
-
+- `*tuplecid_data`: Hash table containing tuple command ID mappings; NULL when streaming in-progress transactions
+- `snapshot`: Snapshot context providing transaction visibility information
+- `htup`: The heap tuple for which command IDs need to be resolved
+- `buffer`: Buffer containing the tuple, used to extract relation file locator information
+- `*cmin`: Output parameter for the minimum command ID (when tuple was created/modified)
+- `*cmax`: Output parameter for the maximum command ID (when tuple was deleted/updated)
 ## Dependencies
 - Functions called/Symbols referenced:
   - BufferIsLocal

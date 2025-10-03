@@ -20,8 +20,7 @@ The function uses a static buffer approach for string storage, which means the r
 The timestamp format follows the ISO-style pattern "YYYY-MM-DD HH:MM:SS TZ" which provides both date and time information along with timezone designation, making it suitable for log entries and diagnostic output.
 
 ## Parameters / Member Variables
-- : A pg_time_t value representing the timestamp to be formatted into a string
-
+- `tnow`: A pg_time_t value representing the timestamp to be formatted into a string
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_strftime](../p/pg_strftime.md): PostgreSQL's timezone-aware strftime implementation

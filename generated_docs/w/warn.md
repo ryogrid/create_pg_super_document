@@ -22,6 +22,7 @@ This function is part of the ECPG compatibility layer for Oracle, specifically u
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - fprintf (standard C library function)

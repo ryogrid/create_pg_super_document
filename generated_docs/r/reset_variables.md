@@ -18,7 +18,6 @@ The  function initializes the global argument list variables  and  to NULL. Thes
 The function is part of PostgreSQL's Embedded SQL (ECPG) preprocessor, which translates embedded SQL statements in C programs into appropriate PostgreSQL libpq calls.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

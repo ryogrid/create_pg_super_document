@@ -18,9 +18,8 @@ This function provides size estimation for relations that represent table functi
 The function performs basic validation to ensure it's operating on a valid base relation with a table function range table entry type, then sets a fixed tuple count and delegates remaining size estimation work to .
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing query planning context and global information
-- : RelOptInfo structure representing the relation being sized, must be a base relation with table function RTE
-
+- `*root`: PlannerInfo structure containing query planning context and global information
+- `*rel`: RelOptInfo structure representing the relation being sized, must be a base relation with table function RTE
 ## Dependencies
 - Functions called/Symbols referenced:
   - planner_rt_fetch

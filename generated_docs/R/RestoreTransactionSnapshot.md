@@ -18,9 +18,8 @@ RestoreTransactionSnapshot is a convenience wrapper function that installs a pre
 The function uses a void pointer for the source_pgproc parameter to avoid including PGPROC declarations in snapmgr.h, maintaining clean header dependencies.
 
 ## Parameters / Member Variables
-- : The snapshot structure to install as the transaction snapshot (typically from RestoreSnapshot)
-- : Pointer to the PGPROC structure of the source process (cast to void* for header independence)
-
+- `snapshot`: The snapshot structure to install as the transaction snapshot (typically from RestoreSnapshot)
+- `*source_pgproc`: Pointer to the PGPROC structure of the source process (cast to void* for header independence)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SetTransactionSnapshot](../S/SetTransactionSnapshot.md) (core function for installing transaction snapshots)

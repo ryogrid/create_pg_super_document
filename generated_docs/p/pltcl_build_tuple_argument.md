@@ -18,10 +18,9 @@ This function converts a PostgreSQL HeapTuple into a Tcl list object that can be
 The function skips dropped attributes and can optionally include or exclude generated columns based on the include_generated parameter. For non-null values, it retrieves the appropriate output function for the attribute's data type and converts the value to a string format that Tcl can understand.
 
 ## Parameters / Member Variables
-- : The HeapTuple containing the row data to be converted
-- : The TupleDesc describing the structure and metadata of the tuple
-- : Boolean flag indicating whether to include generated columns in the result
-
+- `tuple`: The HeapTuple containing the row data to be converted
+- `tupdesc`: The TupleDesc describing the structure and metadata of the tuple
+- `include_generated`: Boolean flag indicating whether to include generated columns in the result
 ## Dependencies
 - Functions called/Symbols referenced:
   - [heap_getattr](../h/heap_getattr.md)

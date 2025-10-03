@@ -26,9 +26,8 @@ This function is the inner tuple counterpart to MJEvalOuterValues, evaluating me
 The function leverages the assumption that mergejoin operators are strict to enable these performance optimizations.
 
 ## Parameters / Member Variables
-- : The MergeJoinState containing join state, merge clauses, and execution context
-- : The TupleTableSlot to evaluate (either current inner or marked inner tuple)
-
+- `*mergestate`: The MergeJoinState containing join state, merge clauses, and execution context
+- `*innerslot`: The TupleTableSlot to evaluate (either current inner or marked inner tuple)
 ## Dependencies
 - Functions called/Symbols referenced:
   - TupIsNull

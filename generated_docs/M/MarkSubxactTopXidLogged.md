@@ -21,6 +21,7 @@ This is a critical component of PostgreSQL's logical decoding infrastructure, as
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [IsSubxactTopXidLogPending](../I/IsSubxactTopXidLogPending.md) (in assertion)

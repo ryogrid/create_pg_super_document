@@ -28,10 +28,9 @@ The function includes the same three-strategy approach as moveins() but with the
 The function asserts that newState->nins == 0 to enforce that it should only be called with empty target states.
 
 ## Parameters / Member Variables
-- : Pointer to the NFA structure containing the states
-- : Source state whose incoming arcs will be copied
-- : Destination state that will receive copies of the arcs (must be empty)
-
+- `*nfa`: Pointer to the NFA structure containing the states
+- `*oldState`: Source state whose incoming arcs will be copied
+- `*newState`: Destination state that will receive copies of the arcs (must be empty)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [createarc](createarc.md) (creates new arc)

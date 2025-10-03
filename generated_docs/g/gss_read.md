@@ -22,11 +22,10 @@ Key behaviors:
 - Returns detailed status information for non-blocking operation patterns
 
 ## Parameters / Member Variables
-- : PostgreSQL connection object containing socket information
-- : Buffer where received data will be stored
-- : Maximum number of bytes to read into the buffer
-- : Output parameter storing the actual number of bytes read or error code
-
+- `*conn`: PostgreSQL connection object containing socket information
+- `*recv_buffer`: Buffer where received data will be stored
+- `length`: Maximum number of bytes to read into the buffer
+- `*ret`: Output parameter storing the actual number of bytes read or error code
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pqsecure_raw_read](../p/pqsecure_raw_read.md) (low-level socket read function)

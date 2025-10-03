@@ -18,9 +18,8 @@ The  function searches through a linked list of arguments to find and remove a n
 The function uses pointer comparison for identification, meaning it removes the first occurrence of a node containing the exact same variable pointer. The removed node is not freed, following ECPG's memory management patterns where cleanup is handled elsewhere.
 
 ## Parameters / Member Variables
-- : Double pointer to the head of the arguments list; allows modification of the list head pointer when removing the first element
-- : Pointer to the variable to be removed from the list; the function searches for this exact pointer value
-
+- `**list`: Double pointer to the head of the arguments list; allows modification of the list head pointer when removing the first element
+- `*var`: Pointer to the variable to be removed from the list; the function searches for this exact pointer value
 ## Dependencies
 - Functions called/Symbols referenced:
   - : The node structure for the linked list

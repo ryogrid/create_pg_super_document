@@ -20,9 +20,8 @@ The function outputs comprehensive foreign key information including the referen
 For compactness, the equivalence class and restriction info arrays are summarized as counts rather than full serialization, making the output more readable while preserving essential optimization information.
 
 ## Parameters / Member Variables
-- : StringInfo buffer where the serialized output is appended  
-- : Pointer to the ForeignKeyOptInfo node to be serialized
-
+- `str`: StringInfo buffer where the serialized output is appended
+- `*node`: Pointer to the ForeignKeyOptInfo node to be serialized
 ## Dependencies
 - Functions called/Symbols referenced:
   - WRITE_NODE_TYPE

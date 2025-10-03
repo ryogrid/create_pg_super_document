@@ -23,8 +23,7 @@ OpenTableList is a static function that processes a list of PublicationTable str
 The function returns a list of PublicationRelInfo structures containing the opened relations along with their associated WHERE clauses and column lists.
 
 ## Parameters / Member Variables
-- : List of PublicationTable structures specifying the tables to be opened, each containing relation information, optional WHERE clauses, and column lists
-
+- `*tables`: List of PublicationTable structures specifying the tables to be opened, each containing relation information, optional WHERE clauses, and column lists
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_openrv](../t/table_openrv.md) (opens relation by RangeVar)

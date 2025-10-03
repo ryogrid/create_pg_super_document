@@ -25,8 +25,7 @@ The function follows this sequence:
 6. Commits the transaction and disconnects from the database
 
 ## Parameters / Member Variables
-- : Thread argument passed as void pointer, cast to intptr_t to get the thread number used for creating unique connection names
-
+- `*arg`: Thread argument passed as void pointer, cast to intptr_t to get the thread number used for creating unique connection names
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ECPGconnect](../E/ECPGconnect.md)

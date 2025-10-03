@@ -22,8 +22,7 @@ For uncompressed pages, it creates a single segment containing all the ItemPoint
 The resulting disassembledLeaf structure uses a doubly-linked list to track all segments, making it easy to insert, modify, or remove segments during page manipulation operations.
 
 ## Parameters / Member Variables
-- : The GIN data leaf page to be disassembled
-
+- `page`: The GIN data leaf page to be disassembled
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc0](../p/palloc0.md)

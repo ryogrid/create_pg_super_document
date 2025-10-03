@@ -18,8 +18,7 @@ The  function serves as the cleanup routine for TIDBitmap iterations. Currently,
 This function is essential for proper memory management in bitmap scan operations and should always be called when iteration is complete to prevent memory leaks.
 
 ## Parameters / Member Variables
-- : TBMIterator pointer to be deallocated and cleaned up
-
+- `*iterator`: TBMIterator pointer to be deallocated and cleaned up
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pfree](../p/pfree.md)

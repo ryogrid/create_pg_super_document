@@ -26,8 +26,7 @@ The function automatically handles the transaction command cycling by calling Co
 Unlike regular subtransactions, internal subtransactions are allowed during parallel operations, provided no new XIDs or command IDs are assigned (enforced elsewhere in AssignTransactionId() and CommandCounterIncrement()).
 
 ## Parameters / Member Variables
-- : Optional name for the subtransaction savepoint, stored in TopTransactionContext if provided
-
+- `*name`: Optional name for the subtransaction savepoint, stored in TopTransactionContext if provided
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PushTransaction](../P/PushTransaction.md)

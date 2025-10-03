@@ -18,10 +18,9 @@ The  function is a helper function used in PostgreSQL's text search statistics (
 The function iterates through all position entries for the given word, extracts the weight of each position using , and checks if that weight bit is set in the provided weight bitmask. It returns the total count of matching positions.
 
 ## Parameters / Member Variables
-- : The TSVector containing the word and position data
-- : Pointer to the specific WordEntry within the TSVector to examine
-- : An 8-bit bitmask specifying which weights to count (bits correspond to weight categories A, B, C, D)
-
+- `txt`: The TSVector containing the word and position data
+- `*wptr`: Pointer to the specific WordEntry within the TSVector to examine
+- `weight`: An 8-bit bitmask specifying which weights to count (bits correspond to weight categories A, B, C, D)
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Macro to get the length of position data for a word entry

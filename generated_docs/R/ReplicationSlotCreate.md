@@ -20,13 +20,12 @@ ReplicationSlotCreate is responsible for creating and initializing a new replica
 The function implements strict validation rules to prevent invalid configurations, such as disallowing failover-enabled slots on standby servers (except during slot synchronization) and preventing temporary failover slots. It uses a combination of ReplicationSlotAllocationLock and ReplicationSlotControlLock to ensure atomic slot creation and prevent race conditions.
 
 ## Parameters / Member Variables
-- : The name of the replication slot to create (must be unique)
-- : If true, the slot is database-specific for logical decoding; if false, it's for physical replication
-- : Determines slot persistence (RS_PERSISTENT, RS_EPHEMERAL, or RS_TEMPORARY)
-- : Enables decoding of prepared transactions for logical slots (can only be set at creation time)
-- : Enables slot synchronization to standbys for logical replication continuity after failover
-- : Indicates if the slot is synchronized from a primary server
-
+- `*name`: The name of the replication slot to create (must be unique)
+- `db_specific`: If true, the slot is database-specific for logical decoding; if false, it's for physical replication
+- `persistency`: Determines slot persistence (RS_PERSISTENT, RS_EPHEMERAL, or RS_TEMPORARY)
+- `two_phase`: Enables decoding of prepared transactions for logical slots (can only be set at creation time)
+- `failover`: Enables slot synchronization to standbys for logical replication continuity after failover
+- `synced`: Indicates if the slot is synchronized from a primary server
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReplicationSlotValidateName](ReplicationSlotValidateName.md)

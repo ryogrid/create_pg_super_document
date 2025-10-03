@@ -18,6 +18,7 @@ This function provides a simple, standardized way to display the psql version in
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - puts (standard C library function for string output)

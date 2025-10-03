@@ -18,8 +18,7 @@ This function refreshes the global  printTextFormat structure by configuring Uni
 The function operates on the global  variable and configures it according to the Unicode border, header, and column line styles specified in the input options. It handles four different rule types for table formatting: top border, middle separator, bottom border, and data rows.
 
 ## Parameters / Member Variables
-- : Pointer to printTableOpt structure containing Unicode formatting preferences including border_linestyle, header_linestyle, and column_linestyle settings
-
+- `*opt`: Pointer to printTableOpt structure containing Unicode formatting preferences including border_linestyle, header_linestyle, and column_linestyle settings
 ## Dependencies
 - Functions called/Symbols referenced:
   - [printTableOpt](../p/printTableOpt.md) (parameter type)

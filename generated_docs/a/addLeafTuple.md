@@ -21,14 +21,13 @@ The function manages the insertion of leaf tuples into SPGiST index pages, handl
 The function operates within a critical section and handles WAL (Write-Ahead Logging) for crash recovery. It maintains proper chain linkage by setting next offset pointers and updates parent downlinks when necessary.
 
 ## Parameters / Member Variables
-- : The SPGiST index relation being modified
-- : SPGiST state information containing configuration and temporary data
-- : The leaf tuple to be inserted into the page
-- : Page descriptor for the current leaf page where tuple will be inserted
-- : Page descriptor for the parent page (may be InvalidBuffer if no parent)
-- : Boolean indicating if this is a nulls page
-- : Boolean indicating if this is a newly allocated page
-
+- `index`: The SPGiST index relation being modified
+- `*state`: SPGiST state information containing configuration and temporary data
+- `leafTuple`: The leaf tuple to be inserted into the page
+- `*current`: Page descriptor for the current leaf page where tuple will be inserted
+- `*parent`: Page descriptor for the parent page (may be InvalidBuffer if no parent)
+- `isNulls`: Boolean indicating if this is a nulls page
+- `isNew`: Boolean indicating if this is a newly allocated page
 ## Dependencies
 - Functions called/Symbols referenced:
   - SGLT_SET_NEXTOFFSET (macro for setting next offset in leaf tuple)

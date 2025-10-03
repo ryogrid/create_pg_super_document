@@ -18,8 +18,7 @@ ResOwnerReleaseCachedPlan(Datum res)
 This callback is part of PostgreSQL's resource management system that ensures proper cleanup of resources even in error conditions. It's registered in the  structure with a release phase of  and priority , ensuring cached plans are released at the appropriate time during resource cleanup.
 
 ## Parameters / Member Variables
-- : A Datum containing a pointer to the CachedPlan that needs to be released. The pointer is extracted using  and cast to .
-
+- `res`: A Datum containing a pointer to the CachedPlan that needs to be released. The pointer is extracted using  and cast to .
 ## Dependencies
 - Functions called/Symbols referenced:
   - : The main function that handles cached plan cleanup

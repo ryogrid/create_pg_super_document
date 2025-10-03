@@ -22,9 +22,8 @@ The function analyzes RestrictInfo clauses to determine if they are provably alw
 The function includes safety checks to avoid incorrect optimizations with clone clauses, where nulling relation bits may not accurately reflect the actual nullability state.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planner state and context information
-- : The RestrictInfo clause to analyze for being always true
-
+- `*root`: PlannerInfo structure containing planner state and context information
+- `*restrictinfo`: The RestrictInfo clause to analyze for being always true
 ## Dependencies
 - Functions called/Symbols referenced:
   - [NullTest](../N/NullTest.md) (struct type for null testing operations)

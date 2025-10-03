@@ -16,9 +16,8 @@ convert_to_base(uint64 value, int base)
 This function implements efficient base conversion using a reverse-building algorithm that constructs the result string from right to left. It uses a fixed character array for digit representation, supporting bases from binary (base 2) through hexadecimal (base 16) with lowercase letters for digits 10-15. The function is optimized for performance by pre-allocating a buffer sized for the worst case (binary representation of a 64-bit integer) and building the result string backwards to avoid the need for string reversal. The algorithm repeatedly divides the input value by the target base, using the remainder as the next digit and continuing until the value becomes zero or the buffer is exhausted.
 
 ## Parameters / Member Variables
-- : Unsigned 64-bit integer to be converted to the target base representation
-- : Target numeric base for conversion (must be between 2 and 16 inclusive)
-
+- `value`: Unsigned 64-bit integer to be converted to the target base representation
+- `base`: Target numeric base for conversion (must be between 2 and 16 inclusive)
 ## Dependencies
 - Functions called/Symbols referenced:
   - BITS_PER_BYTE (macro for calculating buffer size based on bit width)

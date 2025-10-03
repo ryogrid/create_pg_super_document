@@ -18,10 +18,9 @@ This function decomposes an interval structure into its constituent time compone
 The function performs straightforward arithmetic operations to extract each time component, using PostgreSQL's standard time conversion constants. The month field is divided to extract full years and remaining months, while the time field (stored in microseconds) is progressively divided to extract days, hours, minutes, seconds, and remaining microseconds.
 
 ## Parameters / Member Variables
-- : interval structure containing the source interval data with month and time (microseconds) fields
-- : Pointer to tm structure that will receive the decomposed time components (tm_year, tm_mon, tm_mday, tm_hour, tm_min, tm_sec)
-- : Pointer to fsec_t variable that will receive the fractional seconds (microseconds)
-
+- `span`: interval structure containing the source interval data with month and time (microseconds) fields
+- `*tm`: Pointer to tm structure that will receive the decomposed time components (tm_year, tm_mon, tm_mday, tm_hour, tm_min, tm_sec)
+- `*fsec`: Pointer to fsec_t variable that will receive the fractional seconds (microseconds)
 ## Dependencies
 - Functions called/Symbols referenced:
   - fsec_t (fractional seconds type)

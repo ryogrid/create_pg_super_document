@@ -25,8 +25,7 @@ XLogFlush is a core function in PostgreSQL's WAL system responsible for ensuring
 The function includes special handling for concurrent insertions, waiting for them to complete before proceeding with the flush operation. It also implements a delay mechanism (CommitDelay) that can improve throughput by allowing more transactions to join the group commit.
 
 ## Parameters / Member Variables
-- : The WAL log sequence number (LSN) that must be flushed to disk before the function returns
-
+- `record`: The WAL log sequence number (LSN) that must be flushed to disk before the function returns
 ## Dependencies
 - Functions called/Symbols referenced:
   - [XLogInsertAllowed](XLogInsertAllowed.md)

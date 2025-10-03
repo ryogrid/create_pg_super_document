@@ -28,12 +28,11 @@ This function is specifically designed for use during initial index creation (bu
 The function is optimized for bulk operations during index creation, using the BuildAccumulator pattern to defer actual index insertions until efficient batch sizes are reached.
 
 ## Parameters / Member Variables
-- : State structure for index build operations containing accumulator and context
-- : Attribute number being indexed (for multi-column indexes)
-- : The actual data value to be indexed
-- : Flag indicating whether the value is NULL
-- : Pointer to the heap tuple (TID) that contains this value
-
+- `*buildstate`: State structure for index build operations containing accumulator and context
+- `attnum`: Attribute number being indexed (for multi-column indexes)
+- `value`: The actual data value to be indexed
+- `isNull`: Flag indicating whether the value is NULL
+- `heapptr`: Pointer to the heap tuple (TID) that contains this value
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ginExtractEntries](ginExtractEntries.md): Extract indexable keys from the input value using type-specific logic

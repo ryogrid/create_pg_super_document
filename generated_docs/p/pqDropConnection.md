@@ -18,9 +18,8 @@ This function performs a controlled teardown of a PostgreSQL connection without 
 The function always flushes the output buffer since there's no hope of sending that data once the connection is dropped. However, unprocessed input data might still be valuable for error reporting or debugging, so the caller can choose whether to preserve or discard it via the flushInput parameter.
 
 ## Parameters / Member Variables
-- : Pointer to the PostgreSQL connection object (PGconn) to be disconnected
-- : Boolean flag indicating whether to discard unread input data (true) or preserve it (false)
-
+- `*conn`: Pointer to the PostgreSQL connection object (PGconn) to be disconnected
+- `flushInput`: Boolean flag indicating whether to discard unread input data (true) or preserve it (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pqsecure_close](pqsecure_close.md)

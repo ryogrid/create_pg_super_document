@@ -26,8 +26,7 @@ The function retrieves the following sequence parameters from pg_sequence:
 All numeric values are converted to string format using INT64_FORMAT and wrapped in Float nodes, matching the parser's behavior for handling large integers. The boolean cycle parameter is wrapped in a Boolean node.
 
 ## Parameters / Member Variables
-- : Object identifier of the sequence relation whose options are to be retrieved
-
+- `relid`: Object identifier of the sequence relation whose options are to be retrieved
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache1](../S/SearchSysCache1.md)

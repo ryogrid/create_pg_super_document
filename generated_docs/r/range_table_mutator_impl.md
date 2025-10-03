@@ -21,11 +21,10 @@ The  function is the implementation core of the range table mutation functionali
 The function handles different types of range table entries (relations, subqueries, joins, functions, table functions, values, CTEs, named tuple stores, and result relations) with type-specific mutation logic. It uses the  macro to recursively apply the mutation callback to relevant sub-structures while respecting control flags that may skip certain mutation operations.
 
 ## Parameters / Member Variables
-- : The input range table (List of RangeTblEntry nodes) to be mutated
-- : Callback function pointer that defines the specific mutation operations to apply
-- : Opaque context pointer passed through to the mutator callback function
-- : Control flags that modify mutation behavior (e.g., QTW_IGNORE_RT_SUBQUERIES, QTW_IGNORE_JOINALIASES)
-
+- `*rtable`: The input range table (List of RangeTblEntry nodes) to be mutated
+- `mutator`: Callback function pointer that defines the specific mutation operations to apply
+- `*context`: Opaque context pointer passed through to the mutator callback function
+- `flags`: Control flags that modify mutation behavior (e.g., QTW_IGNORE_RT_SUBQUERIES, QTW_IGNORE_JOINALIASES)
 ## Dependencies
 - Functions called/Symbols referenced:
   - FLATCOPY (macro for shallow copying structures)

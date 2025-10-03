@@ -19,11 +19,10 @@ This function serves as a simplified interface to , providing privilege checking
 The function is part of PostgreSQL's access control system and is used throughout the system to verify whether a specific role has the requested permissions on a given relation before allowing operations to proceed.
 
 ## Parameters / Member Variables
-- : The object identifier (OID) of the table/relation to check permissions for
-- : The OID of the role whose permissions are being checked
-- : Bitmask specifying which permissions to check (e.g., ACL_SELECT, ACL_INSERT, ACL_UPDATE, ACL_DELETE)
-- : Specifies how to combine multiple ACL entries (ACLMASK_ALL or ACLMASK_ANY)
-
+- `table_oid`: The object identifier (OID) of the table/relation to check permissions for
+- `roleid`: The OID of the role whose permissions are being checked
+- `mask`: Bitmask specifying which permissions to check (e.g., ACL_SELECT, ACL_INSERT, ACL_UPDATE, ACL_DELETE)
+- `how`: Specifies how to combine multiple ACL entries (ACLMASK_ALL or ACLMASK_ANY)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_class_aclmask_ext](pg_class_aclmask_ext.md)

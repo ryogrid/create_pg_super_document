@@ -17,6 +17,7 @@ This function wraps the system's gettimeofday() function to provide a consistent
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [gettimeofday](../g/gettimeofday.md) (system call)

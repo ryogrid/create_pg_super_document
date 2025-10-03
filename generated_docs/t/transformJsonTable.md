@@ -24,9 +24,8 @@ The transformJsonTable function is the main entry point for processing JSON_TABL
 The function ensures SQL standard compliance and proper handling of lateral references within the JSON_TABLE construct.
 
 ## Parameters / Member Variables
-- : ParseState context containing parsing information and namespace
-- : JsonTable AST node containing the raw JSON_TABLE specification including context item, path specification, columns, and error handling clauses
-
+- `*pstate`: ParseState context containing parsing information and namespace
+- `*jt`: JsonTable AST node containing the raw JSON_TABLE specification including context item, path specification, columns, and error handling clauses
 ## Dependencies
 - Functions called/Symbols referenced:
   - [generateJsonTablePathName](../g/generateJsonTablePathName.md)

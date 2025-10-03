@@ -32,18 +32,17 @@ The operation works by:
 4. Properly handling null bitmaps throughout the process
 
 ## Parameters / Member Variables
-- : The destination array where the result will be stored (must be pre-allocated)
-- : The original array from which most elements will be copied
-- : The source array providing replacement elements for the slice volume
-- : Number of dimensions in the arrays
-- : Array of dimension sizes for each axis
-- : Array of lower bounds for each dimension
-- : Array of start indices for the slice in each dimension
-- : Array of end indices for the slice in each dimension
-- : Length of the array element type (-1 for variable length)
-- : Whether the element type is passed by value
-- : Alignment requirement for the element type
-
+- `*destArray`: The destination array where the result will be stored (must be pre-allocated)
+- `*origArray`: The original array from which most elements will be copied
+- `*srcArray`: The source array providing replacement elements for the slice volume
+- `ndim`: Number of dimensions in the arrays
+- `*dim`: Array of dimension sizes for each axis
+- `*lb`: Array of lower bounds for each dimension
+- `*st`: Array of start indices for the slice in each dimension
+- `*endp`: Array of end indices for the slice in each dimension
+- `typlen`: Length of the array element type (-1 for variable length)
+- `typbyval`: Whether the element type is passed by value
+- `typalign`: Alignment requirement for the element type
 ## Dependencies
 - Functions called/Symbols referenced:
   - ARR_DATA_PTR (macro for accessing array data)

@@ -18,10 +18,9 @@ SPI_scroll_cursor_move is a utility function that moves the position of a scroll
 The function works with Portal objects, which represent prepared statements or cursors in PostgreSQL. It supports various movement directions (forward, backward, absolute, relative) and can move by a specified number of rows.
 
 ## Parameters / Member Variables
-- : A Portal object representing the cursor to be moved. Must be a valid, open cursor.
-- : A FetchDirection enum value specifying how to move the cursor (e.g., FETCH_FORWARD, FETCH_BACKWARD, FETCH_ABSOLUTE, FETCH_RELATIVE).
-- : The number of rows to move. For absolute positioning, this is the target row number; for relative positioning, this is the offset from the current position.
-
+- `portal`: A Portal object representing the cursor to be moved. Must be a valid, open cursor.
+- `direction`: A FetchDirection enum value specifying how to move the cursor (e.g., FETCH_FORWARD, FETCH_BACKWARD, FETCH_ABSOLUTE, FETCH_RELATIVE).
+- `count`: The number of rows to move. For absolute positioning, this is the target row number; for relative positioning, this is the offset from the current position.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [_SPI_cursor_operation](_SPI_cursor_operation.md)

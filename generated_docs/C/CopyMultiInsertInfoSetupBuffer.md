@@ -23,9 +23,8 @@ This function serves as a higher-level wrapper that creates and integrates a new
 This function is essential for the multi-insert optimization in COPY FROM operations, as it establishes the infrastructure needed to batch multiple tuples before performing bulk insertions. The back-link from ResultRelInfo allows for efficient buffer access without searching through lists, while the registration in miinfo ensures proper lifecycle management of all buffers.
 
 ## Parameters / Member Variables
-- : Pointer to CopyMultiInsertInfo structure that manages the overall multi-insert operation and maintains the list of active buffers
-- : Pointer to ResultRelInfo structure representing the target relation, which will be linked to the newly created buffer
-
+- `*miinfo`: Pointer to CopyMultiInsertInfo structure that manages the overall multi-insert operation and maintains the list of active buffers
+- `*rri`: Pointer to ResultRelInfo structure representing the target relation, which will be linked to the newly created buffer
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CopyMultiInsertInfo](CopyMultiInsertInfo.md) (struct type)

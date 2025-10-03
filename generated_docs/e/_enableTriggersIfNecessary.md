@@ -23,9 +23,8 @@ The function performs the following key operations:
 This function is critical for maintaining database integrity after bulk data loading. While triggers are disabled during data loading for performance reasons, they must be re-enabled afterward to ensure that future DML operations are properly validated and that all business logic encoded in triggers continues to function correctly.
 
 ## Parameters / Member Variables
-- : Archive handle containing restoration context and connection information
-- : TOC entry representing the table whose triggers should be re-enabled
-
+- `*AH`: Archive handle containing restoration context and connection information
+- `*te`: TOC entry representing the table whose triggers should be re-enabled
 ## Dependencies
 - Functions called/Symbols referenced:
   - [_becomeUser](../b/_becomeUser.md) (switches to specified user)

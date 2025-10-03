@@ -20,9 +20,8 @@ The primary purpose of this function is to maintain consistency in the shared me
 This cleanup ensures that future attempts to start a new launcher or check launcher status will have accurate information about the current state of the system.
 
 ## Parameters / Member Variables
-- : Exit code of the terminating process (standard exit handler parameter, not used in this implementation)
-- : Datum argument passed to the exit handler (standard parameter, not used in this implementation)
-
+- `code`: Exit code of the terminating process (standard exit handler parameter, not used in this implementation)
+- `arg`: Datum argument passed to the exit handler (standard parameter, not used in this implementation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - LogicalRepCtx (global shared memory context)

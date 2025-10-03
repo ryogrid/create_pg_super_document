@@ -16,8 +16,7 @@ pg_logging_set_pre_callback(void (*cb) (void))
 This function allows registration of a callback that will be invoked before each log message is formatted and output. The callback function receives no parameters and returns no value. This mechanism is useful for performing setup operations, synchronization, or state management before log output occurs. The callback is stored in the global variable  and will be called by  before processing each log message.
 
 ## Parameters / Member Variables
-- : A function pointer to the callback function to be executed before each log message. The callback takes no parameters and returns void. Pass NULL to clear the callback.
-
+- `*cb`: A function pointer to the callback function to be executed before each log message. The callback takes no parameters and returns void. Pass NULL to clear the callback.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [log_pre_callback](../l/log_pre_callback.md) (global variable assignment)

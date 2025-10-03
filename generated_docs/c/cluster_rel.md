@@ -27,10 +27,9 @@ The clustering process involves calling rebuild_relation(), which does the heavy
 When indexOid is InvalidOid, this function implements VACUUM FULL functionality instead of clustering.
 
 ## Parameters / Member Variables
-- : OID of the table to be clustered
-- : OID of the index to cluster on, or InvalidOid for VACUUM FULL operation
-- : ClusterParams structure containing options like VERBOSE, RECHECK, and RECHECK_ISCLUSTERED flags
-
+- `tableOid`: OID of the table to be clustered
+- `indexOid`: OID of the index to cluster on, or InvalidOid for VACUUM FULL operation
+- `*params`: ClusterParams structure containing options like VERBOSE, RECHECK, and RECHECK_ISCLUSTERED flags
 ## Dependencies
 - Functions called/Symbols referenced:
   - [try_relation_open](../t/try_relation_open.md)/relation_close

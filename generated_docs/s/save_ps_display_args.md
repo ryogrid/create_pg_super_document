@@ -24,9 +24,8 @@ The function implements platform-specific handling:
 The preserved arguments allow PostgreSQL processes to show meaningful status information while maintaining the ability to parse command-line options correctly.
 
 ## Parameters / Member Variables
-- : The number of command-line arguments passed to the program
-- : Array of command-line argument strings
-
+- `argc`: The number of command-line arguments passed to the program
+- `**argv`: Array of command-line argument strings
 ## Dependencies
 - Functions called/Symbols referenced:
   - malloc (memory allocation)

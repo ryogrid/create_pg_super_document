@@ -18,8 +18,7 @@ This function computes the length of a wide character string (pg_wchar*) by iter
 The implementation is optimized for simplicity and efficiency, using a straightforward for-loop that increments a pointer until it finds the terminating null character.
 
 ## Parameters / Member Variables
-- : Pointer to the null-terminated wide character string whose length is to be calculated
-
+- `*str`: Pointer to the null-terminated wide character string whose length is to be calculated
 ## Dependencies
 - Functions called/Symbols referenced: None (implements basic length calculation)
 - Called from:

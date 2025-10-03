@@ -22,7 +22,6 @@ The write operations may result in sync requests being queued for later processi
 The function includes tracing points for performance monitoring and debugging, allowing administrators to track MultiXact checkpoint timing and behavior.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -18,9 +18,8 @@ This function removes all instances of a specific dependency ID from a DumpableO
 The function is particularly important in pg_dump's dependency resolution and loop-breaking logic, where circular dependencies need to be temporarily broken to establish a valid dump order. It's commonly used in various "repair" functions that handle dependency loops and boundary conditions.
 
 ## Parameters / Member Variables
-- : Pointer to the DumpableObject from which the dependency will be removed
-- : The DumpId of the dependency to remove from the object's dependency list
-
+- `*dobj`: Pointer to the DumpableObject from which the dependency will be removed
+- `refId`: The DumpId of the dependency to remove from the object's dependency list
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObject (structure type for dumpable objects)

@@ -21,9 +21,8 @@ This function checks if a specific partition within a partitioned relation has b
 This is an optimization technique used during partition pruning and join planning to avoid considering partitions that are guaranteed to be empty.
 
 ## Parameters / Member Variables
-- : RelOptInfo structure for the partitioned relation containing the partition to check
-- : Index of the specific partition within the relation's part_rels array to check
-
+- `*rel`: RelOptInfo structure for the partitioned relation containing the partition to check
+- `part_index`: Index of the specific partition within the relation's part_rels array to check
 ## Dependencies
 - Functions called/Symbols referenced:
   - IS_DUMMY_REL (macro for checking if a relation is dummy)

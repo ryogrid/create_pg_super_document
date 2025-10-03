@@ -18,8 +18,7 @@ This function provides a simple interface for checking the visibility of a text 
 The visibility check considers whether the template's namespace is in the current search path and whether it would be the first template with that name encountered during a search path traversal.
 
 ## Parameters / Member Variables
-- : The OID of the text search template to check for visibility
-
+- `tmplId`: The OID of the text search template to check for visibility
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TSTemplateIsVisibleExt](TSTemplateIsVisibleExt.md) (extended visibility check function)

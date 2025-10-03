@@ -18,9 +18,8 @@ This function removes files and directories from a specified subdirectory within
 The function provides user feedback through prep_status() and includes error handling to report deletion failures. It ensures the operation completed successfully using check_ok().
 
 ## Parameters / Member Variables
-- : The name of the subdirectory to delete (relative to the new cluster's pgdata directory)
-- : Boolean flag indicating whether to remove the top-level directory itself (true) or just its contents (false)
-
+- `*subdir`: The name of the subdirectory to delete (relative to the new cluster's pgdata directory)
+- `rmtopdir`: Boolean flag indicating whether to remove the top-level directory itself (true) or just its contents (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [prep_status](../p/prep_status.md): Displays status message to user about the deletion operation

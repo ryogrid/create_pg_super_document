@@ -17,10 +17,9 @@ show_incremental_sort_keys(IncrementalSortState *incrsortstate,
 This function is responsible for showing the sort keys used by an IncrementalSort plan node during EXPLAIN command output. IncrementalSort is an optimization that builds upon existing sorted data by performing additional sorting only on the remaining columns. The function extracts the sort key information from the IncrementalSort plan and delegates to  to format and display the sorting information, including both presorted columns and additional sort columns.
 
 ## Parameters / Member Variables
-- : Pointer to the IncrementalSortState containing the runtime state and plan information for the incremental sort operation
-- : List of ancestor plan nodes in the execution tree, used for context in the explanation output
-- : ExplainState containing formatting options and output settings for the EXPLAIN command
-
+- `*incrsortstate`: Pointer to the IncrementalSortState containing the runtime state and plan information for the incremental sort operation
+- `*ancestors`: List of ancestor plan nodes in the execution tree, used for context in the explanation output
+- `*es`: ExplainState containing formatting options and output settings for the EXPLAIN command
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Core function that formats and displays sort key information

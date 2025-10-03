@@ -25,8 +25,7 @@ The function uses an in-place heapsort algorithm that works by:
 This approach is memory-efficient as it requires no additional storage beyond the existing tuple array.
 
 ## Parameters / Member Variables
-- : Pointer to the Tuplesortstate containing the bounded heap to be sorted. Must be in TSS_BOUNDED status with exactly 'bound' number of tuples.
-
+- `*state`: Pointer to the Tuplesortstate containing the bounded heap to be sorted. Must be in TSS_BOUNDED status with exactly 'bound' number of tuples.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [tuplesort_heap_delete_top](../t/tuplesort_heap_delete_top.md): Removes the top element from the heap and re-heapifies

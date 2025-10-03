@@ -20,10 +20,9 @@ The function displays role names along with their attributes in a human-readable
 In verbose mode, the function includes role descriptions from the system comments. The output is formatted as a table with role names in the first column and a consolidated attributes column that lists all relevant permissions and restrictions for each role.
 
 ## Parameters / Member Variables
-- : SQL pattern to filter role names (supports wildcards). Schema portions are ignored since roles are cluster-wide objects.
-- : Boolean flag for verbose mode (\du+ vs \du) - when true, includes role descriptions from pg_description
-- : Boolean flag to include system roles (roles starting with 'pg_'). If false, only user-defined roles are shown.
-
+- `*pattern`: SQL pattern to filter role names (supports wildcards). Schema portions are ignored since roles are cluster-wide objects.
+- `verbose`: Boolean flag for verbose mode (\du+ vs \du) - when true, includes role descriptions from pg_description
+- `showSystem`: Boolean flag to include system roles (roles starting with 'pg_'). If false, only user-defined roles are shown.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [initPQExpBuffer](../i/initPQExpBuffer.md): Initialize query buffer for SQL construction

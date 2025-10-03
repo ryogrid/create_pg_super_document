@@ -18,6 +18,7 @@ This function checks the current state of the WAL receiver by examining the shar
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [WalRcvData](WalRcvData.md)

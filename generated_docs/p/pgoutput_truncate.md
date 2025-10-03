@@ -27,12 +27,11 @@ Key functionality includes:
 The function only sends the TRUNCATE message if at least one relation qualifies for replication.
 
 ## Parameters / Member Variables
-- : LogicalDecodingContext containing output plugin state and configuration
-- : ReorderBufferTXN representing the current transaction being processed
-- : Number of relations involved in the TRUNCATE operation
-- : Array of Relation objects representing the tables being truncated
-- : ReorderBufferChange containing TRUNCATE-specific options (cascade, restart_seqs)
-
+- `*ctx`: LogicalDecodingContext containing output plugin state and configuration
+- `*txn`: ReorderBufferTXN representing the current transaction being processed
+- `nrelations`: Number of relations involved in the TRUNCATE operation
+- `relations[]`: Array of Relation objects representing the tables being truncated
+- `*change`: ReorderBufferChange containing TRUNCATE-specific options (cascade, restart_seqs)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [is_publishable_relation](../i/is_publishable_relation.md)

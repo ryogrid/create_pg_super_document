@@ -19,12 +19,11 @@ This function is a core component of PostgreSQL's rule decompilation system that
 The indentation algorithm includes a wraparound mechanism when indentation exceeds PRETTYINDENT_LIMIT to maintain readability and prevent excessive horizontal space usage.
 
 ## Parameters / Member Variables
-- : Deparse context containing the output buffer and current indentation state
-- : The keyword string to append to the output buffer  
-- : Amount to adjust indentation level before appending the keyword
-- : Amount to adjust indentation level after appending the keyword
-- : Additional indentation to add for this specific keyword
-
+- `*context`: Deparse context containing the output buffer and current indentation state
+- `*str`: The keyword string to append to the output buffer
+- `indentBefore`: Amount to adjust indentation level before appending the keyword
+- `indentAfter`: Amount to adjust indentation level after appending the keyword
+- `indentPlus`: Additional indentation to add for this specific keyword
 ## Dependencies
 - Functions called/Symbols referenced:
   - PRETTY_INDENT (macro to check if pretty printing is enabled)

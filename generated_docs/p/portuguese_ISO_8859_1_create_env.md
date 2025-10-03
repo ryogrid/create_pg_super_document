@@ -26,6 +26,7 @@ The function delegates to SN_create_env which handles the actual memory allocati
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SN_create_env](../S/SN_create_env.md) (line 958): Generic environment creation function that allocates memory and initializes the stemming environment structure

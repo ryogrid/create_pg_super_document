@@ -19,11 +19,10 @@ This function is part of a specialized API for building arrays from arrays (as o
 The function performs element type lookup if not provided and optionally creates a separate memory context for the working state. All fields in the returned structure are initialized to zero, providing a clean starting state for array accumulation.
 
 ## Parameters / Member Variables
-- : OID of the array type (must be a valid varlena array type)
-- : OID of the array's element type (looked up from array_type if InvalidOid)
-- : Memory context where working state should be kept
-- : Flag determining whether to create a separate memory context for array building
-
+- `array_type`: OID of the array type (must be a valid varlena array type)
+- `element_type`: OID of the array's element type (looked up from array_type if InvalidOid)
+- `rcontext`: Memory context where working state should be kept
+- `subcontext`: Flag determining whether to create a separate memory context for array building
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_element_type](../g/get_element_type.md)

@@ -24,7 +24,6 @@ The function performs several key operations:
 The function includes a note about a potential issue with transaction/subtransaction aborts that may need to be addressed with an AtEOSubXact_EventTriggers() function.
 
 ## Parameters / Member Variables
-This function takes no parameters and operates on the global currentEventTriggerState.
 
 ## Dependencies
 - Functions called/Symbols referenced:

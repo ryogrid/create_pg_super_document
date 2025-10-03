@@ -16,7 +16,6 @@ apply_worker_exit(void)
 This function manages the termination process for logical replication apply workers in response to subscription parameter changes. It implements different exit strategies based on the worker type: parallel apply workers simply return without terminating to avoid disrupting the leader worker's operation, while leader apply workers perform cleanup by resetting their start time in the launcher's tracking system before terminating. The function ensures proper cleanup and prevents resource leaks while avoiding errors that could inadvertently disable subscriptions.
 
 ## Parameters / Member Variables
-None - This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

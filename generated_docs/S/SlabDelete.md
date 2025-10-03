@@ -16,8 +16,7 @@ SlabDelete(MemoryContext context)
 SlabDelete is responsible for completely destroying a slab memory context. It performs a two-step deletion process: first it calls SlabReset to free all the memory blocks allocated within the context, then it frees the context header structure itself using the standard free() function. This is the cleanup function used when a slab memory context is no longer needed and should be completely removed from memory.
 
 ## Parameters / Member Variables
-- : The MemoryContext (slab context) to be deleted and freed
-
+- `context`: The MemoryContext (slab context) to be deleted and freed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SlabReset](SlabReset.md)

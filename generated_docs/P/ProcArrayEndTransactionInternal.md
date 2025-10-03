@@ -25,9 +25,8 @@ The function performs comprehensive cleanup of transaction-related state:
 This function is designed to be called from multiple contexts: directly when locks can be acquired immediately, or as part of group transaction clearing when lock contention is high.
 
 ## Parameters / Member Variables
-- : Pointer to the PGPROC structure of the transaction being ended
-- : The latest transaction ID among the main XID and subtransactions
-
+- `*proc`: Pointer to the PGPROC structure of the transaction being ended
+- `latestXid`: The latest transaction ID among the main XID and subtransactions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockHeldByMeInMode](../L/LWLockHeldByMeInMode.md)

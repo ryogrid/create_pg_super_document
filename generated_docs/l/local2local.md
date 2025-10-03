@@ -22,14 +22,13 @@ local2local(const unsigned char *l,
 The  function performs character set conversion between two single-byte ASCII-superset encodings using a translation table. It processes each byte in the source string, copying ASCII characters (0x00-0x7F) directly and converting high-bit characters (0x80-0xFF) using the provided lookup table. The function handles conversion errors by either reporting them or gracefully stopping conversion based on the  parameter. This is a fundamental building block for PostgreSQL's character encoding conversion system.
 
 ## Parameters / Member Variables
-- : Pointer to the source string to be converted
-- : Output buffer for the converted string (must be large enough to hold the result)
-- : Length of the source string in bytes
-- : PostgreSQL identifier for the source character encoding
-- : PostgreSQL identifier for the target character encoding
-- : Conversion lookup table starting from character 128 (0x80), where each entry contains the corresponding target charset code point or 0 if no equivalent exists
-- : Boolean flag controlling error handling behavior - if true, conversion stops on error; if false, errors are reported
-
+- `*l`: Pointer to the source string to be converted
+- `*p`: Output buffer for the converted string (must be large enough to hold the result)
+- `len`: Length of the source string in bytes
+- `src_encoding`: PostgreSQL identifier for the source character encoding
+- `dest_encoding`: PostgreSQL identifier for the target character encoding
+- `*tab`: Conversion lookup table starting from character 128 (0x80), where each entry contains the corresponding target charset code point or 0 if no equivalent exists
+- `noError`: Boolean flag controlling error handling behavior - if true, conversion stops on error; if false, errors are reported
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Reports invalid character encoding errors

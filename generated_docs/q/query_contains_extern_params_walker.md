@@ -18,9 +18,8 @@ This static function implements the actual tree traversal logic for detecting ex
 The function operates efficiently by returning true immediately upon finding the first external parameter, making it an early-terminating search. For Query nodes, it recursively calls query_tree_walker to examine subqueries, and for other expression nodes, it uses expression_tree_walker to continue the traversal.
 
 ## Parameters / Member Variables
-- : Current node being examined in the tree traversal
-- : Walker context (unused in this implementation)
-
+- `*node`: Current node being examined in the tree traversal
+- `*context`: Walker context (unused in this implementation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Param](../P/Param.md)

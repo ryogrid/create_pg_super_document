@@ -25,9 +25,8 @@ The cleanup process includes several important steps:
 The function includes special handling for parallel apply workers, where session-level locks may be acquired outside of transactions and wouldn't normally be released on worker termination.
 
 ## Parameters / Member Variables
-- : Exit code of the terminating process (standard exit handler parameter, not used in this implementation)
-- : Datum argument passed to the exit handler (standard parameter, not used in this implementation)
-
+- `code`: Exit code of the terminating process (standard exit handler parameter, not used in this implementation)
+- `arg`: Datum argument passed to the exit handler (standard parameter, not used in this implementation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - walrcv_disconnect

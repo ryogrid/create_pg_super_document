@@ -16,8 +16,7 @@ check_log_of_query(ErrorData *edata)
 This function serves as a gate-keeper for query logging in PostgreSQL's error and logging system. It evaluates three critical conditions to determine if a query statement should be logged: (1) whether the error level meets the minimum threshold defined by log_min_error_statement, (2) whether the statement is explicitly marked to be hidden via the hide_stmt flag, and (3) whether there is actually a query string available for logging (debug_query_string is not NULL). The function returns true only when all conditions are favorable for logging the query, ensuring that sensitive or irrelevant queries are appropriately filtered from the logs.
 
 ## Parameters / Member Variables
-- : Pointer to ErrorData structure containing error information including severity level and statement hiding flags
-
+- `*edata`: Pointer to ErrorData structure containing error information including severity level and statement hiding flags
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ErrorData](../E/ErrorData.md) (error data structure type)

@@ -18,9 +18,8 @@ pgarch_call_module_shutdown_cb is a shutdown callback function that is registere
 The function follows the standard PostgreSQL shutdown callback signature, accepting an exit code and a Datum argument (which is unused in this implementation). It checks if the currently loaded archive module has defined a shutdown callback, and if so, invokes it with the archive module's state.
 
 ## Parameters / Member Variables
-- : The exit code of the terminating process (not used in this function)
-- : A Datum argument passed to the callback (not used in this function)
-
+- `code`: The exit code of the terminating process (not used in this function)
+- `arg`: A Datum argument passed to the callback (not used in this function)
 ## Dependencies
 - Functions called/Symbols referenced:
   - Uses global variables: ArchiveCallbacks, archive_module_state

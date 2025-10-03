@@ -16,8 +16,7 @@ FlagSxactUnsafe(SERIALIZABLEXACT *sxact)
 This function flags a read-only serializable transaction as unsafe by setting the SXACT_FLAG_RO_UNSAFE flag and then cleans up all possible unsafe conflicts associated with the transaction. Once a read-only transaction is determined to be unsafe (meaning it cannot use a safe snapshot), there's no need to track potential conflicts anymore, so all records in the possibleUnsafeConflicts list are released back to the pool.
 
 ## Parameters / Member Variables
-- : Pointer to the read-only serializable transaction to be flagged as unsafe
-
+- `*sxact`: Pointer to the read-only serializable transaction to be flagged as unsafe
 ## Dependencies
 - Functions called/Symbols referenced:
   - SxactIsReadOnly

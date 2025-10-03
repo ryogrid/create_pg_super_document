@@ -18,9 +18,8 @@ cmpQTN is a static wrapper function designed to adapt QTNodeCompare for use with
 The function performs the necessary pointer casting and dereferencing to convert from the generic void pointer interface required by qsort to the specific QTNode pointer interface used by QTNodeCompare. This abstraction allows QTNode arrays to be sorted using standard library sorting functions.
 
 ## Parameters / Member Variables
-- : Pointer to the first QTNode pointer (cast from void*)
-- : Pointer to the second QTNode pointer (cast from void*)
-
+- `*a`: Pointer to the first QTNode pointer (cast from void*)
+- `*b`: Pointer to the second QTNode pointer (cast from void*)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [QTNodeCompare](../Q/QTNodeCompare.md) (actual comparison implementation)

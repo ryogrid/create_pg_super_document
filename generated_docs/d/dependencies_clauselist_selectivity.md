@@ -40,14 +40,13 @@ The mathematical foundation uses the formula:
 Applied recursively for multi-attribute dependencies.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing query planning context
-- : List of WHERE clauses to estimate selectivity for
-- : Relation ID for the target relation
-- : Type of join operation being planned
-- : Special join information structure
-- : RelOptInfo structure containing relation statistics
-- : Input/output bitmapset tracking which clauses have been estimated
-
+- `*root`: PlannerInfo structure containing query planning context
+- `*clauses`: List of WHERE clauses to estimate selectivity for
+- `varRelid`: Relation ID for the target relation
+- `jointype`: Type of join operation being planned
+- `*sjinfo`: Special join information structure
+- `*rel`: RelOptInfo structure containing relation statistics
+- `**estimatedclauses`: Input/output bitmapset tracking which clauses have been estimated
 ## Dependencies
 - Functions called/Symbols referenced:
   - [has_stats_of_kind](../h/has_stats_of_kind.md)

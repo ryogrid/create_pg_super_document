@@ -28,8 +28,7 @@ This function performs opportunistic cleanup and optimization of the free-page B
 The function tracks the largest contiguous range created during cleanup and returns this value to the caller.
 
 ## Parameters / Member Variables
-- : Pointer to the FreePageManager whose B-tree should be cleaned up
-
+- `*fpm`: Pointer to the FreePageManager whose B-tree should be cleaned up
 ## Dependencies
 - Functions called/Symbols referenced:
   - fpm_segment_base

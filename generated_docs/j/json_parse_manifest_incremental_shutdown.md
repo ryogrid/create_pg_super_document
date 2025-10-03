@@ -18,8 +18,7 @@ This function performs cleanup operations for an incremental manifest parser tha
 This is the complementary cleanup function to json_parse_manifest_incremental_init and should always be called when incremental parsing is complete to prevent memory leaks.
 
 ## Parameters / Member Variables
-- : Pointer to JsonManifestParseIncrementalState to be freed and cleaned up
-
+- `*incstate`: Pointer to JsonManifestParseIncrementalState to be freed and cleaned up
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pfree](../p/pfree.md)

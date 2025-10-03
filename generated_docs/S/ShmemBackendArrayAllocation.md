@@ -16,7 +16,6 @@ ShmemBackendArrayAllocation(void)
 This function is responsible for allocating shared memory space for the ShmemBackendArray, which tracks active backend processes in PostgreSQL. It calculates the required size using ShmemBackendArraySize(), allocates the memory using ShmemAlloc(), and initializes all slots to zero to mark them as empty. This initialization is crucial for the postmaster's process management system.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

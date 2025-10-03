@@ -24,11 +24,10 @@ The function creates a comprehensive boundary structure by:
 5. Building the final PartitionBoundInfo with proper indexing
 
 ## Parameters / Member Variables
-- : Array of PartitionBoundSpec pointers containing the boundary specifications for each partition
-- : Number of partitions being processed
-- : PartitionKey containing partitioning metadata (comparison functions, data types, etc.)
-- : Pointer to mapping array that will be updated to map original partition indexes to canonical indexes
-
+- `**boundspecs`: Array of PartitionBoundSpec pointers containing the boundary specifications for each partition
+- `nparts`: Number of partitions being processed
+- `key`: PartitionKey containing partitioning metadata (comparison functions, data types, etc.)
+- `**mapping`: Pointer to mapping array that will be updated to map original partition indexes to canonical indexes
 ## Dependencies
 - Functions called/Symbols referenced:
   - [make_one_partition_rbound](../m/make_one_partition_rbound.md)

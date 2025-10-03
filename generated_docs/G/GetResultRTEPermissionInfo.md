@@ -24,9 +24,8 @@ This function retrieves the appropriate RTEPermissionInfo structure for a given 
 The function determines which case applies based on the ResultRelInfo structure's fields and retrieves the corresponding permission information from the executor state.
 
 ## Parameters / Member Variables
-- : Pointer to ResultRelInfo structure containing information about the result relation
-- : Pointer to EState (executor state) containing runtime execution context and range table information
-
+- `*relinfo`: Pointer to ResultRelInfo structure containing information about the result relation
+- `*estate`: Pointer to EState (executor state) containing runtime execution context and range table information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RTEPermissionInfo](../R/RTEPermissionInfo.md) (return type)

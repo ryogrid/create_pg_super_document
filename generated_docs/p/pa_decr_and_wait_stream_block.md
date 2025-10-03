@@ -15,7 +15,6 @@ void pa_decr_and_wait_stream_block(void)
 This function is a critical synchronization mechanism in PostgreSQL's logical replication parallel apply worker system. It manages the count of pending streaming blocks and implements a waiting mechanism when all blocks have been processed. The function first decrements the atomic counter for pending stream chunks. If the counter reaches zero (meaning no more blocks are pending), it performs a lock/unlock sequence on the stream lock, which effectively causes the worker to wait until new stream data becomes available. The function includes safety checks to ensure it's only called in valid contexts and handles the special case where spooled messages are available for processing.
 
 ## Parameters / Member Variables
-This function takes no parameters and operates on shared state.
 
 ## Dependencies
 - Functions called/Symbols referenced:

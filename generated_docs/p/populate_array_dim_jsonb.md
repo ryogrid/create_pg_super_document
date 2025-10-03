@@ -18,10 +18,9 @@ populate_array_dim_jsonb(PopulateArrayContext *ctx, /* context */
 This function performs recursive traversal of JSONB array structures to populate PostgreSQL arrays. It uses a JSONB iterator to systematically process array elements, handling both the determination of array dimensions and the population of array elements. The function validates that the input JSONB value represents an array and manages the recursive descent through nested array structures. It coordinates with the array dimension assignment system to determine the total number of dimensions when not yet known, and validates dimensional consistency as it processes elements. The function handles both leaf-level element processing and recursive calls for nested sub-arrays.
 
 ## Parameters / Member Variables
-- : PopulateArrayContext pointer containing array metadata, dimension information, and error context
-- : JsonbValue pointer representing the JSONB sub-array to be processed
-- : Integer representing the current dimension level being processed
-
+- `*ctx`: PopulateArrayContext pointer containing array metadata, dimension information, and error context
+- `*jbv`: JsonbValue pointer representing the JSONB sub-array to be processed
+- `ndim`: Integer representing the current dimension level being processed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PopulateArrayContext](../P/PopulateArrayContext.md) (context structure)

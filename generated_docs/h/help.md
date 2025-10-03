@@ -68,8 +68,7 @@ A star (*) next to a name means that the command is disabled.
 The function uses internationalization support through the  macro for translatable messages, ensuring help text can be localized. It also conditionally displays SSL-related options based on compile-time configuration.
 
 ## Parameters / Member Variables
-- : String containing the program name (typically "postgres") used in help text formatting
-
+- `*progname`: String containing the program name (typically "postgres") used in help text formatting
 ## Dependencies
 - Functions called/Symbols referenced:
   - printf (standard C library function for formatted output)

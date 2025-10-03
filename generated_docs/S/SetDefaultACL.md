@@ -16,8 +16,7 @@ SetDefaultACL(InternalDefaultACL *iacls)
 This function implements the core logic for managing default ACL entries in the pg_default_acl system catalog. It handles both database-wide (global) and schema-specific default privileges for various object types (tables, sequences, functions, types, schemas). The function determines the appropriate default ACL baseline - for global entries, it uses hard-wired defaults via acldefault(), while schema-specific entries start with an empty ACL. It searches for existing entries using a three-key cache lookup (role, namespace, object type), then merges the requested privilege changes with the existing ACL using merge_acl_with_grant(). If the result equals the default ACL, the entry is deleted; otherwise, it's inserted or updated. The function also manages dependency relationships and shared dependency ACL information to maintain referential integrity.
 
 ## Parameters / Member Variables
-- : Pointer to InternalDefaultACL structure containing all the privilege specification details including role ID, namespace ID, object type, privileges, grantees, and grant options
-
+- `*iacls`: Pointer to InternalDefaultACL structure containing all the privilege specification details including role ID, namespace ID, object type, privileges, grantees, and grant options
 ## Dependencies
 - Functions called/Symbols referenced:
   - [acldefault](../a/acldefault.md)

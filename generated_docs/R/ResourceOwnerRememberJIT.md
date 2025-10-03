@@ -18,9 +18,8 @@ ResourceOwnerRememberJIT is a static inline convenience function that wraps the 
 The function converts the LLVMJitContext pointer to a Datum using PointerGetDatum and associates it with the jit_resowner_desc descriptor, which defines the cleanup callbacks for JIT resources.
 
 ## Parameters / Member Variables
-- : The ResourceOwner that will track this JIT context for cleanup
-- : The LLVMJitContext pointer to be registered and tracked
-
+- `owner`: The ResourceOwner that will track this JIT context for cleanup
+- `*handle`: The LLVMJitContext pointer to be registered and tracked
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ResourceOwnerRemember](ResourceOwnerRemember.md)

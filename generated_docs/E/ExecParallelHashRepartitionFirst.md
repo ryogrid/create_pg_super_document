@@ -26,8 +26,7 @@ The function works by:
 This repartitioning is essential for maintaining optimal memory usage and ensuring that the hash join can complete successfully even with large datasets.
 
 ## Parameters / Member Variables
-- : The HashJoinTable containing the parallel hash join state, batch information, and memory chunks to be repartitioned
-
+- `hashtable`: The HashJoinTable containing the parallel hash join state, batch information, and memory chunks to be repartitioned
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecParallelHashPopChunkQueue](ExecParallelHashPopChunkQueue.md) (chunk queue management)

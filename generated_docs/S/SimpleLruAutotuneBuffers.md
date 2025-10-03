@@ -28,9 +28,8 @@ The function uses nested Min/Max operations to ensure all constraints are satisf
 - Modulo operations (%) provide bank alignment by rounding down
 
 ## Parameters / Member Variables
-- : The divisor to apply to NBuffers (shared_buffers). Larger values result in fewer SLRU buffers
-- : Maximum number of SLRU buffers allowed, regardless of the calculated value
-
+- `divisor`: The divisor to apply to NBuffers (shared_buffers). Larger values result in fewer SLRU buffers
+- `max`: Maximum number of SLRU buffers allowed, regardless of the calculated value
 ## Dependencies
 - Functions called/Symbols referenced:
   - SLRU_BANK_SIZE (constant defining buffers per bank)

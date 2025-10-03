@@ -19,7 +19,6 @@ The function uses a careful iteration strategy that restarts the hash table scan
 The function safely handles the case where no portal hash table exists by returning early, making it robust for use in various system states.
 
 ## Parameters / Member Variables
-None - this function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -26,8 +26,7 @@ The function handles eight different types of SP-GiST operations:
 - Vacuuming redirect tuples
 
 ## Parameters / Member Variables
-- : XLogReaderState pointer containing the WAL record to be replayed, including the operation type and associated data
-
+- `*record`: XLogReaderState pointer containing the WAL record to be replayed, including the operation type and associated data
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetInfo (extracts info byte from WAL record)

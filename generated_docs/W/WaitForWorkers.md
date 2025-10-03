@@ -25,10 +25,9 @@ The function operates in a loop that calls ListenToWorkers to collect status mes
 This design enables efficient resource utilization by allowing the leader to dispatch new work as soon as workers become available while also supporting batch synchronization when needed.
 
 ## Parameters / Member Variables
-- : Archive handle containing database connection and operation context for passing to worker status handlers
-- : Parallel state structure containing worker slots, job assignments, and worker status tracking
-- : Enumerated wait strategy defining the termination condition (WFW_NO_WAIT, WFW_GOT_STATUS, WFW_ONE_IDLE, WFW_ALL_IDLE)
-
+- `*AH`: Archive handle containing database connection and operation context for passing to worker status handlers
+- `*pstate`: Parallel state structure containing worker slots, job assignments, and worker status tracking
+- `mode`: Enumerated wait strategy defining the termination condition (WFW_NO_WAIT, WFW_GOT_STATUS, WFW_ONE_IDLE, WFW_ALL_IDLE)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ListenToWorkers](../L/ListenToWorkers.md) (collects and processes worker status messages)

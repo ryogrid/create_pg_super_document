@@ -42,20 +42,19 @@ The function performs comprehensive compatibility checking to ensure that transi
 The function searches through the provided list of candidate transition numbers (from aggregates with matching inputs) and returns the first compatible match, or -1 if no suitable transition state can be shared.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing aggtransinfos list of existing transition states
-- : Aggref node for the aggregate seeking to share transition state
-- : Boolean indicating if the aggregate's final function allows state sharing
-- : OID of the transition function for the new aggregate
-- : OID of the transition state data type
-- : Length of transition type (for datum comparison)
-- : Whether transition type is passed by value (for datum comparison)
-- : OID of combine function for partial aggregation
-- : OID of serialization function for parallel aggregation
-- : OID of deserialization function for parallel aggregation  
-- : Initial value for transition state
-- : Whether the initial value is NULL
-- : List of candidate transition numbers with compatible inputs
-
+- `*root`: PlannerInfo structure containing aggtransinfos list of existing transition states
+- `*newagg`: Aggref node for the aggregate seeking to share transition state
+- `shareable`: Boolean indicating if the aggregate's final function allows state sharing
+- `aggtransfn`: OID of the transition function for the new aggregate
+- `aggtranstype`: OID of the transition state data type
+- `transtypeLen`: Length of transition type (for datum comparison)
+- `transtypeByVal`: Whether transition type is passed by value (for datum comparison)
+- `aggcombinefn`: OID of combine function for partial aggregation
+- `aggserialfn`: OID of serialization function for parallel aggregation
+- `aggdeserialfn`: OID of deserialization function for parallel aggregation
+- `initValue`: Initial value for transition state
+- `initValueIsNull`: Whether the initial value is NULL
+- `*transnos`: List of candidate transition numbers with compatible inputs
 ## Dependencies
 - Functions called/Symbols referenced:
   - lfirst_int (list access macro)

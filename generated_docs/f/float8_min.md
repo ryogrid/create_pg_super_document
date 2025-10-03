@@ -18,9 +18,8 @@ This inline function implements the minimum operation for double-precision float
 The function performs a simple conditional selection: if val1 is less than val2 according to float8_lt, it returns val1; otherwise, it returns val2. This function is extensively used in geometric operations and bounding box calculations.
 
 ## Parameters / Member Variables
-- : The first double-precision floating-point value to compare
-- : The second double-precision floating-point value to compare
-
+- `val1`: The first double-precision floating-point value to compare
+- `val2`: The second double-precision floating-point value to compare
 ## Dependencies
 - Functions called/Symbols referenced:
   - [float8_lt](float8_lt.md) (for less-than comparison with NaN handling)

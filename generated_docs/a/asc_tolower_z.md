@@ -16,8 +16,7 @@ asc_tolower_z(const char *buff)
 This function is a simplified wrapper around the  function that automatically determines the string length using . It provides ASCII-only lowercase conversion for null-terminated strings, eliminating the need for the caller to specify the buffer length explicitly. The function is static to the formatting.c module and is primarily used within PostgreSQL's numeric formatting operations.
 
 ## Parameters / Member Variables
-- : A null-terminated input string to be converted to lowercase
-
+- `*buff`: A null-terminated input string to be converted to lowercase
 ## Dependencies
 - Functions called/Symbols referenced:
   - [asc_tolower](asc_tolower.md)

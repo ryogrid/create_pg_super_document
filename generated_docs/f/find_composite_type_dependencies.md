@@ -21,10 +21,9 @@ The function scans the pg_depend system catalog to find all objects that depend 
 The function includes stack depth checking to prevent infinite recursion and uses appropriate locking (AccessShareLock) when examining dependent relations.
 
 ## Parameters / Member Variables
-- : The OID of the type being checked for dependencies
-- : The original relation associated with a rowtype (if applicable), used for error messaging
-- : The name of the original type (if not a rowtype), used for error messaging
-
+- `typeOid`: The OID of the type being checked for dependencies
+- `origRelation`: The original relation associated with a rowtype (if applicable), used for error messaging
+- `*origTypeName`: The name of the original type (if not a rowtype), used for error messaging
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_stack_depth](../c/check_stack_depth.md)

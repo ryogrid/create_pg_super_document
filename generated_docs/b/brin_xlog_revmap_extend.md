@@ -23,8 +23,7 @@ This function handles the replay of a BRIN revmap page extension during crash re
 The function ensures that the BRIN index's revmap structure is correctly reconstructed during recovery, maintaining the mapping between heap blocks and their corresponding summary pages.
 
 ## Parameters / Member Variables
-- : XLogReaderState pointer containing the WAL record being replayed, including the revmap extension data and affected block information
-
+- `*record`: XLogReaderState pointer containing the WAL record being replayed, including the revmap extension data and affected block information
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData: Extract record data from WAL

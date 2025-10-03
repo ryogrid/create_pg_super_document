@@ -18,10 +18,9 @@ This function serves as a validation callback in PostgreSQL's JSON parser framew
 The function performs validation by checking if a scalar value is encountered at the top level (lex_level == 0). If so, it immediately raises an error since json_object_keys requires a JSON object to extract keys from, and scalar values have no keys to extract.
 
 ## Parameters / Member Variables
-- : Void pointer to OkeysState structure containing the JSON lexer context and parsing state
-- : Character pointer to the scalar token value (unused in validation)
-- : JsonTokenType enumeration indicating the type of scalar token (unused in validation)
-
+- `*state`: Void pointer to OkeysState structure containing the JSON lexer context and parsing state
+- `*token`: Character pointer to the scalar token value (unused in validation)
+- `tokentype`: JsonTokenType enumeration indicating the type of scalar token (unused in validation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [OkeysState](../O/OkeysState.md) (cast from state parameter)

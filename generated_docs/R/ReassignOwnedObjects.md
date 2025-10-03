@@ -18,8 +18,7 @@ ReassignOwnedObjects provides the high-level interface for PostgreSQL's REASSIGN
 This function serves as a security-aware wrapper that ensures only authorized users can perform ownership transfers. It requires the executing user to have privileges of both the source roles (whose objects are being transferred) and the target role (which will receive ownership). This dual-privilege requirement prevents unauthorized ownership changes that could compromise database security.
 
 ## Parameters / Member Variables
-- : ReassignOwnedStmt containing the list of source roles whose objects should be reassigned and the target role that will receive ownership
-
+- `*stmt`: ReassignOwnedStmt containing the list of source roles whose objects should be reassigned and the target role that will receive ownership
 ## Dependencies
 - Functions called/Symbols referenced:
   - [roleSpecsToIds](../r/roleSpecsToIds.md): Convert source role specifications to OID list

@@ -20,7 +20,6 @@ This function iterates through all history entries using the BEGIN_ITERATE_HISTO
 The function handles the complexity of different readline implementations (libreadline vs libedit) through the iterator macros, which automatically detect the correct traversal direction for the history list.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

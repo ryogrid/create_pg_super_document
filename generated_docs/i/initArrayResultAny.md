@@ -18,10 +18,9 @@ This function provides a unified initialization interface for array building tha
 The function uses get_array_type() to determine if the input_type is a scalar (has an associated array type) or is already an array type. Special handling is provided for int2vector and oidvector types, which are treated as scalars for consistency with get_promoted_array_type.
 
 ## Parameters / Member Variables
-- : OID of the input datatype (can be either element type or array type)
-- : Memory context where working state should be kept
-- : Flag determining whether to create a separate memory context for array building
-
+- `input_type`: OID of the input datatype (can be either element type or array type)
+- `rcontext`: Memory context where working state should be kept
+- `subcontext`: Flag determining whether to create a separate memory context for array building
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_array_type](../g/get_array_type.md)

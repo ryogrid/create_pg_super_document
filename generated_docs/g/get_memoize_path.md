@@ -29,14 +29,13 @@ The function performs extensive validation to ensure memoization is safe and ben
 When all conditions are met, the function creates a MemoizePath using the collected parameter expressions and hash operators.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global optimizer context
-- : RelOptInfo for the inner relation to be cached  
-- : RelOptInfo for the outer relation providing parameters
-- : Path representing the inner side of the join to be potentially cached
-- : Path representing the outer side of the join
-- : JoinType specifying the type of join operation
-- : JoinPathExtraData containing additional join information including inner_unique flag
-
+- `*root`: PlannerInfo structure containing global optimizer context
+- `*innerrel`: RelOptInfo for the inner relation to be cached
+- `*outerrel`: RelOptInfo for the outer relation providing parameters
+- `*inner_path`: Path representing the inner side of the join to be potentially cached
+- `*outer_path`: Path representing the outer side of the join
+- `jointype`: JoinType specifying the type of join operation
+- `*extra`: JoinPathExtraData containing additional join information including inner_unique flag
 ## Dependencies
 - Functions called/Symbols referenced:
   - [paraminfo_get_equal_hashops](../p/paraminfo_get_equal_hashops.md)

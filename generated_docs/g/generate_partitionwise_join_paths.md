@@ -20,9 +20,8 @@ The function operates recursively on partition hierarchies, processing each chil
 Key safety measures include stack depth checking to prevent infinite recursion in deep partition hierarchies, and proper handling of pruned partitions that may be NULL.
 
 ## Parameters / Member Variables
-- : PlannerInfo containing global planner state and join search information
-- : RelOptInfo for the partitioned join relation to generate paths for
-
+- `*root`: PlannerInfo containing global planner state and join search information
+- `*rel`: RelOptInfo for the partitioned join relation to generate paths for
 ## Dependencies
 - Functions called/Symbols referenced:
   - IS_JOIN_REL (macro checking if relation is a join)

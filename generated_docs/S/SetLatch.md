@@ -18,8 +18,7 @@ SetLatch is a critical synchronization primitive that sets a latch's state to si
 The function performs a quick exit if the latch is already set to avoid unnecessary work. When signaling is needed, it uses different mechanisms depending on the platform: on Unix systems, it sends SIGURG signals or writes to a self-pipe; on Windows, it calls SetEvent on the associated event handle. The function is designed to be safe for use in signal handlers and critical sections, avoiding operations that might throw errors.
 
 ## Parameters / Member Variables
-- : Pointer to the Latch structure to signal and set to the awakened state
-
+- `*latch`: Pointer to the Latch structure to signal and set to the awakened state
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_memory_barrier (memory synchronization)

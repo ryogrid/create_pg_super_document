@@ -20,8 +20,7 @@ The function employs a moderately-accurate estimation approach, starting with a 
 The calculation includes memory requests from loaded extensions (via total_addin_request) and rounds the final size up to a multiple of a typical page size (8192 bytes) for better memory alignment and management.
 
 ## Parameters / Member Variables
-- : Optional output parameter; if non-NULL, receives the total number of semaphores required
-
+- `*num_semaphores`: Optional output parameter; if non-NULL, receives the total number of semaphores required
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ProcGlobalSemas](../P/ProcGlobalSemas.md) (process semaphore count)

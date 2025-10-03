@@ -16,8 +16,7 @@ findTypeByOid(Oid oid)
 This function is part of the pg_dump utility's object management system. It searches for a type object by its OID (Object Identifier) and returns a pointer to the corresponding TypeInfo structure. The function creates a CatalogId using the TypeRelationId and the provided OID, then delegates to findObjectByCatalogId to locate the actual DumpableObject. It includes assertions to ensure that any found object is indeed a type object (either DO_TYPE or DO_DUMMY_TYPE).
 
 ## Parameters / Member Variables
-- : The Object Identifier (OID) of the type to find in the PostgreSQL system catalogs
-
+- `oid`: The Object Identifier (OID) of the type to find in the PostgreSQL system catalogs
 ## Dependencies
 - Functions called/Symbols referenced:
   - [findObjectByCatalogId](findObjectByCatalogId.md)

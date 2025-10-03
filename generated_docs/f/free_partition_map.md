@@ -18,8 +18,7 @@ This function deallocates the memory that was previously allocated by init_parti
 This is a cleanup function that should be called when the PartitionMap is no longer needed to prevent memory leaks during partition merging operations.
 
 ## Parameters / Member Variables
-- : PartitionMap structure whose internal arrays need to be freed
-
+- `*map`: PartitionMap structure whose internal arrays need to be freed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PartitionMap](../P/PartitionMap.md) (data structure)

@@ -18,9 +18,8 @@ This inline function implements the maximum operation for single-precision float
 The function performs a simple conditional selection: if val1 is greater than val2 according to float4_gt, it returns val1; otherwise, it returns val2.
 
 ## Parameters / Member Variables
-- : The first single-precision floating-point value to compare
-- : The second single-precision floating-point value to compare
-
+- `val1`: The first single-precision floating-point value to compare
+- `val2`: The second single-precision floating-point value to compare
 ## Dependencies
 - Functions called/Symbols referenced:
   - [float4_gt](float4_gt.md) (for greater-than comparison with NaN handling)

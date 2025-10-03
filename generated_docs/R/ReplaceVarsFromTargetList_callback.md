@@ -28,9 +28,8 @@ This callback function implements the core logic for replacing variables with ex
 4. **Special error cases**: Detects and prevents the use of PARAM_MULTIEXPR parameters in ON UPDATE rules, which would create semantic complications.
 
 ## Parameters / Member Variables
-- : The Var node to be replaced
-- : Contains the callback argument with target list and replacement options
-
+- `*var`: The Var node to be replaced
+- `*context`: Contains the callback argument with target list and replacement options
 ## Dependencies
 - Functions called/Symbols referenced:
   - ReplaceVarsFromTargetList_context (struct)

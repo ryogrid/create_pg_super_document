@@ -17,11 +17,10 @@ initPopulateTable(PGconn *con, const char *table, int64 base,
 This function is responsible for efficiently populating pgbench tables with large amounts of test data. It uses PostgreSQL's COPY protocol for high-performance bulk data loading and provides detailed progress reporting. The function automatically uses the COPY FREEZE optimization on PostgreSQL 14+ for all tables except partitioned pgbench_accounts tables. It includes sophisticated progress reporting with time estimates and proper terminal handling for clean display updates.
 
 ## Parameters / Member Variables
-- : Active PostgreSQL database connection handle
-- : Name of the table to populate (e.g., "pgbench_accounts", "pgbench_branches")  
-- : Base number of records per scale unit
-- : Function pointer to the row initialization function (e.g., initAccount, initBranch)
-
+- `*con`: Active PostgreSQL database connection handle
+- `*table`: Name of the table to populate (e.g., "pgbench_accounts", "pgbench_branches")
+- `base`: Base number of records per scale unit
+- `init_row`: Function pointer to the row initialization function (e.g., initAccount, initBranch)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [initPQExpBuffer](initPQExpBuffer.md)/termPQExpBuffer: PostgreSQL buffer management functions

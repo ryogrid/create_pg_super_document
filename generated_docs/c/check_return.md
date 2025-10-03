@@ -18,8 +18,7 @@ The check_return function serves as an error code interpreter for the ECPG (Embe
 This function is primarily used in test code to provide meaningful output when date/time formatting functions in the Informix compatibility layer encounter errors. It handles several specific error conditions related to date parsing and validation, and provides a fallback for unknown error codes.
 
 ## Parameters / Member Variables
-- : An integer error code returned from ECPG Informix compatibility functions
-
+- `ret`: An integer error code returned from ECPG Informix compatibility functions
 ## Dependencies
 - Functions called/Symbols referenced:
   - printf

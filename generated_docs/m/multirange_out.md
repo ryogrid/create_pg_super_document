@@ -23,8 +23,7 @@ The  function is the output function for PostgreSQL multirange types, responsibl
 The function deserializes the multirange into its constituent ranges, then iterates through each range calling the appropriate range output function to format individual ranges. The results are concatenated with proper comma separation and brace delimiting.
 
 ## Parameters / Member Variables
-- : The multirange value to convert to string format
-
+- `PG_FUNCTION_ARGS`: The multirange value to convert to string format
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_MULTIRANGE_P

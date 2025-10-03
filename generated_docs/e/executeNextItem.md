@@ -18,13 +18,12 @@ executeNextItem(JsonPathExecContext *cxt,
 The  function serves as a control flow manager in JSONPath execution. It determines whether there are more JSONPath items to process in the current expression chain. If a next item exists, it delegates execution to . If no next item exists and a results collection list is provided, it appends the current value to that list. This function implements the sequential processing logic that allows complex JSONPath expressions to be evaluated step by step.
 
 ## Parameters / Member Variables
-- : JSONPath execution context containing state and configuration
-- : Current JSONPath item being processed (can be NULL)
-- : Next JSONPath item to process (can be NULL)
-- : Current JsonbValue being processed
-- : List to collect matching values (can be NULL)
-- : Boolean flag indicating whether to copy the value when adding to found list
-
+- `*cxt`: JSONPath execution context containing state and configuration
+- `*cur`: Current JSONPath item being processed (can be NULL)
+- `*next`: Next JSONPath item to process (can be NULL)
+- `*v`: Current JsonbValue being processed
+- `*found`: List to collect matching values (can be NULL)
+- `copy`: Boolean flag indicating whether to copy the value when adding to found list
 ## Dependencies
 - Functions called/Symbols referenced:
   - jspHasNext

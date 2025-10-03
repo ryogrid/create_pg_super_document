@@ -22,6 +22,7 @@ This information is important for psql's string processing and command parsing, 
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQparameterStatus](../P/PQparameterStatus.md) (libpq function to query server parameters)

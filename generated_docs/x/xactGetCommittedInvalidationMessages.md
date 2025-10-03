@@ -27,9 +27,8 @@ The function processes messages in a specific order:
 This ordering maintains consistency between original execution and replay scenarios.
 
 ## Parameters / Member Variables
-- : Output parameter that receives a pointer to the array of invalidation messages
-- : Output parameter indicating whether relation cache init file invalidation is required
-
+- `**msgs`: Output parameter that receives a pointer to the array of invalidation messages
+- `*RelcacheInitFileInval`: Output parameter indicating whether relation cache init file invalidation is required
 ## Dependencies
 - Functions called/Symbols referenced:
   - NumMessagesInGroup

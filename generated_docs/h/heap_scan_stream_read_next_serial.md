@@ -24,10 +24,9 @@ The function operates in two phases:
 This function works with both forward and backward scans, and supports TID range scans where only specific ranges of tuple identifiers need to be processed. It returns InvalidBlockNumber when the scan is complete.
 
 ## Parameters / Member Variables
-- : The ReadStream object managing the streaming read operation
-- : Private data passed to the callback, cast to HeapScanDesc containing scan state and parameters
-- : Per-buffer data (not used in this function)
-
+- `*stream`: The ReadStream object managing the streaming read operation
+- `*callback_private_data`: Private data passed to the callback, cast to HeapScanDesc containing scan state and parameters
+- `*per_buffer_data`: Per-buffer data (not used in this function)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [heapgettup_initial_block](heapgettup_initial_block.md)

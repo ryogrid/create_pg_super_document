@@ -21,8 +21,7 @@ The  function performs cleanup of a DFA structure by deallocating all dynamicall
 The function safely handles NULL pointers and only frees memory that was actually allocated, preventing double-free errors.
 
 ## Parameters / Member Variables
-- : Pointer to the DFA structure to be freed
-
+- `*d`: Pointer to the DFA structure to be freed
 ## Dependencies
 - Functions called/Symbols referenced:
   - FREE (macro for memory deallocation)

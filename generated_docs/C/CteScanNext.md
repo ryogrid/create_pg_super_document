@@ -22,8 +22,7 @@ CteScanNext implements the core tuple retrieval logic for CTE scans by managing 
 The function carefully manages scan direction, handling special cases like reversing direction at tuplestore EOF. It ensures tuple stability by copying CTE query results into the node's own slot, preventing issues when other CTE scan nodes advance the query.
 
 ## Parameters / Member Variables
-- : CteScanState containing the scan state, including the leader node with shared CTE table, read pointer, and scan tuple slot
-
+- `*node`: CteScanState containing the scan state, including the leader node with shared CTE table, read pointer, and scan tuple slot
 ## Dependencies
 - Functions called/Symbols referenced:
   - ScanDirectionIsForward: Check if scan direction is forward

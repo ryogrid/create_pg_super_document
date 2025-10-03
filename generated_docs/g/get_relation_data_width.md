@@ -18,9 +18,8 @@ The  function serves as a convenient external API for . It takes a relation OID 
 The function opens the relation using  with NoLock, calls the core  function to perform the actual width calculation, and then closes the relation. This wrapper pattern is common in PostgreSQL to provide both internal and external APIs for the same functionality.
 
 ## Parameters / Member Variables
-- : The OID of the relation for which to estimate tuple width
-- : Optional pointer to a cache array for storing/retrieving previously computed attribute widths (can be NULL)
-
+- `relid`: The OID of the relation for which to estimate tuple width
+- `*attr_widths`: Optional pointer to a cache array for storing/retrieving previously computed attribute widths (can be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_rel_data_width](get_rel_data_width.md)

@@ -17,9 +17,8 @@ This function is responsible for changing the persistence of a sequence relation
 The function performs a complete sequence state preservation cycle: it reads the current sequence tuple, creates a new relfilenode with the new persistence setting, and fills the new relation with the existing sequence data.
 
 ## Parameters / Member Variables
-- : The OID of the sequence relation whose persistence is being changed
-- : The new persistence characteristic ('p' for permanent/logged, 'u' for unlogged, 't' for temporary)
-
+- `seqrel`: The OID of the sequence relation whose persistence is being changed
+- `newrelpersistence`: The new persistence characteristic ('p' for permanent/logged, 'u' for unlogged, 't' for temporary)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LockRelationOid](../L/LockRelationOid.md) (with AccessExclusiveLock)

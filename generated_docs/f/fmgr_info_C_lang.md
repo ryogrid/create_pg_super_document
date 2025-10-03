@@ -24,10 +24,9 @@ fmgr_info_C_lang specializes in setting up function manager information for C-la
 The function only supports API version 1 functions and will error on unrecognized versions.
 
 ## Parameters / Member Variables
-- : OID of the function being processed (currently unused in implementation)
-- : FmgrInfo structure to be initialized with function address
-- : HeapTuple from pg_proc catalog containing function metadata
-
+- `functionId`: OID of the function being processed (currently unused in implementation)
+- `*finfo`: FmgrInfo structure to be initialized with function address
+- `procedureTuple`: HeapTuple from pg_proc catalog containing function metadata
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lookup_C_func](../l/lookup_C_func.md) (check function cache)

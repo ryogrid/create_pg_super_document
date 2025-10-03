@@ -23,10 +23,9 @@ This function retrieves constraint information for referential integrity trigger
 The function is critical for ensuring that referential integrity triggers operate on valid, properly configured foreign key constraints.
 
 ## Parameters / Member Variables
-- : Pointer to the Trigger struct containing trigger metadata including constraint OID
-- : Relation on which the trigger is defined
-- : Boolean indicating whether trig_rel is the primary key (referenced) table
-
+- `*trigger`: Pointer to the Trigger struct containing trigger metadata including constraint OID
+- `trig_rel`: Relation on which the trigger is defined
+- `rel_is_pk`: Boolean indicating whether trig_rel is the primary key (referenced) table
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ri_LoadConstraintInfo](ri_LoadConstraintInfo.md)

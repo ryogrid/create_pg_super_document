@@ -28,11 +28,10 @@ This function serves as the feasibility checker for type coercion operations, va
 The function performs polymorphic type consistency checking when generic types are involved, ensuring that all polymorphic parameters resolve to compatible actual types.
 
 ## Parameters / Member Variables
-- : Number of argument types to check for coercion
-- : Array of input type OIDs to be coerced from
-- : Array of target type OIDs to be coerced to
-- : Coercion context (CAST, assignment, implicit) determining available casts
-
+- `nargs`: Number of argument types to check for coercion
+- `*input_typeids`: Array of input type OIDs to be coerced from
+- `*target_typeids`: Array of target type OIDs to be coerced to
+- `ccontext`: Coercion context (CAST, assignment, implicit) determining available casts
 ## Dependencies
 - Functions called/Symbols referenced:
   - [find_coercion_pathway](../f/find_coercion_pathway.md)

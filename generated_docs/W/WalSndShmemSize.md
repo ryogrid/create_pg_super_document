@@ -15,7 +15,6 @@ Size WalSndShmemSize(void)
 This function computes the total shared memory space needed for WAL sender operations by calculating the size of the WalSndCtlData control structure plus space for all configured WAL sender slots. It uses PostgreSQL's safe arithmetic functions to prevent integer overflow when computing the memory requirements. The calculation includes the base control structure size (up to the walsnds field offset) plus the space needed for max_wal_senders number of WalSnd structures.
 
 ## Parameters / Member Variables
-This function takes no parameters and returns a Size value representing the required memory in bytes.
 
 ## Dependencies
 - Functions called/Symbols referenced:

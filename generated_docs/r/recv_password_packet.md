@@ -22,8 +22,7 @@ The function is designed to handle common client behaviors gracefully, such as w
 One important security feature is that the actual password content is never logged - only a generic "received password packet" debug message is recorded to prevent sensitive data from appearing in server logs.
 
 ## Parameters / Member Variables
-- : Pointer to Port structure containing connection information
-
+- `*port`: Pointer to Port structure containing connection information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pq_startmsgread](../p/pq_startmsgread.md) (start reading a protocol message)

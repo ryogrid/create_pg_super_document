@@ -19,8 +19,7 @@ This function is part of the Tamil language stemming algorithm in the Snowball s
 The function employs a complex control flow with multiple labels and gotos to efficiently handle pattern matching and replacement. It appears to handle Tamil script variations where different Unicode character combinations can represent similar sounds or meanings.
 
 ## Parameters / Member Variables
-- : Pointer to the Snowball environment structure containing the current word being processed, cursor position, and other stemming state information
-
+- `*z`: Pointer to the Snowball environment structure containing the current word being processed, cursor position, and other stemming state information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [eq_s](../e/eq_s.md) (string equality comparison function used 8 times for pattern matching)

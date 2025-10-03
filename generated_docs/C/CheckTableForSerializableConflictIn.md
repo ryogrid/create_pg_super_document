@@ -30,8 +30,7 @@ The function performs a comprehensive scan of all predicate lock targets:
 An important optimization allows early exit when no serializable transactions are running, since the caller holds ACCESS EXCLUSIVE lock preventing new relevant locks from being acquired.
 
 ## Parameters / Member Variables
-- : The heap relation being truncated or dropped (must be a heap relation, not an index)
-
+- `relation`: The heap relation being truncated or dropped (must be a heap relation, not an index)
 ## Dependencies
 - Functions called/Symbols referenced:
   - TransactionIdIsValid

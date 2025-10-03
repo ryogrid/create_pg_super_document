@@ -22,8 +22,7 @@ After closing (or attempting to close) the file, it marks the VFD as closed by s
 The error logging behavior differs based on the file type: temporary files (FD_TEMP_FILE_LIMIT flag set) log at LOG level, while regular files use data_sync_elevel(LOG) which may result in higher severity logging.
 
 ## Parameters / Member Variables
-- : The File index (VFD index) to close and remove from the LRU chain
-
+- `file`: The File index (VFD index) to close and remove from the LRU chain
 ## Dependencies
 - Functions called/Symbols referenced:
   - File (typedef for VFD index)

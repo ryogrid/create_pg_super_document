@@ -15,7 +15,6 @@ PgStat_ArchiverStats *pgstat_fetch_stat_archiver(void)
 This function serves as a support function for SQL-callable pgstat functions that need to access archiver statistics. It first creates a snapshot of the current archiver statistics from shared memory using the pgstat snapshot mechanism, then returns a pointer to the local copy of the archiver statistics. This ensures that SQL functions get a consistent view of the statistics that won't change during their execution.
 
 ## Parameters / Member Variables
-None - this function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

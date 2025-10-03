@@ -23,9 +23,8 @@ The function works by:
 This design allows PostgreSQL to use a single set of partition locks for both hash tables while maintaining proper synchronization.
 
 ## Parameters / Member Variables
-- : Pointer to the PREDICATELOCKTAG structure to be hashed
-- : Size of the key structure (must equal sizeof(PREDICATELOCKTAG))
-
+- `*key`: Pointer to the PREDICATELOCKTAG structure to be hashed
+- `keysize`: Size of the key structure (must equal sizeof(PREDICATELOCKTAG))
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PREDICATELOCKTAG](../P/PREDICATELOCKTAG.md) (structure type)

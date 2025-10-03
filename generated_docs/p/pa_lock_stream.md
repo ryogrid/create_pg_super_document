@@ -20,9 +20,8 @@ The function is part of the broader locking strategy used to coordinate between 
 The lock is associated with both a transaction ID and the current subscription ID, providing fine-grained control over access to specific transaction streams within a logical replication context.
 
 ## Parameters / Member Variables
-- : TransactionId of the transaction for which to acquire the stream lock
-- : LOCKMODE specifying the type of lock to acquire (e.g., AccessShareLock, AccessExclusiveLock)
-
+- `xid`: TransactionId of the transaction for which to acquire the stream lock
+- `lockmode`: LOCKMODE specifying the type of lock to acquire (e.g., AccessShareLock, AccessExclusiveLock)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LockApplyTransactionForSession](../L/LockApplyTransactionForSession.md)

@@ -31,6 +31,7 @@ This function creates a persistent checkpoint of all active replication origin s
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - `unlink`: Removes any existing temporary checkpoint file

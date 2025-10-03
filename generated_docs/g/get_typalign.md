@@ -16,8 +16,7 @@ get_typalign(Oid typid)
 This function performs a system catalog lookup to retrieve the alignment requirement for a given data type. Type alignment specifies the memory alignment boundary that values of this type must respect when stored in memory or on disk. The function queries the pg_type system catalog using the syscache mechanism for efficient access. If the type is not found in the catalog, it returns a default alignment of TYPALIGN_INT as a fallback value.
 
 ## Parameters / Member Variables
-- : The OID of the data type whose alignment requirement is to be retrieved
-
+- `typid`: The OID of the data type whose alignment requirement is to be retrieved
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache1](../S/SearchSysCache1.md)

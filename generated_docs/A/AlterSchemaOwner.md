@@ -24,9 +24,8 @@ Key behaviors include:
 - Proper cleanup of system cache references and relation locks
 
 ## Parameters / Member Variables
-- : Name of the schema whose ownership should be changed
-- : OID of the role that should become the new owner
-
+- `*name`: Name of the schema whose ownership should be changed
+- `newOwnerId`: OID of the role that should become the new owner
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md)/table_close (catalog access with RowExclusiveLock)

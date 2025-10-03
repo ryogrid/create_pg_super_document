@@ -24,9 +24,8 @@ The function handles four main transformation patterns:
 The function only operates when  has failed, meaning it will never see two constant inputs or a constant-NULL input. This ensures it focuses specifically on the boolean-constant simplification case.
 
 ## Parameters / Member Variables
-- : The OID of the boolean operator being simplified (BooleanEqualOperator for "=" or inequality operator for "<>")
-- : List containing exactly two arguments to the boolean operation (left and right operands)
-
+- `opno`: The OID of the boolean operator being simplified (BooleanEqualOperator for "=" or inequality operator for "<>")
+- `*args`: List containing exactly two arguments to the boolean operation (left and right operands)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Validates that exactly two arguments are provided

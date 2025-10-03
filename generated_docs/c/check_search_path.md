@@ -27,10 +27,9 @@ The function intentionally does NOT validate whether the named schemas actually 
 Upon successful validation, if caching is enabled, an empty cache entry is created for future lookups.
 
 ## Parameters / Member Variables
-- : Pointer to the new search_path value to be validated
-- : Pointer to extra data (unused in this implementation)
-- : GucSource indicating where the new value originated from
-
+- `**newval`: Pointer to the new search_path value to be validated
+- `**extra`: Pointer to extra data (unused in this implementation)
+- `source`: GucSource indicating where the new value originated from
 ## Dependencies
 - Functions called/Symbols referenced:
   - GucSource

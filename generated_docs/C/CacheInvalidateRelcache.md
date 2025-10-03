@@ -18,8 +18,7 @@ CacheInvalidateRelcache is used to invalidate the relcache (relation cache) entr
 The function extracts the relation OID from the relation structure and determines the appropriate database context (shared vs. database-specific), then registers the invalidation message to be processed at command end.
 
 ## Parameters / Member Variables
-- : Pointer to the Relation structure whose relcache entry should be invalidated
-
+- `relation`: Pointer to the Relation structure whose relcache entry should be invalidated
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PrepareInvalidationState](../P/PrepareInvalidationState.md)

@@ -18,9 +18,8 @@ The  function traverses a parse tree or expression tree to collect all variable 
 The function uses a walker pattern with  to recursively traverse the node tree. It maintains a context structure to track the target level and accumulate found variables. The collected variables are not copied but linked directly into the result list for efficiency.
 
 ## Parameters / Member Variables
-- : The root node of the parse tree or expression tree to search
-- : The target query nesting level to search for (0 = current level, 1 = one level up, etc.)
-
+- `*node`: The root node of the parse tree or expression tree to search
+- `levelsup`: The target query nesting level to search for (0 = current level, 1 = one level up, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pull_vars_context](pull_vars_context.md) (context structure)

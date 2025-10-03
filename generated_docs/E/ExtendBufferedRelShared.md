@@ -25,15 +25,14 @@ ExtendBufferedRelShared implements the complex logic for extending shared (persi
 The function handles several edge cases including concurrent extensions, existing buffers from failed previous attempts, and enforces relation size limits. It coordinates with buffer access strategies for victim buffer selection and includes comprehensive error handling for corrupted data scenarios. The implementation optimizes performance by doing expensive operations (victim buffer writeout, zeroing) before acquiring locks.
 
 ## Parameters / Member Variables
-- : BufferManagerRelation containing relation metadata and storage manager
-- : ForkNumber specifying which fork of the relation to extend (main, FSM, VM, etc.)
-- : BufferAccessStrategy for buffer management policy and victim selection
-- : uint32 controlling extension behavior (EB_SKIP_EXTENSION_LOCK, EB_CLEAR_SIZE_CACHE, EB_LOCK_FIRST, EB_LOCK_TARGET)
-- : uint32 specifying the number of blocks to extend by (modified by LimitAdditionalPins)
-- : BlockNumber specifying target block number to extend up to (InvalidBlockNumber for unlimited)
-- : Buffer array to receive handles for newly allocated blocks
-- : Pointer to uint32 that receives the actual number of blocks extended
-
+- `bmr`: BufferManagerRelation containing relation metadata and storage manager
+- `fork`: ForkNumber specifying which fork of the relation to extend (main, FSM, VM, etc.)
+- `strategy`: BufferAccessStrategy for buffer management policy and victim selection
+- `flags`: uint32 controlling extension behavior (EB_SKIP_EXTENSION_LOCK, EB_CLEAR_SIZE_CACHE, EB_LOCK_FIRST, EB_LOCK_TARGET)
+- `extend_by`: uint32 specifying the number of blocks to extend by (modified by LimitAdditionalPins)
+- `extend_upto`: BlockNumber specifying target block number to extend up to (InvalidBlockNumber for unlimited)
+- `*buffers`: Buffer array to receive handles for newly allocated blocks
+- `*extended_by`: Pointer to uint32 that receives the actual number of blocks extended
 ## Dependencies
 - Functions called/Symbols referenced:
   - [IOContextForStrategy](../I/IOContextForStrategy.md)

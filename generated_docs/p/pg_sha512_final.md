@@ -23,9 +23,8 @@ The  function completes the SHA-512 hashing process by:
 The function handles both successful completion (when digest buffer is provided) and cleanup-only scenarios (when digest is NULL). This design allows for secure context destruction even when the final hash value is not needed.
 
 ## Parameters / Member Variables
-- : Pointer to the SHA-512 context structure containing the current hash state and any buffered input data
-- : Output buffer to receive the final 64-byte SHA-512 hash digest, or NULL if only cleanup is desired
-
+- `*context`: Pointer to the SHA-512 context structure containing the current hash state and any buffered input data
+- `*digest`: Output buffer to receive the final 64-byte SHA-512 hash digest, or NULL if only cleanup is desired
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Processes final data block and applies padding

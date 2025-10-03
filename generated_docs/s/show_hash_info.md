@@ -30,9 +30,8 @@ Key features include:
 The aggregation strategy takes maximum values across workers because each worker may process different subsets of data and we want to report the highest resource usage encountered by any participant.
 
 ## Parameters / Member Variables
-- : Pointer to HashState structure containing hash join execution state and instrumentation data
-- : Pointer to ExplainState structure containing output formatting context and buffers
-
+- `*hashstate`: Pointer to HashState structure containing hash join execution state and instrumentation data
+- `*es`: Pointer to ExplainState structure containing output formatting context and buffers
 ## Dependencies
 - Functions called/Symbols referenced:
   - memcpy: Copies instrumentation data from local process

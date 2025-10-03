@@ -18,9 +18,8 @@ mbvalidate provides encoding validation for multibyte character strings, removin
 The function operates in-place, modifying the input string to remove invalid sequences. This ensures that subsequent text processing operations will not encounter malformed multibyte sequences that could cause errors or incorrect display behavior.
 
 ## Parameters / Member Variables
-- : Input/output multibyte character string to validate and modify in-place
-- : Character encoding identifier that determines which validation routine to apply
-
+- `*pwcs`: Input/output multibyte character string to validate and modify in-place
+- `encoding`: Character encoding identifier that determines which validation routine to apply
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_UTF8: Encoding constant for UTF-8 identification

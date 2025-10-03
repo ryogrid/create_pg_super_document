@@ -29,7 +29,6 @@ The function implements lazy initialization - if a buffer doesn't exist for the 
 This design allows the same code to work in both single-threaded and multi-threaded contexts while maintaining optimal performance.
 
 ## Parameters / Member Variables
-This function takes no parameters (void).
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -16,9 +16,8 @@ buildoidvector(const Oid *oids, int n)
 The buildoidvector function creates an oidvector structure, which is PostgreSQL's specialized array type for storing OID sequences. It allocates memory for the structure, optionally copies the provided OID array, and initializes all necessary array header fields. The function supports creating empty oidvectors (when oids is NULL) that can be filled later, or fully populated ones from an existing OID array. This is commonly used in system catalog operations where sequences of OIDs need to be stored efficiently.
 
 ## Parameters / Member Variables
-- : Pointer to a raw array of OID values to copy into the oidvector (can be NULL for empty initialization)
-- : Number of OID elements in the array and size of the resulting oidvector
-
+- `*oids`: Pointer to a raw array of OID values to copy into the oidvector (can be NULL for empty initialization)
+- `n`: Number of OID elements in the array and size of the resulting oidvector
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc0](../p/palloc0.md): PostgreSQL memory allocation function that zeros the allocated memory

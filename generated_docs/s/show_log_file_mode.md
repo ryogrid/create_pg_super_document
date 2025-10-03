@@ -21,6 +21,7 @@ The function follows the same pattern as other permission display hooks in Postg
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - `snprintf`: Standard C function for formatted string output

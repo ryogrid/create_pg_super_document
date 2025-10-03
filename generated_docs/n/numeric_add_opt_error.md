@@ -18,10 +18,9 @@ This function performs the actual addition of two PostgreSQL numeric values, han
 The function implements comprehensive special value handling for NaN and infinity cases according to IEEE-like semantics, then delegates finite arithmetic to the high-precision add_var function. It properly handles edge cases like Inf + (-Inf) = NaN while maintaining mathematical correctness for all other combinations.
 
 ## Parameters / Member Variables
-- : The first numeric operand to add
-- : The second numeric operand to add
-- : Optional pointer to boolean flag; if provided and an error occurs, this is set to true and NULL is returned instead of raising an exception
-
+- `num1`: The first numeric operand to add
+- `num2`: The second numeric operand to add
+- `*have_error`: Optional pointer to boolean flag; if provided and an error occurs, this is set to true and NULL is returned instead of raising an exception
 ## Dependencies
 - Functions called/Symbols referenced:
   - NUMERIC_IS_SPECIAL (special value detection)

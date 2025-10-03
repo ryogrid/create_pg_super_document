@@ -26,17 +26,16 @@ The  function is a central component of pg_dump's ACL handling system. It genera
 The function uses  to perform the complex logic of comparing ACL states and generating the appropriate SQL commands. It only creates archive entries when there are actual permission changes to apply.
 
 ## Parameters / Member Variables
-- : Archive structure for output generation and configuration
-- : Dump ID of the primary object whose ACL is being dumped
-- : Optional secondary dump ID for additional dependencies, or InvalidDumpId
-- : Object type string (TABLE, SEQUENCE, FUNCTION, etc.)
-- : Properly formatted and quoted object name
-- : Formatted sub-object name (typically for table columns), or NULL
-- : Namespace/schema name, or NULL for global objects
-- : Custom tag for the ACL TOC entry, or NULL to use default
-- : Object owner name, or NULL for ownerless objects like languages
-- : DumpableAcl structure containing current ACL, default ACL, privilege type, and initial privileges
-
+- `*fout`: Archive structure for output generation and configuration
+- `objDumpId`: Dump ID of the primary object whose ACL is being dumped
+- `altDumpId`: Optional secondary dump ID for additional dependencies, or InvalidDumpId
+- `*type`: Object type string (TABLE, SEQUENCE, FUNCTION, etc.)
+- `*name`: Properly formatted and quoted object name
+- `*subname`: Formatted sub-object name (typically for table columns), or NULL
+- `*nspname`: Namespace/schema name, or NULL for global objects
+- `*tag`: Custom tag for the ACL TOC entry, or NULL to use default
+- `*owner`: Object owner name, or NULL for ownerless objects like languages
+- `*dacl`: DumpableAcl structure containing current ACL, default ACL, privilege type, and initial privileges
 ## Dependencies
 - Functions called/Symbols referenced:
   - [createPQExpBuffer](../c/createPQExpBuffer.md)

@@ -24,9 +24,8 @@ For each relation type, the function iterates through all relations and calls re
 The output is wrapped in a "Triggers" group for structured formats (JSON, XML, YAML) or appears as trigger timing information in text format.
 
 ## Parameters / Member Variables
-- : ExplainState containing output formatting options and buffer for trigger statistics
-- : QueryDesc containing the execution state with trigger execution statistics collected during query execution
-
+- `*es`: ExplainState containing output formatting options and buffer for trigger statistics
+- `*queryDesc`: QueryDesc containing the execution state with trigger execution statistics collected during query execution
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExplainOpenGroup](ExplainOpenGroup.md)

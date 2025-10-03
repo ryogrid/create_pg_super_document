@@ -19,15 +19,14 @@ transformGroupClauseList(List **flatresult,
 This function processes a list of expressions that belong to a single GROUP BY clause or grouping set. It iterates through each expression in the input list, transforms them using , and builds a result list of integer ressortgroupref values. The function maintains a local bitmap set to track already seen references within the current grouping context, allowing for safe elimination of duplicates. This is a key component in the PostgreSQL parser's handling of GROUP BY clauses and grouping sets.
 
 ## Parameters / Member Variables
-- : Reference to flat list of SortGroupClause nodes that gets populated during processing
-- : ParseState containing parsing context and state information
-- : Input list of nodes (expressions) to be transformed
-- : Reference to TargetEntry list that may be modified during transformation
-- : ORDER BY clause containing SortGroupClause nodes for reference
-- : ParseExprKind enum value specifying the type of expression being parsed
-- : Boolean flag indicating whether to use SQL99 syntax rather than SQL92 syntax
-- : Boolean flag indicating whether this is at top level (false if within any grouping set)
-
+- `**flatresult`: Reference to flat list of SortGroupClause nodes that gets populated during processing
+- `*pstate`: ParseState containing parsing context and state information
+- `*list`: Input list of nodes (expressions) to be transformed
+- `**targetlist`: Reference to TargetEntry list that may be modified during transformation
+- `*sortClause`: ORDER BY clause containing SortGroupClause nodes for reference
+- `exprKind`: ParseExprKind enum value specifying the type of expression being parsed
+- `useSQL99`: Boolean flag indicating whether to use SQL99 syntax rather than SQL92 syntax
+- `toplevel`: Boolean flag indicating whether this is at top level (false if within any grouping set)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [transformGroupClauseExpr](transformGroupClauseExpr.md)

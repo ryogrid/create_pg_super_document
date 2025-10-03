@@ -18,10 +18,9 @@ The  function serves as a comparison callback for sorting arrays of QueryOperand
 The function dereferences the void pointers to get QueryOperand pointers, then uses the operand string (passed as the arg parameter) along with each QueryOperand's distance and length fields to locate and compare the actual string content. This enables sorting of query operands in lexicographical order, which is useful for deduplication and efficient processing of text search queries.
 
 ## Parameters / Member Variables
-- : Pointer to the first QueryOperand pointer to compare
-- : Pointer to the second QueryOperand pointer to compare  
-- : Pointer to the operand string buffer containing all query strings
-
+- `*a`: Pointer to the first QueryOperand pointer to compare
+- `*b`: Pointer to the second QueryOperand pointer to compare
+- `*arg`: Pointer to the operand string buffer containing all query strings
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (PostgreSQL's string comparison function)

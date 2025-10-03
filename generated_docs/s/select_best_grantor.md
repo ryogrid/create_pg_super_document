@@ -22,13 +22,12 @@ When the requesting role is a member of multiple roles with different subsets of
 The function first checks if the requesting role is the object owner or a superuser (which are treated as having all grant options). If not, it searches through all roles that the requesting role is a member of to find the best candidate grantor.
 
 ## Parameters / Member Variables
-- : The role attempting to perform the GRANT/REVOKE operation
-- : The privileges to be granted or revoked
-- : The Access Control List of the object in question
-- : The role that owns the object in question
-- : Output parameter that receives the OID of the role to use as grantor
-- : Output parameter that receives the grant options actually held by the selected grantor
-
+- `roleId`: The role attempting to perform the GRANT/REVOKE operation
+- `privileges`: The privileges to be granted or revoked
+- `*acl`: The Access Control List of the object in question
+- `ownerId`: The role that owns the object in question
+- `*grantorId`: Output parameter that receives the OID of the role to use as grantor
+- `*grantOptions`: Output parameter that receives the grant options actually held by the selected grantor
 ## Dependencies
 - Functions called/Symbols referenced:
   - ACL_GRANT_OPTION_FOR (macro to convert privileges to grant options)

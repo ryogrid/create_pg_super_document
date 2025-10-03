@@ -18,7 +18,6 @@ This function is a one-time initialization function that creates a pthread threa
 The function is called through `pthread_once()` to ensure it executes exactly once, regardless of how many threads call the related memory functions.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

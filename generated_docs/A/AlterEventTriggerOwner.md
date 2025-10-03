@@ -18,9 +18,8 @@ This function handles changing the ownership of an event trigger by looking up t
 The function performs the standard pattern for PostgreSQL object ownership changes: opens the relevant system catalog with exclusive row lock, searches for the object by name, validates its existence, performs the ownership change through the internal function, constructs and returns an ObjectAddress for the modified object, and cleans up resources.
 
 ## Parameters / Member Variables
-- : C string containing the name of the event trigger whose ownership should be changed
-- : OID of the user/role who should become the new owner of the event trigger
-
+- `*name`: C string containing the name of the event trigger whose ownership should be changed
+- `newOwnerId`: OID of the user/role who should become the new owner of the event trigger
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md) (to open the pg_event_trigger relation)

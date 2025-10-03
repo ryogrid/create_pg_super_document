@@ -21,9 +21,8 @@ When a parent color becomes empty (has no characters), the function transfers al
 The function is critical for finalizing the color mapping optimization that allows efficient regular expression matching by reducing the number of distinct colors that need to be tracked.
 
 ## Parameters / Member Variables
-- : Pointer to the NFA structure where arcs will be created or modified
-- : Pointer to the colormap structure containing color descriptors and relationships
-
+- `*nfa`: Pointer to the NFA structure where arcs will be created or modified
+- `*cm`: Pointer to the colormap structure containing color descriptors and relationships
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Macro to get the end of color descriptor array

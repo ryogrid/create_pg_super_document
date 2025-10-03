@@ -18,9 +18,8 @@ TypeIsVisibleExt is an internal function that checks if a specific type is visib
 The visibility check involves two phases: first, a quick check to see if the type's namespace is in the active search path, and second, a thorough search to ensure the type isn't masked by another type with the same name in an earlier namespace.
 
 ## Parameters / Member Variables
-- : The OID of the type to check for visibility
-- : Optional pointer to a boolean flag; if not NULL, will be set to true if the type is missing instead of throwing an error
-
+- `typid`: The OID of the type to check for visibility
+- `*is_missing`: Optional pointer to a boolean flag; if not NULL, will be set to true if the type is missing instead of throwing an error
 ## Dependencies
 - Functions called/Symbols referenced:
   - Form_pg_type

@@ -20,8 +20,7 @@ The function implements an optimized scanning strategy: it first processes compl
 If the array has no null bitmap (ARR_HASNULL returns false), the function immediately returns false without further processing, since PostgreSQL only creates null bitmaps when necessary.
 
 ## Parameters / Member Variables
-- : The PostgreSQL array object to examine for null elements
-
+- `*array`: The PostgreSQL array object to examine for null elements
 ## Dependencies
 - Functions called/Symbols referenced:
   - ARR_HASNULL (macro to check if array has a null bitmap)

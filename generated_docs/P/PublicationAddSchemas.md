@@ -19,11 +19,10 @@ This static function iterates through a list of schema OIDs and adds each schema
 The function also manages event trigger collection and post-creation hooks when called in the context of an ALTER PUBLICATION statement, ensuring proper event handling and notification for schema additions.
 
 ## Parameters / Member Variables
-- : OID of the target publication to which schemas will be added
-- : List of schema OIDs to be added to the publication
-- : Boolean flag to control behavior when a schema already exists in the publication (true = skip duplicates, false = raise error)
-- : Pointer to AlterPublicationStmt structure for event trigger context; can be NULL if not called from ALTER PUBLICATION
-
+- `pubid`: OID of the target publication to which schemas will be added
+- `*schemas`: List of schema OIDs to be added to the publication
+- `if_not_exists`: Boolean flag to control behavior when a schema already exists in the publication (true = skip duplicates, false = raise error)
+- `*stmt`: Pointer to AlterPublicationStmt structure for event trigger context; can be NULL if not called from ALTER PUBLICATION
 ## Dependencies
 - Functions called/Symbols referenced:
   - [publication_add_schema](../p/publication_add_schema.md)

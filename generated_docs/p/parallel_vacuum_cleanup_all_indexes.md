@@ -19,11 +19,10 @@ The function coordinates parallel index cleanup operations across multiple worke
 The function assumes that indexes are more interested in the number of surviving tuples rather than nominally live tuples, and provides this information to help with better cleanup estimates.
 
 ## Parameters / Member Variables
-- : ParallelVacuumState pointer containing the shared state for parallel vacuum operations
-- : The number of surviving tuples in the table after vacuum
-- : The number of index scans to be performed during cleanup
-- : Boolean indicating whether the tuple count is estimated or exact
-
+- `*pvs`: ParallelVacuumState pointer containing the shared state for parallel vacuum operations
+- `num_table_tuples`: The number of surviving tuples in the table after vacuum
+- `num_index_scans`: The number of index scans to be performed during cleanup
+- `estimated_count`: Boolean indicating whether the tuple count is estimated or exact
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsParallelWorker

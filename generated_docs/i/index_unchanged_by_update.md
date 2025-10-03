@@ -24,11 +24,10 @@ This function performs a comprehensive analysis to determine if an index can be 
 The function specifically ignores INCLUDE columns (non-key columns) since changes to them don't affect the index's logical structure. It also deliberately ignores index predicates, even allowing the hint when partial indexes might not have corresponding tuples.
 
 ## Parameters / Member Variables
-- : Information about the result relation being updated
-- : Executor state containing execution context and column update information
-- : Metadata and state information about the specific index being analyzed
-- : The index relation object being checked
-
+- `*resultRelInfo`: Information about the result relation being updated
+- `*estate`: Executor state containing execution context and column update information
+- `*indexInfo`: Metadata and state information about the specific index being analyzed
+- `indexRelation`: The index relation object being checked
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecGetUpdatedCols](../E/ExecGetUpdatedCols.md)

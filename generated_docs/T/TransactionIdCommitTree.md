@@ -20,10 +20,9 @@ The function is designed to handle complex transaction hierarchies where a main 
 The commit operation follows PostgreSQL's transaction logging protocol where subtransactions are first marked as subcommitted, then the top-level transaction is committed, making the entire tree visible to other transactions.
 
 ## Parameters / Member Variables
-- : The top-level transaction ID to commit
-- : The number of subtransaction IDs in the xids array
-- : Array of subtransaction IDs to be committed along with the main transaction
-
+- `xid`: The top-level transaction ID to commit
+- `nxids`: The number of subtransaction IDs in the xids array
+- `*xids`: Array of subtransaction IDs to be committed along with the main transaction
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TransactionIdSetTreeStatus](TransactionIdSetTreeStatus.md)

@@ -18,9 +18,8 @@ This is a static cleanup function designed to be registered as an exit callback 
 The function uses an exclusive lock to safely update the shared memory structure, setting the summarizer's process number to an invalid value to indicate that no summarizer process is currently active.
 
 ## Parameters / Member Variables
-- : Exit code (standard exit callback parameter, not used in this function)
-- : Additional argument (standard exit callback parameter, not used in this function)
-
+- `code`: Exit code (standard exit callback parameter, not used in this function)
+- `arg`: Additional argument (standard exit callback parameter, not used in this function)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockAcquire](../L/LWLockAcquire.md)

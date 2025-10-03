@@ -22,10 +22,9 @@ The function performs three main operations: first, it inserts the user-defined 
 The function intelligently handles different relation types, skipping system attributes for views and composite types where they are not applicable. It also optimizes dependency recording by skipping the default collation since it's pinned and doesn't require explicit dependency tracking.
 
 ## Parameters / Member Variables
-- : OID of the newly created relation for which attributes are being added
-- : TupleDesc containing the attribute definitions to be registered in pg_attribute
-- : Character indicating the kind of relation (table, view, composite type, etc.) to determine system attribute handling
-
+- `new_rel_oid`: OID of the newly created relation for which attributes are being added
+- `tupdesc`: TupleDesc containing the attribute definitions to be registered in pg_attribute
+- `relkind`: Character indicating the kind of relation (table, view, composite type, etc.) to determine system attribute handling
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md)

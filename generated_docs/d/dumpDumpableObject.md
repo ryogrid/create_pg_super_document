@@ -18,9 +18,8 @@ The  function serves as the main dispatcher in pg_dump's dumping process. It tak
 The function contains a comprehensive switch statement that handles all possible PostgreSQL database object types, from basic objects like namespaces and types to complex objects like publications, subscriptions, and large objects. Each case calls the corresponding specialized dump function with the properly cast object pointer.
 
 ## Parameters / Member Variables
-- : Archive structure representing the dump destination and containing connection/output information
-- : Pointer to the DumpableObject to be processed, containing object metadata and dump requirements
-
+- `*fout`: Archive structure representing the dump destination and containing connection/output information
+- `*dobj`: Pointer to the DumpableObject to be processed, containing object metadata and dump requirements
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dumpNamespace](dumpNamespace.md)

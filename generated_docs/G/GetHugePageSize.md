@@ -18,9 +18,8 @@ This function identifies the huge page size to use and computes related mmap fla
 On Linux systems, it reads  to determine the default huge page size. If an explicit huge page size is configured via , it uses that value. Otherwise, it falls back to the system default or assumes 2MB if detection fails. The function also sets appropriate MAP_HUGETLB flags and includes explicit page size flags on recent Linux versions when necessary.
 
 ## Parameters / Member Variables
-- : Output parameter to receive the determined huge page size in bytes (set to 0 if huge pages not supported)
-- : Output parameter to receive the mmap flags for huge page allocation (set to 0 if huge pages not supported)
-
+- `*hugepagesize`: Output parameter to receive the determined huge page size in bytes (set to 0 if huge pages not supported)
+- `*mmap_flags`: Output parameter to receive the mmap flags for huge page allocation (set to 0 if huge pages not supported)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [AllocateFile](../A/AllocateFile.md)

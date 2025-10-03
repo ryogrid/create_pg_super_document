@@ -17,6 +17,7 @@ This function iterates through the cleanup_dir_list linked list and frees all cb
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [cb_cleanup_dir](../c/cb_cleanup_dir.md) (structure type for cleanup directory entries)

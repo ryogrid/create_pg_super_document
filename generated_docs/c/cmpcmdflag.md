@@ -23,9 +23,8 @@ The function supports three different flag representation modes:
 For numeric flags (FM_NUM), it performs integer comparison, while for character-based flags (FM_CHAR and FM_LONG), it uses string comparison. The function ensures that both flags being compared use the same flag mode via an assertion.
 
 ## Parameters / Member Variables
-- : Pointer to the first CompoundAffixFlag structure to compare (cast from void*)
-- : Pointer to the second CompoundAffixFlag structure to compare (cast from void*)
-
+- `*f1`: Pointer to the first CompoundAffixFlag structure to compare (cast from void*)
+- `*f2`: Pointer to the second CompoundAffixFlag structure to compare (cast from void*)
 ## Dependencies
 - Functions called/Symbols referenced:
   - strcmp (standard C library function for string flags)

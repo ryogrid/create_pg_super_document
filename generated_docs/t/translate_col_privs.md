@@ -27,9 +27,8 @@ This static function performs column privilege translation between parent and ch
 The function ensures proper security enforcement while accommodating the structural differences between parent and child tables.
 
 ## Parameters / Member Variables
-- : Bitmapset of column privileges in parent relation's attribute numbering
-- : List of Var nodes mapping parent columns to child columns (NULL for dropped columns)
-
+- `*parent_privs`: Bitmapset of column privileges in parent relation's attribute numbering
+- `*translated_vars`: List of Var nodes mapping parent columns to child columns (NULL for dropped columns)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bms_is_member](../b/bms_is_member.md)

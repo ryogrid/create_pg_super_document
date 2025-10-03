@@ -19,12 +19,11 @@ call_bool_check_hook is a convenience function that standardizes the process of 
 Before calling the hook, it resets all error reporting variables to ensure clean state. If the hook fails, it constructs detailed error messages using information provided by the hook or falls back to default error messages. The function supports custom error codes, messages, details, and hints as set by the check hook through the GUC_check_* mechanism.
 
 ## Parameters / Member Variables
-- : Pointer to the config_bool structure containing the boolean GUC configuration
-- : Pointer to the proposed new boolean value to be validated
-- : Pointer to pointer for hook-specific extra data storage
-- : GucSource indicating the origin of the configuration change
-- : Error level for reporting validation failures (ERROR, WARNING, etc.)
-
+- `*conf`: Pointer to the config_bool structure containing the boolean GUC configuration
+- `*newval`: Pointer to the proposed new boolean value to be validated
+- `**extra`: Pointer to pointer for hook-specific extra data storage
+- `source`: GucSource indicating the origin of the configuration change
+- `elevel`: Error level for reporting validation failures (ERROR, WARNING, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   - config_bool

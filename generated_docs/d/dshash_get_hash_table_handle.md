@@ -18,8 +18,7 @@ The dshash_get_hash_table_handle function provides a simple accessor to retrieve
 The function includes validation to ensure the hash table is still valid by checking the magic number. The returned handle remains valid until the hash table is destroyed, and can be used by multiple processes simultaneously to attach to the same shared hash table instance.
 
 ## Parameters / Member Variables
-- : Pointer to the dshash_table structure from which to get the handle
-
+- `*hash_table`: Pointer to the dshash_table structure from which to get the handle
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (validates DSHASH_MAGIC)

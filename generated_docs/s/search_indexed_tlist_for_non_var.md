@@ -19,10 +19,9 @@ This function searches through an indexed target list to find a non-Var, non-Pla
 The function includes an optimization where it avoids replacing simple Const nodes with Vars, since a Var is more expensive to execute than a Const. Additionally, replacing Consts could confuse executor components that expect to see simple Consts for specific purposes like dropped columns.
 
 ## Parameters / Member Variables
-- : The expression node to search for in the indexed target list
-- : The indexed target list structure to search within  
-- : The varno value to assign to the constructed Var if a match is found
-
+- `*node`: The expression node to search for in the indexed target list
+- `*itlist`: The indexed target list structure to search within
+- `newvarno`: The varno value to assign to the constructed Var if a match is found
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA

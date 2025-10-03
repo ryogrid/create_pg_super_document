@@ -18,8 +18,7 @@ regexp_substr_no_n(PG_FUNCTION_ARGS)
 The function forwards all provided arguments to , which will use its default behavior for any missing parameters. This allows SQL users to call REGEXP_SUBSTR without explicitly specifying the occurrence number while still accessing the complete pattern matching functionality.
 
 ## Parameters / Member Variables
-- : Function call information containing all passed arguments, forwarded directly to 
-
+- `PG_FUNCTION_ARGS`: Function call information containing all passed arguments, forwarded directly to
 ## Dependencies
 - Functions called/Symbols referenced:
   - 

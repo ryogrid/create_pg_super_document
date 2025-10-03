@@ -20,9 +20,8 @@ The function accumulates both count-based metrics (number of created functions) 
 This aggregation capability is particularly important in parallel query execution scenarios where multiple workers may be performing JIT compilation independently, and their statistics need to be combined to provide a complete picture of JIT performance for the entire query.
 
 ## Parameters / Member Variables
-- : Pointer to the destination JitInstrumentation structure where aggregated results will be stored
-- : Pointer to the source JitInstrumentation structure containing values to be added to the destination
-
+- `*dst`: Pointer to the destination JitInstrumentation structure where aggregated results will be stored
+- `*add`: Pointer to the source JitInstrumentation structure containing values to be added to the destination
 ## Dependencies
 - Functions called/Symbols referenced:
   - [JitInstrumentation](../J/JitInstrumentation.md) (struct type)

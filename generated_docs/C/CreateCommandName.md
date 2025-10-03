@@ -18,8 +18,7 @@ CreateCommandName serves as a convenience function that combines two operations:
 The function is defined as a static inline function in the utility.h header file, making it efficient for frequent use throughout the codebase while keeping the implementation details encapsulated.
 
 ## Parameters / Member Variables
-- : A Node pointer representing the parse tree of a SQL statement. This can be any type of statement node (raw statements, planned statements, queries, etc.) that PostgreSQL recognizes.
-
+- `*parsetree`: A Node pointer representing the parse tree of a SQL statement. This can be any type of statement node (raw statements, planned statements, queries, etc.) that PostgreSQL recognizes.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetCommandTagName](../G/GetCommandTagName.md) - Converts a CommandTag enum to its string representation

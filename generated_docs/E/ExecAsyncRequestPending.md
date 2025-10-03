@@ -24,8 +24,7 @@ This function is typically called from within a node's ExecAsyncRequest or ExecA
 The asynchronous execution framework allows nodes to request tuples from other nodes without blocking. Instead of waiting synchronously, requestor nodes can continue processing other work while async-capable requestee nodes handle requests in the background.
 
 ## Parameters / Member Variables
-- : Pointer to the AsyncRequest structure that tracks the state of the asynchronous tuple request. This structure contains information about the requestor node, requestee node, and the current status of the request.
-
+- `*areq`: Pointer to the AsyncRequest structure that tracks the state of the asynchronous tuple request. This structure contains information about the requestor node, requestee node, and the current status of the request.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [AsyncRequest](../A/AsyncRequest.md) (struct type from execnodes.h)

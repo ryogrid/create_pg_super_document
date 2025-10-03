@@ -23,8 +23,7 @@ This function prepares the publisher side for logical replication by creating ne
 The function returns the LSN from the last created replication slot, which will be used as the recovery_target_lsn for the subscriber.
 
 ## Parameters / Member Variables
-- : Array of LogicalRepInfo structures containing database connection information and object names for each database
-
+- `*dbinfo`: Array of LogicalRepInfo structures containing database connection information and object names for each database
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_prng_seed](../p/pg_prng_seed.md)

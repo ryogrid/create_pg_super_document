@@ -22,8 +22,7 @@ The setup_privileges function is responsible for establishing initial access per
 The function handles privileges for various object types including relations (tables, views, materialized views, sequences), attributes (columns), procedures, types, languages, large objects, namespaces, foreign data wrappers, and foreign servers. Note that databases and tablespaces are excluded since pg_init_privs only tracks per-database objects.
 
 ## Parameters / Member Variables
-- : FILE pointer to the command file where SQL statements are written for execution during database initialization
-
+- `*cmdfd`: FILE pointer to the command file where SQL statements are written for execution during database initialization
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_CMD_PRINTF (macro for formatted SQL output)

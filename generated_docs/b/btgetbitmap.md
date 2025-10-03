@@ -18,9 +18,8 @@ The btgetbitmap function implements bitmap index scanning for B-tree indexes, wh
 The function performs complete scans in forward direction only, handling array key scenarios by iterating through multiple primitive scans. It directly accesses the current scan position to efficiently extract heap TIDs without the overhead of full tuple construction, making it faster than tuple-at-a-time scanning for bulk operations.
 
 ## Parameters / Member Variables
-- : IndexScanDesc containing the scan state and parameters
-- : TIDBitmap structure where matching heap tuple IDs will be added
-
+- `scan`: IndexScanDesc containing the scan state and parameters
+- `*tbm`: TIDBitmap structure where matching heap tuple IDs will be added
 ## Dependencies
 - Functions called/Symbols referenced:
   - [_bt_first](_bt_first.md) (initializes scan and gets first tuple)

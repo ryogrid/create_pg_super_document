@@ -29,9 +29,8 @@ Key policies:
 - Memory management includes immediate pfree of discarded paths (except IndexPaths)
 
 ## Parameters / Member Variables
-- : RelOptInfo structure containing the pathlist to modify
-- : Potential new path to evaluate for inclusion
-
+- `*parent_rel`: RelOptInfo structure containing the pathlist to modify
+- `*new_path`: Potential new path to evaluate for inclusion
 ## Dependencies
 - Functions called/Symbols referenced:
   - compare_path_costs_fuzzily

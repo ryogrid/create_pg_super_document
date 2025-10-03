@@ -28,15 +28,14 @@ The function performs several key operations:
 The cost model accounts for BRIN's two-phase access pattern: first reading the reverse map (revmap) sequentially to identify relevant ranges, then potentially accessing regular index pages in random order.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing query planning context and statistics
-- : IndexPath structure representing the specific index access path being costed
-- : Number of times the index scan is expected to be executed (for nested loops)
-- : Output parameter for the cost to start the index scan (revmap reading)
-- : Output parameter for the total cost including all index operations
-- : Output parameter for the estimated selectivity of the index scan
-- : Output parameter for the correlation between index and table ordering
-- : Output parameter for the total number of index pages
-
+- `*root`: PlannerInfo structure containing query planning context and statistics
+- `*path`: IndexPath structure representing the specific index access path being costed
+- `loop_count`: Number of times the index scan is expected to be executed (for nested loops)
+- `*indexStartupCost`: Output parameter for the cost to start the index scan (revmap reading)
+- `*indexTotalCost`: Output parameter for the total cost including all index operations
+- `*indexSelectivity`: Output parameter for the estimated selectivity of the index scan
+- `*indexCorrelation`: Output parameter for the correlation between index and table ordering
+- `*indexPages`: Output parameter for the total number of index pages
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_quals_from_indexclauses](../g/get_quals_from_indexclauses.md)

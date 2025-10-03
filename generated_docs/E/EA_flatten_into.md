@@ -21,10 +21,9 @@ The function optimizes by first checking if a flattened representation already e
 The function ensures all padding is zero-filled and handles both arrays with and without null bitmaps appropriately.
 
 ## Parameters / Member Variables
-- : Pointer to the ExpandedObjectHeader (cast to ExpandedArrayHeader internally)
-- : Pre-allocated memory buffer where the flattened array will be written
-- : Size of the allocated buffer, must match the size returned by EA_get_flat_size
-
+- `*eohptr`: Pointer to the ExpandedObjectHeader (cast to ExpandedArrayHeader internally)
+- `*result`: Pre-allocated memory buffer where the flattened array will be written
+- `allocated_size`: Size of the allocated buffer, must match the size returned by EA_get_flat_size
 ## Dependencies
 - Functions called/Symbols referenced:
   - ARR_SIZE

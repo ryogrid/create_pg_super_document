@@ -21,10 +21,9 @@ The function implements sophisticated logic to handle historic timelines correct
 The function also provides clear error handling for missing WAL segments, distinguishing between files that have been removed/recycled versus other file access errors.
 
 ## Parameters / Member Variables
-- : XLogReaderState structure containing the context for WAL reading operations
-- : The WAL segment number to be opened for reading
-- : Pointer to TimeLineID that will be set to the appropriate timeline for the segment
-
+- `*state`: XLogReaderState structure containing the context for WAL reading operations
+- `nextSegNo`: The WAL segment number to be opened for reading
+- `*tli_p`: Pointer to TimeLineID that will be set to the appropriate timeline for the segment
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLByteToSeg

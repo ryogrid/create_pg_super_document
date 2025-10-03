@@ -21,9 +21,8 @@ The selectDumpableDefaultACL function implements the policy logic for deciding w
 The function sets the dump component flags appropriately based on these conditions, with the understanding that additional checks for dataOnly and aclsSkip options are performed elsewhere in the dumping process.
 
 ## Parameters / Member Variables
-- : Pointer to DefaultACLInfo structure containing information about the default ACL being evaluated
-- : Pointer to DumpOptions structure containing the dump configuration settings
-
+- `*dinfo`: Pointer to DefaultACLInfo structure containing information about the default ACL being evaluated
+- `*dopt`: Pointer to DumpOptions structure containing the dump configuration settings
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpOptions (structure)

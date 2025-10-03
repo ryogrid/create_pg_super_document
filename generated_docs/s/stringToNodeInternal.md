@@ -20,9 +20,8 @@ The function supports conditional restoration of location fields through the res
 The parsing process relies on the nodeRead function from readfuncs.c, which handles the actual token-by-token parsing of the string representation.
 
 ## Parameters / Member Variables
-- : The string representation of the Node tree to be parsed
-- : Boolean flag indicating whether to restore location fields (true) or set them to -1 (false)
-
+- `*str`: The string representation of the Node tree to be parsed
+- `restore_loc_fields`: Boolean flag indicating whether to restore location fields (true) or set them to -1 (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [nodeRead](../n/nodeRead.md)

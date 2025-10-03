@@ -20,12 +20,11 @@ prepare_column_cache(ColumnIOData *column,
 This function prepares column metadata cache by analyzing the given type ID and configuring the ColumnIOData structure accordingly. It categorizes types into different categories (TYPECAT_DOMAIN, TYPECAT_COMPOSITE, TYPECAT_ARRAY, TYPECAT_SCALAR) and sets up the appropriate I/O information for each category. The function handles various PostgreSQL type system complexities including domains, composite types, arrays, and scalar types. For domains, it resolves to the base type while preserving domain constraint information. For composite types and records, it sets up record I/O structures. For arrays, it configures element type information. For scalar types or when explicitly requested, it sets up type input/output function information.
 
 ## Parameters / Member Variables
-- : Pointer to ColumnIOData structure to be initialized with type metadata
-- : PostgreSQL type OID identifying the specific data type
-- : Type modifier providing additional type-specific information
-- : Memory context for allocating persistent type information structures
-- : Boolean flag forcing scalar I/O info lookup even for non-scalar types
-
+- `*column`: Pointer to ColumnIOData structure to be initialized with type metadata
+- `typid`: PostgreSQL type OID identifying the specific data type
+- `typmod`: Type modifier providing additional type-specific information
+- `mcxt`: Memory context for allocating persistent type information structures
+- `need_scalar`: Boolean flag forcing scalar I/O info lookup even for non-scalar types
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache1](../S/SearchSysCache1.md)

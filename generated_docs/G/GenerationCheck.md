@@ -24,8 +24,7 @@ The function validates multiple aspects of memory integrity:
 The function is designed to be safe for use during error conditions and reports all problems as WARNINGs rather than ERRORs to avoid infinite recursion when memory cleanup occurs during error handling.
 
 ## Parameters / Member Variables
-- : The MemoryContext (GenerationContext) to validate and check for consistency
-
+- `context`: The MemoryContext (GenerationContext) to validate and check for consistency
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - macro for iterating through the doubly-linked list of blocks

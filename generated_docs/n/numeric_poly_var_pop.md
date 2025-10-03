@@ -18,8 +18,7 @@ This function calculates the population variance for numeric data types. It leve
 The function extracts the aggregation state from the first argument and delegates the actual computation to numeric_poly_stddev_internal with parameters indicating that this is a variance (not standard deviation) calculation for the entire population (not a sample).
 
 ## Parameters / Member Variables
-- : Function call information structure containing the aggregation state as argument 0
-
+- `PG_FUNCTION_ARGS`: Function call information structure containing the aggregation state as argument 0
 ## Dependencies
 - Functions called/Symbols referenced:
   - [numeric_poly_stddev_internal](numeric_poly_stddev_internal.md) (when HAVE_INT128 is defined)

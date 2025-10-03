@@ -18,13 +18,12 @@ compute_expr_stats(Relation onerel, double totalrows,
 This function evaluates expressions on a sample of table rows and computes detailed statistics for each expression. It creates an executor state for expression evaluation, processes each expression against all sample rows, and generates statistical summaries including histograms, most common values, and n_distinct estimates. The function uses proper memory context management to avoid memory leaks during expression evaluation and handles null values appropriately. Statistics computed by this function are essential for the query planner to make accurate cost estimates for queries involving expressions.
 
 ## Parameters / Member Variables
-- : The relation being analyzed for statistics computation
-- : Total number of rows in the relation (used for statistical extrapolation)
-- : Array of AnlExprData structures containing expression information and VacAttrStats objects
-- : Number of expressions in the exprdata array to process
-- : Array of HeapTuple pointers representing the sample rows to evaluate expressions against
-- : Number of sample rows in the rows array
-
+- `onerel`: The relation being analyzed for statistics computation
+- `totalrows`: Total number of rows in the relation (used for statistical extrapolation)
+- `*exprdata`: Array of AnlExprData structures containing expression information and VacAttrStats objects
+- `nexprs`: Number of expressions in the exprdata array to process
+- `*rows`: Array of HeapTuple pointers representing the sample rows to evaluate expressions against
+- `numrows`: Number of sample rows in the rows array
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CreateExecutorState](../C/CreateExecutorState.md)

@@ -18,8 +18,7 @@ This function implements the memory deallocation operation for the bbstreamer_re
 The function uses PostgreSQL's memory management functions to safely deallocate the bbstreamer structure that was allocated during initialization.
 
 ## Parameters / Member Variables
-- : The bbstreamer instance to be freed
-
+- `*streamer`: The bbstreamer instance to be freed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bbstreamer_free](bbstreamer_free.md)

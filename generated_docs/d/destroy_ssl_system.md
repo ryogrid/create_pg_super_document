@@ -19,7 +19,6 @@ The function decrements a connection counter and when it reaches zero (indicatin
 The function deliberately does not free the lock array to allow reuse if new connections are established later in the same process, though this results in a small memory leak on repeated library load/unload cycles.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

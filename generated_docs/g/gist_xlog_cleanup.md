@@ -21,6 +21,7 @@ This cleanup function is part of the WAL resource manager interface and is calle
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContextDelete](../M/MemoryContextDelete.md): Delete the memory context and free all associated memory

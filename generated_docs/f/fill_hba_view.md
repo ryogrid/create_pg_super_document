@@ -16,9 +16,8 @@ fill_hba_view(Tuplestorestate *tuple_store, TupleDesc tupdesc)
 The  function implements the core logic for populating the pg_hba_file_rules system view. It opens and reads the entire pg_hba.conf configuration file, tokenizes all lines, and then parses each valid authentication rule. The function creates a dedicated memory context for parsing operations to ensure proper cleanup, and processes both valid and invalid configuration lines. Each line is converted into a view record through the fill_hba_line function, with valid rules receiving sequential rule numbers while invalid lines are reported with their error messages. The function handles file I/O errors by throwing exceptions rather than trying to represent them as view entries.
 
 ## Parameters / Member Variables
-- : Tuplestore where all processed HBA rules will be stored as view records
-- : Tuple descriptor defining the structure of the pg_hba_file_rules view
-
+- `*tuple_store`: Tuplestore where all processed HBA rules will be stored as view records
+- `tupdesc`: Tuple descriptor defining the structure of the pg_hba_file_rules view
 ## Dependencies
 - Functions called/Symbols referenced:
   - [open_auth_file](../o/open_auth_file.md)

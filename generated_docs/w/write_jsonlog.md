@@ -20,8 +20,7 @@ The function maintains a static line counter that resets when the process ID cha
 The output is written either directly to the log file (for syslogger processes) or sent through pipes to the logging infrastructure, depending on the backend type.
 
 ## Parameters / Member Variables
-- : Pointer to ErrorData structure containing the log message details, error level, SQL state, message text, context, and other error-related information
-
+- `*edata`: Pointer to ErrorData structure containing the log message details, error level, SQL state, message text, context, and other error-related information
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (time formatting reset)

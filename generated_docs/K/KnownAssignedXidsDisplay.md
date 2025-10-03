@@ -25,8 +25,7 @@ The function is designed to be called only within the startup process context, e
 The output format shows each valid transaction ID with its array index position, followed by summary statistics about the array's current state.
 
 ## Parameters / Member Variables
-- : The logging level at which to emit the debug information (e.g., DEBUG1, DEBUG2, etc.)
-
+- `trace_level`: The logging level at which to emit the debug information (e.g., DEBUG1, DEBUG2, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ProcArrayStruct](../P/ProcArrayStruct.md)

@@ -32,13 +32,12 @@ The function performs several complex operations:
 The function handles both regular character transitions and complex lookahead constraints, making it essential for correct regex matching behavior.
 
 ## Parameters / Member Variables
-- : Pointer to the variables structure containing execution context and error handling
-- : Pointer to the DFA structure containing state and cache information
-- : Pointer to the current stateset from which we're transitioning
-- : The color (character class) of the input character being consumed
-- : Pointer to the character after the current one (used for LACON testing)
-- : Pointer to the start of the input string (used for cache replacement heuristics)
-
+- `*v`: Pointer to the variables structure containing execution context and error handling
+- `*d`: Pointer to the DFA structure containing state and cache information
+- `*css`: Pointer to the current stateset from which we're transitioning
+- `co`: The color (character class) of the input character being consumed
+- `*cp`: Pointer to the character after the current one (used for LACON testing)
+- `*start`: Pointer to the start of the input string (used for cache replacement heuristics)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [getvacant](../g/getvacant.md) (allocates new stateset entries)

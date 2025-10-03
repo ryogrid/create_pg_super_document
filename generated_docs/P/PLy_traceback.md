@@ -23,13 +23,12 @@ PLy_traceback is a static function that processes Python exception objects to cr
 The function handles special cases like built-in exceptions, PL/Python function contexts, and source code line extraction for better debugging information. It properly manages Python object reference counting and uses PostgreSQL's exception handling for cleanup.
 
 ## Parameters / Member Variables
-- : Python exception type object
-- : Python exception value/instance object  
-- : Python traceback object
-- : Output pointer for formatted exception message string (palloc'd)
-- : Output pointer for formatted traceback string (palloc'd)
-- : Output pointer for traceback depth count
-
+- `*e`: Python exception type object
+- `*v`: Python exception value/instance object
+- `*tb`: Python traceback object
+- `*xmsg`: Output pointer for formatted exception message string (palloc'd)
+- `*tbmsg`: Output pointer for formatted traceback string (palloc'd)
+- `*tb_depth`: Output pointer for traceback depth count
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PLyUnicode_AsString](PLyUnicode_AsString.md): Converts Python strings to C strings

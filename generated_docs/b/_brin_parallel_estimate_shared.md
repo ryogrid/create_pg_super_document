@@ -16,9 +16,8 @@ _brin_parallel_estimate_shared(Relation heap, Snapshot snapshot)
 The function calculates the total shared memory requirement for a parallel BRIN index build operation. It combines the size needed for the BrinShared structure (which contains parallel build coordination data) with the memory required for the parallel table scan operation. The memory layout uses BUFFERALIGN to ensure proper alignment, following the same pattern used in shared memory table of contents (shm_toc) allocation.
 
 ## Parameters / Member Variables
-- : The relation (table) for which the BRIN index is being built
-- : The snapshot that will be used during the parallel scan operation
-
+- `heap`: The relation (table) for which the BRIN index is being built
+- `snapshot`: The snapshot that will be used during the parallel scan operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [add_size](../a/add_size.md): Safely adds two Size values, checking for overflow

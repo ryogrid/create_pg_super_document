@@ -22,10 +22,9 @@ The function handles special characters as follows:
 - All other characters are appended as-is
 
 ## Parameters / Member Variables
-- : PQExpBuffer where the escaped string will be appended
-- : Source string to be escaped
-- : Length of the source string in bytes
-
+- `buf`: PQExpBuffer where the escaped string will be appended
+- `*str`: Source string to be escaped
+- `len`: Length of the source string in bytes
 ## Dependencies
 - Functions called/Symbols referenced:
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)

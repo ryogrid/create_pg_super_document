@@ -24,9 +24,8 @@ When a new subcolor is successfully created, the function updates the character 
 - Updates the locolormap to point the character to its new subcolor
 
 ## Parameters / Member Variables
-- : Pointer to the colormap structure containing color mappings
-- : The character for which to allocate a subcolor (must be <= MAX_SIMPLE_CHR)
-
+- `*cm`: Pointer to the colormap structure containing color mappings
+- `c`: The character for which to allocate a subcolor (must be <= MAX_SIMPLE_CHR)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [newsub](../n/newsub.md) (creates a new subcolor)

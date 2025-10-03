@@ -18,8 +18,7 @@ The  function performs focused testing of the PostgreSQL IntegerSet data structu
 The function creates an IntegerSet, adds the specified value, and then performs comprehensive validation. It tests membership queries for special boundary values (0, 1, PG_UINT64_MAX) as well as the actual inserted value. The function also validates that the iterator correctly returns exactly one value and then properly indicates end-of-iteration.
 
 ## Parameters / Member Variables
-- : The uint64 integer value to be added to and tested in the IntegerSet
-
+- `value`: The uint64 integer value to be added to and tested in the IntegerSet
 ## Dependencies
 - Functions called/Symbols referenced:
   - [IntegerSet](../I/IntegerSet.md) (data structure)

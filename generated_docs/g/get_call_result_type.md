@@ -24,10 +24,9 @@ This function analyzes a function's call information to determine what type of d
 The function is designed to be called sparingly in set-returning functions due to its computational cost, ideally only on the first invocation.
 
 ## Parameters / Member Variables
-- : Function call information record containing the function OID, expression context, and result information
-- : Output parameter that receives the actual datatype OID for scalar result types (can be NULL if not needed)
-- : Output parameter that receives a TupleDesc pointer for composite types or NULL for scalar results (can be NULL if not needed)
-
+- `fcinfo`: Function call information record containing the function OID, expression context, and result information
+- `*resultTypeId`: Output parameter that receives the actual datatype OID for scalar result types (can be NULL if not needed)
+- `*resultTupleDesc`: Output parameter that receives a TupleDesc pointer for composite types or NULL for scalar results (can be NULL if not needed)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [internal_get_result_type](../i/internal_get_result_type.md)

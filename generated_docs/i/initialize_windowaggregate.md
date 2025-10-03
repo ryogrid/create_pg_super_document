@@ -18,10 +18,9 @@ initialize_windowaggregate(WindowAggState *winstate,
 This function is parallel to  in nodeAgg.c and is responsible for initializing window aggregate state for a new computation. It handles memory context management carefully, only resetting private aggregate contexts while leaving shared contexts for the caller to manage. The function sets up the transition value either as NULL (if the initial value is NULL) or as a proper copy of the initial value in the appropriate memory context. It also resets counters and result values to prepare for new aggregate computation.
 
 ## Parameters / Member Variables
-- : The overall window aggregate execution state
-- : Per-function state information (currently unused in this function)  
-- : Per-aggregate state containing transition values, memory contexts, and initialization data
-
+- `*winstate`: The overall window aggregate execution state
+- `perfuncstate`: Per-function state information (currently unused in this function)
+- `peraggstate`: Per-aggregate state containing transition values, memory contexts, and initialization data
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContextReset](../M/MemoryContextReset.md)

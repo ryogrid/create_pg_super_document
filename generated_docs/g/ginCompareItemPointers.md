@@ -23,9 +23,8 @@ The comparison logic works by:
 This approach ensures that ItemPointers are ordered first by block number, then by offset number within the same block, which corresponds to their physical ordering in the database files.
 
 ## Parameters / Member Variables
-- : First ItemPointer to compare
-- : Second ItemPointer to compare
-
+- `a`: First ItemPointer to compare
+- `b`: Second ItemPointer to compare
 ## Dependencies
 - Functions called/Symbols referenced:
   - GinItemPointerGetBlockNumber: Extracts block number from ItemPointer

@@ -19,8 +19,7 @@ PSEUDOTYPE_DUMMY_INPUT_FUNC(anyenum);
 The anyarray_send function serves as a binary output function for the anyarray pseudotype in PostgreSQL. It acts as a thin wrapper around the array_send function, simply forwarding the function call information (fcinfo) to array_send to handle the actual binary serialization. This design allows the anyarray pseudotype to leverage the existing array binary output infrastructure without duplicating code.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function call information macro that provides access to function arguments and context
-
+- `anyenum`: Standard PostgreSQL function call information macro that provides access to function arguments and context
 ## Dependencies
 - Functions called/Symbols referenced:
   - [array_send](array_send.md): The actual implementation for binary array output

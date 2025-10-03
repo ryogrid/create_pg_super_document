@@ -18,8 +18,7 @@ LimitAdditionalPins implements a resource management mechanism that prevents ind
 The function uses a pessimistic approach by assuming maximum backend concurrency and accounts for buffers already pinned by the current backend. It guarantees that at least one additional pin is always allowed to prevent operations from becoming completely blocked. The calculation subtracts already pinned buffers including both overflowed pins and the estimated maximum pins in the private reference count array.
 
 ## Parameters / Member Variables
-- : Pointer to the requested number of additional pins, modified in-place to enforce the calculated limit
-
+- `*additional_pins`: Pointer to the requested number of additional pins, modified in-place to enforce the calculated limit
 ## Dependencies
 - Functions called/Symbols referenced:
   - MaxBackends (global variable)

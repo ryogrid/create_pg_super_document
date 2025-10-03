@@ -18,9 +18,8 @@ This function initializes a PartitionMap structure which is used to track the st
 The function allocates memory for three arrays based on the number of partitions in the relation and initializes all values to indicate that no partitions have been merged yet.
 
 ## Parameters / Member Variables
-- : RelOptInfo structure containing information about the relation whose partitions need to be tracked
-- : PartitionMap structure to be initialized for tracking partition merging state
-
+- `*rel`: RelOptInfo structure containing information about the relation whose partitions need to be tracked
+- `*map`: PartitionMap structure to be initialized for tracking partition merging state
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PartitionMap](../P/PartitionMap.md) (data structure)

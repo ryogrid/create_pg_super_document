@@ -18,9 +18,8 @@ This function performs a binary search on a non-leaf GIN index page to find the 
 For full scans, it simply returns the leftmost child page. For targeted searches, it performs a binary search algorithm, comparing the search key with entries on the page to find either an exact match or the appropriate position where the key should be located. The function properly handles the right infinity case when the search reaches the rightmost entry of a rightmost page.
 
 ## Parameters / Member Variables
-- : GinBtree structure containing search parameters and callback functions for the current GIN index operation
-- : GinBtreeStack structure representing the current position in the index traversal, which will be updated with the offset of the located entry
-
+- `btree`: GinBtree structure containing search parameters and callback functions for the current GIN index operation
+- `*stack`: GinBtreeStack structure representing the current position in the index traversal, which will be updated with the offset of the located entry
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BufferGetPage](../B/BufferGetPage.md)

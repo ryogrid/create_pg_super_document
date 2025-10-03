@@ -29,12 +29,11 @@ The function handles format-specific state preparation:
 The depth parameter allows for multi-level nesting scenarios where the eventual output will be enclosed in additional group levels.
 
 ## Parameters / Member Variables
-- : The type of object for the group (used for identification, though not emitted)
-- : The label name for the group (affects YAML grouping stack behavior)
-- : Boolean flag indicating whether this is a labeled group
-- : The nesting depth increase compared to current level (can be > 1 for multi-level nesting)
-- : ExplainState structure containing formatting information and grouping stack
-
+- `*objtype`: The type of object for the group (used for identification, though not emitted)
+- `*labelname`: The label name for the group (affects YAML grouping stack behavior)
+- `labeled`: Boolean flag indicating whether this is a labeled group
+- `depth`: The nesting depth increase compared to current level (can be > 1 for multi-level nesting)
+- `*es`: ExplainState structure containing formatting information and grouping stack
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lcons_int](../l/lcons_int.md) (for managing the grouping stack in JSON and YAML formats)

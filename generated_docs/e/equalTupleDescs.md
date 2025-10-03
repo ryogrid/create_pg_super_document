@@ -22,9 +22,8 @@ This function implements deep equality comparison for TupleDesc structures, goin
 The function deliberately ignores certain fields that are not semantically relevant for equality, such as , , and . For dropped columns, it still performs complete comparison since  may be zero.
 
 ## Parameters / Member Variables
-- : First TupleDesc to compare
-- : Second TupleDesc to compare
-
+- `tupdesc1`: First TupleDesc to compare
+- `tupdesc2`: Second TupleDesc to compare
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TupleConstr](../T/TupleConstr.md) (constraint structure access)

@@ -16,8 +16,7 @@ dsimple_init(PG_FUNCTION_ARGS)
 The  function serves as the initialization routine for PostgreSQL's simple dictionary text search feature. It processes a list of dictionary options provided during dictionary creation and configures a DictSimple structure accordingly. The function supports two main configuration parameters: "stopwords" for specifying a list of words to ignore during text search, and "accept" for controlling whether unrecognized words should be accepted or rejected. The function implements proper error handling to prevent duplicate parameter specifications and validates parameter names to ensure only recognized options are accepted.
 
 ## Parameters / Member Variables
-- : A List pointer containing DefElem structures with configuration parameters for the dictionary
-
+- `PG_FUNCTION_ARGS`: A List pointer containing DefElem structures with configuration parameters for the dictionary
 ## Dependencies
 - Functions called/Symbols referenced:
   - DictSimple (structure type)

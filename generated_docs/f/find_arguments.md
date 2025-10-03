@@ -19,10 +19,9 @@ This function analyzes printf-style format strings containing positional paramet
 The function parses the format string character by character, identifying conversion specifiers and their associated argument positions. It builds an array mapping each position to its expected argument type, then extracts arguments from the va_list in the correct order. This enables format strings to reference arguments out of order (e.g., "%2 %1").
 
 ## Parameters / Member Variables
-- : The printf-style format string containing positional parameter specifications
-- : Variable argument list (va_list) containing the actual arguments to be formatted
-- : Output array that will be filled with argument values indexed by their positional numbers
-
+- `*format`: The printf-style format string containing positional parameter specifications
+- `args`: Variable argument list (va_list) containing the actual arguments to be formatted
+- `*argvalues`: Output array that will be filled with argument values indexed by their positional numbers
 ## Dependencies
 - Functions called/Symbols referenced:
   - PrintfArgValue (struct type)

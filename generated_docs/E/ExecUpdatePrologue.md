@@ -25,13 +25,12 @@ ExecUpdatePrologue performs the preparatory steps required before executing an U
 The function serves as a critical preparation phase that ensures all prerequisites are met before the actual tuple update occurs. BEFORE triggers have the opportunity to examine and modify both the old and new tuple data, and can prevent the update by returning false.
 
 ## Parameters / Member Variables
-- : ModifyTableContext containing the execution state and metadata for the modify operation
-- : Information about the result relation being updated
-- : ItemPointer identifying the physical location of the tuple to be updated
-- : HeapTuple containing the current tuple data before update
-- : TupleTableSlot containing the new tuple data after update
-- : Output parameter receiving the tuple modification result status
-
+- `*context`: ModifyTableContext containing the execution state and metadata for the modify operation
+- `*resultRelInfo`: Information about the result relation being updated
+- `tupleid`: ItemPointer identifying the physical location of the tuple to be updated
+- `oldtuple`: HeapTuple containing the current tuple data before update
+- `*slot`: TupleTableSlot containing the new tuple data after update
+- `*result`: Output parameter receiving the tuple modification result status
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecMaterializeSlot](ExecMaterializeSlot.md) (ensures slot data is materialized)

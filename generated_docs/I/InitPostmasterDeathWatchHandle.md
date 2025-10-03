@@ -31,7 +31,6 @@ This function establishes a postmaster death monitoring mechanism that allows ch
 This mechanism is essential for PostgreSQL's process management, allowing background workers and other child processes to gracefully shut down when the postmaster terminates unexpectedly.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

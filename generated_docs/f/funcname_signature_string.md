@@ -19,11 +19,10 @@ The  function constructs a formatted string representation of a function signatu
 The function handles both positional and named arguments, properly formatting named arguments with the "name => type" syntax. It distinguishes between positional arguments (which appear first) and named arguments based on the length of the  list and the total argument count.
 
 ## Parameters / Member Variables
-- : The name of the function to include in the signature
-- : Total number of arguments in the function signature
-- : List of C strings containing the names for the last N arguments (can be NIL if no named args)
-- : Array of OIDs representing the types of each argument
-
+- `*funcname`: The name of the function to include in the signature
+- `nargs`: Total number of arguments in the function signature
+- `*argnames`: List of C strings containing the names for the last N arguments (can be NIL if no named args)
+- `*argtypes`: Array of OIDs representing the types of each argument
 ## Dependencies
 - Functions called/Symbols referenced:
   - [initStringInfo](../i/initStringInfo.md)

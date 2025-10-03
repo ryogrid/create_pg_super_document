@@ -22,15 +22,14 @@ ExecBRUpdateTriggers(EState *estate, EPQState *epqstate,
 This function serves as a backward-compatibility wrapper for the older interface to BEFORE ROW UPDATE trigger execution. It simply forwards all parameters to ExecBRUpdateTriggersNew with is_merge_update set to false, maintaining ABI compatibility for existing code while ensuring that new functionality is centralized in the newer function.
 
 ## Parameters / Member Variables
-- : Executor state containing execution context and memory management
-- : EPQ state for handling concurrent tuple modifications  
-- : Relation information including trigger descriptors and metadata
-- : ItemPointer to the target tuple on disk (NULL if using fdw_trigtuple)
-- : Pre-supplied tuple from FDW (NULL if using tupleid)
-- : TupleTableSlot containing the new tuple values after update
-- : Output parameter for tuple manager operation result
-- : Output parameter for tuple manager failure data
-
+- `*estate`: Executor state containing execution context and memory management
+- `*epqstate`: EPQ state for handling concurrent tuple modifications
+- `*relinfo`: Relation information including trigger descriptors and metadata
+- `tupleid`: ItemPointer to the target tuple on disk (NULL if using fdw_trigtuple)
+- `fdw_trigtuple`: Pre-supplied tuple from FDW (NULL if using tupleid)
+- `*newslot`: TupleTableSlot containing the new tuple values after update
+- `*tmresult`: Output parameter for tuple manager operation result
+- `*tmfd`: Output parameter for tuple manager failure data
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecBRUpdateTriggersNew](ExecBRUpdateTriggersNew.md)

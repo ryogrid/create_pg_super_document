@@ -16,9 +16,8 @@ pair_count(char *s, char delim)
 The  function analyzes a string containing geometric coordinate data and determines how many coordinate pairs it represents. It supports two different coordinate notation formats: nested format like '((1,2),(3,4))' and flat format like '(1,3,2,4)'. The function counts delimiter characters and uses the mathematical property that valid coordinate pairs require an odd number of delimiters. If an even number of delimiters is found, the function returns -1 to indicate invalid input.
 
 ## Parameters / Member Variables
-- : Pointer to a null-terminated string containing the coordinate data to be analyzed
-- : Character used as delimiter (typically comma ',') to separate coordinate values
-
+- `*s`: Pointer to a null-terminated string containing the coordinate data to be analyzed
+- `delim`: Character used as delimiter (typically comma ',') to separate coordinate values
 ## Dependencies
 - Functions called/Symbols referenced:
   - strchr (standard C library function)

@@ -23,7 +23,6 @@ This function is called after a successful PREPARE statement to clean up the sta
 The function does not free transactional memory since it resides in TopTransactionContext and will be automatically cleaned up. Note that AtEOXact_PgStat is not called during PREPARE, making this function essential for proper statistics handling in two-phase commits.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

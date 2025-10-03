@@ -19,10 +19,9 @@ This function validates whether adding or renaming a column would create a name 
 The function deliberately ignores dropped columns (attisdropped) during the check, as attempting to add a column with a dropped column's name would fail anyway. It provides different error messages for system column conflicts versus user column conflicts to help users understand the nature of the collision.
 
 ## Parameters / Member Variables
-- : The relation (table) to check for column name collisions
-- : The proposed column name to check for conflicts
-- : If true, emit a notice and return false on collision; if false, emit an error on collision
-
+- `rel`: The relation (table) to check for column name collisions
+- `*colname`: The proposed column name to check for conflicts
+- `if_not_exists`: If true, emit a notice and return false on collision; if false, emit an error on collision
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache2](../S/SearchSysCache2.md) (searches pg_attribute by relation OID and column name)

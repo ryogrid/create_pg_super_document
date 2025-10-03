@@ -30,11 +30,10 @@ The function performs the following operations:
 This function is crucial for maintaining B-tree integrity and is typically called before any insertion operation when an incomplete split is detected.
 
 ## Parameters / Member Variables
-- : The B-tree index relation containing the incomplete split
-- : The heap relation referenced by the index (required for potential parent page splits)
-- : Buffer containing the left page of the incomplete split (must be write-locked on entry)
-- : BTStack containing parent page information, or NULL if not available
-
+- `rel`: The B-tree index relation containing the incomplete split
+- `heaprel`: The heap relation referenced by the index (required for potential parent page splits)
+- `lbuf`: Buffer containing the left page of the incomplete split (must be write-locked on entry)
+- `stack`: BTStack containing parent page information, or NULL if not available
 ## Dependencies
 - Functions called/Symbols referenced:
   - [_bt_insert_parent](_bt_insert_parent.md) (to complete the parent insertion)

@@ -27,8 +27,7 @@ The function performs the following test sequence:
 9. Verifies that PQexec() works again after exiting pipeline mode
 
 ## Parameters / Member Variables
-- : The database connection to test pipeline mode restrictions on
-
+- `*conn`: The database connection to test pipeline mode restrictions on
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQisnonblocking](../P/PQisnonblocking.md)

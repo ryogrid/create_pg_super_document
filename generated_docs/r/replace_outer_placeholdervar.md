@@ -18,9 +18,8 @@ This function is the PlaceHolderVar equivalent of replace_outer_var, handling th
 The function validates that the PlaceHolderVar is from an outer level (phlevelsup > 0), then calls assign_param_for_placeholdervar to obtain or create a parameter ID. It constructs a new Param node with PARAM_EXEC kind, determining the type information by examining the PHV's expression rather than using fixed type fields like with regular Vars.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planner state and context for the current query level
-- : PlaceHolderVar node representing a placeholder expression from an outer query level (phlevelsup > 0)
-
+- `*root`: PlannerInfo structure containing planner state and context for the current query level
+- `*phv`: PlaceHolderVar node representing a placeholder expression from an outer query level (phlevelsup > 0)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PlaceHolderVar](../P/PlaceHolderVar.md) (structure handling)

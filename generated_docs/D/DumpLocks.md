@@ -18,8 +18,7 @@ The DumpLocks function is a debugging utility that prints detailed information a
 This function is primarily used for diagnostic purposes during development and debugging of lock-related issues in PostgreSQL. It provides visibility into the lock state of a process across all lock partitions.
 
 ## Parameters / Member Variables
-- : Pointer to a PGPROC structure representing the PostgreSQL process whose locks should be dumped. If NULL, the function returns without doing anything.
-
+- `*proc`: Pointer to a PGPROC structure representing the PostgreSQL process whose locks should be dumped. If NULL, the function returns without doing anything.
 ## Dependencies
 - Functions called/Symbols referenced:
   - LOCK_PRINT (macro for printing lock information)

@@ -20,9 +20,8 @@ The function performs a query to retrieve all attributes of the composite type, 
 The function also handles dumping of associated comments, security labels, and access control lists for the type and its columns.
 
 ## Parameters / Member Variables
-- : Archive handle for the dump output stream
-- : TypeInfo structure containing metadata about the composite type to dump
-
+- `*fout`: Archive handle for the dump output stream
+- `*tyinfo`: TypeInfo structure containing metadata about the composite type to dump
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecuteSqlStatement](../E/ExecuteSqlStatement.md)

@@ -26,11 +26,10 @@ This function serves as the central dispatcher for establishing size estimates a
 For some relation types (subqueries, CTEs, named tuplestores, result relations), the function immediately builds paths instead of just setting sizes, as these types don't support parameterized vs unparameterized path choices.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global optimizer state and query information
-- : RelOptInfo structure for the relation being sized
-- : Range table index identifying the relation
-- : RangeTblEntry containing relation metadata and properties
-
+- `*root`: PlannerInfo structure containing global optimizer state and query information
+- `*rel`: RelOptInfo structure for the relation being sized
+- `rti`: Range table index identifying the relation
+- `*rte`: RangeTblEntry containing relation metadata and properties
 ## Dependencies
 - Functions called/Symbols referenced:
   - [relation_excluded_by_constraints](../r/relation_excluded_by_constraints.md)

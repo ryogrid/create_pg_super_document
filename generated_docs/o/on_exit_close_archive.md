@@ -24,8 +24,7 @@ This design ensures that database connections and archive resources are properly
 The function is typically called early in the process lifecycle, immediately after the ArchiveHandle is created, to ensure cleanup coverage for the entire operation duration.
 
 ## Parameters / Member Variables
-- : Pointer to Archive structure representing the archive handle that needs cleanup on process exit
-
+- `*AHX`: Pointer to Archive structure representing the archive handle that needs cleanup on process exit
 ## Dependencies
 - Functions called/Symbols referenced:
   - [archive_close_connection](../a/archive_close_connection.md) (cleanup function to be called on exit)

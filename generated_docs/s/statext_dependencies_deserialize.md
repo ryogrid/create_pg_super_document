@@ -27,8 +27,7 @@ This function performs the reverse operation of statext_dependencies_serialize, 
 The function includes comprehensive error handling with detailed error messages for various failure scenarios.
 
 ## Parameters / Member Variables
-- : bytea containing the serialized functional dependencies data (can be NULL)
-
+- `*data`: bytea containing the serialized functional dependencies data (can be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - VARSIZE_ANY_EXHDR (macro for getting bytea data size)

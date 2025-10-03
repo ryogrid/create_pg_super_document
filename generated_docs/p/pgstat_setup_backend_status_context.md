@@ -18,7 +18,6 @@ This static function ensures that a dedicated memory context exists for backend 
 The created memory context is a child of TopMemoryContext, ensuring it persists beyond individual transactions and can be used across multiple backend status operations within the same backend process.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

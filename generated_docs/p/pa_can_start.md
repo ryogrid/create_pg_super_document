@@ -16,7 +16,6 @@ pa_can_start(void)
 This function performs a series of checks to determine if a parallel apply worker can be started safely. It ensures that only leader apply workers can start parallel workers and validates various subscription and replication state conditions. The function is crucial for maintaining the integrity of parallel logical replication by preventing worker creation when it would be inappropriate or unsafe.
 
 ## Parameters / Member Variables
-(No parameters - void function)
 
 ## Dependencies
 - Functions called/Symbols referenced:

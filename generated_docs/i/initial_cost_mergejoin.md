@@ -36,16 +36,15 @@ This function performs the first phase of merge join cost estimation in PostgreS
 The function protects against zero row counts and uses clamp_row_est to ensure reasonable estimates.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planner context and statistics
-- : JoinCostWorkspace structure to be filled with preliminary cost estimates and intermediate data
-- : Type of join operation (INNER, LEFT, RIGHT, FULL, SEMI, ANTI, etc.)
-- : List of join clauses to be used as merge clauses
-- : Path representing the outer input to the join
-- : Path representing the inner input to the join
-- : List of sort keys for outer path (NULL if already sorted)
-- : List of sort keys for inner path (NULL if already sorted)
-- : JoinPathExtraData containing miscellaneous join information
-
+- `*root`: PlannerInfo structure containing planner context and statistics
+- `*workspace`: JoinCostWorkspace structure to be filled with preliminary cost estimates and intermediate data
+- `jointype`: Type of join operation (INNER, LEFT, RIGHT, FULL, SEMI, ANTI, etc.)
+- `*mergeclauses`: List of join clauses to be used as merge clauses
+- `*outer_path`: Path representing the outer input to the join
+- `*inner_path`: Path representing the inner input to the join
+- `*outersortkeys`: List of sort keys for outer path (NULL if already sorted)
+- `*innersortkeys`: List of sort keys for inner path (NULL if already sorted)
+- `*extra`: JoinPathExtraData containing miscellaneous join information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [cost_sort](../c/cost_sort.md)

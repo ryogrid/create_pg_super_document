@@ -18,8 +18,7 @@ This function is the ScalarArrayOpExpr equivalent of set_opfuncid. It sets the o
 ScalarArrayOpExpr nodes represent operations like 'value = ANY(array)' or 'value <> ALL(array)', where a scalar value is compared against each element of an array using a specified operator.
 
 ## Parameters / Member Variables
-- : Pointer to the ScalarArrayOpExpr node whose opfuncid field needs to be set
-
+- `*opexpr`: Pointer to the ScalarArrayOpExpr node whose opfuncid field needs to be set
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_opcode](../g/get_opcode.md)

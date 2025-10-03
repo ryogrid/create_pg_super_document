@@ -20,11 +20,10 @@ This function serves as a simplified wrapper around , providing type coercion fu
 The function is commonly used throughout the PostgreSQL parser when processing SQL constructs like LIMIT clauses, XML expressions, JSON functions, and range table functions that have strict type requirements for their arguments.
 
 ## Parameters / Member Variables
-- : ParseState pointer for error reporting and context; may be NULL if no special unknown-Param processing is needed
-- : The input expression node to be coerced
-- : The OID of the target data type to coerce to
-- : Name of the SQL construct (for error messages), e.g., "LIMIT", "XMLELEMENT"
-
+- `*pstate`: ParseState pointer for error reporting and context; may be NULL if no special unknown-Param processing is needed
+- `*node`: The input expression node to be coerced
+- `targetTypeId`: The OID of the target data type to coerce to
+- `*constructName`: Name of the SQL construct (for error messages), e.g., "LIMIT", "XMLELEMENT"
 ## Dependencies
 - Functions called/Symbols referenced:
   - [coerce_to_specific_type_typmod](coerce_to_specific_type_typmod.md)

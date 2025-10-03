@@ -17,11 +17,10 @@ jsonb_set_element(Jsonb *jb, Datum *path, int path_len,
 The  function provides the capability to modify JSONB data structures by setting values at specific paths. It uses the  function internally to perform the actual path-based modification, with flags that enable creating missing intermediate objects/arrays and filling gaps in arrays. The function handles the special case of raw scalar arrays by extracting the first element. It initializes a JSONB iterator to traverse the existing structure and applies the modification using a parse state to build the result.
 
 ## Parameters / Member Variables
-- : Input JSONB structure to modify
-- : Array of Datum values representing the path where to set the value
-- : Number of elements in the path array
-- : JsonbValue containing the new value to set at the specified path
-
+- `*jb`: Input JSONB structure to modify
+- `*path`: Array of Datum values representing the path where to set the value
+- `path_len`: Number of elements in the path array
+- `*newval`: JsonbValue containing the new value to set at the specified path
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc0](../p/palloc0.md) (memory allocation)

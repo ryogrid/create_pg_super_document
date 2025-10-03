@@ -25,9 +25,8 @@ The copying process uses:
 This ensures that modifications to the copied options won't affect the original options and vice versa.
 
 ## Parameters / Member Variables
-- : Source array of bytea pointers containing the original index attribute options
-- : Number of attributes (length of the array)
-
+- `**srcopts`: Source array of bytea pointers containing the original index attribute options
+- `natts`: Number of attributes (length of the array)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md)

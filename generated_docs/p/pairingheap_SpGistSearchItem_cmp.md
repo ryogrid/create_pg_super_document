@@ -23,10 +23,9 @@ This function serves as the comparison callback for the pairing heap data struct
 The function is designed specifically for KNN (K-Nearest Neighbors) searches where maintaining proper distance-based ordering is crucial for query correctness and performance.
 
 ## Parameters / Member Variables
-- : Pointer to the first pairingheap_node (cast to SpGistSearchItem) for comparison
-- : Pointer to the second pairingheap_node (cast to SpGistSearchItem) for comparison  
-- : Void pointer to SpGistScanOpaque structure containing scan context information
-
+- `*a`: Pointer to the first pairingheap_node (cast to SpGistSearchItem) for comparison
+- `*b`: Pointer to the second pairingheap_node (cast to SpGistSearchItem) for comparison
+- `*arg`: Void pointer to SpGistScanOpaque structure containing scan context information
 ## Dependencies
 - Functions called/Symbols referenced:
   - isnan (standard library function for NaN detection)

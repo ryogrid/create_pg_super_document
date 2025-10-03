@@ -30,11 +30,10 @@ This function performs the core DELETE operation for logical replication after t
 The function is designed to handle both direct table deletions and partition-specific deletions when called from partition routing logic.
 
 ## Parameters / Member Variables
-- : ApplyExecutionData structure containing execution state and relation mapping information
-- : ResultRelInfo for the actual relation being deleted from (may be a partition of the target relation)
-- : TupleTableSlot containing the search tuple data from the remote publisher to identify the tuple to delete
-- : OID of the local index to use for tuple lookup operations
-
+- `*edata`: ApplyExecutionData structure containing execution state and relation mapping information
+- `*relinfo`: ResultRelInfo for the actual relation being deleted from (may be a partition of the target relation)
+- `*remoteslot`: TupleTableSlot containing the search tuple data from the remote publisher to identify the tuple to delete
+- `localindexoid`: OID of the local index to use for tuple lookup operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [EvalPlanQualInit](../E/EvalPlanQualInit.md)

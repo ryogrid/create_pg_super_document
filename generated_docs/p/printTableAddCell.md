@@ -19,11 +19,10 @@ This function adds a single cell to a printTableContent structure, which is used
 The function maintains an internal counter of added cells and can optionally mark cells for automatic cleanup. When translation is enabled and the translate parameter is true, the cell content is passed through gettext for internationalization.
 
 ## Parameters / Member Variables
-- : Pointer to the printTableContent structure that will contain the cell
-- : The string content to add as a cell (not duplicated, must remain valid for the table's lifetime)
-- : If true, the cell content will be passed through gettext for translation
-- : If true, the cell string will be automatically freed during printTableCleanup()
-
+- `content`: Pointer to the printTableContent structure that will contain the cell
+- `*cell`: The string content to add as a cell (not duplicated, must remain valid for the table's lifetime)
+- `translate`: If true, the cell content will be passed through gettext for translation
+- `mustfree`: If true, the cell string will be automatically freed during printTableCleanup()
 ## Dependencies
 - Functions called/Symbols referenced:
   - [mbvalidate](../m/mbvalidate.md) (multibyte character validation)

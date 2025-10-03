@@ -23,11 +23,10 @@ The function is particularly sophisticated in handling expressional indexes and 
 The function also handles security considerations by checking whether the current user has permission to access the underlying table data, which affects whether certain statistical information can be used safely.
 
 ## Parameters / Member Variables
-- : Pointer to PlannerInfo structure containing planner context and query information
-- : The expression tree to be analyzed for statistical information
-- : Relation ID for restriction context; when nonzero, only variables from this relation are considered as variables
-- : Output parameter that gets filled with comprehensive information about the variable including statistics, type information, uniqueness, and access permissions
-
+- `*root`: Pointer to PlannerInfo structure containing planner context and query information
+- `*node`: The expression tree to be analyzed for statistical information
+- `varRelid`: Relation ID for restriction context; when nonzero, only variables from this relation are considered as variables
+- `*vardata`: Output parameter that gets filled with comprehensive information about the variable including statistics, type information, uniqueness, and access permissions
 ## Dependencies
 - Functions called/Symbols referenced:
   - MemSet

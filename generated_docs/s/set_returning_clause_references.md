@@ -32,12 +32,11 @@ The function implements a sophisticated strategy:
 The function also performs necessary opcode lookup operations and updates the global relation OID tracking.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure for the parent query level (not the subplan level)
-- : The RETURNING target list that needs to have its variable references fixed
-- : The top subplan node that will be positioned just below the ModifyTable node (not yet processed by set_plan_refs)
-- : Range table index of the result relation being modified (not yet adjusted by rtoffset)
-- : Amount to increment variable numbers by for range table adjustment
-
+- `*root`: PlannerInfo structure for the parent query level (not the subplan level)
+- `*rlist`: The RETURNING target list that needs to have its variable references fixed
+- `*topplan`: The top subplan node that will be positioned just below the ModifyTable node (not yet processed by set_plan_refs)
+- `resultRelation`: Range table index of the result relation being modified (not yet adjusted by rtoffset)
+- `rtoffset`: Amount to increment variable numbers by for range table adjustment
 ## Dependencies
 - Functions called/Symbols referenced:
   - [build_tlist_index_other_vars](../b/build_tlist_index_other_vars.md) (builds indexed target list excluding result relation)

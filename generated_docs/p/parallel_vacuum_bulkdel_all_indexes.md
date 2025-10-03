@@ -24,10 +24,9 @@ This function serves as the entry point for parallel bulk deletion operations on
 The function is a lightweight coordinator that prepares shared state and then delegates to the core parallel processing infrastructure.
 
 ## Parameters / Member Variables
-- : Pointer to the parallel vacuum state structure containing coordination data
-- : Approximate number of tuples in the table being vacuumed, used for optimization decisions
-- : Number of index scan passes planned for the operation
-
+- `*pvs`: Pointer to the parallel vacuum state structure containing coordination data
+- `num_table_tuples`: Approximate number of tuples in the table being vacuumed, used for optimization decisions
+- `num_index_scans`: Number of index scan passes planned for the operation
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Verifies this is running in the leader process

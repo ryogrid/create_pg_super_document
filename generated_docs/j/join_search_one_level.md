@@ -22,9 +22,8 @@ The  function is a fundamental component of PostgreSQL's standard join search al
 The function uses join clauses, equivalence classes, and join order restrictions to guide the search and avoid generating unreasonable numbers of join combinations.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing the query planning context and join relation levels
-- : The target level (number of relations) for joins to be created in this iteration
-
+- `*root`: PlannerInfo structure containing the query planning context and join relation levels
+- `level`: The target level (number of relations) for joins to be created in this iteration
 ## Dependencies
 - Functions called/Symbols referenced:
   - [has_join_restriction](../h/has_join_restriction.md)

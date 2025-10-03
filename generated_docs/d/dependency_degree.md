@@ -23,10 +23,9 @@ This function is the core algorithm for detecting functional dependencies in Pos
 The algorithm assumes that if A functionally determines B, then for any group of rows with identical A values, all B values should also be identical. Violations indicate the dependency is not perfect.
 
 ## Parameters / Member Variables
-- : StatsBuildData structure containing the sample data and column information for statistics computation
-- : Number of attributes in the dependency relationship (must be >= 2)
-- : Array of attribute indexes representing the dependency (first k-1 determine the last one)
-
+- `*data`: StatsBuildData structure containing the sample data and column information for statistics computation
+- `k`: Number of attributes in the dependency relationship (must be >= 2)
+- `*dependency`: Array of attribute indexes representing the dependency (first k-1 determine the last one)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [multi_sort_init](../m/multi_sort_init.md)

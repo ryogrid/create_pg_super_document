@@ -34,13 +34,12 @@ After successful SubLink conversion, the function:
 4. Returns NULL (representing constant TRUE) since the condition is now handled by the join
 
 ## Parameters / Member Variables
-- : PlannerInfo containing query optimization context and metadata
-- : The qualification expression node to process (SubLink, BoolExpr, etc.)
-- : Pointer to primary jointree location where new joins should be inserted
-- : Set of relation IDs available at jtlink1 location
-- : Pointer to secondary jointree location (optional, can be NULL)
-- : Set of relation IDs available at jtlink2 location (optional)
-
+- `*root`: PlannerInfo containing query optimization context and metadata
+- `*node`: The qualification expression node to process (SubLink, BoolExpr, etc.)
+- `**jtlink1`: Pointer to primary jointree location where new joins should be inserted
+- `available_rels1`: Set of relation IDs available at jtlink1 location
+- `**jtlink2`: Pointer to secondary jointree location (optional, can be NULL)
+- `available_rels2`: Set of relation IDs available at jtlink2 location (optional)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [convert_ANY_sublink_to_join](../c/convert_ANY_sublink_to_join.md)

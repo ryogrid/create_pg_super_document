@@ -20,9 +20,8 @@ For each statistics object found, the function builds a bitmapset of covered col
 The function handles both column-based and expression-based extended statistics, ensuring that expressions are properly normalized through  and have their variable references updated to match the relation's varno in the current query context.
 
 ## Parameters / Member Variables
-- : RelOptInfo structure representing the relation in the optimizer
-- : The actual relation object to extract statistics information from
-
+- `*rel`: RelOptInfo structure representing the relation in the optimizer
+- `relation`: The actual relation object to extract statistics information from
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RelationGetStatExtList](../R/RelationGetStatExtList.md)

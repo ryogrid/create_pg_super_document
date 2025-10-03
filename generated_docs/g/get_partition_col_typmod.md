@@ -16,9 +16,8 @@ get_partition_col_typmod(PartitionKey key, int col)
 This inline function provides a simple accessor to retrieve the type modifier for a specified column in a partition key. Type modifiers contain additional type information such as precision for numeric types, length limits for character types, or other type-specific constraints. The function is used during partition bound transformations to ensure that partition bounds conform to the expected column types and their modifiers.
 
 ## Parameters / Member Variables
-- : PartitionKey structure containing partition metadata including type modifiers for each partitioning column
-- : Zero-based column index within the partition key to retrieve the type modifier for
-
+- `key`: PartitionKey structure containing partition metadata including type modifiers for each partitioning column
+- `col`: Zero-based column index within the partition key to retrieve the type modifier for
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PartitionKey](../P/PartitionKey.md) (struct type)

@@ -27,11 +27,10 @@ The function enforces three key safety constraints:
 If any of these constraints are violated, the function calls  to immediately halt the database, as continuing would risk data corruption.
 
 ## Parameters / Member Variables
-- : The Log Sequence Number of the shutdown checkpoint record being processed
-- : The new timeline ID that the system is attempting to switch to
-- : The previous timeline ID as recorded in the checkpoint record
-- : The timeline ID currently being replayed during recovery
-
+- `lsn`: The Log Sequence Number of the shutdown checkpoint record being processed
+- `newTLI`: The new timeline ID that the system is attempting to switch to
+- `prevTLI`: The previous timeline ID as recorded in the checkpoint record
+- `replayTLI`: The timeline ID currently being replayed during recovery
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (reports errors with specified severity level)

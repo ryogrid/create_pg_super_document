@@ -18,8 +18,7 @@ The  function serves as the type modifier output function for the timestamptz da
 The function delegates the actual formatting logic to , passing  to indicate this is for a timestamptz type (with timezone) rather than a plain timestamp type.
 
 ## Parameters / Member Variables
-- : int32 containing the internal typmod representation (from )
-
+- `PG_FUNCTION_ARGS`: int32 containing the internal typmod representation (from )
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Macro to extract the typmod argument

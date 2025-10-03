@@ -18,9 +18,8 @@ This function performs critical cleanup operations during PostgreSQL postmaster 
 The function first performs sanity checks on the control segment to detect potential corruption that could have occurred if another backend exited uncleanly. If corruption is detected, it logs a warning and exits early to avoid crashes. For valid control segments, it systematically removes each active segment before finally destroying the control segment itself.
 
 ## Parameters / Member Variables
-- : Exit code passed to the shutdown hook (unused in this function)
-- : Datum containing a pointer to the PGShmemHeader structure
-
+- `code`: Exit code passed to the shutdown hook (unused in this function)
+- `arg`: Datum containing a pointer to the PGShmemHeader structure
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dsm_control_segment_sane](dsm_control_segment_sane.md)

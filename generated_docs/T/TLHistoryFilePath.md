@@ -18,9 +18,8 @@ This function generates the full file system path for a timeline history file by
 Timeline history files contain critical metadata about timeline relationships and are stored alongside WAL segment files in the pg_wal directory.
 
 ## Parameters / Member Variables
-- : Output buffer that receives the constructed file path (must be at least MAXPGPATH bytes)
-- : Timeline ID for which to generate the complete file path
-
+- `*path`: Output buffer that receives the constructed file path (must be at least MAXPGPATH bytes)
+- `tli`: Timeline ID for which to generate the complete file path
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLOGDIR (macro defining the WAL directory path, typically "pg_wal")

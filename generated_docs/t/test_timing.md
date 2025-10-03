@@ -18,8 +18,7 @@ This function implements the core timing measurement logic for the pg_test_timin
 The function detects and reports clock irregularities, specifically when time appears to go backwards, which can indicate system clock issues or virtualization problems. It uses PostgreSQL's portable timing instrumentation macros (INSTR_TIME_*) for cross-platform compatibility. The collected timing data helps database administrators understand the timing characteristics of their system, which is crucial for PostgreSQL performance tuning.
 
 ## Parameters / Member Variables
-- : Test duration in seconds (0 means run indefinitely until interrupted)
-
+- `duration`: Test duration in seconds (0 means run indefinitely until interrupted)
 ## Dependencies
 - Functions called/Symbols referenced:
   - INSTR_TIME_SET_CURRENT (get current timestamp)

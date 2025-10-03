@@ -16,8 +16,7 @@ filter_partitions(List *table_infos)
 This function implements partition deduplication logic for PostgreSQL publications. It iterates through a list of published relation information and removes any partition tables whose ancestor tables are already included in the publication. The function works by checking if each relation is a partition, obtaining its ancestor chain, and then verifying if any ancestor is already present in the table_infos list. If an ancestor is found, the partition is removed from the list to avoid redundancy, since publishing the parent table implicitly includes its partitions.
 
 ## Parameters / Member Variables
-- : A List of  structures representing tables in a publication that will be modified in-place by removing redundant partitions
-
+- `*table_infos`: A List of  structures representing tables in a publication that will be modified in-place by removing redundant partitions
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (struct type for publication relation information)

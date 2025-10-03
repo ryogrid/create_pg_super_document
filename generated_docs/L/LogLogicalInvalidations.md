@@ -20,7 +20,6 @@ The function examines the current command's invalidation messages stored in  and
 The function uses the standard WAL insertion pattern: it calls XLogBeginInsert() to start record construction, registers the invalidation data using XLogRegisterData(), and finally inserts the completed record with XLogInsert() using the XLOG_XACT_INVALIDATIONS record type.
 
 ## Parameters / Member Variables
-This function takes no parameters as it operates on global transaction state.
 
 ## Dependencies
 - Functions called/Symbols referenced:

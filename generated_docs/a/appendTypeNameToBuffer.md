@@ -20,9 +20,8 @@ For user-specified names, it concatenates the name components with dots for sche
 This function is designed to work even with TypeNames that don't correspond to actual types, making it useful for error reporting during type lookup failures.
 
 ## Parameters / Member Variables
-- : The TypeName structure to convert to string format
-- : StringInfo buffer to append the formatted type name to
-
+- `*typeName`: The TypeName structure to convert to string format
+- `string`: StringInfo buffer to append the formatted type name to
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_head](../l/list_head.md)

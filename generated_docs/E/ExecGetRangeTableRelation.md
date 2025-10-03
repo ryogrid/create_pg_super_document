@@ -16,9 +16,8 @@ ExecGetRangeTableRelation(EState *estate, Index rti)
 This function implements lazy opening of relations referenced in the query's range table. It checks if the relation at the given range table index (rti) is already open in the execution state, and if not, opens it using the appropriate locking mechanism. The function handles both normal query execution and parallel worker scenarios differently - parallel workers must obtain their own local locks to ensure safe behavior if the parent process exits prematurely. All opened relations are stored in the execution state and will be automatically closed when the plan execution ends via ExecEndPlan().
 
 ## Parameters / Member Variables
-- : Execution state containing the range table and opened relations array
-- : Range table index (1-based) identifying which relation to open
-
+- `*estate`: Execution state containing the range table and opened relations array
+- `rti`: Range table index (1-based) identifying which relation to open
 ## Dependencies
 - Functions called/Symbols referenced:
   - [exec_rt_fetch](../e/exec_rt_fetch.md)

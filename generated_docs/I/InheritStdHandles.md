@@ -16,8 +16,7 @@ InheritStdHandles(STARTUPINFO *si)
 This function configures the STARTUPINFO structure for a new process to inherit standard handles (stdin, stdout, stderr) from the current process. It addresses a specific Windows service behavior where processes started as services have NULL handles rather than invalid ones. The function ensures that if a standard handle is NULL, it gets replaced with INVALID_HANDLE_VALUE, which makes GetStdHandle() in the new process return INVALID_HANDLE_VALUE consistently. This creates a uniform environment between pg_ctl and the postmaster process it starts.
 
 ## Parameters / Member Variables
-- : Pointer to STARTUPINFO structure that will be configured with standard handle inheritance settings
-
+- `*si`: Pointer to STARTUPINFO structure that will be configured with standard handle inheritance settings
 ## Dependencies
 - Functions called/Symbols referenced:
   - GetStdHandle (Windows API)

@@ -26,8 +26,7 @@ lazy_scan_heap orchestrates the core vacuum work through multiple phases:
 The function implements a sophisticated two-pass strategy for relations with indexes (initial scan + final vacuum) or an optimized one-pass strategy for heap-only relations. It balances memory usage, I/O efficiency, and maintains critical invariants about index-heap consistency.
 
 ## Parameters / Member Variables
-- : LVRelState structure containing all vacuum-related state, configuration, and statistics
-
+- `*vacrel`: LVRelState structure containing all vacuum-related state, configuration, and statistics
 ## Dependencies
 - Functions called/Symbols referenced:
   - [heap_vac_scan_next_block](../h/heap_vac_scan_next_block.md) (block iteration control)

@@ -23,9 +23,8 @@ The function performs the following steps:
 5. Wraps the Datum in a Const node with appropriate type information
 
 ## Parameters / Member Variables
-- : The input binary C string to be converted to bytea
-- : The length of the input string in bytes
-
+- `*str`: The input binary C string to be converted to bytea
+- `str_len`: The length of the input string in bytes
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (memory allocation)

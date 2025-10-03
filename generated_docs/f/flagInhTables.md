@@ -19,12 +19,11 @@ The flagInhTables function processes PostgreSQL table inheritance information to
 The function also handles partition table attachments by creating TableAttachInfo objects for partitioned tables. These objects represent the ATTACH PARTITION operations needed to properly recreate the partitioning structure during database restoration. The function ensures proper dependency ordering by making TableAttachInfo objects depend on both the partition table and its parent table.
 
 ## Parameters / Member Variables
-- : Archive structure containing database connection and dump configuration
-- : Array of TableInfo structures representing all tables in the database
-- : Number of tables in the tblinfo array
-- : Array of InhInfo structures containing inheritance relationship data from pg_inherits
-- : Number of inheritance relationships in the inhinfo array
-
+- `*fout`: Archive structure containing database connection and dump configuration
+- `*tblinfo`: Array of TableInfo structures representing all tables in the database
+- `numTables`: Number of tables in the tblinfo array
+- `*inhinfo`: Array of InhInfo structures containing inheritance relationship data from pg_inherits
+- `numInherits`: Number of inheritance relationships in the inhinfo array
 ## Dependencies
 - Functions called/Symbols referenced:
   - [findTableByOid](findTableByOid.md) (locates TableInfo by OID)

@@ -18,8 +18,7 @@ The  function is a PostgreSQL SQL-callable function that wraps the standard C li
 The function includes overflow checking to ensure robust error handling, though the error function typically doesn't overflow for normal input ranges.
 
 ## Parameters / Member Variables
-- : The float8 input value for which to compute the error function
-
+- `PG_FUNCTION_ARGS`: The float8 input value for which to compute the error function
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT8 (macro to extract float8 argument)

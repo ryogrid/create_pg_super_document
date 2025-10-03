@@ -18,10 +18,9 @@ applyPageRedo is a static function that implements the core logic for applying d
 The function iterates through the delta buffer, parsing each modification record and applying the changes directly to the target page. This delta-based approach is more efficient than storing full page images, especially when only small portions of a page are modified.
 
 ## Parameters / Member Variables
-- : Target database page where delta changes will be applied
-- : Buffer containing encoded delta changes as offset-length-data triplets  
-- : Total size of the delta buffer in bytes
-
+- `page`: Target database page where delta changes will be applied
+- `*delta`: Buffer containing encoded delta changes as offset-length-data triplets
+- `deltaSize`: Total size of the delta buffer in bytes
 ## Dependencies
 - Functions called/Symbols referenced:
   - memcpy (copies memory blocks for offset, length, and data extraction/application)

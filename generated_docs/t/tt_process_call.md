@@ -24,8 +24,7 @@ The function operates by:
 6. Returning the tuple as a Datum, or 0 when no more tokens exist
 
 ## Parameters / Member Variables
-- : Function call context containing the TSTokenTypeStorage and tuple metadata
-
+- `*funcctx`: Function call context containing the TSTokenTypeStorage and tuple metadata
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BuildTupleFromCStrings](../B/BuildTupleFromCStrings.md)

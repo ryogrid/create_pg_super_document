@@ -20,10 +20,9 @@ This function generates the full file system path for archive status files by co
 This function is central to PostgreSQL's WAL archiving infrastructure, enabling reliable tracking of file archival states.
 
 ## Parameters / Member Variables
-- : Output buffer that receives the constructed file path (must be at least MAXPGPATH bytes)
-- : Base filename of the WAL file or timeline history file being tracked
-- : Status suffix indicating the archival state (e.g., ".ready", ".done")
-
+- `*path`: Output buffer that receives the constructed file path (must be at least MAXPGPATH bytes)
+- `*xlog`: Base filename of the WAL file or timeline history file being tracked
+- `*suffix`: Status suffix indicating the archival state (e.g., ".ready", ".done")
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLOGDIR (macro defining the WAL directory path, typically "pg_wal")

@@ -18,8 +18,7 @@ This function performs carry propagation on the accumulated digits in both the p
 The function maintains the invariant that the accumulator always has space for one extra digit before carry propagation, preventing buffer overflow issues.
 
 ## Parameters / Member Variables
-- : Pointer to the NumericSumAccum structure containing the digit arrays that need carry propagation
-
+- `*accum`: Pointer to the NumericSumAccum structure containing the digit arrays that need carry propagation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [NumericSumAccum](../N/NumericSumAccum.md)

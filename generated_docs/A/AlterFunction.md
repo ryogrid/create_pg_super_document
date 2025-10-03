@@ -25,9 +25,8 @@ AlterFunction processes ALTER FUNCTION statements to modify various attributes o
 The function handles both regular functions and procedures, with appropriate validation for procedure-specific constraints.
 
 ## Parameters / Member Variables
-- : Parse state containing parsing context and environment information
-- : AlterFunctionStmt structure containing the function identifier and list of requested modifications
-
+- `*pstate`: Parse state containing parsing context and environment information
+- `*stmt`: AlterFunctionStmt structure containing the function identifier and list of requested modifications
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md)

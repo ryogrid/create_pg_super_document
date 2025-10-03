@@ -18,8 +18,7 @@ ExecMaterialMarkPos implements the mark operation for Material nodes by copying 
 The function includes safety checks - it asserts that the EXEC_FLAG_MARK flag is set (indicating mark/restore support was requested during initialization) and gracefully handles the case where the tuplestore hasn't been materialized yet.
 
 ## Parameters / Member Variables
-- : The MaterialState node for which to set the mark position
-
+- `*node`: The MaterialState node for which to set the mark position
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MaterialState](../M/MaterialState.md)

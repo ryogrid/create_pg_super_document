@@ -44,22 +44,21 @@ Key parsing behaviors:
 The function handles NULL values explicitly through ATOK_ELEM_NULL tokens and maintains separate arrays for values and null indicators.
 
 ## Parameters / Member Variables
-- : Pointer to current position in input string, advanced during parsing
-- : FmgrInfo for element type's input conversion function
-- : Additional parameter for element input function
-- : Type modifier for element type
-- : Delimiter character for array elements (type-specific)
-- : Storage length of element type
-- : Whether element type is passed by value
-- : Alignment requirement for element type
-- : Input/output parameter for number of dimensions
-- : Input/output array for dimension sizes
-- : Output parameter for total number of elements parsed
-- : Output parameter for array of parsed element values
-- : Output parameter for array of null indicators
-- : Original input string (used only for error messages)
-- : Error context for soft error handling
-
+- `**srcptr`: Pointer to current position in input string, advanced during parsing
+- `*inputproc`: FmgrInfo for element type's input conversion function
+- `typioparam`: Additional parameter for element input function
+- `typmod`: Type modifier for element type
+- `typdelim`: Delimiter character for array elements (type-specific)
+- `typlen`: Storage length of element type
+- `typbyval`: Whether element type is passed by value
+- `typalign`: Alignment requirement for element type
+- `*ndim_p`: Input/output parameter for number of dimensions
+- `*dim`: Input/output array for dimension sizes
+- `*nitems_p`: Output parameter for total number of elements parsed
+- `**values_p`: Output parameter for array of parsed element values
+- `**nulls_p`: Output parameter for array of null indicators
+- `*origStr`: Original input string (used only for error messages)
+- `*escontext`: Error context for soft error handling
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReadArrayToken](ReadArrayToken.md)

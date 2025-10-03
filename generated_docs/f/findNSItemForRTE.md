@@ -20,9 +20,8 @@ The function implements a straightforward linear search through the namespace li
 The function is particularly useful for visibility and scoping analysis, as it helps determine whether a particular range table entry is accessible from the current parsing context.
 
 ## Parameters / Member Variables
-- : ParseState structure representing the current parsing context and containing the namespace to search
-- : RangeTblEntry that we're trying to find in the namespace
-
+- `*pstate`: ParseState structure representing the current parsing context and containing the namespace to search
+- `*rte`: RangeTblEntry that we're trying to find in the namespace
 ## Dependencies
 - Functions called/Symbols referenced:
   - lfirst (list traversal macro)

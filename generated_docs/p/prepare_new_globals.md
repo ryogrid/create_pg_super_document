@@ -22,7 +22,6 @@ This function is a critical step in the pg_upgrade process that prepares the glo
 The function provides user feedback through  and uses  to run psql with appropriate connection options and the globals dump file.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

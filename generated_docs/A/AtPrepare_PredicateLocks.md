@@ -21,7 +21,6 @@ The function creates two types of records:
 The function walks through the transaction's predicate lock list rather than using the local predicate lock table to ensure accuracy. All records are registered with the two-phase commit system using the TWOPHASE_RM_PREDICATELOCK_ID resource manager identifier.
 
 ## Parameters / Member Variables
-This function takes no parameters and operates on the current transaction's serializable state.
 
 ## Dependencies
 - Functions called/Symbols referenced:

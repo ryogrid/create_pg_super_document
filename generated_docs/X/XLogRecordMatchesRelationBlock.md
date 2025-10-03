@@ -19,11 +19,10 @@ XLogRecordMatchesRelationBlock(XLogReaderState *record,
 This function iterates through all block references in a WAL record to determine if any of them match the specified filtering criteria. It supports flexible matching where any combination of relation, fork, and block number can be specified or left as wildcards. The function is used by pg_waldump to implement filtering functionality, allowing users to focus on WAL records that affect specific database objects or blocks. It handles empty/invalid values as wildcards, enabling partial matching scenarios.
 
 ## Parameters / Member Variables
-- : XLogReaderState containing the decoded WAL record to examine
-- : RelFileLocator to match against, or emptyRelFileLocator for wildcard matching
-- : Specific block number to match, or InvalidBlockNumber for any block
-- : Fork number to match, or InvalidForkNumber for any fork
-
+- `*record`: XLogReaderState containing the decoded WAL record to examine
+- `matchRlocator`: RelFileLocator to match against, or emptyRelFileLocator for wildcard matching
+- `matchBlock`: Specific block number to match, or InvalidBlockNumber for any block
+- `matchFork`: Fork number to match, or InvalidForkNumber for any fork
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecMaxBlockId

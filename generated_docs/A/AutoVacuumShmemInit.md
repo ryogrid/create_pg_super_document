@@ -29,7 +29,6 @@ This function is responsible for setting up the autovacuum subsystem's shared me
 The function sets up a worker pool system where WorkerInfo structures are managed in free and running lists. Each worker has atomic flags for coordination, particularly for load balancing operations. The shared memory layout places the main control structure first, followed by the variable-sized array of worker information structures.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -18,9 +18,8 @@ The  function is responsible for handling archive contents data transfer while a
 This function serves as the main data flow control point for archive contents, ensuring that the transfer rate doesn't exceed the configured limits while maintaining the pipeline architecture by passing data to subsequent sinks.
 
 ## Parameters / Member Variables
-- : Pointer to the base bbsink structure, cast to bbsink_throttle for accessing throttling-specific functionality
-- : Size of the archive contents data being transferred (in bytes)
-
+- `*sink`: Pointer to the base bbsink structure, cast to bbsink_throttle for accessing throttling-specific functionality
+- `len`: Size of the archive contents data being transferred (in bytes)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (applies throttling mechanism based on data length)

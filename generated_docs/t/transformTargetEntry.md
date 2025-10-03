@@ -21,13 +21,12 @@ transformTargetEntry(ParseState *pstate,
 This function is a core component of PostgreSQL's query parser that converts parse tree nodes into TargetEntry structures. It handles the transformation of expression nodes into targetlist entries, which represent columns in the result set of a query. The function can work with either pre-transformed expressions or raw parse tree nodes that need transformation. It also handles automatic column name generation when no explicit column name is provided and manages special cases like SetToDefault nodes in UPDATE statements.
 
 ## Parameters / Member Variables
-- : ParseState structure containing parser state information
-- : The untransformed parse tree node for the value expression
-- : The transformed expression, or NULL if transformation is needed
-- : Expression kind constant (EXPR_KIND_SELECT_TARGET, etc.) indicating the context
-- : The column name to be assigned, or NULL if none set yet
-- : Boolean flag indicating if the target should be marked as resjunk (not wanted in final tuple)
-
+- `*pstate`: ParseState structure containing parser state information
+- `*node`: The untransformed parse tree node for the value expression
+- `*expr`: The transformed expression, or NULL if transformation is needed
+- `exprKind`: Expression kind constant (EXPR_KIND_SELECT_TARGET, etc.) indicating the context
+- `*colname`: The column name to be assigned, or NULL if none set yet
+- `resjunk`: Boolean flag indicating if the target should be marked as resjunk (not wanted in final tuple)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [transformExpr](transformExpr.md)

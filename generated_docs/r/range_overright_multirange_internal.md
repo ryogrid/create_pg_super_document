@@ -20,10 +20,9 @@ This internal function implements the core logic for the "overright" or "does no
 The function extracts the bounds from the range and from the first range in the multirange (which represents the leftmost range), then compares their lower bounds. It returns true if the range's lower bound is greater than or equal to the multirange's lower bound, meaning the range does not extend beyond the leftmost point of the multirange.
 
 ## Parameters / Member Variables
-- : TypeCacheEntry pointer providing type information for range operations
-- : const RangeType pointer - The range to compare
-- : const MultirangeType pointer - The multirange to compare against
-
+- `*rangetyp`: TypeCacheEntry pointer providing type information for range operations
+- `*r`: const RangeType pointer - The range to compare
+- `*mr`: const MultirangeType pointer - The multirange to compare against
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Check if range is empty

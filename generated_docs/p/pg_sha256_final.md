@@ -22,9 +22,8 @@ The  function completes the SHA-256 hashing process by:
 The function handles byte order conversion automatically based on the system's endianness, ensuring the digest is properly formatted regardless of the target architecture.
 
 ## Parameters / Member Variables
-- : Pointer to the SHA-256 context structure containing the hash state
-- : Output buffer to receive the final SHA-256 digest (32 bytes), or NULL to skip digest extraction
-
+- `*context`: Pointer to the SHA-256 context structure containing the hash state
+- `*digest`: Output buffer to receive the final SHA-256 digest (32 bytes), or NULL to skip digest extraction
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SHA256_Last](../S/SHA256_Last.md)

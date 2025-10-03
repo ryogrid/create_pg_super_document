@@ -24,8 +24,7 @@ The function performs two essential tracking operations:
 The timing of this call is crucial for WAL consistency. It must be positioned carefully in relation to WAL record insertions to ensure that WAL records modifying the old RelFileLocator are written before this call, and WAL records modifying the new RelFileLocator are written after this call. This ordering prevents replay inconsistencies during crash recovery.
 
 ## Parameters / Member Variables
-- : The relation that has assumed a new RelFileLocator (tablespace and/or relfilenode change)
-
+- `relation`: The relation that has assumed a new RelFileLocator (tablespace and/or relfilenode change)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetCurrentSubTransactionId](../G/GetCurrentSubTransactionId.md)

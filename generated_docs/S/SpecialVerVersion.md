@@ -23,8 +23,7 @@ The function works by:
 This effectively moves the parser state back to before the current token was processed, allowing it to be skipped or handled differently.
 
 ## Parameters / Member Variables
-- : Pointer to a TParser structure containing the parser state, including position counters and token length information
-
+- `*prs`: Pointer to a TParser structure containing the parser state, including position counters and token length information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TParser](../T/TParser.md) (structure type)

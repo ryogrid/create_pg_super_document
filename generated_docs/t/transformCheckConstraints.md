@@ -20,9 +20,8 @@ For ALTER TABLE operations, the function currently performs no transformations, 
 This approach improves performance during table creation by avoiding unnecessary constraint validation while ensuring constraint metadata is correctly established.
 
 ## Parameters / Member Variables
-- : Pointer to CreateStmtContext containing the CHECK constraints list and table creation context
-- : Boolean flag indicating whether constraint validation can be safely skipped (typically true for new table creation)
-
+- `*cxt`: Pointer to CreateStmtContext containing the CHECK constraints list and table creation context
+- `skipValidation`: Boolean flag indicating whether constraint validation can be safely skipped (typically true for new table creation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - CreateStmtContext, Constraint (data structures)

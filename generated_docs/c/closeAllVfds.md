@@ -18,7 +18,6 @@ The  function is a resource management utility in PostgreSQL's file descriptor m
 The function ensures that the VFD ring structure remains intact by asserting that the first entry (index 0) is not open, which serves as a sentinel in the ring structure. It then processes all other VFDs (starting from index 1) and calls  on any that are currently open, effectively closing their underlying file descriptors while maintaining their metadata.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

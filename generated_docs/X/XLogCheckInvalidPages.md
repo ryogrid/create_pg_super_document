@@ -18,7 +18,6 @@ This function iterates through the global  hash table to identify any remaining 
 The function serves as a final validation step in WAL recovery, ensuring that all page references in the WAL stream correspond to valid, accessible pages. If invalid pages remain, it indicates potential data corruption or incomplete recovery.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

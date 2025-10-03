@@ -29,14 +29,13 @@ This function calculates the execution cost for a WindowAgg operation in Postgre
 The function does not account for spooling costs when data overflows work_mem, which is noted as a future enhancement.
 
 ## Parameters / Member Variables
-- : The Path structure to be updated with calculated costs and row estimates
-- : PlannerInfo structure containing planner context and statistics
-- : List of WindowFunc nodes representing the window functions to be executed
-- : WindowClause specifying partitioning and ordering requirements
-- : Startup cost of the input data source
-- : Total cost of the input data source
-- : Estimated number of input tuples
-
+- `*path`: The Path structure to be updated with calculated costs and row estimates
+- `*root`: PlannerInfo structure containing planner context and statistics
+- `*windowFuncs`: List of WindowFunc nodes representing the window functions to be executed
+- `*winclause`: WindowClause specifying partitioning and ordering requirements
+- `input_startup_cost`: Startup cost of the input data source
+- `input_total_cost`: Total cost of the input data source
+- `input_tuples`: Estimated number of input tuples
 ## Dependencies
 - Functions called/Symbols referenced:
   - [add_function_cost](../a/add_function_cost.md)

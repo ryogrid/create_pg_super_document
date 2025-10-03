@@ -18,9 +18,8 @@ This function serves as a wrapper around the more general  function, providing a
 The function assumes the query will work for any server version and uses global completion variables to pass query parameters and configuration to the underlying completion engine. This allows psql to provide intelligent autocompletion that reflects the current state of the connected database.
 
 ## Parameters / Member Variables
-- : The partial text that the user has typed, used to filter completion results
-- : Call counter maintained by readline - 0 for first call, incremented on subsequent calls
-
+- `*text`: The partial text that the user has typed, used to filter completion results
+- `state`: Call counter maintained by readline - 0 for first call, incremented on subsequent calls
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Core function that handles query execution and result processing

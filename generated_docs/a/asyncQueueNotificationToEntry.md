@@ -23,9 +23,8 @@ This function transforms an internal Notification object into the format require
 The function applies proper alignment (QUEUEALIGN) to ensure efficient memory access and maintains compatibility with the queue's storage format. The resulting entry contains all information needed by listening backends to process the notification.
 
 ## Parameters / Member Variables
-- : Pointer to source Notification structure containing channel name and payload
-- : Pointer to destination AsyncQueueEntry structure to be filled
-
+- `*n`: Pointer to source Notification structure containing channel name and payload
+- `*qe`: Pointer to destination AsyncQueueEntry structure to be filled
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetCurrentTransactionId](../G/GetCurrentTransactionId.md) (to get current transaction ID)

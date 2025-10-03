@@ -18,7 +18,6 @@ EnablePortalManager is a critical initialization function that sets up the porta
 The function establishes the memory management foundation for portals by creating a dedicated memory context under TopMemoryContext, ensuring proper memory lifecycle management for all portal-related allocations. It also initializes a hash table optimized for string-based portal name lookups.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

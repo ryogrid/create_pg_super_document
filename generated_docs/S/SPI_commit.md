@@ -23,7 +23,6 @@ The function performs several critical checks before allowing the commit:
 The commit operation is wrapped in a PG_TRY/PG_CATCH block to handle errors gracefully. If the commit fails, the function aborts the failed transaction and starts a new one to maintain a consistent state.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

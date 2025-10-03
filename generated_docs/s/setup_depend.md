@@ -20,8 +20,7 @@ Pinned objects in PostgreSQL are system objects that cannot be dropped because t
 The function executes the SQL command  which internally advances the OID counter and changes the system state to stop creating pinned objects.
 
 ## Parameters / Member Variables
-- : FILE pointer to the command file descriptor where SQL commands are written for execution
-
+- `*cmdfd`: FILE pointer to the command file descriptor where SQL commands are written for execution
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Macro for writing SQL commands to the command file descriptor

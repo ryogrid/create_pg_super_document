@@ -20,9 +20,8 @@ On Linux systems with , it uses  to pre-allocate space rather than just extendin
 The function includes signal handling to prevent interruption during the potentially long-running allocation process, only allowing SIGQUIT to interrupt while blocking other signals like SIGUSR1 that might cause excessive retries.
 
 ## Parameters / Member Variables
-- : File descriptor of the shared memory segment to resize
-- : Target size in bytes for the segment
-
+- `fd`: File descriptor of the shared memory segment to resize
+- `size`: Target size in bytes for the segment
 ## Dependencies
 - Functions called/Symbols referenced:
   - posix_fallocate (on Linux with HAVE_POSIX_FALLOCATE)

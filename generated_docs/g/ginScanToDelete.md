@@ -19,12 +19,11 @@ This recursive static function traverses a GIN posting tree to locate and delete
 For internal pages, the function recursively processes all child pages. For leaf pages, it uses GinDataLeafPageIsEmpty() to determine emptiness, while for internal pages it checks if maxoff is less than FirstOffsetNumber. Empty pages are only deleted if they have a valid left sibling and are not the rightmost page, ensuring tree structure integrity.
 
 ## Parameters / Member Variables
-- : GinVacuumState containing index context, buffer strategy, and vacuum statistics
-- : Block number of the current page being scanned
-- : Boolean indicating whether the current page is the root of the posting tree
-- : DataPageDeleteStack pointer representing the parent context in the deletion stack
-- : Offset in the parent page that points to the current page (used for deletion)
-
+- `*gvs`: GinVacuumState containing index context, buffer strategy, and vacuum statistics
+- `blkno`: Block number of the current page being scanned
+- `isRoot`: Boolean indicating whether the current page is the root of the posting tree
+- `*parent`: DataPageDeleteStack pointer representing the parent context in the deletion stack
+- `myoff`: Offset in the parent page that points to the current page (used for deletion)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DataPageDeleteStack](../D/DataPageDeleteStack.md) (struct for tracking deletion context)

@@ -20,9 +20,8 @@ The function operates by examining each node in the expression tree. When it enc
 For non-Var nodes, the function delegates to the standard  mechanism, which handles the recursive traversal of the expression tree structure while maintaining the same analysis context.
 
 ## Parameters / Member Variables
-- : The current node in the expression tree being examined (can be NULL)
-- : Bitmapset containing the attribute numbers of all columns that have been updated
-
+- `*node`: The current node in the expression tree being examined (can be NULL)
+- `*allUpdatedCols`: Bitmapset containing the attribute numbers of all columns that have been updated
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bms_is_member](../b/bms_is_member.md)

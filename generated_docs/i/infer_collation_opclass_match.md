@@ -26,10 +26,9 @@ The matching process iterates through all index attributes and checks:
 For expression-based attributes (attno == 0), it compares the inference element expression with the corresponding indexed expression using exact equality matching.
 
 ## Parameters / Member Variables
-- : InferenceElem containing the inference specification with potential collation/opclass constraints
-- : Open Relation structure representing the index being evaluated for compatibility
-- : List of index expressions for expression-based index attributes
-
+- `*elem`: InferenceElem containing the inference specification with potential collation/opclass constraints
+- `idxRel`: Open Relation structure representing the index being evaluated for compatibility
+- `*idxExprs`: List of index expressions for expression-based index attributes
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_opclass_family](../g/get_opclass_family.md)

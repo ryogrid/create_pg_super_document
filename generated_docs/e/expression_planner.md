@@ -21,8 +21,7 @@ The  function transforms parser output expressions into executable form for util
 The function explicitly disallows sublinks in standalone expressions, so no real "planning" occurs. It's designed for expressions that need immediate evaluation rather than complex query planning. The function creates a new expression tree without modifying the original input.
 
 ## Parameters / Member Variables
-- : Input expression tree from the parser that needs to be transformed for execution
-
+- `*expr`: Input expression tree from the parser that needs to be transformed for execution
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Performs constant folding and function call normalization

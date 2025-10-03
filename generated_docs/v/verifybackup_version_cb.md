@@ -19,9 +19,8 @@ The verifybackup_version_cb function serves as a callback function for the JSON 
 The function extracts the private_data from the parsing context (which contains the manifest_data structure) and stores the version number for later validation. The actual validation of the version number occurs at a later stage in the verification process, not within this callback.
 
 ## Parameters / Member Variables
-- : Pointer to JsonManifestParseContext containing parsing state and private data
-- : Integer representing the manifest format version number extracted from the JSON
-
+- `*context`: Pointer to JsonManifestParseContext containing parsing state and private data
+- `manifest_version`: Integer representing the manifest format version number extracted from the JSON
 ## Dependencies
 - Functions called/Symbols referenced:
   - [JsonManifestParseContext](../J/JsonManifestParseContext.md) (parsing context structure)

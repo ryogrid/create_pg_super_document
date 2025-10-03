@@ -16,8 +16,7 @@ LockReleaseSession(LOCKMETHODID lockmethodid)
 This function iterates through the local lock hash table and releases all session locks held by the current process that belong to the specified lock method. It uses a hash sequence scan to traverse all LOCALLOCK entries, filtering for those matching the specified lock method ID, and calls ReleaseLockIfHeld to release each qualifying lock. The function validates that the provided lock method ID is within valid bounds before proceeding.
 
 ## Parameters / Member Variables
-- : The ID of the lock method whose session locks should be released. Must be a valid lock method identifier within the range of defined lock methods.
-
+- `lockmethodid`: The ID of the lock method whose session locks should be released. Must be a valid lock method identifier within the range of defined lock methods.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hash_seq_init](../h/hash_seq_init.md): Initializes sequential hash table scanning

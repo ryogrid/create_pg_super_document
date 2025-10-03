@@ -27,8 +27,7 @@ The function performs the following operations:
 Memory debugging features ensure freed memory is wiped or marked inaccessible when appropriate build options are enabled.
 
 ## Parameters / Member Variables
-- : The AllocSet memory context to reset (cast internally to AllocSet)
-
+- `context`: The AllocSet memory context to reset (cast internally to AllocSet)
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetIsValid (context validation)

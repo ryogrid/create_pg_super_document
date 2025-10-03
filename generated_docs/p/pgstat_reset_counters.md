@@ -22,6 +22,7 @@ The timestamp is recorded with each reset operation, allowing the statistics sys
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md) (to record the reset time)

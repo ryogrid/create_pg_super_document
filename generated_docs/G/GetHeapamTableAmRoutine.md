@@ -27,6 +27,7 @@ This function is used by PostgreSQL's table access method infrastructure to obta
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - heapam_methods (static TableAmRoutine structure)

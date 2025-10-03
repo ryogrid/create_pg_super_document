@@ -23,11 +23,10 @@ The function creates exactly 2 constructor functions:
 Each constructor is created as an internal language function with the same name as the range type, returning the range type, and marked as immutable and parallel-safe. The functions are set up with DEPENDENCY_INTERNAL relationships to the range type, ensuring they are automatically dropped when the range type is removed.
 
 ## Parameters / Member Variables
-- : The name of the range type, which will also be used as the constructor function name
-- : The namespace OID where the constructor functions should be created
-- : The OID of the range type that the constructors will return
-- : The OID of the range's subtype, used as the parameter types for the constructors
-
+- `*name`: The name of the range type, which will also be used as the constructor function name
+- `namespace`: The namespace OID where the constructor functions should be created
+- `rangeOid`: The OID of the range type that the constructors will return
+- `subtype`: The OID of the range's subtype, used as the parameter types for the constructors
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ProcedureCreate](../P/ProcedureCreate.md) (creates the constructor function catalog entries)

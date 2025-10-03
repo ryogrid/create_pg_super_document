@@ -25,13 +25,12 @@ ExecMergeMatched is responsible for executing the first qualifying WHEN MATCHED 
 The function can restart processing from the beginning when concurrent updates are detected, potentially switching from MATCHED to NOT MATCHED BY SOURCE actions. It ensures forward progress by following update chains and never switches back to MATCHED actions once processing NOT MATCHED BY SOURCE actions.
 
 ## Parameters / Member Variables
-- : ModifyTableContext containing execution state and context information
-- : ResultRelInfo structure with information about the target relation
-- : ItemPointer to the target tuple for table-based operations (NULL for view operations)
-- : HeapTuple representing the target tuple for view-based operations (NULL for table operations)
-- : Boolean indicating whether command tags can be set during execution
-- : Pointer to boolean that tracks match status; may be modified to false if concurrent updates cause tuples to no longer match
-
+- `*context`: ModifyTableContext containing execution state and context information
+- `*resultRelInfo`: ResultRelInfo structure with information about the target relation
+- `tupleid`: ItemPointer to the target tuple for table-based operations (NULL for view operations)
+- `oldtuple`: HeapTuple representing the target tuple for view-based operations (NULL for table operations)
+- `canSetTag`: Boolean indicating whether command tags can be set during execution
+- `*matched`: Pointer to boolean that tracks match status; may be modified to false if concurrent updates cause tuples to no longer match
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecQual](ExecQual.md)

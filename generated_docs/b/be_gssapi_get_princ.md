@@ -18,8 +18,7 @@ This function retrieves the GSSAPI principal name that was used during the authe
 The principal name is stored in the port's GSSAPI structure (port->gss->princ) and represents the authenticated identity from the GSSAPI authentication exchange.
 
 ## Parameters / Member Variables
-- : A pointer to the Port structure representing the client connection. Contains all connection state information including GSSAPI authentication details.
-
+- `*port`: A pointer to the Port structure representing the client connection. Contains all connection state information including GSSAPI authentication details.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Port](../P/Port.md) (structure access)

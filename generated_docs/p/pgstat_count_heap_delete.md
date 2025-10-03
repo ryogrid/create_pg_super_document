@@ -18,8 +18,7 @@ This function is responsible for tracking tuple deletion statistics in PostgreSQ
 The statistics are maintained at the transaction level and are later aggregated into the global statistics when the transaction commits. This allows for proper rollback handling - if the transaction is aborted, the statistics changes are also discarded.
 
 ## Parameters / Member Variables
-- : A  pointer representing the heap table from which a tuple was deleted
-
+- `rel`: A  pointer representing the heap table from which a tuple was deleted
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Determines if statistics should be collected for this relation

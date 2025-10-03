@@ -24,8 +24,7 @@ This function is particularly useful for:
 - Validating partition bounds and function parameters
 
 ## Parameters / Member Variables
-- : The root node of the parse tree or expression to examine
-
+- `*node`: The root node of the parse tree or expression to examine
 ## Dependencies
 - Functions called/Symbols referenced:
   - [contain_var_clause_walker](contain_var_clause_walker.md) (performs the actual tree walking)

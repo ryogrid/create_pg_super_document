@@ -16,8 +16,7 @@ l_sizet_const(size_t i)
 This utility function wraps LLVM's  function to create size_t constant values in LLVM IR. It's extensively used throughout PostgreSQL's JIT compilation infrastructure for generating constants that represent sizes, offsets, and array indices. The function uses a global  type reference, which represents the LLVM type corresponding to the platform's size_t type. This function is critical for memory operations and array indexing in JIT-compiled code, as it ensures proper size calculations across different platforms.
 
 ## Parameters / Member Variables
-- : The size_t value to be converted into an LLVM constant
-
+- `i`: The size_t value to be converted into an LLVM constant
 ## Dependencies
 - Functions called/Symbols referenced:
   - LLVMConstInt (LLVM C API function)

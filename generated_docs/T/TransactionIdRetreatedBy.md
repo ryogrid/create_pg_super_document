@@ -18,9 +18,8 @@ This function calculates a transaction ID that is  positions before the given tr
 The function ensures that the returned transaction ID respects PostgreSQL's transaction ID numbering scheme, where transaction IDs wrap around in a circular fashion to handle the finite 32-bit transaction ID space.
 
 ## Parameters / Member Variables
-- : The starting transaction ID from which to retreat
-- : The number of positions to move backward in the transaction ID sequence
-
+- `xid`: The starting transaction ID from which to retreat
+- `amount`: The number of positions to move backward in the transaction ID sequence
 ## Dependencies
 - Functions called/Symbols referenced:
   - FirstNormalTransactionId

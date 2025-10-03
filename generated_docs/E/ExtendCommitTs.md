@@ -25,8 +25,7 @@ The function operates efficiently by:
 The implementation assumes track_commit_timestamp is a PGC_POSTMASTER parameter, meaning it can only be changed at server startup.
 
 ## Parameters / Member Variables
-- : The newly allocated transaction ID that needs storage space in the commit timestamp SLRU
-
+- `newestXact`: The newly allocated transaction ID that needs storage space in the commit timestamp SLRU
 ## Dependencies
 - Functions called/Symbols referenced:
   - TransactionIdToCTsEntry (newestXact)

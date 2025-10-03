@@ -18,8 +18,7 @@ ExecShutdownCustomScan serves as a wrapper function that delegates shutdown oper
 The function follows PostgreSQL's established pattern of providing optional method dispatch - if a custom scan implementation doesn't need special shutdown logic, it can simply omit the ShutdownCustomScan method from its CustomExecMethods structure.
 
 ## Parameters / Member Variables
-- : A pointer to the CustomScanState structure representing the custom scan node being shut down. This structure contains the execution state and method dispatch table for the custom scan.
-
+- `*node`: A pointer to the CustomScanState structure representing the custom scan node being shut down. This structure contains the execution state and method dispatch table for the custom scan.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CustomScanState](../C/CustomScanState.md) (structure type)

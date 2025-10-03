@@ -18,10 +18,9 @@ ReadEndOfStreamingResult(PGresult *res, XLogRecPtr *startpos, uint32 *timeline)
 The function is critical for maintaining continuous replication across timeline transitions in PostgreSQL streaming replication.
 
 ## Parameters / Member Variables
-- : PGresult containing the server's end-of-timeline response
-- : Output parameter to receive the parsed starting WAL position for the next timeline
-- : Output parameter to receive the next timeline ID
-
+- `*res`: PGresult containing the server's end-of-timeline response
+- `*startpos`: Output parameter to receive the parsed starting WAL position for the next timeline
+- `*timeline`: Output parameter to receive the next timeline ID
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQnfields](../P/PQnfields.md)

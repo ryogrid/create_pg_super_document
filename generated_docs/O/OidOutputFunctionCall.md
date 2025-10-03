@@ -20,9 +20,8 @@ Like its input counterpart, this function is intended for seldom-executed code p
 The function is widely used throughout PostgreSQL for debugging, logging, error reporting, and data export scenarios where convenience is more important than optimal performance.
 
 ## Parameters / Member Variables
-- : OID of the output function to call for the datatype conversion
-- : Internal Datum value to be converted to string representation
-
+- `functionId`: OID of the output function to call for the datatype conversion
+- `val`: Internal Datum value to be converted to string representation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [fmgr_info](../f/fmgr_info.md)

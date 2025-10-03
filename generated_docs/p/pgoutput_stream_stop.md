@@ -17,9 +17,8 @@ pgoutput_stream_stop(struct LogicalDecodingContext *ctx,
 pgoutput_stream_stop is a callback function in the pgoutput logical replication output plugin that handles the STOP STREAM event for large transactions that are being streamed in chunks. When a stream chunk of a large transaction completes, this function is called to signal the end of that particular stream. It writes a stream stop message to the logical replication protocol and updates the internal state to indicate that streaming has stopped for this chunk. The function includes an assertion to ensure that streaming was actually active before attempting to stop it.
 
 ## Parameters / Member Variables
-- : Logical decoding context containing output plugin state and configuration
-- : ReorderBufferTXN structure representing the transaction whose stream is ending
-
+- `*ctx`: Logical decoding context containing output plugin state and configuration
+- `*txn`: ReorderBufferTXN structure representing the transaction whose stream is ending
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LogicalDecodingContext](../L/LogicalDecodingContext.md)

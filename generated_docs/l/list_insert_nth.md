@@ -18,10 +18,9 @@ The  function provides positional insertion capability for PostgreSQL's generic 
 The function has O(n) time complexity proportional to the distance to the end of the list, as subsequent entries must be moved to accommodate the new element. Position validation ensures that  is within valid bounds (0 <= pos <= list length).
 
 ## Parameters / Member Variables
-- : The target List to insert into (can be NIL for empty list)
-- : Zero-based position index where the new element should be inserted
-- : The void pointer data to be inserted into the list
-
+- `*list`: The target List to insert into (can be NIL for empty list)
+- `pos`: Zero-based position index where the new element should be inserted
+- `*datum`: The void pointer data to be inserted into the list
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Validates that the list contains pointer elements

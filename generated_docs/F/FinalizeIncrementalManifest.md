@@ -22,8 +22,7 @@ The function serves as the cleanup and finalization step in the incremental mani
 - Memory context management is handled correctly
 
 ## Parameters / Member Variables
-- : IncrementalBackupInfo structure containing the incremental backup state, buffer, and parser state to finalize
-
+- `*ib`: IncrementalBackupInfo structure containing the incremental backup state, buffer, and parser state to finalize
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)

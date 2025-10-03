@@ -29,11 +29,10 @@ The function performs several key operations:
 This function is essential for the regex compilation pipeline, transforming high-level regex syntax into efficient automata that can be executed for pattern matching.
 
 ## Parameters / Member Variables
-- : vars structure containing compilation context, color maps, and error state
-- : subre structure representing the parse tree node to process into an NFA
-- : boolean flag indicating whether to apply makesearch() conversion
-- : FILE pointer for debug output (can be NULL)
-
+- `*v`: vars structure containing compilation context, color maps, and error state
+- `*t`: subre structure representing the parse tree node to process into an NFA
+- `converttosearch`: boolean flag indicating whether to apply makesearch() conversion
+- `*f`: FILE pointer for debug output (can be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [newnfa](newnfa.md) - Creates a new NFA structure

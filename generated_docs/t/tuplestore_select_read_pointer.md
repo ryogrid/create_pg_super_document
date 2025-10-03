@@ -24,9 +24,8 @@ For file-based storage, the function carefully manages file positioning by:
 - Handling errors during file operations
 
 ## Parameters / Member Variables
-- : Pointer to the  structure containing the tuplestore
-- : Index of the read pointer to make active (must be >= 0 and < readptrcount)
-
+- `*state`: Pointer to the  structure containing the tuplestore
+- `ptr`: Index of the read pointer to make active (must be >= 0 and < readptrcount)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - gets current file position

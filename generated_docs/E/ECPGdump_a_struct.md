@@ -16,15 +16,14 @@ ECPGdump_a_struct(FILE *o, const char *name, const char *ind_name, char *arrsize
 This function penetrates a struct definition and recursively dumps the contents of each member by calling ECPGdump_a_type for each struct member. It determines the appropriate member access syntax (dot notation for value access, arrow notation for pointer access) based on array size. The function also handles indicator structs which are used for NULL value detection in PostgreSQL, ensuring proper alignment between main struct members and their corresponding indicator members. It performs validation to ensure indicator structs have the correct number of members.
 
 ## Parameters / Member Variables
-- : Output FILE pointer where the generated code will be written
-- : Name of the struct variable being processed
-- : Name of the indicator struct variable (for NULL handling)
-- : String representing array dimensions, determines access method (dot vs arrow)
-- : ECPGtype pointer containing the main struct definition and member list
-- : ECPGtype pointer for the indicator struct, or &ecpg_no_indicator if none
-- : Current prefix string for nested member access
-- : Current prefix string for indicator struct member access
-
+- `*o`: Output FILE pointer where the generated code will be written
+- `*name`: Name of the struct variable being processed
+- `*ind_name`: Name of the indicator struct variable (for NULL handling)
+- `*arrsize`: String representing array dimensions, determines access method (dot vs arrow)
+- `*type`: ECPGtype pointer containing the main struct definition and member list
+- `*ind_type`: ECPGtype pointer for the indicator struct, or &ecpg_no_indicator if none
+- `*prefix`: Current prefix string for nested member access
+- `*ind_prefix`: Current prefix string for indicator struct member access
 ## Dependencies
 - Functions called/Symbols referenced:
   - [mm_alloc](../m/mm_alloc.md) (memory allocation for prefix buffers)

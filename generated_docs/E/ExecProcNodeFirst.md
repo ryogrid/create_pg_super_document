@@ -22,8 +22,7 @@ The function performs two critical first-time operations:
 After performing these checks, the function updates the node's ExecProcNode pointer to bypass itself on future calls, creating an efficient execution path. This self-removing wrapper pattern ensures that the overhead of setup checks doesn't impact the performance of long-running queries.
 
 ## Parameters / Member Variables
-- : The PlanState node being executed for the first time
-
+- `*node`: The PlanState node being executed for the first time
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_stack_depth](../c/check_stack_depth.md) (stack overflow prevention)

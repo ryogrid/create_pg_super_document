@@ -16,8 +16,7 @@ RetrieveWalSegSize(PGconn *conn)
 RetrieveWalSegSize determines the WAL segment size used by the connected PostgreSQL server. For PostgreSQL versions 10 and later, it executes "SHOW wal_segment_size" to retrieve the current setting, parsing the result to handle different units (MB/GB) and converting to bytes. For older versions, it uses the default WAL segment size. The function validates the retrieved size to ensure it's a valid power of two between 1 MB and 1 GB, and sets the global WalSegSz variable accordingly.
 
 ## Parameters / Member Variables
-- : PGconn pointer to an active PostgreSQL connection
-
+- `*conn`: PGconn pointer to an active PostgreSQL connection
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQserverVersion](../P/PQserverVersion.md)

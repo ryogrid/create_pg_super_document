@@ -23,10 +23,9 @@ The function handles two types of base tuples:
 The function sets up all necessary state information including the base tuple reference, heap TID array, size calculations, and interval tracking. The base tuple will only be rewritten if duplicates are found and merged during the deduplication process.
 
 ## Parameters / Member Variables
-- : Deduplication state structure containing working arrays and metadata
-- : Index tuple that will serve as the base for the new pending posting list
-- : Offset number of the base tuple on the page
-
+- `state`: Deduplication state structure containing working arrays and metadata
+- `base`: Index tuple that will serve as the base for the new pending posting list
+- `baseoff`: Offset number of the base tuple on the page
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Checks if tuple is a pivot tuple

@@ -23,17 +23,16 @@ The function handles cross-type comparisons when the two arrays contain differen
 The merge operation uses a two-pointer approach to efficiently traverse both sorted arrays simultaneously, comparing elements and keeping only those that match.
 
 ## Parameters / Member Variables
-- : IndexScanDesc containing information about the index scan and relation
-- : ScanKey identifying the index column and providing collation information
-- : FmgrInfo structure containing the ORDER procedure used for sorting
-- : Boolean indicating the sort order direction
-- : OID of the element type in the original array
-- : OID of the element type in the next array to merge
-- : Original array to be modified in-place with merged results
-- : Pointer to the count of elements in original array (modified to reflect new count)
-- : Second array to merge with the original
-- : Number of elements in the second array
-
+- `scan`: IndexScanDesc containing information about the index scan and relation
+- `skey`: ScanKey identifying the index column and providing collation information
+- `*sortproc`: FmgrInfo structure containing the ORDER procedure used for sorting
+- `reverse`: Boolean indicating the sort order direction
+- `origelemtype`: OID of the element type in the original array
+- `nextelemtype`: OID of the element type in the next array to merge
+- `*elems_orig`: Original array to be modified in-place with merged results
+- `*nelems_orig`: Pointer to the count of elements in original array (modified to reflect new count)
+- `*elems_next`: Second array to merge with the original
+- `nelems_next`: Number of elements in the second array
 ## Dependencies
 - Functions called/Symbols referenced:
   - [IndexScanDesc](../I/IndexScanDesc.md)

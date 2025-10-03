@@ -18,8 +18,7 @@ This function is responsible for outputting worker-specific information that has
 The function ensures proper formatting by wrapping all worker output in "Workers" groups and individual worker data in "Worker" groups, maintaining consistency with PostgreSQL's explain output format across different output modes (text, XML, JSON).
 
 ## Parameters / Member Variables
-- : Pointer to ExplainState containing the execution state and workers_state to be flushed and freed
-
+- `*es`: Pointer to ExplainState containing the execution state and workers_state to be flushed and freed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExplainState](ExplainState.md) (struct type)

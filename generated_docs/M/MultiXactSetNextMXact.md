@@ -21,9 +21,8 @@ The function operates under exclusive lock protection to ensure atomic updates t
 A special consideration is made for binary upgrade operations, where the function ensures that the offsets SLRU (Simple Least Recently Used buffer) is large enough to contain the next value that would be created. This extension must happen early in the startup process, specifically before StartupMultiXact() but after the initial determination of nextMXact value.
 
 ## Parameters / Member Variables
-- : The next MultiXact ID to be assigned
-- : The corresponding offset for storing MultiXact member data
-
+- `nextMulti`: The next MultiXact ID to be assigned
+- `nextMultiOffset`: The corresponding offset for storing MultiXact member data
 ## Dependencies
 - Functions called/Symbols referenced:
   - debug_elog4

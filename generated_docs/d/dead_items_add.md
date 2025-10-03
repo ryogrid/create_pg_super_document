@@ -19,11 +19,10 @@ This function serves as a centralized mechanism for recording dead tuple locatio
 The function is designed to be called during heap scanning phases of VACUUM when dead tuples are identified and need to be tracked for later cleanup operations.
 
 ## Parameters / Member Variables
-- : Pointer to LVRelState structure containing vacuum operation state and configuration
-- : Block number within the relation where dead tuples were found
-- : Array of offset numbers identifying specific tuple positions within the block
-- : Number of offset entries in the offsets array
-
+- `*vacrel`: Pointer to LVRelState structure containing vacuum operation state and configuration
+- `blkno`: Block number within the relation where dead tuples were found
+- `*offsets`: Array of offset numbers identifying specific tuple positions within the block
+- `num_offsets`: Number of offset entries in the offsets array
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TidStoreSetBlockOffsets](../T/TidStoreSetBlockOffsets.md)

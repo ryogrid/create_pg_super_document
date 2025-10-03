@@ -29,8 +29,7 @@ Key responsibilities include:
 - Optional performance statistics reporting in debug builds
 
 ## Parameters / Member Variables
-- : Main B-tree build state containing shared leader information and original spool configuration
-
+- `*buildstate`: Main B-tree build state containing shared leader information and original spool configuration
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc0](../p/palloc0.md): Allocate zero-initialized memory for spool structures

@@ -26,8 +26,7 @@ The should_processing_continue function provides intelligent error handling logi
 The function is designed to handle the fact that amcheck functions report corruption differently: heap checking returns corruption via result sets while btree checking uses ERROR messages, but both may encounter legitimate server errors that shouldn't halt the entire checking process.
 
 ## Parameters / Member Variables
-- : PGresult pointer containing the result from an executed SQL query that needs to be evaluated for continuation decisions
-
+- `*res`: PGresult pointer containing the result from an executed SQL query that needs to be evaluated for continuation decisions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQresultStatus](../P/PQresultStatus.md) (PostgreSQL libpq function to get result status)

@@ -20,10 +20,9 @@ The function handles wraparound in the circular hash table array. When the optim
 This distance metric is used during insertion to implement the "Robin Hood" strategy - if a new element to be inserted has a greater distance from its optimal position than an existing element, the existing element is displaced to make room for the "poorer" (further from optimal) new element.
 
 ## Parameters / Member Variables
-- : Pointer to the hash table structure containing size information
-- : The optimal bucket position for an element (calculated by SH_INITIAL_BUCKET)
-- : The actual current bucket position of the element
-
+- `*tb`: Pointer to the hash table structure containing size information
+- `optimal`: The optimal bucket position for an element (calculated by SH_INITIAL_BUCKET)
+- `bucket`: The actual current bucket position of the element
 ## Dependencies
 - Functions called/Symbols referenced:
   - SH_MAKE_NAME (macro for name generation)

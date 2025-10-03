@@ -21,10 +21,9 @@ The function implements special handling for GB18030 encoding, which uniquely re
 The function serves as a critical safety mechanism in PostgreSQL's character processing pipeline, preventing buffer overruns when dealing with potentially truncated multibyte sequences.
 
 ## Parameters / Member Variables
-- : PostgreSQL encoding identifier (e.g., PG_UTF8, PG_GB18030, etc.)
-- : Pointer to the start of the multibyte character sequence
-- : Number of bytes remaining in the buffer from the current position
-
+- `encoding`: PostgreSQL encoding identifier (e.g., PG_UTF8, PG_GB18030, etc.)
+- `*mbstr`: Pointer to the start of the multibyte character sequence
+- `remaining`: Number of bytes remaining in the buffer from the current position
 ## Dependencies
 - Functions called/Symbols referenced:
   - IS_HIGHBIT_SET (macro for testing high bit in byte)

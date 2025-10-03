@@ -21,11 +21,10 @@ The  function determines the appropriate path keys (sort order) for a join relat
 The function also truncates pathkeys that are uninteresting for higher-level joins using , ensuring that only relevant ordering information is preserved for query optimization at higher levels.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global planner state and context
-- : The join relation (RelOptInfo) that paths are being formed for
-- : The type of join operation (inner, left, full, right, etc.)
-- : List of path keys from the current outer path
-
+- `*root`: PlannerInfo structure containing global planner state and context
+- `*joinrel`: The join relation (RelOptInfo) that paths are being formed for
+- `jointype`: The type of join operation (inner, left, full, right, etc.)
+- `*outer_pathkeys`: List of path keys from the current outer path
 ## Dependencies
 - Functions called/Symbols referenced:
   - JoinType (enum type)

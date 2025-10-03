@@ -19,13 +19,12 @@ _print_horizontal_line(const unsigned int ncolumns, const unsigned int *widths,
 This utility function generates horizontal lines used to create borders and separators in aligned text table output. It supports different border styles (no border, single border, double border) and various horizontal line positions (top, middle, bottom) as defined by the printTextRule. The function constructs lines using formatting characters from the printTextFormat structure, properly handling column widths and junction points where horizontal and vertical rules meet.
 
 ## Parameters / Member Variables
-- : Number of columns in the table
-- : Array containing the width of each column in characters
-- : Border style flag (0=none, 1=single, 2=double)
-- : Position of the horizontal line (top, middle, bottom) as defined by printTextRule enum
-- : Pointer to printTextFormat structure containing formatting characters for different line types
-- : FILE pointer to the output stream where the line will be written
-
+- `ncolumns`: Number of columns in the table
+- `*widths`: Array containing the width of each column in characters
+- `border`: Border style flag (0=none, 1=single, 2=double)
+- `pos`: Position of the horizontal line (top, middle, bottom) as defined by printTextRule enum
+- `*format`: Pointer to printTextFormat structure containing formatting characters for different line types
+- `*fout`: FILE pointer to the output stream where the line will be written
 ## Dependencies
 - Functions called/Symbols referenced:
   - [printTextLineFormat](printTextLineFormat.md) (structure for line formatting rules)

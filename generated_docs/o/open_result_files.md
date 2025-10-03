@@ -22,7 +22,6 @@ The function performs the following operations:
 4. Creates the results subdirectory for individual test output files
 
 ## Parameters / Member Variables
-None - this function takes no parameters
 
 ## Dependencies
 - Functions called/Symbols referenced:

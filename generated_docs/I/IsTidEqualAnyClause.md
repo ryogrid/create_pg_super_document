@@ -16,10 +16,9 @@ IsTidEqualAnyClause(PlannerInfo *root, RestrictInfo *rinfo, RelOptInfo *rel)
 This function determines if a RestrictInfo represents a clause of the form "CTID = ANY (pseudoconstant_array)", where the CTID variable belongs to the specified relation and the array contains values that don't reference the relation. It validates that the clause is a ScalarArrayOpExpr using the TID equality operator with useOr=true, ensures the first argument is a CTID variable for the target relation, and verifies that the second argument (the array) is a pseudoconstant expression. This enables the optimizer to consider TID-based access when multiple specific tuple identifiers are being sought.
 
 ## Parameters / Member Variables
-- : A PlannerInfo structure containing planner state and context
-- : A RestrictInfo structure containing the clause to be examined
-- : A RelOptInfo structure representing the relation being analyzed
-
+- `*root`: A PlannerInfo structure containing planner state and context
+- `*rinfo`: A RestrictInfo structure containing the clause to be examined
+- `*rel`: A RelOptInfo structure representing the relation being analyzed
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (type checking macro)

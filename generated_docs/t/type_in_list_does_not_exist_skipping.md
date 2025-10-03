@@ -17,10 +17,9 @@ type_in_list_does_not_exist_skipping(List *typenames, const char **msg,
 This function is used when a specification for objects that involve datatypes (functions, casts, aggregates, operators) returns that the object doesn't exist. It iterates through a list of TypeNames to check if any of the involved datatypes or their schemas are missing. If a datatype or its schema doesn't exist, it sets appropriate error message and name parameters and returns true (indicating the missing object should be skipped). If all datatypes exist, it returns false, meaning the original object itself is genuinely missing.
 
 ## Parameters / Member Variables
-- : List of TypeName objects representing the datatypes involved in the object specification
-- : Output parameter for error message format string when skipping
-- : Output parameter for the missing type or schema name to use in the error message
-
+- `*typenames`: List of TypeName objects representing the datatypes involved in the object specification
+- `**msg`: Output parameter for error message format string when skipping
+- `**name`: Output parameter for the missing type or schema name to use in the error message
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LookupTypeNameOid](../L/LookupTypeNameOid.md): Looks up type by name, returns InvalidOid if not found

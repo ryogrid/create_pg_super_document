@@ -30,9 +30,8 @@ This function maintains the critical mapping between remote publisher LSNs and l
 This mapping list is essential for the get_flush_position() function to determine which remote LSNs can be safely reported as flushed based on local flush progress.
 
 ## Parameters / Member Variables
-- : The LSN from the remote publisher that corresponds to this transaction commit
-- : The local LSN where this transaction's changes were written on the subscriber
-
+- `remote_lsn`: The LSN from the remote publisher that corresponds to this transaction commit
+- `local_lsn`: The local LSN where this transaction's changes were written on the subscriber
 ## Dependencies
 - Functions called/Symbols referenced:
   - [am_parallel_apply_worker](../a/am_parallel_apply_worker.md)

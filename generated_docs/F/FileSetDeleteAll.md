@@ -20,8 +20,7 @@ The function iterates through all tablespaces that were configured during FileSe
 The function is designed to be safe for use in error cleanup paths, as it does not fail on errors but may generate LOG messages for I/O errors. This makes it suitable for use in exception handlers and cleanup routines where partial failures should not prevent the cleanup process from continuing.
 
 ## Parameters / Member Variables
-- : Pointer to the FileSet structure whose resources should be completely cleaned up
-
+- `*fileset`: Pointer to the FileSet structure whose resources should be completely cleaned up
 ## Dependencies
 - Functions called/Symbols referenced:
   - [FileSetPath](FileSetPath.md): Constructs the directory path for the fileset within a specific tablespace

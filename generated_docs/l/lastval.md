@@ -18,8 +18,7 @@ The lastval function returns the value that was most recently returned by nextva
 The function performs several safety checks: it verifies that nextval() has been called in the session, checks that the sequence still exists (in case it was dropped), and validates permissions on the sequence. It uses the last_used_seq global variable to track which sequence was most recently accessed.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function argument macro (no specific arguments for this function)
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument macro (no specific arguments for this function)
 ## Dependencies
 - Functions called/Symbols referenced:
   - SearchSysCacheExists1: Check if the sequence still exists in the system catalog

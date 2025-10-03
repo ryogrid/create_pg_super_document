@@ -30,11 +30,10 @@ If not cached, it searches the  system catalog to find the exclusion constraint 
 Once found, it extracts the operator OIDs from the  array field, then looks up the corresponding function OIDs and strategy numbers. Finally, it caches all this information in the index relation's cache context for future use.
 
 ## Parameters / Member Variables
-- : The index relation that has an exclusion constraint
-- : Output parameter - pointer to array of exclusion operator OIDs
-- : Output parameter - pointer to array of underlying function OIDs  
-- : Output parameter - pointer to array of strategy numbers
-
+- `indexRelation`: The index relation that has an exclusion constraint
+- `**operators`: Output parameter - pointer to array of exclusion operator OIDs
+- `**procs`: Output parameter - pointer to array of underlying function OIDs
+- `**strategies`: Output parameter - pointer to array of strategy numbers
 ## Dependencies
 - Functions called/Symbols referenced:
   - IndexRelationGetNumberOfKeyAttributes

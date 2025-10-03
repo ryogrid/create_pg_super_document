@@ -20,12 +20,11 @@ ScanKeyInit(ScanKey entry,
 ScanKeyInit is a streamlined function designed for common scan key initialization needs, especially for hardwired lookups in system catalogs. It assumes sensible defaults: flags are set to zero, subtype is InvalidOid, and collation is set to C_COLLATION_OID. This function cannot handle NULL arguments, unary operators, or non-default operators, but these features are rarely needed for most system catalog searches. The use of C_COLLATION_OID as the default collation is appropriate for all collation-aware columns in system catalogs and is safely ignored for non-collatable column types.
 
 ## Parameters / Member Variables
-- : Pointer to the ScanKey structure to be initialized
-- : The column number (1-based) of the attribute being scanned
-- : Strategy number indicating the type of comparison operation
-- : OID of the comparison function/operator procedure to use
-- : The value to compare against during scanning
-
+- `entry`: Pointer to the ScanKey structure to be initialized
+- `attributeNumber`: The column number (1-based) of the attribute being scanned
+- `strategy`: Strategy number indicating the type of comparison operation
+- `procedure`: OID of the comparison function/operator procedure to use
+- `argument`: The value to compare against during scanning
 ## Dependencies
 - Functions called/Symbols referenced:
   - [fmgr_info](../f/fmgr_info.md)

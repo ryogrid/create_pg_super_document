@@ -24,8 +24,7 @@ The implementation differs between Unix-like systems and Windows:
 - On Windows: Uses PostgreSQL's query cancellation mechanism with critical section protection
 
 ## Parameters / Member Variables
-- : Pointer to ParallelState structure containing information about all worker processes, including their PIDs, communication pipes, and archive handles
-
+- `*pstate`: Pointer to ParallelState structure containing information about all worker processes, including their PIDs, communication pipes, and archive handles
 ## Dependencies
 - Functions called/Symbols referenced:
   - closesocket (closes communication pipes)

@@ -16,10 +16,9 @@ expect_boolean_value(char *keyword, char *value, pg_compress_specification *resu
 The  function is a helper function used during compression specification parsing to convert string values to boolean values. It accepts various common representations of boolean values including "yes"/"no", "on"/"off", and "1"/"0", performing case-insensitive comparison. If the value is NULL, it defaults to true (allowing boolean flags without explicit values). When an invalid boolean value is provided, it sets an appropriate error message in the result structure's parse_error field. The function is inspired by PostgreSQL's  function.
 
 ## Parameters / Member Variables
-- : The name of the compression option being parsed (used for error reporting)
-- : The string value to be parsed as a boolean (may be NULL, which defaults to true)
-- : A pointer to the  structure where parse errors will be recorded
-
+- `*keyword`: The name of the compression option being parsed (used for error reporting)
+- `*value`: The string value to be parsed as a boolean (may be NULL, which defaults to true)
+- `*result`: A pointer to the  structure where parse errors will be recorded
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (PostgreSQL case-insensitive string comparison function)

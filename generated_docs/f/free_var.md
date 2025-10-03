@@ -16,8 +16,7 @@ free_var(NumericVar *var)
 The  function is a memory management utility in PostgreSQL's numeric data type implementation. It performs cleanup operations on a NumericVar structure by freeing its allocated digit buffer and resetting the variable to a safe, invalid state. This function is essential for preventing memory leaks in numeric operations and ensuring that variables are properly cleaned up after use. The function sets the variable's sign to NUMERIC_NAN to indicate an invalid/uninitialized state, which helps catch potential use-after-free bugs.
 
 ## Parameters / Member Variables
-- : Pointer to the NumericVar structure to be freed and reset
-
+- `*var`: Pointer to the NumericVar structure to be freed and reset
 ## Dependencies
 - Functions called/Symbols referenced:
   - digitbuf_free

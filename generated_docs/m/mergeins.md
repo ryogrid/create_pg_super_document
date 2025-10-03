@@ -21,11 +21,10 @@ The  function is an optimized version of  that processes an array of arc pointer
 The function includes interrupt checking to allow for cancellation of long-running operations and uses a sort-merge algorithm to efficiently handle large numbers of arcs.
 
 ## Parameters / Member Variables
-- : Pointer to the NFA (Non-deterministic Finite Automaton) structure being modified
-- : Target state that will receive the merged incoming arcs  
-- : Array of arc pointers to be merged into the target state (contents may be modified)
-- : Number of arcs in the arcarray
-
+- `*nfa`: Pointer to the NFA (Non-deterministic Finite Automaton) structure being modified
+- `*s`: Target state that will receive the merged incoming arcs
+- `**arcarray`: Array of arc pointers to be merged into the target state (contents may be modified)
+- `arccount`: Number of arcs in the arcarray
 ## Dependencies
 - Functions called/Symbols referenced:
   - INTERRUPT

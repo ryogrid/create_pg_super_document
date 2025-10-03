@@ -20,9 +20,8 @@ The function performs basic validation to ensure the slot contains valid data (n
 This function is commonly used during bootstrap operations and WAL replay when specific SLRU pages need to be written to disk to ensure data consistency and durability.
 
 ## Parameters / Member Variables
-- : SlruCtl control structure containing SLRU configuration and shared state
-- : Integer slot number identifying which buffer slot contains the page to write
-
+- `ctl`: SlruCtl control structure containing SLRU configuration and shared state
+- `slotno`: Integer slot number identifying which buffer slot contains the page to write
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SlruInternalWritePage](SlruInternalWritePage.md)

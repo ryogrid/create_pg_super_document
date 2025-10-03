@@ -16,8 +16,7 @@ pgstat_drop_database(Oid databaseid)
 This function is responsible for cleaning up statistics tracking data when a database is dropped. It acts as a wrapper around the more general  function, specifically targeting database-level statistics. The function ensures that statistics information for the dropped database is properly removed from the system's statistics collection framework, preventing memory leaks and stale data from persisting after database removal.
 
 ## Parameters / Member Variables
-- : The OID (Object Identifier) of the database being dropped
-
+- `databaseid`: The OID (Object Identifier) of the database being dropped
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pgstat_drop_transactional](pgstat_drop_transactional.md)

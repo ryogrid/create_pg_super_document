@@ -18,8 +18,7 @@ The  function is a helper utility in PostgreSQL's text search parser that determ
 This function is part of the word parser definition module () which handles the tokenization and parsing of text for full-text search operations in PostgreSQL.
 
 ## Parameters / Member Variables
-- : Pointer to a TParser structure that contains the current parsing state, including position information and string length
-
+- `*prs`: Pointer to a TParser structure that contains the current parsing state, including position information and string length
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TParser](../T/TParser.md) (structure type)

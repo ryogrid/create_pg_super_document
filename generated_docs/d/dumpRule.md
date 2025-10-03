@@ -16,9 +16,8 @@ dumpRule(Archive *fout, const RuleInfo *rinfo)
 The  function generates SQL statements for PostgreSQL rules, with sophisticated logic to handle different rule types. For ON SELECT rules that define views (ev_type == '1' and is_instead == true), it generates CREATE OR REPLACE VIEW statements instead of CREATE RULE statements, including view options and CHECK OPTION clauses. For regular rules, it uses pg_get_ruledef() to retrieve the complete rule definition. The function also handles rule replication firing semantics through ALTER TABLE ENABLE/DISABLE RULE commands when the rule's enabled state differs from the default ('O'). Non-separate rules (typically implicit view rules) are skipped entirely.
 
 ## Parameters / Member Variables
-- : Archive structure containing dump options and output methods  
-- : RuleInfo structure containing rule metadata including rule table, event type, instead flag, enabled state, and separation flag
-
+- `*fout`: Archive structure containing dump options and output methods
+- `*rinfo`: RuleInfo structure containing rule metadata including rule table, event type, instead flag, enabled state, and separation flag
 ## Dependencies
 - Functions called/Symbols referenced:
   - [fmtId](../f/fmtId.md)

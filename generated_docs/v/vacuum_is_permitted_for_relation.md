@@ -25,10 +25,9 @@ If the user lacks sufficient privileges, the function issues appropriate WARNING
 For combined VACUUM ANALYZE operations, the function prioritizes VACUUM permission checking and will only log the VACUUM warning to avoid duplicate messages.
 
 ## Parameters / Member Variables
-- : Object identifier (OID) of the relation to check permissions for
-- : Form_pg_class structure containing the relation's catalog information, particularly the relation name and shared status
-- : Bitfield indicating which operations are requested (VACOPT_VACUUM, VACOPT_ANALYZE, or both)
-
+- `relid`: Object identifier (OID) of the relation to check permissions for
+- `reltuple`: Form_pg_class structure containing the relation's catalog information, particularly the relation name and shared status
+- `options`: Bitfield indicating which operations are requested (VACOPT_VACUUM, VACOPT_ANALYZE, or both)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [object_ownercheck](../o/object_ownercheck.md) (checks database ownership)

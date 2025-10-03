@@ -18,8 +18,7 @@ The  function prepares a StringInfo buffer for building binary data that will ev
 This function is typically used at the beginning of output functions for custom data types that need to serialize their internal representation into a binary format suitable for network transmission. The reserved space at the beginning will later be filled with the actual byte length when  is called.
 
 ## Parameters / Member Variables
-- : A StringInfo buffer to be initialized for bytea construction
-
+- `buf`: A StringInfo buffer to be initialized for bytea construction
 ## Dependencies
 - Functions called/Symbols referenced:
   - [initStringInfo](../i/initStringInfo.md) (implicit through StringInfo initialization)

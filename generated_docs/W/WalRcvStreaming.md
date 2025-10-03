@@ -18,6 +18,7 @@ This function provides a more specific check than WalRcvRunning() by determining
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [WalRcvData](WalRcvData.md)

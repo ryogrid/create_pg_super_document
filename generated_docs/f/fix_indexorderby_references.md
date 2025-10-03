@@ -25,9 +25,8 @@ Unlike fix_indexqual_references, this function works with bare clauses and a sep
 The function uses the forboth() macro to iterate through both the indexorderbys list and the indexorderbycols list simultaneously, ensuring proper pairing of ORDER BY expressions with their corresponding index column numbers.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planner context and state information
-- : IndexPath representing the index scan path with ORDER BY clauses to be processed
-
+- `*root`: PlannerInfo structure containing planner context and state information
+- `*index_path`: IndexPath representing the index scan path with ORDER BY clauses to be processed
 ## Dependencies
 - Functions called/Symbols referenced:
   - forboth (macro)

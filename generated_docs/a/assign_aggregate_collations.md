@@ -23,9 +23,8 @@ The function distinguishes between:
 This separation ensures that expressions like  work correctly - the ORDER BY collation doesn't interfere with the aggregate's result collation determined by col1.
 
 ## Parameters / Member Variables
-- : Pointer to the Aggref node representing the aggregate function call
-- : Local collation context for accumulating collation state from regular arguments
-
+- `*aggref`: Pointer to the Aggref node representing the aggregate function call
+- `*loccontext`: Local collation context for accumulating collation state from regular arguments
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (for ORDER BY expressions that shouldn't affect result collation)

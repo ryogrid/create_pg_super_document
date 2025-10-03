@@ -16,10 +16,9 @@ lseg_closept_lseg(Point *result, LSEG *on_lseg, LSEG *to_lseg)
 This static function determines the closest point between two line segments using a comprehensive algorithm. It first checks if the line segments intersect (in which case the distance is 0). If they don't intersect, it systematically compares distances from all endpoints of one segment to the other segment to find the minimum distance. The algorithm ensures that all possible closest point configurations are considered: endpoints of either segment to the other segment.
 
 ## Parameters / Member Variables
-- : Output parameter - pointer to Point structure where the closest point coordinates will be stored (can be NULL if only distance is needed)
-- : First line segment (the segment on which the closest point will be found)
-- : Second line segment (the segment to which we're finding the closest point)
-
+- `*result`: Output parameter - pointer to Point structure where the closest point coordinates will be stored (can be NULL if only distance is needed)
+- `*on_lseg`: First line segment (the segment on which the closest point will be found)
+- `*to_lseg`: Second line segment (the segment to which we're finding the closest point)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lseg_interpt_lseg](lseg_interpt_lseg.md): Checks if two line segments intersect and returns intersection point

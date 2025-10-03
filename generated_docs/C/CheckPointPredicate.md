@@ -26,7 +26,6 @@ This function is called during PostgreSQL checkpoints (both shutdown and on-the-
 The function includes detailed comments about edge cases related to XID wraparound and the interaction with VACUUM operations.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

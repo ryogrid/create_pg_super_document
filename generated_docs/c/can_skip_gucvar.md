@@ -22,8 +22,7 @@ The function uses a "magical" test that works for both serialization (leader sid
 The optimization is based on the principle that certain GUCs are guaranteed to have the same values in leaders and workers, eliminating unnecessary data transfer and processing.
 
 ## Parameters / Member Variables
-- : Pointer to a config_generic structure representing the GUC variable to evaluate
-
+- `*gconf`: Pointer to a config_generic structure representing the GUC variable to evaluate
 ## Dependencies
 - Functions called/Symbols referenced:
   - [config_generic](config_generic.md) (struct type)

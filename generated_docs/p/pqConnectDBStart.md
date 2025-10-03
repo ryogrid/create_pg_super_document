@@ -20,8 +20,7 @@ Key responsibilities include verifying that libpq is correctly linked to fronten
 Special handling is provided for cancel requests, which should only attempt connection to a single host and address. The function also manages server type preferences, resetting the target server type from PASS2 to the initial state if needed for reconnection scenarios.
 
 ## Parameters / Member Variables
-- : Pointer to the PGconn structure representing the PostgreSQL connection. The function modifies various fields including connection status, buffer positions, host selection state, and error messages.
-
+- `*conn`: Pointer to the PGconn structure representing the PostgreSQL connection. The function modifies various fields including connection status, buffer positions, host selection state, and error messages.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_link_canary_is_frontend](pg_link_canary_is_frontend.md) (validates proper library linking)

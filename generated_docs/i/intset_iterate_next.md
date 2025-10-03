@@ -23,9 +23,8 @@ The function operates in several phases:
 5. Finally returns false when no more values exist
 
 ## Parameters / Member Variables
-- : Pointer to the IntegerSet being iterated over
-- : Pointer to uint64 where the next value will be stored
-
+- `*intset`: Pointer to the IntegerSet being iterated over
+- `*next`: Pointer to uint64 where the next value will be stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Decompresses Simple8b encoded values from leaf items

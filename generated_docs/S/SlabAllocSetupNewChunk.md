@@ -17,11 +17,10 @@ SlabAllocSetupNewChunk(MemoryContext context, SlabBlock *block,
 SlabAllocSetupNewChunk is a small helper function designed to avoid code duplication between SlabAlloc() and SlabAllocFromNewBlock(). It performs the complete initialization of a new memory chunk within a slab block, including setting up the chunk header with proper alignment and memory context identification, applying memory debugging features when enabled (such as sentinel values for detecting buffer overruns), and managing Valgrind memory access annotations. The function ensures the chunk is properly aligned and positioned within the block boundaries before returning a pointer to the usable memory area.
 
 ## Parameters / Member Variables
-- : The MemoryContext (slab context) where the chunk is being allocated
-- : Pointer to the SlabBlock containing the chunk to be initialized
-- : Pointer to the MemoryChunk structure to be set up
-- : The requested size of the allocation (used for debugging features)
-
+- `context`: The MemoryContext (slab context) where the chunk is being allocated
+- `*block`: Pointer to the SlabBlock containing the chunk to be initialized
+- `*chunk`: Pointer to the MemoryChunk structure to be set up
+- `size`: The requested size of the allocation (used for debugging features)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SlabBlock](SlabBlock.md)

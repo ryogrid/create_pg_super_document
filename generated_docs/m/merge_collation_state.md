@@ -27,13 +27,12 @@ This function implements the core logic for combining collation information from
 The function updates the parent context with the stronger collation state, or marks conflicts that will be reported later if they remain unresolved.
 
 ## Parameters / Member Variables
-- : The collation OID from the current subexpression
-- : The collation strength (COLLATE_NONE, COLLATE_IMPLICIT, COLLATE_EXPLICIT, or COLLATE_CONFLICT)
-- : Source location of the current collation for error reporting
-- : Secondary collation OID (used for conflict reporting)
-- : Location of secondary collation (used for conflict reporting)
-- : Parent collation context to be updated with merged state
-
+- `collation`: The collation OID from the current subexpression
+- `strength`: The collation strength (COLLATE_NONE, COLLATE_IMPLICIT, COLLATE_EXPLICIT, or COLLATE_CONFLICT)
+- `location`: Source location of the current collation for error reporting
+- `collation2`: Secondary collation OID (used for conflict reporting)
+- `location2`: Location of secondary collation (used for conflict reporting)
+- `*context`: Parent collation context to be updated with merged state
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (for error message formatting)

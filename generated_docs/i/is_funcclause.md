@@ -16,8 +16,7 @@ is_funcclause(const void *clause)
 This function provides a type-safe way to determine if a clause represents a function call expression in PostgreSQL's parse tree. It uses the IsA() macro to perform runtime type checking, ensuring that the provided clause is not NULL and is specifically a FuncExpr node type. This is commonly used in optimizer and planner code where different types of clauses need to be handled differently based on their node type.
 
 ## Parameters / Member Variables
-- : A pointer to a parse tree node that needs to be checked. Can be NULL, in which case the function returns false.
-
+- `*clause`: A pointer to a parse tree node that needs to be checked. Can be NULL, in which case the function returns false.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [FuncExpr](../F/FuncExpr.md) (node type)

@@ -28,14 +28,13 @@ Key parsing behaviors:
 The function first extracts and validates any XML declaration, then determines the appropriate parsing mode. For DOCUMENT mode, it uses xmlCtxtReadDoc with full validation. For CONTENT mode, it uses xmlParseBalancedChunkMemory to parse XML fragments.
 
 ## Parameters / Member Variables
-- : Source text data to parse (must not be toasted)
-- : Requested parsing mode (XMLOPTION_DOCUMENT or XMLOPTION_CONTENT)
-- : Whether to preserve whitespace nodes in parsed result
-- : Character encoding of the input data
-- : Output parameter for actual parsing mode used (can be NULL)
-- : Output parameter for parsed node list in CONTENT mode (can be NULL)
-- : Error context for soft error handling (can be NULL for hard errors)
-
+- `*data`: Source text data to parse (must not be toasted)
+- `xmloption_arg`: Requested parsing mode (XMLOPTION_DOCUMENT or XMLOPTION_CONTENT)
+- `preserve_whitespace`: Whether to preserve whitespace nodes in parsed result
+- `encoding`: Character encoding of the input data
+- `*parsed_xmloptiontype`: Output parameter for actual parsing mode used (can be NULL)
+- `*parsed_nodes`: Output parameter for parsed node list in CONTENT mode (can be NULL)
+- `*escontext`: Error context for soft error handling (can be NULL for hard errors)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [xml_text2xmlChar](xml_text2xmlChar.md) (convert PostgreSQL text to xmlChar string)

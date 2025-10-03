@@ -16,9 +16,8 @@ getTokenTypes(Oid prsId, List *tokennames)
 This function converts string-based token type names into structured TSTokenTypeItem objects by looking up their corresponding lexical identifiers from a text search parser. It first retrieves the parser's cache entry and calls the parser's lextype method to get the available token types. For each input token name, it searches through the parser's lexical descriptor list to find matching aliases. The function automatically removes duplicates by using tstoken_list_member to check if a token is already in the result list. If a token name is not found in the parser's lexical types, it raises an error with ERRCODE_INVALID_PARAMETER_VALUE.
 
 ## Parameters / Member Variables
-- : Object ID of the text search parser to use for token type validation
-- : List of String nodes containing token type names to be converted
-
+- `prsId`: Object ID of the text search parser to use for token type validation
+- `*tokennames`: List of String nodes containing token type names to be converted
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lookup_ts_parser_cache](../l/lookup_ts_parser_cache.md)

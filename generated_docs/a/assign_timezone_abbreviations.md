@@ -20,9 +20,8 @@ The function handles the special case where extra is NULL (which happens for the
 This function is part of the GUC (Grand Unified Configuration) system's hook mechanism, which allows for custom validation and assignment logic for configuration parameters.
 
 ## Parameters / Member Variables
-- : The new timezone abbreviation file name (not used in this function)
-- : Pointer to the pre-loaded TimeZoneAbbrevTable from the check hook
-
+- `*newval`: The new timezone abbreviation file name (not used in this function)
+- `*extra`: Pointer to the pre-loaded TimeZoneAbbrevTable from the check hook
 ## Dependencies
 - Functions called/Symbols referenced:
   - [InstallTimeZoneAbbrevs](../I/InstallTimeZoneAbbrevs.md)

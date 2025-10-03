@@ -19,6 +19,7 @@ The function sets both session_timezone and log_timezone to GMT using pg_tzset("
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_tzset](pg_tzset.md) (loads the GMT timezone)

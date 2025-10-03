@@ -26,8 +26,7 @@ This function builds a hash table for set operations when the hashed strategy is
 The function handles different set operation commands (INTERSECT, INTERSECT ALL, etc.) by applying different logic for first vs second relation processing. For INTERSECT operations, tuples from the second relation that don't match existing entries are ignored.
 
 ## Parameters / Member Variables
-- : Pointer to the SetOpState structure containing the hash table, execution state, outer plan reference, and tuple processing context
-
+- `*setopstate`: Pointer to the SetOpState structure containing the hash table, execution state, outer plan reference, and tuple processing context
 ## Dependencies
 - Functions called/Symbols referenced:
   - outerPlanState (gets outer plan state)

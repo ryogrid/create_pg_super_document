@@ -23,8 +23,7 @@ This function initializes the data structures needed to perform efficient compar
 This preparation is essential for the incremental sort algorithm to quickly determine when the values in pre-sorted columns change, which triggers the need to sort the accumulated group of tuples.
 
 ## Parameters / Member Variables
-- : Pointer to IncrementalSortState structure that will be populated with pre-sorted column comparison information
-
+- `*node`: Pointer to IncrementalSortState structure that will be populated with pre-sorted column comparison information
 ## Dependencies
 - Functions called/Symbols referenced:
   - castNode (macro to safely cast plan node)

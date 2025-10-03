@@ -18,10 +18,9 @@ index_update_stats(Relation rel,
 index_update_stats is a critical internal function that updates statistical information in the pg_class catalog table following index creation or reindexing operations. The function uses non-transactional, in-place updates to safely modify relation metadata even during bootstrap mode or when reindexing system catalogs. It updates multiple statistics including relhasindex, reltuples, relpages, and relallvisible. The function includes special handling for empty tables to avoid premature vacuum appearance during CREATE TABLE operations. A key aspect of this function is ensuring that shared invalidation messages are sent to all backends, which triggers relcache updates across the system, notifying other processes about new indexes or updated statistics.
 
 ## Parameters / Member Variables
-- : The relation (either index or its parent table) being updated
-- : Boolean value to set for the relhasindex field in pg_class
-- : New tuple count; if >= 0, updates reltuples and related statistics; if < 0, no change to tuple statistics
-
+- `rel`: The relation (either index or its parent table) being updated
+- `hasindex`: Boolean value to set for the relhasindex field in pg_class
+- `reltuples`: New tuple count; if >= 0, updates reltuples and related statistics; if < 0, no change to tuple statistics
 ## Dependencies
 - Functions called/Symbols referenced:
   - Form_pg_class (structure type)

@@ -18,9 +18,8 @@ This function parses SCRAM (Salted Challenge Response Authentication Mechanism) 
 The function modifies the input string by null-terminating the extracted value and advances the input pointer to the next attribute position. It performs strict protocol validation, generating detailed error messages if the expected attribute format is not found.
 
 ## Parameters / Member Variables
-- : Pointer to a string pointer that contains the SCRAM message. The pointer is advanced past the processed attribute.
-- : The expected attribute character (e.g., 'n', 'r', 's', 'i', 'c', 'p')
-
+- `**input`: Pointer to a string pointer that contains the SCRAM message. The pointer is advanced past the processed attribute.
+- `attr`: The expected attribute character (e.g., 'n', 'r', 's', 'i', 'c', 'p')
 ## Dependencies
 - Functions called/Symbols referenced:
   - [sanitize_char](../s/sanitize_char.md)

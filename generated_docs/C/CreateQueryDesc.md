@@ -23,15 +23,14 @@ CreateQueryDesc(PlannedStmt *plannedstmt,
 CreateQueryDesc allocates and populates a QueryDesc structure with all the essential components required for query execution. It serves as a constructor function that packages the planned statement, execution context, parameters, and output destination into a single descriptor object. The function registers the provided snapshots to ensure proper transaction isolation and sets up initial state for query execution. Fields related to execution state (tupDesc, estate, planstate, totaltime) are deliberately left null until ExecutorStart is called.
 
 ## Parameters / Member Variables
-- : The planned statement tree containing the execution plan
-- : The original SQL query text for debugging and logging purposes  
-- : The snapshot to use for reading data during query execution
-- : Additional snapshot for referential integrity checks
-- : The destination receiver that will handle query output
-- : Parameter values to be substituted into the query
-- : Query environment containing additional execution context
-- : Flags controlling query instrumentation and timing
-
+- `*plannedstmt`: The planned statement tree containing the execution plan
+- `*sourceText`: The original SQL query text for debugging and logging purposes
+- `snapshot`: The snapshot to use for reading data during query execution
+- `crosscheck_snapshot`: Additional snapshot for referential integrity checks
+- `*dest`: The destination receiver that will handle query output
+- `params`: Parameter values to be substituted into the query
+- `*queryEnv`: Query environment containing additional execution context
+- `instrument_options`: Flags controlling query instrumentation and timing
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PlannedStmt](../P/PlannedStmt.md)

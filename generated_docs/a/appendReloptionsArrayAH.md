@@ -19,11 +19,10 @@ The  function serves as a wrapper around  specifically for pg_dump operations. I
 The function extracts encoding and standard strings settings from the Archive structure to ensure proper formatting of the reloptions for the target database environment.
 
 ## Parameters / Member Variables
-- : PQExpBuffer to which the formatted reloptions will be appended
-- : String containing the reloptions array to be formatted (typically from pg_class.reloptions)
-- : String prefix to prepend to option names (commonly "" for table options or "toast." for TOAST table options)
-- : Archive structure containing dump context including encoding and standard strings settings
-
+- `buffer`: PQExpBuffer to which the formatted reloptions will be appended
+- `*reloptions`: String containing the reloptions array to be formatted (typically from pg_class.reloptions)
+- `*prefix`: String prefix to prepend to option names (commonly "" for table options or "toast." for TOAST table options)
+- `*fout`: Archive structure containing dump context including encoding and standard strings settings
 ## Dependencies
 - Functions called/Symbols referenced:
   - [appendReloptionsArray](appendReloptionsArray.md)

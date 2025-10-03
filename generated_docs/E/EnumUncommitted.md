@@ -51,8 +51,7 @@ This function checks if a specific enum value (not the enum type itself, but an 
 The function performs a simple hash table lookup and returns immediately if no uncommitted values table exists, optimizing for transactions that haven't created any new enum values.
 
 ## Parameters / Member Variables
-- : Object identifier of the specific enum value to check for uncommitted status
-
+- `NULL`: Object identifier of the specific enum value to check for uncommitted status
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hash_search](../h/hash_search.md): Performs hash table lookup to find the enum value ID

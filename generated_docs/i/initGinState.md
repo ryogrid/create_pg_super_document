@@ -24,9 +24,8 @@ The function loads various operator class support functions:
 - Compare partial functions (for partial matching support)
 
 ## Parameters / Member Variables
-- : Pointer to the GinState structure to be initialized
-- : The relation representing the GIN index being initialized
-
+- `*state`: Pointer to the GinState structure to be initialized
+- `index`: The relation representing the GIN index being initialized
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (memory initialization)

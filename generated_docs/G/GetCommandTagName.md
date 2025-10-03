@@ -18,8 +18,7 @@ This function provides a simple lookup mechanism to retrieve the human-readable 
 The function performs a direct array lookup using the commandTag as an index into the tag_behavior array, making it a very efficient O(1) operation. The returned string is a constant literal that should not be modified by the caller.
 
 ## Parameters / Member Variables
-- : The CommandTag enumeration value for which to retrieve the name string
-
+- `commandTag`: The CommandTag enumeration value for which to retrieve the name string
 ## Dependencies
 - Functions called/Symbols referenced:
   - CommandTag (enum type)

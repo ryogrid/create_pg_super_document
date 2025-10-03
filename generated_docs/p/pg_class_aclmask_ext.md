@@ -26,12 +26,11 @@ This function implements the core logic for checking user privileges on PostgreS
 The function supports graceful handling of missing relations through the  parameter, allowing callers to distinguish between insufficient privileges and non-existent objects.
 
 ## Parameters / Member Variables
-- : The object identifier (OID) of the relation to check permissions for
-- : The OID of the role whose permissions are being checked
-- : Bitmask specifying which permissions to check (ACL_SELECT, ACL_INSERT, ACL_UPDATE, ACL_DELETE, ACL_TRUNCATE, ACL_USAGE, ACL_MAINTAIN)
-- : Specifies how to combine multiple ACL entries (ACLMASK_ALL or ACLMASK_ANY)
-- : Optional output parameter; if provided, set to true when the relation doesn't exist instead of throwing an error
-
+- `table_oid`: The object identifier (OID) of the relation to check permissions for
+- `roleid`: The OID of the role whose permissions are being checked
+- `mask`: Bitmask specifying which permissions to check (ACL_SELECT, ACL_INSERT, ACL_UPDATE, ACL_DELETE, ACL_TRUNCATE, ACL_USAGE, ACL_MAINTAIN)
+- `how`: Specifies how to combine multiple ACL entries (ACLMASK_ALL or ACLMASK_ANY)
+- `*is_missing`: Optional output parameter; if provided, set to true when the relation doesn't exist instead of throwing an error
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache1](../S/SearchSysCache1.md)

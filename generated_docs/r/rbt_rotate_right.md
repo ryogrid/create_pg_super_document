@@ -23,9 +23,8 @@ The rotation process involves three main steps:
 This operation, like left rotation, preserves the binary search tree invariant while helping to maintain Red-Black Tree balance properties.
 
 ## Parameters / Member Variables
-- : Pointer to the Red-Black Tree structure
-- : The node around which to perform the right rotation
-
+- `*rbt`: Pointer to the Red-Black Tree structure
+- `*x`: The node around which to perform the right rotation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RBTree](../R/RBTree.md) (tree structure type)

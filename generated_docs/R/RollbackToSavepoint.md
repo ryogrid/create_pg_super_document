@@ -24,8 +24,7 @@ The function performs several critical validations:
 The state changes follow a specific pattern: subtransactions between current and target are marked as TBLOCK_SUBABORT_PENDING or TBLOCK_SUBABORT_END, while the target savepoint is marked as TBLOCK_SUBRESTART or TBLOCK_SUBABORT_RESTART depending on its current state.
 
 ## Parameters / Member Variables
-- : The name of the savepoint to roll back to, as specified in the ROLLBACK TO SAVEPOINT command
-
+- `*name`: The name of the savepoint to roll back to, as specified in the ROLLBACK TO SAVEPOINT command
 ## Dependencies
 - Functions called/Symbols referenced:
   - [IsInParallelMode](../I/IsInParallelMode.md)

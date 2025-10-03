@@ -19,10 +19,9 @@ The  function serves as a critical wrapper around the actual commit callback in 
 The function operates within the reorder buffer framework, which is responsible for reconstructing complete transactions from WAL records in correct commit order. It handles the final stage of transaction processing in logical decoding by preparing the context for output and delegating to the configured output plugin's commit callback.
 
 ## Parameters / Member Variables
-- : ReorderBuffer instance managing the transaction reordering and callbacks
-- : ReorderBufferTXN representing the transaction being committed  
-- : XLogRecPtr indicating the WAL location of the commit record
-
+- `*cache`: ReorderBuffer instance managing the transaction reordering and callbacks
+- `*txn`: ReorderBufferTXN representing the transaction being committed
+- `commit_lsn`: XLogRecPtr indicating the WAL location of the commit record
 ## Dependencies
 - Functions called/Symbols referenced:
   - [output_plugin_error_callback](../o/output_plugin_error_callback.md)

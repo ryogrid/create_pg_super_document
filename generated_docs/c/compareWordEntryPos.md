@@ -16,9 +16,8 @@ compareWordEntryPos(const void *a, const void *b)
 This function serves as a comparator for qsort operations on arrays of WordEntryPos structures. It extracts position information from two WordEntryPos values and compares them using PostgreSQL's standard 32-bit signed integer comparison function. The function is essential for maintaining sorted order of word positions within tsvector data structures, which is crucial for efficient text search operations.
 
 ## Parameters / Member Variables
-- : Pointer to the first WordEntryPos value to compare (cast from const void*)
-- : Pointer to the second WordEntryPos value to compare (cast from const void*)
-
+- `*a`: Pointer to the first WordEntryPos value to compare (cast from const void*)
+- `*b`: Pointer to the second WordEntryPos value to compare (cast from const void*)
 ## Dependencies
 - Functions called/Symbols referenced:
   - WEP_GETPOS (macro to extract position from WordEntryPos)

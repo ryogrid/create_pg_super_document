@@ -17,13 +17,12 @@ gistCompressValues(GISTSTATE *giststate, Relation r,
 This function processes attribute data for GiST index entries by applying compression functions defined by the operator classes. For each key attribute, it creates a GISTENTRY, applies the compress function if one is defined in the operator class, and stores the resulting compressed value. For leaf entries, it also handles included attributes by copying them directly without compression. The function is essential for preparing data before storing it in GiST index pages.
 
 ## Parameters / Member Variables
-- : GiST state information containing operator class functions and collation information
-- : The GiST index relation
-- : Array of input attribute values (Datums) to be compressed
-- : Array of boolean flags indicating which attributes are NULL
-- : Boolean flag indicating whether this is for a leaf page entry
-- : Output array where compressed attribute values are stored
-
+- `*giststate`: GiST state information containing operator class functions and collation information
+- `r`: The GiST index relation
+- `*attdata`: Array of input attribute values (Datums) to be compressed
+- `*isnull`: Array of boolean flags indicating which attributes are NULL
+- `isleaf`: Boolean flag indicating whether this is for a leaf page entry
+- `*compatt`: Output array where compressed attribute values are stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - IndexRelationGetNumberOfKeyAttributes

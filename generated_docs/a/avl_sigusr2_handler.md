@@ -24,8 +24,7 @@ The handler implementation is deliberately minimal and signal-safe. It simply se
 This design follows PostgreSQL's standard pattern for signal handling: keep the signal handler simple and defer complex work to the main event loop.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL signal handler arguments macro
-
+- `SIGNAL_ARGS`: Standard PostgreSQL signal handler arguments macro
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (wake up the launcher main loop)

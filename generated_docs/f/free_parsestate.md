@@ -18,8 +18,7 @@ The  function properly deallocates a ParseState structure and performs essential
 If a target relation was opened during parsing operations, the function ensures it is properly closed without acquiring locks. Finally, it releases the ParseState memory using , completing the cleanup process initiated by .
 
 ## Parameters / Member Variables
-- : The ParseState structure to be freed. Must be a valid ParseState previously allocated by .
-
+- `*pstate`: The ParseState structure to be freed. Must be a valid ParseState previously allocated by .
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (constant defining maximum tuple attributes)

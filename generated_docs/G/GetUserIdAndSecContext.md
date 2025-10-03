@@ -26,9 +26,8 @@ The SecurityRestrictionContext contains flags that indicate various security res
 - SECURITY_NOFORCE_RLS: Disables forced row-level security for referential integrity checks
 
 ## Parameters / Member Variables
-- : Pointer to receive the current effective user ID (CurrentUserId). May be InvalidOid in some contexts.
-- : Pointer to receive the current SecurityRestrictionContext flags as a bitmask.
-
+- `*userid`: Pointer to receive the current effective user ID (CurrentUserId). May be InvalidOid in some contexts.
+- `*sec_context`: Pointer to receive the current SecurityRestrictionContext flags as a bitmask.
 ## Dependencies
 - Functions called/Symbols referenced:
   - CurrentUserId (global static variable access)

@@ -18,8 +18,7 @@ The  function creates a new database connection by copying all connection parame
 The function allocates memory for keyword and value arrays, iterates through all available connection options, copies only those with non-NULL values, and terminates the arrays properly before attempting the new connection. If the new connection fails, the function terminates the program with a fatal error.
 
 ## Parameters / Member Variables
-- : The source PGconn object from which to copy connection parameters
-
+- `*conn`: The source PGconn object from which to copy connection parameters
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQconninfo](../P/PQconninfo.md)

@@ -16,8 +16,7 @@ get_subscription_count(ClusterInfo *cluster)
 This function queries the pg_catalog.pg_subscription system catalog to count all logical replication subscriptions present in the cluster. It connects to the template1 database to execute a simple COUNT(*) query against the pg_subscription table and stores the result in the cluster's nsubs field. This information is used by pg_upgrade to determine whether subscription-related upgrade steps need to be performed. The function provides essential metadata about logical replication configuration that affects the upgrade process, particularly in scenarios where subscriptions need to be handled or validated during cluster migration.
 
 ## Parameters / Member Variables
-- : Pointer to ClusterInfo structure where the subscription count will be stored in the nsubs field
-
+- `*cluster`: Pointer to ClusterInfo structure where the subscription count will be stored in the nsubs field
 ## Dependencies
 - Functions called/Symbols referenced:
   - [connectToServer](../c/connectToServer.md)

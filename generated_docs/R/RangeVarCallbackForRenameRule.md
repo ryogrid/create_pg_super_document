@@ -17,11 +17,10 @@ RangeVarCallbackForRenameRule(const RangeVar *rv, Oid relid, Oid oldrelid,
 This static callback function is invoked during the relation lock acquisition process for rule rename operations. It validates that the target relation supports rules, ensures the user has appropriate permissions, and prevents modifications to system catalogs when not allowed. The function follows PostgreSQL's standard pattern for RangeVar callbacks, which are used to perform validation checks before acquiring locks on relations. It checks relation kind compatibility (only tables, views, and partitioned tables can have rules), system catalog protection, and ownership requirements.
 
 ## Parameters / Member Variables
-- : Pointer to the RangeVar structure containing the relation name and schema information
-- : Object identifier of the relation being processed
-- : Previous relation OID (used for concurrent drop detection)
-- : Generic argument pointer (unused in this callback)
-
+- `*rv`: Pointer to the RangeVar structure containing the relation name and schema information
+- `relid`: Object identifier of the relation being processed
+- `oldrelid`: Previous relation OID (used for concurrent drop detection)
+- `*arg`: Generic argument pointer (unused in this callback)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache1](../S/SearchSysCache1.md)

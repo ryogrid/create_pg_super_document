@@ -21,8 +21,7 @@ The  function is a utility function responsible for cleaning up the malloc'd str
 Importantly, this function only frees the string contents pointed to by the structure members, not the structure itself. The function is designed to be error-safe and must not throw elog(ERROR) to ensure it can be used in cleanup scenarios without risking additional errors.
 
 ## Parameters / Member Variables
-- : Pointer to a  whose string members need to be freed
-
+- `*s`: Pointer to a  whose string members need to be freed
 ## Dependencies
 - Functions called/Symbols referenced:
   - free (standard C library function for memory deallocation)

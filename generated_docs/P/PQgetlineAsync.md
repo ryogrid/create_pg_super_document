@@ -25,10 +25,9 @@ Key characteristics:
 - Data returned is not null-terminated (caller must handle this)
 
 ## Parameters / Member Variables
-- : PostgreSQL connection handle that must be in a COPY OUT state
-- : Pre-allocated buffer to receive the data
-- : Size of the provided buffer in bytes
-
+- `*conn`: PostgreSQL connection handle that must be in a COPY OUT state
+- `*buffer`: Pre-allocated buffer to receive the data
+- `bufsize`: Size of the provided buffer in bytes
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pqGetlineAsync3](../p/pqGetlineAsync3.md)

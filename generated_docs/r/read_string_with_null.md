@@ -29,8 +29,7 @@ Error conditions:
 - **EOF mid-string**: Calls elog(FATAL) as this indicates file corruption
 
 ## Parameters / Member Variables
-- : File pointer to read the null-terminated string from
-
+- `*fp`: File pointer to read the null-terminated string from
 ## Dependencies
 - Functions called/Symbols referenced:
   - fgetc

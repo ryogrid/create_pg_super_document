@@ -27,10 +27,9 @@ This function is called at the end of a subtransaction to handle temporary names
 The function ensures proper cleanup and state management for temporary namespaces across PostgreSQL's nested transaction hierarchy.
 
 ## Parameters / Member Variables
-- : Boolean indicating whether the subtransaction is committing (true) or aborting (false)
-- : The SubTransactionId of the current subtransaction being ended
-- : The SubTransactionId of the parent subtransaction
-
+- `isCommit`: Boolean indicating whether the subtransaction is committing (true) or aborting (false)
+- `mySubid`: The SubTransactionId of the current subtransaction being ended
+- `parentSubid`: The SubTransactionId of the parent subtransaction
 ## Dependencies
 - Functions called/Symbols referenced:
   - SubTransactionId

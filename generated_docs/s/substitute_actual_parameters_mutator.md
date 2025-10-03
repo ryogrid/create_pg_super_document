@@ -21,9 +21,8 @@ When a Param node is encountered, the function validates that it's an external p
 The function is designed to be called recursively through the expression_tree_mutator mechanism, ensuring that all Param nodes throughout the expression tree are properly replaced.
 
 ## Parameters / Member Variables
-- : The current node being processed in the expression tree traversal
-- : Context structure containing parameter substitution information including nargs (number of arguments), args (list of actual arguments), and usecounts (array to track parameter usage)
-
+- `*node`: The current node being processed in the expression tree traversal
+- `*context`: Context structure containing parameter substitution information including nargs (number of arguments), args (list of actual arguments), and usecounts (array to track parameter usage)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [substitute_actual_parameters_context](substitute_actual_parameters_context.md) (context structure type)

@@ -23,10 +23,9 @@ The function is designed to handle range overlaps that can occur when merging tw
 The comparison uses the PostgreSQL function call interface (FunctionCall2Coll) with a user-provided comparison function and collation, allowing it to work with any data type that has a comparison operator.
 
 ## Parameters / Member Variables
-- : Pointer to the first ExpandedRange structure to compare
-- : Pointer to the second ExpandedRange structure to compare  
-- : Pointer to compare_context structure containing comparison function and collation information
-
+- `*a`: Pointer to the first ExpandedRange structure to compare
+- `*b`: Pointer to the second ExpandedRange structure to compare
+- `*arg`: Pointer to compare_context structure containing comparison function and collation information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [FunctionCall2Coll](../F/FunctionCall2Coll.md) (used multiple times for comparisons)

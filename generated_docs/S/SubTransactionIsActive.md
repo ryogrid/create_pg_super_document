@@ -16,8 +16,7 @@ SubTransactionIsActive(SubTransactionId subxid)
 SubTransactionIsActive traverses the current transaction state hierarchy to determine if a given subtransaction ID is still active. It walks up the parent chain of transaction states, starting from the current transaction state, and checks if any non-aborted transaction state matches the provided subtransaction ID. The function skips over aborted transaction states (TRANS_ABORT) since they are no longer considered active. This is essential for validating whether operations or resources associated with a particular subtransaction context are still valid.
 
 ## Parameters / Member Variables
-- : The SubTransactionId to check for activity status
-
+- `subxid`: The SubTransactionId to check for activity status
 ## Dependencies
 - Functions called/Symbols referenced:
   - CurrentTransactionState (global variable)

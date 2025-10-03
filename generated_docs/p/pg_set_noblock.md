@@ -20,8 +20,7 @@ The function uses platform-specific system calls:
 - On Windows: Uses  with the  command
 
 ## Parameters / Member Variables
-- : A PostgreSQL socket descriptor ( type) that will be configured for non-blocking operation
-
+- `sock`: A PostgreSQL socket descriptor ( type) that will be configured for non-blocking operation
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (Unix/Linux systems)

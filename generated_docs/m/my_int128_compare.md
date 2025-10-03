@@ -16,9 +16,8 @@ my_int128_compare(int128 x, int128 y)
 This function provides a simple three-way comparison for 128-bit integers. It serves as a control implementation for testing purposes within the PostgreSQL test suite for 128-bit integer operations. The function follows standard comparison semantics, returning negative, zero, or positive values based on the relationship between the two input values.
 
 ## Parameters / Member Variables
-- : First 128-bit integer value to compare
-- : Second 128-bit integer value to compare
-
+- `x`: First 128-bit integer value to compare
+- `y`: Second 128-bit integer value to compare
 ## Dependencies
 - Functions called/Symbols referenced:
   - (None - uses only built-in comparison operators)

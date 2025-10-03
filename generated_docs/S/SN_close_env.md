@@ -25,9 +25,8 @@ This function is the destructor counterpart to . It performs a complete cleanup 
 The function is designed to be safe with NULL pointers and handles partial cleanup scenarios (useful for error recovery in ).
 
 ## Parameters / Member Variables
-- : Pointer to the SN_env structure to be deallocated (can be NULL)
-- : Number of symbol slots in the S array (must match the size used in SN_create_env)
-
+- `*z`: Pointer to the SN_env structure to be deallocated (can be NULL)
+- `S_size`: Number of symbol slots in the S array (must match the size used in SN_create_env)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lose_s](../l/lose_s.md) (deallocates symbol structures)

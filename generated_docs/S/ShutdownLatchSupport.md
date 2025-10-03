@@ -34,7 +34,6 @@ This function performs cleanup of all latch-related infrastructure that was set 
 The function ensures that all resources allocated during latch initialization are properly released, preventing resource leaks during process shutdown.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -29,7 +29,6 @@ The function uses a switch statement based on the  field to handle different typ
 Each RTE type has its own specific fields that need to be deserialized. The function also handles special cases like copying column type information from TableFunc nodes and reusing certain RELATION fields for SUBQUERY and NAMEDTUPLESTORE types.
 
 ## Parameters / Member Variables
-This function takes no parameters and returns a pointer to a newly allocated RangeTblEntry node.
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -27,14 +27,13 @@ The function validates each component of the secret:
 On successful parsing, all extracted values are returned via output parameters. The salt is returned as a base64-encoded null-terminated string that is palloc'd by this function.
 
 ## Parameters / Member Variables
-- : Input SCRAM secret string to be parsed
-- : Output parameter for the iteration count extracted from the secret
-- : Output parameter set to the hash algorithm type (PG_SHA256)
-- : Output parameter set to the key length (SCRAM_SHA_256_KEY_LEN)
-- : Output parameter for the base64-encoded salt string (palloc'd)
-- : Pre-allocated buffer (SCRAM_MAX_KEY_LEN) to receive the decoded stored key
-- : Pre-allocated buffer (SCRAM_MAX_KEY_LEN) to receive the decoded server key
-
+- `*secret`: Input SCRAM secret string to be parsed
+- `*iterations`: Output parameter for the iteration count extracted from the secret
+- `*hash_type`: Output parameter set to the hash algorithm type (PG_SHA256)
+- `*key_length`: Output parameter set to the key length (SCRAM_SHA_256_KEY_LEN)
+- `**salt`: Output parameter for the base64-encoded salt string (palloc'd)
+- `*stored_key`: Pre-allocated buffer (SCRAM_MAX_KEY_LEN) to receive the decoded stored key
+- `*server_key`: Pre-allocated buffer (SCRAM_MAX_KEY_LEN) to receive the decoded server key
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pstrdup](pstrdup.md)

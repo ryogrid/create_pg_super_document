@@ -18,7 +18,6 @@ PGSemaphoreCreate is responsible for creating a new counting semaphore within Po
 The function enforces that it can only be called from the postmaster process (not from backend processes) since semaphore allocation involves managing global state. It also maintains a count of allocated semaphores and will panic if the maximum number of semaphores is exceeded.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

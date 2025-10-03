@@ -21,8 +21,7 @@ The implementation follows the same pattern as other bit utilities:
 3. Fallback byte-wise scanning using the same lookup table approach
 
 ## Parameters / Member Variables
-- : A 64-bit unsigned integer that must not be zero (the function asserts this precondition)
-
+- `word`: A 64-bit unsigned integer that must not be zero (the function asserts this precondition)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  or  (GCC/Clang builtins, when available)

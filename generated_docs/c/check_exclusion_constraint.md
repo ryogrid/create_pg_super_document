@@ -22,15 +22,14 @@ This function provides a streamlined interface for checking exclusion constraint
 The function uses the  mode internally, which means it will wait for concurrent transactions to complete before making the final determination about constraint violations.
 
 ## Parameters / Member Variables
-- : The heap relation (table) containing the tuple being checked
-- : The index relation that implements the exclusion constraint
-- : Metadata information about the index structure and properties
-- : Pointer to the tuple identifier (TID) of the tuple being checked
-- : Array of Datum values representing the tuple's indexed column values
-- : Array of boolean flags indicating which values are NULL
-- : Executor state context for the operation
-- : Boolean flag indicating whether this is a newly created index
-
+- `heap`: The heap relation (table) containing the tuple being checked
+- `index`: The index relation that implements the exclusion constraint
+- `*indexInfo`: Metadata information about the index structure and properties
+- `tupleid`: Pointer to the tuple identifier (TID) of the tuple being checked
+- `*values`: Array of Datum values representing the tuple's indexed column values
+- `*isnull`: Array of boolean flags indicating which values are NULL
+- `*estate`: Executor state context for the operation
+- `newIndex`: Boolean flag indicating whether this is a newly created index
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_exclusion_or_unique_constraint](check_exclusion_or_unique_constraint.md)

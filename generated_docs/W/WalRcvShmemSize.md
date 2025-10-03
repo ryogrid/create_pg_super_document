@@ -18,6 +18,7 @@ This function is responsible for calculating the total shared memory size needed
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [add_size](../a/add_size.md)

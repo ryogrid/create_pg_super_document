@@ -25,11 +25,10 @@ The function performs the following operations:
 6. For table mode: displays table names with optional column lists and WHERE clauses
 
 ## Parameters / Member Variables
-- : PQExpBuffer containing the SQL query to execute and used for formatting output strings
-- : Header message to display before the footer content
-- : Boolean flag indicating whether to format results as schemas (true) or tables (false)
-- : Pointer to printTableContent structure for adding footer lines to the output
-
+- `buf`: PQExpBuffer containing the SQL query to execute and used for formatting output strings
+- `*footermsg`: Header message to display before the footer content
+- `as_schema`: Boolean flag indicating whether to format results as schemas (true) or tables (false)
+- `cont`: Pointer to printTableContent structure for adding footer lines to the output
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PSQLexec](../P/PSQLexec.md)

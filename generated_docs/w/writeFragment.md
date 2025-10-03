@@ -19,11 +19,10 @@ This function is a core component of PostgreSQL's generic WAL logging mechanism.
 The function performs bounds checking via Assert to ensure the delta buffer has sufficient space, then uses memcpy operations to write the fragment components in binary format. The deltaLen field is updated to reflect the new buffer position after writing.
 
 ## Parameters / Member Variables
-- : Pointer to PageData structure containing the delta buffer where the fragment will be written
-- : OffsetNumber specifying the byte offset within the page where this fragment's data belongs
-- : OffsetNumber specifying the number of bytes of data in this fragment
-- : Pointer to the actual data bytes to be written into the fragment
-
+- `*pageData`: Pointer to PageData structure containing the delta buffer where the fragment will be written
+- `offset`: OffsetNumber specifying the byte offset within the page where this fragment's data belongs
+- `length`: OffsetNumber specifying the number of bytes of data in this fragment
+- `*data`: Pointer to the actual data bytes to be written into the fragment
 ## Dependencies
 - Functions called/Symbols referenced:
   - PageData (struct type)

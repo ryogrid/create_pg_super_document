@@ -29,15 +29,14 @@ The function supports four different scenarios:
 4. **MERGE**: Replace source relation references with INNER_VAR references while leaving target relation Vars alone
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planning context
-- : The targetlist or list of join clauses to transform
-- : Indexed target list of the outer join relation, or NULL
-- : Indexed target list of the inner join relation, or NULL
-- : Zero or rangetable index of relation whose Vars may appear without error
-- : Amount to increment varnos by
-- : Nulling relations match mode (as for search_indexed_tlist_for_var)
-- : Estimated number of executions of the expression
-
+- `*root`: PlannerInfo structure containing planning context
+- `*clauses`: The targetlist or list of join clauses to transform
+- `*outer_itlist`: Indexed target list of the outer join relation, or NULL
+- `*inner_itlist`: Indexed target list of the inner join relation, or NULL
+- `acceptable_rel`: Zero or rangetable index of relation whose Vars may appear without error
+- `rtoffset`: Amount to increment varnos by
+- `nrm_match`: Nulling relations match mode (as for search_indexed_tlist_for_var)
+- `num_exec`: Estimated number of executions of the expression
 ## Dependencies
 - Functions called/Symbols referenced:
   - [fix_join_expr_mutator](fix_join_expr_mutator.md)

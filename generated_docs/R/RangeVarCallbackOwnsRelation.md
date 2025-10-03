@@ -19,11 +19,10 @@ This function serves as a security callback that enforces ownership requirements
 The function first validates that a relation ID was found, then retrieves the relation's metadata from the system catalog. It performs two critical security checks: verifying the user owns the relation (or is superuser) and ensuring system catalogs cannot be modified when system table modifications are disabled.
 
 ## Parameters / Member Variables
-- : Pointer to RangeVar structure containing the relation name and schema information
-- : Object identifier of the relation being accessed  
-- : Previous relation ID (used for concurrent operations, ignored in this callback)
-- : Generic argument pointer (unused in this implementation)
-
+- `*relation`: Pointer to RangeVar structure containing the relation name and schema information
+- `relId`: Object identifier of the relation being accessed
+- `oldRelId`: Previous relation ID (used for concurrent operations, ignored in this callback)
+- `*arg`: Generic argument pointer (unused in this implementation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [object_ownercheck](../o/object_ownercheck.md) - Verifies user ownership of database objects

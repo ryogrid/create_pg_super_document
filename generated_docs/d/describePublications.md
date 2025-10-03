@@ -28,8 +28,7 @@ The function dynamically adapts its output based on PostgreSQL server version:
 For each publication found, it creates a detailed table showing all properties and then adds footer sections listing associated tables and schemas.
 
 ## Parameters / Member Variables
-- : Optional regular expression pattern to filter publications by name. If NULL, all publications are described.
-
+- `*pattern`: Optional regular expression pattern to filter publications by name. If NULL, all publications are described.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [formatPGVersionNumber](../f/formatPGVersionNumber.md)

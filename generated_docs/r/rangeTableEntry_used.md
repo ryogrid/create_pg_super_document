@@ -20,10 +20,9 @@ The function is commonly used during query rewriting and rule processing to dete
 The function uses the rangeTableEntry_used_walker to perform the actual traversal and reference detection, properly handling various types of references including direct variable references, cursor references, range table references, and join references.
 
 ## Parameters / Member Variables
-- : The root node (Query or expression) to search within
-- : The range table index to search for references to
-- : The initial sublevel offset (usually 0 for the current query level)
-
+- `*node`: The root node (Query or expression) to search within
+- `rt_index`: The range table index to search for references to
+- `sublevels_up`: The initial sublevel offset (usually 0 for the current query level)
 ## Dependencies
 - Functions called/Symbols referenced:
   - rangeTableEntry_used_context (context structure for walker)

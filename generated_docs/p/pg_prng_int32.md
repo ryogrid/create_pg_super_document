@@ -16,8 +16,7 @@ pg_prng_int32(pg_prng_state *state)
 This function selects a random int32 uniformly from the full signed 32-bit integer range [PG_INT32_MIN, PG_INT32_MAX]. Like pg_prng_uint32, it uses the upper 32 bits of the 64-bit xoroshiro128** generator output, then casts the result to a signed integer. This provides uniform coverage of both positive and negative 32-bit integers.
 
 ## Parameters / Member Variables
-- : Pointer to the pseudo-random number generator state structure
-
+- `*state`: Pointer to the pseudo-random number generator state structure
 ## Dependencies
 - Functions called/Symbols referenced:
   - [xoroshiro128ss](../x/xoroshiro128ss.md) (the core PRNG algorithm)

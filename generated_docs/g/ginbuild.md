@@ -25,10 +25,9 @@ The ginbuild function performs a complete build of a GIN index from an existing 
 The function uses a build accumulator (buildstate.accum) to collect entries during the heap scan before inserting them into the index, which helps optimize the build process.
 
 ## Parameters / Member Variables
-- : The heap relation from which to build the index
-- : The target GIN index relation being constructed  
-- : Index metadata including column information and predicate details
-
+- `heap`: The heap relation from which to build the index
+- `index`: The target GIN index relation being constructed
+- `*indexInfo`: Index metadata including column information and predicate details
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationGetNumberOfBlocks

@@ -25,9 +25,8 @@ Key characteristics:
 The function implements a dominance-based pruning algorithm similar to , but simplified since partial paths don't need to consider parameterization, startup costs, or row count differences.
 
 ## Parameters / Member Variables
-- : The RelOptInfo structure representing the relation to which the partial path will be added
-- : The new partial Path to be considered for addition to the partial_pathlist
-
+- `*parent_rel`: The RelOptInfo structure representing the relation to which the partial path will be added
+- `*new_path`: The new partial Path to be considered for addition to the partial_pathlist
 ## Dependencies
 - Functions called/Symbols referenced:
   - [compare_pathkeys](../c/compare_pathkeys.md)

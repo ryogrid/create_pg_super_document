@@ -22,8 +22,7 @@ The function performs recursive traversal through the expression tree and will l
 This function is designed to work on clauses that have been processed through expression preprocessing. For use cases outside the planner,  should be used instead.
 
 ## Parameters / Member Variables
-- : The expression node to search for mutable function references
-
+- `*clause`: The expression node to search for mutable function references
 ## Dependencies
 - Functions called/Symbols referenced:
   - [contain_mutable_functions_walker](contain_mutable_functions_walker.md)

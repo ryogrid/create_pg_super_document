@@ -18,9 +18,8 @@ This function serves as the default policy-setting routine for database objects 
 This function is used as a fallback for object types that don't require special consideration beyond the basic namespace-based or global dumping policies. Extension membership always takes precedence over any other dumping decision.
 
 ## Parameters / Member Variables
-- : Pointer to the DumpableObject to be evaluated for dumping
-- : Pointer to the Archive structure containing dump options and configuration
-
+- `*dobj`: Pointer to the DumpableObject to be evaluated for dumping
+- `*fout`: Pointer to the Archive structure containing dump options and configuration
 ## Dependencies
 - Functions called/Symbols referenced:
   - [checkExtensionMembership](../c/checkExtensionMembership.md)

@@ -31,13 +31,12 @@ This function performs the core work of  specifically for PostgreSQL's bytea dat
 The conversion process mirrors the string algorithm but operates on raw byte arrays with explicit length management, making it suitable for any binary data including images, encrypted data, or serialized objects.
 
 ## Parameters / Member Variables
-- : The bytea Datum to be converted to a scalar
-- : Output pointer for the scaled value of the input bytea
-- : Lower bound bytea Datum from histogram data
-- : Output pointer for the scaled value of the lower bound
-- : Upper bound bytea Datum from histogram data
-- : Output pointer for the scaled value of the upper bound
-
+- `value`: The bytea Datum to be converted to a scalar
+- `*scaledvalue`: Output pointer for the scaled value of the input bytea
+- `lobound`: Lower bound bytea Datum from histogram data
+- `*scaledlobound`: Output pointer for the scaled value of the lower bound
+- `hibound`: Upper bound bytea Datum from histogram data
+- `*scaledhibound`: Output pointer for the scaled value of the upper bound
 ## Dependencies
 - Functions called/Symbols referenced:
   - DatumGetByteaPP (extracts bytea pointer from Datum, called 3 times)

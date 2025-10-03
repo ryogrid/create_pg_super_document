@@ -18,9 +18,8 @@ This utility function performs a system catalog lookup to find the OID correspon
 The function leverages the LANGNAME system cache for fast lookups and follows PostgreSQL's standard pattern for object name-to-OID resolution with optional error suppression.
 
 ## Parameters / Member Variables
-- : C string containing the name of the procedural language to look up
-- : Boolean flag controlling error behavior - if false, throws an error when language is not found; if true, returns InvalidOid for missing languages
-
+- `*langname`: C string containing the name of the procedural language to look up
+- `missing_ok`: Boolean flag controlling error behavior - if false, throws an error when language is not found; if true, returns InvalidOid for missing languages
 ## Dependencies
 - Functions called/Symbols referenced:
   - GetSysCacheOid1

@@ -36,9 +36,8 @@ The function operates through several key phases:
 - Conditionally reports warnings about unrecognized encodings based on write_message parameter
 
 ## Parameters / Member Variables
-- : LC_CTYPE locale setting to analyze (NULL for current locale, "" for environment-selected)
-- : Boolean flag controlling whether to output warning messages for unrecognized encodings
-
+- `*ctype`: LC_CTYPE locale setting to analyze (NULL for current locale, "" for environment-selected)
+- `write_message`: Boolean flag controlling whether to output warning messages for unrecognized encodings
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_strcasecmp](pg_strcasecmp.md) (case-insensitive string comparison)

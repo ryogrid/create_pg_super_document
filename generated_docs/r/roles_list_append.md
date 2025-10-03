@@ -22,10 +22,9 @@ The function implements a two-tier optimization strategy:
 When the role list exceeds ROLES_LIST_BLOOM_THRESHOLD, the function automatically creates and populates a Bloom filter to accelerate future operations.
 
 ## Parameters / Member Variables
-- : The existing list of role OIDs to potentially append to
-- : Double pointer to a Bloom filter used for fast membership testing; may be NULL initially
-- : The role OID to add to the list if not already present
-
+- `*roles_list`: The existing list of role OIDs to potentially append to
+- `**bf`: Double pointer to a Bloom filter used for fast membership testing; may be NULL initially
+- `role`: The role OID to add to the list if not already present
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bloom_filter](../b/bloom_filter.md) (data structure)

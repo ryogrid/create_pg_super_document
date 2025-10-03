@@ -22,8 +22,7 @@ The function systematically validates all the string fields that correspond to t
 The validation is conservative - if any required field is NULL, the entire structure is considered invalid. This prevents potential segmentation faults or unexpected behavior when PostgreSQL attempts to use the locale information for number or currency formatting.
 
 ## Parameters / Member Variables
-- : Pointer to a  structure to be validated
-
+- `*s`: Pointer to a  structure to be validated
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (only performs pointer NULL checks)

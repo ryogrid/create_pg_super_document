@@ -18,10 +18,9 @@ This function serves as a custom BIO read method for PostgreSQL's OpenSSL integr
 When a read operation fails due to interruption or would block, the function sets appropriate retry flags to inform the OpenSSL library that the operation should be retried later. This is crucial for proper handling of non-blocking socket operations in PostgreSQL's event-driven architecture.
 
 ## Parameters / Member Variables
-- : BIO structure pointer containing connection state and app data
-- : Buffer to store read data (can be NULL for testing purposes)
-- : Maximum number of bytes to read
-
+- `*h`: BIO structure pointer containing connection state and app data
+- `*buf`: Buffer to store read data (can be NULL for testing purposes)
+- `size`: Maximum number of bytes to read
 ## Dependencies
 - Functions called/Symbols referenced:
   - [secure_raw_read](../s/secure_raw_read.md)

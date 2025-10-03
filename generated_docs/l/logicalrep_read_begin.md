@@ -18,9 +18,8 @@ This function deserializes a BEGIN message from the logical replication protocol
 This is the counterpart to logicalrep_write_begin and is used by logical replication subscribers to process transaction begin messages received from publishers.
 
 ## Parameters / Member Variables
-- : StringInfo buffer containing the serialized BEGIN message data to be read
-- : LogicalRepBeginData structure that will be populated with the extracted transaction information
-
+- `in`: StringInfo buffer containing the serialized BEGIN message data to be read
+- `*begin_data`: LogicalRepBeginData structure that will be populated with the extracted transaction information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pq_getmsgint64](../p/pq_getmsgint64.md) (reads a 64-bit integer from the input buffer)

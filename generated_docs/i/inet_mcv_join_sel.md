@@ -22,14 +22,13 @@ For each pair of values (one from each MCV list), the function applies the join 
 The function is particularly useful for join selectivity estimation in network operations where MCV statistics are available for both sides of the join, providing more accurate estimates than histogram-based methods for the most frequently occurring values.
 
 ## Parameters / Member Variables
-- : Array of Datum values from the first relation's MCV list
-- : Array of frequency values corresponding to mcv1_values
-- : Number of entries in the first MCV list
-- : Array of Datum values from the second relation's MCV list  
-- : Array of frequency values corresponding to mcv2_values
-- : Number of entries in the second MCV list
-- : OID of the join operator to apply
-
+- `*mcv1_values`: Array of Datum values from the first relation's MCV list
+- `*mcv1_numbers`: Array of frequency values corresponding to mcv1_values
+- `mcv1_nvalues`: Number of entries in the first MCV list
+- `*mcv2_values`: Array of Datum values from the second relation's MCV list
+- `*mcv2_numbers`: Array of frequency values corresponding to mcv2_values
+- `mcv2_nvalues`: Number of entries in the second MCV list
+- `operator`: OID of the join operator to apply
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_opcode](../g/get_opcode.md)

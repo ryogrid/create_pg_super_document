@@ -18,8 +18,7 @@ pg_malloc0 is a wrapper function around pg_malloc_internal that provides memory 
 This function is the PostgreSQL equivalent of the standard C library calloc(1, size) function but with added safety features and consistent behavior across PostgreSQL frontend applications. It's commonly used when you need clean, initialized memory for structures, arrays, or buffers.
 
 ## Parameters / Member Variables
-- : The number of bytes to allocate and zero-initialize
-
+- `size`: The number of bytes to allocate and zero-initialize
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_malloc_internal](pg_malloc_internal.md) (with MCXT_ALLOC_ZERO flag)

@@ -23,8 +23,7 @@ The function operates by:
 5. Setting query_depth to -1 to prevent further trigger manipulation until the next transaction
 
 ## Parameters / Member Variables
-- : Boolean indicating whether the transaction is committing (true) or aborting (false)
-
+- `isCommit`: Boolean indicating whether the transaction is committing (true) or aborting (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContextDelete](../M/MemoryContextDelete.md)

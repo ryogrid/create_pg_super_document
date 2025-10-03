@@ -23,7 +23,6 @@ The function works by:
 This function should be called in any recursive routine that might potentially recurse deep enough to overflow the stack. Most Unix systems treat stack overflow as an unrecoverable SIGSEGV signal, so PostgreSQL proactively prevents this by checking the stack depth and gracefully erroring out before hitting the hardware limit.
 
 ## Parameters / Member Variables
-This function takes no parameters and operates on global stack depth state.
 
 ## Dependencies
 - Functions called/Symbols referenced:

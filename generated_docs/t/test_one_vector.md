@@ -16,9 +16,8 @@ test_one_vector(pe_test_config *tc, const pe_test_vector *tv)
 This function serves as a test coordinator that prepares the database connection for a specific test vector by setting the appropriate client encoding, then systematically tests the vector against all available escape functions. It first sets the client encoding on the database connection to match the encoding specified in the test vector, ensuring that the escape function tests are performed under the correct encoding context. If encoding setup fails, the function terminates the entire test program. After successful encoding setup, it iterates through all registered escape functions and invokes the comprehensive testing for each one.
 
 ## Parameters / Member Variables
-- : Test configuration structure containing the database connection and test settings
-- : Test vector containing the input data, expected encoding, and test parameters
-
+- `*tc`: Test configuration structure containing the database connection and test settings
+- `*tv`: Test vector containing the input data, expected encoding, and test parameters
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQsetClientEncoding](../P/PQsetClientEncoding.md)

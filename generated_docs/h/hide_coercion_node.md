@@ -18,8 +18,7 @@ The hide_coercion_node function is used to modify the display format of various 
 The function handles multiple node types that contain CoercionForm fields and sets the appropriate format field for each type. If an unsupported node type is passed, it raises an error.
 
 ## Parameters / Member Variables
-- : A pointer to the Node structure to be marked as implicit. Must be one of the supported coercion node types with a CoercionForm field.
-
+- `*node`: A pointer to the Node structure to be marked as implicit. Must be one of the supported coercion node types with a CoercionForm field.
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (macro for node type checking)

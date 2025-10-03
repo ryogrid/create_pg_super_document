@@ -20,8 +20,7 @@ The function implements the same efficient two-tier approach:
 2. For non-ASCII characters, it performs a binary search in the  range table
 
 ## Parameters / Member Variables
-- : The Unicode code point (pg_wchar) to test for the White_Space property
-
+- `code`: The Unicode code point (pg_wchar) to test for the White_Space property
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_U_PROP_WHITE_SPACE (constant/macro)

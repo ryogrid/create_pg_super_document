@@ -23,8 +23,7 @@ This function processes STREAM STOP messages during logical replication, which s
 The function includes sophisticated locking mechanisms to coordinate between leader and parallel apply workers, ensuring proper synchronization during transaction completion. After processing, it cleans up the streaming transaction state and updates the worker's activity status.
 
 ## Parameters / Member Variables
-- : StringInfo containing the STREAM STOP message data to be processed
-
+- `s`: StringInfo containing the STREAM STOP message data to be processed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_transaction_apply_action](../g/get_transaction_apply_action.md)

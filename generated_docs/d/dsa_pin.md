@@ -24,8 +24,7 @@ This function pins a DSA area, ensuring that it will persist even when all backe
 Once pinned, the area will remain accessible through its handle even after all current attachments are released. This is particularly useful for long-lived shared data structures that need to survive backend disconnections.
 
 ## Parameters / Member Variables
-- : Pointer to the DSA area to pin (must be a valid, non-NULL area)
-
+- `*area`: Pointer to the DSA area to pin (must be a valid, non-NULL area)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (for exclusive locking)

@@ -33,8 +33,7 @@ The lifetime.end intrinsic is particularly important in JIT compilation scenario
 In the context of PostgreSQL's JIT compilation, this intrinsic is used to mark the end of lifetime for function call arguments and temporary data structures, enabling LLVM to perform better inlining and memory optimization.
 
 ## Parameters / Member Variables
-- : The LLVM module where the lifetime.end intrinsic function should be declared or retrieved
-
+- `mod`: The LLVM module where the lifetime.end intrinsic function should be declared or retrieved
 ## Dependencies
 - Functions called/Symbols referenced:
   - [l_ptr](../l/l_ptr.md)

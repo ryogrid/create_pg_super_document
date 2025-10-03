@@ -18,8 +18,7 @@ isAssignmentIndirectionExpr analyzes expressions to identify nested assignment s
 The function handles several expression types including FieldStore (for record field assignments), SubscriptingRef (for array/container assignments), and can look through type coercion expressions (CoerceToDomain and RelabelType) that might wrap the actual assignment expressions. This is particularly important for array-of-domain types where domain coercion wraps the assignment expression.
 
 ## Parameters / Member Variables
-- : The expression to analyze for assignment indirection patterns
-
+- `*expr`: The expression to analyze for assignment indirection patterns
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (macro for node type checking)

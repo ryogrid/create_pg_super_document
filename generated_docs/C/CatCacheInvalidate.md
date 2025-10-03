@@ -23,9 +23,8 @@ The function operates in several phases:
 The function accepts the small risk of false positive invalidations due to hash collisions in exchange for guaranteed safety and simplicity.
 
 ## Parameters / Member Variables
-- : Pointer to the CatCache structure containing entries to be invalidated
-- : The hash value used to identify which cache entries should be invalidated
-
+- `*cache`: Pointer to the CatCache structure containing entries to be invalidated
+- `hashValue`: The hash value used to identify which cache entries should be invalidated
 ## Dependencies
 - Functions called/Symbols referenced:
   - CACHE_elog (for debug logging)

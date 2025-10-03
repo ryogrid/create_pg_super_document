@@ -19,10 +19,9 @@ The  function is responsible for displaying the grouping keys used by a Group no
 The function operates on the child plan's target list (tlist) to determine and display the grouping columns. It temporarily adds the current Group plan to the ancestors list to maintain proper context during the explanation process.
 
 ## Parameters / Member Variables
-- : Pointer to the GroupState execution state containing information about the Group node being explained
-- : List of ancestor plan nodes used to maintain context during plan traversal
-- : Pointer to ExplainState containing formatting and output options for the EXPLAIN operation
-
+- `*gstate`: Pointer to the GroupState execution state containing information about the Group node being explained
+- `*ancestors`: List of ancestor plan nodes used to maintain context during plan traversal
+- `*es`: Pointer to ExplainState containing formatting and output options for the EXPLAIN operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lcons](../l/lcons.md) (adds plan to ancestors list)

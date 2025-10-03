@@ -20,9 +20,8 @@ This function is particularly important for contexts where precise type informat
 The function is extensively used throughout PostgreSQL's DDL processing, rule system, and schema comparison operations where exact type compatibility must be determined or displayed.
 
 ## Parameters / Member Variables
-- : PostgreSQL type OID from pg_type.oid that must be valid
-- : Type modifier value that will be included in the formatted output
-
+- `type_oid`: PostgreSQL type OID from pg_type.oid that must be valid
+- `typemod`: Type modifier value that will be included in the formatted output
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Core formatting implementation with typemod flag

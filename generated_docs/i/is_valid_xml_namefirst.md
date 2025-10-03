@@ -18,8 +18,7 @@ This function implements the XML specification's rules for valid first character
 This validation is crucial for ensuring that SQL identifiers can be properly mapped to valid XML names when generating XML output from PostgreSQL data.
 
 ## Parameters / Member Variables
-- : A pg_wchar (Unicode codepoint) representing the character to be validated as a potential first character of an XML name.
-
+- `c`: A pg_wchar (Unicode codepoint) representing the character to be validated as a potential first character of an XML name.
 ## Dependencies
 - Functions called/Symbols referenced:
   - xmlIsBaseCharQ (libxml2 function to check if character is a base character)

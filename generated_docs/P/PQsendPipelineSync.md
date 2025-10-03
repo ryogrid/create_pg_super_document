@@ -20,8 +20,7 @@ Unlike PQpipelineSync, this function allows for batching multiple commands and s
 The Sync message serves as a synchronization point in pipeline mode, marking boundaries between batches of commands and ensuring proper error recovery semantization when the server processes it.
 
 ## Parameters / Member Variables
-- : The PostgreSQL connection in pipeline mode
-
+- `*conn`: The PostgreSQL connection in pipeline mode
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pqPipelineSyncInternal](../p/pqPipelineSyncInternal.md)

@@ -16,9 +16,8 @@ jspInit(JsonPathItem *v, JsonPath *js)
 This function serves as a convenient wrapper around jspInitByBuffer that initializes a JsonPathItem structure from a JsonPath object. It first validates that the JsonPath header contains a supported version (ignoring the LAX flag), then delegates to jspInitByBuffer to perform the actual initialization from the data buffer starting at offset 0. This is typically the first function called when beginning to process a compiled JSON path expression.
 
 ## Parameters / Member Variables
-- : Pointer to a JsonPathItem structure to be initialized with the root node information
-- : Pointer to the JsonPath object containing the compiled JSON path expression data
-
+- `*v`: Pointer to a JsonPathItem structure to be initialized with the root node information
+- `*js`: Pointer to the JsonPath object containing the compiled JSON path expression data
 ## Dependencies
 - Functions called/Symbols referenced:
   - [JsonPath](../J/JsonPath.md) (struct type)

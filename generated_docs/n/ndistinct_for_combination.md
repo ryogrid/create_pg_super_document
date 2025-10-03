@@ -25,11 +25,10 @@ The function works by:
 6. Applying the standard n-distinct formula to estimate total distinct combinations
 
 ## Parameters / Member Variables
-- : Total number of rows in the table
-- : StatsBuildData structure containing sample data for statistics building
-- : Number of columns in the combination
-- : Array of column attribute numbers that form the combination
-
+- `totalrows`: Total number of rows in the table
+- `*data`: StatsBuildData structure containing sample data for statistics building
+- `k`: Number of columns in the combination
+- `*combination`: Array of column attribute numbers that form the combination
 ## Dependencies
 - Functions called/Symbols referenced:
   - [multi_sort_init](../m/multi_sort_init.md) (initializes multi-dimensional sorting)

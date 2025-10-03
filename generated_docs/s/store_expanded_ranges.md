@@ -18,10 +18,9 @@ This function performs the final step in range processing by converting an array
 The function ensures proper organization of the output data structure by setting appropriate counts for ranges and values, and marking all values as sorted since the expanded ranges have been processed and sorted during prior operations. This conversion is essential for maintaining the compact storage format required by the BRIN index structure.
 
 ## Parameters / Member Variables
-- : Output structure to store the converted ranges
-- : Input array of expanded ranges to convert
-- : Number of expanded ranges in the input array
-
+- `*ranges`: Output structure to store the converted ranges
+- `*eranges`: Input array of expanded ranges to convert
+- `neranges`: Number of expanded ranges in the input array
 ## Dependencies
 - Functions called/Symbols referenced:
   - [count_values](../c/count_values.md) (for assertion validation)

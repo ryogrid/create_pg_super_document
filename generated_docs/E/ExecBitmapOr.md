@@ -18,8 +18,7 @@ ExecBitmapOr is a placeholder function that implements the standard ExecProcNode
 The function exists to satisfy the function pointer assignment in the node state structure during initialization, but any attempt to call it will result in a runtime error with the message "BitmapOr node does not support ExecProcNode call convention".
 
 ## Parameters / Member Variables
-- : Pointer to the plan state structure (unused, as function immediately errors)
-
+- `*pstate`: Pointer to the plan state structure (unused, as function immediately errors)
 ## Dependencies
 - Functions called/Symbols referenced:
   - elog (for error reporting)

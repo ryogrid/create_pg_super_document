@@ -18,10 +18,9 @@ OpenTransientFilePerm serves as PostgreSQL's managed wrapper around file opening
 Unlike AllocateFile which uses stdio buffering, this function provides direct access to the underlying file descriptor, making it suitable for operations that require precise control over I/O operations or when buffering is not desired. The function automatically manages file descriptor limits by closing least-recently-used files when necessary and ensures proper cleanup during transaction boundaries.
 
 ## Parameters / Member Variables
-- : The path to the file to be opened
-- : File access and creation flags (O_RDONLY, O_WRONLY, O_RDWR, O_CREAT, etc.)
-- : File permission mode (e.g., 0600, 0644) used when creating new files
-
+- `*fileName`: The path to the file to be opened
+- `fileFlags`: File access and creation flags (O_RDONLY, O_WRONLY, O_RDWR, O_CREAT, etc.)
+- `fileMode`: File permission mode (e.g., 0600, 0644) used when creating new files
 ## Dependencies
 - Functions called/Symbols referenced:
   - DO_DB (debug logging macro)

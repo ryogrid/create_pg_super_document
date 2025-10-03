@@ -16,9 +16,8 @@ initKeyArray(KeyArray *keys, int32 maxvalues)
 This function initializes a KeyArray structure by allocating memory for storing Datum values and their corresponding GinNullCategory classifications. It sets up the initial state of the KeyArray with zero values and establishes the maximum capacity. This is typically used in GIN index operations to prepare a container for collecting and processing index keys before insertion or cleanup operations.
 
 ## Parameters / Member Variables
-- : Pointer to the KeyArray structure to be initialized
-- : Maximum number of values that can be stored in this KeyArray
-
+- `*keys`: Pointer to the KeyArray structure to be initialized
+- `maxvalues`: Maximum number of values that can be stored in this KeyArray
 ## Dependencies
 - Functions called/Symbols referenced:
   - palloc_array (for allocating memory arrays)

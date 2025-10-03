@@ -16,7 +16,6 @@ IsLogicalLauncher(void)
 This function provides a simple way to check if the currently executing process is the logical replication launcher. It compares the process ID stored in the shared memory logical replication context (LogicalRepCtx->launcher_pid) with the current process's PID (MyProcPid). This check is useful for conditional behavior in code paths that may be executed by different types of processes, allowing the logical replication launcher to perform launcher-specific operations while other processes skip them.
 
 ## Parameters / Member Variables
-(This function takes no parameters)
 
 ## Dependencies
 - Functions called/Symbols referenced:

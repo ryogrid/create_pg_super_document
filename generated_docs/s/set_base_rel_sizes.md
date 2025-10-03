@@ -20,8 +20,7 @@ The function iterates through the simple_rel_array, processing only base relatio
 The sequencing is critical: parallel considerations must be evaluated before set_rel_size() because inheritance parents may have their consider_parallel flag modified during append relation processing, and some RTE types immediately create paths during size estimation.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global optimizer state, including the simple_rel_array and simple_rte_array
-
+- `*root`: PlannerInfo structure containing global optimizer state, including the simple_rel_array and simple_rte_array
 ## Dependencies
 - Functions called/Symbols referenced:
   - RELOPT_BASEREL (enum value)

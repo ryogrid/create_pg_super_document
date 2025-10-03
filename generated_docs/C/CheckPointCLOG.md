@@ -17,7 +17,6 @@ CheckPointCLOG is responsible for flushing all dirty CLOG (Commit Log) pages to 
 The function includes tracing hooks for performance monitoring and debugging, marking the start and completion of the CLOG checkpoint operation.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

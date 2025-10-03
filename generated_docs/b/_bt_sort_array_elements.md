@@ -19,12 +19,11 @@ This function performs in-place sorting of array elements using a provided compa
 The function is optimized to handle the case where there are one or fewer elements (no sorting needed) and uses a context structure to pass comparison parameters to the sorting routines.
 
 ## Parameters / Member Variables
-- : ScanKey containing the collation information for the index column
-- : FmgrInfo structure containing the comparison procedure to use for sorting
-- : Boolean flag indicating whether to sort in descending order (true) or ascending order (false)
-- : Array of Datum values to be sorted and deduplicated in-place
-- : Number of elements in the input array
-
+- `skey`: ScanKey containing the collation information for the index column
+- `*sortproc`: FmgrInfo structure containing the comparison procedure to use for sorting
+- `reverse`: Boolean flag indicating whether to sort in descending order (true) or ascending order (false)
+- `*elems`: Array of Datum values to be sorted and deduplicated in-place
+- `nelems`: Number of elements in the input array
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BTSortArrayContext](../B/BTSortArrayContext.md)

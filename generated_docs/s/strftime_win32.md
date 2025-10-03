@@ -25,11 +25,10 @@ The function works by:
 This approach ensures that locale-aware date/time strings are properly encoded in UTF-8, which PostgreSQL can handle directly.
 
 ## Parameters / Member Variables
-- : Output buffer where the formatted string will be stored
-- : Size of the destination buffer
-- : Format string specifying how to format the date/time (expected to be plain ASCII/UTF-8)
-- : Pointer to a tm structure containing the date/time to format
-
+- `*dst`: Output buffer where the formatted string will be stored
+- `dstlen`: Size of the destination buffer
+- `*format`: Format string specifying how to format the date/time (expected to be plain ASCII/UTF-8)
+- `*tm`: Pointer to a tm structure containing the date/time to format
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (Windows API)

@@ -18,10 +18,9 @@ This function estimates cardinality for relations that reference Common Table Ex
 The function distinguishes between these cases using the  flag in the range table entry. For self-referencing CTEs, it assumes the average worktable size will be larger than the base (non-recursive) term by the specified factor, then clamps the result to ensure a reasonable estimate. This approach acknowledges that recursive query fan-out varies significantly depending on data characteristics.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing query planning context and global information
-- : RelOptInfo structure representing the CTE relation being sized, must be a base relation with CTE RTE
-- : Estimated number of rows returned by the CTE or its non-recursive term
-
+- `*root`: PlannerInfo structure containing query planning context and global information
+- `*rel`: RelOptInfo structure representing the CTE relation being sized, must be a base relation with CTE RTE
+- `cte_rows`: Estimated number of rows returned by the CTE or its non-recursive term
 ## Dependencies
 - Functions called/Symbols referenced:
   - planner_rt_fetch

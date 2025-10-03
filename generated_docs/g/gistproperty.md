@@ -20,13 +20,12 @@ This function is a required part of the GiST access method interface that checks
 The function examines the opclass (operator class) associated with the specified index column to determine whether specific support functions exist. For distance orderability, it checks for a distance function; for returnability, it checks for a fetch function or absence of a compress function.
 
 ## Parameters / Member Variables
-- : OID of the index being queried
-- : Column number within the index (must be > 0, as column-level inquiries only)
-- : The IndexAMProperty being queried (AMPROP_DISTANCE_ORDERABLE or AMPROP_RETURNABLE)
-- : Name of the property (for error reporting, not used in current implementation)
-- : Output parameter - set to the boolean result of the property check
-- : Output parameter - set to true if the property value cannot be determined
-
+- `index_oid`: OID of the index being queried
+- `attno`: Column number within the index (must be > 0, as column-level inquiries only)
+- `prop`: The IndexAMProperty being queried (AMPROP_DISTANCE_ORDERABLE or AMPROP_RETURNABLE)
+- `*propname`: Name of the property (for error reporting, not used in current implementation)
+- `*res`: Output parameter - set to the boolean result of the property check
+- `*isnull`: Output parameter - set to true if the property value cannot be determined
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_index_column_opclass](get_index_column_opclass.md)

@@ -24,9 +24,8 @@ The function handles cleanup robustly:
 The cleanup is designed to be non-fatal - PosixSemaphoreKill() logs errors rather than crashing, allowing the shutdown process to continue even if individual semaphore cleanup fails.
 
 ## Parameters / Member Variables
-- : Exit status (standard for on_shmem_exit callbacks, unused in implementation)
-- : Additional argument (standard for on_shmem_exit callbacks, unused in implementation)
-
+- `status`: Exit status (standard for on_shmem_exit callbacks, unused in implementation)
+- `arg`: Additional argument (standard for on_shmem_exit callbacks, unused in implementation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PosixSemaphoreKill](../P/PosixSemaphoreKill.md) (destroys individual semaphores)

@@ -22,8 +22,7 @@ The function implements a loop that:
 4. Updates the slot's metadata when a consistent point is reached
 
 ## Parameters / Member Variables
-- : LogicalDecodingContext pointer containing the decoding state, WAL reader, and associated replication slot
-
+- `*ctx`: LogicalDecodingContext pointer containing the decoding state, WAL reader, and associated replication slot
 ## Dependencies
 - Functions called/Symbols referenced:
   - [XLogBeginRead](../X/XLogBeginRead.md)

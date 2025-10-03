@@ -16,9 +16,8 @@ dumpEventTrigger(Archive *fout, const EventTriggerInfo *evtinfo)
 The  function generates SQL CREATE EVENT TRIGGER statements to restore PostgreSQL event triggers. Event triggers fire on database-wide events (like DDL commands) rather than table-specific events. The function constructs the CREATE EVENT TRIGGER statement with the trigger name, event type, optional WHEN TAG IN clause for filtering specific DDL commands, and the EXECUTE FUNCTION clause specifying the trigger function. If the event trigger is not in the default enabled state ('O'), it appends ALTER EVENT TRIGGER statements to set the correct enabled state (DISABLE, ENABLE, ENABLE ALWAYS, ENABLE REPLICA).
 
 ## Parameters / Member Variables
-- : Archive structure containing dump options and output methods
-- : EventTriggerInfo structure containing event trigger metadata including name, event type, tags filter, function name, owner, and enabled state
-
+- `*fout`: Archive structure containing dump options and output methods
+- `*evtinfo`: EventTriggerInfo structure containing event trigger metadata including name, event type, tags filter, function name, owner, and enabled state
 ## Dependencies
 - Functions called/Symbols referenced:
   - [fmtId](../f/fmtId.md)

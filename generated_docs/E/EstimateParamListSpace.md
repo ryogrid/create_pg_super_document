@@ -16,8 +16,7 @@ EstimateParamListSpace(ParamListInfo paramLI)
 The EstimateParamListSpace function calculates the total memory space needed to serialize a ParamListInfo structure and all its parameter data. This is typically used in parallel query execution where parameter lists need to be shared between processes. The function iterates through all parameters in the list, accounting for the space needed to store each parameter's type OID, flags, and datum value. For dynamic parameters, it uses the paramFetch hook to get current values. The calculation handles both pass-by-value and pass-by-reference datatypes appropriately, using datumEstimateSpace for accurate size estimation of variable-length data.
 
 ## Parameters / Member Variables
-- : The ParamListInfo structure for which to estimate serialization space. Returns minimal space (sizeof(int)) if NULL or has no parameters.
-
+- `paramLI`: The ParamListInfo structure for which to estimate serialization space. Returns minimal space (sizeof(int)) if NULL or has no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [add_size](../a/add_size.md) (safely adds sizes, checking for overflow)

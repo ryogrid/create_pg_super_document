@@ -20,9 +20,8 @@ The function operates in two phases: first, it flushes all dirty buffers for all
 This bulk approach is more efficient because it can optimize I/O operations across multiple relations and takes advantage of the storage system's ability to batch synchronization operations.
 
 ## Parameters / Member Variables
-- : Array of SMgrRelation pointers representing the relations to sync
-- : Integer count of the number of relations in the rels array
-
+- `*rels`: Array of SMgrRelation pointers representing the relations to sync
+- `nrels`: Integer count of the number of relations in the rels array
 ## Dependencies
 - Functions called/Symbols referenced:
   - [FlushRelationsAllBuffers](../F/FlushRelationsAllBuffers.md) (flushes dirty buffers for all relations)

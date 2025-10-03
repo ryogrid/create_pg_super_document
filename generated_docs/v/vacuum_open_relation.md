@@ -25,12 +25,11 @@ When relation access fails, the function provides detailed diagnostic informatio
 The function handles race conditions gracefully - relations may disappear between discovery and processing, which is treated as a normal condition rather than an error.
 
 ## Parameters / Member Variables
-- : Object identifier (OID) of the relation to open
-- : RangeVar structure containing relation name information for error reporting (may be NULL)
-- : Bitfield specifying the operation type (VACOPT_VACUUM, VACOPT_ANALYZE) and behavioral flags like VACOPT_SKIP_LOCKED
-- : Boolean flag indicating whether verbose logging should be performed
-- : Lock mode to acquire on the relation (e.g., ShareUpdateExclusiveLock for vacuum)
-
+- `relid`: Object identifier (OID) of the relation to open
+- `*relation`: RangeVar structure containing relation name information for error reporting (may be NULL)
+- `options`: Bitfield specifying the operation type (VACOPT_VACUUM, VACOPT_ANALYZE) and behavioral flags like VACOPT_SKIP_LOCKED
+- `verbose`: Boolean flag indicating whether verbose logging should be performed
+- `lmode`: Lock mode to acquire on the relation (e.g., ShareUpdateExclusiveLock for vacuum)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [try_relation_open](../t/try_relation_open.md) (safe relation opening)

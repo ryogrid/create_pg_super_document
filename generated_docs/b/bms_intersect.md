@@ -16,9 +16,8 @@ bms_intersect(const Bitmapset *a, const Bitmapset *b)
 This function performs a bitwise intersection operation on two Bitmapsets, creating a new Bitmapset that contains only the bits that are set in both input sets. The function optimizes performance by copying the smaller input set first and then ANDing it with the larger set. It also performs important optimizations: it tracks the last non-zero word to trim trailing zeros, and it returns NULL if the intersection is empty (no common bits). Both input sets remain unmodified.
 
 ## Parameters / Member Variables
-- : First input bitmapset (can be NULL)
-- : Second input bitmapset (can be NULL)
-
+- `*a`: First input bitmapset (can be NULL)
+- `*b`: Second input bitmapset (can be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bms_is_valid_set](bms_is_valid_set.md) (validation macro for input bitmapsets)

@@ -23,10 +23,9 @@ The function constructs and executes a DROP_REPLICATION_SLOT SQL command with th
 The function uses PG_TRY/PG_FINALLY blocks to ensure proper memory cleanup of the command string regardless of execution outcome. This is essential for preventing memory leaks during error conditions.
 
 ## Parameters / Member Variables
-- : Active WAL receiver connection to the publisher node where the slot exists
-- : Name of the replication slot to be dropped on the publisher
-- : If true, treat missing slot as non-fatal and log instead of erroring
-
+- `*wrconn`: Active WAL receiver connection to the publisher node where the slot exists
+- `*slotname`: Name of the replication slot to be dropped on the publisher
+- `missing_ok`: If true, treat missing slot as non-fatal and log instead of erroring
 ## Dependencies
 - Functions called/Symbols referenced:
   - walrcv_exec: Executes SQL command on the remote publisher via replication connection

@@ -20,9 +20,8 @@ The function checks the namespace item's visibility flags to determine if the re
 When this function returns true, PostgreSQL can provide helpful hints like "To reference that column, you must use a table-qualified name" in error messages.
 
 ## Parameters / Member Variables
-- : ParseState structure containing the current parsing context and namespace information
-- : RangeTblEntry to check for qualified column visibility
-
+- `*pstate`: ParseState structure containing the current parsing context and namespace information
+- `*rte`: RangeTblEntry to check for qualified column visibility
 ## Dependencies
 - Functions called/Symbols referenced:
   - [findNSItemForRTE](../f/findNSItemForRTE.md)

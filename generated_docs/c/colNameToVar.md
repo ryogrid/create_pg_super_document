@@ -19,11 +19,10 @@ The  function performs an unqualified column name lookup within the PostgreSQL p
 The search process iterates through all namespace items in the current parse state, filtering out items that are not column-visible or lateral-only items when not in a lateral context. For each valid namespace item, it calls  to perform the actual column search.
 
 ## Parameters / Member Variables
-- : The current parse state containing the namespace to search
-- : The unqualified column name to search for
-- : If true, only search in the innermost query level (don't traverse parent parse states)
-- : Source location for error reporting purposes
-
+- `*pstate`: The current parse state containing the namespace to search
+- `*colname`: The unqualified column name to search for
+- `localonly`: If true, only search in the innermost query level (don't traverse parent parse states)
+- `location`: Source location for error reporting purposes
 ## Dependencies
 - Functions called/Symbols referenced:
   - [scanNSItemForColumn](../s/scanNSItemForColumn.md)

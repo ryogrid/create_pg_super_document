@@ -23,7 +23,6 @@ Like SPI_rollback, this function performs the same critical validation checks:
 The key difference from SPI_rollback is that transaction characteristics are saved before the rollback and restored in the new transaction, providing continuity of transaction properties across the boundary. This implements SQL standard ROLLBACK AND CHAIN semantics.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

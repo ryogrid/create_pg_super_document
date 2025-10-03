@@ -18,10 +18,9 @@ FileSetPath constructs a standardized directory path for FileSet storage within 
 The function is static and serves as an internal utility within the fileset.c module for consistent path generation across various FileSet operations.
 
 ## Parameters / Member Variables
-- : Output buffer to store the constructed path string (must be at least MAXPGPATH in size)
-- : Pointer to the FileSet structure containing creator_pid and number for unique identification
-- : OID of the tablespace where the FileSet directory should be located
-
+- `*path`: Output buffer to store the constructed path string (must be at least MAXPGPATH in size)
+- `*fileset`: Pointer to the FileSet structure containing creator_pid and number for unique identification
+- `tablespace`: OID of the tablespace where the FileSet directory should be located
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TempTablespacePath](../T/TempTablespacePath.md) (constructs the base temporary directory path for the tablespace)

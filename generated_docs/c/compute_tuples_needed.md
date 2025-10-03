@@ -22,8 +22,7 @@ The function returns -1 in two specific scenarios:
 For normal LIMIT/OFFSET operations, it returns the sum of count + offset, which represents the maximum position that will be accessed. The function includes overflow protection - if the addition overflows, it returns a negative value which is treated as unlimited.
 
 ## Parameters / Member Variables
-- : LimitState containing the computed offset, count, noCount flag, and limitOption
-
+- `*node`: LimitState containing the computed offset, count, noCount flag, and limitOption
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (simple arithmetic and field access)

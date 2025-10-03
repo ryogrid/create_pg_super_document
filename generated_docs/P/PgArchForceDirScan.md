@@ -21,6 +21,7 @@ The forced directory scan bypasses any caching or optimization that the archiver
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_atomic_write_membarrier_u32](../p/pg_atomic_write_membarrier_u32.md): Atomically writes a 32-bit value with memory barrier semantics

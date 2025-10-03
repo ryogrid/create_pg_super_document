@@ -18,10 +18,9 @@ PQsetResultAttrs configures the column metadata for a PGresult by copying the pr
 The function maintains the binary flag of the result - if any column uses text format (format == 0), the entire result is marked as non-binary. This ensures consistent format handling across all columns in the result set.
 
 ## Parameters / Member Variables
-- : Target PGresult to set attributes for
-- : Number of columns in the result set
-- : Array of PGresAttDesc structures containing column metadata
-
+- `*res`: Target PGresult to set attributes for
+- `numAttributes`: Number of columns in the result set
+- `*attDescs`: Array of PGresAttDesc structures containing column metadata
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQresultAlloc](PQresultAlloc.md)

@@ -16,7 +16,6 @@ do_advice(void)
 This is a simple utility function that outputs a standardized help message to stderr. It provides users with guidance on how to get more detailed information about pg_ctl command-line options and usage. The function uses the global progname variable to display the correct program name in the help message, making it consistent with the actual invocation method used by the user.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -23,11 +23,10 @@ This function retrieves a buffer for an existing page in a hash index by its blo
 The returned buffer is both "locked and pinned" - meaning it has an incremented reference count and appropriate lock held.
 
 ## Parameters / Member Variables
-- : The hash index relation to read from
-- : Block number of the page to retrieve (must not be P_NEW)  
-- : Lock mode - HASH_READ, HASH_WRITE, or HASH_NOLOCK
-- : Bitwise OR of allowed page types for validation by _hash_checkpage
-
+- `rel`: The hash index relation to read from
+- `blkno`: Block number of the page to retrieve (must not be P_NEW)
+- `access`: Lock mode - HASH_READ, HASH_WRITE, or HASH_NOLOCK
+- `flags`: Bitwise OR of allowed page types for validation by _hash_checkpage
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReadBuffer](../R/ReadBuffer.md) (buffer manager function to read a page)

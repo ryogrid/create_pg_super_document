@@ -22,8 +22,7 @@ The function workflow:
 4. Handle cancellation and error propagation
 
 ## Parameters / Member Variables
-- : SQL name pattern for filtering extensions (can be NULL for all extensions)
-
+- `*pattern`: SQL name pattern for filtering extensions (can be NULL for all extensions)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQExpBufferData](../P/PQExpBufferData.md) (data structure)

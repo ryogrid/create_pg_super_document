@@ -20,13 +20,12 @@ AlterTypeNamespaceInternal(Oid typeOid, Oid nspOid,
 AlterTypeNamespaceInternal is the workhorse function that performs the actual type namespace change operations. It handles the complete process including catalog updates, dependency tracking, constraint migration, and recursive processing of associated array types. The function distinguishes between different type categories (composite types, domains, table row types) and applies appropriate handling for each. It maintains referential integrity by updating both pg_type and pg_class catalogs for composite types and properly managing namespace dependencies.
 
 ## Parameters / Member Variables
-- : OID of the type to be moved to the new namespace
-- : OID of the target namespace where the type should be relocated
-- : Boolean flag indicating if this is an internal recursive call for an array type
-- : Boolean flag to silently skip table row types instead of erroring
-- : Boolean flag to raise an error when encountering table row types (ignored if ignoreDependent is true)
-- : ObjectAddresses structure tracking all objects moved during the operation to prevent duplicate processing
-
+- `typeOid`: OID of the type to be moved to the new namespace
+- `nspOid`: OID of the target namespace where the type should be relocated
+- `isImplicitArray`: Boolean flag indicating if this is an internal recursive call for an array type
+- `ignoreDependent`: Boolean flag to silently skip table row types instead of erroring
+- `errorOnTableType`: Boolean flag to raise an error when encountering table row types (ignored if ignoreDependent is true)
+- `*objsMoved`: ObjectAddresses structure tracking all objects moved during the operation to prevent duplicate processing
 ## Dependencies
 - Functions called/Symbols referenced:
   - [object_address_present](../o/object_address_present.md)

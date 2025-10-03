@@ -22,8 +22,7 @@ ExecReScanLimit is the rescan method for LIMIT execution nodes in PostgreSQL's e
 The function ensures proper ordering by recomputing limits before rescanning the child node, which is particularly important when the child is a Sort node that needs to know the parameter values.
 
 ## Parameters / Member Variables
-- : Pointer to the LimitState structure representing the LIMIT node being rescanned
-
+- `*node`: Pointer to the LimitState structure representing the LIMIT node being rescanned
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Gets the outer plan state from the LIMIT node

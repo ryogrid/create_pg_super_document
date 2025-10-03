@@ -20,10 +20,9 @@ This function updates a BlockRefTableEntry to record that a specific block has b
 The function handles dynamic allocation and reallocation of chunk arrays when new blocks need to be tracked. It ensures that the data structures can grow to accommodate any valid block number within the relation.
 
 ## Parameters / Member Variables
-- : Pointer to the BlockRefTableEntry that will be updated to track the modified block
-- : Fork number identifying which fork of the relation contains the modified block
-- : Block number within the fork that has been modified
-
+- `*entry`: Pointer to the BlockRefTableEntry that will be updated to track the modified block
+- `forknum`: Fork number identifying which fork of the relation contains the modified block
+- `blknum`: Block number within the fork that has been modified
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc0](../p/palloc0.md)

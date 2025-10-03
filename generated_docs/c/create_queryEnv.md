@@ -16,7 +16,6 @@ create_queryEnv(void)
 The create_queryEnv function is a simple constructor that allocates and zero-initializes a new QueryEnvironment structure. A QueryEnvironment is used to manage temporary named relations that exist only during the lifetime of a query or transaction. This function uses palloc0 to ensure the structure is properly initialized with all fields set to zero/NULL.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

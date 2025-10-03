@@ -22,7 +22,6 @@ The function uses conditional compilation to determine the source of timezone da
 This design allows PostgreSQL to be configured to use either its bundled timezone database or the system's timezone database, providing flexibility for different deployment scenarios.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

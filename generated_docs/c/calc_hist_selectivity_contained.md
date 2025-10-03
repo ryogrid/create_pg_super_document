@@ -24,14 +24,13 @@ The algorithm works by:
 3. Summing these fractions weighted by the bin populations
 
 ## Parameters / Member Variables
-- : Type cache entry containing range type information and comparison functions
-- : Lower bound of the constant range for containment testing
-- : Upper bound of the constant range for containment testing  
-- : Array of histogram values for range lower bounds
-- : Number of values in the lower bound histogram
-- : Array of histogram values for range lengths
-- : Number of values in the length histogram
-
+- `*typcache`: Type cache entry containing range type information and comparison functions
+- `*lower`: Lower bound of the constant range for containment testing
+- `*upper`: Upper bound of the constant range for containment testing
+- `*hist_lower`: Array of histogram values for range lower bounds
+- `hist_nvalues`: Number of values in the lower bound histogram
+- `*length_hist_values`: Array of histogram values for range lengths
+- `length_hist_nvalues`: Number of values in the length histogram
 ## Dependencies
 - Functions called/Symbols referenced:
   - [rbound_bsearch](../r/rbound_bsearch.md)

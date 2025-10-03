@@ -25,10 +25,9 @@ The function follows a standard pattern used throughout the connection string pa
 This design separates the high-level parsing orchestration from the detailed URI syntax parsing logic, making the code more maintainable and testable.
 
 ## Parameters / Member Variables
-- : The URI-format connection string to parse (e.g., "postgresql://localhost:5432/mydb")
-- : Buffer for storing detailed error messages if parsing fails
-- : Boolean flag indicating whether to populate unspecified parameters with default values
-
+- `*uri`: The URI-format connection string to parse (e.g., "postgresql://localhost:5432/mydb")
+- `errorMessage`: Buffer for storing detailed error messages if parsing fails
+- `use_defaults`: Boolean flag indicating whether to populate unspecified parameters with default values
 ## Dependencies
 - Functions called/Symbols referenced:
   - [conninfo_init](conninfo_init.md)

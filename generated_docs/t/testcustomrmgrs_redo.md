@@ -20,8 +20,7 @@ Since this is a test module that doesn't manage any real data structures requiri
 The function extracts the operation info from the WAL record by masking off the info flags using , leaving only the operation-specific bits for validation.
 
 ## Parameters / Member Variables
-- : Pointer to an  structure containing the WAL record being processed during recovery
-
+- `*record`: Pointer to an  structure containing the WAL record being processed during recovery
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (extracts record info/flags)

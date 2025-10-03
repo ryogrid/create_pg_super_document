@@ -21,9 +21,8 @@ The function handles several compatibility scenarios:
 - Enforces strict type matching for all other cases through assertions
 
 ## Parameters / Member Variables
-- : Pointer to ExprEvalStep containing the fetch operation details and expected slot type information
-- : Pointer to TupleTableSlot that needs to be validated for compatibility
-
+- `*op`: Pointer to ExprEvalStep containing the fetch operation details and expected slot type information
+- `*slot`: Pointer to TupleTableSlot that needs to be validated for compatibility
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExprEvalStep](../E/ExprEvalStep.md) (structure access)

@@ -18,9 +18,8 @@ This function is specifically designed for use within  operations to append subd
 The function includes an optimization that avoids unnecessary copying when the path and subdir pointers refer to the same memory location. It returns a pointer to the new end location of the path, which is useful for continuing path construction operations. Note that this function does not null-terminate the resulting string, as that responsibility belongs to the calling function.
 
 ## Parameters / Member Variables
-- : Output buffer where the subdirectory name will be appended
-- : Source string containing the subdirectory name to append
-
+- `*path`: Output buffer where the subdirectory name will be appended
+- `*subdir`: Source string containing the subdirectory name to append
 ## Dependencies
 - Functions called/Symbols referenced:
   - (No external function calls - uses standard C library functions strlen, memmove)

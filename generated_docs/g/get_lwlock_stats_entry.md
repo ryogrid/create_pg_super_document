@@ -18,8 +18,7 @@ This function serves as the primary interface for accessing lock statistics entr
 When creating new entries, the function initializes all counters to zero. The hash key consists of the lock's tranche identifier and the lock instance pointer, ensuring each lock has a unique statistics entry.
 
 ## Parameters / Member Variables
-- : Pointer to the LWLock for which statistics are needed
-
+- `*lock`: Pointer to the LWLock for which statistics are needed
 ## Dependencies
 - Functions called/Symbols referenced:
   - MemSet

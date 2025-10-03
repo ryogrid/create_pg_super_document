@@ -21,11 +21,10 @@ The  function implements a sophisticated state set allocation strategy for Postg
 The replacement algorithm uses a circular search pattern starting from  to find victim state sets. It calculates an "ancient" threshold based on the current position and search history, then looks for unlocked state sets that were last seen before this threshold. The function maintains the  pointer to avoid repeatedly checking the same state sets, providing better cache locality and performance.
 
 ## Parameters / Member Variables
-- : Pointer to the vars structure containing regex execution variables and context
-- : Pointer to the DFA structure representing the finite automaton
-- : Current character pointer in the input string being matched
-- : Pointer to the start of the input string being processed
-
+- `*v`: Pointer to the vars structure containing regex execution variables and context
+- `*d`: Pointer to the DFA structure representing the finite automaton
+- `*cp`: Current character pointer in the input string being matched
+- `*start`: Pointer to the start of the input string being processed
 ## Dependencies
 - Functions called/Symbols referenced:
   - FDEBUG (debugging macro for operation tracing)

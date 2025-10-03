@@ -26,8 +26,7 @@ The function performs the following operations under exclusive lock protection:
 This synchronization is essential for making informed decisions about memory usage, batch sizing, and whether further repartitioning is necessary.
 
 ## Parameters / Member Variables
-- : The HashJoinTable containing both local batch accessors and shared parallel state information
-
+- `hashtable`: The HashJoinTable containing both local batch accessors and shared parallel state information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockAcquire](../L/LWLockAcquire.md), LWLockRelease (lightweight locking)

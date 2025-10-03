@@ -27,9 +27,8 @@ The function operates in two phases:
 This dual-fork approach for unlogged sequences ensures that after a crash, the sequence can be properly initialized from the init fork since unlogged relations lose their main fork data during recovery.
 
 ## Parameters / Member Variables
-- : Relation representing the sequence to populate
-- : HeapTuple containing the sequence data to write (last_value, log_cnt, is_called)
-
+- `rel`: Relation representing the sequence to populate
+- `tuple`: HeapTuple containing the sequence data to write (last_value, log_cnt, is_called)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [fill_seq_fork_with_data](fill_seq_fork_with_data.md)

@@ -17,13 +17,12 @@ accumStats(StatsData *stats, bool skipped, double lat, double lag,
 The  function is a core statistics collection function in pgbench that processes and records transaction execution results. It categorizes transactions based on their execution status and updates various performance counters accordingly. The function handles successful transactions by recording latency and lag statistics, tracks retry attempts, counts different types of failures (serialization errors, deadlocks), and maintains skipped transaction counts. This data is essential for pgbench's performance reporting and analysis capabilities.
 
 ## Parameters / Member Variables
-- : Pointer to StatsData structure where statistics will be accumulated
-- : Boolean flag indicating if the transaction was skipped (true) or executed (false)
-- : Transaction latency in milliseconds for successful transactions
-- : Schedule lag in milliseconds when throttle_delay is enabled
-- : Execution status enum indicating transaction outcome (success, serialization error, deadlock, etc.)
-- : Number of attempts made to execute this transaction (including retries)
-
+- `*stats`: Pointer to StatsData structure where statistics will be accumulated
+- `skipped`: Boolean flag indicating if the transaction was skipped (true) or executed (false)
+- `lat`: Transaction latency in milliseconds for successful transactions
+- `lag`: Schedule lag in milliseconds when throttle_delay is enabled
+- `estatus`: Execution status enum indicating transaction outcome (success, serialization error, deadlock, etc.)
+- `tries`: Number of attempts made to execute this transaction (including retries)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [addToSimpleStats](addToSimpleStats.md) (for latency and lag statistics)

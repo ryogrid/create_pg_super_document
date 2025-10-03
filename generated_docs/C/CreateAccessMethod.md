@@ -16,8 +16,7 @@ CreateAccessMethod(CreateAmStmt *stmt)
 CreateAccessMethod processes a CREATE ACCESS METHOD statement by inserting a new tuple into the pg_am system catalog. The function performs several validation checks including superuser privilege verification and name uniqueness, then creates the catalog entry with proper dependency tracking. It establishes a dependency relationship between the access method and its handler function, and records the access method as part of the current extension if applicable.
 
 ## Parameters / Member Variables
-- : Pointer to CreateAmStmt structure containing the access method name, handler function name, and access method type
-
+- `*stmt`: Pointer to CreateAmStmt structure containing the access method name, handler function name, and access method type
 ## Dependencies
 - Functions called/Symbols referenced:
   - [superuser](../s/superuser.md): Checks if current user has superuser privileges

@@ -23,8 +23,7 @@ The function implements a two-stage checking mechanism:
 This function is crucial for correctly identifying and processing Turkish suffixes that exhibit this optional consonant insertion pattern, which affects the morphological segmentation and analysis of Turkish words.
 
 ## Parameters / Member Variables
-- : Pointer to the Snowball environment structure containing the text buffer, current position, and morphological analysis state
-
+- `*z`: Pointer to the Snowball environment structure containing the text buffer, current position, and morphological analysis state
 ## Dependencies
 - Functions called/Symbols referenced:
   - [in_grouping_b_U](../i/in_grouping_b_U.md) (called 2 times for vowel group checking)

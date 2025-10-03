@@ -33,13 +33,12 @@ For simple cases (single color transitions), it creates optimized arcs:
 For complex cases that cannot be optimized, it falls back to creating a general LACON arc that references a subre (sub-regular expression).
 
 ## Parameters / Member Variables
-- : Pointer to vars structure containing regex compilation state
-- : Pointer to the start state of the parsed LACON sub-regular expression
-- : Pointer to the end state of the parsed LACON sub-regular expression  
-- : Integer indicating the type of lookaround (LATYPE_AHEAD_POS, LATYPE_AHEAD_NEG, LATYPE_BEHIND_POS, LATYPE_BEHIND_NEG)
-- : Pointer to the left state where the LACON should be attached
-- : Pointer to the right state where the LACON should be attached
-
+- `*v`: Pointer to vars structure containing regex compilation state
+- `*begin`: Pointer to the start state of the parsed LACON sub-regular expression
+- `*end`: Pointer to the end state of the parsed LACON sub-regular expression
+- `latype`: Integer indicating the type of lookaround (LATYPE_AHEAD_POS, LATYPE_AHEAD_NEG, LATYPE_BEHIND_POS, LATYPE_BEHIND_NEG)
+- `*lp`: Pointer to the left state where the LACON should be attached
+- `*rp`: Pointer to the right state where the LACON should be attached
 ## Dependencies
 - Functions called/Symbols referenced:
   - [single_color_transition](../s/single_color_transition.md) (checks if RE is a simple color transition)

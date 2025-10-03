@@ -18,7 +18,6 @@ This function sets up the GNU readline library (or compatible libraries like lib
 The function handles platform-specific features through conditional compilation, particularly around filename quoting functionality. It also works around some inconsistencies in different readline library implementations.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

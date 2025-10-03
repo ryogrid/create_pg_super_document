@@ -18,10 +18,9 @@ This function creates a SCRAM (Salted Challenge Response Authentication Mechanis
 The function handles password normalization gracefully - if SASLprep normalization fails due to invalid UTF-8 or prohibited characters, it proceeds with the original password as recommended by the SCRAM specification. This ensures compatibility with a wide range of password formats while maintaining security best practices.
 
 ## Parameters / Member Variables
-- : The plain text password to be converted into a SCRAM secret
-- : The number of PBKDF2 iterations to use for key derivation (higher values increase security but require more computation)
-- : Output parameter that will point to an error message string if the function fails
-
+- `*password`: The plain text password to be converted into a SCRAM secret
+- `iterations`: The number of PBKDF2 iterations to use for key derivation (higher values increase security but require more computation)
+- `**errstr`: Output parameter that will point to an error message string if the function fails
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_saslprep](pg_saslprep.md)

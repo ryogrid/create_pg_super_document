@@ -24,7 +24,6 @@ InitProcGlobal performs comprehensive initialization of PostgreSQL's process man
 The function pre-allocates all semaphores at startup to avoid runtime failures under load when the system runs out of semaphore resources.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

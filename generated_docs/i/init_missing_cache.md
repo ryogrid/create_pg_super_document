@@ -15,7 +15,6 @@ static void init_missing_cache()
 This function creates and configures a hash table specifically designed to cache missing attribute values in PostgreSQL. It sets up a hash table with custom hash and comparison functions (`missing_hash` and `missing_match`) and allocates it in the TopMemoryContext for persistent storage. The cache is named "Missing Values Cache" and is initialized with 32 buckets. The function configures the hash table to use element-based allocation, custom context, hash function, and comparison function.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

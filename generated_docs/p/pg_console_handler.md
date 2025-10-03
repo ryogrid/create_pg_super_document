@@ -18,8 +18,7 @@ This function serves as a Windows console control handler that intercepts consol
 The function executes on a thread created by the Windows operating system at the time of event invocation, making it part of the Windows signal emulation architecture. When any of the handled console events occurs, the function queues a SIGINT signal using the PostgreSQL signal queuing mechanism and returns TRUE to indicate that the event was handled.
 
 ## Parameters / Member Variables
-- : A DWORD value indicating the type of console control event that occurred. Supported values include CTRL_C_EVENT, CTRL_BREAK_EVENT, CTRL_CLOSE_EVENT, and CTRL_SHUTDOWN_EVENT.
-
+- `dwCtrlType`: A DWORD value indicating the type of console control event that occurred. Supported values include CTRL_C_EVENT, CTRL_BREAK_EVENT, CTRL_CLOSE_EVENT, and CTRL_SHUTDOWN_EVENT.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_queue_signal](pg_queue_signal.md)

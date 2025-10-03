@@ -18,8 +18,7 @@ This function computes the ceiling of the logarithm base 2 of the input number, 
 The implementation is platform-aware, using different PostgreSQL utility functions based on the size of the long data type. On 32-bit platforms (where SIZEOF_LONG < 8), it uses pg_ceil_log2_32(), while on 64-bit platforms it uses pg_ceil_log2_64(). This ensures optimal performance and correctness across different architectures.
 
 ## Parameters / Member Variables
-- : The input number for which to calculate ceil(log₂(num))
-
+- `num`: The input number for which to calculate ceil(log₂(num))
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_ceil_log2_32](../p/pg_ceil_log2_32.md) (32-bit ceiling log2 calculation)

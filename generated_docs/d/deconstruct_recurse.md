@@ -30,12 +30,11 @@ This function performs the core recursive traversal of PostgreSQL's join tree st
 The function creates JoinTreeItem structures that track essential information including qualscope (relations involved), join domains, and nonnullable_rels for outer join semantics.
 
 ## Parameters / Member Variables
-- : The PlannerInfo structure containing global planning context
-- : The current join tree node being processed (RangeTblRef, FromExpr, or JoinExpr)
-- : The enclosing join domain for proper qual assignment
-- : The parent JoinTreeItem in the hierarchy, NULL at top level
-- : In/out parameter collecting JoinTreeItem structures in depth-first order
-
+- `*root`: The PlannerInfo structure containing global planning context
+- `*jtnode`: The current join tree node being processed (RangeTblRef, FromExpr, or JoinExpr)
+- `*parent_domain`: The enclosing join domain for proper qual assignment
+- `*parent_jtitem`: The parent JoinTreeItem in the hierarchy, NULL at top level
+- `**item_list`: In/out parameter collecting JoinTreeItem structures in depth-first order
 ## Dependencies
 - Functions called/Symbols referenced:
   - palloc0_object

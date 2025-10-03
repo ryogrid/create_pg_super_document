@@ -20,10 +20,9 @@ The comparison is performed hierarchically: first by block number, then by offse
 The function follows the standard qsort comparator convention, returning negative, zero, or positive values to indicate the relative ordering of the two input tuples.
 
 ## Parameters / Member Variables
-- : Pointer to the first HeapTuple pointer to compare
-- : Pointer to the second HeapTuple pointer to compare  
-- : Unused argument (required by qsort_interruptible interface)
-
+- `*a`: Pointer to the first HeapTuple pointer to compare
+- `*b`: Pointer to the second HeapTuple pointer to compare
+- `*arg`: Unused argument (required by qsort_interruptible interface)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)

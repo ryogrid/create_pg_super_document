@@ -26,9 +26,8 @@ Key initialization tasks performed:
 The synchronized scanning decision follows similar logic to sequential scans - it's enabled for larger relations that don't use local buffers to improve cache locality.
 
 ## Parameters / Member Variables
-- : Relation to be scanned in parallel
-- : Generic parallel table scan descriptor (cast to ParallelBlockTableScanDesc internally)
-
+- `rel`: Relation to be scanned in parallel
+- `pscan`: Generic parallel table scan descriptor (cast to ParallelBlockTableScanDesc internally)
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationGetRelid

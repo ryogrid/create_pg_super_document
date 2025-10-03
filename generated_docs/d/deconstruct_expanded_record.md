@@ -24,8 +24,7 @@ The function handles two scenarios for populating the arrays:
 After completion, the function sets the ER_FLAG_DVALUES_VALID flag to indicate the arrays are ready for direct access.
 
 ## Parameters / Member Variables
-- : Pointer to the ExpandedRecordHeader structure to be deconstructed
-
+- `*erh`: Pointer to the ExpandedRecordHeader structure to be deconstructed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [expanded_record_get_tupdesc](../e/expanded_record_get_tupdesc.md)

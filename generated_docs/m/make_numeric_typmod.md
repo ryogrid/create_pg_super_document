@@ -22,9 +22,8 @@ This function creates a typmod (type modifier) value by encoding both precision 
 The function ensures the result doesn't overflow to a negative int32, as negative values are interpreted as invalid typmod values by other parts of the system.
 
 ## Parameters / Member Variables
-- : The precision value to encode (maximum digits)
-- : The scale value to encode (digits after decimal point, range [-1000, 1000])
-
+- `precision`: The precision value to encode (maximum digits)
+- `scale`: The scale value to encode (digits after decimal point, range [-1000, 1000])
 ## Dependencies
 - Functions called/Symbols referenced:
   - VARHDRSZ (constant)

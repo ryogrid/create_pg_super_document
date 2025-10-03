@@ -18,8 +18,7 @@ The  function efficiently determines the membership status of a bitmapset withou
 The function iterates through the bitmap words and uses bitwise operations to detect the presence of multiple bits efficiently. It employs the  macro to quickly determine if a word contains more than one set bit.
 
 ## Parameters / Member Variables
-- : Const pointer to the input Bitmapset to examine (can be NULL, which is treated as empty)
-
+- `*a`: Const pointer to the input Bitmapset to examine (can be NULL, which is treated as empty)
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Validates the bitmapset structure

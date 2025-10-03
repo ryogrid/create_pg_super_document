@@ -16,10 +16,9 @@ removeDontCares(OffsetNumber *a, int *len, const bool *dontcare)
 This utility function processes an array of tuple indices (typically  or  from a GistSplitVector) and removes entries that correspond to tuples marked as "don't care" in the provided boolean array. The function compacts the array in-place by copying non-don't-care entries to the beginning of the array and updating the length accordingly. This is used during GiST index splitting to exclude certain tuples from split calculations while maintaining the original array structure.
 
 ## Parameters / Member Variables
-- : Array of OffsetNumber values representing tuple indices to be filtered
-- : Pointer to integer containing the current length of array ; updated to reflect the new length after removal
-- : Boolean array where  indicates whether tuple at offset  should be considered a don't-care entry
-
+- `*a`: Array of OffsetNumber values representing tuple indices to be filtered
+- `*len`: Pointer to integer containing the current length of array ; updated to reflect the new length after removal
+- `*dontcare`: Boolean array where  indicates whether tuple at offset  should be considered a don't-care entry
 ## Dependencies
 - Functions called/Symbols referenced:
   - OffsetNumber (PostgreSQL type for tuple offsets)

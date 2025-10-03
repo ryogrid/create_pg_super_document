@@ -26,11 +26,10 @@ The function handles several special keywords and patterns:
 Special logic exists for WAL sender connections, where physical replication connections can only match the "replication" keyword.
 
 ## Parameters / Member Variables
-- : The name of the database being accessed
-- : The name of the role attempting access
-- : The OID of the role attempting access
-- : List of AuthToken objects representing database specifications from HBA entry
-
+- `*dbname`: The name of the database being accessed
+- `*role`: The name of the role attempting access
+- `roleid`: The OID of the role attempting access
+- `*tokens`: List of AuthToken objects representing database specifications from HBA entry
 ## Dependencies
 - Functions called/Symbols referenced:
   - token_is_keyword

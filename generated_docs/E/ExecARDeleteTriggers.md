@@ -25,13 +25,12 @@ The function first checks if there are any AFTER DELETE triggers to execute or t
 The function includes special handling for foreign data wrapper tables, prohibiting transition table capture from child foreign tables as this feature is not supported.
 
 ## Parameters / Member Variables
-- : Executor state containing execution context and memory management information
-- : ResultRelInfo containing relation metadata and trigger information
-- : ItemPointer identifying the deleted tuple (used for regular tables)
-- : HeapTuple for foreign data wrapper tables (alternative to tupleid)
-- : State for capturing tuples into OLD transition tables
-- : Boolean flag indicating if the DELETE is part of a cross-partition update operation
-
+- `*estate`: Executor state containing execution context and memory management information
+- `*relinfo`: ResultRelInfo containing relation metadata and trigger information
+- `tupleid`: ItemPointer identifying the deleted tuple (used for regular tables)
+- `fdw_trigtuple`: HeapTuple for foreign data wrapper tables (alternative to tupleid)
+- `*transition_capture`: State for capturing tuples into OLD transition tables
+- `is_crosspart_update`: Boolean flag indicating if the DELETE is part of a cross-partition update operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecGetTriggerOldSlot](ExecGetTriggerOldSlot.md)

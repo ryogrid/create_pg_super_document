@@ -18,8 +18,7 @@ The  function serves as an error context callback specifically designed for vacu
 The function handles multiple vacuum phases including heap scanning, heap vacuuming, index vacuuming, index cleanup, and relation truncation. For each phase, it provides specific error context messages that include relevant details such as block numbers, offset numbers, relation names, and index names as appropriate.
 
 ## Parameters / Member Variables
-- : A void pointer to an  structure containing error information including phase, block number, offset number, relation name, relation namespace, and index name
-
+- `*arg`: A void pointer to an  structure containing error information including phase, block number, offset number, relation name, relation namespace, and index name
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (error info structure)

@@ -17,7 +17,6 @@ This function performs cleanup by removing the log rotation signal file from the
 The function is part of PostgreSQL's logging infrastructure and helps maintain a clean state by removing temporary signal files that are no longer needed.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

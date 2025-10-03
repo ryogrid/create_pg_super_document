@@ -18,12 +18,11 @@ FindAffixes implements a depth-first traversal of an affix tree (trie) structure
 The function handles void affixes (empty affixes) as a special case and continues traversing the tree until either a matching affix is found or no more matches are possible. The level parameter tracks the current position in the word being processed.
 
 ## Parameters / Member Variables
-- : Root node of the affix tree to search through
-- : Input word string to find affixes for
-- : Length of the input word
-- : Pointer to current character position being processed (modified during traversal)
-- : Affix type (FF_PREFIX for prefix, FF_SUFFIX for suffix)
-
+- `*node`: Root node of the affix tree to search through
+- `*word`: Input word string to find affixes for
+- `wrdlen`: Length of the input word
+- `*level`: Pointer to current character position being processed (modified during traversal)
+- `type`: Affix type (FF_PREFIX for prefix, FF_SUFFIX for suffix)
 ## Dependencies
 - Functions called/Symbols referenced:
   - GETWCHAR (macro for character extraction)

@@ -16,8 +16,7 @@ ts_typanalyze(PG_FUNCTION_ARGS)
 This function serves as a specialized analysis function for tsvector data types during PostgreSQL's ANALYZE operation. It configures the VacAttrStats structure with appropriate parameters for collecting statistics on tsvector columns, including setting the compute_stats callback to compute_tsvector_stats and determining the minimum number of rows needed for accurate statistics.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function argument macro containing a VacAttrStats pointer
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument macro containing a VacAttrStats pointer
 ## Dependencies
 - Functions called/Symbols referenced:
   - [VacAttrStats](../V/VacAttrStats.md)

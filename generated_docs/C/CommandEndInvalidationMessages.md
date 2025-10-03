@@ -24,6 +24,7 @@ The function includes safeguards to handle calls outside transactions, which can
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ProcessInvalidationMessages](../P/ProcessInvalidationMessages.md)

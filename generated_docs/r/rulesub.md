@@ -22,14 +22,13 @@ The function performs extensive validation and parsing of each component, handli
 All parsed information is stored in the provided rule structure for later use in generating the compiled timezone data.
 
 ## Parameters / Member Variables
-- : Pointer to rule structure to populate with parsed information
-- : String specifying the starting year (can be numeric or keyword like "minimum")
-- : String specifying the ending year (can be numeric, keyword, or "only")
-- : Year type specification (must be empty string in modern usage)
-- : Month name (e.g., "Jan", "February") to be looked up in month name table
-- : Day specification (can be numeric, "lastSunday", "Sun>=7", "Sun<=20", etc.)
-- : Time specification with optional suffix (e.g., "2:00", "2:00s", "2:00w")
-
+- `*rp`: Pointer to rule structure to populate with parsed information
+- `*loyearp`: String specifying the starting year (can be numeric or keyword like "minimum")
+- `*hiyearp`: String specifying the ending year (can be numeric, keyword, or "only")
+- `*typep`: Year type specification (must be empty string in modern usage)
+- `*monthp`: Month name (e.g., "Jan", "February") to be looked up in month name table
+- `*dayp`: Day specification (can be numeric, "lastSunday", "Sun>=7", "Sun<=20", etc.)
+- `*timep`: Time specification with optional suffix (e.g., "2:00", "2:00s", "2:00w")
 ## Dependencies
 - Functions called/Symbols referenced:
   - [byword](../b/byword.md) (to lookup month names, year keywords, weekday names)

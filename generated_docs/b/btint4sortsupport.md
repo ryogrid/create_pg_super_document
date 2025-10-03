@@ -16,8 +16,7 @@ btint4sortsupport(PG_FUNCTION_ARGS)
 This function is a PostgreSQL internal function that configures sort support for 32-bit integer operations in B-tree indexes. It initializes a SortSupport structure by setting the comparator function to , which enables optimized sorting operations for int4 values during index operations and sorting queries.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function argument macro that provides access to function parameters through the function call context
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument macro that provides access to function parameters through the function call context
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (type/structure)

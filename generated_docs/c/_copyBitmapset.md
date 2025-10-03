@@ -18,8 +18,7 @@ The  function provides a simple wrapper around PostgreSQL's dedicated Bitmapset 
 This design maintains consistency with the node copying framework while leveraging the existing, optimized Bitmapset copying logic that handles the internal structure of these specialized data structures used for representing sets of integers efficiently.
 
 ## Parameters / Member Variables
-- : Pointer to the source Bitmapset to be copied
-
+- `*from`: Pointer to the source Bitmapset to be copied
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bms_copy](../b/bms_copy.md) (dedicated function for copying Bitmapset structures)

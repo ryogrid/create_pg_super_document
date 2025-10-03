@@ -21,12 +21,11 @@ The search proceeds level by level from the root, using binary search at each in
 The returned buffer is locked according to the access parameter, and in write mode, any incomplete splits are finished during traversal.
 
 ## Parameters / Member Variables
-- : The B-tree index relation being searched
-- : The heap relation (required for BT_WRITE access for potential root page allocation)
-- : BTScanInsert structure containing the search key (insertion-type scankey)
-- : Pointer to Buffer where the leaf page buffer will be returned (locked and pinned)
-- : Access mode (BT_READ or BT_WRITE) determining locking behavior and split completion
-
+- `rel`: The B-tree index relation being searched
+- `heaprel`: The heap relation (required for BT_WRITE access for potential root page allocation)
+- `key`: BTScanInsert structure containing the search key (insertion-type scankey)
+- `*bufP`: Pointer to Buffer where the leaf page buffer will be returned (locked and pinned)
+- `access`: Access mode (BT_READ or BT_WRITE) determining locking behavior and split completion
 ## Dependencies
 - Functions called/Symbols referenced:
   - [_bt_getroot](_bt_getroot.md)

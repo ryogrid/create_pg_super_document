@@ -23,7 +23,6 @@ The function handles the scenario where a client encoding was requested during s
 Additionally, it optimizes UTF8 conversions by caching the UTF8-to-server conversion function, which is commonly needed for internal string processing regardless of the client encoding.
 
 ## Parameters / Member Variables
-None (void function)
 
 ## Dependencies
 - Functions called/Symbols referenced:

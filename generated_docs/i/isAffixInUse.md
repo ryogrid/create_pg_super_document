@@ -24,9 +24,8 @@ The function iterates through all entries in the AffixData array and uses IsAffi
 The AffixData array is populated during dictionary import and contains only the affix flags that appear in actual dictionary entries, making this a reliable check for affix usage.
 
 ## Parameters / Member Variables
-- : Pointer to IspellDict containing the dictionary configuration and affix data
-- : String representing the affix flag to check for usage
-
+- `*Conf`: Pointer to IspellDict containing the dictionary configuration and affix data
+- `*affixflag`: String representing the affix flag to check for usage
 ## Dependencies
 - Functions called/Symbols referenced:
   - [IsAffixFlagInUse](../I/IsAffixFlagInUse.md)

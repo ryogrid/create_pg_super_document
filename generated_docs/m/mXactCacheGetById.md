@@ -20,9 +20,8 @@ The function iterates through the cache using a doubly-linked list, comparing ea
 The caller is responsible for freeing the allocated memory returned through the members parameter. This design ensures that the caller gets an independent copy that won't be affected by subsequent cache modifications.
 
 ## Parameters / Member Variables
-- : The MultiXactId to look up in the cache
-- : Output parameter - pointer to a pointer that will be set to the address of a palloc'd copy of the MultiXactMember array
-
+- `multi`: The MultiXactId to look up in the cache
+- `**members`: Output parameter - pointer to a pointer that will be set to the address of a palloc'd copy of the MultiXactMember array
 ## Dependencies
 - Functions called/Symbols referenced:
   - dclist_foreach, dclist_container, dclist_move_head (doubly-linked list operations)

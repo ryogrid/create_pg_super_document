@@ -25,7 +25,6 @@ The function performs a practical test by:
 If copy_file_range() is not available at compile time (HAVE_COPY_FILE_RANGE not defined), the function immediately fails with a fatal error. This ensures that pg_upgrade operations can reliably use this efficient file copying mechanism when available.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

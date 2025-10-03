@@ -33,7 +33,6 @@ The function operates in the following sequence:
 Error handling is strict - any format inconsistency results in FATAL errors since configuration corruption indicates serious system problems.
 
 ## Parameters / Member Variables
-None - this function takes no parameters and operates on the global configuration state.
 
 ## Dependencies
 - Functions called/Symbols referenced:

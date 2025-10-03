@@ -16,9 +16,8 @@ WinGetPartitionLocalMemory(WindowObject winobj, Size sz)
 This function serves as a memory management utility for window functions that need to maintain state across rows within a single partition. It implements a lazy allocation strategy where memory is allocated and zeroed only on the first call within a partition, with subsequent calls returning the same memory chunk. The allocated memory is tied to the partition context, ensuring automatic cleanup when partition processing completes. This design allows window functions to maintain partition-local state without manual memory management while ensuring proper isolation between different partitions.
 
 ## Parameters / Member Variables
-- : WindowObject containing the window state and partition context information
-- : Size in bytes of the memory block to allocate
-
+- `winobj`: WindowObject containing the window state and partition context information
+- `sz`: Size in bytes of the memory block to allocate
 ## Dependencies
 - Functions called/Symbols referenced:
   - WindowObjectIsValid

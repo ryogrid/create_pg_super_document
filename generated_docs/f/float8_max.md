@@ -18,9 +18,8 @@ This inline function implements the maximum operation for double-precision float
 The function performs a simple conditional selection: if val1 is greater than val2 according to float8_gt, it returns val1; otherwise, it returns val2. This function is extensively used in geometric operations and bounding box calculations, particularly for determining the maximum bounds in spatial operations.
 
 ## Parameters / Member Variables
-- : The first double-precision floating-point value to compare
-- : The second double-precision floating-point value to compare
-
+- `val1`: The first double-precision floating-point value to compare
+- `val2`: The second double-precision floating-point value to compare
 ## Dependencies
 - Functions called/Symbols referenced:
   - [float8_gt](float8_gt.md) (for greater-than comparison with NaN handling)

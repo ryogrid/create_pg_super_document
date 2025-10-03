@@ -18,10 +18,9 @@ WaitForLockers is a simplified interface to WaitForLockersMultiple for cases whe
 The function works by obtaining the current list of lock holders that conflict with the given lock tag and lock mode, then waiting on their virtual transaction IDs (VXIDs) until they complete. It does not attempt to acquire the lock itself, only waits for conflicting lock holders to finish.
 
 ## Parameters / Member Variables
-- : The LOCKTAG structure identifying the database object to wait for
-- : The LOCKMODE specifying the type of lock mode to check for conflicts
-- : Boolean flag indicating whether to report progress information to the statistics collector
-
+- `heaplocktag`: The LOCKTAG structure identifying the database object to wait for
+- `lockmode`: The LOCKMODE specifying the type of lock mode to check for conflicts
+- `progress`: Boolean flag indicating whether to report progress information to the statistics collector
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LOCKTAG](../L/LOCKTAG.md) (data structure)

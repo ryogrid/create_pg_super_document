@@ -16,9 +16,8 @@ xml_out_internal(xmltype *x, pg_enc target_encoding)
 This static function performs the core logic for converting PostgreSQL's internal xml representation to a C string format. It handles XML declaration parsing and reconstruction, allowing for encoding conversion during output. The function first converts the xml data to a basic string, then when libxml2 is available, it parses any XML declaration to extract version, encoding, and standalone attributes. It reconstructs the declaration with the target encoding and combines it with the remaining XML content. If XML declaration parsing fails, it issues a warning but continues with the basic string conversion.
 
 ## Parameters / Member Variables
-- : Pointer to the xmltype data to be converted to string representation
-- : The PostgreSQL encoding identifier for the desired output encoding
-
+- `*x`: Pointer to the xmltype data to be converted to string representation
+- `target_encoding`: The PostgreSQL encoding identifier for the desired output encoding
 ## Dependencies
 - Functions called/Symbols referenced:
   - [text_to_cstring](../t/text_to_cstring.md)

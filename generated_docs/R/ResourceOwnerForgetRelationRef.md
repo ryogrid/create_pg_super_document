@@ -18,9 +18,8 @@ This inline function serves as a convenience wrapper around the generic Resource
 This function is the counterpart to ResourceOwnerRememberRelationRef() and is typically called when a relation reference is being properly released through normal operation (as opposed to error cleanup). By forgetting the reference, the resource owner no longer needs to track it for automatic cleanup during transaction abort or completion.
 
 ## Parameters / Member Variables
-- : The ResourceOwner that should stop tracking this relation reference
-- : The Relation whose reference should be forgotten/untracked
-
+- `owner`: The ResourceOwner that should stop tracking this relation reference
+- `rel`: The Relation whose reference should be forgotten/untracked
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ResourceOwnerForget](ResourceOwnerForget.md)

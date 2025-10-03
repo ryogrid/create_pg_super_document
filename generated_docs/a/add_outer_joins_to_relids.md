@@ -20,11 +20,10 @@ The  function is responsible for managing the complex logic of outer join orderi
 The function handles the intricate rules governing when outer joins can be executed in non-syntactic order. It checks various conditions including commutation constraints and ensures that pushed-down outer joins are properly represented in the final relid set when their computation is completed. This is crucial for maintaining the semantic correctness of outer join operations while allowing the optimizer flexibility in join ordering.
 
 ## Parameters / Member Variables
-- : The PlannerInfo structure containing global planning information and join_info_list
-- : The union of relid sets from the two input relations being joined (modified in-place)
-- : SpecialJoinInfo representing the join currently being performed
-- : Optional output parameter to collect SpecialJoinInfos for added outer joins (must be initialized to NIL by caller)
-
+- `*root`: The PlannerInfo structure containing global planning information and join_info_list
+- `input_relids`: The union of relid sets from the two input relations being joined (modified in-place)
+- `*sjinfo`: SpecialJoinInfo representing the join currently being performed
+- `**pushed_down_joins`: Optional output parameter to collect SpecialJoinInfos for added outer joins (must be initialized to NIL by caller)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bms_add_member](../b/bms_add_member.md)

@@ -16,10 +16,9 @@ copy_dest_startup(DestReceiver *self, int operation, TupleDesc typeinfo)
 This function serves as the startup callback for the COPY destination receiver in PostgreSQL's executor framework. It implements the DestReceiver interface requirement for a startup function but performs no operations (no-op). The function is called by the executor when initializing the destination receiver for COPY operations, but since COPY destination receivers don't require any special startup initialization beyond what's already done during receiver creation, this function remains empty.
 
 ## Parameters / Member Variables
-- : Pointer to the DestReceiver structure representing the COPY destination receiver
-- : Integer code indicating the type of executor operation being performed
-- : TupleDesc structure describing the tuple format and column types for the operation
-
+- `*self`: Pointer to the DestReceiver structure representing the COPY destination receiver
+- `operation`: Integer code indicating the type of executor operation being performed
+- `typeinfo`: TupleDesc structure describing the tuple format and column types for the operation
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (interface structure)

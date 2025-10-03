@@ -16,11 +16,10 @@ pickout(PGconn *conn, Oid lobjId, pg_int64 start, int len)
 The  function provides functionality to extract and display a specific segment of data from a PostgreSQL large object. It opens the large object in read-only mode, seeks to the specified starting position, and reads the requested number of bytes. The function displays the read data to stderr and handles partial reads by continuing to read until the requested length is satisfied or no more data is available.
 
 ## Parameters / Member Variables
-- : Database connection handle for PostgreSQL operations
-- : OID of the large object to read from
-- : Starting byte position within the large object
-- : Number of bytes to read from the starting position
-
+- `*conn`: Database connection handle for PostgreSQL operations
+- `lobjId`: OID of the large object to read from
+- `start`: Starting byte position within the large object
+- `len`: Number of bytes to read from the starting position
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lo_open](../l/lo_open.md) (PostgreSQL large object opening)

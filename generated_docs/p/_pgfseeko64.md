@@ -20,10 +20,9 @@ The function first determines the file type using  and only allows seeking opera
 This wrapper ensures consistent and reliable behavior across different device types on Windows, providing better error reporting than the standard library functions.
 
 ## Parameters / Member Variables
-- : FILE pointer to the stream on which to perform the seek operation
-- : 64-bit offset value (pgoff_t) specifying the new position relative to the origin
-- : Reference point for the offset (SEEK_SET, SEEK_CUR, or SEEK_END)
-
+- `*stream`: FILE pointer to the stream on which to perform the seek operation
+- `offset`: 64-bit offset value (pgoff_t) specifying the new position relative to the origin
+- `origin`: Reference point for the offset (SEEK_SET, SEEK_CUR, or SEEK_END)
 ## Dependencies
 - Functions called/Symbols referenced:
   - pgoff_t (typedef for 64-bit offset)

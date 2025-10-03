@@ -16,10 +16,9 @@ scanNameSpaceForRelid(ParseState *pstate, Oid relid, int location)
 This static function searches through the p_namespace list to find a namespace item that corresponds to a specific relation OID. It is specifically designed for qualified name resolution where a schema.relation reference has been converted to a relation OID. The function only matches relation RTEs that have no alias (since qualified references cannot refer to aliased relations) and handles the same lateral scoping and ambiguity rules as its companion function scanNameSpaceForRefname.
 
 ## Parameters / Member Variables
-- : Current parsing state containing the namespace list to search
-- : The relation OID to search for
-- : Source location in the query for error reporting
-
+- `*pstate`: Current parsing state containing the namespace list to search
+- `relid`: The relation OID to search for
+- `location`: Source location in the query for error reporting
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_lateral_ref_ok](../c/check_lateral_ref_ok.md)

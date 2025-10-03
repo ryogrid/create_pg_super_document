@@ -18,9 +18,8 @@ This function is a performance-optimized wrapper around  that checks if the slot
 This is a critical function in PostgreSQL's executor system for lazy attribute materialization, allowing the system to only compute attribute values when they are actually needed.
 
 ## Parameters / Member Variables
-- : The TupleTableSlot whose attributes need to be materialized
-- : The attribute number up to which all attributes should be valid (1-based)
-
+- `*slot`: The TupleTableSlot whose attributes need to be materialized
+- `attnum`: The attribute number up to which all attributes should be valid (1-based)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [slot_getsomeattrs_int](slot_getsomeattrs_int.md)

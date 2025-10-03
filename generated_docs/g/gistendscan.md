@@ -18,8 +18,7 @@ This function serves as the cleanup routine for GiST index scans, implementing t
 The simplicity of this function belies its importance in the scan lifecycle - it ensures that all memory allocated in gistbeginscan() and gistrescan() is properly released, including the search queue context, scan-lifetime allocations, and any index-only scan infrastructure.
 
 ## Parameters / Member Variables
-- : The IndexScanDesc structure representing the scan to be terminated
-
+- `scan`: The IndexScanDesc structure representing the scan to be terminated
 ## Dependencies
 - Functions called/Symbols referenced:
   - [freeGISTstate](../f/freeGISTstate.md)

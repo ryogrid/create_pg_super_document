@@ -23,9 +23,8 @@ The function implements three levels of error detection and reporting:
 The function leverages PostgreSQL's namespace resolution system to provide contextually appropriate error messages with precise location information.
 
 ## Parameters / Member Variables
-- : ParseState structure containing the current parsing context and namespace information
-- : RangeVar structure representing the problematic table reference that couldn't be resolved
-
+- `*pstate`: ParseState structure containing the current parsing context and namespace information
+- `*relation`: RangeVar structure representing the problematic table reference that couldn't be resolved
 ## Dependencies
 - Functions called/Symbols referenced:
   - [searchRangeTableForRel](../s/searchRangeTableForRel.md)

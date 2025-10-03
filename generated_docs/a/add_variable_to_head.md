@@ -18,10 +18,9 @@ The  function adds a new entry to the beginning of a doubly-linked list of argum
 The comment in the source code explains an important implementation detail: since the list is dumped from the end during code generation, adding new entries at the beginning ensures proper ordering in the final output. This LIFO behavior is intentional and matches the expected processing order.
 
 ## Parameters / Member Variables
-- : Double pointer to the head of the arguments list; allows modification of the list head pointer
-- : Pointer to the main variable to be added to the list 
-- : Pointer to the indicator variable associated with the main variable (can be NULL if no indicator is needed)
-
+- `**list`: Double pointer to the head of the arguments list; allows modification of the list head pointer
+- `*var`: Pointer to the main variable to be added to the list
+- `*ind`: Pointer to the indicator variable associated with the main variable (can be NULL if no indicator is needed)
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Memory allocation function used to create new argument nodes

@@ -18,8 +18,7 @@ The  function performs a geometric type conversion from a PostgreSQL POLYGON to 
 The conversion is straightforward as both POLYGON and PATH structures store points in similar ways - the main difference is that PATH can be either open or closed, while POLYGON is always closed.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function argument macro that provides access to the input polygon parameter
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument macro that provides access to the input polygon parameter
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_POLYGON_P (retrieves the input polygon argument)

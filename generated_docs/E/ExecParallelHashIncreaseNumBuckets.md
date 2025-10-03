@@ -22,8 +22,7 @@ This function implements a three-phase coordinated bucket expansion for parallel
 The function handles dynamic shared memory allocation, maintains data consistency across parallel workers, and ensures that new participants joining during the operation can synchronize properly.
 
 ## Parameters / Member Variables
-- : The HashJoinTable containing the parallel hash table state and bucket information to be expanded
-
+- `hashtable`: The HashJoinTable containing the parallel hash table state and bucket information to be expanded
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BarrierPhase](../B/BarrierPhase.md)

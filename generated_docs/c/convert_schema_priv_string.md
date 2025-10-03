@@ -21,8 +21,7 @@ The function supports both basic privileges and their "WITH GRANT OPTION" varian
 - Both privileges can include grant options for delegation
 
 ## Parameters / Member Variables
-- : Text input containing comma-separated privilege names to be converted to AclMode bitmask
-
+- `*priv_type_text`: Text input containing comma-separated privilege names to be converted to AclMode bitmask
 ## Dependencies
 - Functions called/Symbols referenced:
   - [convert_any_priv_string](convert_any_priv_string.md)

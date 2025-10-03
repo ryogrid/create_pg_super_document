@@ -19,11 +19,10 @@ This function calculates the maximum number of bytes that can be taken from a mu
 The function iterates through the string character by character, accumulating the byte length until adding the next character would exceed the limit. It ensures that the clipped string remains valid in the specified encoding by respecting multi-byte character boundaries.
 
 ## Parameters / Member Variables
-- : The character encoding identifier (e.g., UTF-8, EUC_JP, etc.)
-- : Pointer to the input multi-byte string to be clipped
-- : The length of the input string in bytes
-- : The maximum number of bytes allowed in the result
-
+- `encoding`: The character encoding identifier (e.g., UTF-8, EUC_JP, etc.)
+- `*mbstr`: Pointer to the input multi-byte string to be clipped
+- `len`: The length of the input string in bytes
+- `limit`: The maximum number of bytes allowed in the result
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_encoding_max_length](pg_encoding_max_length.md)

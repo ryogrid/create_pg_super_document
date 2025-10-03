@@ -22,8 +22,7 @@ This function is called when a complete JSON object for a manifest has been pars
 The function is part of PostgreSQL's JSON manifest parsing infrastructure, typically used for backup and restore operations where manifest files describe the contents and metadata of backup sets.
 
 ## Parameters / Member Variables
-- : Pointer to JsonManifestParseState structure containing the current parsing state, including the manifest_version string field and parsing context
-
+- `*parse`: Pointer to JsonManifestParseState structure containing the current parsing state, including the manifest_version string field and parsing context
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - converts string to 64-bit integer

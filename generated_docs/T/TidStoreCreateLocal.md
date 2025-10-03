@@ -18,9 +18,8 @@ TidStoreCreateLocal creates a TidStore for local (non-shared) use within a singl
 The function optimizes memory allocation by choosing an appropriate maxBlockSize based on the max_bytes hint, ensuring efficient memory usage and reducing space wastage from over-allocation. Depending on the insert_only parameter, it creates either a BumpContext (for insert-only workloads) or an AllocSetContext (for general use with insertions and deletions).
 
 ## Parameters / Member Variables
-- : A hint for the maximum expected memory usage, used to cap the memory block size to reduce space wastage (not an enforced limit)
-- : Boolean flag indicating whether the TidStore will only be used for insertions (true) or will also need deletions (false)
-
+- `max_bytes`: A hint for the maximum expected memory usage, used to cap the memory block size to reduce space wastage (not an enforced limit)
+- `insert_only`: Boolean flag indicating whether the TidStore will only be used for insertions (true) or will also need deletions (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - 

@@ -18,8 +18,7 @@ static void print(const char *msg)
 The print function is a debugging utility that converts a PostgreSQL Node structure to its string representation and prints it to stdout. It uses the nodeToStringWithLocations function to serialize the node into a string format, then applies formatting through format_node_dump to make the output more readable. The function automatically adds a newline and flushes stdout to ensure immediate output visibility. Memory allocated during the conversion process is properly freed to prevent leaks.
 
 ## Parameters / Member Variables
-- : A pointer to the Node structure to be printed. Can be any PostgreSQL node type cast to void pointer.
-
+- `*msg`: A pointer to the Node structure to be printed. Can be any PostgreSQL node type cast to void pointer.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [nodeToStringWithLocations](../n/nodeToStringWithLocations.md) (converts node to string with location info)

@@ -16,8 +16,7 @@ AddUserToTokenDacl(HANDLE hToken)
 This Windows-specific function addresses security changes introduced in Windows XP/2003 patches and Vista/2008 that modify default DACL behavior. When PostgreSQL creates restricted processes by stripping Administrator privileges, the resulting token may only contain System permissions, leading to access denied errors for subsequent CreatePipe() and CreateProcess() calls. The function rebuilds the token's DACL by copying existing Access Control Entries (ACEs) and adding a new ACE that grants GENERIC_ALL access to the current user's SID, maintaining security while ensuring proper functionality.
 
 ## Parameters / Member Variables
-- : Handle to the Windows security token whose DACL should be modified
-
+- `hToken`: Handle to the Windows security token whose DACL should be modified
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Retrieves token DACL information

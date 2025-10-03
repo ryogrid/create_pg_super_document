@@ -25,7 +25,6 @@ The function performs these key operations:
 This design allows extension authors to implement their own serialization logic while integrating seamlessly with PostgreSQL's existing node infrastructure.
 
 ## Parameters / Member Variables
-This function takes no parameters and returns a pointer to a newly allocated ExtensibleNode.
 
 ## Dependencies
 - Functions called/Symbols referenced:

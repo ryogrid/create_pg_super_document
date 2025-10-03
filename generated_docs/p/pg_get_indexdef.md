@@ -16,8 +16,7 @@ pg_get_indexdef(PG_FUNCTION_ARGS)
 This function provides the basic SQL interface for retrieving index definitions from PostgreSQL's system catalogs. It extracts an index OID from the function arguments and calls the worker function  with default parameters to generate a complete CREATE INDEX statement. The function uses indented formatting and excludes tablespace information (intentionally for pg_dump compatibility). It delegates all the complex work of reconstructing the index definition to the worker function and handles the return value conversion to PostgreSQL's text type.
 
 ## Parameters / Member Variables
-- : The OID of the index to retrieve the definition for
-
+- `PG_FUNCTION_ARGS`: The OID of the index to retrieve the definition for
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Extracts OID argument from function call

@@ -26,11 +26,10 @@ The key construction process involves:
 The function ensures data integrity by masking unused bits in partial bytes and properly initializing the PostgreSQL varlena header structure.
 
 ## Parameters / Member Variables
-- : IP address family number (0 for mixed families, AF_INET/AF_INET6 for specific families)
-- : Minimum netmask width among the represented values
-- : Number of leading address bits common to all represented values
-- : Pointer to address bytes from any of the union input keys (only common bits matter)
-
+- `family`: IP address family number (0 for mixed families, AF_INET/AF_INET6 for specific families)
+- `minbits`: Minimum netmask width among the represented values
+- `commonbits`: Number of leading address bits common to all represented values
+- `*addr`: Pointer to address bytes from any of the union input keys (only common bits matter)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc0](../p/palloc0.md)

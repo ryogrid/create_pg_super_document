@@ -18,8 +18,7 @@ RelationGetSmgr is an inline function that provides safe access to a relation's 
 The function uses the unlikely() compiler hint to optimize for the common case where the smgr handle is already initialized, making the NULL check branch prediction more efficient.
 
 ## Parameters / Member Variables
-- : The relation descriptor for which to get the storage manager handle
-
+- `rel`: The relation descriptor for which to get the storage manager handle
 ## Dependencies
 - Functions called/Symbols referenced:
   - [smgropen](../s/smgropen.md): Opens a storage manager relation using the relation's locator and backend ID

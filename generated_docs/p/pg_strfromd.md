@@ -25,11 +25,10 @@ The  function provides a streamlined interface for converting double values to s
 The function is part of PostgreSQL's portable printf implementation and provides better performance for floating-point output compared to general-purpose formatting functions.
 
 ## Parameters / Member Variables
-- : Destination buffer to receive the formatted string
-- : Size of the destination buffer (must be > 0)
-- : Number of significant digits (bounded to 1-32 range)
-- : The double-precision floating-point value to format
-
+- `*str`: Destination buffer to receive the formatted string
+- `count`: Size of the destination buffer (must be > 0)
+- `precision`: Number of significant digits (bounded to 1-32 range)
+- `value`: The double-precision floating-point value to format
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dopr_outch](../d/dopr_outch.md)

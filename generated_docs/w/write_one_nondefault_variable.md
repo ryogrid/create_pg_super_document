@@ -34,9 +34,8 @@ The function handles different variable types with appropriate formatting:
 The function includes an assertion to ensure only non-default variables are written (source != PGC_S_DEFAULT).
 
 ## Parameters / Member Variables
-- : File pointer to write the serialized variable data
-- : Pointer to the config_generic structure representing the GUC variable to serialize
-
+- `*fp`: File pointer to write the serialized variable data
+- `*gconf`: Pointer to the config_generic structure representing the GUC variable to serialize
 ## Dependencies
 - Functions called/Symbols referenced:
   - [config_enum_lookup_by_value](../c/config_enum_lookup_by_value.md)

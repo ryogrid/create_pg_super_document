@@ -16,10 +16,9 @@ PQescapeIdentifier(PGconn *conn, const char *str, size_t len)
 PQescapeIdentifier is a wrapper function that calls PQescapeInternal with the  parameter set to true, indicating that the string should be escaped as an identifier rather than a literal value. The function wraps the input string in double quotes and escapes any embedded double quotes by doubling them. Unlike literal escaping, identifier escaping does not require special handling of backslashes, as backslashes have no special meaning in PostgreSQL identifiers.
 
 ## Parameters / Member Variables
-- : PostgreSQL connection handle used to determine client encoding and error reporting context
-- : Input string to be escaped for use as a SQL identifier
-- : Maximum length of the input string to process
-
+- `*conn`: PostgreSQL connection handle used to determine client encoding and error reporting context
+- `*str`: Input string to be escaped for use as a SQL identifier
+- `len`: Maximum length of the input string to process
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQescapeInternal](PQescapeInternal.md)

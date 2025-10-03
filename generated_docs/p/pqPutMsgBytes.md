@@ -18,10 +18,9 @@ The  function is a low-level utility in the libpq client library that appends ra
 The function performs buffer space validation using  and then uses  to efficiently copy the data into the output buffer. It maintains the connection's  pointer to track where the current message ends.
 
 ## Parameters / Member Variables
-- : Pointer to the source data buffer containing bytes to be added to the message
-- : Number of bytes to copy from the source buffer
-- : PostgreSQL connection object containing the output buffer and state information
-
+- `*buf`: Pointer to the source data buffer containing bytes to be added to the message
+- `len`: Number of bytes to copy from the source buffer
+- `*conn`: PostgreSQL connection object containing the output buffer and state information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pqCheckOutBufferSpace](pqCheckOutBufferSpace.md)

@@ -30,7 +30,6 @@ This function is called during database checkpoints to perform maintenance on th
 The function runs during checkpoints regardless of whether logical decoding is currently enabled, ensuring cleanup of old files even after logical replication is disabled.
 
 ## Parameters / Member Variables
-None - this function takes no parameters and operates on global state.
 
 ## Dependencies
 - Functions called/Symbols referenced:

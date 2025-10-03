@@ -30,14 +30,13 @@ The function builds evaluation steps that:
 - Assumes datums in inner/outer slots are in the same order as the equality functions
 
 ## Parameters / Member Variables
-- : TupleDesc describing the structure of tuples to be compared
-- : TupleTableSlotOps for left (inner) tuple operations
-- : TupleTableSlotOps for right (outer) tuple operations
-- : Array of Oid values specifying equality function OIDs, must match length of param_exprs list
-- : Array of Oid values specifying collation OIDs for equality comparison, must match length of param_exprs list
-- : List of parameter expressions defining the comparison parameters
-- : PlanState pointer to the parent executor node
-
+- `desc`: TupleDesc describing the structure of tuples to be compared
+- `*lops`: TupleTableSlotOps for left (inner) tuple operations
+- `*rops`: TupleTableSlotOps for right (outer) tuple operations
+- `*eqfunctions`: Array of Oid values specifying equality function OIDs, must match length of param_exprs list
+- `*collations`: Array of Oid values specifying collation OIDs for equality comparison, must match length of param_exprs list
+- `*param_exprs`: List of parameter expressions defining the comparison parameters
+- `*parent`: PlanState pointer to the parent executor node
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode

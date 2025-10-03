@@ -23,8 +23,7 @@ This function serves as the main entry point for analyzing and deconstructing a 
 The function returns a "joinlist" - a hierarchical structure that guides make_one_rel() in determining valid join orders. Sub-joinlists may be created for FULL OUTER JOINs or when join collapse limits are reached, representing subproblems to be planned separately.
 
 ## Parameters / Member Variables
-- : The PlannerInfo structure containing query tree and planning context
-
+- `*root`: The PlannerInfo structure containing query tree and planning context
 ## Dependencies
 - Functions called/Symbols referenced:
   - linitial_node

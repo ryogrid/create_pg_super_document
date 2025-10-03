@@ -22,8 +22,7 @@ The charout function is the output function for PostgreSQL's "char" (single char
 The octal escape format for high-bit characters matches the traditional "escape" format used by PostgreSQL's bytea data type, ensuring consistency across the type system.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function argument macro containing:
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument macro containing:
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_CHAR (to extract input character)

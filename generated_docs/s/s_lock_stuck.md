@@ -21,10 +21,9 @@ This function is called when a spinlock acquisition has been retried too many ti
 The function serves as a last resort mechanism to prevent infinite loops when waiting for spinlocks that may never be released due to bugs or system failures.
 
 ## Parameters / Member Variables
-- : Source file name where the stuck spinlock was detected
-- : Line number in the source file where detection occurred  
-- : Function name where the stuck spinlock was detected (may be NULL)
-
+- `*file`: Source file name where the stuck spinlock was detected
+- `line`: Line number in the source file where detection occurred
+- `*func`: Function name where the stuck spinlock was detected (may be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - fprintf (in S_LOCK_TEST mode)

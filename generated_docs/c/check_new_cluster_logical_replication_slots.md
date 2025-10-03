@@ -21,7 +21,6 @@ The function performs the following validations:
 - Verifies that max_replication_slots is sufficient to accommodate all slots from the old cluster
 
 ## Parameters / Member Variables
-None - this function takes no parameters and operates on global cluster information.
 
 ## Dependencies
 - Functions called/Symbols referenced:

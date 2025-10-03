@@ -18,8 +18,7 @@ This function provides a SQL-callable interface to force the flushing of accumul
 The function is useful in scenarios where immediate visibility of statistics updates is required, such as after bulk operations or when monitoring systems need fresh data without waiting for the normal flush interval.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function argument structure (no actual parameters used)
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument structure (no actual parameters used)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pgstat_force_next_flush](pgstat_force_next_flush.md) (forces the internal statistics flush)

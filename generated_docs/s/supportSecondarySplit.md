@@ -30,13 +30,12 @@ This function is called to clean up when a secondary split was performed but the
 The function uses penalty calculations to determine the optimal arrangement and ensures that union keys properly reflect the combined data from both the original split and the secondary split.
 
 ## Parameters / Member Variables
-- : The relation being operated on
-- : GiST state information containing operator class methods
-- : The attribute number (column) being processed
-- : The split vector containing the results of the split operation
-- : The previous left union key datum
-- : The previous right union key datum
-
+- `giststate`: The relation being operated on
+- `attno`: GiST state information containing operator class methods
+- `entry1`: The attribute number (column) being processed
+- `false`: The split vector containing the results of the split operation
+- `entrySL`: The previous left union key datum
+- `false`: The previous right union key datum
 ## Dependencies
 - Functions called/Symbols referenced:
   - gistentryinit

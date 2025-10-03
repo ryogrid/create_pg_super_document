@@ -25,8 +25,7 @@ The function performs several important validations:
 The parser handles escaped equals signs (\=) in directory names, allowing for paths that contain literal equals signs.
 
 ## Parameters / Member Variables
-- : Input string in format "OLDDIR=NEWDIR" specifying the tablespace mapping
-
+- `*arg`: Input string in format "OLDDIR=NEWDIR" specifying the tablespace mapping
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TablespaceListCell](../T/TablespaceListCell.md) (struct type for storing mappings)

@@ -18,10 +18,9 @@ This function implements a comparator for sorting TrackItem structures based on 
 The function follows the standard C library qsort comparison interface and is specifically used in PostgreSQL's array type statistics collection and analysis.
 
 ## Parameters / Member Variables
-- : Pointer to the first TrackItem pointer to compare (cast from const void*)
-- : Pointer to the second TrackItem pointer to compare (cast from const void*)
-- : Unused context argument (required by qsort interface but not used in this function)
-
+- `*e1`: Pointer to the first TrackItem pointer to compare (cast from const void*)
+- `*e2`: Pointer to the second TrackItem pointer to compare (cast from const void*)
+- `*arg`: Unused context argument (required by qsort interface but not used in this function)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [element_compare](../e/element_compare.md) (performs the actual element value comparison)

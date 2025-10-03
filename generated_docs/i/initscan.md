@@ -27,10 +27,9 @@ Key responsibilities include:
 The function applies a threshold of NBuffers/4 to determine if a table is "large" enough to benefit from bulk-read strategy and synchronized scanning, which helps optimize I/O patterns for large table scans.
 
 ## Parameters / Member Variables
-- : HeapScanDesc containing the scan state and configuration to initialize
-- : ScanKey array containing scan keys to copy into the scan descriptor, or NULL if no keys
-- : Boolean indicating whether to preserve the previous startblock setting during a rescan operation
-
+- `scan`: HeapScanDesc containing the scan state and configuration to initialize
+- `key`: ScanKey array containing scan keys to copy into the scan descriptor, or NULL if no keys
+- `keep_startblock`: Boolean indicating whether to preserve the previous startblock setting during a rescan operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationGetNumberOfBlocks

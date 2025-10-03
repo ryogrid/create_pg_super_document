@@ -20,9 +20,8 @@ The function performs several critical safety checks: verifying that the functio
 The inlining process involves parsing the function body, analyzing and rewriting it with proper parameter substitution, and validating that the result type matches the declared function signature. Special attention is given to composite return types and tuple result validation. The function creates appropriate memory contexts for temporary allocations and sets up error callbacks to provide meaningful error messages during the inlining process.
 
 ## Parameters / Member Variables
-- : PlannerInfo containing global information about the query being planned
-- : RangeTblEntry representing the function call in the FROM clause (must be RTE_FUNCTION type)
-
+- `*root`: PlannerInfo containing global information about the query being planned
+- `*rte`: RangeTblEntry representing the function call in the FROM clause (must be RTE_FUNCTION type)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - prevents infinite recursion in self-referential functions

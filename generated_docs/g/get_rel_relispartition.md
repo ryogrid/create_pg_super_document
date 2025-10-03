@@ -18,8 +18,7 @@ This function retrieves the relispartition boolean flag for a specified relation
 The function performs a system cache lookup on the pg_class catalog using the relation OID and extracts the relispartition field. When a table is created as a partition of a partitioned table, this flag is set to true, allowing PostgreSQL to differentiate between regular tables and partition tables.
 
 ## Parameters / Member Variables
-- : The OID of the relation to check for partition status
-
+- `relid`: The OID of the relation to check for partition status
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup)

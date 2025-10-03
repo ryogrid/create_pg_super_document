@@ -24,8 +24,7 @@ AlignedAllocFree is responsible for freeing memory that was allocated using Post
 The function is designed to work with PostgreSQL's memory context system, ensuring that aligned allocations are properly tracked and freed within their respective memory contexts.
 
 ## Parameters / Member Variables
-- : A pointer to aligned memory that was previously allocated using aligned allocation functions
-
+- `*pointer`: A pointer to aligned memory that was previously allocated using aligned allocation functions
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerGetMemoryChunk

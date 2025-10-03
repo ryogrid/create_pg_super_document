@@ -26,15 +26,14 @@ The operation phases include:
 4. Managing catalog dependencies appropriately
 
 ## Parameters / Member Variables
-- : OID of the role performing the revoke operation
-- : Name of the target role to remove members from (used for error messages)
-- : OID of the target role to remove members from
-- : List of RoleSpec structures for roles to remove (used for error messages)
-- : List of OIDs for roles to remove as members
-- : OID of the role that originally granted the membership being revoked
-- : GrantRoleOptions structure specifying which options to revoke
-- : DropBehavior (CASCADE or RESTRICT) for handling dependent privileges
-
+- `currentUserId`: OID of the role performing the revoke operation
+- `*rolename`: Name of the target role to remove members from (used for error messages)
+- `roleid`: OID of the target role to remove members from
+- `*memberSpecs`: List of RoleSpec structures for roles to remove (used for error messages)
+- `*memberIds`: List of OIDs for roles to remove as members
+- `grantorId`: OID of the role that originally granted the membership being revoked
+- `*popt`: GrantRoleOptions structure specifying which options to revoke
+- `behavior`: DropBehavior (CASCADE or RESTRICT) for handling dependent privileges
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_role_grantor](../c/check_role_grantor.md)

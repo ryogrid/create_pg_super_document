@@ -24,9 +24,8 @@ The function follows a similar pattern to subcolor():
 The key difference is that it works with nuchrs (Unicode/high character counts) instead of nschrs (single-byte character counts), and it updates the colormap entry through the provided pointer rather than directly indexing into locolormap.
 
 ## Parameters / Member Variables
-- : Pointer to the colormap structure containing color mappings
-- : Pointer to the color entry in the high colormap to be processed
-
+- `*cm`: Pointer to the colormap structure containing color mappings
+- `*pco`: Pointer to the color entry in the high colormap to be processed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [newsub](../n/newsub.md) (creates a new subcolor)

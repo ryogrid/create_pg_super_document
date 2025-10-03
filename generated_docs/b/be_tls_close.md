@@ -24,8 +24,7 @@ The function performs the following cleanup operations in sequence:
 All operations include null-pointer checks to ensure safe cleanup even if some resources were never allocated or have already been freed.
 
 ## Parameters / Member Variables
-- : Pointer to the Port structure representing the client connection. The function cleans up SSL-related fields including ssl, peer, peer_cn, peer_dn, and ssl_in_use.
-
+- `*port`: Pointer to the Port structure representing the client connection. The function cleans up SSL-related fields including ssl, peer, peer_cn, peer_dn, and ssl_in_use.
 ## Dependencies
 - Functions called/Symbols referenced:
   - SSL_shutdown (SSL connection termination)

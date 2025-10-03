@@ -24,8 +24,7 @@ The function performs the following operations:
 The returned list contains expression nodes that represent the default values for the function's parameters that have defaults defined.
 
 ## Parameters / Member Variables
-- : The function's pg_proc tuple containing the default argument definitions
-
+- `func_tuple`: The function's pg_proc tuple containing the default argument definitions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SysCacheGetAttrNotNull](../S/SysCacheGetAttrNotNull.md)

@@ -18,9 +18,8 @@ TableFuncRecheck implements the recheck interface required by PostgreSQL's EvalP
 The function serves as a placeholder implementation of the recheck interface, maintaining consistency with PostgreSQL's scan node architecture while acknowledging that table function results don't require rechecking.
 
 ## Parameters / Member Variables
-- : TableFuncScanState structure containing the scan state (unused in this implementation)
-- : TupleTableSlot containing the tuple to recheck (unused in this implementation)
-
+- `*node`: TableFuncScanState structure containing the scan state (unused in this implementation)
+- `*slot`: TupleTableSlot containing the tuple to recheck (unused in this implementation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TableFuncScanState](TableFuncScanState.md) (struct type)

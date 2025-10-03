@@ -20,8 +20,7 @@ The function operates in two phases:
 2. **Subsequent calls**: Returns one key per call until all keys have been returned
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function argument macro that provides access to the input JSON text
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument macro that provides access to the input JSON text
 ## Dependencies
 - Functions called/Symbols referenced:
   - SRF_IS_FIRSTCALL

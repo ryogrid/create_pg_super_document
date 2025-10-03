@@ -26,8 +26,7 @@ The  function implements a lock-free detection mechanism for segment cleanup in 
 **Lazy Cleanup Strategy**: Only acquires the expensive DSA area lock when there's actual work to do (counter mismatch detected), then delegates to  for the actual cleanup work.
 
 ## Parameters / Member Variables
-- : Pointer to the dynamic shared area where segment cleanup should be checked
-
+- `*area`: Pointer to the dynamic shared area where segment cleanup should be checked
 ## Dependencies  
 - Functions called/Symbols referenced:
   - pg_read_barrier

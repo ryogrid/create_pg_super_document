@@ -20,10 +20,9 @@ This function serves as a catch-all for syscache invalidations that don't have m
 While this approach may seem inefficient, it ensures correctness and simplifies the invalidation logic for less common but potentially plan-affecting changes.
 
 ## Parameters / Member Variables
-- : Datum argument passed by the callback system (unused in this function)
-- : Cache identifier indicating which system catalog was invalidated (unused, since all plans are invalidated regardless)
-- : Hash value of the specific object that was invalidated (unused, since all plans are invalidated regardless)
-
+- `arg`: Datum argument passed by the callback system (unused in this function)
+- `cacheid`: Cache identifier indicating which system catalog was invalidated (unused, since all plans are invalidated regardless)
+- `hashvalue`: Hash value of the specific object that was invalidated (unused, since all plans are invalidated regardless)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ResetPlanCache](../R/ResetPlanCache.md) (invalidates all cached plans and expressions)

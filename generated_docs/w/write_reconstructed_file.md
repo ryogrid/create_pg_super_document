@@ -26,16 +26,15 @@ The  function is the main workhorse for file reconstruction in PostgreSQL's incr
 The function supports multiple copy methods including standard read/write operations and the more efficient  system call when available. It provides comprehensive debugging output showing the reconstruction plan and tracks statistics about blocks read from each source. The function also handles checksum calculation for the reconstructed file and supports a dry-run mode for planning purposes.
 
 ## Parameters / Member Variables
-- : Name of the input file being processed (used primarily for error messages)
-- : Path where the reconstructed file will be written
-- : Total number of blocks in the reconstructed file
-- : Array mapping each block index to its source rfile structure (NULL for zero-filled blocks)
-- : Array of file offsets corresponding to each block's location in its source file
-- : Context for checksum calculation during file reconstruction
-- : Method to use for copying data (standard copy vs copy_file_range)
-- : Flag to enable detailed debugging output showing reconstruction plan
-- : Flag to simulate reconstruction without actually creating output file
-
+- `*input_filename`: Name of the input file being processed (used primarily for error messages)
+- `*output_filename`: Path where the reconstructed file will be written
+- `block_length`: Total number of blocks in the reconstructed file
+- `**sourcemap`: Array mapping each block index to its source rfile structure (NULL for zero-filled blocks)
+- `*offsetmap`: Array of file offsets corresponding to each block's location in its source file
+- `*checksum_ctx`: Context for checksum calculation during file reconstruction
+- `copy_method`: Method to use for copying data (standard copy vs copy_file_range)
+- `debug`: Flag to enable detailed debugging output showing reconstruction plan
+- `dry_run`: Flag to simulate reconstruction without actually creating output file
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (for debugging output)

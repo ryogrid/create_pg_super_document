@@ -26,7 +26,6 @@ The function performs several key operations:
 This initialization ensures that JIT-compiled code can properly interface with PostgreSQL's internal data structures and follows the correct calling conventions.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

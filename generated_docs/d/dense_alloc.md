@@ -22,9 +22,8 @@ The function handles two types of allocations:
 The allocation strategy maintains a linked list of memory chunks, with the most recently allocated chunk kept at the head of the list for efficient access. This approach helps minimize memory overhead while providing fast allocation for hash join operations.
 
 ## Parameters / Member Variables
-- : HashJoinTable structure containing the memory context and chunk management information
-- : Size of memory to allocate in bytes (automatically aligned to MAXALIGN boundary)
-
+- `hashtable`: HashJoinTable structure containing the memory context and chunk management information
+- `size`: Size of memory to allocate in bytes (automatically aligned to MAXALIGN boundary)
 ## Dependencies
 - Functions called/Symbols referenced:
   - MAXALIGN (for memory alignment)

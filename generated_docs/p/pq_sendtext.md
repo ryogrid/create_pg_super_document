@@ -18,10 +18,9 @@ This function appends a text string to a StringInfo buffer after performing char
 The function handles character set conversion intelligently by checking if  actually performed a conversion. If conversion occurred (indicated by a different pointer), it recalculates the string length, appends the converted data, and frees the temporary converted string. If no conversion was needed, it directly appends the original string.
 
 ## Parameters / Member Variables
-- : StringInfo buffer to append the text to
-- : Pointer to the input text string (need not be null-terminated)
-- : Length of the input string in bytes
-
+- `buf`: StringInfo buffer to append the text to
+- `*str`: Pointer to the input text string (need not be null-terminated)
+- `slen`: Length of the input string in bytes
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_server_to_client](pg_server_to_client.md) (character set conversion)

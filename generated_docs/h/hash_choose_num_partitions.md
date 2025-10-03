@@ -17,11 +17,10 @@ hash_choose_num_partitions(double input_groups, double hashentrysize,
 This function calculates the number of partitions needed when hash aggregation must spill to disk due to memory constraints. It balances several factors: ensuring each partition will fit in available memory, limiting the memory overhead of maintaining multiple open partition files, respecting minimum and maximum partition limits, and ensuring sufficient hash bits remain available for partitioning. The result is always a power of two to enable efficient bit-based partitioning. The function also considers the memory cost of maintaining write buffers for all partitions and a read buffer.
 
 ## Parameters / Member Variables
-- : The estimated number of input groups that need to be partitioned
-- : The estimated size in bytes of each hash table entry
-- : The number of hash bits already consumed for bucketing
-- : Output parameter to store the log2 of the number of partitions (can be NULL)
-
+- `input_groups`: The estimated number of input groups that need to be partitioned
+- `hashentrysize`: The estimated size in bytes of each hash table entry
+- `used_bits`: The number of hash bits already consumed for bucketing
+- `*log2_npartitions`: Output parameter to store the log2 of the number of partitions (can be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_hash_memory_limit](../g/get_hash_memory_limit.md)

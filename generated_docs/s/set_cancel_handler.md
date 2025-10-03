@@ -24,6 +24,7 @@ This function is called early in the pg_dump process to ensure that interrupt ha
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - InitializeCriticalSection (initializes Windows critical section object)

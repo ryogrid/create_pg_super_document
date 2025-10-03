@@ -16,8 +16,7 @@ BumpBlockIsEmpty(BumpBlock *block)
 This function provides a simple and efficient way to check if a bump memory block is empty by comparing the current free pointer position with the initial position immediately after the block header. Since bump allocation only moves the free pointer forward as chunks are allocated, an empty block will have its free pointer still at the starting position. This is useful for memory management decisions, such as determining which blocks can be freed or recycled.
 
 ## Parameters / Member Variables
-- : The bump memory block to check for emptiness
-
+- `*block`: The bump memory block to check for emptiness
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BumpBlock](BumpBlock.md) (block structure type)

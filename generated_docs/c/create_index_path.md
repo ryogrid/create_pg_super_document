@@ -36,18 +36,17 @@ Key features of the created path:
 The function delegates cost calculation to , which considers factors like index selectivity, heap access patterns, caching effects, and the loop_count for nested operations.
 
 ## Parameters / Member Variables
-- : The PlannerInfo structure containing global planning context and information
-- : IndexOptInfo structure describing the index to be used for scanning
-- : List of IndexClause nodes representing filtering conditions enforced during the scan
-- : List of bare expressions used as index ordering operators for result ordering
-- : Integer list of index column numbers (zero-based) that can be used with ordering operators
-- : List describing the sort ordering provided by this path
-- : Scan direction (ForwardScanDirection or BackwardScanDirection)
-- : Boolean flag indicating whether to perform an index-only scan
-- : Set of outer relation IDs needed for parameterized paths
-- : Number of repetitions expected for caching behavior estimation
-- : Boolean indicating if this is for parallel index scan construction
-
+- `*root`: The PlannerInfo structure containing global planning context and information
+- `*index`: IndexOptInfo structure describing the index to be used for scanning
+- `*indexclauses`: List of IndexClause nodes representing filtering conditions enforced during the scan
+- `*indexorderbys`: List of bare expressions used as index ordering operators for result ordering
+- `*indexorderbycols`: Integer list of index column numbers (zero-based) that can be used with ordering operators
+- `*pathkeys`: List describing the sort ordering provided by this path
+- `indexscandir`: Scan direction (ForwardScanDirection or BackwardScanDirection)
+- `indexonly`: Boolean flag indicating whether to perform an index-only scan
+- `required_outer`: Set of outer relation IDs needed for parameterized paths
+- `loop_count`: Number of repetitions expected for caching behavior estimation
+- `partial_path`: Boolean indicating if this is for parallel index scan construction
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (creates new IndexPath node)

@@ -16,9 +16,8 @@ dlist_push_tail(dlist_head *head, dlist_node *node)
 The  function adds a new node to the back of a doubly-linked list by updating the necessary pointer relationships. Like , it intelligently handles uninitialized lists by checking if the head's next pointer is NULL and automatically calling  to convert it to a proper circular structure. The function then inserts the new node between the current last element and the head, updating all four relevant pointers: the new node's next pointer (to head), the new node's prev pointer (to the old tail), the old tail's next pointer (to the new node), and the head's prev pointer (to the new node). After insertion, it calls  to validate list integrity in debug builds.
 
 ## Parameters / Member Variables
-- : Pointer to the  structure representing the list to insert into
-- : Pointer to the  structure to be inserted at the end of the list
-
+- `*head`: Pointer to the  structure representing the list to insert into
+- `*node`: Pointer to the  structure to be inserted at the end of the list
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dlist_head](dlist_head.md) (structure type)

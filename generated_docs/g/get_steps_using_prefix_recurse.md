@@ -31,17 +31,16 @@ This function implements the recursive core of multi-key partition pruning step 
 The function maintains careful bookkeeping of expressions and comparison functions for each partition key, ensuring that the final pruning steps contain exactly one expression per partition key. Special handling exists for hash partitioning where NULL keys are allowed via the step_nullkeys bitmapset.
 
 ## Parameters / Member Variables
-- : Context information for generating pruning steps
-- : Strategy number for the comparison operation
-- : Boolean indicating if this is a not-equal operation
-- : Expression for the final partition key
-- : Comparison function OID for the final partition key
-- : Bitmapset indicating which keys should be treated as NULL
-- : List of PartClauseInfos sorted by keyno
-- : Starting point in the prefix list for this recursion level
-- : Accumulated expressions from previous partition keys
-- : Accumulated comparison functions from previous partition keys
-
+- `*context`: Context information for generating pruning steps
+- `step_opstrategy`: Strategy number for the comparison operation
+- `step_op_is_ne`: Boolean indicating if this is a not-equal operation
+- `*step_lastexpr`: Expression for the final partition key
+- `step_lastcmpfn`: Comparison function OID for the final partition key
+- `*step_nullkeys`: Bitmapset indicating which keys should be treated as NULL
+- `*prefix`: List of PartClauseInfos sorted by keyno
+- `*start`: Starting point in the prefix list for this recursion level
+- `*step_exprs`: Accumulated expressions from previous partition keys
+- `*step_cmpfns`: Accumulated comparison functions from previous partition keys
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_stack_depth](../c/check_stack_depth.md)

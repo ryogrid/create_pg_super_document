@@ -22,8 +22,7 @@ The function handles two main scenarios:
 The materialization is performed in the slot's memory context to ensure proper memory management, and the slot is marked with TTS_FLAG_SHOULDFREE to indicate ownership of the tuple data.
 
 ## Parameters / Member Variables
-- : The TupleTableSlot to materialize, which must be a BufferHeapTupleTableSlot
-
+- `*slot`: The TupleTableSlot to materialize, which must be a BufferHeapTupleTableSlot
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BufferHeapTupleTableSlot](../B/BufferHeapTupleTableSlot.md) (cast target)

@@ -20,9 +20,8 @@ The function scans through all entries in the TypeCacheHash to find composite ty
 The function also handles domain types over composite types by resetting their operator flags when the underlying composite type might have changed. This ensures that cached comparison and hashing operations are recalculated after structural changes to composite types.
 
 ## Parameters / Member Variables
-- : Callback argument (unused in this implementation)
-- : OID of the relation being invalidated, or InvalidOid to invalidate all composite types
-
+- `arg`: Callback argument (unused in this implementation)
+- `relid`: OID of the relation being invalidated, or InvalidOid to invalidate all composite types
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hash_seq_init](../h/hash_seq_init.md)

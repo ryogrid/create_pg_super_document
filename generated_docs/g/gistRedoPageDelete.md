@@ -22,8 +22,7 @@ The operation involves two main steps:
 Both pages are only modified if they need redo (determined by LSN comparison), ensuring idempotent recovery operations.
 
 ## Parameters / Member Variables
-- : XLogReaderState pointer containing the WAL record data and metadata for the page deletion operation
-
+- `*record`: XLogReaderState pointer containing the WAL record data and metadata for the page deletion operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData: Extract WAL record data

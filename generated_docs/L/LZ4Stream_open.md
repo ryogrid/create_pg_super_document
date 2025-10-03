@@ -19,11 +19,10 @@ LZ4Stream_open initializes file access for LZ4 compression operations by opening
 The function serves as the initialization step for LZ4 stream operations, establishing the underlying file handle that will be used by subsequent compression/decompression operations. It stores the opened file handle in the LZ4State structure for later use by other LZ4Stream functions.
 
 ## Parameters / Member Variables
-- : File path to open (used when fd < 0)
-- : File descriptor to use (when >= 0, overrides path parameter)
-- : File opening mode string (e.g., "rb", "wb")
-- : Pointer to the CompressFileHandle structure containing the LZ4 state
-
+- `*path`: File path to open (used when fd < 0)
+- `fd`: File descriptor to use (when >= 0, overrides path parameter)
+- `*mode`: File opening mode string (e.g., "rb", "wb")
+- `*CFH`: Pointer to the CompressFileHandle structure containing the LZ4 state
 ## Dependencies
 - Functions called/Symbols referenced:
   - fdopen (creates FILE* from file descriptor)

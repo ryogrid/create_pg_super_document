@@ -18,9 +18,8 @@ The  function is responsible for transforming XML expressions during the parsing
 The function processes named arguments by transforming ResTarget nodes, extracting argument names, and validating them. For XMLELEMENT operations, it checks for duplicate attribute names. It then processes regular arguments with operation-specific type coercion - for example, XMLCONCAT and XMLFOREST arguments are coerced to XML type, while XMLPARSE arguments require TEXT for the first argument and BOOLEAN for subsequent ones.
 
 ## Parameters / Member Variables
-- : ParseState context for the current parsing operation
-- : Input XmlExpr node to be transformed
-
+- `*pstate`: ParseState context for the current parsing operation
+- `*x`: Input XmlExpr node to be transformed
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode

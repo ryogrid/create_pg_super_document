@@ -18,10 +18,9 @@ namefastcmp_locale(Datum x, Datum y, SortSupport ssup)
 Unlike variable-length strings (varlena), NAME types have a fixed maximum length and are null-terminated, making the extraction process simpler but still requiring length calculation via strlen.
 
 ## Parameters / Member Variables
-- : First Datum value containing a NAME-typed value to compare
-- : Second Datum value containing a NAME-typed value to compare
-- : SortSupport structure containing sorting context and locale information
-
+- `x`: First Datum value containing a NAME-typed value to compare
+- `y`: Second Datum value containing a NAME-typed value to compare
+- `ssup`: SortSupport structure containing sorting context and locale information
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Extracts Name pointer from Datum

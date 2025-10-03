@@ -25,9 +25,8 @@ The algorithm:
 5. Returns true if inheritance relationship is found
 
 ## Parameters / Member Variables
-- : OID of the type that may inherit from the superclass
-- : OID of the potential superclass type
-
+- `subclassTypeId`: OID of the type that may inherit from the superclass
+- `superclassTypeId`: OID of the potential superclass type
 ## Dependencies
 - Functions called/Symbols referenced:
   - [typeOrDomainTypeRelid](typeOrDomainTypeRelid.md): Converts type OID to relation OID, handling domains

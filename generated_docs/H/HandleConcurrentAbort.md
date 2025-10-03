@@ -17,7 +17,6 @@ This function implements error handling for concurrent transaction abort situati
 When the function detects that CheckXidAlive contains a valid transaction ID that is no longer in progress and has not committed, it concludes that the transaction was aborted and raises an error to prevent inconsistent catalog access.
 
 ## Parameters / Member Variables
-This function takes no parameters and operates on global state.
 
 ## Dependencies
 - Functions called/Symbols referenced:

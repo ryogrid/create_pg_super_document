@@ -18,9 +18,8 @@ This function is part of PostgreSQL's table access method (tableam) interface fo
 The function may acquire resources such as locks that are held until the corresponding  operation completes. This ensures consistency during the sampling process.
 
 ## Parameters / Member Variables
-- : TableScanDesc - A table scan descriptor that was initialized with 
-- : ReadStream - The read stream containing the blocks to be analyzed
-
+- `scan`: TableScanDesc - A table scan descriptor that was initialized with
+- `*stream`: ReadStream - The read stream containing the blocks to be analyzed
 ## Dependencies
 - Functions called/Symbols referenced:
   - scan->rs_rd->rd_tableam->scan_analyze_next_block (table access method implementation)

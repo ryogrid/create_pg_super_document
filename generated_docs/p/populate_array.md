@@ -21,13 +21,12 @@ populate_array(ArrayIOData *aio,
 This function serves as the primary interface for converting JSON or JSONB data into PostgreSQL arrays. It initializes a PopulateArrayContext with the necessary array metadata and memory contexts, then dispatches to the appropriate parsing function based on whether the input is JSON text or binary JSONB. The function handles both text JSON (via populate_array_json) and binary JSONB (via populate_array_dim_jsonb) formats. After successful parsing, it constructs the final multi-dimensional array using PostgreSQL's array building infrastructure, setting appropriate lower bounds and managing memory cleanup.
 
 ## Parameters / Member Variables
-- : ArrayIOData pointer containing array type information and I/O functions
-- : Character pointer to the column name for error reporting purposes
-- : MemoryContext for array element allocations during parsing
-- : JsValue pointer containing either JSON text or JSONB binary data to convert
-- : Boolean pointer set to true if parsing errors occur, false on success
-- : Node pointer for error context and soft error handling
-
+- `*aio`: ArrayIOData pointer containing array type information and I/O functions
+- `*colname`: Character pointer to the column name for error reporting purposes
+- `mcxt`: MemoryContext for array element allocations during parsing
+- `*jsv`: JsValue pointer containing either JSON text or JSONB binary data to convert
+- `*isnull`: Boolean pointer set to true if parsing errors occur, false on success
+- `*escontext`: Node pointer for error context and soft error handling
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ArrayIOData](../A/ArrayIOData.md) (array metadata structure)

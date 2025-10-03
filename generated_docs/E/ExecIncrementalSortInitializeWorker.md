@@ -21,9 +21,8 @@ This function is part of PostgreSQL's parallel query execution infrastructure, s
 The function uses the shared memory table of contents (TOC) to locate the SharedIncrementalSortInfo structure that was previously allocated by the leader process. This shared structure contains performance statistics and coordination information that all parallel workers need to access during the incremental sort operation.
 
 ## Parameters / Member Variables
-- : Pointer to the IncrementalSortState structure representing the current incremental sort execution state
-- : Pointer to the ParallelWorkerContext containing the shared memory table of contents and other parallel execution context
-
+- `*node`: Pointer to the IncrementalSortState structure representing the current incremental sort execution state
+- `*pwcxt`: Pointer to the ParallelWorkerContext containing the shared memory table of contents and other parallel execution context
 ## Dependencies
 - Functions called/Symbols referenced:
   - [shm_toc_lookup](../s/shm_toc_lookup.md)

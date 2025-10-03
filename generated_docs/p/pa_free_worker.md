@@ -21,8 +21,7 @@ This function is responsible for cleaning up and managing parallel apply workers
 The serialization check is particularly important because when a leader apply worker serializes transaction data due to send timeouts, the message queue may be in an inconsistent state that's difficult to clean up, so it's safer to stop the worker entirely.
 
 ## Parameters / Member Variables
-- : Pointer to ParallelApplyWorkerInfo structure representing the worker to be freed. Must be currently in use and have finished its transaction.
-
+- `*winfo`: Pointer to ParallelApplyWorkerInfo structure representing the worker to be freed. Must be currently in use and have finished its transaction.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [am_parallel_apply_worker](../a/am_parallel_apply_worker.md) (assertion check)

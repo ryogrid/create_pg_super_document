@@ -36,8 +36,7 @@ The function operates through several coordinated phases:
 The function is designed to handle various table types (regular tables, views, partitioned tables) and supports advanced features like selective column replication and row-level filtering introduced in PostgreSQL 15.
 
 ## Parameters / Member Variables
-- : Pointer to the local Relation structure representing the subscriber table that will receive the copied data. The caller is responsible for ensuring this relation is properly locked.
-
+- `rel`: Pointer to the local Relation structure representing the subscriber table that will receive the copied data. The caller is responsible for ensuring this relation is properly locked.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [fetch_remote_table_info](../f/fetch_remote_table_info.md) (retrieves publisher table metadata)

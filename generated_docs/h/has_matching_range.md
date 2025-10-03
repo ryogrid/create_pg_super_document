@@ -29,13 +29,12 @@ The function is optimized for performance by:
 The ranges are stored as pairs of values in the values array, where each range occupies two consecutive positions (minimum at even index, maximum at odd index).
 
 ## Parameters / Member Variables
-- : BRIN descriptor containing index metadata and comparison functions
-- : Collation OID for text-based comparisons
-- : Ranges structure containing the sorted ranges to search
-- : The Datum value to check for containment
-- : Attribute number in the BRIN index
-- : Data type OID for the values
-
+- `*bdesc`: BRIN descriptor containing index metadata and comparison functions
+- `colloid`: Collation OID for text-based comparisons
+- `*ranges`: Ranges structure containing the sorted ranges to search
+- `newval`: The Datum value to check for containment
+- `attno`: Attribute number in the BRIN index
+- `typid`: Data type OID for the values
 ## Dependencies
 - Functions called/Symbols referenced:
   - [minmax_multi_get_strategy_procinfo](../m/minmax_multi_get_strategy_procinfo.md) (to get comparison functions)

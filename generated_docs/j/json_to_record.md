@@ -24,8 +24,7 @@ The function operates by:
 This function is the JSON equivalent of , handling text-based JSON input instead of binary JSONB format.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function call information structure containing:
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function call information structure containing:
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (the main implementation function)

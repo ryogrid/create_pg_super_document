@@ -18,9 +18,8 @@ The  function retrieves the current position within an open large object using 6
 The function includes additional error checking to ensure that the  server function is available, as this function was added in later PostgreSQL versions. It also performs network byte order conversion using  to ensure proper handling of the 64-bit return value across different architectures.
 
 ## Parameters / Member Variables
-- : PostgreSQL database connection handle
-- : File descriptor of the open large object
-
+- `*conn`: PostgreSQL database connection handle
+- `fd`: File descriptor of the open large object
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lo_initialize](lo_initialize.md)

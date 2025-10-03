@@ -16,8 +16,7 @@ RI_FKey_setdefault_del(PG_FUNCTION_ARGS)
 RI_FKey_setdefault_del is a trigger function that enforces referential integrity by implementing the SET DEFAULT action for foreign key constraints on DELETE operations. When a record containing a primary key is deleted, this trigger is invoked on the foreign key table to set all matching foreign key values to their column default values, preventing orphaned references. This function serves as a wrapper that validates the trigger context and delegates the actual work to the shared ri_set function.
 
 ## Parameters / Member Variables
-- : PostgreSQL function calling convention macro that provides access to function arguments and context through fcinfo
-
+- `PG_FUNCTION_ARGS`: PostgreSQL function calling convention macro that provides access to function arguments and context through fcinfo
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ri_CheckTrigger](../r/ri_CheckTrigger.md) (validates trigger call context)

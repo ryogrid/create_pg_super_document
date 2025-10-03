@@ -18,10 +18,9 @@ This static function serves as a comparison callback for pairing heap operations
 The comparison logic uses inverted float8 comparison (negative result) to create a min-heap behavior for distance-based ordering, where items with smaller distances have higher priority.
 
 ## Parameters / Member Variables
-- : Pointer to the first pairing heap node (cast to GISTSearchItem)
-- : Pointer to the second pairing heap node (cast to GISTSearchItem)
-- : Void pointer containing the IndexScanDesc context for accessing ORDER BY information
-
+- `*a`: Pointer to the first pairing heap node (cast to GISTSearchItem)
+- `*b`: Pointer to the second pairing heap node (cast to GISTSearchItem)
+- `*arg`: Void pointer containing the IndexScanDesc context for accessing ORDER BY information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [float8_cmp_internal](../f/float8_cmp_internal.md)

@@ -16,8 +16,7 @@ btint8sortsupport(PG_FUNCTION_ARGS)
 This function configures sort support for 64-bit signed integers in PostgreSQL B-tree operations. It intelligently selects the optimal comparison function based on the platform's datum size: on 64-bit platforms where SIZEOF_DATUM >= 8, it uses the highly optimized  function, while on 32-bit platforms it falls back to the custom  function. This conditional optimization ensures efficient sorting performance across different hardware architectures.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function argument macro that provides access to the SortSupport structure pointer
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument macro that provides access to the SortSupport structure pointer
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (type/structure)

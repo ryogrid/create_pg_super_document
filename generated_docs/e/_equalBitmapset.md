@@ -18,11 +18,8 @@ The  function provides equality comparison for Bitmapset nodes within PostgreSQL
 Rather than implementing comparison logic directly, this function delegates to the purpose-built  function from the bitmapset module. This design maintains separation of concerns and leverages the optimized comparison logic specifically designed for bitmapset data structures.
 
 ## Parameters / Member Variables
-- : Pointer to the first Bitmapset to compare  
-- : Pointer to the second Bitmapset to compare
-
-Returns:  if the bitmapsets are equal,  otherwise
-
+- `*a`: Pointer to the first Bitmapset to compare
+- `*b`: Pointer to the second Bitmapset to compare
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (specialized bitmapset comparison function)

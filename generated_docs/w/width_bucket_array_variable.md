@@ -23,11 +23,10 @@ The function implements an optimized binary search that minimizes the cost of va
 The function handles the complexities of variable-width data storage, including proper alignment requirements and length calculations using PostgreSQL's attribute access functions.
 
 ## Parameters / Member Variables
-- : The value to be bucketed (passed as Datum)
-- : ArrayType containing sorted threshold values with no NULLs
-- : The collation to use for comparison operations
-- : TypeCacheEntry containing type information including typlen, typbyval, typalign, and comparison function
-
+- `operand`: The value to be bucketed (passed as Datum)
+- `*thresholds`: ArrayType containing sorted threshold values with no NULLs
+- `collation`: The collation to use for comparison operations
+- `*typentry`: TypeCacheEntry containing type information including typlen, typbyval, typalign, and comparison function
 ## Dependencies
 - Functions called/Symbols referenced:
   - LOCAL_FCINFO

@@ -17,9 +17,8 @@ validate_index_callback serves as a callback function for index_bulk_delete duri
 The callback is designed to gather a complete inventory of all tuples currently present in the index, which will later be used in a merge-join operation against a table scan to identify any missing tuples that need to be inserted into the index.
 
 ## Parameters / Member Variables
-- : Pointer to the current index tuple's TID being processed during the bulk delete scan
-- : Void pointer to ValidateIndexState structure containing the tuplesort object and counters
-
+- `itemptr`: Pointer to the current index tuple's TID being processed during the bulk delete scan
+- `*opaque`: Void pointer to ValidateIndexState structure containing the tuplesort object and counters
 ## Dependencies
 - Functions called/Symbols referenced:
   - [itemptr_encode](../i/itemptr_encode.md)

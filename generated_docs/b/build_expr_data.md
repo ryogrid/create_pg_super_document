@@ -16,9 +16,8 @@ build_expr_data(List *exprs, int stattarget)
 This function creates and initializes the data structures needed to analyze expressions for extended statistics. For each expression in the input list, it creates an AnlExprData entry that contains the expression node and an associated VacAttrStats structure obtained by calling examine_expression. The function allocates memory for all expression data entries at once and populates them sequentially. Since this function operates on standalone expressions rather than table columns, some fields in the VacAttrStats structures may be artificially populated by examine_expression to work with the standard statistics infrastructure.
 
 ## Parameters / Member Variables
-- : List of Node pointers representing the expressions to be analyzed
-- : Target number of statistics buckets/samples, controlling the detail level of statistics collection
-
+- `*exprs`: List of Node pointers representing the expressions to be analyzed
+- `stattarget`: Target number of statistics buckets/samples, controlling the detail level of statistics collection
 ## Dependencies
 - Functions called/Symbols referenced:
   - [AnlExprData](../A/AnlExprData.md)

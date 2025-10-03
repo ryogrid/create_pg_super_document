@@ -26,6 +26,7 @@ The function uses case-insensitive comparison for standby names and supports exa
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - SyncStandbysDefined (checks if sync standbys are configured)

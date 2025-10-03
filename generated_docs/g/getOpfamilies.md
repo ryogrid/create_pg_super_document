@@ -18,9 +18,8 @@ This function is part of pg_dump's catalog reading functionality. It executes a 
 The function allocates memory for an array of OpfamilyInfo structures and initializes each structure with data from the query result. It also assigns dump IDs to each operator family and determines whether each should be dumped based on the current dump configuration.
 
 ## Parameters / Member Variables
-- : Archive structure containing connection and dump configuration information
-- : Pointer to integer that will be set to the number of operator families found
-
+- `*fout`: Archive structure containing connection and dump configuration information
+- `*numOpfamilies`: Pointer to integer that will be set to the number of operator families found
 ## Dependencies
 - Functions called/Symbols referenced:
   - [createPQExpBuffer](../c/createPQExpBuffer.md)

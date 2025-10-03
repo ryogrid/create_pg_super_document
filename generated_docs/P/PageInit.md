@@ -16,10 +16,9 @@ PageInit(Page page, Size pageSize, Size specialSize)
 PageInit is a fundamental function that initializes a PostgreSQL page structure. It sets up the page header fields and establishes the initial layout for data storage. The function zeroes out the entire page content, then configures the page header with proper values for page management. It sets the lower boundary to just after the header and the upper boundary to account for any special space at the end of the page. The function ensures proper alignment of the special space and validates that the page size matches the expected block size.
 
 ## Parameters / Member Variables
-- : Pointer to the page buffer to be initialized
-- : Size of the page (must equal BLCKSZ)  
-- : Size of special space to reserve at the end of the page
-
+- `page`: Pointer to the page buffer to be initialized
+- `pageSize`: Size of the page (must equal BLCKSZ)
+- `specialSize`: Size of special space to reserve at the end of the page
 ## Dependencies
 - Functions called/Symbols referenced:
   - PageHeader (type cast)

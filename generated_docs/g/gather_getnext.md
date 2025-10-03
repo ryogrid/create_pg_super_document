@@ -18,8 +18,7 @@ gather_getnext implements the central tuple retrieval strategy for parallel quer
 When reading from workers, tuples come as MinimalTuple objects that are stored in the funnel_slot for return to the caller. For local execution, the function temporarily installs the parallel DSA (Dynamic Shared Area) context to ensure proper memory management during parallel execution, then calls ExecProcNode on the child plan. The function handles the transition from having active workers to pure local execution by setting need_to_scan_locally to false once local scanning is complete.
 
 ## Parameters / Member Variables
-- : The GatherState containing worker information, tuple queue readers, and configuration flags
-
+- `*gatherstate`: The GatherState containing worker information, tuple queue readers, and configuration flags
 ## Dependencies
 - Functions called/Symbols referenced:
   - outerPlanState (accesses the child plan state)

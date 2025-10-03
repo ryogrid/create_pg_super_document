@@ -19,7 +19,6 @@ The function updates the global MyLatch pointer to reference the local LocalLatc
 This switch is typically performed as part of process cleanup sequences, particularly in ProcKill and AuxiliaryProcKill functions.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

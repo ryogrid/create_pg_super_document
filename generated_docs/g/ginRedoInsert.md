@@ -22,8 +22,7 @@ Key functionality includes:
 - Proper LSN setting and buffer management for crash recovery consistency
 
 ## Parameters / Member Variables
-- : XLogReaderState pointer containing the WAL record being replayed, including insertion data and metadata
-
+- `*record`: XLogReaderState pointer containing the WAL record being replayed, including insertion data and metadata
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData

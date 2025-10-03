@@ -16,9 +16,8 @@ getRelationsInNamespace(Oid namespaceId, char relkind)
 This function performs a catalog scan on the pg_class system table to find all relations within a specified namespace that match a particular relation kind. It uses a two-key scan strategy: first filtering by namespace ID and then by relation kind. The function opens the pg_class catalog with an AccessShareLock, performs a sequential scan using the constructed scan keys, and builds a list of OIDs for all matching relations. This is an efficient way to enumerate specific types of objects within a schema without requiring individual lookups.
 
 ## Parameters / Member Variables
-- : The OID of the namespace (schema) to search within
-- : A character representing the type of relation to find (e.g., RELKIND_RELATION for tables, RELKIND_SEQUENCE for sequences, RELKIND_VIEW for views)
-
+- `namespaceId`: The OID of the namespace (schema) to search within
+- `relkind`: A character representing the type of relation to find (e.g., RELKIND_RELATION for tables, RELKIND_SEQUENCE for sequences, RELKIND_VIEW for views)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ScanKeyInit](../S/ScanKeyInit.md)

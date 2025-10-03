@@ -23,11 +23,10 @@ The function creates dummy planner state structures ( and ) and uses the existin
 The function uses a clever hack where  is repurposed to collect row security flags rather than role dependencies, since this analysis occurs before role-related transformations.
 
 ## Parameters / Member Variables
-- : The rewritten Query node or list of Query nodes to analyze for dependencies
-- : Output parameter that receives a list of relation OIDs referenced by the query
-- : Output parameter that receives a list of invalidation items (functions, operators, etc.) referenced by the query  
-- : Output parameter indicating whether any Query in the tree has row security policies applied
-
+- `*query`: The rewritten Query node or list of Query nodes to analyze for dependencies
+- `**relationOids`: Output parameter that receives a list of relation OIDs referenced by the query
+- `**invalItems`: Output parameter that receives a list of invalidation items (functions, operators, etc.) referenced by the query
+- `*hasRowSecurity`: Output parameter indicating whether any Query in the tree has row security policies applied
 ## Dependencies
 - Functions called/Symbols referenced:
   - MemSet

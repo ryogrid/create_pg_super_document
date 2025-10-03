@@ -23,14 +23,13 @@ The algorithm operates by scanning through the specified region, identifying run
 The function handles edge cases where bytes outside the valid region are considered invalid and must always be overwritten, ensuring data integrity during page reconstruction.
 
 ## Parameters / Member Variables
-- : Pointer to PageData structure where computed delta fragments will be appended
-- : Pointer to the current page data (source page for comparison) 
-- : Pointer to the target page data (desired final state)
-- : Starting byte offset of the region to be transformed
-- : Ending byte offset (exclusive) of the region to be transformed
-- : Starting byte offset of the region containing valid data in curpage
-- : Ending byte offset (exclusive) of the region containing valid data in curpage
-
+- `*pageData`: Pointer to PageData structure where computed delta fragments will be appended
+- `*curpage`: Pointer to the current page data (source page for comparison)
+- `*targetpage`: Pointer to the target page data (desired final state)
+- `targetStart`: Starting byte offset of the region to be transformed
+- `targetEnd`: Ending byte offset (exclusive) of the region to be transformed
+- `validStart`: Starting byte offset of the region containing valid data in curpage
+- `validEnd`: Ending byte offset (exclusive) of the region containing valid data in curpage
 ## Dependencies
 - Functions called/Symbols referenced:
   - PageData (struct type)

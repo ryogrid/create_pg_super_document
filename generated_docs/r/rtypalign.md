@@ -18,9 +18,8 @@ The rtypalign function is part of PostgreSQL's ECPG Informix compatibility libra
 In a full implementation, this function would determine the proper memory alignment boundary for a specific data type when placed at a given offset, which is crucial for efficient memory access and avoiding alignment faults on certain architectures.
 
 ## Parameters / Member Variables
-- : Current memory offset position (ignored in current implementation)
-- : Data type identifier for alignment calculation (ignored in current implementation)
-
+- `offset`: Current memory offset position (ignored in current implementation)
+- `type`: Data type identifier for alignment calculation (ignored in current implementation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (only uses void casts for compiler quieting)

@@ -20,10 +20,9 @@ The function calculates the required output buffer size, allocates memory using 
 The function handles memory allocation with proper error checking and uses ECPG's line number tracking for debugging purposes.
 
 ## Parameters / Member Variables
-- : Pointer to the source binary data buffer to be converted
-- : Length of the source binary data in bytes
-- : Source code line number for error reporting and debugging purposes
-
+- `*from_data`: Pointer to the source binary data buffer to be converted
+- `from_len`: Length of the source binary data in bytes
+- `lineno`: Source code line number for error reporting and debugging purposes
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Calculate the required length for hex-encoded output

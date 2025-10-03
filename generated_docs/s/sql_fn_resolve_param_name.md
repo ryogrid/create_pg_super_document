@@ -17,10 +17,9 @@ sql_fn_resolve_param_name(SQLFunctionParseInfoPtr pinfo,
 This function implements parameter name resolution for SQL functions by searching through the argument names array in the parse info structure. When a parameter with the specified name is found, it delegates to sql_fn_make_param to construct the appropriate Param node. This is a key component of the SQL function parsing infrastructure that enables named parameter references in function bodies.
 
 ## Parameters / Member Variables
-- : Pointer to SQLFunctionParseInfo structure containing function parsing context including argument names and count
-- : Name of the parameter to search for
-- : Source location information for error reporting and node construction
-
+- `pinfo`: Pointer to SQLFunctionParseInfo structure containing function parsing context including argument names and count
+- `*paramname`: Name of the parameter to search for
+- `location`: Source location information for error reporting and node construction
 ## Dependencies
 - Functions called/Symbols referenced:
   - [sql_fn_make_param](sql_fn_make_param.md)

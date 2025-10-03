@@ -22,13 +22,12 @@ systable_beginscan is a high-level interface for scanning PostgreSQL system cata
 The function handles snapshot management by automatically using catalog snapshots when none is provided, and manages the complex attribute number translation required when switching between heap and index scans. For index scans, it translates heap attribute numbers to index column numbers, ensuring that scan keys work correctly regardless of scan method.
 
 ## Parameters / Member Variables
-- : The catalog relation to scan, must be already opened and locked
-- : OID of the index to conditionally use for scanning
-- : Boolean flag that can force heap scan even when index is available
-- : Time qualification snapshot to use (NULL for automatic catalog snapshot)
-- : Number of scan key conditions
-- : Array of scan key conditions for filtering
-
+- `heapRelation`: The catalog relation to scan, must be already opened and locked
+- `indexId`: OID of the index to conditionally use for scanning
+- `indexOK`: Boolean flag that can force heap scan even when index is available
+- `snapshot`: Time qualification snapshot to use (NULL for automatic catalog snapshot)
+- `nkeys`: Number of scan key conditions
+- `key`: Array of scan key conditions for filtering
 ## Dependencies
 - Functions called/Symbols referenced:
   - [index_open](../i/index_open.md) (open index relation)

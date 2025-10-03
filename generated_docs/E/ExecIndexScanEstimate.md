@@ -23,9 +23,8 @@ The function performs two key operations:
 The calculated size is stored in the IndexScanState's iss_PscanLen field for later use during parallel scan initialization.
 
 ## Parameters / Member Variables
-- : Pointer to IndexScanState containing the index scan execution state with information about the index, scan keys, and order-by keys
-- : Pointer to ParallelContext that tracks shared memory requirements for parallel query execution
-
+- `*node`: Pointer to IndexScanState containing the index scan execution state with information about the index, scan keys, and order-by keys
+- `*pcxt`: Pointer to ParallelContext that tracks shared memory requirements for parallel query execution
 ## Dependencies
 - Functions called/Symbols referenced:
   - [index_parallelscan_estimate](../i/index_parallelscan_estimate.md)

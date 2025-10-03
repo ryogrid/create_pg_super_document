@@ -19,10 +19,9 @@ The  function performs comprehensive access control validation for all relations
 The function includes extensive assertion checking to ensure consistency between the range table and permission info structures. It also provides a hook mechanism for plugins to implement custom permission checking logic while maintaining compatibility with the standard PostgreSQL access control system. Note that this function only handles table-level permissions and does not address row-level security policies.
 
 ## Parameters / Member Variables
-- : List of RangeTblEntry structures representing the tables/relations in the query (kept for hook compatibility)
-- : List of RTEPermissionInfo structures containing permission requirements for each relation
-- : Boolean flag indicating whether to throw an error on permission violation (true) or return false silently
-
+- `*rangeTable`: List of RangeTblEntry structures representing the tables/relations in the query (kept for hook compatibility)
+- `*rteperminfos`: List of RTEPermissionInfo structures containing permission requirements for each relation
+- `ereport_on_violation`: Boolean flag indicating whether to throw an error on permission violation (true) or return false silently
 ## Dependencies
 - Functions called/Symbols referenced:
   - [getRTEPermissionInfo](../g/getRTEPermissionInfo.md)

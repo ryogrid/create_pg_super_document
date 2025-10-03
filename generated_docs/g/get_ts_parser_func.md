@@ -23,9 +23,8 @@ The function handles five different types of parser functions:
 - prslextype: Lexical type enumeration function (1 arg: internal -> internal)
 
 ## Parameters / Member Variables
-- : DefElem pointer containing the qualified function name from the parser definition
-- : Integer indicating which pg_ts_parser column/function type this represents (Anum_pg_ts_parser_*)
-
+- `*defel`: DefElem pointer containing the qualified function name from the parser definition
+- `attnum`: Integer indicating which pg_ts_parser column/function type this represents (Anum_pg_ts_parser_*)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [defGetQualifiedName](../d/defGetQualifiedName.md): Extracts qualified function name from DefElem

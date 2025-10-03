@@ -18,8 +18,7 @@ The AssignDumpId function is a central component of pg_dump's object management 
 The function dynamically manages memory allocation for the dumpIdMap array, doubling its size when needed to accommodate new objects. For objects with valid catalog IDs (most database objects), it also enters them into a hash table that enables fast lookup during dependency resolution and cross-reference operations throughout the dump process.
 
 ## Parameters / Member Variables
-- : Pointer to a DumpableObject that needs a dump ID assigned. The caller must have initialized objType and catId fields before calling this function.
-
+- `*dobj`: Pointer to a DumpableObject that needs a dump ID assigned. The caller must have initialized objType and catId fields before calling this function.
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_malloc_array (allocates initial dumpIdMap array)

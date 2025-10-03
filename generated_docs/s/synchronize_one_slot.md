@@ -27,9 +27,8 @@ The function implements a comprehensive synchronization workflow:
 The function ensures data consistency by validating LSN positions and managing proper locking to prevent race conditions during slot operations.
 
 ## Parameters / Member Variables
-- : Pointer to RemoteSlot structure containing slot data from the primary server to synchronize locally
-- : Object identifier (Oid) of the remote database associated with the replication slot
-
+- `*remote_slot`: Pointer to RemoteSlot structure containing slot data from the primary server to synchronize locally
+- `remote_dbid`: Object identifier (Oid) of the remote database associated with the replication slot
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Gets the latest flushed WAL position on standby

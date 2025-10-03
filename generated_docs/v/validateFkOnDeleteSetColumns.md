@@ -24,12 +24,11 @@ This function performs validation on columns that are specified in ON DELETE SET
 The function validates each column in the fksetcolsattnums array against the foreign key columns in fkattnums. If a column is not found in the foreign key, it reports an error. For valid columns, it checks for duplicates and only keeps unique entries in the output array.
 
 ## Parameters / Member Variables
-- : Number of columns in the foreign key constraint
-- : Array of attribute numbers representing the foreign key columns
-- : Initial count of columns in the SET action list
-- : Array of attribute numbers for SET action columns (modified in-place to remove duplicates)
-- : List of column names for error reporting purposes
-
+- `numfks`: Number of columns in the foreign key constraint
+- `*fkattnums`: Array of attribute numbers representing the foreign key columns
+- `numfksetcols`: Initial count of columns in the SET action list
+- `*fksetcolsattnums`: Array of attribute numbers for SET action columns (modified in-place to remove duplicates)
+- `*fksetcols`: List of column names for error reporting purposes
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_nth](../l/list_nth.md)

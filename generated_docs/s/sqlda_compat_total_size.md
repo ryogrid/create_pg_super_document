@@ -18,10 +18,9 @@ This function serves as a high-level wrapper that combines the calculation of em
 This function provides the total memory footprint needed to allocate a complete compatibility-mode SQLDA that can hold both the structural information about the result set and the actual data values for the specified row.
 
 ## Parameters / Member Variables
-- : Pointer to PostgreSQL result set containing data and metadata
-- : Zero-based row index to calculate storage for (negative values return empty size only)
-- : Compatibility mode (ECPG_COMPAT or ECPG_INFORMIX) affecting type handling
-
+- `*res`: Pointer to PostgreSQL result set containing data and metadata
+- `row`: Zero-based row index to calculate storage for (negative values return empty size only)
+- `compat`: Compatibility mode (ECPG_COMPAT or ECPG_INFORMIX) affecting type handling
 ## Dependencies
 - Functions called/Symbols referenced:
   - [sqlda_compat_empty_size](sqlda_compat_empty_size.md) (calculate empty structure size)

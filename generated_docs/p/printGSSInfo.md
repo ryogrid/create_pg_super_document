@@ -24,7 +24,6 @@ Key behaviors include:
 The function is intentionally minimal compared to  because GSSAPI encryption typically provides fewer configurable parameters that users need to see, focusing instead on the binary question of whether encryption is active.
 
 ## Parameters / Member Variables
-None - the function operates on the global pset.db connection
 
 ## Dependencies
 - Functions called/Symbols referenced:

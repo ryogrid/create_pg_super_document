@@ -20,10 +20,9 @@ The function performs multiple phases: database lookup and locking, permission a
 Critical safety features include preventing drops of template databases, the currently connected database, databases with active backends (unless forced), databases with active replication slots, and databases with logical replication subscriptions.
 
 ## Parameters / Member Variables
-- : Name of the database to be dropped
-- : If true, don't error when database doesn't exist, just issue a notice
-- : If true, terminate existing connections to the database before dropping
-
+- `*dbname`: Name of the database to be dropped
+- `missing_ok`: If true, don't error when database doesn't exist, just issue a notice
+- `force`: If true, terminate existing connections to the database before dropping
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_db_info](../g/get_db_info.md), CountOtherDBBackends, TerminateOtherDBBackends

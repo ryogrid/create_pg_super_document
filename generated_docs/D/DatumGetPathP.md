@@ -16,8 +16,7 @@ DatumGetPathP(Datum X)
 This function serves as a type-safe wrapper for converting PostgreSQL Datum values to PATH geometry pointers. It uses the PG_DETOAST_DATUM macro to ensure that if the Datum contains a TOASTed (compressed/externally stored) PATH value, it will be properly decompressed before returning the pointer. This is essential for PostgreSQL's geometric data types handling where large objects may be stored externally or compressed.
 
 ## Parameters / Member Variables
-- : The input Datum value that should contain a PATH geometry object
-
+- `X`: The input Datum value that should contain a PATH geometry object
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_DETOAST_DATUM (macro for TOAST decompression)

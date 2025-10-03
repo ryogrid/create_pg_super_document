@@ -18,7 +18,6 @@ This function updates the PostgreSQL system catalog to mark that the current dat
 The function implements proper locking mechanisms to prevent conflicts with other operations that might be checking or modifying this flag. It uses a shared lock specifically designed to prevent conflicts with EventTriggerOnLogin() which might be trying to reset the same flag. The function performs an in-place update of the catalog tuple only if the flag is not already set, ensuring efficiency.
 
 ## Parameters / Member Variables
-This function takes no parameters and operates on the current database (MyDatabaseId).
 
 ## Dependencies
 - Functions called/Symbols referenced:

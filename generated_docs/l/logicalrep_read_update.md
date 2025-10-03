@@ -25,11 +25,10 @@ This function parses an UPDATE operation from the logical replication protocol s
 The function validates the action sequence and sets the has_oldtuple flag to indicate whether old tuple data was present in the stream.
 
 ## Parameters / Member Variables
-- : StringInfo buffer containing the incoming logical replication stream data
-- : Pointer to boolean flag that will be set to indicate if old tuple data was read
-- : Pointer to LogicalRepTupleData structure for old tuple values (populated if has_oldtuple becomes true)
-- : Pointer to LogicalRepTupleData structure for new tuple values (always populated)
-
+- `in`: StringInfo buffer containing the incoming logical replication stream data
+- `*has_oldtuple`: Pointer to boolean flag that will be set to indicate if old tuple data was read
+- `*oldtup`: Pointer to LogicalRepTupleData structure for old tuple values (populated if has_oldtuple becomes true)
+- `*newtup`: Pointer to LogicalRepTupleData structure for new tuple values (always populated)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pq_getmsgint](../p/pq_getmsgint.md) (reads 4-byte integer from message)

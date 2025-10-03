@@ -26,9 +26,8 @@ Key validation steps include:
 - For NOT operations, validating the existence and hashability of the negator operator
 
 ## Parameters / Member Variables
-- : Node pointer to the current node being examined in the expression tree
-- : Void pointer for context data (currently unused, passed as NULL)
-
+- `*node`: Node pointer to the current node being examined in the expression tree
+- `*context`: Void pointer for context data (currently unused, passed as NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ScalarArrayOpExpr](../S/ScalarArrayOpExpr.md)

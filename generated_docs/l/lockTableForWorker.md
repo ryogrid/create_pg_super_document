@@ -25,9 +25,8 @@ To prevent infinite waits, the function uses "LOCK TABLE ... IN ACCESS SHARE MOD
 The function skips locking for BLOBS entries since they don't correspond to actual database tables.
 
 ## Parameters / Member Variables
-- : Archive handle containing the database connection and dump context
-- : Table of Contents entry representing the table to be locked, containing namespace and tag information
-
+- `*AH`: Archive handle containing the database connection and dump context
+- `*te`: Table of Contents entry representing the table to be locked, containing namespace and tag information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [fmtQualifiedId](../f/fmtQualifiedId.md) (formats qualified table identifier)

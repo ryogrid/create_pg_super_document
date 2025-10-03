@@ -32,8 +32,7 @@ AllocSetFree handles memory deallocation for the AllocSet memory context. It imp
 The function includes extensive error checking and debugging support, including detection of writes past the end of allocated chunks (buffer overruns) and optional memory clobbering to help catch use-after-free bugs.
 
 ## Parameters / Member Variables
-- : Pointer to the memory chunk to be freed (as returned by AllocSetAlloc)
-
+- `*pointer`: Pointer to the memory chunk to be freed (as returned by AllocSetAlloc)
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerGetMemoryChunk

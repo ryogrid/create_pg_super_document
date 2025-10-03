@@ -20,7 +20,6 @@ The function configures two types of signal handling:
 2. **Ignored Signals**: SIGPIPE and SIGSYS are ignored to prevent unwanted process termination during specific operations like backend communication and system call probing.
 
 ## Parameters / Member Variables
-This function takes no parameters and operates independently.
 
 ## Dependencies
 - Functions called/Symbols referenced:

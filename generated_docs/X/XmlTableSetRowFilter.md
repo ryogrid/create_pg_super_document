@@ -18,9 +18,8 @@ XmlTableSetRowFilter is a static function that sets up row filtering for XML tab
 The function requires that XmlTableSetDocument has been called previously to establish the XPath context. It performs error checking for empty paths and invalid XPath syntax, reporting appropriate PostgreSQL errors when issues are encountered.
 
 ## Parameters / Member Variables
-- : TableFuncScanState pointer containing the scanning state and private data for XML table processing
-- : Null-terminated string containing the XPath expression to be used for row filtering
-
+- `*state`: TableFuncScanState pointer containing the scanning state and private data for XML table processing
+- `*path`: Null-terminated string containing the XPath expression to be used for row filtering
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetXmlTableBuilderPrivateData](../G/GetXmlTableBuilderPrivateData.md)

@@ -16,8 +16,7 @@ bms_make_singleton(int x)
 This function constructs a new Bitmapset with a single bit set at position . It allocates memory for the bitmapset structure, initializes it with the appropriate type and size, and sets only the specified bit. The function uses efficient bit manipulation by calculating the appropriate word number and bit position within that word, then sets the corresponding bit using a left-shift operation.
 
 ## Parameters / Member Variables
-- : The bit position to set in the new bitmapset (must be non-negative)
-
+- `x`: The bit position to set in the new bitmapset (must be non-negative)
 ## Dependencies
 - Functions called/Symbols referenced:
   - WORDNUM (macro to calculate word number from bit position)

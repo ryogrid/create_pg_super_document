@@ -18,10 +18,9 @@ This function is a critical component of the incremental sort algorithm that det
 The function implements an optimization by comparing columns in reverse order (from last to first pre-sorted column) because in sorted input, trailing keys are more likely to change first, allowing for early detection of inequality and minimizing the number of function calls. The function handles NULL values specially, treating NULL-vs-NULL as equal and NULL-vs-non-NULL as unequal.
 
 ## Parameters / Member Variables
-- : Pointer to IncrementalSortState containing cached comparison functions and metadata
-- : TupleTableSlot representing the current group (used as comparison baseline)
-- : TupleTableSlot to test for membership in the current group
-
+- `*node`: Pointer to IncrementalSortState containing cached comparison functions and metadata
+- `*pivot`: TupleTableSlot representing the current group (used as comparison baseline)
+- `*tuple`: TupleTableSlot to test for membership in the current group
 ## Dependencies
 - Functions called/Symbols referenced:
   - castNode (macro to safely cast plan node)

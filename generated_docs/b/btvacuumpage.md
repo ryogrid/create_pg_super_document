@@ -24,9 +24,8 @@ The  function is the core page-processing routine for B-tree vacuum operations. 
 The function implements a sophisticated backtracking mechanism to ensure that page splits occurring during the vacuum don't cause tuples to be missed. When a page split moves tuples to a block number lower than the current scan position, the function backtracks to process those pages.
 
 ## Parameters / Member Variables
-- : BTVacState structure containing vacuum state information including callback function, statistics, and cycle ID
-- : Block number of the page to vacuum, which may differ from the actual page being processed during backtracking
-
+- `*vstate`: BTVacState structure containing vacuum state information including callback function, statistics, and cycle ID
+- `scanblkno`: Block number of the page to vacuum, which may differ from the actual page being processed during backtracking
 ## Dependencies
 - Functions called/Symbols referenced:
   - [vacuum_delay_point](../v/vacuum_delay_point.md)

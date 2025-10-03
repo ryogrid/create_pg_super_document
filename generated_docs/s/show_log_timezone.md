@@ -20,6 +20,7 @@ The function always returns the canonical name of the timezone zone rather than 
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_get_timezone_name](../p/pg_get_timezone_name.md)

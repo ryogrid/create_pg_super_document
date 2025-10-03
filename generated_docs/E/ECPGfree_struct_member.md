@@ -16,8 +16,7 @@ ECPGfree_struct_member(struct ECPGstruct_member *rm)
 This function implements a standard linked list deallocation pattern for ECPGstruct_member structures. It traverses the linked list of struct members, freeing each member's name string, type information, and the member structure itself. The function handles the recursive nature of the linked list by advancing to the next member before freeing the current one, preventing access to freed memory during traversal.
 
 ## Parameters / Member Variables
-- : Pointer to the first ECPGstruct_member in the linked list to be freed. Can be NULL (function will handle gracefully)
-
+- `*rm`: Pointer to the first ECPGstruct_member in the linked list to be freed. Can be NULL (function will handle gracefully)
 ## Dependencies
 - Functions called/Symbols referenced:
   - free (standard C library function for memory deallocation)

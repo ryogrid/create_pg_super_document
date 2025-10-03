@@ -18,10 +18,9 @@ This function serves as a comparator callback for binary heap operations in the 
 The function uses safe pointer-to-integer conversion through intptr_t to handle the casting properly across different architectures. It delegates the actual comparison to pg_cmp_s32, which returns -1, 0, or 1 for less-than, equal, or greater-than relationships respectively.
 
 ## Parameters / Member Variables
-- : First integer value cast as void pointer
-- : Second integer value cast as void pointer  
-- : Unused argument parameter (required by binary heap comparator interface)
-
+- `*a`: First integer value cast as void pointer
+- `*b`: Second integer value cast as void pointer
+- `*arg`: Unused argument parameter (required by binary heap comparator interface)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_cmp_s32](../p/pg_cmp_s32.md) (PostgreSQL's signed 32-bit integer comparison function)

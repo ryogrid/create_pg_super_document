@@ -16,9 +16,8 @@ UnregisterSubXactCallback(SubXactCallback callback, void *arg)
 This function searches through the linked list of subtransaction callbacks (SubXact_callbacks) to find and remove a specific callback function. It performs a linear search through the callback chain, matching both the callback function pointer and the argument pointer. Once found, the callback item is removed from the linked list and its memory is freed using pfree(). This is the counterpart to RegisterSubXactCallback and is typically called during module cleanup or when a module no longer needs to be notified of subtransaction events.
 
 ## Parameters / Member Variables
-- : Function pointer to the SubXactCallback function that was previously registered
-- : Pointer to the argument data that was associated with the callback during registration
-
+- `callback`: Function pointer to the SubXactCallback function that was previously registered
+- `*arg`: Pointer to the argument data that was associated with the callback during registration
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SubXactCallbackItem](../S/SubXactCallbackItem.md) (structure type)

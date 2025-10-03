@@ -18,8 +18,7 @@ This function serves as a callback handler in the JSONB input parsing pipeline. 
 The function operates within PostgreSQL's streaming JSON parser framework, where different callback functions handle various JSON structural elements. This particular callback ensures that object parsing begins with the correct internal state initialization.
 
 ## Parameters / Member Variables
-- : A void pointer that is cast to JsonbInState*, containing the current parsing state and configuration
-
+- `*pstate`: A void pointer that is cast to JsonbInState*, containing the current parsing state and configuration
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pushJsonbValue](../p/pushJsonbValue.md) (pushes parsing tokens onto the state stack)

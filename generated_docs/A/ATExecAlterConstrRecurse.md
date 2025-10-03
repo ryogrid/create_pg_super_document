@@ -25,14 +25,13 @@ Key operations include:
 5. Returns whether any changes were actually made
 
 ## Parameters / Member Variables
-- : The constraint specification containing new attribute values
-- : Open relation handle for the pg_constraint catalog
-- : Open relation handle for the pg_trigger catalog  
-- : The relation containing the constraint being altered
-- : The constraint tuple from pg_constraint being modified
-- : List to collect OIDs of other relations with affected triggers
-- : Lock mode to use when opening child relations
-
+- `*cmdcon`: The constraint specification containing new attribute values
+- `conrel`: Open relation handle for the pg_constraint catalog
+- `tgrel`: Open relation handle for the pg_trigger catalog
+- `rel`: The relation containing the constraint being altered
+- `contuple`: The constraint tuple from pg_constraint being modified
+- `**otherrelids`: List to collect OIDs of other relations with affected triggers
+- `lockmode`: Lock mode to use when opening child relations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_stack_depth](../c/check_stack_depth.md)

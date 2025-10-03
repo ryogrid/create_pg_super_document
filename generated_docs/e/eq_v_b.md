@@ -21,9 +21,8 @@ Similar to , this function works with Snowball's variable-length string represen
 The function checks if the pattern matches the text immediately before the current cursor position, and if successful, moves the cursor backward by the length of the matched pattern. It returns 1 for successful matches and 0 for failures.
 
 ## Parameters / Member Variables
-- : Pointer to the Snowball environment structure containing the text buffer and cursor positions
-- : Pointer to a variable-length symbol array (with size stored at )
-
+- `*z`: Pointer to the Snowball environment structure containing the text buffer and cursor positions
+- `*p`: Pointer to a variable-length symbol array (with size stored at )
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (backward string matching function)

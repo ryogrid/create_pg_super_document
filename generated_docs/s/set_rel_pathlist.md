@@ -21,11 +21,10 @@ The function first checks if the relation is a dummy relation (already proven em
 After core path generation, the function allows plugins to modify the pathlist via , then considers generating gather paths for parallel execution (except for inheritance children and top-level relations), and finally determines the cheapest paths.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global optimizer state and context
-- : RelOptInfo structure representing the relation for which to build paths
-- : Range table index identifying the relation in the query's range table
-- : RangeTblEntry containing metadata about the relation from the parse tree
-
+- `*root`: PlannerInfo structure containing global optimizer state and context
+- `*rel`: RelOptInfo structure representing the relation for which to build paths
+- `rti`: Range table index identifying the relation in the query's range table
+- `*rte`: RangeTblEntry containing metadata about the relation from the parse tree
 ## Dependencies
 - Functions called/Symbols referenced:
   - [set_append_rel_pathlist](set_append_rel_pathlist.md) (for inheritance relations)

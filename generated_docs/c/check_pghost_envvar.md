@@ -17,6 +17,7 @@ This function performs a security check to ensure that pg_upgrade operations onl
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQconndefaults](../P/PQconndefaults.md)

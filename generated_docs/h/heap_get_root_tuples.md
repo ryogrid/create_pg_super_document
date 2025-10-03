@@ -20,9 +20,8 @@ The function performs a comprehensive scan of the page, identifying HOT chain st
 This mapping is crucial for index operations, as indexes point to root tuples, and this function helps determine which tuples are actually visible through index scans.
 
 ## Parameters / Member Variables
-- : The heap page to analyze for HOT chain structure
-- : Output array with MaxHeapTuplesPerPage entries where root_offsets[k-1] contains the root offset for item at offset k, or InvalidOffsetNumber for unused items
-
+- `page`: The heap page to analyze for HOT chain structure
+- `*root_offsets`: Output array with MaxHeapTuplesPerPage entries where root_offsets[k-1] contains the root offset for item at offset k, or InvalidOffsetNumber for unused items
 ## Dependencies
 - Functions called/Symbols referenced:
   - MemSet

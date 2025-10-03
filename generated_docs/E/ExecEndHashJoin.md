@@ -22,8 +22,7 @@ The function performs two main cleanup operations:
 This cleanup is essential in PostgreSQL's memory management strategy, as hash joins can consume significant memory resources, particularly in multi-batch scenarios where temporary files may have been created.
 
 ## Parameters / Member Variables
-- : The HashJoinState structure containing the hash join execution state to be cleaned up
-
+- `*node`: The HashJoinState structure containing the hash join execution state to be cleaned up
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecHashTableDestroy](ExecHashTableDestroy.md): Destroys the hash table and frees associated memory

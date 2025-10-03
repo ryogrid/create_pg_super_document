@@ -23,6 +23,7 @@ If both conditions are met, it sets the `pendingWalRcvRestart` flag to true and 
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [WalRcvRunning](../W/WalRcvRunning.md)

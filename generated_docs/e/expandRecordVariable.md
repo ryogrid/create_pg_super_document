@@ -30,10 +30,9 @@ The function operates through several strategies:
 4. **Final resolution**: When no further drilling is possible, it delegates to get_expr_result_tupdesc for final type resolution.
 
 ## Parameters / Member Variables
-- : Parse state containing context information for the current parsing operation
-- : The Var node of type RECORD whose tuple descriptor needs to be determined
-- : Extra offset for interpreting varlevelsup correctly during recursive calls (outside callers should pass zero)
-
+- `*pstate`: Parse state containing context information for the current parsing operation
+- `*var`: The Var node of type RECORD whose tuple descriptor needs to be determined
+- `levelsup`: Extra offset for interpreting varlevelsup correctly during recursive calls (outside callers should pass zero)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetRTEByRangeTablePosn](../G/GetRTEByRangeTablePosn.md)

@@ -19,6 +19,7 @@ The function is part of PostgreSQL's error reporting system and helps users unde
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - MyProc (current process structure)

@@ -18,8 +18,7 @@ The  function computes the total number of word positions contained within a TSV
 The function traverses the WordEntry array from the beginning (ARRPTR) to the end (STRPTR), examining each entry's position data length using the POSDATALEN macro. This provides an accurate count of the total positional information available for ranking calculations.
 
 ## Parameters / Member Variables
-- : The TSVector structure containing lexemes and their positional information
-
+- `t`: The TSVector structure containing lexemes and their positional information
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (macro to get array pointer from TSVector)

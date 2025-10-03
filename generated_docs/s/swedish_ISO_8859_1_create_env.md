@@ -17,7 +17,6 @@ This function is a language-specific wrapper around the generic `SN_create_env` 
 The function allocates memory for the stemmer environment structure and initializes all necessary components including the main string buffer and integer arrays needed for Swedish morphological analysis.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

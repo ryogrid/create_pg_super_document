@@ -20,10 +20,9 @@ The function sets up a substitution context that tracks the number of parameters
 The key difference from regular parameter substitution is in the handling of sublevels, which is crucial for properly resolving parameter references in the context of inlined set-returning functions where the parameter scope relationship differs from regular function inlining.
 
 ## Parameters / Member Variables
-- : The Query tree in which to perform parameter substitution
-- : The number of function parameters to substitute
-- : List of actual argument expressions to substitute for the parameters
-
+- `*expr`: The Query tree in which to perform parameter substitution
+- `nargs`: The number of function parameters to substitute
+- `*args`: List of actual argument expressions to substitute for the parameters
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - context structure for parameter substitution

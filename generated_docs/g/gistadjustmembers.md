@@ -29,11 +29,10 @@ The function implements a specific dependency strategy for GiST access methods:
 This dependency configuration ensures proper cascading behavior when operator classes or families are dropped while maintaining the flexibility needed for GiST's extensible architecture.
 
 ## Parameters / Member Variables
-- : The OID of the operator family to which members are being added
-- : The OID of the operator class (may be used for dependency targeting)
-- : List of  structures representing operators to be added
-- : List of  structures representing support functions to be added
-
+- `opfamilyoid`: The OID of the operator family to which members are being added
+- `opclassoid`: The OID of the operator class (may be used for dependency targeting)
+- `*operators`: List of  structures representing operators to be added
+- `*functions`: List of  structures representing support functions to be added
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Structure representing operator family members

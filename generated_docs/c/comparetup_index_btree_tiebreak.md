@@ -24,10 +24,9 @@ This function serves as a tiebreaker comparison routine for B-tree index tuple s
 The function ensures that B-tree indexes maintain their required physical uniqueness property by treating heap TID as an implicit last key attribute.
 
 ## Parameters / Member Variables
-- : First SortTuple to compare containing an IndexTuple
-- : Second SortTuple to compare containing an IndexTuple  
-- : Tuplesortstate containing sort configuration and context information
-
+- `*a`: First SortTuple to compare containing an IndexTuple
+- `*b`: Second SortTuple to compare containing an IndexTuple
+- `*state`: Tuplesortstate containing sort configuration and context information
 ## Dependencies
 - Functions called/Symbols referenced:
   - TuplesortstateGetPublic

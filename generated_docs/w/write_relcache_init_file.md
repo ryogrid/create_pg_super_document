@@ -24,8 +24,7 @@ For each qualifying relation, the function writes the complete relation descript
 The function uses write_item() as a helper to write individual data structures with their sizes to the binary file format.
 
 ## Parameters / Member Variables
-- : Boolean flag indicating whether to write shared catalog relations (true) or local database relations (false)
-
+- `shared`: Boolean flag indicating whether to write shared catalog relations (true) or local database relations (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [write_item](write_item.md)

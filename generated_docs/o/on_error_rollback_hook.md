@@ -23,8 +23,7 @@ The function accepts three types of values:
 The "interactive" mode is particularly useful as it provides error recovery during manual database exploration while preserving script behavior where errors might be expected and handled explicitly.
 
 ## Parameters / Member Variables
-- : The string value being assigned to the ON_ERROR_ROLLBACK variable that needs to be validated and converted to an enum value
-
+- `*newval`: The string value being assigned to the ON_ERROR_ROLLBACK variable that needs to be validated and converted to an enum value
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_strcasecmp](../p/pg_strcasecmp.md)

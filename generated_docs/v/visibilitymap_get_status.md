@@ -18,10 +18,9 @@ The visibilitymap_get_status function reads the visibility map to determine the 
 This function is designed to be called without locks on the heap page, making it suitable for concurrent access scenarios. However, this means the returned status may be stale by the time the caller uses it, so the caller must handle potential race conditions. The function performs atomic single-byte reads from the visibility map to minimize locking overhead.
 
 ## Parameters / Member Variables
-- : The relation whose visibility map is being queried
-- : Block number of the heap page whose visibility status is requested
-- : Pointer to buffer variable for visibility map page (input/output parameter)
-
+- `rel`: The relation whose visibility map is being queried
+- `heapBlk`: Block number of the heap page whose visibility status is requested
+- `*vmbuf`: Pointer to buffer variable for visibility map page (input/output parameter)
 ## Dependencies
 - Functions called/Symbols referenced:
   - HEAPBLK_TO_MAPBLOCK/HEAPBLK_TO_MAPBYTE/HEAPBLK_TO_OFFSET (heap-to-map conversion macros)

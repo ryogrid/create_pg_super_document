@@ -23,13 +23,12 @@ The  function converts a PostgreSQL internal timestamp representation to a human
 The function handles edge cases including negative timestamps, out-of-range dates, and timestamps that fall outside the range of . When timezone conversion is not possible, it defaults to GMT.
 
 ## Parameters / Member Variables
-- : Input timestamp value to convert
-- : Output parameter for timezone offset in seconds (negative of tm_gmtoff), or NULL if no timezone conversion wanted
-- : Output struct pg_tm to populate with converted time components
-- : Output parameter for fractional seconds (microseconds)
-- : Output parameter for timezone name string, or NULL if not needed
-- : Timezone to convert to, or NULL to use session_timezone
-
+- `dt`: Input timestamp value to convert
+- `*tzp`: Output parameter for timezone offset in seconds (negative of tm_gmtoff), or NULL if no timezone conversion wanted
+- `*tm`: Output struct pg_tm to populate with converted time components
+- `*fsec`: Output parameter for fractional seconds (microseconds)
+- `**tzn`: Output parameter for timezone name string, or NULL if not needed
+- `*attimezone`: Timezone to convert to, or NULL to use session_timezone
 ## Dependencies
 - Functions called/Symbols referenced:
   - TMODULO (macro for timestamp/date separation)

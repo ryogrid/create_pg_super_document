@@ -20,8 +20,7 @@ The function stores the current handler before setting the new one, allowing app
 The default_threadlock function uses pthread mutex operations to provide basic thread safety for libpq operations when no custom handler is provided.
 
 ## Parameters / Member Variables
-- : A function pointer of type pgthreadlock_t (defined as ) that will be called for thread locking operations. If NULL, resets to the default thread locking mechanism.
-
+- `newhandler`: A function pointer of type pgthreadlock_t (defined as ) that will be called for thread locking operations. If NULL, resets to the default thread locking mechanism.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [default_threadlock](../d/default_threadlock.md) (fallback handler when newhandler is NULL)

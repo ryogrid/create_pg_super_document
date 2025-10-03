@@ -18,6 +18,7 @@ This function calculates and returns the shared memory size required for the inj
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [add_size](../a/add_size.md): Performs safe size addition to avoid arithmetic overflow

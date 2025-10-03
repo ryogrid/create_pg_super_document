@@ -18,8 +18,7 @@ This function is responsible for reconstructing large variable-length data (Datu
 The function handles both compressed and uncompressed external data, properly setting the appropriate headers and allocating the correct amount of memory for the reconstructed datum. It ensures data integrity by validating that the input is indeed an external on-disk datum before proceeding with the reconstruction.
 
 ## Parameters / Member Variables
-- : Pointer to a varlena structure containing the TOAST pointer that references the externally stored data chunks
-
+- `*attr`: Pointer to a varlena structure containing the TOAST pointer that references the externally stored data chunks
 ## Dependencies
 - Functions called/Symbols referenced:
   - VARATT_IS_EXTERNAL_ONDISK

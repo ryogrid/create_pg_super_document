@@ -33,9 +33,8 @@ The state machine progresses through several key states:
 6. **HJ_NEED_NEW_BATCH**: Advancing to next batch in multi-batch scenarios
 
 ## Parameters / Member Variables
-- : The PlanState node containing hash join execution state
-- : Boolean flag indicating whether to use parallel hash join execution paths
-
+- `*pstate`: The PlanState node containing hash join execution state
+- `parallel`: Boolean flag indicating whether to use parallel hash join execution paths
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecHashTableCreate](ExecHashTableCreate.md): Creates the hash table structure

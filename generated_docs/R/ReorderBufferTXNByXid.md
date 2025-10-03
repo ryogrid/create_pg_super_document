@@ -17,13 +17,12 @@ ReorderBufferTXNByXid(ReorderBuffer *rb, TransactionId xid, bool create,
 This function serves as the primary interface for retrieving transaction objects from the reorder buffer during logical replication. It implements a two-level lookup strategy: first checking a single-entry cache for the most recently accessed transaction, then falling back to a hash table lookup. If the create flag is set and the transaction doesn't exist, it allocates a new ReorderBufferTXN and initializes it with the provided LSN. The function also maintains the toplevel_by_lsn ordering when creating top-level transactions and updates the lookup cache for subsequent accesses.
 
 ## Parameters / Member Variables
-- : The ReorderBuffer containing the transaction hash table and cache
-- : The transaction ID to look up or create
-- : Whether to create a new transaction if it doesn't exist
-- : Output parameter indicating if a new transaction was created (can be NULL)
-- : The LSN to use when creating a new transaction (must be valid if create is true)
-- : Whether to add the new transaction to the top-level transaction list ordered by LSN
-
+- `*rb`: The ReorderBuffer containing the transaction hash table and cache
+- `xid`: The transaction ID to look up or create
+- `create`: Whether to create a new transaction if it doesn't exist
+- `*is_new`: Output parameter indicating if a new transaction was created (can be NULL)
+- `lsn`: The LSN to use when creating a new transaction (must be valid if create is true)
+- `create_as_top`: Whether to add the new transaction to the top-level transaction list ordered by LSN
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hash_search](../h/hash_search.md) (hash table lookup/insertion)

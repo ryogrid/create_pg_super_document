@@ -20,8 +20,7 @@ The  function is responsible for parsing string input and converting it into Pos
 The function allocates memory for a new Point structure and uses the  utility function to parse the x and y coordinates from the input string. Error handling is delegated to , which will report parsing errors appropriately.
 
 ## Parameters / Member Variables
-- : Input string containing the point representation to be parsed
-
+- `PG_FUNCTION_ARGS`: Input string containing the point representation to be parsed
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - PostgreSQL's 2D point data structure

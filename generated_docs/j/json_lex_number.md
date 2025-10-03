@@ -25,11 +25,10 @@ The parsing process follows JSON specification precisely:
 The function supports incremental parsing for streaming scenarios and provides flexible error handling through optional output parameters. It also detects trailing alphanumeric garbage that should be considered part of the token for error reporting.
 
 ## Parameters / Member Variables
-- : Pointer to JsonLexContext containing lexical state and input buffer information
-- : Pointer to the beginning of the numeric token (after any leading minus sign)
-- : Optional output parameter for error flag instead of raising errors directly  
-- : Optional output parameter for total token length from input start
-
+- `*lex`: Pointer to JsonLexContext containing lexical state and input buffer information
+- `*s`: Pointer to the beginning of the numeric token (after any leading minus sign)
+- `*num_err`: Optional output parameter for error flag instead of raising errors directly
+- `*total_len`: Optional output parameter for total token length from input start
 ## Dependencies
 - Functions called/Symbols referenced:
   - JSON_ALPHANUMERIC_CHAR (character classification macro for trailing garbage detection)

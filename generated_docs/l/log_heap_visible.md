@@ -19,12 +19,11 @@ The  function creates a WAL record for marking a heap page as all-visible. This 
 The function handles logical decoding accessibility by setting appropriate flags for catalog relations. It optimizes WAL record size by conditionally including full-page images based on system configuration.
 
 ## Parameters / Member Variables
-- : The relation (table) containing the page being marked all-visible
-- : Buffer containing the heap page being marked all-visible (must be valid and already modified)
-- : Buffer containing the corresponding visibility map block (must be valid and already modified)  
-- : The largest xmin on the page being marked all-visible, used by REDO routine to generate recovery conflicts
-- : Visibility map flags indicating the type of visibility being set
-
+- `rel`: The relation (table) containing the page being marked all-visible
+- `heap_buffer`: Buffer containing the heap page being marked all-visible (must be valid and already modified)
+- `vm_buffer`: Buffer containing the corresponding visibility map block (must be valid and already modified)
+- `snapshotConflictHorizon`: The largest xmin on the page being marked all-visible, used by REDO routine to generate recovery conflicts
+- `vmflags`: Visibility map flags indicating the type of visibility being set
 ## Dependencies
 - Functions called/Symbols referenced:
   - [xl_heap_visible](../x/xl_heap_visible.md) (WAL record structure)

@@ -15,7 +15,6 @@ void CreateSharedBackendStatus(void)
 This function creates and initializes all the shared memory structures required for the backend status system. It allocates space for the main backend status array, application name buffer, client hostname buffer, activity buffer, and conditionally SSL and GSS status buffers. When creating these structures for the first time, it zeros them out and sets up proper pointer relationships between the main status array and the various string buffers.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

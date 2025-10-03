@@ -30,8 +30,7 @@ Based on the matched pattern, it applies one of three transformations:
 This specialized handling maintains Hungarian vowel harmony and morphological structure when removing sublative case markers.
 
 ## Parameters / Member Variables
-- : Pointer to the SN_env structure containing the word being processed, cursor positions, and string boundaries
-
+- `*z`: Pointer to the SN_env structure containing the word being processed, cursor positions, and string boundaries
 ## Dependencies
 - Functions called/Symbols referenced:
   - [find_among_b](../f/find_among_b.md) (searches for sublative patterns from array a_6 containing 'stul', 'astul', 'ástul', 'stül', 'estül', 'éstül')

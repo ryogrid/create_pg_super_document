@@ -20,10 +20,9 @@ This internal function implements the core logic for determining if one multiran
 The function handles empty multiranges by returning false, as empty sets cannot have meaningful ordering relationships. The algorithm ensures that all ranges in the first multirange come before all ranges in the second multirange.
 
 ## Parameters / Member Variables
-- : TypeCacheEntry containing range type information and comparison functions
-- : The first multirange to check (left operand)
-- : The second multirange to compare against (right operand)
-
+- `*rangetyp`: TypeCacheEntry containing range type information and comparison functions
+- `*mr1`: The first multirange to check (left operand)
+- `*mr2`: The second multirange to compare against (right operand)
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Check if a multirange is empty

@@ -18,10 +18,9 @@ This function multiplies a 64-bit value  by a multi-precision number represented
 The function includes overflow detection and handling when summing the high part of the first multiplication with the low part of the second multiplication. This is critical for maintaining numerical accuracy in decimal-to-string conversion algorithms where precise arithmetic is essential.
 
 ## Parameters / Member Variables
-- : The 64-bit multiplicand (maximum 55 bits as noted in comment)
-- : Pointer to an array of 64-bit values representing a multi-precision multiplier
-- : The shift amount (result is shifted right by j-64 bits)
-
+- `m`: The 64-bit multiplicand (maximum 55 bits as noted in comment)
+- `factor`: Pointer to an array of 64-bit values representing a multi-precision multiplier
+- `shift`: The shift amount (result is shifted right by j-64 bits)
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Performs 128-bit multiplication of two 64-bit values

@@ -18,10 +18,9 @@ range_sockaddr_AF_INET6(const struct sockaddr_in6 *addr,
 This static function implements IPv6 subnet matching by iterating through all 16 bytes of the IPv6 address. For each byte, it performs the same bitwise operation as the IPv4 version: XOR the target address byte with the network address byte, then apply the corresponding netmask byte using bitwise AND. If any byte comparison yields a non-zero result, the address is outside the subnet. Only if all 16 bytes pass the test is the address considered within the subnet range.
 
 ## Parameters / Member Variables
-- : The IPv6 socket address to be checked for subnet membership
-- : The IPv6 network address that defines the subnet base
-- : The IPv6 netmask that defines the subnet boundaries
-
+- `*addr`: The IPv6 socket address to be checked for subnet membership
+- `*netaddr`: The IPv6 network address that defines the subnet base
+- `*netmask`: The IPv6 netmask that defines the subnet boundaries
 ## Dependencies
 - Functions called/Symbols referenced:
   - (No external function calls - uses only standard bitwise operations and loop control)

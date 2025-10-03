@@ -16,8 +16,7 @@ numerictypmodout(PG_FUNCTION_ARGS)
 This function is the output counterpart to , serving to convert internal typmod representations back into displayable strings. When PostgreSQL needs to show a NUMERIC type with its precision and scale constraints (such as in table definitions or error messages), this function formats the typmod into a string like "(10,2)" representing precision and scale. If the typmod is invalid, it returns an empty string.
 
 ## Parameters / Member Variables
-- : Internal type modifier value containing encoded precision and scale information (PG_GETARG_INT32(0))
-
+- `PG_FUNCTION_ARGS`: Internal type modifier value containing encoded precision and scale information (PG_GETARG_INT32(0))
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_INT32: Extracts int32 argument from function call

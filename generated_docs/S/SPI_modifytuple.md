@@ -19,13 +19,12 @@ SPI_modifytuple creates a new HeapTuple that is a copy of the input tuple with s
 The function preserves important tuple identification information (t_ctid, t_self, and t_tableOid) from the original tuple to the modified tuple. It performs comprehensive validation of input parameters and attribute numbers to ensure data integrity.
 
 ## Parameters / Member Variables
-- : The relation (table) that defines the tuple structure and attribute information
-- : The original HeapTuple to be modified
-- : The number of attributes to be modified
-- : Array of 1-based attribute numbers indicating which attributes to modify
-- : Array of new Datum values to replace the existing attribute values
-- : Optional array of null indicators ('n' means null, anything else means not null)
-
+- `rel`: The relation (table) that defines the tuple structure and attribute information
+- `tuple`: The original HeapTuple to be modified
+- `natts`: The number of attributes to be modified
+- `*attnum`: Array of 1-based attribute numbers indicating which attributes to modify
+- `*Values`: Array of new Datum values to replace the existing attribute values
+- `*Nulls`: Optional array of null indicators ('n' means null, anything else means not null)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)

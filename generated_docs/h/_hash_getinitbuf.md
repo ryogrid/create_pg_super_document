@@ -24,9 +24,8 @@ The function performs these key operations:
 This is more efficient than reading an existing page and then overwriting it, since the RBM_ZERO_AND_LOCK flag avoids unnecessary I/O by zeroing the buffer without reading the old contents from disk.
 
 ## Parameters / Member Variables
-- : The hash index relation containing the page
-- : Block number of the existing page to initialize (must not be P_NEW)
-
+- `rel`: The hash index relation containing the page
+- `blkno`: Block number of the existing page to initialize (must not be P_NEW)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReadBufferExtended](../R/ReadBufferExtended.md) (extended buffer read with special flags)

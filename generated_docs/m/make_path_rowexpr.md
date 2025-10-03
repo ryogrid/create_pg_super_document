@@ -18,9 +18,8 @@ This static function constructs a RowExpr node that represents a row expression 
 The resulting RowExpr has a record type (RECORDOID) and uses implicit coercion format, making it suitable for use in row comparisons and array operations within the rewritten CTE queries.
 
 ## Parameters / Member Variables
-- : Pointer to the CommonTableExpr containing the CTE definition with column names, types, and metadata
-- : List of column names (as String nodes) to include in the row expression
-
+- `*cte`: Pointer to the CommonTableExpr containing the CTE definition with column names, types, and metadata
+- `*col_list`: List of column names (as String nodes) to include in the row expression
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to create RowExpr)

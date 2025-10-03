@@ -30,12 +30,11 @@ The transformation process involves:
 For slice operations, non-slice indirection items are converted to slices by treating the single subscript as the upper bound and supplying an assumed lower bound of 1. The function also enforces PostgreSQL's maximum dimension limit (MAXDIM).
 
 ## Parameters / Member Variables
-- : The SubscriptingRef node being transformed, which will be updated with the processed subscript expressions and result type
-- : List of A_Indices structures representing the raw subscript expressions from the parser
-- : Parse state containing context information needed for expression transformation
-- : Boolean indicating whether this is a slice operation (affects result type determination)
-- : Boolean indicating whether this subscripting is part of an assignment operation
-
+- `*sbsref`: The SubscriptingRef node being transformed, which will be updated with the processed subscript expressions and result type
+- `*indirection`: List of A_Indices structures representing the raw subscript expressions from the parser
+- `*pstate`: Parse state containing context information needed for expression transformation
+- `isSlice`: Boolean indicating whether this is a slice operation (affects result type determination)
+- `isAssignment`: Boolean indicating whether this subscripting is part of an assignment operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [transformExpr](../t/transformExpr.md) (transforms raw expressions into executable form)

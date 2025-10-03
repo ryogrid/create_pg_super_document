@@ -16,8 +16,7 @@ network_broadcast(PG_FUNCTION_ARGS)
 This function calculates the broadcast address for a given inet or cidr network address. It takes a network address with a prefix length (netmask) and generates the corresponding broadcast address by setting all host bits (bits beyond the network prefix) to 1. The function works by creating a new inet structure, copying the network portion of the address, and then applying an OR operation with appropriate masks to set the host bits to 1. This is essential for network operations that need to determine the broadcast address of a subnet.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function argument structure containing the inet/cidr input network address
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument structure containing the inet/cidr input network address
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Extracts inet argument from function arguments

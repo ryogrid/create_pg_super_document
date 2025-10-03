@@ -16,9 +16,8 @@ DropPreparedStatement(const char *stmt_name, bool showError)
 DropPreparedStatement is the core implementation function for removing individual prepared statements from PostgreSQL's prepared statement system. It performs a two-step cleanup process: first releasing the cached plan resources through the plancache system, then removing the hash table entry that tracks the prepared statement. The function provides flexible error handling, allowing callers to choose whether missing statements should generate errors or be silently ignored. This internal function is used by both the DEALLOCATE command and system cleanup routines.
 
 ## Parameters / Member Variables
-- : The name of the prepared statement to remove from the system
-- : Boolean flag controlling error behavior - if true, missing statements cause errors; if false, missing statements are silently ignored
-
+- `*stmt_name`: The name of the prepared statement to remove from the system
+- `showError`: Boolean flag controlling error behavior - if true, missing statements cause errors; if false, missing statements are silently ignored
 ## Dependencies
 - Functions called/Symbols referenced:
   - [FetchPreparedStatement](../F/FetchPreparedStatement.md) (locates the statement in the hash table)

@@ -18,10 +18,9 @@ The  function is a specialized element description callback designed to work wit
 The function takes a void pointer to an Oid value, casts it appropriately, dereferences it, and formats it as an unsigned integer using . Oids are fundamental identifiers in PostgreSQL used to uniquely identify database objects like tables, indexes, and types.
 
 ## Parameters / Member Variables
-- : StringInfo buffer where the formatted OID will be appended
-- : Pointer to the Oid value to be formatted (cast from void*)
-- : Additional data parameter (unused in this implementation but required by callback signature)
-
+- `buf`: StringInfo buffer where the formatted OID will be appended
+- `*relid`: Pointer to the Oid value to be formatted (cast from void*)
+- `*data`: Additional data parameter (unused in this implementation but required by callback signature)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [appendStringInfo](../a/appendStringInfo.md)

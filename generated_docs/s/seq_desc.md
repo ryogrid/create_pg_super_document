@@ -18,9 +18,8 @@ The  function is part of PostgreSQL's WAL record description infrastructure, spe
 The function processes WAL records of type  by extracting the relation locator information (consisting of tablespace OID, database OID, and relation number) and appending it to the output buffer in a standardized format.
 
 ## Parameters / Member Variables
-- : StringInfo buffer where the formatted description will be appended
-- : XLogReaderState pointer containing the WAL record data to be described
-
+- `buf`: StringInfo buffer where the formatted description will be appended
+- `*record`: XLogReaderState pointer containing the WAL record data to be described
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData

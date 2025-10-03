@@ -22,10 +22,9 @@ The function handles lazy allocation of the extras array - it's only allocated w
 This is the most comprehensive version of the object address addition functions, used in scenarios where additional context or metadata needs to be preserved alongside the basic object reference information, particularly during complex dependency analysis operations.
 
 ## Parameters / Member Variables
-- : Pointer to the ObjectAddress structure to be added
-- : Pointer to the ObjectAddressExtra structure containing supplementary metadata
-- : Pointer to the ObjectAddresses structure to modify
-
+- `*object`: Pointer to the ObjectAddress structure to be added
+- `*extra`: Pointer to the ObjectAddressExtra structure containing supplementary metadata
+- `*addrs`: Pointer to the ObjectAddresses structure to modify
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md) (memory allocation)

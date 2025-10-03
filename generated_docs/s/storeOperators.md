@@ -17,12 +17,11 @@ storeOperators(List *opfamilyname, Oid amoid, Oid opfamilyoid,
 This function persists operator family members to the pg_amop catalog table, which stores the association between operators and operator families. It handles both search and ordering operators, determining the purpose based on the presence of a sort family. The function creates comprehensive dependency records to track relationships between the pg_amop entry and the referenced operator, operator class/family, data types, and sort family. It includes conflict detection when adding to existing families and invokes post-creation hooks. The dependency strength (NORMAL, INTERNAL, AUTO) is determined by the ref_is_hard flag and object type.
 
 ## Parameters / Member Variables
-- : List representation of the operator family name for error reporting
-- : OID of the access method associated with this operator family
-- : OID of the operator family receiving the operators
-- : List of OpFamilyMember structures representing operators to store
-- : Boolean indicating if this is an addition to an existing family (enables conflict checking)
-
+- `*opfamilyname`: List representation of the operator family name for error reporting
+- `amoid`: OID of the access method associated with this operator family
+- `opfamilyoid`: OID of the operator family receiving the operators
+- `*operators`: List of OpFamilyMember structures representing operators to store
+- `isAdd`: Boolean indicating if this is an addition to an existing family (enables conflict checking)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md)

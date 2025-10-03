@@ -20,13 +20,12 @@ The gettoken_query_standard function implements the core parsing logic for Postg
 The parser leverages the tsvector parser for operand processing and supports weight modifiers (A, B, C, D) and prefix matching (*) through the get_modifiers helper function. It maintains proper parentheses balance and handles error conditions including syntax errors and malformed expressions.
 
 ## Parameters / Member Variables
-- : Parser state containing current position, parsing state, and context information
-- : Output parameter receiving the operator type (OP_AND, OP_OR, OP_NOT, OP_PHRASE)
-- : Output parameter for the length of parsed string values
-- : Output parameter for parsed string values (operands)
-- : Output parameter for weight information or phrase distance
-- : Output parameter indicating if prefix matching is enabled
-
+- `state`: Parser state containing current position, parsing state, and context information
+- `*operator`: Output parameter receiving the operator type (OP_AND, OP_OR, OP_NOT, OP_PHRASE)
+- `*lenval`: Output parameter for the length of parsed string values
+- `**strval`: Output parameter for parsed string values (operands)
+- `*weight`: Output parameter for weight information or phrase distance
+- `*prefix`: Output parameter indicating if prefix matching is enabled
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TSQueryParserState](../T/TSQueryParserState.md)

@@ -16,8 +16,7 @@ RS_free(Regis *r)
 RS_free performs cleanup for a compiled regular expression by traversing the linked list of RegisNode structures and deallocating each node using pfree(). It follows the standard pattern for freeing linked lists: save the next pointer, free the current node, and advance to the next node. After freeing all nodes, it sets the node pointer to NULL to prevent dangling references and ensure the Regis structure is in a clean state.
 
 ## Parameters / Member Variables
-- : Pointer to the Regis structure containing the compiled pattern to free
-
+- `*r`: Pointer to the Regis structure containing the compiled pattern to free
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pfree](../p/pfree.md) (PostgreSQL memory deallocation function)

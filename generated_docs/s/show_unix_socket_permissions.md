@@ -20,6 +20,7 @@ The function uses a static buffer to store the formatted string, which is safe b
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - snprintf (standard library function)

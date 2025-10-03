@@ -19,12 +19,11 @@ This function creates a new entry in the pg_subscription_rel catalog to track th
 The function performs duplicate checking by searching the SUBSCRIPTIONRELMAP cache before insertion. It constructs a heap tuple with the subscription ID, relation ID, state character, and optionally the LSN position, then inserts it into the catalog using the standard catalog insertion mechanism.
 
 ## Parameters / Member Variables
-- : The OID of the subscription that will track this relation
-- : The OID of the relation (table) to be tracked
-- : Character representing the replication state (e.g., 'i' for initialize, 's' for synchronized)
-- : XLogRecPtr indicating the LSN position for replication tracking (can be InvalidXLogRecPtr)
-- : Boolean flag indicating whether to retain locks after insertion (used in binary upgrade mode)
-
+- `subid`: The OID of the subscription that will track this relation
+- `relid`: The OID of the relation (table) to be tracked
+- `state`: Character representing the replication state (e.g., 'i' for initialize, 's' for synchronized)
+- `sublsn`: XLogRecPtr indicating the LSN position for replication tracking (can be InvalidXLogRecPtr)
+- `retain_lock`: Boolean flag indicating whether to retain locks after insertion (used in binary upgrade mode)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LockSharedObject](../L/LockSharedObject.md)

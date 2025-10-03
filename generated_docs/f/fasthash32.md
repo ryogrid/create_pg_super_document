@@ -18,10 +18,9 @@ The fasthash32 function is a wrapper around fasthash64 that provides a 32-bit ha
 This function is particularly useful in scenarios where memory constraints or hash table sizes make 32-bit hash codes more appropriate, while still benefiting from the quality and speed of the fasthash algorithm.
 
 ## Parameters / Member Variables
-- : Pointer to the input data to be hashed (const char array)
-- : Length of the input data in bytes; also used to modify the internal seed in fasthash64
-- : Initial seed value for the hash function (can be zero for default behavior)
-
+- `*k`: Pointer to the input data to be hashed (const char array)
+- `len`: Length of the input data in bytes; also used to modify the internal seed in fasthash64
+- `seed`: Initial seed value for the hash function (can be zero for default behavior)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [fasthash64](fasthash64.md) (core 64-bit hash computation)

@@ -17,7 +17,6 @@ SyncPostCheckpoint is called after a checkpoint completes successfully to perfor
 The function implements cycle-based deletion to ensure files are not removed until it's safe to do so - specifically, until the checkpoint that recorded the deletion request has completed successfully. This prevents corruption scenarios where files are deleted before the transaction log adequately reflects the database state.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

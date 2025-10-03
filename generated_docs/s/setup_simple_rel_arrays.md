@@ -22,8 +22,7 @@ This function sets up three critical arrays within the PlannerInfo structure tha
 The arrays are sized based on the range table length plus one (to accommodate 1-based RT indexes). The function also handles pre-existing AppendRelInfos from UNION ALL flattening operations.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing query planning state and the arrays to be initialized
-
+- `*root`: PlannerInfo structure containing query planning state and the arrays to be initialized
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_length](../l/list_length.md) (to determine array size)

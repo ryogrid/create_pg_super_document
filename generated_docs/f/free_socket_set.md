@@ -20,8 +20,7 @@ The function is identical in both the ppoll() and select() implementations, as b
 This function should always be called to properly clean up socket set resources when they are no longer needed, preventing memory leaks in long-running benchmark sessions.
 
 ## Parameters / Member Variables
-- : Pointer to the socket_set structure to be deallocated (allocated previously by alloc_socket_set())
-
+- `*sa`: Pointer to the socket_set structure to be deallocated (allocated previously by alloc_socket_set())
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (PostgreSQL's memory deallocation function)

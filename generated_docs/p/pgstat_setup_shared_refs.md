@@ -24,7 +24,6 @@ The function uses a likely() optimization hint to quickly return if the hash tab
 The initialization is designed to be called multiple times safely, with the likely() branch optimization ensuring minimal overhead on subsequent calls.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

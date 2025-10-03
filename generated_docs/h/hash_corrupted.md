@@ -18,8 +18,7 @@ This function serves as the error handler for hash table corruption scenarios. W
 The function provides diagnostic information by including the hash table name in the error message, which helps administrators and developers identify which specific hash table experienced corruption.
 
 ## Parameters / Member Variables
-- : Pointer to the HTAB structure representing the corrupted hash table
-
+- `*hashp`: Pointer to the HTAB structure representing the corrupted hash table
 ## Dependencies
 - Functions called/Symbols referenced:
   - elog (PostgreSQL logging function)

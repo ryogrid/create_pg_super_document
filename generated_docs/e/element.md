@@ -24,10 +24,9 @@ The element function is part of PostgreSQL's regex locale handling system, speci
 The function is locale-aware and integrates with PostgreSQL's character encoding system. It uses the pg_char_and_wchar_strncmp function for proper string comparison that handles different character encodings correctly. If a name cannot be resolved, the function generates a REG_ECOLLATE error.
 
 ## Parameters / Member Variables
-- : Context structure containing regex compilation state and locale information
-- : Pointer to the beginning of the collating-element name to be resolved
-- : Pointer to the position immediately after the last character of the name
-
+- `*v`: Context structure containing regex compilation state and locale information
+- `*startp`: Pointer to the beginning of the collating-element name to be resolved
+- `*endp`: Pointer to the position immediately after the last character of the name
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_char_and_wchar_strncmp](../p/pg_char_and_wchar_strncmp.md)

@@ -28,8 +28,7 @@ Special handling includes:
 - Proper memory allocation for by-reference data using 
 
 ## Parameters / Member Variables
-- : Boolean indicating whether the data type is passed by value (true) or by reference (false)
-
+- `typbyval`: Boolean indicating whether the data type is passed by value (true) or by reference (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_strtok](../p/pg_strtok.md) (tokenizer function for parsing serialized data)

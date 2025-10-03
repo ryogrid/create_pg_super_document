@@ -27,10 +27,9 @@ The function handles format-specific state restoration:
 This enables the completion of the deferred output workflow: ExplainOpenSetAsideGroup → content generation → ExplainSaveGroup → main output → ExplainRestoreGroup → buffered content output.
 
 ## Parameters / Member Variables
-- : ExplainState structure containing formatting information and grouping stack
-- : The nesting depth to increase (should match the depth used in ExplainSaveGroup)
-- : Pointer to integer storage containing the previously saved grouping state
-
+- `*es`: ExplainState structure containing formatting information and grouping stack
+- `depth`: The nesting depth to increase (should match the depth used in ExplainSaveGroup)
+- `*state_save`: Pointer to integer storage containing the previously saved grouping state
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lcons_int](../l/lcons_int.md) (to restore the saved state back onto the grouping stack)

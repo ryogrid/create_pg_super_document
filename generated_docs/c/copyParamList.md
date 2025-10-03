@@ -16,8 +16,7 @@ copyParamList(ParamListInfo from)
 The copyParamList function creates a deep copy of a ParamListInfo structure, with the specific intent of producing a static, self-contained set of parameter values. Unlike a simple copy, this function deliberately does not copy dynamic parameter hooks (paramFetch, paramCompile). Instead, it forcibly instantiates all available parameter values by calling the paramFetch hook if present, then performs deep copies of the actual datum values. For pass-by-reference datatypes, it uses datumCopy to ensure the copied values are independent of the original. The paramValuesStr field is intentionally not copied. The result is allocated in CurrentMemoryContext.
 
 ## Parameters / Member Variables
-- : The source ParamListInfo structure to copy from. Returns NULL if this parameter is NULL or has numParams <= 0.
-
+- `from`: The source ParamListInfo structure to copy from. Returns NULL if this parameter is NULL or has numParams <= 0.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [makeParamList](../m/makeParamList.md) (creates the new parameter list structure)

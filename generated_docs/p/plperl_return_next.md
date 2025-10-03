@@ -20,8 +20,7 @@ The function is designed to be called from PL/Perl code when a set-returning fun
 The error handling assumes that Perl code may trap the converted error, so it doesn't abort the current transaction, allowing for more flexible error recovery in PL/Perl functions.
 
 ## Parameters / Member Variables
-- : Perl scalar value (SV*) to be returned as the next element in the result set
-
+- `*sv`: Perl scalar value (SV*) to be returned as the next element in the result set
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_spi_usage_allowed](../c/check_spi_usage_allowed.md)

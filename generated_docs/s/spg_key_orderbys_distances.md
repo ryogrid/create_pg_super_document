@@ -21,11 +21,10 @@ This function computes distance values for SP-GiST (Space-Partitioned Generalize
 The function iterates through all provided ordering scan keys, extracting Point data from each scan key argument and computing the appropriate distance metric. Results are stored in a dynamically allocated array that the caller is responsible for freeing.
 
 ## Parameters / Member Variables
-- : Datum containing either a Point (for leaf nodes) or BOX (for internal nodes) to calculate distances from
-- : Boolean flag indicating whether the key represents a leaf node (Point) or internal node (BOX)
-- : Array of ScanKey structures containing the ordering criteria, each expected to have a Point as sk_argument
-- : Number of ordering scan keys in the orderbys array
-
+- `key`: Datum containing either a Point (for leaf nodes) or BOX (for internal nodes) to calculate distances from
+- `isLeaf`: Boolean flag indicating whether the key represents a leaf node (Point) or internal node (BOX)
+- `orderbys`: Array of ScanKey structures containing the ordering criteria, each expected to have a Point as sk_argument
+- `norderbys`: Number of ordering scan keys in the orderbys array
 ## Dependencies
 - Functions called/Symbols referenced:
   - ScanKey (scan key data structure)

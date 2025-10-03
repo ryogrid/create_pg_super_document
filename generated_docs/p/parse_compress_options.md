@@ -27,10 +27,9 @@ This function performs basic parsing of compression options specified through co
 The parsed components are then typically passed to parse_compress_specification() for full parsing and validation. This function only performs the initial split - it does not validate the algorithm name or detail format.
 
 ## Parameters / Member Variables
-- : Input compression option string from command line (e.g., "gzip:6" or "5" or "lz4")
-- : Output parameter - pointer to store the parsed algorithm name (caller must free)
-- : Output parameter - pointer to store the parsed detail string, or NULL if no detail (caller must free if not NULL)
-
+- `*option`: Input compression option string from command line (e.g., "gzip:6" or "5" or "lz4")
+- `**algorithm`: Output parameter - pointer to store the parsed algorithm name (caller must free)
+- `**detail`: Output parameter - pointer to store the parsed detail string, or NULL if no detail (caller must free if not NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - strtol

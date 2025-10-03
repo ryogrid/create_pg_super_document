@@ -17,11 +17,10 @@ multirange_bsearch_match(TypeCacheEntry *typcache, const MultirangeType *mr,
 This function implements a generic binary search algorithm for multirange types that can be customized with different comparison functions. It searches through the sorted ranges within a multirange to find one that matches the given key according to the provided comparison function. The comparison function determines both the search direction and whether a found range constitutes a match. This design allows the same binary search logic to be used for different operations like containment checks, overlap detection, and exact matching.
 
 ## Parameters / Member Variables
-- : Type cache entry containing metadata and functions for the range element type
-- : The multirange to search within
-- : Pointer to the search key (type depends on the specific operation)
-- : Comparison function that guides the search and determines matches
-
+- `*typcache`: Type cache entry containing metadata and functions for the range element type
+- `*mr`: The multirange to search within
+- `*key`: Pointer to the search key (type depends on the specific operation)
+- `cmp_func`: Comparison function that guides the search and determines matches
 ## Dependencies
 - Functions called/Symbols referenced:
   - [multirange_get_bounds](multirange_get_bounds.md) (extracts range boundaries for comparison)

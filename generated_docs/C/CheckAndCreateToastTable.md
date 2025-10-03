@@ -19,12 +19,11 @@ This is the core implementation function that underlies all the public TOAST tab
 The function takes care of proper resource management by opening the relation with the specified lock mode and ensuring it's properly closed afterward. It passes through all necessary parameters to create_toast_table, including reloptions for customizing the TOAST table, lock mode for concurrency control, check parameter for validation behavior, and old TOAST OID for operations that need to reference previous TOAST tables.
 
 ## Parameters / Member Variables
-- : The OID of the relation for which to potentially create a TOAST table
-- : Datum containing reloptions for the TOAST table configuration
-- : The lock mode to use when accessing the relation
-- : Boolean flag controlling validation behavior (true for ALTER TABLE scenarios, false for new relation scenarios)
-- : The OID of an existing TOAST table, if any (used for table rebuilding operations)
-
+- `relOid`: The OID of the relation for which to potentially create a TOAST table
+- `reloptions`: Datum containing reloptions for the TOAST table configuration
+- `lockmode`: The lock mode to use when accessing the relation
+- `check`: Boolean flag controlling validation behavior (true for ALTER TABLE scenarios, false for new relation scenarios)
+- `OIDOldToast`: The OID of an existing TOAST table, if any (used for table rebuilding operations)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [create_toast_table](../c/create_toast_table.md)

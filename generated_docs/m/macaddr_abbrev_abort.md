@@ -21,9 +21,8 @@ The function implements a sophisticated heuristic to decide when to abort abbrev
 - The function only operates after processing at least 10,000 tuples to ensure statistical significance
 
 ## Parameters / Member Variables
-- : Number of tuples currently in memory for sorting
-- : SortSupport structure containing sorting optimization state and callbacks
-
+- `memtupcount`: Number of tuples currently in memory for sorting
+- `ssup`: SortSupport structure containing sorting optimization state and callbacks
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Estimates cardinality using HyperLogLog algorithm

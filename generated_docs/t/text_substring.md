@@ -24,11 +24,10 @@ This is the core implementation function that handles substring extraction for P
 The function implements SQL99 compliance for substring operations, including proper handling of zero/negative start positions and lengths. It optimizes performance by avoiding full detoasting when possible and using appropriate slicing strategies based on the database encoding's maximum character length.
 
 ## Parameters / Member Variables
-- : Input text as a Datum (may be compressed/toasted)
-- : Starting position (1-based indexing, can be zero or negative)
-- : Number of characters to extract (can be negative to indicate error)
-- : Boolean flag indicating if length should extend to end of string
-
+- `str`: Input text as a Datum (may be compressed/toasted)
+- `start`: Starting position (1-based indexing, can be zero or negative)
+- `length`: Number of characters to extract (can be negative to indicate error)
+- `length_not_specified`: Boolean flag indicating if length should extend to end of string
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_database_encoding_max_length](../p/pg_database_encoding_max_length.md)

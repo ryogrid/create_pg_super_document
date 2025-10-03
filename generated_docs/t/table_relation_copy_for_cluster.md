@@ -28,17 +28,16 @@ The function provides flexible sorting behavior: it can sort data according to a
 During the copy process, the function collects important statistics about tuple processing, including the number of tuples vacuumed and recently dead tuples, which are essential for vacuum operation reporting and future vacuum scheduling decisions.
 
 ## Parameters / Member Variables
-- : The source relation being copied from
-- : The destination relation being copied to  
-- : Index to use for ordering (can be InvalidOid if no index-based ordering)
-- : If true, sort table contents appropriately for OldIndex; if false, copy in index order or no specific order
-- : Transaction visibility horizon computed by vacuum_get_cutoffs()
-- : Output parameter for the new relfrozenxid value (may be invalid)
-- : Output parameter for the new relminmxid value (may be invalid)
-- : Output parameter for total number of tuples processed
-- : Output parameter for count of tuples vacuumed (for logging)
-- : Output parameter for count of recently dead tuples (for logging)
-
+- `OldTable`: The source relation being copied from
+- `NewTable`: The destination relation being copied to
+- `OldIndex`: Index to use for ordering (can be InvalidOid if no index-based ordering)
+- `use_sort`: If true, sort table contents appropriately for OldIndex; if false, copy in index order or no specific order
+- `OldestXmin`: Transaction visibility horizon computed by vacuum_get_cutoffs()
+- `*xid_cutoff`: Output parameter for the new relfrozenxid value (may be invalid)
+- `*multi_cutoff`: Output parameter for the new relminmxid value (may be invalid)
+- `*num_tuples`: Output parameter for total number of tuples processed
+- `*tups_vacuumed`: Output parameter for count of tuples vacuumed (for logging)
+- `*tups_recently_dead`: Output parameter for count of recently dead tuples (for logging)
 ## Dependencies
 - Functions called/Symbols referenced:
   - OldTable->rd_tableam->relation_copy_for_cluster (table access method implementation)

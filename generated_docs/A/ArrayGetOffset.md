@@ -20,11 +20,10 @@ The algorithm iterates backwards through the dimensions, calculating the offset 
 The function assumes that all input parameters have been validated by the caller - specifically that dimensions and subscripts are within valid ranges to prevent arithmetic overflow.
 
 ## Parameters / Member Variables
-- : Number of dimensions in the array
-- : Array of dimension sizes for each dimension
-- : Array of lower bound values for each dimension
-- : Array of subscript indices to convert to linear offset
-
+- `n`: Number of dimensions in the array
+- `*dim`: Array of dimension sizes for each dimension
+- `*lb`: Array of lower bound values for each dimension
+- `*indx`: Array of subscript indices to convert to linear offset
 ## Dependencies
 - Functions called/Symbols referenced:
   - (No external functions called)

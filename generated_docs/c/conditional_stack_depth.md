@@ -16,8 +16,7 @@ conditional_stack_depth(ConditionalStack cstack)
 This function traverses a conditional stack (implemented as a linked list) and counts the number of elements to determine the stack depth. It handles the case where the stack might be NULL by returning -1, and otherwise iterates through all stack elements starting from the head to count the total depth. This is particularly useful for debugging conditional processing in PostgreSQL frontend utilities where nested if/elif/else constructs need to be tracked.
 
 ## Parameters / Member Variables
-- : A ConditionalStack pointer representing the conditional stack to measure. If NULL, the function returns -1 to indicate an invalid or uninitialized stack.
-
+- `cstack`: A ConditionalStack pointer representing the conditional stack to measure. If NULL, the function returns -1 to indicate an invalid or uninitialized stack.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ConditionalStack](../C/ConditionalStack.md) (typedef)

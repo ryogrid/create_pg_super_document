@@ -18,9 +18,8 @@ The  function is a core utility function for PostgreSQL's text pattern compariso
 The function first compares the overlapping portions of both strings using memcmp(), and if they are identical, it then compares the lengths to determine ordering. This approach ensures consistent lexicographic ordering that is compatible with regular text comparison operators when using "C" collation.
 
 ## Parameters / Member Variables
-- : Pointer to the first text datum to compare
-- : Pointer to the second text datum to compare
-
+- `*arg1`: Pointer to the first text datum to compare
+- `*arg2`: Pointer to the second text datum to compare
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Macro to get variable-length data size excluding header

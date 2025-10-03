@@ -18,9 +18,8 @@ The  function computes a relative path that can be used to reference the target 
 When the linkname is an absolute path (starts with '/'), the function first converts the target to an absolute path by prepending the global  variable.
 
 ## Parameters / Member Variables
-- : The path to the file that should be referenced
-- : The path from which the relative reference should be created
-
+- `*target`: The path to the file that should be referenced
+- `*linkname`: The path from which the relative reference should be created
 ## Dependencies
 - Functions called/Symbols referenced:
   - [emalloc](../e/emalloc.md) (memory allocation function)

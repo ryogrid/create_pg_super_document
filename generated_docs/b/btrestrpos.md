@@ -16,8 +16,7 @@ btrestrpos(IndexScanDesc scan)
 The btrestrpos function restores a B-tree index scan to a previously marked position. It implements two different restoration strategies depending on whether the scan has moved to a different page since the mark was set. For simple cases where the scan remained on the same page, it only restores the item index. For complex cases where the scan moved to a different page, it performs a full position restoration including buffer handling, killed items processing, and tuple workspace copying. The function also handles array key reinitialization when necessary.
 
 ## Parameters / Member Variables
-- : The IndexScanDesc structure representing the scan to be restored to its marked position
-
+- `scan`: The IndexScanDesc structure representing the scan to be restored to its marked position
 ## Dependencies
 - Functions called/Symbols referenced:
   - BTScanPosIsValid

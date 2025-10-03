@@ -20,10 +20,9 @@ This function acts as an abstraction layer, allowing compute_stats subroutines t
 The function is designed to be passed as a function pointer to various statistics computation routines that need to access sample data values in a uniform way.
 
 ## Parameters / Member Variables
-- : Pointer to VacAttrStats structure containing sample data and metadata
-- : Index of the row (tuple) to fetch the attribute value from
-- : Output parameter set to true if the attribute value is NULL
-
+- `stats`: Pointer to VacAttrStats structure containing sample data and metadata
+- `rownum`: Index of the row (tuple) to fetch the attribute value from
+- `*isNull`: Output parameter set to true if the attribute value is NULL
 ## Dependencies
 - Functions called/Symbols referenced:
   - [heap_getattr](../h/heap_getattr.md)

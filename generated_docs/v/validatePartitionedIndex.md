@@ -24,9 +24,8 @@ This function performs comprehensive validation of a partitioned index to determ
 The function ensures that a partitioned index is only considered valid when all its constituent partition indexes are present and valid. This maintains consistency in the partitioning system and ensures that queries against partitioned tables can rely on complete index coverage.
 
 ## Parameters / Member Variables
-- : The partitioned index relation to validate
-- : The partitioned table relation that owns the index
-
+- `partedIdx`: The partitioned index relation to validate
+- `partedTbl`: The partitioned table relation that owns the index
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md)

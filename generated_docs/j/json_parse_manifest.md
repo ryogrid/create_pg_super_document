@@ -21,10 +21,9 @@ Unlike the incremental parsing functions, this operates on the entire manifest a
 The function automatically invokes the per-file callback for each file entry found in the manifest and the error callback if any parsing errors occur.
 
 ## Parameters / Member Variables
-- : Pointer to JsonManifestParseContext containing callbacks and parsing configuration
-- : Pointer to memory buffer containing the complete JSON manifest data
-- : Size in bytes of the manifest data in the buffer
-
+- `*context`: Pointer to JsonManifestParseContext containing callbacks and parsing configuration
+- `*buffer`: Pointer to memory buffer containing the complete JSON manifest data
+- `size`: Size in bytes of the manifest data in the buffer
 ## Dependencies
 - Functions called/Symbols referenced:
   - [makeJsonLexContextCstringLen](../m/makeJsonLexContextCstringLen.md)

@@ -32,8 +32,7 @@ The function operates in different modes based on the  configuration:
 The function includes extensive validation through assertions to ensure data consistency throughout the eviction process and guarantees that memory usage is below the limit when it completes.
 
 ## Parameters / Member Variables
-- : Pointer to the ReorderBuffer structure to check and potentially evict transactions from
-
+- `*rb`: Pointer to the ReorderBuffer structure to check and potentially evict transactions from
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReorderBufferCanStartStreaming](ReorderBufferCanStartStreaming.md) (checks if streaming is enabled and available)

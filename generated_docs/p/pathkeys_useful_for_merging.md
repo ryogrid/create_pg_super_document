@@ -26,10 +26,9 @@ Key optimization features:
 The function supports the path optimization strategy of only retaining useful pathkey prefixes in add_path().
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planner state and context information
-- : RelOptInfo for the relation being analyzed for potential merge join participation
-- : List of pathkeys to evaluate for merge join usefulness
-
+- `*root`: PlannerInfo structure containing planner state and context information
+- `*rel`: RelOptInfo for the relation being analyzed for potential merge join participation
+- `*pathkeys`: List of pathkeys to evaluate for merge join usefulness
 ## Dependencies
 - Functions called/Symbols referenced:
   - [right_merge_direction](../r/right_merge_direction.md)

@@ -23,11 +23,10 @@ The function handles all possible heap_update results:
 - TM_Deleted: Tuple was concurrently deleted (error)
 
 ## Parameters / Member Variables
-- : Relation containing the tuple to update
-- : ItemPointer identifying the old tuple's location
-- : New heap tuple to replace the old one
-- : Control parameter for index update behavior
-
+- `relation`: Relation containing the tuple to update
+- `otid`: ItemPointer identifying the old tuple's location
+- `tup`: New heap tuple to replace the old one
+- `*update_indexes`: Control parameter for index update behavior
 ## Dependencies
 - Functions called/Symbols referenced:
   - [heap_update](../h/heap_update.md) (core update function)

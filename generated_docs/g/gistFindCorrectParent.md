@@ -24,10 +24,9 @@ gistFindCorrectParent(Relation r, GISTInsertStack *child, bool is_build)
 The function must handle different scenarios during normal operations versus index builds, where WAL logging behavior differs.
 
 ## Parameters / Member Variables
-- : The GiST index relation
-- : Pointer to the insertion stack entry for the child page whose parent needs to be found/corrected
-- : Boolean indicating whether this is called during index build (affects LSN checking behavior)
-
+- `r`: The GiST index relation
+- `*child`: Pointer to the insertion stack entry for the child page whose parent needs to be found/corrected
+- `is_build`: Boolean indicating whether this is called during index build (affects LSN checking behavior)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [gistcheckpage](gistcheckpage.md)

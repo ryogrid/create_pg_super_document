@@ -16,8 +16,7 @@ date2timestamptz(DateADT dateVal)
 The  function provides a simplified interface for date-to-timestamptz conversion by calling  with a NULL overflow parameter. This forces the underlying function to throw an error rather than return an overflow indicator when the date value or subsequent timezone adjustment would result in a value outside the valid timestamptz range. The function is declared static, indicating it's used internally within the date.c module for operations that require strict range validation with timezone awareness.
 
 ## Parameters / Member Variables
-- : The DateADT input value to be converted to timestamp with time zone
-
+- `dateVal`: The DateADT input value to be converted to timestamp with time zone
 ## Dependencies
 - Functions called/Symbols referenced:
   - [date2timestamptz_opt_overflow](date2timestamptz_opt_overflow.md): Core conversion function with timezone and overflow handling

@@ -23,8 +23,7 @@ This function performs a basic liveness check for a postmaster process by using 
 The function is designed specifically for pg_ctl's needs to verify postmaster status, considering PostgreSQL's typical deployment scenarios and security model.
 
 ## Parameters / Member Variables
-- : The process ID to check for liveness
-
+- `pid`: The process ID to check for liveness
 ## Dependencies
 - Functions called/Symbols referenced:
   - getpid

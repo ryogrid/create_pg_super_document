@@ -16,8 +16,7 @@ text_position_cleanup(TextPositionState *state)
 This function is designed to perform any necessary cleanup operations on a TextPositionState structure after text position searching operations are finished. Currently, the implementation contains no cleanup operations as indicated by the comment "no cleanup needed". This suggests that the TextPositionState structure does not allocate any dynamic memory or resources that require explicit deallocation. The function exists as part of the text position API to provide a consistent interface and allow for future cleanup needs if the implementation changes.
 
 ## Parameters / Member Variables
-- : Pointer to a TextPositionState structure that may need cleanup
-
+- `*state`: Pointer to a TextPositionState structure that may need cleanup
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TextPositionState](../T/TextPositionState.md) (structure parameter, but not modified)

@@ -18,11 +18,10 @@ j2date implements the inverse of the date2j() function, converting a Julian day 
 The function employs unsigned integer arithmetic to handle the complex calculations required for the reverse Julian-to-calendar conversion. It accounts for leap years, varying month lengths, and the Gregorian calendar system through a sophisticated algorithm that uses quad-year cycles and other astronomical constants. The implementation handles the same range as date2j(), working correctly for Julian day numbers corresponding to dates from Nov 24, -4713 onwards.
 
 ## Parameters / Member Variables
-- : The Julian day number to convert to calendar date
-- : Output parameter that receives the calendar year
-- : Output parameter that receives the month (1-12)
-- : Output parameter that receives the day of the month (1-31)
-
+- `jd`: The Julian day number to convert to calendar date
+- `*year`: Output parameter that receives the calendar year
+- `*month`: Output parameter that receives the month (1-12)
+- `*day`: Output parameter that receives the day of the month (1-31)
 ## Dependencies
 - Functions called/Symbols referenced:
   - MONTHS_PER_YEAR (constant defining 12 months per year)

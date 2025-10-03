@@ -19,10 +19,9 @@ This function creates a bbstreamer instance specifically for gzip-compressed out
 The function requires libz (zlib) support at compile time. If libz is not available, it will terminate with a fatal error. When working with an existing file handle, it uses dup() to avoid conflicts with libz's requirement to close the underlying file descriptor.
 
 ## Parameters / Member Variables
-- : File path used for error reporting and optionally for file creation if file parameter is NULL
-- : Existing FILE handle to wrap with gzip compression, or NULL to create a new file
-- : Compression specification containing compression level and other parameters
-
+- `*pathname`: File path used for error reporting and optionally for file creation if file parameter is NULL
+- `*file`: Existing FILE handle to wrap with gzip compression, or NULL to create a new file
+- `*compress`: Compression specification containing compression level and other parameters
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc0](../p/palloc0.md)

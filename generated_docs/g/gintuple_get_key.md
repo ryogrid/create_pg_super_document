@@ -21,10 +21,9 @@ For single-column indexes, the key is stored as the first (and only) attribute o
 The function also handles null values by calling  to determine the specific type of null representation used in GIN indexes, or sets the category to  for non-null values.
 
 ## Parameters / Member Variables
-- : Pointer to the GinState structure containing index metadata and tuple descriptors
-- : The IndexTuple from which to extract the key value
-- : Output parameter that receives the null category classification
-
+- `*ginstate`: Pointer to the GinState structure containing index metadata and tuple descriptors
+- `tuple`: The IndexTuple from which to extract the key value
+- `*category`: Output parameter that receives the null category classification
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (extract attribute from tuple)

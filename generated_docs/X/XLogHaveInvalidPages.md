@@ -17,6 +17,7 @@ The `XLogHaveInvalidPages` function provides a simple boolean check to determine
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hash_get_num_entries](../h/hash_get_num_entries.md)

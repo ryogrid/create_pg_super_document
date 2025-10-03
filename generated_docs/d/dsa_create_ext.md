@@ -18,10 +18,9 @@ This function is the extended version of DSA creation that provides fine-grained
 The function requires a caller-provided LWLock tranche ID because these are scarce resources (limited to 64k) that need careful management and cannot be recycled. After creating the DSM segment, it pins it to prevent premature cleanup, then delegates to create_internal() for the actual DSA setup. Finally, it registers a cleanup callback that will be invoked when the control segment detaches.
 
 ## Parameters / Member Variables
-- : LWLock tranche identifier provided by caller (scarce resource, must be managed externally)
-- : Size of the initial DSM segment containing control object and first usable space
-- : Maximum size for additional segments that will be allocated as the DSA grows
-
+- `tranche_id`: LWLock tranche identifier provided by caller (scarce resource, must be managed externally)
+- `init_segment_size`: Size of the initial DSM segment containing control object and first usable space
+- `max_segment_size`: Maximum size for additional segments that will be allocated as the DSA grows
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dsm_create](dsm_create.md)

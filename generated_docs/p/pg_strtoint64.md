@@ -18,8 +18,7 @@ This function serves as a simple wrapper around pg_strtoint64_safe, providing th
 The function uses unsigned arithmetic internally to correctly handle two's complement representation, particularly for the most negative 64-bit value that cannot be represented as a positive signed number.
 
 ## Parameters / Member Variables
-- : Input string containing the integer representation to convert
-
+- `*s`: Input string containing the integer representation to convert
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_strtoint64_safe](pg_strtoint64_safe.md) (the underlying implementation function)

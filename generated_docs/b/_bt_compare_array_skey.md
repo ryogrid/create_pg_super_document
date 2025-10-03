@@ -22,12 +22,11 @@ The function returns comparison results in the standard format: negative values 
 The function handles NULL value comparisons based on the SK_BT_NULLS_FIRST flag and properly inverts comparison results for DESC columns using the SK_BT_DESC flag.
 
 ## Parameters / Member Variables
-- : FmgrInfo pointer to the ordering procedure function used for comparison
-- : The datum value from the tuple being compared
-- : Boolean indicating whether tupdatum is NULL
-- : The datum value from the array element being compared against
-- : ScanKey containing comparison metadata (strategy, flags, collation)
-
+- `*orderproc`: FmgrInfo pointer to the ordering procedure function used for comparison
+- `tupdatum`: The datum value from the tuple being compared
+- `tupnull`: Boolean indicating whether tupdatum is NULL
+- `arrdatum`: The datum value from the array element being compared against
+- `cur`: ScanKey containing comparison metadata (strategy, flags, collation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DatumGetInt32](../D/DatumGetInt32.md)

@@ -31,11 +31,10 @@ The function includes important safety measures:
 - Interrupt checking for long-running operations
 
 ## Parameters / Member Variables
-- : Context structure containing regex compilation state and configuration
-- : Starting character of the range (inclusive)
-- : Ending character of the range (inclusive, may equal a for single character)
-- : Flag indicating whether case-independent matching is required (non-zero for case-independent)
-
+- `*v`: Context structure containing regex compilation state and configuration
+- `a`: Starting character of the range (inclusive)
+- `b`: Ending character of the range (inclusive, may equal a for single character)
+- `cases`: Flag indicating whether case-independent matching is required (non-zero for case-independent)
 ## Dependencies
 - Functions called/Symbols referenced:
   - before (character ordering comparison)

@@ -23,12 +23,11 @@ The function operates in two modes based on the make_target_entry parameter:
 For permission management, the function ensures SELECT access is granted at both the table level (for tables with zero columns) and individual column level through markVarForSelectPriv calls.
 
 ## Parameters / Member Variables
-- : Parse state containing context information for the current parsing operation
-- : ParseNamespaceItem representing the table reference being expanded
-- : Number of query nesting levels to traverse upward for variable resolution
-- : Source location in the query text for error reporting purposes
-- : Boolean flag determining whether to create TargetEntry structures (true) or simple Var nodes (false)
-
+- `*pstate`: Parse state containing context information for the current parsing operation
+- `*nsitem`: ParseNamespaceItem representing the table reference being expanded
+- `sublevels_up`: Number of query nesting levels to traverse upward for variable resolution
+- `location`: Source location in the query text for error reporting purposes
+- `make_target_entry`: Boolean flag determining whether to create TargetEntry structures (true) or simple Var nodes (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [expandNSItemAttrs](../e/expandNSItemAttrs.md)

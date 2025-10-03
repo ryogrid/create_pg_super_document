@@ -20,8 +20,7 @@ The function follows a carefully ordered sequence: first executing reset callbac
 The function includes multiple safety assertions to prevent deletion of critical contexts like TopMemoryContext and CurrentMemoryContext, and verifies that the context has no children before proceeding.
 
 ## Parameters / Member Variables
-- : The memory context to delete. Must be a valid MemoryContext with no children.
-
+- `context`: The memory context to delete. Must be a valid MemoryContext with no children.
 ## Dependencies
 - Functions called/Symbols referenced:
   - MemoryContextIsValid

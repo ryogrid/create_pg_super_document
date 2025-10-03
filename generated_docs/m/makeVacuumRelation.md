@@ -18,10 +18,9 @@ This function constructs a VacuumRelation structure used to represent a single t
 The structure supports both relation identification methods: by name (through RangeVar) for user-specified tables, and by OID for system-identified relations (such as during autovacuum operations). It also allows specification of particular columns for targeted ANALYZE operations.
 
 ## Parameters / Member Variables
-- : RangeVar structure containing the schema-qualified name of the relation (can be NULL if identifying by OID)
-- : Object ID of the relation (can be InvalidOid if identifying by name)
-- : List of column names to be analyzed (for ANALYZE operations), or NIL for all columns
-
+- `*relation`: RangeVar structure containing the schema-qualified name of the relation (can be NULL if identifying by OID)
+- `oid`: Object ID of the relation (can be InvalidOid if identifying by name)
+- `*va_cols`: List of column names to be analyzed (for ANALYZE operations), or NIL for all columns
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Creates a new node of type VacuumRelation

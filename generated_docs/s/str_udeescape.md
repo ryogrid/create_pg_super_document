@@ -22,11 +22,10 @@ This function is a core component of PostgreSQL's lexical analyzer that handles 
 The function properly handles UTF-16 surrogate pairs for Unicode code points above U+FFFF, validates Unicode values, and converts them to the server's character encoding. It dynamically allocates memory for the output string and handles escape character doubling (where the escape character followed by itself represents a literal escape character).
 
 ## Parameters / Member Variables
-- : Input string containing Unicode escape sequences to be processed
-- : The escape character used in the string (typically backslash)
-- : Starting position of the U&'' or U&"" string token for error reporting
-- : Scanner context information needed for generating accurate error reports and positioning
-
+- `*str`: Input string containing Unicode escape sequences to be processed
+- `escape`: The escape character used in the string (typically backslash)
+- `position`: Starting position of the U&'' or U&"" string token for error reporting
+- `yyscanner`: Scanner context information needed for generating accurate error reports and positioning
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hexval](../h/hexval.md) (converts hexadecimal character to numeric value)

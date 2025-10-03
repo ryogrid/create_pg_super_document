@@ -23,8 +23,7 @@ This function serves as a gatekeeper for parallel aggregation by performing esse
 The function implements a conservative approach, returning false whenever any condition suggests parallel aggregation might produce incorrect results or encounter execution difficulties.
 
 ## Parameters / Member Variables
-- : PlannerInfo containing parsed query information, aggregate function flags, and other planning context
-
+- `*root`: PlannerInfo containing parsed query information, aggregate function flags, and other planning context
 ## Dependencies
 - Functions called/Symbols referenced:
   - (No external function calls - uses only direct field access)

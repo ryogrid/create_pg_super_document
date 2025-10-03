@@ -20,10 +20,9 @@ For commits: Transfers insert/update/delete counts to the parent transaction lev
 For aborts: Applies the attempted actions to the top-level statistics as dead tuples, restores any counters that were affected by truncate/drop operations, and discards the subtransaction state.
 
 ## Parameters / Member Variables
-- : Subtransaction status containing the subtransaction's relation statistics
-- : Boolean indicating whether the subtransaction is committing (true) or aborting (false) 
-- : The nesting level of the subtransaction being processed
-
+- `*xact_state`: Subtransaction status containing the subtransaction's relation statistics
+- `isCommit`: Boolean indicating whether the subtransaction is committing (true) or aborting (false)
+- `nestDepth`: The nesting level of the subtransaction being processed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [save_truncdrop_counters](../s/save_truncdrop_counters.md) (saves counters before truncate/drop operations)

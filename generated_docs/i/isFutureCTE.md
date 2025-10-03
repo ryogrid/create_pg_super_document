@@ -16,9 +16,8 @@ isFutureCTE(ParseState *pstate, const char *refname)
 This static function searches through the p_future_ctes lists in the parsing state hierarchy to determine if a reference name corresponds to a Common Table Expression that will be defined later in the query but is not yet accessible due to SQL scoping rules. This function is specifically designed for error reporting purposes - it helps PostgreSQL provide more helpful error messages when users reference CTEs that exist but are not yet in scope, rather than simply reporting "relation does not exist".
 
 ## Parameters / Member Variables
-- : Current parsing state containing future CTE information
-- : The CTE name to check for future definition
-
+- `*pstate`: Current parsing state containing future CTE information
+- `*refname`: The CTE name to check for future definition
 ## Dependencies
 - Functions called/Symbols referenced:
   - CommonTableExpr (struct type)

@@ -23,8 +23,7 @@ The function implements three different approaches based on what's available on 
 The function returns the offset in seconds, where positive values indicate time zones east of GMT and negative values indicate time zones west of GMT.
 
 ## Parameters / Member Variables
-- : Pointer to a struct tm containing time information, typically obtained from system time functions like localtime() or gmtime()
-
+- `*tm`: Pointer to a struct tm containing time information, typically obtained from system time functions like localtime() or gmtime()
 ## Dependencies
 - Functions called/Symbols referenced:
   - TIMEZONE_GLOBAL (global variable, when HAVE_INT_TIMEZONE is defined)

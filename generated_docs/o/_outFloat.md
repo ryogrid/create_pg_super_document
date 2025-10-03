@@ -18,9 +18,8 @@ The  function serializes Float nodes in PostgreSQL's node system by directly app
 This straightforward approach reflects PostgreSQL's design where Float nodes store their values as string representations rather than native floating-point types, preserving the exact textual representation from the original SQL query. This prevents potential precision loss or formatting changes that could occur with binary floating-point conversion.
 
 ## Parameters / Member Variables
-- : StringInfo buffer where the serialized Float representation will be written
-- : Pointer to the Float structure containing the string representation of the floating-point value
-
+- `str`: StringInfo buffer where the serialized Float representation will be written
+- `*node`: Pointer to the Float structure containing the string representation of the floating-point value
 ## Dependencies
 - Functions called/Symbols referenced:
   - [appendStringInfoString](../a/appendStringInfoString.md)

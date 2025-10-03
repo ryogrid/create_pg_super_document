@@ -25,8 +25,7 @@ This function serves as the central dispatcher for all BRIN-related WAL (Write-A
 The function uses a switch statement to efficiently route each WAL record to its corresponding replay handler, ensuring that BRIN indexes are correctly reconstructed during recovery.
 
 ## Parameters / Member Variables
-- : XLogReaderState pointer containing the WAL record to be replayed, including operation type information and associated data
-
+- `*record`: XLogReaderState pointer containing the WAL record to be replayed, including operation type information and associated data
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetInfo: Extract operation information from WAL record

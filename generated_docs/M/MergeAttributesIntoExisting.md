@@ -26,10 +26,9 @@ For each non-dropped attribute in the parent relation, the function:
 8. Updates the catalog with the modified attribute information
 
 ## Parameters / Member Variables
-- : The child relation being established as an inheritor
-- : The parent relation to inherit attributes from
-- : Boolean flag indicating if this is a partition relationship (affects identity column and attislocal handling)
-
+- `child_rel`: The child relation being established as an inheritor
+- `parent_rel`: The parent relation to inherit attributes from
+- `ispartition`: Boolean flag indicating if this is a partition relationship (affects identity column and attislocal handling)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md)

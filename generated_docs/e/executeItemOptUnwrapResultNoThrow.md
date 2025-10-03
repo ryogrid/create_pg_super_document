@@ -19,12 +19,11 @@ executeItemOptUnwrapResultNoThrow(JsonPathExecContext *cxt,
 The  function serves as a wrapper around  that provides error suppression capabilities. It temporarily modifies the execution context to disable error throwing, executes the JSONPath item with optional unwrapping, and then restores the original error handling state. This pattern allows for safe execution of JSONPath expressions in contexts where errors should be handled gracefully rather than propagated as exceptions.
 
 ## Parameters / Member Variables
-- : JSONPath execution context containing state and configuration
-- : JSONPath item representing the path expression to execute
-- : JsonbValue containing the input data to process
-- : Boolean flag indicating whether unwrapping should be attempted
-- : List to collect final results after processing
-
+- `*cxt`: JSONPath execution context containing state and configuration
+- `*jsp`: JSONPath item representing the path expression to execute
+- `*jb`: JsonbValue containing the input data to process
+- `unwrap`: Boolean flag indicating whether unwrapping should be attempted
+- `*found`: List to collect final results after processing
 ## Dependencies
 - Functions called/Symbols referenced:
   - [executeItemOptUnwrapResult](executeItemOptUnwrapResult.md)

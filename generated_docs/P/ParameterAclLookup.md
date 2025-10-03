@@ -16,9 +16,8 @@ ParameterAclLookup(const char *parameter, bool missing_ok)
 This function searches for a configuration parameter's ACL entry in the pg_parameter_acl system catalog and returns its OID. The function first converts the parameter name to the standardized form used in the catalog using convert_GUC_name_for_parameter_acl, then performs a system cache lookup using the PARAMETERACLNAME cache. If the ACL entry is not found and missing_ok is false, it throws an ERROR with ERRCODE_UNDEFINED_OBJECT. The function ensures proper memory cleanup by freeing the converted parameter name before returning.
 
 ## Parameters / Member Variables
-- : The name of the configuration parameter to look up in the ACL system
-- : Boolean flag controlling error behavior - if false, throws error when ACL not found; if true, returns InvalidOid silently
-
+- `*parameter`: The name of the configuration parameter to look up in the ACL system
+- `missing_ok`: Boolean flag controlling error behavior - if false, throws error when ACL not found; if true, returns InvalidOid silently
 ## Dependencies
 - Functions called/Symbols referenced:
   - [convert_GUC_name_for_parameter_acl](../c/convert_GUC_name_for_parameter_acl.md)

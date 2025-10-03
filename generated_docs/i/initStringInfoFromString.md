@@ -18,10 +18,9 @@ This function initializes a StringInfoData structure to work with an existing st
 The function includes an assertion to verify that the input data is properly null-terminated at the specified length, ensuring data integrity. The maxlen is set to len + 1 to account for the existing null terminator, indicating that the buffer is ready for potential expansion.
 
 ## Parameters / Member Variables
-- : Pointer to the StringInfoData structure to be initialized
-- : Pointer to a valid palloc'd, null-terminated string buffer that can be reallocated
-- : Length of the string content (excluding the null terminator)
-
+- `str`: Pointer to the StringInfoData structure to be initialized
+- `*data`: Pointer to a valid palloc'd, null-terminated string buffer that can be reallocated
+- `len`: Length of the string content (excluding the null terminator)
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (for data validation)

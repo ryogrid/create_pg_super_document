@@ -19,11 +19,10 @@ This function serves as a wrapper around  that simplifies access to just the typ
 The function handles the syscache management automatically, ensuring proper cleanup of the temporary type tuple after extracting the required information.
 
 ## Parameters / Member Variables
-- : Parse state context for error reporting and namespace resolution
-- : Input TypeName structure containing the type specification to resolve
-- : Output parameter to receive the resolved type's OID
-- : Output parameter to receive the type modifier value
-
+- `*pstate`: Parse state context for error reporting and namespace resolution
+- `*typeName`: Input TypeName structure containing the type specification to resolve
+- `*typeid_p`: Output parameter to receive the resolved type's OID
+- `*typmod_p`: Output parameter to receive the type modifier value
 ## Dependencies
 - Functions called/Symbols referenced:
   - [typenameType](typenameType.md)

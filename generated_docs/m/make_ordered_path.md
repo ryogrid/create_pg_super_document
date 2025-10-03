@@ -25,12 +25,11 @@ The  function creates a path that produces results in a specific order defined b
 The function optimizes performance by avoiding unnecessary sort operations when the path is already appropriately ordered and by choosing the most efficient sorting method based on existing ordering.
 
 ## Parameters / Member Variables
-- : PlannerInfo containing planner context and configuration
-- : RelOptInfo for the relation being planned
-- : Input path that may need ordering
-- : Reference to the cheapest available path for comparison
-- : List of pathkeys specifying the desired ordering
-
+- `*root`: PlannerInfo containing planner context and configuration
+- `*rel`: RelOptInfo for the relation being planned
+- `*path`: Input path that may need ordering
+- `*cheapest_path`: Reference to the cheapest available path for comparison
+- `*pathkeys`: List of pathkeys specifying the desired ordering
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Analyzes path ordering compatibility

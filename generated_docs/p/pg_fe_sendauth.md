@@ -25,10 +25,9 @@ Key responsibilities include:
 - Providing comprehensive error handling and reporting
 
 ## Parameters / Member Variables
-- : Authentication request type identifier (AUTH_REQ_OK, AUTH_REQ_GSS, AUTH_REQ_SASL, etc.)
-- : Number of remaining bytes in the authentication message to be processed
-- : PostgreSQL connection object containing authentication state and credentials
-
+- `areq`: Authentication request type identifier (AUTH_REQ_OK, AUTH_REQ_GSS, AUTH_REQ_SASL, etc.)
+- `payloadlen`: Number of remaining bytes in the authentication message to be processed
+- `*conn`: PostgreSQL connection object containing authentication state and credentials
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_expected_areq](../c/check_expected_areq.md)

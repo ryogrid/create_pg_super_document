@@ -22,12 +22,11 @@ This function is part of PostgreSQL's pg_dump utility and handles extension memb
 The function searches through the object's dependencies to find its parent extension, then generates an ALTER EXTENSION ADD command with the proper object type and qualified name. This is necessary because during binary upgrades, extension membership information needs to be explicitly restored.
 
 ## Parameters / Member Variables
-- : PQExpBuffer to append the ALTER EXTENSION ADD command to
-- : The DumpableObject that may be an extension member
-- : String describing the type of object (e.g., "FUNCTION", "TABLE")
-- : The object name, already quoted for SQL usage
-- : The namespace/schema name (not quoted), can be NULL
-
+- `upgrade_buffer`: PQExpBuffer to append the ALTER EXTENSION ADD command to
+- `*dobj`: The DumpableObject that may be an extension member
+- `*objtype`: String describing the type of object (e.g., "FUNCTION", "TABLE")
+- `*objname`: The object name, already quoted for SQL usage
+- `*objnamespace`: The namespace/schema name (not quoted), can be NULL
 ## Dependencies
 - Functions called/Symbols referenced:
   - [findObjectByDumpId](../f/findObjectByDumpId.md)

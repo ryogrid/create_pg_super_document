@@ -26,10 +26,9 @@ The function handles all special numeric cases including NaN (Not a Number) and 
 For finite numbers, the function converts the input numerics to internal NumericVar format, performs the subtraction using , and converts the result back to the external Numeric format.
 
 ## Parameters / Member Variables
-- : The minuend (Numeric value to subtract from)
-- : The subtrahend (Numeric value to subtract)
-- : Optional pointer to boolean flag for error reporting. If provided and an error occurs, the flag is set to true and NULL is returned instead of throwing an exception
-
+- `num1`: The minuend (Numeric value to subtract from)
+- `num2`: The subtrahend (Numeric value to subtract)
+- `*have_error`: Optional pointer to boolean flag for error reporting. If provided and an error occurs, the flag is set to true and NULL is returned instead of throwing an exception
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Checks if numeric value is NaN or infinity

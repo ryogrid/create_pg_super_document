@@ -25,9 +25,8 @@ Key operations:
 5. Returns the base connection string and optionally the database name
 
 ## Parameters / Member Variables
-- : Input PostgreSQL connection string to be parsed and processed
-- : Optional output parameter - if non-NULL, receives a copy of the database name extracted from the connection string (caller must free)
-
+- `*conninfo`: Input PostgreSQL connection string to be parsed and processed
+- `**dbname`: Optional output parameter - if non-NULL, receives a copy of the database name extracted from the connection string (caller must free)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQconninfoOption](../P/PQconninfoOption.md) (libpq structure for connection options)

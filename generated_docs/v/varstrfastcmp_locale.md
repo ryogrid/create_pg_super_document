@@ -25,12 +25,11 @@ varstrfastcmp_locale(char *a1p, int len1, char *a2p, int len2, SortSupport ssup)
 The function is designed to be highly efficient for sorting operations where the same strings are often compared multiple times, such as during quicksort partitioning.
 
 ## Parameters / Member Variables
-- : Pointer to the first string to compare
-- : Length of the first string in bytes
-- : Pointer to the second string to compare  
-- : Length of the second string in bytes
-- : SortSupport structure containing VarStringSortSupport context with buffers, cache state, and locale information
-
+- `*a1p`: Pointer to the first string to compare
+- `len1`: Length of the first string in bytes
+- `*a2p`: Pointer to the second string to compare
+- `len2`: Length of the second string in bytes
+- `ssup`: SortSupport structure containing VarStringSortSupport context with buffers, cache state, and locale information
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Support structure type for string sorting operations

@@ -18,9 +18,8 @@ The  function is a critical component of PostgreSQL's ECPG preprocessor code gen
 The function serves as a bridge between ECPG's internal variable representation and the final C code output. For each variable in the list, it calls  to generate the appropriate runtime function calls that will handle the variable's interaction with the PostgreSQL database.
 
 ## Parameters / Member Variables
-- : Pointer to the head of the arguments list to be processed and output
-- : Controls whether to deallocate list nodes after processing (non-zero value enables deallocation)
-
+- `*list`: Pointer to the head of the arguments list to be processed and output
+- `mode`: Controls whether to deallocate list nodes after processing (non-zero value enables deallocation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Creates a string duplicate for the zero parameter

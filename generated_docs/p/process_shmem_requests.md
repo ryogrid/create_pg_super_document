@@ -19,7 +19,6 @@ The function operates by checking if any preloaded library has installed a shmem
 The function uses progress tracking flags to indicate when shared memory request processing is active, which can be useful for debugging and ensuring proper initialization order. This function is typically called during postmaster startup, after shared libraries have been loaded but before shared memory is allocated.
 
 ## Parameters / Member Variables
-None (void function)
 
 ## Dependencies
 - Functions called/Symbols referenced:

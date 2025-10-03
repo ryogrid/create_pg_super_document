@@ -17,6 +17,7 @@ This function provides a centralized mechanism to detect when the PostgreSQL err
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - recursion_depth (static global variable)

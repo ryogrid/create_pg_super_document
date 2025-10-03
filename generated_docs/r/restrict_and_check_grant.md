@@ -19,17 +19,16 @@ restrict_and_check_grant(bool is_grant, AclMode avail_goptions, bool all_privs,
 This static function performs comprehensive privilege validation and restriction for PostgreSQL's GRANT and REVOKE operations. It first determines the complete privilege mask available for the given object type through a large switch statement covering all supported object types (tables, sequences, databases, functions, etc.). The function then validates that the grantor has sufficient privileges on the object by checking if they have any privileges at all - if not, it raises an access denied error. Next, it restricts the requested privileges to only those the grantor can actually grant (intersection of requested privileges with available grant options). Finally, it issues SQL standard-compliant warnings when no privileges were granted/revoked or when only a subset of requested privileges could be processed. The function handles special cases for column-level privileges and event triggers (which don't support grantable rights).
 
 ## Parameters / Member Variables
-- : Boolean indicating whether this is a GRANT (true) or REVOKE (false) operation
-- : AclMode bitmask of grant options available to the grantor for this object
-- : Boolean indicating if ALL PRIVILEGES was specified (affects warning behavior)
-- : AclMode bitmask of privileges being requested for grant or revoke
-- : OID of the database object being operated on
-- : OID of the user/role attempting to grant or revoke privileges
-- : ObjectType enum specifying the type of object (table, function, etc.)
-- : Human-readable name of the object for error messages
-- : Attribute number for column-level operations (InvalidAttrNumber otherwise)
-- : Column name for column-level operations (NULL otherwise)
-
+- `is_grant`: Boolean indicating whether this is a GRANT (true) or REVOKE (false) operation
+- `avail_goptions`: AclMode bitmask of grant options available to the grantor for this object
+- `all_privs`: Boolean indicating if ALL PRIVILEGES was specified (affects warning behavior)
+- `privileges`: AclMode bitmask of privileges being requested for grant or revoke
+- `objectId`: OID of the database object being operated on
+- `grantorId`: OID of the user/role attempting to grant or revoke privileges
+- `objtype`: ObjectType enum specifying the type of object (table, function, etc.)
+- `*objname`: Human-readable name of the object for error messages
+- `att_number`: Attribute number for column-level operations (InvalidAttrNumber otherwise)
+- `*colname`: Column name for column-level operations (NULL otherwise)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_aclmask](../p/pg_aclmask.md)

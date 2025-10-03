@@ -24,10 +24,9 @@ This function provides access to cached hash index metapage data, implementing a
 The caching is done at the relation level (rel->rd_amcache) and persists across multiple function calls. The function carefully handles memory allocation and buffer management to avoid setting invalid cache values.
 
 ## Parameters / Member Variables
-- : The hash index relation whose metapage data is being cached
-- : Pointer to buffer containing the metapage (may be InvalidBuffer initially)
-- : Boolean flag to force cache refresh even if cache is valid
-
+- `rel`: The hash index relation whose metapage data is being cached
+- `*metabuf`: Pointer to buffer containing the metapage (may be InvalidBuffer initially)
+- `force_refresh`: Boolean flag to force cache refresh even if cache is valid
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContextAlloc](../M/MemoryContextAlloc.md) (allocates memory for cache in relation's context)

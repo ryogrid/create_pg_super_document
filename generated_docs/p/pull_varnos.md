@@ -18,9 +18,8 @@ The  function creates a set of all the distinct varnos present in a parsetree, f
 This function is designed to work with not-yet-planned expressions and handles special cases like bare SubLinks (requiring recursion to look for uplevel references) and completed SubPlans (only examining parameters passed to the subplan). The function uses a walker pattern to traverse the expression tree systematically.
 
 ## Parameters / Member Variables
-- : PlannerInfo pointer that can be NULL if PlaceHolderVar processing is not required
-- : The Node to analyze for variable range table numbers
-
+- `*root`: PlannerInfo pointer that can be NULL if PlaceHolderVar processing is not required
+- `*node`: The Node to analyze for variable range table numbers
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pull_varnos_context](pull_varnos_context.md) (struct used for walker context)

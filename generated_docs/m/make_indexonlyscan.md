@@ -24,16 +24,15 @@ make_indexonlyscan(List *qptlist,
 This function constructs an IndexOnlyScan plan node, which is an optimization that allows PostgreSQL to satisfy queries entirely from index data without needing to access the underlying heap table. This is particularly efficient when the index contains all the columns needed to answer the query. The function initializes all necessary fields of the IndexOnlyScan structure including scan qualifications, ordering specifications, and the target list that can be computed directly from the index.
 
 ## Parameters / Member Variables
-- : Target list of expressions to be computed for this plan node
-- : Qualification conditions that apply to this scan operation
-- : Range table index of the relation being scanned
-- : Object identifier of the index to be used for the scan
-- : Index-specific qualification conditions that can be applied during index traversal
-- : Conditions that need to be rechecked after retrieving tuples from the index
-- : List of expressions for ordering the index scan results
-- : Target list of expressions that can be computed directly from index columns
-- : Direction for scanning the index (forward, backward, or no movement)
-
+- `*qptlist`: Target list of expressions to be computed for this plan node
+- `*qpqual`: Qualification conditions that apply to this scan operation
+- `scanrelid`: Range table index of the relation being scanned
+- `indexid`: Object identifier of the index to be used for the scan
+- `*indexqual`: Index-specific qualification conditions that can be applied during index traversal
+- `*recheckqual`: Conditions that need to be rechecked after retrieving tuples from the index
+- `*indexorderby`: List of expressions for ordering the index scan results
+- `*indextlist`: Target list of expressions that can be computed directly from index columns
+- `indexscandir`: Direction for scanning the index (forward, backward, or no movement)
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to create the IndexOnlyScan node)

@@ -29,13 +29,12 @@ SnapBuildCommitTxn is a central function in PostgreSQL's logical replication sna
 The function ensures that only transactions relevant to logical replication are tracked while maintaining proper visibility semantics for historical snapshot reconstruction.
 
 ## Parameters / Member Variables
-- : The SnapBuild context containing the current snapshot building state
-- : Log sequence number where the commit was logged
-- : Transaction ID of the committing transaction
-- : Number of subtransactions in the subxacts array
-- : Array of subtransaction IDs that are part of this commit
-- : Additional transaction information flags
-
+- `*builder`: The SnapBuild context containing the current snapshot building state
+- `lsn`: Log sequence number where the commit was logged
+- `xid`: Transaction ID of the committing transaction
+- `nsubxacts`: Number of subtransactions in the subxacts array
+- `*subxacts`: Array of subtransaction IDs that are part of this commit
+- `xinfo`: Additional transaction information flags
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)

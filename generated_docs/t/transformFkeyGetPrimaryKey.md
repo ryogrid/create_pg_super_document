@@ -28,13 +28,12 @@ The function performs these key operations:
 The function ensures the primary key is valid and immediate, as deferrable primary keys cannot be used as foreign key targets according to SQL standards.
 
 ## Parameters / Member Variables
-- : The relation containing the primary key to examine
-- : Output parameter for the OID of the primary key index
-- : Output parameter for list of primary key column names
-- : Output array for attribute numbers of primary key columns
-- : Output array for type OIDs of primary key columns
-- : Output array for operator class OIDs of primary key columns
-
+- `pkrel`: The relation containing the primary key to examine
+- `*indexOid`: Output parameter for the OID of the primary key index
+- `**attnamelist`: Output parameter for list of primary key column names
+- `*attnums`: Output array for attribute numbers of primary key columns
+- `*atttypids`: Output array for type OIDs of primary key columns
+- `*opclasses`: Output array for operator class OIDs of primary key columns
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RelationGetIndexList](../R/RelationGetIndexList.md)

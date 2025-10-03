@@ -18,6 +18,7 @@ GetCurrentSubTransactionId is a simple accessor function that returns the subtra
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - CurrentTransactionState (global variable)

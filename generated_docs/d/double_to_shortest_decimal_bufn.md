@@ -24,9 +24,8 @@ This function performs the core conversion of IEEE 754 double-precision floating
 The function stores the result as an unterminated string to avoid unnecessary null termination overhead when the caller will process the string further.
 
 ## Parameters / Member Variables
-- : The double-precision floating-point number to convert
-- : Caller-provided buffer to store the decimal string (must be at least DOUBLE_SHORTEST_DECIMAL_LEN-1 bytes)
-
+- `f`: The double-precision floating-point number to convert
+- `*result`: Caller-provided buffer to store the decimal string (must be at least DOUBLE_SHORTEST_DECIMAL_LEN-1 bytes)
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Extracts IEEE 754 bit representation

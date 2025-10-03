@@ -18,8 +18,7 @@ The  function determines whether a given database object is considered "pinned",
 The function specifically ignores any subId component of the object address, operating under the assumption that if an object is pinned, all of its components are implicitly pinned as well. This design choice simplifies the pinning logic by treating objects as atomic units for dependency purposes.
 
 ## Parameters / Member Variables
-- : A pointer to an  structure containing the class ID and object ID of the database object to test for pinned status
-
+- `*object`: A pointer to an  structure containing the class ID and object ID of the database object to test for pinned status
 ## Dependencies
 - Functions called/Symbols referenced:
   - [IsPinnedObject](../I/IsPinnedObject.md)

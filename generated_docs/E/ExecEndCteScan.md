@@ -23,8 +23,7 @@ The function performs a simple but critical check:
 This design ensures that the shared tuplestore is freed exactly once, regardless of how many CTE scan nodes were using it, and prevents double-free errors that could occur if all nodes attempted cleanup.
 
 ## Parameters / Member Variables
-- : CteScanState to be cleaned up, containing leader information and potentially the shared tuplestore
-
+- `*node`: CteScanState to be cleaned up, containing leader information and potentially the shared tuplestore
 ## Dependencies
 - Functions called/Symbols referenced:
   - [tuplestore_end](../t/tuplestore_end.md): Free tuplestore and its associated memory

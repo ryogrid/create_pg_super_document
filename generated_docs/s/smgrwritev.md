@@ -17,13 +17,12 @@ smgrwritev(SMgrRelation reln, ForkNumber forknum, BlockNumber blocknum,
 The smgrwritev function is a storage manager interface for performing vectorized write operations on relation files. It writes multiple buffers to consecutive blocks starting from a specified block number in a single call. This function is specifically designed for updating already-existing blocks of a relation (those before the current EOF) and should not be used for extending relations - use smgrextend() for that purpose. The writes are asynchronous and not immediately synchronized to disk, but provisions are made to fsync before the next checkpoint. The function includes mechanisms to prevent race conditions with concurrent checkpoints through buffer locking or redo pointer checking.
 
 ## Parameters / Member Variables
-- : SMgrRelation pointer identifying the relation to write to
-- : ForkNumber indicating which fork of the relation to write (main, FSM, VM, etc.)
-- : BlockNumber specifying the starting block position for writing
-- : Array of const void pointers containing the data to write
-- : BlockNumber indicating the count of consecutive blocks to write
-- : Boolean flag indicating whether the caller will handle fsync separately
-
+- `reln`: SMgrRelation pointer identifying the relation to write to
+- `forknum`: ForkNumber indicating which fork of the relation to write (main, FSM, VM, etc.)
+- `blocknum`: BlockNumber specifying the starting block position for writing
+- `**buffers`: Array of const void pointers containing the data to write
+- `nblocks`: BlockNumber indicating the count of consecutive blocks to write
+- `skipFsync`: Boolean flag indicating whether the caller will handle fsync separately
 ## Dependencies
 - Functions called/Symbols referenced:
   - smgrsw[].smgr_writev (storage manager implementation function)

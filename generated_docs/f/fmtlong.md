@@ -18,9 +18,8 @@ The fmtlong function serves as a testing wrapper around the rfmtlong() function 
 The function calls rfmtlong() to perform the actual formatting, then examines the return code. If the formatting succeeds (return code 0), it prints the formatted result along with a sequence number. If formatting fails, it delegates error handling to the check_return() function.
 
 ## Parameters / Member Variables
-- : The long integer value to be formatted
-- : A pointer to a null-terminated string containing the format specification
-
+- `lng`: The long integer value to be formatted
+- `*fmt`: A pointer to a null-terminated string containing the format specification
 ## Dependencies
 - Functions called/Symbols referenced:
   - [rfmtlong](../r/rfmtlong.md)

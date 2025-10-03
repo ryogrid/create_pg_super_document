@@ -19,14 +19,13 @@ build_bound_expr(Expr *elemExpr, Datum val,
 This function is a helper for range containment optimization that builds specific comparison expressions (OpExpr nodes) for range boundary checks. It determines the appropriate comparison operator based on whether the boundary is a lower or upper bound and whether it's inclusive or exclusive. The function uses the B-tree strategy numbers to select the correct operator from the specified operator family, creates a constant expression from the boundary value, and constructs the final comparison expression. This enables range containment operations to be transformed into simpler boundary comparisons for query optimization.
 
 ## Parameters / Member Variables
-- : Expression representing the element to compare against the boundary
-- : Datum value representing the range boundary
-- : True if this is a lower bound, false for upper bound
-- : True if the boundary is inclusive, false for exclusive
-- : Type cache entry containing type information for the boundary value
-- : Operator family to use for finding the comparison operator
-- : Collation to use for the comparison operation
-
+- `*elemExpr`: Expression representing the element to compare against the boundary
+- `val`: Datum value representing the range boundary
+- `isLowerBound`: True if this is a lower bound, false for upper bound
+- `isInclusive`: True if the boundary is inclusive, false for exclusive
+- `*typeCache`: Type cache entry containing type information for the boundary value
+- `opfamily`: Operator family to use for finding the comparison operator
+- `rng_collation`: Collation to use for the comparison operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - BTGreaterEqualStrategyNumber

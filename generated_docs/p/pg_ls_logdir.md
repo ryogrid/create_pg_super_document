@@ -18,8 +18,7 @@ The  function is a PostgreSQL system function that provides SQL access to list f
 This function returns detailed information about each regular file found in the log directory, including the filename, file size in bytes, and last modification timestamp. The function automatically filters out directories, special files, and hidden files, focusing only on log files that are typically of interest to database administrators.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function call information structure (no user arguments required)
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function call information structure (no user arguments required)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_ls_dir_files](pg_ls_dir_files.md) (the core implementation that performs the actual directory listing)

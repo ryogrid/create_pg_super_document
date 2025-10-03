@@ -18,10 +18,9 @@ ExecInitBitmapOr is responsible for initializing a BitmapOr executor node during
 The function validates that certain execution flags (EXEC_FLAG_BACKWARD and EXEC_FLAG_MARK) are not set, as these are not supported by BitmapOr nodes. It assigns the ExecBitmapOr function as the execution procedure, though this function is designed to error if called directly.
 
 ## Parameters / Member Variables
-- : Pointer to the BitmapOr plan node containing the configuration and child plans
-- : Execution state containing global query execution context
-- : Execution flags controlling execution behavior (some flags are explicitly not supported)
-
+- `*node`: Pointer to the BitmapOr plan node containing the configuration and child plans
+- `*estate`: Execution state containing global query execution context
+- `eflags`: Execution flags controlling execution behavior (some flags are explicitly not supported)
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (creates BitmapOrState structure)

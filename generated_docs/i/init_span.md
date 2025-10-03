@@ -21,13 +21,12 @@ This function initializes a newly created span structure that will manage alloca
 The function handles special cases for different span types: block-of-spans (which contain their own descriptors), large spans, and regular spans. It maintains the doubly-linked list structure that enables efficient span management and ensures proper initialization of allocation tracking fields.
 
 ## Parameters / Member Variables
-- : Pointer to the DSA area containing the span
-- : DSA pointer to the span structure to initialize
-- : Pointer to the pool that will contain this span
-- : DSA pointer to the beginning of the span's data area
-- : Number of pages covered by this span
-- : Size class identifier determining object size
-
+- `*area`: Pointer to the DSA area containing the span
+- `span_pointer`: DSA pointer to the span structure to initialize
+- `*pool`: Pointer to the pool that will contain this span
+- `start`: DSA pointer to the beginning of the span's data area
+- `npages`: Number of pages covered by this span
+- `size_class`: Size class identifier determining object size
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dsa_get_address](../d/dsa_get_address.md)

@@ -17,10 +17,9 @@ ExecGetTriggerResultRel(EState *estate, Oid relid,
 ExecGetTriggerResultRel manages ResultRelInfo structures specifically for trigger execution contexts. It first searches existing result relations from the main query and tuple routing operations. If the target relation is not found among existing ResultRelInfo structures, it creates a new one and caches it in es_trig_target_relations for future reuse. This approach optimizes trigger performance by avoiding repeated relation opening and provides a mechanism for EXPLAIN ANALYZE to report trigger runtimes on relations not directly part of the query.
 
 ## Parameters / Member Variables
-- : The execution state containing cached relation information
-- : OID of the target relation for trigger execution
-- : Root partition's ResultRelInfo for partitioned tables (can be NULL)
-
+- `*estate`: The execution state containing cached relation information
+- `relid`: OID of the target relation for trigger execution
+- `*rootRelInfo`: Root partition's ResultRelInfo for partitioned tables (can be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [InitResultRelInfo](../I/InitResultRelInfo.md)

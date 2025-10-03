@@ -20,8 +20,7 @@ The function implements a safety mechanism by avoiding normal exit procedures th
 The design philosophy prioritizes security by avoiding any communication with potentially unauthenticated clients. No messages or logs are generated to prevent leaking database state information to clients that haven't completed authentication or even sent a proper startup packet.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL signal handler argument macro (typically expands to signal number and signal info parameters)
-
+- `SIGNAL_ARGS`: Standard PostgreSQL signal handler argument macro (typically expands to signal number and signal info parameters)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (system call for immediate process termination)

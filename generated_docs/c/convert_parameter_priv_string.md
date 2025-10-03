@@ -18,8 +18,7 @@ This function serves as a specialized converter for parameter privilege strings,
 The function supports both basic privileges (SET, ALTER SYSTEM) and their grant option variants (SET WITH GRANT OPTION, ALTER SYSTEM WITH GRANT OPTION). It delegates the actual string parsing and conversion to the generic  function, providing the parameter-specific privilege mapping.
 
 ## Parameters / Member Variables
-- : A PostgreSQL text value containing the privilege name string to be converted
-
+- `*priv_text`: A PostgreSQL text value containing the privilege name string to be converted
 ## Dependencies
 - Functions called/Symbols referenced:
   - priv_map (structure type for privilege mapping)

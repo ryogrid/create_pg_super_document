@@ -18,9 +18,8 @@ This function locates the starting member offset for a specified MultiXactId by 
 The function does not protect against concurrent truncation, so callers must handle that protection themselves if needed. This is a critical function for MultiXact member access and wraparound protection.
 
 ## Parameters / Member Variables
-- : The MultiXactId whose starting offset should be found
-- : Pointer to store the found starting member offset
-
+- `multi`: The MultiXactId whose starting offset should be found
+- `*result`: Pointer to store the found starting member offset
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MultiXactIdToOffsetPage](../M/MultiXactIdToOffsetPage.md)

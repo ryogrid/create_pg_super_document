@@ -20,9 +20,8 @@ The function performs a linear search through the target list and returns the fi
 This is a utility function that's essential for connecting the abstract sorting/grouping requirements with the actual expressions in the target list.
 
 ## Parameters / Member Variables
-- : The SortGroupRef index value to search for
-- : The target list to search through
-
+- `sortref`: The SortGroupRef index value to search for
+- `*targetList`: The target list to search through
 ## Dependencies
 - Functions called/Symbols referenced:
   - foreach (macro for list iteration)

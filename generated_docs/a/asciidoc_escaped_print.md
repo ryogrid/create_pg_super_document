@@ -16,9 +16,8 @@ asciidoc_escaped_print(const char *in, FILE *fout)
 This function processes an input string and escapes characters that have special meaning in AsciiDoc markup to prevent formatting conflicts and ensure proper display. Currently, it specifically handles the pipe character ('|') which is used as a table cell delimiter in AsciiDoc format. The function iterates through each character in the input string and either outputs the escaped version or the original character unchanged.
 
 ## Parameters / Member Variables
-- : Input string to be AsciiDoc-escaped
-- : Output file stream where the escaped AsciiDoc text will be written
-
+- `*in`: Input string to be AsciiDoc-escaped
+- `*fout`: Output file stream where the escaped AsciiDoc text will be written
 ## Dependencies
 - Functions called/Symbols referenced:
   - fputs (standard C library function)

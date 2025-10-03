@@ -19,13 +19,12 @@ heap_beginscan(Relation relation, Snapshot snapshot,
 This function serves as the entry point for heap table scanning operations. It allocates and initializes a HeapScanDesc structure, increments the relation reference count for safety, and sets up various scan parameters including snapshot, scan keys, and flags. The function handles special considerations for different scan types: disables page-at-a-time mode for non-MVCC snapshots, acquires predicate locks for serializable transactions on sequential and sample scans, allocates parallel worker data for parallel scans, and sets up read streams for sequential and TID range scans with appropriate callback functions for parallel vs serial execution.
 
 ## Parameters / Member Variables
-- : Relation - The heap relation to scan
-- : Snapshot - The snapshot to use for visibility checking (can be NULL for certain scan types)
-- : int - Number of scan key conditions for filtering
-- : ScanKey - Array of scan key conditions (can be NULL if nkeys is 0)
-- : ParallelTableScanDesc - Parallel scan descriptor for coordinated parallel scanning (NULL for non-parallel)
-- : uint32 - Scan behavior flags (SO_TYPE_SEQSCAN, SO_ALLOW_PAGEMODE, etc.)
-
+- `relation`: Relation - The heap relation to scan
+- `snapshot`: Snapshot - The snapshot to use for visibility checking (can be NULL for certain scan types)
+- `nkeys`: int - Number of scan key conditions for filtering
+- `key`: ScanKey - Array of scan key conditions (can be NULL if nkeys is 0)
+- `parallel_scan`: ParallelTableScanDesc - Parallel scan descriptor for coordinated parallel scanning (NULL for non-parallel)
+- `flags`: uint32 - Scan behavior flags (SO_TYPE_SEQSCAN, SO_ALLOW_PAGEMODE, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RelationIncrementReferenceCount](../R/RelationIncrementReferenceCount.md)

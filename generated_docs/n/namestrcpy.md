@@ -18,9 +18,8 @@ This utility function copies a C string into a PostgreSQL  data structure while 
 The function is part of PostgreSQL's miscellaneous public routines for  manipulation and is widely used throughout the system for safely initializing  fields in various system catalogs and data structures.
 
 ## Parameters / Member Variables
-- : Pointer to a PostgreSQL  structure (the destination)
-- : Source C string to copy from (const char *)
-
+- `name`: Pointer to a PostgreSQL  structure (the destination)
+- `*str`: Source C string to copy from (const char *)
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Macro to access the character array within a  structure

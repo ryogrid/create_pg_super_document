@@ -26,7 +26,6 @@ This function serves as a comprehensive test case for ECPG functionality, specif
 The function tests core ECPG features such as embedded SQL execution, parameter binding, cursor operations, and proper error handling through sqlca (SQL Communication Area) status checking.
 
 ## Parameters / Member Variables
-This function takes no parameters as it is a void function designed for testing purposes.
 
 ## Dependencies
 - Functions called/Symbols referenced:

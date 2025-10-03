@@ -22,9 +22,8 @@ The calculation involves:
 This addressing scheme ensures that child pages are laid out contiguously in logical address space, with each parent page's children occupying a contiguous range of logical page numbers.
 
 ## Parameters / Member Variables
-- : FSMAddress of the parent page containing the slot
-- : Slot number within the parent page (0-based index) that points to the desired child page
-
+- `parent`: FSMAddress of the parent page containing the slot
+- `slot`: Slot number within the parent page (0-based index) that points to the desired child page
 ## Dependencies
 - Functions called/Symbols referenced:
   - FSMAddress (structure type)

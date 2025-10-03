@@ -21,9 +21,8 @@ The function follows the logical replication wire protocol format where INSERT m
 3. The actual tuple data in the protocol-specific format
 
 ## Parameters / Member Variables
-- : StringInfo buffer containing the incoming logical replication stream data
-- : Pointer to LogicalRepTupleData structure that will be filled with the new tuple information
-
+- `in`: StringInfo buffer containing the incoming logical replication stream data
+- `*newtup`: Pointer to LogicalRepTupleData structure that will be filled with the new tuple information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pq_getmsgint](../p/pq_getmsgint.md) (reads 4-byte integer from message)

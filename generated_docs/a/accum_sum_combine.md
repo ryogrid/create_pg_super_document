@@ -24,9 +24,8 @@ The function works by:
 This approach leverages the existing accumulator infrastructure to efficiently combine results without directly manipulating the internal digit arrays.
 
 ## Parameters / Member Variables
-- : Target NumericSumAccum accumulator that will receive the combined result
-- : Source NumericSumAccum accumulator whose value will be added to accum
-
+- `*accum`: Target NumericSumAccum accumulator that will receive the combined result
+- `*accum2`: Source NumericSumAccum accumulator whose value will be added to accum
 ## Dependencies
 - Functions called/Symbols referenced:
   - init_var (initializes temporary NumericVar)

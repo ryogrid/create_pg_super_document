@@ -27,13 +27,12 @@ The function processes dimension items sequentially, validating bounds and compu
 The function performs careful overflow checking when computing dimension sizes to prevent integer overflow attacks.
 
 ## Parameters / Member Variables
-- : Pointer to current position in input string, advanced during parsing
-- : Output parameter for number of dimensions found
-- : Output array for dimension sizes (caller-allocated, MAXDIM elements)
-- : Output array for lower bounds of each dimension (caller-allocated, MAXDIM elements)
-- : Original input string (used only for error messages)
-- : Error context for soft error handling
-
+- `**srcptr`: Pointer to current position in input string, advanced during parsing
+- `*ndim_p`: Output parameter for number of dimensions found
+- `*dim`: Output array for dimension sizes (caller-allocated, MAXDIM elements)
+- `*lBound`: Output array for lower bounds of each dimension (caller-allocated, MAXDIM elements)
+- `*origStr`: Original input string (used only for error messages)
+- `*escontext`: Error context for soft error handling
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReadDimensionInt](ReadDimensionInt.md)

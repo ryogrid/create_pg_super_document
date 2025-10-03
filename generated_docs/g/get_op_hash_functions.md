@@ -19,10 +19,9 @@ This function searches for hash support functions associated with an operator by
 The function searches through all hash opfamilies that contain the given operator and attempts to find the appropriate HASHSTANDARD_PROC support functions. For single-type operators, the same hash function is used for both sides. For cross-type operators, different hash functions may be required for each datatype.
 
 ## Parameters / Member Variables
-- : The OID of the operator for which to find hash support functions
-- : Output parameter for the hash function OID for the left-hand side datatype (can be NULL if not needed)
-- : Output parameter for the hash function OID for the right-hand side datatype (can be NULL if not needed)
-
+- `opno`: The OID of the operator for which to find hash support functions
+- `*lhs_procno`: Output parameter for the hash function OID for the left-hand side datatype (can be NULL if not needed)
+- `*rhs_procno`: Output parameter for the hash function OID for the right-hand side datatype (can be NULL if not needed)
 ## Dependencies
 - Functions called/Symbols referenced:
   - SearchSysCacheList1

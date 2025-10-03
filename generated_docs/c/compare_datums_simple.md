@@ -16,10 +16,9 @@ compare_datums_simple(Datum a, Datum b, SortSupport ssup)
 This function serves as a wrapper around PostgreSQL's ApplySortComparator function, providing a simplified interface for comparing two Datum values. It assumes that neither datum is null and directly applies the sort comparison logic using the provided SortSupport structure. This function is typically used in scenarios where null values have already been filtered out or handled separately, allowing for straightforward datum comparison.
 
 ## Parameters / Member Variables
-- : The first Datum value to compare
-- : The second Datum value to compare  
-- : SortSupport structure containing comparison function and collation information
-
+- `a`: The first Datum value to compare
+- `b`: The second Datum value to compare
+- `ssup`: SortSupport structure containing comparison function and collation information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ApplySortComparator](../A/ApplySortComparator.md)

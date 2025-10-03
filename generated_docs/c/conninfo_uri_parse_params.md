@@ -27,10 +27,9 @@ This function processes the query parameter portion of a PostgreSQL connection U
 The function destructively modifies the input params buffer during parsing for efficiency.
 
 ## Parameters / Member Variables
-- : Query parameter string to parse (will be modified during parsing)
-- : Array of PQconninfoOption structures to store parsed parameters
-- : Buffer to store error messages if parsing fails
-
+- `*params`: Query parameter string to parse (will be modified during parsing)
+- `*connOptions`: Array of PQconninfoOption structures to store parsed parameters
+- `errorMessage`: Buffer to store error messages if parsing fails
 ## Dependencies
 - Functions called/Symbols referenced:
   - [conninfo_uri_decode](conninfo_uri_decode.md)

@@ -20,8 +20,7 @@ The function checks the current transaction status of the connection and only st
 2. The connection is configured for non-autocommit mode
 
 ## Parameters / Member Variables
-- : Pointer to a statement structure containing connection information, line number context, and compatibility settings used for error reporting and transaction management
-
+- `*stmt`: Pointer to a statement structure containing connection information, line number context, and compatibility settings used for error reporting and transaction management
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQtransactionStatus](../P/PQtransactionStatus.md): Checks the current transaction status

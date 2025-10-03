@@ -25,7 +25,6 @@ The function performs several key operations:
 The function includes special handling for cases where the server was previously running with commit timestamps disabled, ensuring proper initialization of data structures.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

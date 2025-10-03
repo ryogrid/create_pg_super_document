@@ -22,8 +22,7 @@ The function performs minimal cleanup specific to Result nodes:
 Result nodes are relatively lightweight and don't maintain complex state that requires explicit cleanup beyond ensuring their child nodes are properly terminated. The bulk of resource management is handled by the memory context framework.
 
 ## Parameters / Member Variables
-- : The ResultState to be cleaned up and shut down
-
+- `*node`: The ResultState to be cleaned up and shut down
 ## Dependencies
 - Functions called/Symbols referenced:
   - outerPlanState (to get the outer plan state for cleanup)

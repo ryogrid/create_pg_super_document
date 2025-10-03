@@ -18,9 +18,8 @@ This static function creates a PostingItem that represents a downlink to be inse
 The function is part of the GIN data page management infrastructure and is specifically designed to prepare downlink entries during B-tree operations such as splits or insertions.
 
 ## Parameters / Member Variables
-- : GinBtree structure representing the GIN B-tree context
-- : Buffer containing the page for which the downlink is being prepared
-
+- `btree`: GinBtree structure representing the GIN B-tree context
+- `lbuf`: Buffer containing the page for which the downlink is being prepared
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md)

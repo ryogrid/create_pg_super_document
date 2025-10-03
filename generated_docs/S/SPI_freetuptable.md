@@ -23,8 +23,7 @@ This function provides a safe mechanism to deallocate SPITupleTable structures c
 The function uses a singly-linked list to track tuple tables within each SPI context, ensuring proper resource management and preventing memory leaks.
 
 ## Parameters / Member Variables
-- : Pointer to the SPITupleTable structure to be freed. Can be NULL (function will return safely without action).
-
+- `*tuptable`: Pointer to the SPITupleTable structure to be freed. Can be NULL (function will return safely without action).
 ## Dependencies
 - Functions called/Symbols referenced:
   - slist_foreach_modify (iterate through tuple table list)

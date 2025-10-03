@@ -26,13 +26,12 @@ For NOT NULL constraints, when requested, the function generates explicit "IS NO
 All constraint expressions undergo the same preprocessing as qual clauses in  to ensure proper matching during query optimization.
 
 ## Parameters / Member Variables
-- : PlannerInfo context containing planner state information
-- : OID of the relation to extract constraints from
-- : RelOptInfo structure representing the relation in the optimizer
-- : Whether to include constraints marked NO INHERIT
-- : Whether to generate explicit NOT NULL constraint expressions
-- : Whether to include partitioning constraints for partitioned tables
-
+- `*root`: PlannerInfo context containing planner state information
+- `relationObjectId`: OID of the relation to extract constraints from
+- `*rel`: RelOptInfo structure representing the relation in the optimizer
+- `include_noinherit`: Whether to include constraints marked NO INHERIT
+- `include_notnull`: Whether to generate explicit NOT NULL constraint expressions
+- `include_partition`: Whether to include partitioning constraints for partitioned tables
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TupleConstr](../T/TupleConstr.md)

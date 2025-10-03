@@ -18,9 +18,8 @@ This function sets up or clears cancellation information for a database connecti
 The function handles platform-specific synchronization requirements - using atomic pointer operations on Unix systems and critical sections on Windows to prevent race conditions between the main thread and signal handlers. It also ensures that the interrupt handler is properly initialized before setting up cancellation information.
 
 ## Parameters / Member Variables
-- : Pointer to the ArchiveHandle structure that will store the cancellation information
-- : PostgreSQL connection object for which to set up cancellation, or NULL to clear existing cancellation info
-
+- `*AH`: Pointer to the ArchiveHandle structure that will store the cancellation information
+- `*conn`: PostgreSQL connection object for which to set up cancellation, or NULL to clear existing cancellation info
 ## Dependencies
 - Functions called/Symbols referenced:
   - [set_cancel_handler](set_cancel_handler.md)

@@ -18,8 +18,7 @@ guc_free(void *ptr)
 The function includes an important safety feature that helps catch programming errors: it verifies that any memory being freed actually belongs to the GUCMemoryContext using an assertion. This helps maintain the integrity of the GUC memory management system and catch bugs where code might incorrectly try to free memory that wasn't allocated through the GUC functions.
 
 ## Parameters / Member Variables
-- : Pointer to memory block to be freed, or NULL (which is safely ignored)
-
+- `*ptr`: Pointer to memory block to be freed, or NULL (which is safely ignored)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetMemoryChunkContext](../G/GetMemoryChunkContext.md) (for memory context verification)

@@ -16,8 +16,7 @@ box_ht(BOX *box)
 The  function is a static helper function in PostgreSQL's geometric operations module that calculates the height of a BOX object. It computes the vertical distance by subtracting the low y-coordinate from the high y-coordinate using the  function. This is an internal utility function used by other box-related operations that need to determine the vertical extent of a box.
 
 ## Parameters / Member Variables
-- : Pointer to a BOX structure containing the geometric box data with high and low coordinate points
-
+- `*box`: Pointer to a BOX structure containing the geometric box data with high and low coordinate points
 ## Dependencies
 - Functions called/Symbols referenced:
   - [float8_mi](../f/float8_mi.md) (floating-point subtraction function)

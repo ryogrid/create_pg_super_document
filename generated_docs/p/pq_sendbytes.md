@@ -18,10 +18,9 @@ This function is a core component of PostgreSQL's message formatting system that
 The function is designed to handle any type of binary data and is commonly used for appending serialized aggregate states, array data, range types, and other complex data structures to outgoing messages.
 
 ## Parameters / Member Variables
-- : StringInfo buffer to append the data to (typically initialized with pq_beginmessage or pq_beginmessage_reuse)
-- : Pointer to the raw binary data to be appended
-- : Length of the data in bytes
-
+- `buf`: StringInfo buffer to append the data to (typically initialized with pq_beginmessage or pq_beginmessage_reuse)
+- `*data`: Pointer to the raw binary data to be appended
+- `datalen`: Length of the data in bytes
 ## Dependencies
 - Functions called/Symbols referenced:
   - [appendBinaryStringInfo](../a/appendBinaryStringInfo.md) (from StringInfo API)

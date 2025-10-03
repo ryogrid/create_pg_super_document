@@ -20,10 +20,9 @@ The function scans through all entries in the TypeCacheHash and identifies entri
 Specifically, it invalidates TCFLAGS_HAVE_PG_TYPE_DATA to force reloading of basic type information from pg_type, and TCFLAGS_CHECKED_DOMAIN_CONSTRAINTS for domain types since domain constraints might have changed (particularly the typnotnull property).
 
 ## Parameters / Member Variables
-- : Callback argument (unused in this implementation)
-- : System cache ID that triggered the invalidation
-- : Hash value identifying the specific type row that changed, or 0 for total cache flush
-
+- `arg`: Callback argument (unused in this implementation)
+- `cacheid`: System cache ID that triggered the invalidation
+- `hashvalue`: Hash value identifying the specific type row that changed, or 0 for total cache flush
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hash_seq_init](../h/hash_seq_init.md)

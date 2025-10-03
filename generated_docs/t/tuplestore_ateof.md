@@ -21,8 +21,7 @@ The EOF state is set when:
 - The tuplestore is empty and a read is attempted
 
 ## Parameters / Member Variables
-- : Pointer to the  structure containing the tuplestore and read pointers
-
+- `*state`: Pointer to the  structure containing the tuplestore and read pointers
 ## Dependencies
 - Functions called/Symbols referenced:
   - Uses , , and  fields from  structure

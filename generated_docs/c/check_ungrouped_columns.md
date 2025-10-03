@@ -28,14 +28,13 @@ The function implements SQL's GROUP BY semantics by ensuring that any variable r
 - Within aggregate function arguments
 
 ## Parameters / Member Variables
-- : Expression tree to scan for ungrouped variables
-- : Parser state providing context and error reporting capabilities
-- : Query structure containing grouping information
-- : List of acceptable GROUP BY expressions (TargetEntry nodes)
-- : Variables present in all grouping sets (for functional dependency checking)
-- : Whether grouping expressions include non-variable expressions
-- : Output parameter for relations that are functionally grouped
-
+- `*node`: Expression tree to scan for ungrouped variables
+- `*pstate`: Parser state providing context and error reporting capabilities
+- `*qry`: Query structure containing grouping information
+- `*groupClauses`: List of acceptable GROUP BY expressions (TargetEntry nodes)
+- `*groupClauseCommonVars`: Variables present in all grouping sets (for functional dependency checking)
+- `have_non_var_grouping`: Whether grouping expressions include non-variable expressions
+- `**func_grouped_rels`: Output parameter for relations that are functionally grouped
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_ungrouped_columns_walker](check_ungrouped_columns_walker.md)

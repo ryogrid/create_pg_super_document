@@ -21,8 +21,7 @@ The  function is a utility function that safely extracts an OID value from a  st
 The function includes comprehensive error handling, reporting syntax errors when the DefElem lacks an argument or contains an inappropriate data type.
 
 ## Parameters / Member Variables
-- : Pointer to a DefElem structure containing the definition element to extract the OID from
-
+- `*def`: Pointer to a DefElem structure containing the definition element to extract the OID from
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DefElem](../D/DefElem.md) (structure type)

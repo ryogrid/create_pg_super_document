@@ -18,8 +18,7 @@ This function determines the oldest MultiXact member offset and installs limit i
 The function acquires locks to prevent concurrent truncation and reads shared memory state. It computes a stop limit by moving back to the start of the corresponding segment and leaving one segment before the wraparound point as a safety buffer.
 
 ## Parameters / Member Variables
-- : Boolean indicating whether this is being called during startup (affects logging behavior)
-
+- `is_startup`: Boolean indicating whether this is being called during startup (affects logging behavior)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [find_multixact_start](../f/find_multixact_start.md)

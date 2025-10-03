@@ -223,9 +223,8 @@ The function handles different relation types appropriately, using table access 
 Special handling exists for mapped relations where pg_class.relfilenode doesn't change, and updates go through the relation mapper instead. This is essential when reindexing system catalogs like pg_class itself.
 
 ## Parameters / Member Variables
-- : The relation to assign a new relfilenumber to
-- : New persistence setting (permanent, temporary, or unlogged)
-
+- `relation`: The relation to assign a new relfilenumber to
+- `persistence`: New persistence setting (permanent, temporary, or unlogged)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetNewRelFileNumber](../G/GetNewRelFileNumber.md)

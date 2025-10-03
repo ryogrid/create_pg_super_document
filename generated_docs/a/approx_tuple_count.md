@@ -23,10 +23,9 @@ This function estimates how many tuples will pass through initial merge or hash 
 The function creates a dummy SpecialJoinInfo structure for JOIN_INNER semantics, iterates through each qualification clause to compute selectivity, multiplies all selectivities together, applies this to the Cartesian product of input relation sizes, and clamps the result to a reasonable range.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global planner state
-- : JoinPath representing the join operation being estimated
-- : List of qualification conditions (boolean expressions or RestrictInfo nodes)
-
+- `*root`: PlannerInfo structure containing global planner state
+- `*path`: JoinPath representing the join operation being estimated
+- `*quals`: List of qualification conditions (boolean expressions or RestrictInfo nodes)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [init_dummy_sjinfo](../i/init_dummy_sjinfo.md)

@@ -17,7 +17,6 @@ This function serves as an error translation layer between Windows Winsock API a
 The function covers a wide range of socket error conditions including connection errors, network unavailability, protocol issues, and resource limitations. For unrecognized error codes, it logs a notice and defaults to EINVAL.
 
 ## Parameters / Member Variables
-This function takes no parameters and returns no values. It operates as a side-effect function that modifies the global errno variable.
 
 ## Dependencies
 - Functions called/Symbols referenced:

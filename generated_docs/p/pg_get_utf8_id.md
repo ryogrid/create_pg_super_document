@@ -16,7 +16,6 @@ pg_get_utf8_id(void)
 This function serves as a cached accessor for the UTF-8 character encoding ID in PostgreSQL's frontend utilities. It uses a static variable to store the encoding ID after the first lookup, implementing a simple memoization pattern. The function calls  only once and stores the result for subsequent calls, improving performance when UTF-8 encoding ID is needed multiple times.
 
 ## Parameters / Member Variables
-This function takes no parameters and returns an integer representing the UTF-8 encoding ID.
 
 ## Dependencies
 - Functions called/Symbols referenced:

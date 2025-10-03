@@ -18,8 +18,7 @@ The  function serves as the default implementation for the LDAP password mutatio
 The function is assigned to the  function pointer, which allows PostgreSQL to support pluggable password transformation mechanisms during LDAP authentication. This design pattern enables extensions or custom builds to replace the default behavior with more sophisticated password mutation logic if needed.
 
 ## Parameters / Member Variables
-- : The original password string to be processed; returned unchanged by this implementation
-
+- `*input`: The original password string to be processed; returned unchanged by this implementation
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (returns input directly)

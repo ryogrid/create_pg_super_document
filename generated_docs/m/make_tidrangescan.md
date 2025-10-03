@@ -19,11 +19,10 @@ make_tidrangescan(List *qptlist,
 This function constructs a TidRangeScan plan node, which implements a specialized scan operation that accesses tuples within specified TID ranges from a heap table. Unlike the single TID access provided by TidScan, TidRangeScan can efficiently process range conditions on TIDs, such as "WHERE ctid >= '(0,1)' AND ctid <= '(0,100)'". This allows for efficient scanning of contiguous blocks of tuples without requiring a full sequential scan, making it particularly useful for operations that need to process specific ranges of a table's physical storage.
 
 ## Parameters / Member Variables
-- : Target list of expressions to be computed and returned by this scan
-- : Additional qualification conditions to be evaluated against retrieved tuples
-- : Range table index of the heap relation being scanned
-- : List of qualification conditions that specify the TID range boundaries
-
+- `*qptlist`: Target list of expressions to be computed and returned by this scan
+- `*qpqual`: Additional qualification conditions to be evaluated against retrieved tuples
+- `scanrelid`: Range table index of the heap relation being scanned
+- `*tidrangequals`: List of qualification conditions that specify the TID range boundaries
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to create the TidRangeScan node)

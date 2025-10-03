@@ -18,9 +18,8 @@ This function is responsible for parameter assignment during query planning in P
 The function navigates up the planner hierarchy to find the appropriate query level where the Var belongs, then either reuses an existing parameter or creates a new one. This is crucial for proper handling of correlated subqueries where variables from outer query levels need to be parameterized.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planner state and context for the current query level
-- : Var node representing a table column reference that needs to be parameterized
-
+- `*root`: PlannerInfo structure containing planner state and context for the current query level
+- `*var`: Var node representing a table column reference that needs to be parameterized
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PlannerParamItem](../P/PlannerParamItem.md) (structure creation)

@@ -25,9 +25,8 @@ The function performs the reparenting operation by:
 The function is designed to not fail under normal circumstances and avoids elog(ERROR) calls to meet caller expectations. It only checks for direct parent-child loops but doesn't validate against multi-level loops for performance reasons.
 
 ## Parameters / Member Variables
-- : The memory context to reparent
-- : The new parent context (or NULL for no parent)
-
+- `context`: The memory context to reparent
+- `new_parent`: The new parent context (or NULL for no parent)
 ## Dependencies
 - Functions called/Symbols referenced:
   - MemoryContextIsValid (validation function)

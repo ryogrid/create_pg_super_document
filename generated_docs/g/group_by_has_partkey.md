@@ -22,10 +22,9 @@ The function performs a comprehensive comparison between partition key expressio
 The algorithm iterates through each partition key attribute, then through all alternative expressions for that key (since a partition key can have multiple equivalent expressions), attempting to find a matching expression in the GROUP BY clause.
 
 ## Parameters / Member Variables
-- : RelOptInfo for the partitioned input relation being examined
-- : List of target list entries containing the expressions available for grouping
-- : List of SortGroupClause nodes representing the GROUP BY clause
-
+- `*input_rel`: RelOptInfo for the partitioned input relation being examined
+- `*targetList`: List of target list entries containing the expressions available for grouping
+- `*groupClause`: List of SortGroupClause nodes representing the GROUP BY clause
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_sortgrouplist_exprs](get_sortgrouplist_exprs.md)

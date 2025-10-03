@@ -18,12 +18,11 @@ pg_namespace_aclmask_ext(Oid nsp_oid, Oid roleid,
 The function performs comprehensive privilege checking for PostgreSQL namespaces (schemas). It handles several special cases including superuser bypass, temporary namespace permissions, and role-based access for pg_read_all_data/pg_write_all_data roles. The function retrieves the Access Control List (ACL) from pg_namespace system catalog and evaluates permissions against it. If the is_missing parameter is provided, the function can return gracefully when the namespace doesn't exist rather than throwing an error.
 
 ## Parameters / Member Variables
-- : The Object ID of the namespace to check permissions for
-- : The Object ID of the role whose permissions are being checked  
-- : The permission mask specifying which privileges to check (e.g., ACL_USAGE, ACL_CREATE)
-- : Enumeration specifying how to combine privileges (AclMaskHow type)
-- : Optional pointer to bool that gets set to true if the namespace doesn't exist (allows graceful handling)
-
+- `nsp_oid`: The Object ID of the namespace to check permissions for
+- `roleid`: The Object ID of the role whose permissions are being checked
+- `mask`: The permission mask specifying which privileges to check (e.g., ACL_USAGE, ACL_CREATE)
+- `how`: Enumeration specifying how to combine privileges (AclMaskHow type)
+- `*is_missing`: Optional pointer to bool that gets set to true if the namespace doesn't exist (allows graceful handling)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [superuser_arg](../s/superuser_arg.md)

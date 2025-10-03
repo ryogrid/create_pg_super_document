@@ -26,8 +26,7 @@ The function is typically called in two scenarios:
 2. When beginning to use a pre-existing temporary namespace to remove objects left behind by crashed backends
 
 ## Parameters / Member Variables
-- : The OID of the temporary namespace whose contents should be removed
-
+- `tempNamespaceId`: The OID of the temporary namespace whose contents should be removed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [performDeletion](../p/performDeletion.md)

@@ -19,11 +19,10 @@ This function is the main entry point for reading and processing individual tupl
 The function initializes all output arrays to NULL/true, then populates them based on the input data format. It ensures proper type conversion using the relation's input functions and handles various COPY options like null handling and default expressions. Error handling includes soft error recovery and detailed logging when configured.
 
 ## Parameters / Member Variables
-- : The COPY FROM state structure containing configuration, input functions, and parsing state
-- : Expression context for evaluating default expressions; can be NULL if no defaults are used
-- : Output array of Datum values, one per relation column, filled by this function
-- : Output array of null indicators, one per relation column, filled by this function
-
+- `cstate`: The COPY FROM state structure containing configuration, input functions, and parsing state
+- `*econtext`: Expression context for evaluating default expressions; can be NULL if no defaults are used
+- `*values`: Output array of Datum values, one per relation column, filled by this function
+- `*nulls`: Output array of null indicators, one per relation column, filled by this function
 ## Dependencies
 - Functions called/Symbols referenced:
   - [NextCopyFromRawFields](NextCopyFromRawFields.md): Reads raw field strings from input for text/CSV mode

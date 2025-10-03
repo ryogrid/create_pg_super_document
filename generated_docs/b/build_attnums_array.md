@@ -16,10 +16,9 @@ build_attnums_array(Bitmapset *attrs, int nexprs, int *numattrs)
 This function converts a Bitmapset containing attribute references into a dynamically allocated array of AttrNumber values. It's specifically designed for extended statistics operations where all attributes are user-defined (positive attribute numbers). The function iterates through the bitmap members, adjusts for expression indices, and validates that all resulting attribute numbers are valid user-defined attributes. It includes comprehensive assertions to ensure data integrity and prevent overflows.
 
 ## Parameters / Member Variables
-- : Bitmapset containing the attributes to be converted to an array
-- : Number of expressions that need to be accounted for when calculating attribute numbers
-- : Output parameter that receives the count of attributes in the resulting array (can be NULL)
-
+- `*attrs`: Bitmapset containing the attributes to be converted to an array
+- `nexprs`: Number of expressions that need to be accounted for when calculating attribute numbers
+- `*numattrs`: Output parameter that receives the count of attributes in the resulting array (can be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bms_num_members](bms_num_members.md)

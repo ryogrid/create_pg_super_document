@@ -18,10 +18,9 @@ This function moves the cursor position by the specified number of rows in the g
 Like SPI_cursor_fetch, it wraps the internal _SPI_cursor_operation function but with a null destination receiver to discard the results. The SPI_processed variable is still updated to reflect the number of rows actually moved over.
 
 ## Parameters / Member Variables
-- : The Portal handle for the cursor to move
-- : Boolean indicating movement direction (true for forward, false for backward)
-- : Number of rows to move over (positive number)
-
+- `portal`: The Portal handle for the cursor to move
+- `forward`: Boolean indicating movement direction (true for forward, false for backward)
+- `count`: Number of rows to move over (positive number)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [_SPI_cursor_operation](_SPI_cursor_operation.md) (internal cursor operation handler)

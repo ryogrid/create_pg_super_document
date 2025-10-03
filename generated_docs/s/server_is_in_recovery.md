@@ -16,8 +16,7 @@ server_is_in_recovery(PGconn *conn)
 This function determines if a PostgreSQL server is in recovery mode by executing a SQL query against the pg_catalog.pg_is_in_recovery() system function. It handles the result by comparing the returned string value ('t' for true, 'f' for false) to determine the recovery status. The function provides error handling for query execution failures and properly cleans up resources.
 
 ## Parameters / Member Variables
-- : PostgreSQL database connection handle used to execute the recovery status query
-
+- `*conn`: PostgreSQL database connection handle used to execute the recovery status query
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQexec](../P/PQexec.md)

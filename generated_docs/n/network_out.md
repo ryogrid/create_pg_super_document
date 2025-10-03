@@ -16,9 +16,8 @@ network_out(inet *src, bool is_cidr)
 This function serves as the core formatting routine for both INET and CIDR data types in PostgreSQL. It takes an internal inet structure and converts it to a human-readable string representation. The function uses pg_inet_net_ntop to perform the actual address-to-string conversion, handling both IPv4 and IPv6 formats automatically. For CIDR outputs, it ensures that the network mask notation (/n) is always present, adding it if not already included by the underlying conversion function.
 
 ## Parameters / Member Variables
-- : Pointer to the internal inet structure to be formatted
-- : Boolean flag indicating whether to enforce CIDR output formatting (ensure /n suffix)
-
+- `*src`: Pointer to the internal inet structure to be formatted
+- `is_cidr`: Boolean flag indicating whether to enforce CIDR output formatting (ensure /n suffix)
 ## Dependencies
 - Functions called/Symbols referenced:
   - inet (data type)

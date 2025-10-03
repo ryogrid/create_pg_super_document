@@ -22,8 +22,7 @@ On abort, the function only processes PriorCmdInvalidMsgs locally since the abor
 The function uses GetCurrentTransactionNestLevel() to verify it's operating at the correct nesting level and includes safeguards against processing the same nesting level twice during abort scenarios.
 
 ## Parameters / Member Variables
-- : Boolean flag indicating whether the subtransaction is committing (true) or aborting (false)
-
+- `isCommit`: Boolean flag indicating whether the subtransaction is committing (true) or aborting (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetCurrentTransactionNestLevel](../G/GetCurrentTransactionNestLevel.md)

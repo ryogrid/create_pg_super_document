@@ -18,10 +18,9 @@ EndCommand handles the final stage of command execution by processing command co
 The function uses a switch statement to handle different CommandDest values, with remote destinations requiring active completion message transmission while other destinations simply break through without additional processing.
 
 ## Parameters / Member Variables
-- : Pointer to QueryCompletion structure containing command execution statistics and completion information
-- : CommandDest enumeration value specifying where command output should be sent
-- : Boolean flag to control completion tag formatting behavior
-
+- `*qc`: Pointer to QueryCompletion structure containing command execution statistics and completion information
+- `dest`: CommandDest enumeration value specifying where command output should be sent
+- `force_undecorated_output`: Boolean flag to control completion tag formatting behavior
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BuildQueryCompletionString](../B/BuildQueryCompletionString.md) (builds formatted completion tag)

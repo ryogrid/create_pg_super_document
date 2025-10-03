@@ -18,8 +18,7 @@ PageGetExactFreeSpace provides the raw calculation of free space available on a 
 The function uses signed arithmetic to handle edge cases where pd_lower might exceed pd_upper (indicating page corruption) and returns 0 in such cases. This function is commonly used by specialized access methods that manage their own line pointer allocation or when precise space calculations are required.
 
 ## Parameters / Member Variables
-- : A pointer to the page for which to calculate exact free space
-
+- `page`: A pointer to the page for which to calculate exact free space
 ## Dependencies
 - Functions called/Symbols referenced:
   - PageHeader (cast to access page header fields)

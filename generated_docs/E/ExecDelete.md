@@ -38,17 +38,16 @@ The function supports multiple deletion scenarios:
 - Cross-partition updates where deletion is part of tuple movement
 
 ## Parameters / Member Variables
-- : ModifyTableContext containing execution state and metadata
-- : Information about the target relation for deletion
-- : ItemPointer identifying the tuple to delete (invalid for foreign tables and views)
-- : HeapTuple containing tuple data (used for triggers, NULL for regular table deletion)
-- : Boolean indicating whether to process RETURNING clause
-- : Boolean indicating if deletion is part of cross-partition update
-- : Boolean controlling whether to increment processed tuple count
-- : Output parameter receiving the tuple modification result
-- : Output parameter indicating whether deletion actually occurred
-- : Output parameter for returning updated tuple from EPQ evaluation
-
+- `*context`: ModifyTableContext containing execution state and metadata
+- `*resultRelInfo`: Information about the target relation for deletion
+- `tupleid`: ItemPointer identifying the tuple to delete (invalid for foreign tables and views)
+- `oldtuple`: HeapTuple containing tuple data (used for triggers, NULL for regular table deletion)
+- `processReturning`: Boolean indicating whether to process RETURNING clause
+- `changingPart`: Boolean indicating if deletion is part of cross-partition update
+- `canSetTag`: Boolean controlling whether to increment processed tuple count
+- `*tmresult`: Output parameter receiving the tuple modification result
+- `*tupleDeleted`: Output parameter indicating whether deletion actually occurred
+- `**epqreturnslot`: Output parameter for returning updated tuple from EPQ evaluation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecDeletePrologue](ExecDeletePrologue.md) (preparation and BEFORE triggers)

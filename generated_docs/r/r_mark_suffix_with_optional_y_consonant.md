@@ -25,8 +25,7 @@ The function implements the standard two-stage checking mechanism:
 This function is extensively used throughout the Turkish stemmer, reflecting the high frequency of 'y' insertion in Turkish morphological processes.
 
 ## Parameters / Member Variables
-- : Pointer to the Snowball environment structure containing the text buffer, current position, and morphological analysis state
-
+- `*z`: Pointer to the Snowball environment structure containing the text buffer, current position, and morphological analysis state
 ## Dependencies
 - Functions called/Symbols referenced:
   - [in_grouping_b_U](../i/in_grouping_b_U.md) (called 2 times for vowel group checking)

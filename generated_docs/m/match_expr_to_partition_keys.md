@@ -22,10 +22,9 @@ The function operates in two phases:
 The distinction between nullable and non-nullable partition keys is crucial for correctness in join operations. Non-nullable partition keys can always be safely used for partitionwise operations. Nullable partition keys can only be used when the join operator is strict (null-rejecting), because strict operators ensure that NULL values will not match across partitions, maintaining partitionwise join correctness.
 
 ## Parameters / Member Variables
-- : The expression to match against partition keys (typically from a join condition)
-- : The partitioned RelOptInfo containing partition key information to match against
-- : Boolean flag indicating whether the expression will be used with a strict operator, enabling nullable partition key consideration
-
+- `*expr`: The expression to match against partition keys (typically from a join condition)
+- `*rel`: The partitioned RelOptInfo containing partition key information to match against
+- `strict_op`: Boolean flag indicating whether the expression will be used with a strict operator, enabling nullable partition key consideration
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Performs structural equality comparison between expressions

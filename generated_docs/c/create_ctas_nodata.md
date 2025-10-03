@@ -20,9 +20,8 @@ The function iterates through non-junk entries in the target list, creating  str
 Once the column definitions are prepared, it delegates to  for the actual relation creation.
 
 ## Parameters / Member Variables
-- : List of  nodes representing the SELECT statement's target list from which column definitions are derived
-- :  containing the target relation specification, column name overrides, and other creation options
-
+- `*tlist`: List of  nodes representing the SELECT statement's target list from which column definitions are derived
+- `*into`:  containing the target relation specification, column name overrides, and other creation options
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_head](../l/list_head.md)

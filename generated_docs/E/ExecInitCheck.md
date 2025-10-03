@@ -20,9 +20,8 @@ The function implements this by converting the implicit-AND list of expressions 
 Unlike ExecInitQual's optimized short-circuit evaluation that immediately fails on NULL, ExecInitCheck must evaluate all expressions to properly handle the case where some expressions are NULL but others might be FALSE (which would represent a constraint violation).
 
 ## Parameters / Member Variables
-- : A List of expression nodes representing the check constraint in implicit-AND format. Returns NULL if the list is empty (NIL), representing a constraint that always passes.
-- : The PlanState node that owns this check constraint expression.
-
+- `*qual`: A List of expression nodes representing the check constraint in implicit-AND format. Returns NULL if the list is empty (NIL), representing a constraint that always passes.
+- `*parent`: The PlanState node that owns this check constraint expression.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [make_ands_explicit](../m/make_ands_explicit.md) (converts implicit-AND list to explicit AND expression)

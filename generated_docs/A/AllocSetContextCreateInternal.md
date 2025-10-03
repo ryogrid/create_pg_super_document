@@ -29,12 +29,11 @@ Key design aspects include:
 - Comprehensive parameter validation and alignment checking
 
 ## Parameters / Member Variables
-- : Parent memory context in the hierarchy, or NULL for top-level contexts
-- : Context name (must be statically allocated string for identification/debugging)  
-- : Minimum size for the context's initial block (0 = use initBlockSize)
-- : Initial allocation block size for the context
-- : Maximum size for any single allocation block
-
+- `parent`: Parent memory context in the hierarchy, or NULL for top-level contexts
+- `*name`: Context name (must be statically allocated string for identification/debugging)
+- `minContextSize`: Minimum size for the context's initial block (0 = use initBlockSize)
+- `initBlockSize`: Initial allocation block size for the context
+- `maxBlockSize`: Maximum size for any single allocation block
 ## Dependencies
 - Functions called/Symbols referenced:
   - StaticAssertDecl (compile-time assertions for alignment)

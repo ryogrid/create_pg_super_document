@@ -19,11 +19,10 @@ This function sets up a DomainConstraintRef structure that provides a managed re
 The function performs several key operations: it looks up the type cache entry for the specified domain type, sets up memory context callbacks for automatic cleanup, manages reference counting for shared constraint data, and optionally prepares executable expression states for constraint checking. This design allows multiple references to share the same constraint data while maintaining proper lifecycle management.
 
 ## Parameters / Member Variables
-- : Object identifier of the domain type for which constraints are being referenced
-- : Pointer to the DomainConstraintRef structure to be initialized
-- : Memory context in which the reference lives and will be cleaned up
-- : Boolean flag indicating whether executable expression states should be prepared for constraints
-
+- `type_id`: Object identifier of the domain type for which constraints are being referenced
+- `*ref`: Pointer to the DomainConstraintRef structure to be initialized
+- `refctx`: Memory context in which the reference lives and will be cleaned up
+- `need_exprstate`: Boolean flag indicating whether executable expression states should be prepared for constraints
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DomainConstraintRef](../D/DomainConstraintRef.md) (struct for managing constraint references)

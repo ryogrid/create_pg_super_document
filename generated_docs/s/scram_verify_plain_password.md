@@ -27,10 +27,9 @@ The verification process involves:
 This function is critical for supporting mixed authentication modes where users have SCRAM secrets but need to authenticate via plaintext methods.
 
 ## Parameters / Member Variables
-- : Username for error reporting purposes
-- : Plaintext password to verify
-- : Stored SCRAM secret from pg_authid.rolpassword
-
+- `*username`: Username for error reporting purposes
+- `*password`: Plaintext password to verify
+- `*secret`: Stored SCRAM secret from pg_authid.rolpassword
 ## Dependencies
 - Functions called/Symbols referenced:
   - [parse_scram_secret](../p/parse_scram_secret.md)

@@ -17,12 +17,11 @@ buildWorkerCommand(ArchiveHandle *AH, TocEntry *te, T_Action act,
 buildWorkerCommand constructs text-based command messages that the leader process sends to worker processes through inter-process communication channels. The function creates simple command strings that specify the action type (DUMP or RESTORE) and the dump ID of the table of contents entry to be processed. The command format is standardized across all archive formats, though the function design allows for future format-specific extensions. Commands are written to a caller-provided buffer with bounds checking.
 
 ## Parameters / Member Variables
-- : Archive handle (not currently used but maintained for future extensibility)
-- : Table of contents entry containing the dumpId to be processed
-- : Action type specifying whether to DUMP or RESTORE the entry
-- : Caller-supplied buffer to store the formatted command string
-- : Size of the buffer to prevent buffer overflows
-
+- `*AH`: Archive handle (not currently used but maintained for future extensibility)
+- `*te`: Table of contents entry containing the dumpId to be processed
+- `act`: Action type specifying whether to DUMP or RESTORE the entry
+- `*buf`: Caller-supplied buffer to store the formatted command string
+- `buflen`: Size of the buffer to prevent buffer overflows
 ## Dependencies
 - Functions called/Symbols referenced:
   - snprintf (formatted string construction)

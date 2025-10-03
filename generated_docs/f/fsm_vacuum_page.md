@@ -24,12 +24,11 @@ The function handles two main cases:
 The traversal follows the physical storage order of the FSM tree, making it I/O efficient. After processing, the function resets the next slot pointer to 0 to encourage use of low-numbered pages, which increases the likelihood that future vacuum operations can truncate the relation.
 
 ## Parameters / Member Variables
-- : The relation whose Free Space Map is being vacuumed
-- : FSMAddress structure identifying the specific FSM page to process
-- : Starting heap block number for the range to consider
-- : Ending heap block number (exclusive) for the range to consider  
-- : Pointer to boolean flag set to true if the address is past the end of the FSM
-
+- `rel`: The relation whose Free Space Map is being vacuumed
+- `addr`: FSMAddress structure identifying the specific FSM page to process
+- `start`: Starting heap block number for the range to consider
+- `end`: Ending heap block number (exclusive) for the range to consider
+- `*eof_p`: Pointer to boolean flag set to true if the address is past the end of the FSM
 ## Dependencies
 - Functions called/Symbols referenced:
   - [fsm_readbuf](fsm_readbuf.md)

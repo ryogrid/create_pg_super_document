@@ -18,9 +18,8 @@ ReinitializeParallelWorkers provides a mechanism to change the number of workers
 The function ensures that the requested number of workers does not exceed the maximum number configured when the parallel context was initially created. It gracefully handles situations where InitializeParallelDSM may have reduced the worker count due to system constraints by silently trimming excessive requests rather than failing.
 
 ## Parameters / Member Variables
-- : The parallel context whose worker count will be adjusted
-- : The desired number of workers to launch (will be capped at the context's maximum)
-
+- `*pcxt`: The parallel context whose worker count will be adjusted
+- `nworkers_to_launch`: The desired number of workers to launch (will be capped at the context's maximum)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ParallelContext](../P/ParallelContext.md) (structure being modified)

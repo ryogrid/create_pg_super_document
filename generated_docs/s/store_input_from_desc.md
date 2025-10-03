@@ -17,10 +17,9 @@ store_input_from_desc(struct statement *stmt, struct descriptor_item *desc_item,
 This function serves as an adapter between SQL descriptor items and the ECPG parameter system. It handles two distinct data types: binary data (which is copied directly) and text data (which requires conversion through the variable system). For text data, it constructs a temporary variable structure with appropriate type information and indicator handling, then uses the standard ecpg_store_input mechanism for consistent processing and formatting.
 
 ## Parameters / Member Variables
-- : Pointer to the statement structure containing execution context
-- : Pointer to the descriptor item containing the source data and metadata
-- : Output parameter that receives the allocated and formatted data string
-
+- `*stmt`: Pointer to the statement structure containing execution context
+- `*desc_item`: Pointer to the descriptor item containing the source data and metadata
+- `**tobeinserted`: Output parameter that receives the allocated and formatted data string
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ecpg_alloc](../e/ecpg_alloc.md)

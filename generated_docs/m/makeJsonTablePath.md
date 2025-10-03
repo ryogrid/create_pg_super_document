@@ -18,9 +18,8 @@ The  function is a constructor function that creates a new JsonTablePath node st
 The function includes an assertion to verify that the pathvalue parameter is indeed a Const node, ensuring type safety during construction. This is consistent with PostgreSQL's practice of runtime type checking for node operations.
 
 ## Parameters / Member Variables
-- : A Const node containing the JSON path expression string that will be evaluated
-- : An optional character string representing the name associated with this path (can be NULL)
-
+- `*pathvalue`: A Const node containing the JSON path expression string that will be evaluated
+- `*pathname`: An optional character string representing the name associated with this path (can be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (macro for node allocation)

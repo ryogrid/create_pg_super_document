@@ -24,9 +24,8 @@ The function implements critical safety measures:
 The function only takes action when the new method differs from the current one, avoiding unnecessary operations during configuration reloads.
 
 ## Parameters / Member Variables
-- : The new WAL synchronization method value being assigned
-- : Additional context data (unused in this implementation, but required by GUC hook interface)
-
+- `new_wal_sync_method`: The new WAL synchronization method value being assigned
+- `*extra`: Additional context data (unused in this implementation, but required by GUC hook interface)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pgstat_report_wait_start](../p/pgstat_report_wait_start.md)

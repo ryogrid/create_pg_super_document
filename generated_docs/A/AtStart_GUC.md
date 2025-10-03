@@ -22,7 +22,6 @@ Key behaviors:
 - Does not attempt to fix corrupted state beyond issuing a warning
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

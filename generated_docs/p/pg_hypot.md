@@ -34,9 +34,8 @@ This function implements a numerically stable algorithm to compute the hypotenus
 6. Check for overflow/underflow in result
 
 ## Parameters / Member Variables
-- : First operand (floating-point value representing one side of triangle)
-- : Second operand (floating-point value representing other side of triangle)
-
+- `x`: First operand (floating-point value representing one side of triangle)
+- `y`: Second operand (floating-point value representing other side of triangle)
 ## Dependencies
 - Functions called/Symbols referenced:
   - isinf (checks for infinity)

@@ -31,11 +31,10 @@ This function is the core recursive worker for remove_useless_result_rtes(). It 
 The function carefully handles PlaceHolderVar dependencies to ensure they remain evaluable after transformations.
 
 ## Parameters / Member Variables
-- : PlannerInfo containing the query tree and related metadata
-- : Current join tree node being processed
-- : Pointer to parent node's quals list for merging child quals upward (NULL if merging not allowed)
-- : Output parameter collecting RT indexes of removed outer-join nodes
-
+- `*root`: PlannerInfo containing the query tree and related metadata
+- `*jtnode`: Current join tree node being processed
+- `**parent_quals`: Pointer to parent node's quals list for merging child quals upward (NULL if merging not allowed)
+- `*dropped_outer_joins`: Output parameter collecting RT indexes of removed outer-join nodes
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_result_relid](../g/get_result_relid.md)

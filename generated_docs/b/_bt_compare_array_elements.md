@@ -18,10 +18,9 @@ This function serves as a comparison callback for PostgreSQL's qsort_arg and qun
 The function supports both forward and reverse sorting through the reverse flag in the context structure. When reverse sorting is enabled, it inverts the comparison result using the INVERT_COMPARE_RESULT macro. The comparison is performed using the collation-aware FunctionCall2Coll interface, ensuring proper locale-sensitive sorting for text data types.
 
 ## Parameters / Member Variables
-- : Pointer to the first Datum element to compare
-- : Pointer to the second Datum element to compare  
-- : BTSortArrayContext structure containing comparison procedure, collation, and sort direction information
-
+- `*a`: Pointer to the first Datum element to compare
+- `*b`: Pointer to the second Datum element to compare
+- `*arg`: BTSortArrayContext structure containing comparison procedure, collation, and sort direction information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BTSortArrayContext](../B/BTSortArrayContext.md)

@@ -17,8 +17,7 @@ static int r_KER(struct SN_env * z)
 This function validates a specific morphological pattern in Indonesian words where a consonant is followed by 'er'. It first uses  to check that the current character is NOT a vowel (i.e., it's a consonant), then uses  to verify that the next 2 characters match the string 'er' (stored in s_0). This pattern recognition is essential for correct morphological analysis during Indonesian stemming, particularly when processing prefixes that should only be removed under specific phonological conditions.
 
 ## Parameters / Member Variables
-- : Pointer to SN_env structure containing the stemmer environment and current position
-
+- `*z`: Pointer to SN_env structure containing the stemmer environment and current position
 ## Dependencies
 - Functions called/Symbols referenced:
   - [out_grouping](../o/out_grouping.md) (Snowball framework function for testing characters outside a group)

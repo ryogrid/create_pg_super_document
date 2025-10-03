@@ -34,14 +34,13 @@ Key behaviors include:
 - Integration with PostgreSQL's latch-based waiting mechanism
 
 ## Parameters / Member Variables
-- : XLogRecPtr indicating the WAL location that needs to be available
-- : Boolean flag indicating random access mode for timeline handling
-- : Boolean flag indicating whether fetching a checkpoint record
-- : XLogRecPtr position of the actual record of interest (for timeline decisions)
-- : TimeLineID currently being replayed
-- : XLogRecPtr of current replay position for timeline validation
-- : Boolean flag enabling immediate return instead of waiting
-
+- `RecPtr`: XLogRecPtr indicating the WAL location that needs to be available
+- `randAccess`: Boolean flag indicating random access mode for timeline handling
+- `fetching_ckpt`: Boolean flag indicating whether fetching a checkpoint record
+- `tliRecPtr`: XLogRecPtr position of the actual record of interest (for timeline decisions)
+- `replayTLI`: TimeLineID currently being replayed
+- `replayLSN`: XLogRecPtr of current replay position for timeline validation
+- `nonblocking`: Boolean flag enabling immediate return instead of waiting
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CheckForStandbyTrigger](../C/CheckForStandbyTrigger.md)

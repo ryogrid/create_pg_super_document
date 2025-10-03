@@ -36,9 +36,8 @@ The function performs the following key operations:
 7. **Caching**: Stores the result in  for future use
 
 ## Parameters / Member Variables
-- : The relation to build publication description for
-- : Output parameter - populated with publication actions and validation status
-
+- `relation`: The relation to build publication description for
+- `*pubdesc`: Output parameter - populated with publication actions and validation status
 ## Dependencies
 - Functions called/Symbols referenced:
   - [is_publishable_relation](../i/is_publishable_relation.md)

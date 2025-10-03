@@ -18,12 +18,11 @@ AlterTypeRecurse(Oid typeOid, bool isImplicitArray,
 AlterTypeRecurse performs the actual catalog updates for type property modifications and ensures consistency across related types through recursive propagation. It updates the pg_type tuple for the specified type, regenerates type dependencies, and then recursively processes the associated array type (for typmod functions only) and all domains that use this type as their base. The function implements PostgreSQL's type inheritance model where domains inherit most properties from their base types, while arrays inherit only typmod-related functions.
 
 ## Parameters / Member Variables
-- : OID of the type being modified
-- : Boolean flag indicating if this is an internal call for processing an array type
-- : HeapTuple containing the current pg_type row for the type
-- : Open relation handle for the pg_type catalog
-- : AlterTypeRecurseParams structure containing all the property changes to apply
-
+- `typeOid`: OID of the type being modified
+- `isImplicitArray`: Boolean flag indicating if this is an internal call for processing an array type
+- `tup`: HeapTuple containing the current pg_type row for the type
+- `catalog`: Open relation handle for the pg_type catalog
+- `*atparams`: AlterTypeRecurseParams structure containing all the property changes to apply
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_stack_depth](../c/check_stack_depth.md)

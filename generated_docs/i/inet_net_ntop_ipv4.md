@@ -18,11 +18,10 @@ This static function handles the IPv4-specific conversion from network byte orde
 The function was authored by Paul Vixie (ISC) in October 1998 and serves as the IPv4 backend for PostgreSQL's network address presentation formatting.
 
 ## Parameters / Member Variables
-- : Pointer to the 4-byte IPv4 address in network byte order
-- : Number of network bits for CIDR notation (0-32)
-- : Output buffer to store the formatted string
-- : Size of the destination buffer
-
+- `*src`: Pointer to the 4-byte IPv4 address in network byte order
+- `bits`: Number of network bits for CIDR notation (0-32)
+- `*dst`: Output buffer to store the formatted string
+- `size`: Size of the destination buffer
 ## Dependencies
 - Functions called/Symbols referenced:
   - SPRINTF (macro for formatted string output)

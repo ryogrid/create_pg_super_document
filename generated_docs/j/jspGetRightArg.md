@@ -16,9 +16,8 @@ jspGetRightArg(JsonPathItem *v, JsonPathItem *a)
 The jspGetRightArg function is the counterpart to jspGetLeftArg, designed to extract the right operand from binary JSON path operations. It performs identical validation to jspGetLeftArg, using an Assert statement to verify that the input JsonPathItem represents a binary operation including logical operations (AND, OR), comparison operations (equal, not equal, less than, greater than, etc.), arithmetic operations (add, subtract, multiply, divide, modulo), string operations (starts with), and type conversion operations (decimal). Once validated, it initializes the destination JsonPathItem structure with the right argument using jspInitByBuffer(), accessing the right argument offset stored in the item's content.args.right field.
 
 ## Parameters / Member Variables
-- : Pointer to the source JsonPathItem containing the binary operation
-- : Pointer to the destination JsonPathItem to be initialized with the right argument
-
+- `*v`: Pointer to the source JsonPathItem containing the binary operation
+- `*a`: Pointer to the destination JsonPathItem to be initialized with the right argument
 ## Dependencies
 - Functions called/Symbols referenced:
   - [jspInitByBuffer](jspInitByBuffer.md)

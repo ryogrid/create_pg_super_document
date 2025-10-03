@@ -22,10 +22,9 @@ Key behaviors:
 - Returns NULL for empty input or lines containing only whitespace
 
 ## Parameters / Member Variables
-- : Input string to parse for the next word
-- : Output pointer set to the character immediately after the found word
-- : Optional output parameter set to TSL_PREFIX if word ends with '*', otherwise 0
-
+- `*in`: Input string to parse for the next word
+- `**end`: Output pointer set to the character immediately after the found word
+- `*flags`: Optional output parameter set to TSL_PREFIX if word ends with '*', otherwise 0
 ## Dependencies
 - Functions called/Symbols referenced:
   - [t_isspace](../t/t_isspace.md)

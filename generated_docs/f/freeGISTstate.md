@@ -18,8 +18,7 @@ The  function is responsible for cleaning up memory allocated for a GISTSTATE st
 This function is part of PostgreSQL's GiST (Generalized Search Tree) index access method implementation and is typically called when an index operation completes to prevent memory leaks.
 
 ## Parameters / Member Variables
-- : Pointer to the GISTSTATE structure to be freed. The structure contains scan-lifespan data and function manager information for GiST index operations.
-
+- `*giststate`: Pointer to the GISTSTATE structure to be freed. The structure contains scan-lifespan data and function manager information for GiST index operations.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContextDelete](../M/MemoryContextDelete.md)

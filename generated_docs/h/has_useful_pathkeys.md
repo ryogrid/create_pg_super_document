@@ -25,9 +25,8 @@ The function checks three main scenarios where pathkeys could be beneficial:
 This is designed as an early filter to avoid the computational overhead of building pathkeys in very simple queries that wouldn't benefit from them (queries with neither joins nor sorts).
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global planning context and query information
-- : RelOptInfo structure representing the relation being analyzed for potential pathkey utility
-
+- `*root`: PlannerInfo structure containing global planning context and query information
+- `*rel`: RelOptInfo structure representing the relation being analyzed for potential pathkey utility
 ## Dependencies
 - Functions called/Symbols referenced:
   - NIL (null list constant)

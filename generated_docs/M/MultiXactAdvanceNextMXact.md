@@ -19,9 +19,8 @@ This function is used during WAL (Write-Ahead Log) replay to ensure that the Mul
 The function only advances the counters forward - it will not decrease them if the current values are already higher than the specified minimums. This ensures crash recovery consistency and prevents MultiXact ID conflicts.
 
 ## Parameters / Member Variables
-- : The minimum MultiXactId value that nextMXact should be set to
-- : The minimum MultiXactOffset value that nextOffset should be set to
-
+- `minMulti`: The minimum MultiXactId value that nextMXact should be set to
+- `minMultiOffset`: The minimum MultiXactOffset value that nextOffset should be set to
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockAcquire](../L/LWLockAcquire.md) (MultiXactGenLock, LW_EXCLUSIVE)

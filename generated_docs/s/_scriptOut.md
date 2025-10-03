@@ -18,10 +18,9 @@ The  function is a specialized output handler for the TAR format archiver in pg_
 This function is part of the TAR format implementation and provides a standardized interface for writing script content while maintaining the TAR format structure.
 
 ## Parameters / Member Variables
-- : Archive handle containing the archive state and format-specific data
-- : Pointer to the buffer containing data to be written
-- : Number of bytes to write from the buffer
-
+- `*AH`: Archive handle containing the archive state and format-specific data
+- `*buf`: Pointer to the buffer containing data to be written
+- `len`: Number of bytes to write from the buffer
 ## Dependencies
 - Functions called/Symbols referenced:
   - [tarWrite](../t/tarWrite.md)

@@ -16,10 +16,9 @@ AlterEventTriggerOwner_internal(Relation rel, HeapTuple tup, Oid newOwnerId)
 This function performs the actual work of changing an event trigger's owner. It operates on an already-retrieved tuple from the pg_event_trigger catalog and handles all the necessary validation, permission checking, and catalog updates. The function ensures that only superusers can own event triggers and that the current user has permission to change ownership. It updates both the catalog tuple and the dependency system to reflect the ownership change.
 
 ## Parameters / Member Variables
-- : Open relation handle to the pg_event_trigger catalog table
-- : HeapTuple containing the event trigger record to be modified
-- : OID of the new owner (must be a superuser)
-
+- `rel`: Open relation handle to the pg_event_trigger catalog table
+- `tup`: HeapTuple containing the event trigger record to be modified
+- `newOwnerId`: OID of the new owner (must be a superuser)
 ## Dependencies
 - Functions called/Symbols referenced:
   - Form_pg_event_trigger (catalog form structure)

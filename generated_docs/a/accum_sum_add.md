@@ -18,9 +18,8 @@ This function adds a new numeric value to an accumulator structure that maintain
 The function is designed to handle very large sums efficiently by deferring carry propagation until a threshold (NBASE - 1 accumulated values) is reached, which minimizes the computational overhead while preventing overflow.
 
 ## Parameters / Member Variables
-- : Pointer to the NumericSumAccum structure that maintains the running sum
-- : Pointer to the NumericVar containing the value to be added to the accumulator
-
+- `*accum`: Pointer to the NumericSumAccum structure that maintains the running sum
+- `*val`: Pointer to the NumericVar containing the value to be added to the accumulator
 ## Dependencies
 - Functions called/Symbols referenced:
   - [accum_sum_carry](accum_sum_carry.md)

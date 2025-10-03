@@ -27,8 +27,7 @@ This function is part of the Turkish Snowball stemmer that handles post-processi
 These transformations follow Turkish consonant devoicing rules where voiced consonants become voiceless at word boundaries.
 
 ## Parameters / Member Variables
-- : Pointer to the Snowball environment structure containing the string being processed and cursor positions
-
+- `*z`: Pointer to the Snowball environment structure containing the string being processed and cursor positions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [find_among_b](../f/find_among_b.md) (Snowball library function for backward pattern matching)

@@ -22,8 +22,7 @@ This function analyzes the dependencies between CTEs in a recursive WITH clause 
 This ordering is crucial for recursive WITH clauses because it ensures that when a CTE is being analyzed, all the CTEs it references have already been analyzed and their types determined.
 
 ## Parameters / Member Variables
-- : CteState structure containing the array of CTE items and dependency tracking information
-
+- `*cstate`: CteState structure containing the array of CTE items and dependency tracking information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [makeDependencyGraphWalker](makeDependencyGraphWalker.md) - walks through CTE query trees to find dependencies

@@ -25,9 +25,8 @@ For PlaceHolderVar nodes, if the placeholder is not at the current level, the fu
 This function is optimized for boolean queries - it only needs to determine presence/absence of variables, not collect them, so it can terminate early upon finding the first match.
 
 ## Parameters / Member Variables
-- : The current node being examined during tree traversal
-- : Context parameter (unused in this function, passed through to expression_tree_walker)
-
+- `*node`: The current node being examined during tree traversal
+- `*context`: Context parameter (unused in this function, passed through to expression_tree_walker)
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (node type checking macros)

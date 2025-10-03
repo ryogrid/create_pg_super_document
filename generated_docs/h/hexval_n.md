@@ -18,9 +18,8 @@ The  function converts a sequence of hexadecimal characters into their correspon
 The function assumes that all input characters are valid hexadecimal digits - validation should be performed by the caller or will be handled by the underlying  function which will throw an error for invalid digits.
 
 ## Parameters / Member Variables
-- : Pointer to the input string containing hexadecimal digits
-- : Number of hexadecimal characters to process from the input string
-
+- `*instr`: Pointer to the input string containing hexadecimal digits
+- `n`: Number of hexadecimal characters to process from the input string
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Converts a single hexadecimal character to its numeric value (0-15)

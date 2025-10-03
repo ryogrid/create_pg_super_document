@@ -25,10 +25,9 @@ The function is called at different stages depending on CTE type:
 - For recursive CTEs: Called after transforming only the non-recursive term to establish baseline types
 
 ## Parameters / Member Variables
-- : Parse state used primarily for error message context and location information
-- : The CommonTableExpr node whose derived fields need to be computed
-- : The transformed target list from which to derive column information
-
+- `*pstate`: Parse state used primarily for error message context and location information
+- `*cte`: The CommonTableExpr node whose derived fields need to be computed
+- `*tlist`: The transformed target list from which to derive column information
 ## Dependencies
 - Functions called/Symbols referenced:
   - copyObject - creates copy of alias column names

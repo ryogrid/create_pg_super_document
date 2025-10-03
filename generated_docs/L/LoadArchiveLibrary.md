@@ -21,7 +21,6 @@ LoadArchiveLibrary is responsible for initializing PostgreSQL's archiving mechan
 The function performs validation to ensure only one archiving method is configured, initializes the archive module state, calls any startup callbacks, and registers a shutdown callback to be executed on process exit.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

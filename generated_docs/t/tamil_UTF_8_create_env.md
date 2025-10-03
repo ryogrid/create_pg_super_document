@@ -17,7 +17,6 @@ This function is a language-specific wrapper that creates a Snowball stemming en
 The function is part of the Snowball stemming library integrated into PostgreSQL for full-text search capabilities. Tamil stemming helps improve search accuracy by reducing words to their root forms, enabling better matching of related terms in Tamil text.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

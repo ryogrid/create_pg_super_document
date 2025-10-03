@@ -16,10 +16,9 @@ op_input_types(Oid opno, Oid *lefttype, Oid *righttype)
 This function looks up an operator in the pg_operator system catalog using its OID and returns the data types of its left and right operands. It's a utility function in the system cache layer that provides a convenient interface for accessing operator type information. The function uses the system cache (syscache) for efficient lookup and will throw an error if the operator OID is not found.
 
 ## Parameters / Member Variables
-- : The OID of the operator to look up
-- : Output parameter that receives the OID of the left operand data type (InvalidOid if not applicable)
-- : Output parameter that receives the OID of the right operand data type (InvalidOid if not applicable)
-
+- `opno`: The OID of the operator to look up
+- `*lefttype`: Output parameter that receives the OID of the left operand data type (InvalidOid if not applicable)
+- `*righttype`: Output parameter that receives the OID of the right operand data type (InvalidOid if not applicable)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache1](../S/SearchSysCache1.md)

@@ -24,9 +24,8 @@ ExecSerializePlan prepares a query plan for parallel execution by creating a ser
 The function ensures that worker processes receive only the information they need while maintaining safety constraints for parallel execution.
 
 ## Parameters / Member Variables
-- : The Plan node to be serialized for parallel execution
-- : The executor state containing runtime information including range tables and parameter types
-
+- `*plan`: The Plan node to be serialized for parallel execution
+- `*estate`: The executor state containing runtime information including range tables and parameter types
 ## Dependencies
 - Functions called/Symbols referenced:
   - copyObject

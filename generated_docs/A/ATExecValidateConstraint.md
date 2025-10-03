@@ -28,13 +28,12 @@ For check constraints:
 The function updates the constraint catalog entry to mark it as validated only after queueing the validation work.
 
 ## Parameters / Member Variables
-- : Work queue for ALTER TABLE operations to add validation tasks
-- : The relation containing the constraint to validate
-- : Name of the constraint to validate
-- : Whether to recursively validate constraints on child tables
-- : Whether this call is part of a recursive operation
-- : Lock mode to use when accessing child relations
-
+- `**wqueue`: Work queue for ALTER TABLE operations to add validation tasks
+- `rel`: The relation containing the constraint to validate
+- `*constrName`: Name of the constraint to validate
+- `recurse`: Whether to recursively validate constraints on child tables
+- `recursing`: Whether this call is part of a recursive operation
+- `lockmode`: Lock mode to use when accessing child relations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md)

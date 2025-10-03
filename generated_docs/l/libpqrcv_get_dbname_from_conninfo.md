@@ -18,8 +18,7 @@ This function parses a PostgreSQL connection string to extract the database name
 The function is particularly useful in replication scenarios where the WAL receiver needs to determine which database it should connect to based on the connection information provided. It performs robust error handling for invalid connection strings and ensures proper memory management throughout the parsing operation.
 
 ## Parameters / Member Variables
-- : Null-terminated string containing the PostgreSQL connection information to parse
-
+- `*connInfo`: Null-terminated string containing the PostgreSQL connection information to parse
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQconninfoParse](../P/PQconninfoParse.md)

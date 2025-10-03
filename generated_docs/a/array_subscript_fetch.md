@@ -20,10 +20,9 @@ This function performs the actual array element retrieval during expression exec
 The function delegates the core array access logic to array_get_element, which handles the low-level details of navigating PostgreSQL's array storage format. The result is stored directly in the operation's result value, and the result null indicator is updated appropriately by array_get_element if the accessed element is out of bounds or otherwise invalid.
 
 ## Parameters / Member Variables
-- : Expression state context (not directly used in this function)  
-- : Expression evaluation step containing the SubscriptingRef state, workspace, and result storage locations
-- : Expression evaluation context (not directly used in this function)
-
+- `*state`: Expression state context (not directly used in this function)
+- `*op`: Expression evaluation step containing the SubscriptingRef state, workspace, and result storage locations
+- `*econtext`: Expression evaluation context (not directly used in this function)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [array_get_element](array_get_element.md) (performs the actual array element extraction using the computed subscripts and type information)

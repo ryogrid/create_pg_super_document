@@ -16,10 +16,9 @@ user_mapping_ddl_aclcheck(Oid umuserid, Oid serverid, const char *servername)
 This static function implements a centralized permission checking mechanism for user mapping DDL operations. It enforces a two-tier access control policy: server owners have full privileges to operate on any user mapping associated with their server, while regular users can only operate on their own user mappings. The function first checks if the current user owns the foreign server; if not, it verifies whether the user is attempting to operate on their own mapping and has USAGE privileges on the server.
 
 ## Parameters / Member Variables
-- : The OID of the user whose mapping is being operated on
-- : The OID of the foreign server associated with the user mapping
-- : The name of the foreign server (used for error reporting)
-
+- `umuserid`: The OID of the user whose mapping is being operated on
+- `serverid`: The OID of the foreign server associated with the user mapping
+- `*servername`: The name of the foreign server (used for error reporting)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetUserId](../G/GetUserId.md)

@@ -20,13 +20,12 @@ This function constructs PostgreSQL SECURITY LABEL commands for shared objects (
 The function operates by first building a query to retrieve security label information from the specified system catalog, executing that query, and then formatting the results into proper SECURITY LABEL SQL commands. This is part of pg_dumpall's capability to preserve security labels when dumping and restoring database clusters.
 
 ## Parameters / Member Variables
-- : Active PostgreSQL database connection for executing queries
-- : Name of the system catalog table (e.g., "pg_database", "pg_tablespace")
-- : OID of the target object in the system catalog
-- : SQL object type name for the SECURITY LABEL command (e.g., "DATABASE", "TABLESPACE")
-- : Name of the object as it should appear in the SECURITY LABEL command (not pre-quoted)
-- : Output buffer where the generated SECURITY LABEL commands will be appended
-
+- `*conn`: Active PostgreSQL database connection for executing queries
+- `*catalog_name`: Name of the system catalog table (e.g., "pg_database", "pg_tablespace")
+- `objectId`: OID of the target object in the system catalog
+- `*objtype`: SQL object type name for the SECURITY LABEL command (e.g., "DATABASE", "TABLESPACE")
+- `*objname`: Name of the object as it should appear in the SECURITY LABEL command (not pre-quoted)
+- `buffer`: Output buffer where the generated SECURITY LABEL commands will be appended
 ## Dependencies
 - Functions called/Symbols referenced:
   - [buildShSecLabelQuery](buildShSecLabelQuery.md) (constructs the query to retrieve security labels)

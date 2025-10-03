@@ -26,8 +26,7 @@ This function serves as the global initialization routine required by the custom
 The function supports both sequential and parallel restore operations but only provides parallel restore capabilities (no parallel dump support for custom format).
 
 ## Parameters / Member Variables
-- : Pointer to the ArchiveHandle structure that contains all archive-related information and function pointers
-
+- `*AH`: Pointer to the ArchiveHandle structure that contains all archive-related information and function pointers
 ## Dependencies
 - Functions called/Symbols referenced:
   - [_ArchiveEntry](../A/_ArchiveEntry.md), _StartData, _WriteData, _EndData

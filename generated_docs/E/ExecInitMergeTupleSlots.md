@@ -25,9 +25,8 @@ The tuple slots are created using the relation's descriptor and are registered w
 Note that while this function initializes the tuple slots, it does not initialize the projection info structures themselves - those are set up separately during action-specific initialization.
 
 ## Parameters / Member Variables
-- : ModifyTableState containing the executor state and plan information
-- : ResultRelInfo structure for the target relation that will receive the tuple slots
-
+- `*mtstate`: ModifyTableState containing the executor state and plan information
+- `*resultRelInfo`: ResultRelInfo structure for the target relation that will receive the tuple slots
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_slot_create](../t/table_slot_create.md)

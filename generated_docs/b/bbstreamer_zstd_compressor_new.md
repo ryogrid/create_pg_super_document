@@ -18,9 +18,8 @@ This function initializes a new bbstreamer instance specifically designed for Zs
 The function handles various zstd-specific configuration options including compression level, worker thread count for parallel compression, and long-distance matching mode. It initializes the zstd compression context and output buffer, making the streamer ready to process incoming tar data blocks.
 
 ## Parameters / Member Variables
-- : The next bbstreamer in the processing chain where compressed data will be forwarded
-- : A pg_compress_specification structure containing compression configuration options including level, worker count, and feature flags
-
+- `*next`: The next bbstreamer in the processing chain where compressed data will be forwarded
+- `*compress`: A pg_compress_specification structure containing compression configuration options including level, worker count, and feature flags
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc0](../p/palloc0.md)

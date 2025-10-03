@@ -25,10 +25,9 @@ The function implements several refutation rules:
 The main motivation is supporting partition pruning with IS NULL/IS NOT NULL constraints, where proving that a condition refutes a partition constraint allows the optimizer to exclude that partition.
 
 ## Parameters / Member Variables
-- : The predicate expression that we want to prove is refuted
-- : The restriction clause that potentially refutes the predicate
-- : Boolean flag indicating whether to use weak (true) or strong (false) refutation semantics
-
+- `*predicate`: The predicate expression that we want to prove is refuted
+- `*clause`: The restriction clause that potentially refutes the predicate
+- `weak`: Boolean flag indicating whether to use weak (true) or strong (false) refutation semantics
 ## Dependencies
 - Functions called/Symbols referenced:
   - nodeTag (for node type checking)

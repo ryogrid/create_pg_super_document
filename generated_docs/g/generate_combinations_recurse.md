@@ -21,11 +21,10 @@ The algorithm ensures that combinations are generated in ascending order by cons
 This function is part of PostgreSQL's multivariate distinct statistics system, specifically used for estimating the number of distinct combinations of column values.
 
 ## Parameters / Member Variables
-- : Pointer to CombinationGenerator structure containing the generation state and result storage
-- : Current position being filled in the combination (0-indexed)
-- : Minimum value that can be placed at the current position (ensures ascending order)
-- : Working array storing the combination being built
-
+- `*state`: Pointer to CombinationGenerator structure containing the generation state and result storage
+- `index`: Current position being filled in the combination (0-indexed)
+- `start`: Minimum value that can be placed at the current position (ensures ascending order)
+- `*current`: Working array storing the combination being built
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CombinationGenerator](../C/CombinationGenerator.md) (structure)

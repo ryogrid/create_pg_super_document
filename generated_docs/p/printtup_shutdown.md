@@ -26,8 +26,7 @@ The function performs the following cleanup operations:
 This ensures that all dynamically allocated memory associated with the printtup operation is properly released, preventing memory leaks.
 
 ## Parameters / Member Variables
-- : DestReceiver pointer that contains the DR_printtup state to be cleaned up
-
+- `*self`: DestReceiver pointer that contains the DR_printtup state to be cleaned up
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pfree](pfree.md): PostgreSQL memory deallocation function

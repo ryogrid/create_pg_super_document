@@ -24,9 +24,8 @@ The function performs several validation steps:
 After validation, it extracts the tuple data from the WAL record, creates a reorder buffer change with the appropriate action type, and queues the change for processing. The function also handles TOAST relation considerations and ensures proper cleanup after processing.
 
 ## Parameters / Member Variables
-- : LogicalDecodingContext containing the decoding state, replication slot, and configuration
-- : XLogRecordBuffer containing the WAL record with insert data to be processed
-
+- `*ctx`: LogicalDecodingContext containing the decoding state, replication slot, and configuration
+- `*buf`: XLogRecordBuffer containing the WAL record with insert data to be processed
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData

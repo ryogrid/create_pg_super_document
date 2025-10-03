@@ -25,8 +25,7 @@ The  function is a convenience wrapper around  that normalizes file system paths
 This function assumes the input path is in a server-safe encoding and uses  as the encoding parameter when calling the underlying  function.
 
 ## Parameters / Member Variables
-- : A null-terminated string containing the file system path to be canonicalized. The path is modified in-place.
-
+- `*path`: A null-terminated string containing the file system path to be canonicalized. The path is modified in-place.
 ## Dependencies
 - Functions called/Symbols referenced:
   - 

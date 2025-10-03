@@ -18,8 +18,7 @@ This static utility function generates the closing tag for an XML Schema Definit
 The function is intentionally simple and focused, performing only the specific task of closing the schema element. It's designed to be used in conjunction with xsd_schema_element_start and other schema generation functions to build complete XSD documents.
 
 ## Parameters / Member Variables
-- : StringInfo buffer where the XML Schema closing element will be appended
-
+- `result`: StringInfo buffer where the XML Schema closing element will be appended
 ## Dependencies
 - Functions called/Symbols referenced:
   - [appendStringInfoString](../a/appendStringInfoString.md)

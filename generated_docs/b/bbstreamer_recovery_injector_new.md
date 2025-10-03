@@ -26,10 +26,9 @@ Additionally, when recovery GUCs are supported, it creates a zero-length standby
 The function initializes a bbstreamer_recovery_injector structure with the appropriate operations table and configuration parameters.
 
 ## Parameters / Member Variables
-- : The next bbstreamer in the processing chain to forward chunks to
-- : Boolean flag indicating whether the target PostgreSQL version supports recovery configuration via GUCs rather than recovery.conf
-- : PQExpBuffer containing the recovery configuration content to inject into the archive
-
+- `*next`: The next bbstreamer in the processing chain to forward chunks to
+- `is_recovery_guc_supported`: Boolean flag indicating whether the target PostgreSQL version supports recovery configuration via GUCs rather than recovery.conf
+- `recoveryconfcontents`: PQExpBuffer containing the recovery configuration content to inject into the archive
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc0](../p/palloc0.md)

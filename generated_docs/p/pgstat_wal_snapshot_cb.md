@@ -20,6 +20,7 @@ The function is part of PostgreSQL's statistics collection framework and provide
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PgStatShared_Wal](../P/PgStatShared_Wal.md) (structure type)

@@ -18,8 +18,7 @@ The parseQuery function processes SQL commands in pgbench by converting named pa
 The function iterates through the SQL string looking for ':' characters, then uses parseVariable to extract valid variable names. Each valid parameter is replaced with a positional parameter () and the variable name is stored in the command's argv array for later substitution with actual values.
 
 ## Parameters / Member Variables
-- : Pointer to Command structure containing the SQL statement to be parsed. The function modifies cmd->lines.data (SQL text), cmd->argv (parameter names), and cmd->argc (parameter count).
-
+- `*cmd`: Pointer to Command structure containing the SQL statement to be parsed. The function modifies cmd->lines.data (SQL text), cmd->argv (parameter names), and cmd->argc (parameter count).
 ## Dependencies
 - Functions called/Symbols referenced:
   - [parseVariable](parseVariable.md): Extracts variable names from parameter placeholders

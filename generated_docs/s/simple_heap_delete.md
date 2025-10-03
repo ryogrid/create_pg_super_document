@@ -24,9 +24,8 @@ The function internally calls heap_delete with preset parameters:
 Upon receiving the result from heap_delete, it translates all non-success outcomes into ERROR conditions, making this function suitable for scenarios where any form of failure should abort the current transaction. This design pattern is common in PostgreSQL's catalog manipulation functions where system consistency requires that operations either succeed completely or fail with clear error reporting.
 
 ## Parameters / Member Variables
-- : The heap relation containing the tuple to delete
-- : ItemPointer identifying the specific tuple location (page and offset)
-
+- `relation`: The heap relation containing the tuple to delete
+- `tid`: ItemPointer identifying the specific tuple location (page and offset)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [heap_delete](../h/heap_delete.md)

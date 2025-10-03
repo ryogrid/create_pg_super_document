@@ -20,8 +20,7 @@ The function first initializes or reuses an index scan descriptor, then enters a
 The function also handles lossy index scans by rechecking index qualifiers when necessary, and maintains proper predicate locking for serializable isolation levels.
 
 ## Parameters / Member Variables
-- : IndexOnlyScanState containing scan state information including scan descriptors, relation information, scan keys, and slot references
-
+- `*node`: IndexOnlyScanState containing scan state information including scan descriptors, relation information, scan keys, and slot references
 ## Dependencies
 - Functions called/Symbols referenced:
   - ScanDirectionCombine: Combines plan and execution scan directions

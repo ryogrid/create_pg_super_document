@@ -22,8 +22,7 @@ The function performs two main cleanup operations for each batch:
 This cleanup is essential for proper resource management in parallel hash joins, particularly when the number of batches needs to be increased due to memory pressure or when the hash join operation completes. The function ensures that no file descriptors are leaked and that shared tuplestore resources are properly released.
 
 ## Parameters / Member Variables
-- : HashJoinTable containing the batch accessor array to be cleaned up
-
+- `hashtable`: HashJoinTable containing the batch accessor array to be cleaned up
 ## Dependencies
 - Functions called/Symbols referenced:
   - [sts_end_write](../s/sts_end_write.md) (terminate shared tuplestore write operations)

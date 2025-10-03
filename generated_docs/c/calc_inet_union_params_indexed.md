@@ -28,14 +28,13 @@ The function computes the same four union parameters:
 Like its sibling function, it enforces the constraint that mixed address families result in zero minbits and commonbits values. The algorithm uses indirect indexing through the offsets array to access only the relevant GISTENTRY elements.
 
 ## Parameters / Member Variables
-- : Array of GISTENTRY elements containing inet keys
-- : Array of OffsetNumber indices specifying which entries to examine
-- : Number of elements in the offsets array
-- : Output parameter for minimum IP address family number
-- : Output parameter for maximum IP address family number
-- : Output parameter for minimum netmask width
-- : Output parameter for number of common address bits
-
+- `*ent`: Array of GISTENTRY elements containing inet keys
+- `*offsets`: Array of OffsetNumber indices specifying which entries to examine
+- `noffsets`: Number of elements in the offsets array
+- `*minfamily_p`: Output parameter for minimum IP address family number
+- `*maxfamily_p`: Output parameter for maximum IP address family number
+- `*minbits_p`: Output parameter for minimum netmask width
+- `*commonbits_p`: Output parameter for number of common address bits
 ## Dependencies
 - Functions called/Symbols referenced:
   - DatumGetInetKeyP

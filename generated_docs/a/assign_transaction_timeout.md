@@ -16,9 +16,8 @@ assign_transaction_timeout(int newval, void *extra)
 This function serves as a GUC (Grand Unified Configuration) assign hook that is automatically invoked whenever the  parameter is modified. It ensures that transaction timeout behavior is properly managed within active transactions by enabling or disabling the timeout timer based on the new value. When called within an active transaction, it immediately applies the new timeout setting rather than waiting for the next transaction to begin.
 
 ## Parameters / Member Variables
-- : The new value for the transaction_timeout parameter (in milliseconds). Values > 0 enable the timeout, while values <= 0 disable it.
-- : Additional context data passed by the GUC system (unused in this implementation)
-
+- `newval`: The new value for the transaction_timeout parameter (in milliseconds). Values > 0 enable the timeout, while values <= 0 disable it.
+- `*extra`: Additional context data passed by the GUC system (unused in this implementation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [IsTransactionState](../I/IsTransactionState.md): Checks if currently within a transaction block

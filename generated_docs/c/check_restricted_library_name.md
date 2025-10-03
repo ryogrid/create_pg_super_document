@@ -23,8 +23,7 @@ The function uses  to verify the required prefix and  to ensure no subdirectory 
 This security mechanism prevents malicious code from accessing libraries outside the designated plugins directory, protecting against path traversal attacks like "../../../etc/passwd" or similar attempts to access unauthorized system resources.
 
 ## Parameters / Member Variables
-- : The library name to validate for security compliance
-
+- `*name`: The library name to validate for security compliance
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - locates directory separators in the path

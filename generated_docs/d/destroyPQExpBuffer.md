@@ -21,8 +21,7 @@ This function provides complete cleanup for a PQExpBuffer that was created with 
 The function safely handles NULL pointers by checking if the buffer exists before attempting to destroy it. This is the proper way to clean up dynamically allocated PQExpBuffers and prevents memory leaks.
 
 ## Parameters / Member Variables
-- : Pointer to the PQExpBuffer to be destroyed (can be NULL, in which case the function does nothing)
-
+- `str`: Pointer to the PQExpBuffer to be destroyed (can be NULL, in which case the function does nothing)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (cleans up the data buffer and resets structure fields)

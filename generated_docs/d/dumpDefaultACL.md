@@ -24,9 +24,8 @@ The function performs the following key operations:
 Default privileges are particularly important in multi-user environments where consistent permission schemes need to be maintained across object creation.
 
 ## Parameters / Member Variables
-- : Archive structure containing dump configuration and output methods
-- : DefaultACLInfo structure containing the default privileges information, including object type, role, namespace, ACL data, and dump flags
-
+- `*fout`: Archive structure containing dump configuration and output methods
+- `*daclinfo`: DefaultACLInfo structure containing the default privileges information, including object type, role, namespace, ACL data, and dump flags
 ## Dependencies
 - Functions called/Symbols referenced:
   - [createPQExpBuffer](../c/createPQExpBuffer.md)

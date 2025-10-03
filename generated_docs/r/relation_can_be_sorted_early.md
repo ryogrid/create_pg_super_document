@@ -19,11 +19,10 @@ This function evaluates whether a relation can be sorted early on a specific Equ
 The function implements several safety checks to ensure the sort can be performed early, including rejecting volatile expressions, set-returning functions, and optionally non-parallel-safe expressions. Early sorting is beneficial for query optimization as it can enable more efficient join algorithms and reduce overall execution time.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planner state information
-- : RelOptInfo structure representing the relation to be potentially sorted
-- : EquivalenceClass to test for early sortability
-- : If true, non-parallel-safe expressions are rejected
-
+- `*root`: PlannerInfo structure containing planner state information
+- `*rel`: RelOptInfo structure representing the relation to be potentially sorted
+- `*ec`: EquivalenceClass to test for early sortability
+- `require_parallel_safe`: If true, non-parallel-safe expressions are rejected
 ## Dependencies
 - Functions called/Symbols referenced:
   - [find_ec_member_matching_expr](../f/find_ec_member_matching_expr.md)

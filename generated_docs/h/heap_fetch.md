@@ -22,12 +22,11 @@ heap_fetch is a low-level tuple retrieval function that fetches a tuple directly
 The function performs several validation steps: it checks for valid block and offset numbers, ensures the item pointer references a normal (not deleted) tuple, fills in the tuple structure, and performs visibility testing. Depending on the keep_buf parameter and visibility results, it either releases the buffer or leaves it pinned for the caller to manage.
 
 ## Parameters / Member Variables
-- : The heap relation from which to fetch the tuple
-- : Snapshot for visibility checking and consistency
-- : HeapTuple structure with t_self set to the target TID; filled in with tuple data on success
-- : Output parameter set to the pinned buffer containing the tuple (or InvalidBuffer on failure)
-- : If true, keeps buffer pinned even when tuple fails visibility check
-
+- `relation`: The heap relation from which to fetch the tuple
+- `snapshot`: Snapshot for visibility checking and consistency
+- `tuple`: HeapTuple structure with t_self set to the target TID; filled in with tuple data on success
+- `*userbuf`: Output parameter set to the pinned buffer containing the tuple (or InvalidBuffer on failure)
+- `keep_buf`: If true, keeps buffer pinned even when tuple fails visibility check
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReadBuffer](../R/ReadBuffer.md): Read and pin the page containing the tuple

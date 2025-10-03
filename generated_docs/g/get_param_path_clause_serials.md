@@ -20,8 +20,7 @@ For join paths (NestPath, MergePath, HashPath), it combines clauses from both in
 The function is essential for determining clause redundancy and ensuring proper constraint enforcement in complex parameterized query plans.
 
 ## Parameters / Member Variables
-- : Path structure to analyze for enforced clauses
-
+- `*path`: Path structure to analyze for enforced clauses
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (for NestPath, MergePath, HashPath, AppendPath, MergeAppendPath)

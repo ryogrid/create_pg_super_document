@@ -24,12 +24,11 @@ The function operates in two phases:
 The function implements a strict "all-or-nothing" policy - if statistics for any required column or expression are unavailable, it returns NULL rather than attempting to build partial extended statistics. This ensures consistency and prevents misleading statistical information.
 
 ## Parameters / Member Variables
-- : The relation for which extended statistics are being built
-- : Bitmapset containing the attribute numbers of columns needed for the extended statistics
-- : List of expression nodes that are part of the extended statistics definition
-- : Number of available VacAttrStats structures in the vacatts array
-- : Array of available VacAttrStats structures from the relation's analysis
-
+- `rel`: The relation for which extended statistics are being built
+- `*attrs`: Bitmapset containing the attribute numbers of columns needed for the extended statistics
+- `*exprs`: List of expression nodes that are part of the extended statistics definition
+- `nvacatts`: Number of available VacAttrStats structures in the vacatts array
+- `**vacatts`: Array of available VacAttrStats structures from the relation's analysis
 ## Dependencies
 - Functions called/Symbols referenced:
   - [VacAttrStats](../V/VacAttrStats.md) (structure manipulation)

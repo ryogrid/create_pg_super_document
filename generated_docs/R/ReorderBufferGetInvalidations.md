@@ -24,10 +24,9 @@ The function performs a simple lookup operation:
 3. If found, sets the output parameter to point to the transaction's invalidation message list and returns the count
 
 ## Parameters / Member Variables
-- : The reorder buffer containing transaction data
-- : Transaction ID for which to retrieve invalidation messages
-- : Output parameter set to point to the linked list of SharedInvalidationMessage structures
-
+- `*rb`: The reorder buffer containing transaction data
+- `xid`: Transaction ID for which to retrieve invalidation messages
+- `**msgs`: Output parameter set to point to the linked list of SharedInvalidationMessage structures
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReorderBufferTXNByXid](ReorderBufferTXNByXid.md)

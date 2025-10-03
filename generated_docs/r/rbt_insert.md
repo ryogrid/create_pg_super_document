@@ -29,10 +29,9 @@ The insertion process follows these steps:
 The data parameter represents the value to insert, but only the extra data beyond the RBTNode fields is of interest - the RBTNode fields are set up by this function.
 
 ## Parameters / Member Variables
-- : Pointer to the Red-Black Tree structure
-- : Pointer to the data to be inserted (RBTNode fields need not be initialized)
-- : Pointer to boolean flag that will be set to true if a new node was created, false if existing node was updated
-
+- `*rbt`: Pointer to the Red-Black Tree structure
+- `*data`: Pointer to the data to be inserted (RBTNode fields need not be initialized)
+- `*isNew`: Pointer to boolean flag that will be set to true if a new node was created, false if existing node was updated
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RBTree](../R/RBTree.md), RBTNode (tree and node structure types)

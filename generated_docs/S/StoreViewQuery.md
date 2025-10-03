@@ -25,10 +25,9 @@ The function is used in multiple contexts:
 The simplicity of this function suggests it may be designed as a stable API that can be extended with additional functionality (such as storing view metadata, handling view dependencies, or managing view-related caching) without requiring changes to calling code.
 
 ## Parameters / Member Variables
-- : Object identifier of the view relation for which the query is being stored
-- : Query tree representing the view's SELECT statement, already fully parsed and analyzed
-- : Boolean indicating whether existing view rules should be replaced (for CREATE OR REPLACE VIEW scenarios)
-
+- `viewOid`: Object identifier of the view relation for which the query is being stored
+- `*viewParse`: Query tree representing the view's SELECT statement, already fully parsed and analyzed
+- `replace`: Boolean indicating whether existing view rules should be replaced (for CREATE OR REPLACE VIEW scenarios)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DefineViewRules](../D/DefineViewRules.md)

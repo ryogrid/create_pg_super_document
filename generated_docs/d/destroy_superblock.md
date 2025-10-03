@@ -22,9 +22,8 @@ When an entire segment becomes free (indicated by the free page manager's larges
 For blocks other than span-of-spans blocks, the function recursively calls dsa_free() to free the span descriptor object itself, since these descriptors are allocated separately rather than being stored inline within the block.
 
 ## Parameters / Member Variables
-- : The DSA area containing the segment to potentially destroy
-- : Pointer to the span describing the superblock to be destroyed
-
+- `*area`: The DSA area containing the segment to potentially destroy
+- `span_pointer`: Pointer to the span describing the superblock to be destroyed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [unlink_span](../u/unlink_span.md)

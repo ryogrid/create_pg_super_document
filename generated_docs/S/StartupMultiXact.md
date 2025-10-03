@@ -22,7 +22,6 @@ The function's primary responsibility is to initialize the shared memory structu
 These operations ensure that both SLRU (Simple LRU) subsystems have correct knowledge of their current position, which is essential for proper page management during subsequent operations.
 
 ## Parameters / Member Variables
-This function takes no parameters and operates on global MultiXact state.
 
 ## Dependencies
 - Functions called/Symbols referenced:

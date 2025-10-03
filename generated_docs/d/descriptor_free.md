@@ -24,8 +24,7 @@ The function ensures proper memory management by:
 6. Freeing the main descriptor structure
 
 ## Parameters / Member Variables
-- : Pointer to the descriptor structure to be deallocated
-
+- `*desc`: Pointer to the descriptor structure to be deallocated
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ecpg_free](../e/ecpg_free.md)

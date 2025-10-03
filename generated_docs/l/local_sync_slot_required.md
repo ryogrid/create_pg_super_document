@@ -24,9 +24,8 @@ The function returns false in two scenarios:
 In all other cases, it returns true, meaning the local slot should be retained.
 
 ## Parameters / Member Variables
-- : Pointer to the local ReplicationSlot to be checked
-- : List of RemoteSlot structures representing slots from the primary server
-
+- `*local_slot`: Pointer to the local ReplicationSlot to be checked
+- `*remote_slots`: List of RemoteSlot structures representing slots from the primary server
 ## Dependencies
 - Functions called/Symbols referenced:
   - foreach_ptr (macro for iterating over list)

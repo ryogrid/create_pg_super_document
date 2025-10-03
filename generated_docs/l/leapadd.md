@@ -16,10 +16,9 @@ leapadd(zic_t t, int correction, int rolling)
 The leapadd function manages leap second data within PostgreSQL's timezone compiler by inserting new leap second entries while preserving chronological order. It validates that the maximum number of leap seconds hasn't been exceeded, finds the correct insertion point based on the timestamp, and shifts existing entries to accommodate the new leap second. The function maintains three parallel arrays tracking transition times, correction values, and rolling indicators, ensuring data consistency across all leap second information.
 
 ## Parameters / Member Variables
-- : A zic_t timestamp indicating when the leap second occurs
-- : An integer representing the cumulative leap second correction value at this time
-- : An integer flag indicating whether this leap second uses rolling time semantics
-
+- `t`: A zic_t timestamp indicating when the leap second occurs
+- `correction`: An integer representing the cumulative leap second correction value at this time
+- `rolling`: An integer flag indicating whether this leap second uses rolling time semantics
 ## Dependencies
 - Functions called/Symbols referenced:
   - TZ_MAX_LEAPS (maximum leap second limit constant)

@@ -17,6 +17,7 @@ MultiXactShmemInit is responsible for setting up all shared memory components ne
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - debug_elog2

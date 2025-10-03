@@ -18,8 +18,7 @@ The  function is a utility function that constructs a TypeName node for a single
 This function is commonly used in the PostgreSQL parser when processing SQL statements that reference simple data types without explicit schema qualification.
 
 ## Parameters / Member Variables
-- : A character string containing the name of the type to be represented in the TypeName node
-
+- `*typnam`: A character string containing the name of the type to be represented in the TypeName node
 ## Dependencies
 - Functions called/Symbols referenced:
   - [makeTypeNameFromNameList](makeTypeNameFromNameList.md)

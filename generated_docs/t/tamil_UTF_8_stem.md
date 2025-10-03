@@ -31,8 +31,7 @@ This function serves as the master controller for Tamil stemming operations, imp
 Each stage preserves the original cursor position using save/restore patterns, allowing for non-destructive analysis and ensuring that failed operations don't affect subsequent processing steps.
 
 ## Parameters / Member Variables
-- : Pointer to the Snowball environment structure () containing:
-
+- `*z`: Pointer to the Snowball environment structure () containing:
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Initial character normalization and fixes

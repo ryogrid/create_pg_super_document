@@ -18,8 +18,7 @@ GetRealCmax is part of PostgreSQL's combo command ID system that was introduced 
 This function takes a combo command ID and returns the original cmax value by performing a simple array lookup into the comboCids array. The function includes an assertion to ensure the provided combo ID is within valid bounds (less than usedComboCids). This is the counterpart to GetRealCmin, retrieving the deletion command ID rather than the insertion command ID.
 
 ## Parameters / Member Variables
-- : A combo command ID that serves as an index into the comboCids array to retrieve the original cmax value
-
+- `combocid`: A combo command ID that serves as an index into the comboCids array to retrieve the original cmax value
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (for bounds checking)

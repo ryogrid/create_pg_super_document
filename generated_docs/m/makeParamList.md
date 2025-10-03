@@ -16,8 +16,7 @@ makeParamList(int numParams)
 The makeParamList function creates and initializes a new ParamListInfo structure with space for a specified number of parameters. It handles memory allocation for both the ParamListInfoData header and the array of ParamExternData entries. The function sets up default values for all fields, including a default parser setup function (paramlist_parser_setup). This function is designed to support both static parameter lists (with a fixed number of parameters) and dynamic parameter lists (by passing 0 for numParams and setting numParams manually later).
 
 ## Parameters / Member Variables
-- : The number of parameters to allocate space for in the parameter list. Pass 0 for dynamic parameter lists that will have their size set manually later.
-
+- `numParams`: The number of parameters to allocate space for in the parameter list. Pass 0 for dynamic parameter lists that will have their size set manually later.
 ## Dependencies
 - Functions called/Symbols referenced:
   - offsetof (macro for struct field offset calculation)

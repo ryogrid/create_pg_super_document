@@ -22,15 +22,14 @@ The function uses AddRelationNewConstraints to create the actual constraint, han
 For inheritance hierarchies, the function recursively descends one level at a time rather than using find_all_inheritors, allowing precise control over constraint propagation and name consistency. It includes safety checks for ONLY clauses and NO INHERIT constraints.
 
 ## Parameters / Member Variables
-- : Double pointer to the work queue for managing ALTER TABLE operations across multiple tables
-- : AlteredTableInfo structure for the current table being modified
-- : Relation object representing the table receiving the constraint
-- : Constraint specification including the check expression and properties
-- : Boolean indicating whether to apply the constraint to child tables
-- : Boolean indicating if this is a recursive call (affects permission checking)
-- : Boolean indicating if this constraint is being re-added during a table rewrite
-- : Lock mode to use when accessing child tables
-
+- `**wqueue`: Double pointer to the work queue for managing ALTER TABLE operations across multiple tables
+- `*tab`: AlteredTableInfo structure for the current table being modified
+- `rel`: Relation object representing the table receiving the constraint
+- `*constr`: Constraint specification including the check expression and properties
+- `recurse`: Boolean indicating whether to apply the constraint to child tables
+- `recursing`: Boolean indicating if this is a recursive call (affects permission checking)
+- `is_readd`: Boolean indicating if this constraint is being re-added during a table rewrite
+- `lockmode`: Lock mode to use when accessing child tables
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ATSimplePermissions](ATSimplePermissions.md)

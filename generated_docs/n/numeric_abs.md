@@ -16,8 +16,7 @@ numeric_abs(PG_FUNCTION_ARGS)
 This function implements the absolute value operation for PostgreSQL's NUMERIC type. It efficiently computes the absolute value by directly manipulating the sign bits in the packed numeric format, avoiding the overhead of unpacking and repacking the numeric value. The function handles all numeric representations including short form, long form, and special values (NaN and infinity). For negative infinity, it converts it to positive infinity, while NaN remains unchanged.
 
 ## Parameters / Member Variables
-- : The input NUMERIC value to compute absolute value for (PG_GETARG_NUMERIC(0))
-
+- `PG_FUNCTION_ARGS`: The input NUMERIC value to compute absolute value for (PG_GETARG_NUMERIC(0))
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_NUMERIC: Extracts numeric argument from function call

@@ -21,12 +21,11 @@ This function handles the core LZ4 compression operation for backup data streams
 The function implements a buffering strategy where it forwards compressed data to the next streamer when the output buffer approaches capacity limits. It dynamically resizes buffers when needed and maintains compression state across multiple invocations.
 
 ## Parameters / Member Variables
-- : The LZ4 compressor streamer instance
-- : Information about the current archive member being processed
-- : Input data buffer to compress
-- : Length of input data in bytes
-- : Archive context information
-
+- `*streamer`: The LZ4 compressor streamer instance
+- `*member`: Information about the current archive member being processed
+- `*data`: Input data buffer to compress
+- `len`: Length of input data in bytes
+- `context`: Archive context information
 ## Dependencies
 - Functions called/Symbols referenced:
   - LZ4F_compressBegin

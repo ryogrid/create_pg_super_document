@@ -27,19 +27,18 @@ compute_common_attribute(ParseState *pstate,
 This function parses individual function attribute definition elements and categorizes them into the appropriate output parameters. It enforces important restrictions by preventing procedures from using function-specific attributes like volatility, strict, leakproof, cost, rows, support, and parallel. The function also prevents duplicate attribute specifications by checking if an output parameter already points to a non-NULL value and reporting conflicts when detected. The 'set' attribute is handled specially by allowing multiple values to be accumulated in a list rather than being treated as a duplicate.
 
 ## Parameters / Member Variables
-- : ParseState for error reporting with location information
-- : Boolean flag indicating whether this is a procedure (not a function)
-- : DefElem containing the attribute definition to process
-- : Output pointer for VOLATILE/STABLE/IMMUTABLE attribute
-- : Output pointer for STRICT/CALLED ON NULL INPUT attribute
-- : Output pointer for SECURITY DEFINER/INVOKER attribute
-- : Output pointer for LEAKPROOF attribute
-- : Output list for SET configuration parameter settings
-- : Output pointer for COST attribute
-- : Output pointer for ROWS attribute
-- : Output pointer for SUPPORT function attribute  
-- : Output pointer for PARALLEL SAFE/RESTRICTED/UNSAFE attribute
-
+- `*pstate`: ParseState for error reporting with location information
+- `is_procedure`: Boolean flag indicating whether this is a procedure (not a function)
+- `*defel`: DefElem containing the attribute definition to process
+- `**volatility_item`: Output pointer for VOLATILE/STABLE/IMMUTABLE attribute
+- `**strict_item`: Output pointer for STRICT/CALLED ON NULL INPUT attribute
+- `**security_item`: Output pointer for SECURITY DEFINER/INVOKER attribute
+- `**leakproof_item`: Output pointer for LEAKPROOF attribute
+- `**set_items`: Output list for SET configuration parameter settings
+- `**cost_item`: Output pointer for COST attribute
+- `**rows_item`: Output pointer for ROWS attribute
+- `**support_item`: Output pointer for SUPPORT function attribute
+- `**parallel_item`: Output pointer for PARALLEL SAFE/RESTRICTED/UNSAFE attribute
 ## Dependencies
 - Functions called/Symbols referenced:
   - [errorConflictingDefElem](../e/errorConflictingDefElem.md): Reports duplicate attribute errors with location

@@ -23,13 +23,12 @@ This function implements hash partition pruning by calculating the hash value fo
 When all keys are provided, the function computes the partition hash using the supplied values and null indicators, then uses modulo arithmetic to determine the target partition index. If not all keys are provided, it conservatively returns all partition offsets since hash pruning requires complete key information. The function handles the absence of special null or default partitions in hash partitioning.
 
 ## Parameters / Member Variables
-- : Partition pruning context containing boundary info and partitioning metadata
-- : Strategy number, must be HTEqualStrategyNumber for hash equality or zero
-- : Array of Datum values indexed by partition key position
-- : Number of values in the values array
-- : Array of partition hashing functions for each partition key type
-- : Bitmapset indicating which partition keys are NULL
-
+- `*context`: Partition pruning context containing boundary info and partitioning metadata
+- `opstrategy`: Strategy number, must be HTEqualStrategyNumber for hash equality or zero
+- `*values`: Array of Datum values indexed by partition key position
+- `nvalues`: Number of values in the values array
+- `*partsupfunc`: Array of partition hashing functions for each partition key type
+- `*nullkeys`: Bitmapset indicating which partition keys are NULL
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc0](../p/palloc0.md)

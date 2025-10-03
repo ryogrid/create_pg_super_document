@@ -25,11 +25,10 @@ The function performs several key operations:
 The operation is designed to be deadlock-free by following a strict locking order: writers lock the root before the metadata page, while readers release metadata locks before attempting root locks.
 
 ## Parameters / Member Variables
-- : The index relation being modified
-- : The corresponding heap relation (used for space allocation)
-- : Buffer containing the old root page (left child after split)
-- : Buffer containing the new sibling page (right child after split)
-
+- `rel`: The index relation being modified
+- `heaprel`: The corresponding heap relation (used for space allocation)
+- `lbuf`: Buffer containing the old root page (left child after split)
+- `rbuf`: Buffer containing the new sibling page (right child after split)
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Allocates a new B-tree page

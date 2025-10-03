@@ -22,8 +22,7 @@ The  function prepares a SHA-512 context structure for hash computation by:
 This function must be called before any SHA-512 update or finalize operations. The initial hash values used are the standard SHA-512 constants as specified in FIPS 180-4.
 
 ## Parameters / Member Variables
-- : Pointer to a pg_sha512_ctx structure to be initialized. Function returns early if NULL.
-
+- `*context`: Pointer to a pg_sha512_ctx structure to be initialized. Function returns early if NULL.
 ## Dependencies
 - Functions called/Symbols referenced:
   - memcpy

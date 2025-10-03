@@ -21,10 +21,9 @@ On Windows, the function duplicates the segment handle into the postmaster proce
 On non-Windows platforms (Linux, Unix variants), this function performs no operations since those operating systems don't automatically clean up shared memory segments based on reference counts.
 
 ## Parameters / Member Variables
-- : Unique identifier for the shared memory segment to be pinned
-- : Implementation-specific private data (Windows HANDLE on Windows platforms)
-- : Pointer to store the postmaster's copy of the handle (output parameter)
-
+- `handle`: Unique identifier for the shared memory segment to be pinned
+- `*impl_private`: Implementation-specific private data (Windows HANDLE on Windows platforms)
+- `**impl_private_pm_handle`: Pointer to store the postmaster's copy of the handle (output parameter)
 ## Dependencies
 - Functions called/Symbols referenced:
   - DuplicateHandle (Windows API)

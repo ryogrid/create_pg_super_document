@@ -23,6 +23,7 @@ The function is typically called during PostgreSQL's WAL recovery startup proces
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetContextCreate

@@ -32,14 +32,13 @@ The function performs several key operations:
 The function handles special join types including semi-joins, anti-joins, and unique joins with appropriate logic for each case.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global optimizer state and configuration
-- : Target RelOptInfo representing the result of joining outerrel and innerrel
-- : RelOptInfo for the outer (left) side of the join
-- : RelOptInfo for the inner (right) side of the join  
-- : JoinType specifying the type of join (INNER, LEFT, RIGHT, FULL, SEMI, ANTI, etc.)
-- : SpecialJoinInfo containing join ordering constraints and metadata
-- : List of RestrictInfo nodes representing join conditions
-
+- `*root`: PlannerInfo structure containing global optimizer state and configuration
+- `*joinrel`: Target RelOptInfo representing the result of joining outerrel and innerrel
+- `*outerrel`: RelOptInfo for the outer (left) side of the join
+- `*innerrel`: RelOptInfo for the inner (right) side of the join
+- `jointype`: JoinType specifying the type of join (INNER, LEFT, RIGHT, FULL, SEMI, ANTI, etc.)
+- `*sjinfo`: SpecialJoinInfo containing join ordering constraints and metadata
+- `*restrictlist`: List of RestrictInfo nodes representing join conditions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [innerrel_is_unique](../i/innerrel_is_unique.md)

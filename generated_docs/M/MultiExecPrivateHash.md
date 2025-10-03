@@ -20,8 +20,7 @@ The function implements a sophisticated tuple processing pipeline: it computes h
 Key optimizations include skew bucket handling for values that occur much more frequently than average, and dynamic bucket resizing when the load factor (NTUP_PER_BUCKET) is exceeded to maintain optimal hash table performance.
 
 ## Parameters / Member Variables
-- : HashState containing execution state, hash table reference, and expression context
-
+- `*node`: HashState containing execution state, hash table reference, and expression context
 ## Dependencies
 - Functions called/Symbols referenced:
   - [HashState](../H/HashState.md) (parameter and internal references)

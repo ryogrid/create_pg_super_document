@@ -18,11 +18,8 @@ The  function is part of PostgreSQL's node comparison infrastructure, specifical
 The function performs a comprehensive field-by-field comparison of two  structures, including type information, storage characteristics, and the actual constant value. It handles NULL constants as a special case, treating all NULL constants of the same type as equal since  cannot operate on NULL values.
 
 ## Parameters / Member Variables
-- : Pointer to the first Const node to compare
-- : Pointer to the second Const node to compare
-
-Returns:  if the nodes are equal,  otherwise
-
+- `*a`: Pointer to the first Const node to compare
+- `*b`: Pointer to the second Const node to compare
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (macro for comparing scalar fields)

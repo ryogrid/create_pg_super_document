@@ -20,12 +20,11 @@ InitResultRelInfo(ResultRelInfo *resultRelInfo,
 InitResultRelInfo performs comprehensive initialization of a ResultRelInfo structure, which contains all the metadata and state information needed for data modification operations on a target relation. The function sets up trigger-related structures, foreign data wrapper routines for foreign tables, and partitioning-related fields. It creates deep copies of trigger descriptors to avoid dependency on relcache changes and allocates arrays for trigger functions and expressions based on instrumentation requirements.
 
 ## Parameters / Member Variables
-- : The ResultRelInfo structure to initialize (output parameter)
-- : The target relation descriptor containing metadata
-- : Index of this relation in the range table
-- : Root partition's ResultRelInfo for partitioned relations (NULL for non-partitioned)
-- : Bitmask for enabling performance instrumentation on triggers
-
+- `*resultRelInfo`: The ResultRelInfo structure to initialize (output parameter)
+- `resultRelationDesc`: The target relation descriptor containing metadata
+- `resultRelationIndex`: Index of this relation in the range table
+- `*partition_root_rri`: Root partition's ResultRelInfo for partitioned relations (NULL for non-partitioned)
+- `instrument_options`: Bitmask for enabling performance instrumentation on triggers
 ## Dependencies
 - Functions called/Symbols referenced:
   - MemSet

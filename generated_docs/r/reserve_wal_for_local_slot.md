@@ -23,8 +23,7 @@ The function implements a retry mechanism:
 The function determines the oldest available WAL segment by first checking the last removed segment number, and if no segments have been removed since startup, it searches the current timeline's WAL directory for the oldest existing segment.
 
 ## Parameters / Member Variables
-- : The desired WAL location from which the slot should start consuming
-
+- `restart_lsn`: The desired WAL location from which the slot should start consuming
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecPtrIsInvalid

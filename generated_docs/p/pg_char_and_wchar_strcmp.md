@@ -20,9 +20,8 @@ The function is designed for PostgreSQL's multibyte character handling system, w
 The function follows the standard strcmp semantics, returning 0 for equal strings, a negative value if s1 is lexicographically less than s2, and a positive value if s1 is lexicographically greater than s2.
 
 ## Parameters / Member Variables
-- : A pointer to a null-terminated char string to be compared
-- : A pointer to a null-terminated pg_wchar (wide character) string to be compared
-
+- `*s1`: A pointer to a null-terminated char string to be compared
+- `*s2`: A pointer to a null-terminated pg_wchar (wide character) string to be compared
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_wchar (type definition from mb/pg_wchar.h)

@@ -18,10 +18,9 @@ ExecGetJunkAttribute provides a convenient interface for accessing junk attribut
 This function is commonly used in execution contexts where the executor needs to access system-generated or hidden attributes that were added to tuples during query processing but are not part of the final result set.
 
 ## Parameters / Member Variables
-- : TupleTableSlot containing the tuple from which to extract the junk attribute
-- : AttrNumber specifying which junk attribute to retrieve (must be > 0)
-- : Pointer to bool that will be set to indicate whether the retrieved attribute value is NULL
-
+- `*slot`: TupleTableSlot containing the tuple from which to extract the junk attribute
+- `attno`: AttrNumber specifying which junk attribute to retrieve (must be > 0)
+- `*isNull`: Pointer to bool that will be set to indicate whether the retrieved attribute value is NULL
 ## Dependencies
 - Functions called/Symbols referenced:
   - [slot_getattr](../s/slot_getattr.md) (the underlying slot access function)

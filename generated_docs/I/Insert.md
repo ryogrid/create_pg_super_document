@@ -18,8 +18,7 @@ The Insert function manages the LRU cache for virtual file descriptors (Vfd) in 
 The function uses a circular doubly-linked list where VfdCache[0] serves as the sentinel/head node. When inserting a file, it becomes the most recently used item by being placed immediately after the sentinel node.
 
 ## Parameters / Member Variables
-- : The File descriptor index to insert into the LRU list (must not be 0, as 0 is reserved for the sentinel)
-
+- `file`: The File descriptor index to insert into the LRU list (must not be 0, as 0 is reserved for the sentinel)
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (for debugging assertions)

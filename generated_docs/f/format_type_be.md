@@ -18,8 +18,7 @@ format_type_be(Oid type_oid)
 The function uses default formatting behavior: no type modifier handling (typemod = -1), no special flags, and no tolerance for invalid types. This ensures consistent, reliable type name formatting in backend code where robustness and error detection are prioritized over graceful degradation.
 
 ## Parameters / Member Variables
-- : PostgreSQL type OID from pg_type.oid that must be valid
-
+- `type_oid`: PostgreSQL type OID from pg_type.oid that must be valid
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Core formatting implementation with parameters (type_oid, -1, 0)

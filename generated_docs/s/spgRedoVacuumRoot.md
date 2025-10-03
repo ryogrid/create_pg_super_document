@@ -22,8 +22,7 @@ This function handles the replay of SP-GiST root page vacuum operations, which i
 The root vacuum is typically simpler than leaf vacuum because root pages don't require the complex tuple movement and chain management needed for leaf pages.
 
 ## Parameters / Member Variables
-- : XLogReaderState pointer containing the WAL record with vacuum root operation details
-
+- `*record`: XLogReaderState pointer containing the WAL record with vacuum root operation details
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData

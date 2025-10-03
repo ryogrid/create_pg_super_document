@@ -20,8 +20,7 @@ The function first checks if the input Datum is already a writable expanded arra
 If the input is not a writable expanded array (it could be a flat array, read-only expanded array, or other format), the function calls expand_array() to create a new writable expanded array in the current memory context.
 
 ## Parameters / Member Variables
-- : Input Datum that should contain an array (either flat or already expanded)
-
+- `d`: Input Datum that should contain an array (either flat or already expanded)
 ## Dependencies
 - Functions called/Symbols referenced:
   - VARATT_IS_EXTERNAL_EXPANDED_RW

@@ -18,8 +18,7 @@ The  function performs preliminary validation checks for ALTER TABLE INHERIT ope
 The function enforces PostgreSQL's inheritance rules by preventing inheritance modifications on relations that have special characteristics incompatible with traditional table inheritance.
 
 ## Parameters / Member Variables
-- : The relation that is being prepared to inherit from another table
-
+- `child_rel`: The relation that is being prepared to inherit from another table
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport (for error reporting)

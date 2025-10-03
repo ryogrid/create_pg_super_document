@@ -18,9 +18,8 @@ This function provides a safe way to add a new expression column to a PathTarget
 The function leaves it to the caller to update the cost and width fields of the PathTarget after the addition, similar to the behavior of make_pathtarget_from_tlist.
 
 ## Parameters / Member Variables
-- : The PathTarget structure to which the expression should be added
-- : The expression to add to the PathTarget's expression list
-
+- `*target`: The PathTarget structure to which the expression should be added
+- `*expr`: The expression to add to the PathTarget's expression list
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_member](../l/list_member.md) (checks if expression already exists in target->exprs)

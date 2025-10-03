@@ -16,9 +16,8 @@ add_role_attribute(PQExpBuffer buf, const char *const str)
 This simple utility function is used within the psql client to build formatted lists of role attributes when describing database roles. It manages the comma-separated formatting by checking if the buffer already contains content and adding a comma separator before appending the new attribute string. This ensures proper formatting in role descriptions displayed to users.
 
 ## Parameters / Member Variables
-- : A PQExpBuffer structure that accumulates the role attribute strings
-- : A constant string containing the role attribute to be added to the buffer
-
+- `buf`: A PQExpBuffer structure that accumulates the role attribute strings
+- `str`: A constant string containing the role attribute to be added to the buffer
 ## Dependencies
 - Functions called/Symbols referenced:
   - PQExpBuffer (PostgreSQL's expandable string buffer)

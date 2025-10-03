@@ -22,8 +22,7 @@ Key behaviors:
 - Handles cleanup errors non-fatally since this is typically called during shutdown
 
 ## Parameters / Member Variables
-- : Pointer to the POSIX semaphore to be destroyed
-
+- `*sem`: Pointer to the POSIX semaphore to be destroyed
 ## Dependencies
 - Functions called/Symbols referenced:
   - sem_close (POSIX named semaphore cleanup)

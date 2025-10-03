@@ -16,10 +16,9 @@ exec_command_include(PsqlScanState scan_state, bool active_branch, const char *c
 This function handles the execution of the \i (include) and \ir (include relative) backslash commands in psql. It reads and processes SQL commands from a specified file. The \i command resolves file paths relative to the current working directory, while \ir resolves paths relative to the directory containing the currently executing script. The function validates that a filename argument is provided, expands tilde (~) characters in file paths, and delegates actual file processing to the process_file function. It respects the active_branch parameter for conditional execution.
 
 ## Parameters / Member Variables
-- : PsqlScanState pointer that tracks the current parsing state of the psql input
-- : Boolean flag indicating whether this command is being executed in an active conditional branch
-- : String indicating which variant of the command was used ("i", "include", "ir", or "include_relative")
-
+- `scan_state`: PsqlScanState pointer that tracks the current parsing state of the psql input
+- `active_branch`: Boolean flag indicating whether this command is being executed in an active conditional branch
+- `*cmd`: String indicating which variant of the command was used ("i", "include", "ir", or "include_relative")
 ## Dependencies
 - Functions called/Symbols referenced:
   - psql_scan_slash_option (extracts filename argument from input)

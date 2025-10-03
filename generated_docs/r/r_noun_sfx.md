@@ -22,8 +22,7 @@ This function is part of the Irish language stemmer and is responsible for remov
 The function follows the standard Snowball stemmer pattern of setting boundary markers (ket/bra) around the identified suffix before attempting removal.
 
 ## Parameters / Member Variables
-- : Pointer to the Snowball environment structure containing the word being processed and stemming state information
-
+- `*z`: Pointer to the Snowball environment structure containing the word being processed and stemming state information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [r_R1](r_R1.md): Checks if current position is within R1 region

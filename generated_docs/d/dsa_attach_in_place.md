@@ -18,9 +18,8 @@ This function attaches to an existing DSA that was created using dsa_create_in_p
 The function internally calls attach_internal() with the provided memory location and sets up automatic cleanup if a containing DSM segment is provided. When a DSM segment is specified, the function registers a detach callback that will automatically release the in-place area when the segment detaches.
 
 ## Parameters / Member Variables
-- : Pointer to the memory location where the DSA was created with dsa_create_in_place
-- : Optional DSM segment that contains the memory area. If provided, enables automatic cleanup when the segment detaches
-
+- `*place`: Pointer to the memory location where the DSA was created with dsa_create_in_place
+- `*segment`: Optional DSM segment that contains the memory area. If provided, enables automatic cleanup when the segment detaches
 ## Dependencies
 - Functions called/Symbols referenced:
   - [attach_internal](../a/attach_internal.md)

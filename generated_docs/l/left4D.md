@@ -16,9 +16,8 @@ left4D(RectBox *rect_box, RangeBox *query)
 This function is part of PostgreSQL's SP-GiST (Space-Partitioned Generalized Search Tree) implementation for geometric box operations. It evaluates whether any rectangle within the provided RectBox structure could potentially be positioned entirely to the left of the specified query boundary. The function operates by comparing the x-axis range of the rectangle box with the left boundary of the query range using the lower2D helper function.
 
 ## Parameters / Member Variables
-- : Pointer to RectBox structure containing the spatial boundaries to be evaluated
-- : Pointer to RangeBox structure defining the query boundary conditions
-
+- `*rect_box`: Pointer to RectBox structure containing the spatial boundaries to be evaluated
+- `*query`: Pointer to RangeBox structure defining the query boundary conditions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lower2D](lower2D.md)

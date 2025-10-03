@@ -19,11 +19,10 @@ This function implements the core recursive logic for generating permutations of
 When all sessions have exhausted their steps (all piles are empty), it executes the completed permutation by calling . This ensures that every possible interleaving of steps across sessions is tested, which is crucial for detecting race conditions and isolation issues in PostgreSQL.
 
 ## Parameters / Member Variables
-- : Pointer to the test specification containing all sessions and their steps
-- : Array tracking the current position (next step to pick) in each session
-- : Current number of steps in the permutation being built
-- : Array of PermutationStep pointers representing the current permutation
-
+- `*testspec`: Pointer to the test specification containing all sessions and their steps
+- `*piles`: Array tracking the current position (next step to pick) in each session
+- `nsteps`: Current number of steps in the permutation being built
+- `**steps`: Array of PermutationStep pointers representing the current permutation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TestSpec](../T/TestSpec.md) (struct type)

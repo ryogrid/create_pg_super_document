@@ -24,7 +24,6 @@ This function orchestrates the final phase of WAL recovery, transitioning the da
 The function carefully handles the transition from reading existing WAL to writing new WAL, ensuring that continuation records and timeline switches are properly managed. It preserves important recovery context like aborted record pointers and missing continuation record locations for proper recovery completion processing.
 
 ## Parameters / Member Variables
-This function takes no parameters but returns detailed recovery completion information via EndOfWalRecoveryInfo struct.
 
 ## Dependencies
 - Functions called/Symbols referenced:

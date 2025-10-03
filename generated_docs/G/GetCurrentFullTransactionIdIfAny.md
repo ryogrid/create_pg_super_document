@@ -21,6 +21,7 @@ The function simply returns the fullTransactionId field from the CurrentTransact
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - CurrentTransactionState->fullTransactionId (global variable access)

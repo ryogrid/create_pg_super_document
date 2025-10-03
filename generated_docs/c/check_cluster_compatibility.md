@@ -24,8 +24,7 @@ This function performs low-level compatibility checks between the old and new Po
 The function is essential for validating that the two clusters can be safely upgraded, focusing on low-level database internals that must be compatible.
 
 ## Parameters / Member Variables
-- : Boolean indicating whether the old cluster is running and should be checked as a live server. When true, enables additional validations specific to live server scenarios and affects how control data is retrieved from the old cluster.
-
+- `live_check`: Boolean indicating whether the old cluster is running and should be checked as a live server. When true, enables additional validations specific to live server scenarios and affects how control data is retrieved from the old cluster.
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (retrieves pg_control information from a cluster)

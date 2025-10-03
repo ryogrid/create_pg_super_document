@@ -26,6 +26,7 @@ This function is typically called when a PostgreSQL process finishes a temporary
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [update_ps_display_precheck](../u/update_ps_display_precheck.md) (prerequisite validation)

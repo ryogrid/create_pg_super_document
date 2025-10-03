@@ -16,10 +16,9 @@ RemoveInheritance(Relation child_rel, Relation parent_rel, bool expect_detached)
 RemoveInheritance implements the core logic for breaking inheritance relationships between tables. It performs several critical operations: deletes the pg_inherits tuple, decrements attinhcount for inherited attributes and sets attislocal to true when the count reaches zero, similarly handles inherited check constraints by decrementing coninhcount and setting conislocal appropriately, and removes dependency entries between the child and parent relations. The function maintains PostgreSQL's inheritance semantics where once a column becomes local (attislocal=true), it remains local even if inheritance is re-established later, preventing unexpected data loss from automatic column drops.
 
 ## Parameters / Member Variables
-- : The child relation from which inheritance is being removed
-- : The parent relation being removed from the inheritance hierarchy
-- : Flag passed to DeleteInheritsTuple indicating whether the inheritance tuple is expected to be marked as detached
-
+- `child_rel`: The child relation from which inheritance is being removed
+- `parent_rel`: The parent relation being removed from the inheritance hierarchy
+- `expect_detached`: Flag passed to DeleteInheritsTuple indicating whether the inheritance tuple is expected to be marked as detached
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DeleteInheritsTuple](../D/DeleteInheritsTuple.md)

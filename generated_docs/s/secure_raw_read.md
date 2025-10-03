@@ -20,10 +20,9 @@ The function first checks if there is any data in the port's raw buffer (raw_buf
 When no buffered data is available, the function performs a direct recv() call on the socket. On Windows platforms, it temporarily sets the pgwin32_noblock flag to ensure proper non-blocking behavior, demonstrating platform-specific handling requirements for socket operations.
 
 ## Parameters / Member Variables
-- : Pointer to Port structure containing socket descriptor and raw buffer management fields
-- : Destination buffer for the read data
-- : Maximum number of bytes to read
-
+- `*port`: Pointer to Port structure containing socket descriptor and raw buffer management fields
+- `*ptr`: Destination buffer for the read data
+- `len`: Maximum number of bytes to read
 ## Dependencies
 - Functions called/Symbols referenced:
   - recv: Standard POSIX socket receive function for reading data from network socket

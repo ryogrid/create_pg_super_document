@@ -26,10 +26,9 @@ CopyGetAttnums is a utility function in PostgreSQL's COPY command implementation
 The function enforces PostgreSQL's policy that generated columns cannot be used in COPY operations, ensuring that anything copied out can be copied back in. This restriction applies to both COPY FROM and COPY TO operations.
 
 ## Parameters / Member Variables
-- : Tuple descriptor containing metadata about the table's columns, including attribute names, types, and flags
-- : Relation (table) object used primarily for error reporting; can be NULL for anonymous operations
-- : List of column names specified by the user, or NIL to select all eligible columns automatically
-
+- `tupDesc`: Tuple descriptor containing metadata about the table's columns, including attribute names, types, and flags
+- `rel`: Relation (table) object used primarily for error reporting; can be NULL for anonymous operations
+- `*attnamelist`: List of column names specified by the user, or NIL to select all eligible columns automatically
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Appends integer values to the result list

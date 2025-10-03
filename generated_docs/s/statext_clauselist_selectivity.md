@@ -19,15 +19,14 @@ statext_clauselist_selectivity(PlannerInfo *root, List *clauses, int varRelid,
 This function provides sophisticated selectivity estimation by leveraging PostgreSQL's extended statistics infrastructure. It follows a two-phase approach: first attempting to estimate clauses using multivariate MCV lists for exact selectivity values, then applying functional dependencies to remaining clauses for additional correlation information. The function prioritizes more complex statistics (MCV lists) over simpler ones (functional dependencies) because complex stats can track more detailed correlations between attributes and are considered more reliable. For OR clauses, only MCV estimation is performed since functional dependencies only work with AND-connected clauses.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing query planning context and information
-- : List of restriction clauses to estimate selectivity for
-- : Relation ID for single-relation queries, or 0 for join queries
-- : Type of join operation being performed
-- : Special join information for outer joins and semi-joins
-- : RelOptInfo structure for the relation being planned
-- : Output parameter - bitmapset of clauses that were successfully estimated
-- : Boolean flag indicating whether clauses are connected by OR (true) or AND (false)
-
+- `*root`: PlannerInfo structure containing query planning context and information
+- `*clauses`: List of restriction clauses to estimate selectivity for
+- `varRelid`: Relation ID for single-relation queries, or 0 for join queries
+- `jointype`: Type of join operation being performed
+- `*sjinfo`: Special join information for outer joins and semi-joins
+- `*rel`: RelOptInfo structure for the relation being planned
+- `**estimatedclauses`: Output parameter - bitmapset of clauses that were successfully estimated
+- `is_or`: Boolean flag indicating whether clauses are connected by OR (true) or AND (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [statext_mcv_clauselist_selectivity](statext_mcv_clauselist_selectivity.md)

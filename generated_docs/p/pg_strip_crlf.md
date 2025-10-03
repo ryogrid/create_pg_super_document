@@ -17,8 +17,7 @@ This function modifies the input string by removing any trailing '\n' (newline) 
 The function handles both Unix-style line endings ('\n') and Windows-style line endings ('\r\n' or just '\r'), making it cross-platform compatible. It modifies the original string in-place and returns the new length, providing both string modification and length information in a single operation.
 
 ## Parameters / Member Variables
-- : The null-terminated input string to be modified by removing trailing CRLF characters
-
+- `*str`: The null-terminated input string to be modified by removing trailing CRLF characters
 ## Dependencies
 - Functions called/Symbols referenced:
   - strlen (standard C library function)

@@ -23,8 +23,7 @@ This function is part of pg_rewind's WAL restoration mechanism. It dynamically r
 The function only executes if restore_wal is enabled. The retrieved restore_command will later be used to restore WAL files needed for the rewind operation.
 
 ## Parameters / Member Variables
-- : The program name/path used to locate the postgres executable in the same directory
-
+- `*argv0`: The program name/path used to locate the postgres executable in the same directory
 ## Dependencies
 - Functions called/Symbols referenced:
   - [find_other_exec](../f/find_other_exec.md)

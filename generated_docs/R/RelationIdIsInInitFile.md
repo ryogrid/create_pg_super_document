@@ -24,8 +24,7 @@ The special cases handle specific system relations that are critical for databas
 The function serves as a gate-keeper to ensure that only performance-critical relations are cached in the initialization file, balancing startup speed against file size and maintenance overhead.
 
 ## Parameters / Member Variables
-- : The OID of the relation to check
-
+- `relationId`: The OID of the relation to check
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RelationSupportsSysCache](RelationSupportsSysCache.md)

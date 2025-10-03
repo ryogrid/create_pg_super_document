@@ -21,13 +21,12 @@ tokenize_expand_file(List *tokens,
 This function handles file expansion within HBA configuration fields when a token beginning with '@' is encountered. Unlike tokenize_include_file which processes entire include directives, this function processes a file referenced within a field and flattens all its tokens into the current field's token list. It opens the referenced file, tokenizes its entire contents, and then extracts all individual tokens from every line and field, appending them to the existing tokens list. This enables constructs like "foo,bar,@filename" to work as expected, where @filename expands to multiple comma-separated values. The function handles recursive expansion, proper memory context management, and comprehensive error propagation.
 
 ## Parameters / Member Variables
-- : Existing list of AuthToken structures to which new tokens will be appended
-- : Path of the file containing the '@' reference (used for relative path resolution)
-- : Path of the file to be expanded (may be relative or absolute)
-- : Error reporting level for ereport calls (e.g., ERROR, LOG, WARNING)
-- : Current recursion depth for nested expansions (prevents infinite recursion)
-- : Pointer to store error message string if expansion fails
-
+- `*tokens`: Existing list of AuthToken structures to which new tokens will be appended
+- `*outer_filename`: Path of the file containing the '@' reference (used for relative path resolution)
+- `*inc_filename`: Path of the file to be expanded (may be relative or absolute)
+- `elevel`: Error reporting level for ereport calls (e.g., ERROR, LOG, WARNING)
+- `depth`: Current recursion depth for nested expansions (prevents infinite recursion)
+- `**err_msg`: Pointer to store error message string if expansion fails
 ## Dependencies
 - Functions called/Symbols referenced:
   - AbsoluteConfigLocation: Resolves relative file paths to absolute paths

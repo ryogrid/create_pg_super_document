@@ -18,9 +18,8 @@ This function compares two target lists to determine if they contain the same ex
 This design choice allows the optimizer to make more aggressive optimizations by recognizing equivalent computations even when they have different labeling metadata. The planner often doesn't bother to maintain valid labeling in intermediate plan nodes, so ignoring these attributes prevents missed optimization opportunities.
 
 ## Parameters / Member Variables
-- : First target list to compare
-- : Second target list to compare
-
+- `*tlist1`: First target list to compare
+- `*tlist2`: Second target list to compare
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_length](../l/list_length.md) (implicit via list operations)

@@ -27,11 +27,10 @@ This function performs a validation-only check for the NOT NULL constraint rathe
 This approach ensures that partitioned tables maintain consistency - if the parent table should be NOT NULL, all partitions must already be NOT NULL.
 
 ## Parameters / Member Variables
-- : AlteredTableInfo structure (currently unused but part of standard ALTER TABLE interface)
-- : The partition or child relation being checked
-- : Name of the column to verify has NOT NULL constraint
-- : Lock mode for accessing the relation (currently unused)
-
+- `*tab`: AlteredTableInfo structure (currently unused but part of standard ALTER TABLE interface)
+- `rel`: The partition or child relation being checked
+- `*colName`: Name of the column to verify has NOT NULL constraint
+- `lockmode`: Lock mode for accessing the relation (currently unused)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCacheAttName](../S/SearchSysCacheAttName.md) (to lookup column in system catalog)

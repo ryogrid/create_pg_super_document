@@ -17,7 +17,6 @@ This function is a simple utility function that resets the static volatile `prom
 The function operates on a static volatile sig_atomic_t variable, ensuring thread-safe access to the promotion signal state. This is critical in the startup process where signal handlers and main execution flow need to coordinate safely.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - [Variables](../V/Variables.md) accessed:

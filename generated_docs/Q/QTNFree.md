@@ -24,8 +24,7 @@ The function handles different types of memory deallocation based on flags:
 The function includes null pointer checking and stack depth verification to prevent issues during deep recursion.
 
 ## Parameters / Member Variables
-- : Pointer to the QTNode tree root to be freed (can be NULL)
-
+- `*in`: Pointer to the QTNode tree root to be freed (can be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_stack_depth](../c/check_stack_depth.md) (stack overflow protection)

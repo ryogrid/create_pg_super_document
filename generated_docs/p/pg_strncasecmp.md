@@ -18,10 +18,9 @@ The  function compares two strings character by character in a case-insensitive 
 The function decrements the counter  with each character comparison. If characters differ after case conversion, it returns the difference immediately. The comparison stops early if a null terminator is encountered in either string, even if the byte limit hasn't been reached. This makes it suitable for both null-terminated and fixed-length string comparisons.
 
 ## Parameters / Member Variables
-- : First string to compare (not necessarily null-terminated)
-- : Second string to compare (not necessarily null-terminated)
-- : Maximum number of bytes to examine from each string
-
+- `*s1`: First string to compare (not necessarily null-terminated)
+- `*s2`: Second string to compare (not necessarily null-terminated)
+- `n`: Maximum number of bytes to examine from each string
 ## Dependencies
 - Functions called/Symbols referenced:
   - IS_HIGHBIT_SET (macro to check if character has high bit set)

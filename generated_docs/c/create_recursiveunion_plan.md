@@ -18,9 +18,8 @@ This function constructs a RecursiveUnion plan node that implements recursive CT
 The RecursiveUnion node is essential for implementing SQL's WITH RECURSIVE functionality, which allows queries to reference themselves and process hierarchical or graph-like data structures.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global planning context and information needed for plan generation
-- : RecursiveUnionPath representing the chosen execution strategy for the recursive union, containing left and right subpaths, working table parameters, and cardinality estimates
-
+- `*root`: PlannerInfo structure containing global planning context and information needed for plan generation
+- `*best_path`: RecursiveUnionPath representing the chosen execution strategy for the recursive union, containing left and right subpaths, working table parameters, and cardinality estimates
 ## Dependencies
 - Functions called/Symbols referenced:
   - [create_plan_recurse](create_plan_recurse.md)

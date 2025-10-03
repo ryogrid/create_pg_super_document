@@ -18,8 +18,7 @@ This function handles the statistics cleanup when a logical replication subscrip
 The function is designed to work seamlessly with PostgreSQL's transaction system, deferring the actual statistics cleanup until transaction commit time. This prevents premature removal of statistics data that might still be needed if the transaction is aborted.
 
 ## Parameters / Member Variables
-- : The OID of the subscription being dropped
-
+- `subid`: The OID of the subscription being dropped
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pgstat_drop_transactional](pgstat_drop_transactional.md)

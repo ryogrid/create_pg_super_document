@@ -23,9 +23,8 @@ Key validation checks include:
 - Setting default bgw_type if not specified
 
 ## Parameters / Member Variables
-- : Pointer to the BackgroundWorker structure to be validated
-- : Error level for reporting validation failures (e.g., WARNING, ERROR, FATAL)
-
+- `*worker`: Pointer to the BackgroundWorker structure to be validated
+- `elevel`: Error level for reporting validation failures (e.g., WARNING, ERROR, FATAL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport (error reporting)

@@ -18,12 +18,11 @@ range_bounds_contains(TypeCacheEntry *typcache,
 This function implements containment detection logic for range intervals using direct boundary comparisons. It checks if the first range (defined by lower1, upper1) completely contains the second range (defined by lower2, upper2). A range contains another if its lower bound is less than or equal to the contained range's lower bound, and its upper bound is greater than or equal to the contained range's upper bound. This provides an efficient way to test containment without constructing full range objects.
 
 ## Parameters / Member Variables
-- : Type cache entry containing comparison functions and metadata for the range element type
-- : Lower boundary of the containing range
-- : Upper boundary of the containing range
-- : Lower boundary of the potentially contained range
-- : Upper boundary of the potentially contained range
-
+- `*typcache`: Type cache entry containing comparison functions and metadata for the range element type
+- `*lower1`: Lower boundary of the containing range
+- `*upper1`: Upper boundary of the containing range
+- `*lower2`: Lower boundary of the potentially contained range
+- `*upper2`: Upper boundary of the potentially contained range
 ## Dependencies
 - Functions called/Symbols referenced:
   - [range_cmp_bounds](range_cmp_bounds.md) (used for boundary comparisons)

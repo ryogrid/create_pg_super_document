@@ -22,9 +22,8 @@ The function operates in two phases:
 The expression context is properly set up with the tuple as the scan tuple and reset before qualification evaluation to ensure clean state. The function provides flexibility for FDWs to either handle complex rechecking logic through the callback or rely on the simpler fdw_recheck_quals approach for basic cases.
 
 ## Parameters / Member Variables
-- : ForeignScanState structure containing the execution state, FDW routines, and recheck qualifications for the foreign scan operation
-- : TupleTableSlot containing the tuple to be rechecked for qualification compliance
-
+- `*node`: ForeignScanState structure containing the execution state, FDW routines, and recheck qualifications for the foreign scan operation
+- `*slot`: TupleTableSlot containing the tuple to be rechecked for qualification compliance
 ## Dependencies
 - Functions called/Symbols referenced:
   - ResetExprContext

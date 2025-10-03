@@ -16,9 +16,8 @@ listDbRoleSettings(const char *pattern, const char *pattern2)
 This function provides functionality for the psql \\drds metacommand, which displays configuration settings that are specific to combinations of database roles and databases. It queries the pg_db_role_setting system catalog to retrieve role-specific and database-specific parameter settings. The function supports pattern matching for both role names and database names, allowing users to filter results. It constructs and executes a SQL query that joins pg_db_role_setting with pg_database and pg_roles catalogs to provide human-readable output with role names, database names, and their associated configuration settings.
 
 ## Parameters / Member Variables
-- : A SQL pattern (with wildcards) to filter by role name, or NULL to match all roles
-- : A SQL pattern (with wildcards) to filter by database name, or NULL to match all databases
-
+- `*pattern`: A SQL pattern (with wildcards) to filter by role name, or NULL to match all roles
+- `*pattern2`: A SQL pattern (with wildcards) to filter by database name, or NULL to match all databases
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQExpBufferData](../P/PQExpBufferData.md) (PostgreSQL's expandable string buffer structure)

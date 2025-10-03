@@ -22,7 +22,6 @@ The function works by:
 This reset functionality is important for applications that need to clear previous SQL execution status before performing new operations, ensuring that stale error conditions or status flags don't interfere with subsequent SQL operations.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -17,11 +17,10 @@ adjust_appendrel_attrs(PlannerInfo *root, Node *node, int nappinfos,
 This function serves as the main entry point for translating parent relation references to child relation references in query trees. It sets up the necessary context and delegates the actual transformation work to adjust_appendrel_attrs_mutator. The function is essential for inheritance and partitioning scenarios where queries against parent tables need to be rewritten to operate on specific child tables. It handles not just Var nodes but also other elements like range table indexes that appear outside of variable references.
 
 ## Parameters / Member Variables
-- : PlannerInfo containing planning context and information
-- : The query tree node to be transformed (can be any Node type)
-- : Number of AppendRelInfo structures in the array
-- : Array of AppendRelInfo structures containing parent-to-child translation mappings
-
+- `*root`: PlannerInfo containing planning context and information
+- `*node`: The query tree node to be transformed (can be any Node type)
+- `nappinfos`: Number of AppendRelInfo structures in the array
+- `**appinfos`: Array of AppendRelInfo structures containing parent-to-child translation mappings
 ## Dependencies
 - Functions called/Symbols referenced:
   - [adjust_appendrel_attrs_mutator](adjust_appendrel_attrs_mutator.md) (performs the actual tree transformation)

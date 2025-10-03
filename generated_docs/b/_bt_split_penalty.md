@@ -22,9 +22,8 @@ This function computes a penalty score for a given split point to help the B-tre
 The function is designed as a subroutine to support the overall B-tree page splitting strategy by providing a quantitative measure to compare different split point candidates.
 
 ## Parameters / Member Variables
-- : Pointer to FindSplitData structure containing context information for the split operation, including the relation, original page, and new item details
-- : Pointer to SplitPoint structure representing the candidate split point being evaluated
-
+- `*state`: Pointer to FindSplitData structure containing context information for the split operation, including the relation, original page, and new item details
+- `*split`: Pointer to SplitPoint structure representing the candidate split point being evaluated
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PageGetItemId](../P/PageGetItemId.md)

@@ -23,9 +23,8 @@ Key responsibilities include:
 - Optimizing performance by short-circuiting low-level messages that won't be reported
 
 ## Parameters / Member Variables
-- : Error severity level (DEBUG, INFO, NOTICE, WARNING, ERROR, FATAL, PANIC)
-- : Error domain string for categorizing the error source
-
+- `elevel`: Error severity level (DEBUG, INFO, NOTICE, WARNING, ERROR, FATAL, PANIC)
+- `*domain`: Error domain string for categorizing the error source
 ## Dependencies
 - Functions called/Symbols referenced:
   - [should_output_to_server](../s/should_output_to_server.md)

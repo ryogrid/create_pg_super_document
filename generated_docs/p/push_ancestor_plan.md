@@ -19,10 +19,9 @@ The  function is used during the deparsing process to temporarily shift focus to
 The function identifies the target ancestor plan using the ListCell that holds it in the dpns->ancestors list. It builds a new ancestor list containing only the ancestors of the selected node and sets the deparse context to focus on that ancestor plan.
 
 ## Parameters / Member Variables
-- : Pointer to the current deparse namespace context that will be modified
-- : ListCell pointing to the target ancestor plan in the dpns->ancestors list
-- : Local deparse_namespace variable used to save the previous state for later restoration via pop_ancestor_plan
-
+- `*dpns`: Pointer to the current deparse namespace context that will be modified
+- `*ancestor_cell`: ListCell pointing to the target ancestor plan in the dpns->ancestors list
+- `*save_dpns`: Local deparse_namespace variable used to save the previous state for later restoration via pop_ancestor_plan
 ## Dependencies
 - Functions called/Symbols referenced:
   - lfirst (list access macro)

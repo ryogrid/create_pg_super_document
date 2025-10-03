@@ -22,6 +22,7 @@ The function is designed as a lightweight cleanup mechanism that maintains trans
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PopActiveSnapshot](../P/PopActiveSnapshot.md) (removes the current active snapshot from the stack)

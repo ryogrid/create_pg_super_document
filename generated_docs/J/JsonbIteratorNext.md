@@ -20,10 +20,9 @@ The function operates through several states (JBI_ARRAY_START, JBI_ARRAY_ELEM, J
 The function includes sophisticated memory management that automatically frees child iterators to prevent excessive memory usage during deep traversal, though callers who end iteration early may need to manually walk the ancestral tree to free remaining allocated iterators.
 
 ## Parameters / Member Variables
-- : Double pointer to JsonbIterator, may be replaced with child iterator during traversal
-- : Pointer to JsonbValue structure to be filled with current token's value
-- : Boolean flag to skip recursion into nested containers
-
+- `**it`: Double pointer to JsonbIterator, may be replaced with child iterator during traversal
+- `*val`: Pointer to JsonbValue structure to be filled with current token's value
+- `skipNested`: Boolean flag to skip recursion into nested containers
 ## Dependencies
 - Functions called/Symbols referenced:
   - [freeAndGetParent](../f/freeAndGetParent.md)

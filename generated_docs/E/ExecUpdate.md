@@ -32,13 +32,12 @@ ExecUpdate orchestrates the complete UPDATE operation workflow in PostgreSQL. Th
 The function implements PostgreSQL's Multi-Version Concurrency Control (MVCC) semantics and handles various tuple modification states (TM_Ok, TM_Updated, TM_Deleted, TM_SelfModified).
 
 ## Parameters / Member Variables
-- : ModifyTableContext containing execution state, EPQ state, and command metadata
-- : ResultRelInfo for the target relation being updated
-- : ItemPointer identifying the tuple to update (invalid for foreign tables and view triggers)
-- : HeapTuple containing original data (for view triggers and foreign tables)
-- : TupleTableSlot containing the new tuple values
-- : Boolean indicating whether the processed tuple count can be incremented
-
+- `*context`: ModifyTableContext containing execution state, EPQ state, and command metadata
+- `*resultRelInfo`: ResultRelInfo for the target relation being updated
+- `tupleid`: ItemPointer identifying the tuple to update (invalid for foreign tables and view triggers)
+- `oldtuple`: HeapTuple containing original data (for view triggers and foreign tables)
+- `*slot`: TupleTableSlot containing the new tuple values
+- `canSetTag`: Boolean indicating whether the processed tuple count can be incremented
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecUpdatePrologue](ExecUpdatePrologue.md)

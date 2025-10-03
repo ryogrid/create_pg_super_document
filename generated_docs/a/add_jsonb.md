@@ -17,12 +17,11 @@ add_jsonb(Datum val, bool is_null, JsonbInState *result,
 The add_jsonb function is a utility function that converts a PostgreSQL Datum value into JSONB format and appends it to an existing JsonbInState structure. It acts as a convenient wrapper around the more complex datum_to_jsonb_internal function by handling the type categorization step automatically. The function first validates the input type, then categorizes the PostgreSQL type into its corresponding JSON type category, and finally delegates the actual conversion work to datum_to_jsonb_internal.
 
 ## Parameters / Member Variables
-- : The PostgreSQL Datum value to be converted to JSONB
-- : Boolean flag indicating whether the value is NULL
-- : Pointer to JsonbInState structure where the converted JSONB data will be appended
-- : The PostgreSQL OID representing the data type of the value
-- : Boolean flag indicating whether this value represents a scalar key in a JSON object
-
+- `val`: The PostgreSQL Datum value to be converted to JSONB
+- `is_null`: Boolean flag indicating whether the value is NULL
+- `*result`: Pointer to JsonbInState structure where the converted JSONB data will be appended
+- `val_type`: The PostgreSQL OID representing the data type of the value
+- `key_scalar`: Boolean flag indicating whether this value represents a scalar key in a JSON object
 ## Dependencies
 - Functions called/Symbols referenced:
   - [json_categorize_type](../j/json_categorize_type.md)

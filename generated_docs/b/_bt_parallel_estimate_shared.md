@@ -22,9 +22,8 @@ The function ensures proper memory alignment using BUFFERALIGN, which is critica
 This estimation is used by the parallel context setup code to allocate an appropriately sized dynamic shared memory segment before launching worker processes.
 
 ## Parameters / Member Variables
-- : Relation being scanned to build the index (the base table)
-- : Snapshot that will be used for the parallel scan (affects scan state size)
-
+- `heap`: Relation being scanned to build the index (the base table)
+- `snapshot`: Snapshot that will be used for the parallel scan (affects scan state size)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [add_size](../a/add_size.md): Safe arithmetic function for adding Size values

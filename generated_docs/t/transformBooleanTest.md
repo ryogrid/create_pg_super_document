@@ -18,9 +18,8 @@ The  function processes Boolean test expressions during the parsing phase. It ha
 The function ensures type safety by converting the argument to a boolean-compatible type using , which handles implicit conversions from various data types to boolean. If an unsupported boolean test type is encountered, it logs an error.
 
 ## Parameters / Member Variables
-- : ParseState context for the current parsing operation
-- : Input BooleanTest node containing the test type and argument expression
-
+- `*pstate`: ParseState context for the current parsing operation
+- `*b`: Input BooleanTest node containing the test type and argument expression
 ## Dependencies
 - Functions called/Symbols referenced:
   - [transformExprRecurse](transformExprRecurse.md)

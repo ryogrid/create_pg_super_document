@@ -18,13 +18,12 @@ PortalRunUtility(Portal portal, PlannedStmt *pstmt,
 PortalRunUtility is responsible for executing utility statements (non-DML commands like DDL, administrative commands, etc.) within the context of a portal. The function manages transaction snapshots appropriately based on whether the utility statement requires one, handles snapshot registration for hold scenarios, and ensures proper cleanup after execution. It calls ProcessUtility to perform the actual command execution and manages memory context switches that may occur during utility command execution. The function is designed to handle the complexities of snapshot management in utility commands, including cases where commands may modify or pop snapshots from the stack.
 
 ## Parameters / Member Variables
-- : The Portal structure containing the utility statement to execute
-- : The PlannedStmt containing the utility statement details
-- : Boolean indicating whether this is a top-level command execution
-- : Boolean indicating whether to register and hold the snapshot for later use
-- : DestReceiver that will handle any output from the utility command
-- : QueryCompletion structure to record execution results
-
+- `portal`: The Portal structure containing the utility statement to execute
+- `*pstmt`: The PlannedStmt containing the utility statement details
+- `isTopLevel`: Boolean indicating whether this is a top-level command execution
+- `setHoldSnapshot`: Boolean indicating whether to register and hold the snapshot for later use
+- `*dest`: DestReceiver that will handle any output from the utility command
+- `*qc`: QueryCompletion structure to record execution results
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PlannedStmtRequiresSnapshot](PlannedStmtRequiresSnapshot.md)

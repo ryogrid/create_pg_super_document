@@ -18,8 +18,7 @@ This function implements arithmetic increment operation for ItemPointer structur
 The function handles edge cases where the ItemPointer might become invalid according to PostgreSQL's offset numbering conventions, but this is intentional for operations that need to iterate through the entire type range.
 
 ## Parameters / Member Variables
-- : ItemPointer structure to increment (modified in-place) - must point to valid memory
-
+- `pointer`: ItemPointer structure to increment (modified in-place) - must point to valid memory
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ItemPointerGetBlockNumberNoCheck](ItemPointerGetBlockNumberNoCheck.md): Safely extracts current block number without validation

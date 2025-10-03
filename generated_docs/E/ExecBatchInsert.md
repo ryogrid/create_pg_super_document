@@ -29,14 +29,13 @@ ExecBatchInsert is specifically designed for foreign table batch insertion opera
 This function is currently limited to foreign tables without RETURNING clauses, as indicated in the comment. It's called from ExecInsert when batching is enabled and from ExecPendingInserts to flush accumulated batches.
 
 ## Parameters / Member Variables
-- : ModifyTableState containing the execution state and transition capture information
-- : ResultRelInfo for the target foreign table
-- : Array of TupleTableSlots containing the tuples to insert
-- : Array of corresponding plan-level TupleTableSlots
-- : Total number of slots in the batch
-- : Execution state containing command tag counters and other context
-- : Whether to increment the processed tuple counter
-
+- `*mtstate`: ModifyTableState containing the execution state and transition capture information
+- `*resultRelInfo`: ResultRelInfo for the target foreign table
+- `**slots`: Array of TupleTableSlots containing the tuples to insert
+- `**planSlots`: Array of corresponding plan-level TupleTableSlots
+- `numSlots`: Total number of slots in the batch
+- `*estate`: Execution state containing command tag counters and other context
+- `canSetTag`: Whether to increment the processed tuple counter
 ## Dependencies
 - Functions called/Symbols referenced:
   - ExecForeignBatchInsert (via FDW routine - actual batch insertion)

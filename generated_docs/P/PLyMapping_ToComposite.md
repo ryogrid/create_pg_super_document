@@ -24,10 +24,9 @@ The conversion process involves:
 6. Proper cleanup of temporary structures and memory
 
 ## Parameters / Member Variables
-- : PLyObToDatum structure containing composite type conversion context and attribute converters
-- : TupleDesc describing the structure and types of the target composite type
-- : Python mapping object (typically a dictionary) containing the source data
-
+- `*arg`: PLyObToDatum structure containing composite type conversion context and attribute converters
+- `desc`: TupleDesc describing the structure and types of the target composite type
+- `*mapping`: Python mapping object (typically a dictionary) containing the source data
 ## Dependencies
 - Functions called/Symbols referenced:
   - PyMapping_Check (Python API validation)

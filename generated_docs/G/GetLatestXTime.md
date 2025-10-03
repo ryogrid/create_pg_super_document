@@ -17,6 +17,7 @@ This function fetches the timestamp of the most recently processed commit or abo
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - SpinLockAcquire (for thread-safe access)

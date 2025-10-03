@@ -19,7 +19,6 @@ The function iterates through the global pendingDeletes linked list and frees al
 The function ensures that the storage manager's in-memory state is clean after a successful prepare, preventing memory leaks and avoiding confusion about which component is responsible for tracking pending deletions.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

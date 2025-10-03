@@ -20,12 +20,11 @@ subcoloronechr(struct vars *v,
 The  function is a specialized version of subcolor processing that handles individual characters efficiently. For simple characters (≤ MAX_SIMPLE_CHR), it directly calls . For complex characters, it manages the colormap ranges by potentially splitting existing ranges to isolate the target character. The function creates new colormaprange structures as needed, potentially splitting a single range into up to three parts: before the target character, the target character itself, and after the target character. It maintains the hicolormap structure by cloning rows when ranges are split.
 
 ## Parameters / Member Variables
-- : Pointer to the regex compilation variables structure
-- : The character to process for subcolor allocation
-- : Pointer to the source state for NFA arcs
-- : Pointer to the destination state for NFA arcs  
-- : Pointer to the last subcolor created (for optimization to avoid duplicate arcs)
-
+- `*v`: Pointer to the regex compilation variables structure
+- `ch`: The character to process for subcolor allocation
+- `*lp`: Pointer to the source state for NFA arcs
+- `*rp`: Pointer to the destination state for NFA arcs
+- `*lastsubcolor`: Pointer to the last subcolor created (for optimization to avoid duplicate arcs)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [subcolor](subcolor.md) (gets subcolor for simple characters)

@@ -18,7 +18,6 @@ This function serves as the display hook for the PostgreSQL GUC parameter . It r
 The function is part of PostgreSQL's configuration parameter system and is called when the user queries the current value of the tcp_keepalives_idle parameter (e.g., via ).
 
 ## Parameters / Member Variables
-This function takes no parameters and operates on the global MyProcPort variable representing the current client connection.
 
 ## Dependencies
 - Functions called/Symbols referenced:

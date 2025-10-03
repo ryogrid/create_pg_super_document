@@ -16,8 +16,7 @@ injection_point_allowed(InjectionPointCondition *condition)
 This function implements the conditional logic for injection points in PostgreSQL's testing framework. It takes an  structure and evaluates the specified conditions to determine if the injection point should be triggered. The function supports different condition types including process ID-based filtering and always-allow conditions. This allows for fine-grained control over when injection points are activated, enabling targeted testing scenarios.
 
 ## Parameters / Member Variables
-- : Pointer to an  structure containing the condition type and associated parameters to evaluate
-
+- `*condition`: Pointer to an  structure containing the condition type and associated parameters to evaluate
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (struct type defining condition parameters)

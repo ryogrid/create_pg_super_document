@@ -18,9 +18,8 @@ This static function is a core component of PostgreSQL's row-level security (RLS
 The function performs a quick optimization for policies that apply to all roles (when the first role in the array is ACL_ID_PUBLIC) and then iterates through the role array to check for role membership using PostgreSQL's privilege inheritance system.
 
 ## Parameters / Member Variables
-- : An ArrayType containing the list of role OIDs that the policy applies to
-- : The OID of the user for whom we're checking policy applicability
-
+- `*policy_roles`: An ArrayType containing the list of role OIDs that the policy applies to
+- `user_id`: The OID of the user for whom we're checking policy applicability
 ## Dependencies
 - Functions called/Symbols referenced:
   - ARR_DATA_PTR (macro to access array data)

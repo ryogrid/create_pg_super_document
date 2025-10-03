@@ -26,6 +26,7 @@ This function is essential for determining transaction visibility horizons and m
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_read_barrier

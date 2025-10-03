@@ -16,8 +16,7 @@ timestamp_hash(PG_FUNCTION_ARGS)
 This function provides hash support for timestamp values in PostgreSQL's hash-based operations (such as hash joins, hash aggregation, and hash indexes). It leverages the fact that timestamps are internally represented as 64-bit integers and delegates the actual hashing computation to the hashint8 function. This approach ensures consistent hashing behavior between timestamp values and their underlying integer representations.
 
 ## Parameters / Member Variables
-- : Function call information structure containing the timestamp value to be hashed
-
+- `PG_FUNCTION_ARGS`: Function call information structure containing the timestamp value to be hashed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hashint8](../h/hashint8.md) (delegates hash computation to this function)

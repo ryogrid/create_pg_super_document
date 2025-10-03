@@ -18,8 +18,7 @@ This function implements a navigation mechanism for binary tree nodes used in Po
 The function uses a clever bit manipulation technique to detect when a node is at the leftmost position of the next level. Since leftmost nodes at each level are numbered as 2^level - 1, the function checks if (x + 1) is a power of two using the expression , which is true only for powers of two in two's complement arithmetic.
 
 ## Parameters / Member Variables
-- : The current node position in the binary tree structure for which to find the right neighbor
-
+- `x`: The current node position in the binary tree structure for which to find the right neighbor
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (macro): Calculates the parent node position as 

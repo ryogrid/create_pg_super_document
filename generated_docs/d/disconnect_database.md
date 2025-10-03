@@ -18,9 +18,8 @@ The  function provides a centralized way to close PostgreSQL database connection
 The function includes an assertion to ensure that a valid connection pointer is provided, helping to catch programming errors during development.
 
 ## Parameters / Member Variables
-- : A pointer to the PGconn structure representing the database connection to be closed
-- : A boolean flag that determines whether the program should exit immediately after closing the connection (true for undesired/error conditions, false for normal cleanup)
-
+- `*conn`: A pointer to the PGconn structure representing the database connection to be closed
+- `exit_on_error`: A boolean flag that determines whether the program should exit immediately after closing the connection (true for undesired/error conditions, false for normal cleanup)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQfinish](../P/PQfinish.md) (libpq function for closing database connections)

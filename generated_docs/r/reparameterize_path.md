@@ -24,11 +24,10 @@ For index-based scans, the function performs optimizations by copying the existi
 The function intentionally does not pass created paths to add_path() since these specialized paths are designed for specific use cases (like append path members) rather than general-purpose optimization.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global planning information
-- : The original path to be reparameterized
-- : RelIds representing the required outer relation parameterization
-- : Expected number of times this path will be executed in nested loops
-
+- `*root`: PlannerInfo structure containing global planning information
+- `*path`: The original path to be reparameterized
+- `required_outer`: RelIds representing the required outer relation parameterization
+- `loop_count`: Expected number of times this path will be executed in nested loops
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bms_is_subset](../b/bms_is_subset.md) (checks if parameterization can be increased)

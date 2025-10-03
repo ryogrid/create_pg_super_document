@@ -16,8 +16,7 @@ TransStateAsString(TransState state)
 TransStateAsString is a debugging support function that provides string representations of transaction states. It uses a switch statement to map each possible TransState enumeration value to its corresponding string name. This function is crucial for logging and debugging transaction state transitions, providing clear visibility into the lifecycle phases of transactions. Unlike BlockStateAsString which handles transaction block states, this function focuses on the core transaction states that represent the fundamental phases of transaction processing: initialization, execution, and completion (either through commit, abort, or prepare for two-phase commit).
 
 ## Parameters / Member Variables
-- : A TransState enumeration value representing the current transaction state to be converted to a string
-
+- `state`: A TransState enumeration value representing the current transaction state to be converted to a string
 ## Dependencies
 - Functions called/Symbols referenced:
   - TransState (enum type)

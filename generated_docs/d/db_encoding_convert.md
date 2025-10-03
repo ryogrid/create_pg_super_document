@@ -25,9 +25,8 @@ The function performs several key operations:
 The function modifies the string in-place through the double pointer parameter, replacing the original string with the converted version when necessary.
 
 ## Parameters / Member Variables
-- : The source encoding ID of the input string
-- : Pointer to a pointer to the string to be converted (modified in-place)
-
+- `encoding`: The source encoding ID of the input string
+- `**str`: Pointer to a pointer to the string to be converted (modified in-place)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_any_to_server](../p/pg_any_to_server.md) (PostgreSQL's encoding conversion function)

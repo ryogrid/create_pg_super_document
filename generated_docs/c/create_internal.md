@@ -22,14 +22,13 @@ This function performs the complete initialization of a Dynamic Shared Area (DSA
 The function calculates usable memory space after accounting for metadata overhead, initializes the free page manager for memory allocation within the DSA, sets up lightweight locks for concurrent access control, and establishes the initial segment mapping. It validates input parameters against DSA size limits and ensures proper alignment of internal structures.
 
 ## Parameters / Member Variables
-- : Pointer to the memory location where the DSA will be created
-- : Total size of the memory area available for the DSA
-- : LWLock tranche identifier for the DSA's locks
-- : DSM handle for the control segment
-- : DSM segment containing the DSA control structure
-- : Initial size for additional segments (minimum DSA_MIN_SEGMENT_SIZE)
-- : Maximum size for any segment (maximum DSA_MAX_SEGMENT_SIZE)
-
+- `*place`: Pointer to the memory location where the DSA will be created
+- `size`: Total size of the memory area available for the DSA
+- `tranche_id`: LWLock tranche identifier for the DSA's locks
+- `control_handle`: DSM handle for the control segment
+- `*control_segment`: DSM segment containing the DSA control structure
+- `init_segment_size`: Initial size for additional segments (minimum DSA_MIN_SEGMENT_SIZE)
+- `max_segment_size`: Maximum size for any segment (maximum DSA_MAX_SEGMENT_SIZE)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dsa_minimum_size](../d/dsa_minimum_size.md)

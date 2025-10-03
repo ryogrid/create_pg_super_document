@@ -24,10 +24,9 @@ The function performs several key steps:
 6. Closes the catalog relation
 
 ## Parameters / Member Variables
-- : The child relation that will inherit from the parent
-- : The parent relation to inherit from
-- : Boolean flag indicating whether this is a partition relationship (affects attribute merging behavior)
-
+- `child_rel`: The child relation that will inherit from the parent
+- `parent_rel`: The parent relation to inherit from
+- `ispartition`: Boolean flag indicating whether this is a partition relationship (affects attribute merging behavior)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md)

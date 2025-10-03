@@ -16,7 +16,6 @@ InitializeLatchWaitSet(void)
 This function sets up the global LatchWaitSet, which is a pre-configured WaitEventSet used by the WaitLatch() function for efficient waiting on latch events. The function creates a WaitEventSet with capacity for 2 events and adds the process's own latch (MyLatch) as a WL_LATCH_SET event. For processes running under the postmaster, it also adds a WL_EXIT_ON_PM_DEATH event to ensure the process exits if the postmaster dies unexpectedly. The function uses assertions to verify that LatchWaitSet is not already initialized and that the latch position matches the expected LatchWaitSetLatchPos constant.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

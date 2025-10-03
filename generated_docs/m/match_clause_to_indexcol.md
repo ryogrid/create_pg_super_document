@@ -28,11 +28,10 @@ This function is a core component of PostgreSQL's index path selection mechanism
 The function employs a liberal definition of "const" - accepting any expression that doesn't contain volatile functions or variables from the index's relation. This enables parameterized index scans with variables from other relations.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing query planning context and statistics
-- : RestrictInfo node wrapping the clause to be tested for index compatibility
-- : Zero-based column number within the index to match against
-- : IndexOptInfo structure containing metadata about the target index
-
+- `*root`: PlannerInfo structure containing query planning context and statistics
+- `*rinfo`: RestrictInfo node wrapping the clause to be tested for index compatibility
+- `indexcol`: Zero-based column number within the index to match against
+- `*index`: IndexOptInfo structure containing metadata about the target index
 ## Dependencies
 - Functions called/Symbols referenced:
   - [IsBooleanOpfamily](../I/IsBooleanOpfamily.md)

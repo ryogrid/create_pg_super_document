@@ -18,8 +18,7 @@ This function initializes a  structure that manages both key uniqueness checking
 The function sets up the infrastructure needed for building JSON objects while ensuring key uniqueness and properly handling NULL value scenarios. The memory context reference allows proper cleanup and management of temporarily stored key information.
 
 ## Parameters / Member Variables
-- : Pointer to a  structure to initialize
-
+- `*cxt`: Pointer to a  structure to initialize
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Context structure for JSON building with uniqueness checking

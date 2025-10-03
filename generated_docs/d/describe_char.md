@@ -22,8 +22,7 @@ The  function is part of the PostgreSQL locale testing framework. It takes a cha
 The output is formatted as a single table row with fixed-width columns, making it suitable for displaying multiple characters in a tabular format. Non-printable characters are displayed as spaces to ensure consistent formatting.
 
 ## Parameters / Member Variables
-- : The character to analyze (passed as int, following C library conventions for character functions)
-
+- `c`: The character to analyze (passed as int, following C library conventions for character functions)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [flag](../f/flag.md) (utility function to format boolean results)

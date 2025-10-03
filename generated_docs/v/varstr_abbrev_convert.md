@@ -24,9 +24,8 @@ varstr_abbrev_convert(Datum original, SortSupport ssup)
 The abbreviated keys allow the sort algorithm to perform most comparisons using fast integer operations, falling back to full string comparison only when abbreviated keys are equal.
 
 ## Parameters / Member Variables
-- : The Datum containing the original string value to be abbreviated
-- : SortSupport structure containing VarStringSortSupport context with buffers, locale information, and statistics
-
+- `original`: The Datum containing the original string value to be abbreviated
+- `ssup`: SortSupport structure containing VarStringSortSupport context with buffers, locale information, and statistics
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Context structure for string sorting operations

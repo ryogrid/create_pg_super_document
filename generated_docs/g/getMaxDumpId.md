@@ -18,6 +18,7 @@ This function provides read-only access to the current maximum DumpId value by r
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - lastDumpId (global variable that tracks the highest assigned DumpId)

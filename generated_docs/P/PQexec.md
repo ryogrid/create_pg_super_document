@@ -22,9 +22,8 @@ The function handles error conditions at each step - if PQexecStart fails (indic
 This function is ideal for simple, synchronous database operations where the application can afford to block until the query completes. For applications requiring non-blocking behavior, the separate PQsendQuery/PQgetResult pattern should be used instead.
 
 ## Parameters / Member Variables
-- : Pointer to the PGconn structure representing the database connection
-- : Null-terminated string containing the SQL query to execute
-
+- `*conn`: Pointer to the PGconn structure representing the database connection
+- `*query`: Null-terminated string containing the SQL query to execute
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQexecStart](PQexecStart.md)

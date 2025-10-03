@@ -24,10 +24,9 @@ The function performs several key operations:
 When indexOid is InvalidOid, the function clears the clustered flag from all indexes, effectively removing any clustering designation from the table.
 
 ## Parameters / Member Variables
-- : Relation structure representing the table whose indexes are being modified
-- : OID of the index to mark as clustered, or InvalidOid to clear all clustered flags
-- : Boolean flag indicating whether this is an internal operation (affects hook behavior)
-
+- `rel`: Relation structure representing the table whose indexes are being modified
+- `indexOid`: OID of the index to mark as clustered, or InvalidOid to clear all clustered flags
+- `is_internal`: Boolean flag indicating whether this is an internal operation (affects hook behavior)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_index_isclustered](../g/get_index_isclustered.md)

@@ -18,9 +18,8 @@ This function serves as a comparator for sorting CommonEntry structures during G
 The function follows the standard qsort comparator interface, returning a negative value if the first entry's delta is smaller, zero if they are equal, and a positive value if the first is larger. The delta values likely represent some form of metric used to determine optimal splitting strategies during index node division.
 
 ## Parameters / Member Variables
-- : Pointer to the first CommonEntry structure to compare
-- : Pointer to the second CommonEntry structure to compare
-
+- `*i1`: Pointer to the first CommonEntry structure to compare
+- `*i2`: Pointer to the second CommonEntry structure to compare
 ## Dependencies
 - Functions called/Symbols referenced:
   - CommonEntry (struct type)

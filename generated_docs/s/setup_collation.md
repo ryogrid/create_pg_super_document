@@ -22,8 +22,7 @@ This function is responsible for configuring PostgreSQL's collation support, whi
 The function focuses on collations where the behavior might change over time (hence version tracking is important) while avoiding unnecessary version updates for collations known to have stable behavior. This approach optimizes both functionality and performance.
 
 ## Parameters / Member Variables
-- : FILE pointer to the command file descriptor where SQL commands are written for execution
-
+- `*cmdfd`: FILE pointer to the command file descriptor where SQL commands are written for execution
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Macro for writing SQL commands to the command file descriptor

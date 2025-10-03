@@ -26,10 +26,9 @@ The function maintains several important invariants:
 The function returns 1 on success (which occurs unless the destination is the post state or an internal error occurs) and 0 if no operation was performed.
 
 ## Parameters / Member Variables
-- : Pointer to the NFA structure being modified
-- : The constraint arc to be pushed forward
-- : Pointer to a list of intermediate states for the destination state, chained through their tmp fields
-
+- `*nfa`: Pointer to the NFA structure being modified
+- `*con`: The constraint arc to be pushed forward
+- `**intermediates`: Pointer to a list of intermediate states for the destination state, chained through their tmp fields
 ## Dependencies
 - Functions called/Symbols referenced:
   - [freearc](../f/freearc.md)

@@ -19,12 +19,11 @@ This function serves as a validation wrapper for real (double/floating-point) ty
 The function performs the same validation workflow: checking for hook existence, resetting global error variables, calling the validation hook, and reporting detailed errors on validation failure. The error message format uses '%g' for floating-point value display instead of '%d' used for integers.
 
 ## Parameters / Member Variables
-- : Pointer to the config_real structure containing the GUC parameter configuration and its check hook
-- : Pointer to the double value being validated
-- : Pointer to extra data that may be set by the check hook for use during assignment
-- : The source of the configuration change (e.g., configuration file, command line, etc.)
-- : Error level for reporting validation failures (e.g., ERROR, WARNING)
-
+- `*conf`: Pointer to the config_real structure containing the GUC parameter configuration and its check hook
+- `*newval`: Pointer to the double value being validated
+- `**extra`: Pointer to extra data that may be set by the check hook for use during assignment
+- `source`: The source of the configuration change (e.g., configuration file, command line, etc.)
+- `elevel`: Error level for reporting validation failures (e.g., ERROR, WARNING)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [config_real](config_real.md) (struct type)

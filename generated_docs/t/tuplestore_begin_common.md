@@ -18,10 +18,9 @@ This is the core initialization function used by all tuplestore_begin_xxx varian
 The function calculates an appropriate initial size for the memory tuple array based on ALLOCSET_SEPARATE_THRESHOLD to ensure efficient memory allocation patterns. It also sets up a single default read pointer at position 0.
 
 ## Parameters / Member Variables
-- : Execution flags indicating the capabilities required (e.g., backward scan support)
-- : Boolean flag indicating whether the tuplestore should survive transaction boundaries
-- : Maximum memory allowed for the tuplestore in kilobytes before spilling to disk
-
+- `eflags`: Execution flags indicating the capabilities required (e.g., backward scan support)
+- `interXact`: Boolean flag indicating whether the tuplestore should survive transaction boundaries
+- `maxKBytes`: Maximum memory allowed for the tuplestore in kilobytes before spilling to disk
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc0](../p/palloc0.md) (memory allocation)

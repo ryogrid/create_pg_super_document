@@ -16,9 +16,8 @@ is_ancestor_member_tableinfos(Oid ancestor, List *table_infos)
 This function iterates through a list of  structures to determine if a specified ancestor table (identified by its OID) is present in the publication's table information list. It performs a simple linear search through the list, comparing each relation's OID with the target ancestor OID. The function is used internally within PostgreSQL's publication system to check table membership during partition filtering operations.
 
 ## Parameters / Member Variables
-- : The OID of the ancestor table to search for in the publication list
-- : A List containing  structures representing tables included in a publication
-
+- `ancestor`: The OID of the ancestor table to search for in the publication list
+- `*table_infos`: A List containing  structures representing tables included in a publication
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (struct type for publication relation information)

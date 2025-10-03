@@ -20,8 +20,7 @@ The function implements a multi-hash table approach where each grouping set gets
 Memory management is carefully handled by distributing the available hash memory limit evenly across all hash tables. The function uses PostgreSQL's hash_choose_num_buckets utility to determine an optimal bucket count based on the expected number of groups, available memory, and hash entry size. All hash table contents reside in the hashcontext's per-tuple memory context, enabling efficient bulk resets.
 
 ## Parameters / Member Variables
-- : The AggState execution node containing hash table configuration, memory limits, and per-hash data structures
-
+- `*aggstate`: The AggState execution node containing hash table configuration, memory limits, and per-hash data structures
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ResetTupleHashTable](../R/ResetTupleHashTable.md)

@@ -17,11 +17,10 @@ exec_command_print(PsqlScanState scan_state, bool active_branch,
 The  function handles the  backslash command in psql, which displays the current query buffer contents. This command is useful for reviewing what query would be executed by  without actually running it. The function intelligently chooses between the current query buffer and the previous query buffer, prioritizing the current buffer if it contains data. If both buffers are empty, it displays an informative message indicating the query buffer is empty (unless quiet mode is enabled).
 
 ## Parameters / Member Variables
-- : PsqlScanState pointer for scanning command line input
-- : Boolean indicating if the command should be executed (used for conditional execution)
-- : PQExpBuffer containing the current query being built
-- : PQExpBuffer containing the previously executed query
-
+- `scan_state`: PsqlScanState pointer for scanning command line input
+- `active_branch`: Boolean indicating if the command should be executed (used for conditional execution)
+- `query_buf`: PQExpBuffer containing the current query being built
+- `previous_buf`: PQExpBuffer containing the previously executed query
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Standard library function for printing strings

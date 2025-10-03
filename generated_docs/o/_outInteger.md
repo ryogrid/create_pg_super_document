@@ -18,9 +18,8 @@ The  function is a simple serialization function for Integer nodes in PostgreSQL
 This function is used to serialize Integer nodes, which are part of PostgreSQL's parse tree representation for literal integer values found in SQL queries. The simplicity of this function reflects the straightforward nature of integer literals - they need no complex structural information, just their numeric value.
 
 ## Parameters / Member Variables
-- : StringInfo buffer where the serialized Integer representation will be written
-- : Pointer to the Integer structure containing the integer value to be serialized
-
+- `str`: StringInfo buffer where the serialized Integer representation will be written
+- `*node`: Pointer to the Integer structure containing the integer value to be serialized
 ## Dependencies
 - Functions called/Symbols referenced:
   - [appendStringInfo](../a/appendStringInfo.md) (indirectly through format string expansion)

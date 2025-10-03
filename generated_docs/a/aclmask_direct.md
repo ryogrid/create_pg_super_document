@@ -21,12 +21,11 @@ Unlike , this function does not check privileges granted to PUBLIC and does not 
 The function maintains the same owner privilege handling as , where owners implicitly have all grant options, but only if  exactly equals  (no inheritance check).
 
 ## Parameters / Member Variables
-- : The Access Control List to examine for privileges
-- : The OID of the role whose direct privileges are being checked
-- : The OID of the object owner (for implicit owner privileges)
-- : Bitmask specifying which privileges to check for
-- : Query mode -  (check all privileges) or  (early exit on any match)
-
+- `*acl`: The Access Control List to examine for privileges
+- `roleid`: The OID of the role whose direct privileges are being checked
+- `ownerId`: The OID of the object owner (for implicit owner privileges)
+- `mask`: Bitmask specifying which privileges to check for
+- `how`: Query mode -  (check all privileges) or  (early exit on any match)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_acl](../c/check_acl.md)

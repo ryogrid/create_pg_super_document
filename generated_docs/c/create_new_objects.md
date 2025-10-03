@@ -29,7 +29,6 @@ This function is responsible for restoring all database schemas and objects from
 5. **Post-restoration Tasks**: After all databases are restored, it handles version-specific tasks like setting frozen XIDs for pre-9.3 clusters and updates cluster information.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

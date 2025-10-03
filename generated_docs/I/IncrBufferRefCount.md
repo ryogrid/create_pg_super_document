@@ -16,8 +16,7 @@ IncrBufferRefCount(Buffer buffer)
 This function provides a way to increment the reference count (pin count) on a buffer that the current process has already pinned. Unlike the initial buffer pin operations, this function only modifies the local reference count and does not interact with the shared buffer state, making it more efficient for scenarios where multiple references to the same buffer are needed within a single process. The function handles both local buffers (temporary tables) and shared buffers differently, maintaining separate reference counting mechanisms for each type.
 
 ## Parameters / Member Variables
-- : The Buffer identifier for an already-pinned buffer whose reference count should be incremented
-
+- `buffer`: The Buffer identifier for an already-pinned buffer whose reference count should be incremented
 ## Dependencies
 - Functions called/Symbols referenced:
   - BufferIsPinned (assertion check)

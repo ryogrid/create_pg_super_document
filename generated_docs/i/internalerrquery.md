@@ -16,8 +16,7 @@ internalerrquery(const char *query)
 The  function manages the internal query text associated with the current error being constructed in PostgreSQL's error handling system. It operates on the current error data structure at the top of the error stack. The function can either set new internal query text by duplicating the provided string into the appropriate memory context, or clear existing internal query text by passing NULL. This is particularly useful in error callback subroutines that need to editorialize on the layout of error reports by adding or removing internal query information.
 
 ## Parameters / Member Variables
-- : A string containing the internal query text to be associated with the current error, or NULL to remove any existing internal query text
-
+- `*query`: A string containing the internal query text to be associated with the current error, or NULL to remove any existing internal query text
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ErrorData](../E/ErrorData.md) (structure type)

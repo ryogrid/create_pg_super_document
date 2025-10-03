@@ -24,13 +24,12 @@ This function is a critical helper function used during table rewrite operations
 The function decomposes the original tuple into its component Datums, nullifies any dropped columns in the new schema, reconstructs the tuple according to the new table descriptor, and then delegates the actual rewriting to the heap rewrite module.
 
 ## Parameters / Member Variables
-- : The original HeapTuple from the old table that needs to be rewritten
-- : Relation pointer to the source table with the original structure
-- : Relation pointer to the destination table with the new structure  
-- : Array of Datum values to store the deformed tuple components
-- : Array of boolean flags indicating which values are NULL
-- : RewriteState context that manages the overall rewrite operation
-
+- `tuple`: The original HeapTuple from the old table that needs to be rewritten
+- `OldHeap`: Relation pointer to the source table with the original structure
+- `NewHeap`: Relation pointer to the destination table with the new structure
+- `*values`: Array of Datum values to store the deformed tuple components
+- `*isnull`: Array of boolean flags indicating which values are NULL
+- `rwstate`: RewriteState context that manages the overall rewrite operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationGetDescr (via OldHeap and NewHeap)

@@ -21,8 +21,7 @@ The function includes version-specific logic to handle differences in PostgreSQL
 - Includes MCV (Most Common Values) statistics for PostgreSQL 12+
 
 ## Parameters / Member Variables
-- : A SQL name pattern (with optional wildcards) to filter which extended statistics to display. If NULL, all visible extended statistics are shown.
-
+- `*pattern`: A SQL name pattern (with optional wildcards) to filter which extended statistics to display. If NULL, all visible extended statistics are shown.
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Formats PostgreSQL version numbers for display

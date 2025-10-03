@@ -20,8 +20,7 @@ The function implements lazy computation with caching - it only calculates the c
 The conversion map is essential for operations that need to present a unified view of data across partition boundaries or inheritance hierarchies, ensuring that tuples from different child relations can be properly converted to the expected root relation format.
 
 ## Parameters / Member Variables
-- : Result relation info structure for the child relation, which contains references to the root relation and caching fields for the conversion map
-
+- `*resultRelInfo`: Result relation info structure for the child relation, which contains references to the root relation and caching fields for the conversion map
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (creates tuple conversion map by matching column names between source and target descriptors)

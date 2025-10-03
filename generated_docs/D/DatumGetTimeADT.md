@@ -18,8 +18,7 @@ This function serves as a conversion utility in PostgreSQL's function manager (f
 The function is defined as a static inline function in the header file, meaning it will be inlined at compile time for performance optimization. This is particularly important for time operations as they are frequently performed throughout PostgreSQL's date/time processing systems.
 
 ## Parameters / Member Variables
-- : A PostgreSQL Datum containing a time value that needs to be converted to TimeADT format
-
+- `X`: A PostgreSQL Datum containing a time value that needs to be converted to TimeADT format
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DatumGetInt64](DatumGetInt64.md) (underlying conversion mechanism)

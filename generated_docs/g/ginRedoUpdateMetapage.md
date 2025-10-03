@@ -27,8 +27,7 @@ The  function is responsible for replaying GIN metapage update operations during
 The function ensures data consistency during recovery by properly setting LSNs and marking buffers as dirty before releasing them.
 
 ## Parameters / Member Variables
-- : XLogReaderState pointer containing the WAL record data for the metapage update operation
-
+- `*record`: XLogReaderState pointer containing the WAL record data for the metapage update operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData

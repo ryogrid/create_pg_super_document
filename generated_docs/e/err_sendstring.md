@@ -16,9 +16,8 @@ err_sendstring(StringInfo buf, const char *str)
 This function serves as a wrapper around PostgreSQL's string sending functionality for error reporting. It provides a critical safety mechanism for error handling by detecting error recursion scenarios and switching to ASCII-only string transmission when necessary. During normal operation, it delegates to  for full encoding conversion support. However, when the system detects it's in error recursion trouble (potentially due to encoding conversion failures), it falls back to  to avoid further encoding-related errors. This design ensures that error messages can still be transmitted to clients even when the encoding conversion subsystem itself has failed.
 
 ## Parameters / Member Variables
-- : StringInfo buffer where the string will be appended for transmission to the client
-- : Null-terminated C string to be sent, expected to be plain 7-bit ASCII during error recursion scenarios
-
+- `buf`: StringInfo buffer where the string will be appended for transmission to the client
+- `*str`: Null-terminated C string to be sent, expected to be plain 7-bit ASCII during error recursion scenarios
 ## Dependencies
 - Functions called/Symbols referenced:
   - [in_error_recursion_trouble](../i/in_error_recursion_trouble.md)

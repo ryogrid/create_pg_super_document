@@ -25,8 +25,7 @@ This function handles the removal of Tamil case markers (vetrumai urupukal), whi
 The function uses multiple arrays (a_18, a_19, a_20, a_21) for pattern matching and employs various string constants (s_71 through s_103) representing Tamil case markers and their standardized replacements.
 
 ## Parameters / Member Variables
-- : Pointer to the Snowball environment structure () containing:
-
+- `*z`: Pointer to the Snowball environment structure () containing:
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Validates minimum word length before processing

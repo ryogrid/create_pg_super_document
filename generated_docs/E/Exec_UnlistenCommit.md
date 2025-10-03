@@ -24,8 +24,7 @@ This function is called during the commit phase of an UNLISTEN command to remove
 The function gracefully handles attempts to unlisten from channels that weren't being listened to, following a permissive approach rather than strict validation.
 
 ## Parameters / Member Variables
-- : The name of the notification channel to stop listening on (null-terminated string)
-
+- `*channel`: The name of the notification channel to stop listening on (null-terminated string)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Logging function for debug output

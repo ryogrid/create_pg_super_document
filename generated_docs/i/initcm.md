@@ -22,9 +22,8 @@ The  function initializes a colormap structure which is used during regular expr
 The function allocates memory for these mappings and initializes the WHITE color descriptor, which represents the default color for most characters. It also sets up various counters and flags used by the colormap management system.
 
 ## Parameters / Member Variables
-- : Pointer to vars structure containing compilation context and error handling
-- : Pointer to colormap structure to be initialized
-
+- `*v`: Pointer to vars structure containing compilation context and error handling
+- `*cm`: Pointer to colormap structure to be initialized
 ## Dependencies
 - Functions called/Symbols referenced:
   - MALLOC (memory allocation)

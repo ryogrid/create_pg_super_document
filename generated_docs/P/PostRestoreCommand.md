@@ -17,7 +17,6 @@ PostRestoreCommand serves as the cleanup counterpart to PreRestoreCommand, calle
 This function is essential for proper signal handling state management. When in_restore_command is false, the startup process returns to its standard signal handling mode where SIGTERM signals are handled according to the normal shutdown procedures rather than triggering immediate exit.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

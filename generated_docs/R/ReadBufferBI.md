@@ -25,11 +25,10 @@ This function optimizes buffer reading for bulk insert operations by implementin
 The function includes assertions to ensure LOCK variants are only used for relation extension, not for accessing existing blocks.
 
 ## Parameters / Member Variables
-- : The relation from which to read the buffer
-- : The block number to read from the relation
-- : The buffer read mode specifying access pattern and locking behavior
-- : Bulk insert state containing cached buffer and I/O strategy (NULL for standard read)
-
+- `relation`: The relation from which to read the buffer
+- `targetBlock`: The block number to read from the relation
+- `mode`: The buffer read mode specifying access pattern and locking behavior
+- `bistate`: Bulk insert state containing cached buffer and I/O strategy (NULL for standard read)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReadBufferExtended](ReadBufferExtended.md)

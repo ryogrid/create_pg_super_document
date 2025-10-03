@@ -16,9 +16,8 @@ cmpaliases(const void *a, const void *b)
 The cmpaliases function serves as a comparison callback for the qsort() library function to sort arrays of CollAliasData structures. It performs a lexicographic comparison of the localename field between two CollAliasData items, which is sufficient for ordering because other fields (alias and encoding) are derived from the locale name. This function is essential for organizing locale data in a predictable order during collation import operations.
 
 ## Parameters / Member Variables
-- : Pointer to the first CollAliasData item to compare (cast from void*)
-- : Pointer to the second CollAliasData item to compare (cast from void*)
-
+- `*a`: Pointer to the first CollAliasData item to compare (cast from void*)
+- `*b`: Pointer to the second CollAliasData item to compare (cast from void*)
 ## Dependencies
 - Functions called/Symbols referenced:
   - strcmp (standard C library function)

@@ -18,9 +18,8 @@ This function creates an empty hash table in shared memory for a designated batc
 The allocated hash table uses atomic pointers for thread-safe access across parallel workers. Each bucket is initialized with InvalidDsaPointer to indicate it contains no hash chain yet.
 
 ## Parameters / Member Variables
-- : The HashJoinTable structure containing parallel state and batch information
-- : The batch number for which to allocate the hash table (zero-based index)
-
+- `hashtable`: The HashJoinTable structure containing parallel state and batch information
+- `batchno`: The batch number for which to allocate the hash table (zero-based index)
 ## Dependencies
 - Functions called/Symbols referenced:
   - dsa_allocate

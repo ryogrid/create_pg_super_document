@@ -23,9 +23,8 @@ The function implements a wrapper system that ensures proper execution environme
 This design allows nodes to change their execution behavior while maintaining the infrastructure for performance monitoring and stack overflow protection. The wrapper approach ensures that even if a node changes its execution function mid-execution, the proper safeguards remain in place.
 
 ## Parameters / Member Variables
-- : The PlanState node whose execution function is being set
-- : The ExecProcNodeMtd function pointer to be installed as the execution procedure
-
+- `*node`: The PlanState node whose execution function is being set
+- `function`: The ExecProcNodeMtd function pointer to be installed as the execution procedure
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecProcNodeFirst](ExecProcNodeFirst.md) (first-time execution wrapper)

@@ -18,9 +18,8 @@ The pq_sendstring function is responsible for appending a null-terminated string
 The function first determines the length of the input string, then calls pg_server_to_client() to perform the necessary character set conversion. If conversion actually occurs (indicated by the returned pointer being different from the input), it uses the converted string and frees the temporary conversion buffer. Otherwise, it uses the original string directly. In both cases, it appends the string including its null terminator to the buffer.
 
 ## Parameters / Member Variables
-- : StringInfo buffer to append the converted string to
-- : Null-terminated input string to be converted and appended
-
+- `buf`: StringInfo buffer to append the converted string to
+- `*str`: Null-terminated input string to be converted and appended
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_server_to_client](pg_server_to_client.md) (performs character set conversion)

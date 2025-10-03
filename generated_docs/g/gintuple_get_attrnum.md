@@ -18,9 +18,8 @@ This function determines which column (attribute) of the original table a GIN in
 The function uses the GinState structure to determine whether this is a single-column index () and acts accordingly. For multi-column indexes, it extracts the first attribute from the tuple, which always contains the column number as a 16-bit integer.
 
 ## Parameters / Member Variables
-- : Pointer to the GinState structure containing index metadata
-- : The IndexTuple from which to extract the attribute number
-
+- `*ginstate`: Pointer to the GinState structure containing index metadata
+- `tuple`: The IndexTuple from which to extract the attribute number
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (extract attribute from tuple)

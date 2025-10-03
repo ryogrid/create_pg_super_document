@@ -16,9 +16,8 @@ ExecGetAncestorResultRels(EState *estate, ResultRelInfo *resultRelInfo)
 ExecGetAncestorResultRels builds and caches a list of ResultRelInfo structures representing the complete ancestry chain of a partition relation. It uses get_partition_ancestors to obtain the OID list of ancestor relations, then creates corresponding ResultRelInfo structures for each ancestor up to (but not including) the root relation mentioned in the query. The root relation is added separately using the existing ri_RootResultRelInfo. This functionality is essential for operations like foreign key constraint checking that must propagate across partition boundaries.
 
 ## Parameters / Member Variables
-- : The execution state containing instrumentation and context information  
-- : The leaf partition's ResultRelInfo for which ancestors are needed
-
+- `*estate`: The execution state containing instrumentation and context information
+- `*resultRelInfo`: The leaf partition's ResultRelInfo for which ancestors are needed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_partition_ancestors](../g/get_partition_ancestors.md)

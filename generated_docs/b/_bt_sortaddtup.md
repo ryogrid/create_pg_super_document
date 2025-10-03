@@ -24,12 +24,11 @@ The function handles a special case for the first data item on a page. When  is 
 The caller does not know yet if the page will be rightmost, so offset P_FIRSTKEY is always assumed to be the first data key. Pages that turn out to be rightmost on their level are fixed later by calling .
 
 ## Parameters / Member Variables
-- : The page being built to which the item will be added
-- : Size of the item to be added
-- : The IndexTuple to be added to the page
-- : The offset number where the item should be placed
-- : Boolean flag indicating if this is the first data item, requiring special truncation handling
-
+- `page`: The page being built to which the item will be added
+- `itemsize`: Size of the item to be added
+- `itup`: The IndexTuple to be added to the page
+- `itup_off`: The offset number where the item should be placed
+- `newfirstdataitem`: Boolean flag indicating if this is the first data item, requiring special truncation handling
 ## Dependencies
 - Functions called/Symbols referenced:
   - [IndexTupleData](../I/IndexTupleData.md)

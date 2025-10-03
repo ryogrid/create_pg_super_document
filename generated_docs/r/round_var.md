@@ -16,9 +16,8 @@ round_var(NumericVar *var, int rscale)
 The  function implements decimal rounding for PostgreSQL's numeric type by truncating or extending precision to a specified number of decimal places. It supports negative rscale values, allowing rounding before the decimal point (e.g., rounding to nearest 10, 100, etc.). The function uses banker's rounding (round half to even) and handles carry propagation when rounding causes overflow. It works with the internal NBASE digit representation and properly manages the weight and scale attributes of the NumericVar structure.
 
 ## Parameters / Member Variables
-- : Pointer to NumericVar structure to be rounded (modified in place)
-- : Target number of decimal digits after decimal point (can be negative for rounding before decimal point)
-
+- `*var`: Pointer to NumericVar structure to be rounded (modified in place)
+- `rscale`: Target number of decimal digits after decimal point (can be negative for rounding before decimal point)
 ## Dependencies
 - Functions called/Symbols referenced:
   - NumericDigit (type for individual digits)

@@ -18,8 +18,7 @@ EOH_get_flat_size is a simple wrapper function that provides a convenient interf
 The function delegates to the appropriate type-specific implementation through the expanded object's method table (eoh_methods), ensuring that each expanded object type can define its own size calculation logic based on its internal structure and data.
 
 ## Parameters / Member Variables
-- : Pointer to the ExpandedObjectHeader whose flattened size is to be calculated
-
+- `*eohptr`: Pointer to the ExpandedObjectHeader whose flattened size is to be calculated
 ## Dependencies
 - Functions called/Symbols referenced:
   - get_flat_size (method from ExpandedObjectMethods table)

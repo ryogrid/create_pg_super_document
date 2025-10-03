@@ -25,7 +25,6 @@ newLOfd is a static utility function that manages the allocation of file descrip
 The function uses a zero-initialized allocation strategy to ensure that new slots are properly initialized as NULL, and employs `repalloc0_array` for safe array expansion that preserves existing data while zeroing new elements.
 
 ## Parameters / Member Variables
-None (void function)
 
 ## Dependencies
 - Functions called/Symbols referenced:

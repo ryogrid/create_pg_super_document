@@ -16,9 +16,8 @@ ResourceOwnerForgetCatCacheListRef(ResourceOwner owner, CatCList *list)
 ResourceOwnerForgetCatCacheListRef is a static inline wrapper function that removes a catalog cache list reference from the resource owner's tracking system. It serves as the counterpart to ResourceOwnerRememberCatCacheListRef, providing symmetric resource management for CatCList objects. When a catalog cache list reference is explicitly released (rather than through error cleanup), this function ensures that the resource owner stops tracking it by calling ResourceOwnerForget() with the catlistref_resowner_desc descriptor. This prevents double-cleanup scenarios and maintains accurate resource accounting for catalog cache lists, which are more complex than individual cache entries as they can contain multiple tuples.
 
 ## Parameters / Member Variables
-- : The ResourceOwner object that was previously tracking this catalog cache list reference
-- : The CatCList pointer that should no longer be tracked by the resource owner
-
+- `owner`: The ResourceOwner object that was previously tracking this catalog cache list reference
+- `*list`: The CatCList pointer that should no longer be tracked by the resource owner
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ResourceOwnerForget](ResourceOwnerForget.md)

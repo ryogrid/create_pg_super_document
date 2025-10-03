@@ -16,8 +16,7 @@ show_all_results_hook(const char *newval)
 This hook function is responsible for parsing and setting the show_all_results option when the SHOW_ALL_RESULTS variable is modified in psql. It uses the ParseVariableBool utility function to convert the string value to a boolean and store it in the pset.show_all_results field. When enabled, this setting causes psql to display results from all statements in a multi-statement query rather than just showing the result of the final statement.
 
 ## Parameters / Member Variables
-- : The new value for the SHOW_ALL_RESULTS variable as a string. Should be a valid boolean representation ("on", "off", "true", "false", "1", "0", etc.).
-
+- `*newval`: The new value for the SHOW_ALL_RESULTS variable as a string. Should be a valid boolean representation ("on", "off", "true", "false", "1", "0", etc.).
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ParseVariableBool](../P/ParseVariableBool.md) (utility function for parsing boolean variables)

@@ -18,12 +18,11 @@ escape_fmt_id(PGconn *conn, PQExpBuffer target,
 This function formats an unescaped string as a properly quoted PostgreSQL identifier by setting the appropriate encoding context and using the  function. It first sets the formatting encoding to match the client connection's encoding, then applies PostgreSQL's identifier quoting rules to ensure the identifier is properly escaped for safe use in SQL statements. The function always returns , indicating successful operation.
 
 ## Parameters / Member Variables
-- : PostgreSQL database connection handle used to determine client encoding
-- : PQExpBuffer to which the escaped identifier will be appended
-- : Input string to be formatted as a PostgreSQL identifier
-- : Length of the unescaped input string (parameter present but not used in current implementation)
-- : PQExpBuffer for error messages (parameter present but not used in current implementation)
-
+- `*conn`: PostgreSQL database connection handle used to determine client encoding
+- `target`: PQExpBuffer to which the escaped identifier will be appended
+- `*unescaped`: Input string to be formatted as a PostgreSQL identifier
+- `unescaped_len`: Length of the unescaped input string (parameter present but not used in current implementation)
+- `escape_err`: PQExpBuffer for error messages (parameter present but not used in current implementation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [setFmtEncoding](../s/setFmtEncoding.md)

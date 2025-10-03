@@ -18,8 +18,7 @@ This function performs a case-insensitive lookup in the enclist array to find a 
 The function supports PostgreSQL's binary data encoding formats used primarily with the bytea data type. If no matching encoding is found, it returns NULL.
 
 ## Parameters / Member Variables
-- : The name of the encoding to search for (case-insensitive comparison)
-
+- `*name`: The name of the encoding to search for (case-insensitive comparison)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_strcasecmp](pg_strcasecmp.md) (for case-insensitive string comparison)

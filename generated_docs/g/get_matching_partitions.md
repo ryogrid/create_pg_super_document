@@ -20,9 +20,8 @@ After all pruning steps are executed, the function collects the final result whi
 The function supports all PostgreSQL partitioning strategies (LIST, RANGE, HASH) and properly handles edge cases where bounds don't correspond to actual partitions, marking the default partition for scanning when appropriate.
 
 ## Parameters / Member Variables
-- : PartitionPruneContext containing partition metadata, bound information, strategy, and execution context
-- : List of PartitionPruneStep objects to be executed in sequence
-
+- `*context`: PartitionPruneContext containing partition metadata, bound information, strategy, and execution context
+- `*pruning_steps`: List of PartitionPruneStep objects to be executed in sequence
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bms_add_range](../b/bms_add_range.md)

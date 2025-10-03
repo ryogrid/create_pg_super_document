@@ -18,6 +18,7 @@ This inline function provides a portable way to obtain a float4 (single-precisio
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - NAN (C99 standard macro, when available)

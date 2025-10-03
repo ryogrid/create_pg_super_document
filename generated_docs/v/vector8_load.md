@@ -22,9 +22,8 @@ This function provides a platform-abstracted interface for loading 8 bytes of me
 The function is designed to be used in performance-critical code paths where vectorized operations on byte data can provide significant speedup, such as string searching, pattern matching, and data validation routines.
 
 ## Parameters / Member Variables
-- : Pointer to the Vector8 destination register where the loaded data will be stored
-- : Pointer to the source memory location containing 8 consecutive uint8 values to load
-
+- `*v`: Pointer to the Vector8 destination register where the loaded data will be stored
+- `*s`: Pointer to the source memory location containing 8 consecutive uint8 values to load
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (SSE2 implementation)

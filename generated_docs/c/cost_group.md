@@ -28,15 +28,14 @@ This function calculates the execution cost for a Group operation in PostgreSQL'
 The function assumes the input data is already sorted appropriately for the grouping operation, which is a prerequisite for the Group plan node to function correctly.
 
 ## Parameters / Member Variables
-- : The Path structure to be updated with calculated costs and row estimates
-- : PlannerInfo structure containing planner context and statistics
-- : Number of columns used for grouping comparisons
-- : Estimated number of distinct groups in the result
-- : List of HAVING qualification clauses (can be NULL)
-- : Startup cost of the input data source
-- : Total cost of the input data source  
-- : Estimated number of input tuples
-
+- `*path`: The Path structure to be updated with calculated costs and row estimates
+- `*root`: PlannerInfo structure containing planner context and statistics
+- `numGroupCols`: Number of columns used for grouping comparisons
+- `numGroups`: Estimated number of distinct groups in the result
+- `*quals`: List of HAVING qualification clauses (can be NULL)
+- `input_startup_cost`: Startup cost of the input data source
+- `input_total_cost`: Total cost of the input data source
+- `input_tuples`: Estimated number of input tuples
 ## Dependencies
 - Functions called/Symbols referenced:
   - [cost_qual_eval](cost_qual_eval.md)

@@ -23,11 +23,10 @@ The function leverages the fact that fixed-width types can be directly indexed w
 The binary search maintains the invariant that all values in [0, left) are less than the operand, and all values in [left, right) are greater than or equal to the operand.
 
 ## Parameters / Member Variables
-- : The value to be bucketed (passed as Datum)
-- : ArrayType containing sorted threshold values with no NULLs
-- : The collation to use for comparison operations
-- : TypeCacheEntry containing type information and comparison function details
-
+- `operand`: The value to be bucketed (passed as Datum)
+- `*thresholds`: ArrayType containing sorted threshold values with no NULLs
+- `collation`: The collation to use for comparison operations
+- `*typentry`: TypeCacheEntry containing type information and comparison function details
 ## Dependencies
 - Functions called/Symbols referenced:
   - LOCAL_FCINFO

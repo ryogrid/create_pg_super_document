@@ -18,8 +18,7 @@ PLy_cursor_iternext is a static function that serves as the iterator's next meth
 The function performs comprehensive error checking, including validation that the cursor is not closed and that the associated portal is still valid. It uses PostgreSQL's subtransaction mechanism to ensure transactional safety during the fetch operation. The fetched row is converted from PostgreSQL's internal tuple format to a Python object using the PLy input conversion system.
 
 ## Parameters / Member Variables
-- : PyObject pointer to the PLyCursorObject instance being iterated
-
+- `*self`: PyObject pointer to the PLyCursorObject instance being iterated
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PLy_current_execution_context](PLy_current_execution_context.md)

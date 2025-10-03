@@ -20,8 +20,7 @@ The function first attempts to find an existing cache entry for the given TupleD
 The process involves multiple steps: hash table initialization (if needed), cache lookup, shared registry consultation, tuple descriptor copying, cache array management, and hash table entry creation. All allocations are performed in CacheMemoryContext to ensure proper memory management.
 
 ## Parameters / Member Variables
-- : TupleDesc for a RECORD type that needs a typmod assignment (must have tdtypeid == RECORDOID)
-
+- `tupDesc`: TupleDesc for a RECORD type that needs a typmod assignment (must have tdtypeid == RECORDOID)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [record_type_typmod_hash](../r/record_type_typmod_hash.md)

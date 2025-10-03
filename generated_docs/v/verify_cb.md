@@ -16,9 +16,8 @@ verify_cb(int ok, X509_STORE_CTX *ctx)
 This function serves as OpenSSL's certificate verification callback, allowing PostgreSQL to examine intermediate problems during certificate validation and collect detailed information for later logging. While the function currently accepts OpenSSL's default verification criteria, it provides comprehensive error reporting by extracting certificate details when verification fails. The callback extracts certificate subject, issuer, serial number, and error information to create detailed error messages that help with SSL/TLS troubleshooting. The function stores the formatted error details in cert_errdetail for subsequent logging by the calling code.
 
 ## Parameters / Member Variables
-- : Boolean indicating whether the certificate verification passed (1) or failed (0)
-- : X509_STORE_CTX pointer containing the certificate verification context and error information
-
+- `ok`: Boolean indicating whether the certificate verification passed (1) or failed (0)
+- `*ctx`: X509_STORE_CTX pointer containing the certificate verification context and error information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [X509_NAME_to_cstring](../X/X509_NAME_to_cstring.md) (converts X509_NAME to C string)

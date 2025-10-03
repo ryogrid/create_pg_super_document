@@ -26,11 +26,10 @@ This is the core function for performing encoding conversions in PostgreSQL. It 
 The function uses PostgreSQL's function call mechanism to invoke encoding-specific conversion procedures and includes robust error handling for unsupported conversions and memory allocation failures.
 
 ## Parameters / Member Variables
-- : Source string to convert (unsigned char pointer)
-- : Length of the source string in bytes
-- : Source encoding identifier (integer constant like PG_UTF8)
-- : Destination encoding identifier
-
+- `*src`: Source string to convert (unsigned char pointer)
+- `len`: Length of the source string in bytes
+- `src_encoding`: Source encoding identifier (integer constant like PG_UTF8)
+- `dest_encoding`: Destination encoding identifier
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_verify_mbstr](pg_verify_mbstr.md) (validates multibyte string)

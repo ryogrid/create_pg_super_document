@@ -24,15 +24,14 @@ This function serves as a compatibility wrapper around the newer ExecBRDeleteTri
 The function delegates all actual trigger processing to ExecBRDeleteTriggersNew, ensuring that existing code using the old function signature continues to work without modification.
 
 ## Parameters / Member Variables
-- : Executor state containing execution context and memory management information
-- : EvalPlanQual state for handling concurrent tuple updates during trigger execution
-- : ResultRelInfo containing relation metadata and trigger information
-- : ItemPointer identifying the tuple to be deleted (used for regular tables)
-- : HeapTuple for foreign data wrapper tables (alternative to tupleid)
-- : Output parameter for returning concurrently updated tuple slot
-- : Output parameter for table access method result status
-- : Output parameter for failure data when tuple access fails
-
+- `*estate`: Executor state containing execution context and memory management information
+- `*epqstate`: EvalPlanQual state for handling concurrent tuple updates during trigger execution
+- `*relinfo`: ResultRelInfo containing relation metadata and trigger information
+- `tupleid`: ItemPointer identifying the tuple to be deleted (used for regular tables)
+- `fdw_trigtuple`: HeapTuple for foreign data wrapper tables (alternative to tupleid)
+- `**epqslot`: Output parameter for returning concurrently updated tuple slot
+- `*tmresult`: Output parameter for table access method result status
+- `*tmfd`: Output parameter for failure data when tuple access fails
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecBRDeleteTriggersNew](ExecBRDeleteTriggersNew.md)

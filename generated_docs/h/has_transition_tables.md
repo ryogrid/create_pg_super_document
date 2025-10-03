@@ -24,10 +24,9 @@ The function handles different command types:
 Foreign tables are explicitly excluded as they cannot have transition tables.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planning context and information
-- : Range table index identifying the relation to check
-- : Command type (CMD_INSERT, CMD_UPDATE, CMD_DELETE, CMD_MERGE) to check transition tables for
-
+- `*root`: PlannerInfo structure containing planning context and information
+- `rti`: Range table index identifying the relation to check
+- `event`: Command type (CMD_INSERT, CMD_UPDATE, CMD_DELETE, CMD_MERGE) to check transition tables for
 ## Dependencies
 - Functions called/Symbols referenced:
   - planner_rt_fetch

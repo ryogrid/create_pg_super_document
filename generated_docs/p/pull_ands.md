@@ -26,8 +26,7 @@ This flattening is important for query optimization as it:
 The original input list structure is preserved (not modified), and a new flattened list is returned.
 
 ## Parameters / Member Variables
-- : The argument list of an AND clause to be flattened (List of Node pointers)
-
+- `*andlist`: The argument list of an AND clause to be flattened (List of Node pointers)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - checks if a node is an AND boolean expression

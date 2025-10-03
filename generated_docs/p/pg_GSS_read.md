@@ -24,10 +24,9 @@ Key behaviors:
 - Ensures encrypted packets use confidentiality protection
 
 ## Parameters / Member Variables
-- : PostgreSQL connection object containing GSSAPI context and internal buffers
-- : Output buffer where decrypted data will be copied
-- : Maximum number of bytes to read into the output buffer
-
+- `*conn`: PostgreSQL connection object containing GSSAPI context and internal buffers
+- `*ptr`: Output buffer where decrypted data will be copied
+- `len`: Maximum number of bytes to read into the output buffer
 ## Dependencies
 - Functions called/Symbols referenced:
   - gss_unwrap (GSSAPI function for decryption)

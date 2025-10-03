@@ -22,10 +22,9 @@ The function operates under the principle of block sampling, where entire blocks
 When the function reaches the end of a block (exceeds ), it returns  to signal the sampling scan to move to the next block.
 
 ## Parameters / Member Variables
-- : Pointer to the  structure containing the sampling state information
-- : The block number currently being sampled (used for context but not directly used in this function)
-- : The maximum valid offset number in the current block, representing the highest tuple offset that exists
-
+- `*node`: Pointer to the  structure containing the sampling state information
+- `blockno`: The block number currently being sampled (used for context but not directly used in this function)
+- `maxoffset`: The maximum valid offset number in the current block, representing the highest tuple offset that exists
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (structure)

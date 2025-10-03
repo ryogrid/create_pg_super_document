@@ -21,11 +21,10 @@ This function is a key component of PostgreSQL's query optimizer that determines
 The function validates collation compatibility, checks for proper operand structure, and ensures the operator yields the correct sorting semantics. If a match is found but requires commutation (when the indexkey is on the right side), it creates and returns a commuted version of the clause.
 
 ## Parameters / Member Variables
-- : The IndexOptInfo structure representing the index of interest
-- : Column number of the index (counting from 0) to match against
-- : The ordering expression to be tested for compatibility
-- : The btree opfamily describing the required sort order
-
+- `*index`: The IndexOptInfo structure representing the index of interest
+- `indexcol`: Column number of the index (counting from 0) to match against
+- `*clause`: The ordering expression to be tested for compatibility
+- `pk_opfamily`: The btree opfamily describing the required sort order
 ## Dependencies
 - Functions called/Symbols referenced:
   - [is_opclause](../i/is_opclause.md)

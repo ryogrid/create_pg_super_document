@@ -17,6 +17,7 @@ This function is the central initialization point for psql's configuration varia
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CreateVariableSpace](../C/CreateVariableSpace.md) (creates the variable storage system)

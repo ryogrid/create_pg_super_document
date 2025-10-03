@@ -16,8 +16,7 @@ FindDbnameInConnParams(PQconninfoOption *conn_opts)
 FindDbnameInConnParams is a static helper function that searches through an array of PostgreSQL connection parameters to locate and extract the "dbname" parameter value. It iterates through the PQconninfoOption array, comparing each keyword with "dbname" and returns a duplicated copy of the value if found. The function ensures the value is not NULL or empty before returning it.
 
 ## Parameters / Member Variables
-- : Pointer to an array of PQconninfoOption structures containing connection parameters
-
+- `*conn_opts`: Pointer to an array of PQconninfoOption structures containing connection parameters
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_strdup](../p/pg_strdup.md)

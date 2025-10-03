@@ -19,12 +19,11 @@ This static function calculates whether the output will require a pager based on
 The function handles two output modes: expanded format (where each row spans multiple lines) and normal tabular format. It also accounts for footers when not in tuples-only mode, though the current implementation has a known limitation where it counts footer entries rather than actual footer lines.
 
 ## Parameters / Member Variables
-- : Pointer to the printTableContent structure containing the table data
-- : Additional lines to account for in the calculation (e.g., headers, spacing)
-- : Boolean indicating whether the table is in expanded format
-- : Pointer to FILE pointer that will be set to the appropriate output stream
-- : Pointer to boolean that will be set to indicate if pager is being used
-
+- `*cont`: Pointer to the printTableContent structure containing the table data
+- `extra_lines`: Additional lines to account for in the calculation (e.g., headers, spacing)
+- `expanded`: Boolean indicating whether the table is in expanded format
+- `**fout`: Pointer to FILE pointer that will be set to the appropriate output stream
+- `*is_pager`: Pointer to boolean that will be set to indicate if pager is being used
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PageOutput](../P/PageOutput.md) (determines actual pager setup based on line count)

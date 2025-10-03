@@ -21,13 +21,12 @@ subcoloronerange(struct vars *v,
 The  function processes character ranges that are above MAX_SIMPLE_CHR, handling the complex logic of merging and splitting colormap ranges. It manages overlaps between the new target range and existing ranges in the colormap, potentially creating multiple new ranges to accommodate partial overlaps. The function can split existing ranges into up to three parts and create new ranges from scratch when the target range doesn't correspond to any existing range. It maintains proper hicolormap row associations by cloning rows as needed and calls subcoloronerow to handle the actual color processing.
 
 ## Parameters / Member Variables
-- : Pointer to the regex compilation variables structure
-- : Starting character of the range (must be > MAX_SIMPLE_CHR)
-- : Ending character of the range (must be > from)
-- : Pointer to the source state for NFA arcs
-- : Pointer to the destination state for NFA arcs
-- : Pointer to the last subcolor created (for optimization to avoid duplicate arcs)
-
+- `*v`: Pointer to the regex compilation variables structure
+- `from`: Starting character of the range (must be > MAX_SIMPLE_CHR)
+- `to`: Ending character of the range (must be > from)
+- `*lp`: Pointer to the source state for NFA arcs
+- `*rp`: Pointer to the destination state for NFA arcs
+- `*lastsubcolor`: Pointer to the last subcolor created (for optimization to avoid duplicate arcs)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [newhicolorrow](../n/newhicolorrow.md) (creates new rows in hicolormap, called at lines 801, 832, 841, 859)

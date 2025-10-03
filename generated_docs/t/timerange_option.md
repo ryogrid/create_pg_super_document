@@ -24,8 +24,7 @@ The function performs comprehensive validation including:
 - Validating that the lower bound doesn't exceed the upper bound
 
 ## Parameters / Member Variables
-- : Input string specifying the time range in format  or  where timestamps are Unix epoch values
-
+- `*timerange`: Input string specifying the time range in format  or  where timestamps are Unix epoch values
 ## Dependencies
 - Functions called/Symbols referenced:
   - strtoimax (standard library function for string to integer conversion)

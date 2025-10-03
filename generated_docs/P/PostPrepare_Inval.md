@@ -25,6 +25,7 @@ If the prepared transaction is later committed via COMMIT PREPARED, the system w
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [AtEOXact_Inval](../A/AtEOXact_Inval.md)

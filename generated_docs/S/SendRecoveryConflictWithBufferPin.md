@@ -22,8 +22,7 @@ The function accepts two types of signal reasons:
 2. **PROCSIG_RECOVERY_CONFLICT_STARTUP_DEADLOCK**: Used when potential startup deadlocks involving buffer pins need to be checked
 
 ## Parameters / Member Variables
-- : The type of signal to send to backends, must be either PROCSIG_RECOVERY_CONFLICT_BUFFERPIN or PROCSIG_RECOVERY_CONFLICT_STARTUP_DEADLOCK
-
+- `reason`: The type of signal to send to backends, must be either PROCSIG_RECOVERY_CONFLICT_BUFFERPIN or PROCSIG_RECOVERY_CONFLICT_STARTUP_DEADLOCK
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CancelDBBackends](../C/CancelDBBackends.md) (with InvalidOid, reason, false parameters)

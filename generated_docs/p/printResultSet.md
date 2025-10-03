@@ -18,8 +18,7 @@ This utility function provides standardized formatting for displaying PostgreSQL
 The function uses the PQprintOpt structure to control formatting options, ensuring that all result sets are displayed with the same visual structure regardless of their content or source query.
 
 ## Parameters / Member Variables
-- : Pointer to a PGresult structure containing the query results to be displayed
-
+- `*res`: Pointer to a PGresult structure containing the query results to be displayed
 ## Dependencies
 - Functions called/Symbols referenced:
   - PQprintOpt (structure for print options)

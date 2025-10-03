@@ -24,8 +24,7 @@ The validation process includes:
 For each support function (GIST_CONSISTENT_PROC through GIST_SORTSUPPORT_PROC), the function validates the expected signature using  or . It also ensures that ORDER BY operators have corresponding distance functions and that the operator result types are compatible with the specified btree operator families.
 
 ## Parameters / Member Variables
-- : The OID of the GiST operator class to validate
-
+- `opclassoid`: The OID of the GiST operator class to validate
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Cache lookups for operator class and family information

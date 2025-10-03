@@ -22,8 +22,7 @@ The function implements an optimization where it only enables logical rewrite tr
 When enabled, it sets up the RewriteState with logical rewrite parameters and creates a hash table to store rewrite mappings that will be used to maintain the correctness of (relfilelocator,ctid) => (cmin, cmax) mappings during logical decoding.
 
 ## Parameters / Member Variables
-- : RewriteState structure that maintains the state of the heap rewrite operation, including logical rewrite settings and mapping structures
-
+- `state`: RewriteState structure that maintains the state of the heap rewrite operation, including logical rewrite settings and mapping structures
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationIsAccessibleInLogicalDecoding

@@ -16,8 +16,7 @@ brin_free_desc(BrinDesc *bdesc)
 This function provides proper cleanup for BrinDesc structures created by . Rather than individually freeing each component, it leverages PostgreSQL's memory context system by deleting the entire context that was created during descriptor construction. This approach ensures all related allocations (the descriptor itself, opclass info, and any other associated data) are freed in a single operation. The function includes an assertion to verify the tuple descriptor is still valid before cleanup.
 
 ## Parameters / Member Variables
-- : The BrinDesc structure to be freed, created by 
-
+- `*bdesc`: The BrinDesc structure to be freed, created by
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Debug assertion to verify tuple descriptor validity

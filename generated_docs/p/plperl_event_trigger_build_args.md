@@ -16,8 +16,7 @@ plperl_event_trigger_build_args(FunctionCallInfo fcinfo)
 This function prepares the argument structure passed to Perl event trigger functions. It extracts event trigger data from the PostgreSQL function call context and packages it into a Perl hash reference containing the event name and command tag. The function serves as a bridge between PostgreSQL's internal event trigger representation and the Perl interface, ensuring that Perl event trigger functions receive properly formatted event information.
 
 ## Parameters / Member Variables
-- : PostgreSQL function call information structure containing the event trigger context data
-
+- `fcinfo`: PostgreSQL function call information structure containing the event trigger context data
 ## Dependencies
 - Functions called/Symbols referenced:
   - newHV (Perl API function to create new hash)

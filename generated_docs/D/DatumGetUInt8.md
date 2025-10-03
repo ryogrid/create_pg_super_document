@@ -18,8 +18,7 @@ DatumGetUInt8 is a simple type conversion function that casts a Datum value to a
 The function is declared as static inline, meaning it will be inlined by the compiler for performance optimization, avoiding function call overhead for this simple operation.
 
 ## Parameters / Member Variables
-- : The input Datum value to be converted to uint8
-
+- `X`: The input Datum value to be converted to uint8
 ## Dependencies
 - Functions called/Symbols referenced: None (simple cast operation)
 - Called from: No direct references found in the current codebase analysis

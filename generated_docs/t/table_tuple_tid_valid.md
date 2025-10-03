@@ -25,9 +25,8 @@ The function serves as a preliminary validation step to prevent errors in subseq
 This validation is performed in the context of an active table scan, which provides the necessary relation metadata for the access method to determine TID validity according to its storage format.
 
 ## Parameters / Member Variables
-- : TableScanDesc representing an active table scan context that provides relation metadata and access method information
-- : ItemPointer (TID) to validate for structural correctness and potential accessibility
-
+- `scan`: TableScanDesc representing an active table scan context that provides relation metadata and access method information
+- `tid`: ItemPointer (TID) to validate for structural correctness and potential accessibility
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TableScanDesc](../T/TableScanDesc.md) (table scan descriptor structure)

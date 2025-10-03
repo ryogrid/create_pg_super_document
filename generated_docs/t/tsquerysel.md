@@ -24,9 +24,8 @@ The function follows a multi-tiered approach:
 This function is essential for the PostgreSQL query planner to make cost-based decisions for full-text search queries.
 
 ## Parameters / Member Variables
-- : Pointer to VariableStatData containing column statistics and metadata
-- : Datum representing the TSQuery constant to match against
-
+- `*vardata`: Pointer to VariableStatData containing column statistics and metadata
+- `constval`: Datum representing the TSQuery constant to match against
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DatumGetTSQuery](../D/DatumGetTSQuery.md): Converts Datum to TSQuery structure

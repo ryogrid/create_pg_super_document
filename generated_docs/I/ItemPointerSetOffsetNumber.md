@@ -18,9 +18,8 @@ ItemPointerSetOffsetNumber is a specialized inline function that modifies only t
 The function provides direct access to the ip_posid field of the ItemPointerData structure, offering a clean interface for offset-only updates. This granular control is particularly valuable in heap and index operations where block-level references remain stable but intra-block positioning changes.
 
 ## Parameters / Member Variables
-- : Pointer to the ItemPointerData structure to be modified (must be valid)
-- : The new offset number to assign within the current block
-
+- `*pointer`: Pointer to the ItemPointerData structure to be modified (must be valid)
+- `offsetNumber`: The new offset number to assign within the current block
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerIsValid (assertion validation)

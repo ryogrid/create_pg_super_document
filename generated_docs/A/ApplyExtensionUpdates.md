@@ -31,14 +31,13 @@ This function manages the complex process of updating PostgreSQL extensions thro
 The function ensures that older update scripts remain functional even when newer versions have different control parameters by treating each step as a discrete update operation.
 
 ## Parameters / Member Variables
-- : OID of the extension being updated
-- : Primary extension control file containing base configuration
-- : Starting version name for the update sequence
-- : List of target version names to update through sequentially
-- : Original schema name where extension was installed
-- : Whether to automatically install missing prerequisite extensions
-- : Flag indicating if this is part of extension creation process
-
+- `extensionOid`: OID of the extension being updated
+- `*pcontrol`: Primary extension control file containing base configuration
+- `*initialVersion`: Starting version name for the update sequence
+- `*updateVersions`: List of target version names to update through sequentially
+- `*origSchemaName`: Original schema name where extension was installed
+- `cascade`: Whether to automatically install missing prerequisite extensions
+- `is_create`: Flag indicating if this is part of extension creation process
 ## Dependencies
 - Functions called/Symbols referenced:
   - [read_extension_aux_control_file](../r/read_extension_aux_control_file.md)

@@ -23,9 +23,8 @@ This function serves as an abstraction layer that:
 The function is used across different types of scan operations (SeqScan, IndexScan, IndexOnlyScan, etc.) to provide consistent table name display in EXPLAIN output. The target relation information typically appears in the node description, showing which table or view is being accessed.
 
 ## Parameters / Member Variables
-- : Scan node structure containing the plan information and the scan relation ID ()
-- : ExplainState structure containing output formatting context and destination string buffer
-
+- `*plan`: Scan node structure containing the plan information and the scan relation ID ()
+- `*es`: ExplainState structure containing output formatting context and destination string buffer
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExplainTargetRel](ExplainTargetRel.md)

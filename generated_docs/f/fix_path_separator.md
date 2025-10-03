@@ -18,8 +18,7 @@ This utility function provides platform-specific path separator normalization to
 The function is essential for pg_upgrade operations that need to generate shell scripts or commands that work correctly across different operating systems, particularly when dealing with file system operations.
 
 ## Parameters / Member Variables
-- : Input file path string that may contain forward slash separators
-
+- `*path`: Input file path string that may contain forward slash separators
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_strdup](../p/pg_strdup.md) (Windows only)

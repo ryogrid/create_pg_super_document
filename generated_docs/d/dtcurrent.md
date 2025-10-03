@@ -18,8 +18,7 @@ This function is part of PostgreSQL's ECPG (Embedded SQL in C) compatibility lib
 The function internally uses the system's current date and time, converts it to a struct tm format, and then transforms it into PostgreSQL's timestamp format. If any error occurs during the conversion process, the timestamp value may be undefined.
 
 ## Parameters / Member Variables
-- : Pointer to a timestamp variable where the current timestamp will be stored
-
+- `*ts`: Pointer to a timestamp variable where the current timestamp will be stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PGTYPEStimestamp_current](../P/PGTYPEStimestamp_current.md)

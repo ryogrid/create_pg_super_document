@@ -23,10 +23,9 @@ The function performs two comparison operations to determine the ordering relati
 The comparison is performed using PostgreSQL's function call interface (FunctionCall2Coll), which allows it to work with any data type's comparison function while respecting collation rules for text-based comparisons.
 
 ## Parameters / Member Variables
-- : Pointer to the first Datum value to compare
-- : Pointer to the second Datum value to compare
-- : Pointer to compare_context structure containing the comparison function and collation information
-
+- `*a`: Pointer to the first Datum value to compare
+- `*b`: Pointer to the second Datum value to compare
+- `*arg`: Pointer to compare_context structure containing the comparison function and collation information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [FunctionCall2Coll](../F/FunctionCall2Coll.md) (used for performing the actual value comparisons)

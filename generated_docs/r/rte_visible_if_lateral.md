@@ -23,9 +23,8 @@ The function implements a practical heuristic approach rather than exhaustive an
 This analysis enables PostgreSQL to provide targeted hints like "To reference that table, you must mark this subquery with LATERAL" when appropriate.
 
 ## Parameters / Member Variables
-- : ParseState structure containing the current parsing context and lateral status
-- : RangeTblEntry to check for potential LATERAL visibility
-
+- `*pstate`: ParseState structure containing the current parsing context and lateral status
+- `*rte`: RangeTblEntry to check for potential LATERAL visibility
 ## Dependencies
 - Functions called/Symbols referenced:
   - [findNSItemForRTE](../f/findNSItemForRTE.md)

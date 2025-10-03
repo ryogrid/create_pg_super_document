@@ -16,10 +16,9 @@ check_autovacuum_max_workers(int *newval, void **extra, GucSource source)
 This function serves as a validation hook for the autovacuum_max_workers GUC parameter. It verifies that the proposed new value, when combined with max_connections and other backend process types, does not exceed the maximum number of backends allowed by the system (MAX_BACKENDS). This prevents configuration errors that could lead to resource exhaustion or system instability.
 
 ## Parameters / Member Variables
-- : Pointer to the proposed new value for autovacuum_max_workers
-- : Pointer to extra data (unused in this function)
-- : The source of the configuration change (command line, config file, etc.)
-
+- `*newval`: Pointer to the proposed new value for autovacuum_max_workers
+- `**extra`: Pointer to extra data (unused in this function)
+- `source`: The source of the configuration change (command line, config file, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   - GucSource (type)

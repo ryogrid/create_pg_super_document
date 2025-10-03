@@ -24,7 +24,6 @@ GetErrorContextStack collects context information from all registered error cont
 The function ensures that all memory allocations are done in the caller's memory context, making it the caller's responsibility to free the returned string when done.
 
 ## Parameters / Member Variables
-This function takes no parameters and returns a dynamically allocated string.
 
 ## Dependencies
 - Functions called/Symbols referenced:

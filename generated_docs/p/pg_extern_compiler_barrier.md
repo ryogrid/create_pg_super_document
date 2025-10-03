@@ -18,6 +18,7 @@ pg_extern_compiler_barrier is a fallback implementation of compiler barrier func
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (empty function body)

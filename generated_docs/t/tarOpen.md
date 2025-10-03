@@ -18,10 +18,9 @@ The tarOpen function is a core component of PostgreSQL's tar-based backup format
 The function handles platform-specific differences, particularly between Unix-like systems and Windows for temporary file creation. It also enforces that compression is not supported with the tar format, failing if compression is attempted.
 
 ## Parameters / Member Variables
-- : ArchiveHandle pointer containing archive context and format-specific data
-- : Name of the file to open within the tar archive (can be NULL for read mode to get any available file)
-- : File access mode - 'r' for reading, 'w' for writing
-
+- `*AH`: ArchiveHandle pointer containing archive context and format-specific data
+- `*filename`: Name of the file to open within the tar archive (can be NULL for read mode to get any available file)
+- `mode`: File access mode - 'r' for reading, 'w' for writing
 ## Dependencies
 - Functions called/Symbols referenced:
   - [_tarPositionTo](_tarPositionTo.md)

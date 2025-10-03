@@ -18,9 +18,8 @@ LogAccessExclusiveLocks performs wholesale logging of AccessExclusive locks into
 The function constructs an xl_standby_locks WAL record containing the lock count and an array of lock descriptors, then inserts it into the WAL with the XLOG_STANDBY_LOCK record type. The record is marked as unimportant for durability since it's primarily used for Hot Standby conflict resolution rather than crash recovery.
 
 ## Parameters / Member Variables
-- : The number of AccessExclusive locks to be logged
-- : An array of xl_standby_lock structures containing the lock information to be recorded
-
+- `nlocks`: The number of AccessExclusive locks to be logged
+- `*locks`: An array of xl_standby_lock structures containing the lock information to be recorded
 ## Dependencies
 - Functions called/Symbols referenced:
   - [XLogBeginInsert](../X/XLogBeginInsert.md)

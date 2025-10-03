@@ -30,10 +30,9 @@ Key aspects of node tuple formation:
 6. **Label storage**: For non-null labels, uses memcpyInnerDatum() to store the label data following inner tuple conventions.
 
 ## Parameters / Member Variables
-- : SpGistState structure containing index configuration and type information
-- : Datum value representing the node's label (used for tree navigation)
-- : Boolean flag indicating whether the label is null
-
+- `*state`: SpGistState structure containing index configuration and type information
+- `label`: Datum value representing the node's label (used for tree navigation)
+- `isnull`: Boolean flag indicating whether the label is null
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SpGistState](../S/SpGistState.md) (index state structure)

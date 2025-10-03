@@ -18,6 +18,7 @@ This function is responsible for notifying listening backend processes that new 
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md) (allocates memory for PID and ProcNumber arrays)

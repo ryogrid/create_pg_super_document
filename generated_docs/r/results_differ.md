@@ -16,10 +16,9 @@ results_differ(const char *testname, const char *resultsfile, const char *defaul
 This function is the core comparison engine for PostgreSQL's regression testing framework. It systematically compares actual test output against expected results, implementing a sophisticated fallback strategy to handle platform-specific variations and multiple valid expected outputs. The function first tries platform-specific expected files, then attempts up to 10 alternative expected files (numbered 0-9), and finally falls back to the default expected file. For each comparison, it tracks which produces the smallest diff (indicating the best match) and uses that for the final report. When differences are found, it appends a formatted diff to the global diffs file for review.
 
 ## Parameters / Member Variables
-- : The name of the test being compared (used for platform-specific expectfile lookup)
-- : Path to the actual test output file
-- : Path to the primary expected output file
-
+- `*testname`: The name of the test being compared (used for platform-specific expectfile lookup)
+- `*resultsfile`: Path to the actual test output file
+- `*default_expectfile`: Path to the primary expected output file
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_expectfile](../g/get_expectfile.md) (platform-specific expected file lookup)

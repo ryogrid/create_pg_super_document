@@ -16,8 +16,7 @@ network_network(PG_FUNCTION_ARGS)
 This function computes the network address from a given inet or cidr address by applying the network mask to zero out the host portion. It takes an IP address with a prefix length and returns the network address by preserving only the network bits (as specified by the prefix length) and setting all host bits to zero. The function works by applying a bitwise AND operation with appropriate masks to each byte of the address, effectively extracting only the network portion while maintaining the original prefix length and address family.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function argument structure containing the inet/cidr input network address
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument structure containing the inet/cidr input network address
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Extracts inet argument from function arguments

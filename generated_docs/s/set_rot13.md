@@ -16,9 +16,8 @@ set_rot13(SSL_CTX *context, bool isServerStart)
 This function serves as an OpenSSL TLS initialization hook that sets up a custom password callback for SSL certificate decryption. It's part of PostgreSQL's SSL passphrase callback test module that demonstrates how to programmatically provide SSL certificate passphrases instead of relying on external commands. The function warns users if they have configured the standard ssl_passphrase_command setting, as this module overrides that functionality. It then registers the rot13_passphrase function as the default password callback for the SSL context.
 
 ## Parameters / Member Variables
-- : SSL_CTX pointer representing the OpenSSL context to configure
-- : Boolean indicating whether this is called during server startup (currently unused in implementation)
-
+- `*context`: SSL_CTX pointer representing the OpenSSL context to configure
+- `isServerStart`: Boolean indicating whether this is called during server startup (currently unused in implementation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport (for warning messages)

@@ -26,10 +26,9 @@ The function performs several key operations:
 When commutation is possible, the function creates different versions of the join conditions corresponding to various join orderings that are semantically equivalent. This enables the optimizer to consider more execution plans while maintaining correctness of NULL-generation semantics.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global planning state and optimizer information
-- : Complete list of JoinTreeItems in depth-first order from the deconstruct scan
-- : Specific JoinTreeItem containing postponed oj_joinclauses that need processing
-
+- `*root`: PlannerInfo structure containing global planning state and optimizer information
+- `*jtitems`: Complete list of JoinTreeItems in depth-first order from the deconstruct scan
+- `*jtitem`: Specific JoinTreeItem containing postponed oj_joinclauses that need processing
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bms_union](../b/bms_union.md), bms_add_member, bms_del_member, bms_make_singleton (bitmap operations)

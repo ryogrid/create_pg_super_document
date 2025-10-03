@@ -18,9 +18,8 @@ This function writes a chunk of backup archive data to the server filesystem. It
 The function maintains the current file position and provides comprehensive error reporting including disk space hints when write operations fail. After successful writing, it forwards the operation to the next sink in the chain.
 
 ## Parameters / Member Variables
-- : Pointer to the bbsink instance (cast to bbsink_server internally)  
-- : Number of bytes to write from the sink's buffer (bbs_buffer)
-
+- `*sink`: Pointer to the bbsink instance (cast to bbsink_server internally)
+- `len`: Number of bytes to write from the sink's buffer (bbs_buffer)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [FileWrite](../F/FileWrite.md)

@@ -19,10 +19,9 @@ BuildIndexValueDescription creates a formatted string describing the contents of
 The function implements comprehensive security checks to prevent data leakage by verifying that the user has appropriate SELECT permissions on all key columns of the index. If Row Level Security (RLS) is enabled or if the user lacks sufficient permissions on any column, the function returns NULL rather than exposing potentially sensitive data. For expression-based indexes, it also returns NULL to avoid the complexity of determining which underlying columns are involved.
 
 ## Parameters / Member Variables
-- : The index relation whose entry is being described
-- : Array of Datum values representing the raw input to the index access method
-- : Array of boolean flags indicating which values are NULL
-
+- `indexRelation`: The index relation whose entry is being described
+- `*values`: Array of Datum values representing the raw input to the index access method
+- `*isnull`: Array of boolean flags indicating which values are NULL
 ## Dependencies
 - Functions called/Symbols referenced:
   - IndexRelationGetNumberOfKeyAttributes (get key column count)

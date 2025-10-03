@@ -20,10 +20,9 @@ This function is marked as deprecated in the source code comments, with a recomm
 The function uses a switch statement to determine which specific serialization function to call based on the byte width parameter. If an unsupported byte width is provided, it raises an ERROR using .
 
 ## Parameters / Member Variables
-- : StringInfo buffer where the binary integer data will be appended
-- : The 32-bit unsigned integer value to be serialized
-- : The number of bytes to use for serialization (1, 2, or 4)
-
+- `buf`: StringInfo buffer where the binary integer data will be appended
+- `i`: The 32-bit unsigned integer value to be serialized
+- `b`: The number of bytes to use for serialization (1, 2, or 4)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pq_sendint8](pq_sendint8.md)

@@ -23,8 +23,7 @@ The function implements different promotion limits based on the lock granularity
 The limit includes both direct and indirect descendants (e.g., for a relation lock, both page locks and tuple locks count toward the limit). This design helps maintain a balanced allocation of locks and prevents any single relation from consuming all predicate lock resources.
 
 ## Parameters / Member Variables
-- : Pointer to a PREDICATELOCKTARGETTAG that specifies the lock target type and granularity for which to determine the promotion limit.
-
+- `*tag`: Pointer to a PREDICATELOCKTARGETTAG that specifies the lock target type and granularity for which to determine the promotion limit.
 ## Dependencies
 - Functions called/Symbols referenced:
   - GET_PREDICATELOCKTARGETTAG_TYPE

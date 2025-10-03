@@ -15,7 +15,6 @@ static void AtCCI_LocalCache(void)
 This static function is called as part of the command counter increment (CCI) process to make catalog changes visible locally within the current transaction. It performs a two-step process: first making any pending relation map changes visible through AtCCI_RelationMap(), and then processing local invalidation messages to update the local catalog caches via CommandEndInvalidationMessages(). The ordering is critical - relation map changes must be processed before invalidation messages so that when relcache invalidations are processed, they can properly reflect the updated relation mappings.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

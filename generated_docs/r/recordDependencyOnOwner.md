@@ -16,10 +16,9 @@ recordDependencyOnOwner(Oid classId, Oid objectId, Oid owner)
 This function simplifies the process of recording ownership relationships in PostgreSQL. It constructs ObjectAddress structures for both the dependent object and the owner, then calls recordSharedDependencyOn with SHARED_DEPENDENCY_OWNER type to establish the ownership relationship. The owner is always referenced from the pg_authid catalog (AuthIdRelationId). This function is widely used throughout the system when creating objects that have owners.
 
 ## Parameters / Member Variables
-- : OID of the system catalog that contains the dependent object
-- : OID of the dependent object within its catalog
-- : OID of the owner (user/role) from pg_authid catalog
-
+- `classId`: OID of the system catalog that contains the dependent object
+- `objectId`: OID of the dependent object within its catalog
+- `owner`: OID of the owner (user/role) from pg_authid catalog
 ## Dependencies
 - Functions called/Symbols referenced:
   - [recordSharedDependencyOn](recordSharedDependencyOn.md)

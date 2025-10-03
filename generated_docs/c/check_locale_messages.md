@@ -22,10 +22,9 @@ The  function serves as a GUC (Grand Unified Configuration) check hook for valid
 The function is designed to be permissive during startup to allow environment-based locale settings until the proper configuration can be read from postgresql.conf.
 
 ## Parameters / Member Variables
-- : Pointer to the proposed new locale value string
-- : Pointer for storing additional data (unused in this function)
-- : The source of the configuration change (PGC_S_DEFAULT, file, command line, etc.)
-
+- `**newval`: Pointer to the proposed new locale value string
+- `**extra`: Pointer for storing additional data (unused in this function)
+- `source`: The source of the configuration change (PGC_S_DEFAULT, file, command line, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_locale](check_locale.md) (for actual locale validation on supported platforms)

@@ -16,8 +16,7 @@ ExecUnique(PlanState *pstate)
 ExecUnique implements duplicate elimination by processing tuples from its outer subplan in a loop. The function assumes that input tuples arrive in sorted order, which allows for efficient duplicate detection by comparing consecutive tuples. When a new tuple is fetched from the subplan, it is compared against the previously returned tuple using equality functions. If the tuples are identical, the new tuple is discarded and the next tuple is fetched. If they differ, or if this is the first tuple, it is saved as the result and returned to the caller. The function handles the end-of-input condition by returning NULL when the outer subplan is exhausted.
 
 ## Parameters / Member Variables
-- : The PlanState structure containing execution state information for the UNIQUE node, cast to UniqueState internally
-
+- `*pstate`: The PlanState structure containing execution state information for the UNIQUE node, cast to UniqueState internally
 ## Dependencies
 - Functions called/Symbols referenced:
   - castNode: Cast pstate to UniqueState

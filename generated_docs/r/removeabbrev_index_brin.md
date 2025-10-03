@@ -18,10 +18,9 @@ This function is part of PostgreSQL's BRIN (Block Range Index) tuple sorting imp
 The function iterates through each SortTuple in the provided array, extracts the underlying BrinSortTuple, and sets the datum1 field to the original block number (bt_blkno) from the BRIN tuple. This ensures that subsequent comparisons will use the actual block number values rather than the abbreviated keys.
 
 ## Parameters / Member Variables
-- : Pointer to the Tuplesortstate structure managing the sort operation
-- : Array of SortTuple structures containing the tuples to process
-- : Number of tuples in the stups array to process
-
+- `*state`: Pointer to the Tuplesortstate structure managing the sort operation
+- `*stups`: Array of SortTuple structures containing the tuples to process
+- `count`: Number of tuples in the stups array to process
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Tuplesortstate](../T/Tuplesortstate.md) (sort state management structure)

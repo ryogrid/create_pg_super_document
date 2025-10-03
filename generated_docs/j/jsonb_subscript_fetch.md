@@ -22,10 +22,9 @@ The function serves as a thin wrapper around the  function, providing the interf
 The  mode is set to true for this operation, meaning that NULL source containers would have been handled earlier in the evaluation chain, so this function can assume the source is valid.
 
 ## Parameters / Member Variables
-- : Expression evaluation state (not directly used in this function)
-- : Expression evaluation step containing the SubscriptingRefState and result storage locations
-- : Expression context for evaluation (not directly used in this function)
-
+- `*state`: Expression evaluation state (not directly used in this function)
+- `*op`: Expression evaluation step containing the SubscriptingRefState and result storage locations
+- `*econtext`: Expression context for evaluation (not directly used in this function)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DatumGetJsonbP](../D/DatumGetJsonbP.md)

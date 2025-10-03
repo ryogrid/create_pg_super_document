@@ -16,8 +16,7 @@ verbosity_substitute_hook(char *newval)
 This substitute hook function is called before the main verbosity_hook when the VERBOSITY variable is being set or accessed. Its primary purpose is to ensure that the VERBOSITY variable always has a valid value by providing "default" as the fallback when NULL is passed. This prevents the main verbosity_hook from having to handle NULL values and ensures consistent behavior. The function uses pg_strdup to allocate memory for the default string.
 
 ## Parameters / Member Variables
-- : The proposed new value for the VERBOSITY variable. If NULL, will be replaced with "default".
-
+- `*newval`: The proposed new value for the VERBOSITY variable. If NULL, will be replaced with "default".
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_strdup](../p/pg_strdup.md) (PostgreSQL string duplication function)

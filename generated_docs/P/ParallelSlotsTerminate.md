@@ -18,8 +18,7 @@ ParallelSlotsTerminate performs cleanup of a parallel slots array by iterating t
 The function iterates through each slot in the array, checks if a connection exists, and if so, calls disconnectDatabase to properly close the connection. Null connections (empty slots) are skipped. This ensures that no database connections are left open when the parallel operation completes.
 
 ## Parameters / Member Variables
-- : Pointer to the ParallelSlotArray structure containing the connections to terminate
-
+- `*sa`: Pointer to the ParallelSlotArray structure containing the connections to terminate
 ## Dependencies
 - Functions called/Symbols referenced:
   - [disconnectDatabase](../d/disconnectDatabase.md)

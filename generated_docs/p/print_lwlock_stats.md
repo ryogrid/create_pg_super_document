@@ -18,9 +18,8 @@ This function serves as an exit handler that prints accumulated lightweight lock
 The function acquires an exclusive lock on the first element of MainLWLockArray to prevent multiple backends from mixing their statistical reports, ensuring clean, readable output even in multi-process environments.
 
 ## Parameters / Member Variables
-- : Exit code parameter (unused in function body)
-- : Datum argument passed from exit handler registration (unused in function body)
-
+- `code`: Exit code parameter (unused in function body)
+- `arg`: Datum argument passed from exit handler registration (unused in function body)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hash_seq_init](../h/hash_seq_init.md)

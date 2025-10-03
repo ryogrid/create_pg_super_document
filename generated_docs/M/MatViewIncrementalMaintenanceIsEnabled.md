@@ -24,7 +24,6 @@ Key aspects:
 4. **Concurrent access support**: Initially enables REFRESH operations without blocking concurrent reads
 
 ## Parameters / Member Variables
-None - this is a parameter-less function that returns a boolean value.
 
 ## Dependencies
 - Functions called/Symbols referenced:

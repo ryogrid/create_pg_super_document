@@ -18,9 +18,8 @@ This function is a critical component of the Red-Black tree deletion algorithm t
 The function operates by moving the "extra blackness" problem up the tree through a series of cases, each handled by specific combinations of rotations and recolorings. The algorithm considers symmetric left and right cases, systematically addressing different scenarios based on the color and position of the sibling node and its children. The process continues until either the problem is resolved or the extra blackness reaches the root, where it can be safely absorbed.
 
 ## Parameters / Member Variables
-- : Pointer to the Red-Black tree structure being modified
-- : Pointer to the black node that needs fixup (initially the former child of the deleted node)
-
+- `*rbt`: Pointer to the Red-Black tree structure being modified
+- `*x`: Pointer to the black node that needs fixup (initially the former child of the deleted node)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [rbt_rotate_left](rbt_rotate_left.md)

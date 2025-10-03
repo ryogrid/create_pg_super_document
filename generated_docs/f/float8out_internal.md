@@ -21,8 +21,7 @@ This function serves as the core implementation for converting double-precision 
 The function allocates memory for the result string and is designed to be reusable across different PostgreSQL data types that need to format floating-point values as part of their output.
 
 ## Parameters / Member Variables
-- : The double-precision floating-point value to convert to string format
-
+- `num`: The double-precision floating-point value to convert to string format
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md) (PostgreSQL memory allocation)

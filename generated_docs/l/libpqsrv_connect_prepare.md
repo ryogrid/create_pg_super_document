@@ -19,6 +19,7 @@ The reservation process also triggers closure of Virtual File Descriptors (VFDs)
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [AcquireExternalFD](../A/AcquireExternalFD.md)

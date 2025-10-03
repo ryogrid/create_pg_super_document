@@ -18,8 +18,7 @@ This function provides a mechanism to maintain type consistency between PostgreS
 The function works by finding a named global variable in the types module and extracting its value type, effectively using global variables as type templates.
 
 ## Parameters / Member Variables
-- : Name of the global variable in llvmjit_types.c whose type should be retrieved
-
+- `*varname`: Name of the global variable in llvmjit_types.c whose type should be retrieved
 ## Dependencies
 - Functions called/Symbols referenced:
   - LLVMGetNamedGlobal (LLVM API - finds global variable by name)

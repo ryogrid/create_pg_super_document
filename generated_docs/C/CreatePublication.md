@@ -18,9 +18,8 @@ CreatePublication is the core function responsible for creating a new publicatio
 The function validates permissions (requiring CREATE privilege on the database and superuser for certain publication types), ensures unique publication names, parses publication options, creates the catalog tuple, and establishes object dependencies. It also handles the association of tables and schemas with the publication, including WHERE clause transformation and column list validation.
 
 ## Parameters / Member Variables
-- : ParseState containing parsing context and source text information
-- : CreatePublicationStmt structure containing the publication creation command details including name, options, and object specifications
-
+- `*pstate`: ParseState containing parsing context and source text information
+- `*stmt`: CreatePublicationStmt structure containing the publication creation command details including name, options, and object specifications
 ## Dependencies
 - Functions called/Symbols referenced:
   - [object_aclcheck](../o/object_aclcheck.md): Permission checking for database CREATE privilege

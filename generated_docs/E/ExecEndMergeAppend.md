@@ -23,8 +23,7 @@ The function follows PostgreSQL's standard executor cleanup protocol where each 
 Note that the function only handles cleanup of the subplans themselves - the MergeAppendState structure and its associated memory (like the binary heap, tuple slots array, and sort keys) are cleaned up by the broader executor framework when the memory context is destroyed.
 
 ## Parameters / Member Variables
-- : The MergeAppendState containing the merge execution state and array of child plan states to be shut down
-
+- `*node`: The MergeAppendState containing the merge execution state and array of child plan states to be shut down
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecEndNode](ExecEndNode.md) (recursively shuts down each child plan)

@@ -24,9 +24,8 @@ The approach of using ATTACH PARTITION instead of CREATE TABLE ... PARTITION OF 
 The function handles the complete workflow: preparing the query (if not already done), retrieving partition boundaries, and generating the final ATTACH PARTITION command.
 
 ## Parameters / Member Variables
-- : Archive context containing dump configuration and prepared statement tracking
-- : Structure containing partition relationship information including parent table, partition table, and dump object metadata
-
+- `*fout`: Archive context containing dump configuration and prepared statement tracking
+- `*attachinfo`: Structure containing partition relationship information including parent table, partition table, and dump object metadata
 ## Dependencies
 - Functions called/Symbols referenced:
   - [createPQExpBuffer](../c/createPQExpBuffer.md)

@@ -18,6 +18,7 @@ This function handles the execution of a BEGIN command by examining the current 
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - TransactionState (type definition)

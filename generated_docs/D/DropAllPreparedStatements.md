@@ -17,7 +17,6 @@ This function provides a mechanism to clear all prepared statements from the ses
 The function safely handles the case where no prepared statements exist by checking if the prepared_queries hash table is initialized before proceeding with the cleanup operation.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

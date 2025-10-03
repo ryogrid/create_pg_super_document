@@ -18,10 +18,9 @@ This function serves as a validation hook for the synchronous_standby_names GUC 
 The function handles the complete parsing workflow: initializing the scanner, parsing the configuration string, validating the result, and preparing the parsed configuration data for storage. If validation fails, it provides detailed error messages through the GUC error reporting mechanism.
 
 ## Parameters / Member Variables
-- : Pointer to pointer containing the new value string for synchronous_standby_names parameter
-- : Pointer to pointer where validated and parsed configuration data will be stored
-- : Enum indicating the source of this configuration change (GucSource)
-
+- `**newval`: Pointer to pointer containing the new value string for synchronous_standby_names parameter
+- `**extra`: Pointer to pointer where validated and parsed configuration data will be stored
+- `source`: Enum indicating the source of this configuration change (GucSource)
 ## Dependencies
 - Functions called/Symbols referenced:
   - syncrep_scanner_init (initialize the synchronous replication configuration scanner)

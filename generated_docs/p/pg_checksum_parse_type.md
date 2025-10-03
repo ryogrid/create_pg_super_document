@@ -18,9 +18,8 @@ This function performs case-insensitive string comparison to identify valid chec
 The function uses pg_strcasecmp for case-insensitive comparison, allowing flexible input formatting. If the provided name doesn't match any recognized checksum type, the function sets the output type to CHECKSUM_TYPE_NONE and returns false.
 
 ## Parameters / Member Variables
-- : Input string containing the checksum algorithm name to parse (case-insensitive)
-- : Output parameter that receives the corresponding pg_checksum_type enumeration value
-
+- `*name`: Input string containing the checksum algorithm name to parse (case-insensitive)
+- `*type`: Output parameter that receives the corresponding pg_checksum_type enumeration value
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_strcasecmp](pg_strcasecmp.md) (for case-insensitive string comparison)

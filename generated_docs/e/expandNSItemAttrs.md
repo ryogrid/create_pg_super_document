@@ -19,12 +19,11 @@ The  function expands a "*" reference into a list of  nodes representing all vis
 The function works by first calling  to get the list of variables and column names, then creates  structures for each column with appropriate result numbers assigned from .
 
 ## Parameters / Member Variables
-- : Parse state containing context information including the next available result number
-- : ParseNamespaceItem representing the table/relation whose attributes should be expanded
-- : Number of query levels up to look for the relation (for nested queries)
-- : Boolean flag indicating whether to mark columns as requiring SELECT privileges
-- : Source location in the query for error reporting purposes
-
+- `*pstate`: Parse state containing context information including the next available result number
+- `*nsitem`: ParseNamespaceItem representing the table/relation whose attributes should be expanded
+- `sublevels_up`: Number of query levels up to look for the relation (for nested queries)
+- `require_col_privs`: Boolean flag indicating whether to mark columns as requiring SELECT privileges
+- `location`: Source location in the query for error reporting purposes
 ## Dependencies
 - Functions called/Symbols referenced:
   - [expandNSItemVars](expandNSItemVars.md)

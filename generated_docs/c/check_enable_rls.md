@@ -26,10 +26,9 @@ The function considers several factors:
 5. The  GUC setting can force an error instead of applying RLS
 
 ## Parameters / Member Variables
-- : OID of the relation to check RLS status for
-- : OID of user to check permissions as (use InvalidOid for current user)
-- : If true, returns RLS_ENABLED instead of throwing error when user attempts unauthorized RLS bypass
-
+- `relid`: OID of the relation to check RLS status for
+- `checkAsUser`: OID of user to check permissions as (use InvalidOid for current user)
+- `noError`: If true, returns RLS_ENABLED instead of throwing error when user attempts unauthorized RLS bypass
 ## Dependencies
 - Functions called/Symbols referenced:
   - [has_bypassrls_privilege](../h/has_bypassrls_privilege.md)

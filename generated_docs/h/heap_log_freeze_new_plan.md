@@ -20,9 +20,8 @@ The function copies four key fields that define the freeze operation: the maximu
 This function is part of the freeze plan consolidation mechanism that reduces WAL volume during vacuum operations by grouping similar freeze operations together.
 
 ## Parameters / Member Variables
-- : Pointer to the xlhp_freeze_plan structure to initialize
-- : Pointer to the HeapTupleFreeze structure containing the source freeze parameters
-
+- `*plan`: Pointer to the xlhp_freeze_plan structure to initialize
+- `*frz`: Pointer to the HeapTupleFreeze structure containing the source freeze parameters
 ## Dependencies
 - Functions called/Symbols referenced:
   - [xlhp_freeze_plan](../x/xlhp_freeze_plan.md) (struct type)

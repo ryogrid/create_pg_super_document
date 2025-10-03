@@ -18,8 +18,7 @@ ReinitializeParallelDSM prepares an existing parallel context for reuse by clean
 The function first ensures all previous workers have completed and exited, then resets key state elements including the last WAL end position and recreates error communication queues. This allows the parallel context to be used again with LaunchParallelWorkers without requiring a complete recreation of the shared memory infrastructure.
 
 ## Parameters / Member Variables
-- : The parallel context to reinitialize, containing the DSM segment and worker information that will be reset
-
+- `*pcxt`: The parallel context to reinitialize, containing the DSM segment and worker information that will be reset
 ## Dependencies
 - Functions called/Symbols referenced:
   - [WaitForParallelWorkersToFinish](../W/WaitForParallelWorkersToFinish.md) (ensures all workers complete their tasks)

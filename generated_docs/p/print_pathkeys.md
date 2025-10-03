@@ -20,9 +20,8 @@ The function iterates through a list of PathKey structures, extracting and displ
 The output format uses parentheses to group related items, with comma separation between multiple pathkeys and between equivalence class members.
 
 ## Parameters / Member Variables
-- : A List of PathKey pointers representing the sort ordering requirements to be printed
-- : A List representing the range table, used to provide context for expression printing
-
+- `*pathkeys`: A List of PathKey pointers representing the sort ordering requirements to be printed
+- `*rtable`: A List representing the range table, used to provide context for expression printing
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PathKey](../P/PathKey.md) (structure type)

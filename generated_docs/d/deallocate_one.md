@@ -17,12 +17,11 @@ deallocate_one(int lineno, enum COMPAT_MODE c, struct connection *con,
 The  function performs the complete deallocation of a prepared statement in the ECPG library. It operates in two phases: first sending a DEALLOCATE command to the PostgreSQL backend to remove the prepared statement from the server, and then freeing all client-side memory resources associated with the statement. The function handles different compatibility modes and manages the linked list structure of prepared statements by properly updating pointers when removing a statement from the chain.
 
 ## Parameters / Member Variables
-- : Line number in the source code where the deallocation is requested (for error reporting)
-- : Compatibility mode enumeration that affects error handling behavior
-- : Pointer to the database connection structure
-- : Pointer to the previous prepared statement in the linked list (NULL if this is the first statement)
-- : Pointer to the prepared statement to be deallocated
-
+- `lineno`: Line number in the source code where the deallocation is requested (for error reporting)
+- `c`: Compatibility mode enumeration that affects error handling behavior
+- `*con`: Pointer to the database connection structure
+- `*prev`: Pointer to the previous prepared statement in the linked list (NULL if this is the first statement)
+- `*this`: Pointer to the prepared statement to be deallocated
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ecpg_log](../e/ecpg_log.md) (logging functionality)

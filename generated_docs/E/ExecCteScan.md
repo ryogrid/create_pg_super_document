@@ -23,8 +23,7 @@ The function acts as a thin wrapper that:
 This design allows CTE scans to benefit from the common scan infrastructure (including qualification checking, projection, etc.) while providing specialized tuple access logic through the callback functions.
 
 ## Parameters / Member Variables
-- : PlanState pointer that must be castable to CteScanState, containing the CTE scan execution state
-
+- `*pstate`: PlanState pointer that must be castable to CteScanState, containing the CTE scan execution state
 ## Dependencies
 - Functions called/Symbols referenced:
   - castNode: Safely cast PlanState to CteScanState

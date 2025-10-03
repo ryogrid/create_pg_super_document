@@ -17,11 +17,10 @@ ATExecEnableDisableRule(Relation rel, const char *rulename,
 The  function is the execution handler for ALTER TABLE ENABLE/DISABLE RULE commands within the ALTER TABLE infrastructure. It serves as a wrapper that delegates the actual rule manipulation to the rewrite rule subsystem while ensuring proper integration with the ALTER TABLE framework, including invoking necessary post-alter hooks for event triggers and dependency tracking.
 
 ## Parameters / Member Variables
-- : The relation (table/view) containing the rule to be enabled or disabled
-- : The name of the rule to enable or disable
-- : Character indicating when the rule should fire (e.g., 'O' for ORIGIN, 'D' for DISABLED, 'R' for REPLICA, 'A' for ALWAYS)
-- : The lock mode to use during the operation (parameter is accepted but not directly used in the implementation)
-
+- `rel`: The relation (table/view) containing the rule to be enabled or disabled
+- `*rulename`: The name of the rule to enable or disable
+- `fires_when`: Character indicating when the rule should fire (e.g., 'O' for ORIGIN, 'D' for DISABLED, 'R' for REPLICA, 'A' for ALWAYS)
+- `lockmode`: The lock mode to use during the operation (parameter is accepted but not directly used in the implementation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [EnableDisableRule](../E/EnableDisableRule.md)

@@ -20,8 +20,7 @@ The function implements the standard two-tier lookup strategy:
 2. For non-ASCII characters, it performs a binary search in the  range table
 
 ## Parameters / Member Variables
-- : The Unicode code point (pg_wchar) to test for the Join_Control property
-
+- `code`: The Unicode code point (pg_wchar) to test for the Join_Control property
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_U_PROP_JOIN_CONTROL (constant/macro)

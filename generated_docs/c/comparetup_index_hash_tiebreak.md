@@ -19,10 +19,9 @@ This function serves as a consistency placeholder in the hash index sorting infr
 The function immediately asserts false if called, indicating a programming error or unexpected code path. It exists solely to maintain the consistent interface expected by the tuple sorting framework, where both primary and tiebreaker comparison functions are required.
 
 ## Parameters / Member Variables
-- : First SortTuple to compare (unused)
-- : Second SortTuple to compare (unused) 
-- : Tuplesortstate containing sort configuration (unused)
-
+- `*a`: First SortTuple to compare (unused)
+- `*b`: Second SortTuple to compare (unused)
+- `*state`: Tuplesortstate containing sort configuration (unused)
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (terminates execution if called)

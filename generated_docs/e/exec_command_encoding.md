@@ -20,9 +20,8 @@ This function handles the \encoding command which can operate in two modes:
 When setting a new encoding, the function updates the database connection's encoding, validates the change, and synchronizes various internal psql state variables including the encoding setting in the formatting options and the ENCODING psql variable.
 
 ## Parameters / Member Variables
-- : Scanner state for parsing the command line arguments
-- : Boolean indicating whether this command should be executed (used for conditional processing)
-
+- `scan_state`: Scanner state for parsing the command line arguments
+- `active_branch`: Boolean indicating whether this command should be executed (used for conditional processing)
 ## Dependencies
 - Functions called/Symbols referenced:
   - psql_scan_slash_option

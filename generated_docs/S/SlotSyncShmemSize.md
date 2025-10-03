@@ -17,7 +17,6 @@ This function returns the exact amount of shared memory needed to store the slot
 The function is typically called during PostgreSQL startup as part of the shared memory size calculation process, ensuring that adequate space is allocated for slot synchronization operations before any slot sync workers or related functionality is initialized.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

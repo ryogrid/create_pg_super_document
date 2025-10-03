@@ -24,10 +24,9 @@ The conversion process involves:
 6. Proper cleanup of temporary structures and allocated memory
 
 ## Parameters / Member Variables
-- : PLyObToDatum structure containing composite type conversion context and attribute converters
-- : TupleDesc describing the structure and types of the target composite type
-- : Python sequence object (list, tuple, etc.) containing the source data in positional order
-
+- `*arg`: PLyObToDatum structure containing composite type conversion context and attribute converters
+- `desc`: TupleDesc describing the structure and types of the target composite type
+- `*sequence`: Python sequence object (list, tuple, etc.) containing the source data in positional order
 ## Dependencies
 - Functions called/Symbols referenced:
   - PySequence_Check (Python API validation)

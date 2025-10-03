@@ -25,9 +25,8 @@ The function performs the following operations:
 7. Dumps comments for individual constraints
 
 ## Parameters / Member Variables
-- : Archive object containing dump configuration and state information
-- : TypeInfo structure containing metadata about the domain type to be dumped, including constraint information
-
+- `*fout`: Archive object containing dump configuration and state information
+- `*tyinfo`: TypeInfo structure containing metadata about the domain type to be dumped, including constraint information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecuteSqlStatement](../E/ExecuteSqlStatement.md)

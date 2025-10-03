@@ -25,12 +25,11 @@ The function performs several critical operations:
 6. Sets up Valgrind memory access tracking
 
 ## Parameters / Member Variables
-- : The memory context requesting the allocation (used for debugging/validation)
-- : The AllocBlock from which to allocate the new chunk
-- : The actual size requested by the caller (may be smaller than chunk_size)
-- : The aligned size of the chunk to allocate (includes any padding)
-- : The free list index indicating which size class this chunk belongs to
-
+- `context`: The memory context requesting the allocation (used for debugging/validation)
+- `block`: The AllocBlock from which to allocate the new chunk
+- `size`: The actual size requested by the caller (may be smaller than chunk_size)
+- `chunk_size`: The aligned size of the chunk to allocate (includes any padding)
+- `fidx`: The free list index indicating which size class this chunk belongs to
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryChunkSetHdrMask](../M/MemoryChunkSetHdrMask.md)

@@ -23,10 +23,9 @@ BlockRefTableWrite is a low-level I/O function that manages buffered writing for
 The function uses a callback-based approach for actual I/O operations, making it flexible for different output destinations. It ensures optimal performance by minimizing I/O calls through intelligent buffering decisions.
 
 ## Parameters / Member Variables
-- : Pointer to BlockRefTableBuffer structure containing the I/O callback, buffer data, usage tracking, and CRC state
-- : Pointer to the data to be written
-- : Size of the data to be written in bytes
-
+- `*buffer`: Pointer to BlockRefTableBuffer structure containing the I/O callback, buffer data, usage tracking, and CRC state
+- `*data`: Pointer to the data to be written
+- `length`: Size of the data to be written in bytes
 ## Dependencies
 - Functions called/Symbols referenced:
   - COMP_CRC32C (macro for CRC32C computation)

@@ -18,9 +18,8 @@ This function serves as a subroutine for  to efficiently detect non-constant nod
 The function implements a selective traversal strategy: it continues recursion only for List nodes (since  sometimes invokes the walker function directly on List subtrees) and Const nodes, but immediately returns true (indicating presence of non-const content) for any other node type.
 
 ## Parameters / Member Variables
-- : The current node being examined in the expression tree traversal
-- : Context parameter passed through the tree walking mechanism (unused in this function)
-
+- `*node`: The current node being examined in the expression tree traversal
+- `*context`: Context parameter passed through the tree walking mechanism (unused in this function)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Used to recursively traverse List nodes

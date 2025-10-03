@@ -21,10 +21,9 @@ The function handles cases where argument names may be missing (represented as e
 The function validates both input arrays for proper structure and dimensions, ensuring they are well-formed 1-D arrays of the correct types.
 
 ## Parameters / Member Variables
-- : Datum containing the proargnames array from pg_proc (or PointerGetDatum(NULL) if none)
-- : Datum containing the proargmodes array from pg_proc (or PointerGetDatum(NULL) if none)
-- : Output parameter receiving palloc'd array of input argument name strings
-
+- `proargnames`: Datum containing the proargnames array from pg_proc (or PointerGetDatum(NULL) if none)
+- `proargmodes`: Datum containing the proargmodes array from pg_proc (or PointerGetDatum(NULL) if none)
+- `***arg_names`: Output parameter receiving palloc'd array of input argument name strings
 ## Dependencies
 - Functions called/Symbols referenced:
   - DatumGetArrayTypeP

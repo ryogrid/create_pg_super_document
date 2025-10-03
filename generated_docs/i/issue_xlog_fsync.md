@@ -24,10 +24,9 @@ Key functionality includes:
 - Statistics collection for WAL synchronization operations
 
 ## Parameters / Member Variables
-- : File descriptor for the XLOG file to be synchronized
-- : WAL segment number used for error reporting and filename generation
-- : Timeline ID used for error reporting and filename generation (must be non-zero)
-
+- `fd`: File descriptor for the XLOG file to be synchronized
+- `segno`: WAL segment number used for error reporting and filename generation
+- `tli`: Timeline ID used for error reporting and filename generation (must be non-zero)
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogSegNo

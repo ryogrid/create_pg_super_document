@@ -16,8 +16,7 @@ AlterType(AlterTypeStmt *stmt)
 AlterType processes ALTER TYPE SET commands that can modify specific properties of base types including storage strategy, I/O functions (receive, send, typmod_in, typmod_out), analysis function, and subscript function. The function enforces strict limitations, allowing changes only to base types (not composite types, domains, or arrays) and requiring superuser privileges for I/O function modifications. It validates all requested changes, builds a parameters structure, and delegates the actual recursive modification to AlterTypeRecurse.
 
 ## Parameters / Member Variables
-- : AlterTypeStmt structure containing the type name and list of property modifications to apply
-
+- `*stmt`: AlterTypeStmt structure containing the type name and list of property modifications to apply
 ## Dependencies
 - Functions called/Symbols referenced:
   - [makeTypeNameFromNameList](../m/makeTypeNameFromNameList.md)

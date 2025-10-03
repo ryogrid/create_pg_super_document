@@ -24,12 +24,11 @@ logical_read_xlog_page serves as an XLogReaderRoutine page_read callback specifi
 The function handles both standalone and cascading replication scenarios, automatically determining the appropriate timeline and ensuring that logical decoding works correctly during timeline switches and server promotions.
 
 ## Parameters / Member Variables
-- : XLogReaderState containing the current state of WAL reading operations
-- : WAL pointer of the page to be read
-- : Number of bytes requested to be read from the target page
-- : WAL pointer of the specific record being targeted (used for validation)
-- : Buffer where the read WAL page data will be stored
-
+- `*state`: XLogReaderState containing the current state of WAL reading operations
+- `targetPagePtr`: WAL pointer of the page to be read
+- `reqLen`: Number of bytes requested to be read from the target page
+- `targetRecPtr`: WAL pointer of the specific record being targeted (used for validation)
+- `*cur_page`: Buffer where the read WAL page data will be stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - [WalSndWaitForWal](../W/WalSndWaitForWal.md)

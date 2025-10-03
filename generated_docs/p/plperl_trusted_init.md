@@ -25,7 +25,6 @@ This function configures a Perl interpreter to run in trusted mode by implementi
 The function ensures that Perl code runs in a sandboxed environment where potentially dangerous operations are blocked.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

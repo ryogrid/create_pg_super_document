@@ -18,9 +18,8 @@ ParseFraction is a utility function responsible for parsing fractional seconds i
 The function performs strict validation, ensuring that the entire input string after the decimal point consists only of valid digits, and returns appropriate error codes for malformed input.
 
 ## Parameters / Member Variables
-- : Pointer to the character string starting with decimal point, representing the fractional part to parse
-- : Output parameter that receives the parsed fractional value as a double
-
+- `*cp`: Pointer to the character string starting with decimal point, representing the fractional part to parse
+- `*frac`: Output parameter that receives the parsed fractional value as a double
 ## Dependencies
 - Functions called/Symbols referenced:
   - DTERR_BAD_FORMAT (error constant)

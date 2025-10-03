@@ -16,9 +16,8 @@ SHA256_Transform(pg_sha256_ctx *context, const uint8 *data)
 SHA256_Transform is the heart of the SHA-256 algorithm, implementing the 64-round transformation that processes each 512-bit block of input data. The function operates on eight 32-bit working variables (a through h) initialized with the current hash state values. It performs two distinct phases: rounds 0-15 use the ROUND256_0_TO_15 macro which directly processes input data, while rounds 16-63 use the ROUND256 macro which operates on previously computed message schedule values. Each round applies a complex series of logical functions, rotations, and additions designed to provide cryptographic strength. After all 64 rounds, the working variables are added back to the context state to produce the intermediate hash value.
 
 ## Parameters / Member Variables
-- : Pointer to the pg_sha256_ctx structure containing the current hash state and working buffer
-- : Pointer to the 512-bit (64-byte) block of input data to be processed
-
+- `*context`: Pointer to the pg_sha256_ctx structure containing the current hash state and working buffer
+- `*data`: Pointer to the 512-bit (64-byte) block of input data to be processed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_sha256_ctx](../p/pg_sha256_ctx.md) (context structure type)

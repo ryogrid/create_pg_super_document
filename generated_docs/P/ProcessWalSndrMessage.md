@@ -20,9 +20,8 @@ The function performs thread-safe updates to the WalRcvData shared memory struct
 This function is essential for monitoring replication performance and providing visibility into the WAL streaming process between primary and standby servers.
 
 ## Parameters / Member Variables
-- : XLogRecPtr indicating the end position of WAL data reported by the primary server
-- : TimestampTz representing when the message was sent by the primary server
-
+- `walEnd`: XLogRecPtr indicating the end position of WAL data reported by the primary server
+- `sendTime`: TimestampTz representing when the message was sent by the primary server
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)

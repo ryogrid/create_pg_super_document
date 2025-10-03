@@ -18,8 +18,7 @@ The rupshift function is part of PostgreSQL's ECPG Informix compatibility librar
 This function is designed to provide compatibility with Informix database applications that may require string case conversion functionality.
 
 ## Parameters / Member Variables
-- : A null-terminated character string that will be modified in-place to convert all lowercase characters to uppercase
-
+- `*str`: A null-terminated character string that will be modified in-place to convert all lowercase characters to uppercase
 ## Dependencies
 - Functions called/Symbols referenced:
   - islower() (standard C library function)

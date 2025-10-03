@@ -19,11 +19,10 @@ This function serves as a validation callback used during trigger rename operati
 The function is designed to be called by the RangeVar resolution mechanism before acquiring locks on the target relation, allowing for early detection of permission or compatibility issues.
 
 ## Parameters / Member Variables
-- : Pointer to RangeVar structure containing the relation name and schema information
-- : Object identifier of the resolved relation
-- : Previous relation OID (used for detecting concurrent changes)
-- : Generic argument pointer (unused in this implementation)
-
+- `*rv`: Pointer to RangeVar structure containing the relation name and schema information
+- `relid`: Object identifier of the resolved relation
+- `oldrelid`: Previous relation OID (used for detecting concurrent changes)
+- `*arg`: Generic argument pointer (unused in this implementation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache1](../S/SearchSysCache1.md)

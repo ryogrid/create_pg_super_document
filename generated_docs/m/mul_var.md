@@ -26,11 +26,10 @@ The  function implements multiplication at the variable level for PostgreSQL's N
 The algorithm accumulates partial products in an integer array, periodically normalizing to prevent overflow, then performs a final carry propagation pass before rounding to the requested scale.
 
 ## Parameters / Member Variables
-- : First NumericVar operand (input)
-- : Second NumericVar operand (input)  
-- : NumericVar to store the multiplication result (output)
-- : Target fractional digits for rounding the result
-
+- `*var1`: First NumericVar operand (input)
+- `*var2`: Second NumericVar operand (input)
+- `*result`: NumericVar to store the multiplication result (output)
+- `rscale`: Target fractional digits for rounding the result
 ## Dependencies
 - Functions called/Symbols referenced:
   - [zero_var](../z/zero_var.md) (for zero result cases)

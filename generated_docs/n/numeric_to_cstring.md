@@ -16,8 +16,7 @@ numeric_to_cstring(Numeric n)
 The numeric_to_cstring function is a utility function that converts a PostgreSQL Numeric data type to its string representation. It serves as a wrapper around the standard numeric output function, providing a convenient interface for converting Numeric values to C strings. The function uses PostgreSQL's function call mechanism to invoke the numeric_out function, which handles the actual conversion logic including proper formatting of decimal numbers, scientific notation when appropriate, and special values.
 
 ## Parameters / Member Variables
-- : A Numeric value to be converted to string representation
-
+- `n`: A Numeric value to be converted to string representation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Numeric](../N/Numeric.md) (PostgreSQL numeric data type)

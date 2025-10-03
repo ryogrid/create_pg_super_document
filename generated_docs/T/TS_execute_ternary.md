@@ -27,11 +27,10 @@ Key characteristics:
 The ternary logic is particularly valuable in index scans where TS_MAYBE indicates that a more detailed check is needed to determine the final result.
 
 ## Parameters / Member Variables
-- : Pointer to the first QueryItem in the tsquery expression tree
-- : Opaque argument passed through to the TSExecuteCallback function  
-- : Execution control flags (bitmask from ts_utils.h)
-- : Callback function that checks whether a primitive lexeme value is present
-
+- `*curitem`: Pointer to the first QueryItem in the tsquery expression tree
+- `*arg`: Opaque argument passed through to the TSExecuteCallback function
+- `flags`: Execution control flags (bitmask from ts_utils.h)
+- `chkcond`: Callback function that checks whether a primitive lexeme value is present
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TS_execute_recurse](TS_execute_recurse.md)

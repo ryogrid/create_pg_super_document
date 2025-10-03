@@ -26,8 +26,7 @@ The function performs comprehensive cleanup in a specific order:
 Special attention is paid to security by explicitly zeroing password fields before freeing them to prevent sensitive data from remaining in memory.
 
 ## Parameters / Member Variables
-- : A pointer to the PGconn structure to be freed
-
+- `*conn`: A pointer to the PGconn structure to be freed
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (event structure)

@@ -18,9 +18,8 @@ This function handles the formatting and output of pointer values (%p format spe
 The function uses a temporary buffer to hold the formatted pointer string, which is then passed to the output system. This approach ensures compatibility with platform-specific pointer formatting while integrating with PostgreSQL's custom printf infrastructure for error handling and output management.
 
 ## Parameters / Member Variables
-- : The pointer value to be formatted and output (cast as const void*)
-- : Output destination structure containing formatting state and output buffer
-
+- `*value`: The pointer value to be formatted and output (cast as const void*)
+- `*target`: Output destination structure containing formatting state and output buffer
 ## Dependencies
 - Functions called/Symbols referenced:
   - PrintfTarget (struct type for output destination)

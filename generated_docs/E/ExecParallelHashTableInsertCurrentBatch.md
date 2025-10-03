@@ -20,10 +20,9 @@ This is a simplified version of ExecParallelHashTableInsert specifically designe
 The function performs a straightforward insertion: allocates shared memory for the HashJoinTuple, copies the tuple data, clears the match flag, and pushes it onto the appropriate bucket list. This streamlined approach provides better performance when the preconditions are met, typically during batch reloading operations where the batch assignment and memory availability are predetermined.
 
 ## Parameters / Member Variables
-- : HashJoinTable containing the parallel hash table state and current batch information
-- : TupleTableSlot containing the tuple to insert, supporting all tuple formats
-- : Pre-computed hash value for the tuple, used for bucket determination
-
+- `hashtable`: HashJoinTable containing the parallel hash table state and current batch information
+- `*slot`: TupleTableSlot containing the tuple to insert, supporting all tuple formats
+- `hashvalue`: Pre-computed hash value for the tuple, used for bucket determination
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecFetchSlotMinimalTuple](ExecFetchSlotMinimalTuple.md)

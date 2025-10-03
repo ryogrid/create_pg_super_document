@@ -16,8 +16,7 @@ RemoveGXact(GlobalTransaction gxact)
 RemoveGXact is a static function in the two-phase commit system that manages the lifecycle of prepared transactions in shared memory. It removes a specified GlobalTransaction from the active prepared transactions array (TwoPhaseState->prepXacts) and returns it to the freelist for future use. The function performs array compaction by moving the last element to fill the gap left by the removed transaction, maintaining array density. The caller must have already removed the transaction from ProcArray before calling this function, and must hold TwoPhaseStateLock in exclusive mode.
 
 ## Parameters / Member Variables
-- : The GlobalTransaction structure to be removed from the prepared transactions array
-
+- `gxact`: The GlobalTransaction structure to be removed from the prepared transactions array
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockHeldByMeInMode](../L/LWLockHeldByMeInMode.md) (for lock assertion)

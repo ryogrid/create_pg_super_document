@@ -20,9 +20,8 @@ The function opens the pg_db_role_setting relation and uses a single catalog sna
 The function only operates under the postmaster (not in standalone mode) and ensures proper snapshot management for catalog access.
 
 ## Parameters / Member Variables
-- : OID of the database for which to load settings
-- : OID of the role (user) for which to load settings
-
+- `databaseid`: OID of the database for which to load settings
+- `roleid`: OID of the role (user) for which to load settings
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md)

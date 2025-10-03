@@ -28,9 +28,8 @@ For each check constraint in the parent relation, the function:
 The function uses an O(N^2) algorithm but is considered acceptable for typical constraint counts (10-100).
 
 ## Parameters / Member Variables
-- : The child relation being established as an inheritor
-- : The parent relation to inherit constraints from
-
+- `child_rel`: The child relation being established as an inheritor
+- `parent_rel`: The parent relation to inherit constraints from
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md)

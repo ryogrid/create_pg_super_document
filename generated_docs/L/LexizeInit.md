@@ -18,9 +18,8 @@ LexizeInit is a static initialization function that prepares a LexizeData struct
 The function ensures that all pointer fields are properly nullified and counters are reset, creating a clean slate for text parsing operations. This is essential for consistent behavior across multiple parsing sessions and prevents stale data from affecting new operations.
 
 ## Parameters / Member Variables
-- : Pointer to LexizeData structure to be initialized - contains all state for lexeme processing
-- : Pointer to TSConfigCacheEntry containing text search configuration settings
-
+- `*ld`: Pointer to LexizeData structure to be initialized - contains all state for lexeme processing
+- `*cfg`: Pointer to TSConfigCacheEntry containing text search configuration settings
 ## Dependencies
 - Functions called/Symbols referenced:
   - LexizeData (structure type)

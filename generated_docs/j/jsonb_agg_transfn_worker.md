@@ -16,9 +16,8 @@ jsonb_agg_transfn_worker(FunctionCallInfo fcinfo, bool absent_on_null)
 The  function serves as the core implementation for JSONB array aggregation transition functions. It accumulates individual values into a JSONB array during aggregate processing. The function handles the initialization of the aggregate state on first call, converts input values to JSONB format, and iterates through the JSONB structure to properly integrate elements into the growing array. It supports both standard aggregation and strict mode (where null inputs are skipped when absent_on_null is true).
 
 ## Parameters / Member Variables
-- : Function call information containing arguments and context
-- : Boolean flag indicating whether to skip null values (true for strict aggregation)
-
+- `fcinfo`: Function call information containing arguments and context
+- `absent_on_null`: Boolean flag indicating whether to skip null values (true for strict aggregation)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Verify aggregate function context

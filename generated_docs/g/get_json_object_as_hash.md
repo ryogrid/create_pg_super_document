@@ -25,11 +25,10 @@ Key behaviors:
 - Uses current memory context for hash table allocation
 
 ## Parameters / Member Variables
-- : Pointer to the JSON string to be parsed
-- : Length of the JSON string in bytes
-- : Name of the calling function (used for error reporting context)
-- : Error context for soft error handling during parsing
-
+- `*json`: Pointer to the JSON string to be parsed
+- `len`: Length of the JSON string in bytes
+- `*funcname`: Name of the calling function (used for error reporting context)
+- `*escontext`: Error context for soft error handling during parsing
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hash_create](../h/hash_create.md)

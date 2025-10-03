@@ -17,7 +17,6 @@ StartSubTransaction is responsible for the complete initialization of a new subt
 The function performs a comprehensive initialization sequence: it validates the current transaction state, transitions through TRANS_START to TRANS_INPROGRESS, initializes memory management and resource ownership for the subtransaction, sets up trigger handling, and invokes subtransaction start callbacks. This careful orchestration ensures that all PostgreSQL subsystems are properly prepared for subtransaction operations.
 
 ## Parameters / Member Variables
-This function takes no parameters and has no return value. It operates on the global CurrentTransactionState.
 
 ## Dependencies
 - Functions called/Symbols referenced:

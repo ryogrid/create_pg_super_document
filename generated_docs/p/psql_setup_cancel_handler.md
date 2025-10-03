@@ -18,6 +18,7 @@ psql_setup_cancel_handler serves as a wrapper function that sets up the cancella
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [setup_cancel_handler](../s/setup_cancel_handler.md) (generic signal handler setup function)

@@ -20,9 +20,8 @@ The function performs pointer arithmetic by casting to char* (to ensure byte-lev
 An assertion ensures the list is not empty before attempting to access the first element, preventing undefined behavior when operating on empty lists.
 
 ## Parameters / Member Variables
-- : Pointer to the list head structure containing the sentinel and list metadata
-- : Byte offset of the dlist_node field within the containing structure (typically calculated using offsetof())
-
+- `*head`: Pointer to the list head structure containing the sentinel and list metadata
+- `off`: Byte offset of the dlist_node field within the containing structure (typically calculated using offsetof())
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dlist_head](dlist_head.md) (struct type)

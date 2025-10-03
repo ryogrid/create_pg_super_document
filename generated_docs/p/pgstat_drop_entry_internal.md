@@ -21,9 +21,8 @@ The function implements a two-phase deletion strategy: first marking the entry a
 The function includes comprehensive safety checks, including verification that local references have been released and protection against double-deletion attempts. It supports both direct deletion and iteration-safe deletion patterns through the optional  parameter.
 
 ## Parameters / Member Variables
-- : Pointer to the shared statistics hash entry to be dropped, which must be already locked by the caller
-- : Optional pointer to sequential iteration status. If non-NULL, indicates the function is called during hash table iteration and affects the deletion method used
-
+- `*shent`: Pointer to the shared statistics hash entry to be dropped, which must be already locked by the caller
+- `*hstat`: Optional pointer to sequential iteration status. If non-NULL, indicates the function is called during hash table iteration and affects the deletion method used
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Verifies no local references exist before dropping

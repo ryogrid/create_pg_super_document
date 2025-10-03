@@ -21,12 +21,11 @@ The function uses an input/output parameter pattern where have_tuple_lock indica
 The function utilizes either LockTupleTuplock for blocking operations or ConditionalLockTupleTuplock for non-blocking attempts, depending on the specified wait policy.
 
 ## Parameters / Member Variables
-- : The heap relation containing the target tuple
-- : ItemPointer (tuple identifier) specifying the exact tuple to lock
-- : LockTupleMode specifying the type of lock to acquire
-- : LockWaitPolicy determining behavior when lock cannot be immediately acquired
-- : Input/output boolean pointer indicating current lock state and updated upon acquisition
-
+- `relation`: The heap relation containing the target tuple
+- `tid`: ItemPointer (tuple identifier) specifying the exact tuple to lock
+- `mode`: LockTupleMode specifying the type of lock to acquire
+- `wait_policy`: LockWaitPolicy determining behavior when lock cannot be immediately acquired
+- `*have_tuple_lock`: Input/output boolean pointer indicating current lock state and updated upon acquisition
 ## Dependencies
 - Functions called/Symbols referenced:
   - LockTupleTuplock

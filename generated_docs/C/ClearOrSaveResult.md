@@ -16,8 +16,7 @@ ClearOrSaveResult(PGresult *result)
 ClearOrSaveResult implements psql's error result preservation mechanism. When a PGresult contains error information (PGRES_NONFATAL_ERROR or PGRES_FATAL_ERROR status), the function saves it to pset.last_error_result for potential later display by the \errverbose command, first clearing any previously saved error result to prevent memory leaks. For all other result statuses (successful operations), the function immediately calls PQclear() to free the result memory. This selective preservation allows users to examine detailed error information on demand while ensuring proper memory management for normal operations.
 
 ## Parameters / Member Variables
-- : Pointer to the PGresult structure to be processed, may be NULL
-
+- `*result`: Pointer to the PGresult structure to be processed, may be NULL
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQresultStatus](../P/PQresultStatus.md) (PostgreSQL libpq function)

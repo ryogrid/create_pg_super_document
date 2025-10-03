@@ -18,8 +18,7 @@ This function is a core utility for PostgreSQL's ranking window functions (RANK,
 The function uses partition-local memory to maintain a  structure that tracks the current rank value. On the first call for a partition, it initializes the rank to 1. For subsequent calls, it compares consecutive rows to determine if they are peers using .
 
 ## Parameters / Member Variables
-- : A WindowObject that provides access to the window frame, current position, and partition data
-
+- `winobj`: A WindowObject that provides access to the window frame, current position, and partition data
 ## Dependencies
 - Functions called/Symbols referenced:
   - [WinGetCurrentPosition](../W/WinGetCurrentPosition.md)

@@ -25,13 +25,12 @@ The DELETE message format includes:
 5. Old tuple data in the specified format
 
 ## Parameters / Member Variables
-- : StringInfo buffer where the DELETE message will be written
-- : Transaction ID (optional, used when streaming transactions)
-- : Relation descriptor for the table from which the row is being deleted
-- : TupleTableSlot containing the old tuple values to be deleted
-- : Boolean flag indicating whether to use binary or text format
-- : Bitmapset specifying which columns to include in the output
-
+- `out`: StringInfo buffer where the DELETE message will be written
+- `xid`: Transaction ID (optional, used when streaming transactions)
+- `rel`: Relation descriptor for the table from which the row is being deleted
+- `*oldslot`: TupleTableSlot containing the old tuple values to be deleted
+- `binary`: Boolean flag indicating whether to use binary or text format
+- `*columns`: Bitmapset specifying which columns to include in the output
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pq_sendbyte](../p/pq_sendbyte.md) (sends single byte to output stream)

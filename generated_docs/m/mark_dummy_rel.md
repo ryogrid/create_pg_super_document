@@ -27,8 +27,7 @@ Special attention is paid to memory context management, particularly for GEQO (G
 The childless Append path created by this function will be recognized by is_dummy_rel() and other parts of the optimizer, allowing them to take appropriate shortcuts when processing empty relations.
 
 ## Parameters / Member Variables
-- : Pointer to the RelOptInfo to be marked as empty/dummy
-
+- `*rel`: Pointer to the RelOptInfo to be marked as empty/dummy
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Checks if relation is already marked as dummy

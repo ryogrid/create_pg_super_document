@@ -16,9 +16,8 @@ getInherits(Archive *fout, int *numInherits)
 The getInherits function queries the pg_inherits system catalog to retrieve all table inheritance relationships in the database. It executes a simple SQL query to fetch inheritance pairs (child table OID and parent table OID) and stores them in an array of InhInfo structures. This information is essential for pg_dump to properly handle table inheritance when creating database dumps, ensuring that inheritance relationships are preserved during backup and restore operations.
 
 ## Parameters / Member Variables
-- : Archive pointer representing the output destination for the dump operation
-- : Output parameter that receives the total number of inheritance relationships found
-
+- `*fout`: Archive pointer representing the output destination for the dump operation
+- `*numInherits`: Output parameter that receives the total number of inheritance relationships found
 ## Dependencies
 - Functions called/Symbols referenced:
   - [InhInfo](../I/InhInfo.md) (structure type)

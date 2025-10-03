@@ -24,10 +24,9 @@ The function performs several critical tasks for each large object:
 Unlike table data processing, each large object gets its own compression context, allowing for optimal compression of individual large objects and providing clear boundaries between different large objects in the archive.
 
 ## Parameters / Member Variables
-- : Archive handle containing the overall archive state and configuration
-- : Table of Contents entry representing the large object being processed
-- : Object Identifier (OID) of the large object to be dumped
-
+- `*AH`: Archive handle containing the overall archive state and configuration
+- `*te`: Table of Contents entry representing the large object being processed
+- `oid`: Object Identifier (OID) of the large object to be dumped
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Reports fatal error and terminates program (for invalid OID)

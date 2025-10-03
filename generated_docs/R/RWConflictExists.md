@@ -16,9 +16,8 @@ RWConflictExists(const SERIALIZABLEXACT *reader, const SERIALIZABLEXACT *writer)
 This function determines if there is already an existing read-write conflict between a reader transaction and a writer transaction. It performs this check by iterating through the reader's outgoing conflicts list to see if any conflict points to the specified writer transaction. The function includes optimizations to quickly return false in cases where conflicts are impossible (e.g., when either transaction is doomed or when the relevant conflict lists are empty).
 
 ## Parameters / Member Variables
-- : Pointer to the serializable transaction that is reading data
-- : Pointer to the serializable transaction that is writing data
-
+- `*reader`: Pointer to the serializable transaction that is reading data
+- `*writer`: Pointer to the serializable transaction that is writing data
 ## Dependencies
 - Functions called/Symbols referenced:
   - SxactIsDoomed

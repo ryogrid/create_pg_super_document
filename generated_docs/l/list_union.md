@@ -22,9 +22,8 @@ An important limitation is that the function does not remove duplicates that may
 The performance complexity is O(n*m) where n and m are the lengths of the two lists, making it potentially expensive for large lists. The documentation suggests using other data structures if this becomes a performance bottleneck.
 
 ## Parameters / Member Variables
-- : The first PostgreSQL List (must be a pointer list). This forms the base of the union.
-- : The second PostgreSQL List (must be a pointer list). Elements from this list are added if not already present in list1.
-
+- `*list1`: The first PostgreSQL List (must be a pointer list). This forms the base of the union.
+- `*list2`: The second PostgreSQL List (must be a pointer list). Elements from this list are added if not already present in list1.
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsPointerList: Validates that both input lists are pointer lists (called twice)

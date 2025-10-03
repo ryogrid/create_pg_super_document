@@ -22,8 +22,7 @@ The function operates in two main scenarios:
 If the file is already open and is the most recently used (at the head of the LRU ring), no action is taken.
 
 ## Parameters / Member Variables
-- : The File (virtual file descriptor number) that needs to be accessed
-
+- `file`: The File (virtual file descriptor number) that needs to be accessed
 ## Return Value
 - Returns 0 on success
 - Returns -1 on re-open failure (with errno set by the underlying system call)

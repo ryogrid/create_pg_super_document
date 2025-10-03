@@ -23,10 +23,9 @@ This function is responsible for configuring the output conversion infrastructur
 The function assumes that the tuple descriptor may not be long-lived and takes appropriate measures to ensure proper type information is maintained for subsequent composite type conversions.
 
 ## Parameters / Member Variables
-- : PLyObToDatum structure containing output conversion information to be configured
-- : TupleDesc structure representing the record type's tuple descriptor (may be transient)
-- : PLyProcedure structure containing procedure metadata (passed through to subsequent setup)
-
+- `*arg`: PLyObToDatum structure containing output conversion information to be configured
+- `desc`: TupleDesc structure representing the record type's tuple descriptor (may be transient)
+- `*proc`: PLyProcedure structure containing procedure metadata (passed through to subsequent setup)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BlessTupleDesc](../B/BlessTupleDesc.md): Finalizes tuple descriptor for SRF use

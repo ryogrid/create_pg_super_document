@@ -18,9 +18,8 @@ RemoveTargetIfNoLongerUsed is a static function in PostgreSQL's predicate lockin
 This function is essential for memory management in the serializable snapshot isolation system, preventing the accumulation of unused target entries that could lead to memory bloat and degraded performance. The function uses the provided hash value for efficient removal from the hash table.
 
 ## Parameters / Member Variables
-- : Pointer to the PREDICATELOCKTARGET structure to potentially remove. This represents a lockable object in the predicate locking system.
-- : The precomputed hash value for the target's tag, used for efficient hash table operations.
-
+- `*target`: Pointer to the PREDICATELOCKTARGET structure to potentially remove. This represents a lockable object in the predicate locking system.
+- `targettaghash`: The precomputed hash value for the target's tag, used for efficient hash table operations.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockHeldByMe](../L/LWLockHeldByMe.md)

@@ -19,7 +19,6 @@ The hash table maps from PREDICATELOCKTARGETTAG (which identifies the lockable o
 This local hash table works in conjunction with the global predicate lock management system, providing a fast way to determine which locks a transaction already holds before attempting to acquire new ones or when releasing locks during transaction cleanup.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

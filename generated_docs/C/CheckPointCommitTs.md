@@ -18,7 +18,6 @@ CheckPointCommitTs is responsible for ensuring data durability during PostgreSQL
 The function uses SimpleLruWriteAll to flush all modified pages in the commit timestamp SLRU to disk. This operation may queue sync requests that will be processed later by ProcessSyncRequests() as part of the checkpoint completion process, ensuring proper ordering of disk writes.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

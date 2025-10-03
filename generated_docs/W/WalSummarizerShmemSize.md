@@ -18,6 +18,7 @@ This function calculates and returns the shared memory space needed for WAL summ
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [WalSummarizerData](WalSummarizerData.md) (returns sizeof this structure)

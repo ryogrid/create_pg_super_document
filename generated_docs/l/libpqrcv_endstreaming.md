@@ -18,9 +18,8 @@ This function implements the proper termination sequence for a WAL streaming con
 The function follows PostgreSQL's replication protocol strictly, verifying that all expected response messages are received in the correct order. It performs comprehensive error checking and cleanup, ensuring that the connection is left in a consistent state after streaming termination.
 
 ## Parameters / Member Variables
-- : Pointer to WalReceiverConn structure containing the active streaming connection
-- : Output parameter that receives the next timeline ID reported by the server, or 0 if not reported
-
+- `*conn`: Pointer to WalReceiverConn structure containing the active streaming connection
+- `*next_tli`: Output parameter that receives the next timeline ID reported by the server, or 0 if not reported
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQputCopyEnd](../P/PQputCopyEnd.md)

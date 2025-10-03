@@ -20,7 +20,6 @@ First, having a transaction ID ensures that transaction completion records (comm
 Second, assigning the transaction ID before the lock is recorded in shared memory prevents a race condition where GetRunningTransactionLocks() might observe a lock associated with InvalidTransactionId, which would violate system invariants and cause assertion failures.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

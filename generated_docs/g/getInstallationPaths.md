@@ -26,8 +26,7 @@ getInstallationPaths performs critical path discovery and validation during post
 The function is designed to fail fast with informative error messages if the PostgreSQL installation appears corrupted or incomplete, preventing later mysterious failures when attempting to load modules or access installation resources.
 
 ## Parameters / Member Variables
-- : The program name as passed in argv[0] from main(), used to locate the executable's path
-
+- `*argv0`: The program name as passed in argv[0] from main(), used to locate the executable's path
 ## Dependencies
 - Functions called/Symbols referenced:
   - [find_my_exec](../f/find_my_exec.md): Resolve full path to current executable

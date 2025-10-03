@@ -18,10 +18,9 @@ The ldchar function is part of PostgreSQL's ECPG Informix compatibility library.
 This function is essential for working with fixed-length database fields in Informix-compatible applications, where trailing spaces are typically padding that should be removed when converting to standard C strings.
 
 ## Parameters / Member Variables
-- : Source character array/string to copy from
-- : Maximum length of the source string to consider
-- : Destination buffer where the trimmed, null-terminated string will be stored
-
+- `*src`: Source character array/string to copy from
+- `len`: Maximum length of the source string to consider
+- `*dest`: Destination buffer where the trimmed, null-terminated string will be stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - [byleng](../b/byleng.md)() - to calculate effective length without trailing spaces

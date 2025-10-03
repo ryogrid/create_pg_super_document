@@ -23,10 +23,9 @@ The search algorithm:
 5. Returns immediately upon finding a complete match of any array element
 
 ## Parameters / Member Variables
-- : Input string to search for matches against
-- : Null-terminated array of string pointers to search through
-- : Output parameter - set to the length of the matched portion, or 0 for no match
-
+- `*name`: Input string to search for matches against
+- `*array`: Null-terminated array of string pointers to search through
+- `*len`: Output parameter - set to the length of the matched portion, or 0 for no match
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_ascii_tolower](../p/pg_ascii_tolower.md) (called 4 times for case-insensitive ASCII comparisons)

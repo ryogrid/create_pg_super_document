@@ -19,7 +19,6 @@ The function includes a safety check that immediately returns if the startup pro
 The timeout is configured as a repeating timeout using `enable_timeout_every()`, which means it will continue to fire periodically until explicitly disabled, allowing for regular progress updates during long-running recovery operations.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called:

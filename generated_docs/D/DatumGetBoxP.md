@@ -16,8 +16,7 @@ DatumGetBoxP(Datum X)
 This function serves as a type conversion utility within PostgreSQL's geometric data type system. It takes a generic Datum (PostgreSQL's universal data container) and safely casts it to a BOX pointer using DatumGetPointer. The function is implemented as a static inline for optimal performance since it's frequently used in geometric operations and indexing. The BOX type represents a rectangular box defined by two corner points in 2D space.
 
 ## Parameters / Member Variables
-- : A Datum value containing a pointer to BOX data that needs to be extracted and type-cast
-
+- `X`: A Datum value containing a pointer to BOX data that needs to be extracted and type-cast
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DatumGetPointer](DatumGetPointer.md) (implicit through casting)

@@ -17,11 +17,10 @@ pg_get_partkeydef_worker(Oid relid, int prettyFlags,
 This is the core implementation function for generating string representations of partition key definitions. It retrieves partition information from the  system catalog and reconstructs the partition clause syntax. The function handles different partition strategies (HASH, LIST, RANGE) and can format output in multiple modes - either as a complete "PARTITION BY" clause or just the column/expression list. It processes both simple column references and complex expressions, handling collations and operator classes appropriately.
 
 ## Parameters / Member Variables
-- : Object identifier (OID) of the partitioned relation whose partition key definition should be retrieved
-- : Integer flags controlling the formatting and pretty-printing of the output (derived from GET_PRETTY_FLAGS macro)
-- : Boolean flag indicating whether to return only the column/expression list (true) or the full partition clause including strategy (false)
-- : Boolean flag indicating whether to return NULL (true) or throw an error (false) if the relation is not found
-
+- `relid`: Object identifier (OID) of the partitioned relation whose partition key definition should be retrieved
+- `prettyFlags`: Integer flags controlling the formatting and pretty-printing of the output (derived from GET_PRETTY_FLAGS macro)
+- `attrsOnly`: Boolean flag indicating whether to return only the column/expression list (true) or the full partition clause including strategy (false)
+- `missing_ok`: Boolean flag indicating whether to return NULL (true) or throw an error (false) if the relation is not found
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache1](../S/SearchSysCache1.md), SysCacheGetAttrNotNull, ReleaseSysCache (system catalog access)

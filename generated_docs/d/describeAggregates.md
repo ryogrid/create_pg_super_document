@@ -16,10 +16,9 @@ describeAggregates(const char *pattern, bool verbose, bool showSystem)
 This function generates and executes a SQL query to list aggregate functions from the PostgreSQL system catalogs. It constructs a SELECT query that retrieves aggregate function information from pg_proc and pg_namespace catalogs, formatting the output as a table showing schema name, function name, return type, and argument types. The function handles version-specific differences in PostgreSQL (using prokind='a' for version 11+ and proisagg for older versions) and supports pattern-based filtering and system object visibility control.
 
 ## Parameters / Member Variables
-- : Optional regular expression pattern to filter aggregate functions by name or schema
-- : Flag to enable verbose output (currently not used in implementation)
-- : Boolean flag to control whether system schema aggregates (pg_catalog, information_schema) are displayed
-
+- `*pattern`: Optional regular expression pattern to filter aggregate functions by name or schema
+- `verbose`: Flag to enable verbose output (currently not used in implementation)
+- `showSystem`: Boolean flag to control whether system schema aggregates (pg_catalog, information_schema) are displayed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [initPQExpBuffer](../i/initPQExpBuffer.md)

@@ -21,11 +21,10 @@ The function implements a crucial locking protocol: it acquires a write lock on 
 The function also handles special cases like incomplete page splits and dead/ignored pages, ensuring that the insertion proceeds to a valid, usable leaf page.
 
 ## Parameters / Member Variables
-- : The B-tree index relation being operated on
-- : The heap relation associated with the index (must not be NULL)
-- : Current insertion state to be updated with new buffer
-- : Search stack needed for potential split completion
-
+- `rel`: The B-tree index relation being operated on
+- `heaprel`: The heap relation associated with the index (must not be NULL)
+- `insertstate`: Current insertion state to be updated with new buffer
+- `stack`: Search stack needed for potential split completion
 ## Dependencies
 - Functions called/Symbols referenced:
   - [_bt_relandgetbuf](_bt_relandgetbuf.md): Releases current buffer and acquires new one with specified lock

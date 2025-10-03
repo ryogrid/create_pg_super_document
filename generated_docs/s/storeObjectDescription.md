@@ -22,12 +22,11 @@ This function constructs human-readable descriptions of database objects that de
 The function handles three types of objects differently: LOCAL_OBJECT and SHARED_OBJECT use dependency type information to describe the nature of the relationship (owner, privileges, etc.), while REMOTE_OBJECT uses a count to describe multiple objects in a remote database. The formatted descriptions are accumulated in a StringInfo buffer with newline separators.
 
 ## Parameters / Member Variables
-- : StringInfo buffer to append the formatted description to
-- : Type of dependent object (LOCAL_OBJECT, SHARED_OBJECT, or REMOTE_OBJECT)
-- : ObjectAddress structure identifying the dependent object
-- : Type of dependency relationship (used for LOCAL/SHARED objects only)
-- : Number of objects for REMOTE_OBJECT type (ignored for other types)
-
+- `descs`: StringInfo buffer to append the formatted description to
+- `type`: Type of dependent object (LOCAL_OBJECT, SHARED_OBJECT, or REMOTE_OBJECT)
+- `*object`: ObjectAddress structure identifying the dependent object
+- `deptype`: Type of dependency relationship (used for LOCAL/SHARED objects only)
+- `count`: Number of objects for REMOTE_OBJECT type (ignored for other types)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [getObjectDescription](../g/getObjectDescription.md)

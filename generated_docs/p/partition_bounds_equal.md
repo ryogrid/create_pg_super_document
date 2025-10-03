@@ -19,12 +19,11 @@ This function performs a deep comparison of two PartitionBoundInfo structures to
 For hash partitions, it leverages the fact that if indexes arrays match, the bounds are equivalent due to the modulus/remainder organization. For range and list partitions, it performs element-wise comparison of both bound kinds and actual datum values using safe comparison methods.
 
 ## Parameters / Member Variables
-- : Number of partition attributes 
-- : Array of type lengths for each partition attribute
-- : Array indicating if each partition attribute type is passed by value
-- : First PartitionBoundInfo structure to compare
-- : Second PartitionBoundInfo structure to compare
-
+- `partnatts`: Number of partition attributes
+- `*parttyplen`: Array of type lengths for each partition attribute
+- `*parttypbyval`: Array indicating if each partition attribute type is passed by value
+- `b1`: First PartitionBoundInfo structure to compare
+- `b2`: Second PartitionBoundInfo structure to compare
 ## Dependencies
 - Functions called/Symbols referenced:
   - [datumIsEqual](../d/datumIsEqual.md)

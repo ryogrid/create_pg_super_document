@@ -16,8 +16,7 @@ injection_point_init_state(void *ptr)
 This function serves as a callback for shared memory area initialization in the injection points testing module. It takes a generic pointer to shared memory and casts it to the appropriate  structure, then initializes all the necessary synchronization primitives and data fields to their default states. This ensures that the injection point shared state is properly set up when the shared memory segment is first created.
 
 ## Parameters / Member Variables
-- : Generic void pointer to the shared memory area that will be cast to 
-
+- `*ptr`: Generic void pointer to the shared memory area that will be cast to
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (struct type)

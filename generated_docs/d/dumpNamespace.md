@@ -18,9 +18,8 @@ The  function creates the necessary SQL statements to recreate a PostgreSQL sche
 The function also handles binary upgrade scenarios and dumps associated metadata including comments, security labels, and access control lists (ACLs). For schemas not created by the user (like 'public'), it generates comments indicating that the schema is not being created since initdb handles it.
 
 ## Parameters / Member Variables
-- : Archive structure representing the dump destination and containing connection/output information
-- : Pointer to NamespaceInfo structure containing schema metadata including name, owner, creation flag, and dump components
-
+- `*fout`: Archive structure representing the dump destination and containing connection/output information
+- `*nspinfo`: Pointer to NamespaceInfo structure containing schema metadata including name, owner, creation flag, and dump components
 ## Dependencies
 - Functions called/Symbols referenced:
   - [fmtId](../f/fmtId.md)

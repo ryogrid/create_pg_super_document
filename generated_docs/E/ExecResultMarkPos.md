@@ -22,8 +22,7 @@ The function checks if the Result node has an outer plan:
 This design reflects the fact that Result nodes themselves don't maintain complex execution state that needs to be marked - they either pass through tuples from an outer plan or generate a single constant result.
 
 ## Parameters / Member Variables
-- : The ResultState containing the execution state for this Result node
-
+- `*node`: The ResultState containing the execution state for this Result node
 ## Dependencies
 - Functions called/Symbols referenced:
   - outerPlanState (to get the outer plan state)

@@ -29,8 +29,7 @@ Key operational aspects:
 The function is essential for handling Romanian words with complex morphological structures where standard suffix removal would be insufficient or incorrect.
 
 ## Parameters / Member Variables
-- : Pointer to SN_env structure containing the stemming environment, including cursor position, string boundaries, working buffers, and integer flags array
-
+- `*z`: Pointer to SN_env structure containing the stemming environment, including cursor position, string boundaries, working buffers, and integer flags array
 ## Dependencies
 - Functions called/Symbols referenced:
   - [r_R1](r_R1.md): Validates that the operation is within the R1 region

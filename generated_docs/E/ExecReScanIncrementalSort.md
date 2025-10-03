@@ -25,8 +25,7 @@ The function performs a comprehensive reset:
 The approach of resetting rather than deallocating tuplesort states avoids the overhead of recreating them while ensuring proper cleanup of internal state.
 
 ## Parameters / Member Variables
-- : The IncrementalSortState to be reset for re-execution
-
+- `*node`: The IncrementalSortState to be reset for re-execution
 ## Dependencies
 - Functions called/Symbols referenced:
   - outerPlanState (gets outer child plan state)

@@ -18,8 +18,7 @@ This function serves as a centralized mapping utility within PostgreSQL's utilit
 The function uses a comprehensive switch statement to handle over 30 different object types, ensuring that each ALTER operation is properly categorized with its corresponding command tag. For unrecognized object types, it returns CMDTAG_UNKNOWN as a fallback.
 
 ## Parameters / Member Variables
-- : An ObjectType enum value representing the type of database object being altered (e.g., OBJECT_TABLE, OBJECT_FUNCTION, OBJECT_INDEX, etc.)
-
+- `objtype`: An ObjectType enum value representing the type of database object being altered (e.g., OBJECT_TABLE, OBJECT_FUNCTION, OBJECT_INDEX, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   - ObjectType (enum parameter)

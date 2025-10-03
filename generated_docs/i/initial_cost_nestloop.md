@@ -31,13 +31,12 @@ This function performs the first phase of nested loop join cost estimation in Po
 The function deliberately excludes CPU-cost considerations and detailed join qualification analysis to maintain speed, leaving these expensive calculations for final_cost_nestloop.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planner context and statistics
-- : JoinCostWorkspace structure to be filled with preliminary cost estimates and intermediate data
-- : Type of join operation (INNER, LEFT, RIGHT, FULL, SEMI, ANTI, etc.)
-- : Path representing the outer input to the join
-- : Path representing the inner input to the join  
-- : JoinPathExtraData containing miscellaneous join information
-
+- `*root`: PlannerInfo structure containing planner context and statistics
+- `*workspace`: JoinCostWorkspace structure to be filled with preliminary cost estimates and intermediate data
+- `jointype`: Type of join operation (INNER, LEFT, RIGHT, FULL, SEMI, ANTI, etc.)
+- `*outer_path`: Path representing the outer input to the join
+- `*inner_path`: Path representing the inner input to the join
+- `*extra`: JoinPathExtraData containing miscellaneous join information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [cost_rescan](../c/cost_rescan.md)

@@ -18,9 +18,8 @@ guc_malloc(int elevel, size_t size)
 The function uses  with the  flag, which means it will return NULL instead of throwing an error when memory allocation fails. This allows the function to handle the error reporting itself using PostgreSQL's  system.
 
 ## Parameters / Member Variables
-- : Error level to use when reporting out-of-memory conditions (e.g., ERROR, WARNING, LOG)
-- : Number of bytes to allocate
-
+- `elevel`: Error level to use when reporting out-of-memory conditions (e.g., ERROR, WARNING, LOG)
+- `size`: Number of bytes to allocate
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContextAllocExtended](../M/MemoryContextAllocExtended.md)

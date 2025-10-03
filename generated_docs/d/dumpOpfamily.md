@@ -22,9 +22,8 @@ The  function is responsible for generating SQL commands to recreate an operator
 The function generates both the CREATE command for the basic operator family definition and an ALTER command to add any loose operators and functions that are directly dependent on the family but not bound to specific operator classes.
 
 ## Parameters / Member Variables
-- : Archive structure containing dump options and output methods
-- : OpfamilyInfo structure containing operator family metadata including OID, name, namespace, and owner
-
+- `*fout`: Archive structure containing dump options and output methods
+- `*opfinfo`: OpfamilyInfo structure containing operator family metadata including OID, name, namespace, and owner
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)

@@ -18,9 +18,8 @@ ExecMemoizeEstimate is a parallel query support function that calculates the sha
 The function performs memory size calculations using PostgreSQL's safe arithmetic functions to prevent overflow, then registers the estimated chunk size and number of keys with the shared memory table of contents (TOC) estimator.
 
 ## Parameters / Member Variables
-- : Pointer to the MemoizeState structure containing the memoize execution state and instrumentation settings
-- : Pointer to the ParallelContext structure containing parallel execution context including the number of workers
-
+- `*node`: Pointer to the MemoizeState structure containing the memoize execution state and instrumentation settings
+- `*pcxt`: Pointer to the ParallelContext structure containing parallel execution context including the number of workers
 ## Dependencies
 - Functions called/Symbols referenced:
   - [mul_size](../m/mul_size.md) (safe multiplication for memory size calculations)

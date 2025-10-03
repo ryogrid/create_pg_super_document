@@ -23,9 +23,8 @@ The function performs a simple conditional check using PostgreSQL's interval cla
 This is the interval-specific version of the timestamp encoding function, designed to maintain consistency in how infinite values are represented across PostgreSQL's temporal data types.
 
 ## Parameters / Member Variables
-- : Pointer to the Interval value to be encoded (must be a special infinite value)
-- : Output buffer where the string representation will be stored (caller must ensure adequate size)
-
+- `*interval`: Pointer to the Interval value to be encoded (must be a special infinite value)
+- `*str`: Output buffer where the string representation will be stored (caller must ensure adequate size)
 ## Dependencies
 - Functions called/Symbols referenced:
   - INTERVAL_IS_NOBEGIN (macro to check for negative infinity interval)

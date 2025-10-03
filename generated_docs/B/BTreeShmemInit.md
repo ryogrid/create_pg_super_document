@@ -24,7 +24,6 @@ During initialization, the function:
 The function uses PostgreSQL's shared memory initialization infrastructure and follows the standard pattern of checking the  flag to determine initialization vs. attachment behavior.
 
 ## Parameters / Member Variables
-None - this is a parameter-less initialization function.
 
 ## Dependencies
 - Functions called/Symbols referenced:

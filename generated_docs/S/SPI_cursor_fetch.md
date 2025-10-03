@@ -18,10 +18,9 @@ This function fetches a specified number of rows from a cursor Portal in the req
 The function handles both forward and backward cursor navigation, converting the boolean direction parameter to the appropriate internal FETCH_FORWARD or FETCH_BACKWARD constants. It uses a DestSPI destination receiver to capture the query results in SPI-compatible format.
 
 ## Parameters / Member Variables
-- : The Portal handle for the cursor from which to fetch rows
-- : Boolean indicating fetch direction (true for forward, false for backward)
-- : Number of rows to fetch (positive number)
-
+- `portal`: The Portal handle for the cursor from which to fetch rows
+- `forward`: Boolean indicating fetch direction (true for forward, false for backward)
+- `count`: Number of rows to fetch (positive number)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [_SPI_cursor_operation](_SPI_cursor_operation.md) (internal cursor operation handler)

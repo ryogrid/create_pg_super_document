@@ -25,11 +25,10 @@ The function sets up the archive member with:
 The function generates three consecutive bbstreamer_content calls to properly represent the archive member structure, allowing downstream bbstreamers to handle archive format-specific header and trailer generation as needed.
 
 ## Parameters / Member Variables
-- : The bbstreamer to send the injected file to
-- : File path for the injected archive member (copied up to MAXPGPATH)
-- : File content data to inject
-- : Length of the data to inject
-
+- `*streamer`: The bbstreamer to send the injected file to
+- `*pathname`: File path for the injected archive member (copied up to MAXPGPATH)
+- `*data`: File content data to inject
+- `len`: Length of the data to inject
 ## Dependencies
 - Functions called/Symbols referenced:
   - [strlcpy](../s/strlcpy.md)

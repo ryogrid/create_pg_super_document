@@ -23,7 +23,6 @@ This function handles the complete teardown of WAL recovery infrastructure after
 The function specifically handles cleanup for archive recovery scenarios, removing partial WAL segments and timeline history files that were created during the recovery process. These temporary files are no longer needed once recovery completes and normal operation begins.
 
 ## Parameters / Member Variables
-This function takes no parameters and returns void.
 
 ## Dependencies
 - Functions called/Symbols referenced:

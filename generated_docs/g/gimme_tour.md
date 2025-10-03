@@ -16,11 +16,10 @@ gimme_tour(PlannerInfo *root, Edge *edge_table, Gene *new_gene, int num_gene)
 This function creates a new tour (offspring) by constructing a path through all cities using the edge information stored in the edge table. The algorithm starts with a randomly selected city and iteratively builds the tour by following available edges. Priority is given to shared edges (marked as negative values) that exist in both parent tours. For each city added to the tour, the function removes that city from all edge lists to prevent revisiting. When no valid edges are available from the current city, it handles the fault condition using edge_failure(). The function returns the total number of edge failures encountered during tour construction.
 
 ## Parameters / Member Variables
-- : PlannerInfo pointer containing planning context and random number generation state
-- : Pointer to the Edge table containing edge information from parent tours
-- : Pointer to the Gene array where the new tour will be stored
-- : Integer specifying the number of cities/genes in the tour
-
+- `*root`: PlannerInfo pointer containing planning context and random number generation state
+- `*edge_table`: Pointer to the Edge table containing edge information from parent tours
+- `*new_gene`: Pointer to the Gene array where the new tour will be stored
+- `num_gene`: Integer specifying the number of cities/genes in the tour
 ## Dependencies
 - Functions called/Symbols referenced:
   - [geqo_randint](geqo_randint.md) (random number generation for initial city selection)

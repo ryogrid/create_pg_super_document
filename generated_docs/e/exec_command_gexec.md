@@ -16,9 +16,8 @@ exec_command_gexec(PsqlScanState scan_state, bool active_branch)
 This function handles the \gexec backslash command in psql. When executed, it sets a flag that causes the next query's results to be interpreted as SQL commands. Each field (column value) in each row of the result set will be executed as a separate SQL statement. This is useful for dynamically generating and executing SQL commands based on query results. The function is simple, only setting the gexec_flag when in an active branch.
 
 ## Parameters / Member Variables
-- : Scanner state for reading command options (unused in this implementation)
-- : Whether to actually set the flag (true) or just parse the command (false)
-
+- `scan_state`: Scanner state for reading command options (unused in this implementation)
+- `active_branch`: Whether to actually set the flag (true) or just parse the command (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - PSQL_CMD_SKIP_LINE

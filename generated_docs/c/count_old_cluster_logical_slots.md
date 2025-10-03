@@ -18,6 +18,7 @@ This utility function provides a simple count of all logical replication slots p
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (only accesses global old_cluster structure)

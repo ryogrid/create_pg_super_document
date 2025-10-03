@@ -18,8 +18,7 @@ The  function creates unique names for PostgreSQL logical replication objects by
 The generated names are designed to fit within PostgreSQL's  limit (typically 64 characters) and follow a predictable pattern that makes them easily identifiable as pg_createsubscriber-generated objects. The function includes comprehensive error handling for database queries and ensures exactly one result row is returned.
 
 ## Parameters / Member Variables
-- : An active PostgreSQL database connection used to query the current database's OID
-
+- `*conn`: An active PostgreSQL database connection used to query the current database's OID
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQexec](../P/PQexec.md) (libpq function for executing SQL queries)

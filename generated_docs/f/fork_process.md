@@ -17,7 +17,6 @@ The `fork_process` function is a PostgreSQL-specific wrapper around the standard
 The function ensures that child processes start with a clean signal state and proper initialization, which is critical for PostgreSQLs postmaster-backend process model. It also includes Linux-specific optimizations for profiling and OOM protection.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

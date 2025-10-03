@@ -25,12 +25,11 @@ This function implements the core logic for regexp replacement text processing i
 The function carefully handles character vs. byte positioning, using helper functions to convert between character lengths and byte lengths for proper Unicode support. It processes the replacement text in chunks, copying literal text segments efficiently and substituting back references as needed.
 
 ## Parameters / Member Variables
-- : StringInfo buffer to append the processed replacement text to
-- : Input text containing escape sequences and back references
-- : Array of regmatch_t structures containing match positions for captured groups
-- : Pointer to the beginning of the match in the source string  
-- : Logical character position of start_ptr in the source string
-
+- `str`: StringInfo buffer to append the processed replacement text to
+- `*replace_text`: Input text containing escape sequences and back references
+- `*pmatch`: Array of regmatch_t structures containing match positions for captured groups
+- `*start_ptr`: Pointer to the beginning of the match in the source string
+- `data_pos`: Logical character position of start_ptr in the source string
 ## Dependencies
 - Functions called/Symbols referenced:
   - VARDATA_ANY (macro for accessing text data)

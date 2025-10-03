@@ -29,8 +29,7 @@ The function intelligently formats error messages to include:
 For text format operations, it uses CopyLimitPrintoutLength to ensure error messages don't become excessively long by truncating displayed values when necessary.
 
 ## Parameters / Member Variables
-- : A void pointer that must be cast to CopyFromState, containing the current state of the COPY FROM operation including relation name, line number, column information, and data buffers
-
+- `*arg`: A void pointer that must be cast to CopyFromState, containing the current state of the COPY FROM operation including relation name, line number, column information, and data buffers
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CopyFromState](CopyFromState.md) (struct type)

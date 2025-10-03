@@ -16,8 +16,7 @@ PageGetTempPage(Page page)
 PageGetTempPage creates a temporary page buffer in local memory that matches the size of the provided source page. This function is used when algorithms need to perform operations on page data without modifying the original page in the buffer pool. The returned page is completely uninitialized, requiring the caller to set up any needed page structure or copy data from the source page. This approach provides a safe workspace for complex page operations like splits, merges, or reorganization.
 
 ## Parameters / Member Variables
-- : Source page used to determine the size of the temporary page to allocate
-
+- `page`: Source page used to determine the size of the temporary page to allocate
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PageGetPageSize](PageGetPageSize.md) (retrieves the size of the source page)

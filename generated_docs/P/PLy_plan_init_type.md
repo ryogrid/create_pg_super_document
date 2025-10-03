@@ -16,7 +16,6 @@ PLy_plan_init_type(void)
 This function performs the necessary initialization of the PLy_PlanType Python type object by calling PyType_Ready(). The PLy_PlanType represents prepared SQL statements (plans) that can be executed multiple times with different parameters in PL/Python. The function ensures that the type is properly registered with the Python interpreter and ready for object creation. If initialization fails, it raises a PostgreSQL ERROR using elog().
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

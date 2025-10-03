@@ -28,8 +28,7 @@ This function is similar to _bt_getroot() in BT_READ mode but specifically follo
 The function is primarily used in specialized scenarios where the exact root page is needed, rather than the performance-optimized fast-root used by normal operations.
 
 ## Parameters / Member Variables
-- : The B-tree index relation for which to retrieve the true root page
-
+- `rel`: The B-tree index relation for which to retrieve the true root page
 ## Dependencies
 - Functions called/Symbols referenced:
   - [_bt_getbuf](_bt_getbuf.md): Acquires buffer for specified block number  

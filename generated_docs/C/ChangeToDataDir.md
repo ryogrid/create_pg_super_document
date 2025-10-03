@@ -17,6 +17,7 @@ ChangeToDataDir performs a critical initialization step by changing the process'
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - chdir (system call to change working directory)

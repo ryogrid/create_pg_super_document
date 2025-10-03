@@ -24,8 +24,7 @@ This function is critical for PostgreSQL's installation layout because it ensure
 The function leverages  to handle the complex work of symlink resolution and path absolutization, then performs platform-specific normalization as needed.
 
 ## Parameters / Member Variables
-- : Input/output parameter containing the executable path to normalize (must be MAXPGPATH size)
-
+- `*path`: Input/output parameter containing the executable path to normalize (must be MAXPGPATH size)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (resolves symlinks and converts to absolute path)

@@ -24,9 +24,8 @@ The algorithm works by:
 The function assumes that the key change is small enough that it doesn't affect the ordering of keys within parent pages - it only updates the values without rearranging entries.
 
 ## Parameters / Member Variables
-- : Pointer to the FreePageManager containing the B-tree
-- : Pointer to the B-tree page whose first key has changed and needs ancestor updates
-
+- `*fpm`: Pointer to the FreePageManager containing the B-tree
+- `*btp`: Pointer to the B-tree page whose first key has changed and needs ancestor updates
 ## Dependencies
 - Functions called/Symbols referenced:
   - fpm_segment_base

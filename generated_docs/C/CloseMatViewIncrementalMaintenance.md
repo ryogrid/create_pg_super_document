@@ -20,7 +20,6 @@ This function works in tandem with  to provide proper nesting support for materi
 The function is primarily used to ensure that materialized view maintenance operations are properly bracketed and that the system can track when maintenance operations are in progress. This is crucial for maintaining data consistency during concurrent operations.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -28,8 +28,7 @@ The function specifically checks for ShareUpdateExclusiveLock, which provides su
 This is a debug-time validation mechanism that helps developers ensure proper locking protocols are followed during catalog manipulation operations.
 
 ## Parameters / Member Variables
-- : HeapTuple representing a pg_class catalog entry for which relation-level lock validation is needed
-
+- `oldtup`: HeapTuple representing a pg_class catalog entry for which relation-level lock validation is needed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [IsSharedRelation](../I/IsSharedRelation.md)

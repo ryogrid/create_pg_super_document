@@ -30,16 +30,15 @@ This function coordinates reindex operations on a single database and serves as 
 The function includes version compatibility checks for concurrent reindexing (PostgreSQL 12+) and tablespace options (PostgreSQL 14+). It manages connection pools through the parallel slots infrastructure and ensures proper cleanup of resources.
 
 ## Parameters / Member Variables
-- : Database connection parameters structure
-- : Type of reindex operation (REINDEX_DATABASE, REINDEX_SYSTEM, REINDEX_SCHEMA, REINDEX_TABLE, REINDEX_INDEX)
-- : List of user-specified objects to reindex (can be NULL for database/system reindex)
-- : Program name for error reporting
-- : Whether to echo SQL commands to stdout
-- : Whether to output verbose progress information
-- : Whether to use REINDEX CONCURRENTLY
-- : Number of concurrent connections to use for parallel processing
-- : Target tablespace for rebuilt indexes (PostgreSQL 14+)
-
+- `*cparams`: Database connection parameters structure
+- `type`: Type of reindex operation (REINDEX_DATABASE, REINDEX_SYSTEM, REINDEX_SCHEMA, REINDEX_TABLE, REINDEX_INDEX)
+- `*user_list`: List of user-specified objects to reindex (can be NULL for database/system reindex)
+- `*progname`: Program name for error reporting
+- `echo`: Whether to echo SQL commands to stdout
+- `verbose`: Whether to output verbose progress information
+- `concurrently`: Whether to use REINDEX CONCURRENTLY
+- `concurrentCons`: Number of concurrent connections to use for parallel processing
+- `*tablespace`: Target tablespace for rebuilt indexes (PostgreSQL 14+)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [connectDatabase](../c/connectDatabase.md)

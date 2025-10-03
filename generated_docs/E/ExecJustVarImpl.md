@@ -23,10 +23,9 @@ The function performs minimal overhead operations:
 The implementation is marked as pg_attribute_always_inline to ensure it gets inlined at call sites, eliminating function call overhead for these common simple expressions.
 
 ## Parameters / Member Variables
-- : Pointer to ExprState containing the expression evaluation context and steps
-- : Pointer to TupleTableSlot from which to retrieve the attribute value
-- : Pointer to boolean that will be set to indicate if the retrieved value is NULL
-
+- `*state`: Pointer to ExprState containing the expression evaluation context and steps
+- `*slot`: Pointer to TupleTableSlot from which to retrieve the attribute value
+- `*isnull`: Pointer to boolean that will be set to indicate if the retrieved value is NULL
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExprEvalStep](ExprEvalStep.md) (structure access)

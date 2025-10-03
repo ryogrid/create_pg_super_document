@@ -16,11 +16,10 @@ PLyDict_FromTuple(PLyDatumToOb *arg, HeapTuple tuple, TupleDesc desc, bool inclu
 This function performs the core work of converting a PostgreSQL tuple to a Python dictionary. It iterates through each attribute in the tuple descriptor, extracts the corresponding value from the tuple using heap_getattr, and converts each non-NULL value to a Python object using the appropriate conversion function. The function properly handles dropped attributes (skips them), generated columns (includes them only if requested), and NULL values (converts to Python None). The conversion process is wrapped in PostgreSQL's exception handling mechanism to ensure proper cleanup if errors occur during the conversion.
 
 ## Parameters / Member Variables
-- : PLyDatumToOb structure containing conversion functions and metadata for each tuple attribute
-- : HeapTuple containing the actual tuple data to be converted
-- : TupleDesc describing the structure and metadata of the tuple
-- : Boolean flag indicating whether generated columns should be included in the output dictionary
-
+- `*arg`: PLyDatumToOb structure containing conversion functions and metadata for each tuple attribute
+- `tuple`: HeapTuple containing the actual tuple data to be converted
+- `desc`: TupleDesc describing the structure and metadata of the tuple
+- `include_generated`: Boolean flag indicating whether generated columns should be included in the output dictionary
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PLyDatumToOb](PLyDatumToOb.md) (type structure and attribute array)

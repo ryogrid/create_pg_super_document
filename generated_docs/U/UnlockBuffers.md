@@ -16,7 +16,6 @@ UnlockBuffers(void)
 This function is designed for error recovery and process cleanup scenarios. It works in conjunction with LWLockReleaseAll() from lwlock.c, which handles the actual release of buffer content locks. UnlockBuffers specifically deals with clearing any PIN_COUNT request that was in progress when an error occurred. The function checks if the current process was waiting for a pin count and clears the BM_PIN_COUNT_WAITER flag if appropriate, ensuring clean state during error recovery or process termination.
 
 ## Parameters / Member Variables
-None - this function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

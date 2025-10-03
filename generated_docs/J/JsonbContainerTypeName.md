@@ -16,8 +16,7 @@ JsonbContainerTypeName(JsonbContainer *jbc)
 This function analyzes a JSONB container and returns its type name as a human-readable string. It handles different JSONB container types including scalars, arrays, and objects. For scalar values, it delegates to JsonbTypeName to get the specific scalar type. For containers, it directly returns "array" or "object" based on the container type. If an invalid container type is encountered, it logs an error and returns "unknown".
 
 ## Parameters / Member Variables
-- : Pointer to a JsonbContainer structure that needs type identification
-
+- `*jbc`: Pointer to a JsonbContainer structure that needs type identification
 ## Dependencies
 - Functions called/Symbols referenced:
   - [JsonbExtractScalar](JsonbExtractScalar.md)

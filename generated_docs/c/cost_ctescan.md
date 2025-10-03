@@ -24,11 +24,10 @@ This function calculates the execution cost for scanning a Common Table Expressi
 Important note: The costs of initially evaluating/computing the CTE query itself are handled separately as initplan costs and are NOT included in this function's calculations.
 
 ## Parameters / Member Variables
-- : The Path node to store the calculated costs (startup_cost and total_cost fields are set)
-- : PlannerInfo structure containing global planning information and cost parameters
-- : RelOptInfo representing the CTE relation being scanned (must have rtekind == RTE_CTE)
-- : ParamPathInfo for parameterized paths, or NULL for non-parameterized scans
-
+- `*path`: The Path node to store the calculated costs (startup_cost and total_cost fields are set)
+- `*root`: PlannerInfo structure containing global planning information and cost parameters
+- `*baserel`: RelOptInfo representing the CTE relation being scanned (must have rtekind == RTE_CTE)
+- `*param_info`: ParamPathInfo for parameterized paths, or NULL for non-parameterized scans
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_restriction_qual_cost](../g/get_restriction_qual_cost.md) (calculates cost of applying restriction qualifiers)

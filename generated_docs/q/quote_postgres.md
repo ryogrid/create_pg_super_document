@@ -18,10 +18,9 @@ The  function handles string escaping and quoting for ECPG (Embedded SQL in C fo
 When  is false, the function simply returns the original string unchanged, as the quoting will be handled later when the string is inserted into a statement.
 
 ## Parameters / Member Variables
-- : Input string to be quoted and escaped
-- : Boolean flag indicating whether quoting should be performed
-- : Line number for memory allocation tracking (used by ecpg_alloc)
-
+- `*arg`: Input string to be quoted and escaped
+- `quote`: Boolean flag indicating whether quoting should be performed
+- `lineno`: Line number for memory allocation tracking (used by ecpg_alloc)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ecpg_alloc](../e/ecpg_alloc.md)

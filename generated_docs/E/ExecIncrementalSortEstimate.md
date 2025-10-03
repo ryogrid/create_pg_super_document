@@ -23,9 +23,8 @@ The function calculates the required shared memory size by:
 The estimation is only performed when both instrumentation is enabled and parallel workers are available, as the statistics collection is unnecessary without these conditions.
 
 ## Parameters / Member Variables
-- : The IncrementalSortState containing instrumentation settings and configuration
-- : The ParallelContext containing worker count and shared memory estimator
-
+- `*node`: The IncrementalSortState containing instrumentation settings and configuration
+- `*pcxt`: The ParallelContext containing worker count and shared memory estimator
 ## Dependencies
 - Functions called/Symbols referenced:
   - [mul_size](../m/mul_size.md) (safely multiplies sizes with overflow checking)

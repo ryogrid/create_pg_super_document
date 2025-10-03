@@ -30,9 +30,8 @@ The protocol uses a header structure (PipeProtoHeader) that includes:
 - **Buffer Management**: Uses hash tables (buffer_lists) indexed by PID to efficiently manage partial messages from multiple processes.
 
 ## Parameters / Member Variables
-- : Input buffer containing received log data
-- : Pointer to the number of bytes currently in the buffer (updated on exit to reflect consumed data)
-
+- `*logbuffer`: Input buffer containing received log data
+- `*bytes_in_logbuffer`: Pointer to the number of bytes currently in the buffer (updated on exit to reflect consumed data)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [write_syslogger_file](../w/write_syslogger_file.md) (outputs complete messages to appropriate log files)

@@ -18,10 +18,9 @@ This function constructs a JsonFormat structure used in PostgreSQL's JSON proces
 The structure supports various JSON format types (such as JSON, JSONB) and different encoding options to handle character set conversions and formatting requirements for different client applications and use cases.
 
 ## Parameters / Member Variables
-- : JsonFormatType enumeration value specifying the format type (e.g., JS_FORMAT_JSON, JS_FORMAT_JSONB)
-- : JsonEncoding enumeration specifying the character encoding for the JSON output (e.g., JS_ENC_DEFAULT, JS_ENC_UTF8, JS_ENC_UTF16, etc.)
-- : Source code location (character position) in the original SQL query for error reporting and debugging
-
+- `type`: JsonFormatType enumeration value specifying the format type (e.g., JS_FORMAT_JSON, JS_FORMAT_JSONB)
+- `encoding`: JsonEncoding enumeration specifying the character encoding for the JSON output (e.g., JS_ENC_DEFAULT, JS_ENC_UTF8, JS_ENC_UTF16, etc.)
+- `location`: Source code location (character position) in the original SQL query for error reporting and debugging
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Creates a new node of type JsonFormat

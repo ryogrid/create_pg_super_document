@@ -24,9 +24,8 @@ In debug mode (DEBUG_LIST_MEMORY_USAGE defined), it allocates new memory for the
 The function maintains proper memory context management and includes provisions for memory debugging tools like Valgrind.
 
 ## Parameters / Member Variables
-- : The PostgreSQL List from which to remove the first N elements. Can be NIL (empty list).
-- : The number of elements to remove from the beginning of the list. Non-positive values result in no-op.
-
+- `*list`: The PostgreSQL List from which to remove the first N elements. Can be NIL (empty list).
+- `n`: The number of elements to remove from the beginning of the list. Non-positive values result in no-op.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_list_invariants](../c/check_list_invariants.md): Validates list structure integrity (called twice in debug mode)

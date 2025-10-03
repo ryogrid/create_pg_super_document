@@ -18,9 +18,8 @@ This function populates a SpGistTypeDesc structure with essential type informati
 The function is a utility routine used internally by the SP-GiST access method to gather type metadata needed for proper handling of indexed data types.
 
 ## Parameters / Member Variables
-- : Pointer to SpGistTypeDesc structure to be filled with type information
-- : Object identifier (Oid) of the PostgreSQL data type to look up
-
+- `*desc`: Pointer to SpGistTypeDesc structure to be filled with type information
+- `type`: Object identifier (Oid) of the PostgreSQL data type to look up
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup for type information)

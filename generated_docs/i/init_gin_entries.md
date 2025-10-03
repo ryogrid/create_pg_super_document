@@ -18,9 +18,8 @@ This static function initializes a GinEntries buffer structure that is used to c
 The function is part of PostgreSQL's JSONB GIN indexing infrastructure, which allows efficient indexing and querying of JSONB data by extracting individual keys, values, and paths as separate index entries.
 
 ## Parameters / Member Variables
-- : Pointer to the GinEntries structure to be initialized
-- : Number of Datum entries to pre-allocate in the buffer; if 0, no initial allocation is performed
-
+- `*entries`: Pointer to the GinEntries structure to be initialized
+- `preallocated`: Number of Datum entries to pre-allocate in the buffer; if 0, no initial allocation is performed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GinEntries](../G/GinEntries.md) (struct type)

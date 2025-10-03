@@ -28,10 +28,9 @@ The function handles several key scenarios:
 The function prioritizes sort-based approaches when paths are already sorted, but falls back to hash-based aggregation when no sorted paths are available or when it's more efficient.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing query planning context and distinct/sort pathkeys
-- : RelOptInfo containing source data paths to process for distinct operations  
-- : RelOptInfo destination relation where created distinct paths will be stored
-
+- `*root`: PlannerInfo structure containing query planning context and distinct/sort pathkeys
+- `*input_rel`: RelOptInfo containing source data paths to process for distinct operations
+- `*distinct_rel`: RelOptInfo destination relation where created distinct paths will be stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_sortgrouplist_exprs](../g/get_sortgrouplist_exprs.md)

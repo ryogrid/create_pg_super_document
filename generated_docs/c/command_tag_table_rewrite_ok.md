@@ -18,8 +18,7 @@ This function provides a boolean indicator of whether a particular PostgreSQL co
 The function is part of PostgreSQL's command tag infrastructure that categorizes SQL commands and their behavioral properties. Table rewrite operations are significant database events that can trigger specialized event handlers.
 
 ## Parameters / Member Variables
-- : A CommandTag enum value representing the specific SQL command to check
-
+- `commandTag`: A CommandTag enum value representing the specific SQL command to check
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (global array of CommandTagBehavior structures)

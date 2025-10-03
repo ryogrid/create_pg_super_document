@@ -20,7 +20,6 @@ During transaction abort processing, the system may be in a compromised state wi
 The function includes a fallback mechanism: if TransactionAbortContext hasn't been created yet (which can occur in extreme scenarios), it falls back to using TopMemoryContext as the working context.
 
 ## Parameters / Member Variables
-This function takes no parameters and operates on global memory context variables.
 
 ## Dependencies
 - Functions called/Symbols referenced:

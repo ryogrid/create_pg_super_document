@@ -17,12 +17,11 @@ smgrtruncate2(SMgrRelation reln, ForkNumber *forknum, int nforks,
 The  function performs immediate truncation of multiple forks of a storage manager relation. It implements a comprehensive truncation process that includes dropping relation buffers for the to-be-deleted blocks, sending shared invalidation messages to other backends, and updating cached block counts. The function is designed to be called within a critical section and requires the caller to hold AccessExclusiveLock on the relation. The truncation cannot be rolled back as it immediately modifies the physical storage.
 
 ## Parameters / Member Variables
-- : SMgrRelation pointer representing the storage manager relation to truncate  
-- : Array of ForkNumber values indicating which forks to truncate
-- : Integer specifying the number of forks in the arrays
-- : Array of BlockNumber values containing the current size of each fork
-- : Array of BlockNumber values specifying the target size for each corresponding fork
-
+- `reln`: SMgrRelation pointer representing the storage manager relation to truncate
+- `*forknum`: Array of ForkNumber values indicating which forks to truncate
+- `nforks`: Integer specifying the number of forks in the arrays
+- `*old_nblocks`: Array of BlockNumber values containing the current size of each fork
+- `*nblocks`: Array of BlockNumber values specifying the target size for each corresponding fork
 ## Dependencies
 - Functions called/Symbols referenced:
   - SMgrRelation (type)

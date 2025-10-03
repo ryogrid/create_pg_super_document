@@ -16,10 +16,9 @@ sql_fn_post_column_ref(ParseState *pstate, ColumnRef *cref, Node *var)
 This function serves as a post-processing callback for column references encountered during SQL function parsing. It handles various syntactic forms of parameter references including simple parameter names, qualified parameter names with function name prefixes, field references within composite parameters, and whole-row references. The function implements PostgreSQL's parameter scoping rules where parameter names appear in a scope outside individual SQL commands, ensuring table-column references take precedence over parameter references.
 
 ## Parameters / Member Variables
-- : ParseState containing parser context and hook state information
-- : ColumnRef node representing the column reference to be processed
-- : Existing variable node if already resolved (NULL if not resolved)
-
+- `*pstate`: ParseState containing parser context and hook state information
+- `*cref`: ColumnRef node representing the column reference to be processed
+- `*var`: Existing variable node if already resolved (NULL if not resolved)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ColumnRef](../C/ColumnRef.md)

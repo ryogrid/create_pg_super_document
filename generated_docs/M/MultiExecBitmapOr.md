@@ -59,8 +59,7 @@ The function includes an important optimization for BitmapIndexScan children: in
 For non-BitmapIndexScan children, the function uses the standard approach of executing each subplan independently and then using tbm_union to combine the results. The function handles instrumentation for performance monitoring and includes error checking to ensure all subplans return valid TID bitmaps.
 
 ## Parameters / Member Variables
-- : Pointer to the BitmapOrState containing the execution context and child plan states
-
+- `BitmapIndexScanState`: Pointer to the BitmapOrState containing the execution context and child plan states
 ## Dependencies
 - Functions called/Symbols referenced:
   - [InstrStartNode](../I/InstrStartNode.md)/InstrStopNode (performance instrumentation)

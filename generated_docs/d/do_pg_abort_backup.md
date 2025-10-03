@@ -20,9 +20,8 @@ The function handles two scenarios:
 2. **During process exit** (arg=false): Called as a before_shmem_exit handler when a backend exits with an active backup
 
 ## Parameters / Member Variables
-- : Exit code (used in callback signature, not functionally used)
-- : Boolean Datum indicating if called during backup start (true) or as exit handler (false)
-
+- `code`: Exit code (used in callback signature, not functionally used)
+- `arg`: Boolean Datum indicating if called during backup start (true) or as exit handler (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DatumGetBool](../D/DatumGetBool.md)

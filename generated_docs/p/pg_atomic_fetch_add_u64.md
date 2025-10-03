@@ -18,9 +18,8 @@ This function provides an atomic fetch-and-add operation for 64-bit unsigned int
 The function acts as a wrapper around the platform-specific implementation , providing a consistent interface across different architectures. On platforms without native 64-bit atomic support, it falls back to a spinlock-based implementation to ensure atomicity.
 
 ## Parameters / Member Variables
-- : Pointer to the atomic 64-bit unsigned integer variable to be modified
-- : The signed 64-bit value to add to the target variable (can be negative for subtraction)
-
+- `*ptr`: Pointer to the atomic 64-bit unsigned integer variable to be modified
+- `add_`: The signed 64-bit value to add to the target variable (can be negative for subtraction)
 ## Dependencies
 - Functions called/Symbols referenced:
   - AssertPointerAlignment (for pointer alignment verification when not using simulation)

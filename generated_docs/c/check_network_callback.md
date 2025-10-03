@@ -23,10 +23,9 @@ The function supports two matching modes:
 The callback uses early termination - once a match is found, it sets the result flag and subsequent interface checks will be skipped. This optimization is important when a server has many network interfaces.
 
 ## Parameters / Member Variables
-- : Pointer to sockaddr structure representing a network interface's address
-- : Pointer to sockaddr structure representing the network interface's subnet mask
-- : Void pointer to check_network_data structure containing client address and result information
-
+- `*addr`: Pointer to sockaddr structure representing a network interface's address
+- `*netmask`: Pointer to sockaddr structure representing the network interface's subnet mask
+- `*cb_data`: Void pointer to check_network_data structure containing client address and result information
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Structure type for passing data to the callback

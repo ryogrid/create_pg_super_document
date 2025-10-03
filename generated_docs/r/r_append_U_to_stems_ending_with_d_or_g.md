@@ -27,8 +27,7 @@ This function implements Turkish vowel harmony rules by appending the appropriat
 The function uses complex logic with multiple labels and backtracking to handle the various vowel harmony combinations correctly.
 
 ## Parameters / Member Variables
-- : Pointer to the Snowball environment structure containing the string being processed and cursor positions
-
+- `*z`: Pointer to the Snowball environment structure containing the string being processed and cursor positions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [out_grouping_b_U](../o/out_grouping_b_U.md) (Snowball function for backward vowel group testing)

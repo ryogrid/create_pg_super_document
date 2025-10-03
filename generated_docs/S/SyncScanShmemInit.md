@@ -20,7 +20,6 @@ SyncScanShmemInit is responsible for setting up the shared memory infrastructure
 The function creates a doubly-linked list structure where each item represents a scan location for a table. All entries are initially marked as invalid and will be replaced with real scan locations as tables are accessed. The LRU design ensures that the most recently used scan locations are kept available while older, unused entries are evicted.
 
 ## Parameters / Member Variables
-This function takes no parameters and returns void.
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -18,8 +18,7 @@ PQexitPipelineMode terminates pipeline mode on a PostgreSQL connection and trans
 The function returns 1 on success (pipeline mode ended or connection wasn't in pipeline mode) and 0 on failure with an appropriate error message. It validates the connection state, checks for uncollected results, verifies no operations are busy, and ensures no pending commands remain in the queue.
 
 ## Parameters / Member Variables
-- : The PostgreSQL connection handle to exit from pipeline mode
-
+- `*conn`: The PostgreSQL connection handle to exit from pipeline mode
 ## Dependencies
 - Functions called/Symbols referenced:
   - [libpq_append_conn_error](../l/libpq_append_conn_error.md)

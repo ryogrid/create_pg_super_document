@@ -30,14 +30,13 @@ The function operates by:
 This function is essential for implementing window functions like LAG/LEAD that need to access argument values from rows at specific offsets within the partition.
 
 ## Parameters / Member Variables
-- : Window object containing partition data and state
-- : Zero-based index of the argument expression to evaluate
-- : Signed offset from the seek position
-- : Position reference point (WINDOW_SEEK_CURRENT, WINDOW_SEEK_HEAD, or WINDOW_SEEK_TAIL)
-- : Whether to move the mark to the target row if found
-- : Output parameter receiving null status of the evaluated expression
-- : Output parameter indicating if the target position is outside the partition bounds
-
+- `winobj`: Window object containing partition data and state
+- `argno`: Zero-based index of the argument expression to evaluate
+- `relpos`: Signed offset from the seek position
+- `seektype`: Position reference point (WINDOW_SEEK_CURRENT, WINDOW_SEEK_HEAD, or WINDOW_SEEK_TAIL)
+- `set_mark`: Whether to move the mark to the target row if found
+- `*isnull`: Output parameter receiving null status of the evaluated expression
+- `*isout`: Output parameter indicating if the target position is outside the partition bounds
 ## Dependencies
 - Functions called/Symbols referenced:
   - WindowObjectIsValid

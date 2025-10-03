@@ -19,8 +19,7 @@ The  function counts the number of UTF-8 characters in a symbol string pointed t
 The function uses the  macro to determine the byte length of the symbol string, then processes each byte to distinguish between UTF-8 character start bytes and continuation bytes.
 
 ## Parameters / Member Variables
-- : Pointer to a symbol string (const symbol *) whose UTF-8 character length is to be calculated
-
+- `*p`: Pointer to a symbol string (const symbol *) whose UTF-8 character length is to be calculated
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (macro from header.h:11 - extracts size from symbol string)

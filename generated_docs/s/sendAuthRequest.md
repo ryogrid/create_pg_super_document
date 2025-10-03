@@ -20,11 +20,10 @@ The function builds messages using the StringInfoData buffer system, starting wi
 A key optimization is implemented where most authentication messages are immediately flushed to ensure the client receives them promptly, except for AUTH_REQ_OK and AUTH_REQ_SASL_FIN messages which are deferred until the server is ready to process queries.
 
 ## Parameters / Member Variables
-- : Pointer to Port structure containing connection information
-- : AuthRequest enum value specifying the type of authentication request
-- : Optional pointer to additional data to include in the message (can be NULL)
-- : Length of extra data in bytes (0 if no extra data)
-
+- `*port`: Pointer to Port structure containing connection information
+- `areq`: AuthRequest enum value specifying the type of authentication request
+- `*extradata`: Optional pointer to additional data to include in the message (can be NULL)
+- `extralen`: Length of extra data in bytes (0 if no extra data)
 ## Dependencies
 - Functions called/Symbols referenced:
   - CHECK_FOR_INTERRUPTS (check for query cancellation)

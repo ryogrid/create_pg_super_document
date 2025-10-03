@@ -20,10 +20,9 @@ The fastpath optimization is particularly beneficial for indexes on auto-increme
 The function first attempts to use the cached rightmost leaf page. If the page is suitable (still rightmost, has sufficient space, and the new tuple belongs there), it returns NULL to indicate the fastpath can be used. Otherwise, it falls back to the standard tree search algorithm.
 
 ## Parameters / Member Variables
-- : The B-tree index relation being searched
-- : The associated heap relation
-- : Insertion state structure containing the tuple to insert and other context
-
+- `rel`: The B-tree index relation being searched
+- `heaprel`: The associated heap relation
+- `insertstate`: Insertion state structure containing the tuple to insert and other context
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationGetTargetBlock: Gets cached rightmost block number

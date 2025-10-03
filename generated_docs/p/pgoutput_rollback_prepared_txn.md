@@ -19,11 +19,10 @@ pgoutput_rollback_prepared_txn(LogicalDecodingContext *ctx,
 This function is a callback handler for the ROLLBACK PREPARED operation in PostgreSQL's logical replication pgoutput plugin. When a prepared transaction is rolled back, this function is invoked to serialize the rollback information and send it to subscribers through the logical replication stream. The function follows the standard pattern of updating progress, preparing the output buffer, writing the rollback data using the logical replication protocol, and then committing the write operation.
 
 ## Parameters / Member Variables
-- : LogicalDecodingContext pointer containing the replication context and output stream
-- : ReorderBufferTXN pointer representing the transaction being rolled back
-- : XLogRecPtr indicating the LSN where the prepare operation ended
-- : TimestampTz representing when the transaction was originally prepared
-
+- `*ctx`: LogicalDecodingContext pointer containing the replication context and output stream
+- `*txn`: ReorderBufferTXN pointer representing the transaction being rolled back
+- `prepare_end_lsn`: XLogRecPtr indicating the LSN where the prepare operation ended
+- `prepare_time`: TimestampTz representing when the transaction was originally prepared
 ## Dependencies
 - Functions called/Symbols referenced:
   - [OutputPluginUpdateProgress](../O/OutputPluginUpdateProgress.md)

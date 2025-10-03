@@ -20,9 +20,8 @@ When chunked rows mode is enabled, the client calls PQgetResult() repeatedly to 
 The function validates that it's safe to change the result mode using canChangeResultMode() and that the chunk size is positive before making the switch. Like single-row mode, it can only be called after a query has been sent but before any results have been retrieved.
 
 ## Parameters / Member Variables
-- : The PostgreSQL connection handle
-- : The maximum number of rows to include in each result chunk (must be > 0)
-
+- `*conn`: The PostgreSQL connection handle
+- `chunkSize`: The maximum number of rows to include in each result chunk (must be > 0)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [canChangeResultMode](../c/canChangeResultMode.md)

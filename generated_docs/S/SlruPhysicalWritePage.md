@@ -27,11 +27,10 @@ The function performs several critical operations:
 The function implements PostgreSQL's durability guarantees while providing optimal performance through batching and background synchronization.
 
 ## Parameters / Member Variables
-- : SlruCtl control structure containing SLRU configuration and shared memory state
-- : 64-bit logical page number identifying which page to write
-- : Integer buffer slot number containing the page data to write
-- : SlruWriteAll structure for batch operations (NULL for standalone writes) containing open file descriptors and metadata
-
+- `ctl`: SlruCtl control structure containing SLRU configuration and shared memory state
+- `pageno`: 64-bit logical page number identifying which page to write
+- `slotno`: Integer buffer slot number containing the page data to write
+- `fdata`: SlruWriteAll structure for batch operations (NULL for standalone writes) containing open file descriptors and metadata
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pgstat_count_slru_page_written](../p/pgstat_count_slru_page_written.md)

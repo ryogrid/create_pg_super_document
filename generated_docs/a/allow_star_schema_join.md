@@ -22,10 +22,9 @@ However, in star-schema patterns, the optimal plan often involves a parameterize
 The star-schema case is detected when the outer relation provides some (but not all) of the parameters needed by the inner relation's parameterized path. This indicates a scenario where stacking nested loops with small tables on the outside can produce an efficient execution plan.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global optimizer context (currently unused in the function)
-- : Relids bitmap representing the set of base relations in the outer side of the join
-- : Relids bitmap representing the set of relations that the inner path requires as parameters
-
+- `*root`: PlannerInfo structure containing global optimizer context (currently unused in the function)
+- `outerrelids`: Relids bitmap representing the set of base relations in the outer side of the join
+- `inner_paramrels`: Relids bitmap representing the set of relations that the inner path requires as parameters
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bms_overlap](../b/bms_overlap.md)

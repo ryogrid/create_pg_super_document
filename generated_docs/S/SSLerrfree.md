@@ -18,8 +18,7 @@ SSLerrfree is a memory management utility function used internally by the OpenSS
 The function is specifically designed to work with the SSL error handling system where error messages are either dynamically allocated or point to a static "out of memory" fallback message when memory allocation fails.
 
 ## Parameters / Member Variables
-- : Pointer to the character buffer containing an SSL error message that needs to be freed
-
+- `*buf`: Pointer to the character buffer containing an SSL error message that needs to be freed
 ## Dependencies
 - Functions called/Symbols referenced:
   - free (standard C library function)

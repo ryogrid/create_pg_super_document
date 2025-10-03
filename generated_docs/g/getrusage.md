@@ -20,9 +20,8 @@ The function specifically provides CPU time usage statistics by converting Windo
 The implementation is limited to retrieving information about the current process () and does not support child process statistics (), which aligns with PostgreSQL's typical usage patterns on Windows.
 
 ## Parameters / Member Variables
-- : Specifies which processes to return information about. Currently only  (0) is supported for the current process
-- : Pointer to a  structure where the resource usage information will be stored
-
+- `who`: Specifies which processes to return information about. Currently only  (0) is supported for the current process
+- `*rusage`: Pointer to a  structure where the resource usage information will be stored
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Windows API to retrieve process timing information

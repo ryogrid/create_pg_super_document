@@ -25,15 +25,14 @@ SearchCatCacheMiss is called when SearchCatCacheInternal fails to find a tuple i
 The function handles several complex scenarios including recursive cache lookups during table access, tuple staleness detection during detoasting, and bootstrap mode considerations. It uses a retry loop to handle cases where tuples become outdated during cache entry creation. The function is explicitly marked as pg_noinline to keep the fast path in SearchCatCacheInternal optimized.
 
 ## Parameters / Member Variables
-- : Pointer to the CatCache structure for the catalog being searched
-- : Number of key values being used for the search
-- : Pre-computed hash value for the search keys
-- : Hash bucket index where the entry should be placed
-- : First key value (Datum) for the search
-- : Second key value (Datum) for the search
-- : Third key value (Datum) for the search
-- : Fourth key value (Datum) for the search
-
+- `*cache`: Pointer to the CatCache structure for the catalog being searched
+- `nkeys`: Number of key values being used for the search
+- `hashValue`: Pre-computed hash value for the search keys
+- `hashIndex`: Hash bucket index where the entry should be placed
+- `v1`: First key value (Datum) for the search
+- `v2`: Second key value (Datum) for the search
+- `v3`: Third key value (Datum) for the search
+- `v4`: Fourth key value (Datum) for the search
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md)

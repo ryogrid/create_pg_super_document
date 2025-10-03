@@ -16,8 +16,7 @@ dumpSearchPath(Archive *AH)
 The  function captures the current database's search path and stores it as a restoration command in the dump archive. Rather than using the search_path GUC directly, it queries current_schemas(false) to get the actual resolved schema names, avoiding wildcards like '' that might not be valid during restoration. The function constructs a set_config() call instead of a simple SET command for better backwards compatibility, especially when dealing with empty search paths. The resolved search path is also stored in the Archive structure for use in plain text dumps.
 
 ## Parameters / Member Variables
-- : Pointer to the Archive structure where the search path command will be stored and archived
-
+- `*AH`: Pointer to the Archive structure where the search path command will be stored and archived
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecuteSqlQueryForSingleRow](../E/ExecuteSqlQueryForSingleRow.md) (executes current_schemas() query)

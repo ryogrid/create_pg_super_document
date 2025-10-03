@@ -18,9 +18,8 @@ pg_realloc is PostgreSQL's frontend wrapper around the standard C library reallo
 This function is used throughout PostgreSQL frontend utilities when dynamic data structures need to be resized, such as growing arrays, expanding buffers, or adjusting string storage.
 
 ## Parameters / Member Variables
-- : Pointer to the previously allocated memory block to resize, or NULL to allocate new memory
-- : The new size in bytes for the memory block
-
+- `*ptr`: Pointer to the previously allocated memory block to resize, or NULL to allocate new memory
+- `size`: The new size in bytes for the memory block
 ## Dependencies
 - Functions called/Symbols referenced:
   - realloc (standard C library function)

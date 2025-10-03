@@ -24,9 +24,8 @@ This internal function sends log messages to the system syslog facility. It impl
 The function respects several configuration options including syslog_split_messages and syslog_sequence_numbers to control its behavior.
 
 ## Parameters / Member Variables
-- : The syslog priority level (e.g., LOG_ERR, LOG_WARNING, LOG_INFO)
-- : The null-terminated log message string to be written to syslog
-
+- `level`: The syslog priority level (e.g., LOG_ERR, LOG_WARNING, LOG_INFO)
+- `*line`: The null-terminated log message string to be written to syslog
 ## Dependencies
 - Functions called/Symbols referenced:
   - openlog (system call)

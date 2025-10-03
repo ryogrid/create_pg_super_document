@@ -23,8 +23,7 @@ This function is part of PostgreSQL's type system infrastructure and is automati
 The binary format produced is compatible with the OID binary format, ensuring efficient storage and transmission.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function argument macro containing:
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument macro containing:
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Handles the actual OID-to-binary conversion since regcollation uses OID format internally

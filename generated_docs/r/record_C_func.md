@@ -19,10 +19,9 @@ The  function is a critical internal function in PostgreSQL's function manager (
 The function first ensures the CFuncHash table exists (creating it if necessary), then searches for or creates an entry keyed by the function's OID. Each entry stores essential metadata including the transaction ID when the function was defined, its tuple identifier, the actual C function pointer, and PostgreSQL function information record.
 
 ## Parameters / Member Variables
-- : HeapTuple containing the pg_proc catalog row for this function
-- : PGFunction pointer to the actual C function implementation
-- : Pg_finfo_record pointer containing PostgreSQL-specific function metadata
-
+- `procedureTuple`: HeapTuple containing the pg_proc catalog row for this function
+- `user_fn`: PGFunction pointer to the actual C function implementation
+- `*inforec`: Pg_finfo_record pointer containing PostgreSQL-specific function metadata
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hash_create](../h/hash_create.md)

@@ -26,10 +26,9 @@ The function performs comprehensive validation of the input format and handles v
 The parser supports the special "::" notation for zero compression, which can appear anywhere in the address to represent one or more groups of zeros. It also handles IPv4 dotted-decimal notation when it appears at the end of an IPv6 address for IPv4-mapped or IPv4-compatible addresses.
 
 ## Parameters / Member Variables
-- : Input string containing the IPv6 network address in presentation format
-- : Output buffer where the converted network address will be stored in binary format
-- : Size of the destination buffer in bytes (must be at least NS_IN6ADDRSZ = 16 bytes)
-
+- `*src`: Input string containing the IPv6 network address in presentation format
+- `*dst`: Output buffer where the converted network address will be stored in binary format
+- `size`: Size of the destination buffer in bytes (must be at least NS_IN6ADDRSZ = 16 bytes)
 ## Dependencies
 - Functions called/Symbols referenced:
   - strchr (standard C library)

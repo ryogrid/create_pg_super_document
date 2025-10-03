@@ -16,8 +16,7 @@ pg_atomic_test_set_flag_impl(volatile pg_atomic_flag *ptr)
 pg_atomic_test_set_flag_impl is a fallback implementation of the atomic test-and-set operation for flags on platforms that lack native atomic flag support. It is compiled only when PG_HAVE_ATOMIC_FLAG_SIMULATION is defined. The function performs an atomic test-and-set operation using spinlock protection: it acquires the spinlock, reads the current flag value, sets the flag to true, releases the spinlock, and returns whether the flag was previously false (indicating successful acquisition). This provides the classic test-and-set semantics used for implementing higher-level synchronization primitives.
 
 ## Parameters / Member Variables
-- : Pointer to the pg_atomic_flag structure to test and set
-
+- `*ptr`: Pointer to the pg_atomic_flag structure to test and set
 ## Dependencies
 - Functions called/Symbols referenced:
   - SpinLockAcquire (acquire spinlock protection)

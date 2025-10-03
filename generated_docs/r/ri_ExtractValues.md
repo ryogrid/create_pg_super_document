@@ -20,13 +20,12 @@ This utility function extracts attribute values from a tuple slot and stores the
 The function is essential for preparing parameter values when executing referential integrity queries, ensuring that the correct columns are extracted based on the constraint definition.
 
 ## Parameters / Member Variables
-- : The relation (table) from which values are being extracted
-- : Tuple slot containing the tuple data to extract from
-- : Constraint information structure defining which attributes to extract
-- : Boolean indicating whether this relation is the primary key table (true) or foreign key table (false)
-- : Output array to store the extracted Datum values
-- : Output array to store null indicators as characters
-
+- `rel`: The relation (table) from which values are being extracted
+- `*slot`: Tuple slot containing the tuple data to extract from
+- `*riinfo`: Constraint information structure defining which attributes to extract
+- `rel_is_pk`: Boolean indicating whether this relation is the primary key table (true) or foreign key table (false)
+- `*vals`: Output array to store the extracted Datum values
+- `*nulls`: Output array to store null indicators as characters
 ## Dependencies
 - Functions called/Symbols referenced:
   - [slot_getattr](../s/slot_getattr.md)

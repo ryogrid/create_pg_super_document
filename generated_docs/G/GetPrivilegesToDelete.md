@@ -16,8 +16,7 @@ GetPrivilegesToDelete(HANDLE hToken)
 This function creates a list of privileges that should be removed from a Windows access token to implement privilege restriction. It first retrieves all privileges from the specified token, then removes two critical privileges that must be preserved: SeLockMemoryPrivilege (needed for large pages support) and SeChangeNotifyPrivilege (enabled by default and required for file traversal). The function uses LookupPrivilegeValue to get the LUIDs for these preserved privileges, then iterates through the token's privilege list to filter them out. The resulting structure contains all other privileges that can be safely removed to minimize the attack surface.
 
 ## Parameters / Member Variables
-- : Handle to the Windows access token from which to determine privileges to delete
-
+- `hToken`: Handle to the Windows access token from which to determine privileges to delete
 ## Dependencies
 - Functions called/Symbols referenced:
   - LookupPrivilegeValue (Windows API)

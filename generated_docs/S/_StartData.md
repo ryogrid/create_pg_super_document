@@ -22,9 +22,8 @@ The  function is a key component of PostgreSQL's custom archive format implement
 The function operates within the custom archive format context and sets up the necessary state for efficient data writing and later restoration.
 
 ## Parameters / Member Variables
-- : Archive handle containing the overall archive state and configuration
-- : Table of Contents entry representing the specific table data being processed
-
+- `*AH`: Archive handle containing the overall archive state and configuration
+- `*te`: Table of Contents entry representing the specific table data being processed
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Gets current position in the archive file

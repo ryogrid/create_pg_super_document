@@ -16,10 +16,9 @@ pg_ultostr_zeropad(char *str, uint32 value, int32 minwidth)
 This function converts a uint32 value into a decimal string representation and stores it at the provided memory location, ensuring the result has at least the specified minimum width by prefixing with zeros if necessary. The function is specifically designed for building composite strings containing multiple numbers, such as time formatting (HH:MM:SS). It includes an optimization for the common case of 2-digit formatting with values under 100, using a pre-computed DIGIT_TABLE for faster conversion. Unlike standard string functions, it does not write a NUL terminator, allowing for efficient concatenation of multiple numeric components.
 
 ## Parameters / Member Variables
-- : Pointer to the destination buffer where the string representation will be written (caller must ensure sufficient space)
-- : The unsigned 32-bit integer value to convert to string
-- : Minimum width of the resulting string; shorter results are zero-padded on the left
-
+- `*str`: Pointer to the destination buffer where the string representation will be written (caller must ensure sufficient space)
+- `value`: The unsigned 32-bit integer value to convert to string
+- `minwidth`: Minimum width of the resulting string; shorter results are zero-padded on the left
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_ultoa_n](pg_ultoa_n.md) (core conversion function)

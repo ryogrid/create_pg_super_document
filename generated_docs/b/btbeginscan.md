@@ -16,10 +16,9 @@ btbeginscan(Relation rel, int nkeys, int norderbys)
 The btbeginscan function is responsible for initializing a B-tree index scan. It creates and configures the IndexScanDesc structure along with the associated BTScanOpaque private workspace. This function sets up the foundational structures needed for subsequent scanning operations but does not perform the actual scan initiation - that occurs in btrescan. The function ensures that no order-by operators are used (as B-tree doesn't support them) and prepares memory allocation for scan keys and other scan-related data structures.
 
 ## Parameters / Member Variables
-- : The relation (index) to be scanned
-- : Number of scan keys that will be used for the scan
-- : Number of order-by operators (must be 0 for B-tree indexes)
-
+- `rel`: The relation (index) to be scanned
+- `nkeys`: Number of scan keys that will be used for the scan
+- `norderbys`: Number of order-by operators (must be 0 for B-tree indexes)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RelationGetIndexScan](../R/RelationGetIndexScan.md)

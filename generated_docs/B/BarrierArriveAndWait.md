@@ -26,9 +26,8 @@ Key behaviors:
 - Handles dynamic scenarios where participants may detach during waiting
 
 ## Parameters / Member Variables
-- : Pointer to the initialized Barrier structure
-- : Wait event identifier for pg_stat_activity reporting during sleep
-
+- `*barrier`: Pointer to the initialized Barrier structure
+- `wait_event_info`: Wait event identifier for pg_stat_activity reporting during sleep
 ## Dependencies
 - Functions called/Symbols referenced:
   - SpinLockAcquire/SpinLockRelease

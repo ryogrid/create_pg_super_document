@@ -28,11 +28,10 @@ The function performs the following operations for each pattern:
 The function accumulates all matching OIDs in the provided oids list, allowing duplicates which are handled by the caller.
 
 ## Parameters / Member Variables
-- : Archive structure containing database connection and dump context
-- : SimpleStringList containing schema name patterns to match (may include wildcards)
-- : SimpleOidList to append matching schema OIDs to
-- : Boolean flag that causes failure if any pattern matches no schemas
-
+- `*fout`: Archive structure containing database connection and dump context
+- `*patterns`: SimpleStringList containing schema name patterns to match (may include wildcards)
+- `*oids`: SimpleOidList to append matching schema OIDs to
+- `strict_names`: Boolean flag that causes failure if any pattern matches no schemas
 ## Dependencies
 - Functions called/Symbols referenced:
   - [createPQExpBuffer](../c/createPQExpBuffer.md), resetPQExpBuffer, destroyPQExpBuffer (query buffer management)

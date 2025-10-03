@@ -24,9 +24,8 @@ The function maps different levels of synchronous commit requirements to their c
 This mapping is crucial for determining how long a transaction will wait for standby server confirmation before being considered committed.
 
 ## Parameters / Member Variables
-- : Integer value representing the new synchronous_commit setting
-- : Additional data pointer (unused in this function)
-
+- `newval`: Integer value representing the new synchronous_commit setting
+- `*extra`: Additional data pointer (unused in this function)
 ## Dependencies
 - Functions called/Symbols referenced:
   - SYNCHRONOUS_COMMIT_REMOTE_WRITE (constant for remote write mode)

@@ -18,9 +18,8 @@ This function converts a 128-bit signed integer (int128) into PostgreSQL's inter
 The algorithm works backwards through the digit array, filling digits from least significant to most significant by successive division operations. This ensures the final digit array represents the number in PostgreSQL's internal numeric format.
 
 ## Parameters / Member Variables
-- : The 128-bit signed integer value to convert
-- : Pointer to NumericVar structure where the result will be stored
-
+- `val`: The 128-bit signed integer value to convert
+- `*var`: Pointer to NumericVar structure where the result will be stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - [alloc_var](../a/alloc_var.md): Allocate memory for NumericVar digits

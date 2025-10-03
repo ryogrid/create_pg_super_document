@@ -18,10 +18,9 @@ The  function handles the message exchange phase of SASL authentication in Postg
 The function manages the iterative nature of SASL authentication, where multiple message exchanges may be required before authentication completes. It validates the authentication state transitions and ensures proper handling of the final authentication step.
 
 ## Parameters / Member Variables
-- : Pointer to the PGconn connection structure containing connection state and SASL configuration
-- : Length of the challenge payload received from the server
-- : Boolean flag indicating whether this is the final authentication message (AuthenticationSASLFinal vs AuthenticationSASLContinue)
-
+- `*conn`: Pointer to the PGconn connection structure containing connection state and SASL configuration
+- `payloadlen`: Length of the challenge payload received from the server
+- `final`: Boolean flag indicating whether this is the final authentication message (AuthenticationSASLFinal vs AuthenticationSASLContinue)
 ## Dependencies
 - Functions called/Symbols referenced:
   - malloc

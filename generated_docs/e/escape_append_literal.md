@@ -18,12 +18,11 @@ escape_append_literal(PGconn *conn, PQExpBuffer target,
 This function is a wrapper around the  function that formats an unescaped string as a properly quoted and escaped PostgreSQL string literal. It uses the client encoding from the provided database connection to ensure proper character encoding handling. The function always returns , indicating successful operation, as the underlying  function handles all the complexity of string escaping.
 
 ## Parameters / Member Variables
-- : PostgreSQL database connection handle used to determine client encoding
-- : PQExpBuffer to which the escaped string literal will be appended
-- : Input string to be escaped and formatted as a literal
-- : Length of the unescaped input string (parameter present but not used in current implementation)
-- : PQExpBuffer for error messages (parameter present but not used in current implementation)
-
+- `*conn`: PostgreSQL database connection handle used to determine client encoding
+- `target`: PQExpBuffer to which the escaped string literal will be appended
+- `*unescaped`: Input string to be escaped and formatted as a literal
+- `unescaped_len`: Length of the unescaped input string (parameter present but not used in current implementation)
+- `escape_err`: PQExpBuffer for error messages (parameter present but not used in current implementation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [appendStringLiteral](../a/appendStringLiteral.md)

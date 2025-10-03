@@ -24,8 +24,7 @@ The validation covers multiple aspects:
 6. **Column-based**: All indexed columns must be plain user columns, not expressions or system columns
 
 ## Parameters / Member Variables
-- : The index relation to be evaluated for usability
-
+- `indexRel`: The index relation to be evaluated for usability
 ## Dependencies
 - Functions called/Symbols referenced:
   - Form_pg_index (struct type)

@@ -17,7 +17,6 @@ DllUnregisterServer implements the standard COM DLL self-unregistration interfac
 The function constructs the same registry key path that was created during registration and removes it entirely, including all subkeys and values such as EventMessageFile and TypesSupported. This ensures a clean uninstallation of the event logging functionality.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

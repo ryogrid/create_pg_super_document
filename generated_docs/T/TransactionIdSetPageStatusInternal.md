@@ -26,13 +26,12 @@ The function implements a careful ordering strategy when setting transaction sta
 The function also handles async commit semantics by ensuring proper coordination with ongoing page writes when an LSN is provided, preventing premature disk writes before WAL flushing is complete.
 
 ## Parameters / Member Variables
-- : Main transaction ID to update (can be InvalidTransactionId when only updating subtransactions)
-- : Number of subtransaction IDs in the subxids array
-- : Array of subtransaction IDs to update
-- : The XidStatus to set (COMMITTED, ABORTED, or SUB_COMMITTED)
-- : WAL log sequence number (used for async commit coordination)
-- : The CLOG page number being updated
-
+- `xid`: Main transaction ID to update (can be InvalidTransactionId when only updating subtransactions)
+- `nsubxids`: Number of subtransaction IDs in the subxids array
+- `*subxids`: Array of subtransaction IDs to update
+- `status`: The XidStatus to set (COMMITTED, ABORTED, or SUB_COMMITTED)
+- `lsn`: WAL log sequence number (used for async commit coordination)
+- `pageno`: The CLOG page number being updated
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SimpleLruReadPage](../S/SimpleLruReadPage.md)

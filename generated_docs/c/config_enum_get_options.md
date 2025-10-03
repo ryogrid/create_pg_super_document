@@ -21,11 +21,10 @@ Hidden enum entries (those with the hidden flag set) are automatically excluded 
 This function is commonly used for generating user-friendly error messages and help text that show valid options for enum-type configuration parameters.
 
 ## Parameters / Member Variables
-- : Pointer to a config_enum structure containing the enum definition and options array
-- : Optional string to prepend to the beginning of the options list (can be NULL)
-- : Optional string to append to the end of the options list (can be NULL)  
-- : String used to separate individual option names in the output
-
+- `*record`: Pointer to a config_enum structure containing the enum definition and options array
+- `*prefix`: Optional string to prepend to the beginning of the options list (can be NULL)
+- `*suffix`: Optional string to append to the end of the options list (can be NULL)
+- `*separator`: String used to separate individual option names in the output
 ## Dependencies
 - Functions called/Symbols referenced:
   - [config_enum](config_enum.md) (struct type)

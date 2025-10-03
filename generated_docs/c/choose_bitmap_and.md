@@ -32,10 +32,9 @@ This sophisticated optimization function implements a multi-stage heuristic algo
 The function handles edge cases efficiently, returning single paths unchanged and creating  objects only when multiple paths are beneficial.
 
 ## Parameters / Member Variables
-- : PlannerInfo containing planner state and configuration
-- : RelOptInfo representing the relation being scanned
-- : List of candidate bitmap paths to potentially combine
-
+- `*root`: PlannerInfo containing planner state and configuration
+- `*rel`: RelOptInfo representing the relation being scanned
+- `*paths`: List of candidate bitmap paths to potentially combine
 ## Dependencies
 - Functions called/Symbols referenced:
   - [classify_index_clause_usage](classify_index_clause_usage.md)

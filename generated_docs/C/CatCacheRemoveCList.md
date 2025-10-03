@@ -26,9 +26,8 @@ Key operations performed:
 The function handles both normal operation and CATCACHE_FORCE_RELEASE mode, where in the latter case member entries are removed regardless of their dead status.
 
 ## Parameters / Member Variables
-- : Pointer to the CatCache structure containing the list to be removed
-- : Pointer to the CatCList entry to be removed
-
+- `*cache`: Pointer to the CatCache structure containing the list to be removed
+- `*cl`: Pointer to the CatCList entry to be removed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CatCacheRemoveCTup](CatCacheRemoveCTup.md) (for removing unreferenced member entries)

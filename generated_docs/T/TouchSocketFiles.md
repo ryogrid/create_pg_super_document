@@ -20,6 +20,7 @@ The function operates on a global list (sock_paths) that contains paths to all s
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - ListCell (PostgreSQL list cell type)

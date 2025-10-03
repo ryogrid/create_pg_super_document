@@ -20,9 +20,8 @@ The function performs two key initialization steps: first, it sets up the random
 Since reservoir sampling in PostgreSQL doesn't need to return repeatable results, the function uses a random seed from the global PRNG state rather than a deterministic seed.
 
 ## Parameters / Member Variables
-- : Pointer to the ReservoirState structure to initialize
-- : Desired sample size (reservoir capacity)
-
+- `rs`: Pointer to the ReservoirState structure to initialize
+- `n`: Desired sample size (reservoir capacity)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [sampler_random_init_state](../s/sampler_random_init_state.md) (initializes random number generator with seed)

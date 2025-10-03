@@ -26,8 +26,7 @@ This function performs validation checks to ensure that a given relation can be 
 The function uses PostgreSQL's error reporting mechanism to provide detailed error messages when validation fails, including specific reasons why the relation cannot be published.
 
 ## Parameters / Member Variables
-- : A Relation pointer to the table being validated for publication inclusion
-
+- `targetrel`: A Relation pointer to the table being validated for publication inclusion
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationGetForm

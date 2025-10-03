@@ -16,8 +16,7 @@ smgrclose(SMgrRelation reln)
 The  function provides a conceptual "close" operation for SMgrRelation objects. According to the implementation comments, this function is currently implemented as a simple wrapper around  because PostgreSQL doesn't track all references to SMgrRelation objects returned by . Since multiple references to the same object may exist, the function cannot safely destroy the object and instead just releases its resources. The SMgrRelation object remains in the storage manager's data structures and can potentially be reused.
 
 ## Parameters / Member Variables
-- : Pointer to the SMgrRelation object to be closed. The reference should not be used after this call, though the object itself may remain valid.
-
+- `reln`: Pointer to the SMgrRelation object to be closed. The reference should not be used after this call, though the object itself may remain valid.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [smgrrelease](smgrrelease.md) (performs the actual resource cleanup)

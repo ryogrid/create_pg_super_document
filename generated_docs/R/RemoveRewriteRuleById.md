@@ -25,8 +25,7 @@ This function implements the core logic for deleting a rewrite rule from the Pos
 The function ensures data consistency by using appropriate locking mechanisms and handles both user-defined and system rules with proper permission checks.
 
 ## Parameters / Member Variables
-- : The object identifier (OID) of the rewrite rule to be removed from the system catalogs
-
+- `ruleOid`: The object identifier (OID) of the rewrite rule to be removed from the system catalogs
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md) (to access pg_rewrite and event relations)

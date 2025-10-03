@@ -18,8 +18,7 @@ This function serves as an accessor to retrieve the namespace attribute number f
 The function leverages the centralized object property system through  to maintain consistency across different object types and their catalog representations.
 
 ## Parameters / Member Variables
-- : The OID of the object class (typically a system catalog table OID like RelationRelationId, ProcedureRelationId, etc.)
-
+- `class_id`: The OID of the object class (typically a system catalog table OID like RelationRelationId, ProcedureRelationId, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_object_property_data](get_object_property_data.md)

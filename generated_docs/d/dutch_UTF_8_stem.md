@@ -39,8 +39,7 @@ The dutch_UTF_8_stem function serves as the primary interface for Dutch stemming
 The function ensures proper cursor management throughout all phases and provides comprehensive error handling by propagating negative return values from sub-functions.
 
 ## Parameters / Member Variables
-- : Pointer to SN_env structure containing the complete stemming environment including:
-
+- `*z`: Pointer to SN_env structure containing the complete stemming environment including:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [r_prelude](../r/r_prelude.md): Initial preprocessing and character normalization

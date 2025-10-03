@@ -18,8 +18,7 @@ The  function constructs a BoolExpr node representing an AND operation in Postgr
 The function allocates a new BoolExpr node, sets its operation type to AND_EXPR, assigns the provided list of clauses as arguments, and sets the location to -1 (indicating no specific source location). The resulting expression can then be used throughout the query planning and execution pipeline.
 
 ## Parameters / Member Variables
-- : A List of Expr pointers representing the individual clauses to be combined with AND logic
-
+- `*andclauses`: A List of Expr pointers representing the individual clauses to be combined with AND logic
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to create BoolExpr)

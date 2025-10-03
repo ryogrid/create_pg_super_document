@@ -20,11 +20,10 @@ This function examines all key columns involved in a foreign key constraint to d
 The function is essential for implementing proper foreign key semantics where partial NULL keys do not participate in referential integrity checks.
 
 ## Parameters / Member Variables
-- : Tuple descriptor for the relation (currently unused in implementation)
-- : Tuple slot containing the tuple to check for NULL values
-- : Constraint information structure specifying which attributes to check
-- : Boolean indicating whether to check primary key attributes (true) or foreign key attributes (false)
-
+- `tupDesc`: Tuple descriptor for the relation (currently unused in implementation)
+- `*slot`: Tuple slot containing the tuple to check for NULL values
+- `*riinfo`: Constraint information structure specifying which attributes to check
+- `rel_is_pk`: Boolean indicating whether to check primary key attributes (true) or foreign key attributes (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [slot_attisnull](../s/slot_attisnull.md)

@@ -25,15 +25,14 @@ PQexecParams provides a way to execute SQL commands with parameters using Postgr
 The function internally uses PQexecStart to prepare the connection, PQsendQueryParams to send the parameterized query, and PQexecFinish to wait for and retrieve the result.
 
 ## Parameters / Member Variables
-- : PostgreSQL connection object that must be in a valid state
-- : SQL command string that may contain parameter placeholders (, , etc.)
-- : Number of parameters in the query (must match placeholder count)
-- : Array of parameter type OIDs, or NULL to let server infer types
-- : Array of parameter value strings, with NULL indicating SQL NULL
-- : Array of parameter lengths for binary format, ignored for text format
-- : Array indicating text (0) or binary (1) format for each parameter
-- : Format for result columns: 0 for text, 1 for binary
-
+- `*conn`: PostgreSQL connection object that must be in a valid state
+- `*command`: SQL command string that may contain parameter placeholders (, , etc.)
+- `nParams`: Number of parameters in the query (must match placeholder count)
+- `*paramTypes`: Array of parameter type OIDs, or NULL to let server infer types
+- `*paramValues`: Array of parameter value strings, with NULL indicating SQL NULL
+- `*paramLengths`: Array of parameter lengths for binary format, ignored for text format
+- `*paramFormats`: Array indicating text (0) or binary (1) format for each parameter
+- `resultFormat`: Format for result columns: 0 for text, 1 for binary
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQexecStart](PQexecStart.md)

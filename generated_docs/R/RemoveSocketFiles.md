@@ -20,6 +20,7 @@ The function is designed to be called during shutdown sequences and deliberately
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - ListCell (PostgreSQL list cell type)

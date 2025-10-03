@@ -34,12 +34,11 @@ Key operational steps:
 6. Verify complete data consumption by the receive function
 
 ## Parameters / Member Variables
-- : The COPY operation state containing input buffers and parsing context
-- : Function manager info for the type's binary receive function, containing the function pointer and metadata for efficient invocation
-- : Type-specific parameter passed to the receive function, typically the element type OID for arrays or composite types
-- : Type modifier value providing additional type constraints (e.g., precision for NUMERIC, length for VARCHAR)
-- : Output parameter set to true for NULL values, false for non-NULL data
-
+- `cstate`: The COPY operation state containing input buffers and parsing context
+- `*flinfo`: Function manager info for the type's binary receive function, containing the function pointer and metadata for efficient invocation
+- `typioparam`: Type-specific parameter passed to the receive function, typically the element type OID for arrays or composite types
+- `typmod`: Type modifier value providing additional type constraints (e.g., precision for NUMERIC, length for VARCHAR)
+- `*isnull`: Output parameter set to true for NULL values, false for non-NULL data
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Reads 4-byte signed integer from input stream in network byte order

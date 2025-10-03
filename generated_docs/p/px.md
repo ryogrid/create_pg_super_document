@@ -23,13 +23,12 @@ The algorithm works in two phases:
 The PX operator ensures that each gene appears exactly once in the offspring, maintaining the permutation property required for valid query execution plans.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing query planning context and random number generator state
-- : First parent chromosome (array of Gene values representing a query execution plan)
-- : Second parent chromosome (array of Gene values representing a query execution plan)
-- : Output array where the resulting child chromosome will be stored
-- : Length of the chromosomes (number of relations/genes in the query)
-- : Auxiliary array of City structures used to track which genes have been used during crossover
-
+- `*root`: PlannerInfo structure containing query planning context and random number generator state
+- `*tour1`: First parent chromosome (array of Gene values representing a query execution plan)
+- `*tour2`: Second parent chromosome (array of Gene values representing a query execution plan)
+- `*offspring`: Output array where the resulting child chromosome will be stored
+- `num_gene`: Length of the chromosomes (number of relations/genes in the query)
+- `*city_table`: Auxiliary array of City structures used to track which genes have been used during crossover
 ## Dependencies
 - Functions called/Symbols referenced:
   - [geqo_randint](../g/geqo_randint.md) (random integer generation within specified range)

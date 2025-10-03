@@ -18,9 +18,8 @@ This function serves as an internal wrapper around pg_get_indexdef_worker to spe
 The function processes the pretty formatting flag to determine output formatting and delegates the actual work to pg_get_indexdef_worker with predetermined parameters that focus on key columns only.
 
 ## Parameters / Member Variables
-- : The OID of the index relation for which to retrieve column definitions
-- : Boolean flag indicating whether to format the output with pretty formatting (affects spacing and line breaks)
-
+- `indexrelid`: The OID of the index relation for which to retrieve column definitions
+- `pretty`: Boolean flag indicating whether to format the output with pretty formatting (affects spacing and line breaks)
 ## Dependencies
 - Functions called/Symbols referenced:
   - GET_PRETTY_FLAGS (macro for converting boolean to formatting flags)

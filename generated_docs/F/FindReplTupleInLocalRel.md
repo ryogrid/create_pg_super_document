@@ -30,13 +30,12 @@ This function is responsible for finding the local tuple that corresponds to a r
 The function returns a boolean indicating whether the tuple was found and populates the localslot parameter with the located tuple data.
 
 ## Parameters / Member Variables
-- : ApplyExecutionData structure containing execution state and relation mapping information
-- : Relation descriptor for the local table where the tuple should be found
-- : LogicalRepRelation structure describing the remote relation's metadata
-- : OID of the local index to use for tuple lookup (may be InvalidOid for sequential scans)
-- : TupleTableSlot containing the search tuple data from the remote publisher
-- : Output parameter - pointer to TupleTableSlot pointer that will be set to the found local tuple
-
+- `*edata`: ApplyExecutionData structure containing execution state and relation mapping information
+- `localrel`: Relation descriptor for the local table where the tuple should be found
+- `*remoterel`: LogicalRepRelation structure describing the remote relation's metadata
+- `localidxoid`: OID of the local index to use for tuple lookup (may be InvalidOid for sequential scans)
+- `*remoteslot`: TupleTableSlot containing the search tuple data from the remote publisher
+- `**localslot`: Output parameter - pointer to TupleTableSlot pointer that will be set to the found local tuple
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TargetPrivilegesCheck](../T/TargetPrivilegesCheck.md)

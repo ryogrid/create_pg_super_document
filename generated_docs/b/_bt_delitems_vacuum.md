@@ -24,13 +24,12 @@ The function includes comprehensive WAL logging specific to VACUUM operations, w
 Additionally, the function performs page maintenance by clearing the VACUUM cycle ID and removing the BTP_HAS_GARBAGE flag, indicating the page has been cleaned and processed by the current VACUUM cycle.
 
 ## Parameters / Member Variables
-- : The B-tree index relation being vacuumed
-- : Buffer containing the leaf page to be cleaned (must have cleanup lock)
-- : Array of offset numbers for tuples to be completely deleted
-- : Number of entries in the deletable array
-- : Array of BTVacuumPosting structures for posting lists to be updated
-- : Number of entries in the updatable array
-
+- `rel`: The B-tree index relation being vacuumed
+- `buf`: Buffer containing the leaf page to be cleaned (must have cleanup lock)
+- `*deletable`: Array of offset numbers for tuples to be completely deleted
+- `ndeletable`: Number of entries in the deletable array
+- `*updatable`: Array of BTVacuumPosting structures for posting lists to be updated
+- `nupdatable`: Number of entries in the updatable array
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BufferGetPage](../B/BufferGetPage.md)

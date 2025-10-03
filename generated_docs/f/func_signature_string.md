@@ -19,11 +19,10 @@ The  function serves as a simple wrapper around , providing the same functionali
 The function internally converts the qualified name list to a string using  and then delegates to  to perform the actual signature formatting.
 
 ## Parameters / Member Variables
-- : List of strings representing the qualified function name (e.g., schema.function_name)
-- : Total number of arguments in the function signature
-- : List of C strings containing the names for the last N arguments (can be NIL if no named args)
-- : Array of OIDs representing the types of each argument
-
+- `*funcname`: List of strings representing the qualified function name (e.g., schema.function_name)
+- `nargs`: Total number of arguments in the function signature
+- `*argnames`: List of C strings containing the names for the last N arguments (can be NIL if no named args)
+- `*argtypes`: Array of OIDs representing the types of each argument
 ## Dependencies
 - Functions called/Symbols referenced:
   - [NameListToString](../N/NameListToString.md)

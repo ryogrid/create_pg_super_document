@@ -18,9 +18,8 @@ This utility function determines how many individual values are needed to repres
 The function performs a simple linear scan through the expanded ranges array, examining the collapsed flag of each range to determine the appropriate count contribution.
 
 ## Parameters / Member Variables
-- : Array of expanded ranges to count values for
-- : Number of ranges in the array
-
+- `*cranges`: Array of expanded ranges to count values for
+- `ncranges`: Number of ranges in the array
 ## Dependencies
 - Functions called/Symbols referenced:
   - (none - uses only basic operations)

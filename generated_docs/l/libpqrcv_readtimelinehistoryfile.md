@@ -20,12 +20,11 @@ This function sends a TIMELINE_HISTORY command to the primary server to retrieve
 The function uses the libpq protocol to send the command and expects exactly one tuple with two fields in response: the filename and the binary content of the timeline history file.
 
 ## Parameters / Member Variables
-- : WAL receiver connection object containing the stream connection to the primary
-- : Timeline ID for which to fetch the history file
-- : Output parameter that receives a palloc'd copy of the history filename
-- : Output parameter that receives a palloc'd copy of the file content
-- : Output parameter that receives the length of the content in bytes
-
+- `*conn`: WAL receiver connection object containing the stream connection to the primary
+- `tli`: Timeline ID for which to fetch the history file
+- `**filename`: Output parameter that receives a palloc'd copy of the history filename
+- `**content`: Output parameter that receives a palloc'd copy of the file content
+- `*len`: Output parameter that receives the length of the content in bytes
 ## Dependencies
 - Functions called/Symbols referenced:
   - [libpqrcv_PQexec](libpqrcv_PQexec.md) (for sending the TIMELINE_HISTORY command)

@@ -18,10 +18,9 @@ This function is used in PostgreSQL's query planner to retroactively calculate a
 The function specifically handles Sort nodes (not IncrementalSort nodes) and calculates costs based on the input from the left subtree, including total cost, number of rows, and row width.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planner state and configuration
-- : The Sort plan node to be labeled with cost information
-- : Tuple limit for the sort operation (pass -1 if no limit), used by cost_sort for more accurate estimation
-
+- `*root`: PlannerInfo structure containing planner state and configuration
+- `*plan`: The Sort plan node to be labeled with cost information
+- `limit_tuples`: Tuple limit for the sort operation (pass -1 if no limit), used by cost_sort for more accurate estimation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [cost_sort](../c/cost_sort.md) (to calculate sorting costs)

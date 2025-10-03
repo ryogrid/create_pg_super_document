@@ -20,9 +20,8 @@ The function first checks if there are any BEFORE STATEMENT UPDATE triggers defi
 BEFORE STATEMENT triggers are not allowed to return values - if a trigger attempts to do so, an error is raised. These triggers are typically used for logging, security checks, or other operations that should occur once per statement.
 
 ## Parameters / Member Variables
-- : Executor state containing execution context and memory management information
-- : ResultRelInfo containing relation metadata and trigger information (must be the root relation, not a partition)
-
+- `*estate`: Executor state containing execution context and memory management information
+- `*relinfo`: ResultRelInfo containing relation metadata and trigger information (must be the root relation, not a partition)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [before_stmt_triggers_fired](../b/before_stmt_triggers_fired.md)

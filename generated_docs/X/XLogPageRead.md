@@ -27,12 +27,11 @@ Key responsibilities include:
 The function implements sophisticated error handling that differentiates between temporary failures (requiring retry) and permanent failures (requiring recovery termination).
 
 ## Parameters / Member Variables
-- : XLogReaderState containing the reader context and configuration
-- : XLogRecPtr specifying the WAL page location to read
-- : Integer indicating the minimum number of bytes required
-- : XLogRecPtr of the target record being read (for error reporting)
-- : Character buffer where the read page data will be stored
-
+- `*xlogreader`: XLogReaderState containing the reader context and configuration
+- `targetPagePtr`: XLogRecPtr specifying the WAL page location to read
+- `reqLen`: Integer indicating the minimum number of bytes required
+- `targetRecPtr`: XLogRecPtr of the target record being read (for error reporting)
+- `*readBuf`: Character buffer where the read page data will be stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - [WaitForWALToBecomeAvailable](../W/WaitForWALToBecomeAvailable.md)

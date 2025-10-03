@@ -18,9 +18,8 @@ The  function handles the dumping of undefined types, also known as shell types 
 The function creates a simple  statement without any implementation details, effectively creating a shell type that can be completed later. This is used for types that were created but never fully defined in the source database.
 
 ## Parameters / Member Variables
-- : Archive object containing dump configuration and state information
-- : TypeInfo structure containing metadata about the undefined type to be dumped
-
+- `*fout`: Archive object containing dump configuration and state information
+- `*tyinfo`: TypeInfo structure containing metadata about the undefined type to be dumped
 ## Dependencies
 - Functions called/Symbols referenced:
   - [fmtId](../f/fmtId.md)

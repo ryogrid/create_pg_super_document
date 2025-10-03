@@ -20,10 +20,9 @@ When unique_keys is true and duplicates are detected, the function raises an err
 The function modifies the object in-place, potentially reducing the nPairs count and shifting the pairs array to remove unwanted elements.
 
 ## Parameters / Member Variables
-- : Pointer to a JsonbValue object that must be of type jbvObject containing the pairs to be processed
-- : Boolean flag indicating whether duplicate keys should cause an error to be raised
-- : Boolean flag indicating whether key-value pairs with null values should be removed from the object
-
+- `*object`: Pointer to a JsonbValue object that must be of type jbvObject containing the pairs to be processed
+- `unique_keys`: Boolean flag indicating whether duplicate keys should cause an error to be raised
+- `skip_nulls`: Boolean flag indicating whether key-value pairs with null values should be removed from the object
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lengthCompareJsonbPair](../l/lengthCompareJsonbPair.md)

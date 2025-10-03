@@ -17,11 +17,10 @@ RunFromStore(Portal portal, ScanDirection direction, uint64 count,
 RunFromStore is a specialized function that retrieves tuples from a portal's tuple store and delivers them to a destination receiver. Unlike ExecutorRun, this function operates without a queryDesc or estate, making it suitable for fetching previously stored results. The function creates a temporary tuple slot, iterates through the stored tuples in the specified direction, and sends each tuple to the destination receiver. It handles scan direction logic, respects tuple count limits, and properly manages memory contexts. The function returns the number of tuples processed and ensures proper cleanup of resources.
 
 ## Parameters / Member Variables
-- : The Portal structure containing the tuple store to read from
-- : ScanDirection indicating whether to scan forward, backward, or no movement
-- : Maximum number of tuples to fetch (0 means no limit)
-- : DestReceiver that will process the retrieved tuples
-
+- `portal`: The Portal structure containing the tuple store to read from
+- `direction`: ScanDirection indicating whether to scan forward, backward, or no movement
+- `count`: Maximum number of tuples to fetch (0 means no limit)
+- `*dest`: DestReceiver that will process the retrieved tuples
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md)

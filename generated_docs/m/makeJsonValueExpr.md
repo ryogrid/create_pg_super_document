@@ -17,10 +17,9 @@ makeJsonValueExpr(Expr *raw_expr, Expr *formatted_expr,
 The  function is a constructor function that creates and initializes a  node. This node type is used in PostgreSQL's implementation of SQL/JSON functionality to represent expressions that produce JSON values. The function allocates memory for a new  structure using the PostgreSQL node system and sets up its three primary components: the raw expression, formatted expression, and format specification.
 
 ## Parameters / Member Variables
-- : The original, unprocessed expression that will produce a value
-- : The expression after formatting has been applied
-- : A JsonFormat structure specifying how the JSON value should be formatted
-
+- `*raw_expr`: The original, unprocessed expression that will produce a value
+- `*formatted_expr`: The expression after formatting has been applied
+- `*format`: A JsonFormat structure specifying how the JSON value should be formatted
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (PostgreSQL node allocation macro)

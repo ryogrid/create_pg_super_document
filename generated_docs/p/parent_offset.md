@@ -16,8 +16,7 @@ parent_offset(int i)
 This function implements the standard binary heap parent index calculation formula for 0-based array indexing. In a binary heap stored as an array, for any node at index i (where i > 0), its parent is located at index (i-1)/2. This function is essential for heap operations that need to traverse upward in the heap tree structure, such as maintaining heap properties during insertions or heap construction.
 
 ## Parameters / Member Variables
-- : The index of a node in the binary heap array for which to find the parent index
-
+- `i`: The index of a node in the binary heap array for which to find the parent index
 ## Dependencies
 - Functions called/Symbols referenced: None (basic arithmetic operation)
 - Called from (representative examples):

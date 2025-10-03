@@ -16,9 +16,8 @@ hash_stats(const char *where, HTAB *hashp)
 This function outputs detailed statistics about a hash table to stderr for debugging purposes. It is compiled conditionally based on the HASH_STATISTICS macro. The function reports both per-table statistics (stored in the table's control structure) and global statistics maintained across all hash operations. This is primarily used for performance analysis and debugging of hash table behavior.
 
 ## Parameters / Member Variables
-- : A descriptive string identifying the location or context where statistics are being printed
-- : Pointer to the HTAB structure for which statistics should be displayed
-
+- `*where`: A descriptive string identifying the location or context where statistics are being printed
+- `*hashp`: Pointer to the HTAB structure for which statistics should be displayed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hash_get_num_entries](hash_get_num_entries.md)

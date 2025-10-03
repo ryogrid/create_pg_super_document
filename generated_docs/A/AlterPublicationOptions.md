@@ -19,11 +19,10 @@ AlterPublicationOptions is a static function that handles the modification of pu
 The function parses the new options, validates constraints (especially for partitioned tables), updates the catalog tuple, and invalidates the appropriate relation cache entries. It includes sophisticated logic to handle partition hierarchies and ensures consistency between publication options and existing table configurations.
 
 ## Parameters / Member Variables
-- : ParseState containing parsing context and source text information
-- : AlterPublicationStmt structure containing the alteration command details
-- : Relation object for the pg_publication catalog table
-- : HeapTuple representing the existing publication record to be modified
-
+- `*pstate`: ParseState containing parsing context and source text information
+- `*stmt`: AlterPublicationStmt structure containing the alteration command details
+- `rel`: Relation object for the pg_publication catalog table
+- `tup`: HeapTuple representing the existing publication record to be modified
 ## Dependencies
 - Functions called/Symbols referenced:
   - [parse_publication_options](../p/parse_publication_options.md): Parses publication-specific options from the statement

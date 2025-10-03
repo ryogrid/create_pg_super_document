@@ -16,10 +16,9 @@ publication_invalidation_cb(Datum arg, int cacheid, uint32 hashvalue)
 publication_invalidation_cb is a syscache invalidation callback function in the pgoutput logical replication output plugin. When changes occur to the pg_publication system catalog (such as creating, dropping, or modifying publications), PostgreSQL's syscache invalidation mechanism calls this function to maintain cache consistency. The function sets the publications_valid flag to false, indicating that cached publication data needs to be refreshed, and also calls rel_sync_cache_publication_cb to invalidate per-relation filtering cache to ensure that relation-specific publication settings are updated on the next access.
 
 ## Parameters / Member Variables
-- : Datum argument passed by the syscache invalidation system (typically unused in this context)
-- : The cache identifier that triggered the invalidation
-- : Hash value associated with the invalidated cache entry
-
+- `arg`: Datum argument passed by the syscache invalidation system (typically unused in this context)
+- `cacheid`: The cache identifier that triggered the invalidation
+- `hashvalue`: Hash value associated with the invalidated cache entry
 ## Dependencies
 - Functions called/Symbols referenced:
   - [rel_sync_cache_publication_cb](../r/rel_sync_cache_publication_cb.md)

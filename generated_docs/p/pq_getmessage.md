@@ -18,9 +18,8 @@ The  function is a core component of PostgreSQL's client-server communication pr
 The function first reads the 4-byte message length in network byte order, validates it against the specified maximum length, then allocates space and reads the message body. It includes robust error handling to discard oversized messages while maintaining protocol sync, and uses PostgreSQL's exception handling mechanism (PG_TRY/PG_CATCH) for memory allocation failures.
 
 ## Parameters / Member Variables
-- : StringInfo buffer to store the received message body (length word is stripped)
-- : Maximum allowed message length in bytes; connections are terminated if exceeded
-
+- `s`: StringInfo buffer to store the received message body (length word is stripped)
+- `maxlen`: Maximum allowed message length in bytes; connections are terminated if exceeded
 ## Dependencies
 - Functions called/Symbols referenced:
   - [resetStringInfo](../r/resetStringInfo.md)

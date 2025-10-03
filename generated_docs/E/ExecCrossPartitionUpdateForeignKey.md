@@ -28,13 +28,12 @@ ExecCrossPartitionUpdateForeignKey handles the complex scenario of maintaining f
 The function is essential for maintaining referential integrity when updates cause tuples to move between partitions, as the standard UPDATE trigger mechanisms may not be sufficient to handle the delete-from-source-partition + insert-to-destination-partition semantics.
 
 ## Parameters / Member Variables
-- : ModifyTableContext containing execution state and metadata
-- : ResultRelInfo for the partition containing the original tuple
-- : ResultRelInfo for the partition that will contain the updated tuple
-- : ItemPointer identifying the original tuple location
-- : TupleTableSlot containing the original tuple data
-- : TupleTableSlot containing the updated tuple data
-
+- `*context`: ModifyTableContext containing execution state and metadata
+- `*sourcePartInfo`: ResultRelInfo for the partition containing the original tuple
+- `*destPartInfo`: ResultRelInfo for the partition that will contain the updated tuple
+- `tupleid`: ItemPointer identifying the original tuple location
+- `*oldslot`: TupleTableSlot containing the original tuple data
+- `*newslot`: TupleTableSlot containing the updated tuple data
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecGetAncestorResultRels](ExecGetAncestorResultRels.md)

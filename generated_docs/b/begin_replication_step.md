@@ -25,6 +25,7 @@ The function is designed to be idempotent within a transaction - if called multi
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SetCurrentStatementStartTimestamp](../S/SetCurrentStatementStartTimestamp.md) (sets statement timing)

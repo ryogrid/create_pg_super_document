@@ -17,11 +17,10 @@ replace_guc_value(char **lines, const char *guc_name, const char *guc_value,
 This function processes PostgreSQL configuration files by finding existing GUC parameter assignments and replacing them with new values, or appending new assignments if none exist. It handles complex formatting requirements including proper quoting of values that require it, preservation of original comments with indentation, and optional commenting out of assignments. The function is designed to maintain the readability and structure of postgresql.conf files during database initialization. It assumes at most one matching assignment exists and processes lines in order until a match is found.
 
 ## Parameters / Member Variables
-- : Array of malloc'd strings representing configuration file lines, terminated by NULL pointer  
-- : The name of the GUC parameter to find and replace
-- : The new value to assign to the parameter
-- : Boolean flag to prefix the replacement line with '#' to comment it out
-
+- `**lines`: Array of malloc'd strings representing configuration file lines, terminated by NULL pointer
+- `*guc_name`: The name of the GUC parameter to find and replace
+- `*guc_value`: The new value to assign to the parameter
+- `mark_as_comment`: Boolean flag to prefix the replacement line with '#' to comment it out
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (standard library function)

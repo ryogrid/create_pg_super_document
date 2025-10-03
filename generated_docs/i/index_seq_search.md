@@ -22,10 +22,9 @@ The search algorithm:
 4. Continues while the first character matches, stopping when a full match is found or no more candidates exist
 
 ## Parameters / Member Variables
-- : Input string to search for in the keyword array
-- : Array of KeyWord structures containing the searchable keywords
-- : Index array that maps characters to starting positions in the keyword array for optimization
-
+- `*str`: Input string to search for in the keyword array
+- `*kw`: Array of KeyWord structures containing the searchable keywords
+- `*index`: Index array that maps characters to starting positions in the keyword array for optimization
 ## Dependencies
 - Functions called/Symbols referenced:
   - KeyWord (struct type)

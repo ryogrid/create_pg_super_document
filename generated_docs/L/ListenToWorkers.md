@@ -27,10 +27,9 @@ The function supports both blocking and non-blocking operation modes. In blockin
 The callback mechanism allows different types of operations (dump, restore, etc.) to have custom completion handling while maintaining a unified worker management interface.
 
 ## Parameters / Member Variables
-- : Archive handle containing the database connection and operation context
-- : Parallel state structure containing worker slots, job assignments, and communication infrastructure
-- : Boolean flag controlling whether to wait for messages (true) or return immediately if none available (false)
-
+- `*AH`: Archive handle containing the database connection and operation context
+- `*pstate`: Parallel state structure containing worker slots, job assignments, and communication infrastructure
+- `do_wait`: Boolean flag controlling whether to wait for messages (true) or return immediately if none available (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [getMessageFromWorker](../g/getMessageFromWorker.md) (retrieves status messages from worker processes)

@@ -25,11 +25,10 @@ The function includes comprehensive error checking for edge cases like negative 
 The implementation leverages existing PostgreSQL text manipulation functions ( and ) to perform the actual string operations, ensuring consistency with other text processing functions.
 
 ## Parameters / Member Variables
-- : The original text string to be modified
-- : The replacement text to insert
-- : The substring start position (1-based, must be positive)
-- : The substring length to replace
-
+- `*t1`: The original text string to be modified
+- `*t2`: The replacement text to insert
+- `sp`: The substring start position (1-based, must be positive)
+- `sl`: The substring length to replace
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_add_s32_overflow](../p/pg_add_s32_overflow.md)

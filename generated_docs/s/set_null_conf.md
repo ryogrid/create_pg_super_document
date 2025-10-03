@@ -18,6 +18,7 @@ The  function creates a minimal empty postgresql.conf configuration file in the 
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [psprintf](../p/psprintf.md) (PostgreSQL's printf-like memory allocating function)

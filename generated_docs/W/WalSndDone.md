@@ -25,8 +25,7 @@ The shutdown process involves several critical checks:
 This careful verification prevents data loss during shutdown by ensuring the client has received and processed all transmitted WAL data.
 
 ## Parameters / Member Variables
-- : Function pointer to the appropriate data sending callback (either XLogSendPhysical or XLogSendLogical depending on replication type)
-
+- `send_data`: Function pointer to the appropriate data sending callback (either XLogSendPhysical or XLogSendLogical depending on replication type)
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecPtrIsInvalid

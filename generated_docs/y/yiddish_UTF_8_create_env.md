@@ -19,6 +19,7 @@ The function abstracts away the specific parameter requirements for Yiddish stem
 ## Parameters / Member Variables
 
 
+
 ## Dependencies  
 - Functions called/Symbols referenced:
   - [SN_create_env](../S/SN_create_env.md)

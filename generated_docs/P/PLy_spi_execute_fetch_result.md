@@ -20,10 +20,9 @@ For SELECT queries that return data, the function converts each tuple in the res
 The function handles different types of SQL operations appropriately - for non-SELECT operations (INSERT, UPDATE, DELETE), it only stores the row count and status without processing tuple data.
 
 ## Parameters / Member Variables
-- : SPI tuple table containing result tuples and metadata (can be NULL for non-SELECT operations)
-- : Number of rows affected or returned by the query
-- : SPI execution status code indicating success/failure and operation type
-
+- `*tuptable`: SPI tuple table containing result tuples and metadata (can be NULL for non-SELECT operations)
+- `rows`: Number of rows affected or returned by the query
+- `status`: SPI execution status code indicating success/failure and operation type
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PLy_current_execution_context](PLy_current_execution_context.md): Gets current execution context

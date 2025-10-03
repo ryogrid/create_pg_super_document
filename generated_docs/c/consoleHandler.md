@@ -18,8 +18,7 @@ consoleHandler is a Windows console control handler function that responds to co
 The function operates within a critical section to ensure thread-safe access to shared data structures. It handles both worker threads (which are forcibly terminated using TerminateThread) and the leader connection, sending PQcancel requests to all active database connections to cleanly abort any running queries before the process exits.
 
 ## Parameters / Member Variables
-- : Windows control event type (CTRL_C_EVENT, CTRL_BREAK_EVENT, etc.)
-
+- `dwCtrlType`: Windows control event type (CTRL_C_EVENT, CTRL_BREAK_EVENT, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQcancel](../P/PQcancel.md)

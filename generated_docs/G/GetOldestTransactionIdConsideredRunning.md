@@ -25,6 +25,7 @@ The function simply computes all visibility horizons and returns the most conser
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ComputeXidHorizons](../C/ComputeXidHorizons.md)

@@ -16,9 +16,8 @@ bbsink_zstd_new(bbsink *next, pg_compress_specification *compress)
 This function creates a new zstd compression basebackup sink that wraps another sink in a chain. It allocates and initializes a bbsink_zstd structure with the appropriate operations table and compression specification. The function performs a compile-time check to ensure zstd compression support is available in the build - if not, it raises an error. The created sink will compress data using zstd before passing it to the next sink in the chain.
 
 ## Parameters / Member Variables
-- : Pointer to the next bbsink in the processing chain that will receive compressed data
-- : Compression specification containing zstd compression parameters and settings
-
+- `*next`: Pointer to the next bbsink in the processing chain that will receive compressed data
+- `*compress`: Compression specification containing zstd compression parameters and settings
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport (for error reporting when zstd not supported)

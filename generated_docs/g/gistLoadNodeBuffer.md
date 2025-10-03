@@ -25,9 +25,8 @@ The loading process involves several coordinated steps:
 This function is crucial for the buffer management system's ability to swap pages between memory and temporary storage, enabling construction of large indexes that exceed available memory.
 
 ## Parameters / Member Variables
-- : The GiST build buffers structure containing temporary file and buffer management data
-- : The node buffer whose last page should be loaded into memory
-
+- `*gfbb`: The GiST build buffers structure containing temporary file and buffer management data
+- `*nodeBuffer`: The node buffer whose last page should be loaded into memory
 ## Dependencies
 - Functions called/Symbols referenced:
   - [gistAllocateNewPageBuffer](gistAllocateNewPageBuffer.md)

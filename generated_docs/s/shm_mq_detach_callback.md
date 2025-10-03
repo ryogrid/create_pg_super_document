@@ -20,9 +20,8 @@ This function acts as a thin wrapper around , extracting the shared message queu
 The function is critical for maintaining system reliability in PostgreSQL's inter-process communication infrastructure, particularly in scenarios involving background workers and parallel query execution.
 
 ## Parameters / Member Variables
-- : Pointer to the DSM segment being detached (not directly used by this function)
-- : A Datum containing a pointer to the  structure that should be detached
-
+- `*seg`: Pointer to the DSM segment being detached (not directly used by this function)
+- `arg`: A Datum containing a pointer to the  structure that should be detached
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Extracts the shm_mq pointer from the Datum argument

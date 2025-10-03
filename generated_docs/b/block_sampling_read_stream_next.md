@@ -20,10 +20,9 @@ This function serves as a callback for the read stream infrastructure during tab
 The function acts as a bridge between the generic read stream framework and the specific block sampling algorithm used for statistical analysis. It returns the next block number that should be read according to the sampling algorithm, or InvalidBlockNumber when no more blocks need to be sampled.
 
 ## Parameters / Member Variables
-- : The ReadStream structure managing the I/O operations
-- : Pointer to BlockSamplerData containing sampling algorithm state
-- : Per-buffer private data (unused in this callback)
-
+- `*stream`: The ReadStream structure managing the I/O operations
+- `*callback_private_data`: Pointer to BlockSamplerData containing sampling algorithm state
+- `*per_buffer_data`: Per-buffer private data (unused in this callback)
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Checks if more blocks remain in the sampling sequence

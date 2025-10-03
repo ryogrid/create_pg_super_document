@@ -23,10 +23,9 @@ This function constructs a GroupingSet node, which is fundamental to PostgreSQL'
 The function creates a minimal structure that captures the type of grouping operation, the columns/expressions involved, and the location in the source query for error reporting purposes.
 
 ## Parameters / Member Variables
-- : Enumeration value specifying the type of grouping set (GROUPING_SET_EMPTY, GROUPING_SET_SIMPLE, GROUPING_SET_ROLLUP, GROUPING_SET_CUBE, etc.)
-- : List of expressions or column references that participate in this grouping set
-- : Source code location (character position) in the original SQL query for error reporting and debugging
-
+- `kind`: Enumeration value specifying the type of grouping set (GROUPING_SET_EMPTY, GROUPING_SET_SIMPLE, GROUPING_SET_ROLLUP, GROUPING_SET_CUBE, etc.)
+- `*content`: List of expressions or column references that participate in this grouping set
+- `location`: Source code location (character position) in the original SQL query for error reporting and debugging
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Creates a new node of type GroupingSet

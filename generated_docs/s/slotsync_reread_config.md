@@ -29,6 +29,7 @@ The function distinguishes between two types of configuration changes:
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Creates string duplicates for comparison

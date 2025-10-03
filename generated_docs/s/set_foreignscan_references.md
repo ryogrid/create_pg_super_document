@@ -24,10 +24,9 @@ This function is part of the plan reference adjustment phase in PostgreSQL's que
 The function ensures that all expressions within the ForeignScan node properly reference the correct variables and relations after plan tree modifications.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planner state and context information
-- : The ForeignScan plan node whose references need to be adjusted
-- : Range table offset to be applied to relation IDs and variable references
-
+- `*root`: PlannerInfo structure containing planner state and context information
+- `*fscan`: The ForeignScan plan node whose references need to be adjusted
+- `rtoffset`: Range table offset to be applied to relation IDs and variable references
 ## Dependencies
 - Functions called/Symbols referenced:
   - [build_tlist_index](../b/build_tlist_index.md)

@@ -23,9 +23,8 @@ This function orchestrates the core path generation process in PostgreSQL's quer
 The function ensures that all base relations and outer-join relations in the query are properly joined and returns a single RelOptInfo representing the entire query's join structure.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global optimizer state and query information
-- : List structure representing the join tree structure to be optimized
-
+- `*root`: PlannerInfo structure containing global optimizer state and query information
+- `*joinlist`: List structure representing the join tree structure to be optimized
 ## Dependencies
 - Functions called/Symbols referenced:
   - [set_base_rel_consider_startup](../s/set_base_rel_consider_startup.md)

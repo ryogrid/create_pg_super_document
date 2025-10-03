@@ -25,8 +25,7 @@ The function performs several validation steps:
 If all conditions are met, the function sets nfa->minmatchall, nfa->maxmatchall, and the MATCHALL flag, enabling significant optimization in the regex execution engine.
 
 ## Parameters / Member Variables
-- : Pointer to the NFA structure to analyze for matchall optimization
-
+- `*nfa`: Pointer to the NFA structure to analyze for matchall optimization
 ## Dependencies
 - Functions called/Symbols referenced:
   - DUPINF (maximum duplication count constant)

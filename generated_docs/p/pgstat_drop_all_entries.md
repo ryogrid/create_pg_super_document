@@ -15,7 +15,6 @@ void pgstat_drop_all_entries(void)
 The `pgstat_drop_all_entries` function performs a complete cleanup of the shared statistics hash table by iterating through all entries and attempting to drop each one that hasn't already been marked as dropped. It uses exclusive locking during the iteration to ensure thread safety. The function counts entries that cannot be immediately freed and requests garbage collection for cached references when needed, similar to other drop functions in the statistics subsystem.
 
 ## Parameters / Member Variables
-None - this function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

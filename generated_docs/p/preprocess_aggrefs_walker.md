@@ -29,9 +29,8 @@ The walker assumes that the PostgreSQL parser has already validated that:
 This optimization allows the walker to skip deep recursion into aggregate sub-expressions, improving performance while maintaining correctness.
 
 ## Parameters / Member Variables
-- : Current node in the expression tree being visited
-- : PlannerInfo structure containing planner context and state information
-
+- `*node`: Current node in the expression tree being visited
+- `*root`: PlannerInfo structure containing planner context and state information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [preprocess_aggref](preprocess_aggref.md)

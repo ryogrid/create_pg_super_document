@@ -19,11 +19,10 @@ mark_dump_job_done(ArchiveHandle *AH,
 This function serves as a completion callback for parallel dump operations in PostgreSQL's pg_dump utility. It is called by the leader process when a worker process finishes dumping a particular database object. The function's primary responsibilities are to log the completion of the dump item and to detect and handle worker process failures. If a worker process fails (indicated by a non-zero status), the function terminates the entire dump operation with a fatal error.
 
 ## Parameters / Member Variables
-- : Archive handle containing the dump state and configuration (unused in this function)
-- : Table of Contents entry representing the database object that was dumped
-- : Exit status of the worker process (0 for success, non-zero for failure)
-- : Additional callback data (unused in this function)
-
+- `*AH`: Archive handle containing the dump state and configuration (unused in this function)
+- `*te`: Table of Contents entry representing the database object that was dumped
+- `status`: Exit status of the worker process (0 for success, non-zero for failure)
+- `*callback_data`: Additional callback data (unused in this function)
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_log_info

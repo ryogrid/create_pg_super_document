@@ -20,12 +20,11 @@ This function is a core component of PostgreSQL's uniqueness analysis that deter
 The function accepts conditions in two formats: RestrictInfo nodes (for join-derived conditions) and expression/operator pairs. It automatically incorporates usable baserestrictinfo clauses and performs comprehensive matching against all available unique indexes. For each unique index, it verifies that every key column is constrained by an appropriate equality condition with compatible operators from the index's opfamily.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global query information
-- : RelOptInfo structure representing the target relation
-- : List of RestrictInfo nodes representing equality conditions (destructively modified)
-- : List of expressions in the relation for equality matching
-- : List of equality operators corresponding to exprlist expressions
-
+- `*root`: PlannerInfo structure containing global query information
+- `*rel`: RelOptInfo structure representing the target relation
+- `*restrictlist`: List of RestrictInfo nodes representing equality conditions (destructively modified)
+- `*exprlist`: List of expressions in the relation for equality matching
+- `*oprlist`: List of equality operators corresponding to exprlist expressions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_length](../l/list_length.md)

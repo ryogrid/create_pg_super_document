@@ -24,9 +24,8 @@ This function implements PostgreSQL's duration-based logging policy by measuring
 The function calculates execution duration from statement start to current time and applies complex logic to determine logging requirements. It uses careful arithmetic to avoid integer overflow with very long durations and implements probabilistic sampling using PostgreSQL's global PRNG.
 
 ## Parameters / Member Variables
-- : 32-byte buffer to store formatted duration string (output parameter)
-- : Boolean indicating if statement details were already logged by caller
-
+- `*msec_str`: 32-byte buffer to store formatted duration string (output parameter)
+- `was_logged`: Boolean indicating if statement details were already logged by caller
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TimestampDifference](../T/TimestampDifference.md) (calculate time difference between timestamps)

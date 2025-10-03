@@ -22,12 +22,11 @@ This function is the preferred way to escape strings when a database connection 
 The function clears any existing connection error state before processing if there are no pending commands, ensuring clean error reporting for the escaping operation.
 
 ## Parameters / Member Variables
-- : PostgreSQL connection handle (required - function fails if NULL)
-- : Output buffer where the escaped string will be written (must be at least 2*length + 1 bytes)
-- : Input string to be escaped
-- : Maximum length of the source string to process
-- : Pointer to int that will be set to 1 if errors occur (can be NULL)
-
+- `*conn`: PostgreSQL connection handle (required - function fails if NULL)
+- `*to`: Output buffer where the escaped string will be written (must be at least 2*length + 1 bytes)
+- `*from`: Input string to be escaped
+- `length`: Maximum length of the source string to process
+- `*error`: Pointer to int that will be set to 1 if errors occur (can be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - pqClearConnErrorState

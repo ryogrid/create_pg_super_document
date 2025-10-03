@@ -27,7 +27,6 @@ The function operates in several key phases:
 The function includes extensive commentary about race conditions and transaction isolation issues, particularly regarding the timing of LISTEN commands relative to transaction commits.
 
 ## Parameters / Member Variables
-This function takes no parameters and operates on global state variables and the shared notification queue.
 
 ## Dependencies
 - Functions called/Symbols referenced:

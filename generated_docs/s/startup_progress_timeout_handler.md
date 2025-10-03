@@ -19,7 +19,6 @@ The function is typically registered as a timeout callback and is triggered peri
 The function operates on a static volatile sig_atomic_t variable to ensure safe access from signal/timeout contexts, as timeout handlers can be invoked asynchronously.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - [Variables](../V/Variables.md) accessed:

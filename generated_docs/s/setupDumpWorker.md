@@ -18,8 +18,7 @@ The setupDumpWorker function is a specialized connection setup routine for paral
 The function is designed specifically for the parallel dumping architecture where a leader process spawns multiple worker processes, each requiring its own database connection with identical settings for consistent data extraction.
 
 ## Parameters / Member Variables
-- : Archive handle containing inherited connection configuration from the leader process, including encoding, snapshot ID, and role information
-
+- `*AH`: Archive handle containing inherited connection configuration from the leader process, including encoding, snapshot ID, and role information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [setup_connection](setup_connection.md) (performs the actual connection configuration)

@@ -20,9 +20,8 @@ The function handles the special case of truncating to zero length by returning 
 The in-place modification approach means the function doesn't invalidate pointers to the remaining cells, making it safe to use in contexts where other code might hold references to list elements.
 
 ## Parameters / Member Variables
-- : The list to truncate (modified in-place)
-- : The maximum number of elements the list should contain after truncation
-
+- `*list`: The list to truncate (modified in-place)
+- `new_size`: The maximum number of elements the list should contain after truncation
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Gets the current length of the list for comparison

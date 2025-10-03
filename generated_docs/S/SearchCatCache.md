@@ -24,12 +24,11 @@ The function returns either NULL if no matching tuple is found, or a pointer to 
 The search mechanism supports flexible key handling, including a special case for NAME columns where C strings can be passed directly without requiring conversion to fully null-padded NAME format.
 
 ## Parameters / Member Variables
-- : Pointer to the CatCache structure representing the specific catalog cache to search
-- : First search key value as a Datum (or zero if unused)
-- : Second search key value as a Datum (or zero if unused)  
-- : Third search key value as a Datum (or zero if unused)
-- : Fourth search key value as a Datum (or zero if unused)
-
+- `*cache`: Pointer to the CatCache structure representing the specific catalog cache to search
+- `v1`: First search key value as a Datum (or zero if unused)
+- `v2`: Second search key value as a Datum (or zero if unused)
+- `v3`: Third search key value as a Datum (or zero if unused)
+- `v4`: Fourth search key value as a Datum (or zero if unused)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchCatCacheInternal](SearchCatCacheInternal.md)

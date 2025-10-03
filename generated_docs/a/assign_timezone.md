@@ -18,9 +18,8 @@ The  function serves as a GUC assign hook that applies timezone configuration ch
 This function is called by the GUC system after successful validation to make the timezone change effective throughout the session. It's a simple assignment function that trusts the validation has already been performed by the corresponding check hook.
 
 ## Parameters / Member Variables
-- : The string representation of the timezone setting (unused in this function since the timezone object comes from extra)
-- : A pointer to the extra data structure containing the validated pg_tz timezone object (created by check_timezone)
-
+- `*newval`: The string representation of the timezone setting (unused in this function since the timezone object comes from extra)
+- `*extra`: A pointer to the extra data structure containing the validated pg_tz timezone object (created by check_timezone)
 ## Dependencies
 - Functions called/Symbols referenced:
   - session_timezone: Global variable storing the current session's timezone context

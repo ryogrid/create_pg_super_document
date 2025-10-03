@@ -19,11 +19,10 @@ This function is a wrapper around get_rule_expr that provides intelligent parent
 The function is designed to be used by parent nodes that do not naturally embrace their child expressions with SQL syntax elements (like parentheses, keywords such as CASE/WHEN/ON, or commas). This ensures that complex expressions maintain proper precedence and readability in the generated SQL output.
 
 ## Parameters / Member Variables
-- : The expression node to be deparsed
-- : Deparse context containing output buffer and formatting settings
-- : Whether to show implicit casts and other normally hidden elements
-- : The parent node, used to determine if parentheses are needed based on context
-
+- `*node`: The expression node to be deparsed
+- `*context`: Deparse context containing output buffer and formatting settings
+- `showimplicit`: Whether to show implicit casts and other normally hidden elements
+- `*parentNode`: The parent node, used to determine if parentheses are needed based on context
 ## Dependencies
 - Functions called/Symbols referenced:
   - PRETTY_PAREN (macro to check if pretty parentheses formatting is enabled)

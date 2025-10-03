@@ -18,8 +18,7 @@ The PQconnectionUsedGSSAPI function determines whether GSSAPI (Generic Security 
 This function is valuable for client applications that need to understand the authentication method used for security auditing, logging, or to make decisions based on the authentication mechanism that was employed.
 
 ## Parameters / Member Variables
-- : Pointer to the PGconn connection object to query for GSSAPI usage information. If NULL, the function returns false.
-
+- `*conn`: Pointer to the PGconn connection object to query for GSSAPI usage information. If NULL, the function returns false.
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (accesses conn->gssapi_used directly)

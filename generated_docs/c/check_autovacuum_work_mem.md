@@ -24,10 +24,9 @@ The function performs two key validation and adjustment operations:
 The 64kB minimum is consistent with the minimum value enforced for maintenance_work_mem, ensuring consistency between related memory configuration parameters.
 
 ## Parameters / Member Variables
-- : Pointer to the new integer value being set (in kilobytes). This value may be modified by the function to enforce constraints.
-- : Pointer to extra data (unused in this function, can be NULL)
-- : The source of the configuration change (e.g., configuration file, SQL command, etc.)
-
+- `*newval`: Pointer to the new integer value being set (in kilobytes). This value may be modified by the function to enforce constraints.
+- `**extra`: Pointer to extra data (unused in this function, can be NULL)
+- `source`: The source of the configuration change (e.g., configuration file, SQL command, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   - GucSource (enumeration type for configuration sources)

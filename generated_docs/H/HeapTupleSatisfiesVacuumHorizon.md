@@ -32,10 +32,9 @@ Key functionality includes:
 The function returns detailed HTSV_Result values and sets *dead_after to enable fine-grained vacuum decisions by callers who can compare against different horizons.
 
 ## Parameters / Member Variables
-- : The heap tuple to analyze for vacuum status, containing tuple data and transaction metadata
-- : The buffer containing the tuple, used for setting hint bits to optimize future visibility checks
-- : Output parameter that receives the transaction ID after which the tuple becomes dead (for HEAPTUPLE_RECENTLY_DEAD results)
-
+- `htup`: The heap tuple to analyze for vacuum status, containing tuple data and transaction metadata
+- `buffer`: The buffer containing the tuple, used for setting hint bits to optimize future visibility checks
+- `*dead_after`: Output parameter that receives the transaction ID after which the tuple becomes dead (for HEAPTUPLE_RECENTLY_DEAD results)
 ## Dependencies
 - Functions called/Symbols referenced:
   - HeapTupleHeaderXminCommitted

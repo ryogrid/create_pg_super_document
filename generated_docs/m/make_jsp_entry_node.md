@@ -18,8 +18,7 @@ This function is a constructor utility that creates a JsonPathGinNode with type 
 This is a fundamental building block in the JSONB GIN indexing system, used to create nodes that represent individual indexable values extracted from JSONB documents.
 
 ## Parameters / Member Variables
-- : The Datum value to be stored in the GIN node, representing an indexable entry extracted from JSONB data
-
+- `entry`: The Datum value to be stored in the GIN node, representing an indexable entry extracted from JSONB data
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md) (PostgreSQL memory allocation function)

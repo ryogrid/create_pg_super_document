@@ -20,9 +20,8 @@ The function creates a sorted array of relation file locators when the number of
 The optimization strategy switches between linear search (O(n*m) where n=buffers, m=relations) and binary search (O(n*log(m))) based on the number of relations, similar to the approach used in DropRelationsAllBuffers.
 
 ## Parameters / Member Variables
-- : Array of SMgrRelation pointers representing the relations whose buffers should be flushed
-- : Number of relations in the smgrs array
-
+- `*smgrs`: Array of SMgrRelation pointers representing the relations whose buffers should be flushed
+- `nrels`: Number of relations in the smgrs array
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md)

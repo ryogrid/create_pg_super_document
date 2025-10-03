@@ -20,7 +20,6 @@ The function is designed to check for pending immediate checkpoint requests, not
 The function performs a lockless read of the shared memory flag, which is safe because it only examines a single flag bit. This design choice provides better performance by avoiding lock contention while still providing accurate information about pending immediate checkpoints.
 
 ## Parameters / Member Variables
-None - the function takes no parameters and returns a boolean indicating the presence of immediate checkpoint requests.
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -16,8 +16,7 @@ eof_none(CompressFileHandle *CFH)
 The  function is a simple wrapper around the standard C library's  function. It operates on uncompressed files ("none" compression) and provides a consistent interface for checking end-of-file status within the compression abstraction layer of pg_dump. The function casts the private_data member of the CompressFileHandle to a FILE pointer and calls  on it, returning true if the end-of-file indicator is set.
 
 ## Parameters / Member Variables
-- : Pointer to a CompressFileHandle structure containing the file handle and compression-related metadata. The private_data member is expected to contain a FILE pointer for uncompressed files.
-
+- `*CFH`: Pointer to a CompressFileHandle structure containing the file handle and compression-related metadata. The private_data member is expected to contain a FILE pointer for uncompressed files.
 ## Dependencies
 - Functions called/Symbols referenced:
   - feof (standard C library function)

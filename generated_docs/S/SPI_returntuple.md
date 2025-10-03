@@ -18,9 +18,8 @@ SPI_returntuple is an SPI function that converts a HeapTuple into a HeapTupleHea
 The function performs several validation checks: it verifies that both the input tuple and tuple descriptor are non-NULL, and that there is an active SPI connection. If any of these conditions fail, it sets the appropriate error code in SPI_result and returns NULL.
 
 ## Parameters / Member Variables
-- : The HeapTuple to be prepared for return - must be a valid tuple structure
-- : The TupleDesc describing the structure of the tuple - must match the tuple's format
-
+- `tuple`: The HeapTuple to be prepared for return - must be a valid tuple structure
+- `tupdesc`: The TupleDesc describing the structure of the tuple - must match the tuple's format
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)

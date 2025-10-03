@@ -16,9 +16,8 @@ parse_scalar(JsonLexContext *lex, JsonSemAction *sem)
 parse_scalar handles the parsing of JSON scalar values within the recursive descent parser framework. It validates that the current token represents a valid scalar type, extracts the token value (either as a de-escaped string or raw lexeme), consumes the token from the input stream, and invokes the scalar semantic action callback if one is provided. For string tokens, it extracts the processed string value, while for other scalar types it captures the raw lexeme text. The function ensures proper token validation before processing and handles cases where no semantic action is needed.
 
 ## Parameters / Member Variables
-- : JsonLexContext pointer containing the current parsing state and token information
-- : JsonSemAction pointer containing the scalar callback function and semantic state
-
+- `*lex`: JsonLexContext pointer containing the current parsing state and token information
+- `*sem`: JsonSemAction pointer containing the scalar callback function and semantic state
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lex_peek](../l/lex_peek.md) (for token lookahead and validation)

@@ -22,10 +22,9 @@ This function handles the column target list processing for INSERT statements in
 The function maintains two bitmapsets to track column usage:  for complete column assignments and  for partial assignments with indirection. This prevents conflicting assignments like specifying both  and  in the same INSERT statement.
 
 ## Parameters / Member Variables
-- : ParseState structure containing parsing context and target relation information
-- : Input list of ResTarget nodes representing the column targets (can be NIL for default behavior)
-- : Output parameter - pointer to a list that will be populated with attribute numbers corresponding to the columns
-
+- `*pstate`: ParseState structure containing parsing context and target relation information
+- `*cols`: Input list of ResTarget nodes representing the column targets (can be NIL for default behavior)
+- `**attrnos`: Output parameter - pointer to a list that will be populated with attribute numbers corresponding to the columns
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationGetNumberOfAttributes

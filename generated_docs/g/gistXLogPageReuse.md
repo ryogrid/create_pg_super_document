@@ -21,11 +21,10 @@ When a page is deleted and later reused, transactions on standby servers that mi
 The function records metadata about the relation, the specific block being reused, and the deletion transaction ID (snapshotConflictHorizon) that originally removed the page's content. It also tracks whether the associated heap relation is accessible in logical decoding, which affects how the reuse is handled.
 
 ## Parameters / Member Variables
-- : The GiST index relation where the page reuse is occurring
-- : The heap relation associated with the GiST index
-- : Block number of the page being reused
-- : Full transaction ID of the transaction that originally deleted the page content
-
+- `rel`: The GiST index relation where the page reuse is occurring
+- `heaprel`: The heap relation associated with the GiST index
+- `blkno`: Block number of the page being reused
+- `deleteXid`: Full transaction ID of the transaction that originally deleted the page content
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationIsAccessibleInLogicalDecoding

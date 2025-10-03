@@ -24,8 +24,7 @@ The cleanup process follows a specific order:
 6. **Subplan Shutdown**: Recursively shuts down the underlying subplan
 
 ## Parameters / Member Variables
-- : ModifyTableState structure containing all the execution state to be cleaned up
-
+- `*node`: ModifyTableState structure containing all the execution state to be cleaned up
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecDropSingleTupleTableSlot](ExecDropSingleTupleTableSlot.md)

@@ -19,11 +19,10 @@ The  function is a simplified interface to  that automatically determines the le
 This function is particularly useful when working with dynamically allocated string buffers in the Snowball environment, where the string length is stored as a header before the actual string data.
 
 ## Parameters / Member Variables
-- : Pointer to the Snowball environment structure containing the working string and state
-- : Start position where the replacement should begin
-- : End position where the replacement should end (exclusive)
-- : Pointer to a variable-length string buffer (with embedded size information)
-
+- `*z`: Pointer to the Snowball environment structure containing the working string and state
+- `bra`: Start position where the replacement should begin
+- `ket`: End position where the replacement should end (exclusive)
+- `*p`: Pointer to a variable-length string buffer (with embedded size information)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [insert_s](insert_s.md) (performs the actual insertion with explicit size)

@@ -15,7 +15,6 @@ void RelationMapInitializePhase2(void)
 This function represents the second phase of relation mapper initialization during PostgreSQL startup. It is called when the system is ready to access pg_database and can read the shared relation map file from disk. The function handles two scenarios: in bootstrap mode, it does nothing since the map file doesn't exist yet; in normal mode, it loads the shared relation map file and fails fatally if the file cannot be read. This phase is critical for establishing the mapping between relation OIDs and their physical file nodes for shared system catalogs.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

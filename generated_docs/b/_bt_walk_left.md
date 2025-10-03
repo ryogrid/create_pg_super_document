@@ -18,9 +18,8 @@ This function performs a leftward traversal in a B-tree index, moving from the c
 The algorithm handles the complexity of concurrent B-tree modifications by checking page validity and implementing retry logic. When a page is found to be deleted, it continues searching rightward to find the first non-deleted page that has acquired the deleted page's keyspace. The function includes safeguards against infinite loops and provides clear error messages when structural inconsistencies are detected.
 
 ## Parameters / Member Variables
-- : Relation - The B-tree index relation being traversed
-- : Buffer - The current page buffer (must be pinned and read-locked on entry)
-
+- `rel`: Relation - The B-tree index relation being traversed
+- `buf`: Buffer - The current page buffer (must be pinned and read-locked on entry)
 ## Dependencies
 - Functions called/Symbols referenced:
   - BTPageGetOpaque

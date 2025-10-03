@@ -16,8 +16,7 @@ pa_setup_dsm(ParallelApplyWorkerInfo *winfo)
 This function creates and configures a dynamic shared memory (DSM) segment that facilitates communication between the leader apply worker and parallel apply workers. The segment contains a control region with worker information, a message queue for sending data to the worker, and an error queue for receiving error messages from the worker. The function uses the shared memory table of contents (TOC) mechanism to organize the different components within the segment.
 
 ## Parameters / Member Variables
-- : Pointer to ParallelApplyWorkerInfo structure that will be populated with DSM handles and shared memory references
-
+- `*winfo`: Pointer to ParallelApplyWorkerInfo structure that will be populated with DSM handles and shared memory references
 ## Dependencies
 - Functions called/Symbols referenced:
   - shm_toc_initialize_estimator

@@ -18,9 +18,8 @@ This function is a key component of PostgreSQL's parameter assignment mechanism 
 The function first validates that the Var is indeed from an outer level, then calls assign_param_for_var to get or create a parameter ID. It then constructs a new Param node with PARAM_EXEC kind, copying the relevant type information from the original Var. This transformation is essential for executing correlated subqueries efficiently.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planner state and context for the current query level
-- : Var node representing a column reference from an outer query level (varlevelsup > 0)
-
+- `*root`: PlannerInfo structure containing planner state and context for the current query level
+- `*var`: Var node representing a column reference from an outer query level (varlevelsup > 0)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Param](../P/Param.md) (node structure)

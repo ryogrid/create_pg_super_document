@@ -27,6 +27,7 @@ The function ensures proper cleanup and allows other processes to acquire the sa
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease (ReplicationOriginLock)

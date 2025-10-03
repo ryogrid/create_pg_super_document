@@ -26,11 +26,10 @@ Key behaviors include:
 The function is essential for accurate GROUP BY cardinality estimation, as it ensures that equivalent variables don't artificially inflate the estimated number of groups.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing query planning context and equivalence class information
-- : Existing list of GroupVarInfo structures to extend
-- : The variable node to potentially add to the list
-- : VariableStatData containing statistics and relation information for the variable
-
+- `*root`: PlannerInfo structure containing query planning context and equivalence class information
+- `*varinfos`: Existing list of GroupVarInfo structures to extend
+- `*var`: The variable node to potentially add to the list
+- `*vardata`: VariableStatData containing statistics and relation information for the variable
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_variable_numdistinct](../g/get_variable_numdistinct.md): Extract distinct value count from variable statistics

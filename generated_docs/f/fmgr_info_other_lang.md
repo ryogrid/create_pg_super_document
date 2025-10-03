@@ -24,10 +24,9 @@ fmgr_info_other_lang sets up function manager information for procedural languag
 The function deliberately ignores security attributes when setting up the call handler to get a direct pointer to the C-language call handler function. This ensures that procedural language functions are handled through their appropriate language-specific call handlers.
 
 ## Parameters / Member Variables
-- : OID of the function being processed (currently unused in implementation)
-- : FmgrInfo structure to be initialized with the call handler address
-- : HeapTuple from pg_proc catalog containing the procedural language function's metadata
-
+- `functionId`: OID of the function being processed (currently unused in implementation)
+- `*finfo`: FmgrInfo structure to be initialized with the call handler address
+- `procedureTuple`: HeapTuple from pg_proc catalog containing the procedural language function's metadata
 ## Dependencies
 - Functions called/Symbols referenced:
   - GETSTRUCT (extract struct from HeapTuple)

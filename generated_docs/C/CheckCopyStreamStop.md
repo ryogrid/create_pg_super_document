@@ -18,10 +18,9 @@ This function evaluates whether the streaming process should be stopped based on
 The function operates within the context of WAL streaming operations, typically used by pg_basebackup and similar utilities that need to receive transaction log data from a PostgreSQL server.
 
 ## Parameters / Member Variables
-- : PostgreSQL connection handle for communicating with the server
-- : StreamCtl structure containing stream configuration and callback functions
-- : XLogRecPtr indicating the current position in the transaction log
-
+- `*conn`: PostgreSQL connection handle for communicating with the server
+- `*stream`: StreamCtl structure containing stream configuration and callback functions
+- `blockpos`: XLogRecPtr indicating the current position in the transaction log
 ## Dependencies
 - Functions called/Symbols referenced:
   - [StreamCtl](../S/StreamCtl.md) (structure type)

@@ -23,9 +23,8 @@ The function handles two main categories of objects:
 For generic objects, the function resolves the object address, opens the appropriate system catalog, looks up the target namespace, and calls the internal namespace alteration function.
 
 ## Parameters / Member Variables
-- : Pointer to the parsed ALTER OBJECT SET SCHEMA statement containing the object type, object identifier, and target schema name
-- : Optional output parameter that receives the ObjectAddress of the original schema if not NULL
-
+- `*stmt`: Pointer to the parsed ALTER OBJECT SET SCHEMA statement containing the object type, object identifier, and target schema name
+- `*oldSchemaAddr`: Optional output parameter that receives the ObjectAddress of the original schema if not NULL
 ## Dependencies
 - Functions called/Symbols referenced:
   - : For extension objects

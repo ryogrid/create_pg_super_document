@@ -18,10 +18,9 @@ pgoutput_stream_commit(struct LogicalDecodingContext *ctx,
 The  function is a callback used in PostgreSQL's logical replication system to handle the commit of streamed transactions. It operates as part of the pgoutput plugin's transaction streaming functionality. The function ensures that the transaction commit happens outside of the streaming block while maintaining the transaction's streamed status. It sends a stream commit message to the downstream subscriber and performs cleanup of the relation synchronization cache.
 
 ## Parameters / Member Variables
-- : LogicalDecodingContext pointer containing the decoding context and output plugin state
-- : ReorderBufferTXN pointer representing the transaction being committed
-- : XLogRecPtr specifying the WAL location where the transaction was committed
-
+- `*ctx`: LogicalDecodingContext pointer containing the decoding context and output plugin state
+- `*txn`: ReorderBufferTXN pointer representing the transaction being committed
+- `commit_lsn`: XLogRecPtr specifying the WAL location where the transaction was committed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [OutputPluginUpdateProgress](../O/OutputPluginUpdateProgress.md)

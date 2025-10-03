@@ -16,8 +16,7 @@ hash_freeze(HTAB *hashp)
 The hash_freeze function marks a hash table as frozen, preventing any future insertions that could cause bucket splits. This is a performance optimization that simplifies sequential scan management by eliminating the need to track and deregister scans properly. Once frozen, the hash table structure becomes stable, allowing callers to perform sequential scans without worrying about calling hash_seq_term at precise moments. The function includes safety checks to prevent freezing shared hash tables or tables with active scans, as these operations could lead to inconsistent states.
 
 ## Parameters / Member Variables
-- : Pointer to the HTAB (hash table) structure to be frozen
-
+- `*hashp`: Pointer to the HTAB (hash table) structure to be frozen
 ## Dependencies
 - Functions called/Symbols referenced:
   - [has_seq_scans](has_seq_scans.md)

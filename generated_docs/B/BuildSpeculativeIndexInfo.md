@@ -15,9 +15,8 @@ void BuildSpeculativeIndexInfo(Relation index, IndexInfo *ii)
 BuildSpeculativeIndexInfo extends an existing IndexInfo structure with specialized information needed to support speculative insertion in unique B-tree indexes. This function is specifically designed for PostgreSQL's speculative insertion mechanism, which allows for optimistic insertion followed by uniqueness checking. The function allocates and populates arrays for unique operators, procedure OIDs, and strategy numbers that are used during the speculative insertion process. This processing is done separately from BuildIndexInfo() to avoid overhead in common non-speculative cases, ensuring optimal performance for regular index operations.
 
 ## Parameters / Member Variables
-- : Relation structure representing the index being prepared for speculative insertion
-- : IndexInfo structure to be augmented with speculative insertion metadata
-
+- `index`: Relation structure representing the index being prepared for speculative insertion
+- `*ii`: IndexInfo structure to be augmented with speculative insertion metadata
 ## Dependencies
 - Functions called/Symbols referenced:
   - [IndexInfo](../I/IndexInfo.md) (structure type)

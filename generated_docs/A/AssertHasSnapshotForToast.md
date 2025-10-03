@@ -24,8 +24,7 @@ The function performs several checks:
 This validation prevents crashes that could occur when trying to detoast (decompress/retrieve) large values without a proper snapshot context.
 
 ## Parameters / Member Variables
-- : The relation being accessed, used to check if it has an associated TOAST table and to identify special cases like pg_replication_origin
-
+- `rel`: The relation being accessed, used to check if it has an associated TOAST table and to identify special cases like pg_replication_origin
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsNormalProcessingMode

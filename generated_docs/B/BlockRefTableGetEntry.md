@@ -26,11 +26,10 @@ The function operates by:
 This is a read-only operation that does not modify the table or create new entries.
 
 ## Parameters / Member Variables
-- : Pointer to the BlockRefTable to search
-- : Pointer to RelFileLocator identifying the specific relation
-- : Fork number (main, fsm, vm, etc.) within the relation
-- : Output parameter to receive the limit block value (must not be NULL)
-
+- `*brtab`: Pointer to the BlockRefTable to search
+- `*rlocator`: Pointer to RelFileLocator identifying the specific relation
+- `forknum`: Fork number (main, fsm, vm, etc.) within the relation
+- `*limit_block`: Output parameter to receive the limit block value (must not be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Assertion macro to validate that limit_block is not NULL

@@ -16,9 +16,8 @@ paramlist_param_ref(ParseState *pstate, ParamRef *pref)
 The paramlist_param_ref function is a parameter reference hook that gets called during query parsing when a parameter reference (, , etc.) is encountered. It transforms a ParamRef parse node into a Param execution node by looking up parameter type information from the ParamListInfo structure stored in the ParseState. The function validates the parameter number, retrieves parameter information (potentially through a paramFetch hook for dynamic parameters), and creates a properly typed Param node with the correct type, collation, and location information. If the parameter is invalid or has no valid type, it returns NULL.
 
 ## Parameters / Member Variables
-- : The current ParseState containing the ParamListInfo in p_ref_hook_state
-- : The ParamRef node representing the parameter reference () to be transformed
-
+- `*pstate`: The current ParseState containing the ParamListInfo in p_ref_hook_state
+- `*pref`: The ParamRef node representing the parameter reference () to be transformed
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (creates a new Param node)

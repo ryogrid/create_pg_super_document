@@ -23,9 +23,8 @@ The function returns:
 This three-way comparison enables efficient binary search through sorted arrays of Unicode codepoint ranges, which is essential for Unicode normalization and character classification operations in SASL string preparation.
 
 ## Parameters / Member Variables
-- : Pointer to the search key (pg_wchar codepoint being searched for)
-- : Pointer to a codepoint range array where range[0] is the lower bound and range[1] is the upper bound
-
+- `*a`: Pointer to the search key (pg_wchar codepoint being searched for)
+- `*b`: Pointer to a codepoint range array where range[0] is the lower bound and range[1] is the upper bound
 ## Dependencies
 - Functions called/Symbols referenced:
   - (none - uses only basic comparison operations)

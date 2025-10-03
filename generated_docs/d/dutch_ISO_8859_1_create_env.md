@@ -17,7 +17,6 @@ This function serves as a language-specific wrapper for creating a Snowball stem
 The function creates an environment with 3 string variables (second parameter) and 0 integer variables (first parameter), which are the specific requirements for the Dutch stemming algorithm implementation.
 
 ## Parameters / Member Variables
-This function takes no parameters and returns a pointer to a newly allocated SN_env structure configured for Dutch ISO 8859-1 stemming.
 
 ## Dependencies
 - Functions called/Symbols referenced:

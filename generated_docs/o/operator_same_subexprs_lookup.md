@@ -16,10 +16,9 @@ operator_same_subexprs_lookup(Oid pred_op, Oid clause_op, bool refute_it)
 This is a simple wrapper function that calls lookup_proof_cache to get the cached proof entry for a given operator pair, then extracts the appropriate boolean field based on whether this is an implication or refutation test. It provides a clean interface for checking same-subexpressions proofs without exposing the cache entry structure to callers.
 
 ## Parameters / Member Variables
-- : OID of the predicate operator
-- : OID of the clause operator
-- : When false, returns implication result; when true, returns refutation result
-
+- `pred_op`: OID of the predicate operator
+- `clause_op`: OID of the clause operator
+- `refute_it`: When false, returns implication result; when true, returns refutation result
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lookup_proof_cache](../l/lookup_proof_cache.md)

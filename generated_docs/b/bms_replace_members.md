@@ -18,9 +18,8 @@ The  function efficiently replaces all members of bitmapset  with the members fr
 This function effectively performs a complete assignment operation () while trying to minimize memory allocations and deallocations. The original contents of  are completely overwritten.
 
 ## Parameters / Member Variables
-- : Target Bitmapset to be replaced (can be NULL, which copies )
-- : Source Bitmapset to copy members from (const, can be NULL)
-
+- `*a`: Target Bitmapset to be replaced (can be NULL, which copies )
+- `*b`: Source Bitmapset to copy members from (const, can be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Validates both input bitmapset structures

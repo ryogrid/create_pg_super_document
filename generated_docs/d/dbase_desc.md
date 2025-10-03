@@ -16,9 +16,8 @@ dbase_desc(StringInfo buf, XLogReaderState *record)
 The  function is part of PostgreSQL's WAL record description system, specifically for database management operations. It parses database-related WAL records and appends human-readable descriptions to a string buffer. This function is primarily used by tools like  to provide meaningful output when examining WAL files. The function handles three types of database operations: creating databases by copying files, creating databases using WAL logging, and dropping databases.
 
 ## Parameters / Member Variables
-- : StringInfo buffer where the human-readable description will be appended
-- : XLogReaderState pointer containing the WAL record data to be described
-
+- `buf`: StringInfo buffer where the human-readable description will be appended
+- `*record`: XLogReaderState pointer containing the WAL record data to be described
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData

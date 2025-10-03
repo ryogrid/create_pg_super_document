@@ -17,7 +17,6 @@ DataChecksumsEnabled is a utility function that checks if data page checksums ar
 The function returns true if the data_checksum_version is greater than 0, indicating that checksums are enabled. A value of 0 means checksums are disabled for this cluster.
 
 ## Parameters / Member Variables
-This function takes no parameters and returns a boolean value indicating checksum status.
 
 ## Dependencies
 - Functions called/Symbols referenced:

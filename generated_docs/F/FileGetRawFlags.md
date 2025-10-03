@@ -18,8 +18,7 @@ FileGetRawFlags retrieves the fileFlags field from the VfdCache for a given Post
 The function provides access to the cached flags without requiring additional system calls, as PostgreSQL stores this information in its virtual file descriptor cache when files are opened through the VFD system.
 
 ## Parameters / Member Variables
-- : A PostgreSQL File descriptor representing an open file in the virtual file descriptor system
-
+- `file`: A PostgreSQL File descriptor representing an open file in the virtual file descriptor system
 ## Dependencies
 - Functions called/Symbols referenced:
   - FileIsValid (validates the file descriptor)

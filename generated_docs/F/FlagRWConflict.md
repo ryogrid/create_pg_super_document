@@ -26,9 +26,8 @@ The function handles three different conflict scenarios:
 This design optimizes memory usage by using summary flags when one transaction has been committed long enough to be represented by OldCommittedSxact, while maintaining detailed conflict tracking for active transactions.
 
 ## Parameters / Member Variables
-- : Pointer to the SERIALIZABLEXACT structure of the transaction that performed the read operation
-- : Pointer to the SERIALIZABLEXACT structure of the transaction that performed the conflicting write operation
-
+- `*reader`: Pointer to the SERIALIZABLEXACT structure of the transaction that performed the read operation
+- `*writer`: Pointer to the SERIALIZABLEXACT structure of the transaction that performed the conflicting write operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [OnConflict_CheckForSerializationFailure](../O/OnConflict_CheckForSerializationFailure.md)

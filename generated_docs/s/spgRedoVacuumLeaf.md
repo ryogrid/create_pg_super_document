@@ -24,8 +24,7 @@ This function handles the replay of SP-GiST leaf page vacuum operations, which c
 The function processes arrays of offset numbers for each operation type and applies them in the correct sequence to maintain page consistency.
 
 ## Parameters / Member Variables
-- : XLogReaderState pointer containing the WAL record with vacuum leaf operation details
-
+- `*record`: XLogReaderState pointer containing the WAL record with vacuum leaf operation details
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData

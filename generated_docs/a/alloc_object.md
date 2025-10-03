@@ -18,9 +18,8 @@ This function implements the core object allocation logic for the Dynamic Shared
 The function maintains efficient allocation patterns by preferring to allocate from spans in fullness class 1 (partially full) and automatically moving spans to the highest fullness class when they become completely full. It handles both recycled objects (from the free list) and fresh object initialization, updating span metadata to track allocation state.
 
 ## Parameters / Member Variables
-- : Pointer to the DSA area from which to allocate
-- : Index identifying the size class of objects to allocate
-
+- `*area`: Pointer to the DSA area from which to allocate
+- `size_class`: Index identifying the size class of objects to allocate
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockHeldByMe](../L/LWLockHeldByMe.md)

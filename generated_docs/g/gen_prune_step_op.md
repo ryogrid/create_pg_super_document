@@ -23,13 +23,12 @@ A special case is handled for inequality operators (<>): when op_is_ne is true, 
 The newly created step is added to the context's steps list and returned as a PartitionPruneStep pointer for use in the pruning step sequence.
 
 ## Parameters / Member Variables
-- : GeneratePruningStepsContext containing step generation state and step counter
-- : StrategyNumber indicating the comparison strategy (e.g., BTLessStrategyNumber, BTEqualStrategyNumber)
-- : Boolean flag indicating if this is a NOT EQUAL (<>) operator
-- : List of expressions being compared to partition keys
-- : List of comparison functions corresponding to each expression
-- : Bitmapset indicating which partition keys should be treated as null
-
+- `*context`: GeneratePruningStepsContext containing step generation state and step counter
+- `opstrategy`: StrategyNumber indicating the comparison strategy (e.g., BTLessStrategyNumber, BTEqualStrategyNumber)
+- `op_is_ne`: Boolean flag indicating if this is a NOT EQUAL (<>) operator
+- `*exprs`: List of expressions being compared to partition keys
+- `*cmpfns`: List of comparison functions corresponding to each expression
+- `*nullkeys`: Bitmapset indicating which partition keys should be treated as null
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (for PartitionPruneStepOp allocation)

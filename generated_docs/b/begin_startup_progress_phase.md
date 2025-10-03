@@ -19,7 +19,6 @@ The function is designed to be called at the beginning of major startup operatio
 Like other startup progress functions, it includes a safety check that immediately returns if the startup progress feature is disabled (when `log_startup_progress_interval` is set to 0), avoiding unnecessary timeout management operations when progress reporting is not in use.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called:

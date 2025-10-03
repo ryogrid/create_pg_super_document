@@ -20,10 +20,9 @@ The function processes each segment by first copying the segment's base ItemPoin
 The function supports processing multiple segments stored consecutively in memory, making it suitable for decoding entire posting lists that may span multiple segments due to size limitations.
 
 ## Parameters / Member Variables
-- : Pointer to the first posting list segment to decode
-- : Total number of bytes containing all segments to process
-- : Output parameter that receives the total number of items decoded across all segments
-
+- `*segment`: Pointer to the first posting list segment to decode
+- `len`: Total number of bytes containing all segments to process
+- `*ndecoded_out`: Output parameter that receives the total number of items decoded across all segments
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md) (memory allocation)

@@ -18,11 +18,10 @@ maybe_send_schema(LogicalDecodingContext *ctx,
 This function determines whether to send schema information for a relation in the logical replication stream. It handles both streaming and non-streaming transactions, tracking which schemas have already been sent to avoid redundant transmissions. The function has special handling for relations that are published using an ancestor's schema (inheritance scenarios), sending both the ancestor's and the relation's schema information when needed. For streaming transactions, schema tracking is maintained per transaction to handle the complex ordering requirements of streamed vs non-streamed transactions.
 
 ## Parameters / Member Variables
-- : LogicalDecodingContext pointer containing the replication context and output stream
-- : ReorderBufferChange pointer representing the current change being processed
-- : Relation representing the table whose schema might need to be sent
-- : RelationSyncEntry pointer containing synchronization state and metadata for the relation
-
+- `*ctx`: LogicalDecodingContext pointer containing the replication context and output stream
+- `*change`: ReorderBufferChange pointer representing the current change being processed
+- `relation`: Relation representing the table whose schema might need to be sent
+- `*relentry`: RelationSyncEntry pointer containing synchronization state and metadata for the relation
 ## Dependencies
 - Functions called/Symbols referenced:
   - rbtxn_is_subtxn

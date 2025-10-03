@@ -19,11 +19,10 @@ This function serves as a convenience wrapper for the parameter substitution pro
 The usecounts array is updated during the substitution process to track how many times each parameter is referenced, which is used by the calling code to determine whether inlining is safe (parameters used multiple times must not be expensive or volatile).
 
 ## Parameters / Member Variables
-- : The expression tree containing Param nodes to be substituted
-- : Number of function arguments/parameters
-- : List of actual argument expressions to substitute
-- : Array to track usage count of each parameter (output parameter)
-
+- `*expr`: The expression tree containing Param nodes to be substituted
+- `nargs`: Number of function arguments/parameters
+- `*args`: List of actual argument expressions to substitute
+- `*usecounts`: Array to track usage count of each parameter (output parameter)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [substitute_actual_parameters_context](substitute_actual_parameters_context.md) (context structure for parameter substitution)

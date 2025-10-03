@@ -26,9 +26,8 @@ The function performs several key operations:
 The function implements a double-checked locking pattern to handle concurrent access efficiently, first checking with a shared lock, then re-checking with an exclusive lock to prevent race conditions.
 
 ## Parameters / Member Variables
-- : The wait event class identifier (e.g., PG_WAIT_EXTENSION, PG_WAIT_INJECTIONPOINT) that categorizes the type of wait event being created
-- : A null-terminated string containing the name of the wait event. Must be less than NAMEDATALEN characters and unique within the specified class
-
+- `classId`: The wait event class identifier (e.g., PG_WAIT_EXTENSION, PG_WAIT_INJECTIONPOINT) that categorizes the type of wait event being created
+- `*wait_event_name`: A null-terminated string containing the name of the wait event. Must be less than NAMEDATALEN characters and unique within the specified class
 ## Dependencies
 - Functions called/Symbols referenced:
   - strlen, strlcpy (string manipulation functions)

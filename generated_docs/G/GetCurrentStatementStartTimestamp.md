@@ -18,7 +18,6 @@ This function returns the value stored in the global variable `stmtStartTimestam
 The function is crucial for maintaining temporal consistency in operations that may span multiple function calls within a single statement, such as logging, monitoring, and time-based calculations that need to reference the same base timestamp.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -20,8 +20,7 @@ The function returns true only when the snapshot builder has reached the SNAPBUI
 The snapshot building process progresses through several states before reaching consistency, and this function provides a clean interface for callers to determine when the context is fully prepared for decoding work.
 
 ## Parameters / Member Variables
-- : Pointer to the LogicalDecodingContext to check for readiness
-
+- `*ctx`: Pointer to the LogicalDecodingContext to check for readiness
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SnapBuildCurrentState](../S/SnapBuildCurrentState.md): Returns the current state of the snapshot builder

@@ -18,8 +18,7 @@ This function is a simple flag checker that tests the PD_HAS_FREE_LINES bit in t
 The function operates on the page header structure, which contains metadata about the page including various status flags. The PD_HAS_FREE_LINES flag is one of several page-level hints that PostgreSQL maintains to optimize storage operations.
 
 ## Parameters / Member Variables
-- : A pointer to the page whose free line pointer status is being checked
-
+- `page`: A pointer to the page whose free line pointer status is being checked
 ## Dependencies
 - Functions called/Symbols referenced:
   - PageHeader (cast to access page header structure)

@@ -27,7 +27,6 @@ The function implements several optimizations and safety checks:
 5. **Cache Invalidation**: Invokes `AtCCI_LocalCache` to make catalog changes from the just-completed command visible in the local system cache.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

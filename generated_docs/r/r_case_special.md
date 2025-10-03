@@ -29,8 +29,7 @@ The switch statement handles the transformations:
 This specialized handling is necessary because some Hungarian case forms require vowel preservation to maintain morphological validity when stemmed.
 
 ## Parameters / Member Variables
-- : Pointer to the SN_env structure containing the word being processed, cursor positions, and string boundaries
-
+- `*z`: Pointer to the SN_env structure containing the word being processed, cursor positions, and string boundaries
 ## Dependencies
 - Functions called/Symbols referenced:
   - [find_among_b](../f/find_among_b.md) (searches for special case patterns from array a_5 containing 'án', 'én', 'ánként')

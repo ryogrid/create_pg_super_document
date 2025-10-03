@@ -18,8 +18,7 @@ The  function is a simple wrapper around the  function that compares the current
 The function internally calls , which performs the actual character comparison by checking that the current character length is 1 (ASCII) and that the byte at the current position matches the specified character.
 
 ## Parameters / Member Variables
-- : Pointer to a TParser structure containing the current parsing state, including the current character ( field) and position information
-
+- `*prs`: Pointer to a TParser structure containing the current parsing state, including the current character ( field) and position information
 ## Dependencies
 - Functions called/Symbols referenced:
   - p_iseq (performs the actual character comparison)

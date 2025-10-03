@@ -21,14 +21,13 @@ For lowercase and uppercase conversions, it maps each character in the string us
 The function processes the source string character by character, converting each Unicode codepoint according to the specified case kind. It uses the  function to locate case mapping information for each character and handles both simple character mapping and characters without case mappings by copying them unchanged.
 
 ## Parameters / Member Variables
-- : Destination buffer to store the converted result
-- : Size of the destination buffer in bytes
-- : Source UTF-8 encoded string to convert
-- : Length of source string in bytes, or negative for NUL-terminated strings
-- : Type of case conversion (CaseLower, CaseUpper, or CaseTitle)
-- : Word boundary detection function (required for titlecase, NULL otherwise)
-- : State for word boundary detection (required for titlecase, NULL otherwise)
-
+- `*dst`: Destination buffer to store the converted result
+- `dstsize`: Size of the destination buffer in bytes
+- `*src`: Source UTF-8 encoded string to convert
+- `srclen`: Length of source string in bytes, or negative for NUL-terminated strings
+- `str_casekind`: Type of case conversion (CaseLower, CaseUpper, or CaseTitle)
+- `wbnext`: Word boundary detection function (required for titlecase, NULL otherwise)
+- `*wbstate`: State for word boundary detection (required for titlecase, NULL otherwise)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [utf8_to_unicode](../u/utf8_to_unicode.md) (converts UTF-8 bytes to Unicode codepoint)

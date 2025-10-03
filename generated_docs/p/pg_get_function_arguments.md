@@ -16,8 +16,7 @@ pg_get_function_arguments(PG_FUNCTION_ARGS)
 This SQL-callable function takes a function OID as input and returns a formatted text representation of the function's argument list. It retrieves the function's metadata from the system catalog (pg_proc) and formats the arguments in a human-readable form suitable for display in CREATE FUNCTION statements or documentation. The function handles the complete argument specification including parameter names, types, and modes.
 
 ## Parameters / Member Variables
-- : OID of the target function whose arguments are to be formatted
-
+- `PG_FUNCTION_ARGS`: OID of the target function whose arguments are to be formatted
 ## Dependencies
 - Functions called/Symbols referenced:
   - [print_function_arguments](print_function_arguments.md)

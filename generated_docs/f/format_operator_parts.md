@@ -19,11 +19,10 @@ The  function breaks down an operator into its structural components rather than
 The function queries the pg_operator system catalog and populates two output lists:  containing the schema name and operator name, and  containing the formatted argument type names. This decomposed format is particularly useful for operations that need to manipulate or compare individual components of operator identities.
 
 ## Parameters / Member Variables
-- : The OID of the operator to decompose
-- : Output parameter - pointer to a List that will contain schema name and operator name
-- : Output parameter - pointer to a List that will contain formatted argument type names  
-- : If true, function returns silently for invalid operator OIDs; if false, throws an error
-
+- `operator_oid`: The OID of the operator to decompose
+- `**objnames`: Output parameter - pointer to a List that will contain schema name and operator name
+- `**objargs`: Output parameter - pointer to a List that will contain formatted argument type names
+- `missing_ok`: If true, function returns silently for invalid operator OIDs; if false, throws an error
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache1](../S/SearchSysCache1.md)

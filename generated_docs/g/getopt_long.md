@@ -32,12 +32,11 @@ Key behavioral features:
 - Handles error reporting through opterr global variable
 
 ## Parameters / Member Variables
-- : Number of command line arguments (including program name)
-- : Array of command line argument strings  
-- : String specifying valid short options; ':' after option means it requires an argument
-- : Array of struct option defining valid long options (terminated by entry with NULL name)
-- : Output parameter - receives index of matched long option in longopts array (can be NULL)
-
+- `argc`: Number of command line arguments (including program name)
+- `argv[]`: Array of command line argument strings
+- `*optstring`: String specifying valid short options; ':' after option means it requires an argument
+- `*longopts`: Array of struct option defining valid long options (terminated by entry with NULL name)
+- `*longindex`: Output parameter - receives index of matched long option in longopts array (can be NULL)
 ## Dependencies  
 - Functions called/Symbols referenced:
   -  (string parsing)

@@ -16,8 +16,7 @@ DatumGetJsonbPCopy(Datum d)
 This inline function provides a way to extract a writable Jsonb pointer from a Datum value by creating a copy. Unlike DatumGetJsonbP which may return a read-only reference to TOASTed data, DatumGetJsonbPCopy uses PG_DETOAST_DATUM_COPY to ensure that a modifiable copy is returned. This is essential when the calling code needs to modify the Jsonb structure, as direct modification of TOASTed data could lead to corruption or unexpected behavior. The function ensures memory safety by providing a dedicated copy that can be safely modified.
 
 ## Parameters / Member Variables
-- : The input Datum value that contains a JSONB value, potentially in TOASTed form
-
+- `d`: The input Datum value that contains a JSONB value, potentially in TOASTed form
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_DETOAST_DATUM_COPY

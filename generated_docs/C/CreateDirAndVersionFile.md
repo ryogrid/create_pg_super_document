@@ -32,11 +32,10 @@ This function performs the fundamental filesystem operations required to establi
 When not in WAL replay mode, the function generates a WAL record containing the database ID and tablespace ID using the XLog infrastructure for crash recovery.
 
 ## Parameters / Member Variables
-- : Filesystem path where the database directory should be created
-- : Database OID for the new database being created
-- : Tablespace OID where the database resides  
-- : Boolean indicating if this is being called during WAL replay
-
+- `*dbpath`: Filesystem path where the database directory should be created
+- `dbid`: Database OID for the new database being created
+- `tsid`: Tablespace OID where the database resides
+- `isRedo`: Boolean indicating if this is being called during WAL replay
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MakePGDirectory](../M/MakePGDirectory.md): Creates PostgreSQL directory with proper permissions

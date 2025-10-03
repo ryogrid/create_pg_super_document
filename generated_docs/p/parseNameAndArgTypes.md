@@ -28,13 +28,12 @@ The function performs several key operations:
 The parser is robust enough to handle PostgreSQL's full type syntax, including array types, complex types, and schema-qualified type names while maintaining proper quote and parentheses balancing.
 
 ## Parameters / Member Variables
-- : Input string containing the function/operator signature to parse (format: "name(type1, type2, ...)")
-- : Boolean flag that allows "NONE" as a valid type name, mapping it to InvalidOid (used for unary operators)
-- : Output parameter - pointer to a List of Strings representing the parsed qualified name components
-- : Output parameter - pointer to integer that will contain the number of parsed arguments
-- : Output parameter - array of Oids (size FUNC_MAX_ARGS) that will contain the resolved type OIDs
-- : Error context node for soft error handling, enabling graceful error capture instead of exceptions
-
+- `*string`: Input string containing the function/operator signature to parse (format: "name(type1, type2, ...)")
+- `allowNone`: Boolean flag that allows "NONE" as a valid type name, mapping it to InvalidOid (used for unary operators)
+- `**names`: Output parameter - pointer to a List of Strings representing the parsed qualified name components
+- `*nargs`: Output parameter - pointer to integer that will contain the number of parsed arguments
+- `*argtypes`: Output parameter - array of Oids (size FUNC_MAX_ARGS) that will contain the resolved type OIDs
+- `*escontext`: Error context node for soft error handling, enabling graceful error capture instead of exceptions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pstrdup](pstrdup.md) (string duplication)

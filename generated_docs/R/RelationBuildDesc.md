@@ -18,9 +18,8 @@ This is a core function that constructs a complete Relation structure by reading
 The function includes sophisticated memory management with optional temporary context creation to prevent memory leaks during debug operations. It handles invalidation detection during build process and implements a retry mechanism. The function can optionally insert the completed relation into the relation cache hash table.
 
 ## Parameters / Member Variables
-- : OID of the relation to build descriptor for
-- : Whether to insert the completed relation into the cache hash table
-
+- `targetRelId`: OID of the relation to build descriptor for
+- `insertIt`: Whether to insert the completed relation into the cache hash table
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ScanPgRelation](../S/ScanPgRelation.md) (scan pg_class for relation tuple)

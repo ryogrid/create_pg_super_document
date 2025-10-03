@@ -18,8 +18,7 @@ This function is called during recovery startup to establish the baseline for tr
 The function retreats the provided XID by one using TransactionIdRetreat, which ensures that subsequent recovery operations can safely extend from this point onwards. This is used by RecordKnownAssignedTransactionIds and ProcArrayApplyRecoveryInfo to maintain consistency during recovery.
 
 ## Parameters / Member Variables
-- : The transaction ID up to which CLOG and SUBTRANS have been initialized
-
+- `initializedUptoXID`: The transaction ID up to which CLOG and SUBTRANS have been initialized
 ## Dependencies
 - Functions called/Symbols referenced:
   - STANDBY_INITIALIZED

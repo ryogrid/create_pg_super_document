@@ -18,8 +18,7 @@ The  function performs recursive validation of ECPG variable types to ensure the
 For basic integer types, the function simply allows them. For composite types (structs and unions), it recursively validates each member. For array types, it validates the element type. Any other type results in a parse error.
 
 ## Parameters / Member Variables
-- : Pointer to ECPGtype structure representing the variable to validate
-
+- `*var`: Pointer to ECPGtype structure representing the variable to validate
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ECPGtype](../E/ECPGtype.md) (struct type)

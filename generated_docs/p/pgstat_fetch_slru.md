@@ -20,6 +20,7 @@ The function is designed to provide a consistent view of SLRU statistics at a sp
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pgstat_snapshot_fixed](pgstat_snapshot_fixed.md)

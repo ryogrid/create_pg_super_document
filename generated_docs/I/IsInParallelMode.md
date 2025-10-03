@@ -19,7 +19,6 @@ The function serves as a critical guard to prohibit operations that change backe
 The parallel mode detection extends to subtransactions - if we're in a subtransaction of a transaction that initiated a parallel operation, the function still returns true, as those contexts have the same operational restrictions.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

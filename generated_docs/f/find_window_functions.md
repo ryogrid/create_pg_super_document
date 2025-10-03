@@ -16,9 +16,8 @@ find_window_functions(Node *clause, Index maxWinRef)
 This function performs a comprehensive search through an expression tree to locate all window function nodes (WindowFunc) and organize them into lists grouped by their window reference IDs. It allocates a WindowFuncLists structure that contains an array of lists, where each list corresponds to a specific winref ID and contains all window functions that reference that particular window specification. The function requires the caller to provide an upper bound on the expected winref IDs to properly size the internal data structures.
 
 ## Parameters / Member Variables
-- : A Node pointer representing the expression tree to search for window functions
-- : An Index specifying the maximum window reference ID expected in the tree, used to size the internal arrays
-
+- `*clause`: A Node pointer representing the expression tree to search for window functions
+- `maxWinRef`: An Index specifying the maximum window reference ID expected in the tree, used to size the internal arrays
 ## Dependencies
 - Functions called/Symbols referenced:
   - [WindowFuncLists](../W/WindowFuncLists.md)

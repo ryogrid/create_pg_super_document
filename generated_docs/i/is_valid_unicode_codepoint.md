@@ -18,8 +18,7 @@ This inline function performs a simple range check to determine if a given Postg
 The validation follows the Unicode standard which defines the valid code point range as 0x000001 to 0x10FFFF, covering all 17 Unicode planes (Basic Multilingual Plane plus 16 supplementary planes).
 
 ## Parameters / Member Variables
-- : The wide character value to validate as a Unicode code point
-
+- `c`: The wide character value to validate as a Unicode code point
 ## Dependencies
 - Functions called/Symbols referenced: None (simple arithmetic comparison)
 - Called from (representative examples):

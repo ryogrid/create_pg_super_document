@@ -22,8 +22,7 @@ The function performs the following operations:
 4. On Windows and Cygwin, removes the  suffix (case-insensitive)
 
 ## Parameters / Member Variables
-- : The first command-line argument, typically containing the program path as invoked
-
+- `*argv0`: The first command-line argument, typically containing the program path as invoked
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Finds the last directory separator in a path

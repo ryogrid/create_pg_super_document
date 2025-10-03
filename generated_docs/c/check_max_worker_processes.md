@@ -16,10 +16,9 @@ check_max_worker_processes(int *newval, void **extra, GucSource source)
 This function serves as a validation hook for the max_worker_processes GUC parameter. It checks whether the proposed new value, when combined with MaxConnections, autovacuum workers, WAL senders, and additional system processes, would exceed the maximum number of backends allowed by the system (MAX_BACKENDS). This validation prevents configuration errors that could lead to system resource exhaustion.
 
 ## Parameters / Member Variables
-- : Pointer to the proposed new value for max_worker_processes
-- : Pointer to extra data (unused in this function)
-- : The source of the configuration change (command line, config file, etc.)
-
+- `*newval`: Pointer to the proposed new value for max_worker_processes
+- `**extra`: Pointer to extra data (unused in this function)
+- `source`: The source of the configuration change (command line, config file, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   - GucSource (type)

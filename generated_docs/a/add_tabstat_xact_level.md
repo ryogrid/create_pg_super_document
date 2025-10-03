@@ -23,9 +23,8 @@ This function creates and initializes a new  structure to track table statistics
 The function is essential for PostgreSQL's statistics tracking system to properly handle savepoints and subtransactions, allowing statistics changes to be rolled back when subtransactions abort.
 
 ## Parameters / Member Variables
-- : Pointer to the table's statistics status structure that needs transaction-level tracking
-- : The transaction nesting level (0 for main transaction, higher values for savepoints/subtransactions)
-
+- `*pgstat_info`: Pointer to the table's statistics status structure that needs transaction-level tracking
+- `nest_level`: The transaction nesting level (0 for main transaction, higher values for savepoints/subtransactions)
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Ensures the transaction stack level exists

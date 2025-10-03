@@ -18,9 +18,8 @@ This function implements a UNION operation for multibitmapsets, which are repres
 The function first extends List a with NULL elements if it's shorter than List b, then iterates through both lists simultaneously using the forboth macro. For each corresponding pair of Bitmapsets, it calls bms_add_members to perform the actual bitmap union operation and updates the element in List a.
 
 ## Parameters / Member Variables
-- : The destination List representing the multibitmapset to be modified (left operand of UNION)
-- : The source List representing the multibitmapset to add from (right operand of UNION, read-only)
-
+- `*a`: The destination List representing the multibitmapset to be modified (left operand of UNION)
+- `*b`: The source List representing the multibitmapset to add from (right operand of UNION, read-only)
 ## Dependencies
 - Functions called/Symbols referenced:
   - forboth

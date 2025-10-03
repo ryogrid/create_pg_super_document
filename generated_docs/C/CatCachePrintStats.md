@@ -26,9 +26,8 @@ The function calculates and displays both individual cache statistics and system
 Statistics are only printed for caches that have been actively used (non-zero tuple count or search operations).
 
 ## Parameters / Member Variables
-- : Exit code parameter (unused in the function body)
-- : Datum argument (unused in the function body)
-
+- `code`: Exit code parameter (unused in the function body)
+- `arg`: Datum argument (unused in the function body)
 ## Dependencies
 - Functions called/Symbols referenced:
   - slist_foreach (macro for iterating through cache list)

@@ -20,9 +20,8 @@ A key feature is its intelligent handling of TEXT format output: if no actual co
 The function also manages indentation levels and ensures that the formatting stack is properly maintained for potential subsequent ExplainOpenWorker calls on the same worker.
 
 ## Parameters / Member Variables
-- : The worker number/index (0-based) to close output for
-- : ExplainState structure containing formatting options and worker state
-
+- `n`: The worker number/index (0-based) to close output for
+- `*es`: ExplainState structure containing formatting options and worker state
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (validates worker state and that worker was previously opened)

@@ -21,10 +21,9 @@ The function validates that the specified cache is configured for two-key lookup
 This function is extensively used throughout PostgreSQL for accessing commonly-needed two-key catalog lookups, such as finding attributes by relation OID and attribute name, or accessing various catalog entries that require composite keys.
 
 ## Parameters / Member Variables
-- : Integer identifier specifying which system cache to search (must be valid two-key cache)
-- : First search key value used in the composite lookup
-- : Second search key value used in the composite lookup
-
+- `cacheId`: Integer identifier specifying which system cache to search (must be valid two-key cache)
+- `key1`: First search key value used in the composite lookup
+- `key2`: Second search key value used in the composite lookup
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerIsValid

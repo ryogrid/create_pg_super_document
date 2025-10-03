@@ -18,9 +18,8 @@ This function performs equality comparison between two ItemPointer structures by
 The function uses accessor macros to extract and compare the block and offset components rather than performing direct memory comparison, ensuring proper handling of the ItemPointer's internal structure.
 
 ## Parameters / Member Variables
-- : First ItemPointer to compare - must be a valid ItemPointer structure
-- : Second ItemPointer to compare - must be a valid ItemPointer structure
-
+- `pointer1`: First ItemPointer to compare - must be a valid ItemPointer structure
+- `pointer2`: Second ItemPointer to compare - must be a valid ItemPointer structure
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ItemPointerGetBlockNumber](ItemPointerGetBlockNumber.md): Extracts the block number component from an ItemPointer

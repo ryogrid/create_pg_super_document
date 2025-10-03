@@ -20,8 +20,7 @@ This function is a core utility for building up collections of database, schema,
 The function handles memory management safely by using pg_realloc, which will terminate the program on allocation failure, ensuring that the caller always receives a valid pointer to the new entry.
 
 ## Parameters / Member Variables
-- : Pointer to the PatternInfoArray structure to be extended
-
+- `*pia`: Pointer to the PatternInfoArray structure to be extended
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PatternInfoArray](../P/PatternInfoArray.md) (struct type)

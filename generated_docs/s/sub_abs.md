@@ -16,10 +16,9 @@ sub_abs(const NumericVar *var1, const NumericVar *var2, NumericVar *result)
 The  function performs subtraction of absolute values between two NumericVar operands. It implements multi-precision arithmetic by working with digit arrays in base NBASE representation. The function requires that the absolute value of var1 must be greater than or equal to the absolute value of var2 to ensure the result is non-negative. The operation handles borrowing between digits and properly manages the weight and scale of the result. The result can safely point to one of the operands without causing memory corruption.
 
 ## Parameters / Member Variables
-- : Pointer to the first NumericVar operand (minuend) - must have absolute value >= |var2|
-- : Pointer to the second NumericVar operand (subtrahend) to be subtracted
-- : Pointer to NumericVar structure where the result ABS(var1) - ABS(var2) will be stored
-
+- `*var1`: Pointer to the first NumericVar operand (minuend) - must have absolute value >= |var2|
+- `*var2`: Pointer to the second NumericVar operand (subtrahend) to be subtracted
+- `*result`: Pointer to NumericVar structure where the result ABS(var1) - ABS(var2) will be stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - NumericDigit (type for individual digits)

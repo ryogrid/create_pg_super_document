@@ -29,7 +29,6 @@ This function is called during PostgreSQL startup from CreateSharedMemoryAndSema
 The function also creates a special "OldCommittedSxact" transaction representing all old committed transactions and initializes the Serial SLRU for storing historical serialization information.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

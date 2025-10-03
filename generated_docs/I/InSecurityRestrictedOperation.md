@@ -17,7 +17,6 @@ InSecurityRestrictedOperation is a security query function that checks if the cu
 This function is crucial for PostgreSQL's security model, particularly for preventing potentially dangerous operations during the execution of security-definer functions, triggers, or other contexts where elevated privileges are temporarily granted but certain operations should remain restricted.
 
 ## Parameters / Member Variables
-None - this function takes no parameters and returns a boolean value.
 
 ## Dependencies
 - Functions called/Symbols referenced:

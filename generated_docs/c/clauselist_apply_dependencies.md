@@ -35,16 +35,15 @@ Where  is the degree of dependency. For dependency chains (a->b->c), conditional
 The function processes dependencies in reverse order to handle dependency chains correctly.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing query planning context
-- : List of WHERE clauses to estimate selectivity for
-- : Relation ID for the target relation
-- : Type of join operation
-- : Special join information structure
-- : Array of functional dependencies to apply
-- : Number of dependencies in the array
-- : Array mapping clause positions to attribute numbers
-- : Output bitmapset of clauses that were estimated
-
+- `*root`: PlannerInfo structure containing query planning context
+- `*clauses`: List of WHERE clauses to estimate selectivity for
+- `varRelid`: Relation ID for the target relation
+- `jointype`: Type of join operation
+- `*sjinfo`: Special join information structure
+- `**dependencies`: Array of functional dependencies to apply
+- `ndependencies`: Number of dependencies in the array
+- `*list_attnums`: Array mapping clause positions to attribute numbers
+- `**estimatedclauses`: Output bitmapset of clauses that were estimated
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bms_add_member](../b/bms_add_member.md)

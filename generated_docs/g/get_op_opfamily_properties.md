@@ -19,13 +19,12 @@ get_op_opfamily_properties(Oid opno, Oid opfamily, bool ordering_op,
 This function provides a comprehensive lookup of an operator's properties within an operator family. It retrieves the strategy number, left operand type, and right operand type from the pg_amop catalog. The function can handle both search operators and ordering operators based on the ordering_op parameter. Unlike other similar functions, this one assumes the operator is already known to be a member of the family and will raise an error if not found, making it suitable for cases where membership has been pre-verified.
 
 ## Parameters / Member Variables
-- : The OID of the operator to look up
-- : The OID of the operator family to search within
-- : Boolean flag indicating whether to look for ordering operators (true) or search operators (false)
-- : Output parameter - pointer to store the operator's strategy number
-- : Output parameter - pointer to store the OID of the left operand type
-- : Output parameter - pointer to store the OID of the right operand type
-
+- `opno`: The OID of the operator to look up
+- `opfamily`: The OID of the operator family to search within
+- `ordering_op`: Boolean flag indicating whether to look for ordering operators (true) or search operators (false)
+- `*strategy`: Output parameter - pointer to store the operator's strategy number
+- `*lefttype`: Output parameter - pointer to store the OID of the left operand type
+- `*righttype`: Output parameter - pointer to store the OID of the right operand type
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache3](../S/SearchSysCache3.md) (system cache lookup function)

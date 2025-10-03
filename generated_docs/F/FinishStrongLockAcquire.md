@@ -19,6 +19,7 @@ The function serves as the successful completion counterpart to BeginStrongLockA
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (only accesses global variable)

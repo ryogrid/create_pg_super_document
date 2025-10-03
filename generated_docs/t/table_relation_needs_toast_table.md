@@ -18,8 +18,7 @@ This function provides a table access method interface for determining if a give
 Different table access methods may have varying requirements for when TOAST tables are needed based on their storage characteristics, tuple size limits, and compression capabilities.
 
 ## Parameters / Member Variables
-- : A Relation pointer representing the table relation to check for TOAST table requirements
-
+- `rel`: A Relation pointer representing the table relation to check for TOAST table requirements
 ## Dependencies
 - Functions called/Symbols referenced:
   - rel->rd_tableam->relation_needs_toast_table (table access method function pointer)

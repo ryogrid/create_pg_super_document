@@ -16,8 +16,7 @@ BuildArchiveDependencies(Archive *fout)
 This function processes TOC entries in an archive dump to build correct dependencies for each entry. The raw dependency data from getDependencies() is not directly useful in archive dumps because dependency chains often link through objects that don't appear explicitly in the dump (like views depending on _RETURN rules). The function recursively searches DumpableObject data structures to build correct dependencies while preserving "special" dependencies (like TABLE DATA depending on its TABLE) that must remain as-is for pg_restore compatibility.
 
 ## Parameters / Member Variables
-- : Archive pointer representing the dump archive being processed
-
+- `*fout`: Archive pointer representing the dump archive being processed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [findObjectByDumpId](../f/findObjectByDumpId.md)

@@ -18,9 +18,8 @@ This function searches through the query parse tree to find PlaceHolderVars that
 The function uses a tree walker pattern to traverse both the main query parse tree () and any append relation lists () that might already be populated. It employs a context structure to pass the target relation ID and current sublevel information to the walker function.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing the query planning state and parse tree
-- : The relation variable number (RTE index) to search for dependencies on
-
+- `*root`: PlannerInfo structure containing the query planning state and parse tree
+- `varno`: The relation variable number (RTE index) to search for dependencies on
 ## Dependencies
 - Functions called/Symbols referenced:
   - find_dependent_phvs_context (context structure)

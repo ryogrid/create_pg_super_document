@@ -18,8 +18,7 @@ IndexScanEnd is the complementary function to RelationGetIndexScan that handles 
 This function is deliberately simple and focused solely on memory management, as the complex AM-specific cleanup is handled elsewhere in the scanning infrastructure.
 
 ## Parameters / Member Variables
-- : The IndexScanDesc structure to be deallocated and cleaned up
-
+- `scan`: The IndexScanDesc structure to be deallocated and cleaned up
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pfree](../p/pfree.md) (memory deallocation)

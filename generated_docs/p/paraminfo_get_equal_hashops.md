@@ -28,14 +28,13 @@ The function performs several key validations:
 When successful, the function returns parallel lists of parameter expressions and their corresponding equality operators. It also determines whether binary mode is required, which happens when the join operator differs from the hash equality operator or when lateral variables are involved.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global optimizer context
-- : ParamPathInfo containing the parameterization clauses to analyze
-- : RelOptInfo for the outer relation in the join
-- : RelOptInfo for the inner relation containing potential lateral variables
-- : Output parameter receiving the list of hashable parameter expressions
-- : Output parameter receiving the list of corresponding equality operators
-- : Output parameter indicating whether strict binary comparison is required
-
+- `*root`: PlannerInfo structure containing global optimizer context
+- `*param_info`: ParamPathInfo containing the parameterization clauses to analyze
+- `*outerrel`: RelOptInfo for the outer relation in the join
+- `*innerrel`: RelOptInfo for the inner relation containing potential lateral variables
+- `**param_exprs`: Output parameter receiving the list of hashable parameter expressions
+- `**operators`: Output parameter receiving the list of corresponding equality operators
+- `*binary_mode`: Output parameter indicating whether strict binary comparison is required
 ## Dependencies
 - Functions called/Symbols referenced:
   - [clause_sides_match_join](../c/clause_sides_match_join.md)

@@ -22,10 +22,9 @@ For events that haven't been called or scheduled yet, the function applies defer
 The function includes security checks to prevent deferred triggers from being fired within security-restricted operations, maintaining PostgreSQL's security model.
 
 ## Parameters / Member Variables
-- : Pointer to the AfterTriggerEventList containing trigger events to be processed
-- : Optional pointer to an AfterTriggerEventList where deferred events should be moved (can be NULL)
-- : Boolean flag indicating whether to process only immediate triggers (true) or include deferred triggers (false, typically only at main transaction exit)
-
+- `*events`: Pointer to the AfterTriggerEventList containing trigger events to be processed
+- `*move_list`: Optional pointer to an AfterTriggerEventList where deferred events should be moved (can be NULL)
+- `immediate_only`: Boolean flag indicating whether to process only immediate triggers (true) or include deferred triggers (false, typically only at main transaction exit)
 ## Dependencies
 - Functions called/Symbols referenced:
   - GetTriggerSharedData

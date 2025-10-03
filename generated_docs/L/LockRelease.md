@@ -26,10 +26,9 @@ LockRelease is the primary function for releasing locks in PostgreSQL's lock man
 The function handles both regular transaction locks (tied to CurrentResourceOwner) and session locks (not tied to any resource owner). It includes extensive error checking and supports PostgreSQL's fast-path optimization for relation locks.
 
 ## Parameters / Member Variables
-- : Pointer to LOCKTAG structure identifying the specific lock to release
-- : The lock mode being released (e.g., AccessShareLock, ExclusiveLock)
-- : If true, release a session lock; if false, release a transaction lock
-
+- `*locktag`: Pointer to LOCKTAG structure identifying the specific lock to release
+- `lockmode`: The lock mode being released (e.g., AccessShareLock, ExclusiveLock)
+- `sessionLock`: If true, release a session lock; if false, release a transaction lock
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hash_search](../h/hash_search.md)/hash_search_with_hash_value (hash table operations)

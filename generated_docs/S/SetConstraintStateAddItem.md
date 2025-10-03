@@ -19,10 +19,9 @@ This function adds a new trigger constraint state entry to an existing SetConstr
 The function may return a different pointer than the input if reallocation occurs, so callers must use the return value rather than assuming the original pointer remains valid.
 
 ## Parameters / Member Variables
-- : The SetConstraintState structure to add the item to
-- : Object ID of the trigger being added to the constraint state
-- : Boolean indicating whether this trigger is currently in deferred mode
-
+- `state`: The SetConstraintState structure to add the item to
+- `tgoid`: Object ID of the trigger being added to the constraint state
+- `tgisdeferred`: Boolean indicating whether this trigger is currently in deferred mode
 ## Dependencies
 - Functions called/Symbols referenced:
   - SetConstraintState (parameter and return type)

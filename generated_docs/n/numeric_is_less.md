@@ -16,9 +16,8 @@ numeric_is_less(Numeric a, Numeric b)
 The numeric_is_less function provides a convenient boolean comparison interface for PostgreSQL Numeric values. It wraps the standard numeric_lt (numeric less than) function, converting the Numeric arguments to Datums and calling the comparison function through PostgreSQL's function call mechanism. This function abstracts away the complexity of the Datum conversion and function calling process, providing a simple boolean result for numeric comparisons.
 
 ## Parameters / Member Variables
-- : The first Numeric value (left operand of the comparison)
-- : The second Numeric value (right operand of the comparison)
-
+- `a`: The first Numeric value (left operand of the comparison)
+- `b`: The second Numeric value (right operand of the comparison)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Numeric](../N/Numeric.md) (PostgreSQL numeric data type)

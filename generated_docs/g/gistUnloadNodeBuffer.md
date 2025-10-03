@@ -16,9 +16,8 @@ gistUnloadNodeBuffer(GISTBuildBuffers *gfbb, GISTNodeBuffer *nodeBuffer)
 This function is responsible for persisting the buffered page data of a GiST node buffer to disk. It's called as part of the buffer management strategy during GiST index builds to free memory by writing accumulated index tuples to temporary storage. The function allocates a free block in the temporary file, writes the page buffer contents, and updates the node buffer's metadata to track the disk location.
 
 ## Parameters / Member Variables
-- : Pointer to GISTBuildBuffers structure containing the temporary file and buffer management state
-- : Pointer to the GISTNodeBuffer whose page buffer needs to be written to disk
-
+- `*gfbb`: Pointer to GISTBuildBuffers structure containing the temporary file and buffer management state
+- `*nodeBuffer`: Pointer to the GISTNodeBuffer whose page buffer needs to be written to disk
 ## Dependencies
 - Functions called/Symbols referenced:
   - [gistBuffersGetFreeBlock](gistBuffersGetFreeBlock.md)

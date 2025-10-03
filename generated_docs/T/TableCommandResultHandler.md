@@ -20,10 +20,9 @@ The function validates that command results have either PGRES_COMMAND_OK status 
 This handler is essential for robust parallel database maintenance operations where table availability cannot be guaranteed between discovery and processing phases.
 
 ## Parameters / Member Variables
-- : PGresult pointer containing the result from the executed command
-- : PGconn pointer to the database connection that executed the command
-- : Unused void pointer for additional context (reserved for future use)
-
+- `*res`: PGresult pointer containing the result from the executed command
+- `*conn`: PGconn pointer to the database connection that executed the command
+- `*context`: Unused void pointer for additional context (reserved for future use)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQresultStatus](../P/PQresultStatus.md)

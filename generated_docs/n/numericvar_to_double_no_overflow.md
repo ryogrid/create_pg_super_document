@@ -16,8 +16,7 @@ numericvar_to_double_no_overflow(const NumericVar *var)
 This function converts a PostgreSQL NumericVar structure to a double-precision floating-point value (double). Unlike standard conversion functions that may raise overflow errors, this function gracefully handles out-of-range values by returning +/- HUGE_VAL when the numeric value exceeds the representable range of double precision numbers. The conversion is performed by first converting the NumericVar to its string representation, then using the standard C library strtod() function for the actual conversion. The function explicitly ignores ERANGE errors from strtod that would normally indicate overflow conditions.
 
 ## Parameters / Member Variables
-- : Pointer to the input NumericVar structure containing the numeric value to convert
-
+- `*var`: Pointer to the input NumericVar structure containing the numeric value to convert
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_str_from_var](../g/get_str_from_var.md): Convert NumericVar to string representation

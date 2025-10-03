@@ -24,12 +24,11 @@ The splitting process begins by calling gistSplitByKey to partition tuples into 
 The function constructs a linked list of SplitPageLayout structures representing the final page layout, with each node containing tuple lists, counts, and representative tuples (downlinks) for parent page updates. This recursive approach ensures that complex splitting scenarios involving multiple attributes and large tuple sets are handled correctly.
 
 ## Parameters / Member Variables
-- : Relation pointer for the GiST index being modified
-- : Page being split (used for context in splitting decisions)
-- : Array of IndexTuple pointers containing all tuples to be distributed across split pages
-- : Number of tuples in the itup array (must be > 1 for meaningful splits)
-- : GISTSTATE containing cached access method information and tuple descriptor details
-
+- `r`: Relation pointer for the GiST index being modified
+- `page`: Page being split (used for context in splitting decisions)
+- `*itup`: Array of IndexTuple pointers containing all tuples to be distributed across split pages
+- `len`: Number of tuples in the itup array (must be > 1 for meaningful splits)
+- `*giststate`: GISTSTATE containing cached access method information and tuple descriptor details
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_stack_depth](../c/check_stack_depth.md) (stack overflow protection for deep recursion)

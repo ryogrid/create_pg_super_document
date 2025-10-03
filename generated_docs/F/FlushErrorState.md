@@ -15,7 +15,6 @@ void FlushErrorState(void)
 FlushErrorState is the cleanup function that must be called after error handling is complete to properly reset the error subsystem. This function performs a complete reset by setting the error stack depth back to empty (-1), resetting the recursion depth counter to 0, and clearing all data from the ErrorContext memory context. The function handles cases where multiple errors may have been stacked (e.g., when an error interrupts the construction of another error message) by completely resetting the stack rather than trying to unwind it. After calling this function, the error handler is considered to be "out" of the error subsystem.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

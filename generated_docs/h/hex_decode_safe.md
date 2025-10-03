@@ -22,11 +22,10 @@ The decoding process validates that:
 Each pair of hexadecimal digits is converted to a single byte by combining the high nibble (first digit shifted left 4 bits) with the low nibble (second digit).
 
 ## Parameters / Member Variables
-- : Pointer to the source hexadecimal string to decode
-- : Length of the source string in bytes
-- : Pointer to the destination buffer where decoded binary data will be written
-- : Error context node for soft error handling (can be NULL for hard errors)
-
+- `*src`: Pointer to the source hexadecimal string to decode
+- `len`: Length of the source string in bytes
+- `*dst`: Pointer to the destination buffer where decoded binary data will be written
+- `*escontext`: Error context node for soft error handling (can be NULL for hard errors)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_hex](../g/get_hex.md) (helper function to convert single hex character to value)

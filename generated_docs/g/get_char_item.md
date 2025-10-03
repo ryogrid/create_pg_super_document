@@ -18,12 +18,11 @@ This internal utility function handles string and character data assignment with
 The function provides intelligent handling of different string types, including proper null-termination, length management for VARCHAR types, and size constraint enforcement. For VARCHAR types, it manages both the character data and the associated length field, ensuring proper ECPG VARCHAR structure initialization.
 
 ## Parameters / Member Variables
-- : Source code line number for error reporting and debugging
-- : Generic pointer to the target variable where the string value will be stored
-- : ECPG type enumeration specifying the target variable's character data type
-- : Source string value to be copied to the target variable
-- : Maximum size constraint for the target variable (0 means no size limit)
-
+- `lineno`: Source code line number for error reporting and debugging
+- `*var`: Generic pointer to the target variable where the string value will be stored
+- `vartype`: ECPG type enumeration specifying the target variable's character data type
+- `*value`: Source string value to be copied to the target variable
+- `varcharsize`: Maximum size constraint for the target variable (0 means no size limit)
 ## Dependencies
 - Functions called/Symbols referenced:
   - ECPGttype

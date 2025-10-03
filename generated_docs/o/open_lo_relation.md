@@ -18,6 +18,7 @@ This internal function ensures that the large object heap relation and its prima
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md) (via LargeObjectRelationId)

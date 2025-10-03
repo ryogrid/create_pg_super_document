@@ -16,9 +16,8 @@ dlist_push_head(dlist_head *head, dlist_node *node)
 The  function adds a new node to the front of a doubly-linked list by updating the necessary pointer relationships. It intelligently handles uninitialized lists by checking if the head's next pointer is NULL and automatically calling  to convert it to a proper circular structure. The function then inserts the new node between the head and the current first element, updating all four relevant pointers: the new node's next and prev pointers, the old first element's prev pointer, and the head's next pointer. After insertion, it calls  to validate list integrity in debug builds.
 
 ## Parameters / Member Variables
-- : Pointer to the  structure representing the list to insert into
-- : Pointer to the  structure to be inserted at the beginning of the list
-
+- `*head`: Pointer to the  structure representing the list to insert into
+- `*node`: Pointer to the  structure to be inserted at the beginning of the list
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dlist_head](dlist_head.md) (structure type)

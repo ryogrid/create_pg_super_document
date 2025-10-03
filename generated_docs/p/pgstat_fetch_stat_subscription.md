@@ -18,8 +18,7 @@ This function provides access to the accumulated statistics for a logical replic
 The function returns a pointer to the statistics structure containing various counters and metrics for the subscription, such as error counts, last activity timestamps, and other operational metrics. If no statistics exist for the given subscription ID, the function returns NULL.
 
 ## Parameters / Member Variables
-- : The OID of the subscription for which to fetch statistics
-
+- `subid`: The OID of the subscription for which to fetch statistics
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pgstat_fetch_entry](pgstat_fetch_entry.md)

@@ -18,9 +18,8 @@ This function determines the appropriate input data type for a given index colum
 The function handles both simple index columns (referencing heap table columns) and expression-based index columns. For expression columns, it walks through the cached index expressions to find the appropriate expression and determine its type.
 
 ## Parameters / Member Variables
-- : The relation representing the index
-- : The column number in the index (1-based) to get the input type for
-
+- `index`: The relation representing the index
+- `indexcol`: The column number in the index (1-based) to get the input type for
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsPolymorphicType (check if type is polymorphic)

@@ -18,13 +18,12 @@ choose_best_statistics(List *stats, char requiredkind, bool inh,
 This function implements a selection algorithm to choose the most appropriate statistics object for query optimization from a list of available statistics. It uses a two-tier selection criteria: first, it maximizes the number of matched attributes and expressions from unestimated clauses, then breaks ties by preferring statistics objects with fewer total keys. The function iterates through all statistics, filtering by required kind and inheritance flag, then evaluates coverage of clauses using both attribute numbers and expressions. Only statistics objects that match at least two attributes/expressions are considered candidates.
 
 ## Parameters / Member Variables
-- : List of available StatisticExtInfo objects to choose from
-- : Required statistics kind (type) that the chosen statistic must have
-- : Inheritance flag that must match the statistics object's inherit flag
-- : Array of bitmaps containing attribute numbers for individual clauses (NULL for incompatible/estimated clauses)
-- : Array of expression lists for individual clauses (NULL for incompatible/estimated clauses)
-- : Number of clauses to evaluate
-
+- `*stats`: List of available StatisticExtInfo objects to choose from
+- `requiredkind`: Required statistics kind (type) that the chosen statistic must have
+- `inh`: Inheritance flag that must match the statistics object's inherit flag
+- `**clause_attnums`: Array of bitmaps containing attribute numbers for individual clauses (NULL for incompatible/estimated clauses)
+- `**clause_exprs`: Array of expression lists for individual clauses (NULL for incompatible/estimated clauses)
+- `nclauses`: Number of clauses to evaluate
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bms_is_subset](../b/bms_is_subset.md)

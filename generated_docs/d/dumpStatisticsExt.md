@@ -25,9 +25,8 @@ The function performs the following operations:
 The function ensures that extended statistics objects are properly recreated during database restoration with all their configuration preserved.
 
 ## Parameters / Member Variables
-- : Archive pointer containing dump options and output context
-- : StatsExtInfo structure containing:
-
+- `*fout`: Archive pointer containing dump options and output context
+- `*statsextinfo`: StatsExtInfo structure containing:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [createPQExpBuffer](../c/createPQExpBuffer.md)

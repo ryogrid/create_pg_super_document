@@ -16,9 +16,8 @@ plperl_fini(int code, Datum arg)
 This function serves as the process exit cleanup handler for the PL/Perl extension. It's registered via on_proc_exit() to ensure proper cleanup of Perl interpreters when the PostgreSQL backend process terminates. The function first sets the plperl_ending flag to disable SPI function usage during cleanup (preventing unsafe database operations during termination). If the process is exiting cleanly (code == 0), it systematically destroys all Perl interpreters: first the held interpreter, then all fully-initialized interpreters stored in the hash table. Each interpreter destruction involves activating the interpreter context and calling plperl_destroy_interp, which ensures Perl END blocks are properly executed. The function includes debug logging to track cleanup progress.
 
 ## Parameters / Member Variables
-- : Exit code (0 for clean exit, non-zero for error exit)
-- : Datum argument (unused in this implementation)
-
+- `code`: Exit code (0 for clean exit, non-zero for error exit)
+- `arg`: Datum argument (unused in this implementation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - elog (for debug logging)

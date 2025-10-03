@@ -22,7 +22,6 @@ The function sets two critical flags:
 It also sets the process latch () to wake up any code that might be waiting on it, ensuring prompt handling of the pending messages.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

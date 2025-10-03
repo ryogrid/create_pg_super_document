@@ -18,8 +18,7 @@ ReleaseCatCache is a simple wrapper function that decrements the reference count
 The function serves as the standard interface for releasing cache references without needing to specify a resource owner explicitly. It's part of PostgreSQL's reference counting mechanism that ensures cache entries remain valid while being used and can be safely removed when no longer needed.
 
 ## Parameters / Member Variables
-- : HeapTuple pointer representing the cached catalog tuple to release
-
+- `tuple`: HeapTuple pointer representing the cached catalog tuple to release
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReleaseCatCacheWithOwner](ReleaseCatCacheWithOwner.md)

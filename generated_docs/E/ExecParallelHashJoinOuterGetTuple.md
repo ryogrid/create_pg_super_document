@@ -34,10 +34,9 @@ The function operates under two distinct scenarios:
 The function includes an important coordination mechanism - it sets the outer_eof flag when a batch is exhausted, which helps coordinate batch completion across parallel workers.
 
 ## Parameters / Member Variables
-- : The outer plan node to fetch tuples from (only used in single-batch case)
-- : The HashJoinState containing parallel join execution state
-- : Output parameter to store the hash value of the returned tuple
-
+- `*outerNode`: The outer plan node to fetch tuples from (only used in single-batch case)
+- `*hjstate`: The HashJoinState containing parallel join execution state
+- `*hashvalue`: Output parameter to store the hash value of the returned tuple
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecProcNode](ExecProcNode.md): Executes outer plan node (single-batch only)

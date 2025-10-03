@@ -17,11 +17,10 @@ dropProcedures(List *opfamilyname, Oid amoid, Oid opfamilyoid,
 This function handles the removal of support procedure (support function) entries from an existing operator family during ALTER OPERATOR FAMILY DROP operations. It processes a list of OpFamilyMember structures representing support procedures to be removed, validates their existence in the pg_amproc catalog, and performs their deletion. Similar to dropOperators, it uses RESTRICT behavior to only allow removal of "loose" members that can be safely deleted without cascading effects. Each support procedure is identified by its support number and operand types within the specified operator family, with comprehensive error reporting for non-existent procedures.
 
 ## Parameters / Member Variables
-- : List representing the name of the operator family (used for error reporting)
-- : Object identifier of the access method (currently unused but maintained for consistency)
-- : Object identifier of the operator family from which support procedures are being removed
-- : List of OpFamilyMember structures specifying the support procedures to be dropped
-
+- `*opfamilyname`: List representing the name of the operator family (used for error reporting)
+- `amoid`: Object identifier of the access method (currently unused but maintained for consistency)
+- `opfamilyoid`: Object identifier of the operator family from which support procedures are being removed
+- `*procedures`: List of OpFamilyMember structures specifying the support procedures to be dropped
 ## Dependencies
 - Functions called/Symbols referenced:
   - GetSysCacheOid4

@@ -18,9 +18,8 @@ This function constructs a Sort plan node from a list of SortGroupClauses. It pe
 The function allocates arrays to hold the sorting specification and iterates through the provided sort clauses, extracting the target entry for each sort column and gathering the necessary sorting metadata.
 
 ## Parameters / Member Variables
-- : A List of SortGroupClause structures specifying the sort criteria
-- : The input Plan node that provides the tuples to be sorted
-
+- `*sortcls`: A List of SortGroupClause structures specifying the sort criteria
+- `*lefttree`: The input Plan node that provides the tuples to be sorted
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SortGroupClause](../S/SortGroupClause.md) (struct type)

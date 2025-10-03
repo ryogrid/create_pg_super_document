@@ -23,12 +23,11 @@ entryPreparePage is a preparatory function that handles two critical operations 
 The function ensures the page is properly prepared for subsequent insertion operations by cleaning up old data and maintaining correct tree structure references.
 
 ## Parameters / Member Variables
-- : GinBtree structure containing context information for the B-tree operation
-- : The target page where the preparation operations will be performed
-- : OffsetNumber indicating the position on the page where operations should occur
-- : GinBtreeEntryInsertData structure containing insertion metadata, including the delete flag
-- : Block number of a new child page (when child split occurred), or InvalidBlockNumber if no update needed
-
+- `btree`: GinBtree structure containing context information for the B-tree operation
+- `page`: The target page where the preparation operations will be performed
+- `off`: OffsetNumber indicating the position on the page where operations should occur
+- `*insertData`: GinBtreeEntryInsertData structure containing insertion metadata, including the delete flag
+- `updateblkno`: Block number of a new child page (when child split occurred), or InvalidBlockNumber if no update needed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PageIndexTupleDelete](../P/PageIndexTupleDelete.md)

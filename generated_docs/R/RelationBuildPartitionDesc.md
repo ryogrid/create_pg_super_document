@@ -28,9 +28,8 @@ RelationBuildPartitionDesc is the core function responsible for constructing par
 6. **Caching Integration**: Stores the completed partition descriptor in the appropriate relcache fields (rd_partdesc or rd_partdesc_nodetached) with proper memory context management.
 
 ## Parameters / Member Variables
-- : The partitioned table relation to build the descriptor for
-- : Boolean flag indicating whether to omit detached partitions from the descriptor
-
+- `rel`: The partitioned table relation to build the descriptor for
+- `omit_detached`: Boolean flag indicating whether to omit detached partitions from the descriptor
 ## Dependencies
 - Functions called/Symbols referenced:
   - [find_inheritance_children_extended](../f/find_inheritance_children_extended.md)

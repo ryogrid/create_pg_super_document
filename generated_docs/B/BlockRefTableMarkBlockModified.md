@@ -26,11 +26,10 @@ The function operates by:
 Memory context management is handled differently between frontend and backend environments, with backend versions explicitly switching to the table's memory context before allocations.
 
 ## Parameters / Member Variables
-- : Pointer to the BlockRefTable to modify
-- : Pointer to RelFileLocator identifying the specific relation
-- : Fork number (main, fsm, vm, etc.) within the relation
-- : Block number that has been modified
-
+- `*brtab`: Pointer to the BlockRefTable to modify
+- `*rlocator`: Pointer to RelFileLocator identifying the specific relation
+- `forknum`: Fork number (main, fsm, vm, etc.) within the relation
+- `blknum`: Block number that has been modified
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Switches memory context for allocations (backend only)

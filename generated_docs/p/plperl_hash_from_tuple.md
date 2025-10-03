@@ -23,10 +23,9 @@ This function builds a Perl hash from all attributes of a given PostgreSQL tuple
 The function pre-allocates the hash size for efficiency and includes stack depth checking to prevent overflow during recursive calls.
 
 ## Parameters / Member Variables
-- : The PostgreSQL HeapTuple containing the data to convert
-- : Tuple descriptor describing the structure and types of the tuple
-- : Boolean flag indicating whether to include generated columns in the output hash
-
+- `tuple`: The PostgreSQL HeapTuple containing the data to convert
+- `tupdesc`: Tuple descriptor describing the structure and types of the tuple
+- `include_generated`: Boolean flag indicating whether to include generated columns in the output hash
 ## Dependencies
 - Functions called/Symbols referenced:
   - dTHX (Perl threading context macro)

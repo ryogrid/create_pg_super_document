@@ -25,8 +25,7 @@ The rehashing process involves:
 The function uses doubly-linked lists (dlist) to manage cache entries within each bucket, allowing efficient insertion and deletion operations during the rehashing process.
 
 ## Parameters / Member Variables
-- : Pointer to the CatCache structure that needs to be rehashed
-
+- `*cp`: Pointer to the CatCache structure that needs to be rehashed
 ## Dependencies
 - Functions called/Symbols referenced:
   - elog (for debug logging)

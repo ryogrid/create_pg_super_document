@@ -20,7 +20,6 @@ The function examines two key pieces of state from the current SPI connection: t
 Two specific failure conditions are checked: if the tuple table is NULL (indicating that spi_dest_startup was not properly called during the operation setup), or if the processed count doesn't match the number of values actually stored in the tuple table.
 
 ## Parameters / Member Variables
-This function takes no parameters and operates on global SPI state.
 
 ## Dependencies
 - Functions called/Symbols referenced:

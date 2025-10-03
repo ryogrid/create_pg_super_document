@@ -23,11 +23,10 @@ This function serves as a validation callback that is invoked during relation lo
 The function retrieves the relation's metadata from the system catalog and performs comprehensive validation before allowing policy operations to proceed. If any validation fails, it raises appropriate errors with specific error codes and messages.
 
 ## Parameters / Member Variables
-- : Pointer to RangeVar structure containing the relation name and schema information
-- : Object identifier of the resolved relation
-- : Previous relation OID (used for rename operations, unused in this callback)
-- : Generic argument pointer (unused in this implementation)
-
+- `*rv`: Pointer to RangeVar structure containing the relation name and schema information
+- `relid`: Object identifier of the resolved relation
+- `oldrelid`: Previous relation OID (used for rename operations, unused in this callback)
+- `*arg`: Generic argument pointer (unused in this implementation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache1](../S/SearchSysCache1.md) (system catalog lookup)

@@ -18,9 +18,8 @@ This function sets the  configuration parameter using PostgreSQL's  function. Th
 The function constructs and executes a SQL query that searches for the parameter name in  and only calls  if found, preventing errors on older PostgreSQL versions that don't have this configuration parameter.
 
 ## Parameters / Member Variables
-- : Archive handle containing database connection information for executing the SQL query
-- : String value to set for the restrict_nonsystem_relation_kind parameter
-
+- `*AH`: Archive handle containing database connection information for executing the SQL query
+- `*value`: String value to set for the restrict_nonsystem_relation_kind parameter
 ## Dependencies
 - Functions called/Symbols referenced:
   - [createPQExpBuffer](../c/createPQExpBuffer.md)

@@ -17,8 +17,7 @@ static int r_remove_second_order_prefix(struct SN_env * z)
 This function implements the removal of Indonesian second-order prefixes as part of the Snowball stemming algorithm. It searches for prefixes defined in the  array and performs different transformations based on the matched prefix type. The function handles complex morphological rules including complete deletion of simple prefixes, restoration of root words by replacing compound prefixes with their underlying roots (e.g., 'belajar' → 'ajar', 'pelajar' → 'ajar'), and proper morphological type tracking through  settings. Second-order prefixes are processed after first-order prefixes have been removed.
 
 ## Parameters / Member Variables
-- : Pointer to SN_env structure containing the stemmer environment with the word being processed
-
+- `*z`: Pointer to SN_env structure containing the stemmer environment with the word being processed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [find_among](../f/find_among.md) (Snowball framework function for forward string matching)

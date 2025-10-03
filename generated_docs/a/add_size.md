@@ -20,9 +20,8 @@ The overflow detection works because Size is assumed to be an unsigned integer t
 When overflow is detected, the function raises an ERROR with ERRCODE_PROGRAM_LIMIT_EXCEEDED, indicating that the requested shared memory size exceeds what can be represented in a size_t variable. This prevents potentially dangerous memory allocation scenarios.
 
 ## Parameters / Member Variables
-- : First Size value to add
-- : Second Size value to add
-
+- `s1`: First Size value to add
+- `s2`: Second Size value to add
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport (error reporting function)

@@ -23,8 +23,7 @@ The function iterates through all worker slots in the ParallelState and returns 
 This function is essential for worker processes/threads to identify their own context and access their specific parallel slot data during dump operations.
 
 ## Parameters / Member Variables
-- : Pointer to ParallelState structure containing the array of parallel worker slots to search through
-
+- `*pstate`: Pointer to ParallelState structure containing the array of parallel worker slots to search through
 ## Dependencies
 - Functions called/Symbols referenced:
   - GetCurrentThreadId (Windows API - on Windows platforms)

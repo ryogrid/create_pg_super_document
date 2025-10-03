@@ -18,10 +18,9 @@ UpdateXmaxHintBits is called after waiting for an XMAX transaction to terminate 
 For lock-only transactions (those that only acquired tuple locks without modifying the tuple), the function sets HEAP_XMAX_INVALID even if the transaction committed, since lock-only transactions don't affect tuple visibility. The function ensures that callers can rely on checking only the XMAX_INVALID bit to determine if the xmax transaction is still relevant.
 
 ## Parameters / Member Variables
-- : Heap tuple header containing the xmax transaction ID and hint bits
-- : Buffer containing the tuple (may be marked dirty when hint bits are updated)
-- : Transaction ID that should match the tuple's xmax value
-
+- `tuple`: Heap tuple header containing the xmax transaction ID and hint bits
+- `buffer`: Buffer containing the tuple (may be marked dirty when hint bits are updated)
+- `xid`: Transaction ID that should match the tuple's xmax value
 ## Dependencies
 - Functions called/Symbols referenced:
   - HeapTupleHeaderGetRawXmax: Extract the raw xmax transaction ID

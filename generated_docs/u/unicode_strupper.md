@@ -18,11 +18,10 @@ The  function is a wrapper around  that specifically handles uppercase conversio
 The function handles proper Unicode case conversion according to Unicode standards, not just ASCII characters. It can work with both NUL-terminated strings (when ) and strings with explicit length. The destination buffer can be smaller than needed, in which case the output will be truncated but the function still returns the full result length, allowing callers to determine the required buffer size.
 
 ## Parameters / Member Variables
-- : Destination buffer to store the uppercase result. Can be NULL if dstsize is zero
-- : Size of the destination buffer. If zero, dst may be NULL for size calculation
-- : Source UTF-8 encoded string to convert. Must be NUL-terminated if srclen < 0
-- : Length of source string in bytes, or negative for NUL-terminated strings
-
+- `*dst`: Destination buffer to store the uppercase result. Can be NULL if dstsize is zero
+- `dstsize`: Size of the destination buffer. If zero, dst may be NULL for size calculation
+- `*src`: Source UTF-8 encoded string to convert. Must be NUL-terminated if srclen < 0
+- `srclen`: Length of source string in bytes, or negative for NUL-terminated strings
 ## Dependencies
 - Functions called/Symbols referenced:
   - [convert_case](../c/convert_case.md) (performs the actual case conversion)

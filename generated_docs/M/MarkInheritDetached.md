@@ -16,9 +16,8 @@ MarkInheritDetached(Relation child_rel, Relation parent_rel)
 MarkInheritDetached is a utility function used by the concurrent partition detachment process. It scans all inheritance entries for a given parent table to find the specified child partition and sets its inhdetachpending flag to true in the pg_inherits catalog. During this process, it also validates that no other partition of the same parent table is already marked as pending detach, as PostgreSQL allows only one concurrent detach operation per partitioned table at a time. The function operates under a RowExclusiveLock on the pg_inherits catalog to ensure consistency during the concurrent operation.
 
 ## Parameters / Member Variables
-- : The partition relation that is being marked for detachment
-- : The partitioned table relation from which the child is being detached
-
+- `child_rel`: The partition relation that is being marked for detachment
+- `parent_rel`: The partitioned table relation from which the child is being detached
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md)

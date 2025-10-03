@@ -16,9 +16,8 @@ SetParallelStartTimestamps(TimestampTz xact_ts, TimestampTz stmt_ts)
 SetParallelStartTimestamps is specifically designed for parallel worker processes to inherit timestamp values from their parent transaction rather than generating their own. This ensures timestamp consistency between the leader process and parallel workers, which is crucial for maintaining proper transaction semantics and MVCC behavior across parallel operations. The function must be called by the parallel worker infrastructure before calling StartTransaction() or SetCurrentStatementStartTimestamp() to ensure proper timestamp initialization.
 
 ## Parameters / Member Variables
-- : The transaction start timestamp to inherit from the parent transaction
-- : The statement start timestamp to inherit from the parent transaction
-
+- `xact_ts`: The transaction start timestamp to inherit from the parent transaction
+- `stmt_ts`: The statement start timestamp to inherit from the parent transaction
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsParallelWorker (function to verify running in parallel worker context)

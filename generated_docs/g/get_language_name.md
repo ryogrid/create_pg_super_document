@@ -18,9 +18,8 @@ The  function performs a cached lookup in the  system catalog to retrieve the na
 When a language is found, the function extracts the language name from the  tuple and returns a palloc'd copy. If the language OID doesn't exist and  is false, it throws an ERROR. If  is true, it returns NULL for non-existent languages.
 
 ## Parameters / Member Variables
-- : The OID of the language to look up in the pg_language catalog
-- : If true, return NULL for non-existent languages instead of throwing an error
-
+- `*fout`: The OID of the language to look up in the pg_language catalog
+- `langid`: If true, return NULL for non-existent languages instead of throwing an error
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache1](../S/SearchSysCache1.md)

@@ -23,8 +23,7 @@ The function implements sophisticated logic to distinguish between different typ
 It attempts to complete the connection using  and then analyzes the results. The function is designed to avoid false negatives where authentication failures might be interpreted as server unavailability.
 
 ## Parameters / Member Variables
-- : A  pointer to a connection object that has been started but not necessarily completed
-
+- `*conn`: A  pointer to a connection object that has been started but not necessarily completed
 ## Dependencies
 - Functions called/Symbols referenced:
   - 

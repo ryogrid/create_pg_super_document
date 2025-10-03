@@ -26,8 +26,7 @@ This function implements the complete English stemming algorithm for words encod
 The function uses a sophisticated control flow with labels and gotos to handle the complex branching logic required for accurate stemming. It maintains cursor positions and uses backtracking mechanisms to ensure proper word processing.
 
 ## Parameters / Member Variables
-- : Pointer to a Snowball environment structure (SN_env) containing the word to be stemmed, cursor positions, and workspace for the stemming operations
-
+- `*z`: Pointer to a Snowball environment structure (SN_env) containing the word to be stemmed, cursor positions, and workspace for the stemming operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [r_exception1](../r/r_exception1.md) (handles first set of exception words)

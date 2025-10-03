@@ -19,12 +19,11 @@ The function performs several setup operations: it validates that the index is n
 The function includes special handling for system index access policies (IgnoreSystemIndexes) and transaction monitoring for logical replication (CheckXidAlive/bsysscan flags). Currently, it only supports index-based scans and does not provide heap scan fallback with sorting.
 
 ## Parameters / Member Variables
-- : The heap relation (table) to scan
-- : The index relation to use for ordered scanning (must be pre-opened by caller)
-- : The snapshot to use for MVCC visibility (NULL for catalog snapshot)
-- : Number of scan keys in the key array
-- : Array of ScanKey structures defining the scan conditions
-
+- `heapRelation`: The heap relation (table) to scan
+- `indexRelation`: The index relation to use for ordered scanning (must be pre-opened by caller)
+- `snapshot`: The snapshot to use for MVCC visibility (NULL for catalog snapshot)
+- `nkeys`: Number of scan keys in the key array
+- `key`: Array of ScanKey structures defining the scan conditions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReindexIsProcessingIndex](../R/ReindexIsProcessingIndex.md) (reindex validation)

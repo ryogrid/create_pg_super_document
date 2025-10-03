@@ -20,9 +20,8 @@ The function delegates the actual tree walking and transformation work to , foll
 When a Var or PlaceHolderVar is replaced with a Param, corresponding entries are added to root->curOuterParams if they don't already exist, ensuring proper parameter management during query execution.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planner state and context information
-- : Node tree representing the expression to be transformed
-
+- `*root`: PlannerInfo structure containing planner state and context information
+- `*expr`: Node tree representing the expression to be transformed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [replace_nestloop_params_mutator](replace_nestloop_params_mutator.md)

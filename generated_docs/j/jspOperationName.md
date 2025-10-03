@@ -16,8 +16,7 @@ jspOperationName(JsonPathItemType type)
 This function provides a mapping from JsonPathItemType enumeration values to their corresponding string representations. It serves as a utility function primarily used for debugging, error messages, and display purposes when working with JSON path expressions. The function handles all the various operation types supported in PostgreSQL's JSON path implementation, including arithmetic operations (+, -, *, /, %), comparison operations (==, \!=, <, >, <=, >=), logical operations (&&, ||), and various built-in functions and type conversion operations.
 
 ## Parameters / Member Variables
-- : A JsonPathItemType enumeration value representing the specific JSON path operation or function to be converted to a string representation
-
+- `type`: A JsonPathItemType enumeration value representing the specific JSON path operation or function to be converted to a string representation
 ## Dependencies
 - Functions called/Symbols referenced:
   - JsonPathItemType (enum parameter)

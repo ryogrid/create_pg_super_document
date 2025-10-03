@@ -16,10 +16,9 @@ _hash_init(Relation rel, double num_tuples, ForkNumber forkNum)
  is the primary initialization function for hash indexes that performs comprehensive setup of the index structure. It calculates an appropriate number of initial buckets based on the estimated tuple count and target fill factor, then creates and initializes the metadata page, all initial bucket pages, and the first bitmap page. The function uses WAL logging when appropriate to ensure crash safety. The initialization process involves careful buffer management and follows a specific sequence to ensure the storage manager has the correct understanding of the physical index length.
 
 ## Parameters / Member Variables
-- : The relation (hash index) being initialized
-- : Estimated number of tuples to be loaded into the index initially
-- : The fork number specifying which fork of the relation to initialize
-
+- `rel`: The relation (hash index) being initialized
+- `num_tuples`: Estimated number of tuples to be loaded into the index initially
+- `forkNum`: The fork number specifying which fork of the relation to initialize
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RelationGetNumberOfBlocksInFork](../R/RelationGetNumberOfBlocksInFork.md) (safety check for empty index)

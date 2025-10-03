@@ -16,9 +16,8 @@ get_hash_value(HTAB *hashp, const void *keyPtr)
 This function is an exported routine that computes the hash value for a key using the hash function associated with the given hash table. It serves as a public interface to access the internal hash computation, which is particularly useful for partitioned tables where callers need to determine the partition number from the low-order bits of the hash value before performing search operations.
 
 ## Parameters / Member Variables
-- : Pointer to the HTAB structure containing the hash function and key size information
-- : Pointer to the key data for which the hash value should be calculated
-
+- `*hashp`: Pointer to the HTAB structure containing the hash function and key size information
+- `*keyPtr`: Pointer to the key data for which the hash value should be calculated
 ## Dependencies
 - Functions called/Symbols referenced:
   - [HTAB](../H/HTAB.md) (hash table structure)

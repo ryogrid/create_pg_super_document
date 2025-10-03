@@ -18,8 +18,7 @@ This function serves as a simple wrapper around the main regexp_count function. 
 The comment in the source indicates this separation is specifically to keep the opr_sanity regression test from complaining, suggesting this is part of PostgreSQL's internal function organization strategy for handling different function signatures.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function call information structure containing all arguments passed from SQL
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function call information structure containing all arguments passed from SQL
 ## Dependencies
 - Functions called/Symbols referenced:
   - [regexp_count](regexp_count.md): The main function that performs the actual regular expression counting logic

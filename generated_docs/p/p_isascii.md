@@ -18,8 +18,7 @@ The  function checks whether the current character at the parser's position is a
 This function is essential for distinguishing between ASCII and non-ASCII characters during text parsing, which is important for proper tokenization in PostgreSQL's full-text search functionality. The function ensures that only single-byte characters are considered and properly casts the character to unsigned char before testing to avoid sign extension issues.
 
 ## Parameters / Member Variables
-- : Pointer to a TParser structure containing the current parsing state, including position information and the string being parsed
-
+- `*prs`: Pointer to a TParser structure containing the current parsing state, including position information and the string being parsed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TParser](../T/TParser.md) (structure type)

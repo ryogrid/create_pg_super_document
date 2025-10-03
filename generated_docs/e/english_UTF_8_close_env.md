@@ -23,8 +23,7 @@ The function deallocates:
 This function should be called as the cleanup counterpart to english_UTF_8_create_env() when the stemming environment is no longer needed. It safely handles NULL pointers and will not crash if passed a NULL environment.
 
 ## Parameters / Member Variables
-- : Pointer to the SN_env structure to be deallocated (can be NULL)
-
+- `*z`: Pointer to the SN_env structure to be deallocated (can be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SN_close_env](../S/SN_close_env.md): Generic Snowball environment cleanup function (called with parameter 0)

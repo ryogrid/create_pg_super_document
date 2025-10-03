@@ -22,9 +22,8 @@ This function prepares a container type for subscripting operations by performin
 The function modifies the provided type OID and typmod in-place, allowing the caller to work with the actual subscribable container type.
 
 ## Parameters / Member Variables
-- : Pointer to the OID of the container type to be transformed (modified in-place)
-- : Pointer to the type modifier of the container type (modified in-place if resolving a domain)
-
+- `*containerType`: Pointer to the OID of the container type to be transformed (modified in-place)
+- `*containerTypmod`: Pointer to the type modifier of the container type (modified in-place if resolving a domain)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [getBaseTypeAndTypmod](../g/getBaseTypeAndTypmod.md)() (resolves domain types to base types)

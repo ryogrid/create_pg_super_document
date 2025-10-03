@@ -18,9 +18,8 @@ This function completes the accumulation process by first performing any pending
 The function is designed to work across memory contexts, allowing callers to be in different memory contexts than the accumulator itself.
 
 ## Parameters / Member Variables
-- : Pointer to the NumericSumAccum structure containing the accumulated values
-- : Pointer to the NumericVar where the final computed result will be stored
-
+- `*accum`: Pointer to the NumericSumAccum structure containing the accumulated values
+- `*result`: Pointer to the NumericVar where the final computed result will be stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - [accum_sum_carry](accum_sum_carry.md)

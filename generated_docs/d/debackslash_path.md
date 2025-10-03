@@ -18,9 +18,8 @@ This function performs in-place conversion of backslash characters to forward sl
 The function is designed to normalize Windows-style path separators to Unix-style separators while preserving the integrity of multi-byte character sequences.
 
 ## Parameters / Member Variables
-- : The null-terminated string containing the path to be modified in-place
-- : The character encoding of the path string (used to determine if special multi-byte handling is needed)
-
+- `*path`: The null-terminated string containing the path to be modified in-place
+- `encoding`: The character encoding of the path string (used to determine if special multi-byte handling is needed)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_sjis_mblen](../p/pg_sjis_mblen.md)

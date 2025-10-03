@@ -18,9 +18,8 @@ This function is used for plan node types like Sort, Append, and other operation
 The function transforms each target entry in the plan's targetlist to reference the corresponding output from the child plan using OUTER_VAR references. It preserves constants as constants rather than converting them to variable references, both for cleaner EXPLAIN output and to avoid confusing the executor. For variables that have syntactic information (varnosyn), it adjusts the relation numbers by the rtoffset parameter to maintain proper referencing in the context of subqueries.
 
 ## Parameters / Member Variables
-- : The Plan node whose targetlist needs to be converted to dummy references
-- : Offset to be added to relation numbers for proper referencing in subquery contexts
-
+- `*plan`: The Plan node whose targetlist needs to be converted to dummy references
+- `rtoffset`: Offset to be added to relation numbers for proper referencing in subquery contexts
 ## Dependencies
 - Functions called/Symbols referenced:
   - lfirst (list iteration macro)

@@ -16,10 +16,9 @@ attnameAttNum(Relation rd, const char *attname, bool sysColOK)
 The  function searches through a relation's attributes to find the attribute number corresponding to a given attribute name. It iterates through all regular attributes in the relation and compares their names using . If the attribute is found and not dropped, it returns the 1-based attribute number. If  is true and no regular attribute matches, it also searches system columns using . This function should only be used on relations that are already opened with . For non-opened relations, the cache version  should be used instead.
 
 ## Parameters / Member Variables
-- : The opened relation to search within
-- : The name of the attribute to find
-- : Whether to include system columns in the search if no regular attribute is found
-
+- `rd`: The opened relation to search within
+- `*attname`: The name of the attribute to find
+- `sysColOK`: Whether to include system columns in the search if no regular attribute is found
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationGetNumberOfAttributes

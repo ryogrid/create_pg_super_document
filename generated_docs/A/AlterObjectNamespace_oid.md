@@ -25,11 +25,10 @@ The function handles different object types through a switch statement based on 
 The function is designed to work with dependent types and objects, allowing the caller to track moved objects through the objsMoved parameter. Objects without schemas or dependent types that should be ignored return InvalidOid.
 
 ## Parameters / Member Variables
-- : The OID of the object's system catalog (e.g., RelationRelationId, TypeRelationId)
-- : The OID of the specific object to move
-- : The OID of the target namespace/schema
-- : Pointer to ObjectAddresses structure for tracking moved objects during extension operations
-
+- `classId`: The OID of the object's system catalog (e.g., RelationRelationId, TypeRelationId)
+- `objid`: The OID of the specific object to move
+- `nspOid`: The OID of the target namespace/schema
+- `*objsMoved`: Pointer to ObjectAddresses structure for tracking moved objects during extension operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Opens relations with AccessExclusiveLock

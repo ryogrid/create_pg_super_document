@@ -25,9 +25,8 @@ This function determines all columns that will be affected by an UPDATE operatio
 This function is essential for UPDATE planning in inheritance hierarchies and ensures that all affected columns, including generated ones, are properly identified and handled.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global planner state and query information
-- : RelOptInfo for the relation whose updated columns are being requested
-
+- `updatedCols`: PlannerInfo structure containing global planner state and query information
+- `extraUpdatedCols`: RelOptInfo for the relation whose updated columns are being requested
 ## Dependencies
 - Functions called/Symbols referenced:
   - planner_rt_fetch

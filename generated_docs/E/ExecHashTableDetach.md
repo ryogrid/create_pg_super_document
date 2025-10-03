@@ -20,8 +20,7 @@ The function first verifies that the parallel hash join has reached the appropri
 After detachment, the function nullifies the parallel state reference, effectively disconnecting the local hash table from the shared parallel execution context.
 
 ## Parameters / Member Variables
-- : The HashJoinTable structure containing parallel state and batch information
-
+- `hashtable`: The HashJoinTable structure containing parallel state and batch information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BarrierPhase](../B/BarrierPhase.md)

@@ -25,10 +25,9 @@ The function operates in several phases:
 6. **Size Correction**: Sets the final size of the output TSVector based on actual data copied
 
 ## Parameters / Member Variables
-- : Source TSVector from which to delete lexemes
-- : Array of lexeme indices to remove (gets modified by sorting/deduplication)
-- : Number of elements in the indices array
-
+- `tsv`: Source TSVector from which to delete lexemes
+- `*indices_to_delete`: Array of lexeme indices to remove (gets modified by sorting/deduplication)
+- `indices_count`: Number of elements in the indices array
 ## Dependencies
 - Functions called/Symbols referenced:
   - qsort (sorts indices array using compare_int)

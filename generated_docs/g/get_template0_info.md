@@ -20,8 +20,7 @@ The function adapts its query based on the PostgreSQL version, accommodating cha
 The retrieved information is stored in the cluster's template0 field for later use during the upgrade process, ensuring that new databases created in the target cluster maintain the same locale characteristics as the source cluster.
 
 ## Parameters / Member Variables
-- : Pointer to ClusterInfo structure representing the PostgreSQL cluster being analyzed
-
+- `*cluster`: Pointer to ClusterInfo structure representing the PostgreSQL cluster being analyzed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [connectToServer](../c/connectToServer.md)

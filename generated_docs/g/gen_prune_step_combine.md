@@ -25,10 +25,9 @@ The function allocates a new PartitionPruneStepCombine node, assigns it a unique
 The newly created step is added to the context's steps list and returned for use in the pruning step sequence.
 
 ## Parameters / Member Variables
-- : GeneratePruningStepsContext containing step generation state and step counter
-- : List of integers representing the step IDs of previously generated steps to be combined
-- : PartitionPruneCombineOp specifying the combination operation (UNION or INTERSECT)
-
+- `*context`: GeneratePruningStepsContext containing step generation state and step counter
+- `*source_stepids`: List of integers representing the step IDs of previously generated steps to be combined
+- `combineOp`: PartitionPruneCombineOp specifying the combination operation (UNION or INTERSECT)
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (for PartitionPruneStepCombine allocation)

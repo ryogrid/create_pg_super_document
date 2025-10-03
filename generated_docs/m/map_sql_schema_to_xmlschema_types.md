@@ -21,12 +21,11 @@ The function supports two output formats controlled by the  parameter:
 - When  is true: Uses  with  and  for repeated elements
 
 ## Parameters / Member Variables
-- : The OID of the PostgreSQL namespace (schema) to map
-- : List of relation OIDs within the schema to include in the mapping
-- : Boolean flag indicating whether to handle NULL values (currently not used in implementation)
-- : Boolean flag controlling output format - true for forest-style with sequences, false for all-style
-- : Target namespace for the XML Schema (currently not actively used in the function body)
-
+- `nspid`: The OID of the PostgreSQL namespace (schema) to map
+- `*relid_list`: List of relation OIDs within the schema to include in the mapping
+- `nulls`: Boolean flag indicating whether to handle NULL values (currently not used in implementation)
+- `tableforest`: Boolean flag controlling output format - true for forest-style with sequences, false for all-style
+- `*targetns`: Target namespace for the XML Schema (currently not actively used in the function body)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_database_name](../g/get_database_name.md)

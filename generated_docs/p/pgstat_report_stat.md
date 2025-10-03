@@ -24,8 +24,7 @@ The function implements intelligent timing controls to balance performance with 
 The function maintains static variables to track timing state across calls and coordinates with the global pgStatForceNextFlush flag.
 
 ## Parameters / Member Variables
-- : When true, forces immediate flushing regardless of timing intervals and uses blocking lock acquisition
-
+- `force`: When true, forces immediate flushing regardless of timing intervals and uses blocking lock acquisition
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pgstat_assert_is_up](pgstat_assert_is_up.md)

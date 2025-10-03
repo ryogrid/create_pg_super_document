@@ -23,9 +23,8 @@ This function implements a recursive tree walker that examines parse tree nodes 
 The walker uses PostgreSQL's raw_expression_tree_walker infrastructure to traverse the entire parse tree while handling CTE-specific logic.
 
 ## Parameters / Member Variables
-- : Parse tree node being examined for CTE references
-- : CteState structure containing CTE items and dependency tracking information
-
+- `*node`: Parse tree node being examined for CTE references
+- `*cstate`: CteState structure containing CTE items and dependency tracking information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bms_add_member](../b/bms_add_member.md) - adds dependencies to bitmapsets tracking CTE relationships

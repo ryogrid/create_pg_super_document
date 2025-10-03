@@ -24,7 +24,6 @@ The hash table is configured with:
 - Hash flags HASH_ELEM | HASH_STRINGS for element-based hashing with string keys
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

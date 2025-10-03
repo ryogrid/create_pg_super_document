@@ -18,9 +18,8 @@ The getCopyStart function handles the initial phase of PostgreSQL's COPY protoco
 The function assumes that parseInput has already read the message type and length before this function is called. It processes the remaining message payload to extract COPY-specific parameters and prepares the connection state for subsequent COPY data handling.
 
 ## Parameters / Member Variables
-- : PostgreSQL connection object containing the network stream and connection state
-- : The type of COPY operation (PGRES_COPY_IN, PGRES_COPY_OUT, or PGRES_COPY_BOTH) determined from the message type
-
+- `*conn`: PostgreSQL connection object containing the network stream and connection state
+- `copytype`: The type of COPY operation (PGRES_COPY_IN, PGRES_COPY_OUT, or PGRES_COPY_BOTH) determined from the message type
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQmakeEmptyPGresult](../P/PQmakeEmptyPGresult.md)

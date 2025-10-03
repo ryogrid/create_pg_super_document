@@ -22,7 +22,6 @@ reserveAllocatedDesc manages the dynamic allocation and expansion of the allocat
 The function carefully manages memory allocation to prevent excessive consumption of available file descriptors while ensuring adequate space for allocated descriptors. It treats initial allocation failures as fatal errors but handles expansion failures gracefully by returning false.
 
 ## Parameters / Member Variables
-This function takes no parameters and returns a boolean indicating success or failure.
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -28,10 +28,9 @@ The function leverages the projection system to seamlessly combine these two dat
 Unlike the INSERT case, UPDATE operations always require projection due to the complex merging requirements and presence of junk attributes.
 
 ## Parameters / Member Variables
-- : Result relation information containing the initialized projection (ri_projectNew)
-- : Tuple table slot from the UPDATE subplan containing new values for changed columns
-- : Tuple table slot containing the existing tuple with current column values
-
+- `*relinfo`: Result relation information containing the initialized projection (ri_projectNew)
+- `*planSlot`: Tuple table slot from the UPDATE subplan containing new values for changed columns
+- `*oldSlot`: Tuple table slot containing the existing tuple with current column values
 ## Dependencies
 - Functions called/Symbols referenced:
   - TTS_EMPTY (macro)

@@ -18,9 +18,8 @@ The  function is responsible for dumping text search template objects during a p
 The function constructs both creation and drop statements, handles binary upgrade scenarios, and dumps associated comments. The INIT function is optional and only included if tmplinfo->tmplinit is not InvalidOid.
 
 ## Parameters / Member Variables
-- : Archive structure containing dump configuration and output methods
-- : TSTemplateInfo structure containing template metadata including init and lexize function OIDs
-
+- `*fout`: Archive structure containing dump configuration and output methods
+- `*tmplinfo`: TSTemplateInfo structure containing template metadata including init and lexize function OIDs
 ## Dependencies
 - Functions called/Symbols referenced:
   - [createPQExpBuffer](../c/createPQExpBuffer.md)

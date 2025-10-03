@@ -28,10 +28,9 @@ The function is compiled only in assertion-enabled builds (USE_ASSERT_CHECKING),
 When inadequate locking is detected, the function logs WARNING messages with detailed information about the missing lock, including relation name, OID, relation kind, and tuple identifier for debugging purposes.
 
 ## Parameters / Member Variables
-- : The heap relation being updated (must be an inplace-updateable catalog)
-- : ItemPointer identifying the location of the tuple being updated
-- : HeapTuple containing the new tuple data (used to extract relation information for validation)
-
+- `relation`: The heap relation being updated (must be an inplace-updateable catalog)
+- `otid`: ItemPointer identifying the location of the tuple being updated
+- `newtup`: HeapTuple containing the new tuple data (used to extract relation information for validation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LockHeldByMe](../L/LockHeldByMe.md)

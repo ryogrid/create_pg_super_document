@@ -20,9 +20,8 @@ The function performs a basic safety check to ensure the external_pid_file globa
 This cleanup mechanism is essential for proper system integration, preventing accumulation of stale PID files that might confuse service management tools or monitoring systems.
 
 ## Parameters / Member Variables
-- : Exit status code (standard on_proc_exit callback parameter, unused)
-- : Datum argument (standard on_proc_exit callback parameter, unused)
-
+- `status`: Exit status code (standard on_proc_exit callback parameter, unused)
+- `arg`: Datum argument (standard on_proc_exit callback parameter, unused)
 ## Dependencies
 - Functions called/Symbols referenced:
   - unlink: System call to remove file from filesystem

@@ -16,8 +16,7 @@ RelationMapInvalidate(bool shared)
 The  function is part of PostgreSQL's shared invalidation system, responsible for maintaining cache consistency across multiple backend processes. When an SI cache flush message is received, this function determines whether to reload the appropriate relation mapping file (shared or local). It includes an important safety mechanism: it only attempts to reload a mapping file if it's currently loaded and valid (indicated by the magic number). This prevents issues in processes like the autovacuum launcher that should not attempt to read local maps since they're not attached to any particular database.
 
 ## Parameters / Member Variables
-- : Boolean flag indicating whether to invalidate the shared mapping file (true) or the local mapping file (false)
-
+- `shared`: Boolean flag indicating whether to invalidate the shared mapping file (true) or the local mapping file (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - RELMAPPER_FILEMAGIC (constant)

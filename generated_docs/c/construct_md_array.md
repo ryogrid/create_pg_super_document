@@ -23,16 +23,15 @@ The construct_md_array function provides the most flexible and comprehensive met
 The function performs extensive validation on the input parameters, calculates the required memory allocation size, handles data alignment and toasted values, and creates the complete ArrayType structure with proper headers, dimension information, and element data. It can create zero-dimensional arrays and handles overflow detection for very large arrays.
 
 ## Parameters / Member Variables
-- : Array of Datum items that will become the contents of the constructed array
-- : Array of boolean flags indicating which elements are NULL (can be NULL if no null elements)
-- : Number of dimensions for the array (0 or positive, up to MAXDIM)
-- : Integer array specifying the size of each dimension
-- : Integer array specifying the lower bound of each dimension
-- : OID of the data type for the array elements
-- : Length of the element data type (-1 for variable-length types)
-- : Boolean indicating whether elements are passed by value or by reference
-- : Alignment requirement for the element data type
-
+- `*elems`: Array of Datum items that will become the contents of the constructed array
+- `*nulls`: Array of boolean flags indicating which elements are NULL (can be NULL if no null elements)
+- `ndims`: Number of dimensions for the array (0 or positive, up to MAXDIM)
+- `*dims`: Integer array specifying the size of each dimension
+- `*lbs`: Integer array specifying the lower bound of each dimension
+- `elmtype`: OID of the data type for the array elements
+- `elmlen`: Length of the element data type (-1 for variable-length types)
+- `elmbyval`: Boolean indicating whether elements are passed by value or by reference
+- `elmalign`: Alignment requirement for the element data type
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ArrayGetNItems](../A/ArrayGetNItems.md)

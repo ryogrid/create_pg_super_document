@@ -20,9 +20,8 @@ When the input list is NIL, the function creates a new XidList with a single Tra
 This function is used in PostgreSQL's transaction management and replication systems for maintaining collections of transaction identifiers.
 
 ## Parameters / Member Variables
-- : The XidList to append to, or NIL to create a new transaction ID list
-- : The TransactionId value to be appended to the list
-
+- `*list`: The XidList to append to, or NIL to create a new transaction ID list
+- `datum`: The TransactionId value to be appended to the list
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsXidList (assertion check for XID list type)

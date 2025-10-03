@@ -18,8 +18,7 @@ The  function is a utility function used during SQL parsing and compilation to e
 The function handles two cases: T_Integer nodes are processed directly using , while T_Float nodes (which represent values too large for int4) are processed using  to parse the string representation. This dual handling ensures that OID values can be correctly parsed regardless of how the lexer categorized the numeric constant.
 
 ## Parameters / Member Variables
-- : Pointer to a PostgreSQL parser Node structure that should contain an Integer or Float constant representing an OID value
-
+- `*node`: Pointer to a PostgreSQL parser Node structure that should contain an Integer or Float constant representing an OID value
 ## Dependencies
 - Functions called/Symbols referenced:
   - nodeTag (macro to get node type)

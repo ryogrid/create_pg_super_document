@@ -25,8 +25,7 @@ IndexNext is a core function in PostgreSQL's index scan execution that performs 
 The function implements a filter-and-recheck pattern that is essential for handling lossy index access methods where the index may return false positives.
 
 ## Parameters / Member Variables
-- : IndexScanState structure containing all the state information for the index scan operation, including scan descriptors, keys, and tuple slots
-
+- `*node`: IndexScanState structure containing all the state information for the index scan operation, including scan descriptors, keys, and tuple slots
 ## Dependencies
 - Functions called/Symbols referenced:
   - ScanDirectionCombine

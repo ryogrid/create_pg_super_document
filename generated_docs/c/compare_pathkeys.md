@@ -18,9 +18,8 @@ The compare_pathkeys function performs a comparison between two lists of pathkey
 The comparison algorithm first checks for identical list pointers as an optimization, then iterates through both lists simultaneously using the forboth macro. If any pathkey pair differs by pointer comparison, the lists are considered different. If one list is longer than the other but the shorter list matches as a prefix, the longer list is considered "better" as it provides additional sort ordering.
 
 ## Parameters / Member Variables
-- : First pathkey list to compare
-- : Second pathkey list to compare
-
+- `*keys1`: First pathkey list to compare
+- `*keys2`: Second pathkey list to compare
 ## Dependencies
 - Functions called/Symbols referenced:
   - forboth (macro for iterating two lists simultaneously)

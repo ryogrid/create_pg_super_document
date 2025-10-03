@@ -24,8 +24,7 @@ The function performs several key operations:
 This function is essential for maintaining consistency across parallel workers when batch structures are modified, such as during batch count increases triggered by memory constraints. Each backend calls this function to ensure its local accessors remain synchronized with the globally shared batch state.
 
 ## Parameters / Member Variables
-- : HashJoinTable containing parallel state and local accessor information that needs to be synchronized
-
+- `hashtable`: HashJoinTable containing parallel state and local accessor information that needs to be synchronized
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecParallelHashCloseBatchAccessors](ExecParallelHashCloseBatchAccessors.md) (cleanup existing accessors)

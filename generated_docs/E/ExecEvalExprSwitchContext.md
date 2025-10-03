@@ -20,10 +20,9 @@ ExecEvalExprSwitchContext provides a context-aware version of expression evaluat
 The function saves the current memory context, switches to the econtext's per-tuple memory context, performs the expression evaluation using the compiled evaluation function, then restores the original context before returning the result. This pattern prevents memory leaks and ensures that temporary allocations during expression evaluation are properly cleaned up.
 
 ## Parameters / Member Variables
-- : ExprState containing the compiled expression evaluation function and associated metadata
-- : ExprContext providing access to current tuple data, parameters, and the target per-tuple memory context
-- : Pointer to bool that will be set to indicate whether the evaluated result is NULL
-
+- `*state`: ExprState containing the compiled expression evaluation function and associated metadata
+- `*econtext`: ExprContext providing access to current tuple data, parameters, and the target per-tuple memory context
+- `*isNull`: Pointer to bool that will be set to indicate whether the evaluated result is NULL
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (for switching memory contexts)

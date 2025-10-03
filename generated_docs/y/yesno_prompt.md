@@ -20,8 +20,7 @@ The function operates in a loop, continuously prompting the user until they prov
 The prompt format includes the question followed by the localized yes/no options in parentheses, formatted as "question (y/n) " where y/n are replaced with the appropriate localized single letters.
 
 ## Parameters / Member Variables
-- : The question text to display to the user (should be translatable)
-
+- `*question`: The question text to display to the user (should be translatable)
 ## Dependencies
 - Functions called/Symbols referenced:
   - snprintf

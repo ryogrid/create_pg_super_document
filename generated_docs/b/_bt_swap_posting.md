@@ -24,10 +24,9 @@ The function handles the complex task of reorganizing posting lists during B-tre
 The design accounts for potential representational differences between tuples that are logically equal but may have different physical representations (e.g., due to TOAST compression states).
 
 ## Parameters / Member Variables
-- : The new IndexTuple being inserted - modified in place to receive the max TID from oposting
-- : The original posting list tuple that will be split
-- : The offset position in the posting list where the split should occur (0 < postingoff < nhtids)
-
+- `newitem`: The new IndexTuple being inserted - modified in place to receive the max TID from oposting
+- `oposting`: The original posting list tuple that will be split
+- `postingoff`: The offset position in the posting list where the split should occur (0 < postingoff < nhtids)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BTreeTupleGetNPosting](../B/BTreeTupleGetNPosting.md)

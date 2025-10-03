@@ -32,14 +32,13 @@ findDependentObjects is the heart of PostgreSQL's dependency analysis system. Th
 The function handles various dependency types (NORMAL, AUTO, INTERNAL, EXTENSION, PARTITION) with different behaviors for each. It ensures deletion order safety by processing dependencies before their dependents and includes sophisticated locking mechanisms to handle concurrent operations.
 
 ## Parameters / Member Variables
-- : Pointer to ObjectAddress identifying the object to analyze for dependencies
-- : Integer flags describing the reason for visiting this object (DEPFLAG_ORIGINAL, DEPFLAG_NORMAL, etc.)
-- : Integer bitmask of PERFORM_DELETION_* flags controlling overall deletion behavior
-- : Pointer to ObjectAddressStack for tracking recursion levels and detecting circular dependencies
-- : Pointer to ObjectAddresses list where objects scheduled for deletion are accumulated
-- : Pointer to const ObjectAddresses list of other objects being deleted (used in multiple deletions)
-- : Pointer to already-opened pg_depend relation for dependency queries
-
+- `*object`: Pointer to ObjectAddress identifying the object to analyze for dependencies
+- `objflags`: Integer flags describing the reason for visiting this object (DEPFLAG_ORIGINAL, DEPFLAG_NORMAL, etc.)
+- `flags`: Integer bitmask of PERFORM_DELETION_* flags controlling overall deletion behavior
+- `*stack`: Pointer to ObjectAddressStack for tracking recursion levels and detecting circular dependencies
+- `*targetObjects`: Pointer to ObjectAddresses list where objects scheduled for deletion are accumulated
+- `*pendingObjects`: Pointer to const ObjectAddresses list of other objects being deleted (used in multiple deletions)
+- `*depRel`: Pointer to already-opened pg_depend relation for dependency queries
 ## Dependencies
 - Functions called/Symbols referenced:
   - [stack_address_present_add_flags](../s/stack_address_present_add_flags.md)

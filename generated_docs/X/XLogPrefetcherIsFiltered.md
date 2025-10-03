@@ -23,10 +23,9 @@ This function implements the filtering logic that determines whether a specific 
 The function is optimized for the common case where no filters are active by first checking if the filter queue is empty, avoiding hash table lookups when possible. When filters are present, it performs efficient hash table lookups to determine if the block should be filtered.
 
 ## Parameters / Member Variables
-- : Pointer to the XLogPrefetcher structure containing the filter infrastructure
-- : RelFileLocator identifying the relation (tablespace, database, relation)
-- : Block number being checked for filtering
-
+- `*prefetcher`: Pointer to the XLogPrefetcher structure containing the filter infrastructure
+- `rlocator`: RelFileLocator identifying the relation (tablespace, database, relation)
+- `blockno`: Block number being checked for filtering
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Check if filter queue has any entries

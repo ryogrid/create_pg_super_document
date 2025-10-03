@@ -16,8 +16,7 @@ inv_create(Oid lobjId)
 This function creates a new large object in the PostgreSQL system with initially empty data pages. It can either accept a specific OID to use for the new object or automatically generate one if InvalidOid is provided. The function handles the complete lifecycle of large object creation including: calling the low-level LargeObjectCreate function, establishing ownership dependencies using the current user ID, invoking post-creation hooks for extensibility, and advancing the command counter to ensure the new object is visible to subsequent operations within the same transaction. The dependency tracking uses LargeObjectRelationId for backward compatibility with existing tools like pg_dump.
 
 ## Parameters / Member Variables
-- : OID to use for the new large object, or InvalidOid to have the system automatically assign an OID
-
+- `lobjId`: OID to use for the new large object, or InvalidOid to have the system automatically assign an OID
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LargeObjectCreate](../L/LargeObjectCreate.md) (creates the actual large object metadata)

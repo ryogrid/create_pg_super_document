@@ -18,9 +18,8 @@ ReceiveXlogStream(PGconn *conn, StreamCtl *stream)
 The function supports both synchronous and asynchronous replication modes, handles replication slots for reliable delivery, and implements proper error handling and cleanup procedures.
 
 ## Parameters / Member Variables
-- : PostgreSQL connection handle for the replication session
-- : StreamCtl structure containing all streaming parameters and callbacks including start position, timeline, stop conditions, and output methods
-
+- `*conn`: PostgreSQL connection handle for the replication session
+- `*stream`: StreamCtl structure containing all streaming parameters and callbacks including start position, timeline, stop conditions, and output methods
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CheckServerVersionForStreaming](../C/CheckServerVersionForStreaming.md)

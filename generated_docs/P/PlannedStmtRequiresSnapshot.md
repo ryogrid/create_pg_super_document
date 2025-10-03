@@ -45,8 +45,7 @@ Non-DML statements (queries, inserts, updates, deletes) always require snapshots
 Transaction control statements (BEGIN, COMMIT, ROLLBACK) cannot have snapshots because they need to execute at the start of transactions before a snapshot is established. Similarly, LOCK and SET commands need to work in snapshot-free contexts.
 
 ## Parameters / Member Variables
-- : The planned statement to analyze for snapshot requirements
-
+- `TransactionStmt`: The planned statement to analyze for snapshot requirements
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PlannedStmt](PlannedStmt.md) structure and its utilityStmt field

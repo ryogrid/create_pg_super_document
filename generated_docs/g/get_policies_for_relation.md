@@ -23,12 +23,11 @@ The  function is responsible for collecting all applicable row-level security po
 The function handles the special 'ALL' command type ('*') which applies to all operations, and ensures that restrictive policies are processed in a deterministic order by sorting them by name.
 
 ## Parameters / Member Variables
-- : The Relation structure representing the table being accessed
-- : The command type (SELECT, INSERT, UPDATE, DELETE, MERGE) for which policies are being retrieved
-- : The OID of the user/role for which to check policy applicability
-- : Output parameter - list of applicable permissive policies
-- : Output parameter - list of applicable restrictive policies
-
+- `relation`: The Relation structure representing the table being accessed
+- `cmd`: The command type (SELECT, INSERT, UPDATE, DELETE, MERGE) for which policies are being retrieved
+- `user_id`: The OID of the user/role for which to check policy applicability
+- `**permissive_policies`: Output parameter - list of applicable permissive policies
+- `**restrictive_policies`: Output parameter - list of applicable restrictive policies
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_role_for_policy](../c/check_role_for_policy.md)

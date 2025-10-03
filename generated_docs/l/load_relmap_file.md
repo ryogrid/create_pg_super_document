@@ -18,9 +18,8 @@ load_relmap_file is an internal function that loads relation mapping files from 
 The function treats failure to load these files as a fatal error since they are essential for database operation. The shared map contains mappings for cluster-wide relations, while the local map contains mappings specific to a particular database.
 
 ## Parameters / Member Variables
-- : Boolean flag indicating whether to load the shared mapping file (true) or local mapping file (false)
-- : Boolean indicating whether the caller already holds the necessary lock for file operations
-
+- `shared`: Boolean flag indicating whether to load the shared mapping file (true) or local mapping file (false)
+- `lock_held`: Boolean indicating whether the caller already holds the necessary lock for file operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [read_relmap_file](../r/read_relmap_file.md) (underlying file reading function)

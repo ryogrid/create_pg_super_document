@@ -16,7 +16,6 @@ ReorderBufferAllocate(void)
 ReorderBufferAllocate creates a new ReorderBuffer instance with proper memory management and initialization. It establishes multiple specialized memory contexts for different types of data (changes, transactions, tuples) to optimize memory usage and reduce fragmentation. The function also initializes hash tables for transaction tracking, priority queues for transaction ordering, and various statistical counters. Additionally, it cleans up any serialized transaction state from previous uses of the same replication slot to prevent data duplication.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Simplified Source
 

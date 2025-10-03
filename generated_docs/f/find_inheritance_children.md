@@ -18,9 +18,8 @@ This function is a convenience wrapper around  that provides the most common inh
 This is the standard function used throughout PostgreSQL for inheritance hierarchy traversal when detached partitions should be omitted and no additional filtering is needed.
 
 ## Parameters / Member Variables
-- : OID of the parent relation whose direct children should be found
-- : Lock mode to acquire on each child relation; use NoLock if no locking is desired (but beware of race conditions with concurrent DROP operations)
-
+- `parentrelId`: OID of the parent relation whose direct children should be found
+- `lockmode`: Lock mode to acquire on each child relation; use NoLock if no locking is desired (but beware of race conditions with concurrent DROP operations)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [find_inheritance_children_extended](find_inheritance_children_extended.md)

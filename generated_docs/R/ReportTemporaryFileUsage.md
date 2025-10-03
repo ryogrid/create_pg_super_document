@@ -22,9 +22,8 @@ ReportTemporaryFileUsage is called whenever a temporary file is deleted to repor
 The logging helps database administrators monitor temporary file usage patterns and identify queries or operations that are creating large temporary files, which can indicate performance issues or suboptimal query plans.
 
 ## Parameters / Member Variables
-- : The file system path of the temporary file that was deleted
-- : The size of the deleted temporary file in bytes (off_t type)
-
+- `*path`: The file system path of the temporary file that was deleted
+- `size`: The size of the deleted temporary file in bytes (off_t type)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pgstat_report_tempfile](../p/pgstat_report_tempfile.md) (function to report temporary file statistics)

@@ -18,8 +18,7 @@ The  function takes a generic socket address structure and converts it to a huma
 The function is designed as a utility for the ifaddrs testing tool, providing a convenient way to display network interface addresses in a readable format.
 
 ## Parameters / Member Variables
-- : A pointer to a generic socket address structure () that contains the address information to be printed. The actual structure type depends on the address family (IPv4, IPv6, etc.)
-
+- `*addr`: A pointer to a generic socket address structure () that contains the address information to be printed. The actual structure type depends on the address family (IPv4, IPv6, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (system call for address-to-name translation)

@@ -22,15 +22,14 @@ This function provides flexible deletion of shared dependency records from the p
 The function constructs scan keys to efficiently locate dependency records for the specified dependent object, then applies additional filtering based on the optional parameters before deleting matching entries. This ensures precise control over which dependency relationships are removed.
 
 ## Parameters / Member Variables
-- : Open pg_shdepend relation with appropriate locks held by caller
-- : OID of the catalog table containing the dependent object
-- : OID of the dependent object itself
-- : Sub-object identifier for the dependent object (ignored if drop_subobjects is true)
-- : If true, ignore objsubId and consider all entries matching classId/objectId
-- : OID of referenced object's catalog table (InvalidOid to ignore this filter)
-- : OID of the referenced object (InvalidOid to ignore this filter)
-- : Type of dependency to match (SHARED_DEPENDENCY_INVALID to ignore this filter)
-
+- `sdepRel`: Open pg_shdepend relation with appropriate locks held by caller
+- `classId`: OID of the catalog table containing the dependent object
+- `objectId`: OID of the dependent object itself
+- `objsubId`: Sub-object identifier for the dependent object (ignored if drop_subobjects is true)
+- `drop_subobjects`: If true, ignore objsubId and consider all entries matching classId/objectId
+- `refclassId`: OID of referenced object's catalog table (InvalidOid to ignore this filter)
+- `refobjId`: OID of the referenced object (InvalidOid to ignore this filter)
+- `deptype`: Type of dependency to match (SHARED_DEPENDENCY_INVALID to ignore this filter)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [classIdGetDbId](../c/classIdGetDbId.md)

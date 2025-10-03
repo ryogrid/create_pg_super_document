@@ -23,10 +23,9 @@ The function handles three distinct scenarios:
 3. **Whole object after subobject**: When looking for a whole object but finding a subobject is already marked, it marks the subobject with additional flags including DEPFLAG_SUBOBJECT to prevent separate reporting
 
 ## Parameters / Member Variables
-- : Pointer to the ObjectAddress to search for
-- : Integer flags to OR into the found object's extra data
-- : Pointer to the ObjectAddresses array to search within and potentially modify
-
+- `*object`: Pointer to the ObjectAddress to search for
+- `flags`: Integer flags to OR into the found object's extra data
+- `*addrs`: Pointer to the ObjectAddresses array to search within and potentially modify
 ## Dependencies
 - Functions called/Symbols referenced:
   - ObjectAddresses (struct type)

@@ -18,8 +18,7 @@ FreeFile is responsible for properly closing FILE handles that were allocated th
 This function is part of PostgreSQL's file descriptor management system that tracks and limits the number of open files to prevent resource exhaustion. It ensures proper cleanup of file resources and maintains consistency in the internal file descriptor tracking.
 
 ## Parameters / Member Variables
-- : The FILE pointer to be closed, which should have been obtained from AllocateFile
-
+- `*file`: The FILE pointer to be closed, which should have been obtained from AllocateFile
 ## Dependencies
 - Functions called/Symbols referenced:
   - DO_DB (debug logging macro)

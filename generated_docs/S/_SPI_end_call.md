@@ -20,8 +20,7 @@ When use_exec is true (matching the parameter used in the corresponding _SPI_beg
 The function is designed to always succeed and currently has no failure cases, which is why callers typically don't check its return value.
 
 ## Parameters / Member Variables
-- : Boolean flag that must match the value used in the corresponding _SPI_begin_call. When true, triggers memory context restoration and cleanup operations.
-
+- `use_exec`: Boolean flag that must match the value used in the corresponding _SPI_begin_call. When true, triggers memory context restoration and cleanup operations.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [_SPI_procmem](_SPI_procmem.md): Switches back to the procedure memory context

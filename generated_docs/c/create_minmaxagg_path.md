@@ -20,12 +20,11 @@ create_minmaxagg_path(PlannerInfo *root,
 This function creates a MinMaxAggPath node that represents an optimized approach to computing MIN/MAX aggregates. Instead of performing a full table scan and aggregation, this path uses index scans to directly find the minimum and maximum values. The resulting plan will be a Result node that executes initplans for each MIN/MAX aggregate. The function calculates costs by summing up the pathcosts of all initplans and adds target evaluation costs. It also performs parallel safety checks on all components including initplans, target expressions, and qualification conditions.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planner state and configuration information
-- : RelOptInfo representing the parent relation associated with the result
-- : PathTarget structure defining the target list to be computed
-- : List of MinMaxAggInfo structures containing information about MIN/MAX aggregates
-- : List containing HAVING clause qualifications, if any
-
+- `*root`: PlannerInfo structure containing planner state and configuration information
+- `*rel`: RelOptInfo representing the parent relation associated with the result
+- `*target`: PathTarget structure defining the target list to be computed
+- `*mmaggregates`: List of MinMaxAggInfo structures containing information about MIN/MAX aggregates
+- `*quals`: List containing HAVING clause qualifications, if any
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode

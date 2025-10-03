@@ -19,11 +19,10 @@ make_tidscan(List *qptlist,
 This function constructs a TidScan plan node, which implements a highly specialized scan operation that directly fetches tuples from a heap table using their physical tuple identifiers (TIDs). TID scans are typically used when the query contains explicit CTID conditions or when the planner can determine that specific tuple locations need to be accessed directly. This is the most efficient way to access known tuples since it bypasses all indexing mechanisms and goes directly to the heap page and tuple offset specified by the TID.
 
 ## Parameters / Member Variables
-- : Target list of expressions to be computed and returned by this scan
-- : Additional qualification conditions to be evaluated against retrieved tuples
-- : Range table index of the heap relation being scanned
-- : List of qualification conditions that specify the TID values to be retrieved
-
+- `*qptlist`: Target list of expressions to be computed and returned by this scan
+- `*qpqual`: Additional qualification conditions to be evaluated against retrieved tuples
+- `scanrelid`: Range table index of the heap relation being scanned
+- `*tidquals`: List of qualification conditions that specify the TID values to be retrieved
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to create the TidScan node)

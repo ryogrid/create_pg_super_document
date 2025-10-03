@@ -16,9 +16,8 @@ sql_fn_param_ref(ParseState *pstate, ParamRef *pref)
 This function serves as a callback for processing parameter references (, , etc.) encountered during SQL function parsing. It validates that the parameter number is within the valid range for the function's declared parameters and delegates the actual parameter node creation to sql_fn_make_param. This function ensures that only valid parameter numbers are processed and provides proper error handling for out-of-range parameter references.
 
 ## Parameters / Member Variables
-- : ParseState containing parser context and hook state information
-- : ParamRef node representing the parameter reference () to be processed
-
+- `*pstate`: ParseState containing parser context and hook state information
+- `*pref`: ParamRef node representing the parameter reference () to be processed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ParamRef](../P/ParamRef.md)

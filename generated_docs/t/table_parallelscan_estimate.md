@@ -22,9 +22,8 @@ This function calculates the total shared memory space needed to coordinate a pa
 The function ensures that sufficient shared memory is allocated for parallel scan coordination before the parallel operation begins.
 
 ## Parameters / Member Variables
-- : The relation to be scanned in parallel
-- : The snapshot that will be used for the parallel scan
-
+- `rel`: The relation to be scanned in parallel
+- `snapshot`: The snapshot that will be used for the parallel scan
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsMVCCSnapshot (to check if snapshot needs serialization)

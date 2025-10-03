@@ -18,8 +18,7 @@ This function manages memory allocation for PostgreSQL command queue entries wit
 The function implements a simple memory pooling strategy to reduce the overhead of frequent malloc/free operations when handling multiple PostgreSQL commands.
 
 ## Parameters / Member Variables
-- : A pointer to the PostgreSQL connection object that contains the command queue and recycle queue
-
+- `*conn`: A pointer to the PostgreSQL connection object that contains the command queue and recycle queue
 ## Dependencies
 - Functions called/Symbols referenced:
   - malloc

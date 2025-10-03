@@ -19,11 +19,10 @@ index_check_primary_key(Relation heapRel,
 This function performs essential validation checks before creating a PRIMARY KEY index. It was originally part of DefineIndex() but was extracted to support ALTER TABLE ADD PRIMARY KEY USING INDEX operations. The function enforces several PostgreSQL constraints: (1) prevents creation of multiple primary keys on a table, (2) ensures primary key indexes don't use NULLS NOT DISTINCT, (3) validates that all indexed columns are simple column references rather than expressions, and (4) confirms all primary key columns are marked NOT NULL. The function expects the parser to have already inserted any required ALTER TABLE SET NOT NULL operations before attempting to create the primary key.
 
 ## Parameters / Member Variables
-- : Relation pointer to the table where the primary key will be created (caller must hold at least ShareLock)
-- : IndexInfo structure containing details about the index being created, including column information
-- : Boolean flag indicating whether this is part of an ALTER TABLE operation
-- : IndexStmt structure containing the index statement details (may be NULL in some contexts)
-
+- `heapRel`: Relation pointer to the table where the primary key will be created (caller must hold at least ShareLock)
+- `*indexInfo`: IndexInfo structure containing details about the index being created, including column information
+- `is_alter_table`: Boolean flag indicating whether this is part of an ALTER TABLE operation
+- `*stmt`: IndexStmt structure containing the index statement details (may be NULL in some contexts)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [relationHasPrimaryKey](../r/relationHasPrimaryKey.md): Checks if the relation already has a primary key

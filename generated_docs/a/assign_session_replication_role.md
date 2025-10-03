@@ -31,9 +31,8 @@ The session_replication_role parameter typically has three possible values:
 When this setting changes, trigger firing decisions embedded in cached plans may become invalid, making the cache flush essential for correct operation.
 
 ## Parameters / Member Variables
-- : The new integer value being assigned to session_replication_role
-- : Additional data passed to the assign hook (unused in this implementation)
-
+- `newval`: The new integer value being assigned to session_replication_role
+- `*extra`: Additional data passed to the assign hook (unused in this implementation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ResetPlanCache](../R/ResetPlanCache.md) (invalidates all cached execution plans)

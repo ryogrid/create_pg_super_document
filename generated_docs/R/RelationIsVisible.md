@@ -16,8 +16,7 @@ RelationIsVisible(Oid relid)
 RelationIsVisible is a convenience wrapper function that checks if a relation is visible in the current namespace search path. It internally calls RelationIsVisibleExt with a NULL second parameter to perform the actual visibility check. A relation is considered "visible" if it would be found when searching for the unqualified relation name using the current search_path setting.
 
 ## Parameters / Member Variables
-- : The OID of the relation to check for visibility
-
+- `relid`: The OID of the relation to check for visibility
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RelationIsVisibleExt](RelationIsVisibleExt.md)

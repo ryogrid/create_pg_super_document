@@ -28,17 +28,16 @@ ExecBuildAggTransCall constructs the appropriate expression evaluation steps for
 The function determines the execution context (hash or regular aggregate context) and builds the appropriate evaluation steps, including optional null checks and proper jump target fixups.
 
 ## Parameters / Member Variables
-- : ExprState structure containing the expression evaluation steps being built
-- : AggState structure containing aggregate execution state information
-- : ExprEvalStep structure used as a template for building new evaluation steps
-- : FunctionCallInfo structure containing function call metadata
-- : AggStatePerTrans structure containing per-transition state information
-- : Integer identifying the transition number
-- : Integer identifying the grouping set number
-- : Integer offset within the grouping set
-- : Boolean indicating whether this is for hash aggregation
-- : Boolean indicating whether null checking is required
-
+- `*state`: ExprState structure containing the expression evaluation steps being built
+- `*aggstate`: AggState structure containing aggregate execution state information
+- `*scratch`: ExprEvalStep structure used as a template for building new evaluation steps
+- `fcinfo`: FunctionCallInfo structure containing function call metadata
+- `pertrans`: AggStatePerTrans structure containing per-transition state information
+- `transno`: Integer identifying the transition number
+- `setno`: Integer identifying the grouping set number
+- `setoff`: Integer offset within the grouping set
+- `ishash`: Boolean indicating whether this is for hash aggregation
+- `nullcheck`: Boolean indicating whether null checking is required
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExprEvalPushStep](ExprEvalPushStep.md)

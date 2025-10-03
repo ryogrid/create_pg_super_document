@@ -19,6 +19,7 @@ The function works by checking if XactTopFullTransactionId is valid, and if not,
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - FullTransactionIdIsValid

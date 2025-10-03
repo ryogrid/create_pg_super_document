@@ -26,8 +26,7 @@ The function supports the following signals that are commonly used for PostgreSQ
 - **USR2**: User-defined signal 2 (SIGUSR2) - application-specific use
 
 ## Parameters / Member Variables
-- : String containing the signal name (without SIG prefix, e.g., "HUP", "TERM")
-
+- `*signame`: String containing the signal name (without SIG prefix, e.g., "HUP", "TERM")
 ## Dependencies
 - Functions called/Symbols referenced:
   - strcmp (string comparison)

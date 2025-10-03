@@ -21,10 +21,9 @@ RS_compile parses and compiles a simplified regular expression pattern into an i
 The compiled pattern is stored in the Regis structure, which tracks whether it's a suffix pattern and maintains the count of characters in the pattern. The function must be kept synchronized with RS_isRegis for validation.
 
 ## Parameters / Member Variables
-- : Pointer to Regis structure to store the compiled pattern
-- : Boolean indicating whether this is a suffix pattern
-- : The regular expression string to compile
-
+- `*r`: Pointer to Regis structure to store the compiled pattern
+- `issuffix`: Boolean indicating whether this is a suffix pattern
+- `*str`: The regular expression string to compile
 ## Dependencies
 - Functions called/Symbols referenced:
   - [newRegisNode](../n/newRegisNode.md) (create new pattern nodes)

@@ -22,8 +22,7 @@ ExecProjectSet manages the execution of ProjectSet nodes, which are responsible 
 The function handles the complex lifecycle of SRFs by maintaining state about whether more tuples are expected from the current input tuple. It continues processing until either a valid result tuple is produced or no more input tuples are available.
 
 ## Parameters / Member Variables
-- : The plan state node, which is cast to ProjectSetState internally
-
+- `*pstate`: The plan state node, which is cast to ProjectSetState internally
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecProjectSRF](ExecProjectSRF.md)

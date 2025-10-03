@@ -18,8 +18,7 @@ This function looks up a type by its OID in the system catalog and returns the a
 The function performs a system cache lookup on the TYPEOID cache to efficiently retrieve the type information from pg_type catalog.
 
 ## Parameters / Member Variables
-- : The OID of the type to look up in the pg_type system catalog
-
+- `type_id`: The OID of the type to look up in the pg_type system catalog
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache1](../S/SearchSysCache1.md)

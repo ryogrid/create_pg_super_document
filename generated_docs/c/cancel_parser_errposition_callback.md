@@ -18,8 +18,7 @@ The  function safely removes an error context callback that was previously set u
 This function is essential for proper cleanup and must be called after using  to prevent stack corruption and ensure that error context handling returns to its previous state. The function performs a simple but critical operation of restoring the global error context stack pointer.
 
 ## Parameters / Member Variables
-- : Pointer to the ParseCallbackState structure that was used in the corresponding  call. This must be the same structure that was set up.
-
+- `*pcbstate`: Pointer to the ParseCallbackState structure that was used in the corresponding  call. This must be the same structure that was set up.
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (callback state structure)

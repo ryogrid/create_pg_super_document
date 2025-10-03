@@ -18,9 +18,8 @@ This function provides a table access method (tableam) interface for determining
 The implementation delegates to the underlying table access method, allowing different storage engines to provide their own size calculation logic. This abstraction is important because different access methods may organize their storage differently, and the overall size might not simply be the sum of individual fork sizes.
 
 ## Parameters / Member Variables
-- : A Relation pointer representing the table relation whose size is being queried
-- : Specifies which fork's size to return. If InvalidForkNumber is passed, returns the overall relation size
-
+- `rel`: A Relation pointer representing the table relation whose size is being queried
+- `forkNumber`: Specifies which fork's size to return. If InvalidForkNumber is passed, returns the overall relation size
 ## Dependencies
 - Functions called/Symbols referenced:
   - rel->rd_tableam->relation_size (table access method function pointer)

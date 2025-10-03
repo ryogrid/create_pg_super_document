@@ -28,12 +28,11 @@ The algorithm uses a sophisticated multi-step approach:
 The function includes advanced features like multivariate statistics support and handles edge cases such as volatile functions (which could produce unique results for each input row).
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing query planning context and statistics
-- : List of expressions in the GROUP BY clause or DISTINCT operation
-- : Estimated number of rows feeding into the grouping operation
-- : Optional pointer to grouping set filter (for GROUPING SETS functionality)
-- : Optional output parameter to return estimation metadata and flags
-
+- `*root`: PlannerInfo structure containing query planning context and statistics
+- `*groupExprs`: List of expressions in the GROUP BY clause or DISTINCT operation
+- `input_rows`: Estimated number of rows feeding into the grouping operation
+- `**pgset`: Optional pointer to grouping set filter (for GROUPING SETS functionality)
+- `*estinfo`: Optional output parameter to return estimation metadata and flags
 ## Dependencies
 - Functions called/Symbols referenced:
   - [clamp_row_est](../c/clamp_row_est.md): Ensures row estimates stay within reasonable bounds

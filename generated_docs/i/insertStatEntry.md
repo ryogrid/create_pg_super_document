@@ -22,11 +22,10 @@ The function first determines how many occurrences to count based on whether wei
 The function then searches the BST to find if the word already exists. If found, it increments the document count and entry count. If not found, it creates a new node and inserts it into the appropriate position in the tree.
 
 ## Parameters / Member Variables
-- : Memory context for allocating new StatEntry nodes that need to persist across function calls
-- : Pointer to the TSVectorStat structure containing the statistics tree and configuration
-- : The TSVector containing the word and position data being processed
-- : Offset into the TSVector's word array identifying which word to process
-
+- `persistentContext`: Memory context for allocating new StatEntry nodes that need to persist across function calls
+- `*stat`: Pointer to the TSVectorStat structure containing the statistics tree and configuration
+- `txt`: The TSVector containing the word and position data being processed
+- `off`: Offset into the TSVector's word array identifying which word to process
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Macro to get pointer to the word entry array in TSVector

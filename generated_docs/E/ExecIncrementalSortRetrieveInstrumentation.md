@@ -24,8 +24,7 @@ This function is responsible for collecting and preserving performance statistic
 This function is typically called at the end of a parallel incremental sort operation to preserve statistics that would otherwise be lost when the shared memory segment is deallocated. The retrieved statistics can then be used for performance analysis, EXPLAIN output, or other instrumentation purposes.
 
 ## Parameters / Member Variables
-- : Pointer to the IncrementalSortState structure from which to retrieve shared instrumentation data
-
+- `*node`: Pointer to the IncrementalSortState structure from which to retrieve shared instrumentation data
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md) (memory allocation)

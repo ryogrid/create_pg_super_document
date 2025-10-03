@@ -21,7 +21,6 @@ The function handles two data structures:
 For actions, the function either decrements the nesting level (simple reparenting) or merges action lists if there are intermediate transaction levels. For notifications, it performs similar reparenting but includes duplicate elimination to prevent "Assert(!found)" failures when building parent-level hash tables.
 
 ## Parameters / Member Variables
-This function takes no parameters and operates on global state variables.
 
 ## Dependencies
 - Functions called/Symbols referenced:

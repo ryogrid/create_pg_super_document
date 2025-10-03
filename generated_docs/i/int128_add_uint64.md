@@ -16,9 +16,8 @@ int128_add_uint64(INT128 *i128, uint64 v)
 This function performs an in-place addition operation, adding an unsigned 64-bit integer value to an existing 128-bit integer. The function is implemented as a static inline function for optimal performance, utilizing the underlying 128-bit integer arithmetic capabilities. The addition is performed directly using the += operator on the dereferenced INT128 pointer.
 
 ## Parameters / Member Variables
-- : Pointer to the INT128 variable to be modified. The result of the addition is stored back into this variable.
-- : The unsigned 64-bit integer value to be added to the INT128 variable.
-
+- `*i128`: Pointer to the INT128 variable to be modified. The result of the addition is stored back into this variable.
+- `v`: The unsigned 64-bit integer value to be added to the INT128 variable.
 ## Dependencies
 - Functions called/Symbols referenced:
   - INT128 (type definition)

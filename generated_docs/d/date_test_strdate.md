@@ -18,8 +18,7 @@ This function is part of the ECPG (Embedded SQL in C for PostgreSQL) test suite 
 The function maintains a static counter to number the successful conversions and uses printf statements to display the conversion results and status codes.
 
 ## Parameters / Member Variables
-- : A string representation of a date to be parsed and validated
-
+- `*input`: A string representation of a date to be parsed and validated
 ## Dependencies
 - Functions called/Symbols referenced:
   - [rstrdate](../r/rstrdate.md) (parses string to date structure)

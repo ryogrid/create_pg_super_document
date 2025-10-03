@@ -23,8 +23,7 @@ This function implements a reserved word check for the Turkish stemmer to preven
 The function uses backward string matching to detect these patterns and returns 1 if a reserved word is found, preventing further stemming operations on these words.
 
 ## Parameters / Member Variables
-- : Pointer to the Snowball environment structure containing the string being processed and cursor positions
-
+- `*z`: Pointer to the Snowball environment structure containing the string being processed and cursor positions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [eq_s_b](../e/eq_s_b.md) (Snowball function for backward string equality testing)

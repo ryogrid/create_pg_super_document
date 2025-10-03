@@ -18,8 +18,7 @@ This function provides a SQL-callable interface to reset all statistics counters
 The function affects only the current database's statistics, not system-wide or other databases' statistics. After reset, all counters start accumulating from zero again, and the reset timestamp in various pg_stat_* views is updated to reflect when the reset occurred.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function argument structure (no actual parameters used)
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument structure (no actual parameters used)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pgstat_reset_counters](pgstat_reset_counters.md) (resets the internal statistics counters)

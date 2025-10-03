@@ -20,10 +20,9 @@ Virtual tuple table slots are designed to store computed or derived tuple data a
 The function first asserts that the slot is not empty, then reports a user-friendly error indicating that system columns cannot be retrieved in this context. Some system attributes like  may be handled generically by higher-level code before this function is called.
 
 ## Parameters / Member Variables
-- : A pointer to the TupleTableSlot from which to retrieve the system attribute
-- : The attribute number of the system column to retrieve (negative values for system attributes)
-- : A pointer to a boolean that would be set to indicate if the attribute value is NULL (not used due to error)
-
+- `*slot`: A pointer to the TupleTableSlot from which to retrieve the system attribute
+- `attnum`: The attribute number of the system column to retrieve (negative values for system attributes)
+- `*isnull`: A pointer to a boolean that would be set to indicate if the attribute value is NULL (not used due to error)
 ## Dependencies
 - Functions called/Symbols referenced:
   - TTS_EMPTY (macro to check if slot is empty)

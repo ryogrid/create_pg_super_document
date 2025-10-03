@@ -18,8 +18,7 @@ FileGetRawDesc provides access to the underlying operating system file descripto
 The function includes important caveats: the returned file descriptor is valid only until the file is closed, and many operations within PostgreSQL can cause file closure (such as cache evictions in the VFD system). Therefore, callers must use the returned descriptor immediately and avoid other PostgreSQL operations that might invalidate it.
 
 ## Parameters / Member Variables
-- : A PostgreSQL File descriptor representing an open file in the virtual file descriptor system
-
+- `file`: A PostgreSQL File descriptor representing an open file in the virtual file descriptor system
 ## Dependencies
 - Functions called/Symbols referenced:
   - FileIsValid (validates the file descriptor)

@@ -18,11 +18,8 @@ The  function compares two A_Const nodes for equality during the parsing phase o
 The function first checks if both nodes have the same null status. If neither is null, it recursively compares their embedded value unions using the general  function. The comparison handles the inline ValUnion structure that can contain different types of literal values (integers, floats, booleans, strings, or bit strings). Finally, it compares the parse location information.
 
 ## Parameters / Member Variables
-- : Pointer to the first A_Const node to compare
-- : Pointer to the second A_Const node to compare
-
-Returns:  if the nodes are equal,  otherwise
-
+- `*a`: Pointer to the first A_Const node to compare
+- `*b`: Pointer to the second A_Const node to compare
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (macro for comparing scalar fields)

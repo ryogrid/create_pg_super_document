@@ -21,15 +21,14 @@ This function implements the core logic for comparing two numeric values by exam
 The comparison algorithm follows these rules: zero is handled specially, positive numbers are greater than negative numbers, and when signs are equal, absolute value comparison determines the result (with sign adjustment for negative numbers).
 
 ## Parameters / Member Variables
-- : Pointer to digit array of first numeric value
-- : Number of digits in first numeric value
-- : Weight (power of NBASE) of most significant digit of first value
-- : Sign of first numeric value (NUMERIC_POS or NUMERIC_NEG)
-- : Pointer to digit array of second numeric value
-- : Number of digits in second numeric value
-- : Weight (power of NBASE) of most significant digit of second value
-- : Sign of second numeric value (NUMERIC_POS or NUMERIC_NEG)
-
+- `*var1digits`: Pointer to digit array of first numeric value
+- `var1ndigits`: Number of digits in first numeric value
+- `var1weight`: Weight (power of NBASE) of most significant digit of first value
+- `var1sign`: Sign of first numeric value (NUMERIC_POS or NUMERIC_NEG)
+- `*var2digits`: Pointer to digit array of second numeric value
+- `var2ndigits`: Number of digits in second numeric value
+- `var2weight`: Weight (power of NBASE) of most significant digit of second value
+- `var2sign`: Sign of second numeric value (NUMERIC_POS or NUMERIC_NEG)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [cmp_abs_common](cmp_abs_common.md): Absolute value comparison function

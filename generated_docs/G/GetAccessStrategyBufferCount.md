@@ -18,8 +18,7 @@ GetAccessStrategyBufferCount is an accessor function that returns the number of 
 This function is primarily used for monitoring buffer strategy usage and for making decisions about parallel operations that need to know the buffer ring capacity.
 
 ## Parameters / Member Variables
-- : BufferAccessStrategy - The buffer access strategy whose buffer count should be returned. Can be NULL.
-
+- `strategy`: BufferAccessStrategy - The buffer access strategy whose buffer count should be returned. Can be NULL.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BufferAccessStrategy](../B/BufferAccessStrategy.md) (type)

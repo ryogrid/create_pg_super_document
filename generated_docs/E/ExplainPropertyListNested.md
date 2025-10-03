@@ -22,10 +22,9 @@ This function provides specialized formatting for nested list structures in EXPL
 This function is specifically designed for cases where list data needs to be represented as an element within another list structure, rather than as a standalone property with its own label.
 
 ## Parameters / Member Variables
-- : The label/name for the nested property (used only for TEXT/XML delegation)
-- : A PostgreSQL List containing C strings to be formatted as a nested list
-- : Pointer to ExplainState containing output format information and string buffer
-
+- `*qlabel`: The label/name for the nested property (used only for TEXT/XML delegation)
+- `*data`: A PostgreSQL List containing C strings to be formatted as a nested list
+- `*es`: Pointer to ExplainState containing output format information and string buffer
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExplainState](ExplainState.md) (struct type)

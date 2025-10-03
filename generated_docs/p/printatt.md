@@ -29,10 +29,9 @@ The function outputs a formatted line containing:
 This function is primarily used for debugging purposes to inspect the structure and content of tuples during development and troubleshooting.
 
 ## Parameters / Member Variables
-- : Unsigned integer representing the position/ID of the attribute within the tuple
-- : Pointer to Form_pg_attribute structure containing the attribute's metadata from the system catalog
-- : Character pointer to the string representation of the attribute's value (can be NULL)
-
+- `attributeId`: Unsigned integer representing the position/ID of the attribute within the tuple
+- `attributeP`: Pointer to Form_pg_attribute structure containing the attribute's metadata from the system catalog
+- `*value`: Character pointer to the string representation of the attribute's value (can be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - printf: Standard C library function for formatted output

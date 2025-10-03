@@ -31,10 +31,9 @@ The function implements different behaviors for each log type:
 - PG_FATAL: Error messages with program termination
 
 ## Parameters / Member Variables
-- : Log message type from eLogType enumeration (PG_VERBOSE, PG_STATUS, PG_REPORT, etc.)
-- : Printf-style format string for the message (should not end in newline)
-- : va_list containing the variadic arguments for format string
-
+- `type`: Log message type from eLogType enumeration (PG_VERBOSE, PG_STATUS, PG_REPORT, etc.)
+- `*fmt`: Printf-style format string for the message (should not end in newline)
+- `ap`: va_list containing the variadic arguments for format string
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (formats the message with va_list arguments)

@@ -19,10 +19,9 @@ CheckSubscriptionRelkind is a utility function in PostgreSQL's logical replicati
 This function is part of the executor's replication infrastructure and serves as a critical validation point to prevent logical replication operations on unsupported object types like views, indexes, sequences, or other non-table objects.
 
 ## Parameters / Member Variables
-- : A character representing the relation kind to be validated (e.g., 'r' for regular table, 'p' for partitioned table)
-- : The namespace (schema) name of the relation, used only for error reporting
-- : The relation name, used only for error reporting
-
+- `relkind`: A character representing the relation kind to be validated (e.g., 'r' for regular table, 'p' for partitioned table)
+- `*nspname`: The namespace (schema) name of the relation, used only for error reporting
+- `*relname`: The relation name, used only for error reporting
 ## Dependencies
 - Functions called/Symbols referenced:
   - RELKIND_RELATION (constant for regular table relation kind)

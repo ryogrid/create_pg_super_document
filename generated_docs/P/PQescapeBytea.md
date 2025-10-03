@@ -24,10 +24,9 @@ The function is a simple wrapper around PQescapeByteaInternal, passing static co
 If standard_conforming_strings is disabled, all backslashes in the output are doubled.
 
 ## Parameters / Member Variables
-- : Pointer to the binary data to be escaped
-- : Length of the binary data in bytes
-- : Output parameter - pointer to size_t where the length of the result string will be stored
-
+- `*from`: Pointer to the binary data to be escaped
+- `from_length`: Length of the binary data in bytes
+- `*to_length`: Output parameter - pointer to size_t where the length of the result string will be stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQescapeByteaInternal](PQescapeByteaInternal.md) (internal implementation function)

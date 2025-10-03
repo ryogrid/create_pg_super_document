@@ -40,12 +40,11 @@ ExecInitJsonExpr is a comprehensive function that sets up the complete evaluatio
 The function carefully manages jump targets and implements complex control flow to handle all the conditional behaviors efficiently.
 
 ## Parameters / Member Variables
-- : JsonExpr structure containing the JSON expression definition and behavior specifications
-- : ExprState structure being built for expression evaluation
-- : Datum pointer where the result value should be stored
-- : Boolean pointer where the result null flag should be stored
-- : ExprEvalStep structure used as a template for building evaluation steps
-
+- `*jsexpr`: JsonExpr structure containing the JSON expression definition and behavior specifications
+- `*state`: ExprState structure being built for expression evaluation
+- `*resv`: Datum pointer where the result value should be stored
+- `*resnull`: Boolean pointer where the result null flag should be stored
+- `*scratch`: ExprEvalStep structure used as a template for building evaluation steps
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc0](../p/palloc0.md)

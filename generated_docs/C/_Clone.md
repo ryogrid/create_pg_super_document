@@ -20,8 +20,7 @@ The function creates a new lclContext structure for each thread by allocating me
 Importantly, the function intentionally does not clone TOC-entry-local state, allowing threads to share knowledge about data block locations. This sharing improves efficiency, but requires careful coordination in functions like _PrintTocData to manage concurrent access to shared state.
 
 ## Parameters / Member Variables
-- : ArchiveHandle pointer containing the archive context and format data that needs to be cloned
-
+- `*AH`: ArchiveHandle pointer containing the archive context and format data that needs to be cloned
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lclContext](../l/lclContext.md) (local context structure type)

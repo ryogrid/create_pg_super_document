@@ -18,8 +18,7 @@ FreeDesc serves as the central cleanup function for all types of allocated file 
 The function is designed to be type-aware, supporting the four different kinds of descriptors that PostgreSQL tracks: regular files (FILE*), pipe streams, directory handles, and raw file descriptors. This unified interface allows higher-level functions to close any type of descriptor without needing to know its specific type.
 
 ## Parameters / Member Variables
-- : Pointer to an AllocateDesc structure in the allocatedDescs array that should be freed
-
+- `*desc`: Pointer to an AllocateDesc structure in the allocatedDescs array that should be freed
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocateDesc (the descriptor structure type)

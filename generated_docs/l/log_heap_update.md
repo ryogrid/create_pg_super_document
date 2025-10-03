@@ -25,15 +25,14 @@ Key optimizations include:
 - Page initialization detection for new pages with single tuples
 
 ## Parameters / Member Variables
-- : The relation being updated
-- : Buffer containing the old tuple's page
-- : Buffer containing the new tuple's page  
-- : The old tuple being updated
-- : The new tuple version
-- : The old key tuple for replica identity (nullable)
-- : Whether the old page's all-visible flag was cleared
-- : Whether the new page's all-visible flag was cleared
-
+- `reln`: The relation being updated
+- `oldbuf`: Buffer containing the old tuple's page
+- `newbuf`: Buffer containing the new tuple's page
+- `oldtup`: The old tuple being updated
+- `newtup`: The new tuple version
+- `old_key_tuple`: The old key tuple for replica identity (nullable)
+- `all_visible_cleared`: Whether the old page's all-visible flag was cleared
+- `new_all_visible_cleared`: Whether the new page's all-visible flag was cleared
 ## Dependencies
 - Functions called/Symbols referenced:
   - [xl_heap_update](../x/xl_heap_update.md) (WAL record structure)

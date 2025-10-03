@@ -16,9 +16,8 @@ MarkAsPrepared(GlobalTransaction gxact, bool lock_held)
 MarkAsPrepared is the final step in preparing a transaction for two-phase commit. It marks the GlobalTransaction as valid, making it visible to other parts of the system, and adds the transaction's PGPROC entry to the global ProcArray. This registration ensures that TransactionIdIsInProgress() will recognize the transaction XID as still running, which is crucial for maintaining proper transaction isolation and visibility. The function provides flexibility in lock management, allowing callers to indicate whether they already hold the required TwoPhaseStateLock.
 
 ## Parameters / Member Variables
-- : The GlobalTransaction structure to mark as prepared
-- : Boolean flag indicating whether the caller already holds TwoPhaseStateLock
-
+- `gxact`: The GlobalTransaction structure to mark as prepared
+- `lock_held`: Boolean flag indicating whether the caller already holds TwoPhaseStateLock
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GlobalTransaction](../G/GlobalTransaction.md)

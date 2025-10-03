@@ -22,12 +22,11 @@ This function extracts potentially indexable join clauses from equivalence class
 The function uses a callback mechanism to allow callers to specify exactly which expressions they are interested in. It handles both regular relations and child relations (partitions), taking care to avoid generating useless joins to parent relations when processing child relations. The generated clauses can be used to create different parameterized paths, leading to various join orders.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global planning state and equivalence classes
-- : RelOptInfo of the relation for which join clauses should be generated
-- : Callback function to identify which expressions the caller is interested in
-- : Additional argument passed to the callback function
-- : Relids set of relations to avoid joining to (optimization to skip useless clauses)
-
+- `*root`: PlannerInfo structure containing global planning state and equivalence classes
+- `*rel`: RelOptInfo of the relation for which join clauses should be generated
+- `callback`: Callback function to identify which expressions the caller is interested in
+- `*callback_arg`: Additional argument passed to the callback function
+- `prohibited_rels`: Relids set of relations to avoid joining to (optimization to skip useless clauses)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [find_childrel_parents](../f/find_childrel_parents.md)

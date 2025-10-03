@@ -25,12 +25,11 @@ The function performs several key operations:
 The statistics format expects the last two numbers to contain minimum and maximum frequencies, which are used by the query evaluation logic to handle terms not present in the most-common-elements list.
 
 ## Parameters / Member Variables
-- : TSQuery structure containing the search query to evaluate
-- : Array of Datum values representing the most common lexemes in the column
-- : Number of elements in the mcelem array
-- : Array of float4 values containing frequency information for each element
-- : Number of elements in the numbers array (should be nmcelem + 2)
-
+- `query`: TSQuery structure containing the search query to evaluate
+- `*mcelem`: Array of Datum values representing the most common lexemes in the column
+- `nmcelem`: Number of elements in the mcelem array
+- `*numbers`: Array of float4 values containing frequency information for each element
+- `nnumbers`: Number of elements in the numbers array (should be nmcelem + 2)
 ## Dependencies
 - Functions called/Symbols referenced:
   - tsquery_opr_selec_no_stats: Fallback when statistics format is invalid

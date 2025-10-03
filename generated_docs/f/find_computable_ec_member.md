@@ -24,12 +24,11 @@ The function supports some flexibility in expression matching - for example, if 
 Unlike find_ec_member_matching_expr, this function does not provide special handling for binary-compatible relabeling, as setrefs.c requires exact matches of Vars to the source targetlist when computing expressions this way.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planner state (can be NULL when require_parallel_safe is false)
-- : The EquivalenceClass to search through for computable members
-- : List of expressions (can be bare expression trees or TargetEntry nodes) that define what variables/functions are available
-- : Set of relation IDs - child EC members are only considered if they belong to these relations
-- : If true, non-parallel-safe expressions are ignored
-
+- `*root`: PlannerInfo structure containing planner state (can be NULL when require_parallel_safe is false)
+- `*ec`: The EquivalenceClass to search through for computable members
+- `*exprs`: List of expressions (can be bare expression trees or TargetEntry nodes) that define what variables/functions are available
+- `relids`: Set of relation IDs - child EC members are only considered if they belong to these relations
+- `require_parallel_safe`: If true, non-parallel-safe expressions are ignored
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pull_var_clause](../p/pull_var_clause.md)

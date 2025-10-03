@@ -18,11 +18,10 @@ pg_strftime is PostgreSQL's implementation of the strftime function for formatti
 The function performs bounds checking to ensure the output doesn't exceed the buffer size and handles error conditions by setting appropriate errno values. It preserves the original errno value if no errors occur during processing.
 
 ## Parameters / Member Variables
-- : Output buffer to store the formatted string
-- : Maximum size of the output buffer (including null terminator)  
-- : Format string containing conversion specifiers that define how the timestamp should be formatted
-- : Pointer to a pg_tm structure containing the timestamp components to format
-
+- `*s`: Output buffer to store the formatted string
+- `maxsize`: Maximum size of the output buffer (including null terminator)
+- `*format`: Format string containing conversion specifiers that define how the timestamp should be formatted
+- `*t`: Pointer to a pg_tm structure containing the timestamp components to format
 ## Dependencies
 - Functions called/Symbols referenced:
   - [_fmt](../f/_fmt.md) (core formatting function)

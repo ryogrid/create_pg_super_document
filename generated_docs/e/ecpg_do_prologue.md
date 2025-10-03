@@ -30,16 +30,15 @@ This function performs critical initialization tasks before executing any ECPG s
 The function processes complex variable argument lists containing type information, pointers, sizes, and indicator variables, organizing them into linked lists for later processing by execution and result handling functions.
 
 ## Parameters / Member Variables
-- : Source line number for error reporting and debugging
-- : Compatibility mode (e.g., Informix compatibility settings)
-- : Flag controlling indicator variable behavior
-- : Database connection identifier (NULL for default connection)
-- : Boolean indicating whether query uses ? parameter placeholders
-- : Type of SQL statement (prepare, execute, normal, etc.)
-- : SQL command string to execute or prepare
-- : Variable argument list containing input/output variable specifications
-- : Output parameter returning initialized statement structure
-
+- `lineno`: Source line number for error reporting and debugging
+- `compat`: Compatibility mode (e.g., Informix compatibility settings)
+- `force_indicator`: Flag controlling indicator variable behavior
+- `*connection_name`: Database connection identifier (NULL for default connection)
+- `questionmarks`: Boolean indicating whether query uses ? parameter placeholders
+- `statement_type`: Type of SQL statement (prepare, execute, normal, etc.)
+- `*query`: SQL command string to execute or prepare
+- `args`: Variable argument list containing input/output variable specifications
+- `**stmt_out`: Output parameter returning initialized statement structure
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ecpg_pthreads_init](ecpg_pthreads_init.md): Initializes threading support

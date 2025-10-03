@@ -19,10 +19,9 @@ This function creates and adds a snapshot invalidation message to the RelCache m
 The function places snapshot invalidation messages into the relcache subgroup for simplicity, as they share similar characteristics with relation cache invalidations in terms of scope and processing requirements.
 
 ## Parameters / Member Variables
-- : Pointer to the InvalidationMsgsGroup structure that manages the collection of invalidation messages
-- : Database OID identifying the database containing the relation (0 for shared relations)
-- : Relation OID identifying the specific relation whose snapshot cache should be invalidated
-
+- `*group`: Pointer to the InvalidationMsgsGroup structure that manages the collection of invalidation messages
+- `dbId`: Database OID identifying the database containing the relation (0 for shared relations)
+- `relId`: Relation OID identifying the specific relation whose snapshot cache should be invalidated
 ## Dependencies
 - Functions called/Symbols referenced:
   - ProcessMessageSubGroup (to check for duplicates)

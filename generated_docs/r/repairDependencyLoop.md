@@ -21,9 +21,8 @@ The function processes loops in order of specificity, starting with well-underst
 When no recognized pattern is found, the function logs a warning and breaks the loop arbitrarily, which may require manual intervention during restore (such as using --disable-triggers).
 
 ## Parameters / Member Variables
-- : Array of pointers to DumpableObject structures representing the objects in the dependency loop
-- : Number of objects in the dependency loop
-
+- `**loop`: Array of pointers to DumpableObject structures representing the objects in the dependency loop
+- `nLoop`: Number of objects in the dependency loop
 ## Dependencies
 - Functions called/Symbols referenced:
   - [repairTypeFuncLoop](repairTypeFuncLoop.md)

@@ -27,12 +27,11 @@ The function calculates several key metrics:
 The statistics can be output in two ways: through a callback function for custom formatting, and/or accumulated into a counters structure for aggregate reporting.
 
 ## Parameters / Member Variables
-- : The MemoryContext (GenerationContext) to analyze for statistics
-- : Optional callback function to receive formatted statistics string; NULL to skip printing
-- : User-defined pointer passed through to the printfunc callback
-- : Optional MemoryContextCounters structure to accumulate statistics; NULL to skip accumulation
-- : Boolean flag controlling whether printfunc outputs to stderr (true) or uses elog (false)
-
+- `context`: The MemoryContext (GenerationContext) to analyze for statistics
+- `printfunc`: Optional callback function to receive formatted statistics string; NULL to skip printing
+- `*passthru`: User-defined pointer passed through to the printfunc callback
+- `*totals`: Optional MemoryContextCounters structure to accumulate statistics; NULL to skip accumulation
+- `print_to_stderr`: Boolean flag controlling whether printfunc outputs to stderr (true) or uses elog (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - validates the GenerationContext structure

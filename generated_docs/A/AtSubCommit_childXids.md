@@ -18,7 +18,6 @@ This function handles the critical task of propagating transaction identifiers f
 The function dynamically manages memory allocation for the parent's childXids array, expanding it as needed to accommodate the additional XIDs. It employs a growth strategy that doubles the required size (up to MaxAllocSize) to minimize frequent reallocations. The XIDs are copied in a specific order that preserves the chronological ordering constraint - child XIDs always follow their parent XIDs.
 
 ## Parameters / Member Variables
-This function takes no parameters and operates on the global CurrentTransactionState.
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -25,11 +25,10 @@ This function performs the actual serialization of ranges into a multirange stru
 The function implements an optimization where the first range doesn't need an item entry since its position is implicit, and uses a compression scheme for item values to reduce storage overhead.
 
 ## Parameters / Member Variables
-- : Pre-allocated MultirangeType structure to write data into
-- : TypeCacheEntry containing type information for alignment calculations
-- : Number of ranges to serialize
-- : Array of RangeType pointers containing the source range data
-
+- `*multirange`: Pre-allocated MultirangeType structure to write data into
+- `*rangetyp`: TypeCacheEntry containing type information for alignment calculations
+- `range_count`: Number of ranges to serialize
+- `**ranges`: Array of RangeType pointers containing the source range data
 ## Dependencies
 - Functions called/Symbols referenced:
   - MultirangeGetItemsPtr (to get pointer to items array)

@@ -18,6 +18,7 @@ spg_xlog_startup(void)
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetContextCreate (creates a new allocation set memory context)

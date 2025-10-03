@@ -20,10 +20,9 @@ The algorithm uses a two-phase approach: when t <= 22*n, it employs Algorithm X,
 Algorithm X uses a straightforward approach, generating random values and incrementally computing S until the acceptance condition (4.1) from Vitter's paper is satisfied. Algorithm Z uses more complex mathematical computations involving acceptance/rejection testing with sophisticated probability calculations to achieve better performance for large datasets.
 
 ## Parameters / Member Variables
-- : Pointer to the ReservoirState structure containing the random state and W value
-- : Number of records already processed (must be >= n for reservoir sampling)
-- : Desired sample size (reservoir capacity)
-
+- `rs`: Pointer to the ReservoirState structure containing the random state and W value
+- `t`: Number of records already processed (must be >= n for reservoir sampling)
+- `n`: Desired sample size (reservoir capacity)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [sampler_random_fract](../s/sampler_random_fract.md) (generates uniform random fractions)

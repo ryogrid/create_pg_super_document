@@ -20,9 +20,8 @@ When encountering a Var node (column reference), the function adds the column nu
 The function ensures that all variable references have been properly processed by setrefs.c by asserting that they use OUTER_VAR as their varno and have varlevelsup of 0.
 
 ## Parameters / Member Variables
-- : The expression node being examined during tree traversal
-- : Pointer to FindColsContext structure containing traversal state and result bitmapsets
-
+- `*node`: The expression node being examined during tree traversal
+- `*context`: Pointer to FindColsContext structure containing traversal state and result bitmapsets
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bms_add_member](../b/bms_add_member.md)

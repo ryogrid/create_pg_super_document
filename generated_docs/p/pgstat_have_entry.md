@@ -20,10 +20,9 @@ The function handles two distinct categories of statistics: fixed-amount statist
 This function serves as an efficient precondition check that can be used before attempting more expensive statistics operations.
 
 ## Parameters / Member Variables
-- : A  enum value specifying the type of statistics to check
-- : The OID of the database containing the object
-- : The OID of the specific object to check for statistics
-
+- `kind`: A  enum value specifying the type of statistics to check
+- `dboid`: The OID of the database containing the object
+- `objoid`: The OID of the specific object to check for statistics
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pgstat_get_kind_info](pgstat_get_kind_info.md)

@@ -21,11 +21,10 @@ The function first uses splitTableColumnsSpec to separate the table name from an
 After obtaining the qualified name, it formats it properly using fmtQualifiedIdEnc and appends it to the buffer along with any column specification that was part of the original spec. The function ensures security by resetting the search_path and using the ALWAYS_SECURE_SEARCH_PATH_SQL at the end.
 
 ## Parameters / Member Variables
-- : PQExpBuffer to append the qualified relation name to
-- : Input specification string in format TABLE[(COLUMNS)]
-- : Active PostgreSQL database connection
-- : Whether to echo executed SQL commands
-
+- `buf`: PQExpBuffer to append the qualified relation name to
+- `*spec`: Input specification string in format TABLE[(COLUMNS)]
+- `*conn`: Active PostgreSQL database connection
+- `echo`: Whether to echo executed SQL commands
 ## Dependencies
 - Functions called/Symbols referenced:
   - [splitTableColumnsSpec](../s/splitTableColumnsSpec.md)

@@ -18,10 +18,9 @@ bracket(struct vars *v,
 The  function processes non-complemented bracket expressions (like  or ) in regular expressions. It's also called from  for complemented bracket expressions (like ). The function parses the contents of bracket expressions, handling character classes, ranges, and complemented character classes. It uses a deferred processing approach for complemented character classes to avoid color bookkeeping confusion, storing them in a boolean array and processing them at the end. After processing all elements, it optimizes the bracket expression if complemented elements were found.
 
 ## Parameters / Member Variables
-- : Pointer to the vars structure containing compilation state and NFA information
-- : Pointer to the left/start state of the bracket expression
-- : Pointer to the right/end state of the bracket expression
-
+- `*v`: Pointer to the vars structure containing compilation state and NFA information
+- `*lp`: Pointer to the left/start state of the bracket expression
+- `*rp`: Pointer to the right/end state of the bracket expression
 ## Dependencies
 - Functions called/Symbols referenced:
   - SEE (macro for checking current character)

@@ -20,9 +20,8 @@ Unlike StartLO, EndLO performs a conditional check for the EndLOPtr function poi
 The function maintains consistency with the large object archival protocol by operating within the same TOC entry context established during StartLO. This ensures proper association between the large object data and its metadata throughout the dump process.
 
 ## Parameters / Member Variables
-- : Archive pointer representing the current dump session
-- : Object identifier (OID) of the large object being completed
-
+- `*AHX`: Archive pointer representing the current dump session
+- `oid`: Object identifier (OID) of the large object being completed
 ## Dependencies
 - Functions called/Symbols referenced:
   - AH->EndLOPtr (format-specific large object end handler, called conditionally)

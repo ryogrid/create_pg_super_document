@@ -25,13 +25,12 @@ This function provides specialized processing for GROUPING() and related functio
 The function exists as a separate phase because GROUPING() function processing requires modifying nodes in-place, while ungrouped column checking may work with flattened copies of expressions.
 
 ## Parameters / Member Variables
-- : Expression tree to scan for GROUPING() function calls
-- : Parser state providing context and error reporting
-- : Query structure containing grouping information
-- : List of acceptable GROUP BY expressions for validation
-- : Whether the query contains JOIN range table entries requiring alias flattening
-- : Whether GROUP BY contains non-variable expressions
-
+- `*node`: Expression tree to scan for GROUPING() function calls
+- `*pstate`: Parser state providing context and error reporting
+- `*qry`: Query structure containing grouping information
+- `*groupClauses`: List of acceptable GROUP BY expressions for validation
+- `hasJoinRTEs`: Whether the query contains JOIN range table entries requiring alias flattening
+- `have_non_var_grouping`: Whether GROUP BY contains non-variable expressions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [finalize_grouping_exprs_walker](finalize_grouping_exprs_walker.md)

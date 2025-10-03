@@ -18,6 +18,7 @@ The  function performs a comprehensive release of resources for all SMgrRelation
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hash_seq_init](../h/hash_seq_init.md) (initializes hash table iteration)

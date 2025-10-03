@@ -19,12 +19,11 @@ This function is a core component of PostgreSQL's query parsing infrastructure f
 The function performs type coercion for UNKNOWN literals to TEXT, determines appropriate sort and equality operators based on the sort direction, and handles error reporting with proper parse position context. It creates a SortGroupClause node with all necessary sorting metadata including sort operators, equality operators, hashability information, and null ordering preferences.
 
 ## Parameters / Member Variables
-- : Parse state containing context information for query parsing
-- : Target entry to be added to the sort list
-- : Current list of SortGroupClause nodes
-- : Complete target list for the query
-- : Sort specification containing direction, operator, and null ordering
-
+- `*pstate`: Parse state containing context information for query parsing
+- `*tle`: Target entry to be added to the sort list
+- `*sortlist`: Current list of SortGroupClause nodes
+- `*targetlist`: Complete target list for the query
+- `*sortby`: Sort specification containing direction, operator, and null ordering
 ## Dependencies
 - Functions called/Symbols referenced:
   - [coerce_type](../c/coerce_type.md)

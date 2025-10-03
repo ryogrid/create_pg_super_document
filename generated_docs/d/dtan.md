@@ -16,8 +16,7 @@ dtan(PG_FUNCTION_ARGS)
 The  function computes the tangent of a floating-point argument expressed in radians. It follows POSIX specifications for handling special cases like NaN and infinite inputs. The function uses the standard C library's  function internally and includes proper error handling for out-of-range inputs. Unlike some trigonometric functions, it does not check for overflow since  naturally evaluates to infinity.
 
 ## Parameters / Member Variables
-- : A float8 (double precision) input value representing an angle in radians
-
+- `PG_FUNCTION_ARGS`: A float8 (double precision) input value representing an angle in radians
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT8 (to extract the float8 argument)

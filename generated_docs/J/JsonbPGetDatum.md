@@ -16,8 +16,7 @@ JsonbPGetDatum(const Jsonb *p)
 This inline function provides a convenient way to convert a Jsonb pointer back to a Datum value, which is the universal data type used throughout PostgreSQL's internal type system. The function is essentially a wrapper around PointerGetDatum that provides type safety and clarity when working with JSONB values. It serves as the reverse operation of DatumGetJsonbP, enabling the conversion from Jsonb structures back to Datum format for storage, function return values, and inter-module communication within PostgreSQL.
 
 ## Parameters / Member Variables
-- : A const pointer to a Jsonb structure that needs to be converted to Datum format
-
+- `*p`: A const pointer to a Jsonb structure that needs to be converted to Datum format
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PointerGetDatum](../P/PointerGetDatum.md)

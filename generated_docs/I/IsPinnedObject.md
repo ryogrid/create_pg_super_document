@@ -16,9 +16,8 @@ IsPinnedObject(Oid classId, Oid objectId)
 This function identifies system objects that are essential to PostgreSQL's operation and cannot be dropped by users. Instead of maintaining explicit dependency records in pg_depend (which proved to be expensive overhead), it uses an efficient OID range test combined with specific class-based exceptions. Objects with OIDs below FirstUnpinnedObjectId are generally considered pinned, representing initdb-created system objects. The function includes several policy-based exceptions, such as large objects (which can have user-assigned OIDs), the public namespace, and databases (including templates), which are deliberately not pinned to allow certain administrative operations.
 
 ## Parameters / Member Variables
-- : The OID of the system catalog (pg_class entry) that contains the object
-- : The OID of the specific object to check
-
+- `classId`: The OID of the system catalog (pg_class entry) that contains the object
+- `objectId`: The OID of the specific object to check
 ## Dependencies
 - Functions called/Symbols referenced:
   - FirstUnpinnedObjectId (constant defining the boundary between system and user objects)

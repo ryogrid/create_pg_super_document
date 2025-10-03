@@ -21,11 +21,10 @@ The function is straightforward in its operation: it creates an object lock tag 
 Like its locking counterpart, this function is designed for database-scoped objects and should not be used for shared objects or relations that have their own specialized unlocking mechanisms.
 
 ## Parameters / Member Variables
-- : The OID of the system catalog that contains the object (must match the classid used when acquiring the lock)
-- : The OID of the specific object within that catalog (must match the objid used when acquiring the lock)
-- : The sub-object identifier (must match the objsubid used when acquiring the lock)
-- : The LOCKMODE that was used when acquiring the lock (must match exactly)
-
+- `classid`: The OID of the system catalog that contains the object (must match the classid used when acquiring the lock)
+- `objid`: The OID of the specific object within that catalog (must match the objid used when acquiring the lock)
+- `objsubid`: The sub-object identifier (must match the objsubid used when acquiring the lock)
+- `lockmode`: The LOCKMODE that was used when acquiring the lock (must match exactly)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LOCKTAG](../L/LOCKTAG.md) (data structure for lock identification)

@@ -22,8 +22,7 @@ For each selected object, the function outputs a formatted line containing the d
 The function handles output redirection, allowing the summary to be written to a specified file rather than standard output. It also enforces strict name checking if requested, ensuring that all specified object names actually exist in the archive.
 
 ## Parameters / Member Variables
-- : Archive pointer representing the dump archive to summarize
-
+- `*AHX`: Archive pointer representing the dump archive to summarize
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SaveOutput](../S/SaveOutput.md)/RestoreOutput (output redirection management)

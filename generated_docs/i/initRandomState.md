@@ -18,8 +18,7 @@ The  function provides a standardized way to initialize PostgreSQL's pseudo-rand
 The function serves as a wrapper around PostgreSQL's PRNG seeding mechanism, providing a clean interface for pgbench components that need their own independent random number streams while ensuring all streams derive from a common, controllable source.
 
 ## Parameters / Member Variables
-- : Pointer to a  structure that will be initialized with a new random seed
-
+- `*state`: Pointer to a  structure that will be initialized with a new random seed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_prng_state](../p/pg_prng_state.md) (PostgreSQL PRNG state type)

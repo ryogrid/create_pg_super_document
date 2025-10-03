@@ -16,9 +16,8 @@ get_table_am_oid(const char *amname, bool missing_ok)
 get_table_am_oid is a specialized wrapper function that provides type-safe lookup of table access methods. It uses the internal get_am_type_oid function with the AMTYPE_TABLE constraint to ensure that only valid table access methods are returned. This function is essential for table creation and modification operations where the storage access method must be validated and resolved to its corresponding OID.
 
 ## Parameters / Member Variables
-- : Name of the table access method to look up
-- : If false, throws error when access method not found; if true, returns InvalidOid
-
+- `*amname`: Name of the table access method to look up
+- `missing_ok`: If false, throws error when access method not found; if true, returns InvalidOid
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_am_type_oid](get_am_type_oid.md): Internal worker function for access method lookup

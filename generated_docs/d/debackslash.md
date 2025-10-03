@@ -20,9 +20,8 @@ The function operates by scanning through the input token character by character
 The function is commonly used in conjunction with pg_strtok to process tokens that may contain escaped special characters, whitespace, or backslashes themselves. It ensures that the final string values used in Node structures contain the actual intended characters rather than their escaped representations.
 
 ## Parameters / Member Variables
-- : Pointer to the input token string containing potential backslash escape sequences
-- : The length of the input token (as returned by pg_strtok)
-
+- `*token`: Pointer to the input token string containing potential backslash escape sequences
+- `length`: The length of the input token (as returned by pg_strtok)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md) (for memory allocation)

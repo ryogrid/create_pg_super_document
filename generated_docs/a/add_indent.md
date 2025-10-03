@@ -16,10 +16,9 @@ add_indent(StringInfo out, bool indent, int level)
 The  function is a simple formatting utility used during JSON serialization to add proper indentation for pretty-printed output. When the  parameter is true, it adds a newline character followed by the appropriate number of spaces based on the specified indentation level. Each indentation level corresponds to 4 spaces. This function is crucial for generating human-readable JSON output with proper formatting.
 
 ## Parameters / Member Variables
-- : StringInfo buffer to append the indentation formatting to
-- : Boolean flag indicating whether indentation should be applied 
-- : Integer specifying the indentation depth (multiplied by 4 to get actual space count)
-
+- `out`: StringInfo buffer to append the indentation formatting to
+- `indent`: Boolean flag indicating whether indentation should be applied
+- `level`: Integer specifying the indentation depth (multiplied by 4 to get actual space count)
 ## Dependencies
 - Functions called/Symbols referenced:
   - appendStringInfoCharMacro

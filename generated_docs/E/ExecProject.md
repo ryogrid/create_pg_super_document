@@ -18,8 +18,7 @@ ExecProject is the core function for tuple projection in PostgreSQL's executor. 
 The projection process is highly optimized through PostgreSQL's expression compilation system, where multiple target list expressions are compiled into efficient step-based evaluation sequences. This allows the entire projection operation to be performed with minimal overhead, making it suitable for processing large numbers of tuples efficiently.
 
 ## Parameters / Member Variables
-- : ProjectionInfo containing the compiled projection expressions, expression context, and result slot
-
+- `*projInfo`: ProjectionInfo containing the compiled projection expressions, expression context, and result slot
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecClearTuple](ExecClearTuple.md) (to prepare the result slot)

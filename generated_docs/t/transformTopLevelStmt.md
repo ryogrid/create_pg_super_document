@@ -24,9 +24,8 @@ The main responsibilities include:
 The function is specifically designed to handle top-level statements, which have different rules compared to sub-statements (particularly regarding SELECT INTO operations).
 
 ## Parameters / Member Variables
-- : Parse state containing context and configuration for the transformation
-- : Raw statement structure containing the parsed SQL along with location information
-
+- `*pstate`: Parse state containing context and configuration for the transformation
+- `*parseTree`: Raw statement structure containing the parsed SQL along with location information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [transformOptionalSelectInto](transformOptionalSelectInto.md): Performs the actual statement transformation with SELECT INTO handling

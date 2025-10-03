@@ -18,6 +18,7 @@ The adjleap function performs post-processing of leap second data within Postgre
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [tadd](../t/tadd.md) (time addition with overflow handling)

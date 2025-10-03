@@ -19,11 +19,10 @@ The  function serves as an intermediary layer between PostgreSQL's logical repli
 The function sets up an error callback context that will provide detailed information if the plugin's change callback fails. It also manages the logical decoding context's output state, including setting the current transaction ID and LSN position for proper client synchronization.
 
 ## Parameters / Member Variables
-- : ReorderBuffer instance containing the logical decoding state and private plugin data
-- : ReorderBufferTXN representing the current transaction being processed
-- : Relation object representing the table being modified
-- : ReorderBufferChange containing the specific change details (INSERT, UPDATE, DELETE, etc.)
-
+- `*cache`: ReorderBuffer instance containing the logical decoding state and private plugin data
+- `*txn`: ReorderBufferTXN representing the current transaction being processed
+- `relation`: Relation object representing the table being modified
+- `*change`: ReorderBufferChange containing the specific change details (INSERT, UPDATE, DELETE, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReorderBuffer](../R/ReorderBuffer.md)

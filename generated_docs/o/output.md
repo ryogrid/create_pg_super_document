@@ -18,8 +18,7 @@ This function generates a comprehensive histogram report showing the distributio
 The histogram uses a logarithmic scale where each bin represents timing durations in powers of 2 microseconds (< 1μs, < 2μs, < 4μs, etc.). This approach provides meaningful insights into system clock granularity and timing behavior. The output includes localized headers and uses proper formatting to align columns for readability.
 
 ## Parameters / Member Variables
-- : Total number of timing measurements taken, used to calculate percentages
-
+- `loop_count`: Total number of timing measurements taken, used to calculate percentages
 ## Dependencies
 - Functions called/Symbols referenced:
   - strlen (string length calculation)

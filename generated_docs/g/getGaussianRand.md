@@ -21,11 +21,10 @@ The implementation uses PostgreSQL's  function to generate normally-distributed 
 The parameter controls the width of the distribution - larger parameter values allow more variation from the center of the range, while smaller values concentrate the results closer to the middle. The minimum allowed parameter value is 2.0 (defined by ), which provides reasonable performance characteristics for the rejection sampling loop.
 
 ## Parameters / Member Variables
-- : Pointer to the PRNG state structure providing the source of randomness
-- : Lower bound of the output range (inclusive)
-- : Upper bound of the output range (inclusive)  
-- : Gaussian distribution parameter (must be >= 2.0) controlling the distribution width
-
+- `*state`: Pointer to the PRNG state structure providing the source of randomness
+- `min`: Lower bound of the output range (inclusive)
+- `max`: Upper bound of the output range (inclusive)
+- `parameter`: Gaussian distribution parameter (must be >= 2.0) controlling the distribution width
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_prng_state](../p/pg_prng_state.md) (PostgreSQL PRNG state type)

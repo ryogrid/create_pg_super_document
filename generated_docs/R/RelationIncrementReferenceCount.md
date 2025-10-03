@@ -20,8 +20,7 @@ The function follows a two-step process:
 2. Increments the relation's reference count and registers it with the resource owner (except in bootstrap mode)
 
 ## Parameters / Member Variables
-- : Pointer to the Relation structure whose reference count should be incremented
-
+- `rel`: Pointer to the Relation structure whose reference count should be incremented
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ResourceOwnerEnlarge](ResourceOwnerEnlarge.md)

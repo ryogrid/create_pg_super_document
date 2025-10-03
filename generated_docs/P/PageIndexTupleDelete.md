@@ -27,9 +27,8 @@ The function performs extensive validation to ensure page integrity, checking pa
 This comprehensive approach ensures that index pages remain compact and efficient after deletions, unlike heap pages where deleted space may remain fragmented.
 
 ## Parameters / Member Variables
-- : A pointer to the index page from which to delete the tuple
-- : The offset number of the tuple to delete
-
+- `page`: A pointer to the index page from which to delete the tuple
+- `offnum`: The offset number of the tuple to delete
 ## Dependencies
 - Functions called/Symbols referenced:
   - PageHeader

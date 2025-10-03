@@ -25,7 +25,6 @@ When recomputation is needed, the function:
 The function ensures thread-safety by using appropriate memory contexts and maintains consistency between base and active search path state.
 
 ## Parameters / Member Variables
-This function takes no parameters and operates on global state variables.
 
 ## Dependencies
 - Functions called/Symbols referenced:

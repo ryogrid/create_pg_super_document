@@ -24,7 +24,6 @@ Key behaviors include:
 - **Localization support**: Uses translatable strings for user messages and fallback values
 
 ## Parameters / Member Variables
-None - the function operates on the global pset.db connection
 
 ## Dependencies
 - Functions called/Symbols referenced:

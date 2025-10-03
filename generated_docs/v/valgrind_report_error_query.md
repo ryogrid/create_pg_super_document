@@ -18,8 +18,7 @@ The  function is a diagnostic utility specifically designed for debugging memory
 The function uses Valgrind's built-in macros  to get the current error count and  to output diagnostic information. It only reports if there are new errors and a valid query string is provided.
 
 ## Parameters / Member Variables
-- : A C string containing the SQL query text that was being processed when potential memory errors occurred. If NULL, no report is generated even if errors are detected.
-
+- `*query`: A C string containing the SQL query text that was being processed when potential memory errors occurred. If NULL, no report is generated even if errors are detected.
 ## Dependencies
 - Functions called/Symbols referenced:
   - VALGRIND_COUNT_ERRORS (Valgrind macro)

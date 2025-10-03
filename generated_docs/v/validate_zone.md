@@ -27,8 +27,7 @@ The function returns false for any of the following conditions:
 This validation is crucial during timezone selection to ensure only working, reasonable timezones are chosen as defaults.
 
 ## Parameters / Member Variables
-- : Null-terminated string containing the timezone name to validate (e.g., "America/New_York", "UTC")
-
+- `*tzname`: Null-terminated string containing the timezone name to validate (e.g., "America/New_York", "UTC")
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_load_tz](../p/pg_load_tz.md): Load timezone definition from timezone database

@@ -18,8 +18,7 @@ This function serves as a wrapper for the anycompatiblerange pseudotype, which r
 The function is part of PostgreSQL's pseudotype system that enables polymorphic functions to work with multiple compatible types while ensuring type consistency within a single function call.
 
 ## Parameters / Member Variables
-- : Function call information structure containing the range value to be converted to string format
-
+- `PG_FUNCTION_ARGS`: Function call information structure containing the range value to be converted to string format
 ## Dependencies
 - Functions called/Symbols referenced:
   - [range_out](../r/range_out.md)

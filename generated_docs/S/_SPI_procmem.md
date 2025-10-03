@@ -20,6 +20,7 @@ The procedure memory context typically has a longer lifetime than the execution 
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md): Core PostgreSQL function that switches active memory context

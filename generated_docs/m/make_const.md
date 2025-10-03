@@ -32,9 +32,8 @@ The function handles several categories of constants:
 The function includes comprehensive error handling using parser error position callbacks to provide accurate error location information when type conversion functions fail.
 
 ## Parameters / Member Variables
-- : Parse state containing context information for error reporting and location tracking
-- : The A_Const node from the parser containing the raw constant value and metadata
-
+- `*pstate`: Parse state containing context information for error reporting and location tracking
+- `*aconst`: The A_Const node from the parser containing the raw constant value and metadata
 ## Dependencies
 - Functions called/Symbols referenced:
   - [A_Const](../A/A_Const.md) (input structure type)

@@ -24,9 +24,8 @@ The function performs several critical initialization steps:
 This function is essential for maintaining consistency between the prefetcher's internal state and the WAL reader's position, ensuring that prefetching operations align correctly with the replay process.
 
 ## Parameters / Member Variables
-- : Pointer to the XLogPrefetcher structure to initialize
-- : WAL position (LSN) from which to begin reading
-
+- `*prefetcher`: Pointer to the XLogPrefetcher structure to initialize
+- `recPtr`: WAL position (LSN) from which to begin reading
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Underlying WAL reader initialization function

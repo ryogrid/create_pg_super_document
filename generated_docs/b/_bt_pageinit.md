@@ -20,9 +20,8 @@ The special space size is set to sizeof(BTPageOpaqueData), which reserves room f
 The function is used throughout the B-tree implementation whenever a fresh page needs to be created, whether during index splits, new page allocation, or WAL replay operations.
 
 ## Parameters / Member Variables
-- : Pointer to the page memory to be initialized
-- : Size of the page (typically BLCKSZ - the standard PostgreSQL block size)
-
+- `page`: Pointer to the page memory to be initialized
+- `size`: Size of the page (typically BLCKSZ - the standard PostgreSQL block size)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PageInit](../P/PageInit.md)

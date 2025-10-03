@@ -26,14 +26,13 @@ PQescapeStringInternal performs the core string escaping functionality for libpq
 The function processes the input string character by character, using a fast path for plain ASCII characters and a slower validation path for potential multibyte characters. Invalid multibyte sequences are replaced with encoding-specific invalid markers to ensure the escaped string will trigger server-side errors rather than being silently misinterpreted.
 
 ## Parameters / Member Variables
-- : PostgreSQL connection handle, used for error reporting (can be NULL)
-- : Output buffer where the escaped string will be written (must be at least 2*length + 1 bytes)
-- : Input string to be escaped
-- : Maximum length of the source string to process
-- : Pointer to int that will be set to 1 if encoding errors occur (can be NULL)
-- : Character encoding identifier for multibyte character validation
-- : Boolean indicating whether standard SQL string literals are being used
-
+- `*conn`: PostgreSQL connection handle, used for error reporting (can be NULL)
+- `*to`: Output buffer where the escaped string will be written (must be at least 2*length + 1 bytes)
+- `*from`: Input string to be escaped
+- `length`: Maximum length of the source string to process
+- `*error`: Pointer to int that will be set to 1 if encoding errors occur (can be NULL)
+- `encoding`: Character encoding identifier for multibyte character validation
+- `std_strings`: Boolean indicating whether standard SQL string literals are being used
 ## Dependencies
 - Functions called/Symbols referenced:
   - [strnlen](../s/strnlen.md)

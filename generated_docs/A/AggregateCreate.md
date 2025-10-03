@@ -49,39 +49,38 @@ AggregateCreate is the central function for creating aggregate functions in Post
 The function validates polymorphic types, ensures proper function signatures match expected patterns, checks permissions on all referenced types and functions, and creates entries in both pg_proc and pg_aggregate system catalogs. It also establishes dependency relationships between the aggregate and all its component functions.
 
 ## Parameters / Member Variables
-- : Name of the aggregate function being created
-- : Namespace (schema) OID where the aggregate will be created
-- : Whether to replace an existing aggregate with the same signature
-- : Type of aggregate (normal, ordered-set, or hypothetical-set)
-- : Total number of aggregate arguments
-- : Number of direct arguments (for ordered-set aggregates)
-- : Vector of parameter type OIDs
-- : All parameter types including OUT parameters
-- : Parameter modes (IN, OUT, INOUT, VARIADIC)
-- : Parameter names
-- : Default values for parameters
-- : Type OID for variadic arguments, if any
-- : Name of the state transition function
-- : Name of the final function (optional)
-- : Name of the combine function for parallel aggregation (optional)
-- : Name of the serialization function (optional)
-- : Name of the deserialization function (optional)
-- : Name of the forward transition function for moving aggregates (optional)
-- : Name of the inverse transition function for moving aggregates (optional)
-- : Name of the final function for moving aggregates (optional)
-- : Whether final function receives extra arguments
-- : Whether moving-aggregate final function receives extra arguments
-- : Whether final function modifies transition state
-- : Whether moving-aggregate final function modifies transition state
-- : Name of the sort operator for ordered-set aggregates (optional)
-- : OID of the state transition data type
-- : Estimated average size of transition state
-- : OID of the moving-aggregate transition data type (optional)
-- : Estimated average size of moving-aggregate transition state
-- : Initial value for transition state (optional)
-- : Initial value for moving-aggregate transition state (optional)
-- : Parallel safety level of the aggregate
-
+- `*aggName`: Name of the aggregate function being created
+- `aggNamespace`: Namespace (schema) OID where the aggregate will be created
+- `replace`: Whether to replace an existing aggregate with the same signature
+- `aggKind`: Type of aggregate (normal, ordered-set, or hypothetical-set)
+- `numArgs`: Total number of aggregate arguments
+- `numDirectArgs`: Number of direct arguments (for ordered-set aggregates)
+- `*parameterTypes`: Vector of parameter type OIDs
+- `allParameterTypes`: All parameter types including OUT parameters
+- `parameterModes`: Parameter modes (IN, OUT, INOUT, VARIADIC)
+- `parameterNames`: Parameter names
+- `*parameterDefaults`: Default values for parameters
+- `variadicArgType`: Type OID for variadic arguments, if any
+- `*aggtransfnName`: Name of the state transition function
+- `*aggfinalfnName`: Name of the final function (optional)
+- `*aggcombinefnName`: Name of the combine function for parallel aggregation (optional)
+- `*aggserialfnName`: Name of the serialization function (optional)
+- `*aggdeserialfnName`: Name of the deserialization function (optional)
+- `*aggmtransfnName`: Name of the forward transition function for moving aggregates (optional)
+- `*aggminvtransfnName`: Name of the inverse transition function for moving aggregates (optional)
+- `*aggmfinalfnName`: Name of the final function for moving aggregates (optional)
+- `finalfnExtraArgs`: Whether final function receives extra arguments
+- `mfinalfnExtraArgs`: Whether moving-aggregate final function receives extra arguments
+- `finalfnModify`: Whether final function modifies transition state
+- `mfinalfnModify`: Whether moving-aggregate final function modifies transition state
+- `*aggsortopName`: Name of the sort operator for ordered-set aggregates (optional)
+- `aggTransType`: OID of the state transition data type
+- `aggTransSpace`: Estimated average size of transition state
+- `aggmTransType`: OID of the moving-aggregate transition data type (optional)
+- `aggmTransSpace`: Estimated average size of moving-aggregate transition state
+- `*agginitval`: Initial value for transition state (optional)
+- `*aggminitval`: Initial value for moving-aggregate transition state (optional)
+- `proparallel`: Parallel safety level of the aggregate
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lookup_agg_function](../l/lookup_agg_function.md): Validates and finds component functions

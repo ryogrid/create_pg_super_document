@@ -16,9 +16,8 @@ ParallelSlotsGetIdle(ParallelSlotArray *sa, const char *dbname)
 This function implements a four-tier strategy for obtaining an idle parallel slot. It first attempts to reuse an existing connection to the desired database, then tries to use an unconnected slot, followed by disconnecting and reconnecting a slot connected to a different database. As a last resort, it blocks until a busy slot becomes available. The function ensures optimal connection reuse while providing the flexibility to connect to different databases as needed. It includes comprehensive error handling and returns NULL if no slot can be obtained or if fatal errors occur.
 
 ## Parameters / Member Variables
-- : Pointer to the ParallelSlotArray containing the slots to manage
-- : Optional database name to connect to; can be NULL to use default database
-
+- `*sa`: Pointer to the ParallelSlotArray containing the slots to manage
+- `*dbname`: Optional database name to connect to; can be NULL to use default database
 ## Dependencies
 - Functions called/Symbols referenced:
   - [find_matching_idle_slot](../f/find_matching_idle_slot.md) (finds slot already connected to desired database)

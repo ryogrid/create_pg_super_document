@@ -18,9 +18,8 @@ The  function retrieves the current position within an open large object, simila
 The function first ensures that the large object function OIDs are properly initialized through , then makes a server function call using  to retrieve the current position.
 
 ## Parameters / Member Variables
-- : PostgreSQL database connection handle
-- : File descriptor of the open large object
-
+- `*conn`: PostgreSQL database connection handle
+- `fd`: File descriptor of the open large object
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lo_initialize](lo_initialize.md)

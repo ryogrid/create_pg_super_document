@@ -21,10 +21,9 @@ The function uses the system cache (OPFAMILYAMNAMENSP) to efficiently lookup exi
 This validation prevents naming conflicts and maintains the integrity of the operator family namespace organization within PostgreSQL's type system.
 
 ## Parameters / Member Variables
-- : The name of the operator family to check for existence
-- : The OID of the access method associated with the operator family
-- : The OID of the namespace (schema) where the existence check is performed
-
+- `*opfname`: The name of the operator family to check for existence
+- `opfmethod`: The OID of the access method associated with the operator family
+- `opfnamespace`: The OID of the namespace (schema) where the existence check is performed
 ## Dependencies
 - Functions called/Symbols referenced:
   - SearchSysCacheExists3 (system cache lookup function)

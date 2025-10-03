@@ -16,8 +16,7 @@ get_vacoptval_from_boolean(DefElem *def)
 This utility function serves as an adapter between the generic boolean value extraction mechanism (defGetBoolean) and the vacuum-specific option value system. It converts true/false boolean values into the corresponding VacOptValue enumeration constants (VACOPTVALUE_ENABLED/VACOPTVALUE_DISABLED), providing type safety and consistency in vacuum option handling throughout the codebase.
 
 ## Parameters / Member Variables
-- : Pointer to a DefElem structure containing the boolean definition element to be converted
-
+- `*def`: Pointer to a DefElem structure containing the boolean definition element to be converted
 ## Dependencies
 - Functions called/Symbols referenced:
   - [defGetBoolean](../d/defGetBoolean.md)

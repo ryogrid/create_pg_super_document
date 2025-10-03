@@ -18,10 +18,9 @@ The  function handles password-based authentication in PostgreSQL's libpq client
 For MD5 authentication, the function performs double MD5 hashing: first hashing the password with the username, then hashing the result with a salt provided by the server. This approach protects against replay attacks while avoiding transmission of plaintext passwords. The function manages memory allocation for the encrypted passwords and ensures proper cleanup.
 
 ## Parameters / Member Variables
-- : Pointer to the PGconn connection structure containing connection state and user information
-- : The plaintext password to authenticate with
-- : AuthRequest enum value specifying the authentication method (AUTH_REQ_PASSWORD or AUTH_REQ_MD5)
-
+- `*conn`: Pointer to the PGconn connection structure containing connection state and user information
+- `*password`: The plaintext password to authenticate with
+- `areq`: AuthRequest enum value specifying the authentication method (AUTH_REQ_PASSWORD or AUTH_REQ_MD5)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pqGetnchar](pqGetnchar.md)

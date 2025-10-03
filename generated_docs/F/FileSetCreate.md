@@ -20,9 +20,8 @@ If the initial file creation fails (typically because the directory doesn't exis
 The function uses PostgreSQL's temporary file management system, which provides automatic cleanup and proper integration with the backend's resource management. Files are distributed across tablespaces according to the fileset's configuration for load balancing and storage optimization.
 
 ## Parameters / Member Variables
-- : Pointer to the initialized FileSet structure that manages the file collection
-- : Name of the file to create within the fileset (used for path construction)
-
+- `*fileset`: Pointer to the initialized FileSet structure that manages the file collection
+- `*name`: Name of the file to create within the fileset (used for path construction)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [FilePath](FilePath.md): Constructs the complete file path for the given fileset and name

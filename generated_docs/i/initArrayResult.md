@@ -22,10 +22,9 @@ The function chooses different initial sizes based on the subcontext parameter:
 This function implements the newer scheme for array building where you always get a non-NULL pointer that can be passed to makeArrayResult, resulting in an empty array if no elements were added.
 
 ## Parameters / Member Variables
-- : OID of the array element type (must be a valid array element type)
-- : Memory context where working state should be kept
-- : Flag determining whether to use a separate memory context for this build state
-
+- `element_type`: OID of the array element type (must be a valid array element type)
+- `rcontext`: Memory context where working state should be kept
+- `subcontext`: Flag determining whether to use a separate memory context for this build state
 ## Dependencies
 - Functions called/Symbols referenced:
   - [initArrayResultWithSize](initArrayResultWithSize.md) (performs the actual initialization with specified size)

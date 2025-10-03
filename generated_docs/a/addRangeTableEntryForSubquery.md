@@ -32,12 +32,11 @@ Key behavior:
 - Extracts column metadata from the subquery's target list, skipping junk columns
 
 ## Parameters / Member Variables
-- : Parser state containing the range table and other parsing context
-- : The Query node representing the subquery to be added as an RTE
-- : Optional alias with column names; if NULL, auto-generates names from subquery
-- : Boolean indicating whether this is a LATERAL subquery with access to preceding FROM items
-- : Boolean indicating whether this entry originates from a FROM clause
-
+- `*pstate`: Parser state containing the range table and other parsing context
+- `*subquery`: The Query node representing the subquery to be added as an RTE
+- `*alias`: Optional alias with column names; if NULL, auto-generates names from subquery
+- `lateral`: Boolean indicating whether this is a LATERAL subquery with access to preceding FROM items
+- `inFromCl`: Boolean indicating whether this entry originates from a FROM clause
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (for RTE creation)

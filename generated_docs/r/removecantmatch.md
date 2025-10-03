@@ -20,8 +20,7 @@ Once parsing is complete and the NFA structure is finalized, these arcs become u
 This cleanup step is essential for optimizing the final NFA before it is used for actual pattern matching operations. Removing these arcs reduces the complexity of subsequent regex operations and eliminates dead paths that could never contribute to successful matches.
 
 ## Parameters / Member Variables
-- : Pointer to the NFA structure from which CANTMATCH arcs should be removed
-
+- `*nfa`: Pointer to the NFA structure from which CANTMATCH arcs should be removed
 ## Dependencies
 - Functions called/Symbols referenced:
   - CANTMATCH (arc type constant for impossible matches)

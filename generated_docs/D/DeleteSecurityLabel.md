@@ -23,8 +23,7 @@ The function performs the following operations:
 5. Properly handles cleanup and lock management
 
 ## Parameters / Member Variables
-- : Pointer to ObjectAddress structure identifying the target database object (contains classId, objectId, and objectSubId)
-
+- `*object`: Pointer to ObjectAddress structure identifying the target database object (contains classId, objectId, and objectSubId)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [IsSharedRelation](../I/IsSharedRelation.md)

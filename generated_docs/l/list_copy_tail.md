@@ -20,9 +20,8 @@ The function includes robust error handling: negative nskip values are treated a
 The implementation uses pointer arithmetic to start copying from the correct offset in the source list's elements array, making it efficient for extracting tail portions of lists.
 
 ## Parameters / Member Variables
-- : The source List from which to copy the tail elements. Can be NIL.
-- : The number of elements to skip from the beginning. If negative, treated as 0. If greater than or equal to list length, results in NIL return.
-
+- `*oldlist`: The source List from which to copy the tail elements. Can be NIL.
+- `nskip`: The number of elements to skip from the beginning. If negative, treated as 0. If greater than or equal to list length, results in NIL return.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [new_list](../n/new_list.md)

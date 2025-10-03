@@ -23,11 +23,10 @@ Key behaviors:
 - Does not wait for command completion or process results
 
 ## Parameters / Member Variables
-- : Active PostgreSQL database connection (PGconn pointer)
-- : Complete SQL command string to execute (must be properly formatted)
-- : Boolean flag to enable command echoing to stdout
-- : Table name for error reporting context (NULL for database-wide operations)
-
+- `*conn`: Active PostgreSQL database connection (PGconn pointer)
+- `*sql`: Complete SQL command string to execute (must be properly formatted)
+- `echo`: Boolean flag to enable command echoing to stdout
+- `*table`: Table name for error reporting context (NULL for database-wide operations)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQsendQuery](../P/PQsendQuery.md) (libpq function for asynchronous query execution)

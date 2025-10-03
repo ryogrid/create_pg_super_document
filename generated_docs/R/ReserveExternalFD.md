@@ -20,7 +20,6 @@ The function is designed for critical code paths where failure to reserve an FD 
 The function works by first calling ReleaseLruFiles() to free up VFDs if needed, then incrementing the numExternalFDs counter to track the reserved descriptor.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

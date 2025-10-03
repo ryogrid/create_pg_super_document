@@ -20,8 +20,7 @@ The function intelligently delegates to either MultiExecPrivateHash (for single-
 The function intentionally returns NULL rather than the hash table directly, as hash tables are not Node subtypes and would violate the MultiExecProcNode API. The parent HashJoin node is expected to access the hash table directly from the HashState structure.
 
 ## Parameters / Member Variables
-- : HashState pointer containing execution state and configuration for the Hash node
-
+- `*node`: HashState pointer containing execution state and configuration for the Hash node
 ## Dependencies
 - Functions called/Symbols referenced:
   - [HashState](../H/HashState.md) (parameter type)

@@ -18,10 +18,9 @@ The  function implements a specialized string comparison algorithm that compares
 The function starts from the last character of both strings and moves backwards, comparing character by character. If the strings differ in length after comparing  characters, the shorter string is considered "less than" the longer one.
 
 ## Parameters / Member Variables
-- : First string to compare (unsigned char pointer)
-- : Second string to compare (unsigned char pointer) 
-- : Maximum number of characters to compare from the end
-
+- `*s1`: First string to compare (unsigned char pointer)
+- `*s2`: Second string to compare (unsigned char pointer)
+- `count`: Maximum number of characters to compare from the end
 ## Dependencies
 - Functions called/Symbols referenced:
   - strlen (standard C library function)

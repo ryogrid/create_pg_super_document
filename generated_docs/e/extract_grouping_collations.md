@@ -18,9 +18,8 @@ This utility function processes a list of SortGroupClause structures alongside a
 This function is essential for query planning as it provides the collation information needed for proper comparison and sorting of grouped data. The collation determines how text data should be compared and ordered, which is crucial for correct grouping behavior in multi-lingual or case-sensitive scenarios.
 
 ## Parameters / Member Variables
-- : A List of SortGroupClause structures representing the grouping columns
-- : A List of TargetEntry structures containing the target expressions to extract collations from
-
+- `*groupClause`: A List of SortGroupClause structures representing the grouping columns
+- `*tlist`: A List of TargetEntry structures containing the target expressions to extract collations from
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_length](../l/list_length.md) (to determine array size)

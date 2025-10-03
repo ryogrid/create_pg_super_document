@@ -25,12 +25,11 @@ The  function implements division at the variable level for PostgreSQL's NUMERIC
 The algorithm estimates quotient digits using the first two dividend digits, adjusts for accuracy, then performs subtract-and-shift operations similar to manual long division.
 
 ## Parameters / Member Variables
-- : Dividend NumericVar (input)
-- : Divisor NumericVar (input)
-- : NumericVar to store the division result (output)
-- : Target fractional digits in the result
-- : If true, round at rscale digits; if false, truncate
-
+- `*var1`: Dividend NumericVar (input)
+- `*var2`: Divisor NumericVar (input)
+- `*result`: NumericVar to store the division result (output)
+- `rscale`: Target fractional digits in the result
+- `round`: If true, round at rscale digits; if false, truncate
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport/ERROR (for division by zero)

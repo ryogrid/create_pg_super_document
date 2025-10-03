@@ -19,12 +19,11 @@ This function modifies an existing entry in the pg_subscription_rel catalog to u
 The function performs validation to ensure the subscription-relation mapping exists before attempting the update. It uses heap_modify_tuple to update only the state and LSN fields while preserving other tuple data, then commits the changes using the catalog update mechanism.
 
 ## Parameters / Member Variables
-- : The OID of the subscription containing the relation to update
-- : The OID of the relation (table) whose state should be updated
-- : New character representing the replication state
-- : New XLogRecPtr indicating the LSN position for replication tracking
-- : Boolean flag indicating whether necessary locks are already held by the caller
-
+- `subid`: The OID of the subscription containing the relation to update
+- `relid`: The OID of the relation (table) whose state should be updated
+- `state`: New character representing the replication state
+- `sublsn`: New XLogRecPtr indicating the LSN position for replication tracking
+- `already_locked`: Boolean flag indicating whether necessary locks are already held by the caller
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LOCKTAG](../L/LOCKTAG.md)

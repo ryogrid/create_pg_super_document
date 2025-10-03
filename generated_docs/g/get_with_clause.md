@@ -25,9 +25,8 @@ The function processes each CTE in the query's cteList, formatting them with pro
 For recursive CTEs, it uses "WITH RECURSIVE" instead of just "WITH". The function handles proper indentation and formatting according to the pretty-printing flags, and calls  recursively to format the nested query definitions within each CTE.
 
 ## Parameters / Member Variables
-- : Query object containing the CTE list and recursion flag
-- : Deparse context containing output buffer and formatting parameters
-
+- `*query`: Query object containing the CTE list and recursion flag
+- `*context`: Deparse context containing output buffer and formatting parameters
 ## Dependencies
 - Functions called/Symbols referenced:
   - [quote_identifier](../q/quote_identifier.md)

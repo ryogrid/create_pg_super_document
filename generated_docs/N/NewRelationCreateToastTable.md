@@ -18,9 +18,8 @@ This function provides a simplified interface for creating TOAST tables for new 
 The function is designed for scenarios where a new relation has been created and needs TOAST table setup with standard parameters. It delegates to CheckAndCreateToastTable with predefined values for common use cases, simplifying the interface for callers who don't need to specify custom locking or reference old TOAST tables.
 
 ## Parameters / Member Variables
-- : The OID of the newly created relation for which to create a TOAST table
-- : Datum containing reloptions for the TOAST table, or (Datum) 0 for default options
-
+- `relOid`: The OID of the newly created relation for which to create a TOAST table
+- `reloptions`: Datum containing reloptions for the TOAST table, or (Datum) 0 for default options
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CheckAndCreateToastTable](../C/CheckAndCreateToastTable.md)

@@ -20,8 +20,7 @@ The function requires the caller to hold SerializablePredicateListLock and expec
 The function can optionally manage the partition lock itself, or work with an already-held partition lock for efficiency in scenarios where multiple operations need to be performed under the same lock.
 
 ## Parameters / Member Variables
-- : A boolean indicating whether the caller already holds the partition lock for the scratch entry's partition
-
+- `lockheld`: A boolean indicating whether the caller already holds the partition lock for the scratch entry's partition
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockHeldByMe](../L/LWLockHeldByMe.md) (assertion check)

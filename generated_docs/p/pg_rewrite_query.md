@@ -27,8 +27,7 @@ The function includes extensive debugging support with optional checks for:
 Performance statistics can be collected when  is enabled.
 
 ## Parameters / Member Variables
-- : Query structure from parse analysis that needs to be rewritten
-
+- `*query`: Query structure from parse analysis that needs to be rewritten
 ## Dependencies
 - Functions called/Symbols referenced:
   - [QueryRewrite](../Q/QueryRewrite.md)

@@ -20,8 +20,7 @@ The primary motivation for this sorting approach is to ensure that newer databas
 The function includes an optimization to only perform sorting when there are multiple references (numrefs > 1), avoiding unnecessary work for single-element arrays.
 
 ## Parameters / Member Variables
-- : Pointer to the ObjectAddresses array to be sorted in-place
-
+- `*addrs`: Pointer to the ObjectAddresses array to be sorted in-place
 ## Dependencies
 - Functions called/Symbols referenced:
   - qsort (standard library function)

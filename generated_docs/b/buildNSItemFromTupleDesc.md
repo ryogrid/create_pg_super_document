@@ -18,11 +18,10 @@ buildNSItemFromTupleDesc(RangeTblEntry *rte, Index rtindex,
 This function constructs a ParseNamespaceItem that encapsulates a relation's column information for use during query parsing. It extracts column metadata from the physical tuple descriptor and builds an array of ParseNamespaceColumn structures containing type information, attribute numbers, and collation details. The function handles dropped columns by leaving their entries as zeroes while maintaining proper indexing alignment. The resulting namespace item includes visibility flags and lateral reference settings with default values.
 
 ## Parameters / Member Variables
-- : The RangeTblEntry for the relation being processed
-- : The index position of this RTE in the range table list
-- : Permission information entry for the relation
-- : The tuple descriptor containing physical column information
-
+- `*rte`: The RangeTblEntry for the relation being processed
+- `rtindex`: The index position of this RTE in the range table list
+- `*perminfo`: Permission information entry for the relation
+- `tupdesc`: The tuple descriptor containing physical column information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_length](../l/list_length.md) (list operations)

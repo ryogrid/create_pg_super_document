@@ -19,13 +19,12 @@ This function is the primary entry point for constructing operator expressions d
 The function distinguishes between prefix operators (when ltree is NULL) and binary operators, calling the appropriate resolution functions (left_oper or oper). It validates that the operator is not a shell operator and performs polymorphic type resolution to ensure type consistency. The function also handles set-returning function validation and placement checking.
 
 ## Parameters / Member Variables
-- : ParseState for context and error reporting
-- : List containing the operator name components
-- : Left operand expression node (NULL for prefix operators)
-- : Right operand expression node (required)
-- : Copy of pstate->p_last_srf for nested set-returning function detection
-- : Source location for error reporting
-
+- `*pstate`: ParseState for context and error reporting
+- `*opname`: List containing the operator name components
+- `*ltree`: Left operand expression node (NULL for prefix operators)
+- `*rtree`: Right operand expression node (required)
+- `*last_srf`: Copy of pstate->p_last_srf for nested set-returning function detection
+- `location`: Source location for error reporting
 ## Dependencies
 - Functions called/Symbols referenced:
   - [exprType](../e/exprType.md)

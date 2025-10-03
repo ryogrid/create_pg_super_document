@@ -16,8 +16,7 @@ initGenerateDataClientSide(PGconn *con)
 This function implements the client-side data generation strategy for pgbench database initialization. It generates test data on the client side and sends it to the PostgreSQL server using the COPY protocol for efficient bulk loading. The function ensures data consistency by wrapping all operations in a single transaction and populates tables in the correct order to respect potential foreign key constraints. It handles the complete initialization workflow: truncating existing data, generating data for branches, tellers, and accounts tables in proper sequence.
 
 ## Parameters / Member Variables
-- : Active PostgreSQL database connection handle used for all database operations
-
+- `*con`: Active PostgreSQL database connection handle used for all database operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [executeStatement](../e/executeStatement.md): Executes BEGIN and COMMIT transaction statements

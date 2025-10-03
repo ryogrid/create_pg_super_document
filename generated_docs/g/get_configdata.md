@@ -20,9 +20,8 @@ The function computes most directory paths dynamically based on the provided exe
 Build-time compiler and linker information is retrieved from preprocessor macros (VAL_CC, VAL_CFLAGS, etc.) if available, or marked as "not recorded" if the information was not captured during compilation.
 
 ## Parameters / Member Variables
-- : The path to the current PostgreSQL executable, used as a reference point for computing other installation paths
-- : Output parameter that receives the number of ConfigData items in the returned array (always set to 23)
-
+- `*my_exec_path`: The path to the current PostgreSQL executable, used as a reference point for computing other installation paths
+- `*configdata_len`: Output parameter that receives the number of ConfigData items in the returned array (always set to 23)
 ## Dependencies
 - Functions called/Symbols referenced:
   - palloc_array

@@ -18,8 +18,7 @@ ExecTableFuncScan implements the execution interface for table function scan nod
 The function serves as the bridge between the plan execution engine and the table function-specific tuple access methods, ensuring consistent behavior with other scan node types in the executor.
 
 ## Parameters / Member Variables
-- : PlanState pointer that is cast to TableFuncScanState, containing the execution state for the table function scan
-
+- `*pstate`: PlanState pointer that is cast to TableFuncScanState, containing the execution state for the table function scan
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TableFuncScanState](../T/TableFuncScanState.md) (struct type)

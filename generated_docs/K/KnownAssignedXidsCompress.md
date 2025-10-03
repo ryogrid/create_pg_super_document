@@ -20,9 +20,8 @@ The function employs sophisticated heuristics to determine when compression shou
 The compression process operates by iterating through the valid range of the array (tail to head), copying only valid entries to a compressed representation starting at index 0, then updating the array's head and tail pointers to reflect the new compact layout.
 
 ## Parameters / Member Variables
-- : KAXCompressReason value indicating why compression is being considered (affects heuristic decisions)
-- : Boolean indicating whether caller already holds ProcArrayLock in exclusive mode
-
+- `reason`: KAXCompressReason value indicating why compression is being considered (affects heuristic decisions)
+- `haveLock`: Boolean indicating whether caller already holds ProcArrayLock in exclusive mode
 ## Dependencies
 - Functions called/Symbols referenced:
   - [KAXCompressReason](KAXCompressReason.md) (enum type for compression reasons)

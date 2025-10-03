@@ -18,8 +18,7 @@ This function is specifically designed for 2-phase commit (2PC) transactions. Af
 The function clears the XID, virtual XID, xmin, and subtransaction information from the PGPROC, and increments the transaction completion count to ensure proper snapshot behavior. This prevents snapshot reuse issues that could occur if the prepared transaction wasn't properly accounted for.
 
 ## Parameters / Member Variables
-- : Pointer to the PGPROC structure whose transaction fields need to be cleared
-
+- `*proc`: Pointer to the PGPROC structure whose transaction fields need to be cleared
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockAcquire](../L/LWLockAcquire.md)

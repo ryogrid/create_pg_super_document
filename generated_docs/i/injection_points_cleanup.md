@@ -16,9 +16,8 @@ injection_points_cleanup(int code, Datum arg)
 This function serves as a  callback that performs cleanup of injection points that are locally attached to the current process. It iterates through the list of locally attached injection points and detaches each one using . This ensures that injection points are properly cleaned up when a process exits, preventing resource leaks and ensuring proper state management in the injection points testing framework.
 
 ## Parameters / Member Variables
-- : Exit code passed by the callback mechanism (not used in implementation)
-- : Datum argument passed by the callback mechanism (not used in implementation)
-
+- `code`: Exit code passed by the callback mechanism (not used in implementation)
+- `arg`: Datum argument passed by the callback mechanism (not used in implementation)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (function to detach an injection point by name)

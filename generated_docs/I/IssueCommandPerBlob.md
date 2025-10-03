@@ -19,11 +19,10 @@ This function processes a TocEntry containing large object OIDs (one per line) a
 The function parses the TocEntry's definition string line by line, treating each line as a large object OID, and constructs SQL commands using the format: . This pattern is commonly used for operations like granting/revoking permissions on large objects or performing other bulk operations.
 
 ## Parameters / Member Variables
-- : Archive handle containing database connection and restore options
-- : TocEntry containing the definition string with large object OIDs (one per line)
-- : SQL command prefix to prepend to each OID
-- : SQL command suffix to append to each OID
-
+- `*AH`: Archive handle containing database connection and restore options
+- `*te`: TocEntry containing the definition string with large object OIDs (one per line)
+- `*cmdBegin`: SQL command prefix to prepend to each OID
+- `*cmdEnd`: SQL command suffix to append to each OID
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_strdup](../p/pg_strdup.md)

@@ -24,8 +24,7 @@ ExecFunctionScan serves as the primary execution interface for function scan ope
 This design follows PostgreSQL's consistent pattern across all scan node types, providing a uniform interface while allowing each scan type to customize its specific data access behavior.
 
 ## Parameters / Member Variables
-- : Generic PlanState pointer that must be a FunctionScanState, containing the execution state for the function scan node
-
+- `*pstate`: Generic PlanState pointer that must be a FunctionScanState, containing the execution state for the function scan node
 ## Dependencies
 - Functions called/Symbols referenced:
   - castNode (for type-safe conversion)

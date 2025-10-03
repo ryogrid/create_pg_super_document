@@ -18,9 +18,8 @@ This function manages the assignment of unique reference numbers (ressortgroupre
 The function uses a simple strategy to ensure uniqueness: it scans the entire target list to find the maximum existing reference number and assigns the next available number (max + 1) to the target entry. If the target entry already has a reference number, it returns the existing one without modification.
 
 ## Parameters / Member Variables
-- : Target entry that needs a ressortgroupref assignment
-- : Target list containing the target entry and other entries to check for existing reference numbers
-
+- `*tle`: Target entry that needs a ressortgroupref assignment
+- `*tlist`: Target list containing the target entry and other entries to check for existing reference numbers
 ## Dependencies
 - Functions called/Symbols referenced:
   - No external function calls (uses only basic list operations)

@@ -18,9 +18,8 @@ The  function is responsible for dumping text search parser objects during a pg_
 The function skips execution during data-only dumps and constructs both creation and drop statements for the parser. It also handles binary upgrade scenarios and dumps associated comments if requested.
 
 ## Parameters / Member Variables
-- : Archive structure containing dump configuration and output methods
-- : TSParserInfo structure containing all parser metadata including function OIDs and parser properties
-
+- `*fout`: Archive structure containing dump configuration and output methods
+- `*prsinfo`: TSParserInfo structure containing all parser metadata including function OIDs and parser properties
 ## Dependencies
 - Functions called/Symbols referenced:
   - [createPQExpBuffer](../c/createPQExpBuffer.md)

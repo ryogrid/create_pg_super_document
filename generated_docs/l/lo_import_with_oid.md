@@ -18,10 +18,9 @@ The  function imports a file from the client's filesystem into a PostgreSQL larg
 The internal implementation attempts to create a large object with the requested OID using . If the specified OID is already in use, the function will fail and return . Once the large object is successfully created, the function copies the entire contents of the specified file into it using the same chunked reading approach as .
 
 ## Parameters / Member Variables
-- : PostgreSQL database connection handle  
-- : Path to the file on the client filesystem to import
-- : Desired OID for the new large object
-
+- `*conn`: PostgreSQL database connection handle
+- `*filename`: Path to the file on the client filesystem to import
+- `lobjId`: Desired OID for the new large object
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lo_import_internal](lo_import_internal.md)

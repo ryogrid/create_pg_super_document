@@ -16,10 +16,9 @@ SendProcSignal(pid_t pid, ProcSignalReason reason, ProcNumber procNumber)
 SendProcSignal is the primary function for sending inter-process signals within PostgreSQL. It works by first setting a signal flag in the target process's shared memory slot, then sending a SIGUSR1 signal to wake up the target process. The function supports two modes of operation: if a valid procNumber is provided, it directly accesses the corresponding slot; otherwise, it searches through all slots to find the one matching the given PID. The search is performed backward to optimize for auxiliary processes that typically occupy slots near the end of the array. The function includes race condition handling and returns appropriate error codes.
 
 ## Parameters / Member Variables
-- : Process ID of the target process to signal
-- : The reason/type of signal being sent (from ProcSignalReason enum)
-- : Optional process number for direct slot access (use INVALID_PROC_NUMBER to trigger PID search)
-
+- `pid`: Process ID of the target process to signal
+- `reason`: The reason/type of signal being sent (from ProcSignalReason enum)
+- `procNumber`: Optional process number for direct slot access (use INVALID_PROC_NUMBER to trigger PID search)
 ## Dependencies
 - Functions called/Symbols referenced:
   - kill

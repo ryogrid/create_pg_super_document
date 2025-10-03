@@ -18,9 +18,8 @@ The  function is part of PostgreSQL's node output system, specifically designed 
 The function first retrieves the appropriate method structure for the specific extensible node type using . It then writes the standard node type identifier "EXTENSIBLENODE" and the extension name to the output string. Finally, it delegates the serialization of private/custom fields to the extension-specific  callback method, allowing each extension to control how its private data is serialized.
 
 ## Parameters / Member Variables
-- : StringInfo buffer where the serialized node representation will be written
-- : Pointer to the ExtensibleNode structure to be serialized
-
+- `str`: StringInfo buffer where the serialized node representation will be written
+- `*node`: Pointer to the ExtensibleNode structure to be serialized
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetExtensibleNodeMethods](../G/GetExtensibleNodeMethods.md)

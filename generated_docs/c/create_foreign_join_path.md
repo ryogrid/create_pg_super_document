@@ -23,18 +23,17 @@ create_foreign_join_path(PlannerInfo *root, RelOptInfo *rel,
 This function creates a ForeignPath node representing a foreign join operation. It is designed to be called exclusively by foreign data wrappers' GetForeignJoinPaths functions, not by core PostgreSQL code. The FDW must supply all cost estimates and path properties since the core system cannot calculate them for foreign operations. The function currently does not support parameterized foreign joins and will throw an error if such paths are attempted.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planner state and context
-- : RelOptInfo representing the join relation being planned
-- : PathTarget specifying the columns to be returned (NULL defaults to rel->reltarget)
-- : Estimated number of rows the foreign join will return
-- : Estimated cost to begin returning tuples
-- : Estimated total cost to return all tuples
-- : List of SortGroupClause structures representing the sort order
-- : Relids of relations required as parameters (currently must be empty)
-- : FDW-specific outer path information
-- : List of restriction clauses that can be executed remotely
-- : FDW-private information for execution
-
+- `*root`: PlannerInfo structure containing planner state and context
+- `*rel`: RelOptInfo representing the join relation being planned
+- `*target`: PathTarget specifying the columns to be returned (NULL defaults to rel->reltarget)
+- `rows`: Estimated number of rows the foreign join will return
+- `startup_cost`: Estimated cost to begin returning tuples
+- `total_cost`: Estimated total cost to return all tuples
+- `*pathkeys`: List of SortGroupClause structures representing the sort order
+- `required_outer`: Relids of relations required as parameters (currently must be empty)
+- `*fdw_outerpath`: FDW-specific outer path information
+- `*fdw_restrictinfo`: List of restriction clauses that can be executed remotely
+- `*fdw_private`: FDW-private information for execution
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to create ForeignPath)

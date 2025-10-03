@@ -16,8 +16,7 @@ scram_channel_bound(void *opaq)
 This function verifies that a SCRAM authentication exchange not only completed successfully but also used channel binding for enhanced security. Channel binding provides additional protection against man-in-the-middle attacks by cryptographically binding the authentication to the underlying secure transport layer (typically TLS). The function performs several validation checks: ensuring the exchange state exists, confirming the exchange completed (FE_SCRAM_FINISHED state), and verifying that the SCRAM-SHA-256-PLUS mechanism (which includes channel binding) was actually used rather than the regular SCRAM-SHA-256 variant.
 
 ## Parameters / Member Variables
-- : Opaque pointer to the fe_scram_state structure containing the client-side SCRAM authentication state
-
+- `*opaq`: Opaque pointer to the fe_scram_state structure containing the client-side SCRAM authentication state
 ## Dependencies
 - Functions called/Symbols referenced:
   - fe_scram_state (structure)

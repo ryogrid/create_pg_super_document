@@ -19,11 +19,10 @@ This function iterates through a list of SubPlanState nodes and explains each un
 The function is designed to handle cases where the same physical subplan might be referenced from different locations in the execution tree, such as both in a bitmap index scan's index qualification and its parent heap scan's recheck qualification.
 
 ## Parameters / Member Variables
-- : List of SubPlanState nodes to be explained
-- : List of ancestor nodes in the execution tree (should already contain the immediate parent)
-- : String describing the relationship between the subplans and their parent node
-- : ExplainState structure containing formatting options and tracking information
-
+- `*plans`: List of SubPlanState nodes to be explained
+- `*ancestors`: List of ancestor nodes in the execution tree (should already contain the immediate parent)
+- `*relationship`: String describing the relationship between the subplans and their parent node
+- `*es`: ExplainState structure containing formatting options and tracking information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bms_is_member](../b/bms_is_member.md) (checks if subplan already printed)

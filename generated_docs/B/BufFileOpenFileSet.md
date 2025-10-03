@@ -19,11 +19,10 @@ BufFileOpenFileSet opens a multi-segment BufFile that was previously created by 
 The function starts with an initial capacity for file handles and expands it as needed while discovering segments. It attempts to open each segment in sequence (segment 0, 1, 2, ...) until it encounters a missing segment, which indicates the end of the file set. The creating backend must have properly closed or exported the BufFile before it can be opened by other backends.
 
 ## Parameters / Member Variables
-- : Pointer to the FileSet containing the BufFile
-- : String identifier of the BufFile to open (same as used in BufFileCreateFileSet)
-- : File access mode (O_RDONLY for read-only, or read-write modes)
-- : If true, returns NULL when BufFile is not found; if false, throws an error
-
+- `*fileset`: Pointer to the FileSet containing the BufFile
+- `*name`: String identifier of the BufFile to open (same as used in BufFileCreateFileSet)
+- `mode`: File access mode (O_RDONLY for read-only, or read-write modes)
+- `missing_ok`: If true, returns NULL when BufFile is not found; if false, throws an error
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md): Allocates initial memory for file handle array

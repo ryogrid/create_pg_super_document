@@ -24,8 +24,7 @@ The function implements several safety mechanisms:
 The caller must guarantee that  will eventually be called to prevent permanent resource leaks, typically using .
 
 ## Parameters / Member Variables
-- : The B-tree index relation for which VACUUM is starting
-
+- `rel`: The B-tree index relation for which VACUUM is starting
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockAcquire](../L/LWLockAcquire.md) (with BtreeVacuumLock)

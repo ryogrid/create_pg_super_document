@@ -25,8 +25,7 @@ The dump includes:
 The function constructs the output using PostgreSQL's StringInfo buffer mechanism and returns a dynamically allocated string that the caller must free.
 
 ## Parameters / Member Variables
-- : Pointer to the FreePageManager structure to dump
-
+- `*fpm`: Pointer to the FreePageManager structure to dump
 ## Dependencies
 - Functions called/Symbols referenced:
   - fpm_segment_base

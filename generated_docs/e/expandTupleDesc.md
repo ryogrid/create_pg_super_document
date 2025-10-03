@@ -28,17 +28,16 @@ Key functionality includes:
 The function is particularly important for handling composite-returning functions in RTE_FUNCTION contexts, where the offset and count parameters allow processing of individual function outputs within a larger function list.
 
 ## Parameters / Member Variables
-- : Tuple descriptor containing attribute metadata to process
-- : Alias information containing alternative column names, may have fewer entries than attributes
-- : Number of attributes to process from the tuple descriptor (must be ≤ tupdesc->natts)
-- : Starting position for attribute numbering in Var nodes and alias matching
-- : Range table index for created Var nodes, identifying the relation in query context
-- : Nesting level indicator for Var nodes in subquery contexts
-- : Source location information for error reporting and debugging
-- : Boolean flag controlling whether dropped columns are included (as empty strings/NULL) or omitted
-- : Output parameter for list of column name strings (pass NULL if not needed)
-- : Output parameter for list of Var nodes representing columns (pass NULL if not needed)
-
+- `tupdesc`: Tuple descriptor containing attribute metadata to process
+- `*eref`: Alias information containing alternative column names, may have fewer entries than attributes
+- `count`: Number of attributes to process from the tuple descriptor (must be ≤ tupdesc->natts)
+- `offset`: Starting position for attribute numbering in Var nodes and alias matching
+- `rtindex`: Range table index for created Var nodes, identifying the relation in query context
+- `sublevels_up`: Nesting level indicator for Var nodes in subquery contexts
+- `location`: Source location information for error reporting and debugging
+- `include_dropped`: Boolean flag controlling whether dropped columns are included (as empty strings/NULL) or omitted
+- `**colnames`: Output parameter for list of column name strings (pass NULL if not needed)
+- `**colvars`: Output parameter for list of Var nodes representing columns (pass NULL if not needed)
 ## Dependencies
 - Functions called/Symbols referenced:
   - TupleDescAttr (macro for accessing attribute information)

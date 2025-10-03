@@ -23,13 +23,12 @@ The  function implements the server-side ALPN callback for PostgreSQL's SSL/TLS 
 The function uses OpenSSL's  helper function to find a mutually supported protocol from the client's offered protocols and the server's  list. If negotiation succeeds, the connection proceeds with the selected protocol. If no common protocol is found, the connection is rejected with a fatal TLS alert.
 
 ## Parameters / Member Variables
-- : Pointer to the SSL connection structure for the current handshake
-- : Output parameter that will point to the selected protocol identifier
-- : Output parameter that will contain the length of the selected protocol identifier
-- : Input buffer containing the client's list of supported protocols
-- : Length of the client's protocol list buffer
-- : User-defined data pointer (currently unused but validated)
-
+- `*ssl`: Pointer to the SSL connection structure for the current handshake
+- `**out`: Output parameter that will point to the selected protocol identifier
+- `*outlen`: Output parameter that will contain the length of the selected protocol identifier
+- `*in`: Input buffer containing the client's list of supported protocols
+- `inlen`: Length of the client's protocol list buffer
+- `*userdata`: User-defined data pointer (currently unused but validated)
 ## Dependencies
 - Functions called/Symbols referenced:
   - SSL_select_next_proto (OpenSSL ALPN helper function)

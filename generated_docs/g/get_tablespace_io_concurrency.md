@@ -20,8 +20,7 @@ The function retrieves the cached tablespace entry and examines its effective_io
 Like other tablespace parameter functions, this is not transaction-locked, meaning the returned value may change during query execution if concurrent modifications occur to the tablespace configuration.
 
 ## Parameters / Member Variables
-- : The OID of the tablespace for which to retrieve the I/O concurrency setting
-
+- `spcid`: The OID of the tablespace for which to retrieve the I/O concurrency setting
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_tablespace](get_tablespace.md): Retrieve cached tablespace entry for the given OID

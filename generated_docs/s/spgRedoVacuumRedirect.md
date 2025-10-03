@@ -24,8 +24,7 @@ This function handles the replay of SP-GiST vacuum redirect operations, which cl
 The operation ensures that redirect cleanup during recovery maintains the same consistency and Hot Standby compatibility as during normal operation.
 
 ## Parameters / Member Variables
-- : XLogReaderState pointer containing the WAL record with vacuum redirect operation details
-
+- `*record`: XLogReaderState pointer containing the WAL record with vacuum redirect operation details
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData

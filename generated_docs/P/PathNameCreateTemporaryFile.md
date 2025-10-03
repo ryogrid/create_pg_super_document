@@ -25,9 +25,8 @@ Key features include:
 The file is opened with O_RDWR | O_CREAT | O_TRUNC | PG_BINARY flags but deliberately omits O_EXCL to allow reuse of orphaned files. The function assumes the containing directory already exists and requires temporary file access to be enabled.
 
 ## Parameters / Member Variables
-- : Full filesystem path where the temporary file should be created
-- : If true, emits ERROR on failure; if false, returns invalid file handle silently
-
+- `*path`: Full filesystem path where the temporary file should be created
+- `error_on_failure`: If true, emits ERROR on failure; if false, returns invalid file handle silently
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ResourceOwnerEnlarge](../R/ResourceOwnerEnlarge.md) (ensures resource tracking capacity)

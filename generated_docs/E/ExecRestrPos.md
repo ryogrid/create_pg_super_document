@@ -29,8 +29,7 @@ Like ExecMarkPos, this function operates as a dispatcher that delegates to node-
 Unlike ExecMarkPos, this function throws a hard error for unsupported node types, since attempting to restore to a non-existent mark position represents a programming error that should be caught.
 
 ## Parameters / Member Variables
-- : Pointer to the PlanState node where the position should be restored. Must be of a type that supports mark/restore operations and must have had ExecMarkPos called on it previously.
-
+- `*node`: Pointer to the PlanState node where the position should be restored. Must be of a type that supports mark/restore operations and must have had ExecMarkPos called on it previously.
 ## Dependencies
 - Functions called/Symbols referenced:
   - nodeTag (node type identification)

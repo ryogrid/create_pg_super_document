@@ -23,7 +23,6 @@ The function's primary responsibility is to create a dedicated memory context th
 The created memory context uses default allocation set sizes and is named for easy identification during debugging and monitoring. This context will be used by btree_redo() and other B-tree recovery functions to manage temporary memory allocations.
 
 ## Parameters / Member Variables
-None - this function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -19,9 +19,8 @@ The printResult function serves as a utility for displaying test results in the 
 The function prints each row of results showing the values from all three arrays (f1, f2, f3) in a consistent format, making it easy to verify test outcomes and debug issues. It adds visual separation with asterisks around the test case name and includes blank lines for readability.
 
 ## Parameters / Member Variables
-- : A string containing the name of the test case being printed (can be NULL)
-- : The number of result rows to display from the global arrays
-
+- `*tc_name`: A string containing the name of the test case being printed (can be NULL)
+- `loop`: The number of result rows to display from the global arrays
 ## Dependencies
 - Functions called/Symbols referenced:
   - printf (C standard library function for formatted output)

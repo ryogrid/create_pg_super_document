@@ -18,10 +18,9 @@ This function serves as a check hook for the maintenance_io_concurrency GUC para
 Similar to effective_io_concurrency, this parameter requires posix_fadvise() system call support for prefetching data. On platforms where USE_PREFETCH is not defined (indicating lack of posix_fadvise() support), the function enforces that maintenance_io_concurrency must be set to 0, as the prefetching mechanism cannot function without posix_fadvise(). When prefetching is available, any non-negative value is accepted.
 
 ## Parameters / Member Variables
-- : Pointer to the new integer value being set for the maintenance_io_concurrency parameter
-- : Pointer to extra data (unused in this function, can be NULL)
-- : The source of the configuration change (GucSource enum value)
-
+- `*newval`: Pointer to the new integer value being set for the maintenance_io_concurrency parameter
+- `**extra`: Pointer to extra data (unused in this function, can be NULL)
+- `source`: The source of the configuration change (GucSource enum value)
 ## Dependencies
 - Functions called/Symbols referenced:
   - GUC_check_errdetail (macro for setting detailed GUC error messages)

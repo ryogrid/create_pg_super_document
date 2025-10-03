@@ -28,10 +28,9 @@ This function is the primary interface for obtaining the root page of a B-tree i
 The function guarantees to return a live (not deleted or half-dead) page that is pinned and read-locked, regardless of the access type requested.
 
 ## Parameters / Member Variables
-- : The B-tree index relation being accessed
-- : The heap relation associated with the index (required for BT_WRITE access, can be NULL for BT_READ)
-- : Access type - either BT_READ (read-only, won't create root) or BT_WRITE (may create root if needed)
-
+- `rel`: The B-tree index relation being accessed
+- `heaprel`: The heap relation associated with the index (required for BT_WRITE access, can be NULL for BT_READ)
+- `access`: Access type - either BT_READ (read-only, won't create root) or BT_WRITE (may create root if needed)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [_bt_getbuf](_bt_getbuf.md): Acquires buffer for specified block number

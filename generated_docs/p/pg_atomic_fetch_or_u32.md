@@ -18,9 +18,8 @@ This function provides an atomic fetch-and-OR operation on a 32-bit unsigned int
 The function serves as a high-level wrapper around the platform-specific implementation , providing a consistent interface across different architectures while ensuring proper pointer alignment.
 
 ## Parameters / Member Variables
-- : Pointer to the atomic 32-bit unsigned integer variable to be modified
-- : The value to be bitwise ORed with the variable
-
+- `*ptr`: Pointer to the atomic 32-bit unsigned integer variable to be modified
+- `or_`: The value to be bitwise ORed with the variable
 ## Dependencies
 - Functions called/Symbols referenced:
   - AssertPointerAlignment

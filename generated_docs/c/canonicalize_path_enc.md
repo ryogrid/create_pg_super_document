@@ -31,9 +31,8 @@ The state machine manages four states:
 - : Relative path with known directory depth
 
 ## Parameters / Member Variables
-- : A null-terminated string containing the file system path to be canonicalized. The path is modified in-place.
-- : Integer specifying the character encoding of the path string (e.g., PG_UTF8, PG_SQL_ASCII) to ensure safe multi-byte character handling.
-
+- `*path`: A null-terminated string containing the file system path to be canonicalized. The path is modified in-place.
+- `encoding`: Integer specifying the character encoding of the path string (e.g., PG_UTF8, PG_SQL_ASCII) to ensure safe multi-byte character handling.
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (Windows path conversion)

@@ -20,9 +20,8 @@ The function performs semantic analysis and validation while building the Query 
 Note that this function specifically handles basic SELECT statements without set operations (UNION, INTERSECT, EXCEPT) or VALUES clauses, which are handled by separate transformation functions.
 
 ## Parameters / Member Variables
-- : ParseState structure containing parsing context, symbol tables, and state information
-- : SelectStmt node representing the parsed SELECT statement to be transformed
-
+- `*pstate`: ParseState structure containing parsing context, symbol tables, and state information
+- `*stmt`: SelectStmt node representing the parsed SELECT statement to be transformed
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (Query creation)

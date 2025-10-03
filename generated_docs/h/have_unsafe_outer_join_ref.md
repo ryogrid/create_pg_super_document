@@ -26,10 +26,9 @@ Specifically, it identifies unsafe situations where:
 These conditions indicate that the parameterized join could produce incorrect results by changing the semantics of NULL-generation in outer joins.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global optimizer state including outer join information
-- : Relids bitmap representing the set of base relations in the outer side of the join
-- : Relids bitmap representing the set of relations that the inner path requires as parameters
-
+- `*root`: PlannerInfo structure containing global optimizer state including outer join information
+- `outerrelids`: Relids bitmap representing the set of base relations in the outer side of the join
+- `inner_paramrels`: Relids bitmap representing the set of relations that the inner path requires as parameters
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bms_difference](../b/bms_difference.md)

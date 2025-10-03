@@ -16,9 +16,8 @@ CheckPasswordAuth(Port *port, const char **logdetail)
 CheckPasswordAuth is a core authentication function that implements the plaintext password authentication mechanism in PostgreSQL. It orchestrates the complete password authentication flow by first sending an authentication request to the client, receiving the password response, retrieving the stored password hash for the user, and verifying the provided password against the stored credentials. The function handles memory management for sensitive password data and sets the authenticated identity upon successful verification.
 
 ## Parameters / Member Variables
-- : Connection port structure containing client connection information and user details
-- : Output parameter for detailed error messages that can be included in authentication logs
-
+- `*port`: Connection port structure containing client connection information and user details
+- `**logdetail`: Output parameter for detailed error messages that can be included in authentication logs
 ## Dependencies
 - Functions called/Symbols referenced:
   - [sendAuthRequest](../s/sendAuthRequest.md) (sends AUTH_REQ_PASSWORD request to client)

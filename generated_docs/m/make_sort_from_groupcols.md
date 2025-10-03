@@ -20,10 +20,9 @@ This function constructs a Sort plan node specifically for grouping operations w
 The function performs similar array allocation and population as make_sort_from_sortclauses but uses get_tle_by_resno() instead of get_sortgroupclause_tle() to retrieve target entries, and includes error checking for missing target entries.
 
 ## Parameters / Member Variables
-- : A List of SortGroupClause structures specifying the grouping/sort criteria
-- : An array of AttrNumber values specifying which columns to sort by
-- : The input Plan node that provides the tuples to be sorted
-
+- `*groupcls`: A List of SortGroupClause structures specifying the grouping/sort criteria
+- `*grpColIdx`: An array of AttrNumber values specifying which columns to sort by
+- `*lefttree`: The input Plan node that provides the tuples to be sorted
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SortGroupClause](../S/SortGroupClause.md) (struct type)

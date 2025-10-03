@@ -23,8 +23,7 @@ The function ensures proper memory management by matching the allocation pattern
 This function should be called when the hash table is no longer needed to prevent memory leaks. After calling SH_DESTROY, the hash table pointer becomes invalid and should not be used.
 
 ## Parameters / Member Variables
-- : Pointer to the hash table structure to be destroyed
-
+- `*tb`: Pointer to the hash table structure to be destroyed
 ## Dependencies
 - Functions called/Symbols referenced:
   - SH_MAKE_NAME (macro for name generation)

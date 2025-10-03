@@ -24,9 +24,8 @@ The  function generates SQL commands to recreate aggregate functions during data
 The function uses prepared statements for efficiency and includes extensive version compatibility handling across PostgreSQL 9.4+, 9.6+, and 11.0+ to manage evolving aggregate features. It processes aggregate metadata from pg_aggregate and pg_proc catalogs to generate complete aggregate definitions.
 
 ## Parameters / Member Variables
-- : Archive structure containing dump options and output methods
-- : AggInfo structure containing aggregate function metadata including OID, name, namespace, owner, and function details
-
+- `*fout`: Archive structure containing dump options and output methods
+- `*agginfo`: AggInfo structure containing aggregate function metadata including OID, name, namespace, owner, and function details
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecuteSqlStatement](../E/ExecuteSqlStatement.md)

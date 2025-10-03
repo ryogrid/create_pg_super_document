@@ -26,9 +26,8 @@ The run_command function provides asynchronous command execution functionality f
 The function is designed for fire-and-forget command execution where the caller expects results to be processed asynchronously by other components of the parallel execution framework.
 
 ## Parameters / Member Variables
-- : ParallelSlot structure containing the database connection and associated metadata for command execution
-- : Null-terminated string containing the SQL command to be executed on the server
-
+- `*slot`: ParallelSlot structure containing the database connection and associated metadata for command execution
+- `*sql`: Null-terminated string containing the SQL command to be executed on the server
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQsendQuery](../P/PQsendQuery.md) (PostgreSQL libpq function for asynchronous command sending)

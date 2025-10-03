@@ -18,8 +18,7 @@ This function serves the same purpose as MaintainLatestCompletedXid but is speci
 The key difference from the regular version is that during recovery, the latestCompletedXid may not be properly initialized, so this function handles potentially invalid current values. It uses the nextXid as a reference point for creating a proper FullTransactionId comparison, which is safe to access without additional locking during recovery since only the startup process is running.
 
 ## Parameters / Member Variables
-- : The transaction ID representing a completed transaction discovered during WAL replay
-
+- `latestXid`: The transaction ID representing a completed transaction discovered during WAL replay
 ## Dependencies
 - Functions called/Symbols referenced:
   - AmStartupProcess

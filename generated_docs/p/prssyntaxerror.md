@@ -16,8 +16,7 @@ prssyntaxerror(TSVectorParseState state)
 This static function is responsible for generating and reporting syntax errors that occur during parsing operations. It uses the error context system to handle both hard and soft error scenarios. The function generates different error messages depending on whether the parser is in tsquery mode or tsvector mode, providing context-appropriate error reporting. In soft error situations, it returns false as a convenience for the caller.
 
 ## Parameters / Member Variables
-- : The TSVectorParseState containing the parser context and error information
-
+- `state`: The TSVectorParseState containing the parser context and error information
 ## Dependencies
 - Functions called/Symbols referenced:
   - errsave

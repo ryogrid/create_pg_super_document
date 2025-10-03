@@ -19,10 +19,9 @@ heap_getnextslot_tidrange is a specialized heap scanning function that operates 
 The function performs TID range filtering by comparing each retrieved tuple's TID against the minimum and maximum bounds. When a tuple falls outside the range, it continues scanning in the appropriate direction or terminates early if no more valid tuples can exist based on the scan direction.
 
 ## Parameters / Member Variables
-- : Table scan descriptor containing scan state and TID range limits
-- : Scan direction (forward or backward) determining tuple retrieval order
-- : Tuple table slot where the retrieved tuple will be stored
-
+- `sscan`: Table scan descriptor containing scan state and TID range limits
+- `direction`: Scan direction (forward or backward) determining tuple retrieval order
+- `*slot`: Tuple table slot where the retrieved tuple will be stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - [heapgettup_pagemode](heapgettup_pagemode.md): Page-mode tuple retrieval

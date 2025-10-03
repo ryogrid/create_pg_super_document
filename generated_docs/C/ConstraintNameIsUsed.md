@@ -17,10 +17,9 @@ ConstraintNameIsUsed(ConstraintCategory conCat, Oid objId,
 This function checks if a constraint name is already being used on a specific object (table, index, or domain). Unlike ChooseConstraintName which avoids names used anywhere in the namespace, this function only prevents duplicate constraint names on the same object. It performs a catalog scan of pg_constraint using the appropriate index to efficiently locate any existing constraint with the same name on the specified object. The function is designed to validate user-provided constraint names during DDL operations.
 
 ## Parameters / Member Variables
-- : Category of constraint - either CONSTRAINT_RELATION for table constraints or CONSTRAINT_DOMAIN for domain constraints
-- : OID of the object (relation or domain) to check constraint names against
-- : Name of the constraint to check for existence
-
+- `conCat`: Category of constraint - either CONSTRAINT_RELATION for table constraints or CONSTRAINT_DOMAIN for domain constraints
+- `objId`: OID of the object (relation or domain) to check constraint names against
+- `*conname`: Name of the constraint to check for existence
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md)

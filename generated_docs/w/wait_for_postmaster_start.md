@@ -31,9 +31,8 @@ The  function implements a polling mechanism to monitor postmaster startup progr
 The function includes safeguards against monitoring stale PID files by comparing start times and process IDs, with some tolerance for clock skew between processes.
 
 ## Parameters / Member Variables
-- : The process ID of the postmaster (or shell process on Windows) to monitor
-- : Boolean flag enabling Windows service control manager checkpoints during the wait
-
+- `pm_pid`: The process ID of the postmaster (or shell process on Windows) to monitor
+- `do_checkpoint`: Boolean flag enabling Windows service control manager checkpoints during the wait
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Reads the postmaster.pid lock file

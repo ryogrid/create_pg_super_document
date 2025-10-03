@@ -16,8 +16,7 @@ dump_lo_buf(ArchiveHandle *AH)
 The  function manages the output of accumulated Large Object data stored in the archive handle's buffer. When connected directly to a database, it uses the libpq  function to write data directly to the large object. For file-based output, it formats the binary data as a SQL statement using  and outputs it via . After successfully writing the buffer contents, it resets the buffer usage counter to zero.
 
 ## Parameters / Member Variables
-- : Archive handle containing the LO buffer, connection state, and output context
-
+- `*AH`: Archive handle containing the LO buffer, connection state, and output context
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lo_write](../l/lo_write.md)

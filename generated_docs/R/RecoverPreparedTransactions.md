@@ -26,7 +26,6 @@ The function operates through several critical phases:
 This comprehensive recovery ensures that prepared transactions are completely functional and ready for commit or abort operations when normal database operations resume.
 
 ## Parameters / Member Variables
-This function takes no parameters and operates on the global TwoPhaseState.
 
 ## Dependencies
 - Functions called/Symbols referenced:

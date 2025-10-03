@@ -20,10 +20,9 @@ For new registrations, the function copies the current page contents from the bu
 The function implements an array-based lookup system with a linear search, which is efficient given the typically small number of pages modified in a single generic XLOG operation (limited by MAX_GENERIC_XLOG_PAGES). If a buffer is already registered, the function simply returns the existing page image, maintaining idempotency.
 
 ## Parameters / Member Variables
-- : Pointer to the GenericXLogState structure managing this WAL logging session
-- : Buffer identifier for the page to be registered and tracked
-- : Control flags for this buffer registration (behavior depends on specific flag values)
-
+- `*state`: Pointer to the GenericXLogState structure managing this WAL logging session
+- `buffer`: Buffer identifier for the page to be registered and tracked
+- `flags`: Control flags for this buffer registration (behavior depends on specific flag values)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GenericXLogState](GenericXLogState.md) (struct type for the state parameter)

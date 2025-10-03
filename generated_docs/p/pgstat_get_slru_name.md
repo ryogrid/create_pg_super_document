@@ -16,8 +16,7 @@ pgstat_get_slru_name(int slru_idx)
 This function provides a way to retrieve the descriptive name of an SLRU cache given its numeric index. It includes bounds checking to ensure the index is valid, returning NULL for invalid indices. This design allows calling code to iterate through SLRU indices without knowing the exact number of entries in advance. The function maps SLRU indices to their corresponding names from the slru_names array, which includes entries like "commit_timestamp", "multixact_member", "multixact_offset", "notify", "serializable", "subtransaction", "transaction", and "other".
 
 ## Parameters / Member Variables
-- : Integer index of the SLRU cache (should be between 0 and SLRU_NUM_ELEMENTS-1, returns NULL if out of bounds)
-
+- `slru_idx`: Integer index of the SLRU cache (should be between 0 and SLRU_NUM_ELEMENTS-1, returns NULL if out of bounds)
 ## Dependencies
 - Functions called/Symbols referenced:
   - SLRU_NUM_ELEMENTS

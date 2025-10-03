@@ -17,11 +17,10 @@ AlterTypeNamespace(List *names, const char *newschema, ObjectType objecttype,
 AlterTypeNamespace is the main entry point for handling ALTER TYPE SET SCHEMA SQL commands. It validates the type name, ensures proper object type constraints (particularly for domains), resolves the target schema, and delegates the actual namespace change operation to AlterTypeNamespace_oid. The function performs comprehensive error checking to prevent invalid operations like attempting to use ALTER DOMAIN on non-domain types.
 
 ## Parameters / Member Variables
-- : List of strings representing the qualified or unqualified type name to be moved
-- : String name of the target schema where the type should be moved
-- : ObjectType enum indicating whether this is a general type or domain (used for validation)
-- : Output parameter that receives the OID of the original schema (can be NULL if not needed)
-
+- `*names`: List of strings representing the qualified or unqualified type name to be moved
+- `*newschema`: String name of the target schema where the type should be moved
+- `objecttype`: ObjectType enum indicating whether this is a general type or domain (used for validation)
+- `*oldschema`: Output parameter that receives the OID of the original schema (can be NULL if not needed)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [makeTypeNameFromNameList](../m/makeTypeNameFromNameList.md)

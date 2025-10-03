@@ -18,11 +18,10 @@ The  function is a utility function used in PostgreSQL's timezone handling syste
 This function is part of the timezone parsing and management system, specifically used when creating timezone transition rules from timezone data files or POSIX timezone strings.
 
 ## Parameters / Member Variables
-- : Pointer to the  to be initialized
-- : UTC offset in seconds for this timezone transition type
-- : Boolean flag indicating whether this represents daylight saving time
-- : Index into the timezone abbreviation list for this transition type
-
+- `*s`: Pointer to the  to be initialized
+- `utoff`: UTC offset in seconds for this timezone transition type
+- `isdst`: Boolean flag indicating whether this represents daylight saving time
+- `desigidx`: Index into the timezone abbreviation list for this transition type
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ttinfo](../t/ttinfo.md) (struct type)

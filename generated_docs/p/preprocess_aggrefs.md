@@ -27,9 +27,8 @@ Key optimization scenarios handled:
 For optimizations to be valid, all aggregate properties used in the transition phase must be identical, including ORDER BY, DISTINCT, FILTER modifiers, and arguments must not contain volatile functions.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planner state and context information
-- : Node representing the query clause containing aggregate functions to be processed
-
+- `*root`: PlannerInfo structure containing planner state and context information
+- `*clause`: Node representing the query clause containing aggregate functions to be processed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [preprocess_aggrefs_walker](preprocess_aggrefs_walker.md)

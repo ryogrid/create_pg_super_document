@@ -23,7 +23,6 @@ The function performs several key operations:
 6. Sets WAL level to minimal since the database is starting fresh
 
 ## Parameters / Member Variables
-This function takes no parameters and operates on the global ControlFile structure.
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -25,13 +25,12 @@ This internal function implements the core logic for mapping a SQL schema to XML
 The function supports both simple XML output and XML Schema-aware output, and can format results as either regular XML or table forest structure.
 
 ## Parameters / Member Variables
-- : Object ID of the PostgreSQL namespace (schema) to convert
-- : Optional XML schema definition to include in the output
-- : Whether to include NULL values in the XML representation
-- : Whether to format output using table forest structure
-- : Target namespace for the XML output
-- : Whether this is a top-level conversion (affects XML structure)
-
+- `nspid`: Object ID of the PostgreSQL namespace (schema) to convert
+- `*xmlschema`: Optional XML schema definition to include in the output
+- `nulls`: Whether to include NULL values in the XML representation
+- `tableforest`: Whether to format output using table forest structure
+- `*targetns`: Target namespace for the XML output
+- `top_level`: Whether this is a top-level conversion (affects XML structure)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [map_sql_identifier_to_xml_name](../m/map_sql_identifier_to_xml_name.md)

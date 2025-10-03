@@ -22,7 +22,6 @@ This function performs one-time initialization of the WAL record construction in
 The function includes assertion checking code (when enabled) to verify that assembled records can be properly decoded and that memory allocation sizes are valid. All allocations are done in the dedicated xloginsert_cxt memory context to ensure proper cleanup and memory management.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

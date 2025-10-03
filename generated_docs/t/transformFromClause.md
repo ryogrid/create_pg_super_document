@@ -22,9 +22,8 @@ The function operates in two main phases:
 The function assumes that the ParseState's p_rtable, p_joinlist, and p_namespace lists were initialized to NIL and will append to any existing entries, which is essential for rule processing and UPDATE/DELETE operations.
 
 ## Parameters / Member Variables
-- : The current parse state containing the range table, join list, namespace, and other parsing context information
-- : List of FROM clause items to be processed (RangeVars, RangeSubselects, RangeFunctions, and/or JoinExprs)
-
+- `*pstate`: The current parse state containing the range table, join list, namespace, and other parsing context information
+- `*frmList`: List of FROM clause items to be processed (RangeVars, RangeSubselects, RangeFunctions, and/or JoinExprs)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ParseNamespaceItem](../P/ParseNamespaceItem.md)

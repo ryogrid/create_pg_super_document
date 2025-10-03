@@ -20,8 +20,7 @@ The function is designed to work reliably even with invalid or incomplete TypeNa
 The returned string must be freed by the caller, as it represents a newly allocated copy of the formatted type name.
 
 ## Parameters / Member Variables
-- : The TypeName structure to convert to string format
-
+- `*typeName`: The TypeName structure to convert to string format
 ## Dependencies
 - Functions called/Symbols referenced:
   - [initStringInfo](../i/initStringInfo.md)

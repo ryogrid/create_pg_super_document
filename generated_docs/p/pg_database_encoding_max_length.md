@@ -28,7 +28,6 @@ For example:
 This information allows PostgreSQL's text processing functions to allocate appropriate buffer sizes and handle character boundaries correctly.
 
 ## Parameters / Member Variables
-None - this function takes no parameters and operates on the current database encoding
 
 ## Dependencies
 - Functions called/Symbols referenced:

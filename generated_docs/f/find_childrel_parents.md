@@ -20,9 +20,8 @@ The function starts with the given child relation and uses the append_rel_array 
 This is essential for correctly handling inheritance hierarchies and partitioned tables where there may be multiple levels of parent-child relationships.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global query planning state including append_rel_array
-- : The child RelOptInfo whose parent relations need to be found (must be RELOPT_OTHER_MEMBER_REL)
-
+- `*root`: PlannerInfo structure containing global query planning state including append_rel_array
+- `*rel`: The child RelOptInfo whose parent relations need to be found (must be RELOPT_OTHER_MEMBER_REL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - RELOPT_OTHER_MEMBER_REL

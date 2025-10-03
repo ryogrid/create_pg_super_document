@@ -18,8 +18,7 @@ pg_atomic_read_u32 is a static inline function that performs an unlocked read fr
 The function includes pointer alignment verification to ensure the atomic variable is properly aligned for 32-bit operations.
 
 ## Parameters / Member Variables
-- : A pointer to a volatile pg_atomic_uint32 atomic variable to read from
-
+- `*ptr`: A pointer to a volatile pg_atomic_uint32 atomic variable to read from
 ## Dependencies
 - Functions called/Symbols referenced:
   - AssertPointerAlignment (for 4-byte alignment verification)

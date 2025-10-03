@@ -16,9 +16,8 @@ print_unaligned_vertical(const printTableContent *cont, FILE *fout)
 This function renders tabular data in a vertical (record-oriented) format where each row is displayed as a series of "header: value" pairs, with each field on its own line. This format is particularly useful for displaying wide tables or when you want to see each record's complete information in a readable vertical layout. The function uses double record separators to distinguish between different table records and includes support for titles and footers when not in tuples-only mode.
 
 ## Parameters / Member Variables
-- : Pointer to printTableContent structure containing the table data, headers, options, and formatting settings
-- : FILE pointer to the output stream where the formatted text will be written
-
+- `*cont`: Pointer to printTableContent structure containing the table data, headers, options, and formatting settings
+- `*fout`: FILE pointer to the output stream where the formatted text will be written
 ## Dependencies
 - Functions called/Symbols referenced:
   - [print_separator](print_separator.md) (for field and record separation)

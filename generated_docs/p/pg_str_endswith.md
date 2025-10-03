@@ -18,9 +18,8 @@ The function determines if the string  has the postfix  by comparing the end por
 The function uses pointer arithmetic to position at the correct starting point in the main string and performs a standard string comparison using .
 
 ## Parameters / Member Variables
-- : The main string to check for the suffix
-- : The suffix string to look for at the end of 
-
+- `*str`: The main string to check for the suffix
+- `*end`: The suffix string to look for at the end of
 ## Dependencies
 - Functions called/Symbols referenced:
   - strlen (standard C library function)

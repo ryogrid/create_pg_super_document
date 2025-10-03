@@ -18,8 +18,7 @@ BlockSampler_HasMore is a predicate function that determines whether the block s
 The function returns true only when both conditions are met, ensuring the sampling algorithm continues until either all blocks have been examined or the required number of sample blocks has been collected, whichever comes first.
 
 ## Parameters / Member Variables
-- : Pointer to the BlockSampler structure containing the sampling state
-
+- `bs`: Pointer to the BlockSampler structure containing the sampling state
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BlockSamplerData](BlockSamplerData.md) structure members (t, N, m, n)

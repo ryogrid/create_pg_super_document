@@ -17,10 +17,9 @@ MakeConfigurationMapping(AlterTSConfigurationStmt *stmt,
 This function handles the complex process of adding or modifying token-to-dictionary mappings for text search configurations. It supports three main operations: 1) Adding new mappings (default mode), 2) Replacing specific dictionaries in existing mappings (replace mode), and 3) Overriding existing mappings for specified token types (override mode). The function first validates token types using getTokenTypes, then processes dictionary names to get their OIDs. For override operations, it deletes existing mappings for the specified tokens. For replace operations, it scans existing mappings and updates dictionary references. For new mappings, it uses batch insertion with TupleTableSlots for optimal performance, inserting multiple tuples per batch operation.
 
 ## Parameters / Member Variables
-- : AlterTSConfigurationStmt structure containing the SQL command details including token types, dictionaries, and operation flags (override, replace)
-- : HeapTuple representing the text search configuration record from pg_ts_config
-- : Relation handle for the pg_ts_config_map catalog table where mappings are stored
-
+- `*stmt`: AlterTSConfigurationStmt structure containing the SQL command details including token types, dictionaries, and operation flags (override, replace)
+- `tup`: HeapTuple representing the text search configuration record from pg_ts_config
+- `relMap`: Relation handle for the pg_ts_config_map catalog table where mappings are stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - [AlterTSConfigurationStmt](../A/AlterTSConfigurationStmt.md)

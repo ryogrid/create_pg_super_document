@@ -18,9 +18,8 @@ PLy_get_sqlerrcode is a utility function that extracts the 'sqlstate' attribute 
 The function uses PostgreSQL's MAKE_SQLSTATE macro to convert the 5-character string into an internal integer representation that can be used with PostgreSQL's error reporting system. If the sqlstate attribute is missing or invalid, the function silently returns without modifying the output parameter.
 
 ## Parameters / Member Variables
-- : Python exception object containing sqlstate attribute
-- : Output pointer to store the converted SQL error code
-
+- `*exc`: Python exception object containing sqlstate attribute
+- `*sqlerrcode`: Output pointer to store the converted SQL error code
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PLyUnicode_AsString](PLyUnicode_AsString.md): Converts Python Unicode string to C string

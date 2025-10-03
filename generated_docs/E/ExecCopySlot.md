@@ -24,9 +24,8 @@ Key characteristics:
 - Returns the destination slot for call chaining
 
 ## Parameters / Member Variables
-- : The destination TupleTableSlot where the copied data will be stored. Must be a valid, initialized slot with the same tuple descriptor as the source
-- : The source TupleTableSlot containing the data to be copied. Must not be empty and must have the same number of attributes as the destination
-
+- `*dstslot`: The destination TupleTableSlot where the copied data will be stored. Must be a valid, initialized slot with the same tuple descriptor as the source
+- `*srcslot`: The source TupleTableSlot containing the data to be copied. Must not be empty and must have the same number of attributes as the destination
 ## Dependencies
 - Functions called/Symbols referenced:
   - TTS_EMPTY (macro to check if slot is empty)

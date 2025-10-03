@@ -27,14 +27,13 @@ The function calculates sorting costs using different algorithms depending on da
 The function assumes disk traffic is 3/4 sequential and 1/4 random accesses, and charges two operator evaluations per tuple comparison by default.
 
 ## Parameters / Member Variables
-- : Output parameter for the startup cost of the sort operation
-- : Output parameter for the per-tuple cost during sort execution
-- : Number of tuples in the relation to be sorted
-- : Average tuple width in bytes
-- : Extra cost per comparison beyond the default
-- : Number of kilobytes of work memory allocated for the sort
-- : Bound on number of output tuples; -1 if no bound
-
+- `*startup_cost`: Output parameter for the startup cost of the sort operation
+- `*run_cost`: Output parameter for the per-tuple cost during sort execution
+- `tuples`: Number of tuples in the relation to be sorted
+- `width`: Average tuple width in bytes
+- `comparison_cost`: Extra cost per comparison beyond the default
+- `sort_mem`: Number of kilobytes of work memory allocated for the sort
+- `limit_tuples`: Bound on number of output tuples; -1 if no bound
 ## Dependencies
 - Functions called/Symbols referenced:
   - [relation_byte_size](../r/relation_byte_size.md)

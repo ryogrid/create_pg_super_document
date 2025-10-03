@@ -18,8 +18,7 @@ This function performs complete memory deallocation of a TupleConversionMap stru
 The deallocation follows a careful order to ensure all memory is properly released without leaks, using PostgreSQL's memory management functions.
 
 ## Parameters / Member Variables
-- : Pointer to the TupleConversionMap structure to be deallocated
-
+- `*map`: Pointer to the TupleConversionMap structure to be deallocated
 ## Dependencies
 - Functions called/Symbols referenced:
   - [free_attrmap](free_attrmap.md) (frees the attribute mapping component)

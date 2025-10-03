@@ -25,10 +25,9 @@ This static function serves as the core implementation for row type tuple descri
 For transient record types, the function first checks the local cache, then queries the shared typmod registry if available. When found in shared memory, it establishes a local cache entry pointing to the shared tuple descriptor. The returned tuple descriptor has no reference count bumping, distinguishing this internal function from its public counterparts.
 
 ## Parameters / Member Variables
-- : The OID of the type being looked up (RECORDOID for transient records, other OIDs for named composite types)
-- : Type modifier identifying the specific record type variant (used for transient records)
-- : If true, returns NULL instead of throwing an error when the type is not found
-
+- `type_id`: The OID of the type being looked up (RECORDOID for transient records, other OIDs for named composite types)
+- `typmod`: Type modifier identifying the specific record type variant (used for transient records)
+- `noError`: If true, returns NULL instead of throwing an error when the type is not found
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lookup_type_cache](lookup_type_cache.md)

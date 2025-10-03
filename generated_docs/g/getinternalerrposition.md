@@ -19,6 +19,7 @@ The function accesses the current error data context and returns the internal po
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ErrorData](../E/ErrorData.md) (struct type)

@@ -21,11 +21,10 @@ This function implements the consistent test for GiST (Generalized Search Tree) 
 The function handles all range strategy operators including before, overleft, overlaps, overright, after, adjacent, contains, contained_by, and equality. For internal nodes, the logic is designed to be conservative - it returns true when there's any possibility that qualifying tuples might exist in the subtree, ensuring that no valid results are missed during the search.
 
 ## Parameters / Member Variables
-- : Type cache entry containing information about the range type being indexed
-- : Strategy number indicating the type of spatial relationship to test (e.g., RANGESTRAT_OVERLAPS, RANGESTRAT_CONTAINS)
-- : The range value stored at this internal index node, representing the union of all ranges in the subtree
-- : The multirange value being searched for in the index
-
+- `*typcache`: Type cache entry containing information about the range type being indexed
+- `strategy`: Strategy number indicating the type of spatial relationship to test (e.g., RANGESTRAT_OVERLAPS, RANGESTRAT_CONTAINS)
+- `*key`: The range value stored at this internal index node, representing the union of all ranges in the subtree
+- `*query`: The multirange value being searched for in the index
 ## Dependencies
 - Functions called/Symbols referenced:
   - RangeIsEmpty

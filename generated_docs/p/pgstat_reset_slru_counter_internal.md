@@ -16,9 +16,8 @@ pgstat_reset_slru_counter_internal(int index, TimestampTz ts)
 This internal function performs the actual work of resetting SLRU statistics for a specific SLRU type identified by its index. It acquires an exclusive lock on the shared SLRU statistics structure to ensure atomic updates, clears all statistics fields using memset, sets the reset timestamp to track when the reset occurred, and then releases the lock. The exclusive lock prevents concurrent access during the reset operation, ensuring data consistency. This function serves as the core implementation for both individual and bulk SLRU statistics reset operations.
 
 ## Parameters / Member Variables
-- : Index of the specific SLRU type to reset (must be valid index within SLRU_NUM_ELEMENTS)
-- : Timestamp indicating when the reset operation occurred
-
+- `index`: Index of the specific SLRU type to reset (must be valid index within SLRU_NUM_ELEMENTS)
+- `ts`: Timestamp indicating when the reset operation occurred
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (shared memory structure for SLRU statistics)

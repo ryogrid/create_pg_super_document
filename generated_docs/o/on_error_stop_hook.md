@@ -16,8 +16,7 @@ on_error_stop_hook(const char *newval)
 The  function serves as a validation and assignment hook for the ON_ERROR_STOP psql variable. It is called whenever the user attempts to set the ON_ERROR_STOP variable through psql commands like . The function uses the  utility to parse the string value and convert it to a boolean, storing the result in the global  field. This hook ensures that only valid boolean values (like "on", "off", "true", "false", etc.) are accepted for the ON_ERROR_STOP setting.
 
 ## Parameters / Member Variables
-- : A string containing the new value to be assigned to the ON_ERROR_STOP variable
-
+- `*newval`: A string containing the new value to be assigned to the ON_ERROR_STOP variable
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ParseVariableBool](../P/ParseVariableBool.md)

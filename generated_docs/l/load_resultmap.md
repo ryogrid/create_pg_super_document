@@ -18,7 +18,6 @@ The  function reads a "resultmap" file from the input directory to identify plat
 The function implements a last-match-wins strategy by prepending new entries to the front of the resultmap list, ensuring that later entries in the file take precedence over earlier ones in cases of ambiguous matches.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

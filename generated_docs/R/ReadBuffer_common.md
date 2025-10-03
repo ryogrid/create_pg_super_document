@@ -19,14 +19,13 @@ ReadBuffer_common(Relation rel, SMgrRelation smgr, char smgr_persistence,
 ReadBuffer_common serves as the core implementation for all buffer reading operations in PostgreSQL. It handles multiple read modes including extending relations with P_NEW blocks, zero-and-lock operations, and standard buffer reads with optional zero-on-error behavior. The function uses different code paths based on the requested mode: for P_NEW blocks it delegates to ExtendBufferedRel, for zero-and-lock modes it uses PinBufferForBlock followed by ZeroAndLockBuffer, and for standard reads it uses the asynchronous StartReadBuffer/WaitReadBuffers pattern. This unified approach ensures consistent behavior across all buffer reading operations while optimizing for different usage patterns.
 
 ## Parameters / Member Variables
-- : Relation pointer, optional unless using P_NEW block number
-- : Storage manager relation (required parameter)
-- : Persistence type when relation is NULL
-- : Fork identifier (main, FSM, visibility map, etc.)
-- : Block number to read, or P_NEW to extend the relation
-- : Read buffer mode controlling locking and initialization behavior
-- : Buffer access strategy for cache management policies
-
+- `rel`: Relation pointer, optional unless using P_NEW block number
+- `smgr`: Storage manager relation (required parameter)
+- `smgr_persistence`: Persistence type when relation is NULL
+- `forkNum`: Fork identifier (main, FSM, visibility map, etc.)
+- `blockNum`: Block number to read, or P_NEW to extend the relation
+- `mode`: Read buffer mode controlling locking and initialization behavior
+- `strategy`: Buffer access strategy for cache management policies
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExtendBufferedRel](../E/ExtendBufferedRel.md)

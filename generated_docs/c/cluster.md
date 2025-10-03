@@ -23,10 +23,9 @@ The implementation handles multiple scenarios:
 To avoid deadlocks during multi-table operations, each relation is processed in a separate transaction. This requires careful memory management using a dedicated memory context that survives across transaction boundaries.
 
 ## Parameters / Member Variables
-- : Parse state containing parsing context and error reporting information
-- : ClusterStmt structure containing the parsed CLUSTER command details including table name, index name, and options
-- : Boolean indicating whether this is a top-level command (affects transaction block restrictions)
-
+- `*pstate`: Parse state containing parsing context and error reporting information
+- `*stmt`: ClusterStmt structure containing the parsed CLUSTER command details including table name, index name, and options
+- `isTopLevel`: Boolean indicating whether this is a top-level command (affects transaction block restrictions)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [defGetBoolean](../d/defGetBoolean.md)

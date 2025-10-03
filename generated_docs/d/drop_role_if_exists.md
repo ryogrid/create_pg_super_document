@@ -22,8 +22,7 @@ The function works by:
 4. Executing the command against the 'postgres' database
 
 ## Parameters / Member Variables
-- : Name of the role to drop if it exists
-
+- `*rolename`: Name of the role to drop if it exists
 ## Dependencies
 - Functions called/Symbols referenced:
   - [psql_start_command](../p/psql_start_command.md) (initialize psql command buffer)

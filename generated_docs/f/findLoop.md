@@ -25,13 +25,12 @@ The algorithm employs several optimization strategies: it skips already-processe
 The function builds the potential loop path in the workspace array as it recurses. When it finds a direct dependency back to the startPoint, it returns the depth (loop length). If no loop is found through any outgoing dependencies, it memoizes this negative result and returns 0.
 
 ## Parameters / Member Variables
-- : The current DumpableObject being examined in the search
-- : DumpId of the object where we want to find a cycle back to
-- : Boolean array marking objects already processed in previous loop searches
-- : DumpId array for memoizing failed search paths from each object
-- : Array being built with objects forming the potential dependency loop
-- : Current number of valid entries in the workspace array
-
+- `*obj`: The current DumpableObject being examined in the search
+- `startPoint`: DumpId of the object where we want to find a cycle back to
+- `*processed`: Boolean array marking objects already processed in previous loop searches
+- `*searchFailed`: DumpId array for memoizing failed search paths from each object
+- `**workspace`: Array being built with objects forming the potential dependency loop
+- `depth`: Current number of valid entries in the workspace array
 ## Dependencies
 - Functions called/Symbols referenced:
   - [findObjectByDumpId](findObjectByDumpId.md)

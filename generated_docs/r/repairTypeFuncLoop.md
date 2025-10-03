@@ -23,9 +23,8 @@ The function breaks this cycle by removing the direct dependency from the functi
 When a shell type exists, the function ensures that if the I/O function needs to be dumped, the shell type definition is also marked for dumping with the DUMP_COMPONENT_DEFINITION flag.
 
 ## Parameters / Member Variables
-- : The DumpableObject representing the user-defined datatype that's part of the circular dependency
-- : The DumpableObject representing the I/O function (or canonicalize function for range types) that depends on the type
-
+- `*typeobj`: The DumpableObject representing the user-defined datatype that's part of the circular dependency
+- `*funcobj`: The DumpableObject representing the I/O function (or canonicalize function for range types) that depends on the type
 ## Dependencies
 - Functions called/Symbols referenced:
   - [removeObjectDependency](removeObjectDependency.md)

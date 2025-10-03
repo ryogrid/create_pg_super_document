@@ -18,8 +18,7 @@ This function ensures that the character encoding specified by the user is compa
 When an incompatible encoding is detected, the function provides clear error messages explaining the issue and suggests corrective actions. This is particularly important when users are configuring PostgreSQL databases with ICU locale providers for advanced internationalization features.
 
 ## Parameters / Member Variables
-- : The PostgreSQL encoding identifier that the user wants to use with ICU
-
+- `user_enc`: The PostgreSQL encoding identifier that the user wants to use with ICU
 ## Dependencies
 - Functions called/Symbols referenced:
   - [is_encoding_supported_by_icu](../i/is_encoding_supported_by_icu.md) (checks if the encoding is compatible with ICU)

@@ -24,9 +24,8 @@ This function completes an online backup operation by performing several critica
 The function handles different behavior depending on whether the backup is taken during recovery (on a standby) or normal operation (on a primary). During recovery, it uses the minimum recovery point from pg_control as the backup end location instead of writing an end-of-backup record.
 
 ## Parameters / Member Variables
-- : BackupState structure containing backup information including start point, timeline, and recovery status that gets filled with stop point information
-- : Boolean flag indicating whether to wait for WAL segments to be archived before returning
-
+- `*state`: BackupState structure containing backup information including start point, timeline, and recovery status that gets filled with stop point information
+- `waitforarchive`: Boolean flag indicating whether to wait for WAL segments to be archived before returning
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RecoveryInProgress](../R/RecoveryInProgress.md)

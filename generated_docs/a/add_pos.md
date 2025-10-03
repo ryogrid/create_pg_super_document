@@ -24,12 +24,11 @@ The function processes position data by:
 4. Updating position counts and setting the haspos flag
 
 ## Parameters / Member Variables
-- : Source TSVector containing the positions to copy
-- : Pointer to the WordEntry in the source TSVector
-- : Destination TSVector where positions will be added
-- : Pointer to the WordEntry in the destination TSVector
-- : Position offset to add to each source position
-
+- `src`: Source TSVector containing the positions to copy
+- `*srcptr`: Pointer to the WordEntry in the source TSVector
+- `dest`: Destination TSVector where positions will be added
+- `*destptr`: Pointer to the WordEntry in the destination TSVector
+- `maxpos`: Position offset to add to each source position
 ## Dependencies
 - Functions called/Symbols referenced:
   - _POSVECPTR (macro for position vector access)

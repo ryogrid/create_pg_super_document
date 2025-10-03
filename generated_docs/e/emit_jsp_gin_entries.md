@@ -20,9 +20,8 @@ For leaf nodes (JSP_GIN_ENTRY), the function calls  to register the entry datum 
 The function modifies the node tree in-place by replacing entry datums with their indices, which are subsequently used by the query execution engine to reference the actual GIN entries.
 
 ## Parameters / Member Variables
-- : JsonPathGinNode pointer to the current node being processed in the query tree
-- : GinEntries collection that accumulates all unique GIN entries discovered during traversal
-
+- `*node`: JsonPathGinNode pointer to the current node being processed in the query tree
+- `*entries`: GinEntries collection that accumulates all unique GIN entries discovered during traversal
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_stack_depth](../c/check_stack_depth.md) (prevents stack overflow during deep recursion)

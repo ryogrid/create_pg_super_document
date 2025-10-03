@@ -18,8 +18,7 @@ The  function serves as a hash table insertion mechanism that either retrieves a
 The function uses the simplehash library's insertion mechanism and properly initializes new entries with sensible defaults: file existence flags are set to false, file types are set to undefined, sizes are zeroed, and the action is set to undecided. The function also determines whether the file is a relation data file and duplicates the path string for safe storage.
 
 ## Parameters / Member Variables
-- : The file path relative to the data directory root for which to create or retrieve a hash table entry
-
+- `*path`: The file path relative to the data directory root for which to create or retrieve a hash table entry
 ## Dependencies
 - Functions called/Symbols referenced:
   - filehash_insert

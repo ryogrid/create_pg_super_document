@@ -17,9 +17,8 @@ ExecIndexScanReInitializeDSM(IndexScanState *node,
  is a parallel execution function that reinitializes the dynamic shared memory (DSM) state for an index scan node in a parallel query execution context. This function is called when a parallel plan needs to restart or reset an index scan operation, ensuring that all shared state between parallel workers is properly reset before beginning a fresh scan. The function serves as a wrapper around the lower-level  function, providing the executor-level interface for parallel index scan reinitialization.
 
 ## Parameters / Member Variables
-- : Pointer to the IndexScanState structure containing the current state of the index scan operation
-- : Pointer to the ParallelContext structure containing information about the parallel execution context (parameter present but not directly used in the function body)
-
+- `*node`: Pointer to the IndexScanState structure containing the current state of the index scan operation
+- `*pcxt`: Pointer to the ParallelContext structure containing information about the parallel execution context (parameter present but not directly used in the function body)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [index_parallelrescan](../i/index_parallelrescan.md)

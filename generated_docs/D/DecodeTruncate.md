@@ -23,9 +23,8 @@ The function performs several important checks:
 5. Queues the change in the reorder buffer for eventual delivery to output plugins
 
 ## Parameters / Member Variables
-- : LogicalDecodingContext containing the decoding session state, including the replication slot and reorder buffer
-- : XLogRecordBuffer containing the WAL record being decoded and its metadata
-
+- `*ctx`: LogicalDecodingContext containing the decoding session state, including the replication slot and reorder buffer
+- `*buf`: XLogRecordBuffer containing the WAL record being decoded and its metadata
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData

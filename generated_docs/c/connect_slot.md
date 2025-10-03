@@ -16,10 +16,9 @@ connect_slot(ParallelSlotArray *sa, int slotno, const char *dbname)
 This function creates a new database connection for a parallel slot using stored connection parameters. It can optionally override the default database name if a specific dbname is provided. After establishing the connection, it validates that the connection's file descriptor is within acceptable limits for select() operations, with platform-specific handling for Windows vs. POSIX systems. Finally, it executes any initialization command that was configured for the slot array. The function includes critical error handling for file descriptor limits to prevent issues with select() operations.
 
 ## Parameters / Member Variables
-- : Pointer to the ParallelSlotArray containing connection parameters and settings
-- : Index of the slot to connect (zero-based)
-- : Optional database name to override the default; can be NULL to use default
-
+- `*sa`: Pointer to the ParallelSlotArray containing connection parameters and settings
+- `slotno`: Index of the slot to connect (zero-based)
+- `*dbname`: Optional database name to override the default; can be NULL to use default
 ## Dependencies
 - Functions called/Symbols referenced:
   - [connectDatabase](connectDatabase.md) (establishes the database connection)

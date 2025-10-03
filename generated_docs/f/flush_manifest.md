@@ -23,8 +23,7 @@ Key operations include:
 - Comprehensive error reporting for file operations
 
 ## Parameters / Member Variables
-- : Manifest writer structure containing the buffer data and file descriptor
-
+- `*mwriter`: Manifest writer structure containing the buffer data and file descriptor
 ## Dependencies
 - Functions called/Symbols referenced:
   - [manifest_writer](../m/manifest_writer.md) (structure type)

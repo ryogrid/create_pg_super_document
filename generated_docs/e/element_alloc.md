@@ -18,10 +18,9 @@ This internal function is responsible for expanding the capacity of dynamic hash
 The function operates only on non-fixed hash tables and uses the hash table's custom allocator function for memory management. Each element is properly aligned using MAXALIGN to ensure correct memory layout.
 
 ## Parameters / Member Variables
-- : Pointer to the HTAB structure representing the hash table
-- : Number of new elements to allocate
-- : Index of the free list where new elements should be linked
-
+- `*hashp`: Pointer to the HTAB structure representing the hash table
+- `nelem`: Number of new elements to allocate
+- `freelist_idx`: Index of the free list where new elements should be linked
 ## Dependencies
 - Functions called/Symbols referenced:
   - MAXALIGN (memory alignment macro)

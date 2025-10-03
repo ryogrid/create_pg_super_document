@@ -23,9 +23,8 @@ The function handles several specific data types with known size calculation met
 For unknown types or types with unlimited width (like 'text'), the function returns -1 to indicate indeterminate size. The caller is assumed to have already verified that the type is variable-width.
 
 ## Parameters / Member Variables
-- : The PostgreSQL type OID identifying the specific data type
-- : The type modifier value that constrains the type (e.g., length for varchar, precision for numeric)
-
+- `type_oid`: The PostgreSQL type OID identifying the specific data type
+- `typemod`: The type modifier value that constrains the type (e.g., length for varchar, precision for numeric)
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Gets the current database's character encoding

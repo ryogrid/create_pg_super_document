@@ -23,8 +23,7 @@ The cleanup process follows a specific order:
 This systematic cleanup prevents memory leaks and ensures all associated resources are properly returned to the system.
 
 ## Parameters / Member Variables
-- : The IncrementalSortState containing all runtime state and resources to be cleaned up
-
+- `*node`: The IncrementalSortState containing all runtime state and resources to be cleaned up
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecDropSingleTupleTableSlot](ExecDropSingleTupleTableSlot.md) (releases standalone tuple slots)

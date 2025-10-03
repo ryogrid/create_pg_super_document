@@ -16,9 +16,8 @@ fsync_fname(const char *fname, bool isdir)
  is a high-level wrapper around  that provides a simplified interface for synchronizing files or directories to persistent storage. The function delegates to  with default parameters, specifically using  for the ignore_nonexistent parameter and  log level via . When synchronizing directories, it gracefully handles errors that indicate the operating system doesn't allow or require directory synchronization, which is common on some filesystems.
 
 ## Parameters / Member Variables
-- : Path to the file or directory to synchronize
-- : Boolean flag indicating whether the target is a directory (true) or file (false)
-
+- `*fname`: Path to the file or directory to synchronize
+- `isdir`: Boolean flag indicating whether the target is a directory (true) or file (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [fsync_fname_ext](fsync_fname_ext.md)

@@ -18,8 +18,7 @@ This function calculates an acceptable range of split points (split interval) th
 The function follows the "Prefix B-Trees" paper methodology, where the split interval is called sigma l for leaf splits and sigma b for internal splits. The resulting split interval is typically about 10% of total splits for uniformly-sized tuples on leaf pages, with more aggressive filtering for internal pages.
 
 ## Parameters / Member Variables
-- : FindSplitData structure containing split candidates, page information, and whether this is a leaf page split
-
+- `*state`: FindSplitData structure containing split candidates, page information, and whether this is a leaf page split
 ## Dependencies
 - Functions called/Symbols referenced:
   - LEAF_SPLIT_DISTANCE (constant)

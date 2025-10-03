@@ -21,8 +21,7 @@ GenericXLogFinish applies all changes stored in a GenericXLogState to the actual
 The function ensures crash recovery consistency by properly managing the "hole" between pd_lower and pd_upper in page headers to avoid divergence between actual page state and replay results.
 
 ## Parameters / Member Variables
-- : Pointer to GenericXLogState containing the pending changes to be applied, including modified page images and metadata
-
+- `*state`: Pointer to GenericXLogState containing the pending changes to be applied, including modified page images and metadata
 ## Dependencies
 - Functions called/Symbols referenced:
   - [XLogBeginInsert](../X/XLogBeginInsert.md) (begins WAL record construction)

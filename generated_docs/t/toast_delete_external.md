@@ -19,11 +19,10 @@ The  function is responsible for cleaning up externally stored TOAST values when
 This function is a key component of PostgreSQL's TOAST (The Oversized-Attribute Storage Technique) system, ensuring that when tuples are deleted, any associated externally stored data is properly cleaned up to prevent storage leaks.
 
 ## Parameters / Member Variables
-- : The relation containing the tuple whose external TOAST values need to be deleted
-- : Array of Datum values for each attribute in the tuple
-- : Array of boolean flags indicating which attributes are null
-- : Boolean flag indicating whether this is a speculative deletion (used for speculative insertions that may be rolled back)
-
+- `rel`: The relation containing the tuple whose external TOAST values need to be deleted
+- `*values`: Array of Datum values for each attribute in the tuple
+- `*isnull`: Array of boolean flags indicating which attributes are null
+- `is_speculative`: Boolean flag indicating whether this is a speculative deletion (used for speculative insertions that may be rolled back)
 ## Dependencies
 - Functions called/Symbols referenced:
   - VARATT_IS_EXTERNAL_ONDISK (macro to check if a value is externally stored on disk)

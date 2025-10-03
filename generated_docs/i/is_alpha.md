@@ -18,8 +18,7 @@ The  function provides a locale-independent way to check if a character is alpha
 This function is part of PostgreSQL's timezone compilation utility (zic) and ensures consistent behavior when parsing timezone abbreviations regardless of the system's locale configuration.
 
 ## Parameters / Member Variables
-- : The character to test for alphabetic classification
-
+- `a`: The character to test for alphabetic classification
 ## Dependencies
 - Functions called/Symbols referenced:
   - (None - uses only built-in language constructs)

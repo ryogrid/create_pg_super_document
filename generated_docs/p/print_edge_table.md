@@ -16,10 +16,9 @@ print_edge_table(FILE *fp, Edge *edge_table, int num_gene)
 This function prints the contents of an edge table, which is a key data structure used in genetic algorithm edge recombination crossover. The edge table stores adjacency information for each gene (city/node), showing which other genes are connected to it in the parent chromosomes. For each gene from 1 to num_gene, it displays the gene number followed by its list of adjacent genes (edges). This information is crucial for debugging edge recombination operations in the GEQO system, where maintaining edge relationships from parent chromosomes is important for preserving good partial solutions.
 
 ## Parameters / Member Variables
-- : File pointer where the output will be written
-- : Array of Edge structures containing adjacency information for each gene
-- : The total number of genes (size of the edge table, typically number of relations)
-
+- `*fp`: File pointer where the output will be written
+- `*edge_table`: Array of Edge structures containing adjacency information for each gene
+- `num_gene`: The total number of genes (size of the edge table, typically number of relations)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Edge](../E/Edge.md) (structure type)

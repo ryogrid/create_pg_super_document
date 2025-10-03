@@ -20,10 +20,9 @@ Collations determine how text data is compared and sorted, including case sensit
 Like its datatype counterpart, this function handles resjunk columns based on the junkOK parameter, allowing callers to either ignore or reject the presence of auxiliary columns.
 
 ## Parameters / Member Variables
-- : The target list whose collations are to be checked
-- : List of Oid values representing the expected collations
-- : Whether to ignore resjunk columns (true) or reject them (false)
-
+- `*tlist`: The target list whose collations are to be checked
+- `*colCollations`: List of Oid values representing the expected collations
+- `junkOK`: Whether to ignore resjunk columns (true) or reject them (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_head](../l/list_head.md) (to get the first element of colCollations list)

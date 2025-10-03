@@ -26,10 +26,9 @@ The function handles both text and structured output formats differently:
 The scan direction is particularly important for understanding query performance, as backward scans may have different performance characteristics depending on the index implementation and the underlying storage.
 
 ## Parameters / Member Variables
-- : OID of the index being scanned, used to retrieve the index name
-- : ScanDirection enum indicating whether the scan is forward, backward, or undefined
-- : ExplainState structure containing output formatting context and destination string buffer
-
+- `indexid`: OID of the index being scanned, used to retrieve the index name
+- `indexorderdir`: ScanDirection enum indicating whether the scan is forward, backward, or undefined
+- `*es`: ExplainState structure containing output formatting context and destination string buffer
 ## Dependencies
 - Functions called/Symbols referenced:
   - [explain_get_index_name](../e/explain_get_index_name.md)

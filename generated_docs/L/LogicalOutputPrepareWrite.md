@@ -17,11 +17,10 @@ LogicalOutputPrepareWrite(LogicalDecodingContext *ctx, XLogRecPtr lsn, Transacti
 This is a static helper function used in logical replication that prepares the output context for writing logical decoding data. The function's primary responsibility is to reset the output StringInfo buffer (ctx->out) to ensure a clean state before writing new logical replication output. Despite accepting parameters for LSN, transaction ID, and last write flag, the current implementation only performs buffer reset operations.
 
 ## Parameters / Member Variables
-- : LogicalDecodingContext pointer containing the decoding context and output buffer
-- : XLogRecPtr specifying the log sequence number position (currently unused in implementation)
-- : TransactionId of the transaction being processed (currently unused in implementation)
-- : Boolean flag indicating if this is the last write operation (currently unused in implementation)
-
+- `*ctx`: LogicalDecodingContext pointer containing the decoding context and output buffer
+- `lsn`: XLogRecPtr specifying the log sequence number position (currently unused in implementation)
+- `xid`: TransactionId of the transaction being processed (currently unused in implementation)
+- `last_write`: Boolean flag indicating if this is the last write operation (currently unused in implementation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [resetStringInfo](../r/resetStringInfo.md) (resets the output buffer)

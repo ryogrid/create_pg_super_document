@@ -21,8 +21,7 @@ This function retrieves the persistence attribute of a relation from the Postgre
 The function performs a system cache lookup to efficiently retrieve this information without directly accessing the catalog table.
 
 ## Parameters / Member Variables
-- : The OID (Object Identifier) of the relation whose persistence attribute is to be retrieved
-
+- `relid`: The OID (Object Identifier) of the relation whose persistence attribute is to be retrieved
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup)

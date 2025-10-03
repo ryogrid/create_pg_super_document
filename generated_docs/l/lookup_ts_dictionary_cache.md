@@ -20,8 +20,7 @@ When a dictionary entry is not cached or invalid, the function performs lookups 
 The function registers syscache callbacks for both TSDICTOID and TSTEMPLATEOID to ensure cache consistency when either dictionaries or their templates change.
 
 ## Parameters / Member Variables
-- : The Object Identifier (OID) of the text search dictionary to look up
-
+- `dictId`: The Object Identifier (OID) of the text search dictionary to look up
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hash_create](../h/hash_create.md) (creates the dictionary cache hash table)

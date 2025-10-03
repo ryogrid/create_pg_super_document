@@ -17,7 +17,6 @@ This function serves as the display hook for the PostgreSQL GUC parameter `tcp_k
 The function is part of PostgreSQL's configuration parameter system and is called when the user queries the current value of the tcp_keepalives_interval parameter (e.g., via `SHOW tcp_keepalives_interval;`).
 
 ## Parameters / Member Variables
-This function takes no parameters and operates on the global MyProcPort variable representing the current client connection.
 
 ## Dependencies
 - Functions called/Symbols referenced:

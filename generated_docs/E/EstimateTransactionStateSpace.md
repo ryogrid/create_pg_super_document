@@ -21,7 +21,6 @@ This function traverses the entire transaction state hierarchy starting from Cur
 The function ensures accurate memory allocation for parallel worker processes that need to inherit the complete transaction state from the main backend process.
 
 ## Parameters / Member Variables
-This function takes no parameters and operates on global transaction state.
 
 ## Dependencies
 - Functions called/Symbols referenced:

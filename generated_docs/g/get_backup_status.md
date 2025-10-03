@@ -23,7 +23,6 @@ The function returns one of the SessionBackupState enumeration values, which typ
 This function is commonly used by backup-related operations to verify the current backup state before proceeding with backup start, stop, or status checking operations.
 
 ## Parameters / Member Variables
-None - this function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

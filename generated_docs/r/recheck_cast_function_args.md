@@ -20,12 +20,11 @@ This function handles the re-resolution of function arguments after default para
 The function validates that the resolved return type matches the expected result type and performs any necessary typecasting of arguments. It modifies the args list in-place when casts are needed, so the caller should have already copied the list structure if preservation of the original is required.
 
 ## Parameters / Member Variables
-- : List of function arguments to be rechecked and potentially recast
-- : Expected result type of the function call
-- : Array of declared argument types for the function
-- : Number of arguments the function expects
-- : HeapTuple containing the function's catalog entry (pg_proc)
-
+- `*args`: List of function arguments to be rechecked and potentially recast
+- `result_type`: Expected result type of the function call
+- `*proargtypes`: Array of declared argument types for the function
+- `pronargs`: Number of arguments the function expects
+- `func_tuple`: HeapTuple containing the function's catalog entry (pg_proc)
 ## Dependencies
 - Functions called/Symbols referenced:
   - Form_pg_proc (struct type for pg_proc catalog entries)

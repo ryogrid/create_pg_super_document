@@ -18,8 +18,7 @@ The pset_bool_string function provides a standardized way to convert boolean val
 This is a static helper function that ensures consistency in boolean string representation across psql's setting system.
 
 ## Parameters / Member Variables
-- : Boolean value to be converted to string representation
-
+- `val`: Boolean value to be converted to string representation
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (uses only basic C constructs)

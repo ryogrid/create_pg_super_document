@@ -28,10 +28,9 @@ For system attributes (attnum <= 0):
 The function also supports cases where tupleDesc is NULL for relations not expected to have missing values (like catalogs and indexes).
 
 ## Parameters / Member Variables
-- : HeapTuple structure containing the tuple data to examine
-- : Attribute number to check (1-based for user attributes, negative for system attributes)
-- : TupleDesc describing the tuple structure (can be NULL for some relation types)
-
+- `tup`: HeapTuple structure containing the tuple data to examine
+- `attnum`: Attribute number to check (1-based for user attributes, negative for system attributes)
+- `tupleDesc`: TupleDesc describing the tuple structure (can be NULL for some relation types)
 ## Dependencies
 - Functions called/Symbols referenced:
   - HeapTupleHeaderGetNatts (get number of attributes in tuple)

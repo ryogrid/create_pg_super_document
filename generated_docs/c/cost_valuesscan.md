@@ -24,11 +24,10 @@ This function calculates the execution cost for scanning a VALUES clause, which 
 The function follows PostgreSQL's standard cost model by separating startup costs (one-time initialization) from run costs (proportional to number of tuples processed).
 
 ## Parameters / Member Variables
-- : The Path node to store the calculated costs in (startup_cost and total_cost fields are set)
-- : PlannerInfo structure containing global planning information and cost parameters
-- : RelOptInfo representing the VALUES relation being scanned (must have rtekind == RTE_VALUES)
-- : ParamPathInfo for parameterized paths, or NULL for non-parameterized scans
-
+- `*path`: The Path node to store the calculated costs in (startup_cost and total_cost fields are set)
+- `*root`: PlannerInfo structure containing global planning information and cost parameters
+- `*baserel`: RelOptInfo representing the VALUES relation being scanned (must have rtekind == RTE_VALUES)
+- `*param_info`: ParamPathInfo for parameterized paths, or NULL for non-parameterized scans
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_restriction_qual_cost](../g/get_restriction_qual_cost.md) (calculates cost of applying WHERE clause conditions)

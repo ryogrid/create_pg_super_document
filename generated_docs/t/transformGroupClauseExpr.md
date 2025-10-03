@@ -26,16 +26,15 @@ This function processes individual expressions within GROUP BY clauses and group
 The function ensures that both the targetlist (for expression evaluation) and the flatresult list (which becomes the groupClause) contain the necessary entries for proper GROUP BY processing.
 
 ## Parameters / Member Variables
-- : Reference to flat list of SortGroupClause nodes being constructed
-- : Bitmapset tracking sortgrouprefs already seen at the current level (for duplicate detection)
-- : Parse state containing parsing context and transformation information  
-- : The GROUP BY expression node to transform
-- : Reference to the TargetEntry list (modified to include new entries as needed)
-- : ORDER BY clause containing SortGroupClause nodes with operator hints
-- : Enumeration identifying the clause type being processed
-- : Boolean flag determining whether to use SQL99 or SQL92 interpretation rules
-- : Boolean flag indicating whether this expression is at the top level (affects NULLS ordering in grouping sets)
-
+- `**flatresult`: Reference to flat list of SortGroupClause nodes being constructed
+- `*seen_local`: Bitmapset tracking sortgrouprefs already seen at the current level (for duplicate detection)
+- `*pstate`: Parse state containing parsing context and transformation information
+- `*gexpr`: The GROUP BY expression node to transform
+- `**targetlist`: Reference to the TargetEntry list (modified to include new entries as needed)
+- `*sortClause`: ORDER BY clause containing SortGroupClause nodes with operator hints
+- `exprKind`: Enumeration identifying the clause type being processed
+- `useSQL99`: Boolean flag determining whether to use SQL99 or SQL92 interpretation rules
+- `toplevel`: Boolean flag indicating whether this expression is at the top level (affects NULLS ordering in grouping sets)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [findTargetlistEntrySQL99](../f/findTargetlistEntrySQL99.md)

@@ -23,9 +23,8 @@ The function performs several assertions to validate the sink chain state:
 This forwarding pattern allows for composition of different backup sink behaviors, such as combining throttling, server communication, and other processing steps.
 
 ## Parameters / Member Variables
-- : Pointer to the current bbsink structure in the chain
-- : Size of the manifest content data to process (must be > 0 and <= buffer length)
-
+- `*sink`: Pointer to the current bbsink structure in the chain
+- `len`: Size of the manifest content data to process (must be > 0 and <= buffer length)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bbsink_manifest_contents](bbsink_manifest_contents.md)

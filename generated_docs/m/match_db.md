@@ -18,9 +18,8 @@ This function serves as a matching callback used by the PostgreSQL statistics sy
 The function extracts a database OID from the  parameter and compares it against the database OID stored in the entry reference hash entry's key. This allows for database-specific cleanup operations where only statistics entries belonging to a particular database need to be released.
 
 ## Parameters / Member Variables
-- : Pointer to a  structure containing the entry reference and its associated key information
-- : A  containing the target database OID to match against, converted from an  value
-
+- `*ent`: Pointer to a  structure containing the entry reference and its associated key information
+- `match_data`: A  containing the target database OID to match against, converted from an  value
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Macro to extract an  value from a 

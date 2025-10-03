@@ -25,10 +25,9 @@ For simple columns, it creates Var nodes using the column's type information fro
 The function ensures consistency by validating that the number of expression columns matches the expected count based on zero indexkey values.
 
 ## Parameters / Member Variables
-- : PlannerInfo containing global planner state (currently unused in implementation)
-- : IndexOptInfo structure containing index metadata including column keys and expressions
-- : Relation structure for the base table to access attribute information
-
+- `*root`: PlannerInfo containing global planner state (currently unused in implementation)
+- `*index`: IndexOptInfo structure containing index metadata including column keys and expressions
+- `heapRelation`: Relation structure for the base table to access attribute information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_head](../l/list_head.md) (gets first element of index expressions list)

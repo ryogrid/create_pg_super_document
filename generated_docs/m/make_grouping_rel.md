@@ -27,12 +27,11 @@ The parallel safety evaluation combines multiple factors:
 The function also maintains Foreign Data Wrapper (FDW) context by copying server ID, user ID, and FDW routine information from the input relation.
 
 ## Parameters / Member Variables
-- : PlannerInfo containing the query planning context and configuration
-- : RelOptInfo representing the underlying scan/join relation that provides input data
-- : PathTarget specifying the output columns and expressions for the grouping relation
-- : Boolean indicating whether the target list can be computed safely in parallel
-- : Node representing the HAVING clause conditions (can be NULL if no HAVING clause)
-
+- `*root`: PlannerInfo containing the query planning context and configuration
+- `*input_rel`: RelOptInfo representing the underlying scan/join relation that provides input data
+- `*target`: PathTarget specifying the output columns and expressions for the grouping relation
+- `target_parallel_safe`: Boolean indicating whether the target list can be computed safely in parallel
+- `*havingQual`: Node representing the HAVING clause conditions (can be NULL if no HAVING clause)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [fetch_upper_rel](../f/fetch_upper_rel.md)

@@ -16,11 +16,10 @@ XLogFileName(char *fname, TimeLineID tli, XLogSegNo logSegNo, int wal_segsz_byte
 XLogFileName constructs a WAL segment file name in the standard PostgreSQL format: 8-character timeline ID followed by two 8-character hexadecimal segments representing the file number. The function calculates the file and segment portions by dividing the logical segment number by the number of segments per XLogId. This inline function is designed for efficiency and should not be used in helper functions that allocate the result.
 
 ## Parameters / Member Variables
-- : Output buffer to store the generated filename (must be at least MAXFNAMELEN bytes)
-- : Timeline ID that identifies the recovery timeline
-- : Logical segment number within the timeline
-- : WAL segment size in bytes, used to calculate segments per XLogId
-
+- `*fname`: Output buffer to store the generated filename (must be at least MAXFNAMELEN bytes)
+- `tli`: Timeline ID that identifies the recovery timeline
+- `logSegNo`: Logical segment number within the timeline
+- `wal_segsz_bytes`: WAL segment size in bytes, used to calculate segments per XLogId
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogSegmentsPerXLogId

@@ -18,8 +18,7 @@ This function serves as a specialized lookup utility for finding TableInfo objec
 This function is essential for resolving table references throughout pg_dump's operation, allowing various parts of the system to locate table objects when they have only the OID available. It's commonly used when processing foreign key constraints, inheritance relationships, and other inter-table dependencies.
 
 ## Parameters / Member Variables
-- : The database OID of the table to find
-
+- `oid`: The database OID of the table to find
 ## Dependencies
 - Functions called/Symbols referenced:
   - [findObjectByCatalogId](findObjectByCatalogId.md) (generic object lookup by catalog ID)

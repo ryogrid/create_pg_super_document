@@ -16,8 +16,7 @@ proc_exit(int code)
 proc_exit serves as the central exit point for PostgreSQL processes, implementing a two-phase shutdown strategy. It first calls proc_exit_prepare() to handle all cleanup operations, then performs optional profiling setup (when PROFILE_PID_DIR is defined), and finally calls the system exit() function. The function includes safety checks to prevent execution in child processes and handles special profiling directory creation for debugging builds. This design ensures that all registered cleanup callbacks are executed before process termination, maintaining system consistency and preventing resource leaks.
 
 ## Parameters / Member Variables
-- : Exit status code to be passed to the system exit() function
-
+- `code`: Exit status code to be passed to the system exit() function
 ## Dependencies
 - Functions called/Symbols referenced:
   - [proc_exit_prepare](proc_exit_prepare.md)

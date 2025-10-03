@@ -24,10 +24,9 @@ This function implements a deferred index construction mechanism during PostgreS
 The function creates a deep copy of the IndexInfo structure and stores it in a special no-garbage-collection memory context to ensure the index definitions persist until the actual index construction phase. The deferred indexes are built just before bootstrap completion when all catalog entries are finalized.
 
 ## Parameters / Member Variables
-- : The OID of the heap relation that the index will be built on
-- : The OID of the index relation being registered
-- : Pointer to IndexInfo structure containing index specification details
-
+- `heap`: The OID of the heap relation that the index will be built on
+- `ind`: The OID of the index relation being registered
+- `*indexInfo`: Pointer to IndexInfo structure containing index specification details
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetContextCreate (creates memory context for persistent storage)

@@ -23,10 +23,9 @@ ParseLongOption implements a simplified "long argument" parser that takes a stri
 The function allocates memory for the returned strings using palloc functions, making them suitable for use within PostgreSQL's memory management system.
 
 ## Parameters / Member Variables
-- : Input string to parse, expected in "name=value" format
-- : Output parameter that receives a pointer to the allocated option name string
-- : Output parameter that receives a pointer to the allocated value string, or NULL if no '=' was found
-
+- `*string`: Input string to parse, expected in "name=value" format
+- `**name`: Output parameter that receives a pointer to the allocated option name string
+- `**value`: Output parameter that receives a pointer to the allocated value string, or NULL if no '=' was found
 ## Dependencies
 - Functions called/Symbols referenced:
   - strcspn (find position of delimiter character)

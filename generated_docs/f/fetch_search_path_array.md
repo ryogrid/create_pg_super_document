@@ -18,9 +18,8 @@ This function provides an efficient way to retrieve the active search path by co
 The design intentionally avoids complications with temporary namespace initialization since the temp namespace is excluded from the results. This makes the function more predictable and suitable for performance-critical paths where dynamic memory allocation should be avoided.
 
 ## Parameters / Member Variables
-- : Caller-allocated array of Oid values to store the search path namespaces
-- : Maximum number of entries that can be stored in the sarray
-
+- `*sarray`: Caller-allocated array of Oid values to store the search path namespaces
+- `sarray_len`: Maximum number of entries that can be stored in the sarray
 ## Dependencies
 - Functions called/Symbols referenced:
   - [recomputeNamespacePath](../r/recomputeNamespacePath.md)

@@ -20,7 +20,6 @@ The function initializes all tuple slots (scan, inner, outer) to NULL, creates a
 The caller is responsible for proper cleanup, either by explicitly freeing the context or ensuring shutdown callbacks are executed via ReScanExprContext() to prevent resource leaks.
 
 ## Parameters / Member Variables
-This function takes no parameters and returns a fully initialized ExprContext pointer.
 
 ## Dependencies
 - Functions called/Symbols referenced:

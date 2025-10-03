@@ -16,8 +16,7 @@ SPI_register_relation(EphemeralNamedRelation enr)
 This function is part of the SPI (Server Programming Interface) API that allows registration of ephemeral named relations (ENRs) within the current SPI execution context. The function validates the input parameter, checks for duplicate registrations using the relation's name, and if no duplicate exists, registers the ENR in the query environment. If no query environment exists yet, it creates one. The function uses SPI's begin/end call mechanism to manage the execution context properly.
 
 ## Parameters / Member Variables
-- : Pointer to an EphemeralNamedRelation structure containing the relation to be registered. Must not be NULL and must have a valid name in enr->md.name.
-
+- `enr`: Pointer to an EphemeralNamedRelation structure containing the relation to be registered. Must not be NULL and must have a valid name in enr->md.name.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [_SPI_begin_call](_SPI_begin_call.md) (to start SPI call context)

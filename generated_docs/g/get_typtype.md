@@ -28,8 +28,7 @@ The function accesses the pg_type system catalog through the PostgreSQL cache sy
 This is a fundamental utility function used throughout PostgreSQL to make type-based decisions in parsing, planning, and execution.
 
 ## Parameters / Member Variables
-- : OID of the type to look up
-
+- `typid`: OID of the type to look up
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup for pg_type)

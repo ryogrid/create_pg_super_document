@@ -21,15 +21,14 @@ The GinFormTuple function creates an IndexTuple specifically for GIN entry tree 
 The function is designed primarily for leaf-level key entries containing posting lists, but can be adapted for posting-tree entries, non-leaf entries, or pending-list entries by passing dataSize = 0 and overwriting t_tid fields as necessary.
 
 ## Parameters / Member Variables
-- : GIN state structure containing index metadata and tuple descriptors
-- : Attribute number (column number) for the key
-- : The key datum to be stored in the tuple
-- : GIN null category for handling null values and special cases
-- : Pointer to posting list data (can be NULL)
-- : Size of the posting list data in bytes
-- : Number of items in posting list
-- : If true, throws error when tuple is too big; if false, returns NULL
-
+- `*ginstate`: GIN state structure containing index metadata and tuple descriptors
+- `attnum`: Attribute number (column number) for the key
+- `key`: The key datum to be stored in the tuple
+- `category`: GIN null category for handling null values and special cases
+- `data`: Pointer to posting list data (can be NULL)
+- `dataSize`: Size of the posting list data in bytes
+- `nipd`: Number of items in posting list
+- `errorTooBig`: If true, throws error when tuple is too big; if false, returns NULL
 ## Dependencies
 - Functions called/Symbols referenced:
   - [index_form_tuple](../i/index_form_tuple.md): Creates basic IndexTuple from datums and nulls arrays

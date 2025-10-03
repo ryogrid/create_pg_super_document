@@ -16,10 +16,9 @@ append_database_pattern(PatternInfoArray *pia, const char *pattern, int encoding
 The  function processes a database name pattern and adds it to the provided pattern information array. It converts the user-provided pattern into a SQL regular expression that can be used for database matching operations. The function validates that the pattern contains no qualified names (no dots) as database patterns should represent simple database names only. If the pattern contains dots, indicating an improperly qualified name, the function logs an error and exits the program.
 
 ## Parameters / Member Variables
-- : PatternInfoArray pointer to the pattern information array that will be extended with the new pattern
-- : const char pointer to the database name pattern string to be processed
-- : int value representing the client encoding used for parsing the pattern
-
+- `*pia`: PatternInfoArray pointer to the pattern information array that will be extended with the new pattern
+- `*pattern`: const char pointer to the database name pattern string to be processed
+- `encoding`: int value representing the client encoding used for parsing the pattern
 ## Dependencies
 - Functions called/Symbols referenced:
   - [extend_pattern_info_array](../e/extend_pattern_info_array.md)

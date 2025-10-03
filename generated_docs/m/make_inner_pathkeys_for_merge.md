@@ -29,10 +29,9 @@ Key behaviors:
 - Includes comprehensive error checking for pathkey/mergeclause alignment
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planner state and context information
-- : List of RestrictInfos for mergejoin clauses in order, marked with outer_is_left indicators
-- : Already-known canonical pathkeys for the outer side of the join
-
+- `*root`: PlannerInfo structure containing planner state and context information
+- `*mergeclauses`: List of RestrictInfos for mergejoin clauses in order, marked with outer_is_left indicators
+- `*outer_pathkeys`: Already-known canonical pathkeys for the outer side of the join
 ## Dependencies
 - Functions called/Symbols referenced:
   - [update_mergeclause_eclasses](../u/update_mergeclause_eclasses.md)

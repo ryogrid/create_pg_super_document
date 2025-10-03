@@ -21,11 +21,10 @@ The function ensures deterministic results when an operator is registered in mul
 The function only considers btree access method operators with BTLessStrategyNumber or BTGreaterStrategyNumber strategies, and requires consistent left and right input types for the operator.
 
 ## Parameters / Member Variables
-- : The OID of the ordering operator to analyze
-- : Output parameter for the operator family OID 
-- : Output parameter for the operator's declared input datatype
-- : Output parameter for the strategy number (BTLessStrategyNumber or BTGreaterStrategyNumber)
-
+- `opno`: The OID of the ordering operator to analyze
+- `*opfamily`: Output parameter for the operator family OID
+- `*opcintype`: Output parameter for the operator's declared input datatype
+- `*strategy`: Output parameter for the strategy number (BTLessStrategyNumber or BTGreaterStrategyNumber)
 ## Dependencies
 - Functions called/Symbols referenced:
   - SearchSysCacheList1

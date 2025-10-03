@@ -22,12 +22,11 @@ This function is a helper for  that handles the processing of a single row in th
 The function operates on the high colormap structure, which is used for efficient color mapping in regular expression compilation. It ensures that state transitions are properly created in the NFA (Nondeterministic Finite Automaton) for each distinct subcolor encountered.
 
 ## Parameters / Member Variables
-- : Pointer to the vars structure containing compilation context and NFA information
-- : The row number in the high colormap to process
-- : Left state pointer for creating NFA arcs
-- : Right state pointer for creating NFA arcs  
-- : Pointer to track the last subcolor processed to avoid duplicate arcs
-
+- `*v`: Pointer to the vars structure containing compilation context and NFA information
+- `rownum`: The row number in the high colormap to process
+- `*lp`: Left state pointer for creating NFA arcs
+- `*rp`: Right state pointer for creating NFA arcs
+- `*lastsubcolor`: Pointer to track the last subcolor processed to avoid duplicate arcs
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Determines the subcolor for a given color entry

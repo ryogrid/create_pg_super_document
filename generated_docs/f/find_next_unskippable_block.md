@@ -26,9 +26,8 @@ find_next_unskippable_block implements the core logic for determining which bloc
 The function maintains visibility map buffer pins and updates vacrel state with the next unskippable block information.
 
 ## Parameters / Member Variables
-- : LVRelState containing vacuum state and relation information
-- : Output parameter set to true if all-visible (but not all-frozen) blocks are being skipped
-
+- `*vacrel`: LVRelState containing vacuum state and relation information
+- `*skipsallvis`: Output parameter set to true if all-visible (but not all-frozen) blocks are being skipped
 ## Dependencies
 - Functions called/Symbols referenced:
   - [visibilitymap_get_status](../v/visibilitymap_get_status.md) (retrieves visibility map bits for blocks)

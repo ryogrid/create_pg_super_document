@@ -16,9 +16,8 @@ AlterPublication(ParseState *pstate, AlterPublicationStmt *stmt)
 This function serves as the central coordinator for all publication modification operations in PostgreSQL's logical replication system. It handles both option changes (via AlterPublicationOptions) and structural changes involving tables and schemas (via AlterPublicationTables and AlterPublicationSchemas). The function implements a robust locking strategy to handle concurrent DDL operations and ensures ownership verification before allowing modifications. It performs publication lookup, validates user permissions, and delegates to specialized functions based on the type of alteration requested.
 
 ## Parameters / Member Variables
-- : ParseState pointer containing parsing context and source text information for the statement
-- : AlterPublicationStmt pointer specifying the publication name, action type, objects to modify, and options
-
+- `*pstate`: ParseState pointer containing parsing context and source text information for the statement
+- `*stmt`: AlterPublicationStmt pointer specifying the publication name, action type, objects to modify, and options
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md) (relation access)

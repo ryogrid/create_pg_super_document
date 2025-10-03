@@ -22,8 +22,7 @@ The function operates in two phases:
 The sorting is applied only to commutative operators (AND, OR) where operand order doesn't affect semantics. Phrase operators (OP_PHRASE) are specifically excluded because they require positional relationships to be preserved between operands.
 
 ## Parameters / Member Variables
-- : Pointer to the root QTNode of the tree/subtree to canonicalize
-
+- `*in`: Pointer to the root QTNode of the tree/subtree to canonicalize
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_stack_depth](../c/check_stack_depth.md) (stack overflow protection)

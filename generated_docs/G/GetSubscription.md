@@ -16,9 +16,8 @@ GetSubscription(Oid subid, bool missing_ok)
 GetSubscription retrieves a subscription record by its OID from the PostgreSQL system catalog cache. It performs a cache lookup using SearchSysCache1 and constructs a complete Subscription structure containing all subscription properties. The function handles both mandatory and optional subscription attributes, including connection information, slot names, publications, and various configuration flags. If the subscription is not found and missing_ok is false, it raises an ERROR; otherwise, it returns NULL.
 
 ## Parameters / Member Variables
-- : The OID (Object Identifier) of the subscription to retrieve
-- : If true, return NULL when subscription not found; if false, raise ERROR
-
+- `subid`: The OID (Object Identifier) of the subscription to retrieve
+- `missing_ok`: If true, return NULL when subscription not found; if false, raise ERROR
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup)

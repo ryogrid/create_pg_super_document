@@ -33,7 +33,6 @@ InitTempTableNamespace performs the complex initialization of PostgreSQL's tempo
 - Invalidates search path caches since the namespace list has changed
 
 ## Parameters / Member Variables
-This function takes no parameters and operates on global state variables and system catalogs.
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -17,9 +17,8 @@ freestate(struct nfa *nfa,
 The  function performs controlled deallocation of an NFA state that must have no connected arcs. It first verifies the state has no incoming or outgoing arcs through assertions. The function then removes the state from the NFA's doubly-linked state list by updating the prev/next pointers of neighboring states, and adjusts the NFA's states and slast pointers if necessary. Rather than immediately freeing the memory, it adds the state to the NFA's freestates list for efficient reuse by future  calls.
 
 ## Parameters / Member Variables
-- : Pointer to the NFA structure containing the state
-- : Pointer to the state to be freed (must have no arcs)
-
+- `*nfa`: Pointer to the NFA structure containing the state
+- `*s`: Pointer to the state to be freed (must have no arcs)
 ## Dependencies
 - Functions called/Symbols referenced:
   - FREESTATE

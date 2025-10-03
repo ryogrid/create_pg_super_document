@@ -18,9 +18,8 @@ The  function is a convenience wrapper around  in the PostgreSQL BSD indent tool
 This function simply delegates to  with a NULL end pointer, which causes the underlying function to process the entire string until it encounters a null terminator. This makes it ideal for cases where the entire buffer content needs to be analyzed for positioning calculations.
 
 ## Parameters / Member Variables
-- : The current column position to start calculation from (integer)
-- : Pointer to the null-terminated character buffer to analyze
-
+- `cur`: The current column position to start calculation from (integer)
+- `*buffer`: Pointer to the null-terminated character buffer to analyze
 ## Dependencies
 - Functions called/Symbols referenced:
   - : The core function that performs the actual column calculation

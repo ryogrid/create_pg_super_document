@@ -19,13 +19,12 @@ gettoken_tsvector(TSVectorParseState state,
 This is the core parsing function that implements a finite state machine to tokenize tsvector and tsquery input strings. It handles various token types including simple words, quoted complex words, escaped characters, and positional information with weights. The parser supports different modes (web search, tsquery, operator-as-delimiter) and can extract position and weight information associated with tokens. The function returns true on successful token extraction and false at end-of-input or on soft errors.
 
 ## Parameters / Member Variables
-- : The TSVectorParseState containing parser configuration and current state
-- : Output parameter - pointer to the extracted token string
-- : Output parameter - length of the extracted token
-- : Output parameter - array of positions and weights (caller must pfree), NULL if not needed
-- : Output parameter - number of elements in pos_ptr array
-- : Output parameter - scan resumption point for continued parsing
-
+- `state`: The TSVectorParseState containing parser configuration and current state
+- `**strval`: Output parameter - pointer to the extracted token string
+- `*lenval`: Output parameter - length of the extracted token
+- `**pos_ptr`: Output parameter - array of positions and weights (caller must pfree), NULL if not needed
+- `*poslen`: Output parameter - number of elements in pos_ptr array
+- `**endptr`: Output parameter - scan resumption point for continued parsing
 ## Dependencies
 - Functions called/Symbols referenced:
   - t_iseq, t_isspace, t_isdigit

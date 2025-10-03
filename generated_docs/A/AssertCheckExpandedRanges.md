@@ -23,13 +23,12 @@ This function performs comprehensive validation of an array of ExpandedRange str
 The function dynamically retrieves the appropriate comparison functions (equality and less-than) based on the attribute type and uses them to perform the validation. This ensures type-specific comparison semantics are correctly applied.
 
 ## Parameters / Member Variables
-- : Pointer to BrinDesc structure containing BRIN index metadata
-- : OID of the collation to use for comparison operations
-- : Attribute number within the BRIN index
-- : Form_pg_attribute structure describing the attribute
-- : Array of ExpandedRange structures to validate
-- : Number of ranges in the array
-
+- `*bdesc`: Pointer to BrinDesc structure containing BRIN index metadata
+- `colloid`: OID of the collation to use for comparison operations
+- `attno`: Attribute number within the BRIN index
+- `attr`: Form_pg_attribute structure describing the attribute
+- `*ranges`: Array of ExpandedRange structures to validate
+- `nranges`: Number of ranges in the array
 ## Dependencies
 - Functions called/Symbols referenced:
   - [minmax_multi_get_strategy_procinfo](../m/minmax_multi_get_strategy_procinfo.md)

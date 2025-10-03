@@ -18,8 +18,7 @@ DropCachedPlan safely destroys a CachedPlanSource by removing it from the global
 For oneshot plans, the function only performs cleanup operations that don't involve freeing memory contexts, since the caller retains responsibility for memory management in that case.
 
 ## Parameters / Member Variables
-- : The CachedPlanSource to be destroyed
-
+- `*plansource`: The CachedPlanSource to be destroyed
 ## Dependencies
 - Functions called/Symbols referenced:
   - CACHEDPLANSOURCE_MAGIC

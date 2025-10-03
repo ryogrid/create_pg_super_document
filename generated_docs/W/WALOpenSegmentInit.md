@@ -19,11 +19,10 @@ WALOpenSegmentInit is a static initialization function that prepares WALOpenSegm
 This function is part of PostgreSQL's WAL reading infrastructure, which is essential for recovery, replication, and other operations that need to read transaction log data from WAL files.
 
 ## Parameters / Member Variables
-- : Pointer to WALOpenSegment structure to be initialized - represents an individual WAL segment
-- : Pointer to WALSegmentContext structure containing shared context information for segment operations
-- : Size of WAL segments in bytes, used to configure segment boundaries
-- : Directory path where WAL files are stored; if NULL, directory path is not set
-
+- `*seg`: Pointer to WALOpenSegment structure to be initialized - represents an individual WAL segment
+- `*segcxt`: Pointer to WALSegmentContext structure containing shared context information for segment operations
+- `segsize`: Size of WAL segments in bytes, used to configure segment boundaries
+- `*waldir`: Directory path where WAL files are stored; if NULL, directory path is not set
 ## Dependencies
 - Functions called/Symbols referenced:
   - snprintf (standard C library function for formatted string copying)

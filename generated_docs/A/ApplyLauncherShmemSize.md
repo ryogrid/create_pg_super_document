@@ -17,6 +17,7 @@ This function calculates the total shared memory size required for the logical r
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LogicalRepCtxStruct](../L/LogicalRepCtxStruct.md)

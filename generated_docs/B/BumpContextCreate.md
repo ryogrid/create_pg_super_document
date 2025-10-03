@@ -19,12 +19,11 @@ BumpContextCreate initializes a Bump memory context that provides efficient memo
 The function performs extensive validation of input parameters, allocates the initial block containing both the context header and block header, initializes the block management structures, and sets up allocation limits based on the maximum block size and chunk constraints.
 
 ## Parameters / Member Variables
-- : Parent memory context, or NULL if this is a top-level context
-- : Name of the context (must be statically allocated string)
-- : Minimum size for the initial context allocation
-- : Initial size for allocation blocks (must be ≥1024 and MAXALIGNED)
-- : Maximum size for allocation blocks (must be ≥initBlockSize and ≤MEMORYCHUNK_MAX_BLOCKOFFSET)
-
+- `parent`: Parent memory context, or NULL if this is a top-level context
+- `*name`: Name of the context (must be statically allocated string)
+- `minContextSize`: Minimum size for the initial context allocation
+- `initBlockSize`: Initial size for allocation blocks (must be ≥1024 and MAXALIGNED)
+- `maxBlockSize`: Maximum size for allocation blocks (must be ≥initBlockSize and ≤MEMORYCHUNK_MAX_BLOCKOFFSET)
 ## Dependencies
 - Functions called/Symbols referenced:
   - malloc

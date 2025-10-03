@@ -22,9 +22,8 @@ The function supports two soft error modes:
 This mechanism is particularly useful for operations that need to attempt potentially-failing actions while capturing error details for later handling, such as data validation or conditional operations.
 
 ## Parameters / Member Variables
-- : Node pointer that may be an ErrorSaveContext for soft error handling, or NULL for traditional error processing
-- : Error domain string for categorizing the error source
-
+- `*context`: Node pointer that may be an ErrorSaveContext for soft error handling, or NULL for traditional error processing
+- `*domain`: Error domain string for categorizing the error source
 ## Dependencies
 - Functions called/Symbols referenced:
   - [errstart](errstart.md)

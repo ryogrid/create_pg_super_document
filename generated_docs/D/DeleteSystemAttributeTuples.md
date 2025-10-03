@@ -36,8 +36,7 @@ The function performs a targeted deletion operation:
 This function is highly specialized and is only used in the specific context of table-to-view conversions, where the structural change from a storage-backed table to a query-backed view necessitates the removal of storage-related system columns.
 
 ## Parameters / Member Variables
-- : The OID of the relation whose system attribute entries should be deleted from pg_attribute
-
+- `relid`: The OID of the relation whose system attribute entries should be deleted from pg_attribute
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md) (opens pg_attribute catalog for modification)

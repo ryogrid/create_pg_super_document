@@ -26,6 +26,7 @@ The function is critical for maintaining PostgreSQL's MVCC semantics in complex 
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ActiveSnapshotSet](../A/ActiveSnapshotSet.md)

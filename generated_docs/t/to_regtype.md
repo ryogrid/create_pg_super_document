@@ -24,8 +24,7 @@ The function workflow:
 This function is particularly useful in SQL contexts where conditional type checking is needed without triggering query failures.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function argument macro containing:
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument macro containing:
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Convert PostgreSQL TEXT to C string

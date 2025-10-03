@@ -24,13 +24,12 @@ This function attempts to determine the range (minimum and maximum values) of a 
 The function includes security checks to ensure the user has permission to access the statistical data, and handles data type-specific operations like datum copying and comparison operators.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing query planning context
-- : VariableStatData structure with statistical information and metadata about the variable
-- : Object identifier for the comparison operator to use (typically "<" for ascending order)
-- : Collation to use for comparisons, important for text data types
-- : Output parameter for the estimated minimum value
-- : Output parameter for the estimated maximum value
-
+- `*root`: PlannerInfo structure containing query planning context
+- `*vardata`: VariableStatData structure with statistical information and metadata about the variable
+- `sortop`: Object identifier for the comparison operator to use (typically "<" for ascending order)
+- `collation`: Collation to use for comparisons, important for text data types
+- `*min`: Output parameter for the estimated minimum value
+- `*max`: Output parameter for the estimated maximum value
 ## Dependencies
 - Functions called/Symbols referenced:
   - [statistic_proc_security_check](../s/statistic_proc_security_check.md) (security permission verification)

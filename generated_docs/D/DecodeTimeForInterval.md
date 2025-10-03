@@ -27,12 +27,11 @@ DecodeTimeForInterval provides specialized processing for interval parsing by co
 The function is specifically designed for interval parsing contexts where time components need to be represented as a total microsecond duration.
 
 ## Parameters / Member Variables
-- : Input string containing the time to be parsed
-- : Field mask indicating which date/time fields are already present
-- : Range specification for interval parsing (affects field interpretation)
-- : Output parameter receiving a mask of successfully parsed time fields
-- : Output parameter receiving the consolidated time as total microseconds
-
+- `*str`: Input string containing the time to be parsed
+- `fmask`: Field mask indicating which date/time fields are already present
+- `range`: Range specification for interval parsing (affects field interpretation)
+- `*tmask`: Output parameter receiving a mask of successfully parsed time fields
+- `*itm_in`: Output parameter receiving the consolidated time as total microseconds
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Core time parsing functionality

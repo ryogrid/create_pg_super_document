@@ -22,10 +22,9 @@ The function implements the mathematical rules for signed number subtraction:
 - (-A) - (+B) = -(A + B)
 
 ## Parameters / Member Variables
-- : First NumericVar operand (minuend, input)
-- : Second NumericVar operand (subtrahend, input)
-- : NumericVar to store the subtraction result (output)
-
+- `*var1`: First NumericVar operand (minuend, input)
+- `*var2`: Second NumericVar operand (subtrahend, input)
+- `*result`: NumericVar to store the subtraction result (output)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [add_abs](../a/add_abs.md) (for adding absolute values)

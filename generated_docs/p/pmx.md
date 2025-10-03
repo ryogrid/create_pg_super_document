@@ -23,12 +23,11 @@ The algorithm works in three main steps:
 The function ensures that the resulting offspring is a valid permutation where each gene appears exactly once, making it suitable for optimization problems like query join order optimization.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planner context and random number generation state
-- : First parent tour (gene sequence) - acts as the "MOM" in the crossover
-- : Second parent tour (gene sequence) - acts as the "DAD" in the crossover  
-- : Output array where the resulting offspring tour will be stored
-- : Number of genes in each tour (length of the gene sequences)
-
+- `*root`: PlannerInfo structure containing planner context and random number generation state
+- `*tour1`: First parent tour (gene sequence) - acts as the "MOM" in the crossover
+- `*tour2`: Second parent tour (gene sequence) - acts as the "DAD" in the crossover
+- `*offspring`: Output array where the resulting offspring tour will be stored
+- `num_gene`: Number of genes in each tour (length of the gene sequences)
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Memory allocation for internal arrays

@@ -18,9 +18,8 @@ SetSessionUserId is an internal static function in PostgreSQL's authentication a
 The function includes assertions to ensure it's only called in appropriate contexts - specifically when no security restrictions are in place (SecurityRestrictionContext == 0) and with a valid user OID. The session user ID represents the authenticated user's identity for the duration of the session, which may differ from the current effective user ID if SET ROLE has been used.
 
 ## Parameters / Member Variables
-- : The OID of the user to set as the session user. Must be a valid OID (not InvalidOid).
-- : Boolean flag indicating whether the specified user has superuser privileges.
-
+- `userid`: The OID of the user to set as the session user. Must be a valid OID (not InvalidOid).
+- `is_superuser`: Boolean flag indicating whether the specified user has superuser privileges.
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (for validation checks)

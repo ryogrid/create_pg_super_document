@@ -24,9 +24,8 @@ This function provides a controlled way to update a GUC parameter's source field
 This approach ensures that the guc_nondef_list always accurately reflects which parameters have non-default values, which is critical for operations like configuration dumps, resets, and other GUC management functions.
 
 ## Parameters / Member Variables
-- : Pointer to the config_generic structure representing the GUC variable
-- : The new GucSource value to be assigned to the parameter's source field
-
+- `*gconf`: Pointer to the config_generic structure representing the GUC variable
+- `newsource`: The new GucSource value to be assigned to the parameter's source field
 ## Dependencies
 - Functions called/Symbols referenced:
   - GucSource (enum type)

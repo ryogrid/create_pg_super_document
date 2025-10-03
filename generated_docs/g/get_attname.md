@@ -16,10 +16,9 @@ get_attname(Oid relid, AttrNumber attnum, bool missing_ok)
 This function performs a system cache lookup to retrieve the attribute name (column name) from the pg_attribute catalog table. It searches using the relation OID and attribute number as keys. The function returns a newly allocated string containing the attribute name, which must be freed by the caller. If the attribute is not found, the behavior depends on the missing_ok parameter - it either returns NULL or throws an error.
 
 ## Parameters / Member Variables
-- : Object identifier of the relation (table/view/etc.) containing the attribute
-- : Attribute number (column number) within the relation, typically starting from 1
-- : If true, returns NULL when attribute is not found; if false, throws an error
-
+- `relid`: Object identifier of the relation (table/view/etc.) containing the attribute
+- `attnum`: Attribute number (column number) within the relation, typically starting from 1
+- `missing_ok`: If true, returns NULL when attribute is not found; if false, throws an error
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache2](../S/SearchSysCache2.md) - performs the system cache lookup using ATTNUM cache

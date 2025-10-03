@@ -18,9 +18,8 @@ This function implements an INTERSECT operation for multibitmapsets, which are r
 The function first truncates List a to match the length of List b (since any elements beyond b's length would have no corresponding intersection). Then it iterates through both lists simultaneously using the forboth macro. For each corresponding pair of Bitmapsets, it calls bms_int_members to perform the actual bitmap intersection operation and updates the element in List a.
 
 ## Parameters / Member Variables
-- : The destination List representing the multibitmapset to be modified (left operand of INTERSECT)
-- : The source List representing the multibitmapset to intersect with (right operand of INTERSECT, read-only)
-
+- `*a`: The destination List representing the multibitmapset to be modified (left operand of INTERSECT)
+- `*b`: The source List representing the multibitmapset to intersect with (right operand of INTERSECT, read-only)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_truncate](../l/list_truncate.md)

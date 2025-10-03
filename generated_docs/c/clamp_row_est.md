@@ -22,8 +22,7 @@ This function sanitizes row count estimates to prevent problematic values from p
 The function is essential for maintaining numerical stability in the cost-based optimizer and ensuring that cost calculations remain meaningful even when statistics are incomplete or unusual.
 
 ## Parameters / Member Variables
-- : The input row count estimate (double precision floating point number)
-
+- `nrows`: The input row count estimate (double precision floating point number)
 ## Dependencies
 - Functions called/Symbols referenced:
   - : C standard library function to check for NaN values

@@ -17,10 +17,9 @@ scanNameSpaceForCTE(ParseState *pstate, const char *refname,
 This function searches through the CTE namespace starting from the current parsing state and traversing up through parent parsing states to find a Common Table Expression that matches the given reference name. It implements the scoping rules for CTEs, where inner scopes can reference CTEs defined in outer scopes. The function returns both the matching CTE and the nesting level where it was found. Unlike relation namespace searches, this function doesn't need to handle ambiguity since parse_cte.c ensures CTE names are unique within each WITH clause.
 
 ## Parameters / Member Variables
-- : Current parsing state containing CTE namespace information
-- : The unqualified CTE name to search for
-- : Output parameter that receives the nesting level where the CTE was found
-
+- `*pstate`: Current parsing state containing CTE namespace information
+- `*refname`: The unqualified CTE name to search for
+- `*ctelevelsup`: Output parameter that receives the nesting level where the CTE was found
 ## Dependencies
 - Functions called/Symbols referenced:
   - CommonTableExpr (struct type)

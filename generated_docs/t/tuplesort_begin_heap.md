@@ -20,16 +20,15 @@ tuplesort_begin_heap(TupleDesc tupDesc,
 This function creates and configures a new tuplesort state specifically for heap tuple sorting. It sets up the sorting infrastructure including comparison functions, I/O functions, and sort support data for each sort key. The function supports advanced features like abbreviation optimization for improved performance, parallel sorting coordination, and configurable memory usage limits. It establishes the foundation for efficient tuple sorting operations by preparing all necessary comparison and data handling mechanisms.
 
 ## Parameters / Member Variables
-- : Tuple descriptor defining the structure of tuples to be sorted
-- : Number of sort keys (must be > 0)
-- : Array of attribute numbers for sort keys
-- : Array of comparison operator OIDs for each sort key
-- : Array of collation OIDs for each sort key
-- : Array of boolean flags indicating null ordering preference for each key
-- : Amount of memory (in KB) available for sorting operations
-- : Coordination structure for parallel sorting operations
-- : Sorting options bitmask (e.g., TUPLESORT_RANDOMACCESS)
-
+- `tupDesc`: Tuple descriptor defining the structure of tuples to be sorted
+- `nkeys`: Number of sort keys (must be > 0)
+- `*attNums`: Array of attribute numbers for sort keys
+- `*sortOperators`: Array of comparison operator OIDs for each sort key
+- `*sortCollations`: Array of collation OIDs for each sort key
+- `*nullsFirstFlags`: Array of boolean flags indicating null ordering preference for each key
+- `workMem`: Amount of memory (in KB) available for sorting operations
+- `coordinate`: Coordination structure for parallel sorting operations
+- `sortopt`: Sorting options bitmask (e.g., TUPLESORT_RANDOMACCESS)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [tuplesort_begin_common](tuplesort_begin_common.md)

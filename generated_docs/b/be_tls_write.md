@@ -22,11 +22,10 @@ The function handles multiple SSL error states including:
 - SSL protocol violations and connection closure events
 
 ## Parameters / Member Variables
-- : Pointer to the Port structure containing the SSL connection state and socket information
-- : Pointer to the data buffer to be written to the SSL connection
-- : Number of bytes to write from the buffer
-- : Output parameter that indicates what type of I/O wait is needed (WL_SOCKET_READABLE or WL_SOCKET_WRITEABLE)
-
+- `*port`: Pointer to the Port structure containing the SSL connection state and socket information
+- `*ptr`: Pointer to the data buffer to be written to the SSL connection
+- `len`: Number of bytes to write from the buffer
+- `*waitfor`: Output parameter that indicates what type of I/O wait is needed (WL_SOCKET_READABLE or WL_SOCKET_WRITEABLE)
 ## Dependencies
 - Functions called/Symbols referenced:
   - SSL_write (OpenSSL function)

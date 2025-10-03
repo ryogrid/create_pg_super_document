@@ -18,8 +18,7 @@ p_isstophost is a helper function used in the text search word parser to control
 This function is part of the state machine logic that handles URL and host parsing within text search processing. It ensures that host parsing is properly terminated when the expected host token has been processed.
 
 ## Parameters / Member Variables
-- : Pointer to a TParser structure containing the parser state, including the wanthost flag that controls host parsing behavior
-
+- `*prs`: Pointer to a TParser structure containing the parser state, including the wanthost flag that controls host parsing behavior
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TParser](../T/TParser.md) (structure type)

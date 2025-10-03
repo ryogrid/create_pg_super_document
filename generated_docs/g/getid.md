@@ -18,10 +18,9 @@ This function extracts identifiers from ACL strings during parsing operations. I
 The function implements robust error handling through the escontext mechanism, allowing callers to choose between immediate error reporting (ereport) or error logging for later processing. It ensures identifier length compliance with PostgreSQL's NAMEDATALEN limit and handles whitespace trimming both before and after identifier parsing.
 
 ## Parameters / Member Variables
-- : Input string to parse, positioned at or before the identifier
-- : Output buffer to store the parsed identifier (must be NAMEDATALEN bytes)  
-- : Error context node for error handling - if ErrorSaveData, errors are logged rather than thrown
-
+- `*s`: Input string to parse, positioned at or before the identifier
+- `*n`: Output buffer to store the parsed identifier (must be NAMEDATALEN bytes)
+- `*escontext`: Error context node for error handling - if ErrorSaveData, errors are logged rather than thrown
 ## Dependencies
 - Functions called/Symbols referenced:
   - [is_safe_acl_char](../i/is_safe_acl_char.md) (determines if character is safe in ACL identifiers)

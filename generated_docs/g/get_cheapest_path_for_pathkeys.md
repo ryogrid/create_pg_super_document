@@ -21,12 +21,11 @@ This function is a core component of PostgreSQL's query optimizer that searches 
 The algorithm iterates through all provided paths, filtering based on parallel-safety requirements if specified, then performs cost comparison (which is cheaper than pathkey comparison) before checking if the path's pathkeys contain the required pathkeys and if the path's outer relation requirements are satisfied.
 
 ## Parameters / Member Variables
-- : List of possible paths that all generate the same relation
-- : Required ordering in canonical form that the selected path must satisfy
-- : Allowable outer relations for parameterized paths
-- : Cost selection criterion (STARTUP_COST or TOTAL_COST)
-- : When true, only considers parallel-safe paths
-
+- `*paths`: List of possible paths that all generate the same relation
+- `*pathkeys`: Required ordering in canonical form that the selected path must satisfy
+- `required_outer`: Allowable outer relations for parameterized paths
+- `cost_criterion`: Cost selection criterion (STARTUP_COST or TOTAL_COST)
+- `require_parallel_safe`: When true, only considers parallel-safe paths
 ## Dependencies
 - Functions called/Symbols referenced:
   - [compare_path_costs](../c/compare_path_costs.md)

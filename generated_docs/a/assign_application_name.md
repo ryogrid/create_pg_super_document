@@ -18,9 +18,8 @@ This function serves as an assignment hook for the  GUC parameter in PostgreSQL.
 The primary responsibility of this function is to ensure that the PostgreSQL statistics collector is notified of the new application name so that it can be properly displayed in system views like . This allows database administrators to identify and monitor different client applications connecting to the database.
 
 ## Parameters / Member Variables
-- : The new value being assigned to the  parameter (as a C string)
-- : Additional data that can be passed to the hook function (currently unused in this implementation)
-
+- `*newval`: The new value being assigned to the  parameter (as a C string)
+- `*extra`: Additional data that can be passed to the hook function (currently unused in this implementation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Updates the statistics collector with the new application name

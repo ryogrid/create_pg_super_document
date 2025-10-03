@@ -16,10 +16,9 @@ setNamespaceLateralState(List *namespace, bool lateral_only, bool lateral_ok)
 This function is a utility routine used within the PostgreSQL parser to manage the lateral reference state of all namespace items in a given list. It iterates through each ParseNamespaceItem in the provided namespace list and sets both the  and  flags to the specified boolean values. This functionality is essential for implementing SQL LATERAL join semantics, where certain table references can access columns from tables that appear earlier in the FROM clause. The function helps enforce the proper scoping rules for lateral references during query parsing.
 
 ## Parameters / Member Variables
-- : A List of ParseNamespaceItem structures representing the current parsing namespace
-- : A boolean flag indicating whether only lateral references are allowed from this namespace
-- : A boolean flag indicating whether lateral references are permitted to this namespace
-
+- `*namespace`: A List of ParseNamespaceItem structures representing the current parsing namespace
+- `lateral_only`: A boolean flag indicating whether only lateral references are allowed from this namespace
+- `lateral_ok`: A boolean flag indicating whether lateral references are permitted to this namespace
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ParseNamespaceItem](../P/ParseNamespaceItem.md) (struct type)

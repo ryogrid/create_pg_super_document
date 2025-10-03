@@ -25,9 +25,8 @@ Key behaviors include:
 - Proper cleanup of file descriptors and memory structures
 
 ## Parameters / Member Variables
-- : ReorderBuffer instance containing global state and configuration
-- : ReorderBufferTXN to be serialized, including all its changes and subtransactions
-
+- `*rb`: ReorderBuffer instance containing global state and configuration
+- `*txn`: ReorderBufferTXN to be serialized, including all its changes and subtransactions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReorderBufferSerializeChange](ReorderBufferSerializeChange.md) (serializes individual changes)

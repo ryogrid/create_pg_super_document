@@ -18,9 +18,8 @@ This is a static utility function that implements geometric containment testing 
 The function performs the calculation: A*x + B*y + C, where A, B, and C are the line coefficients stored in the LINE structure, and x, y are the point coordinates. If this expression equals zero (within floating-point tolerance), the point lies on the line.
 
 ## Parameters / Member Variables
-- : Pointer to a LINE structure containing the coefficients A, B, and C of the line equation Ax + By + C = 0
-- : Pointer to a Point structure containing the x and y coordinates to test
-
+- `*line`: Pointer to a LINE structure containing the coefficients A, B, and C of the line equation Ax + By + C = 0
+- `*point`: Pointer to a Point structure containing the x and y coordinates to test
 ## Dependencies
 - Functions called/Symbols referenced:
   - [float8_mul](../f/float8_mul.md) (multiplies two float8 values)

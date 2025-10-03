@@ -20,13 +20,12 @@ This function implements a range consolidation algorithm that merges adjacent ra
 The algorithm aims to keep the most significant gaps (largest distances) intact while merging ranges separated by smaller gaps. This approach maintains good index selectivity for queries while meeting storage constraints. The function uses a greedy strategy, selecting gaps to preserve based purely on distance, though the code comments note that this may not always be optimal for cases with many equal-length gaps.
 
 ## Parameters / Member Variables
-- : Array of expanded ranges to reduce (modified in-place)
-- : Number of ranges in the input array
-- : Pre-computed distances between consecutive ranges, sorted by size
-- : Maximum number of boundary values allowed in the result
-- : Comparison function for the data type
-- : Collation identifier for proper value comparison
-
+- `*eranges`: Array of expanded ranges to reduce (modified in-place)
+- `neranges`: Number of ranges in the input array
+- `*distances`: Pre-computed distances between consecutive ranges, sorted by size
+- `max_values`: Maximum number of boundary values allowed in the result
+- `*cmp`: Comparison function for the data type
+- `colloid`: Collation identifier for proper value comparison
 ## Dependencies
 - Functions called/Symbols referenced:
   - [compare_values](../c/compare_values.md)

@@ -27,10 +27,9 @@ When compaction is required, it follows a similar pattern to ensure_free_space_i
 Unlike ensure_free_space_in_buffer, this function doesn't apply a load factor since it's used during serialization when no immediate further insertions are expected.
 
 ## Parameters / Member Variables
-- : BRIN descriptor containing index metadata and operator procedures
-- : Ranges structure to be compactified in-place
-- : Maximum number of values allowed in the compacted representation
-
+- `*bdesc`: BRIN descriptor containing index metadata and operator procedures
+- `*ranges`: Ranges structure to be compactified in-place
+- `max_values`: Maximum number of values allowed in the compacted representation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [minmax_multi_get_strategy_procinfo](../m/minmax_multi_get_strategy_procinfo.md)

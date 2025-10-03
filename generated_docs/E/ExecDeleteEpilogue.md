@@ -25,12 +25,11 @@ ExecDeleteEpilogue performs the final steps after a tuple has been successfully 
 The function carefully manages transition capture to avoid double-capturing tuples when both UPDATE and DELETE triggers need to fire during cross-partition operations.
 
 ## Parameters / Member Variables
-- : ModifyTableContext containing the execution state and metadata for the modify operation
-- : Information about the result relation from which the tuple is being deleted
-- : ItemPointer identifying the physical location of the deleted tuple
-- : HeapTuple containing the actual tuple data that was deleted
-- : Boolean indicating whether this deletion is part of a cross-partition tuple move
-
+- `*context`: ModifyTableContext containing the execution state and metadata for the modify operation
+- `*resultRelInfo`: Information about the result relation from which the tuple is being deleted
+- `tupleid`: ItemPointer identifying the physical location of the deleted tuple
+- `oldtuple`: HeapTuple containing the actual tuple data that was deleted
+- `changingPart`: Boolean indicating whether this deletion is part of a cross-partition tuple move
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecARUpdateTriggers](ExecARUpdateTriggers.md) (for cross-partition UPDATE transition handling)

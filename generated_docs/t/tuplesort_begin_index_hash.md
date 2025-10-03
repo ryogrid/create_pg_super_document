@@ -23,15 +23,14 @@ tuplesort_begin_index_hash(Relation heapRel,
 This function creates a specialized tuplesort state for hash index creation operations. Unlike other index types that sort by key values, hash indexes sort tuples by their hash codes to distribute them efficiently across hash buckets. The function configures a single-key sort operation where the sort key is the computed hash code rather than the original data values. It sets up hash-specific comparison functions and stores the bucket configuration parameters needed for proper hash index organization.
 
 ## Parameters / Member Variables
-- : The heap relation being indexed
-- : The hash index relation being created
-- : Bitmask for high-order hash bucket calculation
-- : Bitmask for low-order hash bucket calculation  
-- : Maximum number of hash buckets allowed
-- : Amount of memory (in KB) available for sorting operations
-- : Coordination structure for parallel sorting operations
-- : Sorting options bitmask (e.g., TUPLESORT_RANDOMACCESS)
-
+- `heapRel`: The heap relation being indexed
+- `indexRel`: The hash index relation being created
+- `high_mask`: Bitmask for high-order hash bucket calculation
+- `low_mask`: Bitmask for low-order hash bucket calculation
+- `max_buckets`: Maximum number of hash buckets allowed
+- `workMem`: Amount of memory (in KB) available for sorting operations
+- `coordinate`: Coordination structure for parallel sorting operations
+- `sortopt`: Sorting options bitmask (e.g., TUPLESORT_RANDOMACCESS)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [tuplesort_begin_common](tuplesort_begin_common.md)

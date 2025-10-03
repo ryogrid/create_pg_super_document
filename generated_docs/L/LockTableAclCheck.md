@@ -23,10 +23,9 @@ The function implements a tiered permission model where different lock modes req
 This design follows PostgreSQL's principle that users should have appropriate table-level privileges before being allowed to acquire locks that could affect other users' access to the table.
 
 ## Parameters / Member Variables
-- : Object identifier of the relation (table) on which the lock is requested
-- : The type of lock being requested (e.g., AccessShareLock, RowExclusiveLock, etc.)
-- : Object identifier of the user requesting the lock
-
+- `reloid`: Object identifier of the relation (table) on which the lock is requested
+- `lockmode`: The type of lock being requested (e.g., AccessShareLock, RowExclusiveLock, etc.)
+- `userid`: Object identifier of the user requesting the lock
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_class_aclcheck](../p/pg_class_aclcheck.md)

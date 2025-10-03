@@ -27,10 +27,9 @@ The function performs several key operations:
 The function includes special handling for frozen hashtables (updates are disallowed) and provides comprehensive collision chain management.
 
 ## Parameters / Member Variables
-- : Pointer to the hash table structure (HTAB) being operated on
-- : Pointer to the existing entry whose key should be updated
-- : Pointer to the new key data that will replace the existing key
-
+- `*hashp`: Pointer to the hash table structure (HTAB) being operated on
+- `*existingEntry`: Pointer to the existing entry whose key should be updated
+- `*newKeyPtr`: Pointer to the new key data that will replace the existing key
 ## Dependencies
 - Functions called/Symbols referenced:
   - ELEMENT_FROM_KEY (macro for converting entry pointer to element)

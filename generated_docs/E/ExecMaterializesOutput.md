@@ -27,8 +27,7 @@ The function uses a switch statement to identify plan types that inherently mate
 This information is crucial for the query optimizer when making cost-based decisions about plan selection and for determining whether certain optimization strategies (like nested loop joins) are beneficial.
 
 ## Parameters / Member Variables
-- : A NodeTag enumeration value representing the type of plan node to examine
-
+- `plantype`: A NodeTag enumeration value representing the type of plan node to examine
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (uses only built-in switch statement and NodeTag constants)

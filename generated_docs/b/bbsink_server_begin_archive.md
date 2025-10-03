@@ -18,9 +18,8 @@ This function initiates a new archive file for a basebackup operation on the ser
 The function includes safety assertions to verify that no file is currently open and the file position is at zero, ensuring clean state between archive operations.
 
 ## Parameters / Member Variables
-- : Pointer to the bbsink instance (cast to bbsink_server internally)
-- : Name of the archive file to create (e.g., "base.tar", "pg_wal.tar")
-
+- `*sink`: Pointer to the bbsink instance (cast to bbsink_server internally)
+- `*archive_name`: Name of the archive file to create (e.g., "base.tar", "pg_wal.tar")
 ## Dependencies
 - Functions called/Symbols referenced:
   - [psprintf](../p/psprintf.md)

@@ -20,9 +20,8 @@ The function is implemented as a static inline function for performance reasons,
 This function is the backward navigation counterpart to dlist_next_node, providing symmetric functionality for bidirectional list traversal.
 
 ## Parameters / Member Variables
-- : Pointer to the list head structure, used by the assertion to verify that a previous node exists
-- : Pointer to the current node whose previous node should be returned
-
+- `*head`: Pointer to the list head structure, used by the assertion to verify that a previous node exists
+- `*node`: Pointer to the current node whose previous node should be returned
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dlist_head](dlist_head.md) (struct type)

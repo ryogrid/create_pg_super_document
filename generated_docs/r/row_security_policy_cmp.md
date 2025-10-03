@@ -18,9 +18,8 @@ The  function serves as a comparator for the  function when sorting row-level se
 The comparison follows standard C library conventions: returning a negative value if the first policy should come before the second, zero if they are equal, and a positive value if the first should come after the second. NULL policy names are treated as greater than any non-NULL name, ensuring they sort to the end of the list.
 
 ## Parameters / Member Variables
-- : ListCell containing the first RowSecurityPolicy to compare
-- : ListCell containing the second RowSecurityPolicy to compare
-
+- `*a`: ListCell containing the first RowSecurityPolicy to compare
+- `*b`: ListCell containing the second RowSecurityPolicy to compare
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RowSecurityPolicy](../R/RowSecurityPolicy.md) (structure access)

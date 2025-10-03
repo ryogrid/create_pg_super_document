@@ -24,10 +24,9 @@ The function implements sophisticated precedence handling to minimize unnecessar
 The output buffer is dynamically resized as needed to accommodate the growing string representation, and proper character encoding is handled for multi-byte characters.
 
 ## Parameters / Member Variables
-- : INFIX structure containing the output buffer, current position, operand strings, and current query item pointer
-- : Priority level of the parent operator, used for parentheses decision-making
-- : Boolean flag indicating whether this is the right operand of a phrase operator (affects precedence rules)
-
+- `*in`: INFIX structure containing the output buffer, current position, operand strings, and current query item pointer
+- `parentPriority`: Priority level of the parent operator, used for parentheses decision-making
+- `rightPhraseOp`: Boolean flag indicating whether this is the right operand of a phrase operator (affects precedence rules)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_stack_depth](../c/check_stack_depth.md)

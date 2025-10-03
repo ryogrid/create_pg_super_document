@@ -24,8 +24,7 @@ The function performs several key operations:
 6. Applies filtering based on the IMPORT statement's LIMIT TO or EXCEPT clauses
 
 ## Parameters / Member Variables
-- : ImportForeignSchemaStmt structure containing the parsed IMPORT FOREIGN SCHEMA statement, including server name, remote schema, local schema, and filtering options
-
+- `*stmt`: ImportForeignSchemaStmt structure containing the parsed IMPORT FOREIGN SCHEMA statement, including server name, remote schema, local schema, and filtering options
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetForeignServerByName](../G/GetForeignServerByName.md): Retrieves foreign server definition

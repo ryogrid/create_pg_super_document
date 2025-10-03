@@ -18,9 +18,8 @@ This function is a specialized version of the generic  function, specifically de
 The function maintains list invariants and performs type checking to ensure data integrity. It's commonly used in PostgreSQL's catalog and namespace management where OID lists are frequently manipulated.
 
 ## Parameters / Member Variables
-- : The OID value to be prepended to the list
-- : The existing OID list to prepend to (can be NIL for empty list)
-
+- `datum`: The OID value to be prepended to the list
+- `*list`: The existing OID list to prepend to (can be NIL for empty list)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Validates that the list is of OID type

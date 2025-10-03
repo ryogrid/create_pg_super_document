@@ -30,12 +30,11 @@ The function operates in several key phases:
 The function handles different source types (local directory vs live server connection) and ensures data consistency throughout the process.
 
 ## Parameters / Member Variables
-- : Complete file map containing all files and their required actions
-- : Rewind source interface providing methods to fetch data from source system
-- : LSN of the checkpoint record to use as rewind point
-- : Timeline ID associated with the checkpoint
-- : Redo LSN of the checkpoint (actual WAL replay start point)
-
+- `*filemap`: Complete file map containing all files and their required actions
+- `*source`: Rewind source interface providing methods to fetch data from source system
+- `chkptrec`: LSN of the checkpoint record to use as rewind point
+- `chkpttli`: Timeline ID associated with the checkpoint
+- `chkptredo`: Redo LSN of the checkpoint (actual WAL replay start point)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (iterate over modified data pages)

@@ -23,13 +23,12 @@ The function uses PostgreSQL's WAL infrastructure to ensure crash recovery and r
 Special handling is provided for page splits: if the update inserts a downlink for a split page, the function also records that the F_FOLLOW_RIGHT flag on the child page is cleared and the NSN (Next Sequence Number) is set.
 
 ## Parameters / Member Variables
-- : The target buffer containing the GiST index page to be updated
-- : Array of offset numbers identifying tuples to be deleted from the page
-- : Number of tuples to delete (length of todelete array)
-- : Array of IndexTuple pointers containing new tuples to insert
-- : Number of tuples to insert (length of itup array)
-- : Optional buffer for the left child page (used during page splits)
-
+- `buffer`: The target buffer containing the GiST index page to be updated
+- `*todelete`: Array of offset numbers identifying tuples to be deleted from the page
+- `ntodelete`: Number of tuples to delete (length of todelete array)
+- `*itup`: Array of IndexTuple pointers containing new tuples to insert
+- `ituplen`: Number of tuples to insert (length of itup array)
+- `leftchildbuf`: Optional buffer for the left child page (used during page splits)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [XLogBeginInsert](../X/XLogBeginInsert.md)

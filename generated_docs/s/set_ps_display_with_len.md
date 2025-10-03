@@ -26,9 +26,8 @@ The function operates by:
 This is a lower-level function used by higher-level process status functions and performance-critical code paths like query execution.
 
 ## Parameters / Member Variables
-- : A null-terminated string describing the current process activity
-- : The length of the activity string (must equal strlen(activity))
-
+- `*activity`: A null-terminated string describing the current process activity
+- `len`: The length of the activity string (must equal strlen(activity))
 ## Dependencies
 - Functions called/Symbols referenced:
   - [update_ps_display_precheck](../u/update_ps_display_precheck.md) (prerequisite validation)

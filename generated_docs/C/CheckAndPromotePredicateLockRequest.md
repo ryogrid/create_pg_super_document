@@ -20,8 +20,7 @@ If any ancestor's child count exceeds the threshold returned by MaxPredicateChil
 When promotion is determined necessary, the function acquires the coarsest eligible ancestor lock, which automatically triggers deletion of redundant child locks. This mechanism prevents lock proliferation and maintains efficient memory usage while preserving correctness in serializable snapshot isolation.
 
 ## Parameters / Member Variables
-- : Pointer to a PREDICATELOCKTARGETTAG representing the newly requested lock target for which ancestors should be checked for promotion opportunities.
-
+- `*reqtag`: Pointer to a PREDICATELOCKTARGETTAG representing the newly requested lock target for which ancestors should be checked for promotion opportunities.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetParentPredicateLockTag](../G/GetParentPredicateLockTag.md)

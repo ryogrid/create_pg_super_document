@@ -16,8 +16,7 @@ plperl_inline_callback(void *arg)
 The  function serves as an error callback mechanism specifically designed for PL/Perl's inline (anonymous) code block execution. When an error occurs during the execution of a PL/Perl anonymous code block, this function is called to provide contextual information about where the error occurred. It uses PostgreSQL's error reporting system to add the context "PL/Perl anonymous code block" to the error message, helping users identify that the error originated from an inline PL/Perl code block rather than from a named function or other database operation.
 
 ## Parameters / Member Variables
-- : A void pointer argument that is not used in the current implementation (standard callback signature)
-
+- `*arg`: A void pointer argument that is not used in the current implementation (standard callback signature)
 ## Dependencies
 - Functions called/Symbols referenced:
   - errcontext

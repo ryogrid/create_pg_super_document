@@ -25,9 +25,8 @@ Key behaviors include:
 The function implements a protocol where all status updates are bracketed by incrementing a change counter before and after modifications, allowing readers to detect concurrent updates.
 
 ## Parameters / Member Variables
-- : The new BackendState (e.g., STATE_RUNNING, STATE_IDLE, STATE_IDLEINTRANSACTION)
-- : The SQL command string being executed (can be NULL for certain cases)
-
+- `state`: The new BackendState (e.g., STATE_RUNNING, STATE_IDLE, STATE_IDLEINTRANSACTION)
+- `*cmd_str`: The SQL command string being executed (can be NULL for certain cases)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetCurrentStatementStartTimestamp](../G/GetCurrentStatementStartTimestamp.md)

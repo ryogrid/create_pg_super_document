@@ -23,8 +23,7 @@ The function performs three key cleanup operations:
 This ensures that all memory allocated during scan initialization (brinbeginscan) is properly released and any open resources are closed.
 
 ## Parameters / Member Variables
-- : IndexScanDesc containing the scan state to be cleaned up, including the opaque BRIN-specific data
-
+- `scan`: IndexScanDesc containing the scan state to be cleaned up, including the opaque BRIN-specific data
 ## Dependencies
 - Functions called/Symbols referenced:
   - [brinRevmapTerminate](brinRevmapTerminate.md): Cleans up and closes the revmap access structure

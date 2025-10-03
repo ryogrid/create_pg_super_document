@@ -21,8 +21,7 @@ This test function performs validation of the Red-Black Tree leftmost node retri
 The test ensures that the leftmost operation correctly traverses to the leftmost node in the tree structure, which by the properties of a binary search tree should contain the minimum value.
 
 ## Parameters / Member Variables
-- : The number of natural numbers (0 to size-1) to insert into the test tree for validation
-
+- `size`: The number of natural numbers (0 to size-1) to insert into the test tree for validation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [create_int_rbtree](../c/create_int_rbtree.md): Creates a new integer Red-Black Tree

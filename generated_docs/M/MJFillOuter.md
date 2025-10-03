@@ -23,8 +23,7 @@ This function implements the outer join logic for merge joins by creating result
 This function is essential for implementing LEFT OUTER JOIN and FULL OUTER JOIN semantics, ensuring that unmatched outer tuples are included in the result set with NULL values for inner columns.
 
 ## Parameters / Member Variables
-- : The MergeJoinState containing the join execution state, outer tuple slot, NULL inner tuple slot, and projection information
-
+- `*node`: The MergeJoinState containing the join execution state, outer tuple slot, NULL inner tuple slot, and projection information
 ## Dependencies
 - Functions called/Symbols referenced:
   - ResetExprContext

@@ -18,9 +18,8 @@ This function generates INSERT statements to dump table data, offering more port
 Key features include special handling for generated columns (either excluded or replaced with DEFAULT), proper formatting for different data types (numeric, boolean, bit strings, etc.), support for partition tables with optional root table loading, and conflict resolution with ON CONFLICT DO NOTHING option.
 
 ## Parameters / Member Variables
-- : Pointer to the Archive structure containing dump configuration and output context
-- : Void pointer that contains TableDataInfo structure cast as context data
-
+- `*fout`: Pointer to the Archive structure containing dump configuration and output context
+- `*dcontext`: Void pointer that contains TableDataInfo structure cast as context data
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TableDataInfo](../T/TableDataInfo.md) (struct)

@@ -16,8 +16,7 @@ RelationMapRemoveMapping(Oid relationId)
 The  function is responsible for removing a specific relation mapping from the active local updates map. This function is crucial for operations that create temporary relation mappings which need to be rolled back, particularly during VACUUM FULL and CLUSTER operations on mapped relations. It searches through the active_local_updates map for the specified relation ID and removes the mapping entry by collapsing the array to maintain contiguous storage. The function enforces that only "active" (uncommitted) local mappings can be removed, making it safe for transactional operations.
 
 ## Parameters / Member Variables
-- : The OID of the relation whose mapping should be removed from the active local updates map
-
+- `relationId`: The OID of the relation whose mapping should be removed from the active local updates map
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RelMapFile](RelMapFile.md) (structure)

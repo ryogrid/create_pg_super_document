@@ -28,9 +28,8 @@ transformTableLikeClause implements PostgreSQL's LIKE clause functionality for C
 The function performs comprehensive permission checking, ensuring the user has appropriate access to the source relation. For composite types, it requires USAGE privilege; for other relation types, it requires SELECT privilege.
 
 ## Parameters / Member Variables
-- : CreateStmtContext containing parsing state and accumulating lists for the new table
-- : TableLikeClause specifying the source relation and copy options
-
+- `*cxt`: CreateStmtContext containing parsing state and accumulating lists for the new table
+- `*table_like_clause`: TableLikeClause specifying the source relation and copy options
 ## Dependencies
 - Functions called/Symbols referenced:
   - [relation_openrv](../r/relation_openrv.md)

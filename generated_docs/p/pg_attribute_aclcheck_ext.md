@@ -17,12 +17,11 @@ pg_attribute_aclcheck_ext(Oid table_oid, AttrNumber attnum,
 The  function is an exported routine that verifies whether a specified user (role) has the requested access privileges to a particular column of a table. This is an extended version of the basic attribute ACL check that provides additional information about whether the attribute exists. The function internally uses  to perform the actual privilege checking and returns a simple ACLCHECK_OK or ACLCHECK_NO_PRIV result.
 
 ## Parameters / Member Variables
-- : The OID of the table containing the column to be checked
-- : The attribute number (column number) within the table
-- : The OID of the role (user) whose privileges are being checked
-- : The access mode being requested (e.g., ACL_SELECT, ACL_UPDATE)
-- : Output parameter that indicates whether the attribute was found to be missing
-
+- `table_oid`: The OID of the table containing the column to be checked
+- `attnum`: The attribute number (column number) within the table
+- `roleid`: The OID of the role (user) whose privileges are being checked
+- `mode`: The access mode being requested (e.g., ACL_SELECT, ACL_UPDATE)
+- `*is_missing`: Output parameter that indicates whether the attribute was found to be missing
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_attribute_aclmask_ext](pg_attribute_aclmask_ext.md)

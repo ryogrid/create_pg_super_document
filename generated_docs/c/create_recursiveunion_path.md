@@ -23,15 +23,14 @@ create_recursiveunion_path(PlannerInfo *root,
 This function creates a RecursiveUnionPath node that represents the execution of recursive UNION operations in Common Table Expressions (CTEs). The leftpath provides data for the non-recursive term (base case), while the rightpath provides data for the recursive term (recursive case). The function supports both UNION and UNION ALL semantics - for UNION ALL, the distinctList is empty and numGroups is zero, while for UNION, distinctList contains SortGroupClause structures for deduplication. The wtParam identifies the work table parameter used in the recursive execution. The result is always unsorted regardless of input ordering.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planner state and configuration
-- : RelOptInfo representing the parent relation associated with the result
-- : Path representing the source of data for the non-recursive term (base case)
-- : Path representing the source of data for the recursive term (recursive case)
-- : PathTarget structure defining the target list to be computed
-- : List of SortGroupClause structures for grouping/deduplication (empty for UNION ALL)
-- : Integer ID of the Param representing the work table used in recursive execution
-- : Double representing the estimated number of distinct groups (zero for UNION ALL)
-
+- `*root`: PlannerInfo structure containing planner state and configuration
+- `*rel`: RelOptInfo representing the parent relation associated with the result
+- `*leftpath`: Path representing the source of data for the non-recursive term (base case)
+- `*rightpath`: Path representing the source of data for the recursive term (recursive case)
+- `*target`: PathTarget structure defining the target list to be computed
+- `*distinctList`: List of SortGroupClause structures for grouping/deduplication (empty for UNION ALL)
+- `wtParam`: Integer ID of the Param representing the work table used in recursive execution
+- `numGroups`: Double representing the estimated number of distinct groups (zero for UNION ALL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode

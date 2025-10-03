@@ -24,8 +24,7 @@ This function implements the core logic for finding and caching injection points
 The function is designed to be lock-free during reads, using atomic operations and memory barriers to ensure data consistency even when injection points are being concurrently added or removed.
 
 ## Parameters / Member Variables
-- : The unique identifier of the injection point to search for
-
+- `*name`: The unique identifier of the injection point to search for
 ## Return Value
 - Returns a pointer to  if the injection point is found and successfully cached
 - Returns  if the injection point is not found or if no injection points exist

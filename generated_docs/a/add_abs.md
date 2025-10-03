@@ -25,10 +25,9 @@ The algorithm works by:
 The function is designed to be safe for in-place operations where the result pointer may be the same as one of the input operands. It handles arbitrary precision arithmetic and maintains exact results without rounding.
 
 ## Parameters / Member Variables
-- : Pointer to the first NumericVar operand (treated as absolute value)
-- : Pointer to the second NumericVar operand (treated as absolute value)  
-- : Pointer to NumericVar where the sum of absolute values will be stored
-
+- `*var1`: Pointer to the first NumericVar operand (treated as absolute value)
+- `*var2`: Pointer to the second NumericVar operand (treated as absolute value)
+- `*result`: Pointer to NumericVar where the sum of absolute values will be stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - digitbuf_alloc (allocates memory for result digits)

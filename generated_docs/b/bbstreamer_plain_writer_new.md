@@ -18,9 +18,8 @@ This function creates and initializes a bbstreamer_plain_writer structure that i
 The function allocates memory for the streamer structure using palloc0(), sets up the operations table, and stores the pathname for error reporting purposes. If no FILE pointer is provided, it attempts to open the specified file and stores a flag indicating that it should close the file when done.
 
 ## Parameters / Member Variables
-- : Path to the output file, used for error reporting and file creation if file parameter is NULL
-- : Optional FILE pointer to write to; if NULL, the function will open the pathname for writing
-
+- `*pathname`: Path to the output file, used for error reporting and file creation if file parameter is NULL
+- `*file`: Optional FILE pointer to write to; if NULL, the function will open the pathname for writing
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc0](../p/palloc0.md) (memory allocation)

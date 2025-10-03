@@ -18,8 +18,7 @@ This function analyzes the join structure to identify base relations that would 
 The logic recognizes that while parameterized paths are typically used on the inside of nestloop joins (where fast-start plans have limited value), SEMI and ANTI joins present a special case where early termination makes fast-start plans beneficial.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global optimizer state, including the join_info_list that describes special join conditions
-
+- `*root`: PlannerInfo structure containing global optimizer state, including the join_info_list that describes special join conditions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SpecialJoinInfo](../S/SpecialJoinInfo.md) (struct type)

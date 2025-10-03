@@ -18,8 +18,7 @@ ExecGrant_Parameter implements privilege management for PostgreSQL configuration
 The function includes an optimization where if the new ACL matches the default privileges, it removes the catalog entry entirely rather than storing a redundant default ACL. This keeps the parameter ACL catalog compact by only storing non-default privilege grants.
 
 ## Parameters / Member Variables
-- : Internal representation of the GRANT/REVOKE statement containing parameter names/OIDs, grantees, privileges, and options
-
+- `*istmt`: Internal representation of the GRANT/REVOKE statement containing parameter names/OIDs, grantees, privileges, and options
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md), table_close (with ParameterAclRelationId)

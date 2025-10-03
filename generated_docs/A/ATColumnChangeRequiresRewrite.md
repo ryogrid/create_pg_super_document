@@ -16,9 +16,8 @@ ATColumnChangeRequiresRewrite(Node *expr, AttrNumber varattno)
 This function analyzes the transformation expression used in ALTER COLUMN TYPE to determine if a table rewrite can be avoided. It recursively examines the expression tree looking for patterns that indicate the transformation is sufficiently simple that existing data can be used without rewriting. The function recognizes several safe transformation patterns: direct variable references (no transformation), RelabelType nodes (binary-compatible type changes), unconstrained domain coercions, and specific timestamp/timestamptz conversions when the timezone is UTC. If any of these optimizable patterns are found, the function returns false to indicate no rewrite is needed. All other transformations require a full table rewrite.
 
 ## Parameters / Member Variables
-- : The transformation expression to analyze (typically the USING clause or coercion expression)
-- : The attribute number of the column being altered
-
+- `*expr`: The transformation expression to analyze (typically the USING clause or coercion expression)
+- `varattno`: The attribute number of the column being altered
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (node type checking for Var, RelabelType, CoerceToDomain, FuncExpr)

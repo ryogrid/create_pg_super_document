@@ -20,9 +20,8 @@ The transformation process involves several key steps: First, it validates that 
 The intermediate representation is organized by columns rather than rows to simplify type processing, then reorganized back to row format for the final RTE. The function handles special cases like NEW/OLD references within CREATE RULE contexts by marking the RTE as LATERAL when necessary.
 
 ## Parameters / Member Variables
-- : ParseState structure containing parsing context and namespace information
-- : SelectStmt node representing the VALUES clause to be transformed
-
+- `*pstate`: ParseState structure containing parsing context and namespace information
+- `*stmt`: SelectStmt node representing the VALUES clause to be transformed
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (Query creation)

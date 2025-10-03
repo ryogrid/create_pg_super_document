@@ -22,10 +22,9 @@ The function operates in two main phases:
 2. **Cached Expression Invalidation**: Iterates through cached_expression_list and invalidates expressions with matching dependencies
 
 ## Parameters / Member Variables
-- : Datum argument passed by the callback system (unused in this function)
-- : Cache identifier (PROCOID or TYPEOID) indicating which type of object was invalidated
-- : Hash value of the specific object that was invalidated, or 0 to invalidate all objects in the cache
-
+- `arg`: Datum argument passed by the callback system (unused in this function)
+- `cacheid`: Cache identifier (PROCOID or TYPEOID) indicating which type of object was invalidated
+- `hashvalue`: Hash value of the specific object that was invalidated, or 0 to invalidate all objects in the cache
 ## Dependencies
 - Functions called/Symbols referenced:
   - dlist_foreach (iteration over doubly-linked lists)

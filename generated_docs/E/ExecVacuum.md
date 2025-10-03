@@ -26,10 +26,9 @@ Key responsibilities include:
 - Delegating actual vacuum work to the vacuum() function
 
 ## Parameters / Member Variables
-- : ParseState containing parser context information for error reporting
-- : VacuumStmt structure containing the parsed VACUUM/ANALYZE statement with options and target relations
-- : Boolean indicating whether this is a top-level command (affects transaction handling)
-
+- `*pstate`: ParseState containing parser context information for error reporting
+- `*vacstmt`: VacuumStmt structure containing the parsed VACUUM/ANALYZE statement with options and target relations
+- `isTopLevel`: Boolean indicating whether this is a top-level command (affects transaction handling)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [vacuum](../v/vacuum.md) (core vacuum implementation)

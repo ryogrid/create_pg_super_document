@@ -35,13 +35,12 @@ The function performs several key operations:
 The function works for various container types including arrays, and is designed to be extensible for other subscriptable types.
 
 ## Parameters / Member Variables
-- : Parse state containing context for error reporting and other parsing information
-- : Already-transformed expression representing the base container object
-- : OID of the container's datatype (should match containerBase's type or be its base type)
-- : Type modifier for the container type
-- : List of untransformed subscript expressions (A_Indices nodes, must not be NIL)
-- : Boolean indicating whether this subscripting will be used for assignment (true) or fetching (false)
-
+- `*pstate`: Parse state containing context for error reporting and other parsing information
+- `*containerBase`: Already-transformed expression representing the base container object
+- `containerType`: OID of the container's datatype (should match containerBase's type or be its base type)
+- `containerTypMod`: Type modifier for the container type
+- `*indirection`: List of untransformed subscript expressions (A_Indices nodes, must not be NIL)
+- `isAssignment`: Boolean indicating whether this subscripting will be used for assignment (true) or fetching (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [transformContainerType](transformContainerType.md)() (resolves domain types)

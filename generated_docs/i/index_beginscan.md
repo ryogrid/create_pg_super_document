@@ -19,12 +19,11 @@ index_beginscan(Relation heapRelation,
 This function creates and initializes an index scan descriptor for scanning an index with tuple-level access. It serves as a high-level interface that internally calls  and then sets up additional parameters specific to heap relation access. The function prepares the scan for fetching index matches from the underlying table by initializing the heap fetch mechanism. The caller must hold appropriate locks on both the heap relation and index relation before calling this function.
 
 ## Parameters / Member Variables
-- : The heap relation associated with the index being scanned
-- : The index relation to be scanned
-- : The snapshot to use for visibility checking during the scan (must not be InvalidSnapshot)
-- : Number of scan keys (search conditions) for the scan
-- : Number of ordering specifications for the scan
-
+- `heapRelation`: The heap relation associated with the index being scanned
+- `indexRelation`: The index relation to be scanned
+- `snapshot`: The snapshot to use for visibility checking during the scan (must not be InvalidSnapshot)
+- `nkeys`: Number of scan keys (search conditions) for the scan
+- `norderbys`: Number of ordering specifications for the scan
 ## Dependencies
 - Functions called/Symbols referenced:
   - [index_beginscan_internal](index_beginscan_internal.md) (internal scan initialization)

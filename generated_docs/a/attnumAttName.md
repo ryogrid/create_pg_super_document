@@ -16,9 +16,8 @@ attnumAttName(Relation rd, int attid)
 The  function performs the reverse lookup of  - it takes an attribute number and returns the corresponding attribute name. For system attributes (attid <= 0), it uses  to get the system attribute information. For regular user attributes (attid > 0), it accesses the relation's tuple descriptor to retrieve the attribute name. The function performs bounds checking and will throw an ERROR if an invalid attribute number is provided. Like other relation-specific functions in this module, it should only be used on relations that are already opened with .
 
 ## Parameters / Member Variables
-- : The opened relation to search within
-- : The attribute number to look up (can be positive for user attributes or negative for system attributes)
-
+- `rd`: The opened relation to search within
+- `attid`: The attribute number to look up (can be positive for user attributes or negative for system attributes)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SystemAttributeDefinition](../S/SystemAttributeDefinition.md)

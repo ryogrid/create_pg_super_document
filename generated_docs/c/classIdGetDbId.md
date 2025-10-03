@@ -18,8 +18,7 @@ This function provides a standardized way to determine the correct database ID (
 This distinction is crucial for proper shared dependency tracking, as it allows the system to differentiate between dependencies that are cluster-wide (shared) versus those that are database-specific.
 
 ## Parameters / Member Variables
-- : OID of the catalog table/relation containing the object
-
+- `classId`: OID of the catalog table/relation containing the object
 ## Dependencies
 - Functions called/Symbols referenced:
   - [IsSharedRelation](../I/IsSharedRelation.md)

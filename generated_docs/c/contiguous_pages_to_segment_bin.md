@@ -18,8 +18,7 @@ This inline static function is a key optimization component in PostgreSQL's DSA 
 The function uses bit manipulation to efficiently calculate the appropriate bin number. For n=0, it returns bin 0. For other values, it uses the position of the leftmost set bit plus one to determine the bin, ensuring that larger requests are directed to higher-numbered bins that are more likely to contain larger free regions.
 
 ## Parameters / Member Variables
-- : The number of contiguous pages requested for allocation
-
+- `n`: The number of contiguous pages requested for allocation
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_leftmost_one_pos_size_t

@@ -23,10 +23,9 @@ The function validates that:
 Once set, the scan will begin at startBlk and process numBlks blocks. If numBlks is InvalidBlockNumber, it means scan all blocks from the starting position to the end of the table.
 
 ## Parameters / Member Variables
-- : TableScanDesc (cast to HeapScanDesc internally) representing the scan descriptor to modify
-- : BlockNumber specifying the first block number to scan (0-based)
-- : BlockNumber specifying how many blocks to scan, or InvalidBlockNumber to scan all remaining blocks
-
+- `sscan`: TableScanDesc (cast to HeapScanDesc internally) representing the scan descriptor to modify
+- `startBlk`: BlockNumber specifying the first block number to scan (0-based)
+- `numBlks`: BlockNumber specifying how many blocks to scan, or InvalidBlockNumber to scan all remaining blocks
 ## Dependencies
 - Functions called/Symbols referenced:
   - [HeapScanDesc](../H/HeapScanDesc.md) (type cast)

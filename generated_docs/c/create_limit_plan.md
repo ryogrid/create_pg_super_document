@@ -18,10 +18,9 @@ This function constructs a Limit plan node that implements SQL's LIMIT and OFFSE
 The function allocates memory for the uniqueness comparison arrays only when needed (WITH TIES case) and properly configures the Limit node with all necessary parameters for execution.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global planning context, including the parse tree with sort clause information
-- : LimitPath representing the chosen execution strategy for the limit operation, containing offset, count, and limit option parameters
-- : Integer flags controlling plan creation behavior, passed through unchanged to the subplan
-
+- `*root`: PlannerInfo structure containing global planning context, including the parse tree with sort clause information
+- `*best_path`: LimitPath representing the chosen execution strategy for the limit operation, containing offset, count, and limit option parameters
+- `flags`: Integer flags controlling plan creation behavior, passed through unchanged to the subplan
 ## Dependencies
 - Functions called/Symbols referenced:
   - [create_plan_recurse](create_plan_recurse.md)

@@ -16,9 +16,8 @@ print_asciidoc_vertical(const printTableContent *cont, FILE *fout)
 This function formats and outputs tabular data in AsciiDoc vertical format, where instead of displaying data in traditional columns and rows, each record is presented vertically with field names and their corresponding values. The function handles AsciiDoc-specific formatting including table headers, borders, cell alignment, and footer information. It supports various border styles (none, partial, full) and can optionally include record numbers and titles.
 
 ## Parameters / Member Variables
-- : Pointer to printTableContent structure containing the table data, headers, formatting options, and metadata
-- : File stream where the formatted AsciiDoc output will be written
-
+- `*cont`: Pointer to printTableContent structure containing the table data, headers, formatting options, and metadata
+- `*fout`: File stream where the formatted AsciiDoc output will be written
 ## Dependencies
 - Functions called/Symbols referenced:
   - [asciidoc_escaped_print](../a/asciidoc_escaped_print.md) (for escaping special AsciiDoc characters in content)

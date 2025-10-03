@@ -26,10 +26,9 @@ The function includes a comment indicating that automatic ON INSERT, ON UPDATE, 
 Since the query has already undergone parse analysis, the function can directly use DefineQueryRewrite() without additional parsing steps.
 
 ## Parameters / Member Variables
-- : Object identifier of the view relation for which rules are being created
-- : Query tree representing the view's SELECT statement, already parsed and analyzed
-- : Boolean indicating whether existing rules should be replaced (for CREATE OR REPLACE VIEW)
-
+- `viewOid`: Object identifier of the view relation for which rules are being created
+- `*viewParse`: Query tree representing the view's SELECT statement, already parsed and analyzed
+- `replace`: Boolean indicating whether existing rules should be replaced (for CREATE OR REPLACE VIEW)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DefineQueryRewrite](DefineQueryRewrite.md)

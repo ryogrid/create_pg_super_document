@@ -25,11 +25,10 @@ The function implements several optimization strategies:
 - Supports extension hooks for custom path generation
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing query planning context and configuration
-- : RelOptInfo for the input relation containing partial paths to process  
-- : RelOptInfo for the final distinct relation where complete paths will be stored
-- : PathTarget specifying the target list and sorting requirements for the distinct operation
-
+- `*root`: PlannerInfo structure containing query planning context and configuration
+- `*input_rel`: RelOptInfo for the input relation containing partial paths to process
+- `*final_distinct_rel`: RelOptInfo for the final distinct relation where complete paths will be stored
+- `*target`: PathTarget specifying the target list and sorting requirements for the distinct operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [fetch_upper_rel](../f/fetch_upper_rel.md)

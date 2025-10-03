@@ -23,8 +23,7 @@ The function performs several validation steps:
 5. Reports fatal errors for any incompatibility or file access issues
 
 ## Parameters / Member Variables
-- : The directory path where the PG_VERSION file should be located (typically the data directory)
-
+- `*path`: The directory path where the PG_VERSION file should be located (typically the data directory)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [AllocateFile](../A/AllocateFile.md)

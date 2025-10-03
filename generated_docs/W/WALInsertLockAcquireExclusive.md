@@ -19,7 +19,6 @@ The function implements a special optimization: when holding all locks, it sets 
 The function sets a global flag `holdingAllLocks` to true, which other parts of the system can check to determine if exclusive WAL access is currently in effect.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

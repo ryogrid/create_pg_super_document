@@ -19,10 +19,9 @@ This function determines whether adding a specified distance to a starting offse
 The function implements different logic depending on whether the boundary is numerically greater or less than the starting point, handling both normal progression and UINT_MAX wraparound scenarios correctly.
 
 ## Parameters / Member Variables
-- : The boundary offset that should not be crossed
-- : The starting offset from which to measure
-- : The distance to add to the start offset
-
+- `boundary`: The boundary offset that should not be crossed
+- `start`: The starting offset from which to measure
+- `distance`: The distance to add to the start offset
 ## Dependencies
 - Functions called/Symbols referenced:
   - MultiXactOffset (type definitions)

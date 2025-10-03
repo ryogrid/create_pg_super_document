@@ -24,8 +24,7 @@ The function examines specific utility statement types:
 - **All other utilities**: Return false (no tuple output)
 
 ## Parameters / Member Variables
-- : Pointer to the parsed utility statement node to be analyzed
-
+- `*parsetree`: Pointer to the parsed utility statement node to be analyzed
 ## Dependencies
 - Functions called/Symbols referenced:
   - nodeTag (to identify the statement type)

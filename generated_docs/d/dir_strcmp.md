@@ -22,9 +22,8 @@ The function also handles filesystem case sensitivity appropriately:
 The comparison continues character by character until a difference is found or one string ends. The return value follows standard comparison semantics: 0 for equal strings, positive if s1 > s2, negative if s1 < s2.
 
 ## Parameters / Member Variables
-- : First path string to compare
-- : Second path string to compare
-
+- `*s1`: First path string to compare
+- `*s2`: Second path string to compare
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - PostgreSQL's character case conversion function (Windows only)

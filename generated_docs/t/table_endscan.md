@@ -18,8 +18,7 @@ The  function serves as the standard way to terminate any table scan operation i
 The function is part of PostgreSQL's table access method (TAM) abstraction layer, which allows different storage engines to implement their own scan termination logic while providing a consistent interface to the rest of the system.
 
 ## Parameters / Member Variables
-- : The TableScanDesc structure representing the scan to be terminated
-
+- `scan`: The TableScanDesc structure representing the scan to be terminated
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TableScanDesc](../T/TableScanDesc.md) (scan descriptor type)

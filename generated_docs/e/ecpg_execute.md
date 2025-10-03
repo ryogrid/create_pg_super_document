@@ -23,8 +23,7 @@ This function is the core SQL execution engine within the ECPG library. It intel
 The function handles parameter passing, logging, error checking, and cleanup. It's designed to provide a unified interface for executing various types of SQL statements while optimizing performance based on the statement characteristics.
 
 ## Parameters / Member Variables
-- : Pointer to statement structure containing all execution context including the SQL command, parameters, connection information, statement type, and error handling context
-
+- `*stmt`: Pointer to statement structure containing all execution context including the SQL command, parameters, connection information, statement type, and error handling context
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ecpg_log](ecpg_log.md): Logs execution details for debugging

@@ -18,9 +18,8 @@ This function serves as the hash function for PostgreSQL's internal hash table t
 The function is designed to work with PostgreSQL's hash table infrastructure, following the standard hash function signature expected by the hash table implementation. It ensures that RecordCacheEntry objects with equivalent TupleDesc structures will hash to the same value, enabling efficient retrieval and avoiding duplicate entries in the cache.
 
 ## Parameters / Member Variables
-- : Pointer to the RecordCacheEntry structure to be hashed
-- : Size parameter (required by hash function interface but not used in this implementation)
-
+- `*data`: Pointer to the RecordCacheEntry structure to be hashed
+- `size`: Size parameter (required by hash function interface but not used in this implementation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hashRowType](../h/hashRowType.md)

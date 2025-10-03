@@ -28,8 +28,7 @@ However, this optimization has important restrictions:
 The function recursively searches through the query's jointree to find and transform eligible sublinks, stopping at non-AND expressions since quals are not yet in implicit-AND format at this stage.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing the query tree and optimization context
-
+- `*root`: PlannerInfo structure containing the query tree and optimization context
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pull_up_sublinks_jointree_recurse](pull_up_sublinks_jointree_recurse.md)

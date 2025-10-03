@@ -18,8 +18,7 @@ This function provides a precise definition of whitespace characters that matche
 The function explicitly checks for six specific whitespace characters: space (' '), tab ('\t'), newline ('\n'), carriage return ('\r'), vertical tab ('\v'), and form feed ('\f'). This ensures consistent behavior regardless of the system locale and guarantees that string parsing functions behave identically to the main SQL lexer.
 
 ## Parameters / Member Variables
-- : The character to test for whitespace classification
-
+- `ch`: The character to test for whitespace classification
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (uses only character literal comparisons)

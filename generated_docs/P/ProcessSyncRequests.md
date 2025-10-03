@@ -17,7 +17,6 @@ ProcessSyncRequests is the core function that handles file synchronization durin
 The function uses a two-phase approach: first, it absorbs any new sync requests and increments the sync_cycle_ctr to distinguish between old and new entries. Then it processes all entries with the previous cycle counter value, ensuring that new requests arriving during processing are deferred to the next checkpoint. It includes robust error recovery mechanisms, handling cases where files have been deleted or where previous sync attempts failed partway through.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

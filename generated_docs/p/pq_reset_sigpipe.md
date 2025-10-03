@@ -22,10 +22,9 @@ The  function is responsible for cleaning up SIGPIPE signal handling after socke
 The function is designed to be safe regarding errno preservation - it saves and restores the socket errno value to ensure that error codes from preceding operations (like send()) are not lost. The implementation assumes that the C library doesn't queue multiple SIGPIPE events, which is a reasonable assumption for most systems.
 
 ## Parameters / Member Variables
-- : Pointer to the original signal set that should be restored
-- : Boolean indicating whether a SIGPIPE signal was already pending before the operation
-- : Boolean indicating whether an EPIPE error occurred (or might have occurred) during the operation
-
+- `*osigset`: Pointer to the original signal set that should be restored
+- `sigpipe_pending`: Boolean indicating whether a SIGPIPE signal was already pending before the operation
+- `got_epipe`: Boolean indicating whether an EPIPE error occurred (or might have occurred) during the operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - SOCK_ERRNO (macro for getting socket errno)

@@ -25,10 +25,9 @@ For RECORD type variables, the function uses expandRecordVariable to determine t
 The function generates FieldSelect expressions for each non-dropped attribute, properly handling type information, type modifiers, and collation settings.
 
 ## Parameters / Member Variables
-- : Parse state containing context information for the current parsing operation
-- : The composite-type expression to be expanded (left side of .*)
-- : Boolean flag determining whether to create TargetEntry structures (true) or simple FieldSelect expressions (false)
-
+- `*pstate`: Parse state containing context information for the current parsing operation
+- `*expr`: The composite-type expression to be expanded (left side of .*)
+- `make_target_entry`: Boolean flag determining whether to create TargetEntry structures (true) or simple FieldSelect expressions (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExpandSingleTable](ExpandSingleTable.md)

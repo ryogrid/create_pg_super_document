@@ -18,7 +18,6 @@ NewDumpOptions is a constructor function that allocates memory for a new DumpOpt
 The DumpOptions structure contains numerous configuration options for controlling PostgreSQL dump behavior, including schema/data selection, output formatting, connection parameters, and various command-line flags.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

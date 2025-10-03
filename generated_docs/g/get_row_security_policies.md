@@ -26,14 +26,13 @@ The  function is the central coordinator for PostgreSQL's row-level security imp
 The function applies policies in a specific order to ensure proper privilege escalation - higher privileged operations (UPDATE/DELETE) are checked before lower privileged ones (SELECT).
 
 ## Parameters / Member Variables
-- : The Query structure containing the entire query context
-- : The RangeTblEntry representing the relation being accessed
-- : Index of this RTE in the query's range table
-- : Output parameter - list of security qualifiers to enforce during row retrieval
-- : Output parameter - list of with-check options to enforce during row modification
-- : Output parameter - set to true if RLS is enabled for this relation
-- : Output parameter - set to true if any returned policies contain subqueries
-
+- `*root`: The Query structure containing the entire query context
+- `*rte`: The RangeTblEntry representing the relation being accessed
+- `rt_index`: Index of this RTE in the query's range table
+- `**securityQuals`: Output parameter - list of security qualifiers to enforce during row retrieval
+- `**withCheckOptions`: Output parameter - list of with-check options to enforce during row modification
+- `*hasRowSecurity`: Output parameter - set to true if RLS is enabled for this relation
+- `*hasSubLinks`: Output parameter - set to true if any returned policies contain subqueries
 ## Dependencies
 - Functions called/Symbols referenced:
   - [getRTEPermissionInfo](getRTEPermissionInfo.md)

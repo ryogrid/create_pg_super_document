@@ -28,9 +28,8 @@ The function performs comprehensive checks including:
 - Attempting to prove the inner relation is distinct for the collected clauses
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing all planner context and state information
-- : SpecialJoinInfo structure describing the specific outer join being analyzed
-
+- `min_lefthand`: PlannerInfo structure containing all planner context and state information
+- `min_righthand`: SpecialJoinInfo structure describing the specific outer join being analyzed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bms_get_singleton_member](../b/bms_get_singleton_member.md): Extracts single member from bitmap set

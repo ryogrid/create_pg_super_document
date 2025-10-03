@@ -24,8 +24,7 @@ The function performs several key operations:
 The memoization system requires both hash and equality operators because it uses a hash table to cache results, where the hash function provides efficient lookup and the equality operator ensures correct matching of cached entries. This is particularly valuable for parameterized nested loop joins where the same parameter values may be encountered repeatedly.
 
 ## Parameters / Member Variables
-- : RestrictInfo structure containing the clause to evaluate and the hash equality operator fields to populate for memoization
-
+- `*restrictinfo`: RestrictInfo structure containing the clause to evaluate and the hash equality operator fields to populate for memoization
 ## Dependencies
 - Functions called/Symbols referenced:
   - [is_opclause](../i/is_opclause.md) (verifies expression is an operator clause)

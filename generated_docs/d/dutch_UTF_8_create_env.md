@@ -17,7 +17,6 @@ This function serves as a wrapper around the generic `SN_create_env` function, p
 The function calls `SN_create_env(0, 3)`, indicating that it creates an environment with 0 string arrays (S_size = 0) and 3 integer variables (I_size = 3), which are the specific requirements for the Dutch stemming algorithm.
 
 ## Parameters / Member Variables
-This function takes no parameters (`void`).
 
 ## Dependencies
 - Functions called/Symbols referenced:

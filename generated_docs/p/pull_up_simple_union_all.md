@@ -30,10 +30,9 @@ The transformation process involves:
 Unlike other pull-up operations, this function doesn't modify the jointree structure itself, as the original RangeTblRef continues to represent the append relation.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure for the parent query
-- : RangeTblRef node representing the UNION ALL subquery
-- : RangeTblEntry for the UNION ALL subquery being converted
-
+- `*root`: PlannerInfo structure for the parent query
+- `*jtnode`: RangeTblRef node representing the UNION ALL subquery
+- `*rte`: RangeTblEntry for the UNION ALL subquery being converted
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Creates modifiable copy of subquery's range table

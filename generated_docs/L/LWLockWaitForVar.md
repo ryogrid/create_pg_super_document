@@ -21,11 +21,10 @@ The function uses a loop-based approach with a two-phase locking protocol simila
 Special attention is paid to interrupt handling - interrupts are held during the waiting period to prevent corruption, as there's no cleanup mechanism to remove the process from wait queues if interrupted.
 
 ## Parameters / Member Variables
-- : The LWLock to monitor for release
-- : Pointer to atomic uint64 variable to monitor for changes  
-- : Expected value to wait for change from
-- : Output parameter receiving current value when it differs from oldval
-
+- `*lock`: The LWLock to monitor for release
+- `*valptr`: Pointer to atomic uint64 variable to monitor for changes
+- `oldval`: Expected value to wait for change from
+- `*newval`: Output parameter receiving current value when it differs from oldval
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockConflictsWithVar](LWLockConflictsWithVar.md) (core conflict detection)

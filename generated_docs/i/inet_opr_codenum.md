@@ -22,8 +22,7 @@ This function maps PostgreSQL inet operator OIDs to standardized integer codes t
 The code assignment follows a symmetric pattern where negating a code gives the code for the commutator operator, which simplifies logic in other parts of the selectivity estimation system. This design is specifically relied upon by  and .
 
 ## Parameters / Member Variables
-- : The OID of the inet operator to be converted to a code number
-
+- `operator`: The OID of the inet operator to be converted to a code number
 ## Dependencies
 - Functions called/Symbols referenced:
   - elog (for error reporting)

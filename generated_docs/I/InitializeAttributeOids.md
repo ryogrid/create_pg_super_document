@@ -18,10 +18,9 @@ InitializeAttributeOids(Relation indexRelation,
 This function performs a simple but essential task in index creation: it updates the attrelid field of each attribute in the index's tuple descriptor to reference the correct index relation OID. During tuple descriptor construction, the attrelid field is initially set to InvalidOid because the index relation hasn't been created yet. Once the index relation is established and has a valid OID, this function iterates through all attributes in the tuple descriptor and sets their attrelid field to the index's OID. This establishes the proper relationship between the attributes and their parent index relation in PostgreSQL's system catalogs.
 
 ## Parameters / Member Variables
-- : Relation pointer to the index relation whose attributes need OID initialization
-- : Integer specifying the number of attributes to process
-- : OID of the index relation to assign to each attribute's attrelid field
-
+- `indexRelation`: Relation pointer to the index relation whose attributes need OID initialization
+- `numatts`: Integer specifying the number of attributes to process
+- `indexoid`: OID of the index relation to assign to each attribute's attrelid field
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationGetDescr: Retrieves the tuple descriptor from the index relation

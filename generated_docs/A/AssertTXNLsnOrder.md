@@ -16,8 +16,7 @@ AssertTXNLsnOrder(ReorderBuffer *rb)
 This function performs comprehensive validation of LSN ordering and transaction state invariants within the reorder buffer's transaction lists. It operates only in debug builds (when USE_ASSERT_CHECKING is defined) and serves as a critical debugging tool for ensuring the correctness of transaction ordering during logical replication. The function verifies that transactions in the toplevel_by_lsn list are ordered by their first_lsn, and transactions in the txns_by_base_snapshot_lsn list are ordered by their base_snapshot_lsn. It also validates that subtransactions are not incorrectly listed in top-level transaction lists and that LSN relationships within transactions are consistent.
 
 ## Parameters / Member Variables
-- : The ReorderBuffer containing the transaction lists to be validated
-
+- `*rb`: The ReorderBuffer containing the transaction lists to be validated
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SnapBuildXactNeedsSkip](../S/SnapBuildXactNeedsSkip.md) (checks if transaction decoding should be skipped)

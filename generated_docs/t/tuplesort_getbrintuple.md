@@ -18,10 +18,9 @@ This function is part of PostgreSQL's tuplesort framework, specifically designed
 The function operates by calling the common tuple retrieval mechanism and then unwrapping the BRIN-specific tuple data. It ensures that the returned tuple belongs to the tuplesort's memory context and provides the tuple length information through an output parameter.
 
 ## Parameters / Member Variables
-- : Tuplesortstate pointer representing the active tuplesort operation containing BRIN tuples
-- : Output parameter that receives the length of the returned BRIN tuple
-- : Boolean flag indicating the direction of retrieval (true for forward, false for backward)
-
+- `*state`: Tuplesortstate pointer representing the active tuplesort operation containing BRIN tuples
+- `*len`: Output parameter that receives the length of the returned BRIN tuple
+- `forward`: Boolean flag indicating the direction of retrieval (true for forward, false for backward)
 ## Dependencies
 - Functions called/Symbols referenced:
   - TuplesortstateGetPublic

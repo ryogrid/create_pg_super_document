@@ -20,9 +20,8 @@ The function is specifically designed for pointer lists and includes assertions 
 Due to its linear search nature, this function has O(n) time complexity and should be avoided for frequent searches on long lists where performance is critical.
 
 ## Parameters / Member Variables
-- : The pointer list to search in (marked const as it's not modified)
-- : The data element to search for (should be a Node for proper equality comparison)
-
+- `*list`: The pointer list to search in (marked const as it's not modified)
+- `*datum`: The data element to search for (should be a Node for proper equality comparison)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Validates that the list contains pointers

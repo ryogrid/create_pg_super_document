@@ -24,10 +24,9 @@ The function serves as a higher-level interface that:
 The OldestXmin parameter represents a cutoff transaction ID obtained from GetOldestNonRemovableTransactionId(). Tuples deleted by transactions with XIDs >= OldestXmin are deemed "recently dead" because they might still be visible to some open transaction, preventing their removal even if the deleting transaction has committed.
 
 ## Parameters / Member Variables
-- : The heap tuple to evaluate for vacuum status, containing tuple data and metadata
-- : Cutoff transaction ID below which deleted tuples can be considered truly dead and removable
-- : The buffer containing the tuple, passed through to HeapTupleSatisfiesVacuumHorizon for potential hint bit setting
-
+- `htup`: The heap tuple to evaluate for vacuum status, containing tuple data and metadata
+- `OldestXmin`: Cutoff transaction ID below which deleted tuples can be considered truly dead and removable
+- `buffer`: The buffer containing the tuple, passed through to HeapTupleSatisfiesVacuumHorizon for potential hint bit setting
 ## Dependencies
 - Functions called/Symbols referenced:
   - [HeapTupleSatisfiesVacuumHorizon](HeapTupleSatisfiesVacuumHorizon.md)

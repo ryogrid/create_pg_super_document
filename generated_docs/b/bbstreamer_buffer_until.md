@@ -24,11 +24,10 @@ The function implements three distinct behaviors based on the current state:
 This pattern is particularly useful for parsing operations that need to accumulate a fixed amount of data (like headers) before they can proceed with processing.
 
 ## Parameters / Member Variables
-- : Pointer to the bbstreamer object whose buffer will be used
-- : Pointer to a pointer to the input data buffer (modified to advance past buffered bytes)
-- : Pointer to the length of remaining input data (modified to reflect consumed bytes)
-- : The desired number of bytes to have in the buffer
-
+- `*streamer`: Pointer to the bbstreamer object whose buffer will be used
+- `**data`: Pointer to a pointer to the input data buffer (modified to advance past buffered bytes)
+- `*len`: Pointer to the length of remaining input data (modified to reflect consumed bytes)
+- `target_bytes`: The desired number of bytes to have in the buffer
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bbstreamer](bbstreamer.md) (struct type)

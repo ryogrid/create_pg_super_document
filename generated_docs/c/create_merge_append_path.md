@@ -22,12 +22,11 @@ This function constructs a MergeAppendPath node that represents a MergeAppend op
 For subpaths that are not properly sorted, the function includes the cost of inserting a Sort node. When there's only one child path with matching parallel awareness, the operation becomes a no-op and inherits the child's costs directly. The function handles the application of query-wide LIMIT when appropriate.
 
 ## Parameters / Member Variables
-- : PlannerInfo context for the query being planned
-- : RelOptInfo for the relation this path represents
-- : List of child paths to be merged (must produce compatible sort orders)
-- : Required sort ordering for the merged output
-- : Set of outer relids required by this path
-
+- `*root`: PlannerInfo context for the query being planned
+- `*rel`: RelOptInfo for the relation this path represents
+- `*subpaths`: List of child paths to be merged (must produce compatible sort orders)
+- `*pathkeys`: Required sort ordering for the merged output
+- `required_outer`: Set of outer relids required by this path
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (MergeAppendPath creation)

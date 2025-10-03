@@ -18,9 +18,8 @@ This function determines the absolute path to PostgreSQL's package library direc
 The function is essential for PostgreSQL installations to locate shared libraries and extension modules at runtime, particularly in relocatable installations where the actual installation path may differ from the compile-time paths.
 
 ## Parameters / Member Variables
-- : Input parameter containing the full path to the current executable
-- : Output buffer where the computed package library path will be stored (must be at least MAXPGPATH bytes)
-
+- `*my_exec_path`: Input parameter containing the full path to the current executable
+- `*ret_path`: Output buffer where the computed package library path will be stored (must be at least MAXPGPATH bytes)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [make_relative_path](../m/make_relative_path.md)

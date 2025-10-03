@@ -19,10 +19,9 @@ This function serves as an internal wrapper for the stream_start callback in Pos
 The function ensures proper error reporting by setting up an error context stack that will provide meaningful error messages if the plugin callback fails. It also configures the logical decoding context for write operations and updates location tracking for replication progress monitoring.
 
 ## Parameters / Member Variables
-- : Pointer to the ReorderBuffer containing transaction data and plugin context
-- : Pointer to the ReorderBufferTXN representing the streaming transaction
-- : XLogRecPtr indicating the LSN position where streaming begins
-
+- `*cache`: Pointer to the ReorderBuffer containing transaction data and plugin context
+- `*txn`: Pointer to the ReorderBufferTXN representing the streaming transaction
+- `first_lsn`: XLogRecPtr indicating the LSN position where streaming begins
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReorderBuffer](../R/ReorderBuffer.md)

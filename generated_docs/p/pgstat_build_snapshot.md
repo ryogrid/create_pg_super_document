@@ -22,6 +22,7 @@ The snapshot includes only statistics relevant to the current database context, 
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pgstat_prep_snapshot](pgstat_prep_snapshot.md)

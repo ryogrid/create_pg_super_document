@@ -21,12 +21,11 @@ When creating new LOCK objects, it initializes all the necessary fields includin
 The function includes sophisticated memory management, automatically cleaning up unused LOCK objects when PROCLOCK creation fails, preventing memory leaks in shared memory. It also includes optional deadlock risk detection code that can warn about potentially dangerous lock acquisition patterns.
 
 ## Parameters / Member Variables
-- : Pointer to the lock method configuration defining lock behavior and conflict rules
-- : Pointer to PGPROC structure representing the process acquiring the lock
-- : Pointer to LOCKTAG structure uniquely identifying the lockable object
-- : Pre-computed hash value for the lock tag for efficient hash table operations
-- : The specific lock mode being requested for validation and tracking
-
+- `lockMethodTable`: Pointer to the lock method configuration defining lock behavior and conflict rules
+- `*proc`: Pointer to PGPROC structure representing the process acquiring the lock
+- `*locktag`: Pointer to LOCKTAG structure uniquely identifying the lockable object
+- `hashcode`: Pre-computed hash value for the lock tag for efficient hash table operations
+- `lockmode`: The specific lock mode being requested for validation and tracking
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hash_search_with_hash_value](../h/hash_search_with_hash_value.md) (for finding/creating shared hash table entries)

@@ -17,8 +17,7 @@ static int r_mark_lArI(struct SN_env * z)
 This function is part of the Turkish language stemming implementation that specifically handles the 'lArI' suffix pattern, which is a common Turkish plural possessive suffix. The function first performs a boundary check to ensure there are at least 3 characters available for processing. It then checks if the last character is either 'ı' (105) or 'ı' (177) in UTF-8 encoding, which are the expected final characters for this suffix pattern. Finally, it uses  to match against an array of 2 specific 'lArI' patterns () that account for Turkish vowel harmony variations.
 
 ## Parameters / Member Variables
-- : Pointer to the Snowball environment structure containing the word being processed, current position markers, and other stemming state information
-
+- `*z`: Pointer to the Snowball environment structure containing the word being processed, current position markers, and other stemming state information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [find_among_b](../f/find_among_b.md) (Snowball library function for backwards pattern matching)

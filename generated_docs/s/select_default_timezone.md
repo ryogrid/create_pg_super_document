@@ -24,8 +24,7 @@ This function implements a hierarchical timezone selection strategy for PostgreS
 The function also initializes the timezone directory path when  is not defined, constructing it from the provided  parameter. This ensures the timezone database location is properly configured before attempting timezone validation.
 
 ## Parameters / Member Variables
-- : Path to PostgreSQL's shared data directory, used to construct the timezone database path (e.g., "/usr/share/postgresql")
-
+- `*share_path`: Path to PostgreSQL's shared data directory, used to construct the timezone database path (e.g., "/usr/share/postgresql")
 ## Dependencies
 - Functions called/Symbols referenced:
   - getenv: Get TZ environment variable value

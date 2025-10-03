@@ -20,8 +20,7 @@ The function handles several important cases: it treats InvalidOid as a request 
 A key design consideration is that cache entries are created only after reading from the system catalog to avoid potential issues with cache flushes during catalog access.
 
 ## Parameters / Member Variables
-- : The OID of the tablespace to look up. InvalidOid is treated as a request for the default tablespace
-
+- `spcid`: The OID of the tablespace to look up. InvalidOid is treated as a request for the default tablespace
 ## Dependencies
 - Functions called/Symbols referenced:
   - [InitializeTableSpaceCache](../I/InitializeTableSpaceCache.md): Initialize cache if not already done

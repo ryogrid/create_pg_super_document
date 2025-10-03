@@ -22,9 +22,8 @@ This function performs cleanup operations on the relation synchronization cache 
 The function handles both commit and abort scenarios differently - committed transactions result in schema_sent being set to true, while aborted transactions simply have their transaction IDs removed without state changes.
 
 ## Parameters / Member Variables
-- : The transaction ID that has completed (committed or aborted)
-- : Boolean flag indicating whether the transaction committed (true) or aborted (false)
-
+- `xid`: The transaction ID that has completed (committed or aborted)
+- `is_commit`: Boolean flag indicating whether the transaction committed (true) or aborted (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hash_seq_init](../h/hash_seq_init.md) (initialize hash table iteration)

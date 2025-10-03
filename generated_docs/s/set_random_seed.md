@@ -16,8 +16,7 @@ set_random_seed(const char *seed)
 This function sets up the random seed for pgbench's pseudo-random number generation system. It supports three types of seed inputs: time-based seeding (NULL or "time"), strong random seeding ("rand"), and explicit numeric seeding. The function parses the seed parameter, generates the appropriate seed value, logs the seed being used, stores it in the global  variable, and initializes the  using PostgreSQL's PRNG system. This base sequence is then used to initialize other random sequences throughout pgbench's execution.
 
 ## Parameters / Member Variables
-- : String parameter specifying the seed type or value. NULL or "time" uses current timestamp, "rand" uses cryptographically strong random source, numeric string uses that value as seed
-
+- `*seed`: String parameter specifying the seed type or value. NULL or "time" uses current timestamp, "rand" uses cryptographically strong random source, numeric string uses that value as seed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_time_now](../p/pg_time_now.md) (for time-based seeding)

@@ -18,7 +18,6 @@ This is a simple cleanup function designed to be registered with the atexit() sy
 This pattern is commonly used in PostgreSQL client utilities to prevent connection leaks and ensure proper cleanup even when the program exits unexpectedly. The function operates on a global  variable that represents the active PostgreSQL connection.
 
 ## Parameters / Member Variables
-None - this function takes no parameters and operates on the global  variable.
 
 ## Dependencies
 - Functions called/Symbols referenced:

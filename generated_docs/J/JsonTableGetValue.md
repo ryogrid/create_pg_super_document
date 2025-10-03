@@ -23,12 +23,11 @@ This function is a core component of PostgreSQL's JSON_TABLE() functionality, re
 The function implements careful context management, preserving and restoring the expression context's case values during JsonExpr evaluation. It includes a memory leak warning, indicating that the calling context should be reset frequently to prevent memory accumulation.
 
 ## Parameters / Member Variables
-- : TableFuncScanState pointer containing the scan state for the table function execution
-- : Integer specifying the column number (0-based index) for which to retrieve the value
-- : OID of the target data type for the column value
-- : Type modifier for the target data type
-- : Pointer to boolean flag that will be set to indicate if the returned value is NULL
-
+- `*state`: TableFuncScanState pointer containing the scan state for the table function execution
+- `colnum`: Integer specifying the column number (0-based index) for which to retrieve the value
+- `typid`: OID of the target data type for the column value
+- `typmod`: Type modifier for the target data type
+- `*isnull`: Pointer to boolean flag that will be set to indicate if the returned value is NULL
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetJsonTableExecContext](../G/GetJsonTableExecContext.md)

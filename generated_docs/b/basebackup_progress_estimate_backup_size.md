@@ -18,6 +18,7 @@ This function is a simple progress reporting utility used during PostgreSQL base
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pgstat_progress_update_param](../p/pgstat_progress_update_param.md)

@@ -16,8 +16,7 @@ write_version_file(const char *extrapath)
 The  function creates and writes the PG_VERSION file, which is essential for PostgreSQL to identify the version of a database cluster. The function constructs the appropriate file path by combining the global  directory with an optional subdirectory path. It opens the file in binary write mode and writes the major version number (from  macro) followed by a newline. This file is crucial for PostgreSQL's version compatibility checks and is created both in the main data directory and in individual tablespace directories during cluster initialization.
 
 ## Parameters / Member Variables
-- : An optional subdirectory path where the PG_VERSION file should be created. If NULL, the file is created directly in the main data directory.
-
+- `*extrapath`: An optional subdirectory path where the PG_VERSION file should be created. If NULL, the file is created directly in the main data directory.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [psprintf](../p/psprintf.md) (PostgreSQL's printf-like memory allocating function)

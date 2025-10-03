@@ -18,8 +18,7 @@ RestoreScratchTarget is a static function in PostgreSQL's predicate locking syst
 The function ensures proper locking semantics by checking if the caller already holds the required partition lock, and acquires it if necessary. It uses hash_search_with_hash_value to insert the scratch target back into the hash table with the HASH_ENTER action, asserting that the entry should not already exist.
 
 ## Parameters / Member Variables
-- : Boolean flag indicating whether the caller already holds the ScratchPartitionLock. If false, the function will acquire the lock; if true, it assumes the lock is already held.
-
+- `lockheld`: Boolean flag indicating whether the caller already holds the ScratchPartitionLock. If false, the function will acquire the lock; if true, it assumes the lock is already held.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockHeldByMe](../L/LWLockHeldByMe.md)

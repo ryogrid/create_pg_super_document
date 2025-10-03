@@ -25,7 +25,6 @@ The function performs comprehensive cleanup by:
 The function is designed to be very thorough in its cleanup to prevent any confusion or data corruption when the feature is later re-enabled after being disabled.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

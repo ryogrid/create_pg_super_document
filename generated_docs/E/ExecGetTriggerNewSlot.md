@@ -20,9 +20,8 @@ The NEW slot is crucial for trigger processing, particularly for INSERT and UPDA
 The slot is allocated in the query's memory context to ensure proper lifetime management throughout query execution.
 
 ## Parameters / Member Variables
-- : The executor state containing query execution context and memory management information
-- : Result relation info structure that maintains trigger-related tuple slots and relation metadata
-
+- `*estate`: The executor state containing query execution context and memory management information
+- `*relInfo`: Result relation info structure that maintains trigger-related tuple slots and relation metadata
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (creates and initializes a new tuple slot)

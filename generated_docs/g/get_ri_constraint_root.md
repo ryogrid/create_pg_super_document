@@ -24,8 +24,7 @@ This function traverses up the constraint inheritance hierarchy to find the root
 The function uses a simple loop to walk up the constraint hierarchy, making system catalog lookups at each level.
 
 ## Parameters / Member Variables
-- : OID of the constraint to find the root for
-
+- `constrOid`: OID of the constraint to find the root for
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache1](../S/SearchSysCache1.md)

@@ -18,6 +18,7 @@ ClearOrSaveAllResults is a static utility function that exhaustively processes a
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQgetResult](../P/PQgetResult.md) (PostgreSQL libpq function for retrieving results)

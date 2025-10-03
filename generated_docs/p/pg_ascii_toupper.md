@@ -20,8 +20,7 @@ This function performs a simple range check for lowercase ASCII characters (a-z)
 The function is simpler and faster than  because it doesn't need to handle locale-specific character sets or call standard library functions.
 
 ## Parameters / Member Variables
-- : The unsigned character to convert to uppercase (only ASCII a-z will be converted)
-
+- `ch`: The unsigned character to convert to uppercase (only ASCII a-z will be converted)
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (operates directly on character values)

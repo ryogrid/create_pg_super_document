@@ -42,15 +42,14 @@ This is a comprehensive function responsible for obtaining a suitable buffer for
 - Proper handling of all-visible page flag clearing
 
 ## Parameters / Member Variables
-- : Target relation for tuple insertion
-- : Required free space for the new tuple (will be MAXALIGN'd)
-- : Previously pinned buffer for deadlock prevention (InvalidBuffer if none)
-- : Insertion options (HEAP_INSERT_SKIP_FSM, HEAP_INSERT_FROZEN, etc.)
-- : Bulk insert state for optimization (NULL for single inserts)
-- : Input/output parameter for visibility map buffer of target page
-- : Input/output parameter for visibility map buffer of otherBuffer
-- : Number of pages to extend relation by if extension is needed (minimum 1)
-
+- `relation`: Target relation for tuple insertion
+- `len`: Required free space for the new tuple (will be MAXALIGN'd)
+- `otherBuffer`: Previously pinned buffer for deadlock prevention (InvalidBuffer if none)
+- `options`: Insertion options (HEAP_INSERT_SKIP_FSM, HEAP_INSERT_FROZEN, etc.)
+- `bistate`: Bulk insert state for optimization (NULL for single inserts)
+- `*vmbuffer`: Input/output parameter for visibility map buffer of target page
+- `*vmbuffer_other`: Input/output parameter for visibility map buffer of otherBuffer
+- `num_pages`: Number of pages to extend relation by if extension is needed (minimum 1)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReadBufferBI](ReadBufferBI.md), ReadBuffer, ReadBufferExtended

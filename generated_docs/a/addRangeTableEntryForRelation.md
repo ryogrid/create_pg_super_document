@@ -31,13 +31,12 @@ Key characteristics:
 The function includes strict assertions to ensure lock mode validity (must be AccessShareLock, RowShareLock, or RowExclusiveLock) and that the caller actually holds the specified lock mode.
 
 ## Parameters / Member Variables
-- : Parser state containing the range table and other parsing context
-- : Already-open relation structure with appropriate locks held
-- : Lock type required for query execution (AccessShareLock, RowShareLock, or RowExclusiveLock)
-- : Optional alias for the relation; if NULL, uses the relation's actual name  
-- : Boolean indicating whether inheritance should be considered for the relation
-- : Boolean indicating whether this entry originates from a FROM clause
-
+- `*pstate`: Parser state containing the range table and other parsing context
+- `rel`: Already-open relation structure with appropriate locks held
+- `lockmode`: Lock type required for query execution (AccessShareLock, RowShareLock, or RowExclusiveLock)
+- `*alias`: Optional alias for the relation; if NULL, uses the relation's actual name
+- `inh`: Boolean indicating whether inheritance should be considered for the relation
+- `inFromCl`: Boolean indicating whether this entry originates from a FROM clause
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (for RTE creation)

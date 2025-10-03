@@ -20,10 +20,9 @@ The function operates by first processing any pending client write interrupts, t
 Like its read counterpart, the function implements intelligent blocking behavior: when a write operation would block due to full socket buffers (EWOULDBLOCK/EAGAIN), it uses PostgreSQL's wait event system to efficiently wait for socket writability. During these waits, it monitors for critical system events such as postmaster death and processes client write interrupts to ensure proper cleanup and responsiveness.
 
 ## Parameters / Member Variables
-- : Pointer to Port structure containing connection state, security configuration, and socket information
-- : Buffer containing the data to be written
-- : Number of bytes to write from the buffer
-
+- `*port`: Pointer to Port structure containing connection state, security configuration, and socket information
+- `*ptr`: Buffer containing the data to be written
+- `len`: Number of bytes to write from the buffer
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ProcessClientWriteInterrupt](../P/ProcessClientWriteInterrupt.md): Handles client write interrupt conditions

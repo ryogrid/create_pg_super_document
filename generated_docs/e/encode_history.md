@@ -21,6 +21,7 @@ The operation is performed directly on the history data structure, modifying the
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - BEGIN_ITERATE_HISTORY (macro)

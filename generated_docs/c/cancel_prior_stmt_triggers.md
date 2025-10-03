@@ -30,10 +30,9 @@ The function operates by scanning through previously queued trigger events and m
 The function is particularly important in scenarios involving foreign key enforcement, where multiple FK triggers might sequentially queue triggers for the same table within the same trigger query level.
 
 ## Parameters / Member Variables
-- : The OID of the relation for which to cancel statement triggers
-- : The command type (INSERT, UPDATE, DELETE) for which to cancel triggers
-- : The specific trigger event type to match when cancelling
-
+- `relid`: The OID of the relation for which to cancel statement triggers
+- `cmdType`: The command type (INSERT, UPDATE, DELETE) for which to cancel triggers
+- `tgevent`: The specific trigger event type to match when cancelling
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetAfterTriggersTableData](../G/GetAfterTriggersTableData.md) (retrieves table data for the relation/command)

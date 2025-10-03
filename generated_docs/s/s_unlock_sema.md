@@ -20,8 +20,7 @@ When called, the function extracts the semaphore array index from the lock varia
 The function operates on a volatile slock_t pointer to ensure proper memory ordering and prevent compiler optimizations that might interfere with the locking semantics.
 
 ## Parameters / Member Variables
-- : A pointer to a volatile spinlock variable that contains an index into the semaphore array. The lock value represents which semaphore in SpinlockSemaArray corresponds to this particular spinlock.
-
+- `*lock`: A pointer to a volatile spinlock variable that contains an index into the semaphore array. The lock value represents which semaphore in SpinlockSemaArray corresponds to this particular spinlock.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [s_check_valid](s_check_valid.md): Validates that the semaphore index is within valid bounds

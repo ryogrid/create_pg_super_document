@@ -24,9 +24,8 @@ The function operates through several key phases:
 This design optimizes for both latency (by returning cached results immediately) and throughput (by batching new requests). The function maintains the as_needrequest bitmap to track which subplans require new async operations and manages the as_asyncresults array as a stack of completed but unconsummed results.
 
 ## Parameters / Member Variables
-- : Pointer to AppendState containing async execution state, request tracking bitmaps, and result caching structures
-- : Output parameter that receives a tuple slot if one is available, or remains unchanged if no tuple is ready
-
+- `*node`: Pointer to AppendState containing async execution state, request tracking bitmaps, and result caching structures
+- `**result`: Output parameter that receives a tuple slot if one is available, or remains unchanged if no tuple is ready
 ## Dependencies
 - Functions called/Symbols referenced:
   - bms_is_empty (bitmap emptiness checking)

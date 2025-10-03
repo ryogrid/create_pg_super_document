@@ -19,7 +19,6 @@ The function performs two simple but important operations:
 2. Sets `opCtx` to NULL to prevent dangling pointer issues
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

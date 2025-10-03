@@ -17,11 +17,10 @@ dropOperators(List *opfamilyname, Oid amoid, Oid opfamilyoid,
 This function handles the removal of operator entries from an existing operator family during ALTER OPERATOR FAMILY DROP operations. It processes a list of OpFamilyMember structures representing operators to be removed, validates their existence in the pg_amop catalog, and performs their deletion. The function uses RESTRICT behavior, meaning it only allows removal of "loose" members that can be safely deleted without cascading effects. Each operator is identified by its strategy number and operand types within the specified operator family, and proper error reporting is provided if an operator doesn't exist.
 
 ## Parameters / Member Variables
-- : List representing the name of the operator family (used for error reporting)
-- : Object identifier of the access method (currently unused but maintained for consistency)
-- : Object identifier of the operator family from which operators are being removed
-- : List of OpFamilyMember structures specifying the operators to be dropped
-
+- `*opfamilyname`: List representing the name of the operator family (used for error reporting)
+- `amoid`: Object identifier of the access method (currently unused but maintained for consistency)
+- `opfamilyoid`: Object identifier of the operator family from which operators are being removed
+- `*operators`: List of OpFamilyMember structures specifying the operators to be dropped
 ## Dependencies
 - Functions called/Symbols referenced:
   - GetSysCacheOid4

@@ -25,8 +25,7 @@ The tuple count measurement is based on whether the result slot contains a valid
 By keeping instrumentation in a separate wrapper function, PostgreSQL avoids any performance overhead in the normal case where no instrumentation is wanted, while providing detailed performance metrics when needed for query optimization and debugging.
 
 ## Parameters / Member Variables
-- : The PlanState node being executed with instrumentation enabled
-
+- `*node`: The PlanState node being executed with instrumentation enabled
 ## Dependencies
 - Functions called/Symbols referenced:
   - [InstrStartNode](../I/InstrStartNode.md) (begin instrumentation timing)

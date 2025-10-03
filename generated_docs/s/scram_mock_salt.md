@@ -25,10 +25,9 @@ The deterministic nature ensures that the same username will always produce the 
 The function includes compile-time assertions to ensure that the SHA256 digest length is sufficient for the default SCRAM salt length requirements.
 
 ## Parameters / Member Variables
-- : The username for which to generate a mock salt (used as hash input)
-- : The cryptographic hash algorithm type (currently only PG_SHA256 is supported)
-- : The required length for the generated salt (must not exceed SCRAM_MAX_KEY_LEN)
-
+- `*username`: The username for which to generate a mock salt (used as hash input)
+- `hash_type`: The cryptographic hash algorithm type (currently only PG_SHA256 is supported)
+- `key_length`: The required length for the generated salt (must not exceed SCRAM_MAX_KEY_LEN)
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Retrieve cluster-level secret nonce for salt generation

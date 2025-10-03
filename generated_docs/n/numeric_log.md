@@ -18,8 +18,7 @@ The  function calculates log_base2(value1) where the first argument is the value
 The implementation handles all combinations of special numeric values (NaN, ±∞) according to mathematical conventions. For finite inputs, it delegates the actual logarithm computation to , which handles scale selection internally. This design separates special value handling from the core mathematical computation.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function argument structure containing two numeric values (value and base)
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument structure containing two numeric values (value and base)
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_NUMERIC: Extract first and second numeric arguments

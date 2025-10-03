@@ -17,12 +17,11 @@ smgrextend(SMgrRelation reln, ForkNumber forknum, BlockNumber blocknum,
 The smgrextend function is a storage manager interface for extending relation files by adding new blocks. It is specifically designed for cases where the block number is at or beyond the current EOF of the file. The function delegates the actual extension operation to the appropriate storage manager implementation through the smgrsw function pointer table. After extending the file, it updates the cached block count to maintain consistency, assuming that writing beyond EOF fills intervening space with zeroes.
 
 ## Parameters / Member Variables
-- : SMgrRelation pointer identifying the relation to extend
-- : ForkNumber indicating which fork of the relation to extend (main, FSM, VM, etc.)
-- : BlockNumber specifying the position where the new block should be written
-- : Pointer to the data buffer containing the block content to write
-- : Boolean flag indicating whether to skip filesystem synchronization
-
+- `reln`: SMgrRelation pointer identifying the relation to extend
+- `forknum`: ForkNumber indicating which fork of the relation to extend (main, FSM, VM, etc.)
+- `blocknum`: BlockNumber specifying the position where the new block should be written
+- `*buffer`: Pointer to the data buffer containing the block content to write
+- `skipFsync`: Boolean flag indicating whether to skip filesystem synchronization
 ## Dependencies
 - Functions called/Symbols referenced:
   - smgrsw[].smgr_extend (storage manager implementation function)

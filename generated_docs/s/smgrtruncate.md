@@ -17,11 +17,10 @@ smgrtruncate(SMgrRelation reln, ForkNumber *forknum, int nforks,
 The  function provides a backward-compatible interface for truncating multiple forks of a storage manager relation. It automatically retrieves the current number of blocks for each fork using  and then delegates the actual truncation operation to . This function is designed for external callers and is not used in PostgreSQL core code. It cannot be used within a critical section due to its dependency on  which may perform I/O operations.
 
 ## Parameters / Member Variables
-- : SMgrRelation pointer representing the storage manager relation to truncate
-- : Array of ForkNumber values indicating which forks to truncate
-- : Integer specifying the number of forks in the forknum array
-- : Array of BlockNumber values specifying the target size for each corresponding fork
-
+- `reln`: SMgrRelation pointer representing the storage manager relation to truncate
+- `*forknum`: Array of ForkNumber values indicating which forks to truncate
+- `nforks`: Integer specifying the number of forks in the forknum array
+- `*nblocks`: Array of BlockNumber values specifying the target size for each corresponding fork
 ## Dependencies
 - Functions called/Symbols referenced:
   - SMgrRelation (type)

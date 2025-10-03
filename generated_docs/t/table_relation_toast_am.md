@@ -18,8 +18,7 @@ This function provides a table access method interface for determining which acc
 The function delegates to the underlying table access method's relation_toast_am function, allowing different storage engines to specify their preferred access method for TOAST table implementation. This is important because different access methods may have specific requirements or optimizations for handling large attribute storage.
 
 ## Parameters / Member Variables
-- : A Relation pointer representing the main table relation for which the TOAST table access method is being determined
-
+- `rel`: A Relation pointer representing the main table relation for which the TOAST table access method is being determined
 ## Dependencies
 - Functions called/Symbols referenced:
   - rel->rd_tableam->relation_toast_am (table access method function pointer)

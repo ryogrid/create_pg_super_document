@@ -65,9 +65,8 @@ LC_ALL= parameter
 The function includes version compatibility handling for PostgreSQL 10.0+, 12.0+, 15.0+, 16.0+, and 17.0+ to manage evolving collation catalog schema changes.
 
 ## Parameters / Member Variables
-- : Archive structure containing dump options and output methods
-- : CollInfo structure containing collation metadata including OID, name, namespace, and owner
-
+- `*fout`: Archive structure containing dump options and output methods
+- `*collinfo`: CollInfo structure containing collation metadata including OID, name, namespace, and owner
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecuteSqlQueryForSingleRow](../E/ExecuteSqlQueryForSingleRow.md)

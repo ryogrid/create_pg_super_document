@@ -22,8 +22,7 @@ The function performs several key operations:
 4. Result formatting and display using psql's standard table output format
 
 ## Parameters / Member Variables
-- : Optional regular expression pattern to filter publications by name. If NULL, all publications are listed.
-
+- `*pattern`: Optional regular expression pattern to filter publications by name. If NULL, all publications are listed.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [formatPGVersionNumber](../f/formatPGVersionNumber.md)

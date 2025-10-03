@@ -31,15 +31,14 @@ Key features include:
 - Non-destructive parsing (original string remains unchanged)
 
 ## Parameters / Member Variables
-- : String to parse; if NULL, continues parsing the last string from previous call
-- : Set of whitespace characters that separate tokens
-- : Set of non-whitespace separator characters (can be NULL)
-- : Set of characters that can quote a token (NULL if none)
-- : Character that can escape quotes (0 if none)
-- : If true, treat E'...' syntax as a valid quoted token
-- : If true, strip quotes from returned token; otherwise return as found
-- : Active character-set encoding for multi-byte character support
-
+- `*s`: String to parse; if NULL, continues parsing the last string from previous call
+- `*whitespace`: Set of whitespace characters that separate tokens
+- `*delim`: Set of non-whitespace separator characters (can be NULL)
+- `*quote`: Set of characters that can quote a token (NULL if none)
+- `escape`: Character that can escape quotes (0 if none)
+- `e_strings`: If true, treat E'...' syntax as a valid quoted token
+- `del_quotes`: If true, strip quotes from returned token; otherwise return as found
+- `encoding`: Active character-set encoding for multi-byte character support
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_malloc](../p/pg_malloc.md)

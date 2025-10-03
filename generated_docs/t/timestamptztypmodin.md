@@ -18,8 +18,7 @@ The  function serves as the type modifier input function for the timestamptz dat
 The function delegates the actual parsing and validation logic to , passing  to indicate this is for a timestamptz type (with timezone) rather than a plain timestamp type.
 
 ## Parameters / Member Variables
-- : ArrayType pointer containing the string array of type modifier specifications (from )
-
+- `PG_FUNCTION_ARGS`: ArrayType pointer containing the string array of type modifier specifications (from )
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Macro to extract ArrayType argument

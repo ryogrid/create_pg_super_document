@@ -18,9 +18,8 @@ This function serves as an accessor to retrieve both the shared TidStore contain
 The function returns the TidStore directly and populates the provided pointer with the address of the dead items information structure, which contains metadata such as memory limits and usage statistics.
 
 ## Parameters / Member Variables
-- : Pointer to the parallel vacuum state structure containing shared resources
-- : Output parameter that will point to the dead items information structure containing metadata about the TidStore (memory limits, usage, etc.)
-
+- `*pvs`: Pointer to the parallel vacuum state structure containing shared resources
+- `**dead_items_info_p`: Output parameter that will point to the dead items information structure containing metadata about the TidStore (memory limits, usage, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Structure type for dead items metadata

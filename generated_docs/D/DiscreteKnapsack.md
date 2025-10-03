@@ -21,11 +21,10 @@ The implementation uses a two-dimensional approach conceptually but optimizes me
 The function creates a temporary memory context to manage allocations and automatically cleans up when complete.
 
 ## Parameters / Member Variables
-- : Maximum weight capacity of the knapsack
-- : Number of items available for selection (must be > 0)
-- : Array of weights for each item (required, non-null)
-- : Array of values for each item (optional; if null, all items assumed to have value 1.0)
-
+- `max_weight`: Maximum weight capacity of the knapsack
+- `num_items`: Number of items available for selection (must be > 0)
+- `*item_weights`: Array of weights for each item (required, non-null)
+- `*item_values`: Array of values for each item (optional; if null, all items assumed to have value 1.0)
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetContextCreate

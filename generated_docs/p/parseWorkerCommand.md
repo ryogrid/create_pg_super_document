@@ -17,11 +17,10 @@ parseWorkerCommand(ArchiveHandle *AH, TocEntry **te, T_Action *act,
 parseWorkerCommand is the counterpart to buildWorkerCommand, responsible for interpreting command messages that worker processes receive from the leader through inter-process communication. The function parses standardized command strings to extract the action type (DUMP or RESTORE) and the dump ID, then resolves the dump ID to the corresponding table of contents entry. It performs validation to ensure the command format is correct and that the referenced entry exists. Invalid commands result in a fatal error that terminates the worker process.
 
 ## Parameters / Member Variables
-- : Archive handle used to look up table of contents entries
-- : Output parameter that receives a pointer to the target TocEntry
-- : Output parameter that receives the parsed action type (ACT_DUMP or ACT_RESTORE)
-- : Input command string to be parsed
-
+- `*AH`: Archive handle used to look up table of contents entries
+- `**te`: Output parameter that receives a pointer to the target TocEntry
+- `*act`: Output parameter that receives the parsed action type (ACT_DUMP or ACT_RESTORE)
+- `*msg`: Input command string to be parsed
 ## Dependencies
 - Functions called/Symbols referenced:
   - messageStartsWith (command prefix matching)

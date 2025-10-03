@@ -18,7 +18,6 @@ have_free_buffer performs a simple, non-blocking check of the StrategyControl->f
 This is designed as a lightweight, lockless operation that can be used for quick availability checks without the overhead of acquiring locks. However, the result is inherently racy - by the time the caller acts on a true result, other processes may have already claimed the free buffers, making the information stale.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

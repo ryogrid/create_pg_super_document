@@ -21,6 +21,7 @@ This wrapper pattern is essential for handling PostgreSQL's hierarchical transac
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CommitTransactionCommandInternal](CommitTransactionCommandInternal.md)

@@ -23,11 +23,10 @@ Like its companion function markreachable, this function includes stack overflow
 The marking mechanism uses the tmp field of state structures to track which states have been processed, ensuring each state is marked only once and preventing infinite loops in cyclic NFAs.
 
 ## Parameters / Member Variables
-- : Pointer to the NFA structure being processed
-- : The target state from which to trace backwards and mark reachable sources
-- : Only states with this mark value will be considered for processing
-- : The new mark value to assign to states that can reach the target
-
+- `*nfa`: Pointer to the NFA structure being processed
+- `*s`: The target state from which to trace backwards and mark reachable sources
+- `*okay`: Only states with this mark value will be considered for processing
+- `*mark`: The new mark value to assign to states that can reach the target
 ## Dependencies
 - Functions called/Symbols referenced:
   - STACK_TOO_DEEP (stack overflow protection macro)

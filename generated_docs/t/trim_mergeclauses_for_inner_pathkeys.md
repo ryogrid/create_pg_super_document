@@ -26,10 +26,9 @@ The algorithm works by:
 The function ensures that the returned mergeclauses maintain the required sequential relationship with the provided pathkeys.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planner state and context information
-- : List of RestrictInfos for mergejoin clauses in an order that works with the outer relation's sort ordering, marked with outer_is_left indicators
-- : Pathkeys list showing the ordering of an inner-rel path, typically a truncation of make_inner_pathkeys_for_merge's result
-
+- `*root`: PlannerInfo structure containing planner state and context information
+- `*mergeclauses`: List of RestrictInfos for mergejoin clauses in an order that works with the outer relation's sort ordering, marked with outer_is_left indicators
+- `*pathkeys`: Pathkeys list showing the ordering of an inner-rel path, typically a truncation of make_inner_pathkeys_for_merge's result
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_head](../l/list_head.md)

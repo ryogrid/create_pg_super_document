@@ -26,8 +26,7 @@ The function handles the complex transition between sorting modes by:
 The optimization is based on the assumption that if we've seen many tuples with the same prefix values, we're likely to see many more, making prefix-optimized sorting more efficient.
 
 ## Parameters / Member Variables
-- : Pointer to PlanState (cast to IncrementalSortState) containing the incremental sort execution state
-
+- `*pstate`: Pointer to PlanState (cast to IncrementalSortState) containing the incremental sort execution state
 ## Dependencies
 - Functions called/Symbols referenced:
   - castNode (safely cast plan state to IncrementalSortState)

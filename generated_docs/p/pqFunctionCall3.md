@@ -21,14 +21,13 @@ pqFunctionCall3 implements the protocol 3 function call mechanism for PostgreSQL
 The function uses a state machine approach to process incoming messages, handling partial reads and ensuring proper synchronization with the server protocol.
 
 ## Parameters / Member Variables
-- : PostgreSQL connection handle for the database session
-- : Object ID (OID) of the server-side function to execute
-- : Buffer to store the function's return value
-- : Pointer to store the actual length of the returned result
-- : Flag indicating whether the result should be treated as an integer
-- : Array of PQArgBlock structures containing function arguments
-- : Number of arguments in the args array
-
+- `*conn`: PostgreSQL connection handle for the database session
+- `fnid`: Object ID (OID) of the server-side function to execute
+- `*result_buf`: Buffer to store the function's return value
+- `*actual_result_len`: Pointer to store the actual length of the returned result
+- `result_is_int`: Flag indicating whether the result should be treated as an integer
+- `*args`: Array of PQArgBlock structures containing function arguments
+- `nargs`: Number of arguments in the args array
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pqPutMsgStart](pqPutMsgStart.md), pqPutMsgEnd

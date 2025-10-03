@@ -23,8 +23,7 @@ The function performs selective reloading by:
 The function is transaction-aware and will defer reloading if not in a transaction state or if the relation isn't actively referenced beyond its nailed status.
 
 ## Parameters / Member Variables
-- : The nailed Relation structure to reload. Must have rd_isnailed set to true.
-
+- `relation`: The nailed Relation structure to reload. Must have rd_isnailed set to true.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RelationInitPhysicalAddr](RelationInitPhysicalAddr.md)

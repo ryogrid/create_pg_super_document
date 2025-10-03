@@ -17,11 +17,10 @@ xact_redo_abort(xl_xact_parsed_abort *parsed, TransactionId xid,
 This function performs the recovery replay of transaction abort operations during PostgreSQL's crash recovery process. Unlike commit replay, abort recovery can handle subtransactions and their children, not just top-level transactions, since subtransaction aborts are WAL-logged while subtransaction commits are not. The function manages transaction ID advancement, marks transactions as aborted in pg_xact, handles known assigned transactions during hot standby, releases locks, advances replication origins, and ensures proper cleanup of relation files and statistics.
 
 ## Parameters / Member Variables
-- : Parsed abort record structure containing all transaction abort information
-- : Transaction ID of the aborting transaction (may be a subtransaction)
-- : Log sequence number of the abort record being replayed
-- : Replication origin ID for logical replication tracking
-
+- `*parsed`: Parsed abort record structure containing all transaction abort information
+- `xid`: Transaction ID of the aborting transaction (may be a subtransaction)
+- `lsn`: Log sequence number of the abort record being replayed
+- `origin_id`: Replication origin ID for logical replication tracking
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TransactionIdLatest](../T/TransactionIdLatest.md)

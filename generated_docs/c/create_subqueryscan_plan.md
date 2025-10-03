@@ -25,11 +25,10 @@ Key processing steps include:
 - Creating the final SubqueryScan plan that wraps the subquery plan
 
 ## Parameters / Member Variables
-- : PlannerInfo structure for the outer query's planner context
-- : SubqueryScanPath representing the chosen access path for the subquery
-- : Target list specifying which columns to return from the subquery scan
-- : List of restriction clauses to apply to the subquery results
-
+- `*root`: PlannerInfo structure for the outer query's planner context
+- `*best_path`: SubqueryScanPath representing the chosen access path for the subquery
+- `*tlist`: Target list specifying which columns to return from the subquery scan
+- `*scan_clauses`: List of restriction clauses to apply to the subquery results
 ## Dependencies
 - Functions called/Symbols referenced:
   - [create_plan](create_plan.md)

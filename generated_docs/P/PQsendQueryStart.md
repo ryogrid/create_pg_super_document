@@ -18,9 +18,8 @@ PQsendQueryStart serves as the foundation for all query sending operations in li
 The function handles different operational modes including normal query execution and pipeline mode operations. It validates that the connection is in an appropriate state for sending queries, manages error state clearing for new query cycles, and handles the complex state machine requirements for pipeline mode operations. The function ensures that queries can only be sent when the connection is ready and not conflicting with ongoing operations like COPY commands.
 
 ## Parameters / Member Variables
-- : PostgreSQL connection handle to validate and prepare for query sending
-- : Boolean flag indicating whether this represents the start of a new query cycle (affects error state management)
-
+- `*conn`: PostgreSQL connection handle to validate and prepare for query sending
+- `newQuery`: Boolean flag indicating whether this represents the start of a new query cycle (affects error state management)
 ## Dependencies
 - Functions called/Symbols referenced:
   - pqClearConnErrorState: Clears the connection's error state buffer

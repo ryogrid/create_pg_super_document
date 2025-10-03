@@ -22,9 +22,8 @@ The function mirrors ExecPrepareExpr but is specialized for qualifier lists, per
 Like ExecPrepareExpr, it handles memory context management by switching to the EState's per-query context to ensure proper allocation lifetime.
 
 ## Parameters / Member Variables
-- : List of expressions representing the qualifier conditions (typically boolean expressions)
-- : The execution state providing the execution environment and memory context
-
+- `*qual`: List of expressions representing the qualifier conditions (typically boolean expressions)
+- `*estate`: The execution state providing the execution environment and memory context
 ## Dependencies
 - Functions called/Symbols referenced:
   - [expression_planner](../e/expression_planner.md) (applies planning transformations to the qualifier list)

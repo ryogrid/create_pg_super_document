@@ -16,9 +16,8 @@ SetReindexProcessing(Oid heapOid, Oid indexOid)
 SetReindexProcessing is a static function that establishes the global reindexing state by setting the currently reindexed heap and index OIDs. This function enforces the non-re-entrant nature of reindexing operations by checking if a reindex is already in progress and raising an error if so. It also removes the index from the pending reindex list and records the current transaction nesting level for proper cleanup during transaction abort scenarios.
 
 ## Parameters / Member Variables
-- : The OID of the heap table being reindexed
-- : The OID of the index being reindexed
-
+- `heapOid`: The OID of the heap table being reindexed
+- `indexOid`: The OID of the index being reindexed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RemoveReindexPending](../R/RemoveReindexPending.md)

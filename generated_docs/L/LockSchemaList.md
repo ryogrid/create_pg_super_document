@@ -22,8 +22,7 @@ LockSchemaList is a static function that ensures schema stability during publica
 The AccessShareLock level allows concurrent read operations while preventing destructive modifications like schema deletion.
 
 ## Parameters / Member Variables
-- : List of schema OIDs that need to be locked to ensure they remain stable during publication operations
-
+- `*schemalist`: List of schema OIDs that need to be locked to ensure they remain stable during publication operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LockDatabaseObject](LockDatabaseObject.md) (acquires lock on database object)

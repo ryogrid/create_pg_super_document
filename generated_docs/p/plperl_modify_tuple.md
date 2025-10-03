@@ -16,10 +16,9 @@ plperl_modify_tuple(HV *hvTD, TriggerData *tdata, HeapTuple otup)
 This function takes modifications made by a Perl trigger function (stored in a Perl hash) and applies them to create a new PostgreSQL heap tuple. It extracts the 'new' key from the trigger data hash, validates that it contains a proper hash reference, and then iterates through each key-value pair to construct the modified tuple. The function performs extensive validation including checking for nonexistent columns, system attributes, and generated columns. It serves as a critical bridge for converting Perl-side data modifications back to PostgreSQL's internal tuple representation.
 
 ## Parameters / Member Variables
-- : Perl hash containing trigger data, including the 'new' hash with modified column values
-- : PostgreSQL trigger data structure containing relation information and tuple descriptors
-- : Original heap tuple that serves as the base for modifications
-
+- `*hvTD`: Perl hash containing trigger data, including the 'new' hash with modified column values
+- `*tdata`: PostgreSQL trigger data structure containing relation information and tuple descriptors
+- `otup`: Original heap tuple that serves as the base for modifications
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hv_fetch_string](../h/hv_fetch_string.md) (fetch value from Perl hash by string key)

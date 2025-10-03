@@ -21,10 +21,9 @@ This function assumes that the tuple in the slot is valid and of the appropriate
 The function is implemented as a static inline function in the tableam interface, providing efficient dispatch to the underlying access method's specific implementation while maintaining a consistent API across different storage engines.
 
 ## Parameters / Member Variables
-- : The relation (table) containing the tuple being checked
-- : TupleTableSlot containing the tuple to be visibility-checked
-- : The snapshot context that defines transaction visibility rules
-
+- `rel`: The relation (table) containing the tuple being checked
+- `*slot`: TupleTableSlot containing the tuple to be visibility-checked
+- `snapshot`: The snapshot context that defines transaction visibility rules
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (access method-specific implementation)

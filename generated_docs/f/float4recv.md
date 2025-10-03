@@ -18,8 +18,7 @@ The float4recv function is part of PostgreSQL's binary I/O system for the float4
 The function uses PostgreSQL's StringInfo buffer system to read the binary data and relies on pq_getmsgfloat4() to handle the actual binary-to-float conversion including any necessary byte order conversions.
 
 ## Parameters / Member Variables
-- : StringInfo buffer containing the binary data, extracted from the first function argument using PG_GETARG_POINTER(0)
-
+- `PG_FUNCTION_ARGS`: StringInfo buffer containing the binary data, extracted from the first function argument using PG_GETARG_POINTER(0)
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_POINTER (argument extraction)

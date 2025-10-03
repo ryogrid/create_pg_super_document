@@ -23,7 +23,6 @@ DebugFileOpen handles the initialization of debug output file redirection for Po
 The function ensures that debug output can be properly captured to a file while handling both TTY and non-TTY scenarios appropriately. Error conditions during file operations result in FATAL errors.
 
 ## Parameters / Member Variables
-This function takes no parameters and relies on the global OutputFileName variable.
 
 ## Dependencies
 - Functions called/Symbols referenced:

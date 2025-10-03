@@ -22,9 +22,8 @@ The function handles two main scenarios:
 This masking ensures that consistency checks focus on the actual data content rather than metadata that naturally varies between servers.
 
 ## Parameters / Member Variables
-- : Character pointer to the raw page data that needs to be masked
-- : Block number of the page being processed (currently unused in the implementation but provided for potential future use)
-
+- `*pagedata`: Character pointer to the raw page data that needs to be masked
+- `blkno`: Block number of the page being processed (currently unused in the implementation but provided for potential future use)
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Masks LSN and checksum fields

@@ -18,12 +18,11 @@ dump_one_relation(ws_options *opt, RelFileLocator *rlocator,
 This function extracts and displays block reference information for a specific relation from WAL summary data. It dynamically allocates and resizes a buffer to hold block numbers, sorts them for proper display, and formats the output as either individual blocks or block ranges depending on user options. The function handles memory management efficiently by doubling buffer size when needed and includes overflow protection. When not in quiet mode, it outputs formatted information showing tablespace, database, relation, fork, and block details.
 
 ## Parameters / Member Variables
-- : Options structure containing display preferences (quiet mode, individual block display)
-- : Relation file locator containing tablespace OID, database OID, and relation number
-- : Fork number identifying which fork of the relation (main, FSM, VM, etc.)
-- : Block number limit for the relation, or InvalidBlockNumber if none
-- : Block reference table reader for extracting block information
-
+- `*opt`: Options structure containing display preferences (quiet mode, individual block display)
+- `*rlocator`: Relation file locator containing tablespace OID, database OID, and relation number
+- `forknum`: Fork number identifying which fork of the relation (main, FSM, VM, etc.)
+- `limit_block`: Block number limit for the relation, or InvalidBlockNumber if none
+- `*reader`: Block reference table reader for extracting block information
 ## Dependencies
 - Functions called/Symbols referenced:
   - palloc_array (memory allocation)

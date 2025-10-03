@@ -25,10 +25,9 @@ The function implements several implication rules:
 The function supports both "weak" and "strong" implication modes, where strong implication has stricter requirements but can prove more cases.
 
 ## Parameters / Member Variables
-- : The predicate expression that we want to prove is implied
-- : The restriction clause that potentially implies the predicate
-- : Boolean flag indicating whether to use weak (true) or strong (false) implication semantics
-
+- `*predicate`: The predicate expression that we want to prove is implied
+- `*clause`: The restriction clause that potentially implies the predicate
+- `weak`: Boolean flag indicating whether to use weak (true) or strong (false) implication semantics
 ## Dependencies
 - Functions called/Symbols referenced:
   - [equal](../e/equal.md) (for expression equality testing)

@@ -22,9 +22,8 @@ This function implements a comparison callback for sorting operations on lists o
 The function is designed to be used with PostgreSQL's list_sort function to arrange grouping sets in order from shortest to longest, which is important for optimizing GROUP BY processing and ensuring consistent output ordering.
 
 ## Parameters / Member Variables
-- : ListCell pointer containing the first List to compare
-- : ListCell pointer containing the second List to compare
-
+- `*a`: ListCell pointer containing the first List to compare
+- `*b`: ListCell pointer containing the second List to compare
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_length](../l/list_length.md): Gets the number of elements in a list

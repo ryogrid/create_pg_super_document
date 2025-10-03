@@ -21,9 +21,8 @@ The typical usage pattern is:
 
 
 ## Parameters / Member Variables
-- : The bitmap set to iterate through (const, not modified, can be NULL)
-- : The previous bit position; function returns next member greater than this value (must be >= -1)
-
+- `*a`: The bitmap set to iterate through (const, not modified, can be NULL)
+- `prevbit`: The previous bit position; function returns next member greater than this value (must be >= -1)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bms_is_valid_set](bms_is_valid_set.md) (input validation)

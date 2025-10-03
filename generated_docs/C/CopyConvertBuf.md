@@ -22,8 +22,7 @@ CopyConvertBuf is a critical function in PostgreSQL's COPY FROM parsing pipeline
 The function implements sophisticated error handling, deferring error reporting until all valid data has been processed to avoid premature errors when end-of-input markers (\.) appear before invalid sequences.
 
 ## Parameters / Member Variables
-- : CopyFromState structure containing all state information for the COPY operation, including buffers, encoding settings, and progress tracking
-
+- `cstate`: CopyFromState structure containing all state information for the COPY operation, including buffers, encoding settings, and progress tracking
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_encoding_verifymbstr](../p/pg_encoding_verifymbstr.md)

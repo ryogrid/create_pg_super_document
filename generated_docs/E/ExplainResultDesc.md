@@ -18,8 +18,7 @@ ExplainResultDesc creates a tuple descriptor that defines the structure of the r
 The function iterates through all format options in the statement (not breaking after the first one) to use the last specified format value, which matches the behavior in ExplainQuery. It then creates a single-column tuple descriptor with the column name 'QUERY PLAN' and the determined data type.
 
 ## Parameters / Member Variables
-- : ExplainStmt containing the EXPLAIN statement with options that determine the output format
-
+- `*stmt`: ExplainStmt containing the EXPLAIN statement with options that determine the output format
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExplainStmt](ExplainStmt.md) (struct type)

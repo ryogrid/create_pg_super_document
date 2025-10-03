@@ -24,8 +24,7 @@ The function operates by:
 The cleanup is performed without error checking - failure to remove the files is silently ignored, as indicated by the comments "should we complain about failure?".
 
 ## Parameters / Member Variables
-- : The name of the WAL segment file for which to clean up archive status files
-
+- `*xlog`: The name of the WAL segment file for which to clean up archive status files
 ## Dependencies
 - Functions called/Symbols referenced:
   - [StatusFilePath](../S/StatusFilePath.md) (constructs full path to status files in archive_status directory)

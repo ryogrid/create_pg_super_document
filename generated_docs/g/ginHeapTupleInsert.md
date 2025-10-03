@@ -24,12 +24,11 @@ The ginHeapTupleInsert function is a helper function that processes a single hea
 This function is designed for "normal" insertion mode, as opposed to fast-update mode where entries are initially stored in a pending list. It directly inserts entries into the main index structure.
 
 ## Parameters / Member Variables
-- : Pointer to the GIN state structure containing index metadata and operator information
-- : The attribute (column) number being indexed (1-based offset)
-- : The actual data value to be indexed
-- : Boolean flag indicating whether the value is NULL
-- : ItemPointer referencing the heap tuple location (TID) that contains this value
-
+- `*ginstate`: Pointer to the GIN state structure containing index metadata and operator information
+- `attnum`: The attribute (column) number being indexed (1-based offset)
+- `value`: The actual data value to be indexed
+- `isNull`: Boolean flag indicating whether the value is NULL
+- `item`: ItemPointer referencing the heap tuple location (TID) that contains this value
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ginExtractEntries](ginExtractEntries.md)

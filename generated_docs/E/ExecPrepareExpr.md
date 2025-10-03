@@ -22,9 +22,8 @@ The function performs two critical steps:
 The function ensures proper memory context management by switching to the EState's per-query context during preparation, ensuring the compiled expression persists for the query's lifetime.
 
 ## Parameters / Member Variables
-- : The expression tree to be prepared for execution (typically from parsed SQL)
-- : The execution state providing the execution environment and memory context
-
+- `*node`: The expression tree to be prepared for execution (typically from parsed SQL)
+- `*estate`: The execution state providing the execution environment and memory context
 ## Dependencies
 - Functions called/Symbols referenced:
   - [expression_planner](../e/expression_planner.md) (applies planning transformations)

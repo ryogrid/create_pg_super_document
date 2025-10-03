@@ -18,8 +18,7 @@ This function is part of the pg_upgrade utility's version-specific compatibility
 The function examines the cluster's major version and catalog version to determine if JSONB data might be stored in the old format that is incompatible with newer versions.
 
 ## Parameters / Member Variables
-- : Pointer to ClusterInfo structure containing metadata about the PostgreSQL cluster being examined, including version information and control data
-
+- `*cluster`: Pointer to ClusterInfo structure containing metadata about the PostgreSQL cluster being examined, including version information and control data
 ## Dependencies
 - Functions called/Symbols referenced:
   - GET_MAJOR_VERSION (macro for extracting major version number)

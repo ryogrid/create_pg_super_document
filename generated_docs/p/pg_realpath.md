@@ -26,8 +26,7 @@ The function handles error conditions appropriately:
 - On Windows, clears errno before calling  to ensure error detection
 
 ## Parameters / Member Variables
-- : The input filename/path to resolve to absolute form
-
+- `*fname`: The input filename/path to resolve to absolute form
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (POSIX path resolution function on Unix)

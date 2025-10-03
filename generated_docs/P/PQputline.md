@@ -18,9 +18,8 @@ PQputline is a legacy function designed to send string data to the PostgreSQL ba
 The function returns 0 if the operation is successful and EOF if it fails. However, this binary return value is insufficient for proper error handling in modern applications, especially those using non-blocking connections.
 
 ## Parameters / Member Variables
-- : Connection object representing the database connection
-- : Null-terminated string to be sent to the backend during COPY IN
-
+- `*conn`: Connection object representing the database connection
+- `*string`: Null-terminated string to be sent to the backend during COPY IN
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQputnbytes](PQputnbytes.md)

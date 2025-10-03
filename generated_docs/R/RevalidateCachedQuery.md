@@ -19,9 +19,8 @@ RevalidateCachedQuery is a critical internal function that handles cache invalid
 The function implements a race condition-safe locking protocol and handles memory context management for the revalidated query trees. It returns a transient copy of the query trees if reanalysis was performed, allowing callers to avoid an additional copying step.
 
 ## Parameters / Member Variables
-- : The CachedPlanSource containing the query to be revalidated
-- : Query environment context for parse analysis operations
-
+- `*plansource`: The CachedPlanSource containing the query to be revalidated
+- `*queryEnv`: Query environment context for parse analysis operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - StmtPlanRequiresRevalidation

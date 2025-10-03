@@ -21,11 +21,10 @@ The function handles several complex scenarios including table rewrites during o
 Data is stored in chunks up to TOAST_MAX_CHUNK_SIZE bytes each, with each chunk stored as a separate tuple containing the value ID, chunk sequence number, and chunk data. The function maintains proper indexing on the toast relation and ensures transactional consistency.
 
 ## Parameters / Member Variables
-- : The main relation being worked with (not the toast relation itself)
-- : The datum containing the varlena data to be stored in toast storage  
-- : Optional pointer to previous external toast value (used during table rewrites for OID preservation)
-- : Options passed to heap_insert() when storing toast row tuples
-
+- `rel`: The main relation being worked with (not the toast relation itself)
+- `value`: The datum containing the varlena data to be stored in toast storage
+- `*oldexternal`: Optional pointer to previous external toast value (used during table rewrites for OID preservation)
+- `options`: Options passed to heap_insert() when storing toast row tuples
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](table_open.md)

@@ -18,8 +18,7 @@ This utility function iterates through a PostgreSQL target list and counts only 
 The function is essential for determining the actual width (number of columns) of query results, which is needed for tuple descriptor creation, result formatting, and various executor operations that need to know the true output schema.
 
 ## Parameters / Member Variables
-- : A PostgreSQL List containing TargetEntry nodes representing the columns or expressions in a query's target list
-
+- `*targetlist`: A PostgreSQL List containing TargetEntry nodes representing the columns or expressions in a query's target list
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (list iteration macro)

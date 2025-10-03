@@ -17,7 +17,6 @@ AfterTriggerBeginQuery is called just before starting to process a single query 
 This function is part of PostgreSQL's hierarchical trigger management system that tracks trigger state at both transaction and query levels, allowing for proper nesting and cleanup of trigger contexts.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

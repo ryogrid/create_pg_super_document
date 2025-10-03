@@ -25,10 +25,9 @@ heap_vac_scan_next_block implements intelligent block selection logic for vacuum
 The function optimizes vacuum performance by balancing I/O efficiency (avoiding random seeks for small skips) with vacuum effectiveness (processing necessary blocks). It tracks whether any all-visible blocks are skipped to maintain proper relfrozenxid advancement safety.
 
 ## Parameters / Member Variables
-- : LVRelState containing vacuum state and configuration (in/out parameter)
-- : Output parameter set to the next block number to process
-- : Output parameter indicating if the block is all-visible per visibility map
-
+- `*vacrel`: LVRelState containing vacuum state and configuration (in/out parameter)
+- `*blkno`: Output parameter set to the next block number to process
+- `*all_visible_according_to_vm`: Output parameter indicating if the block is all-visible per visibility map
 ## Dependencies
 - Functions called/Symbols referenced:
   - [find_next_unskippable_block](../f/find_next_unskippable_block.md) (identifies next required block)

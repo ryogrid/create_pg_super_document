@@ -20,10 +20,9 @@ The function first verifies the call was made through the trigger manager using 
 Any validation failure results in an error with the specific error code ERRCODE_E_R_I_E_TRIGGER_PROTOCOL_VIOLATED, ensuring that referential integrity trigger configuration errors are properly reported and diagnosed.
 
 ## Parameters / Member Variables
-- : FunctionCallInfo structure containing the trigger call context and metadata
-- : Name of the referential integrity trigger function being validated (used in error messages)
-- : Expected trigger kind/type, specified using RI_TRIGTYPE_* constants (INSERT, UPDATE, or DELETE)
-
+- `fcinfo`: FunctionCallInfo structure containing the trigger call context and metadata
+- `*funcname`: Name of the referential integrity trigger function being validated (used in error messages)
+- `tgkind`: Expected trigger kind/type, specified using RI_TRIGTYPE_* constants (INSERT, UPDATE, or DELETE)
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Structure containing function call context

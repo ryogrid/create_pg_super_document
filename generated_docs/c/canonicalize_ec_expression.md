@@ -24,10 +24,9 @@ The function handles polymorphic and RECORD types specially by preserving the or
 The function uses applyRelabelType to preserve const-flatness, which is crucial since const expressions have already been processed by eval_const_expressions.
 
 ## Parameters / Member Variables
-- : Input expression to be canonicalized
-- : Required data type that the expression should expose
-- : Required collation that the expression should expose
-
+- `*expr`: Input expression to be canonicalized
+- `req_type`: Required data type that the expression should expose
+- `req_collation`: Required collation that the expression should expose
 ## Dependencies
 - Functions called/Symbols referenced:
   - [exprType](../e/exprType.md)

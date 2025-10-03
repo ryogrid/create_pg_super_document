@@ -18,9 +18,8 @@ mdregistersync ensures that all segments of a relation fork are marked as dirty 
 The function is typically used when a relation needs to be fully synchronized, such as during recovery operations or when ensuring data durability for critical operations. It handles both active segments (which remain open) and inactive segments (which are opened, marked, and immediately closed).
 
 ## Parameters / Member Variables
-- : SMgrRelation pointer representing the relation to mark for sync
-- : ForkNumber identifying which fork of the relation to sync
-
+- `reln`: SMgrRelation pointer representing the relation to mark for sync
+- `forknum`: ForkNumber identifying which fork of the relation to sync
 ## Dependencies
 - Functions called/Symbols referenced:
   - [mdnblocks](mdnblocks.md)

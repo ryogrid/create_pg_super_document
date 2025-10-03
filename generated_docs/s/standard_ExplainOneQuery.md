@@ -23,14 +23,13 @@ Key features include: planning the query using pg_plan_query(), measuring planni
 The function carefully manages memory contexts when measuring memory usage, creating a dedicated AllocSet context for accurate measurement and switching back to the original context after planning to capture the memory consumption statistics.
 
 ## Parameters / Member Variables
-- : Query structure to be planned and explained
-- : Cursor options flags affecting plan generation (e.g., parallel execution)
-- : IntoClause for CREATE TABLE AS statements, NULL for regular queries
-- : ExplainState containing EXPLAIN options and output formatting state
-- : Original SQL query string for planning context
-- : ParamListInfo containing parameter values for parameterized queries  
-- : QueryEnvironment providing additional query execution context
-
+- `*query`: Query structure to be planned and explained
+- `cursorOptions`: Cursor options flags affecting plan generation (e.g., parallel execution)
+- `*into`: IntoClause for CREATE TABLE AS statements, NULL for regular queries
+- `*es`: ExplainState containing EXPLAIN options and output formatting state
+- `*queryString`: Original SQL query string for planning context
+- `params`: ParamListInfo containing parameter values for parameterized queries
+- `*queryEnv`: QueryEnvironment providing additional query execution context
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_plan_query](../p/pg_plan_query.md)

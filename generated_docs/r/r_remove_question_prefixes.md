@@ -23,8 +23,7 @@ This function is part of the Tamil language stemming algorithm that handles ques
 If all three conditions are met, it removes the matched prefix using  and then applies character normalization by calling  to handle any character sequence adjustments that may be needed after prefix removal.
 
 ## Parameters / Member Variables
-- : Pointer to the Snowball environment structure containing the current word being processed, cursor position, and other stemming state information
-
+- `*z`: Pointer to the Snowball environment structure containing the current word being processed, cursor position, and other stemming state information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [eq_s](../e/eq_s.md) (string equality comparison, used twice for pattern matching)

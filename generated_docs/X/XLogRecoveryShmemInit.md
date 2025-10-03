@@ -17,6 +17,7 @@ XLogRecoveryShmemInit performs the initialization of shared memory structures us
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [XLogRecoveryShmemSize](XLogRecoveryShmemSize.md) (calculates required memory size)

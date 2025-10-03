@@ -18,9 +18,8 @@ The  function generates SQL commands to recreate encoding conversion objects dur
 The function handles both regular and default conversions - default conversions are automatically selected when converting between specific encoding pairs. The conversion function (typically a C function) performs the actual character encoding transformation.
 
 ## Parameters / Member Variables
-- : Archive structure containing dump options and output methods
-- : ConvInfo structure containing conversion metadata including OID, name, namespace, and owner
-
+- `*fout`: Archive structure containing dump options and output methods
+- `*convinfo`: ConvInfo structure containing conversion metadata including OID, name, namespace, and owner
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecuteSqlQueryForSingleRow](../E/ExecuteSqlQueryForSingleRow.md)

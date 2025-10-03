@@ -16,10 +16,9 @@ lo_open(PGconn *conn, Oid lobjId, int mode)
 The  function provides access to an existing large object in PostgreSQL by opening it and returning a file descriptor that can be used for subsequent read, write, seek, and other large object operations. The function initializes the large object function lookup table if necessary, then calls the PostgreSQL backend function  through the function call interface (). The operation mode parameter determines what operations are permitted on the opened large object.
 
 ## Parameters / Member Variables
-- : PostgreSQL connection handle for the database session
-- : Object identifier (OID) of the large object to open  
-- : Access mode flags determining permitted operations (read, write, etc.)
-
+- `*conn`: PostgreSQL connection handle for the database session
+- `lobjId`: Object identifier (OID) of the large object to open
+- `mode`: Access mode flags determining permitted operations (read, write, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lo_initialize](lo_initialize.md)

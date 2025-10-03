@@ -23,6 +23,7 @@ This layered approach ensures that not only does the CPU have the necessary inst
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [xsave_available](../x/xsave_available.md) at Line 97

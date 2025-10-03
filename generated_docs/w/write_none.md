@@ -16,10 +16,9 @@ write_none(const void *ptr, size_t size, CompressFileHandle *CFH)
 The  function is a static helper function that handles uncompressed data writing in the pg_dump compression framework. It wraps the standard C library  function with proper error handling and reporting. The function writes the specified amount of data from a buffer to a file handle stored within a CompressFileHandle structure. If the write operation fails or doesn't write the expected number of bytes, the function terminates the program with a fatal error message.
 
 ## Parameters / Member Variables
-- : Pointer to the data buffer to be written to the file
-- : Number of bytes to write from the buffer
-- : Pointer to a CompressFileHandle structure containing the file handle in its private_data field
-
+- `*ptr`: Pointer to the data buffer to be written to the file
+- `size`: Number of bytes to write from the buffer
+- `*CFH`: Pointer to a CompressFileHandle structure containing the file handle in its private_data field
 ## Dependencies
 - Functions called/Symbols referenced:
   - fwrite (C standard library)

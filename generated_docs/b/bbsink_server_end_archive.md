@@ -18,8 +18,7 @@ This function completes the archive writing process by ensuring data durability 
 After successful synchronization, the function closes the file and resets the sink's file handle and position tracking to prepare for the next archive operation.
 
 ## Parameters / Member Variables
-- : Pointer to the bbsink instance (cast to bbsink_server internally)
-
+- `*sink`: Pointer to the bbsink instance (cast to bbsink_server internally)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [FileSync](../F/FileSync.md)

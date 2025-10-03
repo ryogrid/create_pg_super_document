@@ -22,8 +22,7 @@ This function provides a platform-specific implementation for clearing socket se
 The function is called as part of pgbench's socket monitoring loop to prepare for a new iteration of socket setup. After calling this function, sockets must be re-added using  before the next call to .
 
 ## Parameters / Member Variables
-- : Pointer to the socket_set structure to be cleared
-
+- `*sa`: Pointer to the socket_set structure to be cleared
 ## Dependencies
 - Functions called/Symbols referenced:
   - PPOLL version: None (just resets  field)

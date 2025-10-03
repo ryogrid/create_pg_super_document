@@ -23,10 +23,9 @@ This function is the core workhorse of the JSONB construction process, handling 
 The function ensures proper memory allocation for container elements and maintains the rawScalar flag for arrays that represent single scalar values.
 
 ## Parameters / Member Variables
-- : Double pointer to the current parse state stack, allowing modification of the stack structure
-- : The sequential processing token indicating what operation to perform
-- : The scalar value to be processed (may be NULL for structural tokens)
-
+- `**pstate`: Double pointer to the current parse state stack, allowing modification of the stack structure
+- `seq`: The sequential processing token indicating what operation to perform
+- `*scalarVal`: The scalar value to be processed (may be NULL for structural tokens)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pushState](pushState.md) (creates new parse state level)

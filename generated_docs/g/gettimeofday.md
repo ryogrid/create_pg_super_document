@@ -20,9 +20,8 @@ The implementation uses Windows API  to get high-precision system time, then con
 This implementation is not intended for high-precision timing operations within PostgreSQL - for such purposes, the  function should be used instead.
 
 ## Parameters / Member Variables
-- : Pointer to  where the current time will be stored, with  (seconds) and  (microseconds) fields
-- : Timezone parameter (must be NULL); PostgreSQL asserts this to ensure portable behavior
-
+- `*tp`: Pointer to  where the current time will be stored, with  (seconds) and  (microseconds) fields
+- `*tzp`: Timezone parameter (must be NULL); PostgreSQL asserts this to ensure portable behavior
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (Windows API)

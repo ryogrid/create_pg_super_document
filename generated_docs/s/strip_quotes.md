@@ -18,11 +18,10 @@ The strip_quotes function modifies a string in-place to remove quote characters 
 The function operates destructively on the input string, overwriting it with the cleaned version. This approach is memory-efficient as it doesn't require additional allocation.
 
 ## Parameters / Member Variables
-- : Input string to be modified in-place (must not be NULL)
-- : The quote character to be stripped and processed (must not be '\0')
-- : Character that removes special significance from the next character (0 if none)
-- : Active character-set encoding for proper multi-byte character handling
-
+- `*source`: Input string to be modified in-place (must not be NULL)
+- `quote`: The quote character to be stripped and processed (must not be '\0')
+- `escape`: Character that removes special significance from the next character (0 if none)
+- `encoding`: Active character-set encoding for proper multi-byte character handling
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQmblenBounded](../P/PQmblenBounded.md)

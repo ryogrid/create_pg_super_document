@@ -26,9 +26,8 @@ The function performs several key operations:
 The function handles both regular and speculative insertion scenarios. Speculative insertion is used for INSERT ... ON CONFLICT operations where PostgreSQL needs to detect constraint violations before committing the insertion.
 
 ## Parameters / Member Variables
-- : Pointer to ResultRelInfo structure that will store the opened index information. The caller must have already opened and locked the main relation (ri_RelationDesc).
-- : Boolean flag indicating whether the indices will be used for speculative insertion operations, which requires additional metadata for unique constraint handling.
-
+- `*resultRelInfo`: Pointer to ResultRelInfo structure that will store the opened index information. The caller must have already opened and locked the main relation (ri_RelationDesc).
+- `speculative`: Boolean flag indicating whether the indices will be used for speculative insertion operations, which requires additional metadata for unique constraint handling.
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationGetForm: Accesses relation tuple form to check relhasindex flag

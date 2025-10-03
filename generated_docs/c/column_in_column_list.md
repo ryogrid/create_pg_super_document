@@ -18,9 +18,8 @@ This function determines whether a given column (identified by its attribute num
 The function is used within PostgreSQL's logical replication protocol to determine which columns should be included when writing tuple data or attribute information to the replication stream.
 
 ## Parameters / Member Variables
-- : The attribute number (column number) to check for inclusion in the column list
-- : A Bitmapset pointer representing the column list; NULL means all columns are included
-
+- `attnum`: The attribute number (column number) to check for inclusion in the column list
+- `*columns`: A Bitmapset pointer representing the column list; NULL means all columns are included
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bms_is_member](../b/bms_is_member.md) (checks if a member is present in a Bitmapset)

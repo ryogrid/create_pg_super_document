@@ -23,8 +23,7 @@ This function processes STREAM ABORT messages during logical replication, which 
 The function includes sophisticated handling of XID wraparound concerns and maintains proper synchronization between leader and parallel workers during abort processing.
 
 ## Parameters / Member Variables
-- : StringInfo containing the STREAM ABORT message data to be processed
-
+- `s`: StringInfo containing the STREAM ABORT message data to be processed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [logicalrep_read_stream_abort](../l/logicalrep_read_stream_abort.md)

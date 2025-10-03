@@ -23,13 +23,12 @@ The  function constructs a Gather plan node, which is a crucial component in Pos
 The function initializes all necessary fields of the Gather node, including the target list for output columns, qualification conditions, and parallel execution parameters. It sets up the plan structure with the subplan as the left child and ensures proper initialization of parallel-specific attributes.
 
 ## Parameters / Member Variables
-- : Target list defining the output columns of the Gather node
-- : List of qualification conditions to be applied at this node level
-- : Number of parallel worker processes to spawn for executing the subplan
-- : Parameter ID used for rescanning in parameterized plans
-- : Boolean flag indicating if only one copy of the subplan should be executed (used for certain parallel-unsafe operations)
-- : The child plan node that will be executed in parallel by worker processes
-
+- `*qptlist`: Target list defining the output columns of the Gather node
+- `*qpqual`: List of qualification conditions to be applied at this node level
+- `nworkers`: Number of parallel worker processes to spawn for executing the subplan
+- `rescan_param`: Parameter ID used for rescanning in parameterized plans
+- `single_copy`: Boolean flag indicating if only one copy of the subplan should be executed (used for certain parallel-unsafe operations)
+- `*subplan`: The child plan node that will be executed in parallel by worker processes
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (creates a new Gather node)

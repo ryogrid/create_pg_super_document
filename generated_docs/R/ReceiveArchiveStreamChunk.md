@@ -25,10 +25,9 @@ The function handles five distinct message types:
 The function manages the complete lifecycle of archive processing, from initialization through data streaming to cleanup, while maintaining proper state transitions and error handling.
 
 ## Parameters / Member Variables
-- : Size of the data chunk received in the copybuf
-- : Buffer containing the raw COPY data received from the server
-- : Void pointer to ArchiveStreamState structure containing processing state
-
+- `tablespacenum`: Size of the data chunk received in the copybuf
+- `true`: Buffer containing the raw COPY data received from the server
+- `false`: Void pointer to ArchiveStreamState structure containing processing state
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetCopyDataByte](../G/GetCopyDataByte.md)

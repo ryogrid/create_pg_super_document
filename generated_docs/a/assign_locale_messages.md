@@ -22,9 +22,8 @@ The  function is the assignment counterpart to  in PostgreSQL's GUC system. Afte
 The function uses  which is PostgreSQL's wrapper around the standard  function, providing additional error handling and consistency.
 
 ## Parameters / Member Variables
-- : The validated locale string to be applied to the system
-- : Additional data from the check hook (unused in this function)
-
+- `*newval`: The validated locale string to be applied to the system
+- `*extra`: Additional data from the check hook (unused in this function)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_perm_setlocale](../p/pg_perm_setlocale.md) (PostgreSQL's setlocale wrapper function)

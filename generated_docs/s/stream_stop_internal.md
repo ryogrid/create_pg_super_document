@@ -23,8 +23,7 @@ This function performs the cleanup and finalization tasks required when a stream
 This function ensures that all streaming transaction state is properly cleaned up and committed, maintaining data consistency in logical replication.
 
 ## Parameters / Member Variables
-- : TransactionId of the top-level streaming transaction being finalized
-
+- `xid`: TransactionId of the top-level streaming transaction being finalized
 ## Dependencies
 - Functions called/Symbols referenced:
   - [subxact_info_write](subxact_info_write.md)

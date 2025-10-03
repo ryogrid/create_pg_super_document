@@ -22,9 +22,8 @@ This function deallocates memory within a DSA area that was previously allocated
 The function maintains proper memory management by tracking object allocation state through span metadata, managing fullness classes to optimize allocation performance, and preventing memory fragmentation through intelligent superblock destruction policies.
 
 ## Parameters / Member Variables
-- : Pointer to the DSA area containing the memory to be freed
-- : The dsa_pointer representing the memory block to free (must be a valid pointer returned by a previous allocation)
-
+- `*area`: Pointer to the DSA area containing the memory to be freed
+- `dp`: The dsa_pointer representing the memory block to free (must be a valid pointer returned by a previous allocation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - 

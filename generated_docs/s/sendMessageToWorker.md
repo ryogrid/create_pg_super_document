@@ -16,10 +16,9 @@ sendMessageToWorker(ParallelState *pstate, int worker, const char *str)
 This function is executed in the leader process to send command messages to individual worker processes during parallel database dump operations. It writes the provided command string to the write end of the specified worker's communication pipe, ensuring the complete message including the null terminator is transmitted. The function provides error handling that terminates the process if the write operation fails, maintaining the integrity of the leader-worker communication protocol.
 
 ## Parameters / Member Variables
-- : Pointer to ParallelState structure containing worker management and communication information
-- : Index of the target worker process in the parallel slot array
-- : Null-terminated command string to be sent to the worker process
-
+- `*pstate`: Pointer to ParallelState structure containing worker management and communication information
+- `worker`: Index of the target worker process in the parallel slot array
+- `*str`: Null-terminated command string to be sent to the worker process
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Structure type for managing parallel worker state and communication pipes

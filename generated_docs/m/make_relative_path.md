@@ -26,11 +26,10 @@ The function works by:
 For example, if PostgreSQL was compiled with  as the bin directory and  as the share directory, but is actually installed in , the function will correctly map the share directory to .
 
 ## Parameters / Member Variables
-- : Output buffer (must be MAXPGPATH size) to store the resulting relative path
-- : The compiled-in path to the directory we want to find (e.g., share directory)
-- : The compiled-in path to the directory of executables
-- : The actual location of the current executable
-
+- `*ret_path`: Output buffer (must be MAXPGPATH size) to store the resulting relative path
+- `*target_path`: The compiled-in path to the directory we want to find (e.g., share directory)
+- `*bin_path`: The compiled-in path to the directory of executables
+- `*my_exec_path`: The actual location of the current executable
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Macro to check directory separators

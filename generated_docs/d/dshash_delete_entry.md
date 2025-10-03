@@ -16,9 +16,8 @@ dshash_delete_entry(dshash_table *hash_table, void *entry)
 The  function performs a direct deletion of an entry from a dynamic shared hash table when the caller already has a pointer to the entry. This function is more efficient than  when the entry pointer is available, as it eliminates the need for key hashing and bucket searching. The function requires that the entry be exclusively locked (obtained through  or ) and automatically releases the lock after deletion, similar to . It determines the partition from the item's stored hash value and performs the actual deletion through the internal  function.
 
 ## Parameters / Member Variables
-- : Pointer to the dynamic shared hash table containing the entry
-- : Pointer to the entry to be deleted (must be exclusively locked)
-
+- `*hash_table`: Pointer to the dynamic shared hash table containing the entry
+- `*entry`: Pointer to the entry to be deleted (must be exclusively locked)
 ## Dependencies
 - Functions called/Symbols referenced:
   - ITEM_FROM_ENTRY: Macro to convert entry pointer to internal item structure

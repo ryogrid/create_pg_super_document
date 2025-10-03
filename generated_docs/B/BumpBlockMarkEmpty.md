@@ -16,8 +16,7 @@ BumpBlockMarkEmpty(BumpBlock *block)
 This function efficiently resets a bump memory block to its initial empty state by resetting the free pointer to just after the block header, effectively making all previously allocated space available for reuse. For debugging and security purposes, it optionally clears the previously used memory either by wiping it with a pattern or marking it as inaccessible to memory debugging tools. This approach allows the bump allocator to reuse existing blocks rather than constantly allocating and deallocating memory, improving performance and reducing memory fragmentation.
 
 ## Parameters / Member Variables
-- : The bump memory block to mark as empty and reset
-
+- `*block`: The bump memory block to mark as empty and reset
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BumpBlock](BumpBlock.md) (block structure type)

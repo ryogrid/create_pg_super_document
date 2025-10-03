@@ -18,6 +18,7 @@ This function provides a simple mechanism to generate unique dump identifiers th
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - lastDumpId (global variable that tracks the highest assigned DumpId)

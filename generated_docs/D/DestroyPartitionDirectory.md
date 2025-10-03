@@ -20,8 +20,7 @@ The function uses PostgreSQL's hash table sequential scan interface to iterate t
 Note that this function only handles the reference count cleanup; the actual memory deallocation of the partition directory and its hash table is handled by the memory context system when the directory's memory context is destroyed.
 
 ## Parameters / Member Variables
-- : The partition directory to destroy
-
+- `pdir`: The partition directory to destroy
 ## Dependencies
 - Functions called/Symbols referenced:
   - [HASH_SEQ_STATUS](../H/HASH_SEQ_STATUS.md) (hash sequential scan status structure)

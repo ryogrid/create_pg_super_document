@@ -21,12 +21,11 @@ The function includes a comment noting that other index access methods (like B-t
 Unlike some other index types, BRIN rescan is relatively lightweight since BRIN indexes don't maintain complex internal scan state that needs extensive reinitialization.
 
 ## Parameters / Member Variables
-- : IndexScanDesc containing the current scan state to be reinitialized
-- : Array of new scan keys to use for the rescan (can be NULL)
-- : Number of scan keys in the scankey array
-- : Array of order-by keys (not used in BRIN, can be NULL)  
-- : Number of order-by keys (not used in BRIN)
-
+- `scan`: IndexScanDesc containing the current scan state to be reinitialized
+- `scankey`: Array of new scan keys to use for the rescan (can be NULL)
+- `nscankeys`: Number of scan keys in the scankey array
+- `orderbys`: Array of order-by keys (not used in BRIN, can be NULL)
+- `norderbys`: Number of order-by keys (not used in BRIN)
 ## Dependencies
 - Functions called/Symbols referenced:
   - memmove: Copies new scan keys into the scan descriptor

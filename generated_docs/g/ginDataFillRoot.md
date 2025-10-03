@@ -18,13 +18,12 @@ This function initializes a new root page by creating PostingItems for both left
 The function is designed to be callable from both normal B-tree operations and WAL (Write-Ahead Logging) recovery operations (ginxlog), which is why it doesn't rely heavily on the btree parameter for its core functionality.
 
 ## Parameters / Member Variables
-- : GinBtree structure representing the GIN B-tree context (may be unused in some contexts)
-- : The new root page to be filled
-- : Block number of the left child page
-- : The left child page
-- : Block number of the right child page  
-- : The right child page
-
+- `btree`: GinBtree structure representing the GIN B-tree context (may be unused in some contexts)
+- `root`: The new root page to be filled
+- `lblkno`: Block number of the left child page
+- `lpage`: The left child page
+- `rblkno`: Block number of the right child page
+- `rpage`: The right child page
 ## Dependencies
 - Functions called/Symbols referenced:
   - GinDataPageGetRightBound

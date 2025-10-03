@@ -26,7 +26,6 @@ The help output is organized into several sections:
 - Bug reporting and project information
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

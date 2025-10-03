@@ -19,6 +19,7 @@ If other snapshots are active or registered, the catalog snapshot is likely not 
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - pairingheap_is_singular

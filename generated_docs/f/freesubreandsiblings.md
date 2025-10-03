@@ -19,9 +19,8 @@ This function is designed to efficiently clean up memory for linked subRE struct
 The function operates iteratively rather than recursively to avoid potential stack overflow issues when dealing with long chains of siblings. It carefully maintains the next pointer before freeing each node to prevent accessing freed memory.
 
 ## Parameters / Member Variables
-- : A pointer to the vars structure containing compilation state; may be NULL
-- : Pointer to the first subRE node in the sibling chain to be freed
-
+- `*v`: A pointer to the vars structure containing compilation state; may be NULL
+- `*sr`: Pointer to the first subRE node in the sibling chain to be freed
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Called to free each individual subRE node

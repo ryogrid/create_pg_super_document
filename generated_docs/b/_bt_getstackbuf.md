@@ -30,11 +30,10 @@ This function addresses a fundamental challenge in concurrent B-tree operations:
 The function ensures that callers can reliably find parent-child relationships even in the presence of concurrent page splits and other structural changes.
 
 ## Parameters / Member Variables
-- : The B-tree index relation being searched
-- : The heap relation referenced by the index (required for potential incomplete split completion)
-- : BTStack containing the expected location of the pivot tuple (updated with actual location)
-- : Block number of the child page whose parent downlink needs to be found
-
+- `rel`: The B-tree index relation being searched
+- `heaprel`: The heap relation referenced by the index (required for potential incomplete split completion)
+- `stack`: BTStack containing the expected location of the pivot tuple (updated with actual location)
+- `child`: Block number of the child page whose parent downlink needs to be found
 ## Dependencies
 - Functions called/Symbols referenced:
   - [_bt_getbuf](_bt_getbuf.md) (to acquire write locks on parent pages)

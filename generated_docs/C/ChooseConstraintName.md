@@ -18,12 +18,11 @@ ChooseConstraintName(const char *name1, const char *name2,
 This function generates a unique constraint name following SQL specification requirements that constraint names be unique within a namespace. It starts with a base name constructed from the provided components and appends numeric suffixes if conflicts are found. The function checks both existing constraints in the catalog and a list of names chosen within the current command but not yet committed. It uses the same naming logic as makeObjectName() but with additional conflict resolution through numeric suffixes.
 
 ## Parameters / Member Variables
-- : First component of the object name (typically relation name)
-- : Second component of the object name (can be NULL)
-- : Label component that will be modified with numeric suffixes if needed (cannot be NULL)
-- : OID of the namespace where the constraint will be created
-- : List of constraint names already chosen in the current command but not yet in catalogs
-
+- `*name1`: First component of the object name (typically relation name)
+- `*name2`: Second component of the object name (can be NULL)
+- `*label`: Label component that will be modified with numeric suffixes if needed (cannot be NULL)
+- `namespaceid`: OID of the namespace where the constraint will be created
+- `*others`: List of constraint names already chosen in the current command but not yet in catalogs
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md)

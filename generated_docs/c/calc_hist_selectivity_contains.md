@@ -27,14 +27,13 @@ The algorithm works by:
 This is essentially the complement operation to containment - instead of asking "how many ranges fit inside this constant range?", it asks "how many ranges does this constant range fit inside?"
 
 ## Parameters / Member Variables
-- : Type cache entry containing range type information and comparison functions
-- : Lower bound of the constant range for contains testing
-- : Upper bound of the constant range for contains testing
-- : Array of histogram values for range lower bounds  
-- : Number of values in the lower bound histogram
-- : Array of histogram values for range lengths
-- : Number of values in the length histogram
-
+- `*typcache`: Type cache entry containing range type information and comparison functions
+- `*lower`: Lower bound of the constant range for contains testing
+- `*upper`: Upper bound of the constant range for contains testing
+- `*hist_lower`: Array of histogram values for range lower bounds
+- `hist_nvalues`: Number of values in the lower bound histogram
+- `*length_hist_values`: Array of histogram values for range lengths
+- `length_hist_nvalues`: Number of values in the length histogram
 ## Dependencies
 - Functions called/Symbols referenced:
   - [rbound_bsearch](../r/rbound_bsearch.md)

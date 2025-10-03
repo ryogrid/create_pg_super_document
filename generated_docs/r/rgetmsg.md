@@ -18,10 +18,9 @@ The rgetmsg function is part of PostgreSQL's ECPG Informix compatibility library
 The function parameters are explicitly cast to void to prevent compiler warnings about unused parameters, indicating this is intentionally a no-op implementation for compatibility purposes.
 
 ## Parameters / Member Variables
-- : Message number to retrieve (ignored in current implementation)
-- : Buffer to store the retrieved message (ignored in current implementation)
-- : Maximum size of the message buffer (ignored in current implementation)
-
+- `msgnum`: Message number to retrieve (ignored in current implementation)
+- `*s`: Buffer to store the retrieved message (ignored in current implementation)
+- `maxsize`: Maximum size of the message buffer (ignored in current implementation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (only uses void casts for compiler quieting)

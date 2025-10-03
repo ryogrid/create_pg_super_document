@@ -27,8 +27,7 @@ For each scenario, it performs three boundary tests:
 The function uses elog(ERROR, ...) to report any test failures, which will abort the test execution.
 
 ## Parameters / Member Variables
-- : The 8-bit unsigned integer value to use as the target for search testing. This key is placed in the test buffer and searched for, along with its adjacent values (key±1) for boundary testing.
-
+- `key`: The 8-bit unsigned integer value to use as the target for search testing. This key is placed in the test buffer and searched for, along with its adjacent values (key±1) for boundary testing.
 ## Dependencies
 - Functions called/Symbols referenced:
   - LEN_WITH_TAIL (macro)

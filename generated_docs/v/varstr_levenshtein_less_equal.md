@@ -29,16 +29,15 @@ The function uses a space-optimized dynamic programming approach, maintaining on
 The algorithm handles both single-byte and multi-byte character encodings properly, with a fast-path optimization for single-byte characters. It includes security protections to prevent excessive CPU and memory usage by limiting string lengths (unless the caller is trusted).
 
 ## Parameters / Member Variables
-- : Source string to transform from (not necessarily null-terminated)
-- : Length of source string in bytes
-- : Target string to transform to (not necessarily null-terminated)  
-- : Length of target string in bytes
-- : Cost of inserting a character
-- : Cost of deleting a character
-- : Cost of substituting a character
-- : Maximum distance threshold; if >= 0, function returns max_d + 1 when actual distance exceeds this value
-- : If true, caller is responsible for reasonable input sizes; if false, enforces MAX_LEVENSHTEIN_STRLEN limit
-
+- `*source`: Source string to transform from (not necessarily null-terminated)
+- `slen`: Length of source string in bytes
+- `*target`: Target string to transform to (not necessarily null-terminated)
+- `tlen`: Length of target string in bytes
+- `ins_c`: Cost of inserting a character
+- `del_c`: Cost of deleting a character
+- `sub_c`: Cost of substituting a character
+- `max_d`: Maximum distance threshold; if >= 0, function returns max_d + 1 when actual distance exceeds this value
+- `trusted`: If true, caller is responsible for reasonable input sizes; if false, enforces MAX_LEVENSHTEIN_STRLEN limit
 ## Dependencies
 - Functions called/Symbols referenced:
   - LEVENSHTEIN_LESS_EQUAL (preprocessor macro)

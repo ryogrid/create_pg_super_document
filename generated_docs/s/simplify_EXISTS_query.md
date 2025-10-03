@@ -24,9 +24,8 @@ The function performs the following optimizations:
 The function includes safety checks and will not simplify queries that use complex features like set operations, aggregates, grouping sets, window functions, set-returning functions, modifying CTEs, HAVING clauses, OFFSET clauses, or row-level locking, as their effects on row existence are complex.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing the planning context, used for constant expression evaluation
-- : The Query node representing the EXISTS subquery to be simplified
-
+- `*root`: PlannerInfo structure containing the planning context, used for constant expression evaluation
+- `*query`: The Query node representing the EXISTS subquery to be simplified
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Evaluates and simplifies constant expressions in LIMIT clauses

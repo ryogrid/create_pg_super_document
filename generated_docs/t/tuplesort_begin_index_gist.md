@@ -20,12 +20,11 @@ tuplesort_begin_index_gist(Relation heapRel,
 This function creates a specialized tuplesort state for GiST index creation operations. It configures the sorting infrastructure for GiST index tuples, which have different requirements than B-tree indexes. The function sets up sort support for each index key attribute using GiST-specific preparation routines, handles collation information directly from the index relation, and disables uniqueness enforcement since GiST indexes don't support unique constraints. It reuses B-tree comparison functions but adapts them for GiST-specific sorting needs.
 
 ## Parameters / Member Variables
-- : The heap relation being indexed
-- : The GiST index relation being created
-- : Amount of memory (in KB) available for sorting operations
-- : Coordination structure for parallel sorting operations
-- : Sorting options bitmask (e.g., TUPLESORT_RANDOMACCESS)
-
+- `heapRel`: The heap relation being indexed
+- `indexRel`: The GiST index relation being created
+- `workMem`: Amount of memory (in KB) available for sorting operations
+- `coordinate`: Coordination structure for parallel sorting operations
+- `sortopt`: Sorting options bitmask (e.g., TUPLESORT_RANDOMACCESS)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [tuplesort_begin_common](tuplesort_begin_common.md)

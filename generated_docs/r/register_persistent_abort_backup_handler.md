@@ -20,6 +20,7 @@ The function uses a static boolean flag to ensure the handler is only registered
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [before_shmem_exit](../b/before_shmem_exit.md)

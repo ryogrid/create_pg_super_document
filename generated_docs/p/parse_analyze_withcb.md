@@ -28,12 +28,11 @@ The function follows a streamlined workflow:
 This approach is particularly useful for extensions, procedural languages, or other components that need specialized parameter handling or parsing behavior that differs from the standard PostgreSQL approaches.
 
 ## Parameters / Member Variables
-- : The raw parse tree structure produced by the SQL parser
-- : The original SQL source text (required as of PostgreSQL 8.4)
-- : Callback function pointer for custom parser setup
-- : Argument to pass to the parser setup callback
-- : Query environment containing additional context like WITH clause data
-
+- `*parseTree`: The raw parse tree structure produced by the SQL parser
+- `*sourceText`: The original SQL source text (required as of PostgreSQL 8.4)
+- `parserSetup`: Callback function pointer for custom parser setup
+- `*parserSetupArg`: Argument to pass to the parser setup callback
+- `*queryEnv`: Query environment containing additional context like WITH clause data
 ## Dependencies
 - Functions called/Symbols referenced:
   - [make_parsestate](../m/make_parsestate.md): Creates parse state structure

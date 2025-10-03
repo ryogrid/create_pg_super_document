@@ -29,11 +29,10 @@ The function works by:
 - If bucket was split, refreshing the metapage cache and retrying
 
 ## Parameters / Member Variables
-- : The hash index relation being accessed
-- : The hash key value used to determine the target bucket
-- : Access type (HASH_READ or HASH_WRITE) indicating required lock type
-- : Output parameter containing the metapage data used for mapping (can be NULL)
-
+- `rel`: The hash index relation being accessed
+- `hashkey`: The hash key value used to determine the target bucket
+- `access`: Access type (HASH_READ or HASH_WRITE) indicating required lock type
+- `*cachedmetap`: Output parameter containing the metapage data used for mapping (can be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [_hash_getcachedmetap](_hash_getcachedmetap.md) (gets cached metapage data)

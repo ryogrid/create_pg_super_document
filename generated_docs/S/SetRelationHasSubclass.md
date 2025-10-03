@@ -24,9 +24,8 @@ Key aspects of the function:
 The SI invalidation is crucial because query plans cache information about inheritance hierarchies, and this ensures all backends see the updated inheritance status.
 
 ## Parameters / Member Variables
-- : OID of the relation whose relhassubclass field should be updated
-- : Boolean value indicating whether the relation has subclasses/child tables
-
+- `relationId`: OID of the relation whose relhassubclass field should be updated
+- `relhassubclass`: Boolean value indicating whether the relation has subclasses/child tables
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CheckRelationOidLockedByMe](../C/CheckRelationOidLockedByMe.md)

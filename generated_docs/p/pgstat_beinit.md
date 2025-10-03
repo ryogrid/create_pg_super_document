@@ -15,7 +15,6 @@ void pgstat_beinit(void)
 This function performs the initial setup of backend statistics tracking for a process. It validates that MyProcNumber has been set to a valid value, assigns the process's entry in the shared BackendStatusArray, and registers a shutdown hook to ensure proper cleanup when the process exits. This function must be called after MyProcNumber is set but before any transactions begin, as the exit hook needs to run after the last transaction.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -18,10 +18,9 @@ This function is part of PostgreSQL's function manager (fmgr) system that provid
 The function creates a local FunctionCallInfoData structure with space for 1 argument, initializes it with the provided function info and collation, sets the argument value and null indicator, then calls the actual function through FunctionCallInvoke.
 
 ## Parameters / Member Variables
-- : Pointer to FmgrInfo structure containing the previously-looked-up function information
-- : OID of the collation to be used during function execution
-- : The single Datum argument to pass to the function
-
+- `*flinfo`: Pointer to FmgrInfo structure containing the previously-looked-up function information
+- `collation`: OID of the collation to be used during function execution
+- `arg1`: The single Datum argument to pass to the function
 ## Dependencies
 - Functions called/Symbols referenced:
   - LOCAL_FCINFO (macro for creating local FunctionCallInfoData)

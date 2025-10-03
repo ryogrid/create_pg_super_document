@@ -16,8 +16,7 @@ unicode_category_string(pg_unicode_category category)
 This function provides a string description for Unicode general category values as defined in the Unicode standard. It takes a pg_unicode_category enumeration value and returns a descriptive string that matches the official Unicode category names. The function covers all standard Unicode general categories including letters, marks, numbers, punctuation, symbols, separators, and other character types. This is primarily used for debugging, testing, and user-facing displays where category names need to be presented in readable form.
 
 ## Parameters / Member Variables
-- : The pg_unicode_category enumeration value to convert to a string representation
-
+- `category`: The pg_unicode_category enumeration value to convert to a string representation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_unicode_category](../p/pg_unicode_category.md) (parameter type)

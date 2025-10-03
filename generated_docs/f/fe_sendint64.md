@@ -18,9 +18,8 @@ This function takes a 64-bit signed integer in the native host byte order and co
 The function uses PostgreSQL's portable byte-swapping infrastructure () to handle the conversion, which automatically handles the byte order conversion regardless of the host architecture.
 
 ## Parameters / Member Variables
-- : The 64-bit signed integer to convert to network byte order
-- : Output buffer where the converted 8-byte value will be stored (must be at least 8 bytes)
-
+- `i`: The 64-bit signed integer to convert to network byte order
+- `*buf`: Output buffer where the converted 8-byte value will be stored (must be at least 8 bytes)
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_hton64 (converts host to network byte order for 64-bit values)

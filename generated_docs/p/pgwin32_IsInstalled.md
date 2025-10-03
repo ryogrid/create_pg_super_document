@@ -24,8 +24,7 @@ The function follows proper Windows API patterns:
 This is typically used before service registration or unregistration operations to verify the current state.
 
 ## Parameters / Member Variables
-- : Handle to the Service Control Manager, obtained from 
-
+- `hSCM`: Handle to the Service Control Manager, obtained from
 ## Dependencies
 - Functions called/Symbols referenced:
   - OpenService (Windows API)

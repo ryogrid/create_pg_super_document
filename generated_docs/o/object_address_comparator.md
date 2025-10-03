@@ -23,9 +23,8 @@ The comparison follows a strict hierarchy:
 The unsigned casting of objectSubId ensures that subId 0 (representing the whole object) is prioritized over specific sub-components, which is crucial for proper dependency elimination and object deletion ordering.
 
 ## Parameters / Member Variables
-- : Pointer to first ObjectAddress structure to compare
-- : Pointer to second ObjectAddress structure to compare
-
+- `*a`: Pointer to first ObjectAddress structure to compare
+- `*b`: Pointer to second ObjectAddress structure to compare
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ObjectAddress](../O/ObjectAddress.md) (struct type)

@@ -16,8 +16,7 @@ jsonb_object_agg_strict_transfn(PG_FUNCTION_ARGS)
 This function serves as the transition function for the  aggregate function, which collects key-value pairs into a JSONB object while excluding pairs where the value is NULL. It acts as a wrapper around , passing  for  and  for  parameters. This means NULL values are skipped during aggregation, but duplicate keys are still allowed (later non-NULL values overwrite earlier ones). The function is called once for each input row during aggregate processing.
 
 ## Parameters / Member Variables
-- : Function call information structure containing the aggregate state and input key/value pair
-
+- `PG_FUNCTION_ARGS`: Function call information structure containing the aggregate state and input key/value pair
 ## Dependencies
 - Functions called/Symbols referenced:
   - [jsonb_object_agg_transfn_worker](jsonb_object_agg_transfn_worker.md)

@@ -22,6 +22,7 @@ This initialization is essential for the SP-GiST geometric indexing algorithm, w
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - RectBox (4D rectangular box structure)

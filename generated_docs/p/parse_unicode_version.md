@@ -18,8 +18,7 @@ This static function converts a Unicode version string (in the format "major.min
 The function is specifically designed for use in PostgreSQL's Unicode category testing framework, where different Unicode version behaviors need to be compared and handled appropriately.
 
 ## Parameters / Member Variables
-- : A null-terminated string containing the Unicode version in "major.minor" format (e.g., "13.0", "15.1")
-
+- `*version`: A null-terminated string containing the Unicode version in "major.minor" format (e.g., "13.0", "15.1")
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (standard C library function)

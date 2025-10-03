@@ -19,11 +19,10 @@ This function processes DISTINCT ON clauses, which allow users to specify exactl
 The function adds all DISTINCT ON expressions to the target list (as resjunk items if not already present), assigns sortgroupref numbers to them, and creates a distinctClause that coordinates with any existing ORDER BY semantics. It enforces PostgreSQL's requirement that when both DISTINCT ON and ORDER BY are present, the ORDER BY list must begin with the DISTINCT ON expressions in the same order.
 
 ## Parameters / Member Variables
-- : Parse state context containing parsing information and error handling state
-- : List of expressions specified in the DISTINCT ON clause
-- : Pointer to the query's target list, passed by reference as items may be added during processing
-- : List of SortGroupClause nodes representing ORDER BY expressions
-
+- `*pstate`: Parse state context containing parsing information and error handling state
+- `*distinctlist`: List of expressions specified in the DISTINCT ON clause
+- `**targetlist`: Pointer to the query's target list, passed by reference as items may be added during processing
+- `*sortClause`: List of SortGroupClause nodes representing ORDER BY expressions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [findTargetlistEntrySQL92](../f/findTargetlistEntrySQL92.md): Locates or creates a target list entry for an expression

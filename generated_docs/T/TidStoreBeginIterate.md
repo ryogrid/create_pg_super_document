@@ -18,8 +18,7 @@ This function initializes the iteration process for a TidStore, creating a TidSt
 The iterator is designed to efficiently process bitmap data by pre-allocating an output array sized to handle at least one completely full bitmap element. The function delegates to specialized iterator initialization functions based on the TidStore type.
 
 ## Parameters / Member Variables
-- : The TidStore to iterate over
-
+- `*ts`: The TidStore to iterate over
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc0](../p/palloc0.md)

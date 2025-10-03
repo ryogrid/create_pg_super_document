@@ -19,11 +19,10 @@ hash_search(HTAB *hashp,
 This is the primary interface for hash table operations in PostgreSQL. It provides a convenient wrapper that computes the hash value internally and then calls hash_search_with_hash_value to perform the actual operation. The function supports four types of operations: finding existing entries, inserting new entries (with or without error on memory exhaustion), and removing entries. The return value and foundPtr flag provide information about whether the operation succeeded and whether an existing entry was found.
 
 ## Parameters / Member Variables
-- : Pointer to the HTAB structure representing the hash table
-- : Pointer to the key data for the operation
-- : The type of operation to perform (HASH_FIND, HASH_ENTER, HASH_ENTER_NULL, or HASH_REMOVE)
-- : Optional pointer to a boolean that will be set to indicate whether an existing entry was found
-
+- `*hashp`: Pointer to the HTAB structure representing the hash table
+- `*keyPtr`: Pointer to the key data for the operation
+- `action`: The type of operation to perform (HASH_FIND, HASH_ENTER, HASH_ENTER_NULL, or HASH_REMOVE)
+- `*foundPtr`: Optional pointer to a boolean that will be set to indicate whether an existing entry was found
 ## Dependencies
 - Functions called/Symbols referenced:
   - [HTAB](../H/HTAB.md) (hash table structure)

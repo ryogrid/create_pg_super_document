@@ -18,8 +18,7 @@ GenerationDelete provides complete cleanup of a Generation memory context. It op
 The implementation leverages GenerationReset to handle the complex logic of freeing individual blocks while preserving the keeper block, then simply frees the remaining memory that contains both the context header and the keeper block in one operation.
 
 ## Parameters / Member Variables
-- : The Generation memory context to delete and free completely
-
+- `context`: The Generation memory context to delete and free completely
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GenerationReset](GenerationReset.md)

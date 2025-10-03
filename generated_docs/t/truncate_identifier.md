@@ -20,10 +20,9 @@ When truncation occurs, the function modifies the input string in-place by placi
 The function is called as part of PostgreSQL's identifier normalization pipeline, typically after case conversion has been performed.
 
 ## Parameters / Member Variables
-- : Pointer to the identifier string to be truncated (modified in-place)
-- : Current length of the identifier string in bytes
-- : Boolean flag indicating whether to emit a warning notice if truncation occurs
-
+- `*ident`: Pointer to the identifier string to be truncated (modified in-place)
+- `len`: Current length of the identifier string in bytes
+- `warn`: Boolean flag indicating whether to emit a warning notice if truncation occurs
 ## Dependencies
 - Functions called/Symbols referenced:
   - NAMEDATALEN (maximum identifier length constant)

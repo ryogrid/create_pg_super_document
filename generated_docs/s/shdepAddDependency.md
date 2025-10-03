@@ -21,14 +21,13 @@ This function serves as the core implementation for recording shared dependencie
 The function first locks the referenced object to prevent it from being dropped while the dependency is being recorded, then constructs a new tuple with the dependency information and inserts it into the catalog table. This ensures referential integrity and prevents orphaned objects.
 
 ## Parameters / Member Variables
-- : Open pg_shdepend relation with appropriate locks held by caller
-- : OID of the catalog table that contains the dependent object
-- : OID of the dependent object itself
-- : Sub-object identifier for the dependent object (0 if not applicable)
-- : OID of the catalog table containing the referenced shared object
-- : OID of the referenced shared object
-- : Type of dependency relationship (SharedDependencyType enum value)
-
+- `sdepRel`: Open pg_shdepend relation with appropriate locks held by caller
+- `classId`: OID of the catalog table that contains the dependent object
+- `objectId`: OID of the dependent object itself
+- `objsubId`: Sub-object identifier for the dependent object (0 if not applicable)
+- `refclassId`: OID of the catalog table containing the referenced shared object
+- `refobjId`: OID of the referenced shared object
+- `deptype`: Type of dependency relationship (SharedDependencyType enum value)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [shdepLockAndCheckObject](shdepLockAndCheckObject.md)

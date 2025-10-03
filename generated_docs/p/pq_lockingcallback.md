@@ -20,11 +20,10 @@ The function operates on a global array of mutexes () and uses the  parameter to
 Error handling is minimal by design - if mutex operations fail, the function only asserts in debug builds and ignores errors in production, since there's no mechanism to report locking failures back to OpenSSL. This approach is considered acceptable since these callbacks are obsolete in modern OpenSSL versions.
 
 ## Parameters / Member Variables
-- : Bitmask indicating the lock operation (CRYPTO_LOCK for lock, otherwise unlock)
-- : Index of the mutex in the global lock array to operate on
-- : Source file name where the lock operation was requested (unused)
-- : Line number where the lock operation was requested (unused)
-
+- `mode`: Bitmask indicating the lock operation (CRYPTO_LOCK for lock, otherwise unlock)
+- `n`: Index of the mutex in the global lock array to operate on
+- `*file`: Source file name where the lock operation was requested (unused)
+- `line`: Line number where the lock operation was requested (unused)
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Acquires a pthread mutex

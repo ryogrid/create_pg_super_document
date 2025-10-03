@@ -24,16 +24,15 @@ P[n+1] = P[n] + P(C[n+1]) - P((C[1] OR ... OR C[n]) AND C[n+1])
 It maintains a match bitmap () to track which MCV items have been matched by previously processed clauses in the OR list, enabling accurate overlap calculation for the intersection term. The function returns multiple selectivity values to support the overall OR selectivity computation algorithm.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing query planning context and statistics
-- : StatisticExtInfo containing extended statistics information for the relation
-- : MCVList structure containing the most common values and their frequencies
-- : Node representing the individual clause being analyzed within the OR expression
-- : In/out parameter - bitmap tracking MCV items matched by previously processed OR clauses (NULL on first call)
-- : Output parameter - sum of base frequencies for MCV items matching this clause
-- : Output parameter - sum of MCV frequencies for items in the overlap between this and previous clauses
-- : Output parameter - sum of base frequencies for items in the overlap
-- : Output parameter - sum of frequencies for all MCV items (used for normalization)
-
+- `*root`: PlannerInfo structure containing query planning context and statistics
+- `*stat`: StatisticExtInfo containing extended statistics information for the relation
+- `*mcv`: MCVList structure containing the most common values and their frequencies
+- `*clause`: Node representing the individual clause being analyzed within the OR expression
+- `**or_matches`: In/out parameter - bitmap tracking MCV items matched by previously processed OR clauses (NULL on first call)
+- `*basesel`: Output parameter - sum of base frequencies for MCV items matching this clause
+- `*overlap_mcvsel`: Output parameter - sum of MCV frequencies for items in the overlap between this and previous clauses
+- `*overlap_basesel`: Output parameter - sum of base frequencies for items in the overlap
+- `*totalsel`: Output parameter - sum of frequencies for all MCV items (used for normalization)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [mcv_get_match_bitmap](mcv_get_match_bitmap.md)

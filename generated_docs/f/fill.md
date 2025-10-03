@@ -23,11 +23,10 @@ The function works by:
 This is typically used for creating consistent column widths, padding fields to alignment boundaries, or generating decorative elements like borders or separators.
 
 ## Parameters / Member Variables
-- : Current length of content (number of characters already used)
-- : Maximum desired width (target column width or padding boundary)
-- : The character to use for padding (e.g., space, dash, asterisk)
-- : Output file stream where filler characters will be written
-
+- `length`: Current length of content (number of characters already used)
+- `max`: Maximum desired width (target column width or padding boundary)
+- `filler`: The character to use for padding (e.g., space, dash, asterisk)
+- `*fp`: Output file stream where filler characters will be written
 ## Dependencies
 - Functions called/Symbols referenced:
   - putc (standard C library function)

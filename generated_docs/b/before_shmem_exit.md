@@ -18,9 +18,8 @@ The  function allows PostgreSQL components to register cleanup callbacks that ne
 The function maintains an internal list of registered callbacks () and ensures that the standard C library  callback is properly set up to trigger the cleanup sequence when the process terminates.
 
 ## Parameters / Member Variables
-- : A callback function of type  to be executed during cleanup
-- : A  argument that will be passed to the callback function when it's invoked
-
+- `function`: A callback function of type  to be executed during cleanup
+- `arg`: A  argument that will be passed to the callback function when it's invoked
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (constant defining maximum number of exit callbacks)

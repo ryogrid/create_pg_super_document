@@ -23,8 +23,7 @@ Key behaviors include:
 - Notifies the child node about the tuple bound requirement for optimization
 
 ## Parameters / Member Variables
-- : LimitState containing the limit expressions, execution context, and state variables to update
-
+- `*node`: LimitState containing the limit expressions, execution context, and state variables to update
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecEvalExprSwitchContext](../E/ExecEvalExprSwitchContext.md) (evaluates LIMIT/OFFSET expressions)

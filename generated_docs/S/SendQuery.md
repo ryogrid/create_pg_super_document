@@ -26,8 +26,7 @@ SendQuery serves as the primary interface for executing queries entered directly
 The function distinguishes itself from PSQLexec() by being designed for user-facing queries that are subject to single-step mode and full transaction management.
 
 ## Parameters / Member Variables
-- : The SQL query string to be executed
-
+- `*query`: The SQL query string to be executed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQtransactionStatus](../P/PQtransactionStatus.md)

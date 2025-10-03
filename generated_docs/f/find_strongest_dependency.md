@@ -23,10 +23,9 @@ This function implements the selection logic for applying functional dependencie
 The function performs cheap checks first (attribute count comparisons) before expensive operations (full matching verification) to optimize performance. This selection strategy ensures that the most redundant conditions are eliminated first, leading to more accurate selectivity estimates.
 
 ## Parameters / Member Variables
-- : Array of pointers to MVDependencies structures containing functional dependencies
-- : Number of dependency collections in the array
-- : Bitmapset representing attributes that have equality clauses
-
+- `**dependencies`: Array of pointers to MVDependencies structures containing functional dependencies
+- `ndependencies`: Number of dependency collections in the array
+- `*attnums`: Bitmapset representing attributes that have equality clauses
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bms_num_members](../b/bms_num_members.md)

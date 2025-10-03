@@ -18,11 +18,10 @@ This function serves as the primary interface for setting up pending statistics 
 The function validates that the requested statistics kind supports pending data operations by checking for a flush callback. It creates the pending statistics memory context on first use, retrieves or creates an entry reference for the specified object, and allocates pending data storage if not already present. The pending entry is added to the global pending list for later processing during statistics flushing operations.
 
 ## Parameters / Member Variables
-- : The statistics kind (PgStat_Kind) identifying the type of statistics being prepared
-- : The database OID associated with the statistics object (can be InvalidOid for global objects)
-- : The object OID for the specific statistics entry being prepared
-- : Optional output parameter (bool *) that will be set to true if a new entry reference was created, false if an existing one was reused
-
+- `kind`: The statistics kind (PgStat_Kind) identifying the type of statistics being prepared
+- `dboid`: The database OID associated with the statistics object (can be InvalidOid for global objects)
+- `objoid`: The object OID for the specific statistics entry being prepared
+- `*created_entry`: Optional output parameter (bool *) that will be set to true if a new entry reference was created, false if an existing one was reused
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pgstat_get_kind_info](pgstat_get_kind_info.md)

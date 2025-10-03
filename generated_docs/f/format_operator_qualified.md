@@ -18,8 +18,7 @@ The  function is a specialized wrapper around  that always produces fully qualif
 This function is particularly useful in contexts where unambiguous operator identification is required, such as in system catalogs, dumps, or when generating SQL that needs to be portable across different database configurations with varying search_path settings.
 
 ## Parameters / Member Variables
-- : The OID of the operator to format
-
+- `operator_oid`: The OID of the operator to format
 ## Dependencies
 - Functions called/Symbols referenced:
   - [format_operator_extended](format_operator_extended.md)

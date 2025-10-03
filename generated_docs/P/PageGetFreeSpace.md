@@ -18,8 +18,7 @@ PageGetFreeSpace calculates the amount of free space available on a page for new
 The function returns 0 if the available space is insufficient to accommodate even a single line pointer, ensuring that callers receive a realistic estimate of usable space.
 
 ## Parameters / Member Variables
-- : A pointer to the page for which to calculate free space
-
+- `page`: A pointer to the page for which to calculate free space
 ## Dependencies
 - Functions called/Symbols referenced:
   - PageHeader (cast to access page header fields)

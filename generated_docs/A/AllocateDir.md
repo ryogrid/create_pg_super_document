@@ -18,8 +18,7 @@ AllocateDir is the managed equivalent of opendir() that integrates with PostgreS
 If successful, the function registers the directory handle in the allocatedDescs array with the current subtransaction ID, enabling automatic cleanup if the transaction aborts. The function is designed to be the exclusive method for opening directories in the PostgreSQL backend, replacing direct calls to opendir().
 
 ## Parameters / Member Variables
-- : The path to the directory to open for reading
-
+- `*dirname`: The path to the directory to open for reading
 ## Dependencies
 - Functions called/Symbols referenced:
   - DO_DB (debug logging macro)

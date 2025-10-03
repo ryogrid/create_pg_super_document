@@ -27,13 +27,12 @@ The function specifically checks whether an SP-GiST index column supports distan
 Currently, SP-GiST distance-ordered scans require a distance operator in the opclass with default types, so the presence of such an operator indicates support for distance-orderable operations.
 
 ## Parameters / Member Variables
-- : The OID of the index being queried
-- : The attribute number (column number) within the index (must be > 0)
-- : The index property being queried (only AMPROP_DISTANCE_ORDERABLE is supported)
-- : The name of the property (for debugging/error purposes)
-- : Output parameter - set to true if the property is supported, false otherwise
-- : Output parameter - set to true if the property value is null/unknown
-
+- `index_oid`: The OID of the index being queried
+- `attno`: The attribute number (column number) within the index (must be > 0)
+- `prop`: The index property being queried (only AMPROP_DISTANCE_ORDERABLE is supported)
+- `*propname`: The name of the property (for debugging/error purposes)
+- `*res`: Output parameter - set to true if the property is supported, false otherwise
+- `*isnull`: Output parameter - set to true if the property value is null/unknown
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_index_column_opclass](../g/get_index_column_opclass.md)

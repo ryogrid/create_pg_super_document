@@ -22,9 +22,8 @@ The function performs two key operations:
 The conditional reconfiguration ensures that prefetching parameters are only updated in the appropriate process context, as recovery prefetching specifically operates during database startup and recovery phases.
 
 ## Parameters / Member Variables
-- : The new integer value for the recovery_prefetch setting that has already passed validation
-- : Pointer to additional data (unused in this function, but part of the GUC hook interface)
-
+- `new_value`: The new integer value for the recovery_prefetch setting that has already passed validation
+- `*extra`: Pointer to additional data (unused in this function, but part of the GUC hook interface)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Checks if the current process is the startup process

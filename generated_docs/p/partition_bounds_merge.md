@@ -27,15 +27,14 @@ The function delegates to strategy-specific implementations:
 If any partition on one side matches multiple partitions on the other side, the function returns NULL and sets the output lists to NIL, indicating that partitioned join is not possible.
 
 ## Parameters / Member Variables
-- : Number of partition attributes
-- : Array of comparison functions for partition attributes
-- : Array of collation OIDs for partition attributes
-- : RelOptInfo for the outer relation in the join
-- : RelOptInfo for the inner relation in the join
-- : Type of join being performed (INNER, LEFT, FULL, SEMI, ANTI)
-- : Output parameter for list of matching outer partitions
-- : Output parameter for list of matching inner partitions
-
+- `partnatts`: Number of partition attributes
+- `*partsupfunc`: Array of comparison functions for partition attributes
+- `*partcollation`: Array of collation OIDs for partition attributes
+- `*outer_rel`: RelOptInfo for the outer relation in the join
+- `*inner_rel`: RelOptInfo for the inner relation in the join
+- `jointype`: Type of join being performed (INNER, LEFT, FULL, SEMI, ANTI)
+- `**outer_parts`: Output parameter for list of matching outer partitions
+- `**inner_parts`: Output parameter for list of matching inner partitions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [merge_list_bounds](../m/merge_list_bounds.md)

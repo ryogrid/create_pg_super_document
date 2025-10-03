@@ -21,15 +21,14 @@ The  function implements the cost estimation interface for the dummy index acces
 This design ensures that the PostgreSQL query planner will never select the dummy index for actual query execution, which is appropriate since the dummy AM doesn't provide real index functionality. The other output parameters are set to minimal placeholder values since they won't influence planning decisions given the prohibitive costs.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing query planning context and statistics
-- : IndexPath structure representing the potential index scan path being costed
-- : Expected number of times this index scan would be executed
-- : Output parameter for one-time startup cost (set to 1.0e10)
-- : Output parameter for total execution cost (set to 1.0e10)
-- : Output parameter for estimated selectivity (set to 1)
-- : Output parameter for correlation with table ordering (set to 0)
-- : Output parameter for estimated index size in pages (set to 1)
-
+- `*root`: PlannerInfo structure containing query planning context and statistics
+- `*path`: IndexPath structure representing the potential index scan path being costed
+- `loop_count`: Expected number of times this index scan would be executed
+- `*indexStartupCost`: Output parameter for one-time startup cost (set to 1.0e10)
+- `*indexTotalCost`: Output parameter for total execution cost (set to 1.0e10)
+- `*indexSelectivity`: Output parameter for estimated selectivity (set to 1)
+- `*indexCorrelation`: Output parameter for correlation with table ordering (set to 0)
+- `*indexPages`: Output parameter for estimated index size in pages (set to 1)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PlannerInfo](../P/PlannerInfo.md) (structure type)

@@ -22,7 +22,6 @@ This function serves as a language-specific wrapper around the generic Snowball 
 The function delegates to the core Snowball framework's SN_create_env function while providing Romanian-specific parameterization. This abstraction allows the Romanian stemmer to be easily integrated into multilingual stemming systems.
 
 ## Parameters / Member Variables
-None - this is a parameterless factory function.
 
 ## Dependencies
 - Functions called/Symbols referenced:

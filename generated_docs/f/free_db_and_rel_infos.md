@@ -16,8 +16,7 @@ free_db_and_rel_infos(DbInfoArr *db_arr)
 This function performs cleanup of a DbInfoArr structure by deallocating all dynamically allocated memory. It iterates through each database in the array, first freeing the relation information for each database using free_rel_infos(), then freeing the database name string. Finally, it deallocates the database array itself and resets the structure to a clean state. This is a critical cleanup function in pg_upgrade to prevent memory leaks during the upgrade process.
 
 ## Parameters / Member Variables
-- : Pointer to DbInfoArr structure containing database information to be freed
-
+- `*db_arr`: Pointer to DbInfoArr structure containing database information to be freed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [free_rel_infos](free_rel_infos.md)

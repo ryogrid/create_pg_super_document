@@ -18,9 +18,8 @@ This function handles the parameterization of aggregate function references (Agg
 The function navigates up the planner hierarchy to find the query level where the aggregate belongs, then creates a copy of the Aggref and adjusts its level references using IncrementVarSublevelsUp. It then creates both a PlannerParamItem to track the parameter and a Param node to replace the original Aggref. The resulting parameter has type information derived directly from the aggregate's type fields.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planner state and context for the current query level
-- : Aggref node representing an aggregate function reference from an outer query level (agglevelsup > 0)
-
+- `*root`: PlannerInfo structure containing planner state and context for the current query level
+- `*agg`: Aggref node representing an aggregate function reference from an outer query level (agglevelsup > 0)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Aggref](../A/Aggref.md) (aggregate reference structure)

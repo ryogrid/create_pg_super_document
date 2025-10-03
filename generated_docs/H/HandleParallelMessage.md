@@ -28,10 +28,9 @@ The function handles five main message types:
 5. **Unknown message types**: Reports an error for unrecognized message types.
 
 ## Parameters / Member Variables
-- : Pointer to the ParallelContext containing information about the parallel execution environment
-- : Index of the specific worker that sent the message (0-based)
-- : StringInfo containing the raw message data received from the worker
-
+- `*pcxt`: Pointer to the ParallelContext containing information about the parallel execution environment
+- `i`: Index of the specific worker that sent the message (0-based)
+- `msg`: StringInfo containing the raw message data received from the worker
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pq_getmsgbyte](../p/pq_getmsgbyte.md)

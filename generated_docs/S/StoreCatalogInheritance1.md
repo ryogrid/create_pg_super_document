@@ -25,12 +25,11 @@ This function performs the atomic operation of recording a single inheritance re
 The function handles both regular table inheritance and table partitioning scenarios, with appropriate dependency types determined by child_dependency_type().
 
 ## Parameters / Member Variables
-- : OID of the child relation inheriting from the parent
-- : OID of the parent relation being inherited from  
-- : Sequence number indicating inheritance order (for multiple inheritance)
-- : Already opened pg_inherits catalog relation handle
-- : Boolean indicating if child is a partition (affects dependency type)
-
+- `relationId`: OID of the child relation inheriting from the parent
+- `parentOid`: OID of the parent relation being inherited from
+- `seqNumber`: Sequence number indicating inheritance order (for multiple inheritance)
+- `inhRelation`: Already opened pg_inherits catalog relation handle
+- `child_is_partition`: Boolean indicating if child is a partition (affects dependency type)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [StoreSingleInheritance](StoreSingleInheritance.md)

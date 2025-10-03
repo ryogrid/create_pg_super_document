@@ -23,8 +23,7 @@ The function implements a pattern where:
 This type of vowel insertion is crucial in Turkish morphology for maintaining syllable structure and avoiding consonant clusters that would violate Turkish phonotactics. The 'U' represents an epenthetic (inserted) vowel that helps break up consonant clusters.
 
 ## Parameters / Member Variables
-- : Pointer to the Snowball environment structure containing the text buffer, current position, and morphological analysis state
-
+- `*z`: Pointer to the Snowball environment structure containing the text buffer, current position, and morphological analysis state
 ## Dependencies
 - Functions called/Symbols referenced:
   - [in_grouping_b_U](../i/in_grouping_b_U.md) (called 2 times for high vowel group checking)

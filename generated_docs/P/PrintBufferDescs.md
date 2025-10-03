@@ -20,6 +20,7 @@ The function outputs each buffer's information using elog(LOG, ...), making the 
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetBufferDescriptor](../G/GetBufferDescriptor.md)

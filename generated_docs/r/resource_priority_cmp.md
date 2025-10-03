@@ -22,9 +22,8 @@ The sorting logic operates on two levels:
 The reverse ordering is intentional and explicitly noted in the source code comments. This ensures that resources are released in the opposite order from their typical dependency chain - higher priority and later phase resources are cleaned up before their dependencies.
 
 ## Parameters / Member Variables
-- : Pointer to the first ResourceElem structure to compare
-- : Pointer to the second ResourceElem structure to compare
-
+- `*a`: Pointer to the first ResourceElem structure to compare
+- `*b`: Pointer to the second ResourceElem structure to compare
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ResourceElem](../R/ResourceElem.md) (struct type)

@@ -23,8 +23,7 @@ The encoding scheme uses:
 The function extracts the block number and offset from the ItemPointer, then combines them using bitwise operations to create a sortable 64-bit integer.
 
 ## Parameters / Member Variables
-- : The ItemPointer (TID) to be encoded into a 64-bit integer
-
+- `itemptr`: The ItemPointer (TID) to be encoded into a 64-bit integer
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)

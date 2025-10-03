@@ -18,9 +18,8 @@ _bt_drop_lock_and_maybe_pin is a static utility function that implements a two-p
 The function implements the concurrent TID recycling safety mechanism described in the nbtree/README. It only releases the buffer pin when it's safe to do so - specifically when using MVCC snapshots, when the relation requires WAL logging, and when the scan doesn't need index tuples.
 
 ## Parameters / Member Variables
-- : IndexScanDesc containing the index scan state and configuration
-- : BTScanPos structure containing the current scan position including the buffer reference
-
+- `scan`: IndexScanDesc containing the index scan state and configuration
+- `sp`: BTScanPos structure containing the current scan position including the buffer reference
 ## Dependencies
 - Functions called/Symbols referenced:
   - [_bt_unlockbuf](_bt_unlockbuf.md)

@@ -16,8 +16,7 @@ heapam_slot_callbacks(Relation relation)
 This function is part of PostgreSQL's table access method (TAM) infrastructure. It serves as a callback function within the heap access method handler to return the appropriate tuple table slot operations for heap relations. The function returns a pointer to , which contains the set of operations optimized for heap tuples that reside in shared buffer pages. This is a key component of the pluggable storage engine architecture, allowing different storage formats to provide their own slot operation implementations while maintaining a consistent interface.
 
 ## Parameters / Member Variables
-- : A Relation pointer representing the heap relation for which slot callbacks are requested
-
+- `relation`: A Relation pointer representing the heap relation for which slot callbacks are requested
 ## Dependencies
 - Functions called/Symbols referenced:
   - TTSOpsBufferHeapTuple (global tuple table slot operations structure)

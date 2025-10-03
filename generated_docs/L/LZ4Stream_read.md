@@ -18,10 +18,9 @@ LZ4Stream_read is a wrapper function that implements the standard C library frea
 This function is part of PostgreSQL's compression infrastructure for pg_dump, allowing the tool to transparently read from LZ4 compressed backup files. It maintains the familiar fread() semantics while handling the complexities of LZ4 decompression internally.
 
 ## Parameters / Member Variables
-- : Pointer to the buffer where the decompressed data will be stored
-- : Number of bytes to read from the compressed stream
-- : Pointer to the CompressFileHandle structure containing the LZ4 state and file information
-
+- `*ptr`: Pointer to the buffer where the decompressed data will be stored
+- `size`: Number of bytes to read from the compressed stream
+- `*CFH`: Pointer to the CompressFileHandle structure containing the LZ4 state and file information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LZ4Stream_read_internal](LZ4Stream_read_internal.md) (performs the actual decompression work)

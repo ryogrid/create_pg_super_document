@@ -20,8 +20,7 @@ The function follows the same efficient implementation pattern as other Unicode 
 2. For non-ASCII characters, it performs a binary search in the  range table
 
 ## Parameters / Member Variables
-- : The Unicode code point (pg_wchar) to test for the Hex_Digit property
-
+- `code`: The Unicode code point (pg_wchar) to test for the Hex_Digit property
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_U_PROP_HEX_DIGIT (constant/macro)

@@ -18,9 +18,8 @@ This function implements a comprehensive validator for UTF-8 character sequences
 The validation process includes checking continuation byte ranges (0x80-0xBF) and applying special restrictions on the second byte for specific lead bytes to prevent overlong sequences and invalid Unicode ranges. For example, it prevents encoding of UTF-16 surrogate pairs (0xED lead byte) and ensures 4-byte sequences don't exceed the maximum Unicode code point.
 
 ## Parameters / Member Variables
-- : Pointer to the UTF-8 byte sequence to validate
-- : Number of bytes in the sequence (expected to be obtained from pg_utf_mblen())
-
+- `*source`: Pointer to the UTF-8 byte sequence to validate
+- `length`: Number of bytes in the sequence (expected to be obtained from pg_utf_mblen())
 ## Dependencies
 - Functions called/Symbols referenced:
   - (None - implements validation logic directly)

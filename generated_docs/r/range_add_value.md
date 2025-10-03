@@ -22,13 +22,12 @@ If the value is new, it makes a copy of the value (respecting the attribute's pa
 The function includes extensive assertions to verify the integrity of the range structure both before and after the operation, ensuring that the newly added value is properly contained within the ranges.
 
 ## Parameters / Member Variables
-- : BRIN descriptor containing index metadata and operator procedures
-- : Collation OID used for value comparisons
-- : Attribute number being indexed
-- : Form_pg_attribute structure containing attribute metadata (type, length, pass-by-value flag)
-- : Ranges structure to be modified with the new value
-- : Datum value to be added to the ranges
-
+- `*bdesc`: BRIN descriptor containing index metadata and operator procedures
+- `colloid`: Collation OID used for value comparisons
+- `attno`: Attribute number being indexed
+- `attr`: Form_pg_attribute structure containing attribute metadata (type, length, pass-by-value flag)
+- `*ranges`: Ranges structure to be modified with the new value
+- `newval`: Datum value to be added to the ranges
 ## Dependencies
 - Functions called/Symbols referenced:
   - [minmax_multi_get_strategy_procinfo](../m/minmax_multi_get_strategy_procinfo.md)

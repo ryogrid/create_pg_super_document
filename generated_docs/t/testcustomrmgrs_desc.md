@@ -20,9 +20,8 @@ The function extracts the operation type from the WAL record and, if it matches 
 The function casts the raw WAL record data to the expected  structure and appends both textual and binary information about the message payload to the output buffer using PostgreSQL's StringInfo formatting functions.
 
 ## Parameters / Member Variables
-- : StringInfo buffer where the formatted description will be appended
-- : Pointer to an  structure containing the WAL record to be described
-
+- `buf`: StringInfo buffer where the formatted description will be appended
+- `*record`: Pointer to an  structure containing the WAL record to be described
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (extracts raw record data)

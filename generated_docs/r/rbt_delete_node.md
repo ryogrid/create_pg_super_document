@@ -18,9 +18,8 @@ This function implements the core node deletion logic for Red-Black trees. It ha
 The function handles three main cases: deleting a node with no children, one child, or two children. For nodes with two children, it uses the tree successor replacement strategy. After the structural deletion, if a black node was removed, it calls rbt_delete_fixup to restore Red-Black tree properties.
 
 ## Parameters / Member Variables
-- : Pointer to the Red-Black tree structure from which the node will be deleted
-- : Pointer to the node to be deleted from the tree
-
+- `*rbt`: Pointer to the Red-Black tree structure from which the node will be deleted
+- `*z`: Pointer to the node to be deleted from the tree
 ## Dependencies
 - Functions called/Symbols referenced:
   - [rbt_copy_data](rbt_copy_data.md)

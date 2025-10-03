@@ -18,8 +18,7 @@ The  function completes the construction of a bytea value that was initiated wit
 This function assumes that the buffer's data is already properly aligned for use as a bytea value (since it was palloc'd) and that the StringInfo structure itself is just a local variable that doesn't need to be explicitly freed. The function essentially transforms the raw buffer data into a valid PostgreSQL bytea type that can be returned to the client.
 
 ## Parameters / Member Variables
-- : A StringInfo buffer that has been populated with binary data using pq_begintypsend and subsequent append operations
-
+- `buf`: A StringInfo buffer that has been populated with binary data using pq_begintypsend and subsequent append operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - SET_VARSIZE (macro to set the PostgreSQL variable-length header)

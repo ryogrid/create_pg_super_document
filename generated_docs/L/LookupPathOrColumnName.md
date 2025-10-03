@@ -18,9 +18,8 @@ This function provides a straightforward string-based lookup mechanism for detec
 This is a core utility function used during JSON_TABLE parsing to enforce the uniqueness constraint on column and path names, which is essential for proper SQL execution and avoiding ambiguity in column references.
 
 ## Parameters / Member Variables
-- : JsonTableParseContext containing the pathNames list to search through
-- : The column or path name string to look up for duplicates
-
+- `*cxt`: JsonTableParseContext containing the pathNames list to search through
+- `*name`: The column or path name string to look up for duplicates
 ## Dependencies
 - Functions called/Symbols referenced:
   - strcmp (standard C string comparison function)

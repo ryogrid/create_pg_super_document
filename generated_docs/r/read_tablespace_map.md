@@ -20,8 +20,7 @@ The function performs line-by-line parsing of the tablespace_map file format, wh
 The parsed tablespace information is returned as a list of tablespaceinfo structs, each containing the OID and path for a single tablespace. This information is later used by the recovery process to create appropriate symlinks.
 
 ## Parameters / Member Variables
-- : Output parameter - pointer to a List that will be populated with tablespaceinfo structs for each tablespace found in the map file
-
+- `**tablespaces`: Output parameter - pointer to a List that will be populated with tablespaceinfo structs for each tablespace found in the map file
 ## Dependencies
 - Functions called/Symbols referenced:
   - [AllocateFile](../A/AllocateFile.md) (opens tablespace_map file for reading)

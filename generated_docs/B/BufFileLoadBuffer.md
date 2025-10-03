@@ -25,8 +25,7 @@ The function performs several key operations:
 The function assumes that on entry, the buffer is clean (not dirty), and both position and nbytes are zero. On exit, nbytes contains the number of bytes successfully loaded into the buffer.
 
 ## Parameters / Member Variables
-- : Pointer to the BufFile structure whose buffer needs to be loaded with data
-
+- `*file`: Pointer to the BufFile structure whose buffer needs to be loaded with data
 ## Dependencies
 - Functions called/Symbols referenced:
   - [FileRead](../F/FileRead.md) (performs the actual file read operation)

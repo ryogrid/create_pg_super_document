@@ -16,8 +16,7 @@ EndPrepare(GlobalTransaction gxact)
 EndPrepare finalizes the two-phase commit preparation process initiated by StartPrepare. It adds an end sentinel record to the 2PC records, updates the total length in the file header, handles replication origin information if present, validates the data size doesn't exceed limits, and writes the entire state data to WAL within a critical section. The function ensures proper checkpoint coordination, marks the transaction as prepared, and handles synchronous replication requirements.
 
 ## Parameters / Member Variables
-- : GlobalTransaction structure representing the transaction being prepared, which will store prepare LSN information and be marked as prepared
-
+- `gxact`: GlobalTransaction structure representing the transaction being prepared, which will store prepare LSN information and be marked as prepared
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RegisterTwoPhaseRecord](../R/RegisterTwoPhaseRecord.md)

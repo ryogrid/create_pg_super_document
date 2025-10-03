@@ -38,16 +38,15 @@ The function operates through several phases:
 5. **Cleanup**: Handles resource cleanup and statistics updates
 
 ## Parameters / Member Variables
-- : The heap relation containing the tuple to update
-- : ItemPointer identifying the location of the tuple to be updated
-- : HeapTuple containing the new tuple data to replace the old tuple
-- : Command identifier for the current command within the transaction
-- : Optional snapshot for additional visibility validation (used in RI checks)
-- : Boolean indicating whether to wait for concurrent transactions or return immediately
-- : Output structure containing failure details when update cannot proceed
-- : Input/output parameter for the type of tuple lock required/acquired
-- : Output parameter indicating which indexes need updating after the operation
-
+- `relation`: The heap relation containing the tuple to update
+- `otid`: ItemPointer identifying the location of the tuple to be updated
+- `newtup`: HeapTuple containing the new tuple data to replace the old tuple
+- `cid`: Command identifier for the current command within the transaction
+- `crosscheck`: Optional snapshot for additional visibility validation (used in RI checks)
+- `wait`: Boolean indicating whether to wait for concurrent transactions or return immediately
+- `*tmfd`: Output structure containing failure details when update cannot proceed
+- `*lockmode`: Input/output parameter for the type of tuple lock required/acquired
+- `*update_indexes`: Output parameter indicating which indexes need updating after the operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [HeapTupleSatisfiesUpdate](../H/HeapTupleSatisfiesUpdate.md)

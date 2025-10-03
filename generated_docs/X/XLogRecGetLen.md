@@ -19,10 +19,9 @@ This function analyzes a WAL (Write-Ahead Logging) record to determine its size 
 The function iterates through all block references in the record, checking each block to see if it contains a full-page image. For blocks that do contain FPI data, it accumulates the image length. The final record length is calculated by subtracting the total FPI length from the total record length.
 
 ## Parameters / Member Variables
-- : Pointer to XLogReaderState containing the parsed WAL record
-- : Output parameter to store the record data size (excluding FPI data)
-- : Output parameter to store the total size of full-page image data
-
+- `*record`: Pointer to XLogReaderState containing the parsed WAL record
+- `*rec_len`: Output parameter to store the record data size (excluding FPI data)
+- `*fpi_len`: Output parameter to store the total size of full-page image data
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecMaxBlockId

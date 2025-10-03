@@ -22,9 +22,8 @@ The function handles two scenarios:
 - Returns a malloc'd copy of the unquoted result for readline compatibility
 
 ## Parameters / Member Variables  
-- : The filename string that may contain quotes and escape sequences
-- : The quote character used (typically single quote '\'') or '\0' if none
-
+- `*fname`: The filename string that may contain quotes and escape sequences
+- `quote_char`: The quote character used (typically single quote '\'') or '\0' if none
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_malloc](../p/pg_malloc.md)

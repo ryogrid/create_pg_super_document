@@ -16,9 +16,8 @@ cash_pl_cash(Cash c1, Cash c2)
 The  function provides safe addition of two Cash values (64-bit signed integers representing monetary amounts). It uses PostgreSQL's overflow-safe arithmetic function  to detect integer overflow conditions. If an overflow would occur, the function reports a "money out of range" error using PostgreSQL's error reporting mechanism. This ensures that monetary calculations remain within valid bounds and prevents silent overflow errors that could corrupt financial data.
 
 ## Parameters / Member Variables
-- : First Cash value to add
-- : Second Cash value to add
-
+- `c1`: First Cash value to add
+- `c2`: Second Cash value to add
 ## Dependencies
 - Functions called/Symbols referenced:
   - Cash (type)

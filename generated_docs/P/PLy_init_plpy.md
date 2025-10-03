@@ -17,6 +17,7 @@ This function performs comprehensive initialization of the PL/Python environment
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PLy_plan_init_type](PLy_plan_init_type.md)

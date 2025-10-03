@@ -18,9 +18,8 @@ The  function creates SQL statements to restore PostgreSQL extensions. It handle
 In regular mode, the function intentionally omits version specification to use the destination installation's default version. In binary upgrade mode, it creates an empty extension with exact metadata and relies on  to add individual objects. The function also handles extension dependencies and configuration arrays while preserving OID relationships during binary upgrades.
 
 ## Parameters / Member Variables
-- : Archive structure representing the dump destination and containing connection/output information
-- : Pointer to ExtensionInfo structure containing extension metadata including name, namespace, version, configuration, condition, and dependencies
-
+- `*fout`: Archive structure representing the dump destination and containing connection/output information
+- `*extinfo`: Pointer to ExtensionInfo structure containing extension metadata including name, namespace, version, configuration, condition, and dependencies
 ## Dependencies
 - Functions called/Symbols referenced:
   - [fmtId](../f/fmtId.md)

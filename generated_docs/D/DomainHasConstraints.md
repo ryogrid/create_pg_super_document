@@ -18,8 +18,7 @@ This function provides a simple boolean check to determine if a domain type has 
 As a side effect of the lookup operation, the function causes the type cache's domain data to become valid and loaded if it wasn't already. This is considered beneficial since callers that check for domain constraints will likely need to access that constraint information shortly afterward, making the preloading effect a performance optimization.
 
 ## Parameters / Member Variables
-- : Object identifier of the type to check for domain constraints
-
+- `type_id`: Object identifier of the type to check for domain constraints
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lookup_type_cache](../l/lookup_type_cache.md) (retrieves type cache information)

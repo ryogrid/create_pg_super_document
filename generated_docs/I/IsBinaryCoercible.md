@@ -20,9 +20,8 @@ The function relies on PostgreSQL's pg_cast system catalog to determine binary c
 This function replaced the older IsBinaryCompatible() function, which was symmetric. The newer approach respects the asymmetric nature of pg_cast entries, making operand order significant.
 
 ## Parameters / Member Variables
-- : The OID of the source data type to convert from
-- : The OID of the target data type to convert to
-
+- `srctype`: The OID of the source data type to convert from
+- `targettype`: The OID of the target data type to convert to
 ## Dependencies
 - Functions called/Symbols referenced:
   - [IsBinaryCoercibleWithCast](IsBinaryCoercibleWithCast.md)

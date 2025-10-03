@@ -18,8 +18,7 @@ MJFillInner is a specialized function in the merge join executor that handles th
 The function sets up the expression context with the null outer tuple slot and the current inner tuple, then evaluates any non-join qualification clauses. If these qualifications pass, it projects the result tuple and returns it. This ensures that right outer joins correctly include all inner tuples even when they don't have matching outer tuples.
 
 ## Parameters / Member Variables
-- : MergeJoinState containing the merge join execution state, including tuple slots, expression context, and projection information
-
+- `*node`: MergeJoinState containing the merge join execution state, including tuple slots, expression context, and projection information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MergeJoinState](MergeJoinState.md) (data structure)

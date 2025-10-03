@@ -26,8 +26,7 @@ This function generates and displays the completion banner that appears when pg_
 The function uses PostgreSQL's PQExpBuffer for safe string construction and proper shell escaping.
 
 ## Parameters / Member Variables
-- : Path to the script that can safely delete old cluster data files, or NULL if such a script couldn't be created due to directory conflicts or user-defined tablespaces
-
+- `*deletion_script_file_name`: Path to the script that can safely delete old cluster data files, or NULL if such a script couldn't be created due to directory conflicts or user-defined tablespaces
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (initializes string buffer)

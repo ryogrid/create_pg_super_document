@@ -20,9 +20,8 @@ The function handles edge cases where either list might be NIL, and ensures type
 Importantly, list1 is destructively modified while list2 remains unchanged. However, for pointer lists, both lists will point to the same underlying structures after concatenation.
 
 ## Parameters / Member Variables
-- : The destination list that will be modified to contain the concatenated result (can be NIL)
-- : The source list whose elements will be appended to list1 (can be NIL, marked const as it's not modified)
-
+- `*list1`: The destination list that will be modified to contain the concatenated result (can be NIL)
+- `*list2`: The source list whose elements will be appended to list1 (can be NIL, marked const as it's not modified)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Creates a copy when list1 is NIL

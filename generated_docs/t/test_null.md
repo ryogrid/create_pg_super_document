@@ -18,9 +18,8 @@ The  function is a simple test utility function used in PostgreSQL's ECPG (Embed
 This function is part of the Informix compatibility layer testing, specifically testing the  function which is an Informix-style function for checking if a variable contains a null value.
 
 ## Parameters / Member Variables
-- : An integer representing the data type identifier for the value being tested
-- : A pointer to the memory location containing the value to be tested for null
-
+- `type`: An integer representing the data type identifier for the value being tested
+- `*ptr`: A pointer to the memory location containing the value to be tested for null
 ## Dependencies
 - Functions called/Symbols referenced:
   - [risnull](../r/risnull.md) (Informix compatibility function for null checking)

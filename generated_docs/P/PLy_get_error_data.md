@@ -20,16 +20,15 @@ PLy_get_error_data is designed to extract error information from general Postgre
 The function systematically extracts string attributes from the Python exception object using the get_string_attr helper function, retrieving various pieces of context information that can provide detailed database object identification in error reports. It first extracts the SQL error code using PLy_get_sqlerrcode, then proceeds to extract all available string attributes.
 
 ## Parameters / Member Variables
-- : Python Error exception object
-- : Output pointer for SQL error code
-- : Output pointer for error detail message
-- : Output pointer for error hint message
-- : Output pointer for schema name involved in error
-- : Output pointer for table name involved in error
-- : Output pointer for column name involved in error
-- : Output pointer for data type name involved in error
-- : Output pointer for constraint name involved in error
-
+- `*exc`: Python Error exception object
+- `*sqlerrcode`: Output pointer for SQL error code
+- `**detail`: Output pointer for error detail message
+- `**hint`: Output pointer for error hint message
+- `**schema_name`: Output pointer for schema name involved in error
+- `**table_name`: Output pointer for table name involved in error
+- `**column_name`: Output pointer for column name involved in error
+- `**datatype_name`: Output pointer for data type name involved in error
+- `**constraint_name`: Output pointer for constraint name involved in error
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PLy_get_sqlerrcode](PLy_get_sqlerrcode.md): Extracts SQL error code from exception

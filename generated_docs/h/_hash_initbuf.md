@@ -26,12 +26,11 @@ The function performs these operations:
 The hasho_prevblkno field is particularly important as it stores the max_bucket value at the time of page creation, which is later used by _hash_getbucketbuf_from_hashkey() to validate cached metadata.
 
 ## Parameters / Member Variables
-- : Buffer to initialize (must already be allocated and locked)
-- : Current maximum bucket number in the hash table
-- : The bucket number this page belongs to
-- : Page type flags (e.g., primary bucket page, overflow page)
-- : Whether to perform basic page initialization first
-
+- `buf`: Buffer to initialize (must already be allocated and locked)
+- `max_bucket`: Current maximum bucket number in the hash table
+- `num_bucket`: The bucket number this page belongs to
+- `flag`: Page type flags (e.g., primary bucket page, overflow page)
+- `initpage`: Whether to perform basic page initialization first
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BufferGetPage](../B/BufferGetPage.md) (gets page from buffer)

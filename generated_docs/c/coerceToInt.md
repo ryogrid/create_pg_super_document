@@ -21,9 +21,8 @@ The coerceToInt function converts values stored in the PgBenchValue union type t
 The function includes safety checks for NaN values and integer overflow when converting from double to int64. On error conditions, it logs appropriate error messages and returns false to indicate failure.
 
 ## Parameters / Member Variables
-- : Input PgBenchValue pointer containing the value to be converted
-- : Output pointer to int64 where the converted integer value will be stored
-
+- `*pval`: Input PgBenchValue pointer containing the value to be converted
+- `*ival`: Output pointer to int64 where the converted integer value will be stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - rint (rounds double to nearest integer)

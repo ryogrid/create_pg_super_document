@@ -26,9 +26,8 @@ The function uses a switch statement to handle various SP-GiST operation types:
 - **XLOG_SPGIST_VACUUM_REDIRECT**: Vacuum redirect operations
 
 ## Parameters / Member Variables
-- : StringInfo buffer where the formatted description will be appended
-- : XLogReaderState pointer containing the WAL record to be described
-
+- `buf`: StringInfo buffer where the formatted description will be appended
+- `*record`: XLogReaderState pointer containing the WAL record to be described
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData

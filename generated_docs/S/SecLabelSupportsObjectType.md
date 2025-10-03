@@ -18,8 +18,7 @@ This function serves as a filter to validate whether security labels can be appl
 The supported object types include core database objects like tables, views, functions, schemas, roles, and other major database entities. Unsupported types typically include internal system objects, constraints, operators, and auxiliary objects that don't require or benefit from security labeling.
 
 ## Parameters / Member Variables
-- : An  enum value representing the type of PostgreSQL object to check for security label support
-
+- `objtype`: An  enum value representing the type of PostgreSQL object to check for security label support
 ## Dependencies
 - Functions called/Symbols referenced:
   - ObjectType (enum type)

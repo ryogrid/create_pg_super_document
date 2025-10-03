@@ -32,8 +32,7 @@ This function implements the complete English Porter stemming algorithm as defin
 The algorithm uses cursor positioning (z->c) and limit boundaries (z->lb, z->l) to navigate through the string and apply transformations from right to left.
 
 ## Parameters / Member Variables
-- : Pointer to SN_env structure containing the word to be stemmed along with cursor position, string boundaries, and region markers
-
+- `*z`: Pointer to SN_env structure containing the word to be stemmed along with cursor position, string boundaries, and region markers
 ## Dependencies
 - Functions called/Symbols referenced:
   - [r_exception1](../r/r_exception1.md): Handles first set of exceptional words

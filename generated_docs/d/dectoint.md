@@ -16,9 +16,8 @@ dectoint(decimal *np, int *ip)
 The  function is part of PostgreSQL's ECPG (Embedded SQL in C) compatibility library for Informix. It converts a decimal value to an integer by first converting the decimal to PostgreSQL's internal numeric representation, then extracting the integer value. The function handles memory allocation, error checking, and proper cleanup of resources. It provides comprehensive error handling for out-of-memory conditions and numeric overflow scenarios.
 
 ## Parameters / Member Variables
-- : Pointer to the input decimal value to be converted
-- : Pointer to the integer variable where the converted result will be stored
-
+- `*np`: Pointer to the input decimal value to be converted
+- `*ip`: Pointer to the integer variable where the converted result will be stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PGTYPESnumeric_new](../P/PGTYPESnumeric_new.md)

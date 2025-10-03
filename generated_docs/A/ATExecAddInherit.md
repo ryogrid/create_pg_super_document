@@ -18,10 +18,9 @@ The  function implements the core logic for ALTER TABLE INHERIT operations. It p
 The function enforces PostgreSQL's inheritance rules by validating ownership permissions, checking table persistence compatibility, preventing inheritance cycles, and ensuring trigger compatibility. Once all validations pass, it delegates to CreateInheritance to establish the actual inheritance relationship.
 
 ## Parameters / Member Variables
-- : The relation that will inherit from the parent
-- : RangeVar specifying the parent relation to inherit from  
-- : The lock mode to use during the operation
-
+- `child_rel`: The relation that will inherit from the parent
+- `*parent`: RangeVar specifying the parent relation to inherit from
+- `lockmode`: The lock mode to use during the operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_openrv](../t/table_openrv.md)

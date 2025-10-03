@@ -23,15 +23,14 @@ ScanKeyEntryInitialize(ScanKey entry,
 ScanKeyEntryInitialize is the most comprehensive function for initializing ScanKey entries in PostgreSQL. It provides full control over all scan key parameters, making it suitable for complex scanning scenarios where specific flags, subtypes, collations, or custom operators are required. The function handles both valid procedures and special null-search cases (SK_SEARCHNULL/SK_SEARCHNOTNULL), automatically setting up the appropriate function manager information. This function is particularly important for index scanning operations where precise control over search conditions is necessary.
 
 ## Parameters / Member Variables
-- : Pointer to the ScanKey structure to be initialized
-- : Control flags (e.g., SK_SEARCHNULL, SK_SEARCHNOTNULL) that modify scanning behavior
-- : The column number (1-based) of the attribute being scanned
-- : Strategy number indicating the type of comparison operation (e.g., equality, less-than)
-- : OID of the subtype for polymorphic operators, or InvalidOid if not applicable
-- : OID of the collation to use for string comparisons
-- : OID of the comparison function/operator procedure to use
-- : The value to compare against during scanning
-
+- `entry`: Pointer to the ScanKey structure to be initialized
+- `flags`: Control flags (e.g., SK_SEARCHNULL, SK_SEARCHNOTNULL) that modify scanning behavior
+- `attributeNumber`: The column number (1-based) of the attribute being scanned
+- `strategy`: Strategy number indicating the type of comparison operation (e.g., equality, less-than)
+- `subtype`: OID of the subtype for polymorphic operators, or InvalidOid if not applicable
+- `collation`: OID of the collation to use for string comparisons
+- `procedure`: OID of the comparison function/operator procedure to use
+- `argument`: The value to compare against during scanning
 ## Dependencies
 - Functions called/Symbols referenced:
   - RegProcedureIsValid

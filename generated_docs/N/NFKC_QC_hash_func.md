@@ -20,8 +20,7 @@ The function uses the same dual hash approach as NFC_QC_hash_func, with multipli
 Like its NFC counterpart, this function provides constant-time O(1) lookups with no collisions for the predetermined set of NFKC quick check code points, making Unicode text processing highly efficient.
 
 ## Parameters / Member Variables
-- : A pointer to a 4-byte Unicode code point value to be hashed for NFKC quick check lookup
-
+- `*key`: A pointer to a 4-byte Unicode code point value to be hashed for NFKC quick check lookup
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_unicode_norminfo (referenced in surrounding context)

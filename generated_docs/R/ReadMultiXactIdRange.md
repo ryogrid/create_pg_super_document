@@ -18,9 +18,8 @@ ReadMultiXactIdRange is a function that safely retrieves the current range of Mu
 This function is essential for operations that need to understand the valid range of MultiXact IDs, such as during vacuum operations or when determining which MultiXact data can be safely truncated.
 
 ## Parameters / Member Variables
-- : Pointer to MultiXactId variable that will receive the oldest MultiXact ID that may still be referenced
-- : Pointer to MultiXactId variable that will receive the next MultiXact ID to be assigned
-
+- `*oldest`: Pointer to MultiXactId variable that will receive the oldest MultiXact ID that may still be referenced
+- `*next`: Pointer to MultiXactId variable that will receive the next MultiXact ID to be assigned
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockAcquire](../L/LWLockAcquire.md) (with MultiXactGenLock, LW_SHARED)

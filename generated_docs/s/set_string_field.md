@@ -18,10 +18,9 @@ The  function provides a memory-safe way to update string fields within PostgreS
 This function is part of the internal GUC (Grand Unified Configuration) infrastructure that manages PostgreSQL's configuration parameters. It's designed to handle the complexity of string parameter management where values may be shared across different configuration states or stack levels.
 
 ## Parameters / Member Variables
-- : Pointer to the config_string structure representing the string GUC configuration item
-- : Pointer to the char* field that will be updated with the new value  
-- : The new string value to assign to the field
-
+- `*conf`: Pointer to the config_string structure representing the string GUC configuration item
+- `**field`: Pointer to the char* field that will be updated with the new value
+- `*newval`: The new string value to assign to the field
 ## Dependencies
 - Functions called/Symbols referenced:
   - [string_field_used](string_field_used.md) (checks if old value is still referenced)

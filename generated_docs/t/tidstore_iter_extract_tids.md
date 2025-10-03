@@ -23,10 +23,9 @@ This function processes a BlocktableEntry (which represents a page in the TidSto
 The function dynamically expands the output buffer if needed when processing bitmap words to ensure sufficient space for all extracted offsets.
 
 ## Parameters / Member Variables
-- : Pointer to the TidStoreIter containing the output structure to populate
-- : Block number associated with the TIDs being extracted
-- : Pointer to the BlocktableEntry containing the TID offset data
-
+- `*iter`: Pointer to the TidStoreIter containing the output structure to populate
+- `blkno`: Block number associated with the TIDs being extracted
+- `*page`: Pointer to the BlocktableEntry containing the TID offset data
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TidStoreIter](../T/TidStoreIter.md) (iterator structure type)

@@ -19,6 +19,7 @@ The function ensures that no error message queue connections remain active when 
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [shm_mq_detach](../s/shm_mq_detach.md) (detach from shared message queue)

@@ -18,10 +18,9 @@ This function writes a numeric value into a tar header field using the appropria
 The function calculates whether the value fits in octal by checking if it's less than 2^((len-1)*3), which represents the maximum value that can be stored in (len-1) octal digits. If it fits, it uses octal format; otherwise, it uses the GNU binary format.
 
 ## Parameters / Member Variables
-- : Pointer to the character buffer where the formatted number will be written
-- : Length of the field in the tar header (number of bytes available)
-- : The 64-bit unsigned integer value to be formatted and written
-
+- `*s`: Pointer to the character buffer where the formatted number will be written
+- `len`: Length of the field in the tar header (number of bytes available)
+- `val`: The 64-bit unsigned integer value to be formatted and written
 ## Dependencies
 - Functions called/Symbols referenced: None (uses only basic bit operations and character manipulation)
 - Called from (representative examples):

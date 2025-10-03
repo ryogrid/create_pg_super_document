@@ -18,9 +18,8 @@ This function determines if one box (contained_box) is completely contained with
 The function uses the BOX data structure which represents a rectangular box with low and high coordinate points in 2D space.
 
 ## Parameters / Member Variables
-- : Pointer to the BOX that potentially contains the other box
-- : Pointer to the BOX that is being tested for containment
-
+- `*contains_box`: Pointer to the BOX that potentially contains the other box
+- `*contained_box`: Pointer to the BOX that is being tested for containment
 ## Dependencies
 - Functions called/Symbols referenced:
   - [FPge](../F/FPge.md) (floating-point greater than or equal comparison)

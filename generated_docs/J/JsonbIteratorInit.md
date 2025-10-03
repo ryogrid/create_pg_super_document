@@ -18,8 +18,7 @@ JsonbIteratorInit serves as the entry point for creating an iterator over a Json
 The iterator created by this function allows sequential access to all elements within the container, handling the complexity of nested structures internally. The iterator maintains state information necessary for depth-first traversal and proper memory management during iteration.
 
 ## Parameters / Member Variables
-- : Pointer to the JsonbContainer structure to be iterated over
-
+- `*container`: Pointer to the JsonbContainer structure to be iterated over
 ## Dependencies
 - Functions called/Symbols referenced:
   - [iteratorFromContainer](../i/iteratorFromContainer.md)

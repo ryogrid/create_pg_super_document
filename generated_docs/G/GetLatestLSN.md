@@ -18,8 +18,7 @@ This static function determines the highest LSN that the WAL summarizer can safe
 During normal operation, it returns the flush position. During recovery, the logic is more complex because it must handle various recovery scenarios including crash recovery, streaming replication, and archive recovery. The function implements special handling for the transition period when recovery is ending but the database hasn't yet been marked as in production.
 
 ## Parameters / Member Variables
-- : Output parameter - pointer to TimeLineID that will be set to the timeline corresponding to the returned LSN
-
+- `*tli`: Output parameter - pointer to TimeLineID that will be set to the timeline corresponding to the returned LSN
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RecoveryInProgress](../R/RecoveryInProgress.md)

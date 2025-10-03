@@ -26,7 +26,6 @@ The function performs the following operations:
 If any parsing errors occur, the function continues processing the remaining lines to report multiple errors, but ultimately returns false and cleans up all allocated memory. The function is designed to be non-fatal - if the ident file cannot be loaded, PostgreSQL will simply not perform any special identity mappings.
 
 ## Parameters / Member Variables
-This function takes no parameters and returns a boolean indicating success or failure.
 
 ## Dependencies
 - Functions called/Symbols referenced:

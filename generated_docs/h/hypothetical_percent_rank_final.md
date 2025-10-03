@@ -18,8 +18,7 @@ This function implements the final phase of the percent_rank() ordered-set aggre
 The function handles the special case where there are no regular rows by returning 0.0, indicating that the hypothetical row would be at the 0th percentile (no rows would be less than it).
 
 ## Parameters / Member Variables
-- : Function call information structure containing the aggregate state and hypothetical row values
-
+- `PG_FUNCTION_ARGS`: Function call information structure containing the aggregate state and hypothetical row values
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hypothetical_rank_common](hypothetical_rank_common.md): Computes the rank position of the hypothetical row

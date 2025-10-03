@@ -25,10 +25,9 @@ The function works by:
 6. Handling optional post-processing of result files
 
 ## Parameters / Member Variables
-- : Name of the test to execute
-- : Function pointer to start the test process, returns PID and populates file lists
-- : Optional function pointer for post-processing result files
-
+- `*test`: Name of the test to execute
+- `startfunc`: Function pointer to start the test process, returns PID and populates file lists
+- `postfunc`: Optional function pointer for post-processing result files
 ## Dependencies
 - Functions called/Symbols referenced:
   - INSTR_TIME_SET_CURRENT (timing measurement)

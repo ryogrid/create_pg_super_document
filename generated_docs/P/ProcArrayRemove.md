@@ -24,9 +24,8 @@ The function performs several cleanup operations:
 4. Maintains the integrity of parallel arrays (xids, subxidStates, statusFlags)
 
 ## Parameters / Member Variables
-- : Pointer to the PGPROC structure to be removed from the shared array
-- : Transaction ID of the transaction being removed (InvalidTransactionId if not a live 2PC transaction)
-
+- `*proc`: Pointer to the PGPROC structure to be removed from the shared array
+- `latestXid`: Transaction ID of the transaction being removed (InvalidTransactionId if not a live 2PC transaction)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockAcquire](../L/LWLockAcquire.md)

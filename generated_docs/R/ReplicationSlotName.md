@@ -18,9 +18,8 @@ ReplicationSlotName provides a thread-safe way to retrieve the name of a replica
 The function includes a warning about Time-of-Check-Time-of-Use (TOCTOU) issues, noting that it's primarily intended for use by pgstat_replslot.c during shutdown when such race conditions are less of a concern.
 
 ## Parameters / Member Variables
-- : The zero-based index of the slot in the replication slots array
-- : Output parameter - a Name structure that will receive the slot name if the slot is in use
-
+- `index`: The zero-based index of the slot in the replication slots array
+- `name`: Output parameter - a Name structure that will receive the slot name if the slot is in use
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease with LW_SHARED

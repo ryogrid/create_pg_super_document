@@ -28,9 +28,8 @@ The  function converts individual constraint definitions into corresponding inde
 The function performs extensive validation to ensure constraint semantics are preserved and generates appropriate IndexStmt and AlterTableCmd nodes.
 
 ## Parameters / Member Variables
-- : The Constraint node representing the UNIQUE, PRIMARY KEY, or EXCLUDE constraint to transform
-- : The CreateStmtContext containing table definition information, existing columns, and action lists
-
+- `*constraint`: The Constraint node representing the UNIQUE, PRIMARY KEY, or EXCLUDE constraint to transform
+- `*cxt`: The CreateStmtContext containing table definition information, existing columns, and action lists
 ## Dependencies
 - Functions called/Symbols referenced:
   - [index_open](../i/index_open.md) (opens existing index for validation)

@@ -28,14 +28,13 @@ Key responsibilities include:
 - Free space map maintenance
 
 ## Parameters / Member Variables
-- : The BRIN index relation where the tuple will be inserted
-- : Number of heap pages covered by each BRIN tuple
-- : Reverse mapping structure for heap block to index tuple lookups
-- : Pointer to buffer that may be used for insertion (may be updated)
-- : Starting heap block number for the range this tuple summarizes
-- : Pointer to the BRIN tuple to be inserted
-- : Size of the tuple being inserted (must be MAXALIGN'd)
-
+- `idxrel`: The BRIN index relation where the tuple will be inserted
+- `pagesPerRange`: Number of heap pages covered by each BRIN tuple
+- `*revmap`: Reverse mapping structure for heap block to index tuple lookups
+- `*buffer`: Pointer to buffer that may be used for insertion (may be updated)
+- `heapBlk`: Starting heap block number for the range this tuple summarizes
+- `*tup`: Pointer to the BRIN tuple to be inserted
+- `itemsz`: Size of the tuple being inserted (must be MAXALIGN'd)
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Extends revmap to cover the required heap block

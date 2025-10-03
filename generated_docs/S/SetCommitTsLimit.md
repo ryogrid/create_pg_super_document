@@ -24,9 +24,8 @@ The function operates with careful logic to avoid overwriting existing limits th
 This conservative approach ensures that the valid range can only shrink, never expand inappropriately, which is critical for data consistency.
 
 ## Parameters / Member Variables
-- : The oldest transaction ID for which commit timestamp data should be considered valid
-- : The newest transaction ID for which commit timestamp data should be considered valid
-
+- `oldestXact`: The oldest transaction ID for which commit timestamp data should be considered valid
+- `newestXact`: The newest transaction ID for which commit timestamp data should be considered valid
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockAcquire](../L/LWLockAcquire.md) (CommitTsLock, LW_EXCLUSIVE)

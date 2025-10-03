@@ -23,19 +23,18 @@ This function is part of the  command-line utility and handles the "--all" optio
 The function respects the hierarchy of reindexing operations and ensures that more specific operations (indexes, tables, schemas) take precedence over general database-wide reindexing. It also handles concurrent reindexing options and can optionally move indexes to a different tablespace during the reindex operation.
 
 ## Parameters / Member Variables
-- : Connection parameters structure containing database connection information
-- : Name of the program (typically "reindexdb") for error messages and output
-- : If true, echo the SQL commands being executed to stdout
-- : If true, suppress informational output messages
-- : If true, provide detailed progress information
-- : If true, perform reindexing concurrently (non-blocking)
-- : Number of concurrent connections to use for parallel operations
-- : Optional tablespace name to move indexes to during reindexing
-- : If true, reindex system catalogs
-- : List of specific schemas to reindex
-- : List of specific tables to reindex  
-- : List of specific indexes to reindex
-
+- `*cparams`: Connection parameters structure containing database connection information
+- `*progname`: Name of the program (typically "reindexdb") for error messages and output
+- `echo`: If true, echo the SQL commands being executed to stdout
+- `quiet`: If true, suppress informational output messages
+- `verbose`: If true, provide detailed progress information
+- `concurrently`: If true, perform reindexing concurrently (non-blocking)
+- `concurrentCons`: Number of concurrent connections to use for parallel operations
+- `*tablespace`: Optional tablespace name to move indexes to during reindexing
+- `syscatalog`: If true, reindex system catalogs
+- `*schemas`: List of specific schemas to reindex
+- `*tables`: List of specific tables to reindex
+- `*indexes`: List of specific indexes to reindex
 ## Dependencies
 - Functions called/Symbols referenced:
   - [connectMaintenanceDatabase](../c/connectMaintenanceDatabase.md)

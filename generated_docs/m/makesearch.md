@@ -31,9 +31,8 @@ The  function converts a standard NFA (Non-deterministic Finite Automaton) into 
 This transformation is essential for regex engines that need to find patterns anywhere within input text while maintaining correct backtracking behavior.
 
 ## Parameters / Member Variables
-- : Pointer to vars structure containing regex compilation context and character map
-- : Pointer to the NFA structure to be transformed (must already be optimized)
-
+- `*v`: Pointer to vars structure containing regex compilation context and character map
+- `*nfa`: Pointer to the NFA structure to be transformed (must already be optimized)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Adds arcs for all characters in colormap

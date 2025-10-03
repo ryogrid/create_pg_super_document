@@ -21,8 +21,7 @@ The function immediately raises an ERROR with the message "ExecReScanModifyTable
 3. The semantics of what "rescanning" a modification operation should mean are unclear and potentially dangerous
 
 ## Parameters / Member Variables
-- : ModifyTableState structure (parameter present for interface compliance but not used)
-
+- `*node`: ModifyTableState structure (parameter present for interface compliance but not used)
 ## Dependencies
 - Functions called/Symbols referenced:
   - elog (for error reporting)

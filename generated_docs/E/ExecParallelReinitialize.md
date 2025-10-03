@@ -35,10 +35,9 @@ Key optimizations include:
 This approach is more efficient than complete teardown and recreation, especially for queries that require multiple rounds of parallel execution.
 
 ## Parameters / Member Variables
-- : Root plan state node for the parallel execution tree
-- : ParallelExecutorInfo containing shared memory state and worker infrastructure
-- : Bitmapset specifying which execution parameters to pass to new workers
-
+- `*planstate`: Root plan state node for the parallel execution tree
+- `*pei`: ParallelExecutorInfo containing shared memory state and worker infrastructure
+- `*sendParams`: Bitmapset specifying which execution parameters to pass to new workers
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecSetParamPlanMulti](ExecSetParamPlanMulti.md) (re-evaluate initplan parameters)

@@ -27,8 +27,7 @@ The conflict detection logic ensures that:
 - Conflicts are only flagged if they don't already exist
 
 ## Parameters / Member Variables
-- : A pointer to PREDICATELOCKTARGETTAG structure identifying the specific target (relation, page, or tuple) to check for conflicts
-
+- `*targettag`: A pointer to PREDICATELOCKTARGETTAG structure identifying the specific target (relation, page, or tuple) to check for conflicts
 ## Dependencies
 - Functions called/Symbols referenced:
   - PredicateLockTargetTagHashCode

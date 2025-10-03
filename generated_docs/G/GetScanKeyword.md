@@ -18,9 +18,8 @@ GetScanKeyword provides a simple and efficient way to access keyword strings fro
 The function is implemented as a static inline function for optimal performance, as it's frequently used during keyword lookup operations in PostgreSQL's lexical analysis phase.
 
 ## Parameters / Member Variables
-- : The zero-based index of the keyword to retrieve
-- : Pointer to a ScanKeywordList structure containing the keyword data
-
+- `n`: The zero-based index of the keyword to retrieve
+- `*keywords`: Pointer to a ScanKeywordList structure containing the keyword data
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ScanKeywordList](../S/ScanKeywordList.md) (struct type)

@@ -20,13 +20,12 @@ This function implements scan key optimization by comparing array scan keys with
 The function handles different comparison strategies (less than, equal, greater than, etc.) and can work with cross-type comparisons when the array and scalar values have different but compatible types. It uses binary search to efficiently locate matching elements in the sorted array and then applies the appropriate filtering logic based on the scalar scan key's strategy.
 
 ## Parameters / Member Variables
-- : IndexScanDesc containing information about the index scan and relation
-- : ScanKey representing the array scan condition (e.g., "IN" clause)
-- : ScanKey representing the scalar scan condition (e.g., "<", "=", ">" clause)
-- : FmgrInfo structure containing the comparison procedure for ordering
-- : BTArrayKeyInfo structure containing the array elements and metadata
-- : Output parameter indicating whether the resulting qualification is satisfiable
-
+- `scan`: IndexScanDesc containing information about the index scan and relation
+- `arraysk`: ScanKey representing the array scan condition (e.g., "IN" clause)
+- `skey`: ScanKey representing the scalar scan condition (e.g., "<", "=", ">" clause)
+- `*orderproc`: FmgrInfo structure containing the comparison procedure for ordering
+- `*array`: BTArrayKeyInfo structure containing the array elements and metadata
+- `*qual_ok`: Output parameter indicating whether the resulting qualification is satisfiable
 ## Dependencies
 - Functions called/Symbols referenced:
   - [IndexScanDesc](../I/IndexScanDesc.md)

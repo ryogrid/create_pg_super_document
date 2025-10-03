@@ -23,10 +23,9 @@ The function follows a simple three-step process:
 This encapsulation ensures proper file lifecycle management and is used primarily for handling stream-related operations like prepare, abort, and commit messages.
 
 ## Parameters / Member Variables
-- : TransactionId of the transaction for which the message is being serialized
-- : Character representing the type of action/message being written
-- : StringInfo containing the serialized message data to be written to the file
-
+- `xid`: TransactionId of the transaction for which the message is being serialized
+- `action`: Character representing the type of action/message being written
+- `s`: StringInfo containing the serialized message data to be written to the file
 ## Dependencies
 - Functions called/Symbols referenced:
   - [stream_start_internal](stream_start_internal.md) (opens the stream file)

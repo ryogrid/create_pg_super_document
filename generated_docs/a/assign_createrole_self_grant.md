@@ -26,9 +26,8 @@ The function specifically handles three role grant options:
 - **SET**: Set based on the GRANT_ROLE_SPECIFIED_SET flag in the options
 
 ## Parameters / Member Variables
-- : The new string value of the GUC parameter (not directly used in this function)
-- : A pointer to parsed configuration data containing option flags as an unsigned integer
-
+- `*newval`: The new string value of the GUC parameter (not directly used in this function)
+- `*extra`: A pointer to parsed configuration data containing option flags as an unsigned integer
 ## Dependencies
 - Functions called/Symbols referenced:
   - GRANT_ROLE_SPECIFIED_ADMIN (constant)

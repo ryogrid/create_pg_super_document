@@ -22,11 +22,10 @@ The function implements a progressive approach: it first attempts to wait for tr
 The function includes sophisticated timing and reporting logic, tracking wait times and providing visibility into recovery conflicts through both process status display and detailed logging when conflicts persist beyond the deadlock timeout threshold.
 
 ## Parameters / Member Variables
-- : Array of VirtualTransactionId structures representing the transactions that need to be resolved
-- : ProcSignalReason indicating the type of signal to send when canceling transactions
-- : Wait event information for monitoring and reporting purposes
-- : Boolean flag controlling whether this function should report waiting status in PS display and logs
-
+- `*waitlist`: Array of VirtualTransactionId structures representing the transactions that need to be resolved
+- `reason`: ProcSignalReason indicating the type of signal to send when canceling transactions
+- `wait_event_info`: Wait event information for monitoring and reporting purposes
+- `report_waiting`: Boolean flag controlling whether this function should report waiting status in PS display and logs
 ## Dependencies
 - Functions called/Symbols referenced:
   - VirtualTransactionIdIsValid

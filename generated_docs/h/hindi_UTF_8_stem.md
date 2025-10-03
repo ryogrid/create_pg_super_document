@@ -17,8 +17,7 @@ extern int hindi_UTF_8_stem(struct SN_env * z)
 This is the primary entry point for Hindi word stemming in PostgreSQL's text search functionality. The function processes Hindi text encoded in UTF-8 by removing common suffixes to reduce words to their stem forms. It operates on a Snowball environment structure containing the input text and maintains cursor positions during processing. The algorithm works backward from the end of the word, searching for known suffix patterns in the  array (containing 132 Hindi suffix patterns) and removes the matched suffix. This enables better text search by matching different inflected forms of the same word.
 
 ## Parameters / Member Variables
-- : Pointer to the Snowball environment structure containing:
-
+- `*z`: Pointer to the Snowball environment structure containing:
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Advances cursor by one UTF-8 character

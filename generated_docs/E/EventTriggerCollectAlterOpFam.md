@@ -21,11 +21,10 @@ The function creates a CollectedCommand structure with type SCT_AlterOpFamily an
 The collected data includes the specific operator family being modified (identified by its OID), the lists of operators and procedures being added or dropped, and a deep copy of the parse tree representing the original ALTER OPERATOR FAMILY statement.
 
 ## Parameters / Member Variables
-- : Pointer to an AlterOpFamilyStmt structure representing the parsed ALTER OPERATOR FAMILY command
-- : OID of the operator family being modified
-- : List of operators being added to or dropped from the operator family
-- : List of support procedures being added to or dropped from the operator family
-
+- `*stmt`: Pointer to an AlterOpFamilyStmt structure representing the parsed ALTER OPERATOR FAMILY command
+- `opfamoid`: OID of the operator family being modified
+- `*operators`: List of operators being added to or dropped from the operator family
+- `*procedures`: List of support procedures being added to or dropped from the operator family
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Memory context switching

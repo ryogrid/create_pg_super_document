@@ -25,9 +25,8 @@ This function is commonly used throughout the executor when multiple expressions
 The function maintains a one-to-one correspondence between input expressions and output ExprStates, making it easy for callers to correlate compiled expressions with their original sources.
 
 ## Parameters / Member Variables
-- : A List of Expr nodes to be compiled. Each element should be a valid expression node.
-- : The PlanState node that will own all the compiled expressions. This is passed through to each ExecInitExpr call.
-
+- `*nodes`: A List of Expr nodes to be compiled. Each element should be a valid expression node.
+- `*parent`: The PlanState node that will own all the compiled expressions. This is passed through to each ExecInitExpr call.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecInitExpr](ExecInitExpr.md) (compiles each individual expression)

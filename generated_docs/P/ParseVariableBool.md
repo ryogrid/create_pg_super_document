@@ -18,10 +18,9 @@ This function attempts to interpret a string value as a boolean and stores the p
 Special handling is implemented for "on" and "off" values where a minimum of 2 characters is required for matching to avoid ambiguity with single character "o". The function treats NULL input as an empty string, which results in a parsing error. When parsing fails, the original value in the result parameter is preserved, and an error message is optionally logged.
 
 ## Parameters / Member Variables
-- : The string value to parse as a boolean. NULL is treated as an empty string
-- : The name of the variable being assigned (used for error reporting). Pass NULL to suppress error messages
-- : Pointer to bool where the parsed result will be stored. Only modified on successful parsing
-
+- `*value`: The string value to parse as a boolean. NULL is treated as an empty string
+- `*name`: The name of the variable being assigned (used for error reporting). Pass NULL to suppress error messages
+- `*result`: Pointer to bool where the parsed result will be stored. Only modified on successful parsing
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_strncasecmp](../p/pg_strncasecmp.md) (PostgreSQL case-insensitive string comparison)

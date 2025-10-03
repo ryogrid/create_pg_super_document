@@ -18,11 +18,10 @@ make_inh_translation_list(Relation oldrelation, Relation newrelation,
 This function constructs the essential column mapping infrastructure needed for inheritance processing. It creates a list of Var nodes that translate parent table references to child table references, and a reverse-mapping array that maps child columns back to their parent equivalents. The function handles column name matching, type validation, and deals with dropped columns and schema differences between parent and child relations. It performs type and collation verification to ensure inheritance consistency.
 
 ## Parameters / Member Variables
-- : The parent relation (source of the translation)
-- : The child relation (target of the translation)  
-- : Range table index for the new (child) relation
-- : AppendRelInfo structure to populate with translation data
-
+- `oldrelation`: The parent relation (source of the translation)
+- `newrelation`: The child relation (target of the translation)
+- `newvarno`: Range table index for the new (child) relation
+- `*appinfo`: AppendRelInfo structure to populate with translation data
 ## Dependencies
 - Functions called/Symbols referenced:
   - [makeVar](makeVar.md) (creates Var nodes for column references)

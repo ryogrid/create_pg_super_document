@@ -18,8 +18,7 @@ ReleaseGenericPlan is a static utility function that safely releases the generic
 The function plays a crucial role in memory management for cached plans, particularly during plan invalidation, source destruction, or when transitioning plans to different memory contexts.
 
 ## Parameters / Member Variables
-- : The CachedPlanSource whose generic plan should be released
-
+- `*plansource`: The CachedPlanSource whose generic plan should be released
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CachedPlan](../C/CachedPlan.md)

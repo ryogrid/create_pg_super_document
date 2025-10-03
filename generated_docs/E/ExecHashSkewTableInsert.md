@@ -25,11 +25,10 @@ A key responsibility of this function is memory management. It tracks both total
 The function matches the behavior of the current-batch case in ExecHashTableInsert but is specialized for skew bucket insertion.
 
 ## Parameters / Member Variables
-- : The HashJoinTable containing the skew buckets and memory tracking information
-- : TupleTableSlot containing the tuple data to be inserted
-- : The 32-bit hash value of the tuple (for verification and storage)
-- : Index of the specific skew bucket to insert the tuple into
-
+- `hashtable`: The HashJoinTable containing the skew buckets and memory tracking information
+- `*slot`: TupleTableSlot containing the tuple data to be inserted
+- `hashvalue`: The 32-bit hash value of the tuple (for verification and storage)
+- `bucketNumber`: Index of the specific skew bucket to insert the tuple into
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecFetchSlotMinimalTuple](ExecFetchSlotMinimalTuple.md) (extracts compact tuple representation)

@@ -16,9 +16,8 @@ cash_mi_cash(Cash c1, Cash c2)
 The  function provides safe subtraction of two Cash values (64-bit signed integers representing monetary amounts). It uses PostgreSQL's overflow-safe arithmetic function  to detect integer underflow conditions that could occur during subtraction. If an overflow/underflow would occur, the function reports a "money out of range" error using PostgreSQL's error reporting mechanism. This ensures that monetary calculations remain within valid bounds and prevents silent arithmetic errors that could corrupt financial data.
 
 ## Parameters / Member Variables
-- : Cash value to subtract from (minuend)
-- : Cash value to subtract (subtrahend)
-
+- `c1`: Cash value to subtract from (minuend)
+- `c2`: Cash value to subtract (subtrahend)
 ## Dependencies
 - Functions called/Symbols referenced:
   - Cash (type)

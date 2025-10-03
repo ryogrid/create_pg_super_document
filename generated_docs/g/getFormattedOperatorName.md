@@ -18,8 +18,7 @@ This function takes an operator OID in string form and returns a formatted opera
 The function performs OID validation and operator lookup, returning NULL for invalid references or if the operator cannot be found. It uses the internal operator information structures to construct the properly formatted name.
 
 ## Parameters / Member Variables
-- : String representation of the operator OID to look up and format
-
+- `*oproid`: String representation of the operator OID to look up and format
 ## Dependencies
 - Functions called/Symbols referenced:
   - strcmp (for string comparison)

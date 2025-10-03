@@ -20,12 +20,11 @@ This function provides a table access method interface for estimating relation s
 The estimates provided by this function are used by PostgreSQL's query planner to make informed decisions about join strategies, index usage, and other optimization choices. Different access methods may have varying approaches to calculating these estimates based on their internal metadata and storage organization.
 
 ## Parameters / Member Variables
-- : A Relation pointer representing the table relation whose size is being estimated
-- : Array of int32 values representing the average width of each attribute (input parameter for estimation)
-- : Pointer to BlockNumber where the estimated number of pages will be stored (output parameter)
-- : Pointer to double where the estimated number of tuples will be stored (output parameter)
-- : Pointer to double where the estimated fraction of all-visible pages will be stored (output parameter)
-
+- `rel`: A Relation pointer representing the table relation whose size is being estimated
+- `*attr_widths`: Array of int32 values representing the average width of each attribute (input parameter for estimation)
+- `*pages`: Pointer to BlockNumber where the estimated number of pages will be stored (output parameter)
+- `*tuples`: Pointer to double where the estimated number of tuples will be stored (output parameter)
+- `*allvisfrac`: Pointer to double where the estimated fraction of all-visible pages will be stored (output parameter)
 ## Dependencies
 - Functions called/Symbols referenced:
   - rel->rd_tableam->relation_estimate_size (table access method function pointer)

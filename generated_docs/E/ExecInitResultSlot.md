@@ -16,9 +16,8 @@ ExecInitResultSlot(PlanState *planstate, const TupleTableSlotOps *tts_ops)
 ExecInitResultSlot is a convenience function that sets up the result tuple slot for a given plan node. It allocates a new TupleTableSlot using ExecAllocTableSlot and assigns it to the planstate's ps_ResultTupleSlot field. The function also configures the tuple slot operations and tracks whether the result operations are fixed based on whether a result tuple descriptor is available. This is part of the tuple slot initialization infrastructure that supports PostgreSQL's execution engine.
 
 ## Parameters / Member Variables
-- : Pointer to the PlanState structure that needs its result slot initialized
-- : Pointer to TupleTableSlotOps structure defining the operations for the tuple slot
-
+- `*planstate`: Pointer to the PlanState structure that needs its result slot initialized
+- `*tts_ops`: Pointer to TupleTableSlotOps structure defining the operations for the tuple slot
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecAllocTableSlot](ExecAllocTableSlot.md): Creates and adds the tuple slot to the tuple table

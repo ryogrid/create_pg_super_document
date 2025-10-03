@@ -22,7 +22,6 @@ The environment created by this function contains:
 - Language-specific stemming state
 
 ## Parameters / Member Variables
-This function takes no parameters and returns a configured SN_env structure.
 
 ## Dependencies
 - Functions called/Symbols referenced:

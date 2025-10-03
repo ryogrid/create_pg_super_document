@@ -16,9 +16,8 @@ ResourceOwnerRememberDSM(ResourceOwner owner, dsm_segment *seg)
 This function is a simple wrapper around the generic ResourceOwnerRemember() function, specifically designed for DSM segments. It registers a DSM segment with the PostgreSQL resource management system, ensuring that the segment will be automatically cleaned up if the owning transaction aborts or the process exits unexpectedly. The function uses the dsm_resowner_desc descriptor to provide DSM-specific cleanup behavior through the resource owner framework.
 
 ## Parameters / Member Variables
-- : The ResourceOwner that will track this DSM segment for cleanup purposes
-- : Pointer to the dsm_segment structure to be registered with the resource owner
-
+- `owner`: The ResourceOwner that will track this DSM segment for cleanup purposes
+- `*seg`: Pointer to the dsm_segment structure to be registered with the resource owner
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ResourceOwnerRemember](ResourceOwnerRemember.md)

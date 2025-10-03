@@ -23,11 +23,10 @@ This function adjusts the namespace visibility in the parser state to ensure tha
 The function explicitly makes the appropriate relations visible in the namespace to allow unqualified column references, overriding any hiding that might occur due to internal join nodes.
 
 ## Parameters / Member Variables
-- : Parser state containing the current parsing context and namespace information
-- : The specific MERGE WHEN clause being processed, containing match type and command information
-- : Range table index of the target relation in the MERGE statement
-- : Range table index of the source relation in the MERGE statement
-
+- `*pstate`: Parser state containing the current parsing context and namespace information
+- `*mergeWhenClause`: The specific MERGE WHEN clause being processed, containing match type and command information
+- `targetRTI`: Range table index of the target relation in the MERGE statement
+- `sourceRTI`: Range table index of the source relation in the MERGE statement
 ## Dependencies
 - Functions called/Symbols referenced:
   - rt_fetch

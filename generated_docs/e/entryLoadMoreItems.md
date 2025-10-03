@@ -21,10 +21,9 @@ The function handles complex scenarios including page splits, concurrent deletio
 The function maintains proper buffer management by pinning pages to prevent vacuum interference while unlocking them to avoid blocking other operations. It copies items from pages into the entry's local list array, enabling continued processing even after releasing page locks.
 
 ## Parameters / Member Variables
-- : Pointer to GIN state containing index metadata and configuration
-- : GIN scan entry being processed, containing buffer, position, and item list state
-- : Item pointer indicating the position to advance beyond when loading new items
-
+- `*ginstate`: Pointer to GIN state containing index metadata and configuration
+- `entry`: GIN scan entry being processed, containing buffer, position, and item list state
+- `advancePast`: Item pointer indicating the position to advance beyond when loading new items
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ginCompareItemPointers](../g/ginCompareItemPointers.md)

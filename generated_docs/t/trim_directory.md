@@ -20,8 +20,7 @@ The function is designed to work robustly across different platforms and handles
 For the convenience of , the function returns a pointer to the new end location of the string.
 
 ## Parameters / Member Variables
-- : Input/output string containing the file path to be modified in-place (must be writable)
-
+- `*path`: Input/output string containing the file path to be modified in-place (must be writable)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [skip_drive](../s/skip_drive.md)

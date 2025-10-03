@@ -20,7 +20,6 @@ The function starts from the most recently used VFD (obtained from VfdCache[0].l
 This function is primarily used for debugging VFD cache management issues and understanding the current state of the LRU ordering when problems occur.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -16,8 +16,7 @@ get_compress_algorithm_name(pg_compress_algorithm algorithm)
 The  function performs the inverse operation of  by converting a  enumeration value back to its string representation. It uses a switch statement to map each compression algorithm constant to its corresponding name string. The function includes an assertion to catch unexpected enumeration values during development and returns a placeholder string ("???") to satisfy compiler requirements.
 
 ## Parameters / Member Variables
-- : A  enumeration value specifying which compression algorithm name to retrieve
-
+- `algorithm`: A  enumeration value specifying which compression algorithm name to retrieve
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (enumeration type)

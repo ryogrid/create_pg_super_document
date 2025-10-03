@@ -26,8 +26,7 @@ The function uses a comprehensive switch statement to handle all descriptor item
 - Octet length measurements
 
 ## Parameters / Member Variables
-- : An ECPGdtype enumeration value representing a specific descriptor item type
-
+- `itemcode`: An ECPGdtype enumeration value representing a specific descriptor item type
 ## Dependencies
 - Functions called/Symbols referenced:
   - enum ECPGdtype (enumeration type for descriptor items)

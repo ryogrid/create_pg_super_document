@@ -16,10 +16,9 @@ find_simplified_clause(PlannerInfo *root, Expr *rangeExpr, Expr *elemExpr)
 This function is a core optimization component for PostgreSQL's range type query planning. It analyzes range containment operations (element contained by range, and range contains element) and attempts to transform them into simpler boundary comparisons when the range operand is a non-null constant. The function deserializes the constant range, examines its bounds, and constructs equivalent comparison expressions using the range's lower and/or upper bounds. It includes cost-based optimizations to avoid creating expensive expressions that would evaluate the element expression multiple times, particularly for volatile or computationally expensive expressions.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planning context and cost parameters
-- : Expression representing the range operand (must be a constant for optimization)
-- : Expression representing the element to test for containment
-
+- `*root`: PlannerInfo structure containing planning context and cost parameters
+- `*rangeExpr`: Expression representing the range operand (must be a constant for optimization)
+- `*elemExpr`: Expression representing the element to test for containment
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DatumGetRangeTypeP](../D/DatumGetRangeTypeP.md)

@@ -18,9 +18,8 @@ This static function serves as a comparison function for list_sort to order appe
 The function implements a multi-level comparison strategy: first by startup cost (descending), then falls back to total cost comparison if startup costs are equal, and finally uses relids comparison to ensure deterministic results.
 
 ## Parameters / Member Variables
-- : First ListCell containing a Path pointer for comparison
-- : Second ListCell containing a Path pointer for comparison
-
+- `*a`: First ListCell containing a Path pointer for comparison
+- `*b`: Second ListCell containing a Path pointer for comparison
 ## Dependencies
 - Functions called/Symbols referenced:
   - [compare_path_costs](../c/compare_path_costs.md) (with STARTUP_COST flag)

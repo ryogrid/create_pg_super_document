@@ -18,6 +18,7 @@ GetRecoveryState is a thread-safe function that retrieves the current recovery s
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - SpinLockAcquire (on XLogCtl->info_lck)

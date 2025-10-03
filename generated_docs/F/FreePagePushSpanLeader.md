@@ -24,10 +24,9 @@ This static function creates and initializes a new FreePageSpanLeader structure 
 The function is part of PostgreSQL's free page management system, which organizes available memory pages into multiple free lists based on span size for efficient allocation and deallocation.
 
 ## Parameters / Member Variables
-- : Pointer to the FreePageManager structure that manages the free page lists
-- : The page number of the first page in the span to be added to the free list
-- : The number of contiguous pages in this free span
-
+- `*fpm`: Pointer to the FreePageManager structure that manages the free page lists
+- `first_page`: The page number of the first page in the span to be added to the free list
+- `npages`: The number of contiguous pages in this free span
 ## Dependencies
 - Functions called/Symbols referenced:
   - fpm_segment_base

@@ -28,10 +28,9 @@ The function performs early exit optimizations:
 - Sets MyXactDidWrite flag to remember that this transaction has performed writes
 
 ## Parameters / Member Variables
-- : The relation being modified in the write operation
-- : Item pointer to the specific tuple being written (NULL if not tuple-specific)
-- : Block number of the page being written (InvalidBlockNumber if not page-specific)
-
+- `relation`: The relation being modified in the write operation
+- `tid`: Item pointer to the specific tuple being written (NULL if not tuple-specific)
+- `blkno`: Block number of the page being written (InvalidBlockNumber if not page-specific)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SerializationNeededForWrite](../S/SerializationNeededForWrite.md)

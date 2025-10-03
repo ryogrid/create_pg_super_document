@@ -16,8 +16,7 @@ pclose_check(FILE *stream)
 This function extends the standard  system call by adding comprehensive error reporting and logging capabilities. It closes a pipe stream created by  and examines the exit status of the child process. When errors occur, it provides detailed error messages using PostgreSQL's logging system, including human-readable descriptions of process termination reasons. The function helps distinguish between  failures and child process failures, making debugging easier.
 
 ## Parameters / Member Variables
-- : File pointer to the pipe stream that should be closed (previously opened with )
-
+- `*stream`: File pointer to the pipe stream that should be closed (previously opened with )
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Standard library function to close pipe and wait for child process

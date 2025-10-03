@@ -25,9 +25,8 @@ The function performs the following operations:
 7. Handles type categories and preferences for operator resolution
 
 ## Parameters / Member Variables
-- : Archive object containing dump configuration and state information
-- : TypeInfo structure containing metadata about the base type to be dumped
-
+- `*fout`: Archive object containing dump configuration and state information
+- `*tyinfo`: TypeInfo structure containing metadata about the base type to be dumped
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecuteSqlStatement](../E/ExecuteSqlStatement.md)

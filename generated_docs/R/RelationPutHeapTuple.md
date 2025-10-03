@@ -25,11 +25,10 @@ This function performs the low-level physical insertion of a heap tuple into a b
 The function includes strict error handling - it must PANIC on failure rather than using EREPORT(ERROR), indicating this is used in contexts where partial failure is not acceptable. The caller must hold BUFFER_LOCK_EXCLUSIVE on the buffer before calling this function.
 
 ## Parameters / Member Variables
-- : The relation (table) where the tuple is being inserted
-- : The buffer containing the target page (caller must hold BUFFER_LOCK_EXCLUSIVE)
-- : The heap tuple to be inserted into the page
-- : Boolean flag indicating whether this is a speculative insertion (token held in CTID field)
-
+- `relation`: The relation (table) where the tuple is being inserted
+- `buffer`: The buffer containing the target page (caller must hold BUFFER_LOCK_EXCLUSIVE)
+- `tuple`: The heap tuple to be inserted into the page
+- `token`: Boolean flag indicating whether this is a speculative insertion (token held in CTID field)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BufferGetPage](../B/BufferGetPage.md)

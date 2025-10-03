@@ -26,8 +26,7 @@ The algorithm works by:
 The time complexity is O(n^2.5) worst case but typically much better in practice. Planning time for a 12-dimensional cube is under half a second.
 
 ## Parameters / Member Variables
-- : Input list of grouping sets, must be sorted with smallest sets first
-
+- `*groupingSets`: Input list of grouping sets, must be sorted with smallest sets first
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BipartiteMatch](../B/BipartiteMatch.md)

@@ -23,9 +23,8 @@ The  function is an internal utility for efficiently sending data to PostgreSQL 
 The function uses PostgreSQL's global send buffer () and maintains buffer state through  and  variables. It switches the socket to blocking mode before flushing to ensure reliable data transmission.
 
 ## Parameters / Member Variables
-- : Pointer to the data bytes to be sent
-- : Number of bytes to send from the data buffer
-
+- `*s`: Pointer to the data bytes to be sent
+- `len`: Number of bytes to send from the data buffer
 ## Dependencies
 - Functions called/Symbols referenced:
   - [socket_set_nonblocking](../s/socket_set_nonblocking.md) (to set socket to blocking mode)

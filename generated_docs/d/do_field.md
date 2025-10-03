@@ -29,19 +29,18 @@ The  function is a core component of PostgreSQL's result formatting system in li
 The function uses sophisticated numeric detection logic that considers digits, decimal points, scientific notation (E/e), spaces, and negative signs while applying additional validation to prevent false positives.
 
 ## Parameters / Member Variables
-- : Print options structure containing formatting preferences (align, expanded, html3, fieldSep)
-- : PostgreSQL result set containing the data to be formatted
-- : Row index in the result set
-- : Column index in the result set
-- : Length of the field separator string
-- : Array to store allocated field values for aligned output
-- : Total number of fields (columns) in the result set
-- : Array of column names for the result set
-- : Array tracking which fields contain non-numeric data
-- : Array tracking maximum field width for each column
-- : Maximum length among all field names
-- : Output file stream for writing formatted results
-
+- `*po`: Print options structure containing formatting preferences (align, expanded, html3, fieldSep)
+- `*res`: PostgreSQL result set containing the data to be formatted
+- `i`: Row index in the result set
+- `j`: Column index in the result set
+- `fs_len`: Length of the field separator string
+- `**fields`: Array to store allocated field values for aligned output
+- `nFields`: Total number of fields (columns) in the result set
+- `**fieldNames`: Array of column names for the result set
+- `*fieldNotNum`: Array tracking which fields contain non-numeric data
+- `*fieldMax`: Array tracking maximum field width for each column
+- `fieldMaxLen`: Maximum length among all field names
+- `*fout`: Output file stream for writing formatted results
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQgetlength](../P/PQgetlength.md)

@@ -21,12 +21,11 @@ This function is the core compression routine for the zstd compressor streamer. 
 The compression is performed iteratively until all input data is processed. The function uses ZSTD_e_continue mode for streaming compression, which allows for efficient processing of data chunks without finalizing the compression stream.
 
 ## Parameters / Member Variables
-- : The bbstreamer instance (cast to bbstreamer_zstd_frame internally)
-- : Information about the current archive member being processed
-- : Pointer to the input data to be compressed
-- : Length of the input data in bytes
-- : Archive context information for the current operation
-
+- `*streamer`: The bbstreamer instance (cast to bbstreamer_zstd_frame internally)
+- `*member`: Information about the current archive member being processed
+- `*data`: Pointer to the input data to be compressed
+- `len`: Length of the input data in bytes
+- `context`: Archive context information for the current operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - ZSTD_compressBound

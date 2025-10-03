@@ -20,10 +20,9 @@ The function serves as a thin wrapper around ExecJustAssignVarVirtImpl, specific
 In query execution, the scan tuple typically represents the current tuple being processed from a table scan or index scan operation. By using this optimized function, PostgreSQL can avoid the overhead of general-purpose tuple slot access mechanisms when it knows the scan tuple will always be stored in a virtual slot format.
 
 ## Parameters / Member Variables
-- : ExprState containing the expression evaluation state and operation steps
-- : Expression context containing tuple slots for inner, outer, and scan tuples
-- : Output parameter that will be set to indicate if the assigned value is NULL
-
+- `*state`: ExprState containing the expression evaluation state and operation steps
+- `*econtext`: Expression context containing tuple slots for inner, outer, and scan tuples
+- `*isnull`: Output parameter that will be set to indicate if the assigned value is NULL
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecJustAssignVarVirtImpl](ExecJustAssignVarVirtImpl.md)

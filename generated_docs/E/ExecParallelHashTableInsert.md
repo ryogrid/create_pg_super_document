@@ -20,10 +20,9 @@ This function manages tuple insertion in parallel hash joins by coordinating sha
 For future batches (batchno > 0), the function uses a preallocation strategy where workers reserve space in shared tuple stores before inserting tuples. This prevents memory fragmentation and ensures consistent allocation patterns across parallel workers. The function integrates with the parallel hash infrastructure including barrier synchronization and shared memory management.
 
 ## Parameters / Member Variables
-- : HashJoinTable containing shared parallel state, bucket arrays, and batch management structures
-- : TupleTableSlot containing the tuple to insert in any supported format (regular, minimal, virtual)
-- : Pre-computed hash value determining the tuple's bucket and batch assignment
-
+- `hashtable`: HashJoinTable containing shared parallel state, bucket arrays, and batch management structures
+- `*slot`: TupleTableSlot containing the tuple to insert in any supported format (regular, minimal, virtual)
+- `hashvalue`: Pre-computed hash value determining the tuple's bucket and batch assignment
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecFetchSlotMinimalTuple](ExecFetchSlotMinimalTuple.md)

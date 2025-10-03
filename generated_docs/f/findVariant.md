@@ -16,12 +16,11 @@ findVariant(LexemeInfo *in, LexemeInfo *stored, uint16 curpos, LexemeInfo **newi
 The  function implements a complex algorithm to find lexeme variants that match specific criteria for thesaurus substitution. It processes arrays of  pointers () to find entries with matching substitution IDs, positions, and variant counts. The function coordinates across multiple lexeme lists to ensure all input words have compatible substitution patterns. It builds a linked list of matching variants by linking them through the  field and returns the head of this list.
 
 ## Parameters / Member Variables
-- : Input linked list of lexeme variants to extend (may be NULL)
-- : Previously stored lexeme information to validate against using 
-- : Current position within the substitution pattern being processed
-- : Array of pointers to  structures representing input lexeme lists
-- : Number of elements in the  array
-
+- `*in`: Input linked list of lexeme variants to extend (may be NULL)
+- `*stored`: Previously stored lexeme information to validate against using
+- `curpos`: Current position within the substitution pattern being processed
+- `**newin`: Array of pointers to  structures representing input lexeme lists
+- `newn`: Number of elements in the  array
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (structure type for lexeme information and variant chaining)

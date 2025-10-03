@@ -27,16 +27,15 @@ This function is responsible for dumping comments for database objects during a 
 The function respects dump options like --no-comments, --data-only, and --schema-only to determine whether comments should be included in the output.
 
 ## Parameters / Member Variables
-- : Archive context for the dump operation
-- : Object type string (e.g., "TABLE", "FUNCTION", "TRIGGER name ON")
-- : Object name ready for printing (without schema decoration)
-- : Schema namespace of the object for labeling
-- : Owner of the object for labeling
-- : Catalog identifier (tableoid and oid) for pg_description lookup
-- : Sub-object identifier for pg_description lookup (0 for main object)
-- : Dump ID for dependency tracking in the output
-- : Expected comment text created by initdb (NULL if none)
-
+- `*fout`: Archive context for the dump operation
+- `*type`: Object type string (e.g., "TABLE", "FUNCTION", "TRIGGER name ON")
+- `*name`: Object name ready for printing (without schema decoration)
+- `*namespace`: Schema namespace of the object for labeling
+- `*owner`: Owner of the object for labeling
+- `catalogId`: Catalog identifier (tableoid and oid) for pg_description lookup
+- `subid`: Sub-object identifier for pg_description lookup (0 for main object)
+- `dumpId`: Dump ID for dependency tracking in the output
+- `*initdb_comment`: Expected comment text created by initdb (NULL if none)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [findComments](../f/findComments.md)

@@ -25,17 +25,16 @@ create_setop_path(PlannerInfo *root,
 This function creates a SetOpPath node that represents the execution of set operations like INTERSECT and EXCEPT (with or without ALL). The function supports two implementation strategies: sorted and hashed. In sorted mode, the input must already be sorted and the output preserves the sort order. In hashed mode, no particular input ordering is required. The cost calculation assumes one cpu_operator_cost per comparison per input tuple across all columns in the distinctList. SetOp operations don't project new columns, so they reuse the source path's pathtarget.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planner state and configuration
-- : RelOptInfo representing the parent relation associated with the result
-- : Path representing the source of input data
-- : SetOpCmd enum specifying the specific semantics (INTERSECT or EXCEPT, with/without ALL)
-- : SetOpStrategy enum indicating implementation strategy (sorted or hashed)
-- : List of SortGroupClause structures representing the grouping columns
-- : AttrNumber indicating the column number where the flag column will be placed, if any
-- : Integer flag value for the first input relation when using hashing strategy, or -1 when sorting
-- : Double representing the estimated number of distinct groups
-- : Double representing the estimated number of output rows
-
+- `*root`: PlannerInfo structure containing planner state and configuration
+- `*rel`: RelOptInfo representing the parent relation associated with the result
+- `*subpath`: Path representing the source of input data
+- `cmd`: SetOpCmd enum specifying the specific semantics (INTERSECT or EXCEPT, with/without ALL)
+- `strategy`: SetOpStrategy enum indicating implementation strategy (sorted or hashed)
+- `*distinctList`: List of SortGroupClause structures representing the grouping columns
+- `flagColIdx`: AttrNumber indicating the column number where the flag column will be placed, if any
+- `firstFlag`: Integer flag value for the first input relation when using hashing strategy, or -1 when sorting
+- `numGroups`: Double representing the estimated number of distinct groups
+- `outputRows`: Double representing the estimated number of output rows
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode

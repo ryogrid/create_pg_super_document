@@ -18,8 +18,7 @@ The  function is a straightforward wrapper around the standard C library's  func
 The function simply delegates to the standard  function, making it safe to use with any memory allocated by standard malloc-family functions or ECPG's memory allocation wrappers.
 
 ## Parameters / Member Variables
-- : Pointer to the memory block to be freed. Can be NULL (which is safely handled by the underlying free() function)
-
+- `*ptr`: Pointer to the memory block to be freed. Can be NULL (which is safely handled by the underlying free() function)
 ## Dependencies
 - Functions called/Symbols referenced:
   - free (standard C library function)

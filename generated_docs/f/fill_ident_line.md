@@ -18,14 +18,13 @@ fill_ident_line(Tuplestorestate *tuple_store, TupleDesc tupdesc,
 The  function constructs a complete row for the pg_ident_file_mappings system view, which exposes PostgreSQL's user name mapping configuration to SQL queries. It processes a parsed identity mapping line structure and extracts the mapping name, system user pattern, and PostgreSQL user name. The function handles both successful parsing results and error conditions, formatting the data into SQL-compatible types. Like its HBA counterpart, it accepts memory leaks since execution occurs in a short-lived memory context. The function provides visibility into how external authentication systems map their user identities to PostgreSQL roles.
 
 ## Parameters / Member Variables
-- : Tuplestore where the constructed mapping row will be added
-- : Tuple descriptor defining the structure of the pg_ident_file_mappings view
-- : Unique identifier for valid identity mapping rules (NULL for invalid rules)
-- : Name of the identity mapping configuration file (always valid)
-- : Line number within the configuration file (always valid)
-- : Parsed identity mapping line data structure (can be NULL for parsing errors)
-- : Error message for invalid mapping rules (NULL if rule is valid)
-
+- `*tuple_store`: Tuplestore where the constructed mapping row will be added
+- `tupdesc`: Tuple descriptor defining the structure of the pg_ident_file_mappings view
+- `map_number`: Unique identifier for valid identity mapping rules (NULL for invalid rules)
+- `*filename`: Name of the identity mapping configuration file (always valid)
+- `lineno`: Line number within the configuration file (always valid)
+- `*ident`: Parsed identity mapping line data structure (can be NULL for parsing errors)
+- `*err_msg`: Error message for invalid mapping rules (NULL if rule is valid)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Int32GetDatum](../I/Int32GetDatum.md), CStringGetTextDatum

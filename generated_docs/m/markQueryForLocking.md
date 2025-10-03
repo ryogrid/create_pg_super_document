@@ -25,12 +25,11 @@ This function traverses a query's join tree structure and applies FOR UPDATE or 
 The function ensures that locking semantics are consistently applied across complex query structures including views, subqueries, and joins.
 
 ## Parameters / Member Variables
-- : The query whose relations should be marked for locking
-- : The current join tree node being processed (RangeTblRef, FromExpr, or JoinExpr)
-- : The lock strength (FOR UPDATE, FOR SHARE, etc.)
-- : The lock wait policy (NOWAIT, SKIP LOCKED, etc.)
-- : Boolean indicating if this locking was pushed down from an ancestor query level
-
+- `*qry`: The query whose relations should be marked for locking
+- `*jtnode`: The current join tree node being processed (RangeTblRef, FromExpr, or JoinExpr)
+- `strength`: The lock strength (FOR UPDATE, FOR SHARE, etc.)
+- `waitPolicy`: The lock wait policy (NOWAIT, SKIP LOCKED, etc.)
+- `pushedDown`: Boolean indicating if this locking was pushed down from an ancestor query level
 ## Dependencies
 - Functions called/Symbols referenced:
   - rt_fetch

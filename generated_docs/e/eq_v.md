@@ -21,9 +21,8 @@ The function works with Snowball's variable-length string representation where t
 Like , this function matches text at the current cursor position moving forward, and advances the cursor on successful matches. It returns 1 for successful matches and 0 for failures.
 
 ## Parameters / Member Variables
-- : Pointer to the Snowball environment structure containing the text buffer and cursor positions
-- : Pointer to a variable-length symbol array (with size stored at )
-
+- `*z`: Pointer to the Snowball environment structure containing the text buffer and cursor positions
+- `*p`: Pointer to a variable-length symbol array (with size stored at )
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (forward string matching function)  

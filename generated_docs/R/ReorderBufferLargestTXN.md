@@ -25,8 +25,7 @@ The function includes several assertions to ensure data integrity:
 This function is typically called when the reorder buffer needs to free up memory by spilling the largest transaction to disk, making it essential for managing memory pressure in logical replication scenarios.
 
 ## Parameters / Member Variables
-- : Pointer to the ReorderBuffer structure containing the transaction heap to search
-
+- `*rb`: Pointer to the ReorderBuffer structure containing the transaction heap to search
 ## Dependencies
 - Functions called/Symbols referenced:
   - pairingheap_container (macro for extracting container structure from heap node)

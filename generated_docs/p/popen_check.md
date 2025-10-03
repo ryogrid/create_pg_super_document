@@ -16,9 +16,8 @@ popen_check(const char *command, const char *mode)
 This function serves as a wrapper around the standard popen() function, providing consistent error handling and logging for subprocess execution in PostgreSQL utilities. It ensures proper stdio flushing before executing the command to avoid output buffering issues, clears errno for accurate error detection, and provides standardized error messaging through PostgreSQL's logging system. The function is designed to integrate seamlessly with PostgreSQL's error handling conventions while maintaining the standard popen interface.
 
 ## Parameters / Member Variables
-- : The shell command string to execute as a subprocess
-- : The file access mode for the pipe ("r" for reading subprocess output, "w" for writing to subprocess input)
-
+- `*command`: The shell command string to execute as a subprocess
+- `*mode`: The file access mode for the pipe ("r" for reading subprocess output, "w" for writing to subprocess input)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (standard library function to flush stdio buffers)

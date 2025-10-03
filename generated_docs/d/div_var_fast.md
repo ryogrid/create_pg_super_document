@@ -26,12 +26,11 @@ The  function implements a fast division algorithm for PostgreSQL's NUMERIC data
 The algorithm uses integer arrays for computation, estimates quotient digits via floating-point division, and includes normalization passes to handle potential overflow and maintain digit accuracy.
 
 ## Parameters / Member Variables
-- : Dividend NumericVar (input)
-- : Divisor NumericVar (input)  
-- : NumericVar to store the division result (output)
-- : Target fractional digits in the result
-- : If true, round at rscale digits; if false, truncate (though truncation is discouraged)
-
+- `*var1`: Dividend NumericVar (input)
+- `*var2`: Divisor NumericVar (input)
+- `*result`: NumericVar to store the division result (output)
+- `rscale`: Target fractional digits in the result
+- `round`: If true, round at rscale digits; if false, truncate (though truncation is discouraged)
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport/ERROR (for division by zero)

@@ -22,8 +22,7 @@ The function performs an atomic write to the  pointer, which initially points to
 Since the field is always read and written as a 4-byte value, updates are atomic on most architectures.
 
 ## Parameters / Member Variables
-- : A 32-bit value encoding both the wait event class and the specific wait event identifier
-
+- `wait_event_info`: A 32-bit value encoding both the wait event class and the specific wait event identifier
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (global pointer variable)

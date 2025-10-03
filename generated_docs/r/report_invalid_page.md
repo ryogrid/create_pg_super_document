@@ -17,12 +17,11 @@ report_invalid_page(int elevel, RelFileLocator locator, ForkNumber forkno,
 The  function is a static utility function in the PostgreSQL WAL (Write-Ahead Log) utilities that generates descriptive error messages when invalid pages are encountered. It constructs a human-readable path for the relation and logs either "uninitialized" or "does not exist" messages depending on the  parameter. This function helps administrators and developers understand the nature of page-related issues during recovery or normal operations.
 
 ## Parameters / Member Variables
-- : Log level for the error message (e.g., ERROR, WARNING, LOG)
-- : RelFileLocator structure identifying the relation (tablespace, database, relation OID)
-- : Fork number indicating which fork of the relation (main, FSM, VM, etc.)
-- : Block number of the invalid page
-- : Boolean flag - true if page exists but is uninitialized, false if page doesn't exist
-
+- `elevel`: Log level for the error message (e.g., ERROR, WARNING, LOG)
+- `locator`: RelFileLocator structure identifying the relation (tablespace, database, relation OID)
+- `forkno`: Fork number indicating which fork of the relation (main, FSM, VM, etc.)
+- `blkno`: Block number of the invalid page
+- `present`: Boolean flag - true if page exists but is uninitialized, false if page doesn't exist
 ## Dependencies
 - Functions called/Symbols referenced:
   - relpathperm

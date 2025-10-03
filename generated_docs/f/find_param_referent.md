@@ -37,11 +37,10 @@ The function performs a systematic search through the ancestor plan tree:
 The function maintains the invariant that parameters are resolved in their proper evaluation context, ensuring that variables in the resolved expressions are interpreted correctly.
 
 ## Parameters / Member Variables
-- : The PARAM_EXEC parameter node whose referent needs to be found
-- : Deparse context containing namespace stack with ancestor information
-- : Output parameter - pointer to the deparse_namespace containing the referent
-- : Output parameter - ListCell pointer for push_ancestor_plan context setup
-
+- `*param`: The PARAM_EXEC parameter node whose referent needs to be found
+- `*context`: Deparse context containing namespace stack with ancestor information
+- `**dpns_p`: Output parameter - pointer to the deparse_namespace containing the referent
+- `**ancestor_cell_p`: Output parameter - ListCell pointer for push_ancestor_plan context setup
 ## Dependencies
 - Functions called/Symbols referenced:
   - linitial (list access)

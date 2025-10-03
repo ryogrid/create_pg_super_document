@@ -26,14 +26,13 @@ Key operations include:
 6. Proper Python reference counting with exception safety
 
 ## Parameters / Member Variables
-- : Python sequence object to traverse recursively
-- : Pointer to ArrayBuildState pointer, created lazily when first scalar is found
-- : Pointer to current number of dimensions discovered
-- : Array storing the size of each dimension
-- : Current recursion depth (0-based dimension index)
-- : PLyObToDatum converter for scalar elements
-- : PostgreSQL OID of the array element base type
-
+- `*obj`: Python sequence object to traverse recursively
+- `**astatep`: Pointer to ArrayBuildState pointer, created lazily when first scalar is found
+- `*ndims`: Pointer to current number of dimensions discovered
+- `*dims`: Array storing the size of each dimension
+- `cur_depth`: Current recursion depth (0-based dimension index)
+- `*elm`: PLyObToDatum converter for scalar elements
+- `elmbasetype`: PostgreSQL OID of the array element base type
 ## Dependencies
 - Functions called/Symbols referenced:
   - PLy_elog (error reporting)

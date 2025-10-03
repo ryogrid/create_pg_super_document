@@ -26,7 +26,6 @@ This function serves as the core OID allocation mechanism in PostgreSQL, managin
 **Recovery Protection**: Prevents OID allocation during recovery mode to maintain consistency.
 
 ## Parameters / Member Variables
-This function takes no parameters and returns a newly allocated OID.
 
 ## Dependencies
 - Functions called/Symbols referenced:

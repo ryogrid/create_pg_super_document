@@ -29,15 +29,14 @@ Key operations performed:
 - **Mode Selection**: Automatically chooses between fast-update and normal insertion based on index configuration
 
 ## Parameters / Member Variables
-- : The GIN index relation into which the tuple will be inserted
-- : Array of Datum values for each indexed attribute of the tuple
-- : Array of boolean flags indicating which values are NULL
-- : ItemPointer (TID) referencing the heap tuple location
-- : The heap relation containing the original tuple (may be unused)
-- : Uniqueness check requirement (not relevant for GIN indexes)
-- : Whether the indexed values have changed (optimization hint)
-- : Index metadata structure, also used for caching GinState
-
+- `index`: The GIN index relation into which the tuple will be inserted
+- `*values`: Array of Datum values for each indexed attribute of the tuple
+- `*isnull`: Array of boolean flags indicating which values are NULL
+- `ht_ctid`: ItemPointer (TID) referencing the heap tuple location
+- `heapRel`: The heap relation containing the original tuple (may be unused)
+- `checkUnique`: Uniqueness check requirement (not relevant for GIN indexes)
+- `indexUnchanged`: Whether the indexed values have changed (optimization hint)
+- `*indexInfo`: Index metadata structure, also used for caching GinState
 ## Dependencies
 - Functions called/Symbols referenced:
   - [initGinState](../i/initGinState.md)

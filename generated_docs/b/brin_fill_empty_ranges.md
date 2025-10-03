@@ -21,10 +21,9 @@ The function operates by iterating through page ranges between the specified bou
 This mechanism ensures that the BRIN index maintains complete coverage of the table's address space, which is essential for proper index functionality and query planning.
 
 ## Parameters / Member Variables
-- : Pointer to BrinBuildState structure containing the current state of BRIN index construction, including the relation being indexed, pages per range configuration, and the pre-built empty tuple template
-- : The block number of the last processed page range (exclusive boundary). If InvalidBlockNumber, indicates this is the first range and processing should start from block 0
-- : The block number where empty range filling should stop (exclusive boundary). Only ranges with starting block numbers less than this value will be processed
-
+- `*state`: Pointer to BrinBuildState structure containing the current state of BRIN index construction, including the relation being indexed, pages per range configuration, and the pre-built empty tuple template
+- `prevRange`: The block number of the last processed page range (exclusive boundary). If InvalidBlockNumber, indicates this is the first range and processing should start from block 0
+- `nextRange`: The block number where empty range filling should stop (exclusive boundary). Only ranges with starting block numbers less than this value will be processed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BrinBuildState](../B/BrinBuildState.md) (struct type)

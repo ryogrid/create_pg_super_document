@@ -18,8 +18,7 @@ SPI_getargcount returns the number of parameters that a prepared SPI plan expect
 The function is commonly used in generic SPI utility functions that need to handle plans with varying numbers of parameters, or when implementing parameter validation routines.
 
 ## Parameters / Member Variables
-- : An SPIPlanPtr pointing to a previously prepared SPI plan. Must be a valid, non-NULL plan.
-
+- `plan`: An SPIPlanPtr pointing to a previously prepared SPI plan. Must be a valid, non-NULL plan.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SPIPlanPtr](SPIPlanPtr.md) (typedef for struct _SPI_plan *)

@@ -24,9 +24,8 @@ The  function converts interval input data from a pg_itm_in structure to Postgre
 The function serves as a more permissive alternative to itm2interval, specifically for input processing where infinite intervals should be preserved rather than rejected.
 
 ## Parameters / Member Variables
-- : Input struct pg_itm_in containing raw interval input data (tm_year, tm_mon, tm_mday, tm_usec)
-- : Output Interval structure to populate with month, day, and time fields
-
+- `*itm_in`: Input struct pg_itm_in containing raw interval input data (tm_year, tm_mon, tm_mday, tm_usec)
+- `*span`: Output Interval structure to populate with month, day, and time fields
 ## Dependencies
 - Functions called/Symbols referenced:
   - MONTHS_PER_YEAR (constant for year/month conversion)

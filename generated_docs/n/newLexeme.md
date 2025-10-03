@@ -18,12 +18,11 @@ The newLexeme function is responsible for adding a new lexeme (word/token) to th
 The function implements a dynamic array growth strategy, starting with an initial capacity of 16 entries and doubling the size when capacity is exceeded. Each lexeme is stored with its own LexemeInfo structure that tracks substitution relationships used by the thesaurus dictionary.
 
 ## Parameters / Member Variables
-- : Pointer to the DictThesaurus structure where the new lexeme will be added
-- : Pointer to the beginning of the lexeme string in the source buffer
-- : Pointer to the end of the lexeme string in the source buffer (exclusive)
-- : Unique identifier for the substitution rule this lexeme belongs to
-- : Position index of this lexeme within its substitution rule
-
+- `*d`: Pointer to the DictThesaurus structure where the new lexeme will be added
+- `*b`: Pointer to the beginning of the lexeme string in the source buffer
+- `*e`: Pointer to the end of the lexeme string in the source buffer (exclusive)
+- `idsubst`: Unique identifier for the substitution rule this lexeme belongs to
+- `posinsubst`: Position index of this lexeme within its substitution rule
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md): PostgreSQL memory allocation function

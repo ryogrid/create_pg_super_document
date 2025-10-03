@@ -16,8 +16,7 @@ newstate(struct nfa *nfa)
 The  function creates a new state for an NFA with sophisticated memory management. It first checks for interrupt signals to allow cancellation during compilation. The function uses a three-tier allocation strategy: first attempting to reuse states from a freelist, then using available space in the current state batch, and finally allocating a new batch when needed. State batches grow exponentially (doubling in size) up to a maximum limit to balance memory efficiency with allocation overhead. Each new state is initialized with a unique number, linked into the NFA's state list, and has all fields properly initialized.
 
 ## Parameters / Member Variables
-- : Pointer to the NFA structure that will contain the new state
-
+- `*nfa`: Pointer to the NFA structure that will contain the new state
 ## Dependencies
 - Functions called/Symbols referenced:
   - INTERRUPT

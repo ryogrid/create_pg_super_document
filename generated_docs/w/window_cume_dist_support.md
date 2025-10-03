@@ -22,8 +22,7 @@ The window_cume_dist_support function is a support function that handles two typ
 The function uses PostgreSQL's support function infrastructure to provide these optimizations at query planning time.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function argument structure containing a Node pointer to the support request
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument structure containing a Node pointer to the support request
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SupportRequestWFuncMonotonic](../S/SupportRequestWFuncMonotonic.md)

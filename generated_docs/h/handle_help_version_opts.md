@@ -23,11 +23,10 @@ The function checks for both long and short forms of the options:
 When a help option is detected, it calls the provided help handler function. For version requests, it prints the program name along with the PostgreSQL version and exits.
 
 ## Parameters / Member Variables
-- : Number of command-line arguments
-- : Array of command-line argument strings
-- : The canonical name of the program to display in version output
-- : Function pointer to the help handler that displays usage information
-
+- `argc`: Number of command-line arguments
+- `argv[]`: Array of command-line argument strings
+- `*fixed_progname`: The canonical name of the program to display in version output
+- `hlp`: Function pointer to the help handler that displays usage information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_progname](../g/get_progname.md)

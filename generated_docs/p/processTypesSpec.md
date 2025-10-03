@@ -16,10 +16,9 @@ processTypesSpec(List *args, Oid *lefttype, Oid *righttype)
 This static function parses a list of type name arguments and converts them to their corresponding OIDs for use in operator family operations. It handles both unary and binary operators by extracting one or two type specifications. For unary operators (single argument), it sets both left and right types to the same value. For binary operators (two arguments), it processes each type separately. The function enforces that no more than two argument types can be specified.
 
 ## Parameters / Member Variables
-- : List of TypeName nodes representing the argument types to process
-- : Output parameter - pointer to store the OID of the left operand type
-- : Output parameter - pointer to store the OID of the right operand type
-
+- `*args`: List of TypeName nodes representing the argument types to process
+- `*lefttype`: Output parameter - pointer to store the OID of the left operand type
+- `*righttype`: Output parameter - pointer to store the OID of the right operand type
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TypeName](../T/TypeName.md) (type)

@@ -20,10 +20,9 @@ The function requests a smaller target list (CP_SMALL_TLIST flag) to avoid carry
 Special handling is implemented for child relations in inheritance hierarchies, ensuring that equivalence class members are properly resolved when creating sort keys from path keys.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global planning information and context
-- : SortPath structure representing the chosen sorting strategy and its properties
-- : Integer bitmask controlling plan creation behavior (e.g., CP_SMALL_TLIST for optimization)
-
+- `*root`: PlannerInfo structure containing global planning information and context
+- `*best_path`: SortPath structure representing the chosen sorting strategy and its properties
+- `flags`: Integer bitmask controlling plan creation behavior (e.g., CP_SMALL_TLIST for optimization)
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Recursively creates execution plans for subpaths

@@ -16,8 +16,7 @@ jspGetNumeric(JsonPathItem *v)
 The jspGetNumeric function is a type-specific accessor function that extracts numeric values from JSON path items. It first validates that the input JsonPathItem is of type jpiNumeric through an Assert statement to ensure type safety. Once validated, it directly casts and returns the data pointer stored in the item's content.value.data field as a PostgreSQL Numeric type. This function provides safe access to numeric constants and values embedded in JSON path expressions, returning them in PostgreSQL's internal numeric representation format.
 
 ## Parameters / Member Variables
-- : Pointer to the JsonPathItem containing the numeric value (must be of type jpiNumeric)
-
+- `*v`: Pointer to the JsonPathItem containing the numeric value (must be of type jpiNumeric)
 ## Dependencies
 - Functions called/Symbols referenced:
   - JsonPathItem (struct type)

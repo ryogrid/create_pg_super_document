@@ -21,9 +21,8 @@ For aborts: Restores pre-truncate/drop statistics, counts attempted actions as d
 The function doesn't free transactional state memory since it resides in TopTransactionContext and will be automatically cleaned up.
 
 ## Parameters / Member Variables
-- : Subtransaction status containing the transaction's relation statistics
-- : Boolean indicating whether the transaction is committing (true) or aborting (false)
-
+- `*xact_state`: Subtransaction status containing the transaction's relation statistics
+- `isCommit`: Boolean indicating whether the transaction is committing (true) or aborting (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [restore_truncdrop_counters](../r/restore_truncdrop_counters.md) (restores counters after aborted truncate/drop)

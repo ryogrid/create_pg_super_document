@@ -16,11 +16,10 @@ copyToBuffer(StringInfo buffer, int offset, const char *data, int len)
 The  function is a low-level memory copy utility specifically designed for JSONB processing. It performs a direct memory copy operation using the standard C library  function to efficiently transfer data to a predetermined location within a StringInfo buffer. This function is used internally within the JSONB utilities to place data at specific offsets within the buffer structure, particularly during JSONB value conversion and serialization processes.
 
 ## Parameters / Member Variables
-- : A StringInfo structure representing the target buffer where data will be copied
-- : The byte offset within the buffer where the copy operation should begin
-- : Pointer to the source data that will be copied
-- : The number of bytes to copy from the source to the destination
-
+- `buffer`: A StringInfo structure representing the target buffer where data will be copied
+- `offset`: The byte offset within the buffer where the copy operation should begin
+- `*data`: Pointer to the source data that will be copied
+- `len`: The number of bytes to copy from the source to the destination
 ## Dependencies
 - Functions called/Symbols referenced:
   - memcpy (standard C library function)

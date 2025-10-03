@@ -18,10 +18,9 @@ InvalidateTSCacheCallBack is a syscache callback function designed to detect whe
 The function can be used for all text search caches by passing the appropriate hash table address as the "arg" parameter. It iterates through all entries in the specified hash table and marks them as invalid by setting their isvalid flag to false. Additionally, if the hash table being invalidated is the TSConfigCacheHash, it also invalidates the current configuration cache by setting TSCurrentConfigCache to InvalidOid.
 
 ## Parameters / Member Variables
-- : A Datum containing a pointer to the hash table (HTAB*) to be invalidated
-- : The system catalog cache identifier (not directly used in the function)
-- : The hash value of the changed entry (not directly used in the function)
-
+- `arg`: A Datum containing a pointer to the hash table (HTAB*) to be invalidated
+- `cacheid`: The system catalog cache identifier (not directly used in the function)
+- `hashvalue`: The hash value of the changed entry (not directly used in the function)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DatumGetPointer](../D/DatumGetPointer.md)

@@ -24,8 +24,7 @@ The function implements an optimized iteration strategy:
 The function is designed to handle sparse hash tables efficiently by quickly skipping empty buckets rather than examining each one individually. This optimization is particularly important for nearly empty hash tables.
 
 ## Parameters / Member Variables
-- : Pointer to HASH_SEQ_STATUS structure containing the current scan state
-
+- `*status`: Pointer to HASH_SEQ_STATUS structure containing the current scan state
 ## Dependencies
 - Functions called/Symbols referenced:
   - ELEMENTKEY (macro to extract key from hash element)

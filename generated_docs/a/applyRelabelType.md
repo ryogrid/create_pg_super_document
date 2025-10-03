@@ -28,14 +28,13 @@ The function handles three cases:
 This function is crucial for maintaining the integrity of the expression tree during optimization while ensuring minimal overhead.
 
 ## Parameters / Member Variables
-- : The expression node to potentially relabel
-- : Target result type (Oid)
-- : Target result type modifier
-- : Target result collation
-- : Coercion format specification
-- : Location in source for error reporting
-- : Whether it's safe to modify Const nodes in-place (true only if Const is newly generated)
-
+- `*arg`: The expression node to potentially relabel
+- `rtype`: Target result type (Oid)
+- `rtypmod`: Target result type modifier
+- `rcollid`: Target result collation
+- `rformat`: Coercion format specification
+- `rlocation`: Location in source for error reporting
+- `overwrite_ok`: Whether it's safe to modify Const nodes in-place (true only if Const is newly generated)
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (macro for node type checking)

@@ -16,8 +16,7 @@ sighup_handler(SIGNAL_ARGS)
 The  function is a signal handler specifically designed to handle the SIGHUP signal in the pg_recvlogical utility. When a SIGHUP signal is received, this handler sets the global boolean variable  to . This mechanism allows the main processing loop to detect that output files should be reopened, which is commonly used for log rotation scenarios. The SIGHUP signal is a standard Unix signal often used to instruct long-running processes to reload their configuration or reopen files without completely restarting.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL macro for signal handler arguments, typically expands to  representing the signal number
-
+- `SIGNAL_ARGS`: Standard PostgreSQL macro for signal handler arguments, typically expands to  representing the signal number
 ## Dependencies
 - Functions called/Symbols referenced:
   - SIGNAL_ARGS (macro)

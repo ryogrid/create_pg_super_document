@@ -18,8 +18,7 @@ ExecHash is a static function that exists purely for interface compliance within
 The Hash node's execution model is fundamentally different from other executor nodes - instead of producing tuples one at a time, it consumes all input tuples to build a complete hash table that will be used by its parent HashJoin node.
 
 ## Parameters / Member Variables
-- : PlanState pointer (unused, as function immediately errors)
-
+- `*pstate`: PlanState pointer (unused, as function immediately errors)
 ## Dependencies
 - Functions called/Symbols referenced:
   - elog

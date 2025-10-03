@@ -23,8 +23,7 @@ The  macro is part of the Perl portability layer (ppport.h) that provides a cons
 The macro uses STMT_START/STMT_END wrappers to ensure it can be used safely in all syntactic contexts, including as a single statement in if/else blocks.
 
 ## Parameters / Member Variables
-- : A Perl scalar value (SV*) that contains either the error message as a string or a reference to an error object
-
+- `sv`: A Perl scalar value (SV*) that contains either the error message as a string or a reference to an error object
 ## Dependencies
 - Functions called/Symbols referenced:
   - SvROK (checks if SV is a reference)

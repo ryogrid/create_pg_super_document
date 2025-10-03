@@ -24,9 +24,8 @@ This function serves as a bridge between PostgreSQL's operator system and the So
 The caller must pre-initialize the SortSupport structure by zeroing it and setting ssup_cxt (memory context), ssup_collation, and ssup_nulls_first before calling this function.
 
 ## Parameters / Member Variables
-- : OID of the btree ordering operator ("<" or ">" operator)
-- : SortSupport structure to be configured (must be pre-initialized)
-
+- `orderingOp`: OID of the btree ordering operator ("<" or ">" operator)
+- `ssup`: SortSupport structure to be configured (must be pre-initialized)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SortSupport](../S/SortSupport.md) (type)

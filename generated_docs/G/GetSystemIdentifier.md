@@ -17,7 +17,6 @@ GetSystemIdentifier is a simple accessor function that retrieves the system iden
 The function simply returns the system_identifier field from the global ControlFile structure, which must be loaded and available when this function is called.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

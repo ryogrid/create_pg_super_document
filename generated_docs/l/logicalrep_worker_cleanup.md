@@ -26,8 +26,7 @@ The cleanup process resets:
 The function includes an assertion to ensure it's called while holding the appropriate exclusive lock, which prevents concurrent modifications to worker state.
 
 ## Parameters / Member Variables
-- : Pointer to the LogicalRepWorker structure to be cleaned up
-
+- `*worker`: Pointer to the LogicalRepWorker structure to be cleaned up
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert

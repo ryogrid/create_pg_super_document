@@ -18,11 +18,10 @@ adjust_appendrel_attrs_multilevel(PlannerInfo *root, Node *node,
 This function manages the complex scenario where a child relation is separated from its ultimate parent by multiple inheritance levels. It recursively traverses up the inheritance hierarchy, applying variable translations at each level until it reaches the specified parent relation. The function ensures that expressions referencing variables in ancestor relations are properly translated to reference the corresponding variables in the target child relation, handling the multi-step transformation that may be required in deep inheritance hierarchies.
 
 ## Parameters / Member Variables
-- : PlannerInfo containing planning context and relation information
-- : The expression tree node to be transformed  
-- : The target child relation (leaf level in the inheritance hierarchy)
-- : The source parent relation (may be several levels up the hierarchy)
-
+- `*root`: PlannerInfo containing planning context and relation information
+- `*node`: The expression tree node to be transformed
+- `*childrel`: The target child relation (leaf level in the inheritance hierarchy)
+- `*parentrel`: The source parent relation (may be several levels up the hierarchy)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [adjust_appendrel_attrs_multilevel](adjust_appendrel_attrs_multilevel.md) (recursive calls for multi-level traversal)

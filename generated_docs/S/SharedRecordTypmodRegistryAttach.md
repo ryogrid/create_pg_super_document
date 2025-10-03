@@ -20,8 +20,7 @@ The function performs several important validation checks to ensure the worker i
 A cleanup hook is registered to ensure proper detachment when the worker process exits or the DSM segment is detached.
 
 ## Parameters / Member Variables
-- : Pointer to the SharedRecordTypmodRegistry structure in shared memory to attach to
-
+- `*registry`: Pointer to the SharedRecordTypmodRegistry structure in shared memory to attach to
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsParallelWorker

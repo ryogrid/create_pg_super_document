@@ -20,9 +20,8 @@ The function adapts its query based on PostgreSQL server version to handle the e
 The query excludes indexes and toast tables as they have no meaningful access rights. It formats complex privilege information in a human-readable way, including policy details with USING and WITH CHECK expressions, and role-based policy assignments.
 
 ## Parameters / Member Variables
-- : SQL pattern to filter object names (can be NULL to show all objects)
-- : If true, includes system schema objects (pg_catalog, information_schema)
-
+- `*pattern`: SQL pattern to filter object names (can be NULL to show all objects)
+- `showSystem`: If true, includes system schema objects (pg_catalog, information_schema)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [initPQExpBuffer](../i/initPQExpBuffer.md) (initialize query buffer)

@@ -21,9 +21,8 @@ The function follows the standard C library comparison contract:
 - Returns positive value if a > b
 
 ## Parameters / Member Variables
-- : Pointer to first Syn structure to compare
-- : Pointer to second Syn structure to compare
-
+- `*a`: Pointer to first Syn structure to compare
+- `*b`: Pointer to second Syn structure to compare
 ## Dependencies
 - Functions called/Symbols referenced:
   - strcmp (for string comparison)

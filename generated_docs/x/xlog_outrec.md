@@ -24,9 +24,8 @@ The function appends the following information to the provided buffer:
 This function is typically used in conjunction with  to provide comprehensive WAL record information for logging, debugging, or administrative tools.
 
 ## Parameters / Member Variables
-- : A StringInfo buffer where the formatted record information will be appended
-- : An XLogReaderState pointer containing the WAL record to analyze
-
+- `buf`: A StringInfo buffer where the formatted record information will be appended
+- `*record`: An XLogReaderState pointer containing the WAL record to analyze
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (appends formatted text to buffer)

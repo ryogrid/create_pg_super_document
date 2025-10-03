@@ -32,9 +32,8 @@ Key features include:
 The function handles the complexity of parallel aggregation where the leader process may not participate in the actual work, detecting this condition by examining memory usage patterns.
 
 ## Parameters / Member Variables
-- : Pointer to AggState structure containing aggregation execution state and performance statistics
-- : Pointer to ExplainState structure containing output formatting context and control flags
-
+- `*aggstate`: Pointer to AggState structure containing aggregation execution state and performance statistics
+- `*es`: Pointer to ExplainState structure containing output formatting context and control flags
 ## Dependencies
 - Functions called/Symbols referenced:
   - BYTES_TO_KILOBYTES: Converts memory usage from bytes to kilobytes

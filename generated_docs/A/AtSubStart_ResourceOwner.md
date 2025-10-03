@@ -15,7 +15,6 @@ static void AtSubStart_ResourceOwner(void)
 This static function is called during subtransaction startup to establish proper resource management for the new subtransaction. It creates a new ResourceOwner object that serves as a child of the parent transaction's resource owner, ensuring that resources allocated by the subtransaction are properly tracked and can be cleaned up if the subtransaction aborts. The function updates both the transaction state's curTransactionOwner and the global resource owner variables (CurTransactionResourceOwner and CurrentResourceOwner) to point to the newly created resource owner.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

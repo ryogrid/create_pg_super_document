@@ -18,9 +18,8 @@ PLy_cursor serves as the primary interface for the plpy.cursor() function in PL/
 When called with a string argument, it creates a cursor for a simple SQL query via PLy_cursor_query(). When called with a plan object (and optional arguments), it creates a cursor for a prepared statement via PLy_cursor_plan(). This design allows the same Python interface (plpy.cursor) to handle both use cases seamlessly.
 
 ## Parameters / Member Variables
-- : Standard Python method self parameter (not used in this static function)
-- : Python tuple containing the arguments passed to plpy.cursor() - either (query_string) or (plan_object, [parameters])
-
+- `*self`: Standard Python method self parameter (not used in this static function)
+- `*args`: Python tuple containing the arguments passed to plpy.cursor() - either (query_string) or (plan_object, [parameters])
 ## Dependencies
 - Functions called/Symbols referenced:
   - PyArg_ParseTuple (Python C API)

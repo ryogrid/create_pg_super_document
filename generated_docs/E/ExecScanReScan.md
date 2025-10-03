@@ -18,8 +18,7 @@ ExecScanReScan is a critical function called by all scan node types during resca
 The function handles two distinct scenarios for EPQ state management: simple scans with a single scanrelid, and complex scans (foreign/custom) that may involve multiple relation IDs due to pushed-down joins. For multiple relations, it iterates through the relation bitmap and resets the EPQ done status while preserving any blocked status, ensuring correct behavior during concurrent updates.
 
 ## Parameters / Member Variables
-- : The ScanState containing scan execution state, tuple slots, and plan information
-
+- `*node`: The ScanState containing scan execution state, tuple slots, and plan information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecClearTuple](ExecClearTuple.md) (clears the scan tuple slot)

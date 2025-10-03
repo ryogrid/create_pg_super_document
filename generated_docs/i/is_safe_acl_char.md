@@ -18,9 +18,8 @@ This function determines if a character in an identifier can appear without quot
 For characters with the high bit set (non-ASCII), the function returns the value of  - meaning these characters are always accepted during parsing but may require quoting during output formatting. For ASCII characters, it follows standard identifier rules allowing alphanumeric characters and underscores.
 
 ## Parameters / Member Variables
-- : The character to test for safety in ACL identifiers
-- : Boolean flag indicating if this is called from getid (parsing) context - when true, high-bit-set characters are considered safe
-
+- `c`: The character to test for safety in ACL identifiers
+- `is_getid`: Boolean flag indicating if this is called from getid (parsing) context - when true, high-bit-set characters are considered safe
 ## Dependencies
 - Functions called/Symbols referenced:
   - IS_HIGHBIT_SET (macro to test if character has high bit set)

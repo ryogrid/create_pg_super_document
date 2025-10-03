@@ -18,8 +18,7 @@ This inline function provides efficient access to the tuple descriptor of an exp
 The tuple descriptor describes the structure of the composite type represented by the expanded record, including field names, types, and other metadata necessary for record manipulation.
 
 ## Parameters / Member Variables
-- : Pointer to an ExpandedRecordHeader structure for which to retrieve the tuple descriptor
-
+- `*erh`: Pointer to an ExpandedRecordHeader structure for which to retrieve the tuple descriptor
 ## Dependencies
 - Functions called/Symbols referenced:
   - likely (branch prediction macro)

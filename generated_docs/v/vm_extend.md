@@ -16,9 +16,8 @@ vm_extend(Relation rel, BlockNumber vm_nblocks)
 This static function extends the visibility map fork to ensure it contains at least vm_nblocks blocks. It uses ExtendBufferedRelTo() with flags to create the fork if it doesn't exist and clear the size cache. The function handles the extension atomically and returns a buffer for the last block. After extending, it sends a shared invalidation message to force other backends to close their smgr references, which is an optimization to avoid repeated existence/size checks since visibility map extensions are infrequent.
 
 ## Parameters / Member Variables
-- : The relation whose visibility map fork should be extended
-- : The minimum number of blocks the visibility map should contain
-
+- `rel`: The relation whose visibility map fork should be extended
+- `vm_nblocks`: The minimum number of blocks the visibility map should contain
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExtendBufferedRelTo](../E/ExtendBufferedRelTo.md)

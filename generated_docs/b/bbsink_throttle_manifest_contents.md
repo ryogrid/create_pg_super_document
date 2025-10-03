@@ -18,9 +18,8 @@ The  function handles manifest contents data transfer while applying bandwidth t
 This function ensures that manifest data transfers are subject to the same rate limiting as other backup data, maintaining consistent bandwidth usage across all components of the basebackup process.
 
 ## Parameters / Member Variables
-- : Pointer to the base bbsink structure, cast to bbsink_throttle for accessing throttling-specific functionality
-- : Size of the manifest contents data being transferred (in bytes)
-
+- `*sink`: Pointer to the base bbsink structure, cast to bbsink_throttle for accessing throttling-specific functionality
+- `len`: Size of the manifest contents data being transferred (in bytes)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (applies throttling mechanism based on data length)

@@ -18,8 +18,7 @@ pg_free is a straightforward wrapper around the standard C library free() functi
 This function is part of PostgreSQL's frontend memory utilities located in src/common/fe_memutils.c, designed to provide a uniform memory management interface for client-side tools and utilities.
 
 ## Parameters / Member Variables
-- : A pointer to the memory block to be freed. Can be NULL (free() handles NULL pointers safely by doing nothing).
-
+- `*ptr`: A pointer to the memory block to be freed. Can be NULL (free() handles NULL pointers safely by doing nothing).
 ## Dependencies
 - Functions called/Symbols referenced:
   - free (standard C library function)

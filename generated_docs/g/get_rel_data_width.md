@@ -20,9 +20,8 @@ The function implements a caching mechanism through the optional  parameter, whi
 The function explicitly ignores dropped columns since information about them is not readily available, and treating them as zero-width is often acceptable since they are typically mostly NULLs.
 
 ## Parameters / Member Variables
-- : The relation (table/index) for which to estimate tuple width
-- : Optional pointer to a cache array for storing/retrieving previously computed attribute widths (can be NULL)
-
+- `rel`: The relation (table/index) for which to estimate tuple width
+- `*attr_widths`: Optional pointer to a cache array for storing/retrieving previously computed attribute widths (can be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationGetNumberOfAttributes

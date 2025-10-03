@@ -21,8 +21,7 @@ The implementation adapts to different 64-bit integer representations:
 3. Fallback implementation using byte-wise scanning with the same lookup table as the 32-bit version
 
 ## Parameters / Member Variables
-- : A 64-bit unsigned integer that must not be zero (the function asserts this precondition)
-
+- `word`: A 64-bit unsigned integer that must not be zero (the function asserts this precondition)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  or  (GCC/Clang builtins, when available)

@@ -23,13 +23,12 @@ This function computes hash values for tuples in both regular and parallel hash 
 The function operates in different contexts depending on the outer_tuple flag: for inner tuples (Hash node), it uses inner hash functions and expects Vars to reference the Hash node's child; for outer tuples (HashJoin node), it uses outer hash functions and expects Vars to have OUTER_VAR varno. Memory management is carefully handled with expression context resets to prevent memory leaks during hash computation.
 
 ## Parameters / Member Variables
-- : HashJoinTable containing hash functions, collision information, and strictness flags for each hash key
-- : ExprContext providing the execution context and tuple data for expression evaluation
-- : List of ExprState nodes representing the hash key expressions to evaluate
-- : Boolean indicating whether this is an outer tuple (HashJoin context) or inner tuple (Hash context)
-- : Boolean controlling whether null attributes should be preserved (true) or cause rejection (false)
-- : Output parameter receiving the computed 32-bit hash value
-
+- `hashtable`: HashJoinTable containing hash functions, collision information, and strictness flags for each hash key
+- `*econtext`: ExprContext providing the execution context and tuple data for expression evaluation
+- `*hashkeys`: List of ExprState nodes representing the hash key expressions to evaluate
+- `outer_tuple`: Boolean indicating whether this is an outer tuple (HashJoin context) or inner tuple (Hash context)
+- `keep_nulls`: Boolean controlling whether null attributes should be preserved (true) or cause rejection (false)
+- `*hashvalue`: Output parameter receiving the computed 32-bit hash value
 ## Dependencies
 - Functions called/Symbols referenced:
   - ResetExprContext

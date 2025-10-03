@@ -18,8 +18,7 @@ This function provides a database-specific cleanup mechanism for releasing local
 The function uses the  callback to filter entries by database OID and calls  with the  flag set to true. This means any pending statistics updates for the specified database will be discarded rather than flushed to shared memory before releasing the references.
 
 ## Parameters / Member Variables
-- : The OID of the database for which all local entry references should be released
-
+- `dboid`: The OID of the database for which all local entry references should be released
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Core function that performs selective reference release based on matching criteria

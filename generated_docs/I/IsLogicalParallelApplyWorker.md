@@ -20,7 +20,6 @@ The function returns true only when both conditions are met:
 2. The process is specifically a parallel apply worker (am_parallel_apply_worker() returns true)
 
 ## Parameters / Member Variables
-This function takes no parameters and returns a boolean value indicating parallel apply worker status.
 
 ## Dependencies
 - Functions called/Symbols referenced:

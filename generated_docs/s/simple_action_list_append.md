@@ -17,10 +17,9 @@ simple_action_list_append(SimpleActionList *list,
 This function implements a linked list append operation for psql's action queue system. It creates a new SimpleActionListCell node, initializes it with the provided action type and optional value string, and appends it to the tail of the linked list. The function handles memory allocation for the new cell and performs string duplication if a value is provided, ensuring proper memory management for the action queue.
 
 ## Parameters / Member Variables
-- : Pointer to the SimpleActionList structure that maintains the linked list
-- : Enumerated action type from enum _actions specifying what operation to perform
-- : Optional string value associated with the action (copied if not NULL)
-
+- `*list`: Pointer to the SimpleActionList structure that maintains the linked list
+- `action`: Enumerated action type from enum _actions specifying what operation to perform
+- `*val`: Optional string value associated with the action (copied if not NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_malloc_object (memory allocation)

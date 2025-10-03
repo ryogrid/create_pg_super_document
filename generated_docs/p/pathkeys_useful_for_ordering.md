@@ -18,9 +18,8 @@ This function evaluates how many pathkeys from a given list are useful for satis
 The function calls  to determine how many leading pathkeys from the query's  are contained within the provided pathkeys list. This count represents the number of pathkeys that can be leveraged to optimize the ordering operation, potentially allowing for incremental sorting rather than a full sort operation.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing query planning context including the query's pathkeys
-- : List of PathKey structures to evaluate for ordering usefulness
-
+- `*root`: PlannerInfo structure containing query planning context including the query's pathkeys
+- `*pathkeys`: List of PathKey structures to evaluate for ordering usefulness
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pathkeys_count_contained_in](pathkeys_count_contained_in.md) (function to count common pathkeys)

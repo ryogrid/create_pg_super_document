@@ -19,9 +19,8 @@ This function sets up the infrastructure for reading text search configuration f
 The function is designed to be used as part of a three-function sequence: tsearch_readline_begin() to initialize, tsearch_readline() to read lines, and tsearch_readline_end() to clean up.
 
 ## Parameters / Member Variables
-- : Pointer to tsearch_readline_state structure that will be initialized for reading operations
-- : Path to the file to be opened; this string must remain valid until tsearch_readline_end() is called
-
+- `*stp`: Pointer to tsearch_readline_state structure that will be initialized for reading operations
+- `*filename`: Path to the file to be opened; this string must remain valid until tsearch_readline_end() is called
 ## Dependencies
 - Functions called/Symbols referenced:
   - [AllocateFile](../A/AllocateFile.md)

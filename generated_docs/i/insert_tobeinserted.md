@@ -16,11 +16,10 @@ insert_tobeinserted(int position, int ph_len, struct statement *stmt, char *tobe
 This function performs string manipulation to replace placeholders in SQL commands with actual values during ECPG parameter processing. It creates a new command string by concatenating three parts: the command up to the placeholder position, the replacement text, and the rest of the original command after the placeholder. The function handles memory allocation for the new string and ensures proper cleanup of both the old command and the replacement text.
 
 ## Parameters / Member Variables
-- : The 1-based position in the command string where replacement should occur
-- : The length of the placeholder being replaced
-- : Pointer to the statement structure containing the command to modify
-- : The replacement text to insert at the specified position
-
+- `position`: The 1-based position in the command string where replacement should occur
+- `ph_len`: The length of the placeholder being replaced
+- `*stmt`: Pointer to the statement structure containing the command to modify
+- `*tobeinserted`: The replacement text to insert at the specified position
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ecpg_alloc](../e/ecpg_alloc.md)

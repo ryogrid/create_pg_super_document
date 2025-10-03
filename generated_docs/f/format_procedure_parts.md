@@ -19,11 +19,10 @@ This function retrieves procedure information from the system catalog and format
 The function handles missing procedures gracefully when the missing_ok parameter is true, otherwise it throws an error if the procedure cannot be found.
 
 ## Parameters / Member Variables
-- : The OID of the procedure to format
-- : Output parameter - pointer to a List that will contain the namespace and procedure name
-- : Output parameter - pointer to a List that will contain the qualified argument type names
-- : If true, the function returns silently when the procedure is not found; if false, an error is thrown
-
+- `procedure_oid`: The OID of the procedure to format
+- `**objnames`: Output parameter - pointer to a List that will contain the namespace and procedure name
+- `**objargs`: Output parameter - pointer to a List that will contain the qualified argument type names
+- `missing_ok`: If true, the function returns silently when the procedure is not found; if false, an error is thrown
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache1](../S/SearchSysCache1.md)

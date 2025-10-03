@@ -26,11 +26,10 @@ This function handles path generation for set operations that require comparing 
 The function handles both ALL and non-ALL variants of INTERSECT and EXCEPT operations, with different row estimation strategies for each.
 
 ## Parameters / Member Variables
-- : SetOperationStmt containing the operation type (INTERSECT/EXCEPT), ALL flag, column types and collations
-- : PlannerInfo providing global planning context and configuration settings
-- : List of reference names for constructing the target list
-- : Output parameter returning the generated target list for the operation
-
+- `*op`: SetOperationStmt containing the operation type (INTERSECT/EXCEPT), ALL flag, column types and collations
+- `*root`: PlannerInfo providing global planning context and configuration settings
+- `*refnames_tlist`: List of reference names for constructing the target list
+- `**pTargetList`: Output parameter returning the generated target list for the operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [recurse_set_operations](../r/recurse_set_operations.md)

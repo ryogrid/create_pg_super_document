@@ -20,8 +20,7 @@ The function performs null-safety checks on both the result pointer and the erro
 When an error occurs during query execution, PostgreSQL stores detailed diagnostic information in the result object's errMsg field. This function provides access to that information, allowing applications to display meaningful error messages to users or log detailed diagnostic information for debugging purposes.
 
 ## Parameters / Member Variables
-- : Const pointer to a PGresult structure that may contain an error message
-
+- `*res`: Const pointer to a PGresult structure that may contain an error message
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (direct field access only)

@@ -17,7 +17,6 @@ InLocalUserIdChange is a query function that determines if the current execution
 This function is essential for understanding when the effective CurrentUserId has been temporarily modified and may not reflect the session's original user identity. It's used by PostgreSQL's security and configuration systems to determine appropriate behavior when user context switching is active.
 
 ## Parameters / Member Variables
-None - this function takes no parameters and returns a boolean value.
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -23,10 +23,9 @@ The algorithm works in three passes through the incoming arcs:
 Like its counterpart function, it assumes the NFA contains no duplicate arcs and that all arcs are PLAIN type (as verified by the caller ).
 
 ## Parameters / Member Variables
-- : The destination state to which incoming arcs are compared
-- : The first color to compare
-- : The second color to compare
-
+- `*s`: The destination state to which incoming arcs are compared
+- `co1`: The first color to compare
+- `co2`: The second color to compare
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (typedef)

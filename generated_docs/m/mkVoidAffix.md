@@ -24,10 +24,9 @@ The function:
 This design allows the spell checker to efficiently handle deletion patterns alongside the regular replacement patterns handled by the main prefix tree.
 
 ## Parameters / Member Variables
-- : Pointer to IspellDict containing the affix configuration and data
-- : Boolean flag indicating whether to process suffixes (true) or prefixes (false) 
-- : Index marking the boundary between prefixes and suffixes in the Affix array
-
+- `*Conf`: Pointer to IspellDict containing the affix configuration and data
+- `issuffix`: Boolean flag indicating whether to process suffixes (true) or prefixes (false)
+- `startsuffix`: Index marking the boundary between prefixes and suffixes in the Affix array
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc0](../p/palloc0.md)

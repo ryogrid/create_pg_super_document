@@ -18,11 +18,10 @@ This function creates a copy of an existing BRIN tuple with optimized memory man
 The function performs a simple memory copy operation after ensuring adequate buffer space, making it efficient for scenarios where tuple copying is performed frequently. The optional buffer reuse mechanism helps reduce memory allocation overhead in performance-critical code paths.
 
 ## Parameters / Member Variables
-- : Source BrinTuple to be copied
-- : Size of the source tuple in bytes
-- : Optional destination buffer; if NULL, new memory is allocated
-- : Pointer to size of destination buffer; updated if buffer is reallocated, can be NULL
-
+- `*tuple`: Source BrinTuple to be copied
+- `len`: Size of the source tuple in bytes
+- `*dest`: Optional destination buffer; if NULL, new memory is allocated
+- `*destsz`: Pointer to size of destination buffer; updated if buffer is reallocated, can be NULL
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BrinTuple](../B/BrinTuple.md) (structure type)

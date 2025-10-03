@@ -23,10 +23,9 @@ This inline function provides efficient access to individual fields within an ex
 The function converts from 1-based field numbering (PostgreSQL convention) to 0-based array indexing for internal access.
 
 ## Parameters / Member Variables
-- : Pointer to an ExpandedRecordHeader structure containing the record data
-- : 1-based field number to retrieve (must be > 0 and <= number of fields)
-- : Output parameter set to true if the field value is NULL, false otherwise
-
+- `*erh`: Pointer to an ExpandedRecordHeader structure containing the record data
+- `fnumber`: 1-based field number to retrieve (must be > 0 and <= number of fields)
+- `*isnull`: Output parameter set to true if the field value is NULL, false otherwise
 ## Dependencies
 - Functions called/Symbols referenced:
   - likely (branch prediction macro)

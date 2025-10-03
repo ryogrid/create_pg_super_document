@@ -16,9 +16,8 @@ sizebitvec(BITVECP sign, int siglen)
 This function provides a simple wrapper around PostgreSQL's pg_popcount() function to count the number of set bits in a bit vector signature. It's a utility function used throughout the TSVector GiST index implementation for calculating bit densities, Hamming distances, and making index optimization decisions. The function is essential for measuring the 'size' or cardinality of signature bit vectors.
 
 ## Parameters / Member Variables
-- : Bit vector pointer (BITVECP) to the signature whose bits should be counted
-- : Length of the signature in bytes
-
+- `sign`: Bit vector pointer (BITVECP) to the signature whose bits should be counted
+- `siglen`: Length of the signature in bytes
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_popcount](../p/pg_popcount.md) (PostgreSQL function to count set bits in memory)

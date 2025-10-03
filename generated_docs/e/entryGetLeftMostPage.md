@@ -18,9 +18,8 @@ This function provides a simple and direct way to obtain the leftmost child page
 The function includes several assertions to ensure it operates on a valid non-leaf, non-data page that contains at least one entry. It serves as a callback function that can be registered in the GinBtree structure for operations that need to find the leftmost child.
 
 ## Parameters / Member Variables
-- : GinBtree structure (currently unused in function body but required for callback interface consistency)
-- : The non-leaf page from which to extract the leftmost child page block number
-
+- `btree`: GinBtree structure (currently unused in function body but required for callback interface consistency)
+- `page`: The non-leaf page from which to extract the leftmost child page block number
 ## Dependencies
 - Functions called/Symbols referenced:
   - GinPageIsLeaf

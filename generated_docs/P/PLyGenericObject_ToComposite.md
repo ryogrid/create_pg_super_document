@@ -24,11 +24,10 @@ The function handles several important cases:
 The conversion process builds arrays of Datum values and null flags, creates a HeapTuple using heap_form_tuple(), then converts it to a Datum using heap_copy_tuple_as_datum() before cleaning up the temporary tuple.
 
 ## Parameters / Member Variables
-- : PLyObToDatum structure containing conversion metadata and attribute conversion functions
-- : TupleDesc describing the target PostgreSQL composite type structure
-- : Python object to be converted to the composite type
-- : Boolean flag indicating if this conversion is happening within an array context (affects error messages)
-
+- `*arg`: PLyObToDatum structure containing conversion metadata and attribute conversion functions
+- `desc`: TupleDesc describing the target PostgreSQL composite type structure
+- `*object`: Python object to be converted to the composite type
+- `inarray`: Boolean flag indicating if this conversion is happening within an array context (affects error messages)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PLyObToDatum](PLyObToDatum.md) (structure type)

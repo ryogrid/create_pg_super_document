@@ -21,11 +21,10 @@ In a normal Tcl environment, this function would register a file handler that mo
 The empty implementation ensures that while the Tcl notifier interface is satisfied, no actual file monitoring or event handling occurs that could introduce threading complications.
 
 ## Parameters / Member Variables
-- : File descriptor to monitor (unused in this stub implementation)
-- : Bitmask specifying which events to monitor (e.g., TCL_READABLE, TCL_WRITABLE, TCL_EXCEPTION)
-- : Callback function that would be invoked when events occur on the file descriptor
-- : Opaque pointer to client-specific data that would be passed to the callback function
-
+- `fd`: File descriptor to monitor (unused in this stub implementation)
+- `mask`: Bitmask specifying which events to monitor (e.g., TCL_READABLE, TCL_WRITABLE, TCL_EXCEPTION)
+- `*proc`: Callback function that would be invoked when events occur on the file descriptor
+- `clientData`: Opaque pointer to client-specific data that would be passed to the callback function
 ## Dependencies
 - Functions called/Symbols referenced:
   - (None - this is an empty stub function)

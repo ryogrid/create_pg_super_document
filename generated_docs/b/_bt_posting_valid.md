@@ -24,8 +24,7 @@ The validation process includes:
 This function is critical for maintaining B-tree index integrity and is used extensively during debugging and assertion checking throughout the posting list manipulation code.
 
 ## Parameters / Member Variables
-- : The IndexTuple to validate as a proper posting list
-
+- `posting`: The IndexTuple to validate as a proper posting list
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BTreeTupleIsPosting](../B/BTreeTupleIsPosting.md)

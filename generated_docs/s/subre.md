@@ -27,12 +27,11 @@ The function handles memory allocation in two ways:
 Each subre structure represents a specific operation or construct in the regular expression (indicated by the op parameter) and maintains pointers to the corresponding NFA states that implement that construct. The structure is initialized with sensible defaults and will have its specific fields updated by the calling code as needed.
 
 ## Parameters / Member Variables
-- : Pointer to vars structure containing regex compilation state and memory management pointers
-- : Character indicating the operation type (must be one of "=b|.*(" according to assertion)
-- : Integer flags controlling behavior of this subre node
-- : Pointer to the starting NFA state for this sub-expression
-- : Pointer to the ending NFA state for this sub-expression
-
+- `*v`: Pointer to vars structure containing regex compilation state and memory management pointers
+- `op`: Character indicating the operation type (must be one of "=b|.*(" according to assertion)
+- `flags`: Integer flags controlling behavior of this subre node
+- `*begin`: Pointer to the starting NFA state for this sub-expression
+- `*end`: Pointer to the ending NFA state for this sub-expression
 ## Dependencies
 - Functions called/Symbols referenced:
   - STACK_TOO_DEEP (macro to check for stack overflow)

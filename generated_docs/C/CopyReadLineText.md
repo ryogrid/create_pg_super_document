@@ -18,8 +18,7 @@ This static function performs the low-level parsing of text input during COPY FR
 The function uses an optimized approach by processing input in chunks when possible, moving data from the input buffer to the line buffer efficiently. It automatically detects and handles different end-of-line conventions (Unix \n, Mac \r, Windows \r\n) and maintains consistency throughout the input. For CSV mode, it carefully tracks whether characters appear within quoted fields to determine their special meaning. The function also handles the PostgreSQL-specific end-of-copy marker (\.) while respecting CSV quoting rules.
 
 ## Parameters / Member Variables
-- : The COPY FROM state structure containing input buffers, CSV options, EOL type tracking, and parsing state information
-
+- `cstate`: The COPY FROM state structure containing input buffers, CSV options, EOL type tracking, and parsing state information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CopyLoadInputBuf](CopyLoadInputBuf.md): Loads more data into the input buffer when needed

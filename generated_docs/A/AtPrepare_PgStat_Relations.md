@@ -18,8 +18,7 @@ This function is called during the prepare phase of a two-phase commit transacti
 The function ensures that relation statistics are preserved across the prepare/commit phases of distributed transactions, allowing the statistics to be properly applied or discarded based on the final transaction outcome. Each record contains tuple counts (inserted, updated, deleted), pre-truncate/drop statistics, and truncation status.
 
 ## Parameters / Member Variables
-- : Subtransaction status containing all relation statistics for the transaction
-
+- `*xact_state`: Subtransaction status containing all relation statistics for the transaction
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RegisterTwoPhaseRecord](../R/RegisterTwoPhaseRecord.md) (registers 2PC record with the system)

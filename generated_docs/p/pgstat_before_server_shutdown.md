@@ -27,9 +27,8 @@ When writing statistics during normal shutdown, the function:
 3. Writes all statistics to the permanent file via 
 
 ## Parameters / Member Variables
-- : Exit code indicating the type of shutdown (0 for normal, non-zero for irregular)
-- : Datum argument (unused but required for callback function signature)
-
+- `code`: Exit code indicating the type of shutdown (0 for normal, non-zero for irregular)
+- `arg`: Datum argument (unused but required for callback function signature)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pgstat_report_stat](pgstat_report_stat.md)

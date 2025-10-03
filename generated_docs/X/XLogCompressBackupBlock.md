@@ -17,12 +17,11 @@ XLogCompressBackupBlock(char *page, uint16 hole_offset, uint16 hole_length,
 XLogCompressBackupBlock attempts to compress a backup block image using the configured compression algorithm (PGLZ, LZ4, or ZSTD). The function handles pages with holes by first copying the data around the hole into a temporary buffer before compression. It only returns success if the compressed result is actually smaller than the original data, accounting for any extra header bytes needed for compressed blocks with holes. This ensures that compression only occurs when it provides a genuine space benefit.
 
 ## Parameters / Member Variables
-- : Pointer to the original page data to be compressed
-- : Byte offset where the hole (unused space) begins in the page  
-- : Length of the hole in bytes
-- : Destination buffer to store the compressed data
-- : Output parameter set to the length of compressed data on success
-
+- `*page`: Pointer to the original page data to be compressed
+- `hole_offset`: Byte offset where the hole (unused space) begins in the page
+- `hole_length`: Length of the hole in bytes
+- `*dest`: Destination buffer to store the compressed data
+- `*dlen`: Output parameter set to the length of compressed data on success
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pglz_compress](../p/pglz_compress.md) (for PGLZ compression)

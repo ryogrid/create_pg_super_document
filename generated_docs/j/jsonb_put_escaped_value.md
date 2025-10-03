@@ -16,9 +16,8 @@ jsonb_put_escaped_value(StringInfo out, JsonbValue *scalarVal)
 This function takes a JSONB scalar value and converts it to its JSON string representation with proper escaping, appending the result to the provided StringInfo buffer. It handles all JSONB scalar types including null, string, numeric, and boolean values. The function ensures that the output conforms to JSON standards by applying appropriate escaping for strings and using standard JSON literals for other types.
 
 ## Parameters / Member Variables
-- : StringInfo buffer where the escaped JSON representation will be appended
-- : Pointer to a JsonbValue structure containing the scalar value to be converted
-
+- `out`: StringInfo buffer where the escaped JSON representation will be appended
+- `*scalarVal`: Pointer to a JsonbValue structure containing the scalar value to be converted
 ## Dependencies
 - Functions called/Symbols referenced:
   - [appendBinaryStringInfo](../a/appendBinaryStringInfo.md) (for null, true, false literals)

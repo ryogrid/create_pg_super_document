@@ -16,8 +16,7 @@ XLogCheckBufferNeedsBackup(Buffer buffer)
 XLogCheckBufferNeedsBackup evaluates whether a given buffer needs to be included as a full-page image in a WAL record. The function checks if full-page writes are currently enabled and compares the page's LSN with the current Redo recovery pointer. If the page's LSN is at or before the Redo pointer and full-page writes are enabled, the buffer requires backup to ensure crash recovery can reconstruct the page state. Since this check occurs before acquiring the WAL insertion lock, the result should only be used for optimization purposes as the full-page write settings could change.
 
 ## Parameters / Member Variables
-- : The buffer to check for backup requirements
-
+- `buffer`: The buffer to check for backup requirements
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetFullPageWriteInfo](../G/GetFullPageWriteInfo.md) (gets current full-page write settings and redo pointer)

@@ -24,7 +24,6 @@ The function operates by:
 Files that represent transactions newer than the minimum XID horizon are automatically discarded during this process, ensuring only relevant prepared transactions are restored.
 
 ## Parameters / Member Variables
-This function takes no parameters and operates on global TwoPhaseState.
 
 ## Dependencies
 - Functions called/Symbols referenced:

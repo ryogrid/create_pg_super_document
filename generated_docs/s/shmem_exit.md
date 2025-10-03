@@ -16,8 +16,7 @@ shmem_exit(int code)
 shmem_exit implements a three-phase shared memory cleanup strategy during process termination. It first executes before_shmem_exit callbacks for high-level cleanup operations that require system functionality (like catalog access for temporary relation cleanup), then calls dsm_backend_shutdown() for dynamic shared memory cleanup, and finally runs on_shmem_exit callbacks for low-level shared memory resource release. The function sets and clears the shmem_exit_inprogress flag to track cleanup state and prevent reentrancy issues. Unlike proc_exit(), this function does not actually terminate the process but only performs shared memory cleanup, making it suitable for use by the postmaster during backend recovery operations.
 
 ## Parameters / Member Variables
-- : Exit status code passed to all cleanup callbacks
-
+- `code`: Exit status code passed to all cleanup callbacks
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dsm_backend_shutdown](../d/dsm_backend_shutdown.md) (dynamic shared memory cleanup)

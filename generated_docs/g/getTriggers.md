@@ -25,10 +25,9 @@ The function uses an optimized approach where it builds a constraint list of tab
 The function also ensures that partition triggers are included when their enabled state differs from their parent trigger, allowing for proper restoration of trigger state variations across partition hierarchies.
 
 ## Parameters / Member Variables
-- : Archive pointer containing database connection information and version details
-- : Array of TableInfo structures representing tables to process
-- : Number of elements in the tblinfo array
-
+- `*fout`: Archive pointer containing database connection information and version details
+- `tblinfo[]`: Array of TableInfo structures representing tables to process
+- `numTables`: Number of elements in the tblinfo array
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TableInfo](../T/TableInfo.md), TriggerInfo (struct types)

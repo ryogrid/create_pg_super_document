@@ -20,8 +20,7 @@ The function makes a conservative assumption that any SubLink node encountered w
 This function is typically used during the early stages of query planning, before the expression tree has been transformed by , when SubLink nodes are still present in their original form.
 
 ## Parameters / Member Variables
-- : The expression node to search for subplan references
-
+- `*clause`: The expression node to search for subplan references
 ## Dependencies
 - Functions called/Symbols referenced:
   - [contain_subplans_walker](contain_subplans_walker.md)

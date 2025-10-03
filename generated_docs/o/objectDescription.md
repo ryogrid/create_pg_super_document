@@ -26,9 +26,8 @@ The function specifically handles these object types:
 It constructs a complex SQL query that unions together queries for each object type, retrieving the schema name, object name, object type, and description from the PostgreSQL system catalogs. The results are formatted and displayed in a tabular format.
 
 ## Parameters / Member Variables
-- : SQL pattern to filter object names (supports wildcards like *, ?, etc.). If NULL, shows all objects.
-- : Boolean flag to include system objects (pg_catalog, information_schema). If false, only user objects are shown.
-
+- `*pattern`: SQL pattern to filter object names (supports wildcards like *, ?, etc.). If NULL, shows all objects.
+- `showSystem`: Boolean flag to include system objects (pg_catalog, information_schema). If false, only user objects are shown.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [initPQExpBuffer](../i/initPQExpBuffer.md): Initialize query buffer

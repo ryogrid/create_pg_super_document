@@ -23,8 +23,7 @@ This function queries the PostgreSQL system catalog  to retrieve the sort operat
 MIN and MAX aggregates have associated sort operators (< for MIN, > for MAX) that define the ordering used to determine the minimum or maximum value. Other aggregates like SUM, COUNT, AVG do not have sort operators and return , indicating they cannot be optimized using the MIN/MAX optimization strategy.
 
 ## Parameters / Member Variables
-- : OID of the aggregate function to look up in the system catalog
-
+- `aggfnoid`: OID of the aggregate function to look up in the system catalog
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Searches system catalog cache by aggregate function OID

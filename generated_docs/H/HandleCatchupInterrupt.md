@@ -21,6 +21,7 @@ The function includes a prominent comment warning that it's called by a signal h
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SetLatch](../S/SetLatch.md) (wakes up the process to handle the pending interrupt)

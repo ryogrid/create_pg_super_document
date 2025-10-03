@@ -24,11 +24,10 @@ The function operates in several phases:
 5. Breaks down remaining seconds into hours, minutes, and seconds
 
 ## Parameters / Member Variables
-- : Pointer to the timestamp (seconds since Unix epoch) to convert
-- : Timezone offset in seconds to apply to the timestamp
-- : Pointer to timezone state structure containing leap second and transition information
-- : Pointer to pg_tm structure to populate with the broken-down time
-
+- `*timep`: Pointer to the timestamp (seconds since Unix epoch) to convert
+- `offset`: Timezone offset in seconds to apply to the timestamp
+- `*sp`: Pointer to timezone state structure containing leap second and transition information
+- `*tmp`: Pointer to pg_tm structure to populate with the broken-down time
 ## Dependencies
 - Functions called/Symbols referenced:
   - [increment_overflow](../i/increment_overflow.md)

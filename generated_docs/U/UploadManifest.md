@@ -24,7 +24,6 @@ UploadManifest implements the server-side handling of the UPLOAD_MANIFEST replic
 The function uses PostgreSQL's COPY protocol to efficiently transfer potentially large manifest files from backup clients. The manifest contains metadata about files in previous backups, enabling incremental backup operations by identifying which files have changed.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

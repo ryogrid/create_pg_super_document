@@ -20,8 +20,7 @@ The function determines the range of SUBTRANS pages that need to be initialized 
 Since PostgreSQL doesn't expect pg_subtrans to be valid across crashes, this initialization ensures that all currently-relevant pages start with a clean state. Future page extensions through ExtendSUBTRANS will similarly zero new pages without regard to previous disk contents.
 
 ## Parameters / Member Variables
-- : The oldest transaction ID of any prepared transaction, or nextXid if there are no prepared transactions
-
+- `oldestActiveXID`: The oldest transaction ID of any prepared transaction, or nextXid if there are no prepared transactions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TransactionIdToPage](../T/TransactionIdToPage.md)

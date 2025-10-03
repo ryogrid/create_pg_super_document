@@ -19,7 +19,6 @@ When a leak is detected, the function generates detailed warning messages using 
 The function is similar in purpose to CheckForBufferLeaks() but specifically targets the local buffer subsystem. It's designed to be called during cleanup operations (end of transaction, process exit) to ensure that all local buffer pins have been properly released.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

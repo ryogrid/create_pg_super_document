@@ -16,8 +16,7 @@ DatumGetTimestamp(Datum X)
 DatumGetTimestamp is an inline function that extracts a Timestamp value from a Datum. Since PostgreSQL's Timestamp type is built on top of int64 representation (microseconds since PostgreSQL epoch), this function simply delegates to DatumGetInt64 and casts the result to Timestamp. The function follows the same pass-by-reference semantics as int64, meaning Timestamp values are passed by reference if and only if int64 values are passed by reference on the target platform.
 
 ## Parameters / Member Variables
-- : The input Datum containing the timestamp value to be extracted
-
+- `X`: The input Datum containing the timestamp value to be extracted
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DatumGetInt64](DatumGetInt64.md)

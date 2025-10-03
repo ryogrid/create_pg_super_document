@@ -18,8 +18,7 @@ This function handles WAL replay for hash index tuple insertions that don't requ
 The function operates on two buffers: first, it inserts the tuple data into the target data page using PageAddItem; second, it updates the metapage to increment the total tuple count (hashm_ntuples). The function includes error handling to ensure the insertion succeeds, panicking if PageAddItem fails.
 
 ## Parameters / Member Variables
-- : XLogReaderState pointer containing the WAL record with insertion data including the tuple data and target offset number (offnum)
-
+- `*record`: XLogReaderState pointer containing the WAL record with insertion data including the tuple data and target offset number (offnum)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [xl_hash_insert](../x/xl_hash_insert.md) (WAL record structure)

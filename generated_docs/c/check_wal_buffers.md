@@ -18,10 +18,9 @@ This function serves as the check hook for the wal_buffers GUC parameter in Post
 When auto-tuning is requested (-1), the function either preserves the boot value during early initialization or calls XLOGChooseNumBuffers() to determine the optimal number of buffers. For manually-set values below the minimum threshold of 4 blocks, the function silently adjusts them to meet the minimum requirement rather than throwing an error.
 
 ## Parameters / Member Variables
-- : Pointer to the new value being validated/adjusted
-- : Pointer to extra data (unused in this function)
-- : Source of the configuration change (GucSource enum)
-
+- `*newval`: Pointer to the new value being validated/adjusted
+- `**extra`: Pointer to extra data (unused in this function)
+- `source`: Source of the configuration change (GucSource enum)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [XLOGChooseNumBuffers](../X/XLOGChooseNumBuffers.md)

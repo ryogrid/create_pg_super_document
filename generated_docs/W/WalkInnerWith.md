@@ -29,10 +29,9 @@ This function is a subroutine of makeDependencyGraphWalker that specifically han
 The function maintains the innerwiths list in CteState to track which CTEs are visible at each nesting level, ensuring proper dependency graph construction for CTE resolution.
 
 ## Parameters / Member Variables
-- : The statement node that contains the WITH clause to be processed
-- : The WITH clause containing the list of CTEs to process
-- : The CTE state structure tracking dependency information and visibility scope
-
+- `*stmt`: The statement node that contains the WITH clause to be processed
+- `*withClause`: The WITH clause containing the list of CTEs to process
+- `*cstate`: The CTE state structure tracking dependency information and visibility scope
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lcons](../l/lcons.md) (list manipulation)

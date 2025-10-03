@@ -15,7 +15,6 @@ void pgstat_archiver_snapshot_cb(void)
 This callback function creates a consistent snapshot of archiver statistics for local consumption. It first copies the current statistics from shared memory using the changecount mechanism to ensure consistency, then acquires a shared lock to read the reset offset values. The function then applies the reset offset logic by subtracting the baseline values established during the last reset from the current statistics. For cases where the current count equals the reset count (indicating no activity since reset), it clears the associated metadata fields (WAL filename and timestamp) to indicate no recent activity.
 
 ## Parameters / Member Variables
-None - this function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

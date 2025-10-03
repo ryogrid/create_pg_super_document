@@ -16,8 +16,7 @@ jsonb_build_array(PG_FUNCTION_ARGS)
 This function serves as the entry point for the SQL function . It accepts a variable number of arguments and constructs a JSONB array containing those values in the order they were provided. The function extracts the variadic arguments and delegates the actual array construction to . Unlike object construction, array construction accepts any number of arguments (including zero) and doesn't require pairing.
 
 ## Parameters / Member Variables
-- : Function call information structure containing the variadic arguments passed to the SQL function
-
+- `PG_FUNCTION_ARGS`: Function call information structure containing the variadic arguments passed to the SQL function
 ## Dependencies
 - Functions called/Symbols referenced:
   - [extract_variadic_args](../e/extract_variadic_args.md)

@@ -17,9 +17,8 @@ SetPossibleUnsafeConflict(SERIALIZABLEXACT *roXact,
 This function creates a record of a possible unsafe conflict between a read-only transaction and an active (read-write) transaction. Unlike regular read-write conflicts, these are potential conflicts that may become actual serialization violations depending on future transaction behavior. The conflict record is allocated from the RWConflictPool and added to the possibleUnsafeConflicts lists of both transactions for later analysis.
 
 ## Parameters / Member Variables
-- : Pointer to the read-only serializable transaction
-- : Pointer to the active (read-write) serializable transaction
-
+- `*roXact`: Pointer to the read-only serializable transaction
+- `*activeXact`: Pointer to the active (read-write) serializable transaction
 ## Dependencies
 - Functions called/Symbols referenced:
   - SxactIsReadOnly

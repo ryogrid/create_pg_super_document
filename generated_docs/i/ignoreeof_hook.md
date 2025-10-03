@@ -18,8 +18,7 @@ The  function is a psql variable hook that validates new values assigned to the 
 This hook is part of psql's variable system that provides validation and processing for configuration variables. When a user sets the IGNOREEOF variable (e.g., via ), this hook function is called to validate the input.
 
 ## Parameters / Member Variables
-- : The string value being assigned to the IGNOREEOF variable that needs to be validated and parsed
-
+- `*newval`: The string value being assigned to the IGNOREEOF variable that needs to be validated and parsed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ParseVariableNum](../P/ParseVariableNum.md)

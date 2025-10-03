@@ -26,14 +26,13 @@ Key aspects:
 - Creates pg_amop and pg_amproc entries with family-level dependencies
 
 ## Parameters / Member Variables
-- : ALTER OPERATOR FAMILY statement containing context information
-- : OID of the access method
-- : OID of the operator family being modified
-- : Maximum allowed operator strategy number for this access method
-- : Maximum allowed support function number for this access method  
-- : Special function number for options processing function
-- : List of CreateOpClassItem objects representing operators/functions to add
-
+- `*stmt`: ALTER OPERATOR FAMILY statement containing context information
+- `amoid`: OID of the access method
+- `opfamilyoid`: OID of the operator family being modified
+- `maxOpNumber`: Maximum allowed operator strategy number for this access method
+- `maxProcNumber`: Maximum allowed support function number for this access method
+- `optsProcNumber`: Special function number for options processing function
+- `*items`: List of CreateOpClassItem objects representing operators/functions to add
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetIndexAmRoutineByAmId](../G/GetIndexAmRoutineByAmId.md)

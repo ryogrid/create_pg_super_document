@@ -16,9 +16,8 @@ lexeme_hash(const void *key, Size keysize)
 This function computes hash values for lexemes stored in LexemeHashKey structures. Unlike standard string hashing functions that rely on null terminators, this function uses an explicit length field to handle lexeme strings that may not be null-terminated. It uses PostgreSQL's hash_any() function to compute the actual hash value from the lexeme bytes.
 
 ## Parameters / Member Variables
-- : Pointer to LexemeHashKey structure containing lexeme data
-- : Size of the key structure (unused, length comes from key->length)
-
+- `*key`: Pointer to LexemeHashKey structure containing lexeme data
+- `keysize`: Size of the key structure (unused, length comes from key->length)
 ## Dependencies
 - Functions called/Symbols referenced:
   - LexemeHashKey

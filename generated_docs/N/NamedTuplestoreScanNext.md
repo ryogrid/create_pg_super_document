@@ -18,8 +18,7 @@ NamedTuplestoreScanNext is a static function that performs the actual tuple retr
 The function operates on the tuple store referenced by the NamedTuplestoreScanState node, using the node's read pointer to maintain proper position tracking within the store. It intentionally does not support backward scanning, as indicated by the assertion check.
 
 ## Parameters / Member Variables
-- : Pointer to NamedTuplestoreScanState containing the scan state, tuple store relation, and read pointer for the named tuple store scan operation
-
+- `*node`: Pointer to NamedTuplestoreScanState containing the scan state, tuple store relation, and read pointer for the named tuple store scan operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - ScanDirectionIsForward: Verifies that scanning is in forward direction

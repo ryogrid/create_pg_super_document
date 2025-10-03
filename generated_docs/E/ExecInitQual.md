@@ -23,9 +23,8 @@ The function implements several key optimizations:
 The compilation process creates evaluation steps for each qualification expression, followed by EEOP_QUAL steps that check for FALSE/NULL results and jump to the end if found. The final result is TRUE only if all subexpressions evaluate to TRUE.
 
 ## Parameters / Member Variables
-- : A List of expression nodes representing the conjunctive qualification. Returns NULL if the list is empty (NIL) for optimization.
-- : The PlanState node that owns this qualification expression.
-
+- `*qual`: A List of expression nodes representing the conjunctive qualification. Returns NULL if the list is empty (NIL) for optimization.
+- `*parent`: The PlanState node that owns this qualification expression.
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (creates new ExprState)

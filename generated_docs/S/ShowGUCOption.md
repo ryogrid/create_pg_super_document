@@ -30,9 +30,8 @@ The function processes each variable type differently:
 - **Enum**: Looks up the enum value name or calls custom show_hook
 
 ## Parameters / Member Variables
-- : Pointer to the config_generic structure representing the GUC variable
-- : Boolean flag indicating whether to apply unit conversion for numeric values
-
+- `*record`: Pointer to the config_generic structure representing the GUC variable
+- `use_units`: Boolean flag indicating whether to apply unit conversion for numeric values
 ## Dependencies
 - Functions called/Symbols referenced:
   - [convert_int_from_base_unit](../c/convert_int_from_base_unit.md)

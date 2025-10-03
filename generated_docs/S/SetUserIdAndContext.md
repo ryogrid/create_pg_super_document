@@ -16,9 +16,8 @@ SetUserIdAndContext(Oid userid, bool sec_def_context)
 This function modifies the current user ID (CurrentUserId) and updates the security restriction context based on whether the operation is a security definer context change. It includes a security check to prevent user ID changes within security-restricted operations, throwing the same error that SET ROLE would produce. The function manipulates the SecurityRestrictionContext flags to track whether a local user ID change has occurred.
 
 ## Parameters / Member Variables
-- : The object identifier (Oid) of the user to set as the current user
-- : Boolean flag indicating whether this is a security definer context change that should set the SECURITY_LOCAL_USERID_CHANGE flag
-
+- `userid`: The object identifier (Oid) of the user to set as the current user
+- `sec_def_context`: Boolean flag indicating whether this is a security definer context change that should set the SECURITY_LOCAL_USERID_CHANGE flag
 ## Dependencies
 - Functions called/Symbols referenced:
   - [InSecurityRestrictedOperation](../I/InSecurityRestrictedOperation.md) (security check function)

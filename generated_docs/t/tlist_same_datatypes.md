@@ -20,10 +20,9 @@ The function handles resjunk columns (auxiliary columns used internally by the p
 Note that the function currently only compares base datatypes and does not consider type modifiers (typmods), as no current callers require that level of precision.
 
 ## Parameters / Member Variables
-- : The target list whose datatypes are to be checked
-- : List of Oid values representing the expected column types
-- : Whether to ignore resjunk columns (true) or reject them (false)
-
+- `*tlist`: The target list whose datatypes are to be checked
+- `*colTypes`: List of Oid values representing the expected column types
+- `junkOK`: Whether to ignore resjunk columns (true) or reject them (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_head](../l/list_head.md) (to get the first element of colTypes list)

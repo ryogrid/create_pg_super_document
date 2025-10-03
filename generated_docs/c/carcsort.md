@@ -18,9 +18,8 @@ This function sorts an array of compact arcs ( structures) using the standard li
 The function only performs sorting when there are multiple arcs (n > 1), avoiding unnecessary overhead for single-arc states. This optimization is important since many states in a regex NFA may have only one outgoing arc.
 
 ## Parameters / Member Variables
-- : Pointer to the first element in the array of compact arcs to be sorted
-- : Number of arcs in the array to sort
-
+- `*first`: Pointer to the first element in the array of compact arcs to be sorted
+- `n`: Number of arcs in the array to sort
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (standard library sorting function)

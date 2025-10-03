@@ -16,11 +16,10 @@ getnum(const char *strp, int *const nump, const int min, const int max)
 This static function parses numeric values from timezone strings while performing range validation. It scans consecutive digits starting from the given position, converts them to an integer, and validates that the result falls within the specified minimum and maximum bounds. The function provides early termination if the value exceeds the maximum during parsing to prevent integer overflow. It returns a pointer to the first non-digit character if successful, or NULL if the input is invalid or the number is out of range.
 
 ## Parameters / Member Variables
-- : Pointer to a position within a timezone string where a number is expected
-- : Pointer to an integer where the parsed number will be stored
-- : Minimum acceptable value for the number (inclusive)
-- : Maximum acceptable value for the number (inclusive)
-
+- `*strp`: Pointer to a position within a timezone string where a number is expected
+- `nump`: Pointer to an integer where the parsed number will be stored
+- `min`: Minimum acceptable value for the number (inclusive)
+- `max`: Maximum acceptable value for the number (inclusive)
 ## Dependencies
 - Functions called/Symbols referenced:
   - is_digit (macro/function for digit checking)

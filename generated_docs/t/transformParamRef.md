@@ -20,9 +20,8 @@ The function first checks if a parameter reference hook () is registered in the 
 This design allows different parts of PostgreSQL (such as prepared statements, PL/pgSQL, etc.) to register their own parameter handling logic while keeping the core parser generic.
 
 ## Parameters / Member Variables
-- : Parse state containing context information including the parameter reference hook
-- : The parameter reference node containing the parameter number and source location
-
+- `*pstate`: Parse state containing context information including the parameter reference hook
+- `*pref`: The parameter reference node containing the parameter number and source location
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ParamRef](../P/ParamRef.md) (struct type for parameter references)

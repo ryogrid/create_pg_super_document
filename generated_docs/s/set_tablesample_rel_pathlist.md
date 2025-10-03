@@ -20,10 +20,9 @@ When a sampling method doesn't support repeatable scans and there's a risk of mu
 The function doesn't support pushing join clauses into the sampling scan's quals, but does handle required parameterization from LATERAL references in the target list or TABLESAMPLE arguments.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global planner state and query information
-- : RelOptInfo structure for the sampled relation, will have paths added to its pathlist
-- : RangeTblEntry containing the table sampling clause and relation information
-
+- `*root`: PlannerInfo structure containing global planner state and query information
+- `*rel`: RelOptInfo structure for the sampled relation, will have paths added to its pathlist
+- `*rte`: RangeTblEntry containing the table sampling clause and relation information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [create_samplescan_path](../c/create_samplescan_path.md) (creates the basic sample scan path)

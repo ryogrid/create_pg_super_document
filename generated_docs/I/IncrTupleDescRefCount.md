@@ -16,8 +16,7 @@ IncrTupleDescRefCount(TupleDesc tupdesc)
 This function safely increments the reference count of a tuple descriptor that is being managed through PostgreSQL's reference counting system. It ensures the resource owner has sufficient capacity, increments the reference count, and registers the tuple descriptor with the current resource owner for automatic cleanup when the resource owner is destroyed. The function includes validation that the tuple descriptor is already being reference counted (tdrefcount >= 0).
 
 ## Parameters / Member Variables
-- : The TupleDesc whose reference count should be incremented (must already be ref-counted)
-
+- `tupdesc`: The TupleDesc whose reference count should be incremented (must already be ref-counted)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ResourceOwnerEnlarge](../R/ResourceOwnerEnlarge.md)

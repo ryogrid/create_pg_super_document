@@ -18,8 +18,7 @@ This function is part of PostgreSQL's statistics collection system for SLRU (Sim
 The function operates by calling get_slru_entry() to retrieve the statistics entry for the given SLRU index and then atomically incrementing the flush field.
 
 ## Parameters / Member Variables
-- : Integer index identifying which SLRU cache to update flush statistics for (must be between 0 and SLRU_NUM_ELEMENTS-1)
-
+- `slru_idx`: Integer index identifying which SLRU cache to update flush statistics for (must be between 0 and SLRU_NUM_ELEMENTS-1)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_slru_entry](../g/get_slru_entry.md)

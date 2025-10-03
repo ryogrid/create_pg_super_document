@@ -34,8 +34,7 @@ This function performs comprehensive processing of imported affix rules to creat
 The resulting tree structures enable fast affix matching during word transformation and spell checking operations.
 
 ## Parameters / Member Variables
-- : Pointer to IspellDict containing affix configuration and data to be processed
-
+- `*Conf`: Pointer to IspellDict containing affix configuration and data to be processed
 ## Dependencies
 - Functions called/Symbols referenced:
   - qsort

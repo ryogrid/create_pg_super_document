@@ -19,15 +19,14 @@ transformGroupingSet(List **flatresult,
 This function processes GroupingSet nodes, which can contain various types of content including simple expression lists, nested GroupingSets, or individual expressions. It handles three main cases: (1) List nodes are transformed via  and wrapped in GROUPING_SET_SIMPLE nodes, (2) nested GroupingSet nodes are recursively processed, and (3) individual expressions are transformed via  and wrapped in simple grouping sets. The function also enforces a limit of 12 elements for CUBE operations to prevent exponential growth. GROUPING SETS within GROUPING SETS are flattened before reaching this function.
 
 ## Parameters / Member Variables
-- : Reference to flat list of SortGroupClause nodes that accumulates results
-- : ParseState containing parsing context and state information
-- : GroupingSet node to be transformed
-- : Reference to TargetEntry list that may be modified during transformation
-- : ORDER BY clause containing SortGroupClause nodes for reference
-- : ParseExprKind enum value specifying the type of expression being parsed
-- : Boolean flag indicating whether to use SQL99 syntax rather than SQL92 syntax
-- : Boolean flag indicating whether this is at top level (false if within any grouping set)
-
+- `**flatresult`: Reference to flat list of SortGroupClause nodes that accumulates results
+- `*pstate`: ParseState containing parsing context and state information
+- `*gset`: GroupingSet node to be transformed
+- `**targetlist`: Reference to TargetEntry list that may be modified during transformation
+- `*sortClause`: ORDER BY clause containing SortGroupClause nodes for reference
+- `exprKind`: ParseExprKind enum value specifying the type of expression being parsed
+- `useSQL99`: Boolean flag indicating whether to use SQL99 syntax rather than SQL92 syntax
+- `toplevel`: Boolean flag indicating whether this is at top level (false if within any grouping set)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [transformGroupClauseList](transformGroupClauseList.md)

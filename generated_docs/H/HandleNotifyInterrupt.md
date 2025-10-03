@@ -21,7 +21,6 @@ The function performs two critical but minimal operations:
 The actual notification processing is deliberately deferred to ProcessNotifyInterrupt(), which will be called later from a safe context when the backend processes the latch signal. This design pattern ensures signal safety while maintaining responsiveness to incoming notifications.
 
 ## Parameters / Member Variables
-This function takes no parameters and operates on global state variables.
 
 ## Dependencies
 - Functions called/Symbols referenced:

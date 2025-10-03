@@ -17,13 +17,12 @@ jsonb_build_object_worker(int nargs, const Datum *args, const bool *nulls, const
 The jsonb_build_object_worker function is the core implementation for building JSONB objects from a sequence of alternating key-value pairs. It validates that the argument count is even (since keys and values must be paired), initializes a JsonbInState for building the object, and processes each key-value pair while applying the specified null handling and uniqueness policies. The function enforces that keys cannot be null, but provides flexible handling of null values based on the absent_on_null parameter. When unique_keys is enabled, duplicate keys are detected and handled appropriately.
 
 ## Parameters / Member Variables
-- : Total number of arguments (must be even for key-value pairs)
-- : Array of Datum values representing alternating keys and values
-- : Array of boolean flags indicating which arguments are NULL
-- : Array of PostgreSQL type OIDs for each argument
-- : Boolean flag to skip key-value pairs when the value is NULL
-- : Boolean flag to enforce key uniqueness in the resulting object
-
+- `nargs`: Total number of arguments (must be even for key-value pairs)
+- `*args`: Array of Datum values representing alternating keys and values
+- `*nulls`: Array of boolean flags indicating which arguments are NULL
+- `*types`: Array of PostgreSQL type OIDs for each argument
+- `absent_on_null`: Boolean flag to skip key-value pairs when the value is NULL
+- `unique_keys`: Boolean flag to enforce key uniqueness in the resulting object
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pushJsonbValue](../p/pushJsonbValue.md)

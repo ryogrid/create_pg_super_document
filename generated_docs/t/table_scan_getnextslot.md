@@ -18,10 +18,9 @@ The  function is the primary interface for retrieving tuples during a table scan
 The function sets the table OID in the slot to match the relation being scanned and validates the scan direction. It includes a critical assertion that prevents unexpected calls during logical decoding when CheckXidAlive is valid, as this could lead to inconsistent behavior in catalog or regular table scans.
 
 ## Parameters / Member Variables
-- : The TableScanDesc structure representing the active scan
-- : The scan direction (ForwardScanDirection or BackwardScanDirection)
-- : The TupleTableSlot where the retrieved tuple will be stored
-
+- `sscan`: The TableScanDesc structure representing the active scan
+- `direction`: The scan direction (ForwardScanDirection or BackwardScanDirection)
+- `*slot`: The TupleTableSlot where the retrieved tuple will be stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TableScanDesc](../T/TableScanDesc.md) (scan descriptor type)

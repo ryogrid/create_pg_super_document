@@ -22,12 +22,11 @@ This function implements bucket compaction for hash indexes during VACUUM operat
 The function maintains hashkey ordering when inserting moved tuples and uses WAL logging for crash safety. It employs lock chaining to prevent concurrent scans from seeing inconsistent bucket states during the reorganization process. All pages in the bucket chain are guaranteed to be non-empty after completion, unless the entire bucket is empty.
 
 ## Parameters / Member Variables
-- : Relation (hash index) being processed
-- : Bucket number being compacted  
-- : Block number of the primary bucket page
-- : Buffer containing the primary bucket page (must be cleanup-locked)
-- : Buffer access strategy for controlling page fetches during VACUUM
-
+- `rel`: Relation (hash index) being processed
+- `bucket`: Bucket number being compacted
+- `bucket_blkno`: Block number of the primary bucket page
+- `bucket_buf`: Buffer containing the primary bucket page (must be cleanup-locked)
+- `bstrategy`: Buffer access strategy for controlling page fetches during VACUUM
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BufferGetPage](../B/BufferGetPage.md), HashPageGetOpaque

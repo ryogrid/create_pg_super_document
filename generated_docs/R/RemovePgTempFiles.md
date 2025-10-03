@@ -21,7 +21,6 @@ This function performs comprehensive cleanup of temporary files that may have be
 The function is designed to be robust - it will continue cleanup operations even if some files cannot be removed, ensuring that PostgreSQL can start successfully. This is particularly important during crash recovery scenarios where the remove_temp_files_after_crash GUC setting controls whether this cleanup occurs.
 
 ## Parameters / Member Variables
-This function takes no parameters and operates on the current PostgreSQL data directory structure.
 
 ## Dependencies
 - Functions called/Symbols referenced:

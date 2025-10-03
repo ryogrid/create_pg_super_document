@@ -16,8 +16,7 @@ _h_spooldestroy(HSpool *hspool)
 This function performs cleanup operations for an HSpool structure that was previously created by . It properly terminates the tuplesort state by calling  to release any resources held by the sorting subsystem, then deallocates the HSpool structure itself using . This ensures proper resource management during hash index construction cleanup.
 
 ## Parameters / Member Variables
-- : Pointer to the HSpool structure to be destroyed
-
+- `*hspool`: Pointer to the HSpool structure to be destroyed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [HSpool](../H/HSpool.md) (structure type)

@@ -28,18 +28,17 @@ The function uses PyArg_ParseTuple with format string "izzzizzzzz" to extract:
 If the spidata attribute is not present (e.g., when someone manually raises an SPIError from Python code), the function falls back to extracting just the SQL error code using PLy_get_sqlerrcode.
 
 ## Parameters / Member Variables
-- : Python SPIError exception object
-- : Output pointer for SQL error code
-- : Output pointer for error detail message
-- : Output pointer for error hint message  
-- : Output pointer for the query text that caused the error
-- : Output pointer for character position in query where error occurred
-- : Output pointer for schema name involved in error
-- : Output pointer for table name involved in error
-- : Output pointer for column name involved in error
-- : Output pointer for data type name involved in error
-- : Output pointer for constraint name involved in error
-
+- `*exc`: Python SPIError exception object
+- `*sqlerrcode`: Output pointer for SQL error code
+- `**detail`: Output pointer for error detail message
+- `**hint`: Output pointer for error hint message
+- `**query`: Output pointer for the query text that caused the error
+- `*position`: Output pointer for character position in query where error occurred
+- `**schema_name`: Output pointer for schema name involved in error
+- `**table_name`: Output pointer for table name involved in error
+- `**column_name`: Output pointer for column name involved in error
+- `**datatype_name`: Output pointer for data type name involved in error
+- `**constraint_name`: Output pointer for constraint name involved in error
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PLy_get_sqlerrcode](PLy_get_sqlerrcode.md): Fallback function to extract SQL error code

@@ -33,11 +33,10 @@ This function performs the second phase of nested loop join cost estimation in P
 The function handles complex scenarios like indexed join qualifications where unmatched rows may result in very cheap index probes returning no results.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planner context and statistics
-- : NestPath structure to be finalized with cost and row estimates
-- : JoinCostWorkspace containing preliminary estimates from initial_cost_nestloop
-- : JoinPathExtraData containing miscellaneous join information including semifactors
-
+- `*root`: PlannerInfo structure containing planner context and statistics
+- `*path`: NestPath structure to be finalized with cost and row estimates
+- `*workspace`: JoinCostWorkspace containing preliminary estimates from initial_cost_nestloop
+- `*extra`: JoinPathExtraData containing miscellaneous join information including semifactors
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_parallel_divisor](../g/get_parallel_divisor.md)

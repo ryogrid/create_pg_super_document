@@ -28,9 +28,8 @@ This function safely adds a qualification condition to the WHERE clause of a que
 The function is primarily used during rule processing where additional conditions need to be dynamically added to queries, such as when applying rule qualifiers or when rewriting target views.
 
 ## Parameters / Member Variables
-- : The Query structure to modify
-- : The qualification condition (Node) to add to the WHERE clause; if NULL, the function returns without making changes
-
+- `*parsetree`: The Query structure to modify
+- `*qual`: The qualification condition (Node) to add to the WHERE clause; if NULL, the function returns without making changes
 ## Dependencies
 - Functions called/Symbols referenced:
   - CMD_UTILITY (command type constant)

@@ -18,9 +18,8 @@ The function implements an efficient offset calculation mechanism for multirange
 The offset calculation is crucial for the multirange data structure's space efficiency, as it allows ranges to be stored compactly without requiring explicit offset storage for every range element.
 
 ## Parameters / Member Variables
-- : Pointer to the MultirangeType structure containing the multirange data
-- : Zero-based index of the range for which to calculate the bounds offset
-
+- `*multirange`: Pointer to the MultirangeType structure containing the multirange data
+- `i`: Zero-based index of the range for which to calculate the bounds offset
 ## Dependencies
 - Functions called/Symbols referenced:
   - MultirangeGetItemsPtr

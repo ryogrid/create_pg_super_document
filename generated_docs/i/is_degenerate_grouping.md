@@ -23,8 +23,7 @@ The function checks for the specific combination of conditions:
 When these conditions are met, PostgreSQL can apply specialized optimizations since no actual grouping computation is needed - the query essentially becomes a filtered scan or produces a predetermined number of result rows (one per empty grouping set).
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing the parsed query and planning context information
-
+- `*root`: PlannerInfo structure containing the parsed query and planning context information
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (accesses only PlannerInfo and Query structure fields)

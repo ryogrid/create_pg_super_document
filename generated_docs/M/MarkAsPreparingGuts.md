@@ -17,13 +17,12 @@ MarkAsPreparingGuts(GlobalTransaction gxact, TransactionId xid, const char *gid,
 MarkAsPreparingGuts is an internal helper function that performs the low-level initialization of a GlobalTransaction and its corresponding PGPROC entry. It's designed to work both during normal transaction preparation and during crash recovery when reloading prepared transactions. The function initializes the PGPROC structure with appropriate values for a prepared transaction, sets up virtual transaction IDs for lock conflict resolution, and populates the GlobalTransaction structure with metadata. It assumes appropriate locks are already held and operates on pre-allocated structures.
 
 ## Parameters / Member Variables
-- : The GlobalTransaction structure to initialize
-- : The transaction ID being prepared
-- : The Global Identifier string for the transaction
-- : Timestamp when the transaction was prepared
-- : Object ID of the user who owns this prepared transaction
-- : Object ID of the database where this transaction is being prepared
-
+- `gxact`: The GlobalTransaction structure to initialize
+- `xid`: The transaction ID being prepared
+- `*gid`: The Global Identifier string for the transaction
+- `prepared_at`: Timestamp when the transaction was prepared
+- `owner`: Object ID of the user who owns this prepared transaction
+- `databaseid`: Object ID of the database where this transaction is being prepared
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GlobalTransaction](../G/GlobalTransaction.md)

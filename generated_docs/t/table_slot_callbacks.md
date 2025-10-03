@@ -22,8 +22,7 @@ This function serves as a central dispatcher for determining the appropriate tup
 The function centralizes the knowledge of which slot type is appropriate for each relation kind, making it easier for other parts of the system (like COPY) to create appropriate slots.
 
 ## Parameters / Member Variables
-- : The Relation for which to determine the appropriate slot callbacks
-
+- `relation`: The Relation for which to determine the appropriate slot callbacks
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TupleTableSlotOps](../T/TupleTableSlotOps.md) (structure type)

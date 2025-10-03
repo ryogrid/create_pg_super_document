@@ -19,13 +19,12 @@ This static function performs the complete deletion of a posting tree page in a 
 The deletion process involves multiple steps: unlinking the page from its siblings by updating the left sibling's rightlink, removing the downlink from the parent page, marking the page as deleted with a transaction ID, and creating appropriate WAL records for crash recovery. The function also handles predicate locking to ensure that any inserts that would have gone to the deleted page are redirected to its right sibling.
 
 ## Parameters / Member Variables
-- : GinVacuumState containing index context, buffer strategy, and result statistics
-- : Block number of the page to be deleted
-- : Block number of the left sibling page that needs rightlink update
-- : Block number of the parent page containing the downlink to remove
-- : Offset in the parent page of the downlink pointing to the page being deleted
-- : Boolean indicating whether the parent page is the root (currently unused in function body)
-
+- `*gvs`: GinVacuumState containing index context, buffer strategy, and result statistics
+- `deleteBlkno`: Block number of the page to be deleted
+- `leftBlkno`: Block number of the left sibling page that needs rightlink update
+- `parentBlkno`: Block number of the parent page containing the downlink to remove
+- `myoff`: Offset in the parent page of the downlink pointing to the page being deleted
+- `isParentRoot`: Boolean indicating whether the parent page is the root (currently unused in function body)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReadBufferExtended](../R/ReadBufferExtended.md) (read pages into buffers)

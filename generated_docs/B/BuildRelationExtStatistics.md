@@ -20,14 +20,13 @@ This function serves as the main entry point for building extended statistics du
 The function operates in a temporary memory context to manage memory efficiently during statistics computation, resetting the context after each statistics object is processed.
 
 ## Parameters / Member Variables
-- : The relation for which to build extended statistics
-- : Whether to include inheritance hierarchy statistics  
-- : Total number of rows in the relation
-- : Number of sampled rows available for computation
-- : Array of sampled HeapTuple data
-- : Number of attributes being analyzed
-- : Array of per-column statistics information
-
+- `onerel`: The relation for which to build extended statistics
+- `inh`: Whether to include inheritance hierarchy statistics
+- `totalrows`: Total number of rows in the relation
+- `numrows`: Number of sampled rows available for computation
+- `*rows`: Array of sampled HeapTuple data
+- `natts`: Number of attributes being analyzed
+- `**vacattrstats`: Array of per-column statistics information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [fetch_statentries_for_relation](../f/fetch_statentries_for_relation.md)

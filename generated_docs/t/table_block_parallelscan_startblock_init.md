@@ -27,10 +27,9 @@ This function initializes the starting block and chunk size for parallel sequent
 The function uses a retry mechanism when dealing with synchronized scans - it releases the spinlock to call  and retries to avoid holding the lock during potentially slow operations.
 
 ## Parameters / Member Variables
-- : Relation being scanned in parallel
-- : Worker-specific parallel block scan state (reset and configured by this function)
-- : Shared parallel block scan descriptor containing coordination state
-
+- `rel`: Relation being scanned in parallel
+- `pbscanwork`: Worker-specific parallel block scan state (reset and configured by this function)
+- `pbscan`: Shared parallel block scan descriptor containing coordination state
 ## Dependencies
 - Functions called/Symbols referenced:
   - memset

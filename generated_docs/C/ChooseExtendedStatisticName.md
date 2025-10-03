@@ -23,11 +23,10 @@ The function performs a loop that:
 4. Returns the first non-conflicting name found
 
 ## Parameters / Member Variables
-- : First component of the object name (typically relation name)
-- : Second component of the object name (can be NULL)
-- : Base label for the statistics object (cannot be NULL)
-- : OID of the namespace where the statistics object will be created
-
+- `*name1`: First component of the object name (typically relation name)
+- `*name2`: Second component of the object name (can be NULL)
+- `*label`: Base label for the statistics object (cannot be NULL)
+- `namespaceid`: OID of the namespace where the statistics object will be created
 ## Dependencies
 - Functions called/Symbols referenced:
   - [strlcpy](../s/strlcpy.md)

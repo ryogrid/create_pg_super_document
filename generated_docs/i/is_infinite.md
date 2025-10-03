@@ -23,8 +23,7 @@ The function returns:
 This distinction is important for mathematical operations and proper handling of infinite results in PostgreSQL's floating-point arithmetic.
 
 ## Parameters / Member Variables
-- : The double-precision floating-point value to test for infinity
-
+- `val`: The double-precision floating-point value to test for infinity
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (C standard library macro/function for infinity detection)

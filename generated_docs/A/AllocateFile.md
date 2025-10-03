@@ -18,9 +18,8 @@ AllocateFile serves as the primary interface for opening files using stdio (FILE
 The function is specifically designed for short-lived file operations, such as reading configuration files that will be immediately closed. Files intended to remain open for extended periods should not use this mechanism as they cannot share kernel file descriptors with other files, risking FD exhaustion.
 
 ## Parameters / Member Variables
-- : The path to the file to be opened
-- : The file opening mode string (same as standard fopen() modes: "r", "w", "a", etc.)
-
+- `*name`: The path to the file to be opened
+- `*mode`: The file opening mode string (same as standard fopen() modes: "r", "w", "a", etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   - DO_DB (debug logging macro)

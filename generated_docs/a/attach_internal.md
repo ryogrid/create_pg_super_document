@@ -18,10 +18,9 @@ This function provides the core logic for attaching a backend process to an exis
 The function performs safety checks to ensure the DSA hasn't been destroyed, increments the reference count to track active attachments, and sets up the segment mapping structures needed for this process to access the shared memory. It handles both regular DSM-based DSAs and in-place DSAs through the same interface.
 
 ## Parameters / Member Variables
-- : Pointer to the memory location containing the existing DSA control structure
-- : DSM segment containing the DSA (can be NULL for in-place DSAs)
-- : DSA handle used to identify and validate the area
-
+- `*place`: Pointer to the memory location containing the existing DSA control structure
+- `*segment`: DSM segment containing the DSA (can be NULL for in-place DSAs)
+- `handle`: DSA handle used to identify and validate the area
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md)

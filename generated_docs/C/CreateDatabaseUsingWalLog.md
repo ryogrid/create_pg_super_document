@@ -26,11 +26,10 @@ This function implements the WAL_LOG strategy for database creation, which invol
 The function ensures proper locking to prevent concurrent modifications and handles cleanup of allocated memory and acquired locks.
 
 ## Parameters / Member Variables
-- : Object ID of the source database to copy from
-- : Object ID of the destination database being created
-- : Tablespace ID of the source database's default tablespace
-- : Tablespace ID of the destination database's default tablespace
-
+- `src_dboid`: Object ID of the source database to copy from
+- `dst_dboid`: Object ID of the destination database being created
+- `src_tsid`: Tablespace ID of the source database's default tablespace
+- `dst_tsid`: Tablespace ID of the destination database's default tablespace
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetDatabasePath](../G/GetDatabasePath.md): Gets filesystem path for database directory

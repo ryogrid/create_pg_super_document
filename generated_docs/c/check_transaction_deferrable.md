@@ -22,10 +22,9 @@ The function enforces two key restrictions:
 These restrictions ensure that the deferrable property is set at the appropriate transaction scope and timing.
 
 ## Parameters / Member Variables
-- : Pointer to the new boolean value for the transaction deferrable setting (true = deferrable, false = not deferrable)
-- : Pointer to extra data (unused in this function, can be NULL)
-- : The source of the configuration change (GucSource enum)
-
+- `*newval`: Pointer to the new boolean value for the transaction deferrable setting (true = deferrable, false = not deferrable)
+- `**extra`: Pointer to extra data (unused in this function, can be NULL)
+- `source`: The source of the configuration change (GucSource enum)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [IsSubTransaction](../I/IsSubTransaction.md)

@@ -17,7 +17,6 @@ This function serves as a simple but comprehensive interrupt handler specificall
 The function operates by checking global flags that are typically set by signal handlers and processing the corresponding actions. It ensures that background processes can respond appropriately to system events and administrative requests without disrupting their main processing loops.
 
 ## Parameters / Member Variables
-This function takes no parameters and returns void.
 
 ## Dependencies
 - Functions called/Symbols referenced:

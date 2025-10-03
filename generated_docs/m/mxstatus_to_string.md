@@ -20,8 +20,7 @@ The function uses a switch statement to handle all defined MultiXactStatus value
 The returned strings are static literals, so callers do not need to manage memory for the returned values.
 
 ## Parameters / Member Variables
-- : The MultiXactStatus enumeration value to convert to a string representation
-
+- `status`: The MultiXactStatus enumeration value to convert to a string representation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MultiXactStatus](../M/MultiXactStatus.md) enumeration constants:

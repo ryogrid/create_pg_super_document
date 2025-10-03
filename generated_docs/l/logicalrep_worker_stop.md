@@ -18,9 +18,8 @@ This function provides the public interface for stopping logical replication wor
 The function operates under LogicalRepWorkerLock protection to ensure thread-safe access to the worker pool and prevent race conditions during worker lookup and termination.
 
 ## Parameters / Member Variables
-- : Object ID of the subscription whose worker should be stopped
-- : Object ID of the relation being replicated (InvalidOid for subscription-level workers)
-
+- `subid`: Object ID of the subscription whose worker should be stopped
+- `relid`: Object ID of the relation being replicated (InvalidOid for subscription-level workers)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease: Acquires LogicalRepWorkerLock for thread-safe operations

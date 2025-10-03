@@ -18,8 +18,7 @@ This function examines all blocker conditions associated with a PermutationStep 
 The function handles three types of blockers: PSB_ONCE (handled specially elsewhere and ignored here), PSB_OTHER_STEP (blocks if another specific step is currently active), and PSB_NUM_NOTICES (blocks if the required number of NOTICE messages hasn't been received yet). This allows isolation tests to coordinate step execution and ensure proper sequencing based on database notifications and step dependencies.
 
 ## Parameters / Member Variables
-- : Pointer to the PermutationStep to check for blocking conditions
-
+- `*pstep`: Pointer to the PermutationStep to check for blocking conditions
 ## Dependencies
 - Functions called/Symbols referenced:
   - PermutationStepBlocker (structure)

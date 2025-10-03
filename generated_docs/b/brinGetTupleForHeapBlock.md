@@ -24,13 +24,12 @@ This function retrieves the BRIN summary tuple for a specified heap block by:
 The function handles concurrent operations gracefully by detecting when range maps are updated or tuples are moved/removed during the operation. It includes an infinite loop protection mechanism that detects corrupted index conditions.
 
 ## Parameters / Member Variables
-- : The BRIN reverse map structure containing index metadata
-- : The heap block number for which to fetch the summary tuple
-- : Pointer to buffer that will contain the fetched tuple (input/output parameter)
-- : Returns the offset number of the tuple within its page
-- : Returns the size of the tuple (optional, can be NULL)
-- : Buffer lock mode to apply when reading the tuple page
-
+- `*revmap`: The BRIN reverse map structure containing index metadata
+- `heapBlk`: The heap block number for which to fetch the summary tuple
+- `*buf`: Pointer to buffer that will contain the fetched tuple (input/output parameter)
+- `*off`: Returns the offset number of the tuple within its page
+- `*size`: Returns the size of the tuple (optional, can be NULL)
+- `mode`: Buffer lock mode to apply when reading the tuple page
 ## Dependencies
 - Functions called/Symbols referenced:
   - [revmap_get_blkno](../r/revmap_get_blkno.md)

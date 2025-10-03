@@ -23,9 +23,8 @@ For different RTE kinds:
 - **RTE_FUNCTION/TABLEFUNC/VALUES/CTE/etc**: Uses expandRTE to get column information
 
 ## Parameters / Member Variables
-- : PlannerInfo containing global planner state and range table information
-- : RelOptInfo representing the relation for which to build the physical target list
-
+- `*root`: PlannerInfo containing global planner state and range table information
+- `*rel`: RelOptInfo representing the relation for which to build the physical target list
 ## Dependencies
 - Functions called/Symbols referenced:
   - planner_rt_fetch (retrieves range table entry by index)

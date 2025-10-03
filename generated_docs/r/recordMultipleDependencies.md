@@ -19,11 +19,10 @@ recordMultipleDependencies(const ObjectAddress *depender,
 This function provides an optimized way to record multiple dependency relationships for a single dependent object. It creates entries in the pg_depend system catalog table using batch insertion techniques to improve performance when dealing with multiple dependencies. The function handles several optimizations including skipping pinned objects (which don't need dependency tracking), using tuple slots for efficient insertion, and batching insertions to reduce I/O overhead. It also handles bootstrap mode by returning early since pg_depend may not exist during system initialization.
 
 ## Parameters / Member Variables
-- : Pointer to ObjectAddress of the dependent object (the one that depends on others)
-- : Pointer to array of ObjectAddress structures representing the referenced objects
-- : Integer count of how many referenced objects are in the array
-- : DependencyType enum value specifying the type of dependency relationship for all entries
-
+- `*depender`: Pointer to ObjectAddress of the dependent object (the one that depends on others)
+- `*referenced`: Pointer to array of ObjectAddress structures representing the referenced objects
+- `nreferenced`: Integer count of how many referenced objects are in the array
+- `behavior`: DependencyType enum value specifying the type of dependency relationship for all entries
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsBootstrapProcessingMode

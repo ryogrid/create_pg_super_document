@@ -16,10 +16,9 @@ elements_worker(FunctionCallInfo fcinfo, const char *funcname, bool as_text)
 This function serves as the core implementation for JSON array element extraction from text-based JSON (as opposed to binary JSONB). It uses PostgreSQL's JSON parsing infrastructure with semantic action callbacks to process JSON arrays. The function sets up a parsing context with specific semantic actions for handling array elements, then delegates to the JSON parser. Unlike elements_worker_jsonb which works with pre-parsed JSONB data, this function parses raw JSON text and uses callback-driven processing to extract array elements during the parsing phase.
 
 ## Parameters / Member Variables
-- : Function call information context containing arguments and result information
-- : Name of the calling function (used for error reporting and state tracking)
-- : Boolean flag determining output format - true normalizes results to text, false keeps original JSON format
-
+- `fcinfo`: Function call information context containing arguments and result information
+- `*funcname`: Name of the calling function (used for error reporting and state tracking)
+- `as_text`: Boolean flag determining output format - true normalizes results to text, false keeps original JSON format
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_TEXT_PP: Extract text argument from function call

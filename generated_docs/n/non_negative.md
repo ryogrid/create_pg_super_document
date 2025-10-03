@@ -18,8 +18,7 @@ The  function is a simple utility that sanitizes floating-point values to ensure
 The function handles both negative values and NaN (Not a Number) values by replacing them with 0.0, as the comparison  will be false for both negative numbers and NaN values in IEEE 754 floating-point arithmetic.
 
 ## Parameters / Member Variables
-- : The input floating-point value to be checked and potentially sanitized
-
+- `val`: The input floating-point value to be checked and potentially sanitized
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (uses only basic arithmetic comparison)

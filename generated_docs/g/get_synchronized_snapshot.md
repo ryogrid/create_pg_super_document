@@ -18,8 +18,7 @@ The get_synchronized_snapshot function obtains a snapshot identifier from Postgr
 This mechanism is essential for maintaining data consistency when multiple worker processes are reading from the database simultaneously during a parallel dump operation. Each worker can use the same snapshot ID to ensure they all see the database in the same state, preventing inconsistencies that could arise from concurrent database modifications.
 
 ## Parameters / Member Variables
-- : Archive handle containing the database connection and configuration information
-
+- `*fout`: Archive handle containing the database connection and configuration information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecuteSqlQueryForSingleRow](../E/ExecuteSqlQueryForSingleRow.md) (execute SQL query expecting single result row)

@@ -18,10 +18,9 @@ guc_realloc(int elevel, void *old, size_t size)
 The function includes an important safety feature: it verifies that any existing memory being reallocated actually belongs to the GUCMemoryContext using an assertion. This helps catch programming errors where GUC functions might be called on memory allocated elsewhere. Like the standard , it allows the old pointer to be NULL, in which case it behaves like a fresh allocation.
 
 ## Parameters / Member Variables
-- : Error level to use when reporting out-of-memory conditions (e.g., ERROR, WARNING, LOG)
-- : Pointer to previously allocated memory block, or NULL for new allocation
-- : New size in bytes for the memory block
-
+- `elevel`: Error level to use when reporting out-of-memory conditions (e.g., ERROR, WARNING, LOG)
+- `*old`: Pointer to previously allocated memory block, or NULL for new allocation
+- `size`: New size in bytes for the memory block
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetMemoryChunkContext](../G/GetMemoryChunkContext.md) (for memory context verification)

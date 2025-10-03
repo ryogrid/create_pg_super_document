@@ -28,13 +28,12 @@ This function implements a space optimization strategy for SPGiST indexes. When 
 The function cannot work on root pages and includes special handling for DEAD tuples.
 
 ## Parameters / Member Variables
-- : The SPGiST index relation being modified
-- : SPGiST state information containing configuration and temporary data
-- : Page descriptor for the current page containing the tuple chain to move
-- : Page descriptor for the parent page (must be valid, not root)
-- : The new leaf tuple that triggered the move operation
-- : Boolean indicating if this is a nulls page
-
+- `index`: The SPGiST index relation being modified
+- `*state`: SPGiST state information containing configuration and temporary data
+- `*current`: Page descriptor for the current page containing the tuple chain to move
+- `*parent`: Page descriptor for the parent page (must be valid, not root)
+- `newLeafTuple`: The new leaf tuple that triggered the move operation
+- `isNulls`: Boolean indicating if this is a nulls page
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SpGistGetBuffer](../S/SpGistGetBuffer.md) (allocates a new leaf page with required space)

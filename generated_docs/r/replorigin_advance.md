@@ -18,12 +18,11 @@ replorigin_advance(RepOriginId node,
 replorigin_advance is a core function that updates the replication progress tracking for a specific replication origin. It searches for or creates a replication state slot for the given origin, then updates the remote and local LSN positions to reflect successful replay of a transaction. The function handles concurrent access through lwlocks, supports both forward and backward LSN movement, and optionally logs the change to WAL for durability. It's essential for crash recovery and ensuring that replicated transactions aren't replayed multiple times.
 
 ## Parameters / Member Variables
-- : RepOriginId identifying the replication origin
-- : XLogRecPtr of the commit LSN on the remote node
-- : XLogRecPtr of the local commit LSN
-- : boolean allowing LSN to move backward (for special cases)
-- : boolean indicating whether to write a WAL record for this change
-
+- `node`: RepOriginId identifying the replication origin
+- `remote_commit`: XLogRecPtr of the commit LSN on the remote node
+- `local_commit`: XLogRecPtr of the local commit LSN
+- `go_backward`: boolean allowing LSN to move backward (for special cases)
+- `wal_log`: boolean indicating whether to write a WAL record for this change
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease

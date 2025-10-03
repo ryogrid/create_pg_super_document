@@ -19,10 +19,9 @@ This function handles the deparsing of options that are common across multiple S
 The wrapper handling logic accounts for different JsonWrapperType values, treating both JSW_NONE and JSW_UNSPEC as equivalent for "WITHOUT WRAPPER" output. The function optimizes output by only including non-default behaviors, making the generated SQL more concise while maintaining semantic accuracy.
 
 ## Parameters / Member Variables
-- : JsonExpr structure containing the JSON expression options to be formatted
-- : Deparse context containing the output buffer and formatting settings
-- : Default JsonBehaviorType used to determine when to omit standard behaviors
-
+- `*jsexpr`: JsonExpr structure containing the JSON expression options to be formatted
+- `*context`: Deparse context containing the output buffer and formatting settings
+- `default_behavior`: Default JsonBehaviorType used to determine when to omit standard behaviors
 ## Dependencies
 - Functions called/Symbols referenced:
   - [appendStringInfoString](../a/appendStringInfoString.md) (appends strings to the output buffer)

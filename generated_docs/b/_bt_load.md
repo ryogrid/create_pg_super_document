@@ -30,10 +30,9 @@ Key features and optimizations:
 The function coordinates with other components like  for page management and  for finalizing the index structure.
 
 ## Parameters / Member Variables
-- : BTWriteState structure containing the overall state of index building, including the target index relation and bulk write state
-- : Primary BTSpool containing the main sorted tuple stream from the tuplesort
-- : Optional secondary BTSpool containing additional sorted tuples (typically dead tuples), or NULL if no merging is required
-
+- `*wstate`: BTWriteState structure containing the overall state of index building, including the target index relation and bulk write state
+- `*btspool`: Primary BTSpool containing the main sorted tuple stream from the tuplesort
+- `*btspool2`: Optional secondary BTSpool containing additional sorted tuples (typically dead tuples), or NULL if no merging is required
 ## Dependencies
 - Functions called/Symbols referenced:
   - [smgr_bulk_start_rel](../s/smgr_bulk_start_rel.md)

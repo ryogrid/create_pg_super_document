@@ -18,9 +18,8 @@ This function serializes a NumericVar structure into a binary format using Postg
 The serialization format differs from the wire protocol used by numeric_send/recv functions, as it uses 32-bit integers for weight and dscale fields instead of 16-bit integers, allowing for a broader range of intermediate values.
 
 ## Parameters / Member Variables
-- : StringInfo buffer where the serialized data will be written
-- : Pointer to the NumericVar structure to be serialized (const, indicating read-only access)
-
+- `buf`: StringInfo buffer where the serialized data will be written
+- `*var`: Pointer to the NumericVar structure to be serialized (const, indicating read-only access)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pq_sendint32](../p/pq_sendint32.md) (for ndigits, weight, sign, dscale fields)

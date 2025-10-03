@@ -30,9 +30,8 @@ Key differences from ProcKill:
 - No freelist operations since auxiliary PGPROCs are statically allocated
 
 ## Parameters / Member Variables
-- : Exit code (unused in this function but required by exit callback interface)
-- : Datum containing the auxiliary process type identifier, extracted using DatumGetInt32
-
+- `code`: Exit code (unused in this function but required by exit callback interface)
+- `arg`: Datum containing the auxiliary process type identifier, extracted using DatumGetInt32
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DatumGetInt32](../D/DatumGetInt32.md)

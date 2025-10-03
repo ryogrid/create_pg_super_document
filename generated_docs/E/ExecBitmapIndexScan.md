@@ -18,8 +18,7 @@ This function is implemented as a deliberate stub that immediately throws an err
 The function exists purely to maintain consistency with the executor node interface requirements, but its implementation makes it clear that this calling pattern is not supported for bitmap index scan operations.
 
 ## Parameters / Member Variables
-- : Pointer to the PlanState structure containing the execution state, though this parameter is unused since the function immediately errors out
-
+- `*pstate`: Pointer to the PlanState structure containing the execution state, though this parameter is unused since the function immediately errors out
 ## Dependencies
 - Functions called/Symbols referenced:
   - elog (for error reporting)

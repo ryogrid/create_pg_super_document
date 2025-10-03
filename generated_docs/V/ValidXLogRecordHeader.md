@@ -26,12 +26,11 @@ ValidXLogRecordHeader is a static validation function specifically designed as a
 The function uses different validation strategies depending on whether random access or sequential access is being performed, providing protection against various types of WAL corruption scenarios.
 
 ## Parameters / Member Variables
-- : XLogReaderState pointer containing the current reader state and error reporting context
-- : XLogRecPtr specifying the current record's location in the WAL
-- : XLogRecPtr indicating the expected location of the previous record
-- : XLogRecord pointer to the record header being validated
-- : Boolean flag indicating whether random access mode is being used (affects prev-link validation logic)
-
+- `*state`: XLogReaderState pointer containing the current reader state and error reporting context
+- `RecPtr`: XLogRecPtr specifying the current record's location in the WAL
+- `PrevRecPtr`: XLogRecPtr indicating the expected location of the previous record
+- `*record`: XLogRecord pointer to the record header being validated
+- `randAccess`: Boolean flag indicating whether random access mode is being used (affects prev-link validation logic)
 ## Dependencies
 - Functions called/Symbols referenced:
   - SizeOfXLogRecord (constant for minimum record size)

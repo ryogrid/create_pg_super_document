@@ -19,12 +19,11 @@ tuplesort_begin_cluster(TupleDesc tupDesc,
 This function creates a specialized tuplesort state for cluster operations, which sort heap tuples according to the ordering defined by a B-tree index. It builds the necessary infrastructure to compare tuples based on the index's key attributes, handling both simple column references and complex index expressions. The function sets up execution state and expression evaluation context when the index contains expressions, ensuring proper tuple comparison during the clustering process. It configures sort support for each index key attribute, respecting the index's collation, null ordering, and sort direction.
 
 ## Parameters / Member Variables
-- : Tuple descriptor for the heap tuples being sorted
-- : B-tree index relation that defines the sort ordering (must be BTREE_AM_OID)
-- : Amount of memory (in KB) available for sorting operations
-- : Coordination structure for parallel sorting operations
-- : Sorting options bitmask (e.g., TUPLESORT_RANDOMACCESS)
-
+- `tupDesc`: Tuple descriptor for the heap tuples being sorted
+- `indexRel`: B-tree index relation that defines the sort ordering (must be BTREE_AM_OID)
+- `workMem`: Amount of memory (in KB) available for sorting operations
+- `coordinate`: Coordination structure for parallel sorting operations
+- `sortopt`: Sorting options bitmask (e.g., TUPLESORT_RANDOMACCESS)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [tuplesort_begin_common](tuplesort_begin_common.md)

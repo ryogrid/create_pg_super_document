@@ -18,8 +18,7 @@ The  function creates a NOT operation on a tsquery, which matches documents that
 The implementation creates a new QTNode structure representing the NOT operator, sets up the necessary flags and metadata, and converts the input query into a child node. The resulting query tree is then converted back into a TSQuery format for return.
 
 ## Parameters / Member Variables
-- : The tsquery to be negated
-
+- `PG_FUNCTION_ARGS`: The tsquery to be negated
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_TSQUERY_COPY

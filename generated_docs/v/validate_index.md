@@ -22,10 +22,9 @@ validate_index is the final validation phase of concurrent index building. After
 The function handles security by switching to the table owner's userid and restricting operations. It also provides detailed progress reporting through the PostgreSQL progress reporting system with phases for index scan, sort, and table scan.
 
 ## Parameters / Member Variables
-- : Object identifier of the heap relation being indexed
-- : Object identifier of the index being validated  
-- : Reference snapshot defining which tuples should be visible and indexed
-
+- `heapId`: Object identifier of the heap relation being indexed
+- `indexId`: Object identifier of the index being validated
+- `snapshot`: Reference snapshot defining which tuples should be visible and indexed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md)

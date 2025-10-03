@@ -27,8 +27,7 @@ ExecEndFunctionScan handles the cleanup phase of function scan execution by syst
 The function follows PostgreSQL's standard cleanup pattern where each node type is responsible for cleaning up its own specific resources, while the executor framework handles common cleanup tasks.
 
 ## Parameters / Member Variables
-- : FunctionScanState containing the per-function states and tuplestores to be cleaned up
-
+- `*node`: FunctionScanState containing the per-function states and tuplestores to be cleaned up
 ## Dependencies
 - Functions called/Symbols referenced:
   - [tuplestore_end](../t/tuplestore_end.md)

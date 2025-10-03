@@ -21,11 +21,10 @@ Important restrictions apply: this function should not be used for shared object
 After acquiring the lock, the function calls AcceptInvalidationMessages() to ensure that any cached system catalog information is updated with changes that may have occurred while waiting for the lock.
 
 ## Parameters / Member Variables
-- : The OID of the system catalog (pg_class entry) that contains the object
-- : The OID of the specific object to lock within that catalog
-- : A sub-object identifier (typically 0 for whole objects, or column numbers for attributes)
-- : The LOCKMODE specifying the type of lock to acquire (e.g., AccessShareLock, ExclusiveLock)
-
+- `classid`: The OID of the system catalog (pg_class entry) that contains the object
+- `objid`: The OID of the specific object to lock within that catalog
+- `objsubid`: A sub-object identifier (typically 0 for whole objects, or column numbers for attributes)
+- `lockmode`: The LOCKMODE specifying the type of lock to acquire (e.g., AccessShareLock, ExclusiveLock)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LOCKTAG](LOCKTAG.md) (data structure for lock identification)

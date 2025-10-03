@@ -19,10 +19,9 @@ This function is a core component of GiST index construction that removes index 
 When a page becomes empty after tuple removal, the function automatically fetches the previous page in the buffer chain and releases the emptied page's disk block for reuse. This ensures efficient memory and disk space utilization during index construction.
 
 ## Parameters / Member Variables
-- : Pointer to the main GiST build buffers structure containing global build state
-- : Pointer to the specific node buffer from which to remove a tuple
-- : Output parameter that receives the removed index tuple
-
+- `*gfbb`: Pointer to the main GiST build buffers structure containing global build state
+- `*nodeBuffer`: Pointer to the specific node buffer from which to remove a tuple
+- `*itup`: Output parameter that receives the removed index tuple
 ## Dependencies
 - Functions called/Symbols referenced:
   - [gistLoadNodeBuffer](gistLoadNodeBuffer.md)

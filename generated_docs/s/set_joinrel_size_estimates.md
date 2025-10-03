@@ -24,13 +24,12 @@ The function acknowledges that for joins involving more than two base relations,
 Only the rows field is set by this function. The reltarget field is handled separately by , and  is not applicable to join relations.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global information about the query planning process
-- : The join RelOptInfo whose size estimate is being set
-- : The outer relation participating in the join
-- : The inner relation participating in the join  
-- : SpecialJoinInfo containing information about special join types (outer joins, semi-joins, etc.)
-- : List of restriction clauses that apply to this join
-
+- `*root`: PlannerInfo structure containing global information about the query planning process
+- `*rel`: The join RelOptInfo whose size estimate is being set
+- `*outer_rel`: The outer relation participating in the join
+- `*inner_rel`: The inner relation participating in the join
+- `*sjinfo`: SpecialJoinInfo containing information about special join types (outer joins, semi-joins, etc.)
+- `*restrictlist`: List of restriction clauses that apply to this join
 ## Dependencies
 - Functions called/Symbols referenced:
   - [calc_joinrel_size_estimate](../c/calc_joinrel_size_estimate.md)

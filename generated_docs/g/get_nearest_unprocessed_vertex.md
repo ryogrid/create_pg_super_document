@@ -18,8 +18,7 @@ This function implements part of Dijkstra's shortest path algorithm for finding 
 The function is a key component in PostgreSQL's extension version resolution system, helping determine the optimal upgrade path between extension versions by finding the next closest vertex to process in the dependency graph.
 
 ## Parameters / Member Variables
-- : List of ExtensionVersionInfo structures representing extension version vertices in the dependency graph
-
+- `*evi_list`: List of ExtensionVersionInfo structures representing extension version vertices in the dependency graph
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExtensionVersionInfo](../E/ExtensionVersionInfo.md) (struct type)

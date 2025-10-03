@@ -18,9 +18,8 @@ The  function provides a specialized equality comparison for  (single-precision 
 This behavior is essential for database operations where consistent sorting and comparison behavior is required. The function follows PostgreSQL's design philosophy that all NaN values should be considered equal and larger than any non-NaN value, providing deterministic behavior for indexing, sorting, and comparison operations.
 
 ## Parameters / Member Variables
-- : The first single-precision floating-point value to compare
-- : The second single-precision floating-point value to compare
-
+- `val1`: The first single-precision floating-point value to compare
+- `val2`: The second single-precision floating-point value to compare
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Standard C library function to check for NaN (Not a Number)

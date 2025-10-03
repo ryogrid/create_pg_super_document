@@ -25,9 +25,8 @@ Key decision logic:
 The function recognizes that even with low cardinality abbreviated keys, the optimization can still be beneficial because memcmp() tie-breaking is much cheaper than full strcoll() comparisons.
 
 ## Parameters / Member Variables
-- : Current number of tuples processed, used for statistical significance and cost modeling
-- : SortSupport structure containing VarStringSortSupport with HyperLogLog cardinality estimators and configuration
-
+- `memtupcount`: Current number of tuples processed, used for statistical significance and cost modeling
+- `ssup`: SortSupport structure containing VarStringSortSupport with HyperLogLog cardinality estimators and configuration
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Context structure containing cardinality estimators

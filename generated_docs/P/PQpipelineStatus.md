@@ -18,8 +18,7 @@ The PQpipelineStatus function queries the current pipeline mode status of a Post
 The function performs a simple null check on the connection pointer and returns PQ_PIPELINE_OFF if the connection is null, ensuring safe operation even with invalid connections.
 
 ## Parameters / Member Variables
-- : Pointer to the PGconn connection object whose pipeline status is to be queried. If NULL, the function safely returns PQ_PIPELINE_OFF.
-
+- `*conn`: Pointer to the PGconn connection object whose pipeline status is to be queried. If NULL, the function safely returns PQ_PIPELINE_OFF.
 ## Dependencies
 - Functions called/Symbols referenced:
   - PQ_PIPELINE_OFF (enum constant)

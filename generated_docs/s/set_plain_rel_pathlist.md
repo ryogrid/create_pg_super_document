@@ -20,10 +20,9 @@ The function first determines any required parameterization due to LATERAL refer
 The generated paths are added to the relation's pathlist, where the query optimizer will later evaluate their costs and choose the most efficient access strategy during plan generation.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global optimizer state and planning context
-- : RelOptInfo structure representing the relation for which to build access paths
-- : RangeTblEntry containing parse tree information about the relation (currently unused in this function)
-
+- `*root`: PlannerInfo structure containing global optimizer state and planning context
+- `*rel`: RelOptInfo structure representing the relation for which to build access paths
+- `*rte`: RangeTblEntry containing parse tree information about the relation (currently unused in this function)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [add_path](../a/add_path.md) (adds sequential scan path to relation's pathlist)

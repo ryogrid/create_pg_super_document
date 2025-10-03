@@ -30,11 +30,10 @@ This function is the core path generation engine for UNION operations in Postgre
 The function handles both UNION and UNION ALL semantics, with UNION requiring deduplication through either hashing or sorting strategies.
 
 ## Parameters / Member Variables
-- : SetOperationStmt containing the UNION operation details including the 'all' flag and column types
-- : PlannerInfo containing global planning context and configuration
-- : List of reference names for the target list columns
-- : Output parameter returning the generated target list for the operation
-
+- `*op`: SetOperationStmt containing the UNION operation details including the 'all' flag and column types
+- `*root`: PlannerInfo containing global planning context and configuration
+- `*refnames_tlist`: List of reference names for the target list columns
+- `**pTargetList`: Output parameter returning the generated target list for the operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [plan_union_children](../p/plan_union_children.md)

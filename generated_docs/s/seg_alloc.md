@@ -16,8 +16,7 @@ seg_alloc(HTAB *hashp)
 The seg_alloc function allocates memory for a new hash table segment and initializes it with zeroed hash buckets. It uses the hash table's configured memory allocator and sets the appropriate memory context before allocation. The function allocates space for the number of buckets specified by the hash table's ssize (segment size) parameter and ensures all buckets are properly initialized to NULL/zero values. This function is essential for hash table growth, providing clean segments that can be added to the hash table's directory structure.
 
 ## Parameters / Member Variables
-- : Pointer to the HTAB (hash table) structure for which a new segment should be allocated
-
+- `*hashp`: Pointer to the HTAB (hash table) structure for which a new segment should be allocated
 ## Dependencies
 - Functions called/Symbols referenced:
   - HASHSEGMENT (type)

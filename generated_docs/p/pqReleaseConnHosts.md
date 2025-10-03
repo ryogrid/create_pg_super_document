@@ -25,8 +25,7 @@ For each host entry in the connection host array, the function:
 The function pays special attention to security by using  to overwrite password data in memory before freeing it, preventing sensitive authentication information from persisting in freed memory blocks.
 
 ## Parameters / Member Variables
-- : A pointer to the PGconn structure containing the host list to be freed
-
+- `*conn`: A pointer to the PGconn structure containing the host list to be freed
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (secure memory clearing)

@@ -22,9 +22,8 @@ The function supports two synchronization methods:
 The function performs validation to ensure only recognized sync methods are accepted, and provides platform-specific error handling for unsupported methods.
 
 ## Parameters / Member Variables
-- : String containing the sync method name to parse
-- : Pointer to DataDirSyncMethod enum where the result will be stored
-
+- `*optarg`: String containing the sync method name to parse
+- `*sync_method`: Pointer to DataDirSyncMethod enum where the result will be stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - strcmp

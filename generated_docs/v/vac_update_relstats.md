@@ -33,17 +33,16 @@ The function updates three types of information:
 Special handling is provided for "future" transaction IDs that appear corrupt, which are overwritten with new valid values.
 
 ## Parameters / Member Variables
-- : The relation whose statistics are being updated
-- : New number of pages in the relation
-- : New count of live tuples in the relation
-- : New count of all-visible pages for visibility map
-- : Whether the relation currently has any indexes
-- : New frozen transaction ID, or InvalidTransactionId if no update needed
-- : New minimum MultiXactId, or InvalidMultiXactId if no update needed
-- : Output parameter indicating if relfrozenxid was actually updated
-- : Output parameter indicating if relminmxid was actually updated
-- : Whether this operation is within an outer transaction (affects DDL flag updates)
-
+- `relation`: The relation whose statistics are being updated
+- `num_pages`: New number of pages in the relation
+- `num_tuples`: New count of live tuples in the relation
+- `num_all_visible_pages`: New count of all-visible pages for visibility map
+- `hasindex`: Whether the relation currently has any indexes
+- `frozenxid`: New frozen transaction ID, or InvalidTransactionId if no update needed
+- `minmulti`: New minimum MultiXactId, or InvalidMultiXactId if no update needed
+- `*frozenxid_updated`: Output parameter indicating if relfrozenxid was actually updated
+- `*minmulti_updated`: Output parameter indicating if relminmxid was actually updated
+- `in_outer_xact`: Whether this operation is within an outer transaction (affects DDL flag updates)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [systable_inplace_update_begin](../s/systable_inplace_update_begin.md)

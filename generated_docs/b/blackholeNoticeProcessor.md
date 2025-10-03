@@ -18,9 +18,8 @@ The  is a simple notice processor function designed to suppress all notice messa
 The function follows the standard PostgreSQL notice processor callback signature and is registered using  to handle notice messages for specific database connections.
 
 ## Parameters / Member Variables
-- : A void pointer that can be used to pass additional context data to the notice processor (unused in this implementation, always passed as NULL)
-- : A const char pointer containing the notice message text that would normally be displayed (ignored in this implementation)
-
+- `*arg`: A void pointer that can be used to pass additional context data to the notice processor (unused in this implementation, always passed as NULL)
+- `*message`: A const char pointer containing the notice message text that would normally be displayed (ignored in this implementation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (the function body is empty)

@@ -25,7 +25,6 @@ The function uses conditional compilation (#ifdef WIN32) and only performs actua
 The initialization is protected by a static flag  to ensure it only runs once per process, making it safe to call multiple times.
 
 ## Parameters / Member Variables
-This function takes no parameters (void).
 
 ## Dependencies
 - Functions called/Symbols referenced:

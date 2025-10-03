@@ -16,8 +16,7 @@ BlockStateAsString(TBlockState blockState)
 BlockStateAsString is a debugging support function that provides string representations of transaction block states. It uses a comprehensive switch statement to map each possible TBlockState enumeration value to its corresponding string name. This function is essential for logging and debugging transaction state transitions, making it easier to understand the current state of transactions and sub-transactions in diagnostic output. The function handles all defined block states including default states, transaction progression states, abort states, sub-transaction states, and parallel transaction states.
 
 ## Parameters / Member Variables
-- : A TBlockState enumeration value representing the current transaction block state to be converted to a string
-
+- `blockState`: A TBlockState enumeration value representing the current transaction block state to be converted to a string
 ## Dependencies
 - Functions called/Symbols referenced:
   - TBlockState (enum type)

@@ -25,9 +25,8 @@ This test function performs thorough validation of Red-Black Tree deletion funct
 The test uses random selection to provide comprehensive coverage of different deletion scenarios and tree configurations, ensuring the Red-Black Tree maintains its balanced properties throughout the deletion process.
 
 ## Parameters / Member Variables
-- : The total number of natural numbers (0 to size-1) to initially insert into the test tree
-- : The number of elements to randomly select and delete during the first deletion phase
-
+- `size`: The total number of natural numbers (0 to size-1) to initially insert into the test tree
+- `delsize`: The number of elements to randomly select and delete during the first deletion phase
 ## Dependencies
 - Functions called/Symbols referenced:
   - [create_int_rbtree](../c/create_int_rbtree.md): Creates a new integer Red-Black Tree

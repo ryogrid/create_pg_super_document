@@ -25,8 +25,7 @@ The function performs several key initialization tasks:
 The readline integration provides users with command editing capabilities, including cursor movement, command completion, and access to command history through keyboard shortcuts.
 
 ## Parameters / Member Variables
-- : Integer flag controlling initialization behavior. Currently, bit 0 (flags & 1) enables readline and history functionality.
-
+- `flags`: Integer flag controlling initialization behavior. Currently, bit 0 (flags & 1) enables readline and history functionality.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [initialize_readline](initialize_readline.md) (sets up readline global variables)

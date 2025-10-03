@@ -21,11 +21,10 @@ The function assumes that partitions are properly ordered (verified by partition
 The function stops building pathkeys when it encounters a partition key that cannot be represented as a useful sort order for the current query, unless the key is a boolean constant that can be optimized away.
 
 ## Parameters / Member Variables
-- : PlannerInfo containing query planning context and equivalence classes
-- : RelOptInfo representing the partitioned relation (must be a simple base relation)
-- : ScanDirection indicating forward or backward scan direction
-- : Output parameter set to true if pathkeys only cover a prefix of partition keys, false if all partition key columns are included
-
+- `*root`: PlannerInfo containing query planning context and equivalence classes
+- `*partrel`: RelOptInfo representing the partitioned relation (must be a simple base relation)
+- `scandir`: ScanDirection indicating forward or backward scan direction
+- `*partialkeys`: Output parameter set to true if pathkeys only cover a prefix of partition keys, false if all partition key columns are included
 ## Dependencies
 - Functions called/Symbols referenced:
   - [partitions_are_ordered](../p/partitions_are_ordered.md) (to verify partition ordering)

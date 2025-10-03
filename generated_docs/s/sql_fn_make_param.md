@@ -17,10 +17,9 @@ sql_fn_make_param(SQLFunctionParseInfoPtr pinfo,
 This function creates a Param node representing a function parameter () with the appropriate type information and collation settings. It constructs an external parameter node with the correct parameter type derived from the function's argument types, handles collation inheritance from the function's input collation when applicable, and sets up all necessary fields for proper parameter handling during query execution.
 
 ## Parameters / Member Variables
-- : SQLFunctionParseInfo containing function metadata and argument type information
-- : Parameter number (1-based index) for which to create the Param node
-- : Source location of the parameter reference for error reporting
-
+- `pinfo`: SQLFunctionParseInfo containing function metadata and argument type information
+- `paramno`: Parameter number (1-based index) for which to create the Param node
+- `location`: Source location of the parameter reference for error reporting
 ## Dependencies
 - Functions called/Symbols referenced:
   - SQLFunctionParseInfoPtr

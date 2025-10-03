@@ -21,12 +21,11 @@ The function implements a retry mechanism to handle concurrent DDL operations th
 The function performs different locking strategies depending on the object type: relations and attributes use the specified lock mode, while other child objects of relations acquire only AccessShareLock on the parent relation. Non-relation objects are locked using either shared or database-specific locking mechanisms.
 
 ## Parameters / Member Variables
-- : The type of object being looked up (from ObjectType enumeration)
-- : Parse tree node containing the object specification (name, arguments, etc.)
-- : Output parameter that receives an open relation if the object is relation-related, NULL otherwise
-- : The lock mode to apply to the target object (must not be NoLock)
-- : If true, return invalid ObjectAddress instead of throwing error when object not found
-
+- `objtype`: The type of object being looked up (from ObjectType enumeration)
+- `*object`: Parse tree node containing the object specification (name, arguments, etc.)
+- `*relp`: Output parameter that receives an open relation if the object is relation-related, NULL otherwise
+- `lockmode`: The lock mode to apply to the target object (must not be NoLock)
+- `missing_ok`: If true, return invalid ObjectAddress instead of throwing error when object not found
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_relation_by_qualified_name](get_relation_by_qualified_name.md) (for relation objects)

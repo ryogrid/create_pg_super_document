@@ -20,11 +20,10 @@ The function uses a statically-sized buffer calculated by INT_STRLEN_MAXIMUM to 
 _conv is extensively used throughout the _fmt function to format various timestamp components like day numbers, month numbers, hours, minutes, seconds, and other numeric fields that appear in strftime format specifiers.
 
 ## Parameters / Member Variables
-- : Integer value to be converted to string
-- : Printf-style format string specifying how the integer should be formatted (e.g., "%02d", "%2d", "%03d")
-- : Current position in the output buffer where the formatted string should be added
-- : Pointer to the end of the output buffer (exclusive limit for bounds checking)
-
+- `n`: Integer value to be converted to string
+- `*format`: Printf-style format string specifying how the integer should be formatted (e.g., "%02d", "%2d", "%03d")
+- `*pt`: Current position in the output buffer where the formatted string should be added
+- `*ptlim`: Pointer to the end of the output buffer (exclusive limit for bounds checking)
 ## Dependencies
 - Functions called/Symbols referenced:
   - sprintf (standard C library function for string formatting)

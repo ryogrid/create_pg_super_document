@@ -21,8 +21,7 @@ This function validates that an ArrayType structure meets the requirements for u
 The function uses PostgreSQL's error reporting mechanism to throw appropriate errors with specific error codes when validation fails, ensuring that invalid arrays are caught early in the testing process.
 
 ## Parameters / Member Variables
-- : Pointer to the ArrayType structure to validate
-
+- `*ta`: Pointer to the ArrayType structure to validate
 ## Dependencies
 - Functions called/Symbols referenced:
   - ARR_HASNULL (macro to check if array has null bitmap)

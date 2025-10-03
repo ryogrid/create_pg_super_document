@@ -20,6 +20,7 @@ The function ensures consistent initialization of restore options across differe
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_malloc0](../p/pg_malloc0.md) (allocates zero-initialized memory)

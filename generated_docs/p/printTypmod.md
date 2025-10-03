@@ -22,10 +22,9 @@ The  function is responsible for formatting PostgreSQL type names with their ass
 The function ensures that typmod values are non-negative (asserts ) and should not be called with the special value -1, which indicates no type modifier.
 
 ## Parameters / Member Variables
-- : The base name of the PostgreSQL data type (e.g., "varchar", "numeric")
-- : The type modifier value (must be >= 0) that specifies constraints like length, precision, etc.
-- : OID of the type-specific output function for formatting the typmod, or InvalidOid for default formatting
-
+- `*typname`: The base name of the PostgreSQL data type (e.g., "varchar", "numeric")
+- `typmod`: The type modifier value (must be >= 0) that specifies constraints like length, precision, etc.
+- `typmodout`: OID of the type-specific output function for formatting the typmod, or InvalidOid for default formatting
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Calls the type-specific typmod output function

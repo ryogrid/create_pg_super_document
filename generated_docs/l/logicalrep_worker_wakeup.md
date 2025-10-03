@@ -18,9 +18,8 @@ This function provides a public interface for waking up logical replication work
 The function operates under LogicalRepWorkerLock protection to ensure thread-safe access to the worker pool during lookup and wakeup operations.
 
 ## Parameters / Member Variables
-- : Object ID of the subscription whose worker should be awakened
-- : Object ID of the relation being replicated (InvalidOid for subscription-level workers)
-
+- `subid`: Object ID of the subscription whose worker should be awakened
+- `relid`: Object ID of the relation being replicated (InvalidOid for subscription-level workers)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease: Acquires LogicalRepWorkerLock for thread-safe worker access

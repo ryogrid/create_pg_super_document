@@ -26,8 +26,7 @@ lookup_C_func implements a caching mechanism for C-language functions to avoid e
 This validation ensures that cached function pointers remain valid even if the function definition changes in the catalog.
 
 ## Parameters / Member Variables
-- : HeapTuple from pg_proc catalog containing the function's metadata and used for freshness validation
-
+- `procedureTuple`: HeapTuple from pg_proc catalog containing the function's metadata and used for freshness validation
 ## Dependencies
 - Functions called/Symbols referenced:
   - GETSTRUCT (extract struct from HeapTuple)

@@ -25,10 +25,9 @@ Simple8b supports 16 different modes (0-15) with varying trade-offs between the 
 The algorithm requires that codewords be "full" - if a delta is too large for the current mode, it steps up to a wider mode. If the first delta is too large for any mode (≥2^60), it returns EMPTY_CODEWORD.
 
 ## Parameters / Member Variables
-- : Pointer to array of sorted uint64 integers to encode
-- : Pointer to int where the number of successfully encoded integers will be stored
-- : The value that precedes ints[0], used to compute the first delta
-
+- `*ints`: Pointer to array of sorted uint64 integers to encode
+- `*num_encoded`: Pointer to int where the number of successfully encoded integers will be stored
+- `base`: The value that precedes ints[0], used to compute the first delta
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Constant returned when the first delta is too large to encode

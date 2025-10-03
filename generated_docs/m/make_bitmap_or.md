@@ -18,8 +18,7 @@ The  function constructs a BitmapOr plan node, which is used in PostgreSQL's que
 The function initializes a new BitmapOr node with standard plan node fields set to their default values (NIL for targetlist and qual, NULL for child trees) and assigns the provided list of bitmap plans to the bitmapplans field. The resulting node will coordinate the execution of multiple bitmap index scans and merge their results using OR logic.
 
 ## Parameters / Member Variables
-- : A List containing the child bitmap plan nodes that will be combined using OR logic
-
+- `*bitmapplans`: A List containing the child bitmap plan nodes that will be combined using OR logic
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to create the BitmapOr node)

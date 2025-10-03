@@ -25,9 +25,8 @@ ExplainPrintPlan is responsible for the main task of converting an execution pla
 The function coordinates the overall EXPLAIN output generation process, delegating specific formatting tasks to specialized functions while managing the global state needed for proper plan visualization.
 
 ## Parameters / Member Variables
-- : ExplainState containing output formatting options, buffers, and state information for the current explain operation
-- : QueryDesc containing the planned statement, execution state, and other query metadata needed for plan explanation
-
+- `*es`: ExplainState containing output formatting options, buffers, and state information for the current explain operation
+- `*queryDesc`: QueryDesc containing the planned statement, execution state, and other query metadata needed for plan explanation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExplainPreScanNode](ExplainPreScanNode.md)

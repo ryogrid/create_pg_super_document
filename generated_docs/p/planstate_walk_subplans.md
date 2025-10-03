@@ -20,10 +20,9 @@ The  function is a static helper within the planstate tree walking infrastructur
 This function is used internally by the larger planstate tree walker to handle both regular SubPlans (subqueries in expressions) and initPlans (subqueries that can be evaluated once at query startup). The function ensures that all nested plan structures are visited during tree traversal operations.
 
 ## Parameters / Member Variables
-- : List of SubPlanState nodes to be traversed
-- : Callback function that defines the walking behavior for each visited planstate node
-- : Opaque context pointer passed through to the walker callback
-
+- `*plans`: List of SubPlanState nodes to be traversed
+- `walker`: Callback function that defines the walking behavior for each visited planstate node
+- `*context`: Opaque context pointer passed through to the walker callback
 ## Dependencies
 - Functions called/Symbols referenced:
   - lfirst_node (macro for extracting typed node from list cell)

@@ -18,8 +18,7 @@ CommentObject is the main entry point for processing COMMENT ON SQL statements. 
 The function includes special handling for database objects during dump restoration, treating missing databases as warnings rather than errors to prevent pg_restore failures. It also enforces restrictions on column comments, allowing them only on tables, views, materialized views, composite types, foreign tables, and partitioned tables.
 
 ## Parameters / Member Variables
-- : CommentStmt structure containing the parsed COMMENT ON command with object type, target object specification, and comment text
-
+- `*stmt`: CommentStmt structure containing the parsed COMMENT ON command with object type, target object specification, and comment text
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_database_oid](../g/get_database_oid.md): Validates database existence

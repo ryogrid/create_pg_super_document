@@ -25,8 +25,7 @@ PQcancelCreate creates a new cancel connection object by duplicating essential c
 The function is designed to work with PostgreSQL's secure query cancellation mechanism, which requires proper authentication tokens (backend PID and key) to prevent unauthorized query cancellations. The resulting PGcancelConn must be used with either the blocking PQcancelBlocking() or the non-blocking PQcancelStart()/PQcancelPoll() workflow.
 
 ## Parameters / Member Variables
-- : Pointer to an active PGconn connection from which to extract cancellation information
-
+- `*conn`: Pointer to an active PGconn connection from which to extract cancellation information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pqMakeEmptyPGconn](../p/pqMakeEmptyPGconn.md)

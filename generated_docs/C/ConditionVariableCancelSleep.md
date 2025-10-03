@@ -19,7 +19,6 @@ The function examines whether the process is still in the wait list to determine
 The function is designed to be safe to call even when no sleep is pending, making it ideal for cleanup operations during transaction aborts or process termination where the exact state may be uncertain.
 
 ## Parameters / Member Variables
-(No parameters - operates on the current process's sleep state)
 
 ## Dependencies
 - Functions called/Symbols referenced:

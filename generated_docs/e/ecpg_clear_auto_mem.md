@@ -23,7 +23,6 @@ The function operates by:
 This selective cleanup is useful when the user data should remain valid but the automatic tracking needs to be reset, typically during connection management or transaction boundaries.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

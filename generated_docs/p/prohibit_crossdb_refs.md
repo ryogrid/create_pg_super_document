@@ -18,10 +18,9 @@ This function is a safety mechanism in pg_dump that prevents cross-database refe
 The function serves as a validation step when processing database object patterns that might contain explicit database qualifiers, ensuring that users don't attempt to reference objects from different databases than the one they're currently connected to.
 
 ## Parameters / Member Variables
-- : PGconn pointer to the current database connection
-- : The database name parsed from a user-provided pattern that should match the connected database
-- : The original pattern string provided by the user, used in error messages for context
-
+- `*conn`: PGconn pointer to the current database connection
+- `*dbname`: The database name parsed from a user-provided pattern that should match the connected database
+- `*pattern`: The original pattern string provided by the user, used in error messages for context
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQdb](../P/PQdb.md) (libpq function to get database name from connection)

@@ -20,10 +20,9 @@ ExecScanFetch serves as an intermediary layer between high-level scan execution 
 The function first checks for interrupts, then examines if an EPQ recheck is active. During EPQ rechecks, it handles three scenarios: ForeignScan/CustomScan with pushed-down joins, replacement tuples provided by EPQ caller, and fetching tuples using non-locking rowmarks. If no EPQ processing is needed, it delegates to the access method's tuple retrieval function.
 
 ## Parameters / Member Variables
-- : The ScanState containing execution state information for the scan operation
-- : Function pointer to the access method's next-tuple routine (e.g., table scan, index scan)
-- : Function pointer to recheck access-method-specific conditions during EPQ
-
+- `*node`: The ScanState containing execution state information for the scan operation
+- `accessMtd`: Function pointer to the access method's next-tuple routine (e.g., table scan, index scan)
+- `recheckMtd`: Function pointer to recheck access-method-specific conditions during EPQ
 ## Dependencies
 - Functions called/Symbols referenced:
   - CHECK_FOR_INTERRUPTS

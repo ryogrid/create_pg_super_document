@@ -21,8 +21,7 @@ The algorithm works by:
 3. Returning the index of the script where the remaining weight becomes negative
 
 ## Parameters / Member Variables
-- : Pointer to TState structure containing thread-specific state including the random state for script selection
-
+- `*thread`: Pointer to TState structure containing thread-specific state including the random state for script selection
 ## Dependencies
 - Functions called/Symbols referenced:
   - [getrand](../g/getrand.md) (for generating weighted random numbers)

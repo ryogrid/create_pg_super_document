@@ -22,8 +22,7 @@ The function handles two main categories of objects:
 For generic objects, the function resolves the object address using  with exclusive locking, then delegates to the internal owner alteration function. The function ensures that complex objects requiring special handling get routed to their appropriate specialized functions.
 
 ## Parameters / Member Variables
-- : Pointer to the parsed ALTER OWNER statement containing the object type, object identifier, and new owner role specification
-
+- `*stmt`: Pointer to the parsed ALTER OWNER statement containing the object type, object identifier, and new owner role specification
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Resolves role specification to OID for the new owner

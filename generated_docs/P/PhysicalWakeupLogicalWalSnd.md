@@ -17,7 +17,6 @@ This function is part of PostgreSQL`s logical replication failover mechanism. Wh
 The function performs safety checks to ensure it only operates on physical slots and skips operation during recovery (since slot synchronization to cascading standbys is not supported). When conditions are met, it broadcasts a condition variable to wake up waiting logical WAL senders.
 
 ## Parameters / Member Variables
-This function takes no parameters and operates on the current process`s replication slot (`MyReplicationSlot`).
 
 ## Dependencies
 - Functions called/Symbols referenced:

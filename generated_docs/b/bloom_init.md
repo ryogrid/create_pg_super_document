@@ -18,9 +18,8 @@ This function creates a new Bloom filter by first calculating the optimal parame
 The function validates input parameters and rejects filters that exceed BloomMaxFilterSize to prevent runtime failures when the filter becomes less compressible after adding values.
 
 ## Parameters / Member Variables
-- : Expected number of distinct values that will be stored in the filter (must be > 0)
-- : Desired false positive rate as a probability (must be between 0 and 1)
-
+- `ndistinct`: Expected number of distinct values that will be stored in the filter (must be > 0)
+- `false_positive_rate`: Desired false positive rate as a probability (must be between 0 and 1)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bloom_filter_size](bloom_filter_size.md): Calculates optimal filter parameters

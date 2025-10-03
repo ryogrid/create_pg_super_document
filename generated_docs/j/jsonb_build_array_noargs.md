@@ -16,8 +16,7 @@ jsonb_build_array_noargs(PG_FUNCTION_ARGS)
 This function is specifically designed to handle the case where  is called without any arguments. It creates an empty JSONB array  by directly constructing the JSONB structure without processing any elements. This is a performance optimization that avoids the overhead of variadic argument processing when no arguments are provided.
 
 ## Parameters / Member Variables
-- : Function call information structure (unused in this case since no arguments are expected)
-
+- `PG_FUNCTION_ARGS`: Function call information structure (unused in this case since no arguments are expected)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [JsonbInState](../J/JsonbInState.md) (struct)

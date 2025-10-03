@@ -23,8 +23,7 @@ This function modifies the current process title by appending a suffix string, s
 The function is commonly used by PostgreSQL processes to indicate their current activity or state, such as waiting for locks, synchronous replication, or performing maintenance operations.
 
 ## Parameters / Member Variables
-- : A null-terminated string to append to the process title
-
+- `*suffix`: A null-terminated string to append to the process title
 ## Dependencies
 - Functions called/Symbols referenced:
   - [update_ps_display_precheck](../u/update_ps_display_precheck.md) (prerequisite validation)

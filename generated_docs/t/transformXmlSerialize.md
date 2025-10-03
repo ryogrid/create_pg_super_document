@@ -18,9 +18,8 @@ The  function transforms XMLSERIALIZE expressions during the parsing phase. It c
 The function allows flexible target types - SQL standard supports CHAR and VARCHAR, but this implementation allows any type that can be implicitly cast from TEXT, enabling user-defined text-like data types to work automatically. If the coercion fails, it reports an appropriate error with location information.
 
 ## Parameters / Member Variables
-- : ParseState context for the current parsing operation  
-- : Input XmlSerialize node to be transformed
-
+- `*pstate`: ParseState context for the current parsing operation
+- `*xs`: Input XmlSerialize node to be transformed
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode

@@ -20,7 +20,6 @@ The function serves a critical role in subtransaction abort processing by ensuri
 By switching to TransactionAbortContext, the function provides a safe environment for subtransaction cleanup operations to complete successfully, even in scenarios where memory resources are constrained or corrupted.
 
 ## Parameters / Member Variables
-This function takes no parameters and operates on global memory context variables.
 
 ## Dependencies
 - Functions called/Symbols referenced:

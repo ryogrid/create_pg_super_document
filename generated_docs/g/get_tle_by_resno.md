@@ -23,9 +23,8 @@ The function is widely used throughout PostgreSQL's query processing components,
 - Rule utilities and variable resolution
 
 ## Parameters / Member Variables
-- : List of TargetEntry structures to search through
-- : The result number (attribute number) to search for
-
+- `*tlist`: List of TargetEntry structures to search through
+- `resno`: The result number (attribute number) to search for
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RowMarkClause](../R/RowMarkClause.md) (referenced but not called within this function)

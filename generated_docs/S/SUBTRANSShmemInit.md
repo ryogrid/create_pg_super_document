@@ -15,7 +15,6 @@ void SUBTRANSShmemInit(void)
 This function performs the initialization of the SUBTRANS shared memory subsystem during PostgreSQL startup. It first handles auto-tuning of the subtransaction_buffers configuration parameter if it was set to 0, calculating an appropriate buffer count and updating the configuration. Then it initializes the SimpleLru control structure (SubTransCtl) with the appropriate parameters for managing subtransaction status pages. The function also sets up the page precedence function and performs unit tests on the SLRU page precedence logic.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

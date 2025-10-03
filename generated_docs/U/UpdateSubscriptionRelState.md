@@ -19,11 +19,10 @@ This function serves as a convenience wrapper around UpdateSubscriptionRelStateE
 The function delegates all actual work to UpdateSubscriptionRelStateEx, maintaining consistency in the underlying implementation while providing a cleaner API for standard usage patterns.
 
 ## Parameters / Member Variables
-- : The OID of the subscription containing the relation to update
-- : The OID of the relation (table) whose state should be updated
-- : New character representing the replication state
-- : New XLogRecPtr indicating the LSN position for replication tracking
-
+- `subid`: The OID of the subscription containing the relation to update
+- `relid`: The OID of the relation (table) whose state should be updated
+- `state`: New character representing the replication state
+- `sublsn`: New XLogRecPtr indicating the LSN position for replication tracking
 ## Dependencies
 - Functions called/Symbols referenced:
   - [UpdateSubscriptionRelStateEx](UpdateSubscriptionRelStateEx.md)

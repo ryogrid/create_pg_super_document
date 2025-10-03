@@ -21,7 +21,6 @@ The function also implements intelligent stack depth management by querying the 
 This dual approach ensures both backward compatibility with existing deployment scripts and automatic optimization based on system capabilities.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

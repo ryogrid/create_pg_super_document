@@ -18,8 +18,7 @@ This internal utility function provides sign determination for NUMERIC values wi
 The function assumes that NaN cases have been handled by the caller, but it properly handles both positive and negative infinity cases. For regular numbers, it uses the fact that PostgreSQL's packed numeric format is zero-trimmed, meaning a value with no digits represents zero.
 
 ## Parameters / Member Variables
-- : The NUMERIC value whose sign is to be determined
-
+- `num`: The NUMERIC value whose sign is to be determined
 ## Dependencies
 - Functions called/Symbols referenced:
   - NUMERIC_IS_SPECIAL: Checks if the numeric value is a special value (Inf or NaN)

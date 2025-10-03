@@ -18,8 +18,7 @@ The dropRoles function is part of PostgreSQL's pg_dumpall utility and generates 
 The function handles different PostgreSQL server versions: for version 9.6 and later, it excludes system roles using a regular expression filter, while earlier versions include all roles. The generated DROP statements can optionally include "IF EXISTS" clauses based on the global  flag, making the script more robust when roles may not exist during restoration.
 
 ## Parameters / Member Variables
-- : PostgreSQL database connection handle used to execute queries
-
+- `*conn`: PostgreSQL database connection handle used to execute queries
 ## Dependencies
 - Functions called/Symbols referenced:
   - [printfPQExpBuffer](../p/printfPQExpBuffer.md) (format SQL query strings)

@@ -24,7 +24,6 @@ The function performs multiple validation checks in sequence:
 The function includes race condition handling for standby scenarios, where wal_level changes are verified through XLOG_PARAMETER_CHANGE records, and the function is called both before slot creation and during logical decoding startup.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

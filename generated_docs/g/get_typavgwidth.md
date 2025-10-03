@@ -27,9 +27,8 @@ For variable-width types, the function employs a sliding scale approach:
 Special handling exists for BPCHAR (blank-padded character) types, which always use their full declared width.
 
 ## Parameters / Member Variables
-- : OID of the data type to estimate
-- : Type modifier value (pass -1 if unknown); affects maximum size calculations for certain types
-
+- `typid`: OID of the data type to estimate
+- `typmod`: Type modifier value (pass -1 if unknown); affects maximum size calculations for certain types
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_typlen](get_typlen.md) (retrieve fixed type length)

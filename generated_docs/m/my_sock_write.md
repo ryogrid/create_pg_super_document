@@ -18,10 +18,9 @@ This function serves as a custom BIO write method for PostgreSQL's OpenSSL integ
 When a write operation fails due to interruption or would block, the function sets appropriate retry flags to inform the OpenSSL library that the operation should be retried later. This is essential for proper handling of non-blocking socket operations in PostgreSQL's event-driven architecture.
 
 ## Parameters / Member Variables
-- : BIO structure pointer containing connection state and app data
-- : Buffer containing data to write
-- : Number of bytes to write
-
+- `*h`: BIO structure pointer containing connection state and app data
+- `*buf`: Buffer containing data to write
+- `size`: Number of bytes to write
 ## Dependencies
 - Functions called/Symbols referenced:
   - [secure_raw_write](../s/secure_raw_write.md)

@@ -23,10 +23,9 @@ The coerce_to_boolean function is a specialized coercion function designed for S
 The function uses COERCION_ASSIGNMENT context, which allows implicit casts that would be valid in assignment operations. If coercion fails, it provides context-specific error messages mentioning the SQL construct name.
 
 ## Parameters / Member Variables
-- : Parse state for error reporting (can be NULL if special unknown-Param processing is not needed)
-- : The input expression node to be coerced to boolean
-- : Name of the SQL construct requiring boolean input (for error messages)
-
+- `*pstate`: Parse state for error reporting (can be NULL if special unknown-Param processing is not needed)
+- `*node`: The input expression node to be coerced to boolean
+- `*constructName`: Name of the SQL construct requiring boolean input (for error messages)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [exprType](../e/exprType.md) (get expression type)

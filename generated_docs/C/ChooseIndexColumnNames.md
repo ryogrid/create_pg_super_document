@@ -21,8 +21,7 @@ ChooseIndexColumnNames takes a list of IndexElem nodes representing the columns/
 When name conflicts arise, the function automatically resolves them by appending numeric suffixes (e.g., "col", "col1", "col2"). The function also ensures generated names comply with PostgreSQL's NAMEDATALEN limit by truncating the original name when necessary to make room for the numeric suffix.
 
 ## Parameters / Member Variables
-- : A List of IndexElem nodes representing the columns/expressions that will comprise the index
-
+- `*indexElems`: A List of IndexElem nodes representing the columns/expressions that will comprise the index
 ## Dependencies
 - Functions called/Symbols referenced:
   - [IndexElem](../I/IndexElem.md) (structure representing an index column/expression)

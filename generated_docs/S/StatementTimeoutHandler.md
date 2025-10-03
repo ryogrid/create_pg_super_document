@@ -21,7 +21,6 @@ This function serves as the timeout handler for SQL statement execution timeouts
 The function attempts to signal the entire process group when possible (on systems with HAVE_SETSID), ensuring that any child processes are also notified of the timeout condition.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

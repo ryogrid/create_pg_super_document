@@ -27,20 +27,19 @@ For split cleanup operations, the function identifies tuples that were moved to 
 The function implements WAL logging for all modifications, ensuring crash recovery consistency. After deletion operations are complete, it attempts to squeeze the bucket to compact free space, but only when a cleanup lock can be obtained without blocking.
 
 ## Parameters / Member Variables
-- : The hash index relation being cleaned up
-- : The bucket number being processed
-- : Buffer containing the primary bucket page
-- : Block number of the primary bucket page
-- : Buffer access strategy for the operation
-- : Maximum bucket number in the hash index
-- : High-order bits mask for hash bucket calculation
-- : Low-order bits mask for hash bucket calculation
-- : Pointer to counter for tracking number of tuples removed
-- : Pointer to counter for tracking total number of tuples
-- : Boolean flag indicating whether to perform split cleanup
-- : Function pointer for determining which tuples to delete
-- : Opaque state data passed to the callback function
-
+- `rel`: The hash index relation being cleaned up
+- `cur_bucket`: The bucket number being processed
+- `bucket_buf`: Buffer containing the primary bucket page
+- `bucket_blkno`: Block number of the primary bucket page
+- `bstrategy`: Buffer access strategy for the operation
+- `maxbucket`: Maximum bucket number in the hash index
+- `highmask`: High-order bits mask for hash bucket calculation
+- `lowmask`: Low-order bits mask for hash bucket calculation
+- `*tuples_removed`: Pointer to counter for tracking number of tuples removed
+- `*num_index_tuples`: Pointer to counter for tracking total number of tuples
+- `split_cleanup`: Boolean flag indicating whether to perform split cleanup
+- `callback`: Function pointer for determining which tuples to delete
+- `*callback_state`: Opaque state data passed to the callback function
 ## Dependencies
 - Functions called/Symbols referenced:
   - [_hash_get_newbucket_from_oldbucket](_hash_get_newbucket_from_oldbucket.md)

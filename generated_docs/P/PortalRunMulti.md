@@ -19,13 +19,12 @@ PortalRunMulti(Portal portal,
 PortalRunMulti is the most comprehensive portal execution function, designed to handle complex scenarios involving multiple statements or utility commands within a single portal. The function iterates through all statements in the portal, distinguishing between plannable queries and utility statements. For plannable queries, it manages transaction snapshots, handles command counter increments, and routes output to the primary destination receiver. For utility statements, it delegates to PortalRunUtility. The function handles destination receiver adjustments for remote execution scenarios, manages memory context cleanup between statements, and supports snapshot holding for later use. It also handles special cases like internal COMMIT/ROLLBACK operations that may reset the portal's statement list.
 
 ## Parameters / Member Variables
-- : The Portal structure containing the statements to execute
-- : Boolean indicating whether this is a top-level execution
-- : Boolean indicating whether to register and hold snapshots for later use
-- : Primary DestReceiver for statement output (typically for tag-setting statements)
-- : Alternative DestReceiver for auxiliary statements (typically for non-tag-setting statements)
-- : QueryCompletion structure to record execution results
-
+- `portal`: The Portal structure containing the statements to execute
+- `isTopLevel`: Boolean indicating whether this is a top-level execution
+- `setHoldSnapshot`: Boolean indicating whether to register and hold snapshots for later use
+- `*dest`: Primary DestReceiver for statement output (typically for tag-setting statements)
+- `*altdest`: Alternative DestReceiver for auxiliary statements (typically for non-tag-setting statements)
+- `*qc`: QueryCompletion structure to record execution results
 ## Dependencies
 - Functions called/Symbols referenced:
   - CHECK_FOR_INTERRUPTS

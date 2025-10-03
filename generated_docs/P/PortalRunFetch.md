@@ -19,11 +19,10 @@ PortalRunFetch(Portal portal,
 PortalRunFetch provides cursor-style access to portal results, supporting SQL FETCH operations with directional control (forward, backward, absolute, relative). The function handles different portal strategies by either delegating directly to DoPortalRunFetch for PORTAL_ONE_SELECT, or first ensuring results are stored via FillPortalStore for other strategies before fetching. It maintains proper portal state management, resource ownership context, and error handling with cleanup. The function returns the number of rows processed and supports special count values like FETCH_ALL. It includes comprehensive error handling that properly marks portals as failed and restores global state on exceptions.
 
 ## Parameters / Member Variables
-- : The Portal structure to fetch results from
-- : FetchDirection enum specifying the fetch direction (forward, backward, absolute, relative)
-- : Number of rows to fetch (0 or negative means no-op, FETCH_ALL means all rows)
-- : DestReceiver that will process the fetched tuples
-
+- `portal`: The Portal structure to fetch results from
+- `fdirection`: FetchDirection enum specifying the fetch direction (forward, backward, absolute, relative)
+- `count`: Number of rows to fetch (0 or negative means no-op, FETCH_ALL means all rows)
+- `*dest`: DestReceiver that will process the fetched tuples
 ## Dependencies
 - Functions called/Symbols referenced:
   - PortalIsValid

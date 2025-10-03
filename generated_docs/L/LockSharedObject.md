@@ -21,11 +21,10 @@ The key difference from LockDatabaseObject is that the lock tag is created with 
 Like other locking functions in this family, it calls AcceptInvalidationMessages() after acquiring the lock to ensure system catalog caches are up-to-date with any changes that occurred while waiting for the lock.
 
 ## Parameters / Member Variables
-- : The OID of the system catalog that contains the shared object (e.g., AuthIdRelationId for roles)
-- : The OID of the specific shared object to lock
-- : A sub-object identifier (typically 0 for whole objects)
-- : The LOCKMODE specifying the type of lock to acquire
-
+- `classid`: The OID of the system catalog that contains the shared object (e.g., AuthIdRelationId for roles)
+- `objid`: The OID of the specific shared object to lock
+- `objsubid`: A sub-object identifier (typically 0 for whole objects)
+- `lockmode`: The LOCKMODE specifying the type of lock to acquire
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LOCKTAG](LOCKTAG.md) (data structure for lock identification)

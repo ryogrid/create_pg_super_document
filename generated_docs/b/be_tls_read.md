@@ -25,11 +25,10 @@ The function performs the following operations:
 The function properly manages OpenSSL's per-thread error queue and provides comprehensive error handling for all SSL read scenarios.
 
 ## Parameters / Member Variables
-- : Pointer to the Port structure containing the active SSL connection
-- : Buffer to store the read data
-- : Maximum number of bytes to read
-- : Output parameter indicating what type of I/O event to wait for on EWOULDBLOCK (WL_SOCKET_READABLE or WL_SOCKET_WRITEABLE)
-
+- `*port`: Pointer to the Port structure containing the active SSL connection
+- `*ptr`: Buffer to store the read data
+- `len`: Maximum number of bytes to read
+- `*waitfor`: Output parameter indicating what type of I/O event to wait for on EWOULDBLOCK (WL_SOCKET_READABLE or WL_SOCKET_WRITEABLE)
 ## Dependencies
 - Functions called/Symbols referenced:
   - SSL_read (OpenSSL data read function)

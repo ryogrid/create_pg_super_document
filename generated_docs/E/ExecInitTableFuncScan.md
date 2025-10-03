@@ -20,10 +20,9 @@ The function supports both XMLTABLE and JSON_TABLE operations by selecting the a
 Key initialization steps include creating a per-table memory context, setting up namespace URIs, and preparing function manager info for efficient type conversions during execution.
 
 ## Parameters / Member Variables
-- : TableFuncScan plan node containing the table function specification
-- : Execution state providing the execution environment and memory context
-- : Execution flags, with EXEC_FLAG_MARK being explicitly unsupported
-
+- `*node`: TableFuncScan plan node containing the table function specification
+- `*estate`: Execution state providing the execution environment and memory context
+- `eflags`: Execution flags, with EXEC_FLAG_MARK being explicitly unsupported
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TableFuncScan](../T/TableFuncScan.md), TableFuncScanState, TableFunc (struct types)

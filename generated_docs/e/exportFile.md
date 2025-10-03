@@ -16,10 +16,9 @@ exportFile(PGconn *conn, Oid lobjId, char *filename)
 The  function provides functionality to export a PostgreSQL large object to an external Unix file. It opens the specified large object in read-only mode, creates or truncates the target file, and copies the large object's contents to the file using a buffered read/write approach. The function handles the complete export process including proper file creation, data transfer in chunks, and cleanup of both database and file descriptors.
 
 ## Parameters / Member Variables
-- : Database connection handle for PostgreSQL operations
-- : OID of the large object to export from the database
-- : Path to the Unix file where the large object contents will be written
-
+- `*conn`: Database connection handle for PostgreSQL operations
+- `lobjId`: OID of the large object to export from the database
+- `*filename`: Path to the Unix file where the large object contents will be written
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lo_open](../l/lo_open.md) (PostgreSQL large object opening)

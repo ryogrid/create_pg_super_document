@@ -27,12 +27,11 @@ The function handles the critical security principle that if no permissive polic
 When combining multiple permissive policy qualifiers, it creates a single OR expression. Restrictive qualifiers are added individually since they must all be satisfied. If no permissive policies are found, the function adds an always-false constant to ensure no rows are visible.
 
 ## Parameters / Member Variables
-- : Range table index for the relation being secured
-- : List of permissive policies to be applied with OR logic
-- : List of restrictive policies to be applied with AND logic
-- : Output parameter - list of security qualifier expressions to add to the query
-- : Output parameter - set to true if any policy contains subquery expressions
-
+- `rt_index`: Range table index for the relation being secured
+- `*permissive_policies`: List of permissive policies to be applied with OR logic
+- `*restrictive_policies`: List of restrictive policies to be applied with AND logic
+- `**securityQuals`: Output parameter - list of security qualifier expressions to add to the query
+- `*hasSubLinks`: Output parameter - set to true if any policy contains subquery expressions
 ## Dependencies
 - Functions called/Symbols referenced:
   - copyObject

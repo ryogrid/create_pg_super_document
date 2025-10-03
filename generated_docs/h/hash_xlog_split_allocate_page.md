@@ -18,8 +18,7 @@ This function handles WAL replay for the allocation phase of hash index bucket s
 The function operates on three buffers: it updates the old bucket page's special space to set appropriate flags and establish linkage to the new bucket; it initializes a new bucket page with proper bucket number and flags; and it updates the metapage to reflect the new maximum bucket number and potentially update hash masks and overflow point information. The function uses cleanup locks on both bucket pages to maintain consistency with normal operation patterns.
 
 ## Parameters / Member Variables
-- : XLogReaderState pointer containing the WAL record with split allocation data including old_bucket_flag, new_bucket, new_bucket_flag, and optional mask/splitpoint update flags
-
+- `*record`: XLogReaderState pointer containing the WAL record with split allocation data including old_bucket_flag, new_bucket, new_bucket_flag, and optional mask/splitpoint update flags
 ## Dependencies
 - Functions called/Symbols referenced:
   - [xl_hash_split_allocate_page](../x/xl_hash_split_allocate_page.md) (WAL record structure)

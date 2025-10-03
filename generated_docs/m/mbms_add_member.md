@@ -18,10 +18,9 @@ This function adds a new member to a multibitmapset, which is represented as a L
 The function automatically extends the List with empty (NULL) elements if the specified listidx is beyond the current list length. It then retrieves the target Bitmapset, adds the specified bit using bms_add_member, and updates the List element with the modified Bitmapset.
 
 ## Parameters / Member Variables
-- : The input List representing the multibitmapset to modify
-- : Zero-based index of the List element (Bitmapset) to modify
-- : Bit number to be set within the target Bitmapset
-
+- `*a`: The input List representing the multibitmapset to modify
+- `listidx`: Zero-based index of the List element (Bitmapset) to modify
+- `bitidx`: Bit number to be set within the target Bitmapset
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_nth_cell](../l/list_nth_cell.md)

@@ -18,9 +18,8 @@ This internal function performs a lookup to determine if any toast chunks exist 
 The function follows the same safety principles as GetNewOidWithIndex() by considering dead tuples as existing values, preventing potential issues that could arise from premature OID reuse. This conservative approach ensures data integrity during complex operations where multiple versions of data might temporarily coexist.
 
 ## Parameters / Member Variables
-- : The toast relation to search within
-- : The OID of the toast value to search for
-
+- `toastrel`: The toast relation to search within
+- `valueid`: The OID of the toast value to search for
 ## Dependencies
 - Functions called/Symbols referenced:
   - [toast_open_indexes](toast_open_indexes.md)

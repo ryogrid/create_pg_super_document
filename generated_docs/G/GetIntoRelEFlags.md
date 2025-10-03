@@ -18,8 +18,7 @@ The  function is a simple utility that translates  options into appropriate exec
 This function provides a centralized point for mapping  semantics to executor behavior, ensuring consistent flag handling across different parts of the system that need to execute or analyze CREATE TABLE AS statements.
 
 ## Parameters / Member Variables
-- : IntoClause structure containing the options for the CREATE TABLE AS operation, particularly the  field
-
+- `*intoClause`: IntoClause structure containing the options for the CREATE TABLE AS operation, particularly the  field
 ## Dependencies
 - Functions called/Symbols referenced:
   - EXEC_FLAG_WITH_NO_DATA

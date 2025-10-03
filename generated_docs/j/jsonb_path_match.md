@@ -18,8 +18,7 @@ jsonb_path_match(PG_FUNCTION_ARGS)
 The function follows PostgreSQL's standard function calling convention using  and returns a  value that represents the boolean result of the JSONPath predicate evaluation.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function argument structure containing:
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument structure containing:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [jsonb_path_match_internal](jsonb_path_match_internal.md)

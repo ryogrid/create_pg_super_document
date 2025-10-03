@@ -17,8 +17,7 @@ static int r_remove_suffix(struct SN_env * z)
 This function implements suffix removal logic for Indonesian word stemming. It searches backwards from the current position for specific suffixes defined in the  array ('i', 'an', 'kan') and removes them if found. The function uses the Snowball stemmer framework's string matching capabilities and includes validation through helper functions (r_SUFFIX_I_OK, r_SUFFIX_AN_OK, r_SUFFIX_KAN_OK) to ensure the suffix removal is linguistically appropriate. After successful removal, it decrements the morphological analysis counter .
 
 ## Parameters / Member Variables
-- : Pointer to SN_env structure containing the stemmer environment with the word being processed
-
+- `*z`: Pointer to SN_env structure containing the stemmer environment with the word being processed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [find_among_b](../f/find_among_b.md) (Snowball framework function for backward string matching)

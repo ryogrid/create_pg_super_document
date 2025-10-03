@@ -17,10 +17,9 @@ AlterDomainAddConstraint(List *names, Node *newConstraint,
 This function adds constraints to domain types, supporting CHECK and NOT NULL constraint types while explicitly rejecting unsupported constraint types like UNIQUE, PRIMARY KEY, FOREIGN KEY, and EXCLUSION. For CHECK constraints, it processes the constraint expression, adds an entry to pg_constraint, and optionally validates existing data. For NOT NULL constraints, it sets the typnotnull flag and validates existing data unless validation is skipped. The function ensures proper cache invalidation for constraint changes that don't modify the pg_type row directly.
 
 ## Parameters / Member Variables
-- : List of qualified names identifying the domain to modify
-- : Node representing the constraint to add (must be a Constraint node)
-- : Output parameter receiving the ObjectAddress of the created constraint
-
+- `*names`: List of qualified names identifying the domain to modify
+- `*newConstraint`: Node representing the constraint to add (must be a Constraint node)
+- `*constrAddr`: Output parameter receiving the ObjectAddress of the created constraint
 ## Dependencies
 - Functions called/Symbols referenced:
   - [makeTypeNameFromNameList](../m/makeTypeNameFromNameList.md)

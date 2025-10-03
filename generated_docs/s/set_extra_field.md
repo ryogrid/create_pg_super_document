@@ -18,10 +18,9 @@ The  function provides a memory-safe way to update 'extra' data fields within Po
 This function is part of the internal GUC infrastructure that manages additional data associated with configuration parameters. Extra data structures can contain type-specific information, validation functions, or other auxiliary data needed for parameter management.
 
 ## Parameters / Member Variables
-- : Pointer to the generic GUC configuration structure containing the field to be updated
-- : Pointer to the void* field that will be updated with the new extra data
-- : The new extra data pointer to assign to the field
-
+- `*gconf`: Pointer to the generic GUC configuration structure containing the field to be updated
+- `**field`: Pointer to the void* field that will be updated with the new extra data
+- `*newval`: The new extra data pointer to assign to the field
 ## Dependencies
 - Functions called/Symbols referenced:
   - [config_generic](../c/config_generic.md) (structure type)

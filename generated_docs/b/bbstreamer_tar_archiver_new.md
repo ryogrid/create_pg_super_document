@@ -18,8 +18,7 @@ This function creates a new tar archiver bbstreamer that can generate properly f
 The function allocates memory for a  structure and initializes it with the appropriate operations (content, finalize, free) through the  function pointer table. This follows the typical bbstreamer pattern where each streamer type has specific operations for handling data processing, finalization, and cleanup.
 
 ## Parameters / Member Variables
-- : The next bbstreamer in the processing chain that will receive the processed tar archive data
-
+- `*next`: The next bbstreamer in the processing chain that will receive the processed tar archive data
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc0](../p/palloc0.md) (PostgreSQL memory allocation)

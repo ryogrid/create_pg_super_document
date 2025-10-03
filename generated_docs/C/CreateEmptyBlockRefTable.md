@@ -20,7 +20,6 @@ The function handles both frontend and backend contexts differently:
 - In backend contexts: Associates the hash table with the current memory context for proper memory management
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -29,16 +29,15 @@ The transformation process includes:
 The function centralizes the common logic between JSON_OBJECTAGG and JSON_ARRAYAGG, ensuring consistent handling of filters, window functions, and aggregate transformations.
 
 ## Parameters / Member Variables
-- : ParseState pointer containing current parsing context and state information
-- : JsonAggConstructor pointer containing the aggregate constructor specification with ordering, filtering, and window information
-- : JsonReturning pointer specifying the return type and formatting options for the JSON result
-- : List pointer containing the argument expressions for the aggregate function
-- : Oid specifying the object identifier of the aggregate function to be called
-- : Oid specifying the return type of the aggregate function
-- : JsonConstructorType enum indicating whether this is for JSON_OBJECTAGG or JSON_ARRAYAGG
-- : boolean flag indicating whether unique key constraints should be enforced (relevant for JSON_OBJECTAGG)
-- : boolean flag specifying the null handling behavior for the JSON constructor
-
+- `*pstate`: ParseState pointer containing current parsing context and state information
+- `*agg_ctor`: JsonAggConstructor pointer containing the aggregate constructor specification with ordering, filtering, and window information
+- `*returning`: JsonReturning pointer specifying the return type and formatting options for the JSON result
+- `*args`: List pointer containing the argument expressions for the aggregate function
+- `aggfnoid`: Oid specifying the object identifier of the aggregate function to be called
+- `aggtype`: Oid specifying the return type of the aggregate function
+- `ctor_type`: JsonConstructorType enum indicating whether this is for JSON_OBJECTAGG or JSON_ARRAYAGG
+- `unique`: boolean flag indicating whether unique key constraints should be enforced (relevant for JSON_OBJECTAGG)
+- `absent_on_null`: boolean flag specifying the null handling behavior for the JSON constructor
 ## Dependencies
 - Functions called/Symbols referenced:
   - [transformWhereClause](transformWhereClause.md) (for processing FILTER clauses)

@@ -27,12 +27,11 @@ The function handles two types of nodes:
 This is part of PostgreSQL's query optimization strategy for UNION ALL operations, allowing the optimizer to treat multiple queries as append relations rather than separate subqueries.
 
 ## Parameters / Member Variables
-- : The current node in the setop tree being processed (either RangeTblRef for leaves or SetOperationStmt for internal nodes)
-- : PlannerInfo containing the overall query planning context and structures
-- : Index of the append relation parent in the root query's range table
-- : The Query node containing the setOp tree, whose target list references all setop output columns
-- : Offset indicating where child RTEs were copied in the parent's range table (0 when called from flatten_simple_union_all)
-
+- `*setOp`: The current node in the setop tree being processed (either RangeTblRef for leaves or SetOperationStmt for internal nodes)
+- `*root`: PlannerInfo containing the overall query planning context and structures
+- `parentRTindex`: Index of the append relation parent in the root query's range table
+- `*setOpQuery`: The Query node containing the setOp tree, whose target list references all setop output columns
+- `childRToffset`: Offset indicating where child RTEs were copied in the parent's range table (0 when called from flatten_simple_union_all)
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (for creating AppendRelInfo and RangeTblRef)

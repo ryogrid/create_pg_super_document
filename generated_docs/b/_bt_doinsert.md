@@ -22,12 +22,11 @@ The function supports different uniqueness checking modes: it can allow duplicat
 The function implements sophisticated conflict resolution for concurrent insertions by acquiring write locks and waiting for conflicting transactions when necessary. It optimizes for NULL key values by bypassing uniqueness checks since NULL is considered unequal to all values including itself.
 
 ## Parameters / Member Variables
-- : The B-tree index relation being inserted into
-- : The index tuple to insert, already filled in including TID
-- : Uniqueness checking mode (NO/PARTIAL/YES/EXISTING)
-- : Hint indicating if tuple is from UPDATE that didn't logically change indexed value
-- : The heap relation associated with the index
-
+- `rel`: The B-tree index relation being inserted into
+- `itup`: The index tuple to insert, already filled in including TID
+- `checkUnique`: Uniqueness checking mode (NO/PARTIAL/YES/EXISTING)
+- `indexUnchanged`: Hint indicating if tuple is from UPDATE that didn't logically change indexed value
+- `heapRel`: The heap relation associated with the index
 ## Dependencies
 - Functions called/Symbols referenced:
   - [_bt_mkscankey](_bt_mkscankey.md): Creates scan key for the tuple

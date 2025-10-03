@@ -19,10 +19,9 @@ This function constructs and executes an SQL query to retrieve support function 
 The query joins multiple system catalogs (, , , , ) to gather comprehensive information about support functions within operator families. Results are sorted by access method, operator family, type compatibility (self-types first), registered types, and procedure number for consistent and meaningful presentation.
 
 ## Parameters / Member Variables
-- : Optional regex pattern to filter results by index access method name (e.g., "btree", "hash"). If NULL, all access methods are included.
-- : Optional regex pattern to filter results by operator family name. If NULL, support functions from all families are included.
-- : Boolean flag that controls the function display format. If false, shows just the function name (). If true, shows the complete function signature in regprocedure format ().
-
+- `*access_method_pattern`: Optional regex pattern to filter results by index access method name (e.g., "btree", "hash"). If NULL, all access methods are included.
+- `*family_pattern`: Optional regex pattern to filter results by operator family name. If NULL, support functions from all families are included.
+- `verbose`: Boolean flag that controls the function display format. If false, shows just the function name (). If true, shows the complete function signature in regprocedure format ().
 ## Dependencies
 - Functions called/Symbols referenced:
   - [initPQExpBuffer](../i/initPQExpBuffer.md)

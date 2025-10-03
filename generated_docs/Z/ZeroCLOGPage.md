@@ -25,9 +25,8 @@ The zeroed page represents transaction status entries where all transactions are
 The function requires that the appropriate control lock be held before entry and maintains this lock state upon exit, ensuring thread-safe access to the CLOG structures.
 
 ## Parameters / Member Variables
-- : The 64-bit page number within the CLOG address space to be zeroed
-- : Boolean flag indicating whether to write an XLOG record for WAL recovery purposes
-
+- `pageno`: The 64-bit page number within the CLOG address space to be zeroed
+- `writeXlog`: Boolean flag indicating whether to write an XLOG record for WAL recovery purposes
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SimpleLruZeroPage](../S/SimpleLruZeroPage.md) (SLRU function to zero a page)

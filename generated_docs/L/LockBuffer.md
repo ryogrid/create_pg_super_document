@@ -16,9 +16,8 @@ LockBuffer(Buffer buffer, int mode)
 This function provides the primary interface for acquiring and releasing content locks on buffers in PostgreSQL's buffer management system. It supports three locking modes: unlock, shared lock, and exclusive lock. The function only operates on shared buffers - local buffers (used for temporary tables) do not require locking and are handled as a no-op. The content lock protects the actual data within the buffer page and must be held while reading or modifying buffer contents. This is distinct from the buffer header lock which protects buffer metadata.
 
 ## Parameters / Member Variables
-- : The Buffer identifier for the buffer to lock or unlock
-- : The locking mode - BUFFER_LOCK_UNLOCK, BUFFER_LOCK_SHARE, or BUFFER_LOCK_EXCLUSIVE
-
+- `buffer`: The Buffer identifier for the buffer to lock or unlock
+- `mode`: The locking mode - BUFFER_LOCK_UNLOCK, BUFFER_LOCK_SHARE, or BUFFER_LOCK_EXCLUSIVE
 ## Dependencies
 - Functions called/Symbols referenced:
   - BufferIsPinned (assertion check)

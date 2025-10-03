@@ -18,9 +18,8 @@ The  function undoes the effects of  by restoring the previous deparse namespace
 The function ensures that the deparse context is properly restored to its state before the child plan was pushed, maintaining the integrity of the deparsing operation stack.
 
 ## Parameters / Member Variables
-- : Pointer to the current deparse namespace context that will be restored
-- : The saved deparse namespace state that was preserved by 
-
+- `*dpns`: Pointer to the current deparse namespace context that will be restored
+- `*save_dpns`: The saved deparse namespace state that was preserved by
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_delete_first](../l/list_delete_first.md) (removes the first element from a list)

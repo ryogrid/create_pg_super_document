@@ -18,9 +18,8 @@ SimpleLruZeroLSNs is a static utility function that clears all LSN values associ
 The function checks if the SLRU control structure has any LSN groups configured for the page, and if so, zeros out the entire LSN array for the specified slot. This prevents stale LSN values from interfering with WAL recovery and consistency checks.
 
 ## Parameters / Member Variables
-- : SlruCtl structure containing the SLRU control information and shared state
-- : The buffer slot number whose LSN values should be zeroed
-
+- `ctl`: SlruCtl structure containing the SLRU control information and shared state
+- `slotno`: The buffer slot number whose LSN values should be zeroed
 ## Dependencies
 - Functions called/Symbols referenced:
   - MemSet (memory zeroing operation)

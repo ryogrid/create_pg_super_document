@@ -17,7 +17,6 @@ This function is part of a three-function suite (psql_start_command, psql_add_co
 The function constructs a command that includes the full path to the psql binary (if bindir is set) and adds the -X and -q flags. The -X flag prevents psql from reading startup files, and -q enables quiet mode to reduce output verbosity during testing.
 
 ## Parameters / Member Variables
-None (void function)
 
 ## Dependencies
 - Functions called/Symbols referenced:

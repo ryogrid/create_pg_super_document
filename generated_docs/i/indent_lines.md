@@ -18,8 +18,7 @@ The  function takes a string as input and returns a newly allocated copy where e
 This function is primarily used in pg_amcheck for formatting error messages and diagnostic output to make them more readable by providing consistent indentation.
 
 ## Parameters / Member Variables
-- : The input string to be indented. Each line in this string will be prefixed with four spaces.
-
+- `*str`: The input string to be indented. Each line in this string will be prefixed with four spaces.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQExpBufferData](../P/PQExpBufferData.md) (data structure)

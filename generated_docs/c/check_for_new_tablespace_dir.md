@@ -23,7 +23,6 @@ The function operates by:
 This early detection prevents errors that would otherwise occur during the global object restoration phase, making troubleshooting easier for users.
 
 ## Parameters / Member Variables
-This function takes no parameters and operates on global state variables.
 
 ## Dependencies
 - Functions called/Symbols referenced:

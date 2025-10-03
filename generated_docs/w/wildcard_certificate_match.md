@@ -24,9 +24,8 @@ The function enforces four key matching rules:
 All matching is performed case-insensitively since DNS is inherently case-insensitive. The implementation uses  for case-insensitive string comparison and includes validation to prevent common wildcard certificate security vulnerabilities.
 
 ## Parameters / Member Variables
-- : The wildcard pattern from the certificate (e.g., "*.example.com")
-- : The hostname to match against the pattern
-
+- `*pattern`: The wildcard pattern from the certificate (e.g., "*.example.com")
+- `*string`: The hostname to match against the pattern
 ## Dependencies
 - Functions called/Symbols referenced:
   - strlen (C standard library)

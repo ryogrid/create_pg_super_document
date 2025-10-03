@@ -21,11 +21,10 @@ The  function is responsible for ensuring type compatibility between actual func
 The function handles both regular expressions and NamedArgExpr nodes specially - when encountering a NamedArgExpr, it coerces the inner expression while preserving the NamedArgExpr wrapper at the top level of the argument list.
 
 ## Parameters / Member Variables
-- : Parse state context for the current parsing operation (can be NULL if no special unknown-Param processing is needed)
-- : List of actual argument expressions passed to the function (modified in-place)
-- : Array of OIDs representing the actual types of the arguments
-- : Array of OIDs representing the expected parameter types of the function
-
+- `*pstate`: Parse state context for the current parsing operation (can be NULL if no special unknown-Param processing is needed)
+- `*fargs`: List of actual argument expressions passed to the function (modified in-place)
+- `*actual_arg_types`: Array of OIDs representing the actual types of the arguments
+- `*declared_arg_types`: Array of OIDs representing the expected parameter types of the function
 ## Dependencies
 - Functions called/Symbols referenced:
   - [coerce_type](../c/coerce_type.md)

@@ -35,10 +35,9 @@ The function validates that the xmin horizon is sufficient - if the running xact
 Each state transition is logged with detailed information about remaining transactions and progress toward consistency.
 
 ## Parameters / Member Variables
-- : The SnapBuild context tracking the current snapshot building state
-- : Log sequence number of the running xacts record being processed  
-- : Pointer to xl_running_xacts record containing current transaction state
-
+- `*builder`: The SnapBuild context tracking the current snapshot building state
+- `lsn`: Log sequence number of the running xacts record being processed
+- `*running`: Pointer to xl_running_xacts record containing current transaction state
 ## Dependencies
 - Functions called/Symbols referenced:
   - TransactionIdIsNormal

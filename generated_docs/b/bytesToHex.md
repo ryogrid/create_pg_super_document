@@ -18,9 +18,8 @@ This static utility function converts a 16-byte binary array (typically an MD5 h
 The conversion process iterates through each of the 16 input bytes, splits each byte into its upper 4 bits and lower 4 bits, and maps these nibbles to their corresponding hexadecimal characters using a static lookup table.
 
 ## Parameters / Member Variables
-- : Input array of 16 unsigned 8-bit bytes representing the binary data to convert (typically an MD5 digest)
-- : Output character array that will receive the 32-character hexadecimal string plus null terminator (must be at least 33 bytes)
-
+- `b[16]`: Input array of 16 unsigned 8-bit bytes representing the binary data to convert (typically an MD5 digest)
+- `*s`: Output character array that will receive the 32-character hexadecimal string plus null terminator (must be at least 33 bytes)
 ## Dependencies
 - Functions called/Symbols referenced:
   - (none - uses only basic C operations and static hex lookup table)

@@ -25,10 +25,9 @@ The function performs several key tasks:
 The dependency tracking is crucial because individual columns of a composite type can be dropped independently, so the dependency system must track column-level references rather than just type-level dependencies.
 
 ## Parameters / Member Variables
-- : RangeTblEntry of type RTE_FUNCTION containing the function(s)
-- : Attribute number (column position) being referenced
-- : Context structure for collecting object addresses
-
+- `*rte`: RangeTblEntry of type RTE_FUNCTION containing the function(s)
+- `attnum`: Attribute number (column position) being referenced
+- `*context`: Context structure for collecting object addresses
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_expr_result_tupdesc](../g/get_expr_result_tupdesc.md) (retrieves function result tuple descriptor)

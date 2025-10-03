@@ -20,9 +20,8 @@ The function assumes the input list is non-NIL and validates that the position i
 This is an internal implementation function used by the public list insertion APIs.
 
 ## Parameters / Member Variables
-- : The non-NIL List to insert into (must be a valid existing list)
-- : The zero-based position where the new cell should be inserted (0 <= pos <= list length)
-
+- `*list`: The non-NIL List to insert into (must be a valid existing list)
+- `pos`: The zero-based position where the new cell should be inserted (0 <= pos <= list length)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [enlarge_list](../e/enlarge_list.md) (expands list capacity when current space is insufficient)

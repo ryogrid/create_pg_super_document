@@ -19,7 +19,6 @@ The function uses an atomic counter (XLogCtl->unloggedLSN) to generate unique, i
 This mechanism is particularly useful for operations that need to track page modifications or maintain ordering without the durability guarantees of real LSNs.
 
 ## Parameters / Member Variables
-This function takes no parameters and returns an XLogRecPtr (LSN value).
 
 ## Dependencies
 - Functions called/Symbols referenced:

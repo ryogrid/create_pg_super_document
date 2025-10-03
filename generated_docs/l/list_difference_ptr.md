@@ -18,9 +18,8 @@ This function creates a new list containing all elements from  that are not foun
 The function iterates through each element in  and checks if that exact pointer value exists in . If not found, the element is appended to the result list. The original lists remain unchanged.
 
 ## Parameters / Member Variables
-- : The source list from which elements will be selected
-- : The list containing elements to be excluded from the result (can be NIL)
-
+- `*list1`: The source list from which elements will be selected
+- `*list2`: The list containing elements to be excluded from the result (can be NIL)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Asserts that both input lists are pointer lists

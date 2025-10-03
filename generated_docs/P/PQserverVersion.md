@@ -18,8 +18,7 @@ This function retrieves the PostgreSQL server version number from an established
 The function accesses the sversion field from the connection structure, which is populated during the connection establishment process when the server sends its version information.
 
 ## Parameters / Member Variables
-- : A pointer to the PGconn structure representing the database connection. Must not be NULL for valid results.
-
+- `*conn`: A pointer to the PGconn structure representing the database connection. Must not be NULL for valid results.
 ## Dependencies
 - Functions called/Symbols referenced:
   - CONNECTION_BAD (connection status constant)

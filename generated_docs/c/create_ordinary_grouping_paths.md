@@ -28,14 +28,13 @@ The function supports several advanced optimization techniques:
 The function follows a structured approach: first generating any possible partially grouped paths, then applying partitionwise aggregation if applicable, gathering partial paths, estimating group counts, and finally building the complete set of grouping paths.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global planning context and query information
-- : RelOptInfo representing the input relation to be grouped
-- : RelOptInfo representing the target grouped relation to receive new paths
-- : Cost estimates for aggregate functions used in the query
-- : grouping_sets_data structure containing grouping set information
-- : GroupPathExtraData containing additional parameters like target list and flags
-- : Output parameter set to the created partially grouped relation or NULL
-
+- `*root`: PlannerInfo structure containing global planning context and query information
+- `*input_rel`: RelOptInfo representing the input relation to be grouped
+- `*grouped_rel`: RelOptInfo representing the target grouped relation to receive new paths
+- `*agg_costs`: Cost estimates for aggregate functions used in the query
+- `*gd`: grouping_sets_data structure containing grouping set information
+- `*extra`: GroupPathExtraData containing additional parameters like target list and flags
+- `**partially_grouped_rel_p`: Output parameter set to the created partially grouped relation or NULL
 ## Dependencies
 - Functions called/Symbols referenced:
   - [group_by_has_partkey](../g/group_by_has_partkey.md)

@@ -19,7 +19,6 @@ The openit function demonstrates cursor declaration and opening in ECPG (Embedde
 This function is part of the ECPG test suite for verifying Informix-style cursor operations. It showcases the ECPG preprocessing of embedded SQL statements and the runtime interface for cursor management. The generated code includes proper type mapping and error checking consistent with Informix embedded SQL patterns.
 
 ## Parameters / Member Variables
-This function takes no parameters and returns void.
 
 ## Dependencies
 - Functions called/Symbols referenced:

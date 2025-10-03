@@ -17,6 +17,7 @@ EnableStandbyMode is a static function that configures PostgreSQL to operate in 
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [disable_startup_progress_timeout](../d/disable_startup_progress_timeout.md) (disables startup progress reporting)

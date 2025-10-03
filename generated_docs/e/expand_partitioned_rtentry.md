@@ -32,15 +32,14 @@ This static function handles the recursive expansion of partitioned tables by di
 Unlike traditional inheritance, partitioned tables don't need RTEs for the parent table itself since it contains no data.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global planner state
-- : RelOptInfo for the parent partitioned relation  
-- : RangeTblEntry for the parent partitioned table
-- : Index of parent RTE in the range table
-- : Open Relation structure for the parent table
-- : Bitmapset of columns being updated in the parent
-- : PlanRowMark for row locking if needed
-- : Lock mode to use when opening child relations
-
+- `*root`: PlannerInfo structure containing global planner state
+- `*relinfo`: RelOptInfo for the parent partitioned relation
+- `*parentrte`: RangeTblEntry for the parent partitioned table
+- `parentRTindex`: Index of parent RTE in the range table
+- `parentrel`: Open Relation structure for the parent table
+- `*parent_updatedCols`: Bitmapset of columns being updated in the parent
+- `*top_parentrc`: PlanRowMark for row locking if needed
+- `lockmode`: Lock mode to use when opening child relations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PartitionDirectoryLookup](../P/PartitionDirectoryLookup.md)

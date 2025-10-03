@@ -18,10 +18,9 @@ This function provides optimized evaluation for expressions consisting solely of
 The function is part of PostgreSQL's fast-path expression evaluation system, designed to eliminate the overhead of the general expression interpretation machinery for simple variable references. It directly accesses the inner tuple from the expression context and delegates the actual attribute retrieval to ExecJustVarImpl.
 
 ## Parameters / Member Variables
-- : Pointer to ExprState containing expression evaluation steps and metadata
-- : Pointer to ExprContext providing access to the execution context including tuple slots
-- : Pointer to boolean that will be set to true if the retrieved attribute value is NULL
-
+- `*state`: Pointer to ExprState containing expression evaluation steps and metadata
+- `*econtext`: Pointer to ExprContext providing access to the execution context including tuple slots
+- `*isnull`: Pointer to boolean that will be set to true if the retrieved attribute value is NULL
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecJustVarImpl](ExecJustVarImpl.md) (core implementation)

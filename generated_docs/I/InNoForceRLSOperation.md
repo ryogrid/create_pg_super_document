@@ -17,7 +17,6 @@ InNoForceRLSOperation is a security query function that determines if the curren
 This function is part of PostgreSQL's Row Level Security (RLS) system, which provides fine-grained access control at the row level. When this flag is set, it indicates that certain operations should not be subject to forced RLS policies, typically in contexts where bypassing RLS is necessary for system functionality or security-definer operations.
 
 ## Parameters / Member Variables
-None - this function takes no parameters and returns a boolean value.
 
 ## Dependencies
 - Functions called/Symbols referenced:

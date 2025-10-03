@@ -18,9 +18,8 @@ This function is a wrapper around  that specifically handles tab completion for 
 Like other completion generators, it follows the standard readline interface pattern, maintaining state between calls and returning one matching completion at a time until all possibilities are exhausted.
 
 ## Parameters / Member Variables
-- : The partial command text that the user has typed after "DROP"
-- : Call counter maintained by readline - 0 for first call, incremented on subsequent calls
-
+- `*text`: The partial command text that the user has typed after "DROP"
+- `state`: Call counter maintained by readline - 0 for first call, incremented on subsequent calls
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Core completion logic function

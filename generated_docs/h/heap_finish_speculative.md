@@ -25,9 +25,8 @@ The function performs the following operations:
 This operation is critical for UPSERT functionality where speculative insertions need to be either confirmed or aborted based on conflict detection.
 
 ## Parameters / Member Variables
-- : The heap relation containing the speculative tuple
-- : ItemPointer identifying the location of the speculative tuple to be confirmed
-
+- `relation`: The heap relation containing the speculative tuple
+- `tid`: ItemPointer identifying the location of the speculative tuple to be confirmed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReadBuffer](../R/ReadBuffer.md)

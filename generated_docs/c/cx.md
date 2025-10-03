@@ -24,13 +24,12 @@ The algorithm works in three main steps:
 The cycle crossover ensures that each city appears exactly once in the offspring, maintaining the validity of the tour representation used in query optimization.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planner context and random number generation state
-- : First parent tour represented as an array of Gene values
-- : Second parent tour represented as an array of Gene values  
-- : Output array where the resulting child tour will be stored
-- : Number of genes (cities) in the tours
-- : Auxiliary data structure to track city usage and positions in both parent tours
-
+- `*root`: PlannerInfo structure containing planner context and random number generation state
+- `*tour1`: First parent tour represented as an array of Gene values
+- `*tour2`: Second parent tour represented as an array of Gene values
+- `*offspring`: Output array where the resulting child tour will be stored
+- `num_gene`: Number of genes (cities) in the tours
+- `*city_table`: Auxiliary data structure to track city usage and positions in both parent tours
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (data type for representing genetic material)

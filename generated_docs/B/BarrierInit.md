@@ -22,9 +22,8 @@ BarrierInit sets up a barrier synchronization primitive that allows multiple Pos
 The function initializes all barrier state variables to their starting values, sets up the spinlock for thread-safe access, and initializes the condition variable used for process synchronization.
 
 ## Parameters / Member Variables
-- : Pointer to the Barrier structure to initialize
-- : Number of participants for static mode (> 0), or 0 for dynamic mode
-
+- `*barrier`: Pointer to the Barrier structure to initialize
+- `participants`: Number of participants for static mode (> 0), or 0 for dynamic mode
 ## Dependencies
 - Functions called/Symbols referenced:
   - SpinLockInit

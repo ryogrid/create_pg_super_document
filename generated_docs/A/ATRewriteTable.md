@@ -20,10 +20,9 @@ The function implements sophisticated tuple processing logic, handling column tr
 The function processes each tuple by first extracting data from the old tuple, applying any column transformations specified in tab->newvals, evaluating generated column expressions, and then validating all constraints including CHECK constraints, NOT NULL constraints, and partition constraints. For rewrite operations, the transformed tuple is inserted into the new table using optimized bulk insert methods.
 
 ## Parameters / Member Variables
-- : Pointer to AlteredTableInfo containing all transformation and constraint information for the table being processed
-- : OID of the new table for rewrite operations, or InvalidOid for validation-only operations
-- : Lock mode to acquire on the new table during rewrite operations
-
+- `*tab`: Pointer to AlteredTableInfo containing all transformation and constraint information for the table being processed
+- `OIDNewHeap`: OID of the new table for rewrite operations, or InvalidOid for validation-only operations
+- `lockmode`: Lock mode to acquire on the new table during rewrite operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md)

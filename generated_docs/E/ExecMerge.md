@@ -25,12 +25,11 @@ The function is designed to handle concurrent modifications during MERGE executi
 The execution flow involves calling ExecMergeMatched() for matched cases, which may change the matched status if concurrent modifications occur, followed by ExecMergeNotMatched() for not matched cases when necessary.
 
 ## Parameters / Member Variables
-- : ModifyTableContext containing the execution state and context for the MERGE operation
-- : ResultRelInfo structure containing information about the target relation being modified
-- : ItemPointer to the target tuple for MATCHED cases (NULL for NOT MATCHED cases)
-- : HeapTuple representing the target tuple for view-based operations (NULL for table-based operations)
-- : Boolean indicating whether command tags can be set during execution
-
+- `*context`: ModifyTableContext containing the execution state and context for the MERGE operation
+- `*resultRelInfo`: ResultRelInfo structure containing information about the target relation being modified
+- `tupleid`: ItemPointer to the target tuple for MATCHED cases (NULL for NOT MATCHED cases)
+- `oldtuple`: HeapTuple representing the target tuple for view-based operations (NULL for table-based operations)
+- `canSetTag`: Boolean indicating whether command tags can be set during execution
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecMergeMatched](ExecMergeMatched.md)

@@ -18,6 +18,7 @@ This function sets up a hash table that serves as a cache for compiled PL/Python
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hash_create](../h/hash_create.md) (PostgreSQL hash table creation function)

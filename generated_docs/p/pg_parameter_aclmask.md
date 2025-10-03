@@ -24,11 +24,10 @@ This function implements privilege checking for PostgreSQL configuration paramet
 This is part of PostgreSQL's security framework that allows administrators to control which users can modify specific configuration parameters beyond the traditional superuser-only model.
 
 ## Parameters / Member Variables
-- : The name of the configuration parameter (GUC) to check permissions for
-- : The OID of the role whose permissions are being checked
-- : Bitmask specifying which permissions to check (typically ACL_SET for parameter modification)
-- : Specifies how to combine multiple ACL entries (ACLMASK_ALL or ACLMASK_ANY)
-
+- `*name`: The name of the configuration parameter (GUC) to check permissions for
+- `roleid`: The OID of the role whose permissions are being checked
+- `mask`: Bitmask specifying which permissions to check (typically ACL_SET for parameter modification)
+- `how`: Specifies how to combine multiple ACL entries (ACLMASK_ALL or ACLMASK_ANY)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [superuser_arg](../s/superuser_arg.md)

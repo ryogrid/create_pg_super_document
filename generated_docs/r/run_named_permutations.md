@@ -18,8 +18,7 @@ This function runs predefined permutations that are explicitly specified in the 
 The function iterates through the array of predefined permutations in the test spec and executes each one by calling  with the pre-arranged sequence of steps.
 
 ## Parameters / Member Variables
-- : Pointer to the test specification containing the named permutations to execute
-
+- `*testspec`: Pointer to the test specification containing the named permutations to execute
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TestSpec](../T/TestSpec.md) (struct type)

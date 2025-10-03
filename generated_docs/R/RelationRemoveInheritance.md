@@ -22,8 +22,7 @@ Importantly, this function has evolved from earlier PostgreSQL versions. Previou
 The function uses PostgreSQL's system catalog scanning infrastructure to efficiently locate and delete the relevant inheritance entries using the InheritsRelidSeqnoIndexId index for fast lookups.
 
 ## Parameters / Member Variables
-- : The OID of the relation whose inheritance relationships should be removed from pg_inherits
-
+- `relid`: The OID of the relation whose inheritance relationships should be removed from pg_inherits
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md) (opens pg_inherits catalog for modification)

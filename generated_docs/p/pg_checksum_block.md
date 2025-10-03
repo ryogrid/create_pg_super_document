@@ -21,8 +21,7 @@ The algorithm works in three phases:
 3. Perform additional mixing rounds with zero values and combine all partial checksums using XOR
 
 ## Parameters / Member Variables
-- : A pointer to a PGChecksummablePage structure representing the page data to be checksummed. Must be properly aligned and exactly BLCKSZ in size.
-
+- `*page`: A pointer to a PGChecksummablePage structure representing the page data to be checksummed. Must be properly aligned and exactly BLCKSZ in size.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PGChecksummablePage](../P/PGChecksummablePage.md) (data structure)

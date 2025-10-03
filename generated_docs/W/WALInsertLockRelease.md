@@ -21,7 +21,6 @@ This function is the counterpart to WALInsertLockAcquireExclusive and the regula
 A critical aspect of this function is that it resets all `insertingAt` variables to 0 when releasing the locks. This ensures that any subsequent calls to `LWLockWaitForVar` will block properly on these locks, rather than immediately proceeding based on stale high values that may have been set during exclusive acquisition.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

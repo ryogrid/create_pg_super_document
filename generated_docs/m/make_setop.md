@@ -20,14 +20,13 @@ The  function constructs a SetOp plan node that performs set operations (UNION, 
 The SetOp node assumes its input is already sorted according to the distinctList specification. It processes tuples sequentially, comparing them using the provided equality operators and collations to determine whether to include, exclude, or mark tuples based on the set operation being performed.
 
 ## Parameters / Member Variables
-- : The type of set operation to perform (UNION, INTERSECT, EXCEPT)
-- : The execution strategy for the set operation (e.g., sorted vs hashed)
-- : The input plan node providing sorted tuples to process
-- : List of SortGroupClause objects identifying columns to compare for distinctness
-- : Column index for a flag column used in some set operations
-- : Value of the flag for the first input relation
-- : Estimated number of distinct groups in the result
-
+- `cmd`: The type of set operation to perform (UNION, INTERSECT, EXCEPT)
+- `strategy`: The execution strategy for the set operation (e.g., sorted vs hashed)
+- `*lefttree`: The input plan node providing sorted tuples to process
+- `*distinctList`: List of SortGroupClause objects identifying columns to compare for distinctness
+- `flagColIdx`: Column index for a flag column used in some set operations
+- `firstFlag`: Value of the flag for the first input relation
+- `numGroups`: Estimated number of distinct groups in the result
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (creates a new SetOp node)

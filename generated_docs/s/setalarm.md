@@ -20,8 +20,7 @@ On Unix/Linux systems, it uses POSIX signals (SIGALRM) with the  system call and
 The function is typically called once at the beginning of benchmark execution when the  parameter is specified, providing a reliable way to limit test run time regardless of transaction completion.
 
 ## Parameters / Member Variables
-- : The number of seconds after which the timer should expire and trigger the termination signal
-
+- `seconds`: The number of seconds after which the timer should expire and trigger the termination signal
 ## Dependencies
 - Functions called/Symbols referenced:
   - Unix version: , , 

@@ -18,8 +18,7 @@ This function searches through the background worker slots to find a worker with
 The function returns a pointer to static memory that contains the background worker type string. This design choice means that the returned value must be used before calling the function again, as subsequent calls will overwrite the static buffer. This approach eliminates the need for the caller to manage memory allocation and deallocation, while also avoiding the complexities of the background worker locking protocol for the caller.
 
 ## Parameters / Member Variables
-- : The process ID of the background worker whose type is to be retrieved
-
+- `pid`: The process ID of the background worker whose type is to be retrieved
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockAcquire](../L/LWLockAcquire.md) (with BackgroundWorkerLock, LW_SHARED)

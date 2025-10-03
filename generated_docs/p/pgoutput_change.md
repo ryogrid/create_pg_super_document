@@ -27,11 +27,10 @@ The  function is a core component of PostgreSQL's logical replication output plu
 The function supports both regular and streaming replication modes, handling transaction IDs appropriately for each mode.
 
 ## Parameters / Member Variables
-- : LogicalDecodingContext containing output plugin state and configuration
-- : ReorderBufferTXN representing the current transaction being processed  
-- : Relation object representing the table being modified
-- : ReorderBufferChange containing the specific DML operation details including action type and tuple data
-
+- `*ctx`: LogicalDecodingContext containing output plugin state and configuration
+- `*txn`: ReorderBufferTXN representing the current transaction being processed
+- `relation`: Relation object representing the table being modified
+- `*change`: ReorderBufferChange containing the specific DML operation details including action type and tuple data
 ## Dependencies
 - Functions called/Symbols referenced:
   - [is_publishable_relation](../i/is_publishable_relation.md)

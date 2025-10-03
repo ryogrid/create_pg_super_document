@@ -17,6 +17,7 @@ checkDataDir performs comprehensive validation of the PostgreSQL data directory 
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [stat](../s/stat.md) (system call for file information)

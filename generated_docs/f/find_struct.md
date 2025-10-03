@@ -24,10 +24,9 @@ The function performs type checking to ensure the variable being accessed is com
 This is a critical component of ECPG's variable resolution system, enabling embedded SQL statements to reference complex C data structures.
 
 ## Parameters / Member Variables
-- : The base variable name being accessed
-- : Pointer to the character following the base name (either '-' for ->, '.' for direct access, or '[' for array access)
-- : Pointer to the start of the member access path
-
+- `*name`: The base variable name being accessed
+- `*next`: Pointer to the character following the base name (either '-' for ->, '.' for direct access, or '[' for array access)
+- `*end`: Pointer to the start of the member access path
 ## Dependencies
 - Functions called/Symbols referenced:
   - [find_variable](find_variable.md) (looks up the base variable)

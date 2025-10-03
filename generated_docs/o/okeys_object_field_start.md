@@ -18,10 +18,9 @@ This function serves as a semantic action callback in PostgreSQL's JSON parser f
 The function implements a selective key collection strategy, ignoring nested object keys and focusing solely on the outermost object's field names. It manages memory allocation by doubling the result array size when capacity is exceeded.
 
 ## Parameters / Member Variables
-- : Void pointer to OkeysState structure containing parsing state and result storage
-- : Character pointer to the field name (key) being processed
-- : Boolean indicating whether the field name is null (unused in this implementation)
-
+- `*state`: Void pointer to OkeysState structure containing parsing state and result storage
+- `*fname`: Character pointer to the field name (key) being processed
+- `isnull`: Boolean indicating whether the field name is null (unused in this implementation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [OkeysState](../O/OkeysState.md) (cast from state parameter)

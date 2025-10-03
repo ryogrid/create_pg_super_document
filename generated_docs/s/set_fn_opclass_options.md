@@ -18,9 +18,8 @@ This function provides a mechanism for opclass (operator class) support function
 The function creates a Const node containing the options as bytea data, allowing support functions to retrieve their configuration through the standard FmgrInfo interface. This design leverages the existing infrastructure while providing a clean way to pass opclass-specific parameters to support functions.
 
 ## Parameters / Member Variables
-- : Pointer to FmgrInfo structure to be configured with opclass options
-- : Bytea data containing opclass-specific configuration options (can be NULL)
-
+- `*flinfo`: Pointer to FmgrInfo structure to be configured with opclass options
+- `*options`: Bytea data containing opclass-specific configuration options (can be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [makeConst](../m/makeConst.md)

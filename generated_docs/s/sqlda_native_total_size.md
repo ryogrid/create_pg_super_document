@@ -18,10 +18,9 @@ This function computes the complete memory footprint needed to allocate a native
 The function is part of PostgreSQL's ECPG (Embedded SQL in C) interface, specifically handling the native SQLDA format which provides a standardized way to access query results with dynamic column information.
 
 ## Parameters / Member Variables
-- : Pointer to a PGresult structure containing the query results
-- : The row number for which to calculate data size (negative values return empty structure size only)
-- : Compatibility mode enumeration that affects how data types are interpreted
-
+- `*res`: Pointer to a PGresult structure containing the query results
+- `row`: The row number for which to calculate data size (negative values return empty structure size only)
+- `compat`: Compatibility mode enumeration that affects how data types are interpreted
 ## Dependencies
 - Functions called/Symbols referenced:
   - [sqlda_native_empty_size](sqlda_native_empty_size.md)

@@ -18,11 +18,10 @@ This function validates whether a given multibyte string conforms to the encodin
 The function operates by calling the encoding-specific mbverifystr function pointer from the pg_wchar_table array, which returns the length of the valid portion of the string. If this length doesn't match the input length, it indicates an encoding violation.
 
 ## Parameters / Member Variables
-- : Integer identifier for the target character encoding (must be valid according to PG_VALID_ENCODING)
-- : Pointer to the multibyte string to be verified
-- : Length of the string in bytes to verify
-- : Boolean flag controlling error handling behavior - if true, returns false on invalid encoding; if false, reports error via report_invalid_encoding
-
+- `encoding`: Integer identifier for the target character encoding (must be valid according to PG_VALID_ENCODING)
+- `*mbstr`: Pointer to the multibyte string to be verified
+- `len`: Length of the string in bytes to verify
+- `noError`: Boolean flag controlling error handling behavior - if true, returns false on invalid encoding; if false, reports error via report_invalid_encoding
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_VALID_ENCODING (macro for encoding validation)

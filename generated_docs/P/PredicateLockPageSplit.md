@@ -26,10 +26,9 @@ The function performs several key operations:
 The function handles the case where the predicate lock table becomes full by promoting page locks to relation locks, ensuring that serialization conflicts are still detected even when resources are constrained.
 
 ## Parameters / Member Variables
-- : The relation containing the pages being split
-- : Block number of the original page before the split
-- : Block number of the newly created page after the split
-
+- `relation`: The relation containing the pages being split
+- `oldblkno`: Block number of the original page before the split
+- `newblkno`: Block number of the newly created page after the split
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PredicateLockingNeededForRelation](PredicateLockingNeededForRelation.md)

@@ -18,10 +18,9 @@ LWLockReleaseClearVar provides an atomic operation that combines setting an atom
 The function is commonly used in PostgreSQL's WAL (Write-Ahead Logging) subsystem where it's necessary to update shared state atomically before releasing locks that protect that state.
 
 ## Parameters / Member Variables
-- : Pointer to the LWLock to be released
-- : Pointer to the atomic uint64 variable to be updated
-- : The new value to set in the atomic variable
-
+- `*lock`: Pointer to the LWLock to be released
+- `*valptr`: Pointer to the atomic uint64 variable to be updated
+- `val`: The new value to set in the atomic variable
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_atomic_exchange_u64](../p/pg_atomic_exchange_u64.md): Atomically sets the variable value with full barrier semantics

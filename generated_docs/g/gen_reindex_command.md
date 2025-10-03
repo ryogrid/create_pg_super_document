@@ -38,15 +38,14 @@ The function builds commands in the format:
 - Schema names: Uses plain name format
 
 ## Parameters / Member Variables
-- : PostgreSQL database connection for encoding context
-- : Type of reindex operation (REINDEX_DATABASE, REINDEX_SYSTEM, REINDEX_SCHEMA, REINDEX_TABLE, REINDEX_INDEX)
-- : Name of the database object to reindex
-- : Whether to echo the command (affects name qualification)
-- : Whether to include VERBOSE option in the command
-- : Whether to include CONCURRENTLY option
-- : Target tablespace name for rebuilt indexes (optional, PostgreSQL 14+)
-- : Output buffer to append the generated command to
-
+- `*conn`: PostgreSQL database connection for encoding context
+- `type`: Type of reindex operation (REINDEX_DATABASE, REINDEX_SYSTEM, REINDEX_SCHEMA, REINDEX_TABLE, REINDEX_INDEX)
+- `*name`: Name of the database object to reindex
+- `echo`: Whether to echo the command (affects name qualification)
+- `verbose`: Whether to include VERBOSE option in the command
+- `concurrently`: Whether to include CONCURRENTLY option
+- `*tablespace`: Target tablespace name for rebuilt indexes (optional, PostgreSQL 14+)
+- `*sql`: Output buffer to append the generated command to
 ## Dependencies
 - Functions called/Symbols referenced:
   - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)

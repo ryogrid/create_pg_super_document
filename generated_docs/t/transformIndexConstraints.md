@@ -22,8 +22,7 @@ The function operates in two main phases:
 Special handling ensures that PRIMARY KEY indexes are preserved in preference to other equivalent indexes, and named constraints transfer their names to previously unnamed equivalent indexes.
 
 ## Parameters / Member Variables
-- : Pointer to CreateStmtContext containing the constraints to process and the target list for generated statements
-
+- `*cxt`: Pointer to CreateStmtContext containing the constraints to process and the target list for generated statements
 ## Dependencies
 - Functions called/Symbols referenced:
   - [transformIndexConstraint](transformIndexConstraint.md) (converts individual constraints to IndexStmt)

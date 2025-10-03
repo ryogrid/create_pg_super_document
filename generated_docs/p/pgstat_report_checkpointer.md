@@ -23,7 +23,6 @@ The function accumulates various checkpointer metrics including:
 After transferring statistics, it clears the local buffer and reports IO statistics through the pgstat_report_io() mechanism.
 
 ## Parameters / Member Variables
-(No parameters - this is a void function)
 
 ## Dependencies
 - Functions called/Symbols referenced:

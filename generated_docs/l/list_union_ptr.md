@@ -22,9 +22,8 @@ Like list_union(), this function creates a completely new list structure with sh
 The performance characteristics are similar to list_union() (O(n*m) complexity), but the individual comparison operations are faster since they only compare pointer values rather than calling equal() functions.
 
 ## Parameters / Member Variables
-- : The first PostgreSQL List (must be a pointer list). This forms the base of the union.
-- : The second PostgreSQL List (must be a pointer list). Elements from this list are added if their pointers are not already present in list1.
-
+- `*list1`: The first PostgreSQL List (must be a pointer list). This forms the base of the union.
+- `*list2`: The second PostgreSQL List (must be a pointer list). Elements from this list are added if their pointers are not already present in list1.
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsPointerList: Validates that both input lists are pointer lists (called twice)

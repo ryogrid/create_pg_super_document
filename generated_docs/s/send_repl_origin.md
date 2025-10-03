@@ -25,11 +25,10 @@ The function performs the following operations:
 The function includes extensive comments discussing alternative behaviors for missing origin names, showing the PostgreSQL developers' consideration of different error handling strategies.
 
 ## Parameters / Member Variables
-- : LogicalDecodingContext containing output plugin state and connection information
-- : RepOriginId identifying the replication origin to send information about
-- : XLogRecPtr representing the LSN of the original change at the source
-- : Boolean flag indicating whether origin information should be sent
-
+- `*ctx`: LogicalDecodingContext containing output plugin state and connection information
+- `origin_id`: RepOriginId identifying the replication origin to send information about
+- `origin_lsn`: XLogRecPtr representing the LSN of the original change at the source
+- `send_origin`: Boolean flag indicating whether origin information should be sent
 ## Dependencies
 - Functions called/Symbols referenced:
   - [replorigin_by_oid](../r/replorigin_by_oid.md) (resolve origin ID to name)

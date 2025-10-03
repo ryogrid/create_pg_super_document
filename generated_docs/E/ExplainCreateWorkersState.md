@@ -18,8 +18,7 @@ This function allocates and initializes an ExplainWorkersState structure that se
 The workspace includes arrays for tracking initialization status, string buffers for worker output, and state saving capabilities. This infrastructure is essential for presenting parallel execution information in a structured and readable format.
 
 ## Parameters / Member Variables
-- : The number of parallel workers that will be reporting execution statistics
-
+- `num_workers`: The number of parallel workers that will be reporting execution statistics
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md) (allocates memory for the main structure)

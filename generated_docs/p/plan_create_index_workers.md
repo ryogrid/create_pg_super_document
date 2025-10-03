@@ -24,9 +24,8 @@ The  function performs intelligent sizing of parallel worker processes for index
 The function considers both btree and BRIN indexes, which support parallel builds. It ensures each tuplesort participant (including the leader) receives sufficient memory allocation from the total  budget.
 
 ## Parameters / Member Variables
-- : Object ID of the table on which the index will be built
-- : Object ID of the index to be created or reindexed (must support parallel builds)
-
+- `tableOid`: Object ID of the table on which the index will be built
+- `indexOid`: Object ID of the index to be created or reindexed (must support parallel builds)
 ## Dependencies
 - Functions called/Symbols referenced:
   - ,  - Planner infrastructure types

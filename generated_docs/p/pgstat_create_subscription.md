@@ -18,8 +18,7 @@ This function is called when a new logical replication subscription is created i
 The function ensures proper ACID compliance by using the transactional statistics mechanism, which means if the CREATE SUBSCRIPTION command fails or is rolled back, the statistics entry will be automatically cleaned up. After establishing transactional tracking, it creates the actual statistics entry and resets all counters to zero, providing a clean starting state for the new subscription.
 
 ## Parameters / Member Variables
-- : The OID of the subscription being created
-
+- `subid`: The OID of the subscription being created
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pgstat_create_transactional](pgstat_create_transactional.md)

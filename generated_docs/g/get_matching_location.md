@@ -17,10 +17,9 @@ This static helper function is designed specifically to support error reporting 
 The function takes a sort group reference number and searches through parallel lists of sort group references and their corresponding original expressions to find the exact parse location where the user wrote the problematic expression. This enables PostgreSQL to provide precise error messages that point to the correct location in the user's query.
 
 ## Parameters / Member Variables
-- : The sort group reference number to search for
-- : List of integer sort group reference numbers, parallel to exprs list
-- : List of original expression nodes from the DISTINCT ON clause, parallel to sortgrouprefs list
-
+- `sortgroupref`: The sort group reference number to search for
+- `*sortgrouprefs`: List of integer sort group reference numbers, parallel to exprs list
+- `*exprs`: List of original expression nodes from the DISTINCT ON clause, parallel to sortgrouprefs list
 ## Dependencies
 - Functions called/Symbols referenced:
   - forboth: Macro for iterating over two lists simultaneously

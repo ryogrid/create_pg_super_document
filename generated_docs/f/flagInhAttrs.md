@@ -18,10 +18,9 @@ The flagInhAttrs function analyzes inheritance relationships between tables to o
 The function carefully handles the complex inheritance semantics of PostgreSQL, where child tables can inherit constraints, defaults, and generation expressions from their parents. By identifying which attributes are truly inherited versus locally defined, it ensures that the dump output is both minimal and semantically correct during restoration.
 
 ## Parameters / Member Variables
-- : Archive structure containing database connection and dump configuration options
-- : Array of TableInfo structures representing all tables in the database
-- : Number of tables in the tblinfo array
-
+- `*fout`: Archive structure containing database connection and dump configuration options
+- `*tblinfo`: Array of TableInfo structures representing all tables in the database
+- `numTables`: Number of tables in the tblinfo array
 ## Dependencies
 - Functions called/Symbols referenced:
   - [strInArray](../s/strInArray.md) (searches for matching column names in parent tables)

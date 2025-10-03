@@ -19,11 +19,10 @@ This function processes an array of ItemPointer entries (TIDs) during GIN index 
 The function maintains vacuum statistics by incrementing counters for removed tuples and remaining index tuples in the GinVacuumState structure.
 
 ## Parameters / Member Variables
-- : GinVacuumState pointer containing vacuum context, callback function, and result statistics
-- : Array of ItemPointerData structures representing the posting list to be vacuumed
-- : Number of items in the input array
-- : Output parameter that receives the count of remaining items after vacuum
-
+- `*gvs`: GinVacuumState pointer containing vacuum context, callback function, and result statistics
+- `*items`: Array of ItemPointerData structures representing the posting list to be vacuumed
+- `nitem`: Number of items in the input array
+- `*nremaining`: Output parameter that receives the count of remaining items after vacuum
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GinVacuumState](../G/GinVacuumState.md) (struct type)

@@ -28,15 +28,14 @@ The function is nearly identical to  in terms of page modifications, but differs
 The function ensures WAL logging consistency and handles both deletions and updates atomically within a critical section.
 
 ## Parameters / Member Variables
-- : The btree index relation being modified
-- : Buffer containing the leaf page to modify (must be pinned and write-locked by caller)
-- : Transaction ID for generating recovery conflicts during WAL replay
-- : Boolean indicating if this is a catalog relation (affects conflict handling)
-- : Array of offset numbers for items to be completely deleted (must be sorted ascending)
-- : Number of items in the deletable array
-- : Array of BTVacuumPosting structures for items to be partially updated
-- : Number of items in the updatable array
-
+- `rel`: The btree index relation being modified
+- `buf`: Buffer containing the leaf page to modify (must be pinned and write-locked by caller)
+- `snapshotConflictHorizon`: Transaction ID for generating recovery conflicts during WAL replay
+- `isCatalogRel`: Boolean indicating if this is a catalog relation (affects conflict handling)
+- `*deletable`: Array of offset numbers for items to be completely deleted (must be sorted ascending)
+- `ndeletable`: Number of items in the deletable array
+- `*updatable`: Array of BTVacuumPosting structures for items to be partially updated
+- `nupdatable`: Number of items in the updatable array
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Generates new versions of posting lists without deleted TIDs

@@ -21,14 +21,13 @@ ExplainOneQuery is a central dispatch function in the EXPLAIN command processing
 This design provides extensibility for query analysis plugins while maintaining the standard PostgreSQL explain functionality. The function acts as a routing mechanism that ensures each query type is handled by the appropriate explain logic.
 
 ## Parameters / Member Variables
-- : Query structure to be explained
-- : Cursor options flags (like CURSOR_OPT_PARALLEL_OK) affecting plan generation
-- : IntoClause for CREATE TABLE AS statements, NULL for regular queries  
-- : ExplainState containing formatting options and output buffer
-- : Original query string for context in error messages and logging
-- : ParamListInfo containing parameter values for parameterized queries
-- : QueryEnvironment providing additional query execution context
-
+- `*query`: Query structure to be explained
+- `cursorOptions`: Cursor options flags (like CURSOR_OPT_PARALLEL_OK) affecting plan generation
+- `*into`: IntoClause for CREATE TABLE AS statements, NULL for regular queries
+- `*es`: ExplainState containing formatting options and output buffer
+- `*queryString`: Original query string for context in error messages and logging
+- `params`: ParamListInfo containing parameter values for parameterized queries
+- `*queryEnv`: QueryEnvironment providing additional query execution context
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExplainOneUtility](ExplainOneUtility.md)

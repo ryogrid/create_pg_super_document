@@ -20,13 +20,12 @@ MatchNamedCall is a specialized function matching algorithm that handles calls u
 The function creates a mapping array (argnumbers) that translates from call argument positions to actual function parameter positions, enabling proper argument reordering for named calls. It performs comprehensive validation including argument name resolution, position conflict detection, and default argument availability checking.
 
 ## Parameters / Member Variables
-- : HeapTuple containing the pg_proc entry for the candidate function
-- : Total number of arguments in the call (positional + named)
-- : List of argument names for the named arguments in the call
-- : Whether OUT arguments should be considered as part of the argument list
-- : Number of arguments being considered (either proargtypes or proallargtypes length)
-- : Output parameter - pointer to array mapping call positions to function parameter positions
-
+- `proctup`: HeapTuple containing the pg_proc entry for the candidate function
+- `nargs`: Total number of arguments in the call (positional + named)
+- `*argnames`: List of argument names for the named arguments in the call
+- `include_out_arguments`: Whether OUT arguments should be considered as part of the argument list
+- `pronargs`: Number of arguments being considered (either proargtypes or proallargtypes length)
+- `**argnumbers`: Output parameter - pointer to array mapping call positions to function parameter positions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SysCacheGetAttr](../S/SysCacheGetAttr.md)

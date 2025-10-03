@@ -29,15 +29,14 @@ The function performs several validation checks:
 4. Creates and adds the hash join path if it passes all checks
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planner state and configuration
-- : RelOptInfo for the join relation being planned
-- : Path for the outer side of the join (must be partial)
-- : Path for the inner side of the join
-- : List of hash join clauses
-- : Type of join operation (INNER, LEFT, etc.)
-- : Additional join path data and restrictions
-- : Boolean indicating whether to use parallel hash tables
-
+- `*root`: PlannerInfo structure containing planner state and configuration
+- `*joinrel`: RelOptInfo for the join relation being planned
+- `*outer_path`: Path for the outer side of the join (must be partial)
+- `*inner_path`: Path for the inner side of the join
+- `*hashclauses`: List of hash join clauses
+- `jointype`: Type of join operation (INNER, LEFT, etc.)
+- `*extra`: Additional join path data and restrictions
+- `parallel_hash`: Boolean indicating whether to use parallel hash tables
 ## Dependencies
 - Functions called/Symbols referenced:
   - bms_is_empty

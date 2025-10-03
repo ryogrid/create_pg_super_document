@@ -27,11 +27,10 @@ Key operations performed:
 6. Advances to the next update operation in the array
 
 ## Parameters / Member Variables
-- : The B-tree page containing the tuples to be updated
-- : Array of offset numbers identifying which tuples on the page need updating
-- : Array of xl_btree_update structures containing the TIDs to remove from each tuple
-- : Number of tuples being updated (length of the arrays)
-
+- `page`: The B-tree page containing the tuples to be updated
+- `*updatedoffsets`: Array of offset numbers identifying which tuples on the page need updating
+- `*updates`: Array of xl_btree_update structures containing the TIDs to remove from each tuple
+- `nupdated`: Number of tuples being updated (length of the arrays)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PageGetItemId](../P/PageGetItemId.md)

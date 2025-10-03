@@ -18,10 +18,9 @@ This function implements a comparator for sorting DECountItem (Distinct Element 
 This comparator is used to organize distinct element count statistics, which helps the query planner estimate the selectivity of array operations and optimize query execution plans.
 
 ## Parameters / Member Variables
-- : Pointer to the first DECountItem pointer to compare (cast from const void*)
-- : Pointer to the second DECountItem pointer to compare (cast from const void*)
-- : Unused context argument (required by qsort interface but not used in this function)
-
+- `*e1`: Pointer to the first DECountItem pointer to compare (cast from const void*)
+- `*e2`: Pointer to the second DECountItem pointer to compare (cast from const void*)
+- `*arg`: Unused context argument (required by qsort interface but not used in this function)
 ## Dependencies
 - Functions called/Symbols referenced:
   - DECountItem (structure being compared)

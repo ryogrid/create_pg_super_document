@@ -18,9 +18,8 @@ This function is a critical component of pg_dump's constraint handling system. I
 The function operates by walking through the partition attachment list of a referenced index and adding dependencies from the constraint object to each partition's index attachment object. If a partition itself has sub-partitions, the function recursively processes those as well, creating a complete dependency tree that mirrors the partitioning hierarchy.
 
 ## Parameters / Member Variables
-- : A DumpableObject representing the foreign key constraint that needs dependencies established
-- : A constant pointer to IndxInfo representing the partitioned index being referenced by the foreign key
-
+- `*dobj`: A DumpableObject representing the foreign key constraint that needs dependencies established
+- `*refidx`: A constant pointer to IndxInfo representing the partitioned index being referenced by the foreign key
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObject (struct type)

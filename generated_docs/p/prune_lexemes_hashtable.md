@@ -16,9 +16,8 @@ prune_lexemes_hashtable(HTAB *lexemes_tab, int b_current)
 This function implements the pruning phase of the Lossy Counting algorithm used in tsvector statistics collection. It removes entries from the hash table where the condition (frequency + delta <= b_current) is satisfied, which eliminates lexemes that are unlikely to meet the final frequency threshold. The pruning helps keep memory usage bounded while maintaining algorithm accuracy guarantees.
 
 ## Parameters / Member Variables
-- : Hash table containing TrackItem entries with lexeme frequencies and deltas
-- : Current batch number in the Lossy Counting algorithm
-
+- `*lexemes_tab`: Hash table containing TrackItem entries with lexeme frequencies and deltas
+- `b_current`: Current batch number in the Lossy Counting algorithm
 ## Dependencies
 - Functions called/Symbols referenced:
   - [HTAB](../H/HTAB.md)

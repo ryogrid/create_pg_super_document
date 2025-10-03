@@ -16,9 +16,8 @@ do_numeric_accum(NumericAggState *state, Numeric newval)
 This static function performs the core accumulation logic for numeric aggregate functions. It handles special numeric values (positive infinity, negative infinity, NaN) by maintaining separate counters for each type. For regular numeric values, it tracks the maximum decimal scale encountered (needed for inverse transitions), converts the input to variable format, optionally computes the square of the value if required, and then accumulates the value and its square (if needed) into running sums. The function carefully manages memory contexts, performing calculations in short-lived contexts but storing accumulated results in the aggregate context to ensure proper memory management throughout the aggregate operation.
 
 ## Parameters / Member Variables
-- : Pointer to NumericAggState structure containing aggregate state (counters, sums, context information)
-- : The new numeric value to accumulate into the aggregate state
-
+- `*state`: Pointer to NumericAggState structure containing aggregate state (counters, sums, context information)
+- `newval`: The new numeric value to accumulate into the aggregate state
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Check if numeric value is special (NaN, infinity)

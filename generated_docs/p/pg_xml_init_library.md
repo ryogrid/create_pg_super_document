@@ -17,6 +17,7 @@ This function initializes the libxml2 library for use within PostgreSQL and perf
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport (error reporting)

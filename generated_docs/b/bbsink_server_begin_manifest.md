@@ -18,8 +18,7 @@ This function initiates the backup manifest writing process by creating a tempor
 The function creates the temporary file with exclusive creation flags to prevent conflicts and opens it in binary mode for cross-platform compatibility.
 
 ## Parameters / Member Variables
-- : Pointer to the bbsink instance (cast to bbsink_server internally)
-
+- `*sink`: Pointer to the bbsink instance (cast to bbsink_server internally)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [psprintf](../p/psprintf.md)

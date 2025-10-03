@@ -20,8 +20,7 @@ The function performs a simple byte-wise equality comparison between two charact
 This function is part of PostgreSQL's operator infrastructure and is automatically invoked when the "=" operator is used with "char" type operands in SQL queries, WHERE clauses, joins, and other comparison contexts.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function argument macro containing:
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument macro containing:
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_CHAR (to extract the first character argument)

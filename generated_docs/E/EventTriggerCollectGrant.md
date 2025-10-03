@@ -20,8 +20,7 @@ The function performs a comprehensive deep copy of the InternalGrant structure b
 After creating the copy, the function constructs a CollectedCommand structure with type SCT_Grant and adds it to the current event trigger state's command list. This allows event triggers to access detailed information about grant operations that occurred during command execution.
 
 ## Parameters / Member Variables
-- : Pointer to an InternalGrant structure containing the details of the GRANT/REVOKE command being executed, including objects, grantees, and privilege information
-
+- `*istmt`: Pointer to an InternalGrant structure containing the details of the GRANT/REVOKE command being executed, including objects, grantees, and privilege information
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Memory context management

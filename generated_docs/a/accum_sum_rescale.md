@@ -18,9 +18,8 @@ This function dynamically resizes and rescales the accumulator's digit buffers w
 When resizing is needed, the function allocates new buffers and copies existing data to the appropriate positions, ensuring that the accumulated values are preserved correctly.
 
 ## Parameters / Member Variables
-- : Pointer to the NumericSumAccum structure to be rescaled
-- : Pointer to the NumericVar containing the new value that determines rescaling requirements
-
+- `*accum`: Pointer to the NumericSumAccum structure to be rescaled
+- `*val`: Pointer to the NumericVar containing the new value that determines rescaling requirements
 ## Dependencies
 - Functions called/Symbols referenced:
   - [NumericSumAccum](../N/NumericSumAccum.md)

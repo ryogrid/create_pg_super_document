@@ -23,9 +23,8 @@ The conversion process involves several key steps:
 The function is designed to work with , an unsigned integer comparator that provides superior performance compared to memory-based comparison functions.
 
 ## Parameters / Member Variables
-- : The original MAC address value as a Datum
-- : SortSupport structure containing optimization state and configuration
-
+- `original`: The original MAC address value as a Datum
+- `ssup`: SortSupport structure containing optimization state and configuration
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Extracts macaddr pointer from Datum

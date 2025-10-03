@@ -19,9 +19,8 @@ DllInstall is a standard Windows COM DLL export function that processes command-
 The function converts wide character command-line arguments to multibyte strings for the event source name and implements a workaround for the non-standard behavior of regsvr32 when using the /i flag. Due to regsvr32's unusual calling order (DllRegisterServer before DllInstall during installation), the function must handle registration internally when installing to ensure proper event source configuration.
 
 ## Parameters / Member Variables
-- : Boolean flag indicating whether this is an installation (TRUE) or uninstallation (FALSE) operation
-- : Wide character string containing command-line arguments, typically specifying the custom event source name
-
+- `bInstall`: Boolean flag indicating whether this is an installation (TRUE) or uninstallation (FALSE) operation
+- `pszCmdLine`: Wide character string containing command-line arguments, typically specifying the custom event source name
 ## Dependencies
 - Functions called/Symbols referenced:
   - wcstombs (converts wide character string to multibyte)

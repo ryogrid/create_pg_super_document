@@ -25,8 +25,7 @@ The function performs several key operations:
 The function supports a comprehensive set of PostgreSQL plan node types, from basic scan nodes (SeqScan, IndexScan) to complex join and aggregation nodes (HashJoin, WindowAgg), ensuring that any plan tree can be properly reset for re-execution.
 
 ## Parameters / Member Variables
-- : Pointer to the PlanState node to be rescanned. Contains execution state information including timing instrumentation, parameter change indicators, and node-type-specific data.
-
+- `*node`: Pointer to the PlanState node to be rescanned. Contains execution state information including timing instrumentation, parameter change indicators, and node-type-specific data.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [InstrEndLoop](../I/InstrEndLoop.md) (timing instrumentation)

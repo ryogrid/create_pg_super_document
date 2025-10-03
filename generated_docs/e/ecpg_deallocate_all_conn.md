@@ -16,10 +16,9 @@ ecpg_deallocate_all_conn(int lineno, enum COMPAT_MODE c, struct connection *con)
  provides a bulk deallocation mechanism for cleaning up all prepared statements associated with a particular database connection. It iterates through the connection's linked list of prepared statements, calling  for each statement until the list is empty. This function is typically used during connection cleanup or when an application needs to reset all prepared statements for a connection. The function ensures complete cleanup by continuing until all statements are removed from the connection's prep_stmts list.
 
 ## Parameters / Member Variables
-- : Source code line number where the bulk deallocation was initiated (for error reporting and debugging)
-- : Compatibility mode enumeration that affects error handling behavior during individual statement deallocations
-- : Pointer to the database connection structure whose prepared statements should be deallocated
-
+- `lineno`: Source code line number where the bulk deallocation was initiated (for error reporting and debugging)
+- `c`: Compatibility mode enumeration that affects error handling behavior during individual statement deallocations
+- `*con`: Pointer to the database connection structure whose prepared statements should be deallocated
 ## Dependencies
 - Functions called/Symbols referenced:
   - [deallocate_one](../d/deallocate_one.md) (perform deallocation of individual statements)

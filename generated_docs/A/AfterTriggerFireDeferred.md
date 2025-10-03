@@ -17,7 +17,6 @@ AfterTriggerFireDeferred is called just before transaction commit to execute all
 The function implements careful snapshot management since COMMIT operations don't automatically set an active snapshot. It runs triggers in a loop until all are processed, incrementing the firing counter for each batch to maintain proper trigger ordering and execution semantics.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

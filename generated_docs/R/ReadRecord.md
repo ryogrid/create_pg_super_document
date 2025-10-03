@@ -24,11 +24,10 @@ Key behaviors include:
 - Provides comprehensive error reporting with appropriate severity levels
 
 ## Parameters / Member Variables
-- : XLogPrefetcher instance that provides the underlying record reading capability
-- : Error reporting mode (PANIC or LOG) that determines how failures are handled
-- : Boolean flag indicating whether this call is fetching a checkpoint record
-- : Timeline ID being replayed, used for timeline validation and recovery transitions
-
+- `*xlogprefetcher`: XLogPrefetcher instance that provides the underlying record reading capability
+- `emode`: Error reporting mode (PANIC or LOG) that determines how failures are handled
+- `fetching_ckpt`: Boolean flag indicating whether this call is fetching a checkpoint record
+- `replayTLI`: Timeline ID being replayed, used for timeline validation and recovery transitions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [XLogPrefetcherGetReader](../X/XLogPrefetcherGetReader.md)

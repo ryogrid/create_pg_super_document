@@ -16,9 +16,8 @@ xmax_infomask_changed(uint16 new_infomask, uint16 old_infomask)
 This inline static function performs a focused comparison of tuple infomask values to detect changes in Xmax-related transaction state. It's specifically designed for use after a buffer lock has been released and reacquired, ensuring that the tuple's transaction status remains consistent with previous observations. The function checks only the 'interesting' bits related to Xmax transaction state: multi-transaction status, lock-only flag, and lock type information. This selective comparison helps detect concurrent modifications that could affect the validity of previously made decisions about tuple operations.
 
 ## Parameters / Member Variables
-- : The current infomask value after reacquiring the buffer lock
-- : The previously observed infomask value before releasing the lock
-
+- `new_infomask`: The current infomask value after reacquiring the buffer lock
+- `old_infomask`: The previously observed infomask value before releasing the lock
 ## Dependencies
 - Functions called/Symbols referenced:
   - HEAP_XMAX_IS_MULTI (bit flag for multi-transaction)

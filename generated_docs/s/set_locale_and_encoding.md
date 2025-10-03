@@ -25,7 +25,6 @@ The set_locale_and_encoding function transfers critical locale and encoding conf
 The function is version-aware and adapts the SQL update statement based on the target PostgreSQL version.
 
 ## Parameters / Member Variables
-No parameters - operates on global cluster information structures.
 
 ## Dependencies
 - Functions called/Symbols referenced:

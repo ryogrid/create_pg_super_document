@@ -19,11 +19,10 @@ postquel_get_single_result(TupleTableSlot *slot,
 postquel_get_single_result is responsible for extracting and properly formatting the return value from a SQL function's execution result. It handles two distinct return types: composite/tuple returns where the entire row is returned as a single Datum, and scalar returns where only the first column value is extracted. The function ensures proper memory management by allocating results in the specified result context rather than the query's temporary context, and performs necessary data copying for pass-by-reference types to ensure the data remains valid after the slot is cleared.
 
 ## Parameters / Member Variables
-- : TupleTableSlot containing the result row from query execution
-- : FunctionCallInfo structure where the isnull flag will be set
-- : SQLFunctionCache containing function metadata including return type information
-- : MemoryContext where the result should be allocated for proper lifetime management
-
+- `*slot`: TupleTableSlot containing the result row from query execution
+- `fcinfo`: FunctionCallInfo structure where the isnull flag will be set
+- `fcache`: SQLFunctionCache containing function metadata including return type information
+- `resultcontext`: MemoryContext where the result should be allocated for proper lifetime management
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecFetchSlotHeapTupleDatum](../E/ExecFetchSlotHeapTupleDatum.md)

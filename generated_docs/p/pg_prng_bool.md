@@ -19,8 +19,7 @@ The implementation is based on the principle that the most significant bit of a 
 This approach is computationally efficient as it requires only one call to the underlying PRNG and a simple bit operation, making it suitable for high-frequency boolean random generation scenarios.
 
 ## Parameters / Member Variables
-- : Pointer to the pseudo-random number generator state structure that maintains the internal state for generating random numbers
-
+- `*state`: Pointer to the pseudo-random number generator state structure that maintains the internal state for generating random numbers
 ## Dependencies
 - Functions called/Symbols referenced:
   - [xoroshiro128ss](../x/xoroshiro128ss.md): Core pseudo-random number generator that produces 64-bit random values

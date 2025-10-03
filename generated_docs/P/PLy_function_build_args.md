@@ -24,9 +24,8 @@ This function is a helper that prepares function arguments for PL/Python functio
 The function ensures that all arguments are properly converted and available to the Python function both as a positional argument list and (optionally) as named variables in the global namespace.
 
 ## Parameters / Member Variables
-- : FunctionCallInfo structure containing the actual argument values and null flags
-- : PLyProcedure structure containing argument metadata, conversion functions, and global namespace
-
+- `fcinfo`: FunctionCallInfo structure containing the actual argument values and null flags
+- `*proc`: PLyProcedure structure containing argument metadata, conversion functions, and global namespace
 ## Dependencies
 - Functions called/Symbols referenced:
   - PyList_New, PyList_SetItem (Python list operations)

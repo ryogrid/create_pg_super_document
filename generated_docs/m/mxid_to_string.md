@@ -16,10 +16,9 @@ mxid_to_string(MultiXactId multi, int nmembers, MultiXactMember *members)
 This function creates a formatted string representation of a MultiXact ID and its member transactions. The output format is "[MultiXactId] [count][[xid1] ([status1]), [xid2] ([status2]), ...]". The function manages its own static string buffer, freeing the previous result before creating a new one. The resulting string is allocated in TopMemoryContext to ensure it persists across memory context resets, making it suitable for error reporting and debugging scenarios.
 
 ## Parameters / Member Variables
-- : The MultiXact ID to convert to string
-- : The number of member transactions in the MultiXact
-- : Array of MultiXactMember structures containing transaction IDs and their status
-
+- `multi`: The MultiXact ID to convert to string
+- `nmembers`: The number of member transactions in the MultiXact
+- `*members`: Array of MultiXactMember structures containing transaction IDs and their status
 ## Dependencies
 - Functions called/Symbols referenced:
   - [mxstatus_to_string](mxstatus_to_string.md)

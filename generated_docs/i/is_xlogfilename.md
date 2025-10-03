@@ -17,10 +17,9 @@ is_xlogfilename(const char *filename, bool *ispartial,
 The is_xlogfilename function performs comprehensive validation of WAL filenames by checking if they conform to PostgreSQL's WAL file naming conventions. It identifies whether a file is a complete or partial WAL segment and determines the compression algorithm used (none, gzip, or LZ4). The function first validates that the filename starts with exactly 24 hexadecimal characters (the standard WAL filename pattern), then checks various combinations of file extensions to determine the file's compression and completion status. This is crucial for WAL file management in streaming replication and backup scenarios.
 
 ## Parameters / Member Variables
-- : The filename string to validate against WAL file naming conventions
-- : Output parameter indicating whether the file is a partial WAL segment (not yet complete)
-- : Output parameter specifying the compression method used (none, gzip, or LZ4)
-
+- `*filename`: The filename string to validate against WAL file naming conventions
+- `*ispartial`: Output parameter indicating whether the file is a partial WAL segment (not yet complete)
+- `*wal_compression_algorithm`: Output parameter specifying the compression method used (none, gzip, or LZ4)
 ## Dependencies
 - Functions called/Symbols referenced:
   - strlen (standard C library function)

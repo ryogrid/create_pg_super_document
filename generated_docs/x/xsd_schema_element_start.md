@@ -23,9 +23,8 @@ The function outputs:
 This is a building block used by higher-level functions that generate complete XML Schema documents.
 
 ## Parameters / Member Variables
-- : StringInfo buffer where the XML Schema opening element will be appended
-- : Target namespace string for the schema; if non-empty, adds targetNamespace and elementFormDefault attributes
-
+- `result`: StringInfo buffer where the XML Schema opening element will be appended
+- `*targetns`: Target namespace string for the schema; if non-empty, adds targetNamespace and elementFormDefault attributes
 ## Dependencies
 - Functions called/Symbols referenced:
   - [appendStringInfoString](../a/appendStringInfoString.md)

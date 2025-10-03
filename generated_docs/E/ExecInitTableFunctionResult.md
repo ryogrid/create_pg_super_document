@@ -23,10 +23,9 @@ ExecInitTableFunctionResult is responsible for setting up the execution state fo
 The function is specifically designed for nodeFunctionscan.c and handles the initialization phase of table function execution, preparing all necessary state for subsequent calls to retrieve function results.
 
 ## Parameters / Member Variables
-- : The expression tree representing the table function call (typically a FuncExpr)
-- : The expression context providing memory context and execution environment
-- : The parent PlanState node for proper integration into the execution tree
-
+- `*expr`: The expression tree representing the table function call (typically a FuncExpr)
+- `*econtext`: The expression context providing memory context and execution environment
+- `*parent`: The parent PlanState node for proper integration into the execution tree
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (SetExprState creation)

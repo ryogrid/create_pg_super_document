@@ -20,9 +20,8 @@ The function first determines the appropriate GUC context based on whether the c
 For command-line options, the function parses the cmdline_options string using pg_split_opts() to convert it into an argument vector, then processes these arguments through process_postgres_switches(). For GUC options, it iterates through name-value pairs in the guc_options list and applies each setting using SetConfigOption().
 
 ## Parameters / Member Variables
-- : Pointer to the Port structure containing client connection information and startup packet data
-- : Boolean flag indicating whether the connecting user has superuser privileges
-
+- `*port`: Pointer to the Port structure containing client connection information and startup packet data
+- `am_superuser`: Boolean flag indicating whether the connecting user has superuser privileges
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_split_opts](pg_split_opts.md)

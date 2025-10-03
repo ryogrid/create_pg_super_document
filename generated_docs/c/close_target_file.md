@@ -18,6 +18,7 @@ This function safely closes the currently open target file managed by the file o
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - close (system call)

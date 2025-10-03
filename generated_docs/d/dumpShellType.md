@@ -18,9 +18,8 @@ This function creates a shell type definition, which is an incomplete type decla
 The function generates a simple CREATE TYPE statement without any implementation details. Notably, it does not generate a corresponding DROP statement, as the cleanup is handled by the base type entry. This design choice prevents premature ownership changes that could cause backend complaints before the type is fully defined.
 
 ## Parameters / Member Variables
-- : Archive handle for the dump output stream
-- : ShellTypeInfo structure containing metadata about the shell type to create
-
+- `*fout`: Archive handle for the dump output stream
+- `*stinfo`: ShellTypeInfo structure containing metadata about the shell type to create
 ## Dependencies
 - Functions called/Symbols referenced:
   - [binary_upgrade_set_type_oids_by_type_oid](../b/binary_upgrade_set_type_oids_by_type_oid.md)

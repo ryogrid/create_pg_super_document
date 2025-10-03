@@ -18,8 +18,7 @@ This function serves as an error context callback that automatically adds parser
 The callback extracts the ParseState and location information from the ParseCallbackState structure passed as an argument, then calls parser_errposition() to add location context to the current error, helping developers and users identify where in the SQL query the error occurred.
 
 ## Parameters / Member Variables
-- : A void pointer that should point to a ParseCallbackState structure containing the parser state and error location information
-
+- `*arg`: A void pointer that should point to a ParseCallbackState structure containing the parser state and error location information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ParseCallbackState](../P/ParseCallbackState.md) (structure for callback state)

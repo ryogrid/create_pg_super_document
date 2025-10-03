@@ -20,9 +20,8 @@ The function simply takes all initplans accumulated in the PlannerInfo's init_pl
 The function does not modify the plan node's cost estimates or parallel_safe flag, as these should have been accounted for earlier during plan creation through SS_charge_for_initplans or other initplan creation functions.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing the current planning context, including the accumulated initialization plans in root->init_plans
-- : The target Plan node where the initplans will be attached, typically the topmost node of the current query level
-
+- `*root`: PlannerInfo structure containing the current planning context, including the accumulated initialization plans in root->init_plans
+- `*plan`: The target Plan node where the initplans will be attached, typically the topmost node of the current query level
 ## Dependencies
 - Functions called/Symbols referenced:
   - (Direct field access only: root->init_plans, plan->initPlan)

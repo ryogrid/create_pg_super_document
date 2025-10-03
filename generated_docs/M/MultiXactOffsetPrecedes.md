@@ -18,9 +18,8 @@ This function implements a precedence comparison for MultiXact offsets using mod
 MultiXact offsets are used to locate member information in the MultiXact member storage. Each MultiXact ID corresponds to an offset that points to the location where its member transaction IDs and lock modes are stored. This function is essential for determining the relative positioning of these offsets for cleanup and management operations.
 
 ## Parameters / Member Variables
-- : First MultiXact offset to compare (MultiXactOffset)
-- : Second MultiXact offset to compare (MultiXactOffset)
-
+- `offset1`: First MultiXact offset to compare (MultiXactOffset)
+- `offset2`: Second MultiXact offset to compare (MultiXactOffset)
 ## Dependencies
 - Functions called/Symbols referenced:
   - MultiXactOffset (type)

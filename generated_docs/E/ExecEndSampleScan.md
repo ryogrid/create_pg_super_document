@@ -16,8 +16,7 @@ ExecEndSampleScan(SampleScanState *node)
 ExecEndSampleScan is the cleanup function for sample scan executor nodes in PostgreSQL. It performs orderly shutdown operations by first calling the table sampling method's EndSampleScan function (if provided) to allow the sampling method to perform any necessary cleanup operations, such as releasing method-specific resources or updating statistics. After notifying the sampling method, it closes any open table scan descriptor that was used for accessing the underlying relation. This function ensures proper resource cleanup and follows PostgreSQL's executor node lifecycle pattern where each node type provides initialization, execution, and cleanup phases.
 
 ## Parameters / Member Variables
-- : A pointer to the SampleScanState structure containing the sample scan's state and resources to be cleaned up
-
+- `*node`: A pointer to the SampleScanState structure containing the sample scan's state and resources to be cleaned up
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_endscan](../t/table_endscan.md)

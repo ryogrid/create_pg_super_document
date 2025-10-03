@@ -27,8 +27,7 @@ The function categorizes statements into three groups:
 3. **Utility statements** - All other statements that require minimal processing
 
 ## Parameters / Member Variables
-- : RawStmt structure containing the raw parse tree node to be analyzed
-
+- `*parseTree`: RawStmt structure containing the raw parse tree node to be analyzed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RawStmt](../R/RawStmt.md) (structure access for statement extraction)

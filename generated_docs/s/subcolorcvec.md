@@ -19,11 +19,10 @@ subcolorcvec(struct vars *v,
 The  function is a key component of PostgreSQL's regex compilation system. It processes a character vector (cvec) containing individual characters, character ranges, and character classes, converting them into subcolors and creating NFA arcs. The function optimizes performance by avoiding duplicate arc creation through the  state variable. It handles three types of character specifications: ordinary individual characters, character ranges, and character classes. For character classes, it dynamically expands the hicolormap if needed and processes all relevant color combinations.
 
 ## Parameters / Member Variables
-- : Pointer to the regex compilation variables structure
-- : Pointer to the character vector containing characters, ranges, and character classes to process  
-- : Pointer to the source state for the NFA arcs
-- : Pointer to the destination state for the NFA arcs
-
+- `*v`: Pointer to the regex compilation variables structure
+- `*cv`: Pointer to the character vector containing characters, ranges, and character classes to process
+- `*lp`: Pointer to the source state for the NFA arcs
+- `*rp`: Pointer to the destination state for the NFA arcs
 ## Dependencies
 - Functions called/Symbols referenced:
   - [subcoloronechr](subcoloronechr.md) (processes individual characters)

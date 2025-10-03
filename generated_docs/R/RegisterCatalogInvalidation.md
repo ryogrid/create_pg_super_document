@@ -18,9 +18,8 @@ RegisterCatalogInvalidation is a static function that registers a catalog invali
 The function operates at the command level, meaning invalidations registered during a command will be processed when the command completes. This helps maintain cache consistency by ensuring that stale catalog cache entries are removed after catalog modifications.
 
 ## Parameters / Member Variables
-- : Database OID where the catalog resides (InvalidOid for shared catalogs)
-- : OID of the catalog table being invalidated
-
+- `dbId`: Database OID where the catalog resides (InvalidOid for shared catalogs)
+- `catId`: OID of the catalog table being invalidated
 ## Dependencies
 - Functions called/Symbols referenced:
   - [AddCatalogInvalidationMessage](../A/AddCatalogInvalidationMessage.md)

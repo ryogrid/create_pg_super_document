@@ -24,10 +24,9 @@ This function performs extensive validation of a Ranges structure, which is a co
 The function uses binary search to efficiently check whether individual values are covered by existing ranges, and employs sophisticated validation logic to maintain the integrity of the compressed range representation.
 
 ## Parameters / Member Variables
-- : Pointer to the Ranges structure to validate
-- : FmgrInfo pointer to the comparison function for ordering operations
-- : OID of the collation to use for comparison operations
-
+- `*ranges`: Pointer to the Ranges structure to validate
+- `*cmpFn`: FmgrInfo pointer to the comparison function for ordering operations
+- `colloid`: OID of the collation to use for comparison operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [AssertArrayOrder](AssertArrayOrder.md)

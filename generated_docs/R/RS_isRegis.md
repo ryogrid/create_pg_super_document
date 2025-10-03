@@ -21,8 +21,7 @@ RS_isRegis validates that a regular expression string uses only the simplified r
 The function processes the string character by character, transitioning between states (RS_IN_WAIT, RS_IN_ONEOF, RS_IN_ONEOF_IN, RS_IN_NONEOF) to validate the structure. It must be kept in sync with RS_compile which actually compiles the validated patterns.
 
 ## Parameters / Member Variables
-- : The regular expression string to validate
-
+- `*str`: The regular expression string to validate
 ## Dependencies
 - Functions called/Symbols referenced:
   - [t_isalpha](../t/t_isalpha.md) (check if character is alphabetic)

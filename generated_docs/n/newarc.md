@@ -22,12 +22,11 @@ The newarc function is responsible for setting up a new arc within an NFA struct
 The function also includes an interrupt check point to allow for operation cancellation during regex compilation, since regex compilation can involve creating many states and arcs.
 
 ## Parameters / Member Variables
-- : Pointer to the NFA structure that will contain the new arc
-- : The type of the arc being created
-- : The color associated with the arc (used in regex character classification)
-- : Pointer to the source state of the arc
-- : Pointer to the destination state of the arc
-
+- `*nfa`: Pointer to the NFA structure that will contain the new arc
+- `t`: The type of the arc being created
+- `co`: The color associated with the arc (used in regex character classification)
+- `*from`: Pointer to the source state of the arc
+- `*to`: Pointer to the destination state of the arc
 ## Dependencies
 - Functions called/Symbols referenced:
   - INTERRUPT (for operation cancellation checks)

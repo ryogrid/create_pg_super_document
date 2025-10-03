@@ -20,12 +20,11 @@ FormIndexDatum(IndexInfo *indexInfo,
 FormIndexDatum is a core function responsible for extracting and preparing data values from a heap tuple that will be used to construct an index tuple. The function processes each index column, handling three distinct cases: system attributes (negative column numbers), regular table columns, and computed expressions. For regular columns, it directly extracts values from the heap tuple. For index expressions, it evaluates them using the provided execution state. The function manages expression state initialization on first use for performance optimization and ensures proper context setup for expression evaluation. This function prepares the input arrays for index_form_tuple() but doesn't call it directly, allowing index access methods to potentially modify the data before storage.
 
 ## Parameters / Member Variables
-- : IndexInfo structure containing index metadata and configuration
-- : TupleTableSlot containing the heap tuple to extract index values from
-- : Executor state required for evaluating index expressions (can be NULL if no expressions)
-- : Output array to store the extracted Datum values for each index column
-- : Output array to store null indicators corresponding to each index column
-
+- `*indexInfo`: IndexInfo structure containing index metadata and configuration
+- `*slot`: TupleTableSlot containing the heap tuple to extract index values from
+- `*estate`: Executor state required for evaluating index expressions (can be NULL if no expressions)
+- `*values`: Output array to store the extracted Datum values for each index column
+- `*isnull`: Output array to store null indicators corresponding to each index column
 ## Dependencies
 - Functions called/Symbols referenced:
   - [IndexInfo](../I/IndexInfo.md) (structure type)

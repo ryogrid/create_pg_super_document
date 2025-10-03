@@ -25,11 +25,10 @@ This function implements a sophisticated materialized view refresh strategy that
 The function leverages the behavior of NULLs in equality tests and UNIQUE indexes to correctly handle rows with NULL values. The entire operation is performed under an ExclusiveLock to prevent concurrent REFRESH operations and incremental maintenance.
 
 ## Parameters / Member Variables
-- : Object ID of the materialized view to refresh
-- : Object ID of the temporary table containing the new data
-- : User ID of the relation owner for security context switching
-- : Saved security context for restoration after temporary privilege changes
-
+- `matviewOid`: Object ID of the materialized view to refresh
+- `tempOid`: Object ID of the temporary table containing the new data
+- `relowner`: User ID of the relation owner for security context switching
+- `save_sec_context`: Saved security context for restoration after temporary privilege changes
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md), table_close

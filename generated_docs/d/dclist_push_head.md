@@ -18,9 +18,8 @@ The dclist_push_head function provides a convenient way to insert a new node at 
 The function leverages the underlying dlist_push_head implementation for the actual node insertion logic, then increments the count to maintain consistency. It includes an assertion to detect potential count overflow scenarios.
 
 ## Parameters / Member Variables
-- : Pointer to the dclist_head structure representing the circular list header and metadata
-- : Pointer to the dlist_node to be inserted at the beginning of the list
-
+- `*head`: Pointer to the dclist_head structure representing the circular list header and metadata
+- `*node`: Pointer to the dlist_node to be inserted at the beginning of the list
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dclist_init](dclist_init.md)

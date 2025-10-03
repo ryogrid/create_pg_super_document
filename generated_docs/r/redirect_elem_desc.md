@@ -18,10 +18,9 @@ The  function is a specialized element description callback designed to work wit
 The function expects the input to be a pointer to an array of two OffsetNumber values, where the first element is the source offset and the second is the target offset.
 
 ## Parameters / Member Variables
-- : StringInfo buffer where the formatted redirect mapping will be appended
-- : Pointer to an array of two OffsetNumber values representing the redirect mapping
-- : Additional data parameter (unused in this implementation but required by callback signature)
-
+- `buf`: StringInfo buffer where the formatted redirect mapping will be appended
+- `*offset`: Pointer to an array of two OffsetNumber values representing the redirect mapping
+- `*data`: Additional data parameter (unused in this implementation but required by callback signature)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [appendStringInfo](../a/appendStringInfo.md)

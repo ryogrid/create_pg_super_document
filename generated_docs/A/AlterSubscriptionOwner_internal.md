@@ -24,10 +24,9 @@ The function enforces several security constraints:
 After validation, it updates the pg_subscription catalog, adjusts the dependency records to reflect the new ownership, and wakes up related background processes to handle the ownership change promptly.
 
 ## Parameters / Member Variables
-- : Open relation handle for the pg_subscription catalog table
-- : HeapTuple containing the subscription record to be modified
-- : OID of the new owner role for the subscription
-
+- `rel`: Open relation handle for the pg_subscription catalog table
+- `tup`: HeapTuple containing the subscription record to be modified
+- `newOwnerId`: OID of the new owner role for the subscription
 ## Dependencies
 - Functions called/Symbols referenced:
   - [object_ownercheck](../o/object_ownercheck.md): Verifies current user owns the subscription

@@ -26,10 +26,9 @@ Key characteristics:
 - Critical for data durability during PostgreSQL startup
 
 ## Parameters / Member Variables
-- : Full path to the file or directory being synchronized
-- : Boolean flag indicating whether the path is a directory
-- : Error reporting level for logging synchronization issues
-
+- `*fname`: Full path to the file or directory being synchronized
+- `isdir`: Boolean flag indicating whether the path is a directory
+- `elevel`: Error reporting level for logging synchronization issues
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport_startup_progress: Report progress during startup synchronization

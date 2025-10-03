@@ -18,9 +18,8 @@ The byleng function is part of PostgreSQL's ECPG Informix compatibility library.
 This function is commonly used with fixed-length character fields (like CHAR columns in databases) where trailing spaces are often padded but not considered part of the meaningful content.
 
 ## Parameters / Member Variables
-- : A character string/array to measure
-- : The maximum length to consider (typically the allocated size of the string)
-
+- `*str`: A character string/array to measure
+- `len`: The maximum length to consider (typically the allocated size of the string)
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (uses only basic C operations)

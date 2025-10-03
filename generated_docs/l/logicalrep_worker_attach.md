@@ -24,8 +24,7 @@ The attachment process involves:
 6. Registering an exit handler to clean up on process termination
 
 ## Parameters / Member Variables
-- : The index of the logical replication worker slot to attach to (must be between 0 and max_logical_replication_workers-1)
-
+- `slot`: The index of the logical replication worker slot to attach to (must be between 0 and max_logical_replication_workers-1)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockAcquire](../L/LWLockAcquire.md) (LogicalRepWorkerLock, LW_EXCLUSIVE)

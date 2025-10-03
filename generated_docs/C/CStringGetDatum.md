@@ -18,8 +18,7 @@ CStringGetDatum is a utility macro/function that converts a C-style null-termina
 The function is implemented as a static inline function for performance efficiency. Note that C strings are not full-fledged PostgreSQL types but are used extensively in type input/output operations and system catalogs.
 
 ## Parameters / Member Variables
-- : A pointer to a null-terminated C string that will be converted to Datum format
-
+- `*X`: A pointer to a null-terminated C string that will be converted to Datum format
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PointerGetDatum](../P/PointerGetDatum.md)

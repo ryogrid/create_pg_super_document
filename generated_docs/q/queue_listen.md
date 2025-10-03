@@ -16,9 +16,8 @@ queue_listen(ListenActionKind action, const char *channel)
 queue_listen serves as the shared implementation for all listening-related SQL commands (LISTEN, UNLISTEN, UNLISTEN ALL). Rather than immediately updating the listenChannels list, it queues the action for deferred execution during transaction commit. This ensures proper transactional semantics where listen/unlisten operations only take effect if the transaction successfully commits. The function manages actions hierarchically across transaction nesting levels and does not attempt to optimize by collapsing duplicate or conflicting actions, as the interaction semantics would be too complex to guarantee correctness.
 
 ## Parameters / Member Variables
-- : The type of listen action to perform (ListenActionKind enum: LISTEN, UNLISTEN, or UNLISTEN_ALL)
-- : The notification channel name for LISTEN/UNLISTEN actions (ignored for UNLISTEN_ALL)
-
+- `action`: The type of listen action to perform (ListenActionKind enum: LISTEN, UNLISTEN, or UNLISTEN_ALL)
+- `*channel`: The notification channel name for LISTEN/UNLISTEN actions (ignored for UNLISTEN_ALL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetCurrentTransactionNestLevel](../G/GetCurrentTransactionNestLevel.md)

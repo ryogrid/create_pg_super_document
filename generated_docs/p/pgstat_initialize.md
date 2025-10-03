@@ -32,6 +32,7 @@ The initialization is crucial for enabling all subsequent statistics operations 
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pgstat_attach_shmem](pgstat_attach_shmem.md)

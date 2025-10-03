@@ -18,9 +18,8 @@ SPI_fname performs the reverse operation of SPI_fnumber: given an attribute numb
 The function validates the attribute number to ensure it's within valid bounds and returns a newly allocated copy of the attribute name string. The caller is responsible for freeing the returned string.
 
 ## Parameters / Member Variables
-- : The TupleDesc structure containing attribute information for the tuple
-- : The attribute number to look up (1-based for regular attributes, negative for system attributes)
-
+- `tupdesc`: The TupleDesc structure containing attribute information for the tuple
+- `fnumber`: The attribute number to look up (1-based for regular attributes, negative for system attributes)
 ## Dependencies
 - Functions called/Symbols referenced:
   - TupleDescAttr (macro for accessing tuple descriptor attributes)

@@ -25,8 +25,7 @@ This function handles the replay of SP-GiST pick-split operations, which are amo
 The operation ensures atomicity and consistency during recovery by carefully ordering page updates and maintaining proper buffer locks.
 
 ## Parameters / Member Variables
-- : XLogReaderState pointer containing the WAL record with pick-split operation details
-
+- `*record`: XLogReaderState pointer containing the WAL record with pick-split operation details
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData

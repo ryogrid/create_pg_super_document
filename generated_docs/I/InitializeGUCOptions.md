@@ -23,7 +23,6 @@ After basic initialization, it enforces security constraints by setting transact
 Finally, it processes environment variables that can provide historical default values for certain GUC parameters, maintaining backward compatibility with legacy configuration methods.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

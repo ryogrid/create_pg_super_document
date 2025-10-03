@@ -29,13 +29,12 @@ The function performs comprehensive analysis including:
 - Ensuring joins can be parameterized correctly without creating impossible plans
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing query planning context
-- : First relation to be joined
-- : Second relation to be joined  
-- : Union of relids from both relations (pre-computed for efficiency)
-- : Output parameter set to the matching SpecialJoinInfo node (NULL for inner joins)
-- : Output parameter indicating if relations need to be swapped to match the SpecialJoinInfo
-
+- `*root`: PlannerInfo structure containing query planning context
+- `*rel1`: First relation to be joined
+- `*rel2`: Second relation to be joined
+- `joinrelids`: Union of relids from both relations (pre-computed for efficiency)
+- `**sjinfo_p`: Output parameter set to the matching SpecialJoinInfo node (NULL for inner joins)
+- `*reversed_p`: Output parameter indicating if relations need to be swapped to match the SpecialJoinInfo
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bms_overlap](../b/bms_overlap.md)

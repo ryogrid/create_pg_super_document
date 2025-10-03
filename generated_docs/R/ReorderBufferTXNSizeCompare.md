@@ -23,10 +23,9 @@ The function extracts ReorderBufferTXN structures from pairing heap nodes using 
 This comparison function is essential for memory management in logical replication, allowing the system to identify and prioritize transactions based on their memory footprint for operations like spilling to disk or cleanup.
 
 ## Parameters / Member Variables
-- : Pointer to the first pairing heap node containing a ReorderBufferTXN
-- : Pointer to the second pairing heap node containing a ReorderBufferTXN  
-- : Unused argument parameter (required by pairing heap interface)
-
+- `*a`: Pointer to the first pairing heap node containing a ReorderBufferTXN
+- `*b`: Pointer to the second pairing heap node containing a ReorderBufferTXN
+- `*arg`: Unused argument parameter (required by pairing heap interface)
 ## Dependencies
 - Functions called/Symbols referenced:
   - pairingheap_const_container (macro for extracting container structure from heap node)

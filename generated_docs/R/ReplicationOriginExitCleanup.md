@@ -16,9 +16,8 @@ ReplicationOriginExitCleanup(int code, Datum arg)
 ReplicationOriginExitCleanup is a process exit callback function that ensures proper cleanup of replication origin sessions when a PostgreSQL backend process terminates. It checks if the current process has acquired a session replication origin, and if so, releases it by clearing the acquired_by field and resetting the session state. The function also broadcasts a condition variable to wake up any processes that might be waiting to acquire the same replication origin, ensuring no deadlocks or resource leaks occur during process termination.
 
 ## Parameters / Member Variables
-- : int representing the exit code (standard exit callback parameter)
-- : Datum containing additional arguments (standard exit callback parameter, unused here)
-
+- `code`: int representing the exit code (standard exit callback parameter)
+- `arg`: Datum containing additional arguments (standard exit callback parameter, unused here)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease

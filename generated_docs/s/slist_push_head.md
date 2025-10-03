@@ -18,9 +18,8 @@ This function implements the standard "push to head" operation for PostgreSQL's 
 The function maintains the integrity of the list structure and includes a debug check to validate the list state after the insertion. This is part of PostgreSQL's intrusive list implementation where list nodes are embedded within the actual data structures rather than being separate allocations.
 
 ## Parameters / Member Variables
-- : Pointer to the list head structure that maintains the list state
-- : Pointer to the node to be inserted at the beginning of the list
-
+- `*head`: Pointer to the list head structure that maintains the list state
+- `*node`: Pointer to the node to be inserted at the beginning of the list
 ## Dependencies
 - Functions called/Symbols referenced:
   - [slist_check](slist_check.md) (for list integrity validation)

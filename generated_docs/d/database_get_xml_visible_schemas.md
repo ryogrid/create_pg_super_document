@@ -17,6 +17,7 @@ This function returns all schemas (namespaces) in the current database that are 
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [query_to_oid_list](../q/query_to_oid_list.md)

@@ -36,12 +36,11 @@ Key features include:
 When with_child_tables is true, the function uses a recursive CTE (Common Table Expression) to traverse the inheritance tree and include all child tables of matching parents.
 
 ## Parameters / Member Variables
-- : Archive structure containing database connection and dump context
-- : SimpleStringList containing table name patterns to match (may include wildcards and schema qualification)
-- : SimpleOidList to append matching table OIDs to
-- : Boolean flag that causes failure if any pattern matches no tables
-- : Boolean flag to include child tables via inheritance relationships
-
+- `*fout`: Archive structure containing database connection and dump context
+- `*patterns`: SimpleStringList containing table name patterns to match (may include wildcards and schema qualification)
+- `*oids`: SimpleOidList to append matching table OIDs to
+- `strict_names`: Boolean flag that causes failure if any pattern matches no tables
+- `with_child_tables`: Boolean flag to include child tables via inheritance relationships
 ## Dependencies
 - Functions called/Symbols referenced:
   - [createPQExpBuffer](../c/createPQExpBuffer.md), resetPQExpBuffer, destroyPQExpBuffer (query buffer management)

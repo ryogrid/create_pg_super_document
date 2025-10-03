@@ -20,8 +20,7 @@ The function performs a simple iterative traversal starting from the root and mo
 Note that this function only retrieves the leftmost node without unlinking it from the tree. If deletion is required, the caller should explicitly call rbt_delete on the returned node.
 
 ## Parameters / Member Variables
-- : Pointer to the Red-Black Tree structure to search
-
+- `*rbt`: Pointer to the Red-Black Tree structure to search
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RBTree](../R/RBTree.md) (tree structure type)

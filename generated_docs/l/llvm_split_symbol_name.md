@@ -23,10 +23,9 @@ The function operates by:
 This parsing is essential for the JIT compilation system to correctly resolve symbols from PostgreSQL extensions and external libraries.
 
 ## Parameters / Member Variables
-- : Input symbol name to be parsed
-- : Output parameter that receives the module name (NULL if not an external module function)  
-- : Output parameter that receives the function name
-
+- `*name`: Input symbol name to be parsed
+- `**modname`: Output parameter that receives the module name (NULL if not an external module function)
+- `**funcname`: Output parameter that receives the function name
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (standard C library)

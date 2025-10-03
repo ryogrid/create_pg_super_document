@@ -29,9 +29,8 @@ The AtEOXact_RelationMap function is called at the end of every transaction to h
 The timing of this function during commit is critical - it must be called as late as possible before the actual transaction commit to minimize the window where the transaction could still roll back after committing map changes.
 
 ## Parameters / Member Variables
-- : Boolean indicating whether the transaction is committing (true) or aborting (false)
-- : Boolean indicating whether this is being called from a parallel worker process
-
+- `isCommit`: Boolean indicating whether the transaction is committing (true) or aborting (false)
+- `isParallelWorker`: Boolean indicating whether this is being called from a parallel worker process
 ## Dependencies
 - Functions called/Symbols referenced:
   - [perform_relmap_update](../p/perform_relmap_update.md) (called for both shared and local mappings during commit)

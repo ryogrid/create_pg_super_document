@@ -22,8 +22,7 @@ This function performs post-processing to gather ACL information that requires a
 The function ensures that objects with column-level privileges or initial privileges are properly flagged for ACL dumping during the backup process.
 
 ## Parameters / Member Variables
-- : Archive context containing connection information and version details for the database being dumped
-
+- `*fout`: Archive context containing connection information and version details for the database being dumped
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)

@@ -25,7 +25,6 @@ InitProcess performs critical per-process initialization for PostgreSQL backends
 The function essentially transforms a raw backend process into a fully-integrated member of the PostgreSQL process ecosystem.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

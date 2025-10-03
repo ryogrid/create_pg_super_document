@@ -34,11 +34,10 @@ The function checks multiple conditions that would prevent pullup:
 The LATERAL reference checking is particularly sophisticated, ensuring that lateral references don't cross outer join boundaries in ways that would change query semantics.
 
 ## Parameters / Member Variables
-- : PlannerInfo containing the overall query planning context and relation information
-- : The Query node representing the subquery being evaluated for pullup (may be a processed copy, not necessarily equal to rte->subquery)
-- : The RangeTblEntry of type RTE_SUBQUERY that contains the subquery being analyzed
-- : The lowest outer join expression above the subquery in the query tree, or NULL if no outer joins are present
-
+- `*root`: PlannerInfo containing the overall query planning context and relation information
+- `*subquery`: The Query node representing the subquery being evaluated for pullup (may be a processed copy, not necessarily equal to rte->subquery)
+- `*rte`: The RangeTblEntry of type RTE_SUBQUERY that contains the subquery being analyzed
+- `*lowest_outer_join`: The lowest outer join expression above the subquery in the query tree, or NULL if no outer joins are present
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (type checking macro)

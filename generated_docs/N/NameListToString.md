@@ -18,8 +18,7 @@ The NameListToString function takes a List of name components and converts them 
 The function builds the output string by iterating through each element in the list, appending a dot separator between elements (except before the first element), and then appending the appropriate string representation based on the node type.
 
 ## Parameters / Member Variables
-- : A List pointer containing the qualified name components to be converted. Each element should be either a String node or an A_Star node.
-
+- `*names`: A List pointer containing the qualified name components to be converted. Each element should be either a String node or an A_Star node.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_head](../l/list_head.md): Used to check if current element is the first in the list

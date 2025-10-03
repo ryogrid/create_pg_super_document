@@ -20,8 +20,7 @@ The function initializes the local reloptions structure with the size of MinMaxM
 This is part of the PostgreSQL reloptions (relation options) framework that allows index methods to accept custom configuration parameters.
 
 ## Parameters / Member Variables
-- : local_relopts pointer - Structure for defining relation options
-
+- `PG_FUNCTION_ARGS`: local_relopts pointer - Structure for defining relation options
 ## Dependencies
 - Functions called/Symbols referenced:
   - [init_local_reloptions](../i/init_local_reloptions.md)

@@ -27,15 +27,14 @@ The function follows a two-stage approach:
 This dual approach ensures efficient storage for small posting lists while seamlessly scaling to handle large collections of item pointers through posting trees.
 
 ## Parameters / Member Variables
-- : GIN access method state information containing index configuration
-- : Attribute number for the key being indexed
-- : The actual key value being indexed
-- : Category information for null handling (GIN_CAT_NORM_KEY, etc.)
-- : Array of item pointers to include (must be sorted with no duplicates)
-- : Number of item pointers in the items array
-- : Statistics collection structure for tracking build progress
-- : Buffer for page operations during posting tree creation
-
+- `*ginstate`: GIN access method state information containing index configuration
+- `attnum`: Attribute number for the key being indexed
+- `key`: The actual key value being indexed
+- `category`: Category information for null handling (GIN_CAT_NORM_KEY, etc.)
+- `*items`: Array of item pointers to include (must be sorted with no duplicates)
+- `nitem`: Number of item pointers in the items array
+- `*buildStats`: Statistics collection structure for tracking build progress
+- `buffer`: Buffer for page operations during posting tree creation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ginCompressPostingList](../g/ginCompressPostingList.md): Compress item pointers into posting list format

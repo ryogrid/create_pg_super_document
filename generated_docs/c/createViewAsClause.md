@@ -20,9 +20,8 @@ The function performs robust error checking to ensure the view definition is ret
 This function is essential for generating syntactically correct view creation statements during the dump process, particularly when the view definition needs to be combined with additional clauses or modified for different PostgreSQL versions.
 
 ## Parameters / Member Variables
-- : Archive structure containing database connection for executing queries
-- : TableInfo structure containing metadata about the view including its catalog ID and name
-
+- `*fout`: Archive structure containing database connection for executing queries
+- `*tbinfo`: TableInfo structure containing metadata about the view including its catalog ID and name
 ## Dependencies
 - Functions called/Symbols referenced:
   - [createPQExpBuffer](createPQExpBuffer.md): Creates buffers for query construction and result storage

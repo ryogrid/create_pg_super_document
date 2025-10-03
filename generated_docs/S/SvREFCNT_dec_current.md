@@ -16,8 +16,7 @@ SvREFCNT_dec_current(SV *sv)
 This function serves as a convenience wrapper around Perl's SvREFCNT_dec macro. Its primary purpose is to simplify reference count management by automatically reloading the active Perl interpreter pointer using the dTHX macro, which saves notation in calling code that frequently switches between different Perl interpreter contexts. The function is designed to be inlined for performance efficiency while providing cleaner code structure in the PL/Perl implementation.
 
 ## Parameters / Member Variables
-- : Pointer to the Perl SV (scalar value) whose reference count should be decremented
-
+- `*sv`: Pointer to the Perl SV (scalar value) whose reference count should be decremented
 ## Dependencies
 - Functions called/Symbols referenced:
   - dTHX (Perl macro for setting up interpreter context)

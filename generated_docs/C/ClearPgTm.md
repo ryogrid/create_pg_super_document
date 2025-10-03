@@ -23,9 +23,8 @@ The function performs a complete initialization by setting:
 This provides a consistent starting point for subsequent time/date calculations and parsing operations.
 
 ## Parameters / Member Variables
-- : Pointer to a standard C library tm structure to be initialized
-- : Pointer to fractional seconds field (fsec_t) to be zeroed
-
+- `*tm`: Pointer to a standard C library tm structure to be initialized
+- `*fsec`: Pointer to fractional seconds field (fsec_t) to be zeroed
 ## Dependencies
 - Functions called/Symbols referenced:
   - fsec_t (type definition for fractional seconds)

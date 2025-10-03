@@ -20,9 +20,8 @@ The function carefully preserves the DSA (Dynamic Shared Array) pointer before d
 After removing the entry from the hash table and releasing any associated locks, the function frees the actual statistics data stored in the dynamic shared memory area using .
 
 ## Parameters / Member Variables
-- : Pointer to the shared statistics hash entry to be freed, containing the entry key and body data pointer
-- : Optional pointer to a sequential iteration status structure. If non-NULL, indicates the function is being called during hash table iteration and  should be used
-
+- `*shent`: Pointer to the shared statistics hash entry to be freed, containing the entry key and body data pointer
+- `*hstat`: Optional pointer to a sequential iteration status structure. If non-NULL, indicates the function is being called during hash table iteration and  should be used
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Deletes an entry from the shared hash table by direct reference

@@ -21,9 +21,8 @@ This function provides a unified interface to obtain the hash value of an entry,
 This abstraction allows the hash table implementation to optimize for either speed (pre-computed hashes) or memory usage (computed hashes) based on the user's configuration. Pre-stored hashes improve performance during operations like growing the hash table or comparing entries, while computed hashes save memory per entry.
 
 ## Parameters / Member Variables
-- : Pointer to the hash table structure
-- : Pointer to the hash table entry whose hash value is needed
-
+- `*tb`: Pointer to the hash table structure
+- `*entry`: Pointer to the hash table entry whose hash value is needed
 ## Dependencies
 - Functions called/Symbols referenced:
   - SH_MAKE_NAME (macro for name generation)

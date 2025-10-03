@@ -18,15 +18,14 @@ CastCreate(Oid sourcetypeid, Oid targettypeid,
 CastCreate is responsible for creating a new cast entry in the PostgreSQL system catalog. It performs several critical operations: validates that the cast doesn't already exist, assigns a new OID, creates the catalog tuple with all necessary attributes, and establishes dependency relationships between the cast and its dependent objects (source type, target type, cast function, and any required intermediate casts). The function handles both function-based and binary-compatible casts, ensuring proper dependency tracking for automatic cleanup when dependent objects are dropped.
 
 ## Parameters / Member Variables
-- : OID of the source data type being cast from
-- : OID of the target data type being cast to  
-- : OID of the cast function (InvalidOid for binary coercible casts)
-- : OID of input cast required for binary coercibility (InvalidOid if none)
-- : OID of output cast required for binary coercibility (InvalidOid if none)
-- : Context in which the cast can be invoked ('e' = explicit, 'a' = assignment, 'i' = implicit)
-- : Method of casting ('f' = function, 'i' = inout, 'b' = binary compatible)
-- : Dependency type for relationships with referenced objects
-
+- `sourcetypeid`: OID of the source data type being cast from
+- `targettypeid`: OID of the target data type being cast to
+- `funcid`: OID of the cast function (InvalidOid for binary coercible casts)
+- `incastid`: OID of input cast required for binary coercibility (InvalidOid if none)
+- `outcastid`: OID of output cast required for binary coercibility (InvalidOid if none)
+- `castcontext`: Context in which the cast can be invoked ('e' = explicit, 'a' = assignment, 'i' = implicit)
+- `castmethod`: Method of casting ('f' = function, 'i' = inout, 'b' = binary compatible)
+- `behavior`: Dependency type for relationships with referenced objects
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache2](../S/SearchSysCache2.md)

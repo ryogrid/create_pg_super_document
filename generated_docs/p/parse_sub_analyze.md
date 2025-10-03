@@ -29,12 +29,11 @@ The function performs several key setup operations:
 This function is essential for PostgreSQL's ability to handle complex nested query structures while maintaining proper scoping and context inheritance.
 
 ## Parameters / Member Variables
-- : Node representing the sub-statement to be analyzed (not necessarily a RawStmt)
-- : Parse state from the containing statement for context inheritance
-- : Common Table Expression context if analyzing within a CTE
-- : Whether table locking should be inherited from parent context
-- : Whether to resolve unknown parameter types during analysis
-
+- `*parseTree`: Node representing the sub-statement to be analyzed (not necessarily a RawStmt)
+- `*parentParseState`: Parse state from the containing statement for context inheritance
+- `*parentCTE`: Common Table Expression context if analyzing within a CTE
+- `locked_from_parent`: Whether table locking should be inherited from parent context
+- `resolve_unknowns`: Whether to resolve unknown parameter types during analysis
 ## Dependencies
 - Functions called/Symbols referenced:
   - [make_parsestate](../m/make_parsestate.md): Creates child parse state with parent context

@@ -25,8 +25,7 @@ The function performs several validation steps:
 If all conditions are met, the function populates the mergeopfamilies field of the RestrictInfo with the appropriate operator families, enabling the query planner to consider merge join strategies for this clause.
 
 ## Parameters / Member Variables
-- : RestrictInfo structure containing the clause to be evaluated and metadata fields to be populated if the clause is mergejoinable
-
+- `*restrictinfo`: RestrictInfo structure containing the clause to be evaluated and metadata fields to be populated if the clause is mergejoinable
 ## Dependencies
 - Functions called/Symbols referenced:
   - [is_opclause](../i/is_opclause.md) (checks if expression is an operator clause)

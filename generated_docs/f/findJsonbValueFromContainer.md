@@ -23,10 +23,9 @@ The function performs different search strategies:
 Returns a palloc()'d copy of the found value or NULL if not found. For objects, may return jbvBinary JsonbValue but never does so for arrays.
 
 ## Parameters / Member Variables
-- : The JSONB container (object or array) to search within
-- : Specifies container types of interest (JB_FARRAY for arrays, JB_FOBJECT for objects)
-- : The JsonbValue to search for (must be string for object searches, any type for array searches)
-
+- `*container`: The JSONB container (object or array) to search within
+- `flags`: Specifies container types of interest (JB_FARRAY for arrays, JB_FOBJECT for objects)
+- `*key`: The JsonbValue to search for (must be string for object searches, any type for array searches)
 ## Dependencies
 - Functions called/Symbols referenced:
   - JsonContainerSize

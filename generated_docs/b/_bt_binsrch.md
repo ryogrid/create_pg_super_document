@@ -24,10 +24,9 @@ On leaf pages, it handles the final positioning for scans, returning offsets for
 The algorithm maintains loop invariants based on the nextkey parameter to ensure correct positioning for both ">=" and ">" search semantics.
 
 ## Parameters / Member Variables
-- : The B-tree index relation being searched
-- : BTScanInsert structure containing the search key and search parameters (nextkey, backward, etc.)
-- : Buffer containing the page to search
-
+- `rel`: The B-tree index relation being searched
+- `key`: BTScanInsert structure containing the search key and search parameters (nextkey, backward, etc.)
+- `buf`: Buffer containing the page to search
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BufferGetPage](../B/BufferGetPage.md)

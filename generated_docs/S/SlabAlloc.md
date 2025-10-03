@@ -16,10 +16,9 @@ SlabAlloc(MemoryContext context, Size size, int flags)
 SlabAlloc is the primary allocation function for PostgreSQL's slab memory allocator, designed for high-performance allocation of fixed-size memory chunks. The function implements a fast-path optimization strategy: it handles the most common allocation scenarios in the main function body to avoid stack frame overhead, while delegating edge cases to helper functions. The allocator maintains multiple block lists organized by the number of free chunks, allowing efficient selection of partially filled blocks. When no partially filled blocks are available, it calls SlabAllocFromNewBlock to obtain memory from a new block. The function validates that the requested size matches the slab's fixed chunk size and efficiently manages block list transitions as chunks are allocated.
 
 ## Parameters / Member Variables
-- : The MemoryContext (slab context) from which to allocate memory
-- : The size of memory to allocate (must match the slab's fixed chunk size)
-- : Allocation flags that control behavior (e.g., MCXT_ALLOC_NO_OOM for NULL return instead of ERROR)
-
+- `context`: The MemoryContext (slab context) from which to allocate memory
+- `size`: The size of memory to allocate (must match the slab's fixed chunk size)
+- `flags`: Allocation flags that control behavior (e.g., MCXT_ALLOC_NO_OOM for NULL return instead of ERROR)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SlabContext](SlabContext.md)

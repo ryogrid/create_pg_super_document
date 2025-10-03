@@ -27,9 +27,8 @@ This function implements the core logic for attribute number remapping in Postgr
 The function ensures that attribute number mappings are consistent and handles type coercion requirements for row type changes.
 
 ## Parameters / Member Variables
-- : The current node being processed in the expression tree
-- : Contains target RTE information, attribute mapping table, row type conversion settings, and sublevel tracking
-
+- `*node`: The current node being processed in the expression tree
+- `*context`: Contains target RTE information, attribute mapping table, row type conversion settings, and sublevel tracking
 ## Dependencies
 - Functions called/Symbols referenced:
   - map_variable_attnos_context (struct)

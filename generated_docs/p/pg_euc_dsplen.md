@@ -23,8 +23,7 @@ This function determines how many screen columns an EUC-encoded character will o
 The function is designed to work with EUC character encoding schemes where multi-byte characters typically occupy 2 display columns (full-width), while ASCII characters may occupy 1 column.
 
 ## Parameters / Member Variables
-- : Pointer to the first byte of the EUC-encoded character to measure
-
+- `*s`: Pointer to the first byte of the EUC-encoded character to measure
 ## Dependencies
 - Functions called/Symbols referenced:
   - SS2 (Single Shift 2 constant)

@@ -30,11 +30,10 @@ The function calculates the total cost by considering:
 Unlike other cost functions, this routine makes actual execution decisions rather than just estimating costs, because the choice between alternatives doesn't affect pathkeys or startup cost.
 
 ## Parameters / Member Variables
-- : PlannerInfo containing query planning context and statistics
-- : MergePath being costed (updated with final cost and execution decisions)
-- : JoinCostWorkspace from initial_cost_mergejoin containing preliminary estimates
-- : JoinPathExtraData with miscellaneous join information including inner_unique flag
-
+- `*root`: PlannerInfo containing query planning context and statistics
+- `*path`: MergePath being costed (updated with final cost and execution decisions)
+- `*workspace`: JoinCostWorkspace from initial_cost_mergejoin containing preliminary estimates
+- `*extra`: JoinPathExtraData with miscellaneous join information including inner_unique flag
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_parallel_divisor](../g/get_parallel_divisor.md)

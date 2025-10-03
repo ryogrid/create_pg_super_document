@@ -18,9 +18,8 @@ The  function is responsible for dumping foreign-data wrapper objects during a p
 The function constructs the complete CREATE statement by conditionally including handler and validator functions (when not set to "-") and formatting options when present. It also handles binary upgrade scenarios, dumps associated comments, and exports access control lists (ACLs).
 
 ## Parameters / Member Variables
-- : Archive structure containing dump configuration and output methods
-- : FdwInfo structure containing foreign-data wrapper metadata including handler, validator, options, and ownership information
-
+- `*fout`: Archive structure containing dump configuration and output methods
+- `*fdwinfo`: FdwInfo structure containing foreign-data wrapper metadata including handler, validator, options, and ownership information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [createPQExpBuffer](../c/createPQExpBuffer.md)

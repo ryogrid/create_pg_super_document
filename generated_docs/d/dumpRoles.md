@@ -20,8 +20,7 @@ The function constructs comprehensive CREATE ROLE and ALTER ROLE statements with
 The function processes roles in two phases: first dumping role definitions, then dumping user configuration settings separately to handle potential cross-references between roles.
 
 ## Parameters / Member Variables
-- : PostgreSQL database connection handle used to query system catalogs
-
+- `*conn`: PostgreSQL database connection handle used to query system catalogs
 ## Dependencies
 - Functions called/Symbols referenced:
   - [printfPQExpBuffer](../p/printfPQExpBuffer.md) (format SQL query strings for different PostgreSQL versions)

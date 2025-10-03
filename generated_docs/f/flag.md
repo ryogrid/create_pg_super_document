@@ -20,8 +20,7 @@ The  function is a utility function used in the PostgreSQL locale testing framew
 This dual format allows for both verbose and compact display modes in test output, making it easier to read test results in different contexts.
 
 ## Parameters / Member Variables
-- : An integer value treated as a boolean (non-zero is true, zero is false)
-
+- `b`: An integer value treated as a boolean (non-zero is true, zero is false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - LONG_FLAG (preprocessor macro)

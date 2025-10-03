@@ -28,10 +28,9 @@ The function handles multiple alteration types through a switch statement:
 The function enforces security restrictions, preventing non-superusers from modifying subscriptions with password_required=false. It also validates state dependencies, such as preventing certain operations on enabled subscriptions and ensuring proper transaction block handling for operations that cannot be rolled back.
 
 ## Parameters / Member Variables
-- : Parser state for processing subscription options and validating syntax
-- : ALTER SUBSCRIPTION statement containing the specific alteration type and parameters
-- : Boolean flag indicating if this is a top-level command, used for transaction block validation
-
+- `*pstate`: Parser state for processing subscription options and validating syntax
+- `*stmt`: ALTER SUBSCRIPTION statement containing the specific alteration type and parameters
+- `isTopLevel`: Boolean flag indicating if this is a top-level command, used for transaction block validation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetSubscription](../G/GetSubscription.md): Retrieves subscription details from catalog

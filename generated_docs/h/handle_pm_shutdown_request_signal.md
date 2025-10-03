@@ -22,8 +22,7 @@ This signal handler function is responsible for interpreting different shutdown 
 The function sets boolean flags that are later processed by the main postmaster loop to execute the appropriate shutdown sequence. After setting the flags, it wakes up the main postmaster loop by setting a latch.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL signal handler argument macro that provides access to  containing the signal number
-
+- `SIGNAL_ARGS`: Standard PostgreSQL signal handler argument macro that provides access to  containing the signal number
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Wakes up the postmaster main loop

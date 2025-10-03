@@ -20,10 +20,9 @@ When verification errors are found, it outputs detailed location information (da
 The function also manages memory cleanup for the RelationInfo context and determines whether parallel processing should continue based on the result status.
 
 ## Parameters / Member Variables
-- : PGresult pointer containing the query results from the heap verification command
-- : PGconn pointer to the database connection on which the query was executed
-- : Void pointer to a RelationInfo structure containing information about the table being verified
-
+- `*res`: PGresult pointer containing the query results from the heap verification command
+- `*conn`: PGconn pointer to the database connection on which the query was executed
+- `*context`: Void pointer to a RelationInfo structure containing information about the table being verified
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RelationInfo](../R/RelationInfo.md) (struct type)

@@ -20,9 +20,8 @@ The function is designed to work with the PostgreSQL statistics system's hash ta
 The match_data parameter is not used in the current implementation, as the function relies on the global MyDatabaseId variable to determine the current database context.
 
 ## Parameters / Member Variables
-- : Pointer to a statistics hash table entry containing the key information including database OID
-- : Additional matching data (unused in current implementation)
-
+- `*entry`: Pointer to a statistics hash table entry containing the key information including database OID
+- `match_data`: Additional matching data (unused in current implementation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DatumGetObjectId](../D/DatumGetObjectId.md) (for data type conversion)

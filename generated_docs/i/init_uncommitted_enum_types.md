@@ -22,6 +22,7 @@ This tracking mechanism is crucial for operations like ALTER TYPE ADD VALUE, whi
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hash_create](../h/hash_create.md)

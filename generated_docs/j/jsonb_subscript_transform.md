@@ -28,12 +28,11 @@ The transformation process includes:
 6. Setting the result type to JSONBOID
 
 ## Parameters / Member Variables
-- : The SubscriptingRef node being transformed, which will be updated with processed subscript expressions
-- : List of A_Indices nodes representing the subscript expressions to be processed
-- : Parse state containing context information for error reporting and expression transformation
-- : Boolean indicating if this is a slice operation (always results in error for JSONB)
-- : Boolean indicating if this subscripting is part of an assignment operation
-
+- `*sbsref`: The SubscriptingRef node being transformed, which will be updated with processed subscript expressions
+- `*indirection`: List of A_Indices nodes representing the subscript expressions to be processed
+- `*pstate`: Parse state containing context information for error reporting and expression transformation
+- `isSlice`: Boolean indicating if this is a slice operation (always results in error for JSONB)
+- `isAssignment`: Boolean indicating if this subscripting is part of an assignment operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [transformExpr](../t/transformExpr.md)

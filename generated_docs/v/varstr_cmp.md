@@ -16,12 +16,11 @@ varstr_cmp(const char *arg1, int len1, const char *arg2, int len2, Oid collid)
  is the fundamental comparison function for variable-length strings in PostgreSQL. It performs locale-aware string comparison while optimizing for the common case where LC_COLLATE is C. The function handles both binary (memcmp) and collation-aware (strcoll) comparisons depending on the specified collation. For non-C locales, it uses a two-phase approach: first performing a quick memcmp for equality detection, then falling back to full collation-aware comparison using pg_strncoll when necessary. For deterministic locales, it provides tie-breaking using binary comparison when collation comparison yields equality.
 
 ## Parameters / Member Variables
-- : First string to compare (not null-terminated)
-- : Length of the first string in bytes
-- : Second string to compare (not null-terminated)
-- : Length of the second string in bytes  
-- : OID of the collation to use for comparison
-
+- `*arg1`: First string to compare (not null-terminated)
+- `len1`: Length of the first string in bytes
+- `*arg2`: Second string to compare (not null-terminated)
+- `len2`: Length of the second string in bytes
+- `collid`: OID of the collation to use for comparison
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_collation_set](../c/check_collation_set.md)

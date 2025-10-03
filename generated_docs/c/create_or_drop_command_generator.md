@@ -18,10 +18,9 @@ This is a core generator function in psql's tab completion system that provides 
 The function follows the readline completion interface pattern, maintaining state between calls through static variables. On the first call (state == 0), it initializes the search parameters. On subsequent calls, it continues from where it left off, returning the next matching command until all possibilities are exhausted.
 
 ## Parameters / Member Variables
-- : The partial command text that the user has typed so far
-- : Call counter - 0 for first call, incremented on subsequent calls for the same completion
-- : Bit flags indicating which command types should be excluded from completion results
-
+- `*text`: The partial command text that the user has typed so far
+- `state`: Call counter - 0 for first call, incremented on subsequent calls for the same completion
+- `excluded`: Bit flags indicating which command types should be excluded from completion results
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Case-insensitive string comparison

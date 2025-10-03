@@ -18,8 +18,7 @@ The  function is a receive function for the  data type in PostgreSQL. It handles
 This function is part of PostgreSQL's type system infrastructure, specifically handling binary input/output operations for the  type. It's typically used in contexts where binary data needs to be deserialized, such as network communication or binary storage formats.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function argument macro that provides access to function arguments
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument macro that provides access to function arguments
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - The actual implementation function for receiving OID values from binary format

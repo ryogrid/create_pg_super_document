@@ -21,6 +21,7 @@ The function includes error handling through sqlca.sqlcode checks, calling sqlpr
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ECPGtrans](../E/ECPGtrans.md) (executes transaction commands on specified connections)

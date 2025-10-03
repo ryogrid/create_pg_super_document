@@ -23,11 +23,10 @@ The function uses a ValidIOData structure stored in fcinfo->flinfo->fn_extra to 
 - Whether the typename parameter is constant (for optimization)
 
 ## Parameters / Member Variables
-- : Function call information structure containing metadata about the function call
-- : Text string to be validated for the specified data type
-- : Text representation of the PostgreSQL data type name to validate against
-- : Error save context for controlled error handling, allowing the function to return false instead of throwing exceptions
-
+- `fcinfo`: Function call information structure containing metadata about the function call
+- `*txt`: Text string to be validated for the specified data type
+- `*typname`: Text representation of the PostgreSQL data type name to validate against
+- `*escontext`: Error save context for controlled error handling, allowing the function to return false instead of throwing exceptions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [text_to_cstring](../t/text_to_cstring.md)

@@ -18,8 +18,7 @@ This function enables processes to attach to DSAs created by other processes usi
 Upon successful DSM attachment, it calls attach_internal() to set up the DSA structures and establish access to the shared memory area. The function also registers a cleanup callback that will be invoked when the control segment detaches, ensuring proper resource cleanup. This function is restricted to areas created with dsa_create() (not dsa_create_in_place()) since only those areas have valid DSM handles.
 
 ## Parameters / Member Variables
-- : DSA handle obtained from dsa_get_handle() in the same or different process
-
+- `handle`: DSA handle obtained from dsa_get_handle() in the same or different process
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dsm_attach](dsm_attach.md)

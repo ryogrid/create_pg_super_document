@@ -18,8 +18,7 @@ This function orchestrates the complete validation process for the old PostgreSQ
 The function performs checks for various incompatibilities including prepared transactions, data type usage issues, encoding conversions, postfix operators, polymorphic functions, tables with OIDs, and role naming conflicts. For newer clusters (PG 17+), it also handles logical replication slots and subscriptions. Finally, if not running in check-only mode, it generates a complete schema dump of the old cluster before shutting down the postmaster.
 
 ## Parameters / Member Variables
-- : Boolean indicating whether checks are performed against a live running server (true) or by starting a temporary server instance (false)
-
+- `live_check`: Boolean indicating whether checks are performed against a live running server (true) or by starting a temporary server instance (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [start_postmaster](../s/start_postmaster.md)

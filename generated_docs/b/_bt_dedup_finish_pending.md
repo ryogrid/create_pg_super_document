@@ -22,9 +22,8 @@ The function handles two scenarios:
 When creating posting lists, the function tracks the operation in the deduplication intervals array and calculates space savings achieved by replacing multiple physical tuples with a single posting list tuple. This space calculation includes line pointer overhead for accurate accounting.
 
 ## Parameters / Member Variables
-- : Target page where the finalized tuple will be added
-- : Deduplication state containing the pending posting list data and metadata
-
+- `newpage`: Target page where the finalized tuple will be added
+- `state`: Deduplication state containing the pending posting list data and metadata
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Gets the highest offset number on the page

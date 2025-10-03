@@ -18,9 +18,8 @@ CteScanRecheck is part of the scan access method interface required for EvalPlan
 For CTE scans, this function currently performs no actual rechecking and always returns true. This is because CTE scan tuples come from a materialized tuplestore rather than directly from base tables, so there are no concurrent modification concerns that would require rechecking at the CTE scan level.
 
 ## Parameters / Member Variables
-- : CteScanState containing the CTE scan state information
-- : TupleTableSlot containing the tuple to be rechecked
-
+- `*node`: CteScanState containing the CTE scan state information
+- `*slot`: TupleTableSlot containing the tuple to be rechecked
 ## Dependencies
 - Functions called/Symbols referenced:
   - (none - function immediately returns true)

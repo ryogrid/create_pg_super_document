@@ -16,9 +16,8 @@ contain_agg_clause_walker(Node *node, void *context)
 This static function serves as the core implementation for aggregate function detection within expression trees. It traverses the node tree recursively using the expression_tree_walker framework, looking specifically for Aggref (aggregate function) and GroupingFunc (grouping function) nodes. When such nodes are found, the function performs assertions to ensure they are at the current aggregation level (agglevelsup == 0) and returns true to abort further traversal. The function also asserts that no SubLink nodes are present, enforcing the constraint that subqueries should have been reduced to subplans before this function is called.
 
 ## Parameters / Member Variables
-- : A Node pointer representing the current node being examined in the expression tree
-- : A void pointer for walker context (unused in this implementation)
-
+- `*node`: A Node pointer representing the current node being examined in the expression tree
+- `*context`: A void pointer for walker context (unused in this implementation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Aggref](../A/Aggref.md)

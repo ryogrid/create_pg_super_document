@@ -18,9 +18,8 @@ The  function performs a lookup operation to find a specific PagetableEntry with
 The function handles different bitmap states: when the bitmap contains only a single page (TBM_ONE_PAGE status), it directly checks the embedded entry1. For multi-page bitmaps, it uses the pagetable hash table for efficient lookup. The function ensures that only exact page entries are returned, filtering out chunk headers that represent lossy compressed data.
 
 ## Parameters / Member Variables
-- : const TIDBitmap pointer to the bitmap being searched
-- : BlockNumber specifying the page number to find
-
+- `*tbm`: const TIDBitmap pointer to the bitmap being searched
+- `pageno`: BlockNumber specifying the page number to find
 ## Dependencies
 - Functions called/Symbols referenced:
   - pagetable_lookup

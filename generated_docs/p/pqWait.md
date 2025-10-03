@@ -16,10 +16,9 @@ pqWait(int forRead, int forWrite, PGconn *conn)
 pqWait is a convenience wrapper function that provides socket waiting functionality for PostgreSQL client connections. It delegates to pqWaitTimed with an infinite timeout (-1), meaning it will wait indefinitely until the socket becomes ready for the requested operation. The function handles both read and write readiness conditions and also monitors for exception conditions on the socket. When SSL is enabled and the operation is for reading, any buffered bytes will short-circuit the need to wait on the socket.
 
 ## Parameters / Member Variables
-- : Integer flag indicating whether to wait for read readiness (non-zero means wait for read)
-- : Integer flag indicating whether to wait for write readiness (non-zero means wait for write)  
-- : Pointer to the PGconn connection structure representing the database connection
-
+- `forRead`: Integer flag indicating whether to wait for read readiness (non-zero means wait for read)
+- `forWrite`: Integer flag indicating whether to wait for write readiness (non-zero means wait for write)
+- `*conn`: Pointer to the PGconn connection structure representing the database connection
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pqWaitTimed](pqWaitTimed.md)

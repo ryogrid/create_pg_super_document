@@ -21,8 +21,7 @@ The implementation uses three different strategies based on available platform f
 3. Fallback implementation using byte-wise scanning with a 256-entry lookup table
 
 ## Parameters / Member Variables
-- : A 32-bit unsigned integer that must not be zero (the function asserts this precondition)
-
+- `word`: A 32-bit unsigned integer that must not be zero (the function asserts this precondition)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (GCC/Clang builtin, when available)

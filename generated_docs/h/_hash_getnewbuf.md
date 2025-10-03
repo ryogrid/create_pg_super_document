@@ -28,10 +28,9 @@ Key safety mechanisms:
 The caller must hold write lock on the metapage to ensure only one process extends the index at a time.
 
 ## Parameters / Member Variables
-- : The hash index relation to extend
-- : Block number of the new page to allocate (must be ≤ current nblocks)
-- : Fork number (typically MAIN_FORKNUM for the main relation data)
-
+- `rel`: The hash index relation to extend
+- `blkno`: Block number of the new page to allocate (must be ≤ current nblocks)
+- `forkNum`: Fork number (typically MAIN_FORKNUM for the main relation data)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RelationGetNumberOfBlocksInFork](../R/RelationGetNumberOfBlocksInFork.md) (gets current relation size)

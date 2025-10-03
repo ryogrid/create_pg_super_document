@@ -16,9 +16,8 @@ trunc_var(NumericVar *var, int rscale)
 The  function implements decimal truncation for PostgreSQL's numeric type by simply cutting off digits beyond the specified precision without any rounding. Unlike , this function always truncates towards zero regardless of the value of discarded digits. It supports negative rscale values for truncation before the decimal point. The function works efficiently with the internal NBASE digit representation and handles within-digit truncation when the target precision falls in the middle of a NBASE digit.
 
 ## Parameters / Member Variables
-- : Pointer to NumericVar structure to be truncated (modified in place)
-- : Target number of decimal digits after decimal point (can be negative for truncation before decimal point)
-
+- `*var`: Pointer to NumericVar structure to be truncated (modified in place)
+- `rscale`: Target number of decimal digits after decimal point (can be negative for truncation before decimal point)
 ## Dependencies
 - Functions called/Symbols referenced:
   - DEC_DIGITS (decimal digits per NBASE digit constant)

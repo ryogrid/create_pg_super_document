@@ -16,9 +16,8 @@ dist_cpoly_internal(CIRCLE *circle, POLYGON *poly)
 This static internal function computes the distance between a circle and a polygon by first calculating the distance from the circle's center point to the polygon using , then subtracting the circle's radius. If the result would be negative (indicating the circle overlaps or contains part of the polygon), it returns 0.0 to indicate they are touching or intersecting. This function implements the geometric principle that the distance from a circle to another shape is the distance from the center minus the radius, with a minimum of zero.
 
 ## Parameters / Member Variables
-- : CIRCLE pointer - the source circle geometry containing center point and radius
-- : POLYGON pointer - the target polygon geometry
-
+- `*circle`: CIRCLE pointer - the source circle geometry containing center point and radius
+- `*poly`: POLYGON pointer - the target polygon geometry
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dist_ppoly_internal](dist_ppoly_internal.md) - calculates distance from circle center point to polygon

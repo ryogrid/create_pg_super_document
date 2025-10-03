@@ -18,8 +18,7 @@ This utility function processes a list of SortGroupClause structures and extract
 The function allocates memory for the result array using palloc() and iterates through the input list, copying each SortGroupClause's equality operator OID to the corresponding position in the output array. It includes an assertion to ensure that each extracted operator OID is valid.
 
 ## Parameters / Member Variables
-- : A List of SortGroupClause structures from which to extract equality operator OIDs
-
+- `*groupClause`: A List of SortGroupClause structures from which to extract equality operator OIDs
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_length](../l/list_length.md) (to determine array size)

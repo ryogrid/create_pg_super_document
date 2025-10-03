@@ -18,8 +18,7 @@ This function serves as a public interface for retrieving the definition of a Po
 The function acts as a wrapper around , setting default formatting flags and handling the conversion from C string to PostgreSQL text type.
 
 ## Parameters / Member Variables
-- : OID of the rewrite rule to retrieve the definition for (obtained via )
-
+- `PG_FUNCTION_ARGS`: OID of the rewrite rule to retrieve the definition for (obtained via )
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Core worker function that generates the rule definition

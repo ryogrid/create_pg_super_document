@@ -26,8 +26,7 @@ The function employs a robust testing strategy by:
 This is particularly important for PostgreSQL archives since some operations require random access to different parts of the archive file.
 
 ## Parameters / Member Variables
-- : FILE pointer to test for seek capability
-
+- `*fp`: FILE pointer to test for seek capability
 ## Dependencies
 - Functions called/Symbols referenced:
   - pgoff_t (PostgreSQL offset type for large file support)

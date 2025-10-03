@@ -26,10 +26,9 @@ Key behaviors include:
 - Optimizing for no-op cases where ownership doesn't actually change
 
 ## Parameters / Member Variables
-- : HeapTuple representing the schema record from pg_namespace catalog
-- : Open Relation handle for the pg_namespace catalog (must have RowExclusiveLock)
-- : OID of the role that should become the new owner
-
+- `tup`: HeapTuple representing the schema record from pg_namespace catalog
+- `rel`: Open Relation handle for the pg_namespace catalog (must have RowExclusiveLock)
+- `newOwnerId`: OID of the role that should become the new owner
 ## Dependencies
 - Functions called/Symbols referenced:
   - [object_ownercheck](../o/object_ownercheck.md) (validates current user owns the schema)

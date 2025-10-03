@@ -17,11 +17,10 @@ LockViewRecurse(Oid reloid, LOCKMODE lockmode, bool nowait,
 LockViewRecurse implements the comprehensive locking mechanism for views in PostgreSQL's LOCK TABLE command. When a view is locked, it must also lock all the underlying relations (tables and nested views) that the view depends on to maintain consistency. This function sets up the necessary context for traversing the view's query definition and delegates the actual traversal to LockViewRecurse_walker. It handles security invoker views by adjusting the permission checking context appropriately - security invoker views check permissions as the current user, while standard views check permissions as the view owner. The function maintains an ancestor view list to detect and prevent infinite recursion in self-referential view definitions.
 
 ## Parameters / Member Variables
-- : OID of the view relation to recursively lock
-- : Lock mode to apply to all underlying relations
-- : Boolean flag for conditional (non-blocking) lock acquisition
-- : List of ancestor view OIDs to detect recursive view references
-
+- `reloid`: OID of the view relation to recursively lock
+- `lockmode`: Lock mode to apply to all underlying relations
+- `nowait`: Boolean flag for conditional (non-blocking) lock acquisition
+- `*ancestor_views`: List of ancestor view OIDs to detect recursive view references
 ## Dependencies
 - Functions called/Symbols referenced:
   - LockViewRecurse_context (structure type)

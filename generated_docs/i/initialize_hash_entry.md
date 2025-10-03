@@ -17,10 +17,9 @@ initialize_hash_entry(AggState *aggstate, TupleHashTable hashtable,
 This function performs the initialization of a fresh TupleHashEntry that has just been created in the hash table. It increments the current group count, checks aggregation limits to potentially trigger spilling, and then allocates and initializes per-group state for all aggregate functions. The function handles the case where there are no aggregates (numtrans == 0) by returning early. For each aggregate transition function, it calls initialize_aggregate to set up the initial state. The per-group state is allocated in the hash table's memory context to ensure proper memory management.
 
 ## Parameters / Member Variables
-- : The AggState structure containing the aggregation execution state
-- : The TupleHashTable where the entry resides
-- : The TupleHashEntry that needs to be initialized
-
+- `*aggstate`: The AggState structure containing the aggregation execution state
+- `hashtable`: The TupleHashTable where the entry resides
+- `entry`: The TupleHashEntry that needs to be initialized
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hash_agg_check_limits](../h/hash_agg_check_limits.md)

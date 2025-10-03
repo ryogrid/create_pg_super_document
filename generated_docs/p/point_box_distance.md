@@ -22,9 +22,8 @@ This function computes the Euclidean distance from a given point to the nearest 
 The function is optimized for spatial indexing operations in PostgreSQL's SP-GiST (Space-Partitioned Generalized Search Tree) implementation.
 
 ## Parameters / Member Variables
-- : Pointer to a Point structure containing x and y coordinates
-- : Pointer to a BOX structure representing an axis-aligned bounding box with low and high corner points
-
+- `*point`: Pointer to a Point structure containing x and y coordinates
+- `*box`: Pointer to a BOX structure representing an axis-aligned bounding box with low and high corner points
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Point](../P/Point.md) (data structure)

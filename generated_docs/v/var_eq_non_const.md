@@ -25,13 +25,12 @@ The var_eq_non_const function handles selectivity estimation when comparing a co
 The estimation formula is: (1.0 - nullfrac) / number_of_distinct_values, representing the probability that a randomly chosen non-null value will match the unknown comparison value.
 
 ## Parameters / Member Variables
-- : Pointer to VariableStatData containing column statistics and metadata
-- : OID of the comparison operator
-- : Collation OID for string comparisons (used for context)
-- : Parse tree node representing the non-constant expression being compared
-- : Boolean indicating operator argument order (variable on left side)
-- : Boolean flag to compute inequality selectivity instead of equality
-
+- `*vardata`: Pointer to VariableStatData containing column statistics and metadata
+- `oproid`: OID of the comparison operator
+- `collation`: Collation OID for string comparisons (used for context)
+- `*other`: Parse tree node representing the non-constant expression being compared
+- `varonleft`: Boolean indicating operator argument order (variable on left side)
+- `negate`: Boolean flag to compute inequality selectivity instead of equality
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_variable_numdistinct](../g/get_variable_numdistinct.md)

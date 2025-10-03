@@ -19,6 +19,7 @@ The function checks the current archiving status using XLogArchivingActive() and
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogArchivingActive

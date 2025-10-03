@@ -24,9 +24,8 @@ This function performs cleanup operations for a transaction iterator state struc
 The function ensures proper resource management by preventing file descriptor leaks and memory leaks that could occur during transaction iteration operations.
 
 ## Parameters / Member Variables
-- : Pointer to the main ReorderBuffer structure that manages the overall reordering operations
-- : Pointer to the ReorderBufferIterTXNState structure containing the iterator's current state, including open files, heap structure, and change lists
-
+- `*rb`: Pointer to the main ReorderBuffer structure that manages the overall reordering operations
+- `*state`: Pointer to the ReorderBufferIterTXNState structure containing the iterator's current state, including open files, heap structure, and change lists
 ## Dependencies
 - Functions called/Symbols referenced:
   - [FileClose](../F/FileClose.md)

@@ -18,9 +18,8 @@ This function establishes communication with a PostgreSQL primary server to veri
 The function performs strict validation of the response format, checking for the expected number of columns and rows. It supports both older (9.3 and earlier) and newer (9.4+) PostgreSQL versions that return different numbers of columns in the IDENTIFY_SYSTEM response.
 
 ## Parameters / Member Variables
-- : Pointer to WalReceiverConn structure containing the established connection to the primary server
-- : Output parameter that receives the current timeline ID from the primary server
-
+- `*conn`: Pointer to WalReceiverConn structure containing the established connection to the primary server
+- `*primary_tli`: Output parameter that receives the current timeline ID from the primary server
 ## Dependencies
 - Functions called/Symbols referenced:
   - [libpqrcv_PQexec](libpqrcv_PQexec.md)

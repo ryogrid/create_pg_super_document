@@ -30,9 +30,8 @@ In this case, it creates a complete copy using ExecCopySlotHeapTuple() and marks
 In this case, it shares the buffer reference via tts_buffer_heap_store_tuple() but creates a local copy of the HeapTupleData structure to ensure the destination slot's independence from the source slot's lifetime.
 
 ## Parameters / Member Variables
-- : Destination TupleTableSlot to copy into (must be BufferHeapTupleTableSlot)
-- : Source TupleTableSlot to copy from (typically BufferHeapTupleTableSlot)
-
+- `*dstslot`: Destination TupleTableSlot to copy into (must be BufferHeapTupleTableSlot)
+- `*srcslot`: Source TupleTableSlot to copy from (typically BufferHeapTupleTableSlot)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BufferHeapTupleTableSlot](../B/BufferHeapTupleTableSlot.md) (cast for both source and destination)

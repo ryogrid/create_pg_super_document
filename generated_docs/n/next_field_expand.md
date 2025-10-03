@@ -17,12 +17,11 @@ next_field_expand(const char *filename, char **lineptr,
 This function is a key component of PostgreSQL's HBA configuration file parser. It processes a single field from a configuration line, which may contain comma-separated values and file inclusion directives. When it encounters a token beginning with '@' (and not quoted), it treats it as a file inclusion directive and recursively processes the referenced file. The function handles memory management carefully by switching to the appropriate memory context for token allocation. It continues processing until it encounters the end of the field (no trailing comma) or an error occurs, building a list of AuthToken structures representing all the individual tokens in the field.
 
 ## Parameters / Member Variables
-- : Current configuration file's pathname (used to resolve relative pathnames in included files)
-- : Pointer to current position in the line being parsed (advanced as tokens are consumed)
-- : Error reporting level for ereport calls (e.g., ERROR, LOG, WARNING)
-- : Recursion depth for file inclusion (prevents infinite recursion)
-- : Pointer to store error message string if parsing fails
-
+- `*filename`: Current configuration file's pathname (used to resolve relative pathnames in included files)
+- `**lineptr`: Pointer to current position in the line being parsed (advanced as tokens are consumed)
+- `elevel`: Error reporting level for ereport calls (e.g., ERROR, LOG, WARNING)
+- `depth`: Recursion depth for file inclusion (prevents infinite recursion)
+- `**err_msg`: Pointer to store error message string if parsing fails
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Extracts the next token from the input line

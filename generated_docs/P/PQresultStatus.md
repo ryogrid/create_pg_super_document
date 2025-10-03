@@ -20,8 +20,7 @@ The function performs a simple null-check on the result parameter and returns th
 This function is essential for error handling and result processing in libpq-based applications, as it allows programs to branch their logic based on whether operations succeeded, failed, or completed with warnings.
 
 ## Parameters / Member Variables
-- : Const pointer to a PGresult structure containing the query execution result
-
+- `*res`: Const pointer to a PGresult structure containing the query execution result
 ## Dependencies
 - Functions called/Symbols referenced:
   - PGRES_FATAL_ERROR (returned for NULL result)

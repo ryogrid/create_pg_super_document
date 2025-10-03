@@ -24,8 +24,7 @@ When adding a new option, the function:
 The use of TopMemoryContext ensures that custom options persist for the lifetime of the backend process.
 
 ## Parameters / Member Variables
-- : A pointer to a relopt_gen structure representing the custom relation option to be added
-
+- `*newoption`: A pointer to a relopt_gen structure representing the custom relation option to be added
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)

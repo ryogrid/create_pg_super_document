@@ -18,10 +18,9 @@ The fasthash64 function is a high-performance 64-bit hash function that processe
 The function modifies the internal seed based on the input length using the magic constant 0x880355f21e6d1965, ensuring that inputs of different lengths produce different hash distributions even with the same content. It processes data in optimal chunks of FH_SIZEOF_ACCUM bytes for efficiency, then handles any remaining bytes in a final accumulation step.
 
 ## Parameters / Member Variables
-- : Pointer to the input data to be hashed (const char array)
-- : Length of the input data in bytes; also used to modify the internal seed
-- : Initial seed value for the hash function (can be zero for default behavior)
-
+- `*k`: Pointer to the input data to be hashed (const char array)
+- `len`: Length of the input data in bytes; also used to modify the internal seed
+- `seed`: Initial seed value for the hash function (can be zero for default behavior)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [fasthash_state](fasthash_state.md) (state structure)

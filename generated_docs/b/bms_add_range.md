@@ -22,10 +22,9 @@ The function performs several optimizations:
 - Automatic memory management with reallocation when needed
 
 ## Parameters / Member Variables
-- : The input bitmap set to modify (can be NULL for creating a new set)
-- : The lowest member value to add to the set (must be non-negative)
-- : The highest member value to add to the set (inclusive)
-
+- `*a`: The input bitmap set to modify (can be NULL for creating a new set)
+- `lower`: The lowest member value to add to the set (must be non-negative)
+- `upper`: The highest member value to add to the set (inclusive)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bms_is_valid_set](bms_is_valid_set.md) (validation)

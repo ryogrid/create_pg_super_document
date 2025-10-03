@@ -24,12 +24,11 @@ When called after a failed , the goal is to prevent page splits entirely by buyi
 The deduplication process creates a new temporary page, copies tuples while merging duplicates, and then replaces the original page content. All changes are logged for WAL replay.
 
 ## Parameters / Member Variables
-- : The index relation being processed
-- : Buffer containing the page to be deduplicated  
-- : New index tuple that needs to be inserted (used for space calculations)
-- : Size of the new item in bytes (MAXALIGNED, excluding line pointer)
-- : If true, indicates this call follows a failed bottom-up deletion pass
-
+- `rel`: The index relation being processed
+- `buf`: Buffer containing the page to be deduplicated
+- `newitem`: New index tuple that needs to be inserted (used for space calculations)
+- `newitemsz`: Size of the new item in bytes (MAXALIGNED, excluding line pointer)
+- `bottomupdedup`: If true, indicates this call follows a failed bottom-up deletion pass
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Determines if single value strategy should be applied

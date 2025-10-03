@@ -29,6 +29,7 @@ The function gracefully handles the case where max_replication_slots is 0 by ret
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ShmemInitStruct](../S/ShmemInitStruct.md): Allocates or attaches to named shared memory segment

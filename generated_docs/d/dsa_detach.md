@@ -18,8 +18,7 @@ The  function performs cleanup operations when a process no longer needs access 
 Importantly, this function only handles "detaching" (disconnecting from DSM segments) and does not handle "releasing" (adjusting reference counts). This separation exists because client code might not always call  due to error paths, and using detach hooks on individual segments would be too late to detach other segments without risking leak warnings in non-error scenarios.
 
 ## Parameters / Member Variables
-- : Pointer to the  structure representing the dynamic shared area to detach from
-
+- `*area`: Pointer to the  structure representing the dynamic shared area to detach from
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dsm_detach](dsm_detach.md)

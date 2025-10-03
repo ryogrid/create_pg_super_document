@@ -24,9 +24,8 @@ Key behaviors include:
 - Creating proper dependency relationships between domains and their constraints
 
 ## Parameters / Member Variables
-- : Archive pointer representing the dump context and connection information
-- : TypeInfo structure containing information about the domain type being processed
-
+- `*fout`: Archive pointer representing the dump context and connection information
+- `*tyinfo`: TypeInfo structure containing information about the domain type being processed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TypeInfo](../T/TypeInfo.md) (struct type)

@@ -18,8 +18,7 @@ This function selects a random double uniformly from the half-open interval [0.0
 For the range (0.0, 1.0], the standard approach is to compute "1.0 - pg_prng_double(state)".
 
 ## Parameters / Member Variables
-- : Pointer to the pseudo-random number generator state structure
-
+- `*state`: Pointer to the pseudo-random number generator state structure
 ## Dependencies
 - Functions called/Symbols referenced:
   - [xoroshiro128ss](../x/xoroshiro128ss.md) (the core PRNG algorithm)

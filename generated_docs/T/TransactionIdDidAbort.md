@@ -24,8 +24,7 @@ TransactionIdDidAbort is a specialized function that determines if a transaction
 The function is particularly important for distinguishing between transactions that explicitly aborted versus those that appear in-progress due to crashes. This distinction is crucial for proper cleanup and consistency checking.
 
 ## Parameters / Member Variables
-- : The transaction ID to check for abort status
-
+- `transactionId`: The transaction ID to check for abort status
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TransactionLogFetch](TransactionLogFetch.md)

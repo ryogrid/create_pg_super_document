@@ -16,10 +16,9 @@ test_one_vector_escape(pe_test_config *tc, const pe_test_vector *tv, const pe_te
 This function performs extensive validation of an escape function using a specific test vector. It conducts multiple layers of testing including: input encoding validation, escape function execution with boundary protection, output encoding validation, memory access boundary checking, error handling validation, and SQL parsing validation to prevent injection attacks. The function uses Valgrind integration to detect memory access violations and implements sophisticated encoding validation to ensure that invalid input doesn't produce valid output that could be exploited. It also tests psql parsing to ensure the escaped output is interpreted as a single SQL statement.
 
 ## Parameters / Member Variables
-- : Test configuration structure containing database connection and test settings
-- : Test vector containing the input data to be escaped and expected encoding information
-- : Escape function descriptor containing the function pointer and capability flags
-
+- `*tc`: Test configuration structure containing database connection and test settings
+- `*tv`: Test vector containing the input data to be escaped and expected encoding information
+- `*ef`: Escape function descriptor containing the function pointer and capability flags
 ## Dependencies
 - Functions called/Symbols referenced:
   - [createPQExpBuffer](../c/createPQExpBuffer.md)

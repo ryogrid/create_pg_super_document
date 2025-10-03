@@ -16,10 +16,9 @@ range_ne_internal(TypeCacheEntry *typcache, const RangeType *r1, const RangeType
 The  function is a simple internal implementation for range inequality comparison in PostgreSQL. Rather than implementing its own comparison logic, it leverages the existing  function and returns its logical negation. This approach ensures consistency between equality and inequality operations while minimizing code duplication. The function serves as the core logic for the "not equal" (<>) operator for range types and is used by both public operators and internal PostgreSQL indexing mechanisms.
 
 ## Parameters / Member Variables
-- : Type cache entry containing comparison functions and metadata for the range's element type
-- : First range value to compare (const RangeType *)
-- : Second range value to compare (const RangeType *)
-
+- `*typcache`: Type cache entry containing comparison functions and metadata for the range's element type
+- `*r1`: First range value to compare (const RangeType *)
+- `*r2`: Second range value to compare (const RangeType *)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [range_eq_internal](range_eq_internal.md)

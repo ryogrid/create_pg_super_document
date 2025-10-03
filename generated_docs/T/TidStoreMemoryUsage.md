@@ -18,8 +18,7 @@ This function provides a unified interface to query the memory consumption of a 
 The function returns the total memory footprint including the tree structure, bitmap data, and any associated metadata.
 
 ## Parameters / Member Variables
-- : The TidStore for which to calculate memory usage
-
+- `*ts`: The TidStore for which to calculate memory usage
 ## Dependencies
 - Functions called/Symbols referenced:
   - TidStoreIsShared

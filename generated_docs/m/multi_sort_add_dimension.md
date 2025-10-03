@@ -17,11 +17,10 @@ multi_sort_add_dimension(MultiSortSupport mss, int sortdim,
 This function initializes a single dimension of a multi-dimensional sort operation by setting up the SortSupport structure at the specified dimension index. It configures the sort support with the current memory context, the specified collation, and prepares the actual sort comparison function using the provided ordering operator. The function is primarily used in PostgreSQL's extended statistics subsystem to enable efficient multi-column sorting operations for statistical calculations.
 
 ## Parameters / Member Variables
-- : MultiSortSupport structure containing an array of SortSupport elements for multi-dimensional sorting
-- : Integer index specifying which dimension (column) in the sort operation to configure
-- : OID of the ordering operator to use for comparisons in this dimension
-- : OID of the collation to apply for text comparisons in this dimension
-
+- `mss`: MultiSortSupport structure containing an array of SortSupport elements for multi-dimensional sorting
+- `sortdim`: Integer index specifying which dimension (column) in the sort operation to configure
+- `oper`: OID of the ordering operator to use for comparisons in this dimension
+- `collation`: OID of the collation to apply for text comparisons in this dimension
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PrepareSortSupportFromOrderingOp](../P/PrepareSortSupportFromOrderingOp.md)

@@ -28,12 +28,11 @@ Key features include:
 - Callback mechanism for custom validation logic
 
 ## Parameters / Member Variables
-- : RangeVar structure containing the relation name, optional schema name, and persistence information
-- : Type of lock to acquire on the relation (or NoLock to skip locking)
-- : Bitmask controlling behavior (RVR_MISSING_OK, RVR_NOWAIT, RVR_SKIP_LOCKED)
-- : Optional function called after name resolution but before locking for custom validation
-- : Argument passed to the callback function
-
+- `*relation`: RangeVar structure containing the relation name, optional schema name, and persistence information
+- `lockmode`: Type of lock to acquire on the relation (or NoLock to skip locking)
+- `flags`: Bitmask controlling behavior (RVR_MISSING_OK, RVR_NOWAIT, RVR_SKIP_LOCKED)
+- `callback`: Optional function called after name resolution but before locking for custom validation
+- `*callback_arg`: Argument passed to the callback function
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_database_name](../g/get_database_name.md)

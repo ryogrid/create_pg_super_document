@@ -22,6 +22,7 @@ This is a fundamental utility function used extensively throughout the catalog s
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md) (memory allocation)

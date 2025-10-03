@@ -26,9 +26,8 @@ Both values are converted from bytes to kilobytes using the BYTES_TO_KILOBYTES m
 This information helps identify queries that consume significant memory and aids in capacity planning and performance tuning.
 
 ## Parameters / Member Variables
-- : ExplainState structure containing output formatting context and destination string buffer
-- : MemoryContextCounters structure containing memory statistics (totalspace, freespace)
-
+- `*es`: ExplainState structure containing output formatting context and destination string buffer
+- `*mem_counters`: MemoryContextCounters structure containing memory statistics (totalspace, freespace)
 ## Dependencies
 - Functions called/Symbols referenced:
   - BYTES_TO_KILOBYTES

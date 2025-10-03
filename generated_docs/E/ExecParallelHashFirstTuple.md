@@ -18,9 +18,8 @@ This function provides thread-safe access to the first tuple in a hash table buc
 The function operates on shared hash table buckets, which are implemented as arrays of atomic pointers. Each bucket contains a linked list of hash join tuples, and this function retrieves the head of that list. The atomic read operation ensures that the pointer value is read consistently even when other processes might be modifying the bucket concurrently.
 
 ## Parameters / Member Variables
-- : The HashJoinTable structure containing the shared bucket array and DSA area
-- : The bucket number (zero-based index) from which to retrieve the first tuple
-
+- `hashtable`: The HashJoinTable structure containing the shared bucket array and DSA area
+- `bucketno`: The bucket number (zero-based index) from which to retrieve the first tuple
 ## Dependencies
 - Functions called/Symbols referenced:
   - dsa_pointer_atomic_read

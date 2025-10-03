@@ -16,8 +16,7 @@ findObjectByDumpId(DumpId dumpId)
 This function performs a lookup operation to find a DumpableObject associated with a given DumpId. It uses the global dumpIdMap array to perform the lookup, with built-in bounds checking to ensure the DumpId is valid. The function returns NULL for invalid or out-of-range DumpIds, making it safe to use in situations where the existence of an object is uncertain. This is a critical function in pg_dump's object management system, enabling efficient retrieval of objects during dependency resolution, archive building, and dump output generation.
 
 ## Parameters / Member Variables
-- : The DumpId to look up; must be a positive integer within the valid range
-
+- `dumpId`: The DumpId to look up; must be a positive integer within the valid range
 ## Dependencies
 - Functions called/Symbols referenced:
   - dumpIdMap (global array that maps DumpIds to DumpableObject pointers)

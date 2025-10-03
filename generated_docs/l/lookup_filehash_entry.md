@@ -18,8 +18,7 @@ The  function provides a simple wrapper around the hash table lookup functionali
 This function is typically used when you need to check if a file entry already exists or to retrieve information about a file that should have been previously processed and added to the hash table during the file scanning phase of pg_rewind operations.
 
 ## Parameters / Member Variables
-- : The file path relative to the data directory root to look up in the hash table
-
+- `*path`: The file path relative to the data directory root to look up in the hash table
 ## Dependencies
 - Functions called/Symbols referenced:
   - filehash_lookup

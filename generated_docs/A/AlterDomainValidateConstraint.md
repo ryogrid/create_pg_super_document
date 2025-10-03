@@ -16,9 +16,8 @@ AlterDomainValidateConstraint(List *names, const char *constrName)
 This function validates an existing check constraint on a domain type by first locating the constraint in pg_constraint, verifying it's a check constraint, extracting the constraint expression, and running validation against all existing data. After successful validation, it updates the constraint's convalidated flag to true in the catalog. The function ensures proper constraint validation semantics while maintaining catalog consistency and triggering appropriate hooks for change notification.
 
 ## Parameters / Member Variables
-- : List of qualified names identifying the domain containing the constraint
-- : Name of the check constraint to validate
-
+- `*names`: List of qualified names identifying the domain containing the constraint
+- `*constrName`: Name of the check constraint to validate
 ## Dependencies
 - Functions called/Symbols referenced:
   - [makeTypeNameFromNameList](../m/makeTypeNameFromNameList.md)

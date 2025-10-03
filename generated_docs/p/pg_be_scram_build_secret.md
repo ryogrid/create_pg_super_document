@@ -18,8 +18,7 @@ This function creates a SCRAM-SHA-256 authentication secret from a plain text pa
 The resulting secret contains the salt, iteration count, and cryptographic keys needed for SCRAM authentication, formatted as a string suitable for storage in pg_authid.rolpassword.
 
 ## Parameters / Member Variables
-- : Plain text password to be converted into a SCRAM secret
-
+- `*password`: Plain text password to be converted into a SCRAM secret
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_saslprep](pg_saslprep.md)

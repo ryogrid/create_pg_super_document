@@ -18,7 +18,6 @@ The  function is a simple but crucial utility function in PostgreSQL's query exe
 This function is typically called at strategic points during query processing where the statement timeout should be temporarily suspended, such as when completing transactions or handling certain types of queries that may legitimately take longer than the configured timeout period. The function ensures that queries are not prematurely terminated when they reach critical execution phases where interruption could leave the database in an inconsistent state.
 
 ## Parameters / Member Variables
-This function takes no parameters and returns void.
 
 ## Dependencies
 - Functions called/Symbols referenced:

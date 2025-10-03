@@ -25,10 +25,9 @@ The function includes an optimization to skip PHV processing entirely if no PHVs
 Note that PlanRowMark cleanup is deferred to the caller (remove_useless_result_rtes) to avoid redundant work.
 
 ## Parameters / Member Variables
-- : PlannerInfo containing the query tree and global information including PHV tracking
-- : The relation ID of the RTE_RESULT being removed
-- : The new join tree location where PHVs should be evaluated instead of at the removed RTE
-
+- `*root`: PlannerInfo containing the query tree and global information including PHV tracking
+- `varno`: The relation ID of the RTE_RESULT being removed
+- `*newjtloc`: The new join tree location where PHVs should be evaluated instead of at the removed RTE
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_relids_in_jointree](../g/get_relids_in_jointree.md) (to determine available relations at new location)

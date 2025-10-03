@@ -24,7 +24,6 @@ The function operates by:
 This is a critical and irreversible operation that permanently removes WAL data, making it impossible to perform point-in-time recovery to any point before the reset operation.
 
 ## Parameters / Member Variables
-This function takes no parameters and operates directly on the filesystem in the pg_wal directory.
 
 ## Dependencies
 - Functions called/Symbols referenced:

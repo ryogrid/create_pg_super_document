@@ -18,8 +18,7 @@ BufFileExportFileSet prepares a fileset-based BufFile for sharing with other bac
 The function performs two critical operations: first, it flushes any buffered data to ensure all writes are persisted to disk, then it sets the readOnly flag to prevent any further write operations. This guarantees that other backends opening the same BufFile will see a consistent, complete dataset.
 
 ## Parameters / Member Variables
-- : Pointer to the BufFile to export (must be backed by a FileSet)
-
+- `*file`: Pointer to the BufFile to export (must be backed by a FileSet)
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert: Validates that the file belongs to a FileSet and is not already read-only

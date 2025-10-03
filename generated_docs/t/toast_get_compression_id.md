@@ -16,8 +16,7 @@ toast_get_compression_id(struct varlena *attr)
 This function analyzes a varlena data structure to determine its compression method. It handles both externally stored TOAST data and inline compressed data. For external TOAST data stored on disk, it extracts the compression method from the external toast pointer. For inline compressed data, it retrieves the compression method from the toast compression header. If the varlena is not compressed, it returns TOAST_INVALID_COMPRESSION_ID.
 
 ## Parameters / Member Variables
-- : Pointer to the varlena structure to examine for compression information
-
+- `*attr`: Pointer to the varlena structure to examine for compression information
 ## Dependencies
 - Functions called/Symbols referenced:
   - VARATT_IS_EXTERNAL_ONDISK

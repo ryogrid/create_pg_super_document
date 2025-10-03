@@ -21,12 +21,11 @@ The function first checks if the lock is free (not held in exclusive mode). If t
 The function is designed to work without explicit memory barriers due to implied barriers from spinlock usage in its caller context, though this assumption may need reevaluation for general usage.
 
 ## Parameters / Member Variables
-- : The LWLock to check for conflicts
-- : Pointer to atomic uint64 variable to monitor
-- : Expected old value to compare against
-- : Output parameter for current variable value when changed
-- : Output parameter indicating if lock is currently free
-
+- `*lock`: The LWLock to check for conflicts
+- `*valptr`: Pointer to atomic uint64 variable to monitor
+- `oldval`: Expected old value to compare against
+- `*newval`: Output parameter for current variable value when changed
+- `*result`: Output parameter indicating if lock is currently free
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_atomic_read_u32](../p/pg_atomic_read_u32.md) (for lock state)

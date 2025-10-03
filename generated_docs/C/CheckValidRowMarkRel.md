@@ -16,9 +16,8 @@ CheckValidRowMarkRel(Relation rel, RowMarkType markType)
 CheckValidRowMarkRel performs runtime validation of row marking (locking) operations on different types of relations. While the parser and planner catch most invalid cases, this function provides a final safety check during execution. It examines the relation's kind and determines whether the specified row mark type is permitted, with special handling for foreign tables that require FDW support for row refetching.
 
 ## Parameters / Member Variables
-- : The target relation to validate for row marking operations
-- : The type of row marking being attempted (e.g., ROW_MARK_REFERENCE, explicit locking clauses)
-
+- `rel`: The target relation to validate for row marking operations
+- `markType`: The type of row marking being attempted (e.g., ROW_MARK_REFERENCE, explicit locking clauses)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetFdwRoutineForRelation](../G/GetFdwRoutineForRelation.md)

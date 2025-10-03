@@ -20,9 +20,8 @@ The function operates using a sample-based approach where it accumulates transfe
 The sleep loop is designed to handle interruptions and ensures that sufficient time passes to maintain the desired transfer rate. The function uses  with timeout to implement interruptible sleeping, allowing for clean shutdown and signal handling during the throttling process.
 
 ## Parameters / Member Variables
-- : Pointer to the bbsink_throttle structure containing throttling state and configuration
-- : Number of bytes to add to the throttling counter (typically the size of data just transferred)
-
+- `*sink`: Pointer to the bbsink_throttle structure containing throttling state and configuration
+- `increment`: Number of bytes to add to the throttling counter (typically the size of data just transferred)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (gets current time for elapsed time calculations)

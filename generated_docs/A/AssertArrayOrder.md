@@ -18,11 +18,10 @@ This function performs assertion-based validation of array element ordering in d
 The function uses BTLessStrategyNumber comparison semantics, meaning it expects the comparison function to return true when the first argument is less than the second argument. Any violation of this ordering triggers an assertion failure, helping developers catch data corruption or sorting bugs during development.
 
 ## Parameters / Member Variables
-- : FmgrInfo pointer to the comparison function that implements BTLessStrategyNumber semantics
-- : OID of the collation to use for comparison operations
-- : Array of Datum values to validate for correct ordering
-- : Number of elements in the values array
-
+- `*cmp`: FmgrInfo pointer to the comparison function that implements BTLessStrategyNumber semantics
+- `colloid`: OID of the collation to use for comparison operations
+- `*values`: Array of Datum values to validate for correct ordering
+- `nvalues`: Number of elements in the values array
 ## Dependencies
 - Functions called/Symbols referenced:
   - [FunctionCall2Coll](../F/FunctionCall2Coll.md)

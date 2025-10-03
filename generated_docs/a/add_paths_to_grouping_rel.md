@@ -28,15 +28,14 @@ This function is a core component of PostgreSQL's query planning system that gen
 The function intelligently chooses between different aggregation strategies (AGG_PLAIN, AGG_SORTED, AGG_HASHED) and splitting modes (AGGSPLIT_SIMPLE, AGGSPLIT_FINAL_DESERIAL) based on the query structure and available input paths.
 
 ## Parameters / Member Variables
-- : PlannerInfo containing query planning context and metadata
-- : RelOptInfo representing the input relation to be grouped
-- : RelOptInfo representing the target grouped relation to receive paths
-- : RelOptInfo for partially aggregated results from parallel processing (can be NULL)
-- : AggClauseCosts containing cost estimates for aggregate functions
-- : grouping_sets_data containing information about grouping sets operations
-- : Estimated number of output groups from the grouping operation
-- : GroupPathExtraData containing additional flags and costs for path generation
-
+- `*root`: PlannerInfo containing query planning context and metadata
+- `*input_rel`: RelOptInfo representing the input relation to be grouped
+- `*grouped_rel`: RelOptInfo representing the target grouped relation to receive paths
+- `*partially_grouped_rel`: RelOptInfo for partially aggregated results from parallel processing (can be NULL)
+- `*agg_costs`: AggClauseCosts containing cost estimates for aggregate functions
+- `*gd`: grouping_sets_data containing information about grouping sets operations
+- `dNumGroups`: Estimated number of output groups from the grouping operation
+- `*extra`: GroupPathExtraData containing additional flags and costs for path generation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_useful_group_keys_orderings](../g/get_useful_group_keys_orderings.md)

@@ -23,9 +23,8 @@ The function follows a specific transaction management pattern:
 This design allows the CLUSTER command to process multiple tables safely while maintaining transactional integrity for each individual clustering operation.
 
 ## Parameters / Member Variables
-- : List of RelToCluster structures containing tableOid and indexOid pairs for each relation to be clustered
-- : ClusterParams structure containing clustering options and configuration flags
-
+- `*rtcs`: List of RelToCluster structures containing tableOid and indexOid pairs for each relation to be clustered
+- `*params`: ClusterParams structure containing clustering options and configuration flags
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PopActiveSnapshot](../P/PopActiveSnapshot.md)

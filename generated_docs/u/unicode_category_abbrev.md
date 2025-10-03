@@ -16,8 +16,7 @@ unicode_category_abbrev(pg_unicode_category category)
 This function provides the official Unicode two-character abbreviation for Unicode general category values. Each Unicode character belongs to one of these standardized categories, and the abbreviations follow the Unicode consortium's naming conventions. The first character represents the major category (L for Letter, N for Number, P for Punctuation, etc.) and the second character represents the subcategory (u for uppercase, l for lowercase, d for decimal, etc.). This function is commonly used in text processing, character classification, and Unicode-compliant operations where compact category representation is needed.
 
 ## Parameters / Member Variables
-- : The pg_unicode_category enumeration value to convert to its two-character abbreviation
-
+- `category`: The pg_unicode_category enumeration value to convert to its two-character abbreviation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_unicode_category](../p/pg_unicode_category.md) (parameter type)

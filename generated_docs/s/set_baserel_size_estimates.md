@@ -24,9 +24,8 @@ The function uses  with JOIN_INNER semantics to compute how many tuples will pas
 Cost evaluation for restriction clauses is performed using , storing the result in . Finally,  computes the expected tuple width based on the relation's targetlist.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global planner state and configuration
-- : RelOptInfo for the base relation being sized (must have relid > 0)
-
+- `*root`: PlannerInfo structure containing global planner state and configuration
+- `*rel`: RelOptInfo for the base relation being sized (must have relid > 0)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [clauselist_selectivity](../c/clauselist_selectivity.md)

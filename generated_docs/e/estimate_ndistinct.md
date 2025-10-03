@@ -26,11 +26,10 @@ Where:
 The function includes safeguards to clamp the result within reasonable bounds (between d and totalrows) to handle potential roundoff errors, and rounds the final result to the nearest integer using floor(value + 0.5).
 
 ## Parameters / Member Variables
-- : Total number of rows in the complete dataset
-- : Number of rows in the sample data
-- : Number of distinct values observed in the sample
-- : Number of values that appear exactly once in the sample (singleton count)
-
+- `totalrows`: Total number of rows in the complete dataset
+- `numrows`: Number of rows in the sample data
+- `d`: Number of distinct values observed in the sample
+- `f1`: Number of values that appear exactly once in the sample (singleton count)
 ## Dependencies
 - Functions called/Symbols referenced:
   - floor (standard C math function for rounding down)

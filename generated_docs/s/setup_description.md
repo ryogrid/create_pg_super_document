@@ -26,8 +26,7 @@ The function performs the following operations:
 This automated documentation system helps maintain comprehensive metadata about PostgreSQL's internal functions, making the database more self-documenting and easier to understand for developers and users exploring the system catalogs.
 
 ## Parameters / Member Variables
-- : FILE pointer to the command file descriptor where SQL commands are written for execution
-
+- `*cmdfd`: FILE pointer to the command file descriptor where SQL commands are written for execution
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Macro for writing SQL commands to the command file descriptor

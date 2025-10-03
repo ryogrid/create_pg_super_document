@@ -17,10 +17,9 @@ stat_covers_expressions(StatisticExtInfo *stat, List *exprs,
 This static function evaluates whether a statistics object contains all the expressions from a provided list. It iterates through each expression in the input list and uses  to locate the expression within the statistics object. If any expression is not found, the function returns false immediately. When all expressions are successfully located, it returns true. The function also optionally populates a bitmap set with the indexes of the found expressions if the  parameter is provided.
 
 ## Parameters / Member Variables
-- : Pointer to StatisticExtInfo structure containing the statistics object to check
-- : List of Node expressions to verify coverage for
-- : Optional output parameter - if non-NULL, populated with bitmap of expression indexes found in the statistics object
-
+- `*stat`: Pointer to StatisticExtInfo structure containing the statistics object to check
+- `*exprs`: List of Node expressions to verify coverage for
+- `**expr_idxs`: Optional output parameter - if non-NULL, populated with bitmap of expression indexes found in the statistics object
 ## Dependencies
 - Functions called/Symbols referenced:
   - [stat_find_expression](stat_find_expression.md)

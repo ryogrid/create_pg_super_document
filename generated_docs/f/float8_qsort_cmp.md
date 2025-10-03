@@ -18,10 +18,9 @@ This is a standard three-way comparison function compatible with the qsort famil
 The function follows the standard qsort comparison function contract, where the return value indicates whether the first argument is less than, equal to, or greater than the second argument.
 
 ## Parameters / Member Variables
-- : Pointer to the first float8 value to compare
-- : Pointer to the second float8 value to compare  
-- : Unused argument required by qsort_arg interface (can be NULL)
-
+- `*a1`: Pointer to the first float8 value to compare
+- `*a2`: Pointer to the second float8 value to compare
+- `*arg`: Unused argument required by qsort_arg interface (can be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (uses only basic float8 operations)

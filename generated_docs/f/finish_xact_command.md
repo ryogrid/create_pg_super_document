@@ -18,6 +18,7 @@ This function completes a transaction command by disabling the active statement 
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [disable_statement_timeout](../d/disable_statement_timeout.md)

@@ -18,11 +18,10 @@ SPI_getbinval is a fundamental SPI function that extracts the binary value of a 
 The function validates that the field number is within the valid range (1 to natts) and not in the invalid attribute number range. If validation fails, it sets SPI_result to SPI_ERROR_NOATTRIBUTE and returns NULL with the isnull flag set to true.
 
 ## Parameters / Member Variables
-- : The heap tuple from which to extract the column value
-- : Tuple descriptor that describes the structure of the tuple
-- : 1-based column number to extract (must be > 0 and <= tupdesc->natts)
-- : Pointer to boolean that will be set to true if the value is NULL
-
+- `tuple`: The heap tuple from which to extract the column value
+- `tupdesc`: Tuple descriptor that describes the structure of the tuple
+- `fnumber`: 1-based column number to extract (must be > 0 and <= tupdesc->natts)
+- `*isnull`: Pointer to boolean that will be set to true if the value is NULL
 ## Dependencies
 - Functions called/Symbols referenced:
   - [heap_getattr](../h/heap_getattr.md)

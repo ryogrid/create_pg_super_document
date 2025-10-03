@@ -24,7 +24,6 @@ This function performs a critical database maintenance task by updating the datf
 The function employs conservative initialization values and validates all discovered transaction IDs to ensure database consistency. It uses the same in-place update mechanism as vac_update_relstats to avoid leaving dead tuples in system catalogs.
 
 ## Parameters / Member Variables
-This function takes no parameters and operates on the current database (MyDatabaseId).
 
 ## Dependencies
 - Functions called/Symbols referenced:

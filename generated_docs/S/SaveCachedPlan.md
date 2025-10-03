@@ -18,8 +18,7 @@ SaveCachedPlan transitions a CachedPlanSource from transient to permanent storag
 The function is designed to be error-free (except for caller errors) since it's typically called when adding pointers to permanent data structures. Before saving, any existing generic plan is released as a safety measure since the caller may not have ensured proper reference management for long-lived contexts.
 
 ## Parameters / Member Variables
-- : The completed CachedPlanSource to be saved permanently
-
+- `*plansource`: The completed CachedPlanSource to be saved permanently
 ## Dependencies
 - Functions called/Symbols referenced:
   - CACHEDPLANSOURCE_MAGIC

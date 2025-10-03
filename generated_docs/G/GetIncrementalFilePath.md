@@ -24,12 +24,11 @@ This function constructs the pathname that should be used when a database file i
 The resulting path allows incremental backup files to be stored alongside the original files while being clearly identified as incremental backup content. For example, a file "base/16384/12345" would become "base/16384/INCREMENTAL.12345" or "base/16384/INCREMENTAL.12345.1" for segmented files.
 
 ## Parameters / Member Variables
-- : Database OID for the relation
-- : Tablespace OID for the relation  
-- : File number of the relation
-- : Fork number (main, fsm, vm, etc.)
-- : Segment number for large relations (0 for unsegmented files)
-
+- `dboid`: Database OID for the relation
+- `spcoid`: Tablespace OID for the relation
+- `relfilenumber`: File number of the relation
+- `forknum`: Fork number (main, fsm, vm, etc.)
+- `segno`: Segment number for large relations (0 for unsegmented files)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetRelationPath](GetRelationPath.md): Gets the standard filesystem path for a relation file

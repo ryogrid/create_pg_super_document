@@ -20,9 +20,8 @@ The function sorts the input members array in-place using mxactMemberComparator 
 The cache comparison assumes that cached entries are already sorted and that unused bits in the status field are zeroed, allowing for efficient memcmp-based comparison.
 
 ## Parameters / Member Variables
-- : Number of MultiXactMember structures in the members array
-- : Array of MultiXactMember structures representing the transaction set to look up (modified in-place by sorting)
-
+- `nmembers`: Number of MultiXactMember structures in the members array
+- `*members`: Array of MultiXactMember structures representing the transaction set to look up (modified in-place by sorting)
 ## Dependencies
 - Functions called/Symbols referenced:
   - qsort (with mxactMemberComparator)

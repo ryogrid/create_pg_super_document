@@ -16,8 +16,7 @@ is_orclause(const void *clause)
 This function is a type-checking utility that determines whether a given clause represents an OR expression. It performs a series of checks to ensure the clause is not NULL, is of type BoolExpr, and specifically has the OR_EXPR boolean operator. This is commonly used throughout the PostgreSQL optimizer and planner to identify OR clauses for special handling, optimization, and transformation.
 
 ## Parameters / Member Variables
-- : A pointer to the clause to be tested; expected to be a Node structure but passed as void* for generality
-
+- `*clause`: A pointer to the clause to be tested; expected to be a Node structure but passed as void* for generality
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BoolExpr](../B/BoolExpr.md) (structure type)

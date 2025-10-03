@@ -18,10 +18,9 @@ This function serves as a validation hook for the PostgreSQL configuration param
 If validation fails on an unsupported platform, the function provides an error message indicating that the parameter must be set to 0.
 
 ## Parameters / Member Variables
-- : Pointer to the new value being set for client_connection_check_interval
-- : Pointer to extra data (unused in this function)
-- : The source of the configuration change (GucSource enumeration)
-
+- `*newval`: Pointer to the new value being set for client_connection_check_interval
+- `**extra`: Pointer to extra data (unused in this function)
+- `source`: The source of the configuration change (GucSource enumeration)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [WaitEventSetCanReportClosed](../W/WaitEventSetCanReportClosed.md)

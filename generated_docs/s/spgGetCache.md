@@ -25,8 +25,7 @@ The function performs several key operations during cache initialization:
 7. For real (non-partitioned) indexes, reads metadata from the metapage
 
 ## Parameters / Member Variables
-- : The relation representing the SP-GiST index
-
+- `index`: The relation representing the SP-GiST index
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md) (allocate zeroed cache structure)

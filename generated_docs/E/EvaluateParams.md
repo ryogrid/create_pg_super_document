@@ -17,11 +17,10 @@ EvaluateParams(ParseState *pstate, PreparedStatement *pstmt, List *params,
 EvaluateParams processes parameter expressions provided to an EXECUTE statement by validating parameter count, performing parse analysis and type transformation on each parameter expression, coercing parameter values to expected types, and evaluating the expressions to produce concrete parameter values. The function ensures type safety by checking that provided parameters can be coerced to the types expected by the prepared statement, and produces a ParamListInfo structure that can be used during query execution.
 
 ## Parameters / Member Variables
-- : Parse state containing parsing context and source text information
-- : PreparedStatement containing parameter type information and metadata
-- : List of parameter expressions (raw parser output) provided in the EXECUTE statement
-- : Executor state used for expression evaluation context
-
+- `*pstate`: Parse state containing parsing context and source text information
+- `*pstmt`: PreparedStatement containing parameter type information and metadata
+- `*params`: List of parameter expressions (raw parser output) provided in the EXECUTE statement
+- `*estate`: Executor state used for expression evaluation context
 ## Dependencies
 - Functions called/Symbols referenced:
   - copyObject (creates copy of parameter expressions)

@@ -18,8 +18,7 @@ This function is a Windows compatibility implementation of the POSIX opendir() f
 The function performs several validation steps: first checking if the path exists and is actually a directory, then allocating memory for the DIR structure and preparing it for subsequent directory reading operations. It appends a wildcard pattern ("*") to the directory path to enable Windows FindFirstFile/FindNextFile operations.
 
 ## Parameters / Member Variables
-- : Path to the directory to be opened for reading
-
+- `*dirname`: Path to the directory to be opened for reading
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DIR](../D/DIR.md) (Windows directory structure type)

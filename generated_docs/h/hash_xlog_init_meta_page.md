@@ -18,8 +18,7 @@ This function is responsible for replaying WAL records that represent the initia
 The function extracts the metapage initialization parameters from the WAL record, creates and initializes the metapage buffer using the stored parameters (number of tuples, process ID, fill factor), sets the LSN, and handles special cases for init forks by ensuring synchronization between shared buffers and disk state.
 
 ## Parameters / Member Variables
-- : XLogReaderState pointer containing the WAL record with metapage initialization data including num_tuples, procid, and ffactor
-
+- `*record`: XLogReaderState pointer containing the WAL record with metapage initialization data including num_tuples, procid, and ffactor
 ## Dependencies
 - Functions called/Symbols referenced:
   - [xl_hash_init_meta_page](../x/xl_hash_init_meta_page.md) (WAL record structure)

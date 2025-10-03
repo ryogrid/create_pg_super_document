@@ -22,8 +22,7 @@ The function allocates a new color using newcolor() and then configures it with 
 - Marks it with the PSEUDO flag to distinguish it from regular colors
 
 ## Parameters / Member Variables
-- : Pointer to the colormap structure where the pseudo color will be allocated
-
+- `*cm`: Pointer to the colormap structure where the pseudo color will be allocated
 ## Dependencies
 - Functions called/Symbols referenced:
   - [newcolor](../n/newcolor.md) (allocates a new color)

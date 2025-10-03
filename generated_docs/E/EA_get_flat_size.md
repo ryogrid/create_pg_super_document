@@ -20,8 +20,7 @@ The function first checks if a flattened representation already exists and retur
 The calculated size is cached in the expanded array header for future calls, making subsequent size queries very efficient.
 
 ## Parameters / Member Variables
-- : Pointer to the ExpandedObjectHeader (cast to ExpandedArrayHeader internally)
-
+- `*eohptr`: Pointer to the ExpandedObjectHeader (cast to ExpandedArrayHeader internally)
 ## Dependencies
 - Functions called/Symbols referenced:
   - ARR_SIZE

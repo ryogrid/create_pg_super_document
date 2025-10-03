@@ -16,8 +16,7 @@ bpcharlt(PG_FUNCTION_ARGS)
 This function compares two BPCHAR values to determine if the first is lexicographically less than the second. Unlike the equality/inequality functions (bpchareq/bpcharne), this function always uses the full varstr_cmp() function since ordering comparisons cannot be optimized with simple bitwise operations - they require proper collation-aware string comparison to handle locale-specific sorting rules. The function extracts the true length of each BPCHAR value (excluding trailing spaces) and performs a collation-sensitive comparison, returning true if the first argument is less than the second.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function argument macro providing access to two BPCHAR arguments
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument macro providing access to two BPCHAR arguments
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_BPCHAR_PP (macro)

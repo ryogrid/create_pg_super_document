@@ -25,9 +25,8 @@ This function converts a Perl hash into a PostgreSQL tuple by mapping hash keys 
 The function handles missing columns gracefully by leaving them as NULL, but throws errors for nonexistent or system columns.
 
 ## Parameters / Member Variables
-- : Perl hash reference (HV *) containing key-value pairs to convert to tuple attributes
-- : Tuple descriptor (TupleDesc) defining the structure and types of the target tuple
-
+- `*perlhash`: Perl hash reference (HV *) containing key-value pairs to convert to tuple attributes
+- `td`: Tuple descriptor (TupleDesc) defining the structure and types of the target tuple
 ## Dependencies
 - Functions called/Symbols referenced:
   - dTHX (Perl threading macro)

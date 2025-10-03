@@ -22,8 +22,7 @@ This function serves as an error context callback that is invoked when an error 
 The function formats this information into a comprehensive error context message that helps developers and database administrators diagnose issues during WAL replay operations. This is crucial for debugging recovery failures and understanding which specific operation caused a problem.
 
 ## Parameters / Member Variables
-- : A void pointer that should contain an  pointing to the WAL record being processed when the error occurred
-
+- `*arg`: A void pointer that should contain an  pointing to the WAL record being processed when the error occurred
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (initializes a StringInfo buffer)

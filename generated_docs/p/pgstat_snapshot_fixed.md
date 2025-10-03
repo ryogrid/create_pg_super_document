@@ -18,8 +18,7 @@ This function guarantees that a statistics snapshot exists for the specified fix
 The function performs validation to ensure the requested kind is valid and represents a fixed-amount statistics type. It handles snapshot clearing when forced, and delegates to appropriate snapshot building functions based on the configured consistency level.
 
 ## Parameters / Member Variables
-- : The statistics kind (PgStat_Kind) for which to ensure a snapshot exists. Must be a valid, fixed-amount statistics kind.
-
+- `kind`: The statistics kind (PgStat_Kind) for which to ensure a snapshot exists. Must be a valid, fixed-amount statistics kind.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pgstat_is_kind_valid](pgstat_is_kind_valid.md)

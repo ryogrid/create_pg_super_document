@@ -20,8 +20,7 @@ The function implements a perfect hash algorithm, meaning it provides collision-
 The hash function contains a large static lookup table (array  with 13,551 int16 values) that has been pre-computed to provide optimal distribution for Unicode characters requiring decomposition. The values in this table include both positive indices and negative offsets that are used in the hash computation algorithm.
 
 ## Parameters / Member Variables
-- : A pointer to the Unicode character or character sequence for which the hash value should be computed
-
+- `*key`: A pointer to the Unicode character or character sequence for which the hash value should be computed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_unicode_decompinfo](../p/pg_unicode_decompinfo.md) (referenced in the same file for decomposition lookups)

@@ -18,10 +18,9 @@ This function is responsible for reading and parsing the next line of input data
 The function performs header line validation if configured, ensuring that column names and counts match the expected relation schema. After validation (or if no header processing is needed), it reads the actual data line and parses it according to the specified format (CSV or text).
 
 ## Parameters / Member Variables
-- : The COPY FROM state structure containing configuration, buffers, and parsing state
-- : Output parameter that receives a pointer to the array of parsed field strings
-- : Output parameter that receives the count of fields parsed from the input line
-
+- `cstate`: The COPY FROM state structure containing configuration, buffers, and parsing state
+- `***fields`: Output parameter that receives a pointer to the array of parsed field strings
+- `*nfields`: Output parameter that receives the count of fields parsed from the input line
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CopyReadLine](../C/CopyReadLine.md): Reads the next line from input into the line buffer

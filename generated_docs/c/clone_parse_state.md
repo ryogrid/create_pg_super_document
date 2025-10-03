@@ -16,8 +16,7 @@ clone_parse_state(JsonbParseState *state)
 The  function creates a shallow copy of a JsonbParseState linked list structure. This function is specifically designed for use in aggregate final functions where the parse state needs to be modified (typically by appending values) without affecting the original state. The cloning process traverses the entire linked list of parse states and copies each node's essential fields, creating an independent copy suitable for final processing.
 
 ## Parameters / Member Variables
-- : Pointer to the JsonbParseState to be cloned; returns NULL if input is NULL
-
+- `*state`: Pointer to the JsonbParseState to be cloned; returns NULL if input is NULL
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Allocate memory for new parse state nodes

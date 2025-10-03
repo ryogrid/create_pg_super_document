@@ -18,9 +18,8 @@ This function generates the SQL DDL necessary to recreate a publication's table 
 The function handles the complete syntax for table publication including optional column specifications and row-level filtering conditions. It ensures proper parentheses around WHERE expressions since pg_get_expr doesn't supply them for simple expressions like "WHERE TRUE".
 
 ## Parameters / Member Variables
-- : Archive structure for writing dump output
-- : Publication relation info containing the relationship details between publication and table
-
+- `*fout`: Archive structure for writing dump output
+- `*pubrinfo`: Publication relation info containing the relationship details between publication and table
 ## Dependencies
 - Functions called/Symbols referenced:
   - [psprintf](../p/psprintf.md) - formats strings safely

@@ -23,10 +23,9 @@ The function enforces several key restrictions:
 When not in an active transaction, all changes are permitted since  will be reset by the next .
 
 ## Parameters / Member Variables
-- : Pointer to the new boolean value for the transaction read-only setting (false = read-write, true = read-only)
-- : Pointer to extra data (unused in this function, can be NULL)
-- : The source of the configuration change (GucSource enum)
-
+- `*newval`: Pointer to the new boolean value for the transaction read-only setting (false = read-write, true = read-only)
+- `**extra`: Pointer to extra data (unused in this function, can be NULL)
+- `source`: The source of the configuration change (GucSource enum)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [IsTransactionState](../I/IsTransactionState.md)

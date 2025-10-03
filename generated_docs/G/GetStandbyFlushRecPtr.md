@@ -23,8 +23,7 @@ The function returns the furthest safe position by taking the replay pointer as 
 The function includes safety assertions to ensure it's only called in appropriate contexts: either during cascading WAL sending operations or during replication slot synchronization.
 
 ## Parameters / Member Variables
-- : Optional pointer to TimeLineID that will be set to the timeline ID of the last replayed WAL record
-
+- `*tli`: Optional pointer to TimeLineID that will be set to the timeline ID of the last replayed WAL record
 ## Dependencies
 - Functions called/Symbols referenced:
   - [IsSyncingReplicationSlots](../I/IsSyncingReplicationSlots.md)

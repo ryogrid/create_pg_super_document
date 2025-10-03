@@ -18,8 +18,7 @@ This function constructs the initial client message in the SCRAM (Salted Challen
 The message format follows the SCRAM specification with a GS2 header for channel binding, followed by the actual authentication data. The function preserves a "bare" version of the client message (without channel binding info) that will be needed for later cryptographic calculations.
 
 ## Parameters / Member Variables
-- : Pointer to fe_scram_state structure containing the current SCRAM authentication state, connection information, and mechanism details
-
+- `*state`: Pointer to fe_scram_state structure containing the current SCRAM authentication state, connection information, and mechanism details
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_strong_random](../p/pg_strong_random.md) (for secure nonce generation)

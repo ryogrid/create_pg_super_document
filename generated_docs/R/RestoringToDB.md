@@ -16,8 +16,7 @@ RestoringToDB(ArchiveHandle *AH)
 The  function serves as a centralized check to determine if the restoration process is writing directly to a database connection rather than to a file or other output target. It examines the restore options and connection state to make this determination, providing a single point of logic for this common conditional check throughout the archiver code.
 
 ## Parameters / Member Variables
-- : Archive handle containing the restore options and connection information
-
+- `*AH`: Archive handle containing the restore options and connection information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RestoreOptions](RestoreOptions.md) (struct type)

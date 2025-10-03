@@ -16,7 +16,6 @@ PLy_result_init_type(void)
 This function performs the necessary initialization of the PLy_ResultType Python type object by calling PyType_Ready(). The PLy_ResultType defines the PLyResult class which represents the results of a PostgreSQL query in PL/Python. The function ensures that the type object is properly configured and ready to be used for creating PLyResult instances. If the initialization fails, it raises an ERROR using elog(), which will abort the current transaction.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -20,10 +20,9 @@ The function operates by first checking for pending client read interrupts, then
 A key feature is its blocking behavior management: when a read would block (EWOULDBLOCK/EAGAIN), it uses PostgreSQL's wait event system to efficiently wait for socket readiness rather than busy-waiting. During waits, it monitors for critical events like postmaster death and client interrupts, ensuring proper cleanup and responsiveness to administrative signals.
 
 ## Parameters / Member Variables
-- : Pointer to Port structure containing connection state, security configuration, and socket information
-- : Buffer to store the read data
-- : Maximum number of bytes to read
-
+- `*port`: Pointer to Port structure containing connection state, security configuration, and socket information
+- `*ptr`: Buffer to store the read data
+- `len`: Maximum number of bytes to read
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ProcessClientReadInterrupt](../P/ProcessClientReadInterrupt.md): Handles client read interrupt conditions

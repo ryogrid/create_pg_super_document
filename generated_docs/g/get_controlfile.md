@@ -18,9 +18,8 @@ This function serves as a convenience wrapper around get_controlfile_by_exact_pa
 The control file contains critical cluster metadata including system identifier, database state, checkpoint information, and configuration parameters essential for PostgreSQL startup and recovery operations.
 
 ## Parameters / Member Variables
-- : The PostgreSQL data directory path where the control file should be located
-- : Output parameter that receives the CRC validation result (true if CRC is valid, false otherwise)
-
+- `*DataDir`: The PostgreSQL data directory path where the control file should be located
+- `*crc_ok_p`: Output parameter that receives the CRC validation result (true if CRC is valid, false otherwise)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_controlfile_by_exact_path](get_controlfile_by_exact_path.md)

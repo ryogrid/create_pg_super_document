@@ -16,11 +16,10 @@ ecpg_check_PQresult(PGresult *results, int lineno, PGconn *connection, enum COMP
 The  function serves as a central validation point for all PostgreSQL query results in the ECPG library. It examines the status of PGresult objects returned by libpq functions and determines the appropriate action based on the result status. The function handles both successful operations (returning true) and various error conditions (calling appropriate error handlers and returning false). It also manages resource cleanup by calling PQclear() when necessary and provides specialized handling for different operation types such as COPY operations.
 
 ## Parameters / Member Variables
-- : PGresult object containing the query result to be checked (may be NULL)
-- : Line number in the source code where the check is being performed
-- : PGconn object representing the database connection
-- : Compatibility mode enumeration affecting error handling behavior
-
+- `*results`: PGresult object containing the query result to be checked (may be NULL)
+- `lineno`: Line number in the source code where the check is being performed
+- `*connection`: PGconn object representing the database connection
+- `compat`: Compatibility mode enumeration affecting error handling behavior
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ecpg_log](ecpg_log.md) (for logging error messages)

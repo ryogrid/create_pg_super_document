@@ -19,10 +19,9 @@ This function identifies the extreme split points (leftmost and rightmost) withi
 The function handles special cases where the new item becomes either the first-right or last-left tuple, ensuring proper identification of interval boundaries even when split points have the same firstrightoff value but different new item placement.
 
 ## Parameters / Member Variables
-- : FindSplitData structure containing split candidates and interval information
-- : Output parameter pointing to the leftmost split point in the current interval
-- : Output parameter pointing to the rightmost split point in the current interval
-
+- `*state`: FindSplitData structure containing split candidates and interval information
+- `**leftinterval`: Output parameter pointing to the leftmost split point in the current interval
+- `**rightinterval`: Output parameter pointing to the rightmost split point in the current interval
 ## Dependencies
 - Functions called/Symbols referenced:
   - Min (macro)

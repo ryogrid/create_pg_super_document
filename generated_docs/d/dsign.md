@@ -21,8 +21,7 @@ The dsign function implements the mathematical sign function for double-precisio
 This is a PostgreSQL SQL-callable function that follows the PostgreSQL function calling convention, accepting arguments via PG_FUNCTION_ARGS and returning a Datum value using PG_RETURN_FLOAT8.
 
 ## Parameters / Member Variables
-- : The input double-precision floating-point number whose sign is to be determined
-
+- `PG_FUNCTION_ARGS`: The input double-precision floating-point number whose sign is to be determined
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT8 (macro to extract float8 argument)

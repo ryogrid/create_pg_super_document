@@ -21,9 +21,8 @@ The function sets up the throttling mechanism by:
 - Establishing the sink operation callbacks through 
 
 ## Parameters / Member Variables
-- : Pointer to the next sink in the basebackup pipeline chain that will receive forwarded data
-- : Maximum transfer rate in kilobytes per second for the throttling mechanism
-
+- `*next`: Pointer to the next sink in the basebackup pipeline chain that will receive forwarded data
+- `maxrate`: Maximum transfer rate in kilobytes per second for the throttling mechanism
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (memory allocation)

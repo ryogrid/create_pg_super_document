@@ -23,8 +23,7 @@ For negative years, the function uses the mathematical identity that the leap ye
 The function ensures consistent leap year counting across the entire range of representable years, which is essential for accurate date and time calculations in PostgreSQL's timezone system.
 
 ## Parameters / Member Variables
-- : An integer representing the year for which to calculate the cumulative leap year count. Can be any representable integer value (positive, negative, or zero).
-
+- `y`: An integer representing the year for which to calculate the cumulative leap year count. Can be any representable integer value (positive, negative, or zero).
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (called twice - once for negative year transformation, once for direct positive year calculation)

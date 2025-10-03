@@ -18,8 +18,7 @@ This function serves as a type-safe wrapper around PointerGetDatum specifically 
 The function is part of PostgreSQL's type conversion system that allows different data types to be uniformly handled as Datum values in the function call protocol. This is essential for the extensible function system where functions can accept and return various data types through a common interface.
 
 ## Parameters / Member Variables
-- : A const pointer to an Interval structure that will be converted to a Datum
-
+- `*X`: A const pointer to an Interval structure that will be converted to a Datum
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PointerGetDatum](../P/PointerGetDatum.md) (internal conversion function)

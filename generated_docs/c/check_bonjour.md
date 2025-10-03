@@ -18,10 +18,9 @@ This function serves as a check hook for the bonjour GUC parameter in PostgreSQL
 When Bonjour support is not compiled in (USE_BONJOUR is not defined), the function will reject any attempt to set the parameter to true by returning false and setting an appropriate error message. This prevents runtime errors and provides clear feedback to users about build limitations.
 
 ## Parameters / Member Variables
-- : Pointer to the new boolean value being set for the bonjour parameter
-- : Pointer to extra data (unused in this function, can be NULL)
-- : The source of the configuration change (GucSource enum value)
-
+- `*newval`: Pointer to the new boolean value being set for the bonjour parameter
+- `**extra`: Pointer to extra data (unused in this function, can be NULL)
+- `source`: The source of the configuration change (GucSource enum value)
 ## Dependencies
 - Functions called/Symbols referenced:
   - GUC_check_errmsg (macro for setting GUC error messages)

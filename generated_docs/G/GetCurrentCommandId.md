@@ -16,8 +16,7 @@ GetCurrentCommandId(bool used)
 GetCurrentCommandId returns the current command ID (currentCommandId) for the active transaction. The function includes important logic for tracking command ID usage and enforcing restrictions in parallel worker contexts. When the 'used' parameter is true, it indicates the caller intends to modify data (insert/update/delete tuples), which triggers usage tracking by setting currentCommandIdUsed to true. However, this is forbidden in parallel workers since there's no mechanism to communicate this state back to the leader process. When 'used' is false, the ID is being fetched for read-only purposes such as snapshot validity checks.
 
 ## Parameters / Member Variables
-- : Boolean flag indicating whether the command ID will be used for data modifications (true) or read-only purposes (false)
-
+- `used`: Boolean flag indicating whether the command ID will be used for data modifications (true) or read-only purposes (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsParallelWorker (function to check if running in parallel worker)

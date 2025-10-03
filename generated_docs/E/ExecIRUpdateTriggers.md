@@ -17,11 +17,10 @@ ExecIRUpdateTriggers(EState *estate, ResultRelInfo *relinfo,
 This function executes INSTEAD OF ROW UPDATE triggers, which are primarily used with views to provide custom update logic. Unlike BEFORE/AFTER triggers, INSTEAD OF triggers completely replace the normal update operation. The function iterates through all applicable INSTEAD OF UPDATE triggers, calling each one in sequence. If any trigger returns NULL, the entire operation is canceled. Triggers can modify the new tuple values, and the function ensures proper memory management throughout the process.
 
 ## Parameters / Member Variables
-- : Executor state containing execution context and memory management
-- : Relation information including trigger descriptors and view metadata
-- : The original tuple being updated (serves as the OLD tuple)
-- : TupleTableSlot containing the new tuple values after update
-
+- `*estate`: Executor state containing execution context and memory management
+- `*relinfo`: Relation information including trigger descriptors and view metadata
+- `trigtuple`: The original tuple being updated (serves as the OLD tuple)
+- `*newslot`: TupleTableSlot containing the new tuple values after update
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecGetTriggerOldSlot](ExecGetTriggerOldSlot.md)

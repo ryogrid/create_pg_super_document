@@ -23,8 +23,7 @@ The function returns true if either threshold is met, signaling that it's time t
 The function is typically called before adding new tuples to the buffer to determine whether a flush operation should be performed first. This helps maintain optimal performance by balancing memory usage with the efficiency gains from batched insertions.
 
 ## Parameters / Member Variables
-- : Pointer to CopyMultiInsertInfo structure containing the current buffer state, including bufferedTuples and bufferedBytes counters
-
+- `*miinfo`: Pointer to CopyMultiInsertInfo structure containing the current buffer state, including bufferedTuples and bufferedBytes counters
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CopyMultiInsertInfo](CopyMultiInsertInfo.md) (struct type)

@@ -27,8 +27,7 @@ Key selection criteria for a transaction:
 The function includes extensive commentary explaining why transactions with incomplete changes are currently skipped, noting the complexity that would be involved in partially streaming such transactions (requiring partial file truncation, LSN tracking, and subxact state management).
 
 ## Parameters / Member Variables
-- : Pointer to the ReorderBuffer structure containing the transaction lists to search
-
+- `*rb`: Pointer to the ReorderBuffer structure containing the transaction lists to search
 ## Dependencies
 - Functions called/Symbols referenced:
   - dlist_foreach (macro for iterating through doubly-linked lists)

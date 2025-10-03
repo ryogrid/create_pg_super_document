@@ -17,11 +17,10 @@ multi_sort_compare_dim(int dim, const SortItem *a, const SortItem *b,
 This function performs a comparison between two SortItem structures but only evaluates a single specified dimension rather than all dimensions. It directly applies the appropriate sort comparator for the given dimension, handling both the actual values and their null status. This focused comparison is useful when algorithms need to examine ordering relationships along specific dimensions independently, such as in dependency analysis for extended statistics.
 
 ## Parameters / Member Variables
-- : Integer specifying which dimension (column index) to compare
-- : Pointer to the first SortItem structure to compare
-- : Pointer to the second SortItem structure to compare  
-- : MultiSortSupport structure containing sort configuration for the specified dimension
-
+- `dim`: Integer specifying which dimension (column index) to compare
+- `*a`: Pointer to the first SortItem structure to compare
+- `*b`: Pointer to the second SortItem structure to compare
+- `mss`: MultiSortSupport structure containing sort configuration for the specified dimension
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ApplySortComparator](../A/ApplySortComparator.md)

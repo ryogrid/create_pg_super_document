@@ -17,7 +17,6 @@ pg_get_client_encoding is a simple accessor function that returns the encoding I
 The returned value is a numeric encoding identifier that corresponds to the PostgreSQL internal encoding constants (e.g., PG_UTF8, PG_LATIN1, etc.).
 
 ## Parameters / Member Variables
-None (void function)
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -21,10 +21,9 @@ The function opens the pg_inherits system catalog with exclusive row lock and de
 Historical note: Earlier versions of PostgreSQL maintained both direct and indirect ancestors in a pg_ipl catalog, but this is no longer necessary since that catalog was removed.
 
 ## Parameters / Member Variables
-- : OID of the child relation that inherits from parent relations
-- : List of OIDs representing the direct parent relations (ancestors)
-- : Boolean flag indicating whether the child is a partition (vs. regular inheritance)
-
+- `relationId`: OID of the child relation that inherits from parent relations
+- `*supers`: List of OIDs representing the direct parent relations (ancestors)
+- `child_is_partition`: Boolean flag indicating whether the child is a partition (vs. regular inheritance)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [StoreCatalogInheritance1](StoreCatalogInheritance1.md)

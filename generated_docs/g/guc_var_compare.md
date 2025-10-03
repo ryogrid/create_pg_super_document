@@ -18,9 +18,8 @@ This function serves as a comparator for qsort operations on arrays of GUC varia
 The function handles the complex pointer dereferencing needed to access GUC variable names from an array of pointers to GUC structures. It performs double dereferencing to get to the actual name strings stored within the GUC configuration structures.
 
 ## Parameters / Member Variables
-- : Pointer to the first GUC variable pointer in the comparison
-- : Pointer to the second GUC variable pointer in the comparison
-
+- `*a`: Pointer to the first GUC variable pointer in the comparison
+- `*b`: Pointer to the second GUC variable pointer in the comparison
 ## Dependencies
 - Functions called/Symbols referenced:
   - [guc_name_compare](guc_name_compare.md)

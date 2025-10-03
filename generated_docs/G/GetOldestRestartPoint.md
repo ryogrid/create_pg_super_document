@@ -18,9 +18,8 @@ This function provides access to the redo point information from the most recent
 The function copies the redo pointer and timeline ID from the control file's checkPointCopy structure, which contains the information from the last successfully completed checkpoint or restartpoint operation.
 
 ## Parameters / Member Variables
-- : Output parameter - pointer to store the redo LSN (Log Sequence Number) of the last checkpoint
-- : Output parameter - pointer to store the timeline ID associated with the checkpoint
-
+- `*oldrecptr`: Output parameter - pointer to store the redo LSN (Log Sequence Number) of the last checkpoint
+- `*oldtli`: Output parameter - pointer to store the timeline ID associated with the checkpoint
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockAcquire](../L/LWLockAcquire.md)

@@ -22,8 +22,7 @@ This function extracts a HeapTuple from a BufferHeapTupleTableSlot and creates a
 The returned HeapTuple is completely independent of the original slot and can be safely used even after the slot is cleared or freed. The caller assumes ownership of the returned tuple and is responsible for freeing it when no longer needed.
 
 ## Parameters / Member Variables
-- : The TupleTableSlot from which to copy the HeapTuple (must be a BufferHeapTupleTableSlot)
-
+- `*slot`: The TupleTableSlot from which to copy the HeapTuple (must be a BufferHeapTupleTableSlot)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BufferHeapTupleTableSlot](../B/BufferHeapTupleTableSlot.md) (cast to access slot-specific fields)

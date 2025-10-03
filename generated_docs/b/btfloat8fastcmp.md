@@ -16,10 +16,9 @@ btfloat8fastcmp(Datum x, Datum y, SortSupport ssup)
 This function is an optimized comparison function specifically designed for use with PostgreSQL's SortSupport framework. Unlike btfloat8cmp which uses the standard PostgreSQL function call interface, btfloat8fastcmp operates directly on Datum values, avoiding the overhead of the fmgr (function manager) interface. This makes it more efficient for sorting operations where many comparisons are needed. The function extracts double-precision floating-point values from the input Datums and delegates the actual comparison to float8_cmp_internal.
 
 ## Parameters / Member Variables
-- : First Datum containing a double-precision floating-point value
-- : Second Datum containing a double-precision floating-point value  
-- : SortSupport structure (unused in this function but required by the interface)
-
+- `x`: First Datum containing a double-precision floating-point value
+- `y`: Second Datum containing a double-precision floating-point value
+- `ssup`: SortSupport structure (unused in this function but required by the interface)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DatumGetFloat8](../D/DatumGetFloat8.md) (macro for extracting float8 from Datum)

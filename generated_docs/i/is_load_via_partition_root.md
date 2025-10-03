@@ -24,8 +24,7 @@ The function uses a two-tier detection strategy:
 This detection is crucial for optimization decisions, particularly in parallel restore scenarios where TRUNCATE operations before COPY might interfere with cross-partition data movement, potentially causing deadlocks or data loss.
 
 ## Parameters / Member Variables
-- : TOC entry representing the table data loading operation to be analyzed
-
+- `*te`: TOC entry representing the table data loading operation to be analyzed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [fmtQualifiedId](../f/fmtQualifiedId.md) (formats schema-qualified table names for comparison)

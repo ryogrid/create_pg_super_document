@@ -22,7 +22,6 @@ The function demonstrates typical ECPG usage patterns including:
 - Result display for verification purposes
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

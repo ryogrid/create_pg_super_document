@@ -19,9 +19,8 @@ This function takes a user-supplied base filename and a safe extension, validate
 The function uses  to determine the PostgreSQL share directory path and constructs the final path as . The result is allocated using  and must be freed by the caller.
 
 ## Parameters / Member Variables
-- : User-supplied base name of the configuration file, restricted to alphanumeric characters and underscores for security
-- : File extension (assumed to be safe/validated by caller)
-
+- `*basename`: User-supplied base name of the configuration file, restricted to alphanumeric characters and underscores for security
+- `*extension`: File extension (assumed to be safe/validated by caller)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_share_path](get_share_path.md)

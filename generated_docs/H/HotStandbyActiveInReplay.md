@@ -17,7 +17,6 @@ This function provides a streamlined way to check Hot Standby status specificall
 The function includes an assertion to ensure it's only called from appropriate contexts (startup process or non-postmaster environments). This makes it more efficient than the general HotStandbyActive() function when used in the correct context, as it avoids the overhead of spinlock acquisition and shared memory access.
 
 ## Parameters / Member Variables
-This function takes no parameters and returns a boolean value indicating Hot Standby status.
 
 ## Dependencies
 - Functions called/Symbols referenced:

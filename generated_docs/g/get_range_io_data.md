@@ -16,10 +16,9 @@ get_range_io_data(FunctionCallInfo fcinfo, Oid rngtypid, IOFuncSelector func)
 This function manages cached I/O information for range types to optimize repeated I/O operations. It stores a RangeIOData structure in the function call info's fn_extra field, which contains the type cache entry and prepared I/O function information for the range's element type. The function performs lazy initialization - it only creates new cache entries when needed (first call or type change) and reuses existing cache entries for subsequent calls with the same range type. It validates that the provided OID represents a valid range type and ensures the element type has the required I/O functions.
 
 ## Parameters / Member Variables
-- : Function call information structure used for caching
-- : OID of the range type for which I/O data is needed  
-- : IOFuncSelector specifying which I/O function type is needed (input, output, receive, or send)
-
+- `fcinfo`: Function call information structure used for caching
+- `rngtypid`: OID of the range type for which I/O data is needed
+- `func`: IOFuncSelector specifying which I/O function type is needed (input, output, receive, or send)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContextAlloc](../M/MemoryContextAlloc.md): Allocates memory for the cache structure

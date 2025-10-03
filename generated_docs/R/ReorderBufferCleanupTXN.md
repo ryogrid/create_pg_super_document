@@ -34,9 +34,8 @@ This function systematically cleans up all resources associated with a transacti
 8. **Memory deallocation**: Finally returns the transaction structure itself to the memory pool.
 
 ## Parameters / Member Variables
-- : Pointer to the main ReorderBuffer structure managing the reordering operations
-- : Pointer to the ReorderBufferTXN structure representing the transaction to be cleaned up
-
+- `*rb`: Pointer to the main ReorderBuffer structure managing the reordering operations
+- `*txn`: Pointer to the ReorderBufferTXN structure representing the transaction to be cleaned up
 ## Dependencies
 - Functions called/Symbols referenced:
   - dlist_foreach_modify

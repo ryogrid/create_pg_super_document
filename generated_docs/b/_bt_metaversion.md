@@ -28,10 +28,9 @@ This function retrieves critical version and feature information from the B-tree
 The function is essential for ensuring that index operations use the correct algorithms based on the index version and capabilities.
 
 ## Parameters / Member Variables
-- : The B-tree index relation to examine
-- : Output parameter set to true if index uses heap TID as tiebreaker (version > BTREE_NOVAC_VERSION)
-- : Output parameter indicating whether deduplication is safe for this index
-
+- `rel`: The B-tree index relation to examine
+- `*heapkeyspace`: Output parameter set to true if index uses heap TID as tiebreaker (version > BTREE_NOVAC_VERSION)
+- `*allequalimage`: Output parameter indicating whether deduplication is safe for this index
 ## Dependencies
 - Functions called/Symbols referenced:
   - [_bt_getbuf](_bt_getbuf.md): Acquires buffer for metadata page

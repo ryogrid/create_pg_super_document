@@ -16,11 +16,10 @@ euc_jp2mic(const unsigned char *euc, unsigned char *p, int len, bool noError)
 This function converts EUC-JP encoded Japanese text to Mule Internal Code format. EUC-JP uses a structured encoding scheme where different character sets are identified by specific byte patterns: ASCII characters (0x00-0x7F), JIS X0208 kanji and kana (high-bit set bytes), JIS X0201 katakana preceded by SS2 (0x8E), and JIS X0212 supplementary kanji preceded by SS3 (0x8F). The function identifies these patterns and adds appropriate MIC language character (LC) prefixes to distinguish the different Japanese character sets in the output.
 
 ## Parameters / Member Variables
-- : Source string in EUC-JP encoding to be converted
-- : Destination buffer where MIC encoded output will be written
-- : Length of the source EUC-JP string in bytes  
-- : Boolean flag indicating whether to suppress error reporting for invalid sequences
-
+- `*euc`: Source string in EUC-JP encoding to be converted
+- `*p`: Destination buffer where MIC encoded output will be written
+- `len`: Length of the source EUC-JP string in bytes
+- `noError`: Boolean flag indicating whether to suppress error reporting for invalid sequences
 ## Dependencies
 - Functions called/Symbols referenced:
   - IS_HIGHBIT_SET: Check if character has high bit set

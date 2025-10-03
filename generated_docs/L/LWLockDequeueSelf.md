@@ -21,8 +21,7 @@ LWLockDequeueSelf handles the complex scenario where a process queued itself for
 The function ensures proper cleanup of wait flags and semaphore states, maintaining consistency in the locking subsystem even when processes change their minds about waiting.
 
 ## Parameters / Member Variables
-- : Pointer to the LWLock structure to dequeue from
-
+- `*lock`: Pointer to the LWLock structure to dequeue from
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_lwlock_stats_entry](../g/get_lwlock_stats_entry.md) (stats builds only)

@@ -32,11 +32,10 @@ This function is the main entry point for query planning in PostgreSQL, transfor
 The function is essential in PostgreSQL's query processing pipeline, taking queries that have been parsed and rewritten and converting them into executable plans.
 
 ## Parameters / Member Variables
-- : Rewritten Query structure ready for planning
-- : Original SQL query string for logging and error reporting
-- : Cursor-specific options affecting plan generation
-- : Parameter values for prepared statement planning
-
+- `*querytree`: Rewritten Query structure ready for planning
+- `*query_string`: Original SQL query string for logging and error reporting
+- `cursorOptions`: Cursor-specific options affecting plan generation
+- `boundParams`: Parameter values for prepared statement planning
 ## Dependencies
 - Functions called/Symbols referenced:
   - [planner](planner.md)

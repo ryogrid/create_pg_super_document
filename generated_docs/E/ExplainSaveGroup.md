@@ -27,10 +27,9 @@ This enables a pattern where formatting state can be temporarily set aside, cont
 - **JSON/YAML formats**: Saves grouping information and manages the stack
 
 ## Parameters / Member Variables
-- : ExplainState structure containing formatting information and grouping stack
-- : The nesting depth to decrease (should match the depth used in ExplainOpenSetAsideGroup)
-- : Pointer to integer storage where grouping state will be saved (for JSON/YAML formats)
-
+- `*es`: ExplainState structure containing formatting information and grouping stack
+- `depth`: The nesting depth to decrease (should match the depth used in ExplainOpenSetAsideGroup)
+- `*state_save`: Pointer to integer storage where grouping state will be saved (for JSON/YAML formats)
 ## Dependencies
 - Functions called/Symbols referenced:
   - linitial_int (to retrieve the first integer from the grouping stack)

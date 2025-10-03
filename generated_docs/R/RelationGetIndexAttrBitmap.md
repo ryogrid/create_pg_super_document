@@ -26,9 +26,8 @@ The function caches results in the relation cache for performance and handles co
 The implementation considers all indexes returned by , including those not yet ready or valid, which is important for HOT-safety decisions during concurrent index operations.
 
 ## Parameters / Member Variables
-- : The relation whose index attribute bitmap is requested
-- : The type of attribute bitmap to return (key, primary key, identity key, HOT blocking, or summarized)
-
+- `relation`: The relation whose index attribute bitmap is requested
+- `attrKind`: The type of attribute bitmap to return (key, primary key, identity key, HOT blocking, or summarized)
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationGetForm

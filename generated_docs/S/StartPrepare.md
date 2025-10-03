@@ -16,8 +16,7 @@ StartPrepare(GlobalTransaction gxact)
 StartPrepare begins the process of preparing a two-phase commit state file for a given global transaction. It initializes the linked list data structure used to accumulate state data, creates and populates the two-phase file header with transaction metadata, and saves initial state information including subtransactions, file deletions, statistics, and cache invalidation messages. The function sets up the foundation for the state file that will be completed by EndPrepare.
 
 ## Parameters / Member Variables
-- : GlobalTransaction structure containing the transaction to be prepared, including transaction ID, GID, owner, and timing information
-
+- `gxact`: GlobalTransaction structure containing the transaction to be prepared, including transaction ID, GID, owner, and timing information
 ## Dependencies
 - Functions called/Symbols referenced:
   - GetPGProcByNumber

@@ -23,10 +23,9 @@ This function serves as a callback in the JSON parsing framework, specifically d
 The function is part of the JSON-to-hash conversion mechanism used in PostgreSQL's JSON functionality.
 
 ## Parameters / Member Variables
-- : A void pointer that is cast to JHashState*, containing the parsing state and context
-- : The field name as a null-terminated string (not used in this function)
-- : Boolean indicating if the field name is null (not used in this function)
-
+- `*state`: A void pointer that is cast to JHashState*, containing the parsing state and context
+- `*fname`: The field name as a null-terminated string (not used in this function)
+- `isnull`: Boolean indicating if the field name is null (not used in this function)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [JHashState](../J/JHashState.md) (struct type for state management)

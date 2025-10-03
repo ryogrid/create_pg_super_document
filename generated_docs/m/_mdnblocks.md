@@ -18,10 +18,9 @@ This is a static function that determines the number of blocks present in a spec
 The function is part of PostgreSQL's magnetic disk storage manager (md.c) and is used internally by other functions to determine the current size of relation segments.
 
 ## Parameters / Member Variables
-- : SMgrRelation pointer representing the storage manager relation
-- : ForkNumber indicating which fork of the relation (main, FSM, VM, etc.)
-- : MdfdVec pointer to the specific segment whose block count is needed
-
+- `reln`: SMgrRelation pointer representing the storage manager relation
+- `forknum`: ForkNumber indicating which fork of the relation (main, FSM, VM, etc.)
+- `*seg`: MdfdVec pointer to the specific segment whose block count is needed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [FileSize](../F/FileSize.md) (to get the file size in bytes)

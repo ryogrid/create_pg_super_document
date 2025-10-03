@@ -22,8 +22,7 @@ This function is a wrapper around  that ensures proper analysis by first running
 The function assumes that  does not modify its input expression, then proceeds to check for volatile functions in the planned expression.
 
 ## Parameters / Member Variables
-- : The expression to analyze for volatile function content
-
+- `*expr`: The expression to analyze for volatile function content
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Plans the expression before volatility analysis

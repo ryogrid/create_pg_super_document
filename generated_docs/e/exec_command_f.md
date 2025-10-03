@@ -16,9 +16,8 @@ exec_command_f(PsqlScanState scan_state, bool active_branch)
 This function handles the \f command which changes the field separator character or string used when formatting query output. The command accepts an optional argument specifying the new field separator. The actual field separator setting is handled by the do_pset() function with the "fieldsep" parameter. The function returns different values based on whether the operation succeeded or failed.
 
 ## Parameters / Member Variables
-- : Scanner state for parsing the command line arguments
-- : Boolean indicating whether this command should be executed (used for conditional processing)
-
+- `scan_state`: Scanner state for parsing the command line arguments
+- `active_branch`: Boolean indicating whether this command should be executed (used for conditional processing)
 ## Dependencies
 - Functions called/Symbols referenced:
   - psql_scan_slash_option

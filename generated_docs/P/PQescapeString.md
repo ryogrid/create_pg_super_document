@@ -20,10 +20,9 @@ The function is simpler to use than PQescapeStringConn since it doesn't require 
 This function is essentially a wrapper around PQescapeStringInternal with NULL connection and error parameters, relying on static configuration values.
 
 ## Parameters / Member Variables
-- : Output buffer where the escaped string will be written (must be at least 2*length + 1 bytes)
-- : Input string to be escaped
-- : Maximum length of the source string to process
-
+- `*to`: Output buffer where the escaped string will be written (must be at least 2*length + 1 bytes)
+- `*from`: Input string to be escaped
+- `length`: Maximum length of the source string to process
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQescapeStringInternal](PQescapeStringInternal.md)

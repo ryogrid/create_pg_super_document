@@ -19,7 +19,6 @@ The function maintains a static unnamed_portal_count variable that persists acro
 Once a unique name is generated, the function delegates the actual portal creation to CreatePortal with strict duplicate handling (allowDup=false, dupSilent=false), ensuring that the generated name is indeed unique.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

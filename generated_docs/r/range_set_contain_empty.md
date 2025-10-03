@@ -16,8 +16,7 @@ range_set_contain_empty(RangeType *range)
 This function modifies an existing range object by setting the RANGE_CONTAIN_EMPTY flag bit in its flags byte. This flag is used specifically in GiST (Generalized Search Tree) operations to indicate that a range contains or represents empty ranges. The function directly modifies the flags byte at the end of the range object's binary representation. This flag is not set during normal range construction via range_serialize, but must be applied afterwards when needed for index operations.
 
 ## Parameters / Member Variables
-- : Range object to modify by setting the RANGE_CONTAIN_EMPTY flag
-
+- `*range`: Range object to modify by setting the RANGE_CONTAIN_EMPTY flag
 ## Dependencies
 - Functions called/Symbols referenced:
   - VARSIZE

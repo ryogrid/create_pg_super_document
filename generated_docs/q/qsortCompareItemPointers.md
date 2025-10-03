@@ -18,9 +18,8 @@ This function serves as a comparison callback for the standard C library qsort f
 The function includes an important assertion that verifies no two ItemPointers being sorted are equal, which helps catch data integrity issues during GIN index construction where duplicate heap pointers should not occur.
 
 ## Parameters / Member Variables
-- : First ItemPointer to compare (passed as void* by qsort)
-- : Second ItemPointer to compare (passed as void* by qsort)
-
+- `*a`: First ItemPointer to compare (passed as void* by qsort)
+- `*b`: Second ItemPointer to compare (passed as void* by qsort)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ginCompareItemPointers](../g/ginCompareItemPointers.md) (underlying comparison function)

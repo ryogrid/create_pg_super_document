@@ -24,9 +24,8 @@ The function performs several key operations:
 For the single value strategy, the function tracks when posting lists become large (>50 TIDs) to help manage page splitting behavior.
 
 ## Parameters / Member Variables
-- : Deduplication state containing the current pending posting list and size limits
-- : Index tuple whose heap TIDs should be added to the pending posting list
-
+- `state`: Deduplication state containing the current pending posting list and size limits
+- `itup`: Index tuple whose heap TIDs should be added to the pending posting list
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Verifies tuple is not a pivot tuple

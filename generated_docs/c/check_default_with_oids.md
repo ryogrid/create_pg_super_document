@@ -18,10 +18,9 @@ This function serves as a check hook for the default_with_oids GUC parameter in 
 The function will reject any attempt to set the parameter to true, regardless of the source of the configuration change. It provides a clear error message indicating that tables declared WITH OIDS are not supported, along with an appropriate SQL error code (ERRCODE_FEATURE_NOT_SUPPORTED).
 
 ## Parameters / Member Variables
-- : Pointer to the new boolean value being set for the default_with_oids parameter
-- : Pointer to extra data (unused in this function, can be NULL)
-- : The source of the configuration change (GucSource enum value)
-
+- `*newval`: Pointer to the new boolean value being set for the default_with_oids parameter
+- `**extra`: Pointer to extra data (unused in this function, can be NULL)
+- `source`: The source of the configuration change (GucSource enum value)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GUC_check_errcode](../G/GUC_check_errcode.md) (macro for setting GUC error codes)

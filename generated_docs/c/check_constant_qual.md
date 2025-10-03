@@ -18,9 +18,8 @@ check_constant_qual is a utility function used during merge join initialization 
 The function iterates through each element in the qualification list, verifying that each is a Const node. If any element is not a constant, it returns false immediately. If all elements are constants, it checks their boolean values - if any constant is null or evaluates to false, it sets the is_const_false flag. This information helps the merge join executor optimize execution by avoiding unnecessary tuple processing when qualifications are guaranteed to fail.
 
 ## Parameters / Member Variables
-- : List of qualification expressions to be checked for constant values
-- : Output parameter that is set to true if any constant in the list evaluates to false or null
-
+- `*qual`: List of qualification expressions to be checked for constant values
+- `*is_const_false`: Output parameter that is set to true if any constant in the list evaluates to false or null
 ## Dependencies
 - Functions called/Symbols referenced:
   - [List](../L/List.md) (PostgreSQL list data structure)

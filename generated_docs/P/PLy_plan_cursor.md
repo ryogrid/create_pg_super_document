@@ -16,9 +16,8 @@ PLy_plan_cursor(PyObject *self, PyObject *args)
 This function implements the cursor() method for PLyPlan Python objects. It serves as a wrapper that parses the optional arguments passed from Python and delegates to PLy_cursor_plan() for the actual cursor creation. The function accepts optional plan arguments that can be used to bind parameters to the prepared statement when creating the cursor. If argument parsing fails, it returns NULL to indicate an error to the Python interpreter.
 
 ## Parameters / Member Variables
-- : PyObject pointer to the PLyPlan instance calling the method
-- : PyObject pointer to the tuple of arguments passed from Python code
-
+- `*self`: PyObject pointer to the PLyPlan instance calling the method
+- `*args`: PyObject pointer to the tuple of arguments passed from Python code
 ## Dependencies
 - Functions called/Symbols referenced:
   - PyArg_ParseTuple (Python C API for argument parsing)

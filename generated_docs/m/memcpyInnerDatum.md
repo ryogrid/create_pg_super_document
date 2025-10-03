@@ -18,10 +18,9 @@ This static function performs type-aware copying of datum values into inner tupl
 For pass-by-value types, it copies the Datum value itself (which contains the actual data). For pass-by-reference types, it dereferences the pointer and copies the actual data content, determining the correct size based on whether the type has a fixed length or is variable-length.
 
 ## Parameters / Member Variables
-- : Pointer to the destination memory location where the datum should be copied
-- : Pointer to SpGistTypeDesc structure containing type information (byval flag, length, etc.)
-- : The source datum value to be copied
-
+- `*target`: Pointer to the destination memory location where the datum should be copied
+- `*att`: Pointer to SpGistTypeDesc structure containing type information (byval flag, length, etc.)
+- `datum`: The source datum value to be copied
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SpGistTypeDesc](../S/SpGistTypeDesc.md) (type descriptor structure)

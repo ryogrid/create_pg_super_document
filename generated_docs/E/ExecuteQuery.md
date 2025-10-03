@@ -19,13 +19,12 @@ ExecuteQuery(ParseState *pstate,
 ExecuteQuery retrieves and executes a prepared statement by name, handling parameter evaluation, portal creation, and query execution. It supports both regular EXECUTE statements and CREATE TABLE ... AS EXECUTE constructs. The function validates that the prepared statement exists and has a fixed result type, evaluates any parameters using the current execution context, creates a portal for query execution, and runs the query through the portal interface. For CREATE TABLE ... AS EXECUTE, it performs additional validation to ensure the statement is a SELECT query.
 
 ## Parameters / Member Variables
-- : Parse state containing parsing context information
-- : ExecuteStmt node containing the prepared statement name and parameter values
-- : IntoClause for CREATE TABLE ... AS EXECUTE (NULL for regular EXECUTE)
-- : Parameter list information from outer query contexts
-- : Destination receiver for query results
-- : Query completion information structure
-
+- `*pstate`: Parse state containing parsing context information
+- `*stmt`: ExecuteStmt node containing the prepared statement name and parameter values
+- `*intoClause`: IntoClause for CREATE TABLE ... AS EXECUTE (NULL for regular EXECUTE)
+- `params`: Parameter list information from outer query contexts
+- `*dest`: Destination receiver for query results
+- `*qc`: Query completion information structure
 ## Dependencies
 - Functions called/Symbols referenced:
   - [FetchPreparedStatement](../F/FetchPreparedStatement.md) (retrieves prepared statement)

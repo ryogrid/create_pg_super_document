@@ -26,8 +26,7 @@ This function provides lazy initialization of snapshots for logical decoding ope
 This pattern allows logical decoding to efficiently reuse snapshots across multiple operations within the same decoding session, improving performance by avoiding redundant snapshot construction.
 
 ## Parameters / Member Variables
-- : The SnapBuild structure that may contain a cached snapshot or from which to build a new snapshot
-
+- `*builder`: The SnapBuild structure that may contain a cached snapshot or from which to build a new snapshot
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SnapBuildBuildSnapshot](SnapBuildBuildSnapshot.md)

@@ -18,9 +18,8 @@ This utility function creates unique function names to avoid naming conflicts wh
 The function also increments the instrumentation counter for tracking the number of functions created during JIT compilation.
 
 ## Parameters / Member Variables
-- : LLVMJitContext pointer containing the module generation and counter state
-- : Base name for the function that will be made unique
-
+- `*context`: LLVMJitContext pointer containing the module generation and counter state
+- `*basename`: Base name for the function that will be made unique
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (PostgreSQL assertion macro)

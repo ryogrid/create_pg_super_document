@@ -16,11 +16,10 @@ overwrite(PGconn *conn, Oid lobjId, pg_int64 start, int len)
 The  function provides functionality to overwrite a specific segment of data in a PostgreSQL large object. It opens the large object in write mode, seeks to the specified starting position, creates a buffer filled with 'X' characters, and writes this pattern to the large object. The function handles partial writes by continuing to write until the entire buffer has been written or an error occurs.
 
 ## Parameters / Member Variables
-- : Database connection handle for PostgreSQL operations
-- : OID of the large object to write to
-- : Starting byte position within the large object where overwriting begins
-- : Number of bytes to overwrite with the 'X' pattern
-
+- `*conn`: Database connection handle for PostgreSQL operations
+- `lobjId`: OID of the large object to write to
+- `start`: Starting byte position within the large object where overwriting begins
+- `len`: Number of bytes to overwrite with the 'X' pattern
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lo_open](../l/lo_open.md) (PostgreSQL large object opening)

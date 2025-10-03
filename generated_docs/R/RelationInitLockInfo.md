@@ -20,8 +20,7 @@ The function determines the appropriate database ID for the lock based on whethe
 This initialization must be called during the creation of any relation descriptor to ensure that locking operations can function correctly.
 
 ## Parameters / Member Variables
-- : A relation descriptor that needs its lock information initialized. Must be a valid relation with a valid OID.
-
+- `relation`: A relation descriptor that needs its lock information initialized. Must be a valid relation with a valid OID.
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationIsValid

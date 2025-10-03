@@ -17,6 +17,7 @@ This function provides a simple interface to close the currently active streamin
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BufFileClose](../B/BufFileClose.md)

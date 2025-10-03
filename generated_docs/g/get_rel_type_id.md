@@ -18,8 +18,7 @@ This function retrieves the type OID associated with a specified relation from t
 It's crucial to note that not all pg_class entries have associated pg_type OIDs, so callers must check for InvalidOid results. This typically applies to indexes, sequences, and other relation types that don't have meaningful row types.
 
 ## Parameters / Member Variables
-- : The OID of the relation whose associated type OID is to be retrieved
-
+- `relid`: The OID of the relation whose associated type OID is to be retrieved
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup)

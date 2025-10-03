@@ -23,9 +23,8 @@ This function performs rigorous testing of PostgreSQL's  function by testing fou
 For each test scenario, the function verifies both the returned length value and the actual converted content. It uses careful memory management with malloc/free and intentionally fills destination buffers with 0x7F to detect buffer overruns or incomplete writes. The function terminates immediately with exit(1) if any test fails, providing detailed diagnostic output.
 
 ## Parameters / Member Variables
-- : The input string to be converted to lowercase
-- : The expected result string after lowercase conversion
-
+- `*test_string`: The input string to be converted to lowercase
+- `*expected`: The expected result string after lowercase conversion
 ## Dependencies
 - Functions called/Symbols referenced:
   - [unicode_strlower](../u/unicode_strlower.md)

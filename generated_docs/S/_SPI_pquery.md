@@ -18,10 +18,9 @@ This function is responsible for executing a query described by a QueryDesc stru
 The function handles different SQL operations by mapping them to specific SPI result codes, with special handling for RETURNING clauses that modify the result code. It also provides optional statistics collection and trigger firing control.
 
 ## Parameters / Member Variables
-- : Pointer to QueryDesc structure containing the prepared query and execution context
-- : Boolean flag indicating whether triggers should be fired during execution
-- : Maximum number of tuples to process (0 means no limit)
-
+- `*queryDesc`: Pointer to QueryDesc structure containing the prepared query and execution context
+- `fire_triggers`: Boolean flag indicating whether triggers should be fired during execution
+- `tcount`: Maximum number of tuples to process (0 means no limit)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecutorStart](../E/ExecutorStart.md): Initializes query execution

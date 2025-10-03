@@ -18,8 +18,7 @@ This function is compiled only when assertions are enabled (USE_ASSERT_CHECKING)
 The function performs comprehensive validation to catch bugs in HOT pruning logic where redirect items might incorrectly point to removed tuples. This type of corruption could otherwise go undetected until much later in execution, making debugging difficult. The verification is particularly important because it's not trivial to reliably check redirect validity during the actual pruning operations in heap_prune_chain() and heap_page_prune_execute().
 
 ## Parameters / Member Variables
-- : The heap page to verify redirect items on
-
+- `page`: The heap page to verify redirect items on
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)

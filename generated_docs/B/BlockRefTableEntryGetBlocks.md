@@ -29,12 +29,11 @@ The function operates by:
 The implementation includes careful overflow handling since stop_blkno could be InvalidBlockNumber (maximum value).
 
 ## Parameters / Member Variables
-- : Pointer to the BlockRefTableEntry to read from (must not be NULL)
-- : First block number to include in results (inclusive)
-- : Block number to stop at (exclusive)
-- : Output array to store found block numbers (must have space for nblocks)
-- : Maximum number of block numbers that can be stored in blocks array
-
+- `*entry`: Pointer to the BlockRefTableEntry to read from (must not be NULL)
+- `start_blkno`: First block number to include in results (inclusive)
+- `stop_blkno`: Block number to stop at (exclusive)
+- `*blocks`: Output array to store found block numbers (must have space for nblocks)
+- `nblocks`: Maximum number of block numbers that can be stored in blocks array
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Assertion macros for validation

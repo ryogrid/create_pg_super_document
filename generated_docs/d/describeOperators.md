@@ -22,12 +22,11 @@ The function builds a SQL query that joins pg_operator with pg_namespace and opt
 The query results are formatted and displayed using psql's standard table printing mechanisms with appropriate column headers and internationalization support.
 
 ## Parameters / Member Variables
-- : Pattern to match operator names (can be NULL for all operators)
-- : Array of patterns to match argument types (can contain "-" for no argument)
-- : Number of argument patterns provided (0-2, additional patterns ignored)
-- : If true, includes the underlying function name in output
-- : If true, includes system schema operators (pg_catalog, information_schema)
-
+- `*oper_pattern`: Pattern to match operator names (can be NULL for all operators)
+- `**arg_patterns`: Array of patterns to match argument types (can contain "-" for no argument)
+- `num_arg_patterns`: Number of argument patterns provided (0-2, additional patterns ignored)
+- `verbose`: If true, includes the underlying function name in output
+- `showSystem`: If true, includes system schema operators (pg_catalog, information_schema)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [initPQExpBuffer](../i/initPQExpBuffer.md) (initialize query buffer)

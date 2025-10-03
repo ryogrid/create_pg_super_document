@@ -28,8 +28,7 @@ The  function is the primary entry point for Spanish text stemming in PostgreSQL
 The function works backwards from the end of the word (right-to-left processing) and uses cursor manipulation to track processing positions.
 
 ## Parameters / Member Variables
-- : Pointer to the Snowball environment structure containing:
-
+- `*z`: Pointer to the Snowball environment structure containing:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [r_mark_regions](../r/r_mark_regions.md)

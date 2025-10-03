@@ -21,11 +21,10 @@ The  function provides a unified entry point for tree walking operations that ca
 This hybrid approach is particularly useful when the caller needs to start recursion but doesn't know in advance whether they're dealing with a complete query or just an expression tree. It eliminates the need for callers to check node types and choose the appropriate walker function.
 
 ## Parameters / Member Variables
-- : The root node to walk (can be either a Query node or any other expression node)
-- : Callback function that defines the walking behavior for each visited node
-- : Opaque context pointer passed through to the walker callback
-- : Control flags that modify walking behavior
-
+- `*node`: The root node to walk (can be either a Query node or any other expression node)
+- `walker`: Callback function that defines the walking behavior for each visited node
+- `*context`: Opaque context pointer passed through to the walker callback
+- `flags`: Control flags that modify walking behavior
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (macro for type checking)

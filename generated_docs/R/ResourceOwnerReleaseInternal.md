@@ -25,11 +25,10 @@ ResourceOwnerReleaseInternal is the workhorse function that handles the complex 
 The function recursively processes all child resource owners first, then sorts resources by phase and priority to ensure correct release order. It temporarily sets CurrentResourceOwner to provide context to callback functions during resource release.
 
 ## Parameters / Member Variables
-- : The ResourceOwner whose resources are to be released
-- : The release phase (BEFORE_LOCKS, LOCKS, or AFTER_LOCKS) determining which resources to process
-- : Boolean indicating whether this is a commit (true) or abort (false) operation
-- : Boolean indicating whether this is a top-level transaction (affects lock handling strategy)
-
+- `owner`: The ResourceOwner whose resources are to be released
+- `phase`: The release phase (BEFORE_LOCKS, LOCKS, or AFTER_LOCKS) determining which resources to process
+- `isCommit`: Boolean indicating whether this is a commit (true) or abort (false) operation
+- `isTopLevel`: Boolean indicating whether this is a top-level transaction (affects lock handling strategy)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ResourceOwnerReleaseInternal](ResourceOwnerReleaseInternal.md) (recursive call for child resource owners)

@@ -16,9 +16,8 @@ timestamp_cmp_timestamptz_internal(Timestamp timestampVal, TimestampTz dt2)
 This internal function implements the core logic for comparing timestamp (without timezone) values with timestamptz (with timezone) values. It first converts the timestamp to timestamptz using the session's timezone setting, handling potential overflow conditions. The function handles special cases for infinite timestamps (+/-infinity) and delegates to timestamptz_cmp_internal for the actual comparison once both values are in the same timezone representation. This function is crucial for PostgreSQL's cross-type comparison operations between timestamp types.
 
 ## Parameters / Member Variables
-- : The timestamp value (without timezone) to compare
-- : The timestamptz value (with timezone) to compare against
-
+- `timestampVal`: The timestamp value (without timezone) to compare
+- `dt2`: The timestamptz value (with timezone) to compare against
 ## Dependencies
 - Functions called/Symbols referenced:
   - [timestamp2timestamptz_opt_overflow](timestamp2timestamptz_opt_overflow.md) (converts timestamp to timestamptz with overflow detection)

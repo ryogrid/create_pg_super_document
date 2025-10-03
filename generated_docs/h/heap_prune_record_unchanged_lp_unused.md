@@ -18,10 +18,9 @@ This function is part of the heap page pruning mechanism in PostgreSQL. It handl
 The function is called when an unused line pointer is encountered that should remain in its current state. This is important for maintaining the integrity of the pruning process and ensuring that all line pointers on a page are accounted for.
 
 ## Parameters / Member Variables
-- : The heap page being pruned
-- : Pointer to the pruning state structure that tracks the pruning operation progress
-- : The offset number of the unused line pointer being recorded
-
+- `page`: The heap page being pruned
+- `*prstate`: Pointer to the pruning state structure that tracks the pruning operation progress
+- `offnum`: The offset number of the unused line pointer being recorded
 ## Dependencies
 - Functions called/Symbols referenced:
   - PruneState (structure used to track pruning state)

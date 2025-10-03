@@ -40,19 +40,18 @@ The function distinguishes between different base node contexts:
 - PL/pgSQL: basenode is a Param for the target variable
 
 ## Parameters / Member Variables
-- : Parse state containing context for the current query parsing
-- : Base node representing the target (Var for UPDATE, null Const for INSERT, Param for PL/pgSQL)
-- : Name of the field or subfield being assigned to (for error reporting)
-- : Boolean indicating if the operation involves subscripting (affects error messages)
-- : Data type OID of the object being assigned to
-- : Type modifier of the target object
-- : Collation of the target object
-- : List of indirection nodes (field names, subscripts)
-- : Current position in the indirection list for recursive processing
-- : Right-hand side expression to be assigned (already transformed)
-- : Coercion context level (COERCION_ASSIGNMENT for normal statements)
-- : Cursor position for error reporting
-
+- `*pstate`: Parse state containing context for the current query parsing
+- `*basenode`: Base node representing the target (Var for UPDATE, null Const for INSERT, Param for PL/pgSQL)
+- `*targetName`: Name of the field or subfield being assigned to (for error reporting)
+- `targetIsSubscripting`: Boolean indicating if the operation involves subscripting (affects error messages)
+- `targetTypeId`: Data type OID of the object being assigned to
+- `targetTypMod`: Type modifier of the target object
+- `targetCollation`: Collation of the target object
+- `*indirection`: List of indirection nodes (field names, subscripts)
+- `*indirection_cell`: Current position in the indirection list for recursive processing
+- `*rhs`: Right-hand side expression to be assigned (already transformed)
+- `ccontext`: Coercion context level (COERCION_ASSIGNMENT for normal statements)
+- `location`: Cursor position for error reporting
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (CaseTestExpr)

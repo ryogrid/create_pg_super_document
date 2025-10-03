@@ -26,12 +26,11 @@ When deduplication isn't sufficient, the function performs range compaction by:
 The entire compaction process uses a temporary memory context to prevent memory leaks during potentially expensive distance calculations.
 
 ## Parameters / Member Variables
-- : BRIN descriptor containing index metadata and operator information
-- : Collation OID for value comparisons
-- : Attribute number being indexed
-- : Form_pg_attribute structure with attribute metadata including type information
-- : Ranges structure containing the current set of ranges and individual values to be managed
-
+- `*bdesc`: BRIN descriptor containing index metadata and operator information
+- `colloid`: Collation OID for value comparisons
+- `attno`: Attribute number being indexed
+- `attr`: Form_pg_attribute structure with attribute metadata including type information
+- `*range`: Ranges structure containing the current set of ranges and individual values to be managed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [minmax_multi_get_strategy_procinfo](../m/minmax_multi_get_strategy_procinfo.md)

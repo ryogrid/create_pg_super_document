@@ -21,6 +21,7 @@ The function is conditionally compiled and only has effect on Unix-like systems.
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pqsignal](../p/pqsignal.md) (PostgreSQL's signal handling wrapper)

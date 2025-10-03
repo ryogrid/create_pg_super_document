@@ -27,10 +27,9 @@ The function performs several critical operations:
 The distinction between expressions that get converted to INDEX_VAR (targetlist, qual, recheckqual) and those that don't (indexqual, indexorderby, indextlist) is crucial for correct execution.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global planner state and context information
-- : The IndexOnlyScan node to process and adjust variable references for
-- : Integer offset to add to rangetable indices for proper variable resolution
-
+- `*root`: PlannerInfo structure containing global planner state and context information
+- `*plan`: The IndexOnlyScan node to process and adjust variable references for
+- `rtoffset`: Integer offset to add to rangetable indices for proper variable resolution
 ## Dependencies
 - Functions called/Symbols referenced:
   - [build_tlist_index](../b/build_tlist_index.md): Creates indexed lookup structure from targetlist

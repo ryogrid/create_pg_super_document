@@ -20,9 +20,8 @@ The function takes a character and adds it to the current message in the connect
 pqPutc is part of the message construction infrastructure in libpq and is used internally when building various types of protocol messages before they are sent to the backend.
 
 ## Parameters / Member Variables
-- : The character to write to the message buffer
-- : Pointer to the PGconn structure representing the database connection
-
+- `c`: The character to write to the message buffer
+- `*conn`: Pointer to the PGconn structure representing the database connection
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pqPutMsgBytes](pqPutMsgBytes.md) (adds bytes to the outgoing message buffer)

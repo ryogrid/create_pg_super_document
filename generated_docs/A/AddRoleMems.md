@@ -26,14 +26,13 @@ The function operates in several phases:
 6. Manages ACL dependencies for new memberships
 
 ## Parameters / Member Variables
-- : OID of the role performing the operation (used for authorization checks)
-- : Name of the target role to add members to (used only for error messages)
-- : OID of the target role to add members to
-- : List of RoleSpec structures for the roles to add (used for error messages)
-- : List of OIDs for the roles to add as members
-- : OID that should be recorded as having granted the membership (InvalidOid if not explicitly set)
-- : GrantRoleOptions structure containing information about grant options (admin, inherit, set)
-
+- `currentUserId`: OID of the role performing the operation (used for authorization checks)
+- `*rolename`: Name of the target role to add members to (used only for error messages)
+- `roleid`: OID of the target role to add members to
+- `*memberSpecs`: List of RoleSpec structures for the roles to add (used for error messages)
+- `*memberIds`: List of OIDs for the roles to add as members
+- `grantorId`: OID that should be recorded as having granted the membership (InvalidOid if not explicitly set)
+- `*popt`: GrantRoleOptions structure containing information about grant options (admin, inherit, set)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_role_grantor](../c/check_role_grantor.md)

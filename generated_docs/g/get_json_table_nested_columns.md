@@ -23,12 +23,11 @@ This function is part of PostgreSQL's rule deparsing system, specifically for re
 The function formats the output with proper SQL syntax, including comma separation, NESTED PATH keywords, and quoted identifiers. It calls itself recursively to handle complex nested structures and delegates column formatting to .
 
 ## Parameters / Member Variables
-- : TableFunc structure containing the JSON table function definition
-- : JsonTablePlan that specifies the execution plan for the nested columns
-- : deparse_context containing the output buffer and formatting state
-- : Boolean flag indicating whether to show implicit column specifications
-- : Boolean flag indicating whether a comma separator is needed before output
-
+- `*tf`: TableFunc structure containing the JSON table function definition
+- `*plan`: JsonTablePlan that specifies the execution plan for the nested columns
+- `*context`: deparse_context containing the output buffer and formatting state
+- `showimplicit`: Boolean flag indicating whether to show implicit column specifications
+- `needcomma`: Boolean flag indicating whether a comma separator is needed before output
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (macro for type checking)

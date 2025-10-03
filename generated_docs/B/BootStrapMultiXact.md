@@ -21,7 +21,6 @@ The function operates in two phases:
 This bootstrap process is essential for the MultiXact system to function correctly, as it establishes the foundational storage structures needed for tracking multiple transaction IDs that share locks on the same tuple.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

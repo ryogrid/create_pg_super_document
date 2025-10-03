@@ -76,10 +76,9 @@ This function calculates the execution cost for a recursive union operation, whi
 The function acknowledges that the assumptions are "mighty shaky" but represents the best approximation possible given the inherent unpredictability of recursive query behavior.
 
 ## Parameters / Member Variables
-- : The Path node for the recursive union to store calculated costs and row estimates
-- : Path for the non-recursive (anchor) term of the recursive CTE
-- : Path for the recursive term that will be executed iteratively
-
+- `*runion`: The Path node for the recursive union to store calculated costs and row estimates
+- `*nrterm`: Path for the non-recursive (anchor) term of the recursive CTE
+- `*rterm`: Path for the recursive term that will be executed iteratively
 ## Dependencies
 - Functions called/Symbols referenced:
   - cpu_tuple_cost (global cost parameter for tuple processing)

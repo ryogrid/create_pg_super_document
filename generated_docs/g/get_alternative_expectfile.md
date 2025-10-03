@@ -18,9 +18,8 @@ This function transforms a given expectfile path by inserting a numeric suffix b
 The function allocates memory for the new filename, finds the last dot in the original filename, splits the name at that point, and reconstructs it with the numeric suffix inserted before the extension.
 
 ## Parameters / Member Variables
-- : The original expected output filename (e.g., "test.out")
-- : The numeric suffix to insert (should be between 1-9 based on the comment)
-
+- `*expectfile`: The original expected output filename (e.g., "test.out")
+- `i`: The numeric suffix to insert (should be between 1-9 based on the comment)
 ## Dependencies
 - Functions called/Symbols referenced:
   - malloc (for memory allocation)

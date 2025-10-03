@@ -16,9 +16,8 @@ exec_command_gset(PsqlScanState scan_state, bool active_branch)
 This function handles the \gset backslash command which stores the results of the next query into psql variables. It accepts an optional prefix argument that will be prepended to variable names. If no prefix is provided, an empty string is used as the prefix. The function sets up the gset mechanism by storing the prefix and setting a flag. The actual variable assignment from query results is handled elsewhere in the query processing pipeline.
 
 ## Parameters / Member Variables
-- : Scanner state for reading the optional prefix argument from input stream
-- : Whether to actually set up gset mode (true) or just parse arguments (false)
-
+- `scan_state`: Scanner state for reading the optional prefix argument from input stream
+- `active_branch`: Whether to actually set up gset mode (true) or just parse arguments (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - psql_scan_slash_option

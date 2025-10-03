@@ -26,10 +26,9 @@ PrintQueryTuples handles the formatting and output of query result data, assumin
 The function serves as a standardized interface for result tuple printing throughout psql, providing consistent formatting and error handling while allowing customization of both format options and output destination.
 
 ## Parameters / Member Variables
-- : Pointer to PGresult containing the query result data to be printed
-- : Pointer to printQueryOpt structure for formatting options (NULL uses default pset.popt)
-- : FILE pointer for output destination (NULL uses default pset.queryFout)
-
+- `*result`: Pointer to PGresult containing the query result data to be printed
+- `*opt`: Pointer to printQueryOpt structure for formatting options (NULL uses default pset.popt)
+- `*printQueryFout`: FILE pointer for output destination (NULL uses default pset.queryFout)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [printQueryOpt](../p/printQueryOpt.md) (structure type for formatting configuration)

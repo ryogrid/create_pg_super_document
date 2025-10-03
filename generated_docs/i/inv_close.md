@@ -18,8 +18,7 @@ The  function provides a clean way to close a large object descriptor that was p
 The function is straightforward in its implementation, serving as the counterpart to  in the large object lifecycle. It ensures that memory allocated in the memory context specified during  is properly freed.
 
 ## Parameters / Member Variables
-- : Pointer to the LargeObjectDesc structure to be closed and freed
-
+- `*obj_desc`: Pointer to the LargeObjectDesc structure to be closed and freed
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerIsValid (for assertion checking)

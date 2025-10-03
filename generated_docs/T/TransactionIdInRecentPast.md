@@ -18,9 +18,8 @@ This function performs sanity checks on transaction ID (xid) and epoch pairs to 
 The function works by comparing the provided epoch with the next transaction's epoch. The epoch should either match the current epoch (if xid <= nextXid) or be one less than the current epoch (if xid > nextXid, indicating the counter wrapped). This validation is crucial for replication scenarios where standby servers send feedback about their transaction processing state.
 
 ## Parameters / Member Variables
-- : The transaction ID to validate
-- : The epoch associated with the transaction ID
-
+- `fxid`: The transaction ID to validate
+- `*extracted_xid`: The epoch associated with the transaction ID
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReadNextFullTransactionId](../R/ReadNextFullTransactionId.md)

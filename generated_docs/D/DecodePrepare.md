@@ -25,10 +25,9 @@ The function performs several key operations:
 6. Updates decoding statistics
 
 ## Parameters / Member Variables
-- : LogicalDecodingContext containing the decoding state and configuration
-- : XLogRecordBuffer containing the WAL record being processed
-- : xl_xact_parsed_prepare structure containing parsed prepare record data including transaction ID, subtransactions, and timing information
-
+- `*ctx`: LogicalDecodingContext containing the decoding state and configuration
+- `*buf`: XLogRecordBuffer containing the WAL record being processed
+- `*parsed`: xl_xact_parsed_prepare structure containing parsed prepare record data including transaction ID, subtransactions, and timing information
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetOrigin

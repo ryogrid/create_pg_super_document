@@ -16,8 +16,7 @@ show_context_substitute_hook(char *newval)
 This function serves as a substitute hook for the show_context parameter in psql. When the show_context parameter value is NULL (not explicitly set), this function provides the default value of "errors". The function implements a simple validation and default value assignment mechanism for the show_context configuration variable.
 
 ## Parameters / Member Variables
-- : The proposed new value for the show_context parameter. If NULL, the function will substitute it with the default value.
-
+- `*newval`: The proposed new value for the show_context parameter. If NULL, the function will substitute it with the default value.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_strdup](../p/pg_strdup.md) (for string duplication)

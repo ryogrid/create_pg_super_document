@@ -25,8 +25,7 @@ The function delegates the actual tree traversal to , following PostgreSQL's com
 The caller typically uses this function after verifying that the expression contains relevant Var or Param nodes, and wants to prove that the expression result will be NULL if any of these inputs is NULL. If the function returns false, this proof succeeds, enabling various optimizations.
 
 ## Parameters / Member Variables
-- : The expression tree node to analyze for the presence of nonstrict functions
-
+- `*clause`: The expression tree node to analyze for the presence of nonstrict functions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [contain_nonstrict_functions_walker](contain_nonstrict_functions_walker.md)

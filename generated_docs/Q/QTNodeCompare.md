@@ -23,9 +23,8 @@ The comparison algorithm follows this hierarchy:
 This deterministic ordering is essential for query normalization, optimization, and duplicate detection in the text search system.
 
 ## Parameters / Member Variables
-- : Pointer to the first QTNode to compare
-- : Pointer to the second QTNode to compare
-
+- `*an`: Pointer to the first QTNode to compare
+- `*bn`: Pointer to the second QTNode to compare
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_stack_depth](../c/check_stack_depth.md) (stack overflow protection)

@@ -16,9 +16,8 @@ anytime_typmodin(bool istz, ArrayType *ta)
 This static function serves as a common implementation for both  and  functions. It processes type modifier input for TIME data types (with or without time zone), extracting and validating the precision specification. The function parses an array of type modifiers, ensures exactly one modifier is provided (the precision), and delegates the actual validation to .
 
 ## Parameters / Member Variables
-- : Boolean flag indicating whether this is for a TIME WITH TIME ZONE type (true) or TIME WITHOUT TIME ZONE type (false)
-- : ArrayType pointer containing the type modifier array from the SQL parser
-
+- `istz`: Boolean flag indicating whether this is for a TIME WITH TIME ZONE type (true) or TIME WITHOUT TIME ZONE type (false)
+- `*ta`: ArrayType pointer containing the type modifier array from the SQL parser
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ArrayGetIntegerTypmods](../A/ArrayGetIntegerTypmods.md) (extracts integer type modifiers from array)

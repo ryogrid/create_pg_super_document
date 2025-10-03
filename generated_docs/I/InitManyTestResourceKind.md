@@ -25,11 +25,10 @@ The function performs comprehensive initialization:
 The resource descriptor is populated with callback functions that will be invoked by PostgreSQL's ResourceOwner system during resource cleanup (ReleaseManyTestResource) and leak detection (PrintManyTest). The statistical counters track various resource operations throughout the test lifecycle, providing valuable debugging and validation information.
 
 ## Parameters / Member Variables
-- : Pointer to the ManyTestResourceKind structure to be initialized
-- : Descriptive name for this resource kind (used in logging and debugging)
-- : ResourceReleasePhase indicating when this resource should be released during cleanup
-- : Priority value determining the order of resource release within the same phase
-
+- `*kind`: Pointer to the ManyTestResourceKind structure to be initialized
+- `*name`: Descriptive name for this resource kind (used in logging and debugging)
+- `phase`: ResourceReleasePhase indicating when this resource should be released during cleanup
+- `priority`: Priority value determining the order of resource release within the same phase
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReleaseManyTestResource](../R/ReleaseManyTestResource.md) (assigned as callback)

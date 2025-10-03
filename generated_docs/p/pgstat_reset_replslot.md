@@ -16,8 +16,7 @@ pgstat_reset_replslot(const char *name)
 This function resets the statistics counters for a named replication slot. It first validates that the slot exists by searching for it under a shared lock on the ReplicationSlotControlLock. If the slot is found and it's a logical slot, the function calls pgstat_reset() to clear the statistics. Physical slots are ignored since PostgreSQL only collects statistics for logical replication slots. The function includes proper error handling for non-existent slots.
 
 ## Parameters / Member Variables
-- : The name of the replication slot whose statistics should be reset
-
+- `*name`: The name of the replication slot whose statistics should be reset
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockAcquire](../L/LWLockAcquire.md) (with ReplicationSlotControlLock, LW_SHARED)

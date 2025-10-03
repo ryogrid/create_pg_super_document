@@ -16,9 +16,8 @@ pq_getmsgbytes(StringInfo msg, int datalen)
 The  function retrieves raw binary data from a PostgreSQL message buffer () by returning a pointer directly into the buffer's data area. This is an efficient zero-copy operation that allows direct access to the message data without creating a separate copy. The function advances the message cursor by the specified number of bytes and validates that sufficient data is available. The returned pointer may not have any particular memory alignment guarantees.
 
 ## Parameters / Member Variables
-- : A  structure representing the message buffer being read from
-- : The number of bytes to extract from the message buffer (must be non-negative)
-
+- `msg`: A  structure representing the message buffer being read from
+- `datalen`: The number of bytes to extract from the message buffer (must be non-negative)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (for error reporting)

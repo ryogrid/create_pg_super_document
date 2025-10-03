@@ -16,9 +16,8 @@ ResourceOwnerRememberCatCacheListRef(ResourceOwner owner, CatCList *list)
 ResourceOwnerRememberCatCacheListRef is a static inline wrapper function that registers catalog cache list references with PostgreSQL's resource management system. Unlike individual catalog cache references, this function tracks CatCList objects, which represent lists of related catalog cache entries returned by SearchCatCacheList operations. It internally calls ResourceOwnerRemember() with the catlistref_resowner_desc descriptor to ensure that catalog cache list references are properly tracked and cleaned up during transaction abort or error recovery. This is essential for preventing memory leaks of catalog cache lists, which can contain multiple tuples and have their own reference counting mechanisms.
 
 ## Parameters / Member Variables
-- : The ResourceOwner object responsible for tracking this catalog cache list reference
-- : The CatCList pointer that represents a list of catalog cache entries to be tracked
-
+- `owner`: The ResourceOwner object responsible for tracking this catalog cache list reference
+- `*list`: The CatCList pointer that represents a list of catalog cache entries to be tracked
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ResourceOwnerRemember](ResourceOwnerRemember.md)

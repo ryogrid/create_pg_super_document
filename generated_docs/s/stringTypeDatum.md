@@ -20,10 +20,9 @@ The function extracts the type's input function () from the type structure and c
 The function can handle NULL input strings, though the behavior depends on whether the specific type's input function accepts NULL values.
 
 ## Parameters / Member Variables
-- : A Type structure (HeapTuple) representing a row from the pg_type system catalog
-- : The string representation of the value to convert (can be NULL)
-- : Type modifier value that provides additional type-specific information (e.g., precision for numeric types, length limits for varchar)
-
+- `tp`: A Type structure (HeapTuple) representing a row from the pg_type system catalog
+- `*string`: The string representation of the value to convert (can be NULL)
+- `atttypmod`: Type modifier value that provides additional type-specific information (e.g., precision for numeric types, length limits for varchar)
 ## Dependencies
 - Functions called/Symbols referenced:
   - Type (typedef for HeapTuple)

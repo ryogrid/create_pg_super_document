@@ -25,8 +25,7 @@ This function provides a portable implementation for population count (popcount)
 The manual approach processes all 8 bytes of the 64-bit word sequentially, accumulating the popcount for each byte until the entire word is processed.
 
 ## Parameters / Member Variables
-- : The 64-bit unsigned integer for which to count the number of set bits
-
+- `word`: The 64-bit unsigned integer for which to count the number of set bits
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (when HAVE_LONG_INT_64 is defined)

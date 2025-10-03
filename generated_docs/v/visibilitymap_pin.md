@@ -18,10 +18,9 @@ The visibilitymap_pin function implements the first phase of a two-phase operati
 The function optimizes performance by reusing existing pinned buffers when possible. If the provided buffer already contains the correct map page, no additional I/O is performed. If a different page is needed, the old buffer is released and a new one is obtained. If the required page doesn't exist in the map file, the file is extended automatically.
 
 ## Parameters / Member Variables
-- : The relation whose visibility map page needs to be pinned
-- : Block number of the heap page for which the visibility bit will be set
-- : Pointer to buffer variable; input can be InvalidBuffer or previously pinned buffer, output is the correctly pinned buffer
-
+- `rel`: The relation whose visibility map page needs to be pinned
+- `heapBlk`: Block number of the heap page for which the visibility bit will be set
+- `*vmbuf`: Pointer to buffer variable; input can be InvalidBuffer or previously pinned buffer, output is the correctly pinned buffer
 ## Dependencies
 - Functions called/Symbols referenced:
   - HEAPBLK_TO_MAPBLOCK (macro for converting heap block to map block)

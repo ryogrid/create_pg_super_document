@@ -24,10 +24,9 @@ The process involves:
 This approach ensures that recursive CTEs have consistent column definitions across both recursive and non-recursive branches.
 
 ## Parameters / Member Variables
-- : Parse state containing context information including the parent CTE and range table
-- : Left argument node of the set operation, used to find the leftmost leaf SELECT
-- : Target list from the non-recursive term, providing the expression types
-
+- `*pstate`: Parse state containing context information including the parent CTE and range table
+- `*larg`: Left argument node of the set operation, used to find the leftmost leaf SELECT
+- `*nrtargetlist`: Target list from the non-recursive term, providing the expression types
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SetOperationStmt](../S/SetOperationStmt.md) (struct access)

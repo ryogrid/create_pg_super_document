@@ -18,8 +18,7 @@ ExecEndMaterial performs cleanup operations for a Material node when execution i
 The function is straightforward in its operation: it first checks if a tuplestore was created and releases it if present, then recursively shuts down the child plan node.
 
 ## Parameters / Member Variables
-- : The MaterialState node to be cleaned up and its resources released
-
+- `*node`: The MaterialState node to be cleaned up and its resources released
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MaterialState](../M/MaterialState.md)

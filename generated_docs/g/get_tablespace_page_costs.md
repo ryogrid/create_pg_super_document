@@ -22,10 +22,9 @@ The function is designed to be non-blocking and transaction-safe, meaning the re
 The cost parameters are essential for PostgreSQL's cost-based query optimizer to make informed decisions about access methods, join algorithms, and overall query execution plans based on the expected performance characteristics of different storage systems.
 
 ## Parameters / Member Variables
-- : The OID of the tablespace for which to retrieve page costs
-- : Output parameter for random page access cost (can be NULL if not needed)  
-- : Output parameter for sequential page access cost (can be NULL if not needed)
-
+- `spcid`: The OID of the tablespace for which to retrieve page costs
+- `*spc_random_page_cost`: Output parameter for random page access cost (can be NULL if not needed)
+- `*spc_seq_page_cost`: Output parameter for sequential page access cost (can be NULL if not needed)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_tablespace](get_tablespace.md): Retrieve cached tablespace entry for the given OID

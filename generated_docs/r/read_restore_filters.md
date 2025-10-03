@@ -24,9 +24,8 @@ The function supports:
 For include operations, the function sets appropriate selection flags in the RestoreOptions structure and appends object names to the corresponding string lists. For exclude operations, currently only schema exclusion is supported. The function validates filter types and reports errors for unsupported combinations.
 
 ## Parameters / Member Variables
-- : Path to the filter file to read, or "-" to read from STDIN
-- : Pointer to RestoreOptions structure that will be populated with filter information
-
+- `*filename`: Path to the filter file to read, or "-" to read from STDIN
+- `*opts`: Pointer to RestoreOptions structure that will be populated with filter information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [filter_init](../f/filter_init.md)

@@ -17,11 +17,10 @@ pg_log_generic_v(enum pg_log_level level, enum pg_log_part part,
 This is the fundamental logging function that implements PostgreSQL's common logging infrastructure. It performs level-based filtering, executes registered callbacks, handles internationalization, formats messages with appropriate prefixes and styling (including ANSI color codes), and outputs to stderr. The function manages memory allocation for message formatting, handles error conditions gracefully, and provides consistent formatting across all PostgreSQL components. It supports multi-part messages (primary, detail, hint), location information, and both terse and verbose output modes.
 
 ## Parameters / Member Variables
-- : An enumeration value from  specifying the severity level (error, warning, info, debug) - messages below the global  threshold are filtered out
-- : An enumeration value from  specifying the message part type (PG_LOG_PRIMARY, PG_LOG_DETAIL, PG_LOG_HINT) which affects formatting
-- : A printf-style format string for the message content (restricted pointer, should not end with newline)
-- : A va_list containing the variable arguments for the format string
-
+- `level`: An enumeration value from  specifying the severity level (error, warning, info, debug) - messages below the global  threshold are filtered out
+- `part`: An enumeration value from  specifying the message part type (PG_LOG_PRIMARY, PG_LOG_DETAIL, PG_LOG_HINT) which affects formatting
+- `fmt`: A printf-style format string for the message content (restricted pointer, should not end with newline)
+- `ap`: A va_list containing the variable arguments for the format string
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_log_level, pg_log_part (enum types)

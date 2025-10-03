@@ -18,9 +18,8 @@ This function is a single-relation variant of have_relevant_eclass_joinclause th
 The function examines equivalence classes that mention the given relation and checks if any of them also reference other relations (indicated by ec_relids not being a subset of the input relation's relids). Like its two-relation counterpart, this is designed as a lightweight heuristic that may produce false positives but avoids expensive detailed checks.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global planning state and equivalence class information
-- : RelOptInfo to check for potential join clauses with any other relations
-
+- `*root`: PlannerInfo structure containing global planning state and equivalence class information
+- `*rel1`: RelOptInfo to check for potential join clauses with any other relations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_eclass_indexes_for_relids](../g/get_eclass_indexes_for_relids.md)

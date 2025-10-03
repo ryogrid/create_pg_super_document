@@ -20,11 +20,10 @@ The function uses a standard binary search approach with loop invariant "StopLow
 The function returns a pointer to the first matching WordEntry, or NULL if no matches are found. The nitem parameter is set to indicate how many consecutive entries match the query operand.
 
 ## Parameters / Member Variables
-- : The TSVector to search within
-- : The TSQuery containing the search operand
-- : The QueryOperand to search for
-- : Output parameter that receives the count of matching items
-
+- `t`: The TSVector to search within
+- `q`: The TSQuery containing the search operand
+- `*item`: The QueryOperand to search for
+- `*nitem`: Output parameter that receives the count of matching items
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (macro to get array pointer from TSVector)

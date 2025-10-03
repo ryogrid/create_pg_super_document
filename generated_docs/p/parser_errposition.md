@@ -20,9 +20,8 @@ Raw parse trees store locations as byte offsets into the source string for effic
 The function includes safety checks to handle cases where location information is unavailable or the source text is not accessible, returning 0 (no-op) in such cases.
 
 ## Parameters / Member Variables
-- : ParseState containing the source text for position calculation. Can be NULL, in which case the function returns 0.
-- : Byte offset into the source string. If negative, the function returns 0 without processing.
-
+- `*pstate`: ParseState containing the source text for position calculation. Can be NULL, in which case the function returns 0.
+- `location`: Byte offset into the source string. If negative, the function returns 0 without processing.
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (multibyte string length calculation)

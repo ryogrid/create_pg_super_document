@@ -25,11 +25,10 @@ Key characteristics of the created path:
 - Marks parallel safety based on the relation's consider_parallel flag
 
 ## Parameters / Member Variables
-- : The PlannerInfo structure containing global planning context and information
-- : The RelOptInfo structure representing the relation to be scanned
-- : Set of outer relations whose parameters are needed by this path (for parameterized paths)
-- : Number of parallel workers to use (0 for non-parallel scan)
-
+- `*root`: The PlannerInfo structure containing global planning context and information
+- `*rel`: The RelOptInfo structure representing the relation to be scanned
+- `required_outer`: Set of outer relations whose parameters are needed by this path (for parameterized paths)
+- `parallel_workers`: Number of parallel workers to use (0 for non-parallel scan)
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (creates new Path node)

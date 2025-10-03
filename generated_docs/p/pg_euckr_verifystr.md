@@ -18,9 +18,8 @@ This function verifies the validity of an EUC-KR encoded string by processing ea
 The function employs a fast-path optimization for ASCII characters and delegates multi-byte character validation to . It stops processing upon encountering the first invalid character or null terminator and returns the number of bytes successfully validated.
 
 ## Parameters / Member Variables
-- : Pointer to the unsigned char array containing the EUC-KR encoded string to validate
-- : Maximum number of bytes to process from the input string
-
+- `*s`: Pointer to the unsigned char array containing the EUC-KR encoded string to validate
+- `len`: Maximum number of bytes to process from the input string
 ## Dependencies
 - Functions called/Symbols referenced:
   - IS_HIGHBIT_SET (macro to check if the high bit is set)

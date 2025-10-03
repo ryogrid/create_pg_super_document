@@ -25,13 +25,12 @@ This function creates and caches prepared SQL execution plans for referential in
 The function ensures that RI checks are performed with appropriate privileges while maintaining security boundaries.
 
 ## Parameters / Member Variables
-- : SQL query string to prepare
-- : Number of arguments the query expects
-- : Array of argument type OIDs
-- : Query key for caching and identification
-- : Foreign key table relation
-- : Primary key table relation
-
+- `*querystr`: SQL query string to prepare
+- `nargs`: Number of arguments the query expects
+- `*argtypes`: Array of argument type OIDs
+- `*qkey`: Query key for caching and identification
+- `fk_rel`: Foreign key table relation
+- `pk_rel`: Primary key table relation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetUserIdAndSecContext](../G/GetUserIdAndSecContext.md)

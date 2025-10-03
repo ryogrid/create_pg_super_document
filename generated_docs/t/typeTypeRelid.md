@@ -18,8 +18,7 @@ The  function extracts the  attribute from a PostgreSQL type structure. The  fie
 For most built-in scalar types (like int4, text, etc.), this value is typically InvalidOid (0) since they don't correspond to any relation. However, for composite types created with CREATE TYPE or for row types that correspond to tables, this field contains the OID of the associated relation in the pg_class catalog.
 
 ## Parameters / Member Variables
-- : A Type structure (HeapTuple) representing a row from the pg_type system catalog
-
+- `typ`: A Type structure (HeapTuple) representing a row from the pg_type system catalog
 ## Dependencies
 - Functions called/Symbols referenced:
   - Type (typedef for HeapTuple)

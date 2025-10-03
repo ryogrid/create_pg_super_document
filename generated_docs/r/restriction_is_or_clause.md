@@ -16,8 +16,7 @@ restriction_is_or_clause(RestrictInfo *restrictinfo)
 This function provides a simple boolean test to determine if a RestrictInfo contains an OR clause. It works by examining the orclause field of the RestrictInfo structure - if this field is non-NULL, it indicates that the RestrictInfo was created to represent an OR clause with RestrictInfo nodes inserted above each OR constituent. This is a lightweight utility function used throughout the PostgreSQL optimizer to identify OR clauses for special processing such as bitmap index scans, OR clause extraction, and optimization path generation.
 
 ## Parameters / Member Variables
-- : The RestrictInfo node to examine for OR clause content
-
+- `*restrictinfo`: The RestrictInfo node to examine for OR clause content
 ## Dependencies
 - Functions called/Symbols referenced: (none - direct field access only)
 - Called from (representative examples):

@@ -34,7 +34,6 @@ The function reads a token to determine the expression kind and then sets the ap
 For most expression types, the function reads a predefined name field, but for generic operators (AEXPR_OP), it uses nodeRead to deserialize the actual operator name.
 
 ## Parameters / Member Variables
-This function takes no parameters and returns a pointer to a newly allocated A_Expr node.
 
 ## Dependencies
 - Functions called/Symbols referenced:

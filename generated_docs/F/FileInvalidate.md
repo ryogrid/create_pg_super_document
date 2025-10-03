@@ -24,8 +24,7 @@ This function is typically used when a file needs to be removed from the active 
 The invalidation removes the file from the LRU ring, which means it won't be considered for automatic closure when new files need to be opened and file descriptor limits are reached.
 
 ## Parameters / Member Variables
-- : The File (virtual file descriptor) to invalidate
-
+- `file`: The File (virtual file descriptor) to invalidate
 ## Dependencies
 - Functions called/Symbols referenced:
   - File (type definition for virtual file descriptor)

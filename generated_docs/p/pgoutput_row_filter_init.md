@@ -17,10 +17,9 @@ pgoutput_row_filter_init(PGOutputData *data, List *publications,
 This function is responsible for initializing row filters for a synchronized relation in logical replication. It examines all relevant publications to determine which row filters apply to the relation and builds the necessary expression states for filtering INSERT, UPDATE, and DELETE operations. The function handles complex logic including "FOR ALL TABLES" and "FOR TABLES IN SCHEMA" publications that take precedence over specific row filters. For each DML operation type, it combines multiple row filter expressions using OR logic and caches the prepared expression states in the RelationSyncEntry for efficient evaluation during replication.
 
 ## Parameters / Member Variables
-- : Pointer to PGOutputData structure containing plugin global state including memory contexts
-- : List of Publication structures that may contain row filter definitions for this relation
-- : Pointer to RelationSyncEntry where the compiled expression states will be stored
-
+- `*data`: Pointer to PGOutputData structure containing plugin global state including memory contexts
+- `*publications`: List of Publication structures that may contain row filter definitions for this relation
+- `*entry`: Pointer to RelationSyncEntry where the compiled expression states will be stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_rel_namespace](../g/get_rel_namespace.md)

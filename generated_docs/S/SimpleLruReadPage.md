@@ -27,11 +27,10 @@ Key operations performed:
 6. Update LRU information and statistics
 
 ## Parameters / Member Variables
-- : SlruCtl structure containing the SLRU control information and shared state
-- : The 64-bit page number to read
-- : Boolean indicating whether it's acceptable to return a page that's being written
-- : Transaction ID used for error reporting (may be InvalidTransactionId)
-
+- `ctl`: SlruCtl structure containing the SLRU control information and shared state
+- `pageno`: The 64-bit page number to read
+- `write_ok`: Boolean indicating whether it's acceptable to return a page that's being written
+- `xid`: Transaction ID used for error reporting (may be InvalidTransactionId)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SimpleLruGetBankLock](SimpleLruGetBankLock.md) (get bank lock for page)

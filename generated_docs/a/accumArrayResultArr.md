@@ -23,12 +23,11 @@ On the first call (when astate is NULL), it initializes the working state and es
 The function manages both the actual array data and null bitmaps, handling cases where some sub-arrays have nulls and others don't. It automatically expands storage as needed using power-of-2 growth for efficiency.
 
 ## Parameters / Member Variables
-- : Working ArrayBuildStateArr state (can be NULL on first call, will be created)
-- : Datum containing the new sub-array to append
-- : Boolean indicating if the sub-array value is null (causes error if true)
-- : OID of the array type (must be valid varlena array type)
-- : Memory context for keeping working state
-
+- `*astate`: Working ArrayBuildStateArr state (can be NULL on first call, will be created)
+- `dvalue`: Datum containing the new sub-array to append
+- `disnull`: Boolean indicating if the sub-array value is null (causes error if true)
+- `array_type`: OID of the array type (must be valid varlena array type)
+- `rcontext`: Memory context for keeping working state
 ## Dependencies
 - Functions called/Symbols referenced:
   - [initArrayResultArr](../i/initArrayResultArr.md)

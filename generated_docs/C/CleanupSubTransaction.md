@@ -28,7 +28,6 @@ CleanupSubTransaction is a static function that performs the final cleanup phase
 This function completes the three-phase subtransaction abort process (abort → cleanup → removal) and ensures that all subtransaction-specific resources are properly cleaned up before returning control to the parent transaction.
 
 ## Parameters / Member Variables
-This function takes no parameters and operates on the global CurrentTransactionState.
 
 ## Dependencies
 - Functions called/Symbols referenced:

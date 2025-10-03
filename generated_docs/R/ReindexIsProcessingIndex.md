@@ -18,8 +18,7 @@ This function provides a comprehensive check to determine if an index should be 
 The function is crucial for maintaining database consistency during reindex operations, particularly in scenarios where multiple indexes need to be rebuilt sequentially or when system catalog operations need to avoid using inconsistent indexes.
 
 ## Parameters / Member Variables
-- : Object identifier of the index to check for reindexing status
-
+- `indexOid`: Object identifier of the index to check for reindexing status
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_member_oid](../l/list_member_oid.md): Checks if the index OID exists in the pending reindex list

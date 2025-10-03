@@ -24,14 +24,13 @@ This function configures the tuple routing infrastructure for a specific partiti
 The function manages dynamic arrays that track all initialized partitions, growing them as needed using a doubling strategy. It maintains parallel arrays for partition ResultRelInfo structures and flags indicating whether each partition's ResultRelInfo was borrowed from the ModifyTableState or newly created.
 
 ## Parameters / Member Variables
-- : ModifyTableState containing the execution context for the modify operation
-- : Executor state providing tuple table management and other execution resources
-- : PartitionTupleRouting structure that tracks all partition routing information
-- : PartitionDispatch for the current partitioning level being processed
-- : ResultRelInfo for the partition being initialized
-- : Index of the partition within the current dispatch level
-- : Flag indicating whether the ResultRelInfo was reused from ModifyTableState or newly created
-
+- `*mtstate`: ModifyTableState containing the execution context for the modify operation
+- `*estate`: Executor state providing tuple table management and other execution resources
+- `*proute`: PartitionTupleRouting structure that tracks all partition routing information
+- `dispatch`: PartitionDispatch for the current partitioning level being processed
+- `*partRelInfo`: ResultRelInfo for the partition being initialized
+- `partidx`: Index of the partition within the current dispatch level
+- `is_borrowed_rel`: Flag indicating whether the ResultRelInfo was reused from ModifyTableState or newly created
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecGetRootToChildMap](ExecGetRootToChildMap.md)

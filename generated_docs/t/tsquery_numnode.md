@@ -16,8 +16,7 @@ tsquery_numnode(PG_FUNCTION_ARGS)
 The  function is a PostgreSQL built-in function that calculates and returns the total number of nodes in a TSQuery object. It accesses the  field of the TSQuery structure, which contains the count of all lexemes (search terms) and operators (AND, OR, NOT, phrase operators) that make up the query tree. This function provides insight into the complexity of a text search query.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function argument macro that contains the TSQuery input
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument macro that contains the TSQuery input
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Extracts TSQuery from function arguments

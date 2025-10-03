@@ -19,9 +19,8 @@ This function provides a thread-safe mechanism to update the transaction state o
 The function operates by acquiring a spinlock on the shared worker structure, updating the transaction state field, and then releasing the lock. This ensures that concurrent access to the worker's state is properly synchronized across multiple processes or threads.
 
 ## Parameters / Member Variables
-- : Pointer to the ParallelApplyWorkerShared structure containing shared state information for the parallel apply worker
-- : The new ParallelTransState value to set, representing the current transaction state of the worker
-
+- `*wshared`: Pointer to the ParallelApplyWorkerShared structure containing shared state information for the parallel apply worker
+- `xact_state`: The new ParallelTransState value to set, representing the current transaction state of the worker
 ## Dependencies
 - Functions called/Symbols referenced:
   - SpinLockAcquire (spinlock acquisition)

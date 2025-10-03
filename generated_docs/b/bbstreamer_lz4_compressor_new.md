@@ -18,9 +18,8 @@ This function initializes a new LZ4 compression streamer as part of PostgreSQL's
 The streamer uses LZ4 frame format with a maximum 256KB block size and honors the compression level specified in the compress parameter. It initializes internal buffers and sets up the compression context using LZ4F_createCompressionContext.
 
 ## Parameters / Member Variables
-- : Pointer to the next streamer in the processing chain
-- : Compression specification containing level and other compression parameters
-
+- `*next`: Pointer to the next streamer in the processing chain
+- `*compress`: Compression specification containing level and other compression parameters
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bbstreamer_lz4_frame](bbstreamer_lz4_frame.md) (struct type)

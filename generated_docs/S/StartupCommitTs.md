@@ -17,7 +17,6 @@ This function serves as a simple wrapper around ActivateCommitTs() and is specif
 The function is part of the startup sequence that prepares various PostgreSQL subsystems for normal operation.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

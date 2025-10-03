@@ -19,6 +19,7 @@ The slot reservation process is protected by spinlocks to prevent race condition
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [WalSnd](../W/WalSnd.md) (structure type)

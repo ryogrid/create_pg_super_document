@@ -18,9 +18,8 @@ The  function retrieves the qualified name (schema and name) of an index operato
 The function uses the system catalog cache to look up the operator class information and compares it against the default operator class for the data type. When the operator class is not the default, it constructs a qualified name list containing both the schema name and operator class name.
 
 ## Parameters / Member Variables
-- : The OID of the operator class to look up
-- : The OID of the data type for which to check if this is the default operator class
-
+- `opclass`: The OID of the operator class to look up
+- `actual_datatype`: The OID of the data type for which to check if this is the default operator class
 ## Dependencies
 - Functions called/Symbols referenced:
   - Form_pg_opclass (system catalog structure)

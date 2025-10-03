@@ -23,11 +23,10 @@ The function first validates that the pattern is left-anchored by checking that 
 The algorithm handles various edge cases including patterns with multiple parallel paths that converge on the same character, EOS/EOL terminations, and color-based character groupings in the NFA representation.
 
 ## Parameters / Member Variables
-- : Pointer to the compiled NFA structure representing the regular expression
-- : Pointer to the colormap structure that groups characters into equivalence classes
-- : Pre-allocated character array where the prefix will be stored
-- : Pointer to size_t that tracks the current length of the prefix (must be preset to zero)
-
+- `*cnfa`: Pointer to the compiled NFA structure representing the regular expression
+- `*cm`: Pointer to the colormap structure that groups characters into equivalence classes
+- `*string`: Pre-allocated character array where the prefix will be stored
+- `*slength`: Pointer to size_t that tracks the current length of the prefix (must be preset to zero)
 ## Dependencies
 - Functions called/Symbols referenced:
   - GETCOLOR (macro for character color lookup)

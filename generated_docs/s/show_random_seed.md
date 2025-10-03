@@ -17,7 +17,6 @@ The `show_random_seed` function is part of PostgreSQL's Grand Unified Configurat
 The function is called whenever a user executes `SHOW random_seed` or queries the `pg_settings` system view for the random_seed parameter. By returning "unavailable", PostgreSQL ensures that sensitive randomness information is not leaked to users who might exploit it.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

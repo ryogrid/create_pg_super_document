@@ -17,10 +17,9 @@ This function serves as a safer alternative to directly using  when an  result i
 The function preserves all the behavioral characteristics of , including base conversion (binary, octal, decimal, hexadecimal) and pointer advancement for parsing multiple values from a string.
 
 ## Parameters / Member Variables
-- : The input string to convert to an integer, marked with  for optimization
-- : A pointer to a char pointer that will be set to point to the first character after the number in the string, marked with 
-- : The number base for conversion (2-36, or 0 for automatic detection)
-
+- `str`: The input string to convert to an integer, marked with  for optimization
+- `endptr`: A pointer to a char pointer that will be set to point to the first character after the number in the string, marked with
+- `base`: The number base for conversion (2-36, or 0 for automatic detection)
 ## Dependencies
 - Functions called/Symbols referenced:
   - strtol (standard C library function)

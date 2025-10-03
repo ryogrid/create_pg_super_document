@@ -24,8 +24,7 @@ When called, the function:
 This follows a standard reader-writer synchronization pattern where odd counter values indicate write operations are active.
 
 ## Parameters / Member Variables
-- : Pointer to a 32-bit change counter that tracks the state of write operations (even = no write, odd = write in progress)
-
+- `*cc`: Pointer to a 32-bit change counter that tracks the state of write operations (even = no write, odd = write in progress)
 ## Dependencies
 - Functions called/Symbols referenced:
   - START_CRIT_SECTION (macro to begin critical section)

@@ -18,10 +18,9 @@ CreateSharedComments manages comments for cluster-wide shared objects (databases
 Like CreateComments, it treats empty strings as NULL comments for deletion, and uses the standard catalog interface functions to maintain MVCC consistency.
 
 ## Parameters / Member Variables
-- : Object identifier of the target shared object (database, tablespace, or role OID)
-- : OID of the system catalog containing the shared object (e.g., DatabaseRelationId, TableSpaceRelationId, AuthIdRelationId)
-- : Comment text to store, or NULL to delete existing comment
-
+- `oid`: Object identifier of the target shared object (database, tablespace, or role OID)
+- `classoid`: OID of the system catalog containing the shared object (e.g., DatabaseRelationId, TableSpaceRelationId, AuthIdRelationId)
+- `*comment`: Comment text to store, or NULL to delete existing comment
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md): Opens the pg_shdescription relation for modification

@@ -22,10 +22,9 @@ The function calls BufFileReadCommon with the 'exact' parameter set to true and 
 This function is typically used when the caller expects a specific amount of data and partial reads would indicate a corrupted file or unexpected end-of-file condition.
 
 ## Parameters / Member Variables
-- : Pointer to the BufFile structure representing the buffered file to read from
-- : Pointer to the buffer where the read data will be stored
-- : Number of bytes that must be read exactly
-
+- `*file`: Pointer to the BufFile structure representing the buffered file to read from
+- `*ptr`: Pointer to the buffer where the read data will be stored
+- `size`: Number of bytes that must be read exactly
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BufFileReadCommon](BufFileReadCommon.md) (internal function that performs the actual reading)

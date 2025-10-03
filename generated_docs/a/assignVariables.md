@@ -16,9 +16,8 @@ assignVariables(Variables *variables, char *sql)
 The  function is responsible for variable substitution in pgbench SQL commands. It scans through a SQL string looking for variable placeholders that start with ':' and replaces them with their corresponding values from the Variables store. The function handles parsing of variable names, retrieval of variable values, and text replacement in the original SQL string. If a variable is not found in the store, the placeholder is left unchanged and processing continues.
 
 ## Parameters / Member Variables
-- : Pointer to the Variables structure containing the variable store with name-value pairs
-- : The input SQL string that may contain variable placeholders (e.g., ":my_var")
-
+- `*variables`: Pointer to the Variables structure containing the variable store with name-value pairs
+- `*sql`: The input SQL string that may contain variable placeholders (e.g., ":my_var")
 ## Dependencies
 - Functions called/Symbols referenced:
   - [parseVariable](../p/parseVariable.md) - Parses variable name from placeholder and returns bytes consumed

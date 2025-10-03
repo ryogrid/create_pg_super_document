@@ -20,12 +20,11 @@ This function provides a comparison interface specifically designed for abbrevia
 The function is typically used in tiebreaker scenarios during abbreviated sorting, where an abbreviated comparison was inconclusive and a full authoritative comparison is required to determine the final ordering. It implements the same NULL handling and sort direction logic as other comparator functions.
 
 ## Parameters / Member Variables
-- : The first Datum value to compare
-- : Boolean flag indicating whether datum1 is NULL
-- : The second Datum value to compare
-- : Boolean flag indicating whether datum2 is NULL
-- : SortSupport structure containing the abbrev_full_comparator function and sort configuration
-
+- `datum1`: The first Datum value to compare
+- `isNull1`: Boolean flag indicating whether datum1 is NULL
+- `datum2`: The second Datum value to compare
+- `isNull2`: Boolean flag indicating whether datum2 is NULL
+- `ssup`: SortSupport structure containing the abbrev_full_comparator function and sort configuration
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SortSupport](../S/SortSupport.md) (struct type)

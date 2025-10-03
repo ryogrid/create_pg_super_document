@@ -22,8 +22,7 @@ BlockRefTableFileTerminate performs the essential finalization steps for a block
 The function carefully handles the CRC calculation by creating a copy of the current CRC state before finalization, since writing the checksum itself would perturb the ongoing calculation. This ensures the checksum accurately reflects all the actual data content excluding the checksum itself.
 
 ## Parameters / Member Variables
-- : Pointer to BlockRefTableBuffer structure containing the I/O state, buffer data, and CRC calculation state
-
+- `*buffer`: Pointer to BlockRefTableBuffer structure containing the I/O state, buffer data, and CRC calculation state
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BlockRefTableSerializedEntry](BlockRefTableSerializedEntry.md) (structure type for sentinel entry)

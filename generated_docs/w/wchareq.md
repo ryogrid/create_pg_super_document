@@ -22,9 +22,8 @@ The wchareq function performs byte-by-byte comparison of multibyte character seq
 This function is essential for accurate pattern matching in databases that store text in multibyte encodings, ensuring that character boundaries are respected during comparison operations.
 
 ## Parameters / Member Variables
-- : Pointer to the first multibyte character sequence to compare
-- : Pointer to the second multibyte character sequence to compare
-
+- `*p1`: Pointer to the first multibyte character sequence to compare
+- `*p2`: Pointer to the second multibyte character sequence to compare
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_mblen](../p/pg_mblen.md) (used to determine multibyte character length)

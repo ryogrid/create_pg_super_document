@@ -20,10 +20,9 @@ The function intelligently determines whether the subplan can handle the new tar
 This optimization is crucial for query performance as it avoids unnecessary Result nodes when the underlying plan can handle the projection natively.
 
 ## Parameters / Member Variables
-- : The input Plan node whose target list needs to be modified
-- : The new target list (List of TargetEntry nodes) to be applied to the plan
-- : Boolean flag indicating whether the new target list is safe for parallel execution
-
+- `*subplan`: The input Plan node whose target list needs to be modified
+- `*tlist`: The new target list (List of TargetEntry nodes) to be applied to the plan
+- `tlist_parallel_safe`: Boolean flag indicating whether the new target list is safe for parallel execution
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Checks if a plan node can perform projections

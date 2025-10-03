@@ -18,8 +18,7 @@ The  function is a static inline wrapper that initializes a PostgreSQL atomic fl
 The function explicitly provides no memory barrier semantics, meaning it does not guarantee ordering of memory operations across threads. This makes it suitable for basic initialization where strict memory ordering is not required.
 
 ## Parameters / Member Variables
-- : Pointer to the volatile  structure to be initialized. The volatile qualifier ensures that the compiler will not optimize away accesses to this memory location.
-
+- `*ptr`: Pointer to the volatile  structure to be initialized. The volatile qualifier ensures that the compiler will not optimize away accesses to this memory location.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_atomic_init_flag_impl](pg_atomic_init_flag_impl.md)

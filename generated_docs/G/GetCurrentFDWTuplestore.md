@@ -21,6 +21,7 @@ The tuplestore is stored in the global afterTriggers structure, indexed by the c
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [tuplestore_begin_heap](../t/tuplestore_begin_heap.md)

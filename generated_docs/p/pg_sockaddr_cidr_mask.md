@@ -16,10 +16,9 @@ pg_sockaddr_cidr_mask(struct sockaddr_storage *mask, char *numbits, int family)
 This function generates network masks for IPv4 and IPv6 addresses based on CIDR notation. It takes a string representation of the number of network bits and converts it into a properly formatted network mask for the specified address family. For IPv4, it creates a 32-bit mask, and for IPv6, it creates a 128-bit mask by setting the appropriate number of leading bits. If numbits is NULL, it creates a full mask (32 bits for IPv4, 128 bits for IPv6). The function handles bit manipulation carefully to avoid non-portable operations like shifting by 32 bits.
 
 ## Parameters / Member Variables
-- : Output parameter where the generated network mask will be stored
-- : String representation of the number of network bits (can be NULL for full mask)
-- : Address family (AF_INET for IPv4, AF_INET6 for IPv6)
-
+- `*mask`: Output parameter where the generated network mask will be stored
+- `*numbits`: String representation of the number of network bits (can be NULL for full mask)
+- `family`: Address family (AF_INET for IPv4, AF_INET6 for IPv6)
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_hton32

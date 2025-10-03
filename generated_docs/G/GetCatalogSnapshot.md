@@ -18,8 +18,7 @@ GetCatalogSnapshot is a core function in PostgreSQL's snapshot management system
 This dual behavior is essential for logical decoding functionality, as it allows the decoder to see the catalog state as it existed at the time of the changes being replayed, rather than the current state.
 
 ## Parameters / Member Variables
-- : OID of the system catalog relation being scanned
-
+- `relid`: OID of the system catalog relation being scanned
 ## Dependencies
 - Functions called/Symbols referenced:
   - [HistoricSnapshotActive](../H/HistoricSnapshotActive.md)

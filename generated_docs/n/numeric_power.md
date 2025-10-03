@@ -18,8 +18,7 @@ The  function implements exponentiation for PostgreSQL numeric types with compre
 Mathematical constraints are enforced by raising appropriate errors for undefined operations like 0^(negative) and negative^(non-integer). The function validates that negative bases are only raised to integral powers to avoid complex results. For finite inputs, computation is delegated to  which handles scale selection internally.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function argument structure containing two numeric values (base and exponent)
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument structure containing two numeric values (base and exponent)
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_NUMERIC: Extract base and exponent numeric arguments

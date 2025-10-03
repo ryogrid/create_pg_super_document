@@ -29,10 +29,9 @@ The function handles both quoted and unquoted paths:
 - Empty strings are allowed, but empty unquoted path components are not
 
 ## Parameters / Member Variables
-- : Input string to be parsed (must be modifiable; will be overwritten during parsing)
-- : Character used to separate paths (typically ',' or ';' depending on platform conventions)
-- : Output parameter filled with a list of separately allocated, canonicalized path strings
-
+- `*rawstring`: Input string to be parsed (must be modifiable; will be overwritten during parsing)
+- `separator`: Character used to separate paths (typically ',' or ';' depending on platform conventions)
+- `**namelist`: Output parameter filled with a list of separately allocated, canonicalized path strings
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Checks for whitespace characters using PostgreSQL's scanner rules

@@ -20,9 +20,8 @@ This function is commonly used throughout libpq's protocol parsing code to extra
 The function operates on buffered data that has already been received from the network, making it efficient for parsing multiple string values from a single received message.
 
 ## Parameters / Member Variables
-- : PQExpBuffer where the extracted string will be stored (content will be reset)
-- : Pointer to the PGconn structure representing the database connection
-
+- `buf`: PQExpBuffer where the extracted string will be stored (content will be reset)
+- `*conn`: Pointer to the PGconn structure representing the database connection
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pqGets_internal](pqGets_internal.md) (with resetbuffer=true to clear the buffer first)

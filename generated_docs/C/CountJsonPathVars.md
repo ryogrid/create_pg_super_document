@@ -16,8 +16,7 @@ CountJsonPathVars(void *cxt)
 This is a simple utility function that counts the number of variables available for jsonpath execution. It takes a void pointer that represents the variable context (which is actually a List of JsonPathVariable structures) and returns the length of that list using PostgreSQL's list_length function. This count is typically used by the jsonpath execution engine to determine how many variables are available for variable resolution operations.
 
 ## Parameters / Member Variables
-- : void pointer that is cast to a List containing JsonPathVariable structures
-
+- `*cxt`: void pointer that is cast to a List containing JsonPathVariable structures
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_length](../l/list_length.md) (PostgreSQL list utility function to get list length)

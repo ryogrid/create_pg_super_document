@@ -18,11 +18,10 @@ This internal utility function is part of ECPG's dynamic descriptor implementati
 The function supports a comprehensive range of integer, floating-point, and unsigned numeric types commonly used in C programming. It ensures type safety by performing explicit casts and validates that the target variable type is numeric, raising an appropriate error for non-numeric types.
 
 ## Parameters / Member Variables
-- : Source code line number for error reporting and debugging
-- : Generic pointer to the target variable where the value will be stored
-- : ECPG type enumeration specifying the target variable's data type
-- : Integer value to be converted and assigned to the target variable
-
+- `lineno`: Source code line number for error reporting and debugging
+- `*var`: Generic pointer to the target variable where the value will be stored
+- `vartype`: ECPG type enumeration specifying the target variable's data type
+- `value`: Integer value to be converted and assigned to the target variable
 ## Dependencies
 - Functions called/Symbols referenced:
   - ECPGttype

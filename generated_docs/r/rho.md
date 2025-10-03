@@ -20,9 +20,8 @@ The function uses PostgreSQL's  utility to efficiently find the position of the 
 If no bits are set in the considered range, or if the first set bit is beyond the -bit boundary, the function returns  as a sentinel value.
 
 ## Parameters / Member Variables
-- : A 32-bit unsigned integer value to analyze for bit patterns
-- : The number of most significant bits to consider (typically related to the precision parameter in HyperLogLog)
-
+- `x`: A 32-bit unsigned integer value to analyze for bit patterns
+- `b`: The number of most significant bits to consider (typically related to the precision parameter in HyperLogLog)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_leftmost_one_pos32](../p/pg_leftmost_one_pos32.md)

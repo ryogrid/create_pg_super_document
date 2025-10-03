@@ -16,9 +16,8 @@ PageGetItemId(Page page, OffsetNumber offsetNumber)
 This function accesses the line pointer array (pd_linp) in a page header to return a pointer to a specific ItemId. Line pointers are 1-based indexed structures that contain metadata about tuples stored on the page, including their offset, length, and flags. The function performs array indexing by subtracting 1 from the offsetNumber to convert from 1-based to 0-based indexing. This is a fundamental function in PostgreSQL's page management system, used extensively across all access methods to locate and manipulate tuples on pages.
 
 ## Parameters / Member Variables
-- : A pointer to a page (Page type) containing the line pointer array
-- : A 1-based index (OffsetNumber type, uint16) specifying which line pointer to retrieve
-
+- `page`: A pointer to a page (Page type) containing the line pointer array
+- `offsetNumber`: A 1-based index (OffsetNumber type, uint16) specifying which line pointer to retrieve
 ## Dependencies
 - Functions called/Symbols referenced:
   - PageHeader (casting page to PageHeaderData pointer)

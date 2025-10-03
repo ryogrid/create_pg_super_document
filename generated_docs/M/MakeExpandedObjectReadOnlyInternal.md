@@ -20,8 +20,7 @@ The function first checks if the input Datum represents a read-write expanded ob
 This function is typically called indirectly through the MakeExpandedObjectReadOnly macro, which includes additional null checks and type validation.
 
 ## Parameters / Member Variables
-- : The Datum that may contain a read-write expanded object reference to be converted
-
+- `d`: The Datum that may contain a read-write expanded object reference to be converted
 ## Dependencies
 - Functions called/Symbols referenced:
   - VARATT_IS_EXTERNAL_EXPANDED_RW (macro)

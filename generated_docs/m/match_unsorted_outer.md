@@ -34,13 +34,12 @@ The function also handles special cases:
 - Parallel execution paths are considered when conditions allow
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planner state and configuration
-- : RelOptInfo for the join relation being planned  
-- : RelOptInfo for the outer join relation
-- : RelOptInfo for the inner join relation
-- : Type of join operation to perform
-- : JoinPathExtraData containing additional input values
-
+- `*root`: PlannerInfo structure containing planner state and configuration
+- `*joinrel`: RelOptInfo for the join relation being planned
+- `*outerrel`: RelOptInfo for the outer join relation
+- `*innerrel`: RelOptInfo for the inner join relation
+- `jointype`: Type of join operation to perform
+- `*extra`: JoinPathExtraData containing additional input values
 ## Dependencies
 - Functions called/Symbols referenced:
   - PATH_PARAM_BY_REL

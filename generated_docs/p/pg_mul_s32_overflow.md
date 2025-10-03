@@ -20,10 +20,9 @@ The function has two implementation paths:
 2. **Manual overflow detection**: Performs multiplication in 64-bit space and range-checks the result
 
 ## Parameters / Member Variables
-- : First 32-bit signed integer operand
-- : Second 32-bit signed integer operand  
-- : Pointer to store the multiplication result (set to 0x5EED on overflow in fallback implementation)
-
+- `a`: First 32-bit signed integer operand
+- `b`: Second 32-bit signed integer operand
+- `*result`: Pointer to store the multiplication result (set to 0x5EED on overflow in fallback implementation)
 ## Dependencies
 - Constants referenced:
   - PG_INT32_MAX

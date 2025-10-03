@@ -20,12 +20,11 @@ The  function determines the total cost of executing a gather operation in Postg
 The function sets the row estimate for the path based on the provided parameters, with precedence given to explicit row estimates, then parameterized path info, and finally the relation's row estimate. The cost calculation includes the subpath's startup and total costs, plus additional parallel setup costs and per-tuple communication overhead.
 
 ## Parameters / Member Variables
-- : The GatherPath structure to populate with cost estimates
-- : PlannerInfo containing global planning context and configuration
-- : The RelOptInfo for the relation being operated upon  
-- : ParamPathInfo for parameterized paths, or NULL for non-parameterized paths
-- : Optional pointer to explicit row count estimate that overrides rel and param_info estimates
-
+- `*path`: The GatherPath structure to populate with cost estimates
+- `*root`: PlannerInfo containing global planning context and configuration
+- `*rel`: The RelOptInfo for the relation being operated upon
+- `*param_info`: ParamPathInfo for parameterized paths, or NULL for non-parameterized paths
+- `*rows`: Optional pointer to explicit row count estimate that overrides rel and param_info estimates
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GatherPath](../G/GatherPath.md) (structure)

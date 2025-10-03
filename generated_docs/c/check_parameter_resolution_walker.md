@@ -22,9 +22,8 @@ For each Param node of PARAM_EXTERN kind, the function validates that:
 If inconsistencies are found, appropriate errors are reported with precise location information. The function recursively processes Query nodes and expression trees to ensure complete validation.
 
 ## Parameters / Member Variables
-- : Current node being examined in the tree traversal
-- : ParseState containing parser state and VarParamState information
-
+- `*node`: Current node being examined in the tree traversal
+- `*pstate`: ParseState containing parser state and VarParamState information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Param](../P/Param.md)

@@ -18,10 +18,9 @@ This function creates a random permutation of numbers from 1 to num_gene to repr
 The algorithm works by building the permutation incrementally: for each position i, it selects a random index j from 0 to i, then places the new value (i+1) at position j while moving the previous value at j to position i. This ensures each generated permutation has equal probability.
 
 ## Parameters / Member Variables
-- : PlannerInfo pointer containing query planning context and random number generation state
-- : Output array of Gene values that will contain the generated tour permutation
-- : Number of genes (cities) in the tour, determines the size of the permutation
-
+- `*root`: PlannerInfo pointer containing query planning context and random number generation state
+- `*tour`: Output array of Gene values that will contain the generated tour permutation
+- `num_gene`: Number of genes (cities) in the tour, determines the size of the permutation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [geqo_randint](../g/geqo_randint.md) (generates random integers within specified range)

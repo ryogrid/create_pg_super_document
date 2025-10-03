@@ -17,6 +17,7 @@ This function computes the total shared memory size needed by the PostgreSQL arc
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [add_size](../a/add_size.md): Safely adds sizes together with overflow checking

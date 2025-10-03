@@ -20,9 +20,8 @@ The pg_statistic_ext_data table stores the actual computed statistical data (lik
 The function takes both a statistics object OID and an inheritance flag to handle the distinction between statistics computed for a table directly versus statistics that include data from inheritance children.
 
 ## Parameters / Member Variables
-- : OID of the extended statistics object whose data should be removed
-- : Boolean flag indicating whether to remove inherited statistics data (true) or direct table statistics data (false)
-
+- `statsOid`: OID of the extended statistics object whose data should be removed
+- `inh`: Boolean flag indicating whether to remove inherited statistics data (true) or direct table statistics data (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md) (opens StatisticExtDataRelationId with RowExclusiveLock)

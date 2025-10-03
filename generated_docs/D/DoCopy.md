@@ -18,12 +18,11 @@ DoCopy(ParseState *pstate, const CopyStmt *stmt,
 DoCopy is the main entry point for executing COPY statements in PostgreSQL. It performs comprehensive permission checking, handles both table-based and query-based COPY operations, and manages row-level security (RLS) requirements. For COPY FROM operations, it transfers data from external sources into database tables. For COPY TO operations, it exports table data or query results to external destinations. The function handles various security restrictions including role-based permissions for file and program access, and automatically converts table-based COPY TO operations to query-based operations when row-level security is enabled.
 
 ## Parameters / Member Variables
-- : ParseState containing query parsing context and namespace information
-- : CopyStmt structure containing the parsed COPY statement details including source/destination, options, and column lists  
-- : Character position where the COPY statement starts in the original query string
-- : Length of the COPY statement in characters
-- : Output parameter returning the number of rows processed during the COPY operation
-
+- `*pstate`: ParseState containing query parsing context and namespace information
+- `*stmt`: CopyStmt structure containing the parsed COPY statement details including source/destination, options, and column lists
+- `stmt_location`: Character position where the COPY statement starts in the original query string
+- `stmt_len`: Length of the COPY statement in characters
+- `*processed`: Output parameter returning the number of rows processed during the COPY operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [has_privs_of_role](../h/has_privs_of_role.md)

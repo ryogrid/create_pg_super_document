@@ -21,9 +21,8 @@ The size calculation depends on the attribute type descriptor:
 - For variable-length types: Uses the actual size from VARSIZE_ANY() macro
 
 ## Parameters / Member Variables
-- : Pointer to SpGistTypeDesc structure containing type information (byval flag, length, etc.)
-- : The actual datum value for which storage size is being calculated
-
+- `*att`: Pointer to SpGistTypeDesc structure containing type information (byval flag, length, etc.)
+- `datum`: The actual datum value for which storage size is being calculated
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SpGistTypeDesc](SpGistTypeDesc.md) (type descriptor structure)

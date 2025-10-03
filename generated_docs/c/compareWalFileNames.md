@@ -23,9 +23,8 @@ WAL filenames in PostgreSQL follow the format:  where:
 By comparing from character 8 onwards, this function ensures proper ordering by log/segment numbers.
 
 ## Parameters / Member Variables
-- : First ListCell containing a WAL filename string to compare
-- : Second ListCell containing a WAL filename string to compare
-
+- `*a`: First ListCell containing a WAL filename string to compare
+- `*b`: Second ListCell containing a WAL filename string to compare
 ## Dependencies
 - Functions called/Symbols referenced:
   - lfirst (PostgreSQL list macro)

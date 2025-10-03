@@ -18,9 +18,8 @@ This function generates a placeholder SELECT statement for a view that maintains
 The function constructs a SELECT statement where each column is represented as "NULL::type_name COLLATE collation AS column_name", ensuring that the view interface remains consistent for dependent objects.
 
 ## Parameters / Member Variables
-- : Archive structure containing dump context and configuration
-- : TableInfo structure containing the view's metadata including column names, types, and collations
-
+- `*fout`: Archive structure containing dump context and configuration
+- `*tbinfo`: TableInfo structure containing the view's metadata including column names, types, and collations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [createPQExpBuffer](createPQExpBuffer.md)

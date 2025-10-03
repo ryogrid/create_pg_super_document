@@ -18,9 +18,8 @@ This utility function compares a PostgreSQL  structure with a C string using the
 The function is primarily designed for equality checks and should be used with caution for ordering operations since it always uses C collation regardless of the database's collation settings. This makes it suitable for internal system comparisons where consistent behavior across locales is required.
 
 ## Parameters / Member Variables
-- : Pointer to a PostgreSQL  structure (can be NULL)
-- : C string to compare against (can be NULL)
-
+- `name`: Pointer to a PostgreSQL  structure (can be NULL)
+- `*str`: C string to compare against (can be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Macro to access the character array within a  structure

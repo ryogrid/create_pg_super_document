@@ -18,10 +18,9 @@ This function writes the recovery configuration to the filesystem, handling vers
 The function determines the appropriate configuration method based on the server version, writes the provided configuration content to the correct file, and creates the standby.signal file when necessary. This ensures proper standby server initialization across different PostgreSQL versions.
 
 ## Parameters / Member Variables
-- : Database connection used to determine server version
-- : Directory path where configuration files should be written
-- : PQExpBuffer containing the recovery configuration content to write
-
+- `*pgconn`: Database connection used to determine server version
+- `*target_dir`: Directory path where configuration files should be written
+- `contents`: PQExpBuffer containing the recovery configuration content to write
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQserverVersion](../P/PQserverVersion.md)

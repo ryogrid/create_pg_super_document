@@ -31,7 +31,6 @@ This function is responsible for preserving transaction state and continuity bet
 The function includes extensive error checking and user status updates throughout the process.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

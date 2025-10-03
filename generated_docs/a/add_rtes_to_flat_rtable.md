@@ -25,9 +25,8 @@ The  function is responsible for consolidating range table entries from various 
 The function intelligently determines whether to flatten unplanned RTEs or recursively process subquery root depending on the planning state and whether the subquery result relation is dummy.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing the current query's planning context and rangetable
-- : Boolean flag indicating whether this is a recursive call into a subquery (affects which RTEs are processed)
-
+- `*root`: PlannerInfo structure containing the current query's planning context and rangetable
+- `recursing`: Boolean flag indicating whether this is a recursive call into a subquery (affects which RTEs are processed)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [add_rte_to_flat_rtable](add_rte_to_flat_rtable.md)

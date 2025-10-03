@@ -22,9 +22,8 @@ The function checks two main types of expressions:
 For both types, it delegates to  to obtain the estimated row count and applies  to ensure the result is within reasonable bounds.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planning context and statistics
-- : The expression node to analyze for set-returning behavior
-
+- `*root`: PlannerInfo structure containing planning context and statistics
+- `*clause`: The expression node to analyze for set-returning behavior
 ## Dependencies
 - Functions called/Symbols referenced:
   - [clamp_row_est](../c/clamp_row_est.md)

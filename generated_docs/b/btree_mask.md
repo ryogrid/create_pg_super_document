@@ -23,9 +23,8 @@ The function performs several masking operations:
 5. Clears the BTP_SPLIT_END flag and resets the cycle ID, as these may not be set consistently during WAL replay
 
 ## Parameters / Member Variables
-- : Pointer to the raw page data that needs to be masked for consistency checking
-- : Block number of the page being masked (currently unused in the implementation)
-
+- `*pagedata`: Pointer to the raw page data that needs to be masked for consistency checking
+- `blkno`: Block number of the page being masked (currently unused in the implementation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - BTPageOpaque (btree page opaque structure)

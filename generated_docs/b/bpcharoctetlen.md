@@ -16,8 +16,7 @@ bpcharoctetlen(PG_FUNCTION_ARGS)
 This function calculates and returns the octet (byte) length of a BPCHAR data type. It uses an optimized approach by calling  to determine the size without actually detoasting the potentially compressed or out-of-line stored value. The function subtracts  (variable header size) from the raw datum size to get the actual data length, as BPCHAR values include a variable-length header that stores metadata about the value.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function argument macro that provides access to function arguments and context
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument macro that provides access to function arguments and context
 ## Dependencies
 - Functions called/Symbols referenced:
   - [toast_raw_datum_size](../t/toast_raw_datum_size.md)

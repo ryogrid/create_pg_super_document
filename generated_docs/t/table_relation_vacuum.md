@@ -21,10 +21,9 @@ The function delegates vacuum processing to the table access method's specific i
 Important operational constraints include that a transaction must already be established before calling this function, and the relation must be locked with ShareUpdateExclusive lock. The function explicitly does not handle VACUUM FULL, CLUSTER, or ANALYZE operations, which have their own specialized pathways.
 
 ## Parameters / Member Variables
-- : The relation to be vacuumed
-- : Vacuum parameters structure containing operation-specific settings and options
-- : Buffer access strategy for managing buffer pool usage during the vacuum operation
-
+- `rel`: The relation to be vacuumed
+- `*params`: Vacuum parameters structure containing operation-specific settings and options
+- `bstrategy`: Buffer access strategy for managing buffer pool usage during the vacuum operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - rel->rd_tableam->relation_vacuum (table access method implementation)

@@ -16,8 +16,7 @@ directBoolConsistentFn(GinScanKey key)
 This function serves as a wrapper for calling user-defined consistent functions in GIN (Generalized Inverted Index) operations. It handles the setup and invocation of the actual consistent function stored in the scan key's function manager info. The function initializes the recheckCurItem flag to true as a safe default (forcing heap-level rechecking) and then calls the user's consistent function with all necessary parameters using the PostgreSQL function call interface.
 
 ## Parameters / Member Variables
-- : A GinScanKey pointer containing all the information needed for the consistency check, including the function to call, query parameters, and result storage.
-
+- `key`: A GinScanKey pointer containing all the information needed for the consistency check, including the function to call, query parameters, and result storage.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GinScanKey](../G/GinScanKey.md) (struct type)

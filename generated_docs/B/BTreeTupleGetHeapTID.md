@@ -24,8 +24,7 @@ This function extracts the heap TID (Tuple Identifier) from a B-tree index tuple
 The function is critical for B-tree operations that need to uniquely identify tuples, especially during comparisons and deduplication processes.
 
 ## Parameters / Member Variables
-- : IndexTuple pointer to the B-tree tuple from which to extract the heap TID
-
+- `itup`: IndexTuple pointer to the B-tree tuple from which to extract the heap TID
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BTreeTupleIsPivot](BTreeTupleIsPivot.md)

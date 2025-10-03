@@ -21,10 +21,9 @@ The function constructs an xl_invalidations record containing the database ID, t
 The WAL record uses the XLOG_INVALIDATIONS record type and includes both the header information and the actual invalidation message array.
 
 ## Parameters / Member Variables
-- : The number of invalidation messages in the msgs array
-- : An array of SharedInvalidationMessage structures containing the invalidation information to be logged
-- : Boolean flag indicating whether the relation cache initialization file should be invalidated
-
+- `nmsgs`: The number of invalidation messages in the msgs array
+- `*msgs`: An array of SharedInvalidationMessage structures containing the invalidation information to be logged
+- `relcacheInitFileInval`: Boolean flag indicating whether the relation cache initialization file should be invalidated
 ## Dependencies
 - Functions called/Symbols referenced:
   - [XLogBeginInsert](../X/XLogBeginInsert.md)

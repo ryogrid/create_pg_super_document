@@ -18,8 +18,7 @@ This function sets the TCP user timeout parameter on a PostgreSQL connection soc
 The function parses the timeout value from the connection's  parameter, validates it (converting negative values to 0), and applies it to the socket. If the parameter is not set (NULL), the function returns success without making changes. The functionality is conditionally available only on systems that support the TCP_USER_TIMEOUT socket option.
 
 ## Parameters / Member Variables
-- : Pointer to the PGconn structure representing the PostgreSQL connection. The function uses the  field from this structure and applies the setting to the connection's socket.
-
+- `*conn`: Pointer to the PGconn structure representing the PostgreSQL connection. The function uses the  field from this structure and applies the setting to the connection's socket.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pqParseIntParam](../p/pqParseIntParam.md) (parses integer parameter from string)

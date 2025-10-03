@@ -18,8 +18,7 @@ This function serves as the memory cleanup callback for the bbstreamer_extractor
 This function is part of the bbstreamer framework's three-phase lifecycle where memory cleanup is separated from processing logic. This approach is necessary because the pg_basebackup utility runs in a frontend environment without PostgreSQL's memory context system, requiring explicit memory management.
 
 ## Parameters / Member Variables
-- : A pointer to the bbstreamer base structure, which is cast to bbstreamer_extractor to access extractor-specific fields for cleanup
-
+- `*streamer`: A pointer to the bbstreamer base structure, which is cast to bbstreamer_extractor to access extractor-specific fields for cleanup
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bbstreamer](bbstreamer.md) (base type for casting)

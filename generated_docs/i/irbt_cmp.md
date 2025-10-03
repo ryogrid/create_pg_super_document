@@ -18,10 +18,9 @@ This function serves as the comparator callback for integer-based Red-Black Tree
 The implementation uses direct subtraction for comparison, with a noted assumption that test keys are non-negative to avoid integer overflow issues.
 
 ## Parameters / Member Variables
-- : Pointer to the first RBTNode to compare (cast to IntRBTreeNode internally)
-- : Pointer to the second RBTNode to compare (cast to IntRBTreeNode internally)  
-- : Unused argument parameter (required by RBTNode comparator interface)
-
+- `*a`: Pointer to the first RBTNode to compare (cast to IntRBTreeNode internally)
+- `*b`: Pointer to the second RBTNode to compare (cast to IntRBTreeNode internally)
+- `*arg`: Unused argument parameter (required by RBTNode comparator interface)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RBTNode](../R/RBTNode.md) (generic Red-Black Tree node type)

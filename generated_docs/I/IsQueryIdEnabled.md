@@ -22,7 +22,6 @@ This function provides a centralized way to check if query ID computation should
 The function is defined as a static inline in the header file for optimal performance since it's called frequently during query processing.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

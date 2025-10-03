@@ -19,7 +19,6 @@ The function is a simple wrapper that calls the generic `SN_create_env()` functi
 The function is automatically generated code from the Snowball stemming compiler (version 2.2.0) and should not be manually modified. It provides the entry point for creating stemming environments that can process Irish text according to the Irish stemming rules defined in the Snowball project.
 
 ## Parameters / Member Variables
-This function takes no parameters (`void`).
 
 ## Dependencies
 - Functions called/Symbols referenced:

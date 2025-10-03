@@ -24,9 +24,8 @@ The function can operate in two modes:
 2. **General preferred check**: When TYPCATEGORY_INVALID is passed as the category, it returns true if the type is preferred in any category
 
 ## Parameters / Member Variables
-- : The type category to check against (or TYPCATEGORY_INVALID to check if preferred in any category)
-- : The OID of the type to check
-
+- `category`: The type category to check against (or TYPCATEGORY_INVALID to check if preferred in any category)
+- `type`: The OID of the type to check
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_type_category_preferred](../g/get_type_category_preferred.md)

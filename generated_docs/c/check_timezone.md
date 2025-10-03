@@ -29,10 +29,9 @@ The function performs comprehensive validation including:
 Upon successful validation, the function creates a pg_tz timezone object and stores it in the extra data for use by the assignment function.
 
 ## Parameters / Member Variables
-- : Double pointer to the input timezone string to be validated
-- : Double pointer that will contain a pg_tz pointer for the validated timezone object
-- : The source of the GUC setting (file, command line, etc.) - used for logging and validation context
-
+- `**newval`: Double pointer to the input timezone string to be validated
+- `**extra`: Double pointer that will contain a pg_tz pointer for the validated timezone object
+- `source`: The source of the GUC setting (file, command line, etc.) - used for logging and validation context
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_strncasecmp](../p/pg_strncasecmp.md): Case-insensitive string comparison for parsing INTERVAL keyword

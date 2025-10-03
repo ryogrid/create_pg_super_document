@@ -17,11 +17,10 @@ array_to_text_internal(FunctionCallInfo fcinfo, ArrayType *v,
 This function performs the actual work of converting a PostgreSQL array to a concatenated text string. It handles multi-dimensional arrays by flattening them and processes each element through the appropriate output function for the element type. The function implements sophisticated caching of type metadata to avoid repeated lookups when processing multiple arrays of the same element type. It correctly handles NULL elements based on whether a null replacement string is provided, and manages proper memory alignment when traversing variable-length array elements. The function uses PostgreSQL's StringInfo buffer for efficient string concatenation and properly handles the null bitmap for sparse arrays.
 
 ## Parameters / Member Variables
-- : Function call information structure containing context and caching capabilities
-- : Pointer to the ArrayType structure representing the input array
-- : C string containing the field separator to use between array elements
-- : Optional C string to substitute for NULL array elements (NULL means skip NULLs)
-
+- `fcinfo`: Function call information structure containing context and caching capabilities
+- `*v`: Pointer to the ArrayType structure representing the input array
+- `*fldsep`: C string containing the field separator to use between array elements
+- `*null_string`: Optional C string to substitute for NULL array elements (NULL means skip NULLs)
 ## Dependencies
 - Functions called/Symbols referenced:
   - ARR_NDIM, ARR_DIMS, ARR_ELEMTYPE (array metadata access macros)

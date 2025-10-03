@@ -27,13 +27,12 @@ The function operates in three tiers of sophistication:
 The function handles all six Boolean test types: IS TRUE, IS NOT TRUE, IS FALSE, IS NOT FALSE, IS UNKNOWN, and IS NOT UNKNOWN, each with specific selectivity calculation logic that respects SQL's three-valued logic.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planner state and context information
-- : Type of Boolean test (IS_TRUE, IS_FALSE, IS_UNKNOWN, IS_NOT_TRUE, IS_NOT_FALSE, IS_NOT_UNKNOWN)
-- : Node representing the expression being tested
-- : Relation ID to restrict analysis to (0 if no restriction)
-- : Type of join operation context
-- : Special join information for outer joins
-
+- `*root`: PlannerInfo structure containing planner state and context information
+- `booltesttype`: Type of Boolean test (IS_TRUE, IS_FALSE, IS_UNKNOWN, IS_NOT_TRUE, IS_NOT_FALSE, IS_NOT_UNKNOWN)
+- `*arg`: Node representing the expression being tested
+- `varRelid`: Relation ID to restrict analysis to (0 if no restriction)
+- `jointype`: Type of join operation context
+- `*sjinfo`: Special join information for outer joins
 ## Dependencies
 - Functions called/Symbols referenced:
   - [examine_variable](../e/examine_variable.md)

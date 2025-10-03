@@ -18,8 +18,7 @@ The  function scans through a StringInfo buffer starting from the current cursor
 This function is essential for line-by-line processing of backup label files, allowing parser functions to safely identify line boundaries without going beyond the buffer limits. The function preserves the buffer's cursor position and only returns offset information without modifying the buffer state.
 
 ## Parameters / Member Variables
-- : StringInfo buffer containing text data to scan for line endings
-
+- `buf`: StringInfo buffer containing text data to scan for line endings
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (uses only basic buffer operations)

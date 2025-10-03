@@ -20,10 +20,9 @@ The function constructs the full file path using the same path generation logic 
 This function is essential for scenarios where temporary files need to survive across transaction boundaries and be accessed multiple times, such as in complex query processing, sorting operations, or inter-process communication via shared filesets.
 
 ## Parameters / Member Variables
-- : Pointer to the FileSet structure containing the file
-- : Name of the file to open (must match the name used when creating the file)
-- : File access mode flags (e.g., O_RDONLY, O_WRONLY, O_RDWR)
-
+- `*fileset`: Pointer to the FileSet structure containing the file
+- `*name`: Name of the file to open (must match the name used when creating the file)
+- `mode`: File access mode flags (e.g., O_RDONLY, O_WRONLY, O_RDWR)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [FilePath](FilePath.md): Constructs the complete file path for the given fileset and name

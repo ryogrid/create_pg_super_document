@@ -16,9 +16,8 @@ ConstraintNameExists(const char *conname, Oid namespaceid)
 This function searches the pg_constraint catalog to determine if a constraint name already exists within a given namespace. It implements the same naming rule used by ChooseConstraintName for automatic constraint name generation - ensuring that constraint names are unique within a namespace rather than just within a single object. This broader scope check is essential for system-generated constraint names to avoid conflicts across different objects in the same namespace.
 
 ## Parameters / Member Variables
-- : Name of the constraint to check for existence
-- : OID of the namespace to search within
-
+- `*conname`: Name of the constraint to check for existence
+- `namespaceid`: OID of the namespace to search within
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md)

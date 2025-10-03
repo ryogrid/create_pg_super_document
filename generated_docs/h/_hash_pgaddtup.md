@@ -23,12 +23,11 @@ This function is responsible for inserting a single tuple into a hash index page
 The function includes validation to ensure the buffer contains a valid hash bucket or overflow page and performs assertion checking in debug builds to verify the hashkey ordering constraint when appending.
 
 ## Parameters / Member Variables
-- : The hash index relation
-- : Buffer containing the target page (must be pinned and write-locked)
-- : Size of the tuple to be inserted
-- : The index tuple to be inserted
-- : Boolean flag indicating whether to append at end (true) or search for correct position (false)
-
+- `rel`: The hash index relation
+- `buf`: Buffer containing the target page (must be pinned and write-locked)
+- `itemsize`: Size of the tuple to be inserted
+- `itup`: The index tuple to be inserted
+- `appendtup`: Boolean flag indicating whether to append at end (true) or search for correct position (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Validate page type (bucket or overflow page)

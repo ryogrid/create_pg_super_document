@@ -18,9 +18,8 @@ This function serves as a callback handler for PostgreSQL notice messages. It ac
 The function follows the standard PostgreSQL notice processor callback signature, making it suitable for registration with PQsetNoticeProcessor() to handle server notices during database operations. It provides a consistent way to capture and log PostgreSQL notices within applications like pg_dump.
 
 ## Parameters / Member Variables
-- : User-defined argument passed to the notice processor (unused in this implementation)
-- : The notice message string received from the PostgreSQL server
-
+- `*arg`: User-defined argument passed to the notice processor (unused in this implementation)
+- `*message`: The notice message string received from the PostgreSQL server
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_log_info (logging function for informational messages)

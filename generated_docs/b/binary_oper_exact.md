@@ -16,10 +16,9 @@ binary_oper_exact(List *opname, Oid arg1, Oid arg2)
 The  function performs an "exact" match search for binary operators based on the specified operand types. It implements intelligent type resolution by treating unknown literals as having the same type as the other operand when one operand type is unknown. Additionally, it considers domain types that may need to be reduced to their base types to find an exact match. The function first attempts a direct operator lookup, and if that fails with unknown types involved, it tries again using base types.
 
 ## Parameters / Member Variables
-- : List containing the operator name components (e.g., namespace and operator symbol)
-- : Object identifier (Oid) of the first operand's data type  
-- : Object identifier (Oid) of the second operand's data type
-
+- `*opname`: List containing the operator name components (e.g., namespace and operator symbol)
+- `arg1`: Object identifier (Oid) of the first operand's data type
+- `arg2`: Object identifier (Oid) of the second operand's data type
 ## Dependencies
 - Functions called/Symbols referenced:
   - [OpernameGetOprid](../O/OpernameGetOprid.md) (called twice for operator lookup)

@@ -20,8 +20,7 @@ The function is implemented as a static inline function for performance efficien
 Note that this function may allocate memory via palloc during conversion, which could lead to memory leaks if used repeatedly without proper memory context management. For scenarios where this is a concern, wrapper macros are available.
 
 ## Parameters / Member Variables
-- : A null-terminated UTF-8 encoded string to be converted to the database encoding
-
+- `*src`: A null-terminated UTF-8 encoded string to be converted to the database encoding
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_any_to_server](../p/pg_any_to_server.md)

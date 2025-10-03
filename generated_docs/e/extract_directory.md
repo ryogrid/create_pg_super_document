@@ -20,9 +20,8 @@ The function first attempts to create the directory using  with . If the creatio
 On non-Windows systems, the function also sets the directory permissions to match those specified in the archive using . This ensures that extracted directories maintain their original permission settings from the backup.
 
 ## Parameters / Member Variables
-- : Path where the directory should be created
-- : File permissions that should be applied to the created directory
-
+- `*filename`: Path where the directory should be created
+- `mode`: File permissions that should be applied to the created directory
 ## Dependencies
 - Functions called/Symbols referenced:
   - mkdir

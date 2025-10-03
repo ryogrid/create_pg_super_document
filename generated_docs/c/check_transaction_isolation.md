@@ -23,10 +23,9 @@ Key restrictions enforced:
 The function allows changes when not in an active transaction, similar to other transaction-related GUC settings.
 
 ## Parameters / Member Variables
-- : Pointer to the new integer value representing the desired transaction isolation level
-- : Pointer to extra data (unused in this function, can be NULL)
-- : The source of the configuration change (GucSource enum)
-
+- `*newval`: Pointer to the new integer value representing the desired transaction isolation level
+- `**extra`: Pointer to extra data (unused in this function, can be NULL)
+- `source`: The source of the configuration change (GucSource enum)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [IsTransactionState](../I/IsTransactionState.md)

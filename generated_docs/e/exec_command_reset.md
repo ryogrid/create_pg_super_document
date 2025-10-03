@@ -19,10 +19,9 @@ The  function handles the execution of the \r backslash command in psql. This co
 When executed, the function performs two main operations: it resets the query buffer to an empty state using  and resets the scanner state using . If psql is not running in quiet mode, it provides user feedback by displaying a confirmation message that the query buffer has been cleared.
 
 ## Parameters / Member Variables
-- : Scanner state object that tracks the current parsing state and needs to be reset along with the query buffer
-- : Boolean flag indicating whether this command should actually execute (used for conditional execution in psql)
-- : The PQExpBuffer containing the current query text that will be cleared
-
+- `scan_state`: Scanner state object that tracks the current parsing state and needs to be reset along with the query buffer
+- `active_branch`: Boolean flag indicating whether this command should actually execute (used for conditional execution in psql)
+- `query_buf`: The PQExpBuffer containing the current query text that will be cleared
 ## Dependencies
 - Functions called/Symbols referenced:
   - [resetPQExpBuffer](../r/resetPQExpBuffer.md)

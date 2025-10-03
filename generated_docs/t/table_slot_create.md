@@ -22,9 +22,8 @@ This function creates a new TupleTableSlot specifically tailored for the given r
 This is a convenience function that abstracts the two-step process of determining slot callbacks and creating the slot, making it easier for callers to create appropriate slots for relations.
 
 ## Parameters / Member Variables
-- : The Relation for which to create a tuple table slot
-- : Optional pointer to a List pointer; if provided, the created slot will be appended to this list for resource tracking
-
+- `relation`: The Relation for which to create a tuple table slot
+- `**reglist`: Optional pointer to a List pointer; if provided, the created slot will be appended to this list for resource tracking
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_slot_callbacks](table_slot_callbacks.md) (to determine appropriate slot operations)

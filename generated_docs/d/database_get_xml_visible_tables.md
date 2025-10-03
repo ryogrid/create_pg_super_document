@@ -17,6 +17,7 @@ This function returns all tables, materialized views, and views in the current d
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [query_to_oid_list](../q/query_to_oid_list.md)

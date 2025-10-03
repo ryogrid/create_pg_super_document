@@ -18,8 +18,7 @@ pqEndcopy3 implements the protocol 3 termination sequence for PostgreSQL COPY op
 The function performs a complete state transition from COPY mode back to PGASYNC_BUSY, ensuring proper cleanup of the COPY operation and readiness for subsequent operations.
 
 ## Parameters / Member Variables
-- : PostgreSQL connection handle containing the connection state and message buffers
-
+- `*conn`: PostgreSQL connection handle containing the connection state and message buffers
 ## Dependencies
 - Functions called/Symbols referenced:
   - [libpq_append_conn_error](../l/libpq_append_conn_error.md)

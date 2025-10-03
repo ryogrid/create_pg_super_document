@@ -19,10 +19,9 @@ This function constructs and executes an SQL query to retrieve operator family i
 The query joins multiple system catalogs (, , ) and uses a correlated subquery to aggregate applicable types from . When filtering by type pattern, it uses an EXISTS subquery to check if any operator class in the family matches the specified type pattern. Results are sorted by access method and operator family name for consistent presentation.
 
 ## Parameters / Member Variables
-- : Optional regex pattern to filter results by index access method name (e.g., "btree", "hash"). If NULL, all access methods are included.
-- : Optional regex pattern to filter results by applicable data types. Matches against both internal type names and external formatted type names within operator classes that belong to the family. If NULL, all families are included regardless of their applicable types.
-- : Boolean flag that controls whether to include additional columns (owner) in the output.
-
+- `*access_method_pattern`: Optional regex pattern to filter results by index access method name (e.g., "btree", "hash"). If NULL, all access methods are included.
+- `*type_pattern`: Optional regex pattern to filter results by applicable data types. Matches against both internal type names and external formatted type names within operator classes that belong to the family. If NULL, all families are included regardless of their applicable types.
+- `verbose`: Boolean flag that controls whether to include additional columns (owner) in the output.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [initPQExpBuffer](../i/initPQExpBuffer.md)

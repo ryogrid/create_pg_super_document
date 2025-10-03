@@ -25,9 +25,8 @@ This function provides a comprehensive approach to estimating the number of dist
 The function handles both absolute counts (positive stadistinct) and relative estimates (negative stadistinct representing fraction of total rows).
 
 ## Parameters / Member Variables
-- : VariableStatData structure containing statistical information, relation metadata, and variable details
-- : Output parameter set to true when the result is based on default assumptions rather than meaningful statistical data
-
+- `*vardata`: VariableStatData structure containing statistical information, relation metadata, and variable details
+- `*isdefault`: Output parameter set to true when the result is based on default assumptions rather than meaningful statistical data
 ## Dependencies
 - Functions called/Symbols referenced:
   - [clamp_row_est](../c/clamp_row_est.md) (ensures result is within reasonable bounds)

@@ -16,10 +16,9 @@ hash_choose_num_buckets(double hashentrysize, long ngroups, Size memory)
 This function determines the optimal number of buckets for a hash table used in aggregation operations. It takes a conservative approach by starting with the expected number of groups and then limiting this based on available memory and estimated hash entry size. The function deliberately underestimates rather than overestimates to prevent crowding out space needed for group keys and transition state values. The calculated maximum is halved to ensure sufficient memory remains for the actual data storage.
 
 ## Parameters / Member Variables
-- : The estimated size in bytes of each hash table entry
-- : The estimated number of groups expected in the aggregation
-- : The total amount of memory available for the hash table
-
+- `hashentrysize`: The estimated size in bytes of each hash table entry
+- `ngroups`: The estimated number of groups expected in the aggregation
+- `memory`: The total amount of memory available for the hash table
 ## Dependencies
 - Functions called/Symbols referenced:
   - Max (macro for maximum value)

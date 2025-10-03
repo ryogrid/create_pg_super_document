@@ -16,8 +16,7 @@ SampleNext(SampleScanState *node)
 SampleNext serves as the core workhorse function for sample scanning operations in PostgreSQL's executor. It implements a lazy initialization pattern where the sampling operation is initialized only on the first call within a scan. Once initialized, it delegates to the specific table sampling method (via tablesample_getnext) to retrieve the next tuple that satisfies the sampling criteria. The function returns a TupleTableSlot containing the sampled tuple, or NULL when no more tuples are available from the sample.
 
 ## Parameters / Member Variables
-- : A pointer to the SampleScanState structure that maintains the state of the sample scan operation, including the sampling method, parameters, and current scan position.
-
+- `*node`: A pointer to the SampleScanState structure that maintains the state of the sample scan operation, including the sampling method, parameters, and current scan position.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [tablesample_init](../t/tablesample_init.md)

@@ -20,8 +20,7 @@ The function includes an optimization where it attempts to rewrite the TOC after
 The function also handles proper file closure and optional file synchronization to ensure data durability.
 
 ## Parameters / Member Variables
-- : ArchiveHandle pointer containing the archive context, file handle, and configuration settings
-
+- `*AH`: ArchiveHandle pointer containing the archive context, file handle, and configuration settings
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lclContext](../l/lclContext.md) (local context structure type)

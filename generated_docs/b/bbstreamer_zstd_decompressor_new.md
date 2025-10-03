@@ -18,8 +18,7 @@ This function initializes a new bbstreamer instance specifically designed for Zs
 The function is simpler than its compression counterpart since decompression doesn't require configuration of compression levels or other parameters - it automatically detects and handles the compression settings from the zstd stream headers.
 
 ## Parameters / Member Variables
-- : The next bbstreamer in the processing chain where decompressed data will be forwarded
-
+- `*next`: The next bbstreamer in the processing chain where decompressed data will be forwarded
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc0](../p/palloc0.md)

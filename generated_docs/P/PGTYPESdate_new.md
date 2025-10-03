@@ -17,6 +17,7 @@ PGTYPESdate_new is a memory allocation function specifically designed for creati
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pgtypes_alloc](../p/pgtypes_alloc.md)

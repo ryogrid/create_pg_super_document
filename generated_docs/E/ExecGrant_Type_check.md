@@ -18,9 +18,8 @@ ExecGrant_Type_check serves as an object-specific validation callback for data t
 This function maintains PostgreSQL's type system integrity by preventing confusing or meaningless privilege assignments on derived types and ensuring proper use of the DOMAIN-specific grant syntax.
 
 ## Parameters / Member Variables
-- : Internal representation of the GRANT/REVOKE statement, used to check the intended object type
-- : HeapTuple from pg_type catalog containing the type definition
-
+- `*istmt`: Internal representation of the GRANT/REVOKE statement, used to check the intended object type
+- `tuple`: HeapTuple from pg_type catalog containing the type definition
 ## Dependencies
 - Functions called/Symbols referenced:
   - Form_pg_type (catalog form structure)

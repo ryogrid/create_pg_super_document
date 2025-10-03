@@ -23,10 +23,9 @@ This function handles the formatting of list-type properties in EXPLAIN output a
 The function ensures proper escaping for each format to prevent injection attacks and maintain valid output structure.
 
 ## Parameters / Member Variables
-- : The label/name for the property being displayed
-- : A PostgreSQL List containing C strings to be formatted and output
-- : Pointer to ExplainState containing output format information and string buffer
-
+- `*qlabel`: The label/name for the property being displayed
+- `*data`: A PostgreSQL List containing C strings to be formatted and output
+- `*es`: Pointer to ExplainState containing output format information and string buffer
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExplainState](ExplainState.md) (struct type)

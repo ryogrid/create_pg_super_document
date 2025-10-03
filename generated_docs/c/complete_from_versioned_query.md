@@ -16,9 +16,8 @@ complete_from_versioned_query(const char *text, int state)
 This function implements version-aware tab completion in psql by selecting the appropriate query from a versioned query structure. It traverses through a VersionedQuery array (stored in completion_vquery) to find the first query that is compatible with the current PostgreSQL server version (pset.sversion). Once a suitable query is found, it delegates the actual completion work to _complete_from_query. This design allows psql to provide accurate completions that match the capabilities and syntax available in different PostgreSQL versions.
 
 ## Parameters / Member Variables
-- : The partial text that the user has typed, which needs to be completed
-- : The completion state used by readline for generating multiple matches
-
+- `*text`: The partial text that the user has typed, which needs to be completed
+- `state`: The completion state used by readline for generating multiple matches
 ## Dependencies
 - Functions called/Symbols referenced:
   - [_complete_from_query](_complete_from_query.md)

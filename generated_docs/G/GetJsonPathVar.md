@@ -17,12 +17,11 @@ GetJsonPathVar(void *cxt, char *varName, int varNameLen,
 This function serves as a variable resolver in the jsonpath execution engine. It searches through a list of JsonPathVariable structures to find a variable matching the specified name and length. When found, it converts the variable's stored Datum value to a JsonbValue using JsonItemFromDatum. The function also handles NULL variables appropriately and provides both the resolved value and metadata about the variable's position and base object information for further processing.
 
 ## Parameters / Member Variables
-- : void pointer that is cast to a List of JsonPathVariable structures containing available variables
-- : char pointer to the name of the variable to look up (not null-terminated)
-- : int specifying the length of the variable name
-- : JsonbValue pointer where the base object value will be stored (output parameter)
-- : int pointer where the variable's ID will be stored, or -1 if not found (output parameter)
-
+- `*cxt`: void pointer that is cast to a List of JsonPathVariable structures containing available variables
+- `*varName`: char pointer to the name of the variable to look up (not null-terminated)
+- `varNameLen`: int specifying the length of the variable name
+- `*baseObject`: JsonbValue pointer where the base object value will be stored (output parameter)
+- `*baseObjectId`: int pointer where the variable's ID will be stored, or -1 if not found (output parameter)
 ## Dependencies
 - Functions called/Symbols referenced:
   - lfirst (extracts list cell content)

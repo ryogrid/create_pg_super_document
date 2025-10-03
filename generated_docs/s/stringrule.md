@@ -21,11 +21,10 @@ The  function generates a POSIX timezone rule string from a PostgreSQL timezone 
 The function formats the rule into POSIX timezone format (e.g., "M3.2.0" for second Sunday in March) and applies time offset corrections based on whether the rule time is in UTC, standard time, or wall clock time. It returns a compatibility year indicating the earliest POSIX version that supports the generated rule format.
 
 ## Parameters / Member Variables
-- : Output buffer where the formatted rule string will be written
-- : Pointer to the rule structure containing the transition rule definition
-- : The daylight saving time offset to apply
-- : The standard time offset from UTC
-
+- `*result`: Output buffer where the formatted rule string will be written
+- `rp`: Pointer to the rule structure containing the transition rule definition
+- `save`: The daylight saving time offset to apply
+- `stdoff`: The standard time offset from UTC
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (standard library function for string formatting)

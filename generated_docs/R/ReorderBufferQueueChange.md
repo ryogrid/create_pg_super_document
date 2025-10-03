@@ -17,12 +17,11 @@ ReorderBufferQueueChange(ReorderBuffer *rb, TransactionId xid, XLogRecPtr lsn,
 This function is the primary interface for adding changes to transactions during logical replication decoding. It creates or retrieves the transaction by XID, validates that the transaction hasn't been concurrently aborted, and adds the change to the transaction's change list. The function tracks streamable changes, updates memory accounting, processes partial changes for streaming considerations, and enforces memory limits. It serves as the central point where decoded WAL records are converted into transaction changes that can be replayed or streamed to subscribers.
 
 ## Parameters / Member Variables
-- : The ReorderBuffer managing transaction state and memory limits
-- : The transaction ID that this change belongs to
-- : The LSN (Log Sequence Number) where this change was found in the WAL
-- : The actual change to be queued (insert, update, delete, etc.)
-- : Boolean indicating if this is a TOAST table insert operation
-
+- `*rb`: The ReorderBuffer managing transaction state and memory limits
+- `xid`: The transaction ID that this change belongs to
+- `lsn`: The LSN (Log Sequence Number) where this change was found in the WAL
+- `*change`: The actual change to be queued (insert, update, delete, etc.)
+- `toast_insert`: Boolean indicating if this is a TOAST table insert operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReorderBufferTXNByXid](ReorderBufferTXNByXid.md) (gets or creates transaction)

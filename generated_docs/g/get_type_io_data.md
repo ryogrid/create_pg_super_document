@@ -23,15 +23,14 @@ get_type_io_data(Oid typid,
 This function serves as a comprehensive interface for retrieving type-related metadata from the PostgreSQL system catalog (pg_type). It extracts six key pieces of information about a data type in a single call, making it efficient for operations that need multiple type attributes simultaneously. The function handles both normal operation mode and bootstrap mode, where it delegates to  for basic types during system initialization. The I/O function returned depends on the  parameter, allowing callers to specify whether they need input, output, receive, or send functions.
 
 ## Parameters / Member Variables
-- : The OID of the data type to look up in the system catalog
-- : Selector specifying which I/O function to return (input, output, receive, or send)
-- : Output parameter for the type's storage length (-1 for variable length types)
-- : Output parameter indicating whether the type is passed by value or reference
-- : Output parameter for the type's alignment requirement ('c', 's', 'i', or 'd')
-- : Output parameter for the type's array element delimiter character
-- : Output parameter for the type's I/O parameter OID
-- : Output parameter for the requested I/O function OID
-
+- `typid`: The OID of the data type to look up in the system catalog
+- `which_func`: Selector specifying which I/O function to return (input, output, receive, or send)
+- `*typlen`: Output parameter for the type's storage length (-1 for variable length types)
+- `*typbyval`: Output parameter indicating whether the type is passed by value or reference
+- `*typalign`: Output parameter for the type's alignment requirement ('c', 's', 'i', or 'd')
+- `*typdelim`: Output parameter for the type's array element delimiter character
+- `*typioparam`: Output parameter for the type's I/O parameter OID
+- `*func`: Output parameter for the requested I/O function OID
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsBootstrapProcessingMode

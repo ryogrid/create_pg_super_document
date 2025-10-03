@@ -18,9 +18,8 @@ The  function implements a three-way comparison for 32-bit signed integers using
 This function is part of PostgreSQL's collection of standardized comparison utilities that provide consistent three-way comparison semantics across different data types, making it particularly useful for sorting algorithms and binary search operations.
 
 ## Parameters / Member Variables
-- : First 32-bit signed integer to compare
-- : Second 32-bit signed integer to compare
-
+- `a`: First 32-bit signed integer to compare
+- `b`: Second 32-bit signed integer to compare
 ## Dependencies
 - Functions called/Symbols referenced:
   - (None - uses only basic arithmetic operations)

@@ -30,14 +30,13 @@ The function operates by:
 The function specifically excludes domain types from processing, as domain typmod coercion is handled during the initial type coercion phase.
 
 ## Parameters / Member Variables
-- : Input expression node requiring typmod coercion
-- : Target type OID (should match the node's current type)
-- : Target typmod value to enforce (-1 means no specific constraint)
-- : Coercion context affecting semantics of the coercion function
-- : Coercion format controlling display properties of generated nodes
-- : Parse location for error reporting and expression display
-- : If true, forces input node to implicit display form
-
+- `*node`: Input expression node requiring typmod coercion
+- `targetTypeId`: Target type OID (should match the node's current type)
+- `targetTypMod`: Target typmod value to enforce (-1 means no specific constraint)
+- `ccontext`: Coercion context affecting semantics of the coercion function
+- `cformat`: Coercion format controlling display properties of generated nodes
+- `location`: Parse location for error reporting and expression display
+- `hideInputCoercion`: If true, forces input node to implicit display form
 ## Dependencies
 - Functions called/Symbols referenced:
   - [exprTypmod](../e/exprTypmod.md)

@@ -16,10 +16,9 @@ compare_scalars_simple(const void *a, const void *b, void *arg)
 This function serves as a qsort-compatible comparison wrapper that extracts Datum values from void pointers and delegates the actual comparison to compare_datums_simple. It provides a bridge between the generic qsort interface requirements and PostgreSQL's datum comparison infrastructure. The function is primarily used in contexts where simple scalar values need to be sorted using PostgreSQL's type-specific comparison logic.
 
 ## Parameters / Member Variables
-- : Pointer to the first Datum value to compare (cast from const void*)
-- : Pointer to the second Datum value to compare (cast from const void*)
-- : Pointer to SortSupport structure containing comparison configuration (cast from void*)
-
+- `*a`: Pointer to the first Datum value to compare (cast from const void*)
+- `*b`: Pointer to the second Datum value to compare (cast from const void*)
+- `*arg`: Pointer to SortSupport structure containing comparison configuration (cast from void*)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [compare_datums_simple](compare_datums_simple.md)

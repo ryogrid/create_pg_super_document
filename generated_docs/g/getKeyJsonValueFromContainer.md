@@ -21,11 +21,10 @@ The search algorithm uses binary search on the key portion of key-value pairs, c
 The function supports flexible memory management by allowing the caller to either provide a pre-allocated JsonbValue structure or request a new one.
 
 ## Parameters / Member Variables
-- : The JSONB object container to search within (must be an object, not an array)
-- : Pointer to the string key to search for
-- : Length of the key string in bytes
-- : Optional pre-allocated JsonbValue to fill, or NULL to allocate a new one
-
+- `*container`: The JSONB object container to search within (must be an object, not an array)
+- `*keyVal`: Pointer to the string key to search for
+- `keyLen`: Length of the key string in bytes
+- `*res`: Optional pre-allocated JsonbValue to fill, or NULL to allocate a new one
 ## Dependencies
 - Functions called/Symbols referenced:
   - JsonContainerIsObject

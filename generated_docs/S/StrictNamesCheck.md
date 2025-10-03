@@ -20,8 +20,7 @@ The function uses the  utility to identify any names in the lists that were neve
 This strict checking is particularly useful in automated environments where it's important to ensure that all intended objects were successfully restored, preventing silent failures where some objects might be missing from the archive or incorrectly named.
 
 ## Parameters / Member Variables
-- : RestoreOptions structure containing configuration and object name lists for the restoration process
-
+- `*ropt`: RestoreOptions structure containing configuration and object name lists for the restoration process
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (assertion macro)

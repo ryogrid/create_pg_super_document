@@ -16,9 +16,8 @@ ReorderBufferToastInitHash(ReorderBuffer *rb, ReorderBufferTXN *txn)
 This function creates a hash table specifically designed to handle TOAST data reassembly during logical replication. When PostgreSQL stores large column values (typically over 2KB), it uses TOAST to break them into smaller chunks stored in separate TOAST tables. During logical replication, these chunks need to be reassembled to reconstruct the original large values. The hash table uses OIDs as keys to track different TOAST entities and stores ReorderBufferToastEnt structures that maintain the state of chunk reassembly for each large value. The hash table is created in the reorder buffer's memory context to ensure proper memory management.
 
 ## Parameters / Member Variables
-- : Pointer to the ReorderBuffer containing the memory context for hash table allocation
-- : Pointer to the ReorderBufferTXN that will own the toast_hash for tracking TOAST reassembly
-
+- `*rb`: Pointer to the ReorderBuffer containing the memory context for hash table allocation
+- `*txn`: Pointer to the ReorderBufferTXN that will own the toast_hash for tracking TOAST reassembly
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hash_create](../h/hash_create.md) (creates the hash table with specified parameters)

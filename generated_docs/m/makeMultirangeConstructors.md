@@ -26,13 +26,12 @@ Each constructor uses the same name as the multirange type for intuitive usage. 
 All constructors are created as internal language functions marked as immutable and parallel-safe, with DEPENDENCY_INTERNAL relationships to ensure automatic cleanup when the multirange type is dropped.
 
 ## Parameters / Member Variables
-- : The name of the multirange type, used as the constructor function name
-- : The namespace OID where the constructor functions should be created  
-- : The OID of the multirange type that the constructors will return
-- : The OID of the associated range type, used for the 1-argument constructor parameter
-- : The OID of the range array type, used for the variadic constructor parameter
-- : Output parameter that receives the OID of the 1-argument constructor for use in cast creation
-
+- `*name`: The name of the multirange type, used as the constructor function name
+- `namespace`: The namespace OID where the constructor functions should be created
+- `multirangeOid`: The OID of the multirange type that the constructors will return
+- `rangeOid`: The OID of the associated range type, used for the 1-argument constructor parameter
+- `rangeArrayOid`: The OID of the range array type, used for the variadic constructor parameter
+- `*castFuncOid`: Output parameter that receives the OID of the 1-argument constructor for use in cast creation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ProcedureCreate](../P/ProcedureCreate.md) (creates the constructor function catalog entries)

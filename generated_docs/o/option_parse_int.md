@@ -27,12 +27,11 @@ The parsing process includes:
 On success, the function returns true and optionally stores the parsed value. On failure, it logs an appropriate error message and returns false.
 
 ## Parameters / Member Variables
-- : String containing the option argument to parse
-- : Name of the option (used in error messages)
-- : Minimum allowed value (inclusive)
-- : Maximum allowed value (inclusive)
-- : Optional pointer to store the parsed integer value (can be NULL)
-
+- `*optarg`: String containing the option argument to parse
+- `*optname`: Name of the option (used in error messages)
+- `min_range`: Minimum allowed value (inclusive)
+- `max_range`: Maximum allowed value (inclusive)
+- `*result`: Optional pointer to store the parsed integer value (can be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [strtoint](../s/strtoint.md)

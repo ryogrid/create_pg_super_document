@@ -25,9 +25,8 @@ The function performs several key operations:
 7. Increments statistics for zeroed pages
 
 ## Parameters / Member Variables
-- : SlruCtl structure containing the SLRU control information and shared state
-- : The 64-bit page number to be zeroed and initialized
-
+- `ctl`: SlruCtl structure containing the SLRU control information and shared state
+- `pageno`: The 64-bit page number to be zeroed and initialized
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockHeldByMeInMode](../L/LWLockHeldByMeInMode.md) (assertion check for lock held)

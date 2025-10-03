@@ -18,9 +18,8 @@ This function iterates through a list of paths and checks whether each individua
 The function is implemented as a simple loop that delegates the actual reparameterization check to the  function for each individual path. This provides a convenient way to validate entire path lists rather than checking paths individually.
 
 ## Parameters / Member Variables
-- : A List containing Path structures that need to be checked for reparameterizability
-- : A RelOptInfo pointer representing the child relation that the paths should be reparameterized for
-
+- `*pathlist`: A List containing Path structures that need to be checked for reparameterizability
+- `*child_rel`: A RelOptInfo pointer representing the child relation that the paths should be reparameterized for
 ## Dependencies
 - Functions called/Symbols referenced:
   - path_is_reparameterizable_by_child (for individual path checking)

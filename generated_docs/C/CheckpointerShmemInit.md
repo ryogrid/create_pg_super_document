@@ -25,6 +25,7 @@ The function uses PostgreSQL's shared memory infrastructure and handles both the
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CheckpointerShmemSize](CheckpointerShmemSize.md)

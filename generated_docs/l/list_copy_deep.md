@@ -19,8 +19,7 @@ The function includes an assertion to ensure it's only called on pointer Lists (
 The comment notes that this function's concept of "deep" copying is more thorough than what  considers deep, highlighting the distinction between different levels of copying operations in PostgreSQL.
 
 ## Parameters / Member Variables
-- : The source List to be deep copied. Must be a T_List type (pointer list). Can be NIL, in which case NIL is returned.
-
+- `*qsort_comparator`: The source List to be deep copied. Must be a T_List type (pointer list). Can be NIL, in which case NIL is returned.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [new_list](../n/new_list.md)

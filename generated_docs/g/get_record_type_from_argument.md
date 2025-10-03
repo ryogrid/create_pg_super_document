@@ -24,10 +24,9 @@ Key behaviors:
 - Provides descriptive error messages for invalid argument types
 
 ## Parameters / Member Variables
-- : Function call information containing argument details and execution context
-- : Name of the calling function (used in error messages for clarity)
-- : PopulateRecordCache structure to be initialized with type information
-
+- `fcinfo`: Function call information containing argument details and execution context
+- `*funcname`: Name of the calling function (used in error messages for clarity)
+- `*cache`: PopulateRecordCache structure to be initialized with type information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_fn_expr_argtype](get_fn_expr_argtype.md)

@@ -19,12 +19,11 @@ finalize_partialaggregate(AggState *aggstate,
 This function finalizes a partial aggregate by preparing its transition value for output. The key distinction from full aggregate finalization is that this function may apply a serialization function instead of a final function. If a serialization function is configured (serialfn_oid is valid), it serializes the transition value to create a portable representation. If no serialization function is needed, it simply returns the transition value as-is. The function operates in the output-tuple memory context to ensure proper memory management.
 
 ## Parameters / Member Variables
-- : The overall aggregate execution state containing global information
-- : Per-aggregate information including result type and configuration
-- : Per-group state containing the current transition value and null flag
-- : Output parameter to store the finalized aggregate value
-- : Output parameter to indicate if the result is NULL
-
+- `*aggstate`: The overall aggregate execution state containing global information
+- `peragg`: Per-aggregate information including result type and configuration
+- `pergroupstate`: Per-group state containing the current transition value and null flag
+- `*resultVal`: Output parameter to store the finalized aggregate value
+- `*resultIsNull`: Output parameter to indicate if the result is NULL
 ## Dependencies
 - Functions called/Symbols referenced:
   - MakeExpandedObjectReadOnly

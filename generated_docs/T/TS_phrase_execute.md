@@ -31,12 +31,11 @@ Key behaviors include:
 - Phrase distance calculation and width computation
 
 ## Parameters / Member Variables
-- : Pointer to the current QueryItem being processed in the query tree
-- : Opaque argument passed to the TSExecuteCallback function
-- : Execution flags controlling behavior (e.g., TS_EXEC_SKIP_NOT)
-- : Callback function to check if a lexeme condition is satisfied
-- : Pointer to ExecPhraseData structure for position information (NULL if positions not needed)
-
+- `*curitem`: Pointer to the current QueryItem being processed in the query tree
+- `*arg`: Opaque argument passed to the TSExecuteCallback function
+- `flags`: Execution flags controlling behavior (e.g., TS_EXEC_SKIP_NOT)
+- `chkcond`: Callback function to check if a lexeme condition is satisfied
+- `*data`: Pointer to ExecPhraseData structure for position information (NULL if positions not needed)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_stack_depth](../c/check_stack_depth.md)

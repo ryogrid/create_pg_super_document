@@ -20,7 +20,6 @@ The counter is initialized to LWTRANCHE_FIRST_USER_DEFINED during the CreateLWLo
 This function is primarily used by extensions and test modules that need to create their own LWLock tranches dynamically, rather than using the static named tranche mechanism provided by RequestNamedLWLockTranche(). Each allocated ID can then be used with LWLockRegisterTranche() to associate a descriptive name with the tranche for debugging purposes.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

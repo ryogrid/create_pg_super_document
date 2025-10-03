@@ -24,8 +24,7 @@ This function serves as a controller for iterative tense suffix removal in Tamil
 This iterative approach is necessary because Tamil words can have multiple layered tense suffixes that need to be removed in sequence to reach the root form.
 
 ## Parameters / Member Variables
-- : Pointer to the Snowball environment structure () containing:
-
+- `*z`: Pointer to the Snowball environment structure () containing:
 ## Dependencies
 - Functions called/Symbols referenced:
   - : The core function that identifies and removes individual tense suffixes

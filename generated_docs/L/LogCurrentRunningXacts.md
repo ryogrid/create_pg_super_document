@@ -20,8 +20,7 @@ The logged snapshot includes transaction counts, subtransaction information, ove
 The function ensures the WAL record is eventually synced to disk by using XLogSetAsyncXactLSN(), which marks the LSN for background flushing without blocking the current operation.
 
 ## Parameters / Member Variables
-- : A RunningTransactions structure containing the current snapshot of running transactions, including transaction counts, subtransaction information, and key transaction IDs
-
+- `CurrRunningXacts`: A RunningTransactions structure containing the current snapshot of running transactions, including transaction counts, subtransaction information, and key transaction IDs
 ## Dependencies
 - Functions called/Symbols referenced:
   - [XLogBeginInsert](../X/XLogBeginInsert.md)

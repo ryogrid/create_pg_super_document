@@ -16,8 +16,7 @@ pid_lock_file_exists(const char *datadir)
 The  function is used during PostgreSQL upgrade operations to verify whether a PostgreSQL server instance might be running in a given data directory. It attempts to open the  file in read-only mode. If the file can be opened successfully, it indicates that a postmaster process may be running (or was running recently and did not clean up properly). The function handles specific error cases gracefully - if the file doesn't exist (ENOENT) or the directory path is invalid (ENOTDIR), it returns false without throwing an error, as these are expected conditions when no server is running.
 
 ## Parameters / Member Variables
-- : Path to the PostgreSQL data directory where the postmaster.pid file should be checked
-
+- `*datadir`: Path to the PostgreSQL data directory where the postmaster.pid file should be checked
 ## Dependencies
 - Functions called/Symbols referenced:
   - snprintf

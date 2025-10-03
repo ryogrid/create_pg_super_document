@@ -16,9 +16,8 @@ dumpSequence(Archive *fout, const TableInfo *tbinfo)
 The  function generates SQL CREATE SEQUENCE statements for PostgreSQL sequences. It extracts sequence metadata from either  (PostgreSQL 10+) or the sequence relation itself (older versions) and constructs appropriate DDL statements. The function handles various sequence types (smallint, integer, bigint), calculates default min/max values based on sequence type and increment direction, and supports both standalone sequences and identity sequences. For identity sequences, it generates ALTER TABLE...ADD GENERATED statements instead of CREATE SEQUENCE. The function also handles sequence ownership relationships, comments, and security labels.
 
 ## Parameters / Member Variables
-- : Archive structure containing dump options and output methods
-- : TableInfo structure containing sequence metadata including OID, name, ownership information, and identity sequence status
-
+- `*fout`: Archive structure containing dump options and output methods
+- `*tbinfo`: TableInfo structure containing sequence metadata including OID, name, ownership information, and identity sequence status
 ## Dependencies
 - Functions called/Symbols referenced:
   - [fmtId](../f/fmtId.md)

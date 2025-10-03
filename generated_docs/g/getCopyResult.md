@@ -22,9 +22,8 @@ If the connection is healthy, the function checks whether there's already an asy
 Finally, if no existing result is available, the function creates a new empty PGresult with the appropriate copy status using PQmakeEmptyPGresult. This allows the application to begin or continue COPY operations.
 
 ## Parameters / Member Variables
-- : Pointer to the PGconn structure representing the database connection
-- : ExecStatusType indicating the specific type of COPY operation (PGRES_COPY_IN, PGRES_COPY_OUT, or PGRES_COPY_BOTH)
-
+- `*conn`: Pointer to the PGconn structure representing the database connection
+- `copytype`: ExecStatusType indicating the specific type of COPY operation (PGRES_COPY_IN, PGRES_COPY_OUT, or PGRES_COPY_BOTH)
 ## Dependencies
 - Functions called/Symbols referenced:
   - CONNECTION_OK

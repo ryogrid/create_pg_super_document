@@ -24,8 +24,7 @@ The key differences from  are:
 The function first checks if the result is already cached in . If not cached, it looks up the replica identity index using  and builds the bitmap by examining the index's key attributes. The result is cached for future use.
 
 ## Parameters / Member Variables
-- : The relation whose replica identity attribute bitmap is requested
-
+- `relation`: The relation whose replica identity attribute bitmap is requested
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bms_copy](../b/bms_copy.md)

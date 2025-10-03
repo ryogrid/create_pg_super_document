@@ -18,7 +18,6 @@ This function restores normal signal delivery to the current background worker p
 The function uses the system's UnBlockSig signal set, which contains the normal set of signals that should be unblocked for regular operation. This allows background workers to respond to important signals like termination requests, configuration reloads, and other administrative signals.
 
 ## Parameters / Member Variables
-This function takes no parameters and returns void.
 
 ## Dependencies
 - Functions called/Symbols referenced:

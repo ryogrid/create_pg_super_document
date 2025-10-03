@@ -20,10 +20,9 @@ The function handles two distinct scenarios:
 2. WAL replay (isRedo=true): Deletion during recovery, which includes logging fork-specific drop operations
 
 ## Parameters / Member Variables
-- : Array of RelFileLocator structures identifying the relations to be dropped
-- : Number of relations in the delrels array
-- : Boolean flag indicating whether this is being called during WAL replay/recovery
-
+- `*delrels`: Array of RelFileLocator structures identifying the relations to be dropped
+- `ndelrels`: Number of relations in the delrels array
+- `isRedo`: Boolean flag indicating whether this is being called during WAL replay/recovery
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md)

@@ -21,10 +21,9 @@ The function uses two primary criteria for determining join desirability: the pr
 By returning true only for joins that have clear logical or semantic justification, the function enables gimme_tree to build higher quality bushy plans that respect the query structure while avoiding inefficient join orders.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing the query planning context and join-related metadata
-- : RelOptInfo for the first relation being considered for joining
-- : RelOptInfo for the second relation being considered for joining
-
+- `*root`: PlannerInfo structure containing the query planning context and join-related metadata
+- `*outer_rel`: RelOptInfo for the first relation being considered for joining
+- `*inner_rel`: RelOptInfo for the second relation being considered for joining
 ## Dependencies
 - Functions called/Symbols referenced:
   - [have_relevant_joinclause](../h/have_relevant_joinclause.md) (checks for WHERE clauses connecting the relations)

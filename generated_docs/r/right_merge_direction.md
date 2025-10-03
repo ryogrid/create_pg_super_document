@@ -18,9 +18,8 @@ This function is used during merge join planning to determine the preferred sort
 The function plays a crucial role in optimizing merge joins by ensuring that the chosen sort direction minimizes additional sorting overhead while satisfying query requirements.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing query planning context and pathkey information
-- : The PathKey structure being evaluated for its sort direction preference
-
+- `*root`: PlannerInfo structure containing query planning context and pathkey information
+- `*pathkey`: The PathKey structure being evaluated for its sort direction preference
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PathKey](../P/PathKey.md) (structure type)

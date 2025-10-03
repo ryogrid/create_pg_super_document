@@ -21,6 +21,7 @@ The function computes the total size by adding:
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - SerializedReindexState (structure type)

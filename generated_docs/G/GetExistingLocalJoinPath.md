@@ -20,8 +20,7 @@ The function creates shallow copies of the chosen paths to avoid issues with the
 The primary use case is for EPQ checks, where PostgreSQL needs a local execution plan as a fallback when foreign data wrappers cannot handle certain operations or when row-level security checks are required.
 
 ## Parameters / Member Variables
-- : A RelOptInfo structure representing the join relation for which to find an existing local join path
-
+- `*joinrel`: A RelOptInfo structure representing the join relation for which to find an existing local join path
 ## Dependencies
 - Functions called/Symbols referenced:
   - IS_JOIN_REL (macro for checking if relation is a join)

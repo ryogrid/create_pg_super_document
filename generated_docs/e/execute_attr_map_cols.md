@@ -18,9 +18,8 @@ This function performs column bitmap conversion using an attribute map () to tra
 The conversion process iterates through each possible output column position and determines the corresponding input column using the attribute map. System columns (negative attribute numbers) are mapped directly without transformation, while user columns are mapped according to the  array. The function builds a new bitmap containing only those output columns whose corresponding input columns are present in the input bitmap.
 
 ## Parameters / Member Variables
-- : Pointer to an AttrMap structure containing the mapping from output column positions to input column numbers
-- : Input bitmap representing a set of columns, offset by FirstLowInvalidHeapAttributeNumber
-
+- `*attrMap`: Pointer to an AttrMap structure containing the mapping from output column positions to input column numbers
+- `*in_cols`: Input bitmap representing a set of columns, offset by FirstLowInvalidHeapAttributeNumber
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bms_is_member](../b/bms_is_member.md) (checks if a column is present in the input bitmap)

@@ -16,8 +16,7 @@ is_space(char a)
 The is_space function provides a locale-independent implementation for detecting whitespace characters within PostgreSQL's timezone compiler. Unlike the standard library's isspace() function which can vary based on locale settings, this function explicitly defines whitespace according to the C locale specification. It uses a switch statement to efficiently check for the six standard whitespace characters: space, form feed, newline, carriage return, tab, and vertical tab. This ensures consistent parsing behavior regardless of the system's locale configuration.
 
 ## Parameters / Member Variables
-- : A char value representing the character to test for whitespace properties
-
+- `a`: A char value representing the character to test for whitespace properties
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (self-contained function)

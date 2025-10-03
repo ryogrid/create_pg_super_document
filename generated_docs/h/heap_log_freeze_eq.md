@@ -20,9 +20,8 @@ The function checks four critical fields that define the freeze operation: the m
 This optimization is particularly important during vacuum operations where many tuples might require similar freeze operations, allowing the system to batch similar operations and reduce WAL volume.
 
 ## Parameters / Member Variables
-- : Pointer to the existing freeze plan to compare against
-- : Pointer to the HeapTupleFreeze structure containing the new freeze request
-
+- `*plan`: Pointer to the existing freeze plan to compare against
+- `*frz`: Pointer to the HeapTupleFreeze structure containing the new freeze request
 ## Dependencies
 - Functions called/Symbols referenced:
   - [xlhp_freeze_plan](../x/xlhp_freeze_plan.md) (struct type)

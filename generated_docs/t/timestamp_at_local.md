@@ -20,8 +20,7 @@ The function converts a timestamp without timezone to a timestamp with timezone 
 The existence of this wrapper is necessitated by PostgreSQL's grammar requirements for the AT LOCAL syntax, which needs to handle both timestamp and timestamptz input types with the same syntax but different underlying function implementations.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function argument macro containing:
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument macro containing:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [timestamp_timestamptz](timestamp_timestamptz.md) (actual conversion function)

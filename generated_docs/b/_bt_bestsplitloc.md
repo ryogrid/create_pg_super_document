@@ -19,11 +19,10 @@ This function evaluates all candidate split points within the acceptable split i
 The function implements an optimization where it can return early if it finds a split point with the perfect penalty score, avoiding unnecessary penalty calculations for remaining candidates. It also includes logic to prevent problematic split behavior when dealing with large groups of duplicate values.
 
 ## Parameters / Member Variables
-- : FindSplitData structure containing split candidates and page information
-- : The theoretical lowest possible penalty score, used for early termination optimization
-- : Output parameter indicating whether the new item will be placed on the left page after split
-- : FindSplitStrat enum indicating the splitting strategy being used (affects duplicate handling)
-
+- `*state`: FindSplitData structure containing split candidates and page information
+- `perfectpenalty`: The theoretical lowest possible penalty score, used for early termination optimization
+- `*newitemonleft`: Output parameter indicating whether the new item will be placed on the left page after split
+- `strategy`: FindSplitStrat enum indicating the splitting strategy being used (affects duplicate handling)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [_bt_split_penalty](_bt_split_penalty.md)

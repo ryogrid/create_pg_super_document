@@ -24,9 +24,8 @@ This function handles the continuation of GSSAPI authentication after the initia
 The function supports both initial calls (no input token) and subsequent calls (with server response tokens) during the multi-step authentication process.
 
 ## Parameters / Member Variables
-- : PostgreSQL connection structure containing GSS context, credentials, and connection state
-- : Length of the incoming authentication token from the server (0 for initial call)
-
+- `*conn`: PostgreSQL connection structure containing GSS context, credentials, and connection state
+- `payloadlen`: Length of the incoming authentication token from the server (0 for initial call)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Memory allocation for input token buffer

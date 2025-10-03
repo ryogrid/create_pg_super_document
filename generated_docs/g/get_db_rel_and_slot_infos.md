@@ -20,9 +20,8 @@ The function operates in a systematic manner: first obtaining basic cluster info
 The function also handles memory management by freeing previously allocated database information and provides verbose logging to help administrators track the information gathering process.
 
 ## Parameters / Member Variables
-- : Pointer to ClusterInfo structure representing the PostgreSQL cluster to analyze
-- : Boolean flag used for live checking functionality (only applicable when target is the old cluster)
-
+- `*cluster`: Pointer to ClusterInfo structure representing the PostgreSQL cluster to analyze
+- `live_check`: Boolean flag used for live checking functionality (only applicable when target is the old cluster)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [free_db_and_rel_infos](../f/free_db_and_rel_infos.md)

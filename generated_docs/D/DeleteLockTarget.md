@@ -23,9 +23,8 @@ DeleteLockTarget is an internal function responsible for cleaning up predicate l
 This function is critical for maintaining the integrity of the predicate locking system by ensuring that obsolete locks and targets don't accumulate in memory.
 
 ## Parameters / Member Variables
-- : Pointer to the PREDICATELOCKTARGET structure to be deleted
-- : Hash value of the target's tag, used for efficient hash table operations
-
+- `*target`: Pointer to the PREDICATELOCKTARGET structure to be deleted
+- `targettaghash`: Hash value of the target's tag, used for efficient hash table operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockHeldByMeInMode](../L/LWLockHeldByMeInMode.md)

@@ -18,7 +18,6 @@ The  function is responsible for cleaning up any state related to bind parameter
 When bind parameters are active (indicated by  being true), the function iterates through all stored bind parameters, freeing each individual parameter string, then frees the array of parameter pointers itself. Finally, it resets the bind state by setting the parameter array pointer to NULL and the bind flag to false.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

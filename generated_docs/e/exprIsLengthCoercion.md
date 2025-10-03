@@ -24,9 +24,8 @@ The function validates that the expression came from a coercion context by check
 This distinction is important for the type system because length coercions preserve more type information than general type coercions, allowing for better optimization and type inference.
 
 ## Parameters / Member Variables
-- : A const pointer to the Node representing the expression to be examined
-- : Output parameter - if not NULL, receives the target typmod value if this is a length coercion, otherwise receives -1
-
+- `*expr`: A const pointer to the Node representing the expression to be examined
+- `*coercedTypmod`: Output parameter - if not NULL, receives the target typmod value if this is a length coercion, otherwise receives -1
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (macro for node type checking)

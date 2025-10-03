@@ -25,10 +25,9 @@ The validation process includes:
 All validation failures result in LOG-level error messages and NULL return values, allowing the caller to handle failures gracefully (typically by trying an alternative checkpoint location).
 
 ## Parameters / Member Variables
-- : XLogPrefetcher instance used for reading the checkpoint record
-- : XLogRecPtr indicating the location of the checkpoint record to read
-- : TimeLineID specifying the timeline being replayed for consistency validation
-
+- `*xlogprefetcher`: XLogPrefetcher instance used for reading the checkpoint record
+- `RecPtr`: XLogRecPtr indicating the location of the checkpoint record to read
+- `replayTLI`: TimeLineID specifying the timeline being replayed for consistency validation
 ## Dependencies
 - Functions called/Symbols referenced:
   - XRecOffIsValid

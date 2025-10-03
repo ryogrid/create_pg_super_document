@@ -30,10 +30,9 @@ The function performs these operations:
 This caching mechanism significantly improves performance for repeated I/O operations on the same multirange type.
 
 ## Parameters / Member Variables
-- : Function call information structure containing context and caching
-- : OID of the multirange type to get I/O data for
-- : IOFuncSelector indicating which I/O function type (input, output, receive, send)
-
+- `fcinfo`: Function call information structure containing context and caching
+- `mltrngtypid`: OID of the multirange type to get I/O data for
+- `func`: IOFuncSelector indicating which I/O function type (input, output, receive, send)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContextAlloc](../M/MemoryContextAlloc.md)

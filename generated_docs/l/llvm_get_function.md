@@ -16,9 +16,8 @@ llvm_get_function(LLVMJitContext *context, const char *funcname)
 This function provides access to JIT-compiled functions by looking up their symbols in the LLVM execution engine. It handles the complete compilation pipeline - if code is pending compilation, it triggers compilation first via llvm_compile_module(). The function implements version-specific symbol lookup using different LLVM ORC APIs depending on the LLVM version (>11 uses LLJIT, ≤11 uses OrcStack). For newer LLVM versions, it also tracks emission timing since LLJIT performs lazy code generation on first symbol access.
 
 ## Parameters / Member Variables
-- : LLVMJitContext pointer containing compiled modules and JIT handles
-- : Name of the function to look up (unmangled symbol name)
-
+- `*context`: LLVMJitContext pointer containing compiled modules and JIT handles
+- `*funcname`: Name of the function to look up (unmangled symbol name)
 ## Dependencies
 - Functions called/Symbols referenced:
   - llvm_assert_in_fatal_section (safety assertion)

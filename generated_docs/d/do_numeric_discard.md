@@ -24,9 +24,8 @@ The function must handle several challenging scenarios:
 The function may return false to indicate that the removal cannot be performed cleanly, forcing the aggregate to be recalculated from scratch.
 
 ## Parameters / Member Variables
-- : Pointer to NumericAggState containing the current aggregate state (sum, count, scale information, special value counts)
-- : The Numeric value to be removed from the aggregate state
-
+- `*state`: Pointer to NumericAggState containing the current aggregate state (sum, count, scale information, special value counts)
+- `newval`: The Numeric value to be removed from the aggregate state
 ## Dependencies
 - Functions called/Symbols referenced:
   - NUMERIC_IS_SPECIAL

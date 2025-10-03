@@ -26,10 +26,9 @@ The function operates by:
 The function handles both LIST and RANGE partitioning strategies and properly handles nested partitioning scenarios where the default partition itself may be partitioned.
 
 ## Parameters / Member Variables
-- : The parent partitioned table relation
-- : The default partition relation to be checked  
-- : The partition bound specification for the new partition being added
-
+- `parent`: The parent partitioned table relation
+- `default_rel`: The default partition relation to be checked
+- `*new_spec`: The partition bound specification for the new partition being added
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_qual_for_list](../g/get_qual_for_list.md) / get_qual_for_range

@@ -16,10 +16,9 @@ expr_fetch_func(VacAttrStatsP stats, int rownum, bool *isNull)
 This function serves as a callback for the statistics computation infrastructure, providing access to pre-evaluated expression results stored in Datum arrays. Unlike typical tuple-based data access, this function operates on flattened arrays of expression values and null indicators that have been pre-computed by evaluate expressions against sample rows. The function uses the rowstride field to handle potential multi-column statistics scenarios and properly sets the null indicator for the statistics computation engine.
 
 ## Parameters / Member Variables
-- : VacAttrStats pointer containing the pre-computed expression values and metadata
-- : Zero-based row number to fetch data for
-- : Output parameter set to indicate whether the retrieved value is null
-
+- `stats`: VacAttrStats pointer containing the pre-computed expression values and metadata
+- `rownum`: Zero-based row number to fetch data for
+- `*isNull`: Output parameter set to indicate whether the retrieved value is null
 ## Dependencies
 - Functions called/Symbols referenced:
   - [VacAttrStatsP](../V/VacAttrStatsP.md)

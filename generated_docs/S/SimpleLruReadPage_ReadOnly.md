@@ -26,10 +26,9 @@ The function operates by:
 This approach provides better performance for read-only access patterns while maintaining full consistency and safety guarantees.
 
 ## Parameters / Member Variables
-- : SlruCtl structure containing the SLRU control information and shared state
-- : The 64-bit page number to read
-- : Transaction ID used for error reporting (may be InvalidTransactionId)
-
+- `ctl`: SlruCtl structure containing the SLRU control information and shared state
+- `pageno`: The 64-bit page number to read
+- `xid`: Transaction ID used for error reporting (may be InvalidTransactionId)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SimpleLruGetBankLock](SimpleLruGetBankLock.md) (get bank lock for page)

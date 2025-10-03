@@ -20,7 +20,6 @@ The function handles two scenarios:
 2. No outer handler: If there's no outer setjmp handler, it promotes the ERROR to FATAL, recalculates output destinations, clears the error context stack, and calls errfinish to process the fatal error
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

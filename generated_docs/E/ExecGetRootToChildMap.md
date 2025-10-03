@@ -22,9 +22,8 @@ The function handles two main scenarios:
 The conversion map accounts for differences in column order, data types, and presence/absence of columns between the root and child relations. When no conversion is needed (schemas are identical), the function returns NULL as an optimization.
 
 ## Parameters / Member Variables
-- : ResultRelInfo structure for the child relation that needs tuple conversion
-- : Executor state containing memory context and other execution information
-
+- `*resultRelInfo`: ResultRelInfo structure for the child relation that needs tuple conversion
+- `*estate`: Executor state containing memory context and other execution information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [build_attrmap_by_name_if_req](../b/build_attrmap_by_name_if_req.md): Creates attribute mapping between input and output tuple descriptors

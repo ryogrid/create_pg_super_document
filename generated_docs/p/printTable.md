@@ -19,11 +19,10 @@ This function serves as the central dispatcher for table printing operations in 
 The function first checks for cancellation and whether output should be suppressed (PRINT_NOTHING format). It then determines whether to use a pager for formats that don't handle paging internally. Based on the format specified in the content options, it dispatches to the appropriate format-specific printing function, with special handling for expanded (vertical) vs. normal (horizontal) display modes.
 
 ## Parameters / Member Variables
-- : Pointer to printTableContent structure containing the table data, column headers, formatting options, and display preferences
-- : File pointer for the primary output destination (stdout, file, or pager pipe)
-- : Boolean indicating whether the caller has already set up fout as a pager pipe
-- : Optional file pointer for simultaneous logging output (used with --log-file option)
-
+- `*cont`: Pointer to printTableContent structure containing the table data, column headers, formatting options, and display preferences
+- `*fout`: File pointer for the primary output destination (stdout, file, or pager pipe)
+- `is_pager`: Boolean indicating whether the caller has already set up fout as a pager pipe
+- `*flog`: Optional file pointer for simultaneous logging output (used with --log-file option)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [IsPagerNeeded](../I/IsPagerNeeded.md) (for automatic pager decision)

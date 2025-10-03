@@ -23,12 +23,11 @@ The function performs several critical validations, including rejecting ON CONFL
 When a constraint name is specified, the function resolves it to get the constraint OID and marks the constrained columns as requiring SELECT privilege, ensuring proper permission checking. The transformed results are returned through output parameters for use by the planner.
 
 ## Parameters / Member Variables
-- : Parse state context containing parsing information and target relation details
-- : The parsed ON CONFLICT clause containing the arbiter specification
-- : Output parameter for the list of transformed arbiter expressions
-- : Output parameter for the transformed WHERE clause (for partial indexes)
-- : Output parameter for the constraint OID when specified by name
-
+- `*pstate`: Parse state context containing parsing information and target relation details
+- `*onConflictClause`: The parsed ON CONFLICT clause containing the arbiter specification
+- `**arbiterExpr`: Output parameter for the list of transformed arbiter expressions
+- `**arbiterWhere`: Output parameter for the transformed WHERE clause (for partial indexes)
+- `*constraint`: Output parameter for the constraint OID when specified by name
 ## Dependencies
 - Functions called/Symbols referenced:
   - [resolve_unique_index_expr](../r/resolve_unique_index_expr.md): Transforms index element expressions for unique index inference

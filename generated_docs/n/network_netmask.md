@@ -16,8 +16,7 @@ network_netmask(PG_FUNCTION_ARGS)
 This function creates the netmask (subnet mask) corresponding to a given inet or cidr network address. It takes an IP address with a prefix length and generates the appropriate netmask by setting the first N bits (where N is the prefix length) to 1 and the remaining bits to 0. The resulting address represents the subnet mask that can be used for network calculations, routing, and determining which portion of an IP address represents the network versus the host. The function sets the bits field to the maximum possible for the address family (32 for IPv4, 128 for IPv6).
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function argument structure containing the inet/cidr input network address
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument structure containing the inet/cidr input network address
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Extracts inet argument from function arguments

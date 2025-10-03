@@ -20,10 +20,9 @@ The function validates that each decimal component doesn't exceed 255 (valid oct
 The parsing stops when a slash is encountered (indicating CIDR notation) or when the string ends. For CIDR notation, it calls getbits to parse the prefix length.
 
 ## Parameters / Member Variables
-- : Source string containing the IPv4 address in dotted decimal notation
-- : Destination buffer to store the parsed octets
-- : Pointer to integer where CIDR prefix length will be stored (if encountered)
-
+- `*src`: Source string containing the IPv4 address in dotted decimal notation
+- `*dst`: Destination buffer to store the parsed octets
+- `*bitsp`: Pointer to integer where CIDR prefix length will be stored (if encountered)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [getbits](getbits.md) (for parsing CIDR prefix lengths)

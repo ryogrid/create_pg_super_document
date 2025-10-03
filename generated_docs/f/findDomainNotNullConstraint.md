@@ -16,8 +16,7 @@ findDomainNotNullConstraint(Oid typid)
 This function searches the pg_constraint catalog to locate a validated NOT NULL constraint associated with a specific domain type. It performs a sequential scan through all constraints belonging to the domain and returns the first validated NOT NULL constraint found. The function is specifically designed to work with domain types and their NOT NULL constraints, which are a special category of constraints in PostgreSQL's type system. It returns a copy of the constraint tuple to prevent issues with concurrent catalog modifications.
 
 ## Parameters / Member Variables
-- : OID of the domain type to search for NOT NULL constraints
-
+- `typid`: OID of the domain type to search for NOT NULL constraints
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md)

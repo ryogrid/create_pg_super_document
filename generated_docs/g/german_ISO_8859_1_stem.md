@@ -24,8 +24,7 @@ This function orchestrates the complete German word stemming process by executin
 The function carefully manages cursor positions throughout the process, saving and restoring positions between phases to ensure each step operates on the correct text boundaries. The algorithm follows the German stemming rules defined in the Snowball stemming project.
 
 ## Parameters / Member Variables
-- : Pointer to SN_env structure containing the word buffer, cursor positions, and stemming state information
-
+- `*z`: Pointer to SN_env structure containing the word buffer, cursor positions, and stemming state information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [r_prelude](../r/r_prelude.md) (preprocessing and character normalization)

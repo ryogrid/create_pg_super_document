@@ -20,9 +20,8 @@ The primary purpose is to enable deduplication of equivalent freeze plans in WAL
 The function is specifically designed to work with heap_log_freeze_eq for identifying and consolidating equivalent freeze operations during WAL record generation.
 
 ## Parameters / Member Variables
-- : Pointer to the first HeapTupleFreeze structure to compare
-- : Pointer to the second HeapTupleFreeze structure to compare
-
+- `*arg1`: Pointer to the first HeapTupleFreeze structure to compare
+- `*arg2`: Pointer to the second HeapTupleFreeze structure to compare
 ## Dependencies
 - Functions called/Symbols referenced:
   - [HeapTupleFreeze](../H/HeapTupleFreeze.md) (struct type)

@@ -18,8 +18,7 @@ The  function connects to a PostgreSQL publisher database and retrieves its syst
 The function includes comprehensive error handling for connection failures, query execution problems, and unexpected result sets. It uses logging to provide visibility into the operation and automatically terminates the program on critical errors using the  utility function.
 
 ## Parameters / Member Variables
-- : A PostgreSQL connection string specifying how to connect to the publisher database (includes host, port, database name, credentials, etc.)
-
+- `*conninfo`: A PostgreSQL connection string specifying how to connect to the publisher database (includes host, port, database name, credentials, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_log_info (logging function for informational messages)

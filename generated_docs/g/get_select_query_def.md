@@ -25,9 +25,8 @@ After handling the main query body, the function processes the remaining clauses
 The function sets up the deparse context with the query's target list and window clause information, which are needed by various sub-functions for proper name resolution and formatting.
 
 ## Parameters / Member Variables
-- : Query parse tree representing the SELECT statement to be formatted
-- : Deparse context containing output buffer, formatting flags, and namespace information
-
+- `*query`: Query parse tree representing the SELECT statement to be formatted
+- `*context`: Deparse context containing output buffer, formatting flags, and namespace information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_with_clause](get_with_clause.md)

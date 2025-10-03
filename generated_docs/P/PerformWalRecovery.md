@@ -28,7 +28,6 @@ The function handles various recovery scenarios including:
 - Progress reporting for non-standby modes
 
 ## Parameters / Member Variables
-This function takes no parameters as it operates on global recovery state.
 
 ## Dependencies
 - Functions called/Symbols referenced:

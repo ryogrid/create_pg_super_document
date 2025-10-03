@@ -16,8 +16,7 @@ getExtendedStatistics(Archive *fout)
 The getExtendedStatistics function queries the pg_statistic_ext system catalog to retrieve all extended statistics objects in the database. Extended statistics provide multi-column statistics that help the query planner make better estimates for complex predicates involving multiple columns. The function handles version-specific differences, as extended statistics were introduced in PostgreSQL 10 and the stxstattarget column was added in PostgreSQL 13. For each extended statistics object found, it creates a StatsExtInfo structure containing metadata such as the statistics name, namespace, owner, target table, and statistics target value. The function also determines whether each statistics object should be included in the dump based on the current dump configuration.
 
 ## Parameters / Member Variables
-- : Archive pointer containing dump configuration and database connection information
-
+- `*fout`: Archive pointer containing dump configuration and database connection information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [StatsExtInfo](../S/StatsExtInfo.md) (structure type)

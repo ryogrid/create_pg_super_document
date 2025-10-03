@@ -28,12 +28,11 @@ The function handles both serial and parallel execution scenarios:
 The optimization strategy prioritizes reusing existing sort order and applies incremental sorting when paths are partially sorted, which can significantly reduce sorting costs compared to full sorts.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing query planning context and sort_pathkeys requirements
-- : RelOptInfo containing source data paths to be sorted
-- : PathTarget specifying the output target list the result paths must emit
-- : Boolean indicating whether the target is safe for parallel execution
-- : Estimated bound on number of output tuples, or -1 if no LIMIT or couldn't estimate
-
+- `*root`: PlannerInfo structure containing query planning context and sort_pathkeys requirements
+- `*input_rel`: RelOptInfo containing source data paths to be sorted
+- `*target`: PathTarget specifying the output target list the result paths must emit
+- `target_parallel_safe`: Boolean indicating whether the target is safe for parallel execution
+- `limit_tuples`: Estimated bound on number of output tuples, or -1 if no LIMIT or couldn't estimate
 ## Dependencies
 - Functions called/Symbols referenced:
   - [fetch_upper_rel](../f/fetch_upper_rel.md)

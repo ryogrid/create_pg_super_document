@@ -22,11 +22,10 @@ This function searches for a child pointer (downlink) to a specific block number
 The function is designed to handle page modifications that might have occurred since the offset was stored, such as insertions or deletions that could shift child pointers to different positions.
 
 ## Parameters / Member Variables
-- : GinBtree structure (currently unused in function body)
-- : The non-leaf page to search within
-- : The block number of the child page being searched for
-- : Previously stored offset number that might point to the target child pointer, used as optimization hint
-
+- `btree`: GinBtree structure (currently unused in function body)
+- `page`: The non-leaf page to search within
+- `blkno`: The block number of the child page being searched for
+- `storedOff`: Previously stored offset number that might point to the target child pointer, used as optimization hint
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)

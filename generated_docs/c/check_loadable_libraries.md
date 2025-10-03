@@ -17,6 +17,7 @@ This function performs a critical compatibility check during pg_upgrade by testi
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [connectToServer](connectToServer.md) (connect to new cluster)

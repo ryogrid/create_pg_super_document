@@ -18,9 +18,8 @@ This function creates a new assignment structure and adds it to the head of the 
 The assignments are stored as a linked list where each new assignment becomes the head, implementing a stack-like LIFO (Last In, First Out) behavior.
 
 ## Parameters / Member Variables
-- : The variable name to be assigned (copied into newly allocated memory)
-- : The ECPGdtype enum value representing the descriptor data type
-
+- `*var`: The variable name to be assigned (copied into newly allocated memory)
+- `value`: The ECPGdtype enum value representing the descriptor data type
 ## Dependencies
 - Functions called/Symbols referenced:
   - [mm_alloc](../m/mm_alloc.md) (memory allocation function)

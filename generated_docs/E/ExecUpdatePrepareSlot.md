@@ -24,10 +24,9 @@ The function handles two critical preparation tasks:
 This preparation is essential because constraints and generated column expressions may need to reference the tableoid system column, and generated columns must be computed with the latest values before the tuple is stored.
 
 ## Parameters / Member Variables
-- : Information about the result relation being updated, containing relation descriptor and metadata
-- : TupleTableSlot containing the tuple data to be updated, which will be modified in-place
-- : EState containing the execution state and context for the current query
-
+- `*resultRelInfo`: Information about the result relation being updated, containing relation descriptor and metadata
+- `*slot`: TupleTableSlot containing the tuple data to be updated, which will be modified in-place
+- `*estate`: EState containing the execution state and context for the current query
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecComputeStoredGenerated](ExecComputeStoredGenerated.md) (computes stored generated column values)

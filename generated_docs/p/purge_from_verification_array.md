@@ -24,8 +24,7 @@ This approach efficiently compacts the array by removing all TIDs from the speci
 The operation is typically used when testing block-level operations on the tidstore, where certain blocks need to be excluded from verification arrays to ensure test accuracy.
 
 ## Parameters / Member Variables
-- : The block number whose associated ItemPointers should be removed from the verification array
-
+- `blkno`: The block number whose associated ItemPointers should be removed from the verification array
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md) (to extract block number from ItemPointers)

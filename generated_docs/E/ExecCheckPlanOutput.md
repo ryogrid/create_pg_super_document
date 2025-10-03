@@ -24,9 +24,8 @@ The function iterates through each target list entry and validates:
 The validation occurs after obtaining a lock on the target relation, ensuring the row type cannot change during the check. This was previously used for UPDATE operations as well, but equivalent checks are now handled by ExecBuildUpdateProjection for updates.
 
 ## Parameters / Member Variables
-- : The target relation where tuples will be inserted
-- : List of TargetEntry nodes representing the plan's output columns
-
+- `resultRel`: The target relation where tuples will be inserted
+- `*targetList`: List of TargetEntry nodes representing the plan's output columns
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationGetDescr

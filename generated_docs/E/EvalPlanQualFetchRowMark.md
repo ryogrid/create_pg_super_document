@@ -16,10 +16,9 @@ EvalPlanQualFetchRowMark(EPQState *epqstate, Index rti, TupleTableSlot *slot)
 This function is a core component of PostgreSQL's EPQ (Eval Plan Qual) mechanism that retrieves tuple data for relations that need to be rescanned during concurrent update detection. It handles two main row mark types: ROW_MARK_REFERENCE (which fetches tuples by their ctid) and ROW_MARK_COPY (which uses stored whole-row values). For child relations in inheritance hierarchies, it validates that the current row actually belongs to the expected relation by checking the tableoid. The function includes special handling for foreign tables by delegating to the appropriate FDW (Foreign Data Wrapper) routine. It returns true if a substitution tuple was successfully found and false otherwise.
 
 ## Parameters / Member Variables
-- : Pointer to the EPQState containing row mark information and the original slot
-- : Range table index (1-based) identifying the specific relation
-- : TupleTableSlot where the fetched tuple data will be stored
-
+- `*epqstate`: Pointer to the EPQState containing row mark information and the original slot
+- `rti`: Range table index (1-based) identifying the specific relation
+- `*slot`: TupleTableSlot where the fetched tuple data will be stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - RowMarkRequiresRowShareLock

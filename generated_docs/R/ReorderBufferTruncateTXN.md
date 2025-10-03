@@ -35,10 +35,9 @@ The function performs several key operations:
 7. **Entry counter reset**: Resets both in-memory and total entry counters to zero.
 
 ## Parameters / Member Variables
-- : Pointer to the main ReorderBuffer structure managing the reordering operations
-- : Pointer to the ReorderBufferTXN structure representing the transaction to be truncated
-- : Boolean flag indicating whether the transaction has been decoded at prepare time, controlling whether tuplecids should be removed
-
+- `*rb`: Pointer to the main ReorderBuffer structure managing the reordering operations
+- `*txn`: Pointer to the ReorderBufferTXN structure representing the transaction to be truncated
+- `txn_prepared`: Boolean flag indicating whether the transaction has been decoded at prepare time, controlling whether tuplecids should be removed
 ## Dependencies
 - Functions called/Symbols referenced:
   - dlist_foreach_modify

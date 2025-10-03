@@ -19,10 +19,9 @@ This function is responsible for constructing the pathlist for Result relations,
 The function first establishes size estimates for the relation, then determines any required outer relations due to LATERAL references in the target list, and finally creates and adds the appropriate ResultScan path to the relation's pathlist.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global information about the query being planned
-- : RelOptInfo structure representing the Result relation for which paths are being generated
-- : RangeTblEntry that describes this Result relation in the range table
-
+- `*root`: PlannerInfo structure containing global information about the query being planned
+- `*rel`: RelOptInfo structure representing the Result relation for which paths are being generated
+- `*rte`: RangeTblEntry that describes this Result relation in the range table
 ## Dependencies
 - Functions called/Symbols referenced:
   - [set_result_size_estimates](set_result_size_estimates.md)

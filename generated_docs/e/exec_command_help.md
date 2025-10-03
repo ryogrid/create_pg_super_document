@@ -16,9 +16,8 @@ exec_command_help(PsqlScanState scan_state, bool active_branch)
 This function handles the execution of the \help backslash command in psql. When invoked, it extracts the optional topic parameter from the command line and calls the helpSQL function to display help information about SQL commands. The function respects the active_branch parameter for conditional execution in psql scripts (used with \if constructs). If the command is not in an active branch, it simply ignores the remainder of the line without processing.
 
 ## Parameters / Member Variables
-- : PsqlScanState pointer that tracks the current parsing state of the psql input
-- : Boolean flag indicating whether this command is being executed in an active conditional branch
-
+- `scan_state`: PsqlScanState pointer that tracks the current parsing state of the psql input
+- `active_branch`: Boolean flag indicating whether this command is being executed in an active conditional branch
 ## Dependencies
 - Functions called/Symbols referenced:
   - psql_scan_slash_option (extracts command arguments from input)

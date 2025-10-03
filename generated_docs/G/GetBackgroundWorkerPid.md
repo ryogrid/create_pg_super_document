@@ -18,9 +18,8 @@ This function determines the current state of a background worker process and op
 The function implements atomic reads of the worker PID while acknowledging that the value may become stale by the time the caller uses it, which is an inherent limitation in concurrent systems.
 
 ## Parameters / Member Variables
-- : Pointer to BackgroundWorkerHandle containing slot information and generation number for the target worker
-- : Output parameter that receives the worker's PID if the worker is currently running
-
+- `*handle`: Pointer to BackgroundWorkerHandle containing slot information and generation number for the target worker
+- `*pidp`: Output parameter that receives the worker's PID if the worker is currently running
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockAcquire](../L/LWLockAcquire.md) (with BackgroundWorkerLock and LW_SHARED)

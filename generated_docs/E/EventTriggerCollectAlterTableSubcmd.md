@@ -20,9 +20,8 @@ The function creates a  structure to store the subcommand information and adds i
 The function only operates when event trigger context is active and command collection is not inhibited. It ensures that the collected data persists in the appropriate memory context for later use by event triggers.
 
 ## Parameters / Member Variables
-- : A Node pointer that must be an AlterTableCmd representing the specific ALTER TABLE subcommand being collected
-- : An ObjectAddress structure identifying the database object affected by this subcommand
-
+- `*subcmd`: A Node pointer that must be an AlterTableCmd representing the specific ALTER TABLE subcommand being collected
+- `address`: An ObjectAddress structure identifying the database object affected by this subcommand
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Type checking macro

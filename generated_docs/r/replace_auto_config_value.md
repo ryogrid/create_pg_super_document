@@ -21,11 +21,10 @@ The function handles the linked list maintenance properly, updating both head an
 This function is essential for the ALTER SYSTEM command functionality, allowing dynamic updates to the automatic configuration without requiring manual file editing.
 
 ## Parameters / Member Variables
-- : Pointer to the pointer of the first node in the configuration variable linked list
-- : Pointer to the pointer of the last node in the configuration variable linked list  
-- : The name of the configuration parameter to add, replace, or delete
-- : The new value for the parameter (NULL to delete the parameter)
-
+- `**head_p`: Pointer to the pointer of the first node in the configuration variable linked list
+- `**tail_p`: Pointer to the pointer of the last node in the configuration variable linked list
+- `*name`: The name of the configuration parameter to add, replace, or delete
+- `*value`: The new value for the parameter (NULL to delete the parameter)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [guc_name_compare](../g/guc_name_compare.md)

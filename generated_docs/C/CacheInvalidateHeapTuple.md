@@ -30,10 +30,9 @@ For relation cache invalidation, the function examines specific system catalogs 
 Each catalog requires specific handling to extract the target relation OID and determine the appropriate database scope for the invalidation.
 
 ## Parameters / Member Variables
-- : The system catalog relation being modified
-- : The target tuple for insert/delete operations, or the old tuple version for updates
-- : NULL for insert/delete operations, or the new tuple version for updates
-
+- `relation`: The system catalog relation being modified
+- `tuple`: The target tuple for insert/delete operations, or the old tuple version for updates
+- `newtuple`: NULL for insert/delete operations, or the new tuple version for updates
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsBootstrapProcessingMode

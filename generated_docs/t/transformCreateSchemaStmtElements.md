@@ -20,9 +20,8 @@ The function handles SQL's allowance for constraints to make forward references 
 Note that this function modifies schema-name fields within the passed-in structures to set the appropriate schema context for each element.
 
 ## Parameters / Member Variables
-- : List of schema elements from the CREATE SCHEMA statement to be processed and organized
-- : The name of the schema that will be used for creating the listed objects, compiled from either the schema name in the statement or a role specification
-
+- `*schemaElts`: List of schema elements from the CREATE SCHEMA statement to be processed and organized
+- `*schemaName`: The name of the schema that will be used for creating the listed objects, compiled from either the schema name in the statement or a role specification
 ## Dependencies
 - Functions called/Symbols referenced:
   - CreateSchemaStmtContext (local context structure)

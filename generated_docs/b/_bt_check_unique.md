@@ -22,13 +22,12 @@ The function supports different checking modes: full checking with error reporti
 A key optimization is the ability to mark dead tuples as killed when all HOT chain members are confirmed dead, helping with index cleanup. The function also handles posting list tuples by iterating through all heap TIDs within them.
 
 ## Parameters / Member Variables
-- : The B-tree index relation being checked
-- : Current insertion state containing the tuple and search context
-- : The heap relation associated with the index
-- : Type of uniqueness check to perform (NO/PARTIAL/YES/EXISTING)
-- : Output parameter set to false if potential conflict found
-- : Output parameter for speculative insertion token when waiting needed
-
+- `rel`: The B-tree index relation being checked
+- `insertstate`: Current insertion state containing the tuple and search context
+- `heapRel`: The heap relation associated with the index
+- `checkUnique`: Type of uniqueness check to perform (NO/PARTIAL/YES/EXISTING)
+- `*is_unique`: Output parameter set to false if potential conflict found
+- `*speculativeToken`: Output parameter for speculative insertion token when waiting needed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [_bt_binsrch_insert](_bt_binsrch_insert.md): Performs binary search to find equal tuples

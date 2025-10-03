@@ -23,7 +23,6 @@ Like SPI_commit, this function performs the same critical validation checks:
 The key difference from SPI_commit is that transaction characteristics are saved before the commit and restored in the new transaction, providing continuity of transaction properties across the boundary. This implements SQL standard COMMIT AND CHAIN semantics.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

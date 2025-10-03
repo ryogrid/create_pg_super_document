@@ -18,9 +18,8 @@ This function modifies an existing Aggref node to transform it from a simple agg
 The function updates both the aggregation split mode and adjusts the result type when necessary. For partial aggregations that skip the final step, the result type is changed from the aggregate's final result type to the transition type, with special handling for INTERNAL types that need serialization.
 
 ## Parameters / Member Variables
-- : Pointer to the Aggref node to be modified in-place
-- : The intended partial-aggregation mode (AggSplit enum value)
-
+- `*agg`: Pointer to the Aggref node to be modified in-place
+- `aggsplit`: The intended partial-aggregation mode (AggSplit enum value)
 ## Dependencies
 - Functions called/Symbols referenced:
   - AggSplit (enum type)

@@ -26,8 +26,7 @@ The vacuum_db function performs essential database maintenance operations as the
 The strategic ordering (ANALYZE before VACUUM FREEZE) ensures that the collected statistics are preserved through the freezing process, giving the template1 database accurate optimizer statistics that will be inherited by databases created from this template.
 
 ## Parameters / Member Variables
-- : FILE pointer to the command file where SQL statements are written for execution during database initialization
-
+- `*cmdfd`: FILE pointer to the command file where SQL statements are written for execution during database initialization
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_CMD_PUTS (macro for writing SQL strings to the command file)

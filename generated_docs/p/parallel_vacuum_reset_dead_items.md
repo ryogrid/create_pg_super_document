@@ -23,8 +23,7 @@ This function performs a complete reset of the shared dead items storage by:
 This operation is typically performed between vacuum phases when the dead items storage needs to be cleared but parallel vacuum operations will continue.
 
 ## Parameters / Member Variables
-- : Pointer to the parallel vacuum state structure containing the shared TidStore and metadata
-
+- `*pvs`: Pointer to the parallel vacuum state structure containing the shared TidStore and metadata
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Destroys the existing shared TidStore

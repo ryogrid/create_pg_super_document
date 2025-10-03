@@ -27,10 +27,9 @@ The function follows this process:
 This optimization is significant because it can eliminate entire levels of plan nodes, reducing execution overhead and simplifying the plan tree when subqueries don't add meaningful structure.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing the parent query's planner state and context
-- : The SubqueryScan node to process and potentially eliminate
-- : Integer offset to add to rangetable indices for proper variable resolution
-
+- `*root`: PlannerInfo structure containing the parent query's planner state and context
+- `*plan`: The SubqueryScan node to process and potentially eliminate
+- `rtoffset`: Integer offset to add to rangetable indices for proper variable resolution
 ## Dependencies
 - Functions called/Symbols referenced:
   - [find_base_rel](../f/find_base_rel.md): Locates the RelOptInfo for the subquery relation

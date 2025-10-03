@@ -22,8 +22,7 @@ The function compares the beginning of the input connection string against these
 This function is noted as a duplicate of a similar function in libpq, indicating that psql needs its own copy for local connection string processing without depending on libpq's internal functions.
 
 ## Parameters / Member Variables
-- : Pointer to the connection string to be examined for URI prefix
-
+- `*connstr`: Pointer to the connection string to be examined for URI prefix
 ## Dependencies
 - Functions called/Symbols referenced:
   - strncmp (standard C library function for string comparison)

@@ -24,9 +24,8 @@ The function operates by:
 The recovery mechanism detects failed I/O by attempting to conditionally acquire the buffer lock. If successful, it means the previous I/O holder has abnormally terminated, and the function resets the page status appropriately based on whether it was a read or write operation.
 
 ## Parameters / Member Variables
-- : SlruCtl structure containing the SLRU control information and shared state
-- : The buffer slot number to wait for I/O completion on
-
+- `ctl`: SlruCtl structure containing the SLRU control information and shared state
+- `slotno`: The buffer slot number to wait for I/O completion on
 ## Dependencies
 - Functions called/Symbols referenced:
   - SlotGetBankNumber (get bank number for slot)

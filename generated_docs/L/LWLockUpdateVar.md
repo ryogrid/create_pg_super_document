@@ -20,10 +20,9 @@ The function operates in two phases: first, it updates the variable using pg_ato
 The caller must hold the lock in exclusive mode when calling this function. The function carefully manages the wait queue by acquiring the wait list lock, moving waiters to a temporary list, then releasing the wait list lock before actually waking the processes.
 
 ## Parameters / Member Variables  
-- : The LWLock currently held in exclusive mode
-- : Pointer to the atomic uint64 variable to update
-- : New value to set in the variable
-
+- `*lock`: The LWLock currently held in exclusive mode
+- `*valptr`: Pointer to the atomic uint64 variable to update
+- `val`: New value to set in the variable
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_atomic_exchange_u64](../p/pg_atomic_exchange_u64.md) (atomic variable update with full barrier)

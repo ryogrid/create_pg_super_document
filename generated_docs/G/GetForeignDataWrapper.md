@@ -16,8 +16,7 @@ GetForeignDataWrapper(Oid fdwid)
 GetForeignDataWrapper is a wrapper function that provides a convenient interface to look up foreign-data wrapper objects by their OID. It internally calls GetForeignDataWrapperExtended with default flags (0), which means it will raise an error if the specified foreign-data wrapper cannot be found. This function is commonly used throughout the PostgreSQL codebase when FDW information is needed and the caller expects the wrapper to exist.
 
 ## Parameters / Member Variables
-- : The Object ID (OID) of the foreign-data wrapper to retrieve
-
+- `fdwid`: The Object ID (OID) of the foreign-data wrapper to retrieve
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetForeignDataWrapperExtended](GetForeignDataWrapperExtended.md)

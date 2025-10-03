@@ -18,8 +18,7 @@ The  function calculates the effective size of a large object by scanning throug
 The function uses a backwards scan of the pg_largeobject index to efficiently locate the last page of the large object. Since the index is ordered by both loid (large object ID) and pageno (page number), a backwards scan with only the loid constraint will visit pages in reverse order, allowing the function to examine just the first (last) valid page to determine the total size.
 
 ## Parameters / Member Variables
-- : Pointer to the LargeObjectDesc structure containing the large object ID and snapshot information
-
+- `*obj_desc`: Pointer to the LargeObjectDesc structure containing the large object ID and snapshot information
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerIsValid (for assertion checking)

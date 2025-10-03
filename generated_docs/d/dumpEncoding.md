@@ -16,8 +16,7 @@ dumpEncoding(Archive *AH)
 The  function creates an archive entry that contains a SQL command to set the client encoding to match the database encoding. This ensures that when the dump is restored, the client connection uses the same encoding as the original database. The function converts the numeric encoding stored in the archive to its string representation, wraps it in a SET client_encoding statement, and stores it as a PRE_DATA section entry in the dump archive.
 
 ## Parameters / Member Variables
-- : Pointer to the Archive structure containing dump state and configuration, including the encoding value
-
+- `*AH`: Pointer to the Archive structure containing dump state and configuration, including the encoding value
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_encoding_to_char](../p/pg_encoding_to_char.md) (converts encoding ID to string name)

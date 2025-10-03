@@ -18,10 +18,9 @@ The  function serves as a centralized error handling mechanism for ECPG test cas
 This function is part of the ECPG compatibility layer for Informix, providing a standardized way to handle SQL errors in embedded SQL applications. It ensures consistent error reporting format across test cases and implements defensive programming practices by attempting transaction rollback on errors.
 
 ## Parameters / Member Variables
-- : The name of the function where the SQL operation was performed (for error context)
-- : Description of the SQL operation that was being performed (for error context)  
-- : An error code that should be ignored (function returns early if SQLCODE matches this value)
-
+- `*fn`: The name of the function where the SQL operation was performed (for error context)
+- `*caller`: Description of the SQL operation that was being performed (for error context)
+- `ignore`: An error code that should be ignored (function returns early if SQLCODE matches this value)
 ## Dependencies
 - Functions called/Symbols referenced:
   - SQLCODE (global variable)

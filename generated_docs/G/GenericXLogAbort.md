@@ -18,8 +18,7 @@ GenericXLogAbort provides a clean way to cancel a generic WAL operation that was
 The function does not handle buffer management (locks/pins) - that responsibility lies with the caller to ensure proper cleanup of any acquired resources.
 
 ## Parameters / Member Variables
-- : Pointer to GenericXLogState to be discarded, containing the pending changes that will not be applied
-
+- `*state`: Pointer to GenericXLogState to be discarded, containing the pending changes that will not be applied
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pfree](../p/pfree.md) (frees the GenericXLogState memory)

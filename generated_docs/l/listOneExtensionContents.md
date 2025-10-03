@@ -22,9 +22,8 @@ The query workflow:
 4. Display with a custom title indicating the extension name
 
 ## Parameters / Member Variables
-- : The name of the extension (used for the display title)
-- : The OID of the extension (used in the WHERE clause to find dependent objects)
-
+- `*extname`: The name of the extension (used for the display title)
+- `*oid`: The OID of the extension (used in the WHERE clause to find dependent objects)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQExpBufferData](../P/PQExpBufferData.md) (data structure)

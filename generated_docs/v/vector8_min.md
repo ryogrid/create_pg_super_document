@@ -23,9 +23,8 @@ This function is part of PostgreSQL's SIMD abstraction layer, which provides a u
 The function operates on 16 bytes simultaneously, comparing each corresponding byte position and returning the smaller value at each position. This parallelized approach significantly outperforms scalar implementations when processing large amounts of data.
 
 ## Parameters / Member Variables
-- : First input vector containing 16 8-bit unsigned integers
-- : Second input vector containing 16 8-bit unsigned integers
-
+- `v1`: First input vector containing 16 8-bit unsigned integers
+- `v2`: Second input vector containing 16 8-bit unsigned integers
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (SSE2 intrinsic for x86/x64)

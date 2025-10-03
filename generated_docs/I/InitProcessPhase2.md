@@ -27,7 +27,6 @@ Once this function completes, the process is fully integrated into PostgreSQL's 
 - Process monitoring and statistics
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

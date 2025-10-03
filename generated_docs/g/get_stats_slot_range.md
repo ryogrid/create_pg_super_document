@@ -18,16 +18,15 @@ get_stats_slot_range(AttStatsSlot *sslot, Oid opfuncoid, FmgrInfo *opproc,
 This function examines all values in a statistics slot (AttStatsSlot) to determine the minimum and maximum values using a specified comparison operator. It iterates through the slot's values array, comparing each value against the current min/max using the provided comparison function. The function handles the initial case when no data has been processed yet by setting both min and max to the first encountered value. When new extreme values are found, they are copied using datumCopy to ensure proper memory management.
 
 ## Parameters / Member Variables
-- : AttStatsSlot containing the statistics values to scan
-- : OID of the comparison function to use for ordering values
-- : FmgrInfo structure for the comparison function (cached for efficiency)
-- : Collation to use when calling the comparison function
-- : Length of the data type (-1 for variable length types)
-- : Whether the data type is passed by value or reference
-- : Pointer to current minimum value, updated if a smaller value is found
-- : Pointer to current maximum value, updated if a larger value is found
-- : Pointer to boolean indicating whether any data has been processed
-
+- `*sslot`: AttStatsSlot containing the statistics values to scan
+- `opfuncoid`: OID of the comparison function to use for ordering values
+- `*opproc`: FmgrInfo structure for the comparison function (cached for efficiency)
+- `collation`: Collation to use when calling the comparison function
+- `typLen`: Length of the data type (-1 for variable length types)
+- `typByVal`: Whether the data type is passed by value or reference
+- `*min`: Pointer to current minimum value, updated if a smaller value is found
+- `*max`: Pointer to current maximum value, updated if a larger value is found
+- `*p_have_data`: Pointer to boolean indicating whether any data has been processed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [AttStatsSlot](../A/AttStatsSlot.md)

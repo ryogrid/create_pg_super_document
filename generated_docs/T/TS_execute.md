@@ -25,11 +25,10 @@ Key behavior:
 The function is designed for use cases where only the match/no-match result is needed, without caring about specific lexeme positions or phrase matching details.
 
 ## Parameters / Member Variables
-- : Pointer to the first QueryItem in the tsquery expression tree
-- : Opaque argument passed through to the TSExecuteCallback function
-- : Execution control flags (bitmask from ts_utils.h)
-- : Callback function that checks whether a primitive lexeme value is present
-
+- `*curitem`: Pointer to the first QueryItem in the tsquery expression tree
+- `*arg`: Opaque argument passed through to the TSExecuteCallback function
+- `flags`: Execution control flags (bitmask from ts_utils.h)
+- `chkcond`: Callback function that checks whether a primitive lexeme value is present
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TS_execute_recurse](TS_execute_recurse.md)

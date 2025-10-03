@@ -25,9 +25,8 @@ The function operates in several phases:
 The compilation process supports concurrent execution of the same plan tree since the original Expr tree remains read-only, though individual ExprState instances cannot be shared between concurrent executions due to runtime mutation.
 
 ## Parameters / Member Variables
-- : The root of the expression tree to compile (Expr*). If NULL, returns NULL for caller convenience.
-- : The PlanState node that owns this expression. May be NULL for expressions not associated with a plan tree (though such expressions cannot contain aggregates or subplans).
-
+- `*node`: The root of the expression tree to compile (Expr*). If NULL, returns NULL for caller convenience.
+- `*parent`: The PlanState node that owns this expression. May be NULL for expressions not associated with a plan tree (though such expressions cannot contain aggregates or subplans).
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (creates new ExprState)

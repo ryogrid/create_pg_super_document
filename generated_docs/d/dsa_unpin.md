@@ -25,8 +25,7 @@ This function reverses the effects of , restoring normal cleanup behavior for a 
 After unpinning, the area follows normal DSA lifecycle management and will be cleaned up automatically when the last backend detaches.
 
 ## Parameters / Member Variables
-- : Pointer to the DSA area to unpin (must be a valid area that was previously pinned with )
-
+- `*area`: Pointer to the DSA area to unpin (must be a valid area that was previously pinned with )
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (for exclusive locking)

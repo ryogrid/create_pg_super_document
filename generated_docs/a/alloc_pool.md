@@ -22,10 +22,9 @@ The  function creates and initializes a memory pool for the genetic algorithm op
 This function is fundamental to the GEQO system as it sets up the data structures needed to store and manipulate multiple candidate query execution plans during genetic optimization.
 
 ## Parameters / Member Variables
-- : PlannerInfo pointer providing planning context (though not directly used in this function)
-- : Integer specifying the number of chromosomes to allocate in the pool
-- : Integer specifying the length of the gene string for each chromosome
-
+- `*root`: PlannerInfo pointer providing planning context (though not directly used in this function)
+- `pool_size`: Integer specifying the number of chromosomes to allocate in the pool
+- `string_length`: Integer specifying the length of the gene string for each chromosome
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md) (PostgreSQL memory allocation function)

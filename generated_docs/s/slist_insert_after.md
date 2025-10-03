@@ -18,9 +18,8 @@ This function provides the capability to insert a new node at a specific positio
 The function operates in O(1) constant time and is implemented as an inline function for optimal performance. It's important to note that both nodes must belong to the same list for the operation to maintain list integrity, as indicated by the comment in the source code.
 
 ## Parameters / Member Variables
-- : Pointer to the existing node after which the new node will be inserted
-- : Pointer to the new node to be inserted into the list
-
+- `*after`: Pointer to the existing node after which the new node will be inserted
+- `*node`: Pointer to the new node to be inserted into the list
 ## Dependencies
 - Functions called/Symbols referenced:
   - [slist_node](slist_node.md) (data type used for both parameters)

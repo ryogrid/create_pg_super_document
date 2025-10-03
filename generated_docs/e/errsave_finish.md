@@ -19,11 +19,10 @@ errsave_finish completes the soft error reporting cycle initiated by errsave_sta
 For soft errors, the function performs minimal processing compared to errfinish() - it deliberately skips backtrace collection and context callback execution to avoid side effects that assume transaction abort. Instead, it creates a copy of the error data for the caller while ensuring all subsidiary strings remain accessible in the caller's memory context.
 
 ## Parameters / Member Variables
-- : ErrorSaveContext node where error details will be stored for soft errors
-- : Source file where the error occurred
-- : Line number in the source file where the error occurred
-- : Function name where the error occurred
-
+- `*context`: ErrorSaveContext node where error details will be stored for soft errors
+- `*filename`: Source file where the error occurred
+- `lineno`: Line number in the source file where the error occurred
+- `*funcname`: Function name where the error occurred
 ## Dependencies
 - Functions called/Symbols referenced:
   - [errfinish](errfinish.md)

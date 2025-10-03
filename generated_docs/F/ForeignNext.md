@@ -22,8 +22,7 @@ The function operates in two modes:
 Memory management is carefully handled by switching to the per-tuple memory context before calling FDW routines, ensuring proper cleanup of temporary allocations. The function also handles system column population by setting the tableoid when system columns are requested and a valid tuple is returned.
 
 ## Parameters / Member Variables
-- : ForeignScanState structure containing the execution state for the foreign scan operation, including FDW routines, relation information, and execution context
-
+- `*node`: ForeignScanState structure containing the execution state for the foreign scan operation, including FDW routines, relation information, and execution context
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)

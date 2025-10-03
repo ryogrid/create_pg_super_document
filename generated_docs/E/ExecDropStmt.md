@@ -21,9 +21,8 @@ ExecDropStmt serves as a central dispatcher for DROP statement execution in Post
 For concurrent index drops (DROP INDEX CONCURRENTLY), the function enforces transaction block restrictions by calling PreventInTransactionBlock to ensure the operation cannot run within a transaction block, as concurrent operations require special handling.
 
 ## Parameters / Member Variables
-- : Pointer to a DropStmt structure containing details about the DROP operation, including the object type and names
-- : Boolean flag indicating whether this statement is being executed at the top level (not within another statement)
-
+- `*stmt`: Pointer to a DropStmt structure containing details about the DROP operation, including the object type and names
+- `isTopLevel`: Boolean flag indicating whether this statement is being executed at the top level (not within another statement)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PreventInTransactionBlock](../P/PreventInTransactionBlock.md) (for concurrent index drops)

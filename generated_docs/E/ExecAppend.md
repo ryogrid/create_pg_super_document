@@ -25,8 +25,7 @@ Key execution phases:
 The function optimizes performance by returning tuples directly from subplans without copying through the Append node's result slot.
 
 ## Parameters / Member Variables
-- : The PlanState (cast to AppendState) containing the append execution context
-
+- `*pstate`: The PlanState (cast to AppendState) containing the append execution context
 ## Dependencies
 - Functions called/Symbols referenced:
   - castNode (for type casting to AppendState)

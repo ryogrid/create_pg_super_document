@@ -26,8 +26,7 @@ The function operates by:
 This cooperative repartitioning allows multiple parallel workers to efficiently redistribute large amounts of data stored on disk across the new batch structure, ensuring balanced workload distribution and optimal memory usage.
 
 ## Parameters / Member Variables
-- : The HashJoinTable containing parallel hash join state, batch information, and access to shared memory structures
-
+- `hashtable`: The HashJoinTable containing parallel hash join state, batch information, and access to shared memory structures
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dsa_get_address](../d/dsa_get_address.md) (shared memory address resolution)

@@ -16,7 +16,6 @@ ApplyLauncherWakeup(void)
 This static function implements the actual mechanism for waking up the logical replication launcher process. It checks if a launcher process is currently running by examining the launcher_pid field in the LogicalRepCtx shared memory structure. If a valid PID exists (non-zero), it sends a SIGUSR1 signal to that process using the kill() system call. This signal interrupts the launcher's sleep/wait state and prompts it to check for new work, such as starting or restarting subscription workers. The function is designed to be safe to call even when no launcher is running.
 
 ## Parameters / Member Variables
-(This function takes no parameters)
 
 ## Dependencies
 - Functions called/Symbols referenced:

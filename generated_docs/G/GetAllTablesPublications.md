@@ -21,6 +21,7 @@ This function is typically used in replication contexts where the system needs t
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md)

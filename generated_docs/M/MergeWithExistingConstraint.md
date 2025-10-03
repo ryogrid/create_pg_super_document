@@ -28,14 +28,13 @@ The function performs comprehensive conflict detection and resolution:
 The merging logic handles complex inheritance scenarios, including special handling for partitioned tables where inheritance constraints have different semantics.
 
 ## Parameters / Member Variables
-- : The relation for which constraint merging is being attempted
-- : The name of the constraint to check for conflicts
-- : The constraint expression to compare against existing constraints
-- : Whether merging with existing constraints is permitted
-- : Whether the new constraint is being defined locally
-- : Whether the new constraint is initially valid
-- : Whether the new constraint should not be inherited
-
+- `rel`: The relation for which constraint merging is being attempted
+- `*ccname`: The name of the constraint to check for conflicts
+- `*expr`: The constraint expression to compare against existing constraints
+- `allow_merge`: Whether merging with existing constraints is permitted
+- `is_local`: Whether the new constraint is being defined locally
+- `is_initially_valid`: Whether the new constraint is initially valid
+- `is_no_inherit`: Whether the new constraint should not be inherited
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SysScanDesc](../S/SysScanDesc.md)

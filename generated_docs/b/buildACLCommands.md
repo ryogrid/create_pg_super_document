@@ -28,17 +28,16 @@ The function handles special cases including:
 - Namespace-qualified object names
 
 ## Parameters / Member Variables
-- : The object name, already quoted and formatted for use in commands
-- : The sub-object name if any (e.g., column name), already quoted; NULL if none
-- : The namespace the object is in; NULL if none, not pre-quoted
-- : The object type for GRANT command (TABLE, SEQUENCE, FUNCTION, etc.)
-- : The current ACL string fetched from the database
-- : The initial/default ACL string for this object type and owner
-- : Username of object owner (will be passed through fmtId); can be NULL
-- : String to prefix to each generated command; typically empty or "ALTER DEFAULT PRIVILEGES "
-- : Version of the source database
-- : PQExpBuffer to append the generated SQL commands to
-
+- `*name`: The object name, already quoted and formatted for use in commands
+- `*subname`: The sub-object name if any (e.g., column name), already quoted; NULL if none
+- `*nspname`: The namespace the object is in; NULL if none, not pre-quoted
+- `*type`: The object type for GRANT command (TABLE, SEQUENCE, FUNCTION, etc.)
+- `*acls`: The current ACL string fetched from the database
+- `*baseacls`: The initial/default ACL string for this object type and owner
+- `*owner`: Username of object owner (will be passed through fmtId); can be NULL
+- `*prefix`: String to prefix to each generated command; typically empty or "ALTER DEFAULT PRIVILEGES "
+- `remoteVersion`: Version of the source database
+- `sql`: PQExpBuffer to append the generated SQL commands to
 ## Dependencies
 - Functions called/Symbols referenced:
   - [parsePGArray](../p/parsePGArray.md) (for parsing ACL arrays)

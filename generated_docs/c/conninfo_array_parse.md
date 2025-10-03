@@ -28,12 +28,11 @@ Key features include:
 The dbname expansion feature is particularly useful for command-line tools where users can specify either a simple database name or a full connection string as the database parameter.
 
 ## Parameters / Member Variables
-- : NULL-terminated array of connection parameter keywords (e.g., "host", "port", "dbname")
-- : Parallel NULL-terminated array of corresponding parameter values  
-- : Buffer for storing detailed error messages if parsing fails
-- : Boolean flag indicating whether to add default values for unspecified connection parameters
-- : Integer flag controlling dbname expansion behavior (non-zero enables expansion)
-
+- `*keywords`: NULL-terminated array of connection parameter keywords (e.g., "host", "port", "dbname")
+- `*values`: Parallel NULL-terminated array of corresponding parameter values
+- `errorMessage`: Buffer for storing detailed error messages if parsing fails
+- `use_defaults`: Boolean flag indicating whether to add default values for unspecified connection parameters
+- `expand_dbname`: Integer flag controlling dbname expansion behavior (non-zero enables expansion)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [recognized_connection_string](../r/recognized_connection_string.md)

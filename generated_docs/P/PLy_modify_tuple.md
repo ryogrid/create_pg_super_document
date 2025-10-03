@@ -17,11 +17,10 @@ PLy_modify_tuple(PLyProcedure *proc, PyObject *pltd, TriggerData *tdata,
 This function processes modifications to a row tuple as specified by a PL/Python trigger function. It extracts the 'new' dictionary from the trigger data (pltd), validates its structure, and applies the changes to create a new HeapTuple. The function iterates through all keys in the 'new' dictionary, validates that they correspond to valid, modifiable table columns, converts Python values to PostgreSQL Datums using the appropriate conversion functions, and constructs arrays for values, nulls, and replacement flags. It prevents modification of system attributes, generated columns, and validates column existence. The function uses PostgreSQL's heap_modify_tuple to create the final modified tuple.
 
 ## Parameters / Member Variables
-- : PL/Python procedure containing result conversion information and attribute details
-- : Python trigger data dictionary containing the 'new' key with modified values
-- : Trigger context data including relation information and tuple descriptors
-- : Original HeapTuple to be modified
-
+- `*proc`: PL/Python procedure containing result conversion information and attribute details
+- `*pltd`: Python trigger data dictionary containing the 'new' key with modified values
+- `*tdata`: Trigger context data including relation information and tuple descriptors
+- `otup`: Original HeapTuple to be modified
 ## Dependencies
 - Functions called/Symbols referenced:
   - [plpython_trigger_error_callback](../p/plpython_trigger_error_callback.md)

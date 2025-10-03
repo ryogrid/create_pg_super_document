@@ -18,8 +18,7 @@ The  function modifies the sort direction and null handling behavior for all sor
 **Important**: This function is not safe to call when performing hash tuplesorts, as indicated by the source code comments.
 
 ## Parameters / Member Variables
-- : Pointer to the Tuplesortstate structure containing the sort keys to be reversed
-
+- `*state`: Pointer to the Tuplesortstate structure containing the sort keys to be reversed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Tuplesortstate](../T/Tuplesortstate.md) (structure type)

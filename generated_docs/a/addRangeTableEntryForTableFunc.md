@@ -35,12 +35,11 @@ The function performs validation to ensure:
 Unlike other range table entry functions, this one works with a fully-specified TableFunc node that already contains all necessary column metadata, making the process more straightforward than dynamic type resolution.
 
 ## Parameters / Member Variables
-- : Parser state containing the range table and other parsing context
-- : TableFunc node containing column definitions, types, and function-specific information
-- : Optional alias for the table function; if NULL, uses "xmltable" or "json_table"
-- : Boolean indicating whether this is a LATERAL table function reference
-- : Boolean indicating whether this entry originates from a FROM clause
-
+- `*pstate`: Parser state containing the range table and other parsing context
+- `*tf`: TableFunc node containing column definitions, types, and function-specific information
+- `*alias`: Optional alias for the table function; if NULL, uses "xmltable" or "json_table"
+- `lateral`: Boolean indicating whether this is a LATERAL table function reference
+- `inFromCl`: Boolean indicating whether this entry originates from a FROM clause
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (for RTE creation)

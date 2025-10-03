@@ -37,12 +37,11 @@ Key features:
 - Provides detailed error messages for malformed input
 
 ## Parameters / Member Variables
-- : Pointer to current position in input string, advanced past the token
-- : StringInfo buffer to store de-escaped element content
-- : Type-specific delimiter character for array elements
-- : Original input string (used only for error messages)
-- : Error context for soft error handling
-
+- `**srcptr`: Pointer to current position in input string, advanced past the token
+- `elembuf`: StringInfo buffer to store de-escaped element content
+- `typdelim`: Type-specific delimiter character for array elements
+- `*origStr`: Original input string (used only for error messages)
+- `*escontext`: Error context for soft error handling
 ## Dependencies
 - Functions called/Symbols referenced:
   - [resetStringInfo](../r/resetStringInfo.md)

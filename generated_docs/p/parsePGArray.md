@@ -25,10 +25,9 @@ Key parsing features:
 The parser is designed for frontend utilities that need to process array values returned from PostgreSQL queries.
 
 ## Parameters / Member Variables
-- : Input string containing the PostgreSQL array literal to parse
-- : Output parameter - pointer to allocated array of string pointers (caller must free)
-- : Output parameter - number of items found in the array
-
+- `*atext`: Input string containing the PostgreSQL array literal to parse
+- `***itemarray`: Output parameter - pointer to allocated array of string pointers (caller must free)
+- `*nitems`: Output parameter - number of items found in the array
 ## Dependencies
 - Functions called/Symbols referenced:
   - malloc

@@ -18,11 +18,10 @@ CreateWalTarMethod(const char *tarbase,
 This function creates a tar-based WAL method implementation that packages WAL files into tar archives. It allocates and initializes a TarMethodData structure, sets up the appropriate file operations through WalTarMethodOps, and configures compression settings. The function supports both uncompressed (.tar) and gzip-compressed (.tar.gz) output formats. Currently, only zlib/gzip compression is supported, though the compression_algorithm parameter exists for future extensibility and symmetry with CreateWalDirectoryMethod.
 
 ## Parameters / Member Variables
-- : Base filename for the tar archive (without extension)
-- : Compression algorithm to use (currently only PG_COMPRESSION_GZIP is meaningful)
-- : Compression level for gzip compression (ignored for uncompressed tar)
-- : Whether to perform fsync operations for data integrity
-
+- `*tarbase`: Base filename for the tar archive (without extension)
+- `compression_algorithm`: Compression algorithm to use (currently only PG_COMPRESSION_GZIP is meaningful)
+- `compression_level`: Compression level for gzip compression (ignored for uncompressed tar)
+- `sync`: Whether to perform fsync operations for data integrity
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_malloc0](../p/pg_malloc0.md) (for memory allocation)

@@ -18,9 +18,8 @@ The  function is a simple public wrapper around the internal  function specifica
 MinimalTuples are more compact representations used primarily for in-memory tuple storage in contexts like sorting, hashing, and temporary tuple storage where the full HeapTuple overhead is unnecessary. This function is essential for operations that need to adapt existing tuples to evolved schemas while maintaining the MinimalTuple format.
 
 ## Parameters / Member Variables
-- : The source HeapTuple that has fewer attributes than required
-- : The target tuple descriptor that defines the required number and types of attributes
-
+- `sourceTuple`: The source HeapTuple that has fewer attributes than required
+- `tupleDesc`: The target tuple descriptor that defines the required number and types of attributes
 ## Dependencies
 - Functions called/Symbols referenced:
   - [expand_tuple](../e/expand_tuple.md) (internal expansion function)

@@ -21,7 +21,6 @@ This function handles the loading of libraries that should be preloaded when a n
 The function is called during backend initialization, making these libraries available only to the specific session/backend process, unlike shared preload libraries which are available to all processes.
 
 ## Parameters / Member Variables
-None (void function)
 
 ## Dependencies
 - Functions called/Symbols referenced:

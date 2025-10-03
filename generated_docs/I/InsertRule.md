@@ -22,14 +22,13 @@ InsertRule(const char *rulname,
 InsertRule performs the low-level catalog insertion of a rewrite rule into the pg_rewrite system table. It constructs the appropriate catalog tuple from the provided rule parameters, handles rule replacement logic when a rule with the same name already exists on the same relation, and establishes proper dependency relationships. The function converts the rule's qualification and action trees to string representations for storage and manages both new insertions and updates of existing rules based on the replace parameter.
 
 ## Parameters / Member Variables
-- : The name of the rule to be created
-- : The event type that triggers the rule (SELECT, INSERT, UPDATE, DELETE)
-- : The OID of the relation the rule is defined on
-- : Boolean indicating if this is an INSTEAD rule
-- : The qualification condition for when the rule fires (can be NULL)
-- : List of action statements to execute when the rule fires
-- : Boolean indicating whether to replace an existing rule with the same name
-
+- `*rulname`: The name of the rule to be created
+- `evtype`: The event type that triggers the rule (SELECT, INSERT, UPDATE, DELETE)
+- `eventrel_oid`: The OID of the relation the rule is defined on
+- `evinstead`: Boolean indicating if this is an INSTEAD rule
+- `*event_qual`: The qualification condition for when the rule fires (can be NULL)
+- `*action`: List of action statements to execute when the rule fires
+- `replace`: Boolean indicating whether to replace an existing rule with the same name
 ## Dependencies
 - Functions called/Symbols referenced:
   - [nodeToString](../n/nodeToString.md)

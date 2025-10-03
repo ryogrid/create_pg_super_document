@@ -27,16 +27,15 @@ The function:
 This is the primary interface used throughout the PostgreSQL query planner for estimating sort operation costs.
 
 ## Parameters / Member Variables
-- : Output parameter - Path object to store the calculated costs and row estimates
-- : PlannerInfo containing planner state and statistics (currently unused)
-- : List of sort keys (currently unused but reserved for future enhancements)
-- : Cost of producing/reading the input data to be sorted
-- : Number of tuples in the relation to be sorted
-- : Average tuple width in bytes
-- : Extra cost per comparison beyond the default
-- : Amount of work memory available for sorting (in kilobytes)
-- : Bound on output tuples; -1 if no limit
-
+- `*path`: Output parameter - Path object to store the calculated costs and row estimates
+- `*root`: PlannerInfo containing planner state and statistics (currently unused)
+- `*pathkeys`: List of sort keys (currently unused but reserved for future enhancements)
+- `input_cost`: Cost of producing/reading the input data to be sorted
+- `tuples`: Number of tuples in the relation to be sorted
+- `width`: Average tuple width in bytes
+- `comparison_cost`: Extra cost per comparison beyond the default
+- `sort_mem`: Amount of work memory available for sorting (in kilobytes)
+- `limit_tuples`: Bound on output tuples; -1 if no limit
 ## Dependencies
 - Functions called/Symbols referenced:
   - [cost_tuplesort](cost_tuplesort.md)

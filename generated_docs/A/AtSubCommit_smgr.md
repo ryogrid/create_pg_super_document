@@ -19,7 +19,6 @@ The function works by iterating through the global pendingDeletes linked list an
 This ensures that when the parent transaction eventually commits or aborts, it will properly handle all the relation deletions that were originally scheduled in its committed subtransactions.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

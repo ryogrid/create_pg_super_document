@@ -22,8 +22,7 @@ This function implements the decrement operation for TupleDesc reference countin
 The function includes an assertion to ensure the TupleDesc has a positive reference count before decrementing, helping to catch reference counting bugs during development. This function should only be used with TupleDescs that are actively being reference counted - for TupleDescs of uncertain status, the ReleaseTupleDesc macro should be used instead.
 
 ## Parameters / Member Variables
-- : The TupleDesc whose reference count should be decremented. Must be a valid, reference-counted TupleDesc with tdrefcount > 0.
-
+- `tupdesc`: The TupleDesc whose reference count should be decremented. Must be a valid, reference-counted TupleDesc with tdrefcount > 0.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ResourceOwnerForgetTupleDesc](../R/ResourceOwnerForgetTupleDesc.md) (removes from resource owner tracking)

@@ -27,8 +27,7 @@ The  function performs comprehensive SSL/TLS initialization for PostgreSQL's bac
 The function uses either FATAL or LOG level error reporting depending on whether this is server startup (isServerStart=true) or runtime reconfiguration.
 
 ## Parameters / Member Variables
-- : Boolean flag indicating whether this is being called during server startup (true) or during runtime reconfiguration (false). Affects error reporting level - FATAL errors during startup, LOG level during runtime.
-
+- `isServerStart`: Boolean flag indicating whether this is being called during server startup (true) or during runtime reconfiguration (false). Affects error reporting level - FATAL errors during startup, LOG level during runtime.
 ## Dependencies
 - Functions called/Symbols referenced:
   - OPENSSL_init_ssl / SSL_library_init (OpenSSL initialization)

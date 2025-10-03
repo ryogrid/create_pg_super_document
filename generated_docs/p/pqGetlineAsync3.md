@@ -18,10 +18,9 @@ pqGetlineAsync3 is the protocol 3 implementation of PostgreSQL's asynchronous CO
 The function validates the connection state to ensure it's in an appropriate COPY mode (COPY_OUT or COPY_BOTH), uses getCopyDataMessage to recognize and validate incoming messages, and manages buffer copying with support for partial reads when the caller's buffer is insufficient.
 
 ## Parameters / Member Variables
-- : PostgreSQL connection handle containing the input buffer and connection state
-- : Caller-provided buffer to receive the COPY data
-- : Size of the caller's buffer in bytes
-
+- `*conn`: PostgreSQL connection handle containing the input buffer and connection state
+- `*buffer`: Caller-provided buffer to receive the COPY data
+- `bufsize`: Size of the caller's buffer in bytes
 ## Dependencies
 - Functions called/Symbols referenced:
   - [getCopyDataMessage](../g/getCopyDataMessage.md)

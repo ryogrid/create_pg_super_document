@@ -18,10 +18,9 @@ The  function is a utility function within PostgreSQL's dynamic shared hash tabl
 The function delegates the actual copying to the  stored in the hash table's parameters, passing the destination pointer, source pointer, key size, and any additional arguments. This abstraction allows different hash tables to use different key copying strategies based on their specific requirements.
 
 ## Parameters / Member Variables
-- : Pointer to the dshash_table structure containing the hash table configuration and copy function
-- : Pointer to the destination where the key should be copied
-- : Pointer to the source key to be copied
-
+- `*hash_table`: Pointer to the dshash_table structure containing the hash table configuration and copy function
+- `*dest`: Pointer to the destination where the key should be copied
+- `*src`: Pointer to the source key to be copied
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dshash_table](../d/dshash_table.md) (structure accessed)

@@ -22,12 +22,11 @@ The function handles sorting of the heap pointer list if needed - if the shouldS
 The function returns NULL when all entries have been consumed, indicating the end of the scan.
 
 ## Parameters / Member Variables
-- : BuildAccumulator being scanned
-- : Output parameter - receives the attribute number for this entry
-- : Output parameter - receives the key datum value
-- : Output parameter - receives the null category for this key
-- : Output parameter - receives the count of heap pointers in the returned list
-
+- `*accum`: BuildAccumulator being scanned
+- `*attnum`: Output parameter - receives the attribute number for this entry
+- `*key`: Output parameter - receives the key datum value
+- `*category`: Output parameter - receives the null category for this key
+- `*n`: Output parameter - receives the count of heap pointers in the returned list
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BuildAccumulator](../B/BuildAccumulator.md) (data structure)

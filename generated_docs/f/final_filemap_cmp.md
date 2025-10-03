@@ -25,9 +25,8 @@ The function ensures that:
 - Operations are performed in a predictable, safe order
 
 ## Parameters / Member Variables
-- : Pointer to first file_entry_t pointer to compare
-- : Pointer to second file_entry_t pointer to compare
-
+- `*a`: Pointer to first file_entry_t pointer to compare
+- `*b`: Pointer to second file_entry_t pointer to compare
 ## Dependencies
 - Functions called/Symbols referenced:
   - [file_entry_t](file_entry_t.md) (struct)

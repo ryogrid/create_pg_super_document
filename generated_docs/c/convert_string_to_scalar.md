@@ -29,13 +29,12 @@ This function performs the core work of  for character-string data types. It con
 4. **Common Prefix Stripping**: It removes any common prefix from all three input strings, allowing the algorithm to "zoom in" on the distinguishing portions of the strings. This is particularly effective for data like phone numbers where many values share a common area code.
 
 ## Parameters / Member Variables
-- : The string value to be converted to a scalar
-- : Output pointer for the scaled value of the input string
-- : Lower bound string from histogram data
-- : Output pointer for the scaled value of the lower bound
-- : Upper bound string from histogram data  
-- : Output pointer for the scaled value of the upper bound
-
+- `*value`: The string value to be converted to a scalar
+- `*scaledvalue`: Output pointer for the scaled value of the input string
+- `*lobound`: Lower bound string from histogram data
+- `*scaledlobound`: Output pointer for the scaled value of the lower bound
+- `*hibound`: Upper bound string from histogram data
+- `*scaledhibound`: Output pointer for the scaled value of the upper bound
 ## Dependencies
 - Functions called/Symbols referenced:
   - [convert_one_string_to_scalar](convert_one_string_to_scalar.md) (called 3 times for each string conversion)

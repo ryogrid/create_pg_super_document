@@ -29,14 +29,13 @@ The function performs several key operations:
 A critical requirement is that the caller must pre-zero the data area before calling this function.
 
 ## Parameters / Member Variables
-- : TupleDesc structure describing the tuple format and attributes
-- : Array of Datum values for each attribute (can be NULL for all-null tuples)
-- : Array of boolean flags indicating which attributes are NULL (can be NULL to treat all as NULL)
-- : Pre-zeroed buffer where tuple data will be written
-- : Expected size of the data to be written (used for assertion checking)
-- : Pointer to tuple's info mask that will be updated with tuple characteristics
-- : Pointer to null bitmap area (can be NULL if no null bitmap is needed)
-
+- `tupleDesc`: TupleDesc structure describing the tuple format and attributes
+- `*values`: Array of Datum values for each attribute (can be NULL for all-null tuples)
+- `*isnull`: Array of boolean flags indicating which attributes are NULL (can be NULL to treat all as NULL)
+- `*data`: Pre-zeroed buffer where tuple data will be written
+- `data_size`: Expected size of the data to be written (used for assertion checking)
+- `*infomask`: Pointer to tuple's info mask that will be updated with tuple characteristics
+- `*bit`: Pointer to null bitmap area (can be NULL if no null bitmap is needed)
 ## Dependencies
 - Functions called/Symbols referenced:
   - TupleDescAttr (access tuple descriptor attributes)

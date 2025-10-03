@@ -18,9 +18,8 @@ This function takes a C string and appends it to a StringInfo buffer with proper
 The function processes each character of the input string sequentially, checking for characters that require escaping (double quotes and backslashes) and adding escape sequences as needed.
 
 ## Parameters / Member Variables
-- : StringInfo buffer where the escaped string will be appended
-- : Input C string to be escaped and appended
-
+- `buf`: StringInfo buffer where the escaped string will be appended
+- `*str`: Input C string to be escaped and appended
 ## Dependencies
 - Functions called/Symbols referenced:
   - appendStringInfoCharMacro (used to append individual characters to the buffer)

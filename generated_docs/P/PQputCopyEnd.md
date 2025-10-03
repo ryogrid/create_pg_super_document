@@ -25,9 +25,8 @@ Key operations performed:
 The function supports both successful completion (errormsg = NULL) and error reporting (errormsg contains error description). After calling this function, the client should use PQgetResult() to check the final command completion status.
 
 ## Parameters / Member Variables
-- : PostgreSQL connection handle that must be in COPY IN or COPY BOTH state
-- : Error message string for failure cases, or NULL for successful completion
-
+- `*conn`: PostgreSQL connection handle that must be in COPY IN or COPY BOTH state
+- `*errormsg`: Error message string for failure cases, or NULL for successful completion
 ## Dependencies
 - Functions called/Symbols referenced:
   - [libpq_append_conn_error](../l/libpq_append_conn_error.md)

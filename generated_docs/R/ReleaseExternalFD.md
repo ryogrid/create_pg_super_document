@@ -18,7 +18,6 @@ This function is the counterpart to ReserveExternalFD and is used to notify Post
 The function includes an assertion to ensure that numExternalFDs is greater than zero before decrementing, helping to catch programming errors where releases don't match reservations. Importantly, this function is designed to never change errno, making it safe to use in error handling and cleanup paths.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

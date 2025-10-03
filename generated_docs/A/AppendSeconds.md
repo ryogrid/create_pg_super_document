@@ -18,12 +18,11 @@ This function appends seconds and optional fractional seconds to a character buf
 The function strips any sign from the input values and handles fractional seconds by building the fractional part in reverse order while skipping trailing zeros. If the specified precision is insufficient to represent the fractional seconds value, it falls back to using pg_ultostr() for a minimal correct representation.
 
 ## Parameters / Member Variables
-- : Pointer to the current position in the output string buffer where seconds should be appended
-- : Integer seconds value (sign will be stripped using abs())
-- : Fractional seconds value of type fsec_t (essentially int32), representing microseconds
-- : Maximum number of fractional digits to output (must be >= 0)
-- : Boolean flag indicating whether to zero-pad the seconds to 2 digits
-
+- `*cp`: Pointer to the current position in the output string buffer where seconds should be appended
+- `sec`: Integer seconds value (sign will be stripped using abs())
+- `fsec`: Fractional seconds value of type fsec_t (essentially int32), representing microseconds
+- `precision`: Maximum number of fractional digits to output (must be >= 0)
+- `fillzeros`: Boolean flag indicating whether to zero-pad the seconds to 2 digits
 ## Dependencies
 - Functions called/Symbols referenced:
   - fsec_t (type definition for fractional seconds)

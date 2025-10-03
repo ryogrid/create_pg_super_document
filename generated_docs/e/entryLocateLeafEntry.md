@@ -18,9 +18,8 @@ This function performs a binary search on a leaf page of a GIN index to locate t
 The function returns true if an exact match is found, and false otherwise. In both cases, it updates the stack offset to point to the appropriate position: either the exact match location or the insertion point where the value should be placed. For full scans, it simply sets the offset to the first position and returns true.
 
 ## Parameters / Member Variables
-- : GinBtree structure containing search parameters including the entry key, attribute number, and category being searched for
-- : GinBtreeStack structure representing the current leaf page position, which will be updated with the offset of the located or insertion position
-
+- `btree`: GinBtree structure containing search parameters including the entry key, attribute number, and category being searched for
+- `*stack`: GinBtreeStack structure representing the current leaf page position, which will be updated with the offset of the located or insertion position
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BufferGetPage](../B/BufferGetPage.md)

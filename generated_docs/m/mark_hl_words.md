@@ -20,14 +20,13 @@ This function implements a headline selection algorithm for single-fragment mode
 The function can operate in two modes: normal mode where it finds the optimal fragment around query words, and highlightall mode where it marks the entire document. In normal mode, it attempts to expand fragments to meet minimum word requirements while staying within the maximum word limit, and adjusts fragment boundaries to avoid bad endpoints when possible.
 
 ## Parameters / Member Variables
-- : HeadlineParsedText structure containing the parsed document words and metadata
-- : TSQuery object containing the search query terms to highlight
-- : List of query word locations in the document
-- : Boolean flag - if true, marks entire document; if false, selects optimal fragment
-- : Minimum word length threshold (parameter present but not actively used in this function)
-- : Minimum number of words required in the selected headline fragment
-- : Maximum number of words allowed in the selected headline fragment
-
+- `*prs`: HeadlineParsedText structure containing the parsed document words and metadata
+- `query`: TSQuery object containing the search query terms to highlight
+- `*locations`: List of query word locations in the document
+- `highlightall`: Boolean flag - if true, marks entire document; if false, selects optimal fragment
+- `shortword`: Minimum word length threshold (parameter present but not actively used in this function)
+- `min_words`: Minimum number of words required in the selected headline fragment
+- `max_words`: Maximum number of words allowed in the selected headline fragment
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hlCover](../h/hlCover.md) (finds query word covers/spans)

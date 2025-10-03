@@ -16,8 +16,7 @@ consume_xids(PG_FUNCTION_ARGS)
 This function is part of the xid_wraparound test module and serves as a SQL-callable function to advance the system's transaction ID counter by consuming a specified number of XIDs. It takes a single int64 argument specifying how many XIDs to consume and returns the final transaction ID after consumption. When nxids is 0, it simply returns the current next transaction ID without consuming any XIDs. The actual XID consumption logic is delegated to the internal consume_xids_common function.
 
 ## Parameters / Member Variables
-- : Number of transaction IDs to consume (int64). Must be >= 0. When 0, no XIDs are consumed and the current next XID is returned.
-
+- `PG_FUNCTION_ARGS`: Number of transaction IDs to consume (int64). Must be >= 0. When 0, no XIDs are consumed and the current next XID is returned.
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_INT64 (macro for extracting int64 argument)

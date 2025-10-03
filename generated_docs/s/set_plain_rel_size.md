@@ -18,10 +18,9 @@ This function establishes size estimates for plain base relations in PostgreSQL'
 The order of operations is critical - partial index predicates must be evaluated first because partial unique indexes can affect the estimated number of distinct values and overall size calculations. After index predicate evaluation, the function delegates to  to perform the actual statistical analysis and size computation.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global optimizer state and planning context
-- : RelOptInfo structure representing the relation being analyzed for size estimation
-- : RangeTblEntry containing parse tree information about the relation
-
+- `*root`: PlannerInfo structure containing global optimizer state and planning context
+- `*rel`: RelOptInfo structure representing the relation being analyzed for size estimation
+- `*rte`: RangeTblEntry containing parse tree information about the relation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_index_predicates](../c/check_index_predicates.md) (evaluates partial index applicability)

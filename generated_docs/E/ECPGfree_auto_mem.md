@@ -21,7 +21,6 @@ The function operates by:
 4. Resetting the thread's auto-allocation list to NULL
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

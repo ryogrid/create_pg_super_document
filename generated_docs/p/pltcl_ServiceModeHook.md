@@ -20,8 +20,7 @@ In a normal Tcl environment, this function would be called when the notifier ent
 However, since PostgreSQL never enters the Tcl event loop and the notifier capabilities are initialized but never actively used, this hook functionality is disabled to maintain thread safety.
 
 ## Parameters / Member Variables
-- : Integer indicating the service mode state (typically 1 for entering service mode, 0 for exiting, but unused in this stub implementation)
-
+- `mode`: Integer indicating the service mode state (typically 1 for entering service mode, 0 for exiting, but unused in this stub implementation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - (None - this is an empty stub function)

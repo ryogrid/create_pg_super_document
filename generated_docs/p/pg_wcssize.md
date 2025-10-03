@@ -24,13 +24,12 @@ The function handles special characters as follows:
 - Regular characters: Add their display width
 
 ## Parameters / Member Variables
-- : Input multibyte character string to analyze
-- : Length of the input string in bytes
-- : Character encoding identifier for proper multibyte handling
-- : Output parameter for the width in display characters of the longest line
-- : Output parameter for the number of lines in the display output
-- : Output parameter for the number of bytes required to store the formatted representation
-
+- `*pwcs`: Input multibyte character string to analyze
+- `len`: Length of the input string in bytes
+- `encoding`: Character encoding identifier for proper multibyte handling
+- `*result_width`: Output parameter for the width in display characters of the longest line
+- `*result_height`: Output parameter for the number of lines in the display output
+- `*result_format_size`: Output parameter for the number of bytes required to store the formatted representation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQmblen](../P/PQmblen.md): Determines the byte length of a multibyte character

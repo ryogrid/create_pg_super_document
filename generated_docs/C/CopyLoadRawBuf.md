@@ -26,8 +26,7 @@ CopyLoadRawBuf is responsible for refreshing the raw input buffer with new data 
 The function handles the critical transition from having data to reaching EOF by setting the raw_reached_eof flag when no more data can be read.
 
 ## Parameters / Member Variables
-- : CopyFromState structure containing all COPY operation state including buffers, indices, length counters, and progress tracking
-
+- `cstate`: CopyFromState structure containing all COPY operation state including buffers, indices, length counters, and progress tracking
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CopyGetData](CopyGetData.md)

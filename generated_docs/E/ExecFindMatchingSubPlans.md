@@ -22,9 +22,8 @@ This function is the main entry point for executor-time partition pruning. It it
 The function uses a temporary memory context to avoid memory leaks in the executor's query-lifespan context. For each partition hierarchy, it delegates the actual pruning work to the recursive helper function . After processing all hierarchies, it adds any additional subplans that weren't handled by partition pruning logic.
 
 ## Parameters / Member Variables
-- : Partition pruning state containing all pruning information, contexts, and subplan mappings
-- : Boolean flag indicating whether this is initial pruning (true) or runtime pruning (false)
-
+- `*prunestate`: Partition pruning state containing all pruning information, contexts, and subplan mappings
+- `initial_prune`: Boolean flag indicating whether this is initial pruning (true) or runtime pruning (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [find_matching_subplans_recurse](../f/find_matching_subplans_recurse.md)

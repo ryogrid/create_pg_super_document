@@ -24,10 +24,9 @@ The function operates by:
 This is a simpler operation compared to reorder_function_arguments since it doesn't need to handle named arguments or complex reordering scenarios.
 
 ## Parameters / Member Variables
-- : Input list of positional arguments provided to the function
-- : Total number of parameters the function expects
-- : The function's pg_proc tuple for accessing default values
-
+- `*args`: Input list of positional arguments provided to the function
+- `pronargs`: Total number of parameters the function expects
+- `func_tuple`: The function's pg_proc tuple for accessing default values
 ## Dependencies
 - Functions called/Symbols referenced:
   - [fetch_function_defaults](../f/fetch_function_defaults.md)

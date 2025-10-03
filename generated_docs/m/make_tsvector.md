@@ -34,10 +34,7 @@ make_tsvector(ParsedText *prs)
 The function enforces size limits () and handles proper alignment requirements for position data. Each word's positions are stored with weight information (defaulting to weight 0) and position values.
 
 ## Parameters / Member Variables
-- : Pointer to ParsedText structure containing the parsed words and their positions
-
-Returns: A complete TSVector ready for storage or further processing
-
+- `*prs`: Pointer to ParsedText structure containing the parsed words and their positions
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Deduplicates words and consolidates positions

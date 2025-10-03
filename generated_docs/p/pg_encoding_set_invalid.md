@@ -20,9 +20,8 @@ For UTF-8 encoding, it uses the byte sequence [0xC0, 0x20 (space)], which repres
 The function includes an assertion that the target encoding supports multibyte characters (maximum length > 1), ensuring it's only used with appropriate encodings.
 
 ## Parameters / Member Variables
-- : PostgreSQL encoding identifier (e.g., PG_UTF8, PG_EUC_JP, etc.)
-- : Destination buffer to fill with the invalid sequence (must have space for at least 2 bytes)
-
+- `encoding`: PostgreSQL encoding identifier (e.g., PG_UTF8, PG_EUC_JP, etc.)
+- `*dst`: Destination buffer to fill with the invalid sequence (must have space for at least 2 bytes)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_encoding_max_length](pg_encoding_max_length.md) (encoding capability check)

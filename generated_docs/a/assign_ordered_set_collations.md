@@ -25,9 +25,8 @@ The function uses a nuanced approach:
 This prevents errors in cases like  while ensuring that single-argument ordered-set aggregates can properly inherit collation from their sort argument.
 
 ## Parameters / Member Variables
-- : Pointer to the Aggref node representing the ordered-set aggregate function call
-- : Local collation context for accumulating collation state from direct and qualifying aggregated arguments
-
+- `*aggref`: Pointer to the Aggref node representing the ordered-set aggregate function call
+- `*loccontext`: Local collation context for accumulating collation state from direct and qualifying aggregated arguments
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (for direct arguments and single aggregated arguments)

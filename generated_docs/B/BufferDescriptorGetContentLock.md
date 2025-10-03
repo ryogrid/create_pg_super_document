@@ -18,8 +18,7 @@ BufferDescriptorGetContentLock is a static inline function that provides access 
 The function performs a simple cast operation to return the address of the content_lock field within the BufferDesc structure as an LWLock pointer. This design allows the buffer management system to treat the embedded lock as a standard LWLock for all locking operations.
 
 ## Parameters / Member Variables
-- : Pointer to a BufferDesc structure representing the buffer descriptor whose content lock is to be accessed
-
+- `*bdesc`: Pointer to a BufferDesc structure representing the buffer descriptor whose content lock is to be accessed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BufferDesc](BufferDesc.md) (structure type)

@@ -18,10 +18,9 @@ The  function constructs a LockRows plan node that implements row-level locking 
 The node maintains a list of row marking specifications that determine what type of locks to acquire and on which relations. It also handles Evaluation of Plan Quality (EPQ) parameters, which are used when concurrent updates require re-evaluation of the query plan to ensure consistent results.
 
 ## Parameters / Member Variables
-- : The child plan node that provides tuples to be locked
-- : List of PlanRowMark structures specifying locking requirements for different relations
-- : Parameter ID used for EPQ (Evaluation of Plan Quality) re-evaluation when concurrent updates occur
-
+- `*lefttree`: The child plan node that provides tuples to be locked
+- `*rowMarks`: List of PlanRowMark structures specifying locking requirements for different relations
+- `epqParam`: Parameter ID used for EPQ (Evaluation of Plan Quality) re-evaluation when concurrent updates occur
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (creates a new LockRows node)

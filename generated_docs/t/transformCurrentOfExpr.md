@@ -18,9 +18,8 @@ The  function processes CURRENT OF expressions that appear in UPDATE and DELETE 
 The function includes a special optimization for PL/pgSQL: if the cursor name matches a REFCURSOR parameter, it converts the name reference to a parameter reference. This is done by creating a temporary ColumnRef and checking if parser hooks can resolve it to a REFCURSOR parameter. If successful, the cursor name is cleared and replaced with the parameter ID.
 
 ## Parameters / Member Variables
-- : ParseState context containing target relation information and parser hooks
-- : Input CurrentOfExpr node containing cursor name or parameter information
-
+- `*pstate`: ParseState context containing target relation information and parser hooks
+- `*cexpr`: Input CurrentOfExpr node containing cursor name or parameter information
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode

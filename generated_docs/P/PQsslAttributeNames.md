@@ -23,8 +23,7 @@ The function returns different attribute arrays depending on the connection stat
 The supported OpenSSL attributes include: "library", "key_bits", "cipher", "compression", "protocol", and "alpn". This allows applications to programmatically discover and query SSL connection properties without hardcoding attribute names.
 
 ## Parameters / Member Variables
-- : Pointer to the PostgreSQL connection object (PGconn structure), or NULL to get default attribute names
-
+- `*conn`: Pointer to the PostgreSQL connection object (PGconn structure), or NULL to get default attribute names
 ## Dependencies
 - Functions called/Symbols referenced:
   - openssl_attrs (static array of OpenSSL attribute names)

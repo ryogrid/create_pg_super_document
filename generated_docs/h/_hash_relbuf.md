@@ -16,9 +16,8 @@ _hash_relbuf(Relation rel, Buffer buf)
  is a wrapper function that releases a hash index buffer by calling . This function serves as the standard way to release buffers in hash index code, ensuring both the lock and the pin (reference count) are properly dropped. The function maintains consistency in buffer management across the hash index access method by providing a uniform interface for buffer release operations.
 
 ## Parameters / Member Variables
-- : The relation (hash index) associated with the buffer (parameter present for interface consistency but not actively used)
-- : The buffer to be released, which must be currently locked and pinned
-
+- `rel`: The relation (hash index) associated with the buffer (parameter present for interface consistency but not actively used)
+- `buf`: The buffer to be released, which must be currently locked and pinned
 ## Dependencies
 - Functions called/Symbols referenced:
   - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md) (core buffer management function)

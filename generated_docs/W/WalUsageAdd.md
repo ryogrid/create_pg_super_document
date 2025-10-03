@@ -23,9 +23,8 @@ The function tracks three key WAL metrics:
 This function focuses specifically on WAL activity that can be meaningfully measured per query, such as record generation, rather than global WAL activities like WAL writes which are tracked separately by WAL global statistics counters.
 
 ## Parameters / Member Variables
-- : Pointer to the destination WalUsage structure that will receive the accumulated values
-- : Pointer to the source WalUsage structure whose values will be added to dst
-
+- `*dst`: Pointer to the destination WalUsage structure that will receive the accumulated values
+- `*add`: Pointer to the source WalUsage structure whose values will be added to dst
 ## Dependencies
 - Functions called/Symbols referenced:
   - [WalUsage](WalUsage.md) (struct type definition)

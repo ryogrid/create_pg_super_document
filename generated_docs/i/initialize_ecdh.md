@@ -20,9 +20,8 @@ The function operates by converting the configured curve name () to an OpenSSL n
 The function sets the  option to ensure that ECDH keys are never reused across connections, maintaining perfect forward secrecy. The function is conditionally compiled and only operates when OpenSSL is built with ECDH support.
 
 ## Parameters / Member Variables
-- : SSL context structure to configure with ECDH parameters
-- : Boolean flag indicating whether this is called during server startup (affects error reporting severity)
-
+- `*context`: SSL context structure to configure with ECDH parameters
+- `isServerStart`: Boolean flag indicating whether this is called during server startup (affects error reporting severity)
 ## Dependencies
 - Functions called/Symbols referenced:
   - OBJ_sn2nid (OpenSSL function to convert curve name to numeric ID)

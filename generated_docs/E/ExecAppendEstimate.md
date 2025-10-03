@@ -24,9 +24,8 @@ The function performs two key calculations:
 The calculated space will be used to store synchronization information between parallel workers executing different subplans of the Append node.
 
 ## Parameters / Member Variables
-- : The AppendState containing information about the number of subplans
-- : The ParallelContext containing the shared memory estimator
-
+- `*node`: The AppendState containing information about the number of subplans
+- `*pcxt`: The ParallelContext containing the shared memory estimator
 ## Dependencies
 - Functions called/Symbols referenced:
   - [add_size](../a/add_size.md) (for safe size arithmetic preventing overflow)

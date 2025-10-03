@@ -16,9 +16,8 @@ multixactmemberssyncfiletag(const FileTag *ftag, char *path)
 This function serves as a wrapper around SlruSyncFileTag specifically for multixact members files. It is called by the sync.c subsystem when PostgreSQL needs to ensure that multixact member SLRU pages are properly synchronized to disk. The function delegates the actual synchronization work to the generic SLRU sync mechanism while providing the correct control structure (MultiXactMemberCtl) for multixact members.
 
 ## Parameters / Member Variables
-- : Pointer to a FileTag structure identifying the specific file to be synchronized
-- : Character pointer to the file path for the file being synchronized
-
+- `*ftag`: Pointer to a FileTag structure identifying the specific file to be synchronized
+- `*path`: Character pointer to the file path for the file being synchronized
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SlruSyncFileTag](../S/SlruSyncFileTag.md)

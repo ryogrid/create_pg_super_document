@@ -25,11 +25,10 @@ The function handles the same clause types as :
 The key difference is that instead of requiring a simple Var, this function searches through the provided statistics list to find a matching expression. This enables functional dependency usage with computed expressions like , , etc., that have extended statistics collected on them.
 
 ## Parameters / Member Variables
-- : The clause node to examine for compatibility
-- : The relation index that the clause should reference  
-- : List of StatisticExtInfo structures containing tracked expressions
-- : Output parameter that receives the matching statistics expression on success
-
+- `*clause`: The clause node to examine for compatibility
+- `relid`: The relation index that the clause should reference
+- `*statlist`: List of StatisticExtInfo structures containing tracked expressions
+- `**expr`: Output parameter that receives the matching statistics expression on success
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bms_membership](../b/bms_membership.md)

@@ -18,7 +18,6 @@ RmgrStartup iterates through all possible resource manager IDs (from 0 to RM_MAX
 The function checks if each resource manager ID exists using RmgrIdExists() and only calls the startup routine if it's not NULL, ensuring safe operation even when some resource managers don't require startup procedures.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

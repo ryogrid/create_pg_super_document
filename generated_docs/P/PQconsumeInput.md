@@ -22,8 +22,7 @@ For non-blocking connections, the function first ensures that any buffered outpu
 The function is essential for proper operation of asynchronous and non-blocking connection modes, and is commonly used in event loops and when polling for query completion.
 
 ## Parameters / Member Variables
-- : The PostgreSQL connection handle
-
+- `*conn`: The PostgreSQL connection handle
 ## Dependencies
 - Functions called/Symbols referenced:
   - pqIsnonblocking

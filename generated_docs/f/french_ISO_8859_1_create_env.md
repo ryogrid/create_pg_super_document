@@ -26,6 +26,7 @@ The created environment contains all necessary data structures for text processi
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SN_create_env](../S/SN_create_env.md) (generic Snowball environment creation function)

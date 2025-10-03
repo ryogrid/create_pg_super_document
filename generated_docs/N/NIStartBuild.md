@@ -18,8 +18,7 @@ This function prepares for constructing an ISpell dictionary by creating a tempo
 The buildCxt member of the IspellDict structure is set to a newly created AllocSet memory context with default sizing parameters. This context will be used throughout the dictionary building process to manage temporary allocations.
 
 ## Parameters / Member Variables
-- : Pointer to an IspellDict structure that will be initialized for dictionary building. The structure is expected to be pre-zeroed.
-
+- `*Conf`: Pointer to an IspellDict structure that will be initialized for dictionary building. The structure is expected to be pre-zeroed.
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetContextCreate

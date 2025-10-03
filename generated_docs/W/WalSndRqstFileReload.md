@@ -16,7 +16,6 @@ WalSndRqstFileReload(void)
 This function iterates through all WAL sender slots in the shared memory control structure and sets the needreload flag for each active WAL sender process. The function uses spinlocks to safely access the shared WAL sender control data. When a WAL sender process checks this flag during its normal operation cycle, it will reload its currently open WAL file. This mechanism is typically used when the WAL file has been restored from archive or when the system needs to ensure all senders are working with the most current file state.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

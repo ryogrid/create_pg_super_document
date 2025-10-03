@@ -16,9 +16,8 @@ relation_byte_size(double tuples, int width)
 This function calculates the total storage space needed for a relation by multiplying the number of tuples by the aligned size of each tuple. The calculation accounts for both the actual tuple data width and the heap tuple header overhead. The function uses PostgreSQL's alignment requirements (MAXALIGN) to ensure proper memory alignment for both the tuple data and the heap tuple header.
 
 ## Parameters / Member Variables
-- : The estimated number of tuples in the relation (as a double for fractional estimates)
-- : The average width in bytes of each tuple's data
-
+- `tuples`: The estimated number of tuples in the relation (as a double for fractional estimates)
+- `width`: The average width in bytes of each tuple's data
 ## Dependencies
 - Functions called/Symbols referenced:
   - MAXALIGN (macro for memory alignment)

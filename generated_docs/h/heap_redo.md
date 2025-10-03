@@ -18,8 +18,7 @@ The  function is the primary entry point for replaying heap table operations fro
 The function extracts the operation code from the WAL record and uses a switch statement to route to the correct handler function. It supports various heap operations including INSERT, DELETE, UPDATE, HOT_UPDATE, CONFIRM, LOCK, INPLACE updates, and TRUNCATE operations.
 
 ## Parameters / Member Variables
-- : XLogReaderState pointer containing the WAL record to be replayed, including operation type and associated data
-
+- `*record`: XLogReaderState pointer containing the WAL record to be replayed, including operation type and associated data
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetInfo (extracts info from WAL record)

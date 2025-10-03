@@ -22,8 +22,7 @@ The function handles two main categories of acceptable existing directories:
 For WAL-related directories, the function accounts for the fact that WAL receiver processes may create these directories before backup completion, and symbolic links may be established for custom WAL directory locations. For tablespaces, it recognizes that in-place tablespace configurations may result in pre-existing directory structures.
 
 ## Parameters / Member Variables
-- : Full path to the directory being checked for acceptable pre-existence
-
+- `*pathname`: Full path to the directory being checked for acceptable pre-existence
 ## Dependencies
 - Functions called/Symbols referenced:
   - [last_dir_separator](../l/last_dir_separator.md)

@@ -24,8 +24,7 @@ Therefore, the function only needs to check if the path starts with '..' followe
 The function also handles Windows drive/network path specifiers by using  to move past them before performing the check, as drive specifiers don't affect the presence of parent references.
 
 ## Parameters / Member Variables
-- : A null-terminated string containing the canonicalized file system path to be checked. The path must have been previously processed by canonicalize_path functions.
-
+- `*path`: A null-terminated string containing the canonicalized file system path to be checked. The path must have been previously processed by canonicalize_path functions.
 ## Dependencies
 - Functions called/Symbols referenced:
   - 

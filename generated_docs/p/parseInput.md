@@ -18,8 +18,7 @@ The parseInput function serves as a wrapper around the protocol-specific parsing
 The function is primarily used internally by libpq to handle asynchronous message processing and maintain the connection state machine. It ensures that available buffered data is processed before the calling function decides whether to wait for more data or return to the application.
 
 ## Parameters / Member Variables
-- : Pointer to the PGconn structure representing the database connection containing buffered input data to be parsed
-
+- `*conn`: Pointer to the PGconn structure representing the database connection containing buffered input data to be parsed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pqParseInput3](pqParseInput3.md)

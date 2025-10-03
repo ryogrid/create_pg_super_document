@@ -20,15 +20,14 @@ spginsert(Relation index, Datum *values, bool *isnull,
 This function handles the insertion of individual tuples into an SP-GiST index during normal database operations (as opposed to bulk building). It creates a temporary memory context for the insertion process and implements retry logic to handle concurrent insertion conflicts. The function repeatedly calls spgdoinsert() until the insertion succeeds, resetting the memory context and reinitializing the SP-GiST state on each retry to handle conflicts with concurrent operations. After successful insertion, it updates the index metapage and cleans up the temporary context.
 
 ## Parameters / Member Variables
-- : The SP-GiST index relation to insert into
-- : Array of column values for the new tuple
-- : Array of boolean flags indicating NULL values
-- : Heap tuple ID (item pointer) of the new tuple
-- : The heap relation containing the tuple
-- : Unique constraint checking mode (unused in SP-GiST)
-- : Whether the indexed values are unchanged (for HOT updates)
-- : Index metadata and configuration
-
+- `index`: The SP-GiST index relation to insert into
+- `*values`: Array of column values for the new tuple
+- `*isnull`: Array of boolean flags indicating NULL values
+- `ht_ctid`: Heap tuple ID (item pointer) of the new tuple
+- `heapRel`: The heap relation containing the tuple
+- `checkUnique`: Unique constraint checking mode (unused in SP-GiST)
+- `indexUnchanged`: Whether the indexed values are unchanged (for HOT updates)
+- `*indexInfo`: Index metadata and configuration
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetContextCreate

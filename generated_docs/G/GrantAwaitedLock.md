@@ -19,6 +19,7 @@ The function simply calls GrantLockLocal with the global variables awaitedLock a
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GrantLockLocal](GrantLockLocal.md)

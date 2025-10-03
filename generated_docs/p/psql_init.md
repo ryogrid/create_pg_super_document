@@ -16,9 +16,8 @@ psql_init(int argc, char **argv)
 This function performs the initialization setup for the PostgreSQL regression testing framework. It sets up the default configuration by adding the "regression" database to the database list that will be used for running tests. This is a simple but essential initialization step that ensures tests have a default target database when no specific database is specified through command-line arguments.
 
 ## Parameters / Member Variables
-- : Number of command-line arguments (currently unused)
-- : Array of command-line argument strings (currently unused)
-
+- `argc`: Number of command-line arguments (currently unused)
+- `**argv`: Array of command-line argument strings (currently unused)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [add_stringlist_item](../a/add_stringlist_item.md): Adds the "regression" database to the global dblist

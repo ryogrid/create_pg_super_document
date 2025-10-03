@@ -18,8 +18,7 @@ The  function creates a deep copy of an existing HeapTuple. The function allocat
 The function performs validation on the input tuple and returns NULL if the tuple is invalid or has no data. For valid tuples, it allocates memory for the new tuple and copies all metadata (length, self-reference, table OID) as well as the complete tuple data using memcpy.
 
 ## Parameters / Member Variables
-- : The source HeapTuple to be copied. Must be a valid tuple with non-NULL t_data field.
-
+- `tuple`: The source HeapTuple to be copied. Must be a valid tuple with non-NULL t_data field.
 ## Dependencies
 - Functions called/Symbols referenced:
   - HeapTupleIsValid (macro for tuple validation)

@@ -16,11 +16,10 @@ test_slru_scan_cb(SlruCtl ctl, char *filename, int64 segpage, void *data)
 This function serves as a callback for SLRU directory scanning operations in the test module. It provides a simple wrapper around the  function, adding logging functionality to track when the callback is invoked. The function is designed to delete all files encountered during the scan operation, making it useful for cleanup operations in SLRU testing scenarios.
 
 ## Parameters / Member Variables
-- : SLRU control structure containing metadata and configuration for the SLRU being scanned
-- : Name of the current file being processed during the directory scan
-- : Segment page number associated with the current file
-- : Generic data pointer passed through from the calling context (unused in this implementation)
-
+- `ctl`: SLRU control structure containing metadata and configuration for the SLRU being scanned
+- `*filename`: Name of the current file being processed during the directory scan
+- `segpage`: Segment page number associated with the current file
+- `*data`: Generic data pointer passed through from the calling context (unused in this implementation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - elog (for logging NOTICE messages)

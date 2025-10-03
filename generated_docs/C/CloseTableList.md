@@ -21,8 +21,7 @@ CloseTableList is a static utility function that properly closes database relati
 This function serves as the complementary cleanup operation to OpenTableList, ensuring proper resource management and lock release.
 
 ## Parameters / Member Variables
-- : List of PublicationRelInfo structures containing opened relations that need to be closed and cleaned up
-
+- `*rels`: List of PublicationRelInfo structures containing opened relations that need to be closed and cleaned up
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_close](../t/table_close.md) (closes the database relation)

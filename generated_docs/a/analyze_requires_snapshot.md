@@ -21,8 +21,7 @@ The function maintains a separate entry point from stmt_requires_parse_analysis(
 - analyze_requires_snapshot(): "Does this processing require a consistent database view?"
 
 ## Parameters / Member Variables
-- : RawStmt structure containing the raw parse tree node to be analyzed for snapshot requirements
-
+- `*parseTree`: RawStmt structure containing the raw parse tree node to be analyzed for snapshot requirements
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RawStmt](../R/RawStmt.md) (structure access)

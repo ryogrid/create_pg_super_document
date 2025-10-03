@@ -18,8 +18,7 @@ This function creates and configures a hash table specifically designed for JSON
 The function configures the hash table with custom hash and match functions ( and ) that properly handle the composite key structure containing object IDs, key strings, and key lengths. This enables efficient detection of duplicate keys within JSON objects during aggregation or validation operations.
 
 ## Parameters / Member Variables
-- : Pointer to a  variable that will receive the initialized hash table handle
-
+- `*cxt`: Pointer to a  variable that will receive the initialized hash table handle
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Type alias for HTAB pointer used for key uniqueness checking

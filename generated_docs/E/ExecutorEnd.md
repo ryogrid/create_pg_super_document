@@ -18,8 +18,7 @@ The  function serves as the primary entry point for ending query execution in Po
 The function is a critical part of the executor lifecycle and must be called for every query plan execution to ensure proper resource cleanup and state management.
 
 ## Parameters / Member Variables
-- : Pointer to the QueryDesc structure containing the query execution context and estate information
-
+- `*queryDesc`: Pointer to the QueryDesc structure containing the query execution context and estate information
 ## Dependencies
 - Functions called/Symbols referenced:
   - ExecutorEnd_hook (function pointer, may be NULL)

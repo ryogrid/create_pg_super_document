@@ -24,12 +24,11 @@ For each page, the function iterates through the assigned segments, copying non-
 The split operation preserves the logical ordering of segments while physically distributing them across two pages, maintaining the integrity of the GIN index structure.
 
 ## Parameters / Member Variables
-- : Pointer to disassembledLeaf structure containing segments and split information
-- : Right boundary item pointer for the left page
-- : Right boundary item pointer for the right page  
-- : Target memory location for the reconstructed left page
-- : Target memory location for the reconstructed right page
-
+- `*leaf`: Pointer to disassembledLeaf structure containing segments and split information
+- `lbound`: Right boundary item pointer for the left page
+- `rbound`: Right boundary item pointer for the right page
+- `lpage`: Target memory location for the reconstructed left page
+- `rpage`: Target memory location for the reconstructed right page
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GinInitPage](../G/GinInitPage.md)

@@ -29,15 +29,14 @@ The function handles special cases like:
 - Multiple date format ambiguities (DD-MON-YYYY, MON-DD-YYYY, YYYY-MON-DD)
 
 ## Parameters / Member Variables
-- : Length of the numeric field being processed
-- : String containing the numeric field to decode
-- : Boolean indicating if a textual month name was previously encountered
-- : Bitmask indicating which date/time fields have already been parsed
-- : Pointer to bitmask that will be updated with the newly identified field type
-- : Pointer to pg_tm structure where the parsed value will be stored
-- : Pointer to fractional seconds storage (used for decimal values)
-- : Pointer to boolean flag indicating if a 2-digit year was processed
-
+- `flen`: Length of the numeric field being processed
+- `*str`: String containing the numeric field to decode
+- `fmask`: Boolean indicating if a textual month name was previously encountered
+- `*tmask`: Bitmask indicating which date/time fields have already been parsed
+- `*tm`: Pointer to bitmask that will be updated with the newly identified field type
+- `*fsec`: Pointer to pg_tm structure where the parsed value will be stored
+- `*is2digits`: Pointer to fractional seconds storage (used for decimal values)
+- `EuroDates`: Pointer to boolean flag indicating if a 2-digit year was processed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [strtoint](../s/strtoint.md)

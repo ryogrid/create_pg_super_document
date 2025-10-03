@@ -22,13 +22,12 @@ This function performs comprehensive initialization of a partition's execution s
 The initialization process is comprehensive, covering all aspects of DML operations that might be performed on the partition. This includes setting up speculative insertion capabilities for ON CONFLICT handling, translating column references in constraints and projections, and preparing merge action states for MERGE operations.
 
 ## Parameters / Member Variables
-- : ModifyTableState containing the modify operation context and reusable ResultRelInfo structures
-- : Executor state providing memory contexts, expression evaluation environment, and tuple table management
-- : PartitionTupleRouting structure where the new ResultRelInfo will be stored for future reuse
-- : PartitionDispatch information for the current partitioning level
-- : ResultRelInfo for the root table, used as a template for constraint and projection setup
-- : Index of the target partition within the current dispatch level
-
+- `*mtstate`: ModifyTableState containing the modify operation context and reusable ResultRelInfo structures
+- `*estate`: Executor state providing memory contexts, expression evaluation environment, and tuple table management
+- `*proute`: PartitionTupleRouting structure where the new ResultRelInfo will be stored for future reuse
+- `dispatch`: PartitionDispatch information for the current partitioning level
+- `*rootResultRelInfo`: ResultRelInfo for the root table, used as a template for constraint and projection setup
+- `partidx`: Index of the target partition within the current dispatch level
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (ResultRelInfo creation)

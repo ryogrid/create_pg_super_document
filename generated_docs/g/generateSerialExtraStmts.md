@@ -28,15 +28,14 @@ The function processes sequence options, filters out non-standard options, deter
 For identity columns, special handling ensures the sequence is properly associated with the identity mechanism. The function also manages the execution order of statements, placing sequence creation before table creation and ownership assignment after.
 
 ## Parameters / Member Variables
-- : CreateStmtContext containing parsing state and command lists
-- : ColumnDef representing the serial/identity column
-- : OID of the sequence data type (for typed sequences)
-- : List of sequence options (START WITH, INCREMENT BY, etc.)
-- : Boolean indicating if this is for an identity column
-- : Boolean indicating if the column already exists (ALTER vs CREATE)
-- : Output parameter for sequence namespace name (optional)
-- : Output parameter for sequence name (optional)
-
+- `*cxt`: CreateStmtContext containing parsing state and command lists
+- `*column`: ColumnDef representing the serial/identity column
+- `seqtypid`: OID of the sequence data type (for typed sequences)
+- `*seqoptions`: List of sequence options (START WITH, INCREMENT BY, etc.)
+- `for_identity`: Boolean indicating if this is for an identity column
+- `col_exists`: Boolean indicating if the column already exists (ALTER vs CREATE)
+- `**snamespace_p`: Output parameter for sequence namespace name (optional)
+- `**sname_p`: Output parameter for sequence name (optional)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_copy](../l/list_copy.md)

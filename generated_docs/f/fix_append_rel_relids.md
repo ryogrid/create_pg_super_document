@@ -24,10 +24,9 @@ The function includes an optimization to extract the singleton member from subre
 The function modifies AppendRelInfo nodes in-place, which is safe in this context since they're part of the planner's working data structures.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing the query planning state and append relation list
-- : The old relation ID that needs to be replaced in AppendRelInfo child_relid fields  
-- : The set of relation IDs to substitute (expected to be singleton in this context)
-
+- `*root`: PlannerInfo structure containing the query planning state and append relation list
+- `varno`: The old relation ID that needs to be replaced in AppendRelInfo child_relid fields
+- `subrelids`: The set of relation IDs to substitute (expected to be singleton in this context)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [AppendRelInfo](../A/AppendRelInfo.md) (structure representing append relation information)

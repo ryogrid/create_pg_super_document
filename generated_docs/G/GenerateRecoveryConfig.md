@@ -19,10 +19,9 @@ This function generates recovery configuration content that can be written to po
 The function builds a primary_conninfo string by iterating through the connection options of the provided PGconn, filtering out certain parameters that libpqwalreceiver will override (replication, dbname, fallback_application_name). It properly escapes and quotes the connection string for safe inclusion in configuration files.
 
 ## Parameters / Member Variables
-- : Active database connection to extract connection parameters from
-- : Optional replication slot name to be used for streaming replication
-- : Optional database name to append to connection info (used by logical replication slot synchronization)
-
+- `*pgconn`: Active database connection to extract connection parameters from
+- `*replication_slot`: Optional replication slot name to be used for streaming replication
+- `*dbname`: Optional database name to append to connection info (used by logical replication slot synchronization)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQserverVersion](../P/PQserverVersion.md)

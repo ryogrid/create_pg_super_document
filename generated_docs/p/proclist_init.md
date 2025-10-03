@@ -18,8 +18,7 @@ The  function is a static inline function that initializes a process list (procl
 The function is defined as static inline for performance reasons, allowing the compiler to optimize the simple initialization by expanding it inline at call sites rather than incurring function call overhead.
 
 ## Parameters / Member Variables
-- : A pointer to the proclist_head structure to be initialized
-
+- `*list`: A pointer to the proclist_head structure to be initialized
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (constant indicating an invalid process number)

@@ -25,9 +25,8 @@ The function performs several key operations:
 The shared memory layout includes a SharedHashInfo structure followed by an array of HashInstrumentation structures, one for each worker.
 
 ## Parameters / Member Variables
-- : HashState pointer containing the hash node execution state and instrumentation settings
-- : ParallelContext pointer providing information about the parallel execution context, including the number of workers and shared memory TOC
-
+- `*node`: HashState pointer containing the hash node execution state and instrumentation settings
+- `*pcxt`: ParallelContext pointer providing information about the parallel execution context, including the number of workers and shared memory TOC
 ## Dependencies
 - Functions called/Symbols referenced:
   - [shm_toc_allocate](../s/shm_toc_allocate.md)

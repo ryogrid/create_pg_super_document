@@ -23,8 +23,7 @@ The  function implements the UTF-8 encoding rules to determine how many bytes ar
 This function is essential for UTF-8 string processing operations where advance knowledge of character byte lengths is needed for memory allocation or buffer management.
 
 ## Parameters / Member Variables
-- : A Unicode character represented as a  (PostgreSQL's wide character type) whose UTF-8 byte length needs to be determined
-
+- `c`: A Unicode character represented as a  (PostgreSQL's wide character type) whose UTF-8 byte length needs to be determined
 ## Dependencies
 - Functions called/Symbols referenced:
   - FRONTEND (conditional compilation symbol)

@@ -27,12 +27,11 @@ Key responsibilities include:
 The function implements sophisticated transaction handling logic: VACUUM operations always use separate transactions to release locks quickly, while ANALYZE operations may reuse the outer transaction depending on context. For autovacuum workers and multi-relation operations, separate transactions are preferred for better concurrency.
 
 ## Parameters / Member Variables
-- : List of VacuumRelation structures to process, or NIL to process all relevant tables in the database
-- : VacuumParams structure containing options and configuration parameters for the operation
-- : BufferAccessStrategy for controlling shared buffer usage, or NULL for unrestricted access
-- : MemoryContext for allocating vacuum-related data that persists across transactions
-- : Boolean indicating if this is a top-level command (affects transaction block validation)
-
+- `*relations`: List of VacuumRelation structures to process, or NIL to process all relevant tables in the database
+- `*params`: VacuumParams structure containing options and configuration parameters for the operation
+- `bstrategy`: BufferAccessStrategy for controlling shared buffer usage, or NULL for unrestricted access
+- `vac_context`: MemoryContext for allocating vacuum-related data that persists across transactions
+- `isTopLevel`: Boolean indicating if this is a top-level command (affects transaction block validation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [vacuum_rel](vacuum_rel.md) (per-relation vacuum processing)

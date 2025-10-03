@@ -20,10 +20,9 @@ The function is designed to handle both complete Query nodes and bare expression
 This function is typically used during query optimization when append relations (inheritance hierarchies or partitioned tables) are being processed, and references to parent tables need to be replaced with references to their constituent child tables.
 
 ## Parameters / Member Variables
-- : The root node of the query tree or expression tree to process
-- : The relation ID that should be replaced in any PlaceHolderVars
-- : The set of relation IDs that should replace varno
-
+- `*node`: The root node of the query tree or expression tree to process
+- `varno`: The relation ID that should be replaced in any PlaceHolderVars
+- `subrelids`: The set of relation IDs that should replace varno
 ## Dependencies  
 - Functions called/Symbols referenced:
   - substitute_phv_relids_context (context structure for walker)

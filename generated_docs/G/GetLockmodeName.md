@@ -20,9 +20,8 @@ The function performs bounds checking to ensure both the lock method ID and mode
 PostgreSQL supports different lock methods (though DEFAULT_LOCKMETHOD is most commonly used), and each lock method can have different lock modes with different names. This function provides a method-agnostic way to get the textual representation of any lock mode.
 
 ## Parameters / Member Variables
-- : The lock method identifier (typically DEFAULT_LOCKMETHOD)
-- : The lock mode number to get the name for
-
+- `lockmethodid`: The lock method identifier (typically DEFAULT_LOCKMETHOD)
+- `mode`: The lock mode number to get the name for
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Macro to determine array length

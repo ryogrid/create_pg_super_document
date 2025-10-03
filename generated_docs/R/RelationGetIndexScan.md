@@ -18,10 +18,9 @@ RelationGetIndexScan is a critical function in PostgreSQL's index access infrast
 The function is designed to be called by AM-specific beginscan routines, which then perform their own locking and additional initialization. This design provides a consistent interface across all index access methods while allowing each AM to customize behavior as needed.
 
 ## Parameters / Member Variables
-- : The index relation that will be scanned
-- : Number of scan keys (index qualification conditions) that will be used
-- : Number of index order-by operators for ordered scans
-
+- `indexRelation`: The index relation that will be scanned
+- `nkeys`: Number of scan keys (index qualification conditions) that will be used
+- `norderbys`: Number of index order-by operators for ordered scans
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md) (memory allocation)

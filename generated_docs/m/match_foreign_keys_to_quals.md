@@ -24,8 +24,7 @@ The matching process involves two main strategies:
 Currently, the function only retains multicolumn FKs that are fully matched to the query, though this may be relaxed in future versions to derive partial estimates.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing all global information about the query being planned, including the foreign key list to be processed
-
+- `*root`: PlannerInfo structure containing all global information about the query being planned, including the foreign key list to be processed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [match_eclasses_to_foreign_key_col](match_eclasses_to_foreign_key_col.md) (matches FK columns to equivalence classes)

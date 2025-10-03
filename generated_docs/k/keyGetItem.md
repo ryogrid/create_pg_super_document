@@ -23,11 +23,10 @@ The required/additional entry partitioning is crucial for performance: required 
 The consistency evaluation uses temporary memory contexts and supports both traditional boolean and tri-state consistency functions, enabling complex query logic including NOT operations and partial match scenarios.
 
 ## Parameters / Member Variables
-- : Pointer to GIN state containing index metadata and configuration
-- : Memory context for temporary allocations during consistency function calls
-- : GIN scan key containing entry streams, consistency function, and result state
-- : Item pointer indicating the minimum position for the next item to consider
-
+- `*ginstate`: Pointer to GIN state containing index metadata and configuration
+- `tempCtx`: Memory context for temporary allocations during consistency function calls
+- `key`: GIN scan key containing entry streams, consistency function, and result state
+- `advancePast`: Item pointer indicating the minimum position for the next item to consider
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ginCompareItemPointers](../g/ginCompareItemPointers.md)

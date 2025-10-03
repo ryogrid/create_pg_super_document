@@ -28,11 +28,10 @@ This function serves as a subroutine for  to optimize AND clause arguments, impl
 The function mirrors the structure of  but implements the inverse logic for AND operations, where FALSE acts as the absorbing element (like TRUE for OR) and TRUE acts as the identity element (like FALSE for OR).
 
 ## Parameters / Member Variables
-- : Input list of AND clause arguments to be processed and simplified
-- : Evaluation context passed to recursive constant expression evaluation calls
-- : Output parameter set to true if any NULL constant is found (must be initialized to false by caller)
-- : Output parameter set to true if any FALSE constant is found (must be initialized to false by caller)
-
+- `*args`: Input list of AND clause arguments to be processed and simplified
+- `*context`: Evaluation context passed to recursive constant expression evaluation calls
+- `*haveNull`: Output parameter set to true if any NULL constant is found (must be initialized to false by caller)
+- `*forceFalse`: Output parameter set to true if any FALSE constant is found (must be initialized to false by caller)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Creates a copy of the input arguments list

@@ -25,8 +25,7 @@ The validation process includes:
 The function validates the entire operator family associated with the given operator class, which means some checks are redundant when validating multiple operator classes within the same family, but this duplication is accepted to keep the validation API simple.
 
 ## Parameters / Member Variables
-- : The OID of the BRIN operator class to validate
-
+- `opclassoid`: The OID of the BRIN operator class to validate
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache1](../S/SearchSysCache1.md)

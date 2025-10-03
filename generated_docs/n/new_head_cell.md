@@ -17,8 +17,7 @@ The new_head_cell function is a static utility function that prepares an existin
 The function only creates the space - it does not initialize the data in the new head cell. The caller is responsible for filling in the actual data after calling this function. This design allows for efficient batch operations where multiple head insertions might be performed.
 
 ## Parameters / Member Variables
-- : Pointer to the List structure that will have a new head cell added. Must not be NIL/NULL.
-
+- `*list`: Pointer to the List structure that will have a new head cell added. Must not be NIL/NULL.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [enlarge_list](../e/enlarge_list.md) (expands the list's capacity when needed)

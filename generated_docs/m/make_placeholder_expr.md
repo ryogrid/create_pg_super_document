@@ -18,10 +18,9 @@ The  function constructs a PlaceHolderVar node that wraps an expression with met
 The function operates at the global level (root->glob) to ensure it doesn't interfere with query-level specific planning information, since the PHV may be used across different query levels.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global planning state and context
-- : The expression to be wrapped in a PlaceHolderVar
-- : Relids representing the syntactic location (set of relation IDs) where this expression should be attributed
-
+- `*root`: PlannerInfo structure containing global planning state and context
+- `*expr`: The expression to be wrapped in a PlaceHolderVar
+- `phrels`: Relids representing the syntactic location (set of relation IDs) where this expression should be attributed
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (for creating PlaceHolderVar)

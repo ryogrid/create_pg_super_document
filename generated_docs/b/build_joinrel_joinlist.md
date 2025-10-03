@@ -20,10 +20,9 @@ The  function is responsible for constructing the joininfo list for a newly crea
 The function works by calling  twice - once for each input relation's joininfo list - and accumulates the results. The final result is stored in the joinrel's joininfo field.
 
 ## Parameters / Member Variables
-- : The new join relation being constructed that will receive the combined joininfo list
-- : The outer input relation whose joininfo clauses will be collected
-- : The inner input relation whose joininfo clauses will be collected
-
+- `*joinrel`: The new join relation being constructed that will receive the combined joininfo list
+- `*outer_rel`: The outer input relation whose joininfo clauses will be collected
+- `*inner_rel`: The inner input relation whose joininfo clauses will be collected
 ## Dependencies
 - Functions called/Symbols referenced:
   - [subbuild_joinrel_joinlist](../s/subbuild_joinrel_joinlist.md)

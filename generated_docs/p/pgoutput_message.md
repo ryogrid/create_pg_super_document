@@ -27,14 +27,13 @@ Key functionality includes:
 The function respects the publication's message configuration and only sends messages when explicitly enabled.
 
 ## Parameters / Member Variables
-- : LogicalDecodingContext containing output plugin state and configuration
-- : ReorderBufferTXN representing the current transaction (may be NULL for non-transactional messages)
-- : XLogRecPtr indicating the LSN where the message was recorded in the WAL
-- : Boolean flag indicating whether the message is part of a transaction
-- : String prefix identifying the message type or source application
-- : Size of the message content in bytes
-- : The actual message content to be replicated
-
+- `*ctx`: LogicalDecodingContext containing output plugin state and configuration
+- `*txn`: ReorderBufferTXN representing the current transaction (may be NULL for non-transactional messages)
+- `message_lsn`: XLogRecPtr indicating the LSN where the message was recorded in the WAL
+- `transactional`: Boolean flag indicating whether the message is part of a transaction
+- `*prefix`: String prefix identifying the message type or source application
+- `sz`: Size of the message content in bytes
+- `*message`: The actual message content to be replicated
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pgoutput_send_begin](pgoutput_send_begin.md)

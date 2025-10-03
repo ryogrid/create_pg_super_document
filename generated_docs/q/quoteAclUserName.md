@@ -24,9 +24,8 @@ A role name is considered "safe" (not requiring quotes) if it contains only alph
 When double quotes are present in the role name itself, they are escaped by doubling them (" becomes "").
 
 ## Parameters / Member Variables
-- : PQExpBuffer to receive the quoted role name
-- : The unquoted role name string to be processed
-
+- `output`: PQExpBuffer to receive the quoted role name
+- `*input`: The unquoted role name string to be processed
 ## Dependencies
 - Functions called/Symbols referenced:
   - isalnum (for checking alphanumeric characters)

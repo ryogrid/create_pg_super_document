@@ -16,9 +16,8 @@ smgrnblocks_cached(SMgrRelation reln, ForkNumber forknum)
 The  function retrieves the cached number of blocks for a specified fork of a storage manager relation. Currently, this function only returns cached values during recovery mode ( is true) due to the lack of a shared invalidation mechanism for changes in file size. Outside of recovery, it returns  to indicate that no cached value is available. This design prevents stale data issues in normal operation while still providing performance benefits during recovery when consistency requirements are different.
 
 ## Parameters / Member Variables
-- : SMgrRelation pointer representing the storage manager relation
-- : ForkNumber indicating which fork of the relation to query
-
+- `reln`: SMgrRelation pointer representing the storage manager relation
+- `forknum`: ForkNumber indicating which fork of the relation to query
 ## Dependencies
 - Functions called/Symbols referenced:
   - SMgrRelation (type)

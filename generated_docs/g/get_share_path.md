@@ -20,9 +20,8 @@ The function is a thin wrapper around , which handles the logic for supporting r
 This approach allows PostgreSQL installations to be moved to different locations while maintaining the correct relative paths between the binary directory and the share directory.
 
 ## Parameters / Member Variables
-- : The full path to the current PostgreSQL executable
-- : Output buffer (must be MAXPGPATH size) to store the resulting share directory path
-
+- `*my_exec_path`: The full path to the current PostgreSQL executable
+- `*ret_path`: Output buffer (must be MAXPGPATH size) to store the resulting share directory path
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Core path relocation logic using PGSHAREDIR, PGBINDIR, and my_exec_path

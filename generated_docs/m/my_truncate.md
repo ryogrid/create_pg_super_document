@@ -16,10 +16,9 @@ my_truncate(PGconn *conn, Oid lobjId, pg_int64 len)
 The  function provides functionality to truncate a PostgreSQL large object to a specific size using the 64-bit large object interface. It opens the large object with both read and write permissions, performs the truncation operation using , and properly closes the large object. This function is specifically designed to work with large objects that may exceed 32-bit size limitations by using the 64-bit API variants.
 
 ## Parameters / Member Variables
-- : Database connection handle for PostgreSQL operations
-- : OID of the large object to truncate
-- : Target length (64-bit integer) to truncate the large object to
-
+- `*conn`: Database connection handle for PostgreSQL operations
+- `lobjId`: OID of the large object to truncate
+- `len`: Target length (64-bit integer) to truncate the large object to
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lo_open](../l/lo_open.md) (PostgreSQL large object opening)

@@ -19,10 +19,9 @@ AdjustFractYears is a utility function used in PostgreSQL's datetime parsing and
 The function performs safe integer arithmetic using PostgreSQL's overflow-checking addition function to prevent integer overflow. It assumes that the absolute value of the fraction is less than 1, which ensures that the multiplication operations cannot overflow for any reasonable scale value.
 
 ## Parameters / Member Variables
-- : A double representing the fractional years value (assumed to have absolute value < 1)
-- : An integer scale factor used to convert the fraction to years
-- : A pointer to a pg_itm_in structure whose tm_mon field will be modified
-
+- `frac`: A double representing the fractional years value (assumed to have absolute value < 1)
+- `scale`: An integer scale factor used to convert the fraction to years
+- `*itm_in`: A pointer to a pg_itm_in structure whose tm_mon field will be modified
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_add_s32_overflow](../p/pg_add_s32_overflow.md) (for safe integer addition)

@@ -16,9 +16,8 @@ dumpTrigger(Archive *fout, const TriggerInfo *tginfo)
 The  function generates SQL CREATE TRIGGER statements and associated ALTER TRIGGER commands to restore trigger definitions and their enabled states. It handles regular triggers by using the stored trigger definition (), and processes partition triggers specially by generating ALTER TABLE statements to modify the trigger's enabled state rather than recreating it. The function also manages trigger dependencies on extensions and generates appropriate DROP TRIGGER statements for cleanup. For triggers that are not in the default enabled state ('t' or 'O'), it appends ALTER TABLE commands to set the correct enabled state (DISABLE, ENABLE ALWAYS, ENABLE REPLICA).
 
 ## Parameters / Member Variables
-- : Archive structure containing dump options and output methods
-- : TriggerInfo structure containing trigger metadata including definition, enabled state, and partition status
-
+- `*fout`: Archive structure containing dump options and output methods
+- `*tginfo`: TriggerInfo structure containing trigger metadata including definition, enabled state, and partition status
 ## Dependencies
 - Functions called/Symbols referenced:
   - [fmtId](../f/fmtId.md)

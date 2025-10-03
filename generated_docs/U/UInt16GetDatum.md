@@ -16,8 +16,7 @@ UInt16GetDatum(uint16 X)
 UInt16GetDatum is a static inline function that provides a type-safe conversion from a 16-bit unsigned integer (uint16) to PostgreSQL's universal Datum type. This function is part of PostgreSQL's datum conversion system, which allows different data types to be uniformly handled within the database engine. The conversion is implemented as a simple cast, taking advantage of the fact that uint16 values can be directly stored in the Datum representation without additional processing.
 
 ## Parameters / Member Variables
-- : The 16-bit unsigned integer value to be converted to Datum format
-
+- `X`: The 16-bit unsigned integer value to be converted to Datum format
 ## Dependencies
 - Functions called/Symbols referenced:
   - (None - simple cast operation)

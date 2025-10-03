@@ -18,10 +18,9 @@ SPI_getvalue retrieves the value of a specific attribute from a tuple and conver
 The function supports both regular attributes (positive attribute numbers) and system attributes (negative attribute numbers). It properly handles NULL values by returning NULL, and uses the PostgreSQL type system to ensure correct string conversion for all data types.
 
 ## Parameters / Member Variables
-- : The HeapTuple containing the data to extract from
-- : The TupleDesc that describes the structure and types of the tuple
-- : The 1-based attribute number for regular attributes, or negative number for system attributes
-
+- `tuple`: The HeapTuple containing the data to extract from
+- `tupdesc`: The TupleDesc that describes the structure and types of the tuple
+- `fnumber`: The 1-based attribute number for regular attributes, or negative number for system attributes
 ## Dependencies
 - Functions called/Symbols referenced:
   - [heap_getattr](../h/heap_getattr.md) (to extract the raw attribute value)

@@ -16,9 +16,8 @@ describeRoleGrants(const char *pattern, bool showSystem)
 This function provides functionality for the psql \\drg metacommand, which displays role membership information including which roles are members of other roles and what privileges they have been granted. The function queries the pg_auth_members system catalog joined with pg_roles to show role relationships. It displays the member role name, the role they are a member of, options (ADMIN, INHERIT, SET privileges), and the grantor of the membership. The function adapts its query based on the PostgreSQL server version (16.0 and later have enhanced role membership options) and can filter out system roles when requested.
 
 ## Parameters / Member Variables
-- : A SQL pattern (with wildcards) to filter by role name, or NULL to match all roles
-- : Boolean flag indicating whether to include system roles (those starting with 'pg_') in the output
-
+- `*pattern`: A SQL pattern (with wildcards) to filter by role name, or NULL to match all roles
+- `showSystem`: Boolean flag indicating whether to include system roles (those starting with 'pg_') in the output
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQExpBufferData](../P/PQExpBufferData.md) (PostgreSQL's expandable string buffer structure)

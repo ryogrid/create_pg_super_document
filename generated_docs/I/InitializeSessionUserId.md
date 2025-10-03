@@ -17,10 +17,9 @@ InitializeSessionUserId(const char *rolename, Oid roleid,
 This function performs comprehensive user identity initialization for PostgreSQL backend processes. It handles role lookup (by name or OID), validates role existence and login permissions, enforces connection limits, and establishes the authenticated user context. The function includes special handling for parallel workers and bootstrap mode, and implements PostgreSQL's role-based authentication with configurable login bypass for background workers. It also manages the session_authorization GUC variable and performs syscache invalidation to ensure current role information.
 
 ## Parameters / Member Variables
-- : The name of the role to initialize (can be NULL if roleid is provided)
-- : The object identifier (Oid) of the role (used when rolename is NULL)
-- : Boolean flag to bypass login permission checks (used for background workers)
-
+- `*rolename`: The name of the role to initialize (can be NULL if roleid is provided)
+- `roleid`: The object identifier (Oid) of the role (used when rolename is NULL)
+- `bypass_login_check`: Boolean flag to bypass login permission checks (used for background workers)
 ## Dependencies
 - Functions called/Symbols referenced:
   - Form_pg_authid (pg_authid catalog structure)

@@ -23,10 +23,9 @@ The  function provides specialized string formatting for single-precision floati
 This function maintains uniformity in floating-point string representation across different precision levels in ECPG applications.
 
 ## Parameters / Member Variables
-- : Pointer to the destination buffer where the formatted string will be written
-- : The single-precision floating-point value to be formatted
-- : Delimiter string to be appended after the formatted value
-
+- `*ptr`: Pointer to the destination buffer where the formatted string will be written
+- `value`: The single-precision floating-point value to be formatted
+- `*delim`: Delimiter string to be appended after the formatted value
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Standard library function to test for NaN values

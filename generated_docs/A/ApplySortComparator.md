@@ -24,12 +24,11 @@ This function provides a standardized way to compare two PostgreSQL Datum values
 The function returns a standard 3-way comparison result: negative for less-than, zero for equal, and positive for greater-than.
 
 ## Parameters / Member Variables
-- : The first Datum value to compare
-- : Boolean flag indicating whether datum1 is NULL
-- : The second Datum value to compare  
-- : Boolean flag indicating whether datum2 is NULL
-- : SortSupport structure containing comparator function and sort configuration
-
+- `datum1`: The first Datum value to compare
+- `isNull1`: Boolean flag indicating whether datum1 is NULL
+- `datum2`: The second Datum value to compare
+- `isNull2`: Boolean flag indicating whether datum2 is NULL
+- `ssup`: SortSupport structure containing comparator function and sort configuration
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SortSupport](../S/SortSupport.md) (struct type)

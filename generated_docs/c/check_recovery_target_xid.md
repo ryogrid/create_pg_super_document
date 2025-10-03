@@ -16,10 +16,9 @@ check_recovery_target_xid(char **newval, void **extra, GucSource source)
 This function serves as a GUC check hook for the  parameter. It validates that the provided value is a valid transaction ID (XID) by parsing it as a 64-bit unsigned integer using . If the value is non-empty, it performs numeric validation and stores the parsed TransactionId in dynamically allocated memory for later use by the assign hook. Empty values are accepted and result in no extra data being stored, allowing the parameter to be unset.
 
 ## Parameters / Member Variables
-- : Pointer to the new value string for recovery_target_xid (transaction ID or empty string)
-- : Pointer to store the parsed TransactionId for the assign hook
-- : The source of the GUC setting (configuration file, command line, etc.)
-
+- `**newval`: Pointer to the new value string for recovery_target_xid (transaction ID or empty string)
+- `**extra`: Pointer to store the parsed TransactionId for the assign hook
+- `source`: The source of the GUC setting (configuration file, command line, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   - strtou64 (for parsing 64-bit unsigned integers)

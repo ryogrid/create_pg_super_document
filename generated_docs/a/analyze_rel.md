@@ -20,13 +20,12 @@ This function orchestrates the analysis of a single relation by performing sever
 The function performs comprehensive validation including privilege checks, relation type verification, and handles special cases like temporary tables of other backends and the system statistics table .
 
 ## Parameters / Member Variables
-- : OID of the relation to analyze
-- : RangeVar containing relation name information for error reporting (may be stale)
-- : Vacuum parameters structure containing analysis options and configuration
-- : List of specific columns to analyze (NULL for all columns)
-- : Boolean indicating if running within an outer transaction
-- : Buffer access strategy for controlling buffer replacement during analysis
-
+- `relid`: OID of the relation to analyze
+- `*relation`: RangeVar containing relation name information for error reporting (may be stale)
+- `*params`: Vacuum parameters structure containing analysis options and configuration
+- `*va_cols`: List of specific columns to analyze (NULL for all columns)
+- `in_outer_xact`: Boolean indicating if running within an outer transaction
+- `bstrategy`: Buffer access strategy for controlling buffer replacement during analysis
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Opens and locks the relation for analysis

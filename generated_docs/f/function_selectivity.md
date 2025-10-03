@@ -27,15 +27,14 @@ The function first attempts to locate a support function for the given function 
 If no support function is available, the function falls back to PostgreSQL's historical default estimate of 0.3333333 (1/3), which has been used since 1992. This default represents a conservative estimate that assumes the function will filter out approximately two-thirds of the input rows.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planning context and statistics
-- : OID of the function for which to estimate selectivity
-- : List of arguments passed to the function
-- : OID of the input collation for the function
-- : Boolean indicating whether this is part of a join condition
-- : Relation ID if the function references a specific relation, 0 otherwise
-- : Type of join operation (INNER, LEFT, RIGHT, FULL, etc.)
-- : Special join information structure for complex join scenarios
-
+- `*root`: PlannerInfo structure containing planning context and statistics
+- `funcid`: OID of the function for which to estimate selectivity
+- `*args`: List of arguments passed to the function
+- `inputcollid`: OID of the input collation for the function
+- `is_join`: Boolean indicating whether this is part of a join condition
+- `varRelid`: Relation ID if the function references a specific relation, 0 otherwise
+- `jointype`: Type of join operation (INNER, LEFT, RIGHT, FULL, etc.)
+- `*sjinfo`: Special join information structure for complex join scenarios
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_func_support](../g/get_func_support.md)

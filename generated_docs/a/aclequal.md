@@ -16,9 +16,8 @@ aclequal(const Acl *left_acl, const Acl *right_acl)
 The aclequal function performs a byte-by-byte comparison of two ACL structures to determine if they are exactly equal. It handles edge cases where one or both ACLs might be NULL or empty, and performs efficient comparison using memcmp for the ACL data arrays. The function returns true only if both ACLs have the same number of items and identical content in the same order. Note that this function will not detect equality if the ACLs contain the same items in different orders - for such cases, the inputs should be sorted first using aclitemsort().
 
 ## Parameters / Member Variables
-- : Pointer to the first ACL to compare (may be NULL)
-- : Pointer to the second ACL to compare (may be NULL)
-
+- `*left_acl`: Pointer to the first ACL to compare (may be NULL)
+- `*right_acl`: Pointer to the second ACL to compare (may be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - ACL_NUM (macro to get number of ACL items)

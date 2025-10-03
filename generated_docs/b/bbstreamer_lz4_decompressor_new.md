@@ -18,8 +18,7 @@ This function initializes a new LZ4 decompression streamer for processing compre
 Similar to the compressor, this function only compiles when USE_LZ4 is defined and fails with a fatal error for builds without LZ4 support. It uses LZ4F_createDecompressionContext to establish the decompression state needed for processing LZ4 frame format data.
 
 ## Parameters / Member Variables
-- : Pointer to the next streamer in the processing chain that will receive decompressed data
-
+- `*next`: Pointer to the next streamer in the processing chain that will receive decompressed data
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bbstreamer_lz4_frame](bbstreamer_lz4_frame.md) (struct type)

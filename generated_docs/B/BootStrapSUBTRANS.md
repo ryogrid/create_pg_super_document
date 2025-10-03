@@ -15,7 +15,6 @@ void BootStrapSUBTRANS(void)
 This function must be called exactly once during system installation (initdb). It creates the initial SUBTRANS segment by zeroing the first page of the subtransaction log and ensuring it is written to disk. The function operates under exclusive lock protection to ensure atomicity of the bootstrap operation. While the SLRU system could create the initial segment on first write, this function proactively creates it to ensure the directory structure is properly set up and the system is in a known good state.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -25,10 +25,9 @@ This function implements a three-level comparison strategy specifically designed
 The function assumes the first column of the index tuple contains the hash key and that it is never NULL (enforced by assertions).
 
 ## Parameters / Member Variables
-- : First SortTuple to compare containing an IndexTuple with hash key in first column
-- : Second SortTuple to compare containing an IndexTuple with hash key in first column
-- : Tuplesortstate containing hash index-specific configuration via TuplesortIndexHashArg
-
+- `*a`: First SortTuple to compare containing an IndexTuple with hash key in first column
+- `*b`: Second SortTuple to compare containing an IndexTuple with hash key in first column
+- `*state`: Tuplesortstate containing hash index-specific configuration via TuplesortIndexHashArg
 ## Dependencies
 - Functions called/Symbols referenced:
   - TuplesortstateGetPublic

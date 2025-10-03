@@ -22,8 +22,7 @@ This function provides a cross-platform abstraction for allocating socket sets t
 The allocated socket set is used throughout pgbench's multi-threaded benchmark execution to efficiently wait for input on multiple database connections simultaneously.
 
 ## Parameters / Member Variables
-- : The maximum number of sockets that the set should accommodate (used only in ppoll() version)
-
+- `count`: The maximum number of sockets that the set should accommodate (used only in ppoll() version)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (memory allocation function)

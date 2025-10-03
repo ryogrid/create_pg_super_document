@@ -24,12 +24,11 @@ For each archive member, the function processes four main contexts:
 4. **BBSTREAMER_ARCHIVE_TRAILER**: Signals the end of the entire archive
 
 ## Parameters / Member Variables
-- : The bbstreamer instance, cast to bbstreamer_extractor for access to extractor-specific fields
-- : Archive member metadata (NULL for archive trailer context)
-- : Raw data content to be processed or written to files
-- : Length of the data buffer
-- : Current phase of archive processing (header, contents, member trailer, or archive trailer)
-
+- `*streamer`: The bbstreamer instance, cast to bbstreamer_extractor for access to extractor-specific fields
+- `*member`: Archive member metadata (NULL for archive trailer context)
+- `*data`: Raw data content to be processed or written to files
+- `len`: Length of the data buffer
+- `context`: Current phase of archive processing (header, contents, member trailer, or archive trailer)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [extract_directory](../e/extract_directory.md)

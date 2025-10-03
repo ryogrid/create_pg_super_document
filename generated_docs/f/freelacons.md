@@ -23,9 +23,8 @@ The function performs a two-step cleanup process:
 The iteration starts from index 1 because index 0 is intentionally unused in the lacons array design. For each lacon entry, it checks if a compiled NFA exists (using NULLCNFA) and frees it if present. This ensures that no memory leaks occur from partially processed or completed lookaround constraints.
 
 ## Parameters / Member Variables
-- : pointer to the array of subre structures representing the lacons
-- : total number of elements in the lacons array (including the unused 0th element)
-
+- `*subs`: pointer to the array of subre structures representing the lacons
+- `n`: total number of elements in the lacons array (including the unused 0th element)
 ## Dependencies
 - Functions called/Symbols referenced:
   - NULLCNFA - Macro to check if cnfa structure is null/empty

@@ -18,8 +18,7 @@ This function retrieves the index OID that is "owned" by a specified constraint.
 The function performs a system catalog lookup using the constraint OID and returns the associated index OID (conindid field) only for appropriate constraint types. If the constraint is not found or is of an inappropriate type, InvalidOid is returned.
 
 ## Parameters / Member Variables
-- : The OID of the constraint for which to retrieve the associated index
-
+- `conoid`: The OID of the constraint for which to retrieve the associated index
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache1](../S/SearchSysCache1.md)

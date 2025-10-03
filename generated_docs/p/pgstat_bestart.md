@@ -15,7 +15,6 @@ void pgstat_bestart(void)
 This function fills in the backend's entry in the shared status array with comprehensive information about the current process, including process ID, backend type, timestamps, database and user IDs, client connection details, and SSL/GSS status when applicable. It uses a careful protocol of copying the shared memory structure to a local variable, modifying it, then copying it back within a critical section to minimize the time spent modifying shared memory and avoid corruption.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -20,9 +20,8 @@ The function is designed to be called in two different locking contexts: with th
 The mapping process involves attaching to the DSM segment using its handle, calculating the addresses of various structures within the segment (header, free page manager, pagemap), and updating the backend's high_segment_index tracker. The function includes assertions to validate the segment's magic number and ensure that freed segments are never returned.
 
 ## Parameters / Member Variables
-- : The DSA area containing the segment maps and control structures
-- : The segment index for which to retrieve or create the segment map
-
+- `*area`: The DSA area containing the segment maps and control structures
+- `index`: The segment index for which to retrieve or create the segment map
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dsm_attach](../d/dsm_attach.md)

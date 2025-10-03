@@ -29,16 +29,15 @@ The function manages complex formatting requirements including:
 The function operates in two main phases: initialization/setup and pattern processing. During setup, it configures the NUMProc structure with formatting parameters. During processing, it iterates through format nodes and applies the appropriate transformations.
 
 ## Parameters / Member Variables
-- : Array of FormatNode structures defining the format pattern
-- : NUMDesc structure containing format specifications and flags
-- : Input/output buffer for the formatted string
-- : Numeric string to be processed
-- : Length of input buffer for boundary checking
-- : Number of leading spaces in TO_CHAR output
-- : Sign character for the number ('+', '-', or space)
-- : Boolean indicating direction (true for TO_CHAR, false for TO_NUMBER)
-- : Collation identifier for locale-specific formatting
-
+- `*node`: Array of FormatNode structures defining the format pattern
+- `*Num`: NUMDesc structure containing format specifications and flags
+- `*inout`: Input/output buffer for the formatted string
+- `*number`: Numeric string to be processed
+- `input_len`: Length of input buffer for boundary checking
+- `to_char_out_pre_spaces`: Number of leading spaces in TO_CHAR output
+- `sign`: Sign character for the number ('+', '-', or space)
+- `is_to_char`: Boolean indicating direction (true for TO_CHAR, false for TO_NUMBER)
+- `collid`: Collation identifier for locale-specific formatting
 ## Dependencies
 - Functions called/Symbols referenced:
   - MemSet, IS_EEEE, IS_ROMAN, IS_FILLMODE, IS_DECIMAL, IS_ZERO

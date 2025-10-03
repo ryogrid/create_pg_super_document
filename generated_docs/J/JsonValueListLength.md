@@ -18,8 +18,7 @@ This function calculates and returns the total number of JSON values contained w
 This function is used throughout the JSON path execution engine to determine the size of result sets and to validate operations that depend on the number of values present.
 
 ## Parameters / Member Variables
-- : Pointer to a const JsonValueList structure whose length is to be determined
-
+- `*jvl`: Pointer to a const JsonValueList structure whose length is to be determined
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_length](../l/list_length.md) (PostgreSQL list utility function)

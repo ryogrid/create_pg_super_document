@@ -18,8 +18,7 @@ This inline function performs complete cleanup of a WalRcvExecResult structure r
 The function follows PostgreSQL's memory management conventions by using the appropriate deallocation functions for each component type: pfree() for general allocations, tuplestore_end() for tuple stores, and FreeTupleDesc() for tuple descriptors.
 
 ## Parameters / Member Variables
-- : Pointer to the WalRcvExecResult structure to be deallocated. Can be NULL, in which case the function returns immediately without performing any operations.
-
+- `*walres`: Pointer to the WalRcvExecResult structure to be deallocated. Can be NULL, in which case the function returns immediately without performing any operations.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pfree](../p/pfree.md)

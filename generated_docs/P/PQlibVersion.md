@@ -20,6 +20,7 @@ The version number is encoded as an integer where the format typically follows P
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_VERSION_NUM (compile-time constant representing PostgreSQL version)

@@ -17,12 +17,11 @@ wait_for_tests(PID_TYPE * pids, int *statuses, instr_time *stoptimes,
 This function implements cross-platform process synchronization for PostgreSQL's parallel regression testing framework. It waits for multiple child processes (test runners) to complete, collecting their exit statuses and recording completion times. The implementation differs significantly between Unix/Linux and Windows platforms: on Unix systems it uses the wait() system call, while on Windows it uses WaitForMultipleObjects() for efficient multi-process waiting. The function tracks which processes have completed, updates the provided arrays with results, and optionally prints process names as they finish.
 
 ## Parameters / Member Variables
-- : Array of process IDs to wait for (modified during execution)
-- : Output array to store exit statuses of completed processes
-- : Output array to store completion timestamps using instr_time
-- : Optional array of process names for progress reporting (can be NULL)
-- : Number of processes to wait for
-
+- `*pids`: Array of process IDs to wait for (modified during execution)
+- `*statuses`: Output array to store exit statuses of completed processes
+- `*stoptimes`: Output array to store completion timestamps using instr_time
+- `**names`: Optional array of process names for progress reporting (can be NULL)
+- `num_tests`: Number of processes to wait for
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_malloc](../p/pg_malloc.md) (memory allocation)

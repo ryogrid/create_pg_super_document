@@ -20,11 +20,10 @@ The function uses sscanf to parse the hexadecimal values, temporarily null-termi
 This function is critical for backup label parsing where LSN values need to be extracted from configuration lines and converted to their binary representation for internal PostgreSQL operations.
 
 ## Parameters / Member Variables
-- : Pointer to the start of the string containing the LSN to parse
-- : Pointer to the end boundary of the parsing area (exclusive)
-- : Output parameter to store the parsed LSN as an XLogRecPtr value
-- : Output parameter to store pointer to the first character after the parsed LSN
-
+- `*s`: Pointer to the start of the string containing the LSN to parse
+- `*e`: Pointer to the end boundary of the parsing area (exclusive)
+- `*lsn`: Output parameter to store the parsed LSN as an XLogRecPtr value
+- `**c`: Output parameter to store pointer to the first character after the parsed LSN
 ## Dependencies
 - Functions called/Symbols referenced:
   - sscanf (for parsing hexadecimal values)

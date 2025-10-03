@@ -26,11 +26,10 @@ The Windows implementation includes several safety measures:
 - Handles end-of-file conditions appropriately
 
 ## Parameters / Member Variables
-- : File descriptor to read from
-- : Pointer to buffer where read data will be stored
-- : Number of bytes to read (limited to 1GB on Windows)
-- : File offset from which to start reading
-
+- `fd`: File descriptor to read from
+- `*buf`: Pointer to buffer where read data will be stored
+- `size`: Number of bytes to read (limited to 1GB on Windows)
+- `offset`: File offset from which to start reading
 ## Dependencies
 - Functions called/Symbols referenced:
   - _get_osfhandle (Windows only)

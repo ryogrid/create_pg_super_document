@@ -16,9 +16,8 @@ CopyVar(SplitVar *s, int makedup)
 CopyVar creates a new SplitVar structure and optionally copies the contents from an existing SplitVar. The function handles two scenarios: copying from an existing SplitVar or creating a new empty one. When copying, it can either duplicate the stem strings (deep copy) or just copy the pointers (shallow copy) based on the makedup parameter. This function is essential for managing word variants during spell checking operations where multiple possible stems need to be tracked and manipulated.
 
 ## Parameters / Member Variables
-- : Source SplitVar structure to copy from (can be NULL for creating empty structure)
-- : Boolean flag indicating whether to duplicate stem strings (1) or just copy pointers (0)
-
+- `*s`: Source SplitVar structure to copy from (can be NULL for creating empty structure)
+- `makedup`: Boolean flag indicating whether to duplicate stem strings (1) or just copy pointers (0)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md) (memory allocation)

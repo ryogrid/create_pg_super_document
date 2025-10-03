@@ -17,6 +17,7 @@ This function performs a complete synchronization of the target data directory t
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [sync_pgdata](sync_pgdata.md) (PostgreSQL data directory sync utility)

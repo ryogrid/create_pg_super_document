@@ -29,10 +29,9 @@ Key initialization steps include:
 The function uses a parameter execution slot to coordinate between multiple CTE scan instances, ensuring they all share the same underlying data and execution state.
 
 ## Parameters / Member Variables
-- : CteScan plan node containing the CTE scan specification and parameters
-- : EState executor state containing execution context and parameter values
-- : Execution flags controlling scan behavior, with EXEC_FLAG_REWIND forced on
-
+- `*node`: CteScan plan node containing the CTE scan specification and parameters
+- `*estate`: EState executor state containing execution context and parameter values
+- `eflags`: Execution flags controlling scan behavior, with EXEC_FLAG_REWIND forced on
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode: Create new CteScanState node

@@ -25,8 +25,7 @@ The  function performs comprehensive validation and setup of a test specificatio
 The function serves as a critical validation phase that ensures the test specification is internally consistent and properly structured before test execution begins. It catches common errors like duplicate step names, undefined step references, and invalid blocking relationships.
 
 ## Parameters / Member Variables
-- : Pointer to the TestSpec structure containing the complete test specification to validate
-
+- `*testspec`: Pointer to the TestSpec structure containing the complete test specification to validate
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_malloc](../p/pg_malloc.md) (memory allocation)

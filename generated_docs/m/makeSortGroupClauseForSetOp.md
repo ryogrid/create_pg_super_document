@@ -20,9 +20,8 @@ The function determines the appropriate equality and sorting operators for a giv
 The resulting SortGroupClause has its tleSortGroupRef set to 0 initially since no target list exists yet at this stage of processing. The actual sort group reference will be assigned later during query transformation when the target list is available.
 
 ## Parameters / Member Variables
-- : The OID of the result column type for which to create the SortGroupClause
-- : Boolean flag indicating whether hash support is mandatory for this operation
-
+- `rescoltype`: The OID of the result column type for which to create the SortGroupClause
+- `require_hash`: Boolean flag indicating whether hash support is mandatory for this operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (SortGroupClause creation)

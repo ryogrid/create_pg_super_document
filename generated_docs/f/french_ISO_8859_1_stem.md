@@ -33,8 +33,7 @@ This function implements the complete French stemming algorithm by orchestrating
 The function uses a sophisticated backtracking mechanism to try different suffix removal strategies in priority order.
 
 ## Parameters / Member Variables
-- : Pointer to the Snowball environment structure containing:
-
+- `*z`: Pointer to the Snowball environment structure containing:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [r_prelude](../r/r_prelude.md) (text preprocessing)

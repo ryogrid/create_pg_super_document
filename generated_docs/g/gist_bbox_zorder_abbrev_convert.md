@@ -18,9 +18,8 @@ This function implements an abbreviated conversion for Z-order comparison of bou
 The function handles different datum sizes: on 64-bit systems, it returns the full Z-order value, while on 32-bit systems it returns only the most significant 32 bits to fit within the abbreviated datum format.
 
 ## Parameters / Member Variables
-- : The input Datum containing a Box pointer to be converted
-- : SortSupport structure containing sorting context and configuration
-
+- `original`: The input Datum containing a Box pointer to be converted
+- `ssup`: SortSupport structure containing sorting context and configuration
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DatumGetBoxP](../D/DatumGetBoxP.md) (extracts Box pointer from Datum)

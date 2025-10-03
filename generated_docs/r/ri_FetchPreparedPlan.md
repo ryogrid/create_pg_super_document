@@ -18,8 +18,7 @@ This function implements a caching mechanism for SPI (Server Programming Interfa
 The function initializes the hash table on first use and includes logic to detect and handle invalid plans by removing them from the cache and freeing associated memory. This design helps optimize referential integrity operations by avoiding repeated plan preparation for the same queries while maintaining correctness when schema changes occur.
 
 ## Parameters / Member Variables
-- : A pointer to an RI_QueryKey structure that uniquely identifies the cached query plan to retrieve
-
+- `*key`: A pointer to an RI_QueryKey structure that uniquely identifies the cached query plan to retrieve
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ri_InitHashTables](ri_InitHashTables.md) (initializes hash table on first call)

@@ -31,21 +31,20 @@ This function is the core of PostgreSQL's incremental backup reconstruction proc
 The reconstruction process handles both incremental and full files in the backup chain. When a full file is found, it can either be copied entirely (if no blocks from later incrementals are needed) or serve as a source for missing blocks. The function also manages checksum validation and can reuse existing checksums from backup manifests when available.
 
 ## Parameters / Member Variables
-- : Path to the incremental file to be reconstructed
-- : Path where the reconstructed full file will be written
-- : Directory path relative to backup root, must end with trailing slash
-- : Filename without the "INCREMENTAL." prefix
-- : Number of previous backups in the chain
-- : Array of pathnames to prior backup directories
-- : Array of manifest data structures for checksum validation
-- : Path to the manifest file for checksum lookup
-- : Type of checksum to calculate for the reconstructed file
-- : Output parameter for calculated checksum length
-- : Output parameter for calculated checksum data
-- : Method to use for file copying operations
-- : Flag to enable debug output during reconstruction
-- : Flag to perform reconstruction without actually writing files
-
+- `*input_filename`: Path to the incremental file to be reconstructed
+- `*output_filename`: Path where the reconstructed full file will be written
+- `*relative_path`: Directory path relative to backup root, must end with trailing slash
+- `*bare_file_name`: Filename without the "INCREMENTAL." prefix
+- `n_prior_backups`: Number of previous backups in the chain
+- `**prior_backup_dirs`: Array of pathnames to prior backup directories
+- `**manifests`: Array of manifest data structures for checksum validation
+- `*manifest_path`: Path to the manifest file for checksum lookup
+- `checksum_type`: Type of checksum to calculate for the reconstructed file
+- `*checksum_length`: Output parameter for calculated checksum length
+- `**checksum_payload`: Output parameter for calculated checksum data
+- `copy_method`: Method to use for file copying operations
+- `debug`: Flag to enable debug output during reconstruction
+- `dry_run`: Flag to perform reconstruction without actually writing files
 ## Dependencies
 - Functions called/Symbols referenced:
   - [make_incremental_rfile](../m/make_incremental_rfile.md)

@@ -19,8 +19,7 @@ This function is part of the Turkish Snowball stemmer and specifically handles t
 The function operates on a Snowball environment structure and follows the typical Snowball stemmer pattern of returning success (1) or failure (0) codes.
 
 ## Parameters / Member Variables
-- : Pointer to the Snowball environment structure (struct SN_env) containing the text buffer and processing state
-
+- `*z`: Pointer to the Snowball environment structure (struct SN_env) containing the text buffer and processing state
 ## Dependencies
 - Functions called/Symbols referenced:
   - [r_check_vowel_harmony](r_check_vowel_harmony.md) (validates Turkish vowel harmony rules)

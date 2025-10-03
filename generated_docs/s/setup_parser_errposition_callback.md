@@ -21,10 +21,9 @@ The function initializes a ParseCallbackState structure with the necessary conte
 This mechanism is part of PostgreSQL's comprehensive error reporting system that ensures users receive precise error locations regardless of where in the call stack the actual error occurs.
 
 ## Parameters / Member Variables
-- : Pointer to a ParseCallbackState structure that will store the callback context. Must be declared as a local variable by the caller.
-- : ParseState containing the source text and parsing context needed for error location reporting.
-- : Byte offset in the source text where the error should be reported if an error occurs.
-
+- `*pcbstate`: Pointer to a ParseCallbackState structure that will store the callback context. Must be declared as a local variable by the caller.
+- `*pstate`: ParseState containing the source text and parsing context needed for error location reporting.
+- `location`: Byte offset in the source text where the error should be reported if an error occurs.
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (callback state structure)

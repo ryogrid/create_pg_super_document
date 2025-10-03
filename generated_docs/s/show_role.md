@@ -23,7 +23,6 @@ Key behaviors:
 4. **Null Safety**: Provides "none" fallback if role_string is unexpectedly null
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

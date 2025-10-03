@@ -20,9 +20,8 @@ The function searches for the language's handler, inline, and validator function
 The function also handles dumping of associated comments, security labels, and access control lists. For trusted languages, ACL information is included in the dump.
 
 ## Parameters / Member Variables
-- : Archive handle for the dump output stream
-- : ProcLangInfo structure containing metadata about the procedural language
-
+- `*fout`: Archive handle for the dump output stream
+- `*plang`: ProcLangInfo structure containing metadata about the procedural language
 ## Dependencies
 - Functions called/Symbols referenced:
   - [findFuncByOid](../f/findFuncByOid.md)

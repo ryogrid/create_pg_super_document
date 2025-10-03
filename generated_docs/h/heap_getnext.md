@@ -18,9 +18,8 @@ The  function is the main interface for retrieving the next tuple during a heap 
 The function includes important safety mechanisms: it validates that the relation is using the heap access method (allowing for regression testing with alternative AMs that reuse heap handlers), and prevents direct calls during logical decoding when  is valid, which could cause consistency issues.
 
 ## Parameters / Member Variables
-- : The table scan descriptor (cast to HeapScanDesc internally)
-- : The scan direction (ForwardScanDirection or BackwardScanDirection)
-
+- `sscan`: The table scan descriptor (cast to HeapScanDesc internally)
+- `direction`: The scan direction (ForwardScanDirection or BackwardScanDirection)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetHeapamTableAmRoutine](../G/GetHeapamTableAmRoutine.md)

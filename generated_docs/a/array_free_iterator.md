@@ -16,8 +16,7 @@ array_free_iterator(ArrayIterator iterator)
 The  function performs cleanup of an ArrayIterator object created by . It conditionally frees workspace arrays that were allocated for slice-based iteration (when slice_ndim > 0), then frees the iterator structure itself. This function is essential for proper memory management when using the array iteration API.
 
 ## Parameters / Member Variables
-- : The ArrayIterator object to be freed and deallocated
-
+- `iterator`: The ArrayIterator object to be freed and deallocated
 ## Dependencies
 - Functions called/Symbols referenced:
   - : PostgreSQL memory deallocation function for freeing allocated memory

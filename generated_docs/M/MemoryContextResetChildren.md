@@ -18,8 +18,7 @@ MemoryContextResetChildren is a memory management function that performs a selec
 The function uses a depth-first traversal approach, visiting each descendant context exactly once and calling MemoryContextResetOnly() on each. The parent context specified in the parameter remains completely untouched.
 
 ## Parameters / Member Variables
-- : The parent memory context whose children will be reset. Must be a valid MemoryContext.
-
+- `context`: The parent memory context whose children will be reset. Must be a valid MemoryContext.
 ## Dependencies
 - Functions called/Symbols referenced:
   - MemoryContextIsValid

@@ -20,11 +20,10 @@ For pass-by-value types (typbyval=true), the function treats the Datum itself as
 The output format is consistent:  where length is the total size in bytes, followed by each byte represented as an integer value.
 
 ## Parameters / Member Variables
-- : StringInfo buffer where the serialized output is appended
-- : The Datum value to be serialized
-- : The length specification of the data type (-1 for variable length, >0 for fixed length)
-- : Boolean indicating whether the type is passed by value (true) or by reference (false)
-
+- `str`: StringInfo buffer where the serialized output is appended
+- `value`: The Datum value to be serialized
+- `typlen`: The length specification of the data type (-1 for variable length, >0 for fixed length)
+- `typbyval`: Boolean indicating whether the type is passed by value (true) or by reference (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [datumGetSize](../d/datumGetSize.md)

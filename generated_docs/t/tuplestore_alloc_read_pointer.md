@@ -20,9 +20,8 @@ The function enforces capability constraints to ensure that adding new requireme
 The read pointer array is dynamically resized if necessary, doubling in size when the current capacity is exceeded.
 
 ## Parameters / Member Variables
-- : Pointer to the Tuplestorestate structure to extend with a new read pointer
-- : Execution flags for the new read pointer defining its scanning capabilities
-
+- `*state`: Pointer to the Tuplestorestate structure to extend with a new read pointer
+- `eflags`: Execution flags for the new read pointer defining its scanning capabilities
 ## Dependencies
 - Functions called/Symbols referenced:
   - elog (error logging function)

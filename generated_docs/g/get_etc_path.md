@@ -16,9 +16,8 @@ get_etc_path(const char *my_exec_path, char *ret_path)
 The  function calculates the absolute path to PostgreSQL's configuration directory by making a relative path calculation from the provided executable path. It uses the compile-time constants SYSCONFDIR and PGBINDIR to determine the proper relative location of the configuration directory. This function is essential for PostgreSQL components to locate configuration files like postgresql.conf when the installation location may vary from the compiled-in defaults.
 
 ## Parameters / Member Variables
-- : The absolute path to the current PostgreSQL executable
-- : Output buffer where the calculated configuration directory path will be stored
-
+- `*my_exec_path`: The absolute path to the current PostgreSQL executable
+- `*ret_path`: Output buffer where the calculated configuration directory path will be stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - [make_relative_path](../m/make_relative_path.md)

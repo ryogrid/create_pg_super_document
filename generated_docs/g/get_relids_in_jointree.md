@@ -28,10 +28,9 @@ The inclusion of join RT indexes is controlled by the boolean parameters:
 This selective inclusion is particularly important during subquery flattening where inner join RT indexes may need special handling.
 
 ## Parameters / Member Variables
-- : The join tree node to process (can be RangeTblRef, FromExpr, or JoinExpr)
-- : Whether to include outer-join RT indexes in the result set
-- : Whether to include inner-join RT indexes in the result set (typically false except during subquery flattening)
-
+- `*jtnode`: The join tree node to process (can be RangeTblRef, FromExpr, or JoinExpr)
+- `include_outer_joins`: Whether to include outer-join RT indexes in the result set
+- `include_inner_joins`: Whether to include inner-join RT indexes in the result set (typically false except during subquery flattening)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bms_make_singleton](../b/bms_make_singleton.md)

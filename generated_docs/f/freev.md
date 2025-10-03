@@ -19,9 +19,8 @@ The  function performs comprehensive cleanup of a vars structure used during reg
 The function also serves as an error-handling utility by accepting an error code parameter that it passes to the  macro, making error cleanup code more concise. It always returns the current error code stored in , allowing calling code to both cleanup and retrieve error status in a single call.
 
 ## Parameters / Member Variables
-- : Pointer to the vars structure containing all regex compilation state and dynamically allocated substructures
-- : Error code to set via ERR macro (0 for no error); allows combining cleanup with error reporting
-
+- `*v`: Pointer to the vars structure containing all regex compilation state and dynamically allocated substructures
+- `err`: Error code to set via ERR macro (0 for no error); allows combining cleanup with error reporting
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Frees compiled regex structure

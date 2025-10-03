@@ -26,12 +26,11 @@ Key features:
 - Handles both blocking and timeout scenarios
 
 ## Parameters / Member Variables
-- : Maximum file descriptor number plus 1 (ignored on Windows, kept for POSIX compatibility)
-- : Pointer to fd_set containing sockets to monitor for read readiness (input/output parameter)
-- : Pointer to fd_set containing sockets to monitor for write readiness (input/output parameter)  
-- : Pointer to fd_set for exception conditions (must be NULL - not implemented)
-- : Pointer to timeval structure specifying maximum wait time, or NULL for infinite wait
-
+- `nfds`: Maximum file descriptor number plus 1 (ignored on Windows, kept for POSIX compatibility)
+- `*readfds`: Pointer to fd_set containing sockets to monitor for read readiness (input/output parameter)
+- `*writefds`: Pointer to fd_set containing sockets to monitor for write readiness (input/output parameter)
+- `*exceptfds`: Pointer to fd_set for exception conditions (must be NULL - not implemented)
+- `*timeout`: Pointer to timeval structure specifying maximum wait time, or NULL for infinite wait
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Check for and handle pending PostgreSQL signals

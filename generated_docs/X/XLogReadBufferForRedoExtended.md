@@ -28,12 +28,11 @@ Key functionality includes:
 The function returns different XLogRedoAction values indicating what action the caller should take based on the page state and WAL record content.
 
 ## Parameters / Member Variables
-- : XLogReaderState pointer containing the WAL record being processed
-- : ID number identifying which block from the WAL record to read
-- : ReadBufferMode specifying buffer access behavior (RBM_NORMAL, RBM_ZERO_AND_LOCK, etc.)
-- : If true, acquires cleanup lock instead of regular exclusive lock
-- : Output parameter receiving the buffer containing the requested page
-
+- `*record`: XLogReaderState pointer containing the WAL record being processed
+- `block_id`: ID number identifying which block from the WAL record to read
+- `mode`: ReadBufferMode specifying buffer access behavior (RBM_NORMAL, RBM_ZERO_AND_LOCK, etc.)
+- `get_cleanup_lock`: If true, acquires cleanup lock instead of regular exclusive lock
+- `*buf`: Output parameter receiving the buffer containing the requested page
 ## Dependencies
 - Functions called/Symbols referenced:
   - [XLogRecGetBlockTagExtended](XLogRecGetBlockTagExtended.md)

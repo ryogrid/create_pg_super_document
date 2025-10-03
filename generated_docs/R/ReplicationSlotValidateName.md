@@ -22,9 +22,8 @@ The function performs three validation checks:
 If validation fails, appropriate error messages are reported using the specified error level. The function can be used with different error levels to control whether validation failures should terminate processing or just log warnings.
 
 ## Parameters / Member Variables
-- : The replication slot name string to validate
-- : Error level for reporting validation failures (e.g., ERROR, WARNING, LOG)
-
+- `*name`: The replication slot name string to validate
+- `elevel`: Error level for reporting validation failures (e.g., ERROR, WARNING, LOG)
 ## Dependencies
 - Functions called/Symbols referenced:
   - strlen (implicit)

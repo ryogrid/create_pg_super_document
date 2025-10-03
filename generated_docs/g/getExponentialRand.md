@@ -21,11 +21,10 @@ The implementation uses the inverse transform sampling method: it generates a un
 The exponential distribution is particularly useful in pgbench for modeling scenarios like request inter-arrival times, processing delays, or other phenomena that follow exponential patterns in real database workloads.
 
 ## Parameters / Member Variables
-- : Pointer to the PRNG state structure providing the source of randomness
-- : Lower bound of the output range (inclusive)  
-- : Upper bound of the output range (inclusive)
-- : Exponential distribution parameter (must be > 0.0) controlling the decay rate
-
+- `*state`: Pointer to the PRNG state structure providing the source of randomness
+- `min`: Lower bound of the output range (inclusive)
+- `max`: Upper bound of the output range (inclusive)
+- `parameter`: Exponential distribution parameter (must be > 0.0) controlling the decay rate
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_prng_state](../p/pg_prng_state.md) (PostgreSQL PRNG state type)

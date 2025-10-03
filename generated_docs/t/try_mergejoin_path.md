@@ -28,18 +28,17 @@ This function serves as the main entry point for considering merge join strategi
 Key features include checking if explicit sorting can be skipped when input paths are already appropriately ordered, validating parameterization constraints for non-nestloop joins, and using the two-phase optimization approach with initial cost estimation followed by full path creation only for promising candidates.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global planning context and configuration
-- : Target RelOptInfo representing the join relation where the path will be added
-- : Path structure for the outer (left) relation in the merge join
-- : Path structure for the inner (right) relation in the merge join
-- : List of PathKey structures representing the required output ordering
-- : List of merge join clauses that define the join conditions
-- : List of PathKey structures for required outer relation sorting (NULL if no sort needed)
-- : List of PathKey structures for required inner relation sorting (NULL if no sort needed)
-- : JoinType enumeration specifying the type of join (INNER, LEFT, etc.)
-- : JoinPathExtraData containing additional join-specific information and constraints
-- : Boolean flag indicating whether to create a partial path for parallel execution
-
+- `*root`: PlannerInfo structure containing global planning context and configuration
+- `*joinrel`: Target RelOptInfo representing the join relation where the path will be added
+- `*outer_path`: Path structure for the outer (left) relation in the merge join
+- `*inner_path`: Path structure for the inner (right) relation in the merge join
+- `*pathkeys`: List of PathKey structures representing the required output ordering
+- `*mergeclauses`: List of merge join clauses that define the join conditions
+- `*outersortkeys`: List of PathKey structures for required outer relation sorting (NULL if no sort needed)
+- `*innersortkeys`: List of PathKey structures for required inner relation sorting (NULL if no sort needed)
+- `jointype`: JoinType enumeration specifying the type of join (INNER, LEFT, etc.)
+- `*extra`: JoinPathExtraData containing additional join-specific information and constraints
+- `is_partial`: Boolean flag indicating whether to create a partial path for parallel execution
 ## Dependencies
 - Functions called/Symbols referenced:
   - [try_partial_mergejoin_path](try_partial_mergejoin_path.md)

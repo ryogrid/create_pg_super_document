@@ -18,9 +18,8 @@ QTNEq performs equality comparison between two QTNode trees by first checking if
 The function first computes the intersection of the two nodes' signatures and verifies that both nodes have signatures that are subsets of this intersection. Only if this signature check passes does it proceed to call QTNodeCompare for the actual structural comparison.
 
 ## Parameters / Member Variables
-- : Pointer to the first QTNode tree to compare
-- : Pointer to the second QTNode tree to compare
-
+- `*a`: Pointer to the first QTNode tree to compare
+- `*b`: Pointer to the second QTNode tree to compare
 ## Dependencies
 - Functions called/Symbols referenced:
   - [QTNode](QTNode.md) (structure type)

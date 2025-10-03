@@ -16,11 +16,10 @@ _h_spool(HSpool *hspool, ItemPointer self, const Datum *values, const bool *isnu
 This function serves as an interface to add index tuples to the sorting mechanism during hash index construction. It takes the tuple data (values and null indicators) along with the tuple identifier and passes them to the underlying tuplesort subsystem via . The function acts as a thin wrapper that maintains the abstraction between the hash index building logic and the generic tuple sorting functionality.
 
 ## Parameters / Member Variables
-- : Pointer to the HSpool structure managing the sort operation
-- : ItemPointer identifying the heap tuple being indexed
-- : Array of Datum values representing the index key values
-- : Array of boolean flags indicating which values are NULL
-
+- `*hspool`: Pointer to the HSpool structure managing the sort operation
+- `self`: ItemPointer identifying the heap tuple being indexed
+- `*values`: Array of Datum values representing the index key values
+- `*isnull`: Array of boolean flags indicating which values are NULL
 ## Dependencies
 - Functions called/Symbols referenced:
   - [HSpool](../H/HSpool.md) (structure type)

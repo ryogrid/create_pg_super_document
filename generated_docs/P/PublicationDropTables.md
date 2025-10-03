@@ -23,10 +23,9 @@ PublicationDropTables is a static function that handles the removal of tables fr
 The function ensures data integrity by validating that only valid operations are performed and that the catalog remains consistent after table removal.
 
 ## Parameters / Member Variables
-- : OID of the publication from which tables will be removed
-- : List of PublicationRelInfo structures containing the tables to be removed
-- : Boolean flag indicating whether to silently ignore tables that are not part of the publication
-
+- `pubid`: OID of the publication from which tables will be removed
+- `*rels`: List of PublicationRelInfo structures containing the tables to be removed
+- `missing_ok`: Boolean flag indicating whether to silently ignore tables that are not part of the publication
 ## Dependencies
 - Functions called/Symbols referenced:
   - GetSysCacheOid2 (looks up publication-relation mapping)

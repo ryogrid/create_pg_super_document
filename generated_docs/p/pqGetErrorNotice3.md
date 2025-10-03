@@ -18,9 +18,8 @@ This function reads and processes Error ('E') or Notice ('N') messages from the 
 The function handles pipeline mode by setting the pipeline status to aborted when an error occurs. For errors, it pre-emptively clears any incomplete query results to avoid memory issues. It reads all message fields in a loop until a null terminator is found, saving special fields like SQLSTATE and statement position for later use.
 
 ## Parameters / Member Variables
-- : PostgreSQL connection object containing connection state and buffers
-- : Boolean flag indicating whether this is an Error (true) or Notice (false) message
-
+- `*conn`: PostgreSQL connection object containing connection state and buffers
+- `isError`: Boolean flag indicating whether this is an Error (true) or Notice (false) message
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pqClearAsyncResult](pqClearAsyncResult.md)

@@ -21,8 +21,7 @@ This function initializes sort support for GiST spatial index building operation
 The abbreviation optimization converts bounding boxes to compact Z-order values, enabling faster initial sorting while maintaining the ability to perform full comparisons when abbreviations are insufficient for determining order.
 
 ## Parameters / Member Variables
-- : SortSupport structure obtained from PG_GETARG_POINTER(0) containing sorting configuration
-
+- `PG_FUNCTION_ARGS`: SortSupport structure obtained from PG_GETARG_POINTER(0) containing sorting configuration
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ssup_datum_unsigned_cmp](../s/ssup_datum_unsigned_cmp.md) (abbreviated comparison function)

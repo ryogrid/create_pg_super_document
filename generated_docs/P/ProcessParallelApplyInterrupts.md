@@ -20,6 +20,7 @@ When a shutdown is requested, the function logs an informational message indicat
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - CHECK_FOR_INTERRUPTS (macro)

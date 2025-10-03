@@ -19,9 +19,8 @@ This function builds an expression tree specifically for aggregate deserializati
 The function is part of PostgreSQL's aggregate expression building infrastructure, similar to  but specialized for the deserialization phase of parallel aggregate processing.
 
 ## Parameters / Member Variables
-- : The OID of the deserialization function to be called
-- : Output parameter that receives the constructed expression tree (FuncExpr cast to Expr*)
-
+- `deserialfn_oid`: The OID of the deserialization function to be called
+- `**deserialfnexpr`: Output parameter that receives the constructed expression tree (FuncExpr cast to Expr*)
 ## Dependencies
 - Functions called/Symbols referenced:
   - list_make2

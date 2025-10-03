@@ -25,10 +25,9 @@ The algorithm works by:
 The function implements deadlock prevention by locking only one page at a time and uses shared locks throughout the traversal.
 
 ## Parameters / Member Variables
-- : The GiST index relation to search
-- : The block number of the target child page to find
-- : Output parameter set to the offset number of the downlink tuple in the direct parent that points to the child
-
+- `r`: The GiST index relation to search
+- `child`: The block number of the target child page to find
+- `*downlinkoffnum`: Output parameter set to the offset number of the downlink tuple in the direct parent that points to the child
 ## Dependencies
 - Functions called/Symbols referenced:
   - [gistcheckpage](gistcheckpage.md)

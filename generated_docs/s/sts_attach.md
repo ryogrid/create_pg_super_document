@@ -20,10 +20,9 @@ The  function allows a backend process to connect to a  that has already been in
 This function is commonly used in parallel query execution where one process (typically the leader) initializes the shared tuple store and other worker processes attach to it to participate in tuple sharing operations.
 
 ## Parameters / Member Variables
-- : Pointer to the already-initialized SharedTuplestore structure in shared memory
-- : The participant number for this backend (must be < sts->nparticipants)
-- : SharedFileSet that manages temporary files for the tuple store
-
+- `*sts`: Pointer to the already-initialized SharedTuplestore structure in shared memory
+- `my_participant_number`: The participant number for this backend (must be < sts->nparticipants)
+- `*fileset`: SharedFileSet that manages temporary files for the tuple store
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SharedTuplestore](../S/SharedTuplestore.md) (struct type)

@@ -31,12 +31,11 @@ This function performs a comprehensive dependency analysis for a specific column
 The function differentiates between AT_AlterColumnType and AT_SetExpression operations, with stricter restrictions for type changes than expression changes.
 
 ## Parameters / Member Variables
-- : AlteredTableInfo structure to store rebuilding information
-- : AlterTableType indicating the operation (AT_AlterColumnType or AT_SetExpression)
-- : Relation containing the column being modified
-- : Attribute number of the column being modified
-- : Name of the column being modified (for error messages)
-
+- `*tab`: AlteredTableInfo structure to store rebuilding information
+- `subtype`: AlterTableType indicating the operation (AT_AlterColumnType or AT_SetExpression)
+- `rel`: Relation containing the column being modified
+- `attnum`: Attribute number of the column being modified
+- `*colName`: Name of the column being modified (for error messages)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [systable_beginscan](../s/systable_beginscan.md)

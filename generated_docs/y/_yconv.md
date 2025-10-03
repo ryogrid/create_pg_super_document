@@ -19,13 +19,12 @@ The  function implements year conversion logic for PostgreSQL's timezone strftim
 The function performs arithmetic operations to split a year value into century (lead) and year-within-century (trail) components, handling the complex cases of negative years and ensuring proper sign handling across the boundary between negative and positive values.
 
 ## Parameters / Member Variables
-- : First integer component for year calculation (typically the base year value)
-- : Second integer component for year calculation (typically an offset or adjustment)
-- : Boolean flag indicating whether to convert and output the century part (%C)
-- : Boolean flag indicating whether to convert and output the year-within-century part (%y)
-- : Pointer to the current position in the output buffer where formatted output should be written
-- : Pointer to the limit of the output buffer to prevent buffer overflows
-
+- `a`: First integer component for year calculation (typically the base year value)
+- `b`: Second integer component for year calculation (typically an offset or adjustment)
+- `convert_top`: Boolean flag indicating whether to convert and output the century part (%C)
+- `convert_yy`: Boolean flag indicating whether to convert and output the year-within-century part (%y)
+- `*pt`: Pointer to the current position in the output buffer where formatted output should be written
+- `*ptlim`: Pointer to the limit of the output buffer to prevent buffer overflows
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Helper function for adding string literals to the output buffer

@@ -24,9 +24,8 @@ Examples of transformations:
 - "br_FR.iso885915@euro" → "br_FR@euro"
 
 ## Parameters / Member Variables
-- : Output buffer to store the normalized locale name
-- : Input locale name to be normalized
-
+- `*new`: Output buffer to store the normalized locale name
+- `*old`: Input locale name to be normalized
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (uses only basic C string operations)

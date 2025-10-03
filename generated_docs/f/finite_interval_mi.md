@@ -21,10 +21,9 @@ The subtraction is performed component-wise:
 - Time components (microseconds) are subtracted using overflow-safe 64-bit integer subtraction
 
 ## Parameters / Member Variables
-- : The first interval (minuend) - must be finite
-- : The second interval (subtrahend) - must be finite
-- : Output parameter to store the computed difference interval
-
+- `*span1`: The first interval (minuend) - must be finite
+- `*span2`: The second interval (subtrahend) - must be finite
+- `*result`: Output parameter to store the computed difference interval
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (macro for checking infinite intervals)

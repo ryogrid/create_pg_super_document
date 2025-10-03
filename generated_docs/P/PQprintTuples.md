@@ -28,12 +28,11 @@ PQprintTuples(const PGresult *res,
 The function uses a format string approach to control output formatting and calculates border widths based on a fixed formula (nFields * 14 characters). For terse output, it omits border characters and separators, providing clean space-separated output.
 
 ## Parameters / Member Variables
-- : PostgreSQL result set containing the data to be printed
-- : Output file stream where the formatted table will be written
-- : Boolean flag indicating whether to print column names as headers (1 = yes, 0 = no)
-- : Boolean flag controlling border output (1 = no borders, 0 = include borders)
-- : Fixed column width in characters; if 0, uses variable width formatting
-
+- `*res`: PostgreSQL result set containing the data to be printed
+- `*fout`: Output file stream where the formatted table will be written
+- `PrintAttNames`: Boolean flag indicating whether to print column names as headers (1 = yes, 0 = no)
+- `TerseOutput`: Boolean flag controlling border output (1 = no borders, 0 = include borders)
+- `colWidth`: Fixed column width in characters; if 0, uses variable width formatting
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQnfields](PQnfields.md)

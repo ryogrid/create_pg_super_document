@@ -25,15 +25,14 @@ PQsendQueryParams provides the ability to execute parameterized queries asynchro
 The function validates the connection state and parameter constraints before delegating the actual work to PQsendQueryGuts. It enforces a maximum limit on the number of parameters and uses an unnamed prepared statement for execution. The extended query protocol allows for type-safe parameter passing and supports both text and binary parameter formats.
 
 ## Parameters / Member Variables
-- : PostgreSQL connection handle for the database connection
-- : SQL command string with parameter placeholders (typically using , , etc.)
-- : Number of parameters to bind to the query
-- : Array of PostgreSQL type OIDs for each parameter (can be NULL for automatic type inference)
-- : Array of parameter values as strings (NULL elements represent SQL NULL)
-- : Array specifying the length of each parameter value (required for binary format)
-- : Array specifying format codes for each parameter (0 for text, 1 for binary)
-- : Format code for result data (0 for text, 1 for binary)
-
+- `*conn`: PostgreSQL connection handle for the database connection
+- `*command`: SQL command string with parameter placeholders (typically using , , etc.)
+- `nParams`: Number of parameters to bind to the query
+- `*paramTypes`: Array of PostgreSQL type OIDs for each parameter (can be NULL for automatic type inference)
+- `*paramValues`: Array of parameter values as strings (NULL elements represent SQL NULL)
+- `*paramLengths`: Array specifying the length of each parameter value (required for binary format)
+- `*paramFormats`: Array specifying format codes for each parameter (0 for text, 1 for binary)
+- `resultFormat`: Format code for result data (0 for text, 1 for binary)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQsendQueryStart](PQsendQueryStart.md): Validates connection state and prepares for query sending

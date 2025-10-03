@@ -16,11 +16,10 @@ pgstat_cmp_hash_key(const void *a, const void *b, size_t size, void *arg)
 This function serves as a key comparison helper for dshash and simplehash hashtables used in PostgreSQL's statistics collection system. It performs a binary comparison between two PgStat_HashKey structures to determine if they are equal. The function is designed to work with hash table implementations that require a comparison callback function, returning 0 for equal keys and non-zero for different keys.
 
 ## Parameters / Member Variables
-- : Pointer to the first PgStat_HashKey structure to compare
-- : Pointer to the second PgStat_HashKey structure to compare  
-- : Size of the structures being compared (must be sizeof(PgStat_HashKey))
-- : Additional argument (must be NULL, not used in this implementation)
-
+- `*a`: Pointer to the first PgStat_HashKey structure to compare
+- `*b`: Pointer to the second PgStat_HashKey structure to compare
+- `size`: Size of the structures being compared (must be sizeof(PgStat_HashKey))
+- `*arg`: Additional argument (must be NULL, not used in this implementation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PgStat_HashKey](../P/PgStat_HashKey.md) (type referenced for size validation)

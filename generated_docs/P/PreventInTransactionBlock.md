@@ -18,9 +18,8 @@ This function serves as a critical safety mechanism for PostgreSQL statements th
 The function validates that the statement is not executing within a transaction block, subtransaction, pipeline, or user-defined function. If any of these conditions are violated, it raises an appropriate error. When all checks pass, it sets the XACT_FLAGS_NEEDIMMEDIATECOMMIT flag to ensure postgres.c commits the transaction immediately after statement completion.
 
 ## Parameters / Member Variables
-- : bool - indicates whether the statement is being executed at the top level (not inside a function)
-- : const char* - name of the statement type for error message formatting
-
+- `isTopLevel`: bool - indicates whether the statement is being executed at the top level (not inside a function)
+- `*stmtType`: const char* - name of the statement type for error message formatting
 ## Dependencies
 - Functions called/Symbols referenced:
   - [IsTransactionBlock](../I/IsTransactionBlock.md)

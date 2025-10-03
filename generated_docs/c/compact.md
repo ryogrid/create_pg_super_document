@@ -26,9 +26,8 @@ This function transforms a regular NFA into a compact representation optimized f
 The function handles memory allocation failures gracefully and ensures all arc arrays are properly terminated with COLORLESS endmarkers.
 
 ## Parameters / Member Variables
-- : Source NFA structure to be converted
-- : Target compact NFA structure to be populated
-
+- `*nfa`: Source NFA structure to be converted
+- `*cnfa`: Target compact NFA structure to be populated
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (error checking macro)

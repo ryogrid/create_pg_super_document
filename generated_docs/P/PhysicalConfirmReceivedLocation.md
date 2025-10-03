@@ -20,8 +20,7 @@ The function operates under a spinlock to ensure atomic updates to the replicati
 The design philosophy emphasizes performance over immediate durability - the slot is not immediately saved to disk since the worst-case scenario of losing this information would only result in more conservative WAL retention, not data loss.
 
 ## Parameters / Member Variables
-- : The Log Sequence Number up to which the walreceiver has confirmed receipt of WAL data. Must not be InvalidXLogRecPtr.
-
+- `lsn`: The Log Sequence Number up to which the walreceiver has confirmed receipt of WAL data. Must not be InvalidXLogRecPtr.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReplicationSlot](../R/ReplicationSlot.md) (accessed via MyReplicationSlot global)

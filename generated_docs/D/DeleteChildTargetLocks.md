@@ -20,8 +20,7 @@ The function handles both normal and parallel execution modes, acquiring appropr
 This optimization is crucial for performance, preventing the accumulation of redundant fine-grained locks when coarser locks are sufficient, thereby reducing memory usage and lock checking overhead.
 
 ## Parameters / Member Variables
-- : Pointer to the PREDICATELOCKTARGETTAG representing the new (typically coarser) lock target. Child locks whose targets are covered by this new target will be deleted.
-
+- `*newtargettag`: Pointer to the PREDICATELOCKTARGETTAG representing the new (typically coarser) lock target. Child locks whose targets are covered by this new target will be deleted.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockAcquire](../L/LWLockAcquire.md)

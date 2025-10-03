@@ -18,10 +18,9 @@ This inline function implements the core bucket lookup mechanism for PostgreSQL'
 The function includes corruption detection - if a required segment is found to be NULL, it calls hash_corrupted to handle the error condition. This ensures data integrity and helps detect hash table corruption early.
 
 ## Parameters / Member Variables
-- : Pointer to the HTAB structure representing the hash table
-- : The hash value for which to find the corresponding bucket
-- : Output parameter that receives a pointer to the located hash bucket
-
+- `*hashp`: Pointer to the HTAB structure representing the hash table
+- `hashvalue`: The hash value for which to find the corresponding bucket
+- `**bucketptr`: Output parameter that receives a pointer to the located hash bucket
 ## Dependencies
 - Functions called/Symbols referenced:
   - [calc_bucket](../c/calc_bucket.md) (calculates bucket number from hash value)

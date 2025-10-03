@@ -16,9 +16,8 @@ visibilitymap_prepare_truncate(Relation rel, BlockNumber nheapblocks)
 This function prepares the visibility map for truncation to match a new heap size. It calculates which visibility map blocks will remain after truncation and ensures that unused bits in the last remaining map page are properly cleared. The function handles the case where the truncation doesn't fall exactly on a map page boundary by clearing tail bits that represent truncated heap blocks. If the visibility map doesn't exist or is already smaller than the requested size, it returns InvalidBlockNumber. The function also handles WAL logging requirements when checksums are enabled.
 
 ## Parameters / Member Variables
-- : The relation whose visibility map should be prepared for truncation
-- : The new size of the heap in blocks
-
+- `rel`: The relation whose visibility map should be prepared for truncation
+- `nheapblocks`: The new size of the heap in blocks
 ## Dependencies
 - Functions called/Symbols referenced:
   - HEAPBLK_TO_MAPBLOCK

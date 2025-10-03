@@ -20,8 +20,7 @@ When the failsafe triggers, it immediately disables several non-essential but ti
 The function also removes cost-based delays and buffer access strategy limitations to speed up the remaining critical work. It provides detailed warning messages to help administrators understand the situation and take corrective action.
 
 ## Parameters / Member Variables
-- : LVRelState structure containing vacuum operation state, relation information, and transaction ID cutoff values used for wraparound detection
-
+- `*vacrel`: LVRelState structure containing vacuum operation state, relation information, and transaction ID cutoff values used for wraparound detection
 ## Dependencies
 - Functions called/Symbols referenced:
   - [vacuum_xid_failsafe_check](../v/vacuum_xid_failsafe_check.md)

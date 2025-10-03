@@ -16,9 +16,8 @@ ReadOffset(ArchiveHandle *AH, pgoff_t * o)
 ReadOffset is the counterpart to WriteOffset, reading a PostgreSQL file offset from an archive stream. The function handles backward compatibility with older archive versions (pre-1.7) that stored offsets as integers using ReadInt. For newer versions, it reads a flag byte followed by the offset data in little-endian format. The function includes validation to ensure the offset data is within expected bounds and returns a status code indicating the offset state.
 
 ## Parameters / Member Variables
-- : Archive handle containing the input stream and function pointers for reading
-- : Pointer to pgoff_t where the read offset value will be stored
-
+- `*AH`: Archive handle containing the input stream and function pointers for reading
+- `*o`: Pointer to pgoff_t where the read offset value will be stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReadInt](ReadInt.md) (for backward compatibility with older archive versions)

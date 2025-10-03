@@ -27,9 +27,8 @@ Key aspects of the inlining process include:
 - **FOR UPDATE handling**: Preserves the historical behavior where FOR UPDATE clauses don't extend into CTEs
 
 ## Parameters / Member Variables
-- : The current Node being examined in the tree traversal
-- : Pointer to inline_cte_walker_context containing the target CTE name, current nesting level, and the CTE query to substitute
-
+- `*node`: The current Node being examined in the tree traversal
+- `*context`: Pointer to inline_cte_walker_context containing the target CTE name, current nesting level, and the CTE query to substitute
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (macro for type checking)

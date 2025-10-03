@@ -25,8 +25,7 @@ The function performs several important operations:
 A key design feature is the use of a local page buffer to avoid transiently corrupting the shared buffer during reconstruction, which is essential for hot-standby scenarios where other backends might be concurrently reading the sequence.
 
 ## Parameters / Member Variables
-- : XLogReaderState pointer containing the WAL record data, LSN information, and other metadata needed for redo processing
-
+- `*record`: XLogReaderState pointer containing the WAL record data, LSN information, and other metadata needed for redo processing
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetInfo

@@ -20,8 +20,7 @@ The function performs bounds checking to ensure the provided status value is wit
 The pgresStatus array is kept in the same order as the ExecStatusType enumeration in libpq-fe.h to ensure correct mapping between numeric codes and their string representations.
 
 ## Parameters / Member Variables
-- : ExecStatusType enumeration value to be converted to string
-
+- `status`: ExecStatusType enumeration value to be converted to string
 ## Dependencies
 - Functions called/Symbols referenced:
   - lengthof (macro for array length calculation)

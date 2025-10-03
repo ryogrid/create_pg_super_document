@@ -16,8 +16,7 @@ PQcancelSocket(const PGcancelConn *cancelConn)
 PQcancelSocket is a utility function that extracts the socket file descriptor from a PostgreSQL cancel connection object. It serves as a wrapper around PQsocket, specifically designed to work with PGcancelConn structures used for query cancellation. This function enables applications to access the underlying socket for advanced socket operations or monitoring during the cancellation process.
 
 ## Parameters / Member Variables
-- : A pointer to a constant PGcancelConn structure representing the cancel connection from which to extract the socket
-
+- `*cancelConn`: A pointer to a constant PGcancelConn structure representing the cancel connection from which to extract the socket
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQsocket](PQsocket.md)

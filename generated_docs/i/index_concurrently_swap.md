@@ -18,10 +18,9 @@ This function performs the final phase of concurrent index operations by swappin
 The operation is comprehensive, ensuring that the new index takes over the complete identity of the old index while the old index is marked as invalid and ready for cleanup. This includes moving primary key, exclusion, and uniqueness constraints, updating trigger references, and maintaining proper dependency relationships throughout the system.
 
 ## Parameters / Member Variables
-- : Object identifier of the new index that will replace the old one
-- : Object identifier of the old index being replaced
-- : Name to assign to the old index after the swap
-
+- `newIndexId`: Object identifier of the new index that will replace the old one
+- `oldIndexId`: Object identifier of the old index being replaced
+- `*oldName`: Name to assign to the old index after the swap
 ## Dependencies
 - Functions called/Symbols referenced:
   - [relation_open](../r/relation_open.md) (to lock both indexes)

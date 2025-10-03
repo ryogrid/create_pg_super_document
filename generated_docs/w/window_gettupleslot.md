@@ -16,10 +16,9 @@ window_gettupleslot(WindowObject winobj, int64 pos, TupleTableSlot *slot)
 This function is a core utility for window function processing that retrieves a specific tuple from the current partition based on its position. It manages tuple access through a tuplestore buffer system and maintains position tracking through the WindowObject's read pointer. The function handles efficient seeking by positioning the read pointer close to the target position and then making minimal forward or backward movements to reach the exact tuple. It ensures that fetched tuples are physically copied to maintain validity across tuplestore manipulations.
 
 ## Parameters / Member Variables
-- : WindowObject containing state information including the window aggregate state, read pointer, seek position, and mark position
-- : Zero-based position of the tuple to fetch within the current partition (must be >= 0)
-- : TupleTableSlot where the fetched tuple will be stored
-
+- `winobj`: WindowObject containing state information including the window aggregate state, read pointer, seek position, and mark position
+- `pos`: Zero-based position of the tuple to fetch within the current partition (must be >= 0)
+- `*slot`: TupleTableSlot where the fetched tuple will be stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - [spool_tuples](../s/spool_tuples.md)

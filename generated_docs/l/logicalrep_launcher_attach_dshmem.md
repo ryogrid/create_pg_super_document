@@ -19,7 +19,6 @@ The function uses a two-phase check: first a quick exit if the table is already 
 When creating a new table, it sets up both the DSA and dshash components, pins them to prevent premature cleanup, and stores the handles in the LogicalRepCtx shared memory structure. When attaching to an existing table, it retrieves the handles from shared memory and attaches to the pre-existing structures.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

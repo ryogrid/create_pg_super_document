@@ -21,9 +21,8 @@ The setCorrLex function manages the waste list within the LexizeData structure d
 After either operation, the function resets both the head and tail pointers of the waste list to NULL, effectively clearing the waste list from the LexizeData structure.
 
 ## Parameters / Member Variables
-- : Pointer to LexizeData structure containing the waste list to be processed
-- : Double pointer to ParsedLex; if non-NULL, receives the waste list; if NULL, triggers cleanup of the waste list
-
+- `*ld`: Pointer to LexizeData structure containing the waste list to be processed
+- `**correspondLexem`: Double pointer to ParsedLex; if non-NULL, receives the waste list; if NULL, triggers cleanup of the waste list
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pfree](../p/pfree.md) (PostgreSQL memory deallocation function)

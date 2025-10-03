@@ -19,11 +19,10 @@ ExplainQuery is the main entry point for processing EXPLAIN commands in PostgreS
 The function performs extensive validation of option combinations, such as ensuring that WAL, TIMING, and SERIALIZE options are only used with ANALYZE, and that GENERIC_PLAN cannot be used with ANALYZE. After processing, it outputs the results through tuple output functions that handle multi-line or single-line formatting based on the chosen format.
 
 ## Parameters / Member Variables
-- : ParseState containing parser context and source text information
-- : ExplainStmt containing the query to explain and list of EXPLAIN options
-- : ParamListInfo containing parameter values for parameterized queries
-- : DestReceiver specifying where to send the explain output results
-
+- `*pstate`: ParseState containing parser context and source text information
+- `*stmt`: ExplainStmt containing the query to explain and list of EXPLAIN options
+- `params`: ParamListInfo containing parameter values for parameterized queries
+- `*dest`: DestReceiver specifying where to send the explain output results
 ## Dependencies
 - Functions called/Symbols referenced:
   - [NewExplainState](../N/NewExplainState.md)

@@ -16,9 +16,8 @@ buf_add_txid(StringInfo buf, FullTransactionId fxid)
 This function is responsible for adding a transaction ID to a snapshot buffer during snapshot parsing operations. It performs two key actions: first, it increments the transaction count (nxip) in the pg_snapshot structure stored in the buffer, then appends the FullTransactionId in binary format to the buffer. The function includes a comment noting that the nxip increment is done before any potential reallocation that might occur during the append operation.
 
 ## Parameters / Member Variables
-- : StringInfo buffer containing a pg_snapshot structure where the transaction ID will be added
-- : FullTransactionId to be appended to the buffer in binary format
-
+- `buf`: StringInfo buffer containing a pg_snapshot structure where the transaction ID will be added
+- `fxid`: FullTransactionId to be appended to the buffer in binary format
 ## Dependencies
 - Functions called/Symbols referenced:
   - [appendBinaryStringInfo](../a/appendBinaryStringInfo.md)

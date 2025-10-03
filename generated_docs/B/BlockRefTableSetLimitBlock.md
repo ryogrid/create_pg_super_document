@@ -24,11 +24,10 @@ The function operates by:
 4. If an entry exists, calling BlockRefTableEntrySetLimitBlock to update the limit and clean up higher-numbered blocks
 
 ## Parameters / Member Variables
-- : Pointer to the BlockRefTable to modify
-- : Pointer to RelFileLocator identifying the specific relation
-- : Fork number (main, fsm, vm, etc.) within the relation
-- : Block number representing the new limit for the relation fork
-
+- `*brtab`: Pointer to the BlockRefTable to modify
+- `*rlocator`: Pointer to RelFileLocator identifying the specific relation
+- `forknum`: Fork number (main, fsm, vm, etc.) within the relation
+- `limit_block`: Block number representing the new limit for the relation fork
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Copies the RelFileLocator to the key structure

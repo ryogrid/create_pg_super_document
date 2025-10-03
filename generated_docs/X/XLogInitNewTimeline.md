@@ -28,10 +28,9 @@ The function ensures proper WAL continuity across timeline transitions by:
 This timeline initialization is crucial for maintaining WAL integrity and ensuring that the database can properly continue operations on the new timeline.
 
 ## Parameters / Member Variables
-- : Timeline ID of the old/ending timeline
-- : WAL record pointer indicating the end position of the old timeline
-- : Timeline ID of the new timeline being initialized
-
+- `endTLI`: Timeline ID of the old/ending timeline
+- `endOfLog`: WAL record pointer indicating the end position of the old timeline
+- `newTLI`: Timeline ID of the new timeline being initialized
 ## Dependencies
 - Functions called/Symbols referenced:
   - [UpdateMinRecoveryPoint](../U/UpdateMinRecoveryPoint.md): Updates minimum recovery point tracking

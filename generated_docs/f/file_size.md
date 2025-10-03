@@ -18,8 +18,7 @@ The  function opens a file in read mode and returns its size in bytes. It uses s
 The function is implemented as a static function within the pg_regress.c file, making it a local utility function for PostgreSQL regression testing infrastructure.
 
 ## Parameters / Member Variables
-- : A null-terminated string containing the path to the file whose size is to be determined
-
+- `*file`: A null-terminated string containing the path to the file whose size is to be determined
 ## Dependencies
 - Functions called/Symbols referenced:
   - fopen (standard C library function for opening files)

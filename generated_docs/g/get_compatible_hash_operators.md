@@ -21,10 +21,9 @@ The function searches pg_amop for hash operator family registrations of the inpu
 If the input operator is already single-type (left and right types are the same), both output parameters receive the same operator OID. The function ensures atomic success/failure - if it cannot find operators for all requested sides, it resets the outputs and continues searching other operator families.
 
 ## Parameters / Member Variables
-- : The OID of the input operator to find compatible hash operators for
-- : Optional output parameter for the left-hand side compatible operator (can be NULL)
-- : Optional output parameter for the right-hand side compatible operator (can be NULL)
-
+- `opno`: The OID of the input operator to find compatible hash operators for
+- `*lhs_opno`: Optional output parameter for the left-hand side compatible operator (can be NULL)
+- `*rhs_opno`: Optional output parameter for the right-hand side compatible operator (can be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - SearchSysCacheList1

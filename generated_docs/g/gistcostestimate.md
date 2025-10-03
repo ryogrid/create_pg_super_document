@@ -29,15 +29,14 @@ Unlike B-trees which typically have a fanout of hundreds to thousands, GiST tree
 The cost model includes both comparison costs during tree traversal and fixed per-page costs for processing each level of the tree, ensuring that the performance impact of tree depth is properly reflected in query planning decisions.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global planning context and statistics
-- : IndexPath structure describing the specific GiST index access path being costed
-- : Expected number of times this index scan will be executed (for nested loops)
-- : Output parameter for one-time startup cost of the index scan
-- : Output parameter for total cost including per-tuple processing
-- : Output parameter for estimated fraction of table rows that will be returned
-- : Output parameter for correlation between index and table ordering (inherited from generic estimation)
-- : Output parameter for estimated number of index pages to be accessed
-
+- `*root`: PlannerInfo structure containing global planning context and statistics
+- `*path`: IndexPath structure describing the specific GiST index access path being costed
+- `loop_count`: Expected number of times this index scan will be executed (for nested loops)
+- `*indexStartupCost`: Output parameter for one-time startup cost of the index scan
+- `*indexTotalCost`: Output parameter for total cost including per-tuple processing
+- `*indexSelectivity`: Output parameter for estimated fraction of table rows that will be returned
+- `*indexCorrelation`: Output parameter for correlation between index and table ordering (inherited from generic estimation)
+- `*indexPages`: Output parameter for estimated number of index pages to be accessed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [genericcostestimate](genericcostestimate.md)

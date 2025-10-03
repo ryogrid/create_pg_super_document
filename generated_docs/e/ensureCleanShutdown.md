@@ -23,8 +23,7 @@ This function is a critical part of the pg_rewind process that ensures the targe
 The function uses specific flags to optimize the recovery process: -F (disable fsync) makes recovery faster since the data directory will be synced at the end of the rewind anyway.
 
 ## Parameters / Member Variables
-- : The program name/path used to locate the postgres executable in the same directory
-
+- `*argv0`: The program name/path used to locate the postgres executable in the same directory
 ## Dependencies
 - Functions called/Symbols referenced:
   - [find_other_exec](../f/find_other_exec.md)

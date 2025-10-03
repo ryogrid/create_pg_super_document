@@ -20,9 +20,8 @@ To solve this issue, the function removes any lower outer joins from the relid s
 The function includes an important optimization: if the join domain is the top-level join domain of the query, there's no need to remove outer joins since there's nothing else to commute with.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global information about the query being planned
-- : Relids bitmap representing the relations in the join domain for which we want to find the minimum set
-
+- `*root`: PlannerInfo structure containing global information about the query being planned
+- `domain_relids`: Relids bitmap representing the relations in the join domain for which we want to find the minimum set
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bms_copy](../b/bms_copy.md) (bitmap copy operation)

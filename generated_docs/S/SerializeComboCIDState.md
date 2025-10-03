@@ -22,9 +22,8 @@ The serialization process follows a specific format:
 The function includes bounds checking to ensure the provided buffer is large enough to hold the serialized data. If the calculated end pointer would exceed the buffer bounds or cause integer overflow, it throws an ERROR. The maxsize parameter should typically be the value returned by EstimateComboCIDStateSpace().
 
 ## Parameters / Member Variables
-- : The maximum size of the memory buffer available for serialization
-- : Pointer to the beginning of the memory buffer where serialized data will be written
-
+- `maxsize`: The maximum size of the memory buffer available for serialization
+- `*start_address`: Pointer to the beginning of the memory buffer where serialized data will be written
 ## Dependencies
 - Functions called/Symbols referenced:
   - elog (for error reporting)

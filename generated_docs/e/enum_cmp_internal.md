@@ -22,10 +22,9 @@ The function serves as the common comparison engine for all visible enum compari
 The function uses caching via fcinfo->flinfo->fn_extra to avoid repeated type cache lookups for the same enum type.
 
 ## Parameters / Member Variables
-- : First enum value OID to compare
-- : Second enum value OID to compare  
-- : Function call information structure containing metadata and caching context
-
+- `arg1`: First enum value OID to compare
+- `arg2`: Second enum value OID to compare
+- `fcinfo`: Function call information structure containing metadata and caching context
 ## Dependencies
 - Functions called/Symbols referenced:
   - [FunctionCallInfo](../F/FunctionCallInfo.md) (structure type)

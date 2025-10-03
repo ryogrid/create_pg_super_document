@@ -20,13 +20,12 @@ The make_sort function constructs a Sort plan node that represents a sorting ope
 The created Sort node inherits the target list from its child plan and has no additional qualification conditions. It serves as a fundamental building block for implementing various sorting operations in query execution plans.
 
 ## Parameters / Member Variables
-- : The child plan node that provides the input tuples to be sorted
-- : The number of columns to sort by
-- : Array of column indices (attribute numbers) to sort by
-- : Array of OIDs for the sorting operators to use for each column
-- : Array of OIDs for the collation rules to apply to each sorting column
-- : Array of boolean flags indicating whether NULLs should sort before non-NULLs for each column
-
+- `*lefttree`: The child plan node that provides the input tuples to be sorted
+- `numCols`: The number of columns to sort by
+- `*sortColIdx`: Array of column indices (attribute numbers) to sort by
+- `*sortOperators`: Array of OIDs for the sorting operators to use for each column
+- `*collations`: Array of OIDs for the collation rules to apply to each sorting column
+- `*nullsFirst`: Array of boolean flags indicating whether NULLs should sort before non-NULLs for each column
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to create the Sort node)

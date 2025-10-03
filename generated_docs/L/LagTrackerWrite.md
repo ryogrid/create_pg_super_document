@@ -18,9 +18,8 @@ LagTrackerWrite is a static function in the WAL sender process that maintains a 
 The function implements a circular buffer with overflow protection - when the buffer becomes full (when advancing the write head would collide with any read head), it employs a simple adaptive sampling strategy by rewinding and overwriting the previous sample to reduce the sampling rate.
 
 ## Parameters / Member Variables
-- : The WAL log sequence number (XLogRecPtr) representing the end position of newly written WAL data
-- : The timestamp (TimestampTz) when this WAL data was flushed to disk locally
-
+- `lsn`: The WAL log sequence number (XLogRecPtr) representing the end position of newly written WAL data
+- `local_flush_time`: The timestamp (TimestampTz) when this WAL data was flushed to disk locally
 ## Dependencies
 - Functions called/Symbols referenced:
   - LAG_TRACKER_BUFFER_SIZE (buffer size constant)

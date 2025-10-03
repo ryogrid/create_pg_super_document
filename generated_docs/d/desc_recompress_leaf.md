@@ -18,9 +18,8 @@ This function parses and formats WAL data related to GIN (Generalized Inverted I
 The function iterates through all actions stored in the WAL record, extracting segment numbers, action types, and associated data. For each action, it formats an appropriate description based on the operation type (add items, delete, insert, or replace segments).
 
 ## Parameters / Member Variables
-- : StringInfo buffer where the formatted description will be appended
-- : Pointer to the WAL record data containing recompression operations information
-
+- `buf`: StringInfo buffer where the formatted description will be appended
+- `*insertData`: Pointer to the WAL record data containing recompression operations information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [appendStringInfo](../a/appendStringInfo.md)

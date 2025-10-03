@@ -23,9 +23,8 @@ This function analyzes an array expression and returns an estimate of how many e
 The function is designed to work even when the planner info () is NULL, though this results in slightly less accurate estimates. The result is returned as a double to avoid integer overflow concerns and to match the data types used in cost estimation calculations.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planner state; can be NULL but results in less accurate estimates
-- : Node representing the array expression to be analyzed
-
+- `*root`: PlannerInfo structure containing planner state; can be NULL but results in less accurate estimates
+- `*arrayexpr`: Node representing the array expression to be analyzed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [strip_array_coercion](../s/strip_array_coercion.md)

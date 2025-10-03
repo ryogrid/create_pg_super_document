@@ -23,6 +23,7 @@ This configuration is optimized for the Hungarian stemming algorithm's memory re
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SN_create_env](../S/SN_create_env.md)

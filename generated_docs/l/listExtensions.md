@@ -22,8 +22,7 @@ The query retrieves:
 - Extension description (from pg_description)
 
 ## Parameters / Member Variables
-- : SQL name pattern for filtering extensions (can be NULL for all extensions)
-
+- `*pattern`: SQL name pattern for filtering extensions (can be NULL for all extensions)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQExpBufferData](../P/PQExpBufferData.md) (data structure)

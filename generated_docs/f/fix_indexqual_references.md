@@ -25,11 +25,10 @@ This function performs three critical transformations on index qualification cla
 The function processes each IndexClause in the index path, iterating through the indexquals within each clause. For each qualification, it creates both a stripped version (with RestrictInfo removed) and a fixed version (with all transformations applied). The fixed version is a complete copy that shares no substructure with the original, which is necessary when subplans are present to avoid execution conflicts.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planner context and state
-- : IndexPath representing the index scan path being processed
-- : Output parameter receiving list of qual clauses with RestrictInfo removed
-- : Output parameter receiving list of adjusted quals ready for execution
-
+- `*root`: PlannerInfo structure containing planner context and state
+- `*index_path`: IndexPath representing the index scan path being processed
+- `**stripped_indexquals_p`: Output parameter receiving list of qual clauses with RestrictInfo removed
+- `**fixed_indexquals_p`: Output parameter receiving list of adjusted quals ready for execution
 ## Dependencies
 - Functions called/Symbols referenced:
   - [fix_indexqual_clause](fix_indexqual_clause.md)

@@ -18,9 +18,8 @@ This function initializes the partition routing infrastructure for a partitioned
 The function allocates the main PartitionTupleRouting structure and initializes its core components, including setting up the partition dispatch information for the root partitioned table. The actual partition discovery and ResultRelInfo creation are deferred until ExecFindPartition() is called.
 
 ## Parameters / Member Variables
-- : The executor state containing execution context and memory management information
-- : The root partitioned table relation for which tuple routing needs to be set up
-
+- `*estate`: The executor state containing execution context and memory management information
+- `rel`: The root partitioned table relation for which tuple routing needs to be set up
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PartitionTupleRouting](../P/PartitionTupleRouting.md) (struct allocation)

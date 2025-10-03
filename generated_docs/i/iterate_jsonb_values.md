@@ -17,11 +17,10 @@ iterate_jsonb_values(Jsonb *jb, uint32 flags, void *state,
 This function provides a generic mechanism for traversing a JSONB structure and applying a callback function to selected types of values. It uses the JSONB iterator infrastructure to walk through the entire JSONB structure, examining each token type and value type. Based on the provided flags, it selectively calls the action callback for keys, strings, numeric values, and boolean values. The function handles type conversion for numeric values (converting to string representation) and boolean values (converting to "true"/"false" strings) before passing them to the callback.
 
 ## Parameters / Member Variables
-- : The JSONB structure to iterate over
-- : Bitfield flags controlling which types of values to process (jtiKey, jtiString, jtiNumeric, jtiBool)
-- : User-defined state object passed through to the callback function
-- : Callback function of type JsonIterateStringValuesAction that processes each selected value
-
+- `*jb`: The JSONB structure to iterate over
+- `flags`: Bitfield flags controlling which types of values to process (jtiKey, jtiString, jtiNumeric, jtiBool)
+- `*state`: User-defined state object passed through to the callback function
+- `action`: Callback function of type JsonIterateStringValuesAction that processes each selected value
 ## Dependencies
 - Functions called/Symbols referenced:
   - [JsonbIteratorInit](../J/JsonbIteratorInit.md)

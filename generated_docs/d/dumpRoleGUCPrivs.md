@@ -18,8 +18,7 @@ This function handles the dumping of role privileges on configuration parameters
 The function assumes that all roles have already been created by the dumpRoles function, but the per-role configuration parameter privileges have not yet been applied. It processes each parameter with custom ACLs and uses the buildACLCommands utility to generate the SQL commands needed to restore the privilege state.
 
 ## Parameters / Member Variables
-- : PostgreSQL connection handle used to execute queries against the database
-
+- `*conn`: PostgreSQL connection handle used to execute queries against the database
 ## Dependencies
 - Functions called/Symbols referenced:
   - [executeQuery](../e/executeQuery.md): Executes SQL query to retrieve parameter ACL information

@@ -20,11 +20,10 @@ This function initializes a table scan descriptor specifically for TID (Tuple Id
 The scan is configured with SO_TYPE_TIDRANGESCAN and SO_ALLOW_PAGEMODE flags to optimize for range-based tuple retrieval and enable efficient page-level operations.
 
 ## Parameters / Member Variables
-- : The relation (table) to scan
-- : The snapshot to use for visibility checking during the scan
-- : Pointer to the minimum TID (starting point of the range)
-- : Pointer to the maximum TID (ending point of the range)
-
+- `rel`: The relation (table) to scan
+- `snapshot`: The snapshot to use for visibility checking during the scan
+- `mintid`: Pointer to the minimum TID (starting point of the range)
+- `maxtid`: Pointer to the maximum TID (ending point of the range)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TableScanDesc](../T/TableScanDesc.md) (return type)

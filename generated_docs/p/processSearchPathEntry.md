@@ -18,9 +18,8 @@ The  function handles search_path configuration entries found in a PostgreSQL ar
 The search_path setting controls which schemas are searched when resolving unqualified object names. By preserving this setting from the original database, the restoration process can maintain the same schema resolution behavior that existed when the dump was created.
 
 ## Parameters / Member Variables
-- : Archive handle containing the restoration context and configuration
-- : Table of contents entry containing the search_path definition command
-
+- `*AH`: Archive handle containing the restoration context and configuration
+- `*te`: Table of contents entry containing the search_path definition command
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_strdup](pg_strdup.md) (PostgreSQL string duplication utility)

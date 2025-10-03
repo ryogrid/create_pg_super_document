@@ -20,12 +20,11 @@ This function searches through an indexed target list to find a variable (Var no
 The function includes cross-checking of varnullingrels between the input Var and the subplan output Var based on the nrm_match parameter. This validation helps ensure that nulling relation sets are handled correctly during plan tree modifications.
 
 ## Parameters / Member Variables
-- : The Var node to search for in the indexed target list
-- : The indexed target list structure to search within
-- : The new varno value to assign to the copied Var if found
-- : Offset to add to varnosyn if it's positive
-- : Controls how varnullingrels are compared (NRM_EQUAL for exact match, NRM_SUBSET/NRM_SUPERSET for partial matches)
-
+- `*var`: The Var node to search for in the indexed target list
+- `*itlist`: The indexed target list structure to search within
+- `newvarno`: The new varno value to assign to the copied Var if found
+- `rtoffset`: Offset to add to varnosyn if it's positive
+- `nrm_match`: Controls how varnullingrels are compared (NRM_EQUAL for exact match, NRM_SUBSET/NRM_SUPERSET for partial matches)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [copyVar](../c/copyVar.md)

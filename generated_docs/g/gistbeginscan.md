@@ -18,10 +18,9 @@ This function serves as the entry point for GiST index scanning operations, impl
 The function follows PostgreSQL's index AM (Access Method) interface, making it pluggable into the query executor's index scanning framework. It defers some initialization work to gistrescan() since the exact scan parameters may not be known until the actual scan begins.
 
 ## Parameters / Member Variables
-- : The relation (table/index) being scanned
-- : Number of scan keys (WHERE clause conditions)
-- : Number of ORDER BY expressions for nearest-neighbor queries
-
+- `r`: The relation (table/index) being scanned
+- `nkeys`: Number of scan keys (WHERE clause conditions)
+- `norderbys`: Number of ORDER BY expressions for nearest-neighbor queries
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RelationGetIndexScan](../R/RelationGetIndexScan.md)

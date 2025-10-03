@@ -16,8 +16,7 @@ PageGetPageSize(Page page)
 PageGetPageSize extracts the page size from a formatted page by reading the pd_pagesize_version field in the page header and masking out the version bits. The function performs a bitwise AND operation with 0xFF00 to isolate the upper 8 bits which contain the page size information. This function can only be called on formatted pages (unlike BufferGetPageSize which works on unformatted pages), but it can work on pages not stored in a buffer.
 
 ## Parameters / Member Variables
-- : A Page pointer to the formatted page from which to extract the size information
-
+- `page`: A Page pointer to the formatted page from which to extract the size information
 ## Dependencies
 - Functions called/Symbols referenced:
   - PageHeader (type cast to access page header structure)

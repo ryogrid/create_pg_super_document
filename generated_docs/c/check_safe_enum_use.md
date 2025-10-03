@@ -24,8 +24,7 @@ The function allows several exceptions:
 The implementation checks transaction states and maintains a list of uncommitted enum values to enforce these rules centrally.
 
 ## Parameters / Member Variables
-- : HeapTuple representing the pg_enum catalog entry to validate for safe usage
-
+- `enumval_tup`: HeapTuple representing the pg_enum catalog entry to validate for safe usage
 ## Dependencies
 - Functions called/Symbols referenced:
   - Form_pg_enum

@@ -24,10 +24,9 @@ The function performs several key operations:
 5. Sets up tuple descriptor and attribute metadata for the return type
 
 ## Parameters / Member Variables
-- : Function call context structure used for multi-call functions
-- : Function call information containing metadata about the function call
-- : OID of the text search parser to retrieve token types from
-
+- `*funcctx`: Function call context structure used for multi-call functions
+- `fcinfo`: Function call information containing metadata about the function call
+- `prsid`: OID of the text search parser to retrieve token types from
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lookup_ts_parser_cache](../l/lookup_ts_parser_cache.md)

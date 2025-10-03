@@ -31,10 +31,9 @@ Key features include:
 The function moves the cursor backward by the length of the matched pattern and returns the  field of the matched pattern, or 0 if no match is found.
 
 ## Parameters / Member Variables
-- : Pointer to the Snowball environment structure containing the text buffer and cursor positions
-- : Pointer to a sorted array of  structures containing the patterns to match
-- : The number of elements in the pattern array
-
+- `*z`: Pointer to the Snowball environment structure containing the text buffer and cursor positions
+- `*v`: Pointer to a sorted array of  structures containing the patterns to match
+- `v_size`: The number of elements in the pattern array
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (structure type for pattern definitions)

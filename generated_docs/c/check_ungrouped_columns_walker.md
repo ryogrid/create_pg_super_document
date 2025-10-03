@@ -34,9 +34,8 @@ This function implements the sophisticated logic for validating GROUP BY complia
 The function uses expression_tree_walker and query_tree_walker for efficient tree traversal.
 
 ## Parameters / Member Variables
-- : Current node being examined in the expression tree
-- : Rich context structure containing:
-
+- `*node`: Current node being examined in the expression tree
+- `*context`: Rich context structure containing:
 ## Dependencies
 - Functions called/Symbols referenced:
   - expression_tree_walker

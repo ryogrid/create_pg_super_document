@@ -24,9 +24,8 @@ The function iterates through a list of constraints and handles four types of co
 Currently, constraint attributes are only supported for FOREIGN KEY, UNIQUE, EXCLUSION, and PRIMARY KEY constraints, though the design allows for future extension to other constraint types.
 
 ## Parameters / Member Variables
-- : CreateStmtContext pointer containing parse state and context information for error reporting
-- : List of Constraint nodes to be processed for attribute attachment
-
+- `*cxt`: CreateStmtContext pointer containing parse state and context information for error reporting
+- `*constraintList`: List of Constraint nodes to be processed for attribute attachment
 ## Dependencies
 - Functions called/Symbols referenced:
   - CreateStmtContext (structure)

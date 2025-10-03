@@ -31,11 +31,10 @@ This recursive function processes OR clauses to create bitmap OR trees by:
 The function handles nested OR structures through recursion and uses both current and other clauses as context for index path generation, supporting complex WHERE clause structures.
 
 ## Parameters / Member Variables
-- : PlannerInfo containing planner state and configuration  
-- : RelOptInfo representing the relation being processed
-- : List of restriction clauses to search for OR expressions
-- : Additional clauses that provide context but aren't searched for ORs
-
+- `*root`: PlannerInfo containing planner state and configuration
+- `*rel`: RelOptInfo representing the relation being processed
+- `*clauses`: List of restriction clauses to search for OR expressions
+- `*other_clauses`: Additional clauses that provide context but aren't searched for ORs
 ## Dependencies
 - Functions called/Symbols referenced:
   - [build_paths_for_OR](../b/build_paths_for_OR.md)

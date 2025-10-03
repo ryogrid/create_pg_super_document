@@ -18,8 +18,7 @@ The  function creates a specialized table scan descriptor for ANALYZE commands. 
 The function acts as a wrapper around the table access method's scan_begin function, passing appropriate parameters for ANALYZE operations. It sets up the scan with no snapshot (NULL), no keys, and the SO_TYPE_ANALYZE flag to distinguish it from other scan types.
 
 ## Parameters / Member Variables
-- : The relation (table) to be scanned for analysis purposes
-
+- `rel`: The relation (table) to be scanned for analysis purposes
 ## Dependencies
 - Functions called/Symbols referenced:
   - SO_TYPE_ANALYZE (scan option flag)

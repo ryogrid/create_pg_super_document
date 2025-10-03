@@ -20,11 +20,10 @@ The function performs simultaneous iteration through both the line content and t
 This function is essential for parsing backup label files where specific line prefixes need to be identified (such as "START WAL LOCATION:", "INCREMENTAL FROM LSN:", etc.) and the remaining line content needs to be processed.
 
 ## Parameters / Member Variables
-- : Pointer to the start of the line to test
-- : Pointer to the end of the line (exclusive boundary - points one past the last character)
-- : Null-terminated string to match against the beginning of the line
-- : Optional output parameter to store pointer to the position after the match (can be NULL)
-
+- `*s`: Pointer to the start of the line to test
+- `*e`: Pointer to the end of the line (exclusive boundary - points one past the last character)
+- `*match`: Null-terminated string to match against the beginning of the line
+- `**sout`: Optional output parameter to store pointer to the position after the match (can be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (uses only basic string operations)

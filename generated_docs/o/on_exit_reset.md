@@ -17,7 +17,6 @@ The `on_exit_reset` function is a critical component of PostgreSQL's process for
 The function resets the indices for all three types of exit callbacks to zero, effectively clearing their respective callback lists, and also resets any dynamic shared memory detach callbacks.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

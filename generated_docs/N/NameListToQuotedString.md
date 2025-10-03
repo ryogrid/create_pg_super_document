@@ -18,8 +18,7 @@ The NameListToQuotedString function converts a List of name components into a do
 The function assumes all elements in the input list are String nodes and does not handle A_Star nodes like its counterpart NameListToString does.
 
 ## Parameters / Member Variables
-- : A List pointer containing String nodes representing the qualified name components to be converted to a quoted string representation.
-
+- `*names`: A List pointer containing String nodes representing the qualified name components to be converted to a quoted string representation.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_head](../l/list_head.md): Used to check if current element is the first in the list to avoid prepending a dot

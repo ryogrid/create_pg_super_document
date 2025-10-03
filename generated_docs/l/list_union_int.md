@@ -18,9 +18,8 @@ This function performs a set union operation on two lists containing integer val
 The function includes assertions to verify that both input lists contain only integer values using . After construction, it validates the result using  to ensure list consistency.
 
 ## Parameters / Member Variables
-- : The first input list of integers (const List *)
-- : The second input list of integers (const List *)
-
+- `*list1`: The first input list of integers (const List *)
+- `*list2`: The second input list of integers (const List *)
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsIntegerList (validation)

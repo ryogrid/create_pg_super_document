@@ -16,8 +16,7 @@ proc_exit_prepare(int code)
 proc_exit_prepare implements the critical phase of process termination where all cleanup operations must be performed. It sets the proc_exit_inprogress flag to prevent recursive exit attempts, clears all pending interrupt flags to avoid interference during cleanup, resets error handling contexts, calls shmem_exit() for shared memory cleanup, and then executes all registered on_proc_exit callbacks in reverse order. The function is designed to be idempotent and safe to call multiple times, as it may be invoked both through normal proc_exit() and through the emergency atexit_callback().
 
 ## Parameters / Member Variables
-- : Exit status code passed to cleanup callbacks and shared memory exit routines
-
+- `code`: Exit status code passed to cleanup callbacks and shared memory exit routines
 ## Dependencies
 - Functions called/Symbols referenced:
   - [shmem_exit](../s/shmem_exit.md)

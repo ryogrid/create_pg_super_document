@@ -18,8 +18,7 @@ The  function initializes a SQLCA (SQL Communication Area) structure to its defa
 The function uses  to efficiently copy the entire structure contents, ensuring that all fields including sqlcaid ('SQLCA   '), sqlabc (structure size), sqlcode (0), error message fields, warning arrays, and sqlstate are properly initialized to their default values.
 
 ## Parameters / Member Variables
-- : Pointer to the SQLCA structure to be initialized. Must be a valid pointer to allocated memory of sufficient size.
-
+- `*sqlca`: Pointer to the SQLCA structure to be initialized. Must be a valid pointer to allocated memory of sufficient size.
 ## Dependencies
 - Functions called/Symbols referenced:
   - memcpy (standard library function)

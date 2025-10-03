@@ -24,8 +24,7 @@ The scan process involves two phases:
 Events marked with AFTER_TRIGGER_DONE are safely ignored, as even if such flags are rolled back by subxact abort, the effects of the DDL operation would also be rolled back.
 
 ## Parameters / Member Variables
-- : The OID of the relation to check for pending after-trigger events
-
+- `relid`: The OID of the relation to check for pending after-trigger events
 ## Dependencies
 - Functions called/Symbols referenced:
   - for_each_event_chunk (macro for iterating through event chunks)

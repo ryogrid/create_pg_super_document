@@ -26,10 +26,9 @@ The function performs several key operations:
 The function is designed to be called only once per write attempt, meaning it may exit with the page still dirty if another process re-dirtied it during the write operation. However, it will attempt a fresh write even if the page is already being written, which is essential for checkpoint operations.
 
 ## Parameters / Member Variables
-- : SlruCtl control structure containing SLRU configuration and state information
-- : Integer slot number identifying which buffer slot contains the page to write
-- : SlruWriteAll structure containing file descriptors and metadata for flush operations (can be NULL for non-flush writes)
-
+- `ctl`: SlruCtl control structure containing SLRU configuration and state information
+- `slotno`: Integer slot number identifying which buffer slot contains the page to write
+- `fdata`: SlruWriteAll structure containing file descriptors and metadata for flush operations (can be NULL for non-flush writes)
 ## Dependencies
 - Functions called/Symbols referenced:
   - SlotGetBankNumber

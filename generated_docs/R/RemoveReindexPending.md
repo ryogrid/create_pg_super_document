@@ -16,8 +16,7 @@ RemoveReindexPending(Oid indexOid)
 RemoveReindexPending is a static function that removes a specific index from the pendingReindexedIndexes list. The function includes an important safety check to prevent modification of the reindex state during parallel operations, which could lead to race conditions. It uses the PostgreSQL list utility function list_delete_oid to safely remove the specified index OID from the pending list.
 
 ## Parameters / Member Variables
-- : The OID of the index to remove from the pending reindex list
-
+- `indexOid`: The OID of the index to remove from the pending reindex list
 ## Dependencies
 - Functions called/Symbols referenced:
   - [IsInParallelMode](../I/IsInParallelMode.md)

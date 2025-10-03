@@ -25,9 +25,8 @@ Key behaviors include:
 - Proper cleanup of heap tuples and relation locks
 
 ## Parameters / Member Variables
-- : Current name of the schema to be renamed
-- : Desired new name for the schema
-
+- `*oldname`: Current name of the schema to be renamed
+- `*newname`: Desired new name for the schema
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md)/table_close (catalog table access with locking)

@@ -24,10 +24,9 @@ fmgr_symbol queries the PostgreSQL system catalog (pg_proc) to determine how a f
 The returned strings are allocated in the current memory context using pstrdup.
 
 ## Parameters / Member Variables
-- : The OID of the function to look up in pg_proc catalog
-- : Output parameter for module/library name (NULL for core binary functions)
-- : Output parameter for C function name (NULL if no known implementation)
-
+- `functionId`: The OID of the function to look up in pg_proc catalog
+- `**mod`: Output parameter for module/library name (NULL for core binary functions)
+- `**fn`: Output parameter for C function name (NULL if no known implementation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache1](../S/SearchSysCache1.md)

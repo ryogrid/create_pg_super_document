@@ -21,11 +21,10 @@ When the array needs to expand, it doubles the maximum capacity (maxrefs *= 2) a
 After ensuring adequate capacity, the function creates a new ObjectAddress entry at the end of the array and populates it with the provided classId, objectId, and subId values, then increments the numrefs counter.
 
 ## Parameters / Member Variables
-- : The OID of the catalog (system table) that contains the object
-- : The OID of the object itself within that catalog
-- : Sub-object identifier (0 for the whole object, >0 for specific parts like table columns)
-- : Pointer to the ObjectAddresses structure to modify
-
+- `classId`: The OID of the catalog (system table) that contains the object
+- `objectId`: The OID of the object itself within that catalog
+- `subId`: Sub-object identifier (0 for the whole object, >0 for specific parts like table columns)
+- `*addrs`: Pointer to the ObjectAddresses structure to modify
 ## Dependencies
 - Functions called/Symbols referenced:
   - [repalloc](../r/repalloc.md) (memory reallocation)

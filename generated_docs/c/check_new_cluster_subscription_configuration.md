@@ -22,7 +22,6 @@ The function performs the following operations:
 - Validates that the setting is sufficient for all subscriptions to be migrated
 
 ## Parameters / Member Variables
-None - this function takes no parameters and operates on global cluster information.
 
 ## Dependencies
 - Functions called/Symbols referenced:

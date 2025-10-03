@@ -23,8 +23,7 @@ This function is responsible for transitioning a PQExpBuffer to a broken state w
 The function uses  to cast away the const qualifier when assigning the static buffer, which is a controlled violation of const-correctness for this specific use case.
 
 ## Parameters / Member Variables
-- : Pointer to the PQExpBuffer structure to be marked as broken
-
+- `str`: Pointer to the PQExpBuffer structure to be marked as broken
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (standard C library function)

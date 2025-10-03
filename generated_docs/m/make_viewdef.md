@@ -26,12 +26,11 @@ The function performs several validation checks to ensure the rule represents a 
 If any validation fails, the function leaves the output buffer empty and returns early. Otherwise, it calls  to generate the actual SQL text and appends a semicolon.
 
 ## Parameters / Member Variables
-- : StringInfo buffer where the reconstructed SELECT statement will be written
-- : HeapTuple containing the rule data from the system catalog
-- : TupleDesc describing the structure of the rule tuple
-- : Formatting flags controlling pretty-printing of the output
-- : Column width for line wrapping in the output
-
+- `buf`: StringInfo buffer where the reconstructed SELECT statement will be written
+- `ruletup`: HeapTuple containing the rule data from the system catalog
+- `rulettc`: TupleDesc describing the structure of the rule tuple
+- `prettyFlags`: Formatting flags controlling pretty-printing of the output
+- `wrapColumn`: Column width for line wrapping in the output
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SPI_fnumber](../S/SPI_fnumber.md)

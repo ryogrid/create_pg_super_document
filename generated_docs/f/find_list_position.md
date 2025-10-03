@@ -18,9 +18,8 @@ This function searches through a list of Node pointers to find the position (0-b
 The function is static and used internally within the index path optimization module to maintain lists of unique nodes while tracking their positions.
 
 ## Parameters / Member Variables
-- : The Node pointer to search for in the list
-- : A pointer to a List pointer that contains Node elements; the list may be modified if the node is not found
-
+- `*node`: The Node pointer to search for in the list
+- `**nodelist`: A pointer to a List pointer that contains Node elements; the list may be modified if the node is not found
 ## Dependencies
 - Functions called/Symbols referenced:
   - [equal](../e/equal.md) (for deep equality comparison of nodes)

@@ -23,8 +23,7 @@ The function performs key initialization tasks:
 The resulting structure provides a framework for setting up sort operations across multiple columns, where each dimension can have its own comparison function and sort criteria. This is particularly important for extended statistics where relationships between multiple columns need to be analyzed through sorted data access patterns.
 
 ## Parameters / Member Variables
-- : The number of dimensions (columns) for the multi-dimensional sort; must be at least 2
-
+- `ndims`: The number of dimensions (columns) for the multi-dimensional sort; must be at least 2
 ## Dependencies
 - Functions called/Symbols referenced:
   - MultiSortSupport, MultiSortSupportData (type definitions for sort support)

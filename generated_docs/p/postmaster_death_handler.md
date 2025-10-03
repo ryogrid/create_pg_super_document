@@ -18,8 +18,7 @@ The postmaster_death_handler is a simple signal handler function that responds t
 The handler is designed to be minimalistic and signal-safe, performing only the essential operation of setting a flag that can be checked by the main process logic.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL macro for signal handler arguments (typically includes signal number and signal info)
-
+- `SIGNAL_ARGS`: Standard PostgreSQL macro for signal handler arguments (typically includes signal number and signal info)
 ## Dependencies
 - Functions called/Symbols referenced:
   - SIGNAL_ARGS (macro)

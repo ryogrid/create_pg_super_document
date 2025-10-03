@@ -16,9 +16,8 @@ cash_mul_float8(Cash c, float8 f)
 The  function multiplies a Cash value (64-bit signed integer representing monetary amounts) by a float8 value (double precision floating point number). The function performs the multiplication in floating point arithmetic, applies proper rounding using , and then checks that the result is valid (not NaN and fits within the range of a 64-bit signed integer). If the result is out of range or invalid, it reports a "money out of range" error. This ensures that monetary multiplication operations maintain precision and stay within valid bounds.
 
 ## Parameters / Member Variables
-- : Cash value to be multiplied
-- : float8 (double precision) multiplier value
-
+- `c`: Cash value to be multiplied
+- `f`: float8 (double precision) multiplier value
 ## Dependencies
 - Functions called/Symbols referenced:
   - Cash (type)

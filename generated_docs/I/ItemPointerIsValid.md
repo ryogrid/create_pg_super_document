@@ -18,8 +18,7 @@ ItemPointerIsValid is a utility function that determines whether an ItemPointerD
 This function is critical for ensuring data integrity when working with heap tuples and index entries, as invalid item pointers can lead to accessing non-existent or corrupted data.
 
 ## Parameters / Member Variables
-- : A pointer to an ItemPointerData structure to be validated
-
+- `*pointer`: A pointer to an ItemPointerData structure to be validated
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerIsValid

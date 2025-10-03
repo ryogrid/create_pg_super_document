@@ -33,10 +33,9 @@ The parsing process involves:
 7. Delegating query parameter parsing to conninfo_uri_parse_params
 
 ## Parameters / Member Variables
-- : Array of PQconninfoOption structures to be populated with parsed values
-- : The connection URI string to parse
-- : Buffer to store error messages if parsing fails
-
+- `*options`: Array of PQconninfoOption structures to be populated with parsed values
+- `*uri`: The connection URI string to parse
+- `errorMessage`: Buffer to store error messages if parsing fails
 ## Dependencies
 - Functions called/Symbols referenced:
   - [uri_prefix_length](../u/uri_prefix_length.md)

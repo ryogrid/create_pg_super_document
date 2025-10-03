@@ -18,9 +18,8 @@ This function implements PostgreSQL's fast-path locking mechanism for relation l
 The fast-path mechanism is designed to optimize common locking scenarios where backends frequently acquire and release locks on the same relations, reducing contention on the shared lock table.
 
 ## Parameters / Member Variables
-- : The OID of the relation for which the lock is being requested
-- : The type of lock mode being requested (e.g., AccessShareLock, RowExclusiveLock, etc.)
-
+- `relid`: The OID of the relation for which the lock is being requested
+- `lockmode`: The type of lock mode being requested (e.g., AccessShareLock, RowExclusiveLock, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   - FAST_PATH_GET_BITS: Macro to extract lock bits from fast-path slot

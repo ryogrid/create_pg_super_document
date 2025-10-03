@@ -16,9 +16,8 @@ bbsink_zstd_begin_archive(bbsink *sink, const char *archive_name)
 This function prepares the zstd compression sink to begin compressing a new archive file. It resets the zstd compression context using session-only reset to maintain compression parameters while starting fresh compression state. The function configures the output buffer to point to the next sink's buffer and appends the ".zst" extension to the archive name to indicate zstd compression before passing it to the next sink in the chain.
 
 ## Parameters / Member Variables
-- : Pointer to the bbsink structure (cast to bbsink_zstd internally) that will perform zstd compression  
-- : Name of the archive being compressed (without extension)
-
+- `*sink`: Pointer to the bbsink structure (cast to bbsink_zstd internally) that will perform zstd compression
+- `*archive_name`: Name of the archive being compressed (without extension)
 ## Dependencies
 - Functions called/Symbols referenced:
   - ZSTD_CCtx_reset (resets compression context for new archive)

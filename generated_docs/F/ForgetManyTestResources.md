@@ -28,11 +28,10 @@ For each resource to be forgotten, the function uses a round-robin search strate
 The round-robin approach with fallback searching ensures even distribution of resource removal across kinds while handling cases where some kinds may be exhausted before others.
 
 ## Parameters / Member Variables
-- : ResourceOwner instance from which to remove resources
-- : Array of ManyTestResourceKind structures defining resource types
-- : Number of resource kinds in the kinds array
-- : Number of resources to forget and deallocate
-
+- `owner`: ResourceOwner instance from which to remove resources
+- `*kinds`: Array of ManyTestResourceKind structures defining resource types
+- `nkinds`: Number of resource kinds in the kinds array
+- `nresources`: Number of resources to forget and deallocate
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetTotalResourceCount](../G/GetTotalResourceCount.md) (helper function to count available resources)

@@ -18,8 +18,7 @@ The  function creates a complete copy of an existing IndexTuple by allocating ne
 The function determines the exact size of the source tuple using , allocates the appropriate amount of memory using , and performs a byte-by-byte copy using . This ensures that all tuple data, including the tuple header and attribute values, are faithfully reproduced in the new tuple.
 
 ## Parameters / Member Variables
-- : The original IndexTuple to be copied. Must be a valid IndexTuple pointer.
-
+- `source`: The original IndexTuple to be copied. Must be a valid IndexTuple pointer.
 ## Dependencies
 - Functions called/Symbols referenced:
   - IndexTupleSize

@@ -22,9 +22,8 @@ The transformation process involves:
 4. Creating a new BoolExpr node with the transformed arguments
 
 ## Parameters / Member Variables
-- : ParseState context containing parsing state information and error handling context
-- : BoolExpr node containing the boolean operation type, list of operands, and source location information
-
+- `*pstate`: ParseState context containing parsing state information and error handling context
+- `*a`: BoolExpr node containing the boolean operation type, list of operands, and source location information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BoolExpr](../B/BoolExpr.md) (struct type for boolean expressions)

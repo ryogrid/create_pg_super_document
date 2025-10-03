@@ -22,8 +22,7 @@ The function distinguishes between expected and unexpected program failures:
 The error handling ensures that PostgreSQL can provide meaningful diagnostic information when external programs fail during COPY operations while avoiding false alarms for expected termination scenarios.
 
 ## Parameters / Member Variables
-- : CopyFromState structure containing the state of the COPY FROM operation, including the pipe file handle and metadata about the operation status
-
+- `cstate`: CopyFromState structure containing the state of the COPY FROM operation, including the pipe file handle and metadata about the operation status
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ClosePipeStream](ClosePipeStream.md)

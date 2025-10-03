@@ -18,8 +18,7 @@ The  function is responsible for cleaning up and deallocating all memory associa
 The function includes an assertion to verify that the NFA is not already empty before attempting to free it, providing a safety check against double-free scenarios.
 
 ## Parameters / Member Variables
-- : Pointer to the compacted NFA structure to be freed
-
+- `*cnfa`: Pointer to the compacted NFA structure to be freed
 ## Dependencies
 - Functions called/Symbols referenced:
   - NULLCNFA (macro to check if NFA is empty)

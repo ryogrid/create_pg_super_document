@@ -27,6 +27,7 @@ The function acquires the ProcArrayLock in exclusive mode to safely update both 
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockAcquire](../L/LWLockAcquire.md)

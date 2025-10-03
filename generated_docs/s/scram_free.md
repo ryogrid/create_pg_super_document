@@ -16,8 +16,7 @@ scram_free(void *opaq)
 This function performs complete cleanup of a fe_scram_state structure by systematically deallocating all dynamically allocated memory used during the SCRAM authentication exchange. It frees various message buffers, cryptographic materials, and state information including the password, SASL mechanism name, client nonce, message components, server responses, salt, and the state structure itself. This ensures proper memory management and prevents memory leaks when a SCRAM authentication session ends, whether successfully or unsuccessfully.
 
 ## Parameters / Member Variables
-- : Opaque pointer to the fe_scram_state structure to be freed
-
+- `*opaq`: Opaque pointer to the fe_scram_state structure to be freed
 ## Dependencies
 - Functions called/Symbols referenced:
   - fe_scram_state (structure)

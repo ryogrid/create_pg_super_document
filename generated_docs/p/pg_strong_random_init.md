@@ -26,6 +26,7 @@ This function must be called once per process before any calls to pg_strong_rand
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - RAND_poll (OpenSSL builds only)

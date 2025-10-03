@@ -16,9 +16,8 @@ populate_array_element_end(void *_state, bool isnull)
 This function serves as a JSON semantic action callback that is invoked when the JSON parser reaches the end of an array element. It is specifically designed to work with the populate_array_json() functionality. The function constructs a JsValue structure representing the completed array element and delegates the actual element processing to populate_array_element(). It handles both null values and non-null values, managing different representations based on whether the element is a scalar value or a complex JSON structure.
 
 ## Parameters / Member Variables
-- : A void pointer that is cast to PopulateArrayState, containing the parsing state and context information
-- : A boolean flag indicating whether the current array element is null
-
+- `*_state`: A void pointer that is cast to PopulateArrayState, containing the parsing state and context information
+- `isnull`: A boolean flag indicating whether the current array element is null
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PopulateArrayState](../P/PopulateArrayState.md) (state structure)

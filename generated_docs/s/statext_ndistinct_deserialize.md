@@ -25,8 +25,7 @@ The deserialization process:
 The function includes robust error handling with detailed error messages for various corruption scenarios, making it suitable for reading data that may have been stored across different PostgreSQL versions or platforms.
 
 ## Parameters / Member Variables
-- : Pointer to bytea containing serialized MVNDistinct data, or NULL (which returns NULL)
-
+- `*data`: Pointer to bytea containing serialized MVNDistinct data, or NULL (which returns NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - SizeOfHeader: Macro for calculating MVNDistinct header size

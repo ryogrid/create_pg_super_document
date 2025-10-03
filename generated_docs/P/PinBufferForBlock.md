@@ -22,14 +22,13 @@ PinBufferForBlock(Relation rel,
 PinBufferForBlock is a critical function in PostgreSQL's buffer manager that handles the low-level task of pinning buffers for specific database blocks. The function determines whether to use local (temporary) or shared buffers based on relation persistence, allocates the appropriate buffer, and updates various statistics and tracing information. It sets the  flag to indicate whether the block was already present in the buffer pool or needs to be read from disk. The function is marked as  for performance optimization since it's called frequently during database operations.
 
 ## Parameters / Member Variables
-- : Relation pointer, can be NULL during recovery operations
-- : Storage manager relation containing relation metadata and location information
-- : Persistence type when relation is NULL (used during recovery)
-- : Fork identifier (main, FSM, visibility map, etc.)
-- : Block number within the specified fork (must not be P_NEW)
-- : Buffer access strategy for cache management policies
-- : Output parameter set to true if block was found in buffer pool, false if needs reading
-
+- `rel`: Relation pointer, can be NULL during recovery operations
+- `smgr`: Storage manager relation containing relation metadata and location information
+- `smgr_persistence`: Persistence type when relation is NULL (used during recovery)
+- `forkNum`: Fork identifier (main, FSM, visibility map, etc.)
+- `blockNum`: Block number within the specified fork (must not be P_NEW)
+- `strategy`: Buffer access strategy for cache management policies
+- `*foundPtr`: Output parameter set to true if block was found in buffer pool, false if needs reading
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LocalBufferAlloc](../L/LocalBufferAlloc.md)

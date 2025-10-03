@@ -25,7 +25,6 @@ The macro provides conditional compilation support:
 This design ensures compatibility across different compiler versions while providing the sanitizer control where supported.
 
 ## Parameters / Member Variables
-This is a parameterless macro that expands to the appropriate compiler attribute or nothing.
 
 ## Dependencies
 - Functions called/Symbols referenced:

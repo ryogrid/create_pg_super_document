@@ -22,8 +22,7 @@ The function implements a simple two-step process:
 This is used in ISO 8601 parsing contexts where the number of digits in the integer portion of a field has semantic meaning for format validation and interpretation.
 
 ## Parameters / Member Variables
-- : Pointer to the start of the number field string to analyze
-
+- `*fieldstart`: Pointer to the start of the number field string to analyze
 ## Dependencies
 - Functions called/Symbols referenced:
   - strspn (standard C library function to count characters from a set)

@@ -18,8 +18,7 @@ This function standardizes int8range values to a canonical representation where 
 The canonical form ensures that ranges like [1,5) and (0,5) are represented consistently, which is essential for range operations like equality comparisons, indexing, and hash operations on bigint ranges.
 
 ## Parameters / Member Variables
-- : The input int8range value to be canonicalized (accessed via )
-
+- `PG_FUNCTION_ARGS`: The input int8range value to be canonicalized (accessed via )
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_RANGE_P

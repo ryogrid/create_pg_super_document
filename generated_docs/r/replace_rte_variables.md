@@ -23,13 +23,12 @@ The function handles SubLink tracking carefully - when a replacement introduces 
 The function uses the query_or_expression_tree_mutator infrastructure to recursively process both Query nodes and bare expression trees, with special handling to avoid incrementing sublevels_up when starting with a Query node.
 
 ## Parameters / Member Variables
-- : The expression tree or Query to process for variable replacement
-- : The range table entry number whose variables should be replaced
-- : The sublevel depth at which to look for the target RTE
-- : User-provided function that determines the replacement expression for each matching Var
-- : Additional context data passed to the callback function
-- : Pointer to hasSubLinks flag of containing Query (NULL if not in a Query context)
-
+- `*node`: The expression tree or Query to process for variable replacement
+- `target_varno`: The range table entry number whose variables should be replaced
+- `sublevels_up`: The sublevel depth at which to look for the target RTE
+- `callback`: User-provided function that determines the replacement expression for each matching Var
+- `*callback_arg`: Additional context data passed to the callback function
+- `*outer_hasSubLinks`: Pointer to hasSubLinks flag of containing Query (NULL if not in a Query context)
 ## Dependencies
 - Functions called/Symbols referenced:
   - query_or_expression_tree_mutator

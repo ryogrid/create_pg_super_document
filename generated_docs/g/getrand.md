@@ -20,10 +20,9 @@ The implementation uses a simple linear transformation: it generates a random va
 An important limitation is that the difference between max and min must not overflow int64, though this constraint is not actively checked by the function.
 
 ## Parameters / Member Variables
-- : Pointer to the PRNG state structure that provides the source of randomness
-- : Lower bound of the range (inclusive)
-- : Upper bound of the range (inclusive)
-
+- `*state`: Pointer to the PRNG state structure that provides the source of randomness
+- `min`: Lower bound of the range (inclusive)
+- `max`: Upper bound of the range (inclusive)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_prng_state](../p/pg_prng_state.md) (PostgreSQL PRNG state type)

@@ -24,13 +24,12 @@ This function analyzes what actions are required to revoke a specific role grant
 The function updates the actions array to indicate what type of revocation should be performed for the matched grant.
 
 ## Parameters / Member Variables
-- : CatCList containing all role membership grants for the target role
-- : Array of RevokeRoleGrantAction values to be updated with planned actions
-- : OID of the role member whose grant is being revoked
-- : OID of the role that granted the membership
-- : GrantRoleOptions structure specifying which aspects of the grant to revoke
-- : DropBehavior indicating whether to use RESTRICT or CASCADE for dependent grants
-
+- `*memlist`: CatCList containing all role membership grants for the target role
+- `*actions`: Array of RevokeRoleGrantAction values to be updated with planned actions
+- `member`: OID of the role member whose grant is being revoked
+- `grantor`: OID of the role that granted the membership
+- `*popt`: GrantRoleOptions structure specifying which aspects of the grant to revoke
+- `behavior`: DropBehavior indicating whether to use RESTRICT or CASCADE for dependent grants
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_popcount32](pg_popcount32.md)

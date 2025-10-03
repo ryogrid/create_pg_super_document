@@ -17,11 +17,10 @@ PLyObject_ToBool(PLyObToDatum *arg, PyObject *plrv,
 This specialized conversion function handles the conversion from Python objects to PostgreSQL boolean values. Unlike generic conversion functions, this function exists because Python has a much broader concept of truthiness than PostgreSQL's boolean type can represent. In Python, many objects can evaluate to True or False (empty lists, zero values, None, etc.), while PostgreSQL's boolean type only accepts specific boolean representations. The function uses Python's PyObject_IsTrue() to determine the truthiness of any Python object and converts it to a PostgreSQL boolean datum. It handles NULL values by checking for Python's None object.
 
 ## Parameters / Member Variables
-- : PLyObToDatum structure containing conversion context information (unused in this function)
-- : Python object to be converted to a PostgreSQL boolean
-- : Pointer to boolean flag that will be set to indicate whether the result is NULL
-- : Boolean flag indicating whether this conversion is happening within an array context (unused in this function)
-
+- `*arg`: PLyObToDatum structure containing conversion context information (unused in this function)
+- `*plrv`: Python object to be converted to a PostgreSQL boolean
+- `*isnull`: Pointer to boolean flag that will be set to indicate whether the result is NULL
+- `inarray`: Boolean flag indicating whether this conversion is happening within an array context (unused in this function)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PLyObToDatum](PLyObToDatum.md) (type structure)

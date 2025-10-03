@@ -16,10 +16,9 @@ default_reloptions(Datum reloptions, bool validate, relopt_kind kind)
 This function serves as an option parser for any relation type that uses the standard StdRdOptions structure. It defines a comprehensive parsing table that includes storage parameters like fillfactor, toast settings, parallel worker configuration, vacuum settings, and detailed autovacuum options. The function delegates the actual parsing and structure building to build_reloptions, providing it with the StdRdOptions-specific parsing table and structure size.
 
 ## Parameters / Member Variables
-- : Input Datum containing the raw relation options to be parsed
-- : Boolean flag indicating whether to validate all provided options against the parsing table
-- : The specific kind of relation options being processed (relopt_kind enum)
-
+- `reloptions`: Input Datum containing the raw relation options to be parsed
+- `validate`: Boolean flag indicating whether to validate all provided options against the parsing table
+- `kind`: The specific kind of relation options being processed (relopt_kind enum)
 ## Dependencies
 - Functions called/Symbols referenced:
   - relopt_kind (enum type)

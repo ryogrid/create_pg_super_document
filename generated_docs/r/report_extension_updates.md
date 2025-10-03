@@ -18,8 +18,7 @@ This function is part of the pg_upgrade utility and is responsible for detecting
 The function queries the pg_available_extensions view to compare installed_version with default_version for each extension, ensuring that users are made aware of available updates that should be applied after the cluster upgrade completes.
 
 ## Parameters / Member Variables
-- : Pointer to ClusterInfo structure containing metadata about the PostgreSQL cluster being examined for extension updates
-
+- `*cluster`: Pointer to ClusterInfo structure containing metadata about the PostgreSQL cluster being examined for extension updates
 ## Dependencies
 - Functions called/Symbols referenced:
   - [prep_status](../p/prep_status.md) (status reporting initialization)

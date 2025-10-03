@@ -18,6 +18,7 @@ ConnectionUp provides a simple way to verify the status of the current PostgreSQ
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQstatus](../P/PQstatus.md) (libpq function to get connection status)

@@ -18,9 +18,8 @@ This function implements a precedence or equality comparison for MultiXact IDs u
 This function is used in various PostgreSQL subsystems for determining age relationships between MultiXact IDs, particularly in vacuum operations, heap tuple processing, and MultiXact truncation logic. The "or equals" aspect is important for boundary conditions and inclusive range checks.
 
 ## Parameters / Member Variables
-- : First MultiXact ID to compare (MultiXactId)
-- : Second MultiXact ID to compare (MultiXactId)
-
+- `multi1`: First MultiXact ID to compare (MultiXactId)
+- `multi2`: Second MultiXact ID to compare (MultiXactId)
 ## Dependencies
 - Functions called/Symbols referenced:
   - MultiXactId (type)

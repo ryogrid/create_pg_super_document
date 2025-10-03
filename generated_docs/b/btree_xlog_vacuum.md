@@ -29,8 +29,7 @@ Key operations performed:
 5. Updates the page LSN and marks the buffer dirty
 
 ## Parameters / Member Variables
-- : XLogReaderState containing the WAL record data for the vacuum operation
-
+- `*record`: XLogReaderState containing the WAL record data for the vacuum operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData

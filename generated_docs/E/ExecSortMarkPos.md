@@ -22,8 +22,7 @@ ExecSortMarkPos implements the mark/restore functionality for Sort plan nodes by
 The mark/restore functionality is essential for certain query operations that need to revisit previously read portions of sorted data, such as nested loop joins where the inner relation needs to be rescanned multiple times from a specific position.
 
 ## Parameters / Member Variables
-- : The SortState containing the tuplesort state and sort completion status
-
+- `*node`: The SortState containing the tuplesort state and sort completion status
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Save current position in the tuplesort state

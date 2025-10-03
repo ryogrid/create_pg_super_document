@@ -24,8 +24,7 @@ This function addresses a legacy design decision where PL/Python function argume
 The saved argument state can later be restored using PLy_function_restore_args to maintain correct argument visibility across nested calls.
 
 ## Parameters / Member Variables
-- : PLyProcedure structure containing the procedure metadata, global namespace, and memory context
-
+- `*proc`: PLyProcedure structure containing the procedure metadata, global namespace, and memory context
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md) (PostgreSQL memory allocation)

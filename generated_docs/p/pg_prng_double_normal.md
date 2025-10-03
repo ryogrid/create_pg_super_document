@@ -24,8 +24,7 @@ To obtain values from a different normal distribution, the result should be scal
 The function carefully handles the domain requirements of the Box-Muller transform by ensuring the uniform random numbers are in the range (0, 1] rather than [0, 1) to avoid computing log(0).
 
 ## Parameters / Member Variables
-- : Pointer to the pseudo-random number generator state structure that maintains the internal state for generating random numbers
-
+- `*state`: Pointer to the pseudo-random number generator state structure that maintains the internal state for generating random numbers
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_prng_double](pg_prng_double.md): Generates uniform random doubles in [0, 1)

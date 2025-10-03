@@ -30,9 +30,8 @@ Key version-specific features displayed:
 The function only shows subscriptions for the current database, filtering by .
 
 ## Parameters / Member Variables
-- : Optional regular expression pattern to filter subscriptions by name. If NULL, all subscriptions in the current database are listed.
-- : Boolean flag controlling whether to show additional configuration details beyond the basic subscription information.
-
+- `*pattern`: Optional regular expression pattern to filter subscriptions by name. If NULL, all subscriptions in the current database are listed.
+- `verbose`: Boolean flag controlling whether to show additional configuration details beyond the basic subscription information.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [formatPGVersionNumber](../f/formatPGVersionNumber.md)

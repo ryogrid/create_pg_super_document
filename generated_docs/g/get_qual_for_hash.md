@@ -18,9 +18,8 @@ This function constructs the partition constraint for a hash partition, which is
 The generated constraint ensures that rows are properly distributed among hash partitions based on the hash values of the partition key columns. This is a critical component of PostgreSQL's hash partitioning mechanism.
 
 ## Parameters / Member Variables
-- : The parent relation that is being partitioned
-- : Partition bound specification containing modulus and remainder values for the hash partition
-
+- `parent`: The parent relation that is being partitioned
+- `*spec`: Partition bound specification containing modulus and remainder values for the hash partition
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RelationGetPartitionKey](../R/RelationGetPartitionKey.md)

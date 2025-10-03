@@ -18,8 +18,7 @@ This function traverses the partition hierarchy from a given partition table to 
 The function uses assertions to ensure the input table is indeed a partition with exactly one parent, maintaining the integrity of PostgreSQL's partition hierarchy constraints.
 
 ## Parameters / Member Variables
-- : A pointer to the TableInfo structure representing the partition table whose root needs to be found
-
+- `*tbinfo`: A pointer to the TableInfo structure representing the partition table whose root needs to be found
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TableInfo](../T/TableInfo.md) (structure type)

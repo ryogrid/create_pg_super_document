@@ -23,11 +23,10 @@ The function processes two types of domain constraints:
 If the  parameter points to an ErrorSaveContext, any failures are reported there; otherwise they are reported via ereport. The function does not attempt soft reporting of errors raised during execution of CHECK constraints.
 
 ## Parameters / Member Variables
-- : The Datum value to be validated against domain constraints
-- : Boolean flag indicating whether the value is null
-- : Pointer to DomainIOData structure containing cached constraint information
-- : Node for error context handling (can be ErrorSaveContext or NULL)
-
+- `value`: The Datum value to be validated against domain constraints
+- `isnull`: Boolean flag indicating whether the value is null
+- `*my_extra`: Pointer to DomainIOData structure containing cached constraint information
+- `*escontext`: Node for error context handling (can be ErrorSaveContext or NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DomainIOData](../D/DomainIOData.md) (struct type)

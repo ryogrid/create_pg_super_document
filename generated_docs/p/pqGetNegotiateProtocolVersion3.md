@@ -18,8 +18,7 @@ This function handles the NegotiateProtocolVersion message ('v') that the server
 The function reads the server's protocol version, then reads a list of unsupported extension names. It constructs appropriate error messages based on whether the issue is a protocol version mismatch, unsupported extensions, or both. The function ensures proper error reporting with internationalized messages for both single and plural extension cases.
 
 ## Parameters / Member Variables
-- : PostgreSQL connection object containing connection state and buffers for reading the message data
-
+- `*conn`: PostgreSQL connection object containing connection state and buffers for reading the message data
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pqGetInt](pqGetInt.md)

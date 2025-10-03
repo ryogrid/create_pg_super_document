@@ -16,10 +16,9 @@ lexeme_match(const void *key1, const void *key2, Size keysize)
 This function serves as a wrapper around lexeme_compare for use in PostgreSQL hash table operations. It provides the standard hash table matching function interface while delegating the actual comparison logic to lexeme_compare. The function is designed to work with LexemeHashKey structures that contain non-null-terminated lexeme strings with explicit lengths.
 
 ## Parameters / Member Variables
-- : First LexemeHashKey to compare
-- : Second LexemeHashKey to compare  
-- : Size parameter (unused, as keys contain their own length information)
-
+- `*key1`: First LexemeHashKey to compare
+- `*key2`: Second LexemeHashKey to compare
+- `keysize`: Size parameter (unused, as keys contain their own length information)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lexeme_compare](lexeme_compare.md)

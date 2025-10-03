@@ -25,12 +25,11 @@ The function performs two main operations:
 The function uses COERCION_ASSIGNMENT context, providing appropriate flexibility for implicit conversions while maintaining type safety.
 
 ## Parameters / Member Variables
-- : Parse state for error reporting (can be NULL if special unknown-Param processing is not needed)
-- : The input expression node to be coerced
-- : OID of the required target data type
-- : Specific type modifier required for the target type
-- : Name of the SQL construct requiring this specific type (for error messages)
-
+- `*pstate`: Parse state for error reporting (can be NULL if special unknown-Param processing is not needed)
+- `*node`: The input expression node to be coerced
+- `targetTypeId`: OID of the required target data type
+- `targetTypmod`: Specific type modifier required for the target type
+- `*constructName`: Name of the SQL construct requiring this specific type (for error messages)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [exprType](../e/exprType.md) (get expression type)

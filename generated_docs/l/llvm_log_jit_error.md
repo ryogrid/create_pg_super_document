@@ -20,9 +20,8 @@ The function is critical for maintaining system stability during JIT compilation
 The function is typically used during symbol resolution breakage and other JIT-related failures that occur outside normal operation. By logging at WARNING level, it ensures that JIT errors are visible for debugging while allowing the system to continue operating.
 
 ## Parameters / Member Variables
-- : Context pointer (currently unused in the implementation)
-- : LLVM error reference containing details about the JIT compilation failure
-
+- `*ctx`: Context pointer (currently unused in the implementation)
+- `error`: LLVM error reference containing details about the JIT compilation failure
 ## Dependencies
 - Functions called/Symbols referenced:
   - elog (PostgreSQL logging function)

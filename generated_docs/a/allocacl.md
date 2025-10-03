@@ -18,8 +18,7 @@ This function creates a new ACL data structure by allocating memory and initiali
 The function initializes the ACL as a one-dimensional array with no null values, sets the element type to ACLITEMOID, and configures the array bounds to start at index 1 (following PostgreSQL's array indexing convention). Input validation ensures that negative sizes are rejected with an error.
 
 ## Parameters / Member Variables
-- : Number of AclItem entries to allocate space for in the new ACL
-
+- `n`: Number of AclItem entries to allocate space for in the new ACL
 ## Dependencies
 - Functions called/Symbols referenced:
   - ACL_N_SIZE (macro to calculate total size needed for n ACL items)

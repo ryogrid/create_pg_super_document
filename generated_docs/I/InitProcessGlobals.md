@@ -25,7 +25,6 @@ InitProcessGlobals sets up fundamental process-level global state that must be i
 The random seed initialization ensures that each process has a different, unpredictable seed, which is crucial for security-sensitive operations and avoiding predictable behavior across processes.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

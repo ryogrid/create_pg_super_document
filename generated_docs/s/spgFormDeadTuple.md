@@ -19,11 +19,10 @@ The  function creates a special dead tuple that replaces existing tuples during 
 The function is designed to be called within critical sections, so it uses preallocated storage () rather than dynamic allocation via . This ensures atomic operations and prevents memory allocation failures during critical index operations.
 
 ## Parameters / Member Variables
-- : Pointer to SpGistState containing index configuration and preallocated dead tuple storage
-- : The state of the dead tuple (SPGIST_REDIRECT, SPGIST_DEAD, or SPGIST_PLACEHOLDER)
-- : Block number for redirect target (only used for SPGIST_REDIRECT state)
-- : Offset number for redirect target (only used for SPGIST_REDIRECT state)
-
+- `*state`: Pointer to SpGistState containing index configuration and preallocated dead tuple storage
+- `tupstate`: The state of the dead tuple (SPGIST_REDIRECT, SPGIST_DEAD, or SPGIST_PLACEHOLDER)
+- `blkno`: Block number for redirect target (only used for SPGIST_REDIRECT state)
+- `offnum`: Offset number for redirect target (only used for SPGIST_REDIRECT state)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - macro to set the next offset field

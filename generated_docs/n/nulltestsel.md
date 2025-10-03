@@ -27,13 +27,12 @@ The function operates with three levels of information availability:
 This function is essential for query optimization as NULL handling has significant performance implications in SQL queries, and accurate selectivity estimates help the planner choose optimal execution strategies.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planner state and context information
-- : Type of null test operation (IS_NULL or IS_NOT_NULL)
-- : Node representing the expression being tested for nullness
-- : Relation ID to restrict analysis to (0 if no restriction)
-- : Type of join operation context
-- : Special join information for outer joins
-
+- `*root`: PlannerInfo structure containing planner state and context information
+- `nulltesttype`: Type of null test operation (IS_NULL or IS_NOT_NULL)
+- `*arg`: Node representing the expression being tested for nullness
+- `varRelid`: Relation ID to restrict analysis to (0 if no restriction)
+- `jointype`: Type of join operation context
+- `*sjinfo`: Special join information for outer joins
 ## Dependencies
 - Functions called/Symbols referenced:
   - [examine_variable](../e/examine_variable.md)

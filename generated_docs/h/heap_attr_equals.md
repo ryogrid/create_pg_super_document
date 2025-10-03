@@ -23,13 +23,12 @@ The comparison logic follows these steps:
 4. For regular columns, uses binary comparison via datumIsEqual
 
 ## Parameters / Member Variables
-- : Tuple descriptor containing attribute metadata
-- : Attribute number (1-based for regular columns, <= 0 for system columns)
-- : First datum value to compare
-- : Second datum value to compare
-- : NULL indicator for first value
-- : NULL indicator for second value
-
+- `tupdesc`: Tuple descriptor containing attribute metadata
+- `attrnum`: Attribute number (1-based for regular columns, <= 0 for system columns)
+- `value1`: First datum value to compare
+- `value2`: Second datum value to compare
+- `isnull1`: NULL indicator for first value
+- `isnull2`: NULL indicator for second value
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DatumGetObjectId](../D/DatumGetObjectId.md) (for system column comparison)

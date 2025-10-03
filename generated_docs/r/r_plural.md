@@ -28,8 +28,7 @@ The r_plural function is responsible for detecting and removing Hungarian plural
 The function ensures that plural suffix removal only occurs in appropriate morphological contexts by requiring matches to be within the R1 region, which represents the main stem portion of the word.
 
 ## Parameters / Member Variables
-- : Pointer to the Snowball environment structure containing the word being stemmed, cursor positions, and other stemming state
-
+- `*z`: Pointer to the Snowball environment structure containing the word being stemmed, cursor positions, and other stemming state
 ## Dependencies
 - Functions called/Symbols referenced:
   - [r_R1](r_R1.md) (region boundary test function)

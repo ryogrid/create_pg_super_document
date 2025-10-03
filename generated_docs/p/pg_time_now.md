@@ -18,6 +18,7 @@ pg_time_now is a utility function in pgbench that provides a convenient way to o
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [instr_time](../i/instr_time.md) (type for time measurement)

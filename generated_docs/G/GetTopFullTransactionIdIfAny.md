@@ -21,6 +21,7 @@ The function simply returns the current value of XactTopFullTransactionId withou
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - XactTopFullTransactionId (global variable)

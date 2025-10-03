@@ -18,10 +18,9 @@ This function implements the internal logic for determining if one range is stri
 The function performs several checks: it validates that both ranges are of the same type, deserializes the range bounds, handles empty ranges (which are neither before nor after any other range), and finally compares the upper bound of the first range with the lower bound of the second range.
 
 ## Parameters / Member Variables
-- : Type cache entry containing type-specific information for range operations
-- : The first range to compare (potential "before" range)  
-- : The second range to compare (potential "after" range)
-
+- `*typcache`: Type cache entry containing type-specific information for range operations
+- `*r1`: The first range to compare (potential "before" range)
+- `*r2`: The second range to compare (potential "after" range)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Gets the OID of range types for type matching validation

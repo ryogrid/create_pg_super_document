@@ -18,8 +18,7 @@ This function provides a safe way to obtain a writable expanded record from a Da
 The function includes an important safety caveat: when returning an existing writable expanded record, callers must ensure their modifications are "safe" and won't leave the record in a corrupt state, since they're working directly with the original data structure.
 
 ## Parameters / Member Variables
-- : The input Datum that should contain a composite value or expanded record
-
+- `d`: The input Datum that should contain a composite value or expanded record
 ## Dependencies
 - Functions called/Symbols referenced:
   - VARATT_IS_EXTERNAL_EXPANDED_RW

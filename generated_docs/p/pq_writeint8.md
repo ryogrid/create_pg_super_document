@@ -18,9 +18,8 @@ The  function is a low-level utility function designed for efficient binary prot
 The function uses the  qualifier to enable compiler optimizations by indicating that the buffer parameters do not alias with other memory locations. It includes an assertion to verify that sufficient space has been pre-allocated in the buffer before writing, following PostgreSQL's principle of fail-fast error detection in debug builds.
 
 ## Parameters / Member Variables
-- : A pointer to a StringInfoData structure representing the output buffer. Must have sufficient pre-allocated space for the 8-bit value.
-- : The 8-bit unsigned integer value to be written to the buffer.
-
+- `buf`: A pointer to a StringInfoData structure representing the output buffer. Must have sufficient pre-allocated space for the 8-bit value.
+- `i`: The 8-bit unsigned integer value to be written to the buffer.
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (macro)

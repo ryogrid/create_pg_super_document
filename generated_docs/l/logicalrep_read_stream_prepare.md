@@ -18,9 +18,8 @@ The  function is the counterpart to , responsible for deserializing STREAM PREPA
 The function performs validation on the received data, ensuring that required fields like prepare_lsn, end_lsn, and transaction ID are valid, and that no unrecognized flags are present in the message.
 
 ## Parameters / Member Variables
-- : StringInfo buffer containing the serialized STREAM PREPARE message to be parsed
-- : LogicalRepPreparedTxnData structure to be populated with the parsed preparation information, including prepare_lsn, end_lsn, prepare_time, xid, and gid
-
+- `in`: StringInfo buffer containing the serialized STREAM PREPARE message to be parsed
+- `*prepare_data`: LogicalRepPreparedTxnData structure to be populated with the parsed preparation information, including prepare_lsn, end_lsn, prepare_time, xid, and gid
 ## Dependencies
 - Functions called/Symbols referenced:
   - [logicalrep_read_prepare_common](logicalrep_read_prepare_common.md)

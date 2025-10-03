@@ -25,16 +25,15 @@ Key characteristics:
 The function converts the input ArrayType pointer to a Datum, calls  to perform the actual assignment, and converts the result back to an ArrayType pointer.
 
 ## Parameters / Member Variables
-- : Pointer to the ArrayType structure containing the source array
-- : Number of subscript dimensions provided for element assignment
-- : Array of integer subscript values specifying the target element position
-- : The new value to assign to the specified array element
-- : Boolean indicating whether the new value is NULL
-- : Type length for the array type (from pg_type.typlen)
-- : Type length for individual array elements  
-- : Boolean indicating whether array elements are passed by value
-- : Alignment requirement for array elements (from pg_type.typalign)
-
+- `*array`: Pointer to the ArrayType structure containing the source array
+- `nSubscripts`: Number of subscript dimensions provided for element assignment
+- `*indx`: Array of integer subscript values specifying the target element position
+- `dataValue`: The new value to assign to the specified array element
+- `isNull`: Boolean indicating whether the new value is NULL
+- `arraytyplen`: Type length for the array type (from pg_type.typlen)
+- `elmlen`: Type length for individual array elements
+- `elmbyval`: Boolean indicating whether array elements are passed by value
+- `elmalign`: Alignment requirement for array elements (from pg_type.typalign)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [array_set_element](array_set_element.md) (performs the actual element assignment)

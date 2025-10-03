@@ -17,7 +17,6 @@ This function serves as the timeout handler for lock acquisition timeouts in Pos
 The function attempts to signal both the individual process and the entire process group (when HAVE_SETSID is available), ensuring that any related processes are also notified of the lock timeout condition. This helps prevent deadlock situations and ensures that lock waits don't block the system indefinitely.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

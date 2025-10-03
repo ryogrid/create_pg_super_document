@@ -26,13 +26,12 @@ This function analyzes join restriction clauses to determine if partitionwise jo
 The function iterates through all restriction clauses, filtering for equality conditions that can be used for joins, and maps expressions to partition key positions using . For hash-partitioned tables, it validates hash join operators; for range/list partitioned tables, it checks merge join operator families. Special care is taken to handle nulling relations that may arise from outer joins by removing nulling relation IDs when the join operator is strict.
 
 ## Parameters / Member Variables
-- : PlannerInfo containing global planner state including outer join information
-- : The join relation being constructed (used for relid validation)
-- : First relation in the join operation with partitioning information
-- : Second relation in the join operation (must have same partition scheme as rel1)
-- : Type of join (INNER, LEFT, RIGHT, FULL) affecting clause processing
-- : List of RestrictInfo nodes containing join conditions to analyze
-
+- `*root`: PlannerInfo containing global planner state including outer join information
+- `*joinrel`: The join relation being constructed (used for relid validation)
+- `*rel1`: First relation in the join operation with partitioning information
+- `*rel2`: Second relation in the join operation (must have same partition scheme as rel1)
+- `jointype`: Type of join (INNER, LEFT, RIGHT, FULL) affecting clause processing
+- `*restrictlist`: List of RestrictInfo nodes containing join conditions to analyze
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Maps expressions to partition key positions

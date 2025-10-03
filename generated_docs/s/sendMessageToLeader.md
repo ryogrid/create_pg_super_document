@@ -16,9 +16,8 @@ sendMessageToLeader(int pipefd[2], const char *str)
 This function is executed within worker processes to communicate status messages back to the leader process during parallel database dump operations. It writes the provided string message to the write end of a pipe, ensuring proper error handling if the write operation fails. The function calculates the message length including the null terminator and performs a complete write operation through the  utility function.
 
 ## Parameters / Member Variables
-- : Array containing file descriptors for the communication pipe, where  is used for writing
-- : Null-terminated string message to be sent to the leader process
-
+- `pipefd[2]`: Array containing file descriptors for the communication pipe, where  is used for writing
+- `*str`: Null-terminated string message to be sent to the leader process
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Low-level pipe write function for reliable message transmission

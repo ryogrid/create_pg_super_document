@@ -22,9 +22,8 @@ The lock hierarchy follows this pattern:
 - RELATION locks → no parent
 
 ## Parameters / Member Variables
-- : A pointer to the predicate lock target tag for which to find the parent
-- : A pointer to the structure that will be populated with the parent tag information
-
+- `*tag`: A pointer to the predicate lock target tag for which to find the parent
+- `*parent`: A pointer to the structure that will be populated with the parent tag information
 ## Dependencies
 - Functions called/Symbols referenced:
   - GET_PREDICATELOCKTARGETTAG_TYPE

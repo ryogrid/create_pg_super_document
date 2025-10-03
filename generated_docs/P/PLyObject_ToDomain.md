@@ -23,11 +23,10 @@ After successful conversion to the base type, the function applies domain-specif
 The function maintains the same interface as other conversion functions, supporting both standalone conversions and array element processing through the inarray parameter.
 
 ## Parameters / Member Variables
-- : Conversion argument structure containing domain-specific information including base type converter and constraint data
-- : Python object to convert to PostgreSQL domain type
-- : Output parameter set to true if the result should be NULL
-- : Boolean indicating if this conversion is part of an array element conversion
-
+- `*arg`: Conversion argument structure containing domain-specific information including base type converter and constraint data
+- `*plrv`: Python object to convert to PostgreSQL domain type
+- `*isnull`: Output parameter set to true if the result should be NULL
+- `inarray`: Boolean indicating if this conversion is part of an array element conversion
 ## Dependencies
 - Functions called/Symbols referenced:
   - base->func (base type conversion function via function pointer)

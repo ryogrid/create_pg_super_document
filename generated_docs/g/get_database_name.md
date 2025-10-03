@@ -16,8 +16,7 @@ get_database_name(Oid dbid)
 This function looks up a database name in the system catalog pg_database using the provided database OID. It performs a system cache lookup for efficiency, returning a palloc'd string containing the database name if found, or NULL if no database exists with the given OID. The function is widely used throughout PostgreSQL for converting database OIDs to human-readable names in logging, error messages, and various administrative operations.
 
 ## Parameters / Member Variables
-- : The Object Identifier (Oid) of the database whose name is to be retrieved
-
+- `dbid`: The Object Identifier (Oid) of the database whose name is to be retrieved
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup)

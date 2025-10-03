@@ -23,7 +23,6 @@ The function operates in several phases:
 5. Logging the disability and exiting the process
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

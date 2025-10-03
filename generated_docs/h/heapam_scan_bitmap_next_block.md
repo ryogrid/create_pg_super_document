@@ -17,9 +17,8 @@ heapam_scan_bitmap_next_block(TableScanDesc scan,
 This function is a core component of bitmap heap scans, responsible for processing individual blocks identified by a bitmap index scan. It determines which tuples on a given block are visible to the current transaction and stores their offsets for later tuple retrieval. The function handles both lossy and non-lossy bitmap results, employs optimizations for all-visible pages, and manages HOT (Heap-Only Tuples) chains appropriately. It also performs necessary locking, pruning, and visibility checks while maintaining transaction isolation guarantees.
 
 ## Parameters / Member Variables
-- : The table scan descriptor containing scan state and parameters
-- : Bitmap iterator result containing block number, tuple offsets, and metadata about the block
-
+- `scan`: The table scan descriptor containing scan state and parameters
+- `*tbmres`: Bitmap iterator result containing block number, tuple offsets, and metadata about the block
 ## Dependencies
 - Functions called/Symbols referenced:
   - VM_ALL_VISIBLE (visibility map check)

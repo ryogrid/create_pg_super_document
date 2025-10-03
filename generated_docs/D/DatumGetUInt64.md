@@ -20,8 +20,7 @@ On platforms where 64-bit values can be passed by value (typically 64-bit archit
 This function is commonly used in hash functions, partitioning operations, and other contexts where unsigned 64-bit arithmetic is required, providing a portable interface across different PostgreSQL installations.
 
 ## Parameters / Member Variables
-- : A Datum containing a 64-bit unsigned integer value to be extracted
-
+- `X`: A Datum containing a 64-bit unsigned integer value to be extracted
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DatumGetPointer](DatumGetPointer.md) (on pass-by-reference platforms)

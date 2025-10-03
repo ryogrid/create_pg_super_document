@@ -22,8 +22,7 @@ ExecSortRestrPos implements the restore functionality for Sort plan nodes by ret
 The restore functionality complements ExecSortMarkPos to provide complete mark/restore semantics, enabling query operations that require multiple passes over portions of sorted data. This is particularly useful in nested loop joins where the inner relation needs to be rescanned from a specific position multiple times.
 
 ## Parameters / Member Variables
-- : The SortState containing the tuplesort state and sort completion status
-
+- `*node`: The SortState containing the tuplesort state and sort completion status
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Restore to previously marked position in tuplesort state

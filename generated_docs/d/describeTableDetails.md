@@ -20,10 +20,9 @@ The function constructs a SQL query that retrieves the OID, schema name, and rel
 This design allows for efficient batch processing when multiple tables match a pattern (e.g., \d public.*) while maintaining clean separation of concerns between table discovery and individual table description.
 
 ## Parameters / Member Variables
-- : SQL pattern to filter table names (supports wildcards). If NULL, shows all visible tables.
-- : Boolean flag indicating verbose mode (\d+ vs \d). Passed through to describeOneTableDetails.
-- : Boolean flag to include system catalogs (pg_catalog, information_schema). If false, only user tables are shown.
-
+- `*pattern`: SQL pattern to filter table names (supports wildcards). If NULL, shows all visible tables.
+- `verbose`: Boolean flag indicating verbose mode (\d+ vs \d). Passed through to describeOneTableDetails.
+- `showSystem`: Boolean flag to include system catalogs (pg_catalog, information_schema). If false, only user tables are shown.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [initPQExpBuffer](../i/initPQExpBuffer.md): Initialize query buffer for SQL construction

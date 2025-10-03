@@ -18,9 +18,8 @@ This function serializes a BEGIN message into the logical replication protocol s
 The message format follows the logical replication protocol specification, starting with a message type identifier followed by fixed-length fields containing transaction information.
 
 ## Parameters / Member Variables
-- : StringInfo buffer where the serialized BEGIN message will be written
-- : ReorderBufferTXN structure containing transaction information to be serialized
-
+- `out`: StringInfo buffer where the serialized BEGIN message will be written
+- `*txn`: ReorderBufferTXN structure containing transaction information to be serialized
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pq_sendbyte](../p/pq_sendbyte.md) (sends a single byte to the output buffer)

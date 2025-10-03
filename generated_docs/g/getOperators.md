@@ -16,9 +16,8 @@ getOperators(Archive *fout, int *numOprs)
 The getOperators function is part of pg_dump's catalog scanning infrastructure that retrieves all operators defined in the database. It queries the pg_operator system catalog to collect operator metadata including names, namespaces, owners, operand types, and implementation functions. The function allocates an array of OprInfo structures to store the operator information and uses selectDumpableObject to determine which operators should be included in the dump based on the current dump configuration. This function operates during the schema discovery phase of pg_dump.
 
 ## Parameters / Member Variables
-- : Archive structure containing connection and dump configuration information
-- : Output parameter that receives the total number of operators found
-
+- `*fout`: Archive structure containing connection and dump configuration information
+- `*numOprs`: Output parameter that receives the total number of operators found
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)

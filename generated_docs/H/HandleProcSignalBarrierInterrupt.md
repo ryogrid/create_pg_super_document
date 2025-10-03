@@ -23,7 +23,6 @@ HandleProcSignalBarrierInterrupt is a lightweight signal handler that responds t
 The function is deliberately minimal because signal handlers have severe restrictions on what operations are safe to perform. Specifically, it avoids accessing the barrier generation counter because 64-bit atomic operations might use spinlock-based emulation that is not signal-safe.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

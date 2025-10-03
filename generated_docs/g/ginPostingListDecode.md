@@ -18,9 +18,8 @@ This function serves as a simplified interface for decoding compressed GIN posti
 The function takes a compressed posting list and returns a newly allocated array of ItemPointers representing the decoded tuple identifiers. The caller is responsible for freeing the returned array.
 
 ## Parameters / Member Variables
-- : Pointer to the compressed GIN posting list to decode
-- : Output parameter that receives the number of items decoded
-
+- `*plist`: Pointer to the compressed GIN posting list to decode
+- `*ndecoded_out`: Output parameter that receives the number of items decoded
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ginPostingListDecodeAllSegments](ginPostingListDecodeAllSegments.md)

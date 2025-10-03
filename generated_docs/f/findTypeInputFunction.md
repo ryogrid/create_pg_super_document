@@ -28,9 +28,8 @@ This function performs comprehensive validation of type input functions by:
 The function follows PostgreSQL's convention that type input functions convert text representations to the internal type representation, and must be deterministic for proper catalog behavior.
 
 ## Parameters / Member Variables
-- : List of name components specifying the input function name (supports qualified names)
-- : The OID of the type for which this input function is being located and validated
-
+- `*procname`: List of name components specifying the input function name (supports qualified names)
+- `typeOid`: The OID of the type for which this input function is being located and validated
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LookupFuncName](../L/LookupFuncName.md) (searches for functions by name and argument signature)

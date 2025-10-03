@@ -18,9 +18,8 @@ The  function queries the  system catalog to retrieve information about all proc
 The function constructs a SQL query to fetch language metadata including permissions (ACLs), ownership, trusted status, and associated function OIDs. For each language found, it creates a  structure containing all relevant information needed for dumping the language definition.
 
 ## Parameters / Member Variables
-- : Archive pointer for the pg_dump operation, used for executing SQL queries
-- : Output parameter that receives the number of procedural languages found
-
+- `*fout`: Archive pointer for the pg_dump operation, used for executing SQL queries
+- `*numProcLangs`: Output parameter that receives the number of procedural languages found
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)

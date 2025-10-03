@@ -18,6 +18,7 @@ This function handles the initialization of the PL/Python environment within a P
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport (for error reporting)

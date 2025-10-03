@@ -29,15 +29,14 @@ This function creates WithCheckOption nodes that enforce Row Level Security poli
 - Special handling exists for INSERT ... ON CONFLICT DO UPDATE scenarios using WCO_RLS_CONFLICT_CHECK
 
 ## Parameters / Member Variables
-- : The relation (table) for which WITH CHECK options are being added
-- : Range table index of the relation in the query
-- : Type of WithCheckOption to create (WCO_RLS_INSERT_CHECK, WCO_RLS_UPDATE_CHECK, etc.)
-- : List of permissive RLS policies to process
-- : List of restrictive RLS policies to process  
-- : Output parameter - list to append new WithCheckOptions to
-- : Output parameter - set to true if any policy contains sublink subqueries
-- : When true, forces use of USING clauses instead of WITH CHECK clauses
-
+- `rel`: The relation (table) for which WITH CHECK options are being added
+- `rt_index`: Range table index of the relation in the query
+- `kind`: Type of WithCheckOption to create (WCO_RLS_INSERT_CHECK, WCO_RLS_UPDATE_CHECK, etc.)
+- `*permissive_policies`: List of permissive RLS policies to process
+- `*restrictive_policies`: List of restrictive RLS policies to process
+- `**withCheckOptions`: Output parameter - list to append new WithCheckOptions to
+- `*hasSubLinks`: Output parameter - set to true if any policy contains sublink subqueries
+- `force_using`: When true, forces use of USING clauses instead of WITH CHECK clauses
 ## Dependencies
 - Functions called/Symbols referenced:
   - [WCOKind](../W/WCOKind.md) (enum type)

@@ -20,10 +20,9 @@ The function iterates through all attributes in the provided tuple descriptor an
 This function is typically used in development and debugging scenarios where developers need to understand the structure of data being processed by PostgreSQL's tuple handling mechanisms.
 
 ## Parameters / Member Variables
-- : DestReceiver pointer (not used in this function but required for interface compatibility)
-- : Integer representing the type of operation being performed (not used in this function)
-- : TupleDesc structure containing the schema information for the tuples to be processed
-
+- `*self`: DestReceiver pointer (not used in this function but required for interface compatibility)
+- `operation`: Integer representing the type of operation being performed (not used in this function)
+- `typeinfo`: TupleDesc structure containing the schema information for the tuples to be processed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [printatt](../p/printatt.md): Utility function to print detailed attribute information

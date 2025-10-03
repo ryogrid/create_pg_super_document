@@ -25,8 +25,7 @@ This function processes TRUNCATE messages received from the publisher in logical
 The function includes comprehensive handling of edge cases such as temporary tables from other backends and ensures that partition hierarchies are properly truncated. It also respects the subscription's runasowner setting to determine execution context.
 
 ## Parameters / Member Variables
-- : StringInfo containing the serialized TRUNCATE message from the publisher, including relation OIDs, cascade flag, and restart sequences flag
-
+- `s`: StringInfo containing the serialized TRUNCATE message from the publisher, including relation OIDs, cascade flag, and restart sequences flag
 ## Dependencies
 - Functions called/Symbols referenced:
   - is_skipping_changes

@@ -18,8 +18,7 @@ The  function is responsible for the complete teardown of the executor environme
 The function enforces that ExecutorFinish was previously called (except for EXPLAIN-only queries) to maintain proper executor lifecycle ordering. It operates within the per-query memory context during plan termination and then destroys that context as part of the EState cleanup.
 
 ## Parameters / Member Variables
-- : Pointer to the QueryDesc structure containing the execution state, plan state, and associated resources to be cleaned up
-
+- `*queryDesc`: Pointer to the QueryDesc structure containing the execution state, plan state, and associated resources to be cleaned up
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)

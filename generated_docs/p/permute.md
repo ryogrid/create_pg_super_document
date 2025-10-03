@@ -24,10 +24,9 @@ The algorithm uses a modified linear congruential generator approach with six ro
 This approach separates adjacent inputs and distributes values uniformly across the output range, creating effective pseudorandom permutations suitable for database benchmarking scenarios.
 
 ## Parameters / Member Variables
-- : The input value to permute (automatically reduced modulo size)
-- : The size of the permutation range [0, isize)
-- : Random seed for initializing the pseudorandom number generator
-
+- `val`: The input value to permute (automatically reduced modulo size)
+- `isize`: The size of the permutation range [0, isize)
+- `seed`: Random seed for initializing the pseudorandom number generator
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_prng_state](pg_prng_state.md) (PRNG state structure)

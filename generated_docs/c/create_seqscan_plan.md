@@ -25,11 +25,10 @@ The  function is responsible for creating a  plan node that represents a sequent
 The sequential scan is the most basic access method in PostgreSQL, reading every tuple in a relation from beginning to end.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global planner state and context information
-- : The chosen Path representing the sequential scan, containing cost estimates and relation information
-- : Target list specifying which columns/expressions should be returned by the scan
-- : List of RestrictInfo nodes representing WHERE clause conditions to be applied during the scan
-
+- `*root`: PlannerInfo structure containing global planner state and context information
+- `*best_path`: The chosen Path representing the sequential scan, containing cost estimates and relation information
+- `*tlist`: Target list specifying which columns/expressions should be returned by the scan
+- `*scan_clauses`: List of RestrictInfo nodes representing WHERE clause conditions to be applied during the scan
 ## Dependencies
 - Functions called/Symbols referenced:
   - [order_qual_clauses](../o/order_qual_clauses.md)

@@ -27,8 +27,7 @@ Key optimizations performed:
 The optimization is most effective when run after expression preprocessing (which eliminates constant-true quals) and reduce_outer_joins().
 
 ## Parameters / Member Variables
-- : The PlannerInfo structure containing the query tree to be optimized, including the parse tree and associated metadata
-
+- `*root`: The PlannerInfo structure containing the query tree to be optimized, including the parse tree and associated metadata
 ## Dependencies
 - Functions called/Symbols referenced:
   - [remove_useless_results_recurse](remove_useless_results_recurse.md)

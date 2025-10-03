@@ -18,9 +18,8 @@ This function enforces the PostgreSQL partitioning constraint that once a MAXVAL
 The function implements a state machine approach where it tracks the current bound type and ensures transitions are valid. Normal values can transition to any type, but once MAXVALUE or MINVALUE is encountered, all following bounds must match that infinite type.
 
 ## Parameters / Member Variables
-- : ParseState pointer used for error reporting and parser context information
-- : List of PartitionRangeDatum elements representing the partition bounds to validate
-
+- `*pstate`: ParseState pointer used for error reporting and parser context information
+- `*blist`: List of PartitionRangeDatum elements representing the partition bounds to validate
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PartitionRangeDatumKind](../P/PartitionRangeDatumKind.md) (enum type)

@@ -20,9 +20,8 @@ The function adapts its query based on the PostgreSQL server version to handle e
 When verbose mode is enabled, the function includes additional columns for database size (with access control - shows 'No Access' if the user lacks CONNECT privilege) and the tablespace name. The query joins with pg_tablespace in verbose mode to retrieve tablespace information.
 
 ## Parameters / Member Variables  
-- : SQL pattern to filter database names (can be NULL to list all databases)
-- : If true, includes size, tablespace, and description columns in the output
-
+- `*pattern`: SQL pattern to filter database names (can be NULL to list all databases)
+- `verbose`: If true, includes size, tablespace, and description columns in the output
 ## Dependencies
 - Functions called/Symbols referenced:
   - [initPQExpBuffer](../i/initPQExpBuffer.md) (initialize query buffer)

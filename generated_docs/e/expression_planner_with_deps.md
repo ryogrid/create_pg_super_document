@@ -25,10 +25,9 @@ The  function extends  by tracking dependencies of the transformed expression. I
 This function is designed for scenarios where expressions need to be cached and the cache must be invalidated when dependencies change, such as in the plan cache system.
 
 ## Parameters / Member Variables
-- : Input expression tree from the parser that needs to be transformed
-- : Output parameter - list of relation OIDs that the expression depends on
-- : Output parameter - list of PlanInvalItems for cache invalidation purposes
-
+- `*expr`: Input expression tree from the parser that needs to be transformed
+- `**relationOids`: Output parameter - list of relation OIDs that the expression depends on
+- `**invalItems`: Output parameter - list of PlanInvalItems for cache invalidation purposes
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Planner global state structure type

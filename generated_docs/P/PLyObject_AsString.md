@@ -22,8 +22,7 @@ The function includes comprehensive validation to ensure the resulting string is
 The function is exported for use by add-on transform modules, making it a public interface for Python-to-string conversions within the PL/Python ecosystem.
 
 ## Parameters / Member Variables
-- : Python object to convert to a C string
-
+- `*plrv`: Python object to convert to a C string
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PLyUnicode_Bytes](PLyUnicode_Bytes.md)

@@ -20,9 +20,8 @@ The function performs comprehensive argument validation, ensuring the second par
 The entire operation is wrapped in a subtransaction for proper error handling and resource management, with careful cleanup of both the cursor object and temporary contexts in case of failure.
 
 ## Parameters / Member Variables
-- : PLyPlanObject containing the prepared plan to execute
-- : Python sequence containing parameter values for the prepared plan (optional)
-
+- `*ob`: PLyPlanObject containing the prepared plan to execute
+- `*args`: Python sequence containing parameter values for the prepared plan (optional)
 ## Dependencies
 - Functions called/Symbols referenced:
   - PySequence_Check (Python C API)

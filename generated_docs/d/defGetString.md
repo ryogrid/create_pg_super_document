@@ -18,8 +18,7 @@ The  function is a utility function that extracts string values from DefElem nod
 The function performs type checking on the argument node and converts different PostgreSQL node types (T_Integer, T_Float, T_Boolean, T_String, T_TypeName, T_List, T_A_Star) to their appropriate string representations. If the DefElem has no argument, it reports a syntax error.
 
 ## Parameters / Member Variables
-- : A pointer to a DefElem structure containing the definition element to extract a string value from
-
+- `*def`: A pointer to a DefElem structure containing the definition element to extract a string value from
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DefElem](../D/DefElem.md) (structure type)

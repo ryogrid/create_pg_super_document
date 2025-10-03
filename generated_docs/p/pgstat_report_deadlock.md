@@ -17,6 +17,7 @@ This function is called whenever a deadlock is detected in the PostgreSQL system
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pgstat_prep_database_pending](pgstat_prep_database_pending.md)

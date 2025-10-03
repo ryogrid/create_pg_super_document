@@ -20,8 +20,7 @@ The function implements a very simple selectivity estimation strategy, returning
 As noted in the source file comments, these selectivity estimates are considered "bogus" placeholders - without knowledge of the actual key distribution in the index, accurate selectivity prediction is not possible. The current implementation prioritizes ensuring that geometric indexes are utilized by the query planner.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function argument macro that provides access to function call context, though this particular function doesn't examine any of the provided arguments
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument macro that provides access to function call context, though this particular function doesn't examine any of the provided arguments
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_RETURN_FLOAT8 (macro for returning float8 values)

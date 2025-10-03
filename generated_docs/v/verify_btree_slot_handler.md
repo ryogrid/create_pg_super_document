@@ -20,10 +20,9 @@ When btree verification succeeds, the function expects either zero rows (if the 
 For failed queries, the function formats and displays error messages with proper indentation, similar to the heap handler. It also handles progress display coordination to ensure clean output formatting when progress reporting is enabled.
 
 ## Parameters / Member Variables
-- : PGresult pointer containing the query results from the btree verification command
-- : PGconn pointer to the database connection on which the query was executed  
-- : Void pointer to a RelationInfo structure containing information about the index being verified
-
+- `*res`: PGresult pointer containing the query results from the btree verification command
+- `*conn`: PGconn pointer to the database connection on which the query was executed
+- `*context`: Void pointer to a RelationInfo structure containing information about the index being verified
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RelationInfo](../R/RelationInfo.md) (struct type)

@@ -24,7 +24,6 @@ Key characteristics:
 The function is intentionally simple, containing only the counter increment operation, making it lightweight and efficient for frequent use during materialized view operations.
 
 ## Parameters / Member Variables
-None - this is a parameter-less function that modifies global state.
 
 ## Dependencies
 - Functions called/Symbols referenced:

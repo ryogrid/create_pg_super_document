@@ -24,8 +24,7 @@ The function enforces several safety conditions:
 This validation prevents mode changes that could corrupt the result stream or cause protocol violations.
 
 ## Parameters / Member Variables
-- : The PostgreSQL connection handle to check
-
+- `*conn`: The PostgreSQL connection handle to check
 ## Dependencies
 - Functions called/Symbols referenced:
   - pgHavePendingResult

@@ -18,9 +18,8 @@ MakeNewFileSetSegment is a static function that creates a new file segment for a
 The function first constructs the name for the next segment (segment + 1) and deletes it if it exists, ensuring that BufFileOpenFileSet() won't be confused about segment counts during recovery. It then creates the requested segment file using the FileSet infrastructure.
 
 ## Parameters / Member Variables
-- : Pointer to the BufFile structure that needs a new segment
-- : The segment number to create (0-based indexing)
-
+- `*buffile`: Pointer to the BufFile structure that needs a new segment
+- `segment`: The segment number to create (0-based indexing)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [FileSetSegmentName](../F/FileSetSegmentName.md): Constructs standardized segment file names

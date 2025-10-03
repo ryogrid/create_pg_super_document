@@ -24,10 +24,9 @@ The mutation process works by:
 This function is conditionally compiled and only available when the CX (Cycle Crossover) recombination method is selected, as indicated by the #if defined(CX) preprocessor directive. The implementation is based on algorithms from the Genitor genetic algorithm system developed at Colorado State University.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing query planning context and access to the GEQO private data including the random state
-- : Array of Gene elements representing the current join order solution (modified in-place)
-- : Integer specifying the number of genes (relations) in the tour array
-
+- `*root`: PlannerInfo structure containing query planning context and access to the GEQO private data including the random state
+- `*tour`: Array of Gene elements representing the current join order solution (modified in-place)
+- `num_gene`: Integer specifying the number of genes (relations) in the tour array
 ## Dependencies
 - Functions called/Symbols referenced:
   - [geqo_randint](geqo_randint.md): Generates random integers within specified ranges using the GEQO random state

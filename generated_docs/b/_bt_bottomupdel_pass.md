@@ -24,11 +24,10 @@ The function works by:
 The approach is qualitative rather than quantitative - it focuses on preventing unnecessary splits rather than maximizing the number of deleted tuples. The function returns advisory information about whether the operation was successful enough to avoid a page split.
 
 ## Parameters / Member Variables
-- : The index relation being processed
-- : Buffer containing the index page to process
-- : The heap relation associated with the index
-- : Size of new item to be inserted (used for space target calculation)
-
+- `rel`: The index relation being processed
+- `buf`: Buffer containing the index page to process
+- `heapRel`: The heap relation associated with the index
+- `newitemsz`: Size of new item to be inserted (used for space target calculation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Initializes pending interval for duplicate detection

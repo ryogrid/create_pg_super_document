@@ -20,14 +20,13 @@ This function creates either an INSERT or UPDATE trigger that implements foreign
 The created trigger inherits deferability settings from the foreign key constraint and is automatically registered as a constraint trigger. The function ensures transaction visibility by calling CommandCounterIncrement() after trigger creation.
 
 ## Parameters / Member Variables
-- : OID of the referencing table (where the foreign key column exists)
-- : OID of the referenced table (where the primary key exists) 
-- : The foreign key constraint definition containing deferability settings
-- : OID of the constraint that this trigger implements
-- : OID of the unique index supporting the referenced columns
-- : OID of parent trigger for partitioned table inheritance
-- : Boolean flag indicating whether to create INSERT trigger (true) or UPDATE trigger (false)
-
+- `myRelOid`: OID of the referencing table (where the foreign key column exists)
+- `refRelOid`: OID of the referenced table (where the primary key exists)
+- `*fkconstraint`: The foreign key constraint definition containing deferability settings
+- `constraintOid`: OID of the constraint that this trigger implements
+- `indexOid`: OID of the unique index supporting the referenced columns
+- `parentTrigOid`: OID of parent trigger for partitioned table inheritance
+- `on_insert`: Boolean flag indicating whether to create INSERT trigger (true) or UPDATE trigger (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode

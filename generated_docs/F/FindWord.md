@@ -23,11 +23,10 @@ The function implements several validation checks:
 The search process uses a binary search algorithm at each tree node to quickly locate the correct character branch, making it efficient even for large dictionaries.
 
 ## Parameters / Member Variables
-- : Pointer to IspellDict structure containing the dictionary configuration and prefix tree
-- : The basic form of the word to search for in the dictionary
-- : The affix flag associated with the rule that generated this word form
-- : Compound flag used for compound word validation (compared with compoundflag)
-
+- `*Conf`: Pointer to IspellDict structure containing the dictionary configuration and prefix tree
+- `*word`: The basic form of the word to search for in the dictionary
+- `*affixflag`: The affix flag associated with the rule that generated this word form
+- `flag`: Compound flag used for compound word validation (compared with compoundflag)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [IsAffixFlagInUse](../I/IsAffixFlagInUse.md)

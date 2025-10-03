@@ -22,8 +22,7 @@ The function enforces several important constraints:
 - Users must have CREATE privileges on the target namespace and EXECUTE privileges on the conversion function
 
 ## Parameters / Member Variables
-- : Pointer to CreateConversionStmt containing the parsed CREATE CONVERSION statement with conversion name, source/destination encodings, conversion function name, and default flag
-
+- `*stmt`: Pointer to CreateConversionStmt containing the parsed CREATE CONVERSION statement with conversion name, source/destination encodings, conversion function name, and default flag
 ## Dependencies
 - Functions called/Symbols referenced:
   - [QualifiedNameGetCreationNamespace](../Q/QualifiedNameGetCreationNamespace.md)

@@ -18,8 +18,7 @@ ExecEndTableFuncScan handles the cleanup phase of table function scan execution 
 This cleanup is essential because table function scans cache all their results in a tuplestore during the first execution pass, and this memory must be properly released when the scan completes or is terminated.
 
 ## Parameters / Member Variables
-- : TableFuncScanState structure containing the scan state, including the tuplestore to be cleaned up
-
+- `*node`: TableFuncScanState structure containing the scan state, including the tuplestore to be cleaned up
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TableFuncScanState](../T/TableFuncScanState.md) (struct type)

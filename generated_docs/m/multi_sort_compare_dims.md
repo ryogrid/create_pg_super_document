@@ -18,12 +18,11 @@ multi_sort_compare_dims(int start, int end,
 This function performs a lexicographic comparison between two SortItem structures, but only across a specified range of dimensions from 'start' to 'end' (inclusive). It iterates through the dimension range, applying the appropriate sort comparator for each dimension, and returns as soon as a non-zero comparison result is found. This selective comparison capability is particularly useful in dependency analysis where only a subset of columns needs to be compared to determine ordering relationships.
 
 ## Parameters / Member Variables
-- : Integer specifying the first dimension index to compare (inclusive)
-- : Integer specifying the last dimension index to compare (inclusive)
-- : Pointer to the first SortItem structure to compare
-- : Pointer to the second SortItem structure to compare
-- : MultiSortSupport structure containing sort configuration for all dimensions
-
+- `start`: Integer specifying the first dimension index to compare (inclusive)
+- `end`: Integer specifying the last dimension index to compare (inclusive)
+- `*a`: Pointer to the first SortItem structure to compare
+- `*b`: Pointer to the second SortItem structure to compare
+- `mss`: MultiSortSupport structure containing sort configuration for all dimensions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ApplySortComparator](../A/ApplySortComparator.md)

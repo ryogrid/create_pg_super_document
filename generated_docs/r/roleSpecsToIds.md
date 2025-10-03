@@ -18,8 +18,7 @@ roleSpecsToIds is a utility function that transforms a list of RoleSpec structur
 This function serves as a critical conversion step in many role management operations, providing a standardized way to resolve role specifications into the OID format required by lower-level catalog functions. It rejects ROLESPEC_PUBLIC specifications as documented in the comment.
 
 ## Parameters / Member Variables
-- : List of RoleSpec structures to be converted to OIDs
-
+- `*memberNames`: List of RoleSpec structures to be converted to OIDs
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_rolespec_oid](../g/get_rolespec_oid.md): Convert individual RoleSpec to OID with existence validation

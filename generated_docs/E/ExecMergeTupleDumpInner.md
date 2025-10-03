@@ -18,8 +18,7 @@ ExecMergeTupleDumpInner is a debugging utility function within the merge join ex
 The function examines the inner tuple slot in the merge join state and prints either the tuple contents using MJ_debugtup or "(nil)" if the slot is empty. This debugging capability is essential for developers working on merge join algorithms, allowing them to trace the progression of tuples from the inner relation and verify that the join logic is processing data correctly.
 
 ## Parameters / Member Variables
-- : MergeJoinState structure containing the merge join execution state, specifically accessing the inner tuple slot
-
+- `*mergestate`: MergeJoinState structure containing the merge join execution state, specifically accessing the inner tuple slot
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MergeJoinState](../M/MergeJoinState.md) (merge join state structure)

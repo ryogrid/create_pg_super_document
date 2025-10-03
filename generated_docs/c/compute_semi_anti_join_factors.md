@@ -34,15 +34,14 @@ The function works by:
 For ANTI joins, it filters out "pushed down" clauses that won't affect match logic, while SEMI joins consider all restrictinfo clauses.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global planner state
-- : The join relation under consideration
-- : The outer relation of the join
-- : The inner relation of the join  
-- : JOIN_SEMI, JOIN_ANTI, or assumed inner_unique if neither
-- : SpecialJoinInfo relevant to this join
-- : List of join qualification clauses
-- : Output parameter filled with computed factors (outer_match_frac and match_count)
-
+- `*root`: PlannerInfo structure containing global planner state
+- `*joinrel`: The join relation under consideration
+- `*outerrel`: The outer relation of the join
+- `*innerrel`: The inner relation of the join
+- `jointype`: JOIN_SEMI, JOIN_ANTI, or assumed inner_unique if neither
+- `*sjinfo`: SpecialJoinInfo relevant to this join
+- `*restrictlist`: List of join qualification clauses
+- `*semifactors`: Output parameter filled with computed factors (outer_match_frac and match_count)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [clauselist_selectivity](clauselist_selectivity.md)

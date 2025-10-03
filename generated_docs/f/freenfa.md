@@ -16,8 +16,7 @@ freenfa(struct nfa *nfa)
 The  function performs complete cleanup of an NFA structure by freeing all allocated memory. It iterates through linked lists of state batches and arc batches, deallocating each batch and updating the space usage counter in the vars structure. The function ensures proper memory management by traversing and freeing all dynamically allocated components of the NFA, making it safe to call even on partially initialized NFAs.
 
 ## Parameters / Member Variables
-- : Pointer to the NFA structure to be freed
-
+- `*nfa`: Pointer to the NFA structure to be freed
 ## Dependencies
 - Functions called/Symbols referenced:
   - STATEBATCHSIZE

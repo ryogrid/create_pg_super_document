@@ -16,9 +16,8 @@ replorigin_state_clear(RepOriginId roident, bool nowait)
 This function cleans up the in-memory replication state associated with a specific replication origin ID. It searches through the global replication_states array to find the matching slot and handles various concurrency scenarios. When the slot is currently in use (acquired_by != 0), the function either waits for it to become available or throws an error based on the nowait parameter. Upon finding an available slot, it logs a WAL record (XLOG_REPLORIGIN_DROP) to ensure crash recovery consistency, then clears the slot's state fields (roident, remote_lsn, local_lsn). The function uses exclusive locking and condition variables to ensure thread-safe operation and proper synchronization.
 
 ## Parameters / Member Variables
-- : The replication origin identifier whose state should be cleared
-- : Boolean flag controlling behavior when the slot is busy (true = throw error immediately, false = wait for availability)
-
+- `roident`: The replication origin identifier whose state should be cleared
+- `nowait`: Boolean flag controlling behavior when the slot is busy (true = throw error immediately, false = wait for availability)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockAcquire](../L/LWLockAcquire.md)

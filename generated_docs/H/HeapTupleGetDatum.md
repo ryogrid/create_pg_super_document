@@ -18,8 +18,7 @@ HeapTupleGetDatum is a static inline function that serves as a convenience wrapp
 The function is commonly used in PostgreSQL's function API when returning tuple results from C functions, particularly in set-returning functions (SRFs) and functions that work with composite types.
 
 ## Parameters / Member Variables
-- : A pointer to a const HeapTupleData structure representing the complete tuple to be converted to a Datum
-
+- `*tuple`: A pointer to a const HeapTupleData structure representing the complete tuple to be converted to a Datum
 ## Dependencies
 - Functions called/Symbols referenced:
   - [HeapTupleHeaderGetDatum](HeapTupleHeaderGetDatum.md)

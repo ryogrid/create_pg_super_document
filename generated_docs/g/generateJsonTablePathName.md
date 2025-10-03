@@ -25,8 +25,7 @@ The function performs several operations:
 This ensures that all path specifications have valid, unique names for internal processing, even when the user doesn't explicitly provide them.
 
 ## Parameters / Member Variables
-- : JsonTableParseContext containing the pathNameId counter and pathNames list
-
+- `*cxt`: JsonTableParseContext containing the pathNameId counter and pathNames list
 ## Dependencies
 - Functions called/Symbols referenced:
   - snprintf (standard C formatted string function)

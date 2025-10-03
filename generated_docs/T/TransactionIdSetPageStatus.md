@@ -27,14 +27,13 @@ The function has two main execution paths:
 The group update optimization is particularly beneficial in high-concurrency scenarios where many transactions are committing simultaneously, as it reduces the frequency of lock acquisition and improves overall throughput.
 
 ## Parameters / Member Variables
-- : Main transaction ID to update (can be InvalidTransactionId when only updating subtransactions)
-- : Number of subtransaction IDs in the subxids array  
-- : Array of subtransaction IDs to update on this page
-- : The XidStatus to set for all transactions
-- : WAL log sequence number for this status change
-- : The CLOG page number where all these transactions reside
-- : Boolean indicating whether all transactions are confirmed to be on the same page (enables optimizations)
-
+- `xid`: Main transaction ID to update (can be InvalidTransactionId when only updating subtransactions)
+- `nsubxids`: Number of subtransaction IDs in the subxids array
+- `*subxids`: Array of subtransaction IDs to update on this page
+- `status`: The XidStatus to set for all transactions
+- `lsn`: WAL log sequence number for this status change
+- `pageno`: The CLOG page number where all these transactions reside
+- `all_xact_same_page`: Boolean indicating whether all transactions are confirmed to be on the same page (enables optimizations)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SimpleLruGetBankLock](../S/SimpleLruGetBankLock.md)

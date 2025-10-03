@@ -18,8 +18,7 @@ The to_regproc function serves as a safe wrapper around regprocin, providing NUL
 The function uses PostgreSQL's error save context mechanism to catch errors from the underlying regprocin call and convert them to NULL returns, making it suitable for use in SQL queries where error handling is preferred over exceptions.
 
 ## Parameters / Member Variables
-- : Input text value containing the procedure name to be converted to OID
-
+- `PG_FUNCTION_ARGS`: Input text value containing the procedure name to be converted to OID
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Converts PostgreSQL text type to C-string

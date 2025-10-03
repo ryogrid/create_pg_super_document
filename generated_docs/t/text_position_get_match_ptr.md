@@ -16,8 +16,7 @@ text_position_get_match_ptr(TextPositionState *state)
 This is a simple accessor function that retrieves the pointer to the last successful match found during text position searching operations. The function returns the  field from the TextPositionState structure, which points directly into the original haystack string where a match was found. This allows callers to access the actual matched text without needing to know the internal structure details.
 
 ## Parameters / Member Variables
-- : Pointer to a TextPositionState structure containing the search state and results
-
+- `*state`: Pointer to a TextPositionState structure containing the search state and results
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TextPositionState](../T/TextPositionState.md) (structure accessed)

@@ -25,6 +25,7 @@ The function includes extensive comments explaining why the transaction wrapper 
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [IsTransactionOrTransactionBlock](../I/IsTransactionOrTransactionBlock.md) (checks current transaction state)

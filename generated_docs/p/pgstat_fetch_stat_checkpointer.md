@@ -15,7 +15,6 @@ PgStat_CheckpointerStats *pgstat_fetch_stat_checkpointer(void)
 This function serves as a support function for SQL-callable pgstat* functions that need access to checkpointer statistics. It ensures the statistics snapshot is current by calling `pgstat_snapshot_fixed` with the checkpointer kind, then returns a pointer to the checkpointer statistics in the local snapshot. The function provides a standardized way to access checkpointer performance metrics including checkpoint counts, timing information, and buffer write statistics.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

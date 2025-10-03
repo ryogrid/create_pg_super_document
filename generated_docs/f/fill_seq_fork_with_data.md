@@ -35,10 +35,9 @@ The function performs these operations:
    - Sets page LSN
 
 ## Parameters / Member Variables
-- : Relation representing the sequence
-- : HeapTuple containing sequence data (last_value, log_cnt, is_called)
-- : Fork number to write to (MAIN_FORKNUM or INIT_FORKNUM)
-
+- `rel`: Relation representing the sequence
+- `tuple`: HeapTuple containing sequence data (last_value, log_cnt, is_called)
+- `forkNum`: Fork number to write to (MAIN_FORKNUM or INIT_FORKNUM)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExtendBufferedRel](../E/ExtendBufferedRel.md)

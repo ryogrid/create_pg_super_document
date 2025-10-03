@@ -19,7 +19,6 @@ Process-local latches provide a temporary signaling mechanism for processes duri
 This initialization is typically one of the first steps in process initialization and is later superseded when the process switches to using shared latches via SwitchToSharedLatch.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

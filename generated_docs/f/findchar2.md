@@ -20,10 +20,9 @@ The function iterates through the input string character by character, checking 
 The primary use case is in parsing Hunspell affix files, specifically for finding case-insensitive flags in compound word directives where 'l' or 'L' flags indicate compound word settings.
 
 ## Parameters / Member Variables
-- : Pointer to the null-terminated string to search in
-- : The first ASCII character to search for (must be a plain ASCII character)
-- : The second ASCII character to search for (must be a plain ASCII character)
-
+- `*str`: Pointer to the null-terminated string to search in
+- `c1`: The first ASCII character to search for (must be a plain ASCII character)
+- `c2`: The second ASCII character to search for (must be a plain ASCII character)
 ## Dependencies
 - Functions called/Symbols referenced:
   - t_iseq (macro for character comparison, defined in ts_locale.h)

@@ -22,8 +22,7 @@ The  function is responsible for obtaining a new page for use in a GIN index. It
 The returned buffer is guaranteed to be both pinned (preventing it from being evicted from the buffer pool) and exclusively locked, making it ready for immediate use. The caller is responsible for properly initializing the page content using  or similar initialization functions.
 
 ## Parameters / Member Variables
-- : The Relation representing the GIN index for which to allocate a new buffer
-
+- `index`: The Relation representing the GIN index for which to allocate a new buffer
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (query Free Space Map for available pages)

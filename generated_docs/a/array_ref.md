@@ -25,15 +25,14 @@ The function is specifically designed for:
 It essentially converts the ArrayType pointer to a Datum and delegates all actual work to .
 
 ## Parameters / Member Variables
-- : Pointer to the ArrayType structure containing the array data
-- : Number of subscript dimensions provided for element access
-- : Array of integer subscript values specifying the target element position
-- : Type length for the array type (from pg_type.typlen)
-- : Type length for individual array elements
-- : Boolean indicating whether array elements are passed by value
-- : Alignment requirement for array elements (from pg_type.typalign)
-- : Output parameter set to true if the retrieved element is NULL
-
+- `*array`: Pointer to the ArrayType structure containing the array data
+- `nSubscripts`: Number of subscript dimensions provided for element access
+- `*indx`: Array of integer subscript values specifying the target element position
+- `arraytyplen`: Type length for the array type (from pg_type.typlen)
+- `elmlen`: Type length for individual array elements
+- `elmbyval`: Boolean indicating whether array elements are passed by value
+- `elmalign`: Alignment requirement for array elements (from pg_type.typalign)
+- `*isNull`: Output parameter set to true if the retrieved element is NULL
 ## Dependencies
 - Functions called/Symbols referenced:
   - [array_get_element](array_get_element.md) (delegates all actual work)

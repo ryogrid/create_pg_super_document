@@ -18,8 +18,7 @@ The  function is the resource release callback for virtual tuple table slots in 
 This function has an empty implementation because virtual tuple table slots do not hold references to external resources that need explicit cleanup. Unlike other slot types that might hold buffer pins, heap tuple references, or other resources that require cleanup, virtual slots only contain arrays of Datum values and null indicators that are managed by the slot's memory context.
 
 ## Parameters / Member Variables
-- : A pointer to the TupleTableSlot being released. This will be a VirtualTupleTableSlot structure that extends the base TupleTableSlot.
-
+- `*slot`: A pointer to the TupleTableSlot being released. This will be a VirtualTupleTableSlot structure that extends the base TupleTableSlot.
 ## Dependencies
 - Functions called/Symbols referenced: None (empty function body)
 - Called from (representative examples):

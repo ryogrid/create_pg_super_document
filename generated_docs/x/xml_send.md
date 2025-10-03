@@ -18,8 +18,7 @@ The xml_send function is a PostgreSQL type output function that serializes XML d
 The function first converts the XML value to its string representation using xml_out_internal, then uses the PostgreSQL binary sending infrastructure (pq_sendtext) to properly encode the text data into a bytea format. The binary protocol handles character encoding conversion automatically during transmission.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function arguments macro, where the first argument is the XML value to be sent
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function arguments macro, where the first argument is the XML value to be sent
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_XML_P (retrieves XML argument)

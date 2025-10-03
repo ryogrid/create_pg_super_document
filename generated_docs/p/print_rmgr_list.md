@@ -17,6 +17,7 @@ The print_rmgr_list function iterates through all built-in PostgreSQL resource m
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - RM_MAX_BUILTIN_ID (constant defining the maximum built-in resource manager ID)

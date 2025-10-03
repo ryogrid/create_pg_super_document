@@ -27,14 +27,13 @@ This function is a central component of PostgreSQL's query processing system tha
 The function provides flexibility in output by allowing callers to request only column names, only Var nodes, or both. It also handles dropped columns based on the include_dropped parameter, either omitting them or including them as empty strings/NULL constants.
 
 ## Parameters / Member Variables
-- : The Range Table Entry to expand, containing relation information and metadata
-- : The range table index (varno) to use in created Var nodes, typically matching the RTE's position
-- : The varlevelsup value for created Var nodes, indicating nesting level in subqueries
-- : Source location information to attach to created Var nodes for error reporting
-- : Boolean flag determining whether to include dropped columns (as empty strings/NULL constants) or omit them
-- : Output parameter for list of column name strings (pass NULL if not needed)
-- : Output parameter for list of Var nodes representing columns (pass NULL if not needed)
-
+- `*rte`: The Range Table Entry to expand, containing relation information and metadata
+- `rtindex`: The range table index (varno) to use in created Var nodes, typically matching the RTE's position
+- `sublevels_up`: The varlevelsup value for created Var nodes, indicating nesting level in subqueries
+- `location`: Source location information to attach to created Var nodes for error reporting
+- `include_dropped`: Boolean flag determining whether to include dropped columns (as empty strings/NULL constants) or omit them
+- `**colnames`: Output parameter for list of column name strings (pass NULL if not needed)
+- `**colvars`: Output parameter for list of Var nodes representing columns (pass NULL if not needed)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [expandRelation](expandRelation.md) (for RTE_RELATION)

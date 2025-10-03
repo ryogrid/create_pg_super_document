@@ -22,7 +22,6 @@ CreateLWLocks is responsible for setting up the lightweight lock (LWLock) infras
 The function uses the IsUnderPostmaster check to ensure that shared memory allocation only happens once in the postmaster process, while tranche registration happens in every process that calls this function.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

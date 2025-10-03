@@ -23,8 +23,7 @@ This function transforms a boolean expression into a list of terms that are impl
 This function is crucial for query optimization as it normalizes different representations of conjunctive conditions into a consistent list format that can be easily processed by the optimizer.
 
 ## Parameters / Member Variables
-- : Input expression to be converted into a list of AND terms. Can be NULL, a BoolExpr with AND operation, a constant, or any other expression type.
-
+- `*clause`: Input expression to be converted into a list of AND terms. Can be NULL, a BoolExpr with AND operation, a constant, or any other expression type.
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Checks if an expression is an AND boolean expression

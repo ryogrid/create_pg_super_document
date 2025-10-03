@@ -18,8 +18,7 @@ The  function is the logical complement of , providing a convenient way to check
 While  checks for equality,  checks for inequality, which is useful in state machine logic where you need to determine when the current character differs from an expected character. This function provides a more readable alternative to manually negating the result of .
 
 ## Parameters / Member Variables
-- : Pointer to a TParser structure containing the current parsing state, including the current character ( field) and position information
-
+- `*prs`: Pointer to a TParser structure containing the current parsing state, including the current character ( field) and position information
 ## Dependencies
 - Functions called/Symbols referenced:
   - p_iseq (performs the actual character comparison, result is negated)

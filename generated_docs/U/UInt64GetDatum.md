@@ -21,8 +21,7 @@ UInt64GetDatum is a utility function that converts a 64-bit unsigned integer (ui
 This conditional compilation ensures optimal performance on 64-bit platforms while maintaining compatibility with 32-bit systems where 64-bit values must be passed by reference through allocated memory.
 
 ## Parameters / Member Variables
-- : The 64-bit unsigned integer value to be converted to a Datum
-
+- `X`: The 64-bit unsigned integer value to be converted to a Datum
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Int64GetDatum](../I/Int64GetDatum.md) (conditionally, when USE_FLOAT8_BYVAL is not defined)

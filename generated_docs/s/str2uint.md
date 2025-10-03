@@ -18,8 +18,7 @@ The  function is a utility function in the pg_upgrade tool that converts a null-
 The function performs no error checking - it relies entirely on the underlying  implementation. This means that invalid input strings may result in undefined behavior or return 0.
 
 ## Parameters / Member Variables
-- : A null-terminated string containing the decimal representation of an unsigned integer to be converted
-
+- `*str`: A null-terminated string containing the decimal representation of an unsigned integer to be converted
 ## Dependencies
 - Functions called/Symbols referenced:
   - strtoul (standard C library function)

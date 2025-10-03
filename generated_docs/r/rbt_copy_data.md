@@ -16,10 +16,9 @@ rbt_copy_data(RBTree *rbt, RBTNode *dest, const RBTNode *src)
 This is a static inline utility function that performs a memory copy of the user-defined data portion of an RBTNode. It copies only the additional fields beyond the base RBTNode structure, using the tree's node_size to determine how much data to copy. The function uses pointer arithmetic to skip past the base RBTNode structure and copy only the application-specific data that follows it.
 
 ## Parameters / Member Variables
-- : Pointer to the RBTree structure (used to get node_size)
-- : Destination RBTNode where data will be copied to
-- : Source RBTNode from which data will be copied (const to prevent modification)
-
+- `*rbt`: Pointer to the RBTree structure (used to get node_size)
+- `*dest`: Destination RBTNode where data will be copied to
+- `*src`: Source RBTNode from which data will be copied (const to prevent modification)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RBTree](../R/RBTree.md) (structure type)

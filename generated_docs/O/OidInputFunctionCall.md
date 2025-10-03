@@ -20,11 +20,10 @@ This function is designed for infrequently executed code paths because it has pe
 The function is part of PostgreSQL's type input/output system, converting string representations of data into internal Datum format according to the specified datatype's input function.
 
 ## Parameters / Member Variables
-- : OID of the input function to call for the datatype conversion
-- : String representation of the value to be converted to internal format
-- : Type-specific parameter passed to the input function (often the element type OID for container types)
-- : Type modifier value providing additional type-specific information
-
+- `functionId`: OID of the input function to call for the datatype conversion
+- `*str`: String representation of the value to be converted to internal format
+- `typioparam`: Type-specific parameter passed to the input function (often the element type OID for container types)
+- `typmod`: Type modifier value providing additional type-specific information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [fmgr_info](../f/fmgr_info.md)

@@ -24,10 +24,9 @@ The function works in two phases:
 The function uses PostgreSQL's parallel scan infrastructure to ensure that multiple worker processes don't read the same blocks, providing efficient work distribution across parallel workers. It returns InvalidBlockNumber when no more blocks are available for this worker to process.
 
 ## Parameters / Member Variables
-- : The ReadStream object managing the streaming read operation
-- : Private data passed to the callback, cast to HeapScanDesc containing scan state
-- : Per-buffer data (not used in this function)
-
+- `*stream`: The ReadStream object managing the streaming read operation
+- `*callback_private_data`: Private data passed to the callback, cast to HeapScanDesc containing scan state
+- `*per_buffer_data`: Per-buffer data (not used in this function)
 ## Dependencies
 - Functions called/Symbols referenced:
   - ScanDirectionIsForward

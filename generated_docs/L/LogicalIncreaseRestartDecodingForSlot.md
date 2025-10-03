@@ -23,9 +23,8 @@ Three main scenarios are handled:
 3. Rejecting updates when candidates are already pending (to prevent endless updates)
 
 ## Parameters / Member Variables
-- : The current WAL position at which the restart LSN should take effect
-- : The proposed minimal LSN needed to replay all uncommitted transactions
-
+- `current_lsn`: The current WAL position at which the restart LSN should take effect
+- `restart_lsn`: The proposed minimal LSN needed to replay all uncommitted transactions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReplicationSlot](../R/ReplicationSlot.md) (MyReplicationSlot global)

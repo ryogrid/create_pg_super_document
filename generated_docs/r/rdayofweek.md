@@ -18,8 +18,7 @@ The  function is part of PostgreSQL's ECPG (Embedded SQL in C) Informix compatib
 The function directly delegates the calculation to PostgreSQL's internal date handling functions without any additional processing or error handling, making it a straightforward pass-through function for compatibility purposes.
 
 ## Parameters / Member Variables
-- : Input date value for which to determine the day of the week
-
+- `d`: Input date value for which to determine the day of the week
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Internal PostgreSQL function that calculates the day of the week for a given date

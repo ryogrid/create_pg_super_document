@@ -16,9 +16,8 @@ _hash_dropscanbuf(Relation rel, HashScanOpaque so)
  is a comprehensive cleanup function that releases all buffers associated with a hash index scan operation. It handles three categories of buffers: the primary bucket buffer, the split bucket buffer (used during bucket splits), and the current position buffer. The function carefully avoids double-releasing buffers by checking if different buffer variables point to the same underlying buffer. After releasing all buffer pins, it resets the scan state flags to indicate that no bucket data is currently loaded.
 
 ## Parameters / Member Variables
-- : The relation (hash index) being scanned
-- : The hash scan opaque structure containing scan state and buffer references
-
+- `rel`: The relation (hash index) being scanned
+- `so`: The hash scan opaque structure containing scan state and buffer references
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BufferIsValid](../B/BufferIsValid.md) (buffer validity check macro)

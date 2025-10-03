@@ -18,8 +18,7 @@ This function implements an atomic read operation with full memory barrier seman
 The memory barrier read is crucial in concurrent programming scenarios where strict ordering of memory operations is required to maintain data consistency across multiple threads.
 
 ## Parameters / Member Variables
-- : Pointer to the atomic 64-bit unsigned integer variable to be read
-
+- `*ptr`: Pointer to the atomic 64-bit unsigned integer variable to be read
 ## Dependencies
 - Functions called/Symbols referenced:
   - 

@@ -24,10 +24,9 @@ The operation sequence is:
 The isRedo parameter allows the function to handle cases during WAL replay where files might already be deleted, treating missing files as acceptable rather than errors.
 
 ## Parameters / Member Variables
-- : Array of SMgrRelation pointers representing the relations to delete
-- : Integer count of the number of relations in the rels array  
-- : Boolean flag indicating if this is part of WAL replay, allowing missing files
-
+- `*rels`: Array of SMgrRelation pointers representing the relations to delete
+- `nrels`: Integer count of the number of relations in the rels array
+- `isRedo`: Boolean flag indicating if this is part of WAL replay, allowing missing files
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DropRelationsAllBuffers](../D/DropRelationsAllBuffers.md) (drops buffers without writing)

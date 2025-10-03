@@ -18,9 +18,8 @@ int4eqfast is a specialized equality function designed for high-performance comp
 The function is used specifically by the catalog cache system (catcache) to efficiently compare cache keys of INT4 type, avoiding the overhead of the full PostgreSQL function call mechanism when possible.
 
 ## Parameters / Member Variables
-- : First Datum containing a 32-bit integer value to compare
-- : Second Datum containing a 32-bit integer value to compare
-
+- `a`: First Datum containing a 32-bit integer value to compare
+- `b`: Second Datum containing a 32-bit integer value to compare
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DatumGetInt32](../D/DatumGetInt32.md) (macro for extracting int32 from Datum)

@@ -18,8 +18,7 @@ RestoreRelationMap is used to restore relation mapping state in parallel worker 
 The function performs validation to ensure that the parallel worker doesn't have any existing mappings before restoration, throwing an error if any active or pending mappings are found. This prevents conflicts and ensures clean state initialization.
 
 ## Parameters / Member Variables
-- : Pointer to the serialized relation mapping data (SerializedActiveRelMaps structure)
-
+- `*startAddress`: Pointer to the serialized relation mapping data (SerializedActiveRelMaps structure)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SerializedActiveRelMaps](../S/SerializedActiveRelMaps.md) (structure type)

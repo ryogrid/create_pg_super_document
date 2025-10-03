@@ -22,6 +22,7 @@ This mechanism allows PostgreSQL to transition from recovery mode to normal oper
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RecoveryInProgress](../R/RecoveryInProgress.md) (recovery state check)

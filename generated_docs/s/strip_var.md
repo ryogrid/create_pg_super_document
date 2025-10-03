@@ -16,8 +16,7 @@ strip_var(NumericVar *var)
 The  function normalizes a NumericVar by removing unnecessary leading and trailing zero digits that don't contribute to the numeric value. Leading zeros are removed by advancing the digits pointer and decreasing the weight accordingly. Trailing zeros are removed by reducing the ndigits count. When all digits are removed (resulting in a zero value), the function normalizes the sign to positive and sets the weight to zero. This function is essential for maintaining the canonical form of numeric values and preventing unnecessary storage overhead.
 
 ## Parameters / Member Variables
-- : Pointer to NumericVar structure to be normalized (modified in place)
-
+- `*var`: Pointer to NumericVar structure to be normalized (modified in place)
 ## Dependencies
 - Functions called/Symbols referenced:
   - NumericDigit (type for individual digits)

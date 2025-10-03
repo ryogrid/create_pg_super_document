@@ -18,9 +18,8 @@ The  function provides reference tracking for 'extra' data structures associated
 This function is essential for memory management in the GUC system, ensuring that extra data structures are not prematurely freed while still being referenced. The function handles all GUC variable types (boolean, integer, real, string, enum) and traverses the entire stack of configuration states to check for references.
 
 ## Parameters / Member Variables
-- : Pointer to the generic GUC configuration structure to search within
-- : Pointer to the extra data structure to check for references
-
+- `*gconf`: Pointer to the generic GUC configuration structure to search within
+- `*extra`: Pointer to the extra data structure to check for references
 ## Dependencies
 - Functions called/Symbols referenced:
   - [config_generic](../c/config_generic.md) (structure type)

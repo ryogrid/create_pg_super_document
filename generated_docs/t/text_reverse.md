@@ -21,8 +21,7 @@ This function implements PostgreSQL's  SQL function for text data types. It crea
 The function allocates a new text object of the same size as the input and fills it from right to left with the characters from the original string.
 
 ## Parameters / Member Variables
-- : The input text string to reverse (retrieved via )
-
+- `PG_FUNCTION_ARGS`: The input text string to reverse (retrieved via )
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Extract text argument from function call

@@ -20,12 +20,11 @@ This function provides a specialized comparison for 32-bit signed integer values
 This comparator is specifically optimized for 32-bit integer data types, providing better performance than generic comparator functions by avoiding function pointer overhead and performing direct comparison after type conversion.
 
 ## Parameters / Member Variables
-- : The first Datum value to compare (converted to signed int32)
-- : Boolean flag indicating whether datum1 is NULL
-- : The second Datum value to compare (converted to signed int32)
-- : Boolean flag indicating whether datum2 is NULL
-- : SortSupport structure containing sort configuration
-
+- `datum1`: The first Datum value to compare (converted to signed int32)
+- `isNull1`: Boolean flag indicating whether datum1 is NULL
+- `datum2`: The second Datum value to compare (converted to signed int32)
+- `isNull2`: Boolean flag indicating whether datum2 is NULL
+- `ssup`: SortSupport structure containing sort configuration
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SortSupport](../S/SortSupport.md) (struct type)

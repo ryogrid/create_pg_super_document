@@ -26,8 +26,7 @@ Key operations performed:
 6. Updates the page LSN and marks the buffer dirty
 
 ## Parameters / Member Variables
-- : XLogReaderState containing the WAL record data for the deduplication operation
-
+- `*record`: XLogReaderState containing the WAL record data for the deduplication operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData

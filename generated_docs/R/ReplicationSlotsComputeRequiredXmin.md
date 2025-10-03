@@ -20,8 +20,7 @@ The function operates in two phases: first, it iterates through all replication 
 This is essential for maintaining data consistency in replication scenarios - without this mechanism, VACUUM might remove old tuple versions before logical replication has had a chance to process them, leading to replication failures.
 
 ## Parameters / Member Variables
-- : Boolean indicating whether ProcArrayLock has already been acquired exclusively by the caller
-
+- `already_locked`: Boolean indicating whether ProcArrayLock has already been acquired exclusively by the caller
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockAcquire](../L/LWLockAcquire.md) (ReplicationSlotControlLock)

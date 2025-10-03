@@ -18,8 +18,7 @@ This function provides a straightforward conversion from a 64-bit signed integer
 The conversion process ensures that the integer value is accurately represented in the Numeric format without loss of precision, making it suitable for mathematical operations that require exact decimal arithmetic.
 
 ## Parameters / Member Variables
-- : The 64-bit signed integer value to be converted to Numeric format
-
+- `val`: The 64-bit signed integer value to be converted to Numeric format
 ## Dependencies
 - Functions called/Symbols referenced:
   - init_var

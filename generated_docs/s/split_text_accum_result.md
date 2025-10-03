@@ -19,11 +19,10 @@ split_text_accum_result(SplitTextOutputData *tstate,
 This internal function is responsible for accumulating text fields during string splitting operations. It serves two main purposes: checking if the input field matches a specified null string pattern and adding the field to the appropriate result container. The function supports two output modes - storing results in a tuple store for table output or in an array accumulator for array output. When a field value matches the null_string parameter (using collation-aware comparison), it treats the field as NULL rather than storing the actual text value.
 
 ## Parameters / Member Variables
-- : Pointer to SplitTextOutputData structure containing output state information including tuple store or array accumulator
-- : The text field to be added to the result set
-- : Optional text pattern that, when matched, indicates the field should be treated as NULL
-- : Object ID specifying the collation rules for text comparison operations
-
+- `*tstate`: Pointer to SplitTextOutputData structure containing output state information including tuple store or array accumulator
+- `*field_value`: The text field to be added to the result set
+- `*null_string`: Optional text pattern that, when matched, indicates the field should be treated as NULL
+- `collation`: Object ID specifying the collation rules for text comparison operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [text_isequal](../t/text_isequal.md) (for comparing field_value with null_string)

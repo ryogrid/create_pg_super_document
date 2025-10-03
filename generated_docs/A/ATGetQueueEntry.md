@@ -20,9 +20,8 @@ The function first searches the existing work queue to see if an entry for the s
 The function initializes several important fields in the AlteredTableInfo structure, setting default values for access method changes, tablespace changes, and persistence changes. These fields will be modified later during the ALTER TABLE processing as specific alterations are identified and planned.
 
 ## Parameters / Member Variables
-- : Double pointer to the work queue list that maintains all AlteredTableInfo entries for the current ALTER TABLE operation
-- : Relation pointer to the table for which a queue entry is needed
-
+- `**wqueue`: Double pointer to the work queue list that maintains all AlteredTableInfo entries for the current ALTER TABLE operation
+- `rel`: Relation pointer to the table for which a queue entry is needed
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationGetRelid

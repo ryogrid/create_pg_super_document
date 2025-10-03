@@ -18,9 +18,8 @@ PageGetFreeSpaceForMultipleTuples is an extended version of PageGetFreeSpace tha
 Like PageGetFreeSpace, this function uses signed arithmetic to handle edge cases and is primarily designed for index pages. The function returns 0 if the available space is insufficient to accommodate all the required line pointers.
 
 ## Parameters / Member Variables
-- : A pointer to the page for which to calculate free space
-- : The number of tuples (and corresponding line pointers) to account for
-
+- `page`: A pointer to the page for which to calculate free space
+- `ntups`: The number of tuples (and corresponding line pointers) to account for
 ## Dependencies
 - Functions called/Symbols referenced:
   - PageHeader (cast to access page header fields)

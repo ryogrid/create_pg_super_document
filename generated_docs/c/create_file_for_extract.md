@@ -20,9 +20,8 @@ The function opens the specified file in binary write mode ("wb") using , which 
 The function returns a FILE pointer that can be used by the calling code to write the file contents. This design allows for efficient streaming of file data during extraction, as the file handle remains open for subsequent write operations.
 
 ## Parameters / Member Variables
-- : Path where the file should be created
-- : File permissions that should be applied to the created file
-
+- `*filename`: Path where the file should be created
+- `mode`: File permissions that should be applied to the created file
 ## Dependencies
 - Functions called/Symbols referenced:
   - fopen

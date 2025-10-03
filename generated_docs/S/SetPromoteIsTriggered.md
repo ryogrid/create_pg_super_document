@@ -16,7 +16,6 @@ SetPromoteIsTriggered(void)
 This function is responsible for setting the promotion trigger state when a standby PostgreSQL server needs to be promoted to primary. It performs two critical operations: first, it sets the shared promotion flag in  under spinlock protection to ensure thread-safe access across processes. Second, it automatically ends any recovery pause state since promotion takes precedence over paused recovery, preventing the confusing scenario where  might return 'paused' during an active promotion. Finally, it sets the local promotion flag  for quick local access without needing to acquire locks.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

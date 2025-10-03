@@ -25,8 +25,7 @@ After ensuring the file is open, it calls Insert() to place the file descriptor 
 This function is crucial for PostgreSQL's virtual file descriptor system, which allows the database to manage more logical file descriptors than the operating system limit by closing and reopening files as needed.
 
 ## Parameters / Member Variables
-- : The File descriptor index to insert into the LRU list and potentially reopen
-
+- `file`: The File descriptor index to insert into the LRU list and potentially reopen
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (debugging assertion)

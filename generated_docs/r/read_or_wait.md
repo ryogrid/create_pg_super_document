@@ -20,9 +20,8 @@ The function operates in a loop, continuously attempting to read data using  unt
 This function is specifically designed for the GSSAPI handshake phase where complete messages must be received before processing can continue, making it different from the streaming approach used in .
 
 ## Parameters / Member Variables
-- : Pointer to Port structure containing the connection state and socket information
-- : Exact number of bytes to read from the connection
-
+- `*port`: Pointer to Port structure containing the connection state and socket information
+- `len`: Exact number of bytes to read from the connection
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Low-level function to read raw data from the socket

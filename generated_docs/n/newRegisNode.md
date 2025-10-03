@@ -16,9 +16,8 @@ newRegisNode(RegisNode *prev, int len)
 newRegisNode is a utility function that allocates memory for a new RegisNode structure and optionally links it to a previous node in a linked list. It allocates memory using palloc0 (zero-initialized allocation) with space for the RegisNode header plus additional length for storing pattern data. If a previous node is provided, it updates the previous node's next pointer to maintain the linked list chain.
 
 ## Parameters / Member Variables
-- : Pointer to the previous RegisNode in the linked list (can be NULL for first node)
-- : Additional length of data to allocate beyond the RegisNode header size
-
+- `*prev`: Pointer to the previous RegisNode in the linked list (can be NULL for first node)
+- `len`: Additional length of data to allocate beyond the RegisNode header size
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc0](../p/palloc0.md) (zero-initialized memory allocation)

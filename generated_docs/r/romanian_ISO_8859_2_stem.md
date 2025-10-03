@@ -27,8 +27,7 @@ This function orchestrates the complete Romanian stemming process in a carefully
 The function employs cursor management to process the word from right-to-left while preserving the ability to backtrack. The algorithm uses conditional branching based on internal flags to optimize processing for different word types.
 
 ## Parameters / Member Variables
-- : Pointer to the Snowball environment structure containing the Romanian word to be stemmed, along with cursor positions, region boundaries, and processing flags
-
+- `*z`: Pointer to the Snowball environment structure containing the Romanian word to be stemmed, along with cursor positions, region boundaries, and processing flags
 ## Dependencies
 - Functions called/Symbols referenced:
   - [r_prelude](r_prelude.md): Text preprocessing and character normalization

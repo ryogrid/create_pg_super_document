@@ -20,9 +20,8 @@ For first-time initialization, it creates a new StringInfo buffer, sets up prope
 The function also handles format-specific behavior: in TEXT format, it prefixes the first line with "Worker N:" and increases indentation for subsequent lines to create a visually organized hierarchy.
 
 ## Parameters / Member Variables
-- : The worker number/index (0-based) to open output for
-- : ExplainState structure containing formatting options and worker state
-
+- `n`: The worker number/index (0-based) to open output for
+- `*es`: ExplainState structure containing formatting options and worker state
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (validates worker state and bounds)

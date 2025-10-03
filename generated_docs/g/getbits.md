@@ -20,9 +20,8 @@ The function is primarily used to parse CIDR prefix lengths in network address s
 The validation includes checking for leading zeros to prevent octal interpretation and ensures that only valid decimal digits are present in the input string.
 
 ## Parameters / Member Variables
-- : Source string containing the decimal number to parse
-- : Pointer to integer where the parsed bit count will be stored
-
+- `*src`: Source string containing the decimal number to parse
+- `*bitsp`: Pointer to integer where the parsed bit count will be stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - Standard C library function: strchr

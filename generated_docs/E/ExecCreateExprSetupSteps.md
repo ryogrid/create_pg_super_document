@@ -22,9 +22,8 @@ The function operates in two distinct phases:
 This approach ensures that all necessary preparation work (such as setting up subplans, aggregation contexts, or other complex expression components) is identified and properly ordered before expression execution begins.
 
 ## Parameters / Member Variables
-- : The ExprState structure that will receive the generated setup steps and manage expression execution
-- : The root node of the expression tree to be analyzed for setup requirements
-
+- `*state`: The ExprState structure that will receive the generated setup steps and manage expression execution
+- `*node`: The root node of the expression tree to be analyzed for setup requirements
 ## Dependencies
 - Functions called/Symbols referenced:
   - [expr_setup_walker](../e/expr_setup_walker.md) (expression tree analysis for setup requirements)

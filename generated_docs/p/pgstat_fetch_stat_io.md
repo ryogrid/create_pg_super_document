@@ -16,7 +16,6 @@ pgstat_fetch_stat_io(void)
 This function provides access to the current I/O statistics by taking a snapshot of the shared statistics data for I/O operations. It ensures that the statistics are consistent by calling  with the  kind, which captures the current state of I/O statistics from the shared memory into the local snapshot. The function then returns a pointer to the I/O statistics structure in the local snapshot.
 
 ## Parameters / Member Variables
-(This function takes no parameters)
 
 ## Dependencies
 - Functions called/Symbols referenced:

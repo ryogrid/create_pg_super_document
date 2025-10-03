@@ -18,7 +18,6 @@ init_ts_config_cache is a helper function that sets up the infrastructure for ca
 The function creates a hash table with 16 initial buckets (larger than parser and dictionary caches) and registers syscache callbacks for both pg_ts_config and pg_ts_config_map catalogs. This dual callback registration is necessary because text search configurations depend on both the configuration definitions and their mapping to dictionaries. Any changes to either catalog must invalidate the entire configuration cache to maintain consistency.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

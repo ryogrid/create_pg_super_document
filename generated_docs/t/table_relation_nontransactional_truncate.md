@@ -18,8 +18,7 @@ This function provides a high-level interface for performing non-transactional t
 The function delegates to the table access method's specific implementation of non-transactional truncation, allowing different storage engines to optimize the truncation process when transactional guarantees are not needed.
 
 ## Parameters / Member Variables
-- : The relation whose contents should be truncated
-
+- `rel`: The relation whose contents should be truncated
 ## Dependencies
 - Functions called/Symbols referenced:
   - rel->rd_tableam->relation_nontransactional_truncate (table access method implementation)

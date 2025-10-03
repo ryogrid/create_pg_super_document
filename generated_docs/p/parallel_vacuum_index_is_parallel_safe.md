@@ -28,10 +28,9 @@ The function examines the  field of the index's access method to determine suppo
 The conditional cleanup logic prevents unnecessary worker invocation when parallel cleanup doesn't need to scan the index after bulk deletion has already been performed.
 
 ## Parameters / Member Variables
-- : The index relation to check for parallel safety
-- : Number of times this index has been processed (used for conditional cleanup logic)
-- : Boolean flag indicating the operation type (true for bulk deletion, false for cleanup)
-
+- `indrel`: The index relation to check for parallel safety
+- `num_index_scans`: Number of times this index has been processed (used for conditional cleanup logic)
+- `vacuum`: Boolean flag indicating the operation type (true for bulk deletion, false for cleanup)
 ## Dependencies
 - Functions called/Symbols referenced:
   - VACUUM_OPTION_PARALLEL_BULKDEL

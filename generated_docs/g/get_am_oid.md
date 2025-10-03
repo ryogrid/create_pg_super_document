@@ -16,9 +16,8 @@ get_am_oid(const char *amname, bool missing_ok)
 get_am_oid provides a type-agnostic wrapper for access method lookup operations. Unlike its specialized counterparts (get_index_am_oid and get_table_am_oid), this function does not enforce any access method type constraints, making it suitable for generic access method resolution where the type is not relevant or will be validated elsewhere. It serves as the most flexible interface in the access method lookup family.
 
 ## Parameters / Member Variables
-- : Name of the access method to look up
-- : If false, throws error when access method not found; if true, returns InvalidOid
-
+- `*amname`: Name of the access method to look up
+- `missing_ok`: If false, throws error when access method not found; if true, returns InvalidOid
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_am_type_oid](get_am_type_oid.md): Internal worker function for access method lookup (called with type '\0' for no type checking)

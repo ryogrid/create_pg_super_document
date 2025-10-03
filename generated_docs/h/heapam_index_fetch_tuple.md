@@ -20,13 +20,12 @@ heapam_index_fetch_tuple(struct IndexFetchTableData *scan,
 This function is the core implementation of tuple fetching for heap tables within PostgreSQL's table access method framework. It retrieves a tuple from the heap using a tuple identifier (TID) obtained from an index scan. The function handles complex scenarios including HOT chain traversal, buffer management, page pruning, and MVCC visibility checking. It uses heap_hot_search_buffer() to find the appropriate tuple version in a HOT chain that satisfies the given snapshot's visibility requirements. The function manages buffer switching when accessing different pages and performs page pruning optimization when encountering a new page.
 
 ## Parameters / Member Variables
-- : Pointer to IndexFetchTableData structure containing scan state
-- : ItemPointer (TID) identifying the tuple location from the index
-- : Snapshot for MVCC visibility checking
-- : TupleTableSlot to store the retrieved tuple
-- : Output parameter indicating if there are more tuples in the HOT chain
-- : Output parameter indicating if all tuples in the HOT chain are dead
-
+- `*scan`: Pointer to IndexFetchTableData structure containing scan state
+- `tid`: ItemPointer (TID) identifying the tuple location from the index
+- `snapshot`: Snapshot for MVCC visibility checking
+- `*slot`: TupleTableSlot to store the retrieved tuple
+- `*call_again`: Output parameter indicating if there are more tuples in the HOT chain
+- `*all_dead`: Output parameter indicating if all tuples in the HOT chain are dead
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReleaseAndReadBuffer](../R/ReleaseAndReadBuffer.md) (buffer management)

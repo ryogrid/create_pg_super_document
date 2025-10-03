@@ -18,8 +18,7 @@ TSQuerySignGetDatum is a conversion utility function that transforms a TSQuerySi
 This function is primarily used in the GiST (Generalized Search Tree) implementation for tsquery compression and node splitting operations, where TSQuerySign values need to be stored or manipulated as Datum objects.
 
 ## Parameters / Member Variables
-- : The TSQuerySign value (uint64) to be converted into a Datum representation
-
+- `X`: The TSQuerySign value (uint64) to be converted into a Datum representation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Int64GetDatum](../I/Int64GetDatum.md) (converts int64 to Datum)

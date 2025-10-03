@@ -18,9 +18,8 @@ IsDefinedRewriteRule is a utility function that determines if a rewrite rule wit
 This function is part of PostgreSQL's rewrite rule system, which allows for query transformation and view implementation. Rewrite rules are stored in the pg_rewrite system catalog and cached for efficient access.
 
 ## Parameters / Member Variables
-- : The OID of the relation (table/view) that owns the rule
-- : The name of the rewrite rule to search for
-
+- `owningRel`: The OID of the relation (table/view) that owns the rule
+- `*ruleName`: The name of the rewrite rule to search for
 ## Dependencies
 - Functions called/Symbols referenced:
   - SearchSysCacheExists2

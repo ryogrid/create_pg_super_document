@@ -18,9 +18,8 @@ The bms_del_members function performs a set difference operation, removing from 
 The function uses bitwise operations to efficiently remove bits, applying the bitwise AND with the complement of b's bits (~b->words[i]). It handles different cases based on the relative sizes of the two bitmap sets and includes optimizations for trailing zero word removal when necessary.
 
 ## Parameters / Member Variables
-- : The source bitmap set from which members will be removed (can be NULL)
-- : The bitmap set containing members to be removed from 'a' (const, not modified, can be NULL)
-
+- `*a`: The source bitmap set from which members will be removed (can be NULL)
+- `*b`: The bitmap set containing members to be removed from 'a' (const, not modified, can be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bms_is_valid_set](bms_is_valid_set.md) (validation of both inputs)

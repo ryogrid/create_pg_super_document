@@ -20,9 +20,8 @@ The function operates by iterating through a list of value lists (representing r
 The output follows standard SQL VALUES syntax: 
 
 ## Parameters / Member Variables
-- : List of Lists, where each inner List contains Node pointers representing the values in one row of the VALUES clause
-- : Deparse context containing the output buffer and formatting information
-
+- `*values_lists`: List of Lists, where each inner List contains Node pointers representing the values in one row of the VALUES clause
+- `*context`: Deparse context containing the output buffer and formatting information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_rule_expr_toplevel](get_rule_expr_toplevel.md)

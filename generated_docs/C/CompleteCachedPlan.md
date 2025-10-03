@@ -26,16 +26,15 @@ CompleteCachedPlan takes an incomplete CachedPlanSource (created by CreateCached
 The function provides flexible memory management options: it can adopt an existing querytree_context (space-for-time tradeoff) or create a fresh context and copy the query trees. For oneshot plans, it skips copying entirely for performance.
 
 ## Parameters / Member Variables
-- : The CachedPlanSource structure returned by CreateCachedPlan to be completed
-- : List of Query nodes representing the analyzed-and-rewritten form of the query
-- : Memory context containing querytree_list, or NULL to copy into a fresh context  
-- : Array of fixed parameter type OIDs, or NULL if no parameters
-- : Number of fixed parameters in the query
-- : Alternate method for handling query parameters (hook function)
-- : Data to pass to the parserSetup hook function
-- : Options bitmask to pass to the planner for cursor-related behavior
-- : True to disallow future changes in the query's result tuple descriptor
-
+- `*plansource`: The CachedPlanSource structure returned by CreateCachedPlan to be completed
+- `*querytree_list`: List of Query nodes representing the analyzed-and-rewritten form of the query
+- `querytree_context`: Memory context containing querytree_list, or NULL to copy into a fresh context
+- `*param_types`: Array of fixed parameter type OIDs, or NULL if no parameters
+- `num_params`: Number of fixed parameters in the query
+- `parserSetup`: Alternate method for handling query parameters (hook function)
+- `*parserSetupArg`: Data to pass to the parserSetup hook function
+- `cursor_options`: Options bitmask to pass to the planner for cursor-related behavior
+- `fixed_result`: True to disallow future changes in the query's result tuple descriptor
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContextSetParent](../M/MemoryContextSetParent.md)

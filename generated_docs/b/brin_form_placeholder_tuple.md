@@ -18,10 +18,9 @@ This function creates a simplified BRIN tuple that serves as a placeholder for b
 The placeholder tuple includes proper null bitmap initialization and sets multiple status flags (NULLS_MASK, PLACEHOLDER_MASK, and EMPTY_RANGE_MASK) to indicate its special nature. This approach allows BRIN indexes to maintain structural integrity while representing ranges that cannot provide meaningful summary information.
 
 ## Parameters / Member Variables
-- : BRIN descriptor containing schema information needed for tuple structure
-- : Block number this placeholder tuple represents in the BRIN index
-- : Output parameter to receive the total size of the created placeholder tuple
-
+- `*brdesc`: BRIN descriptor containing schema information needed for tuple structure
+- `blkno`: Block number this placeholder tuple represents in the BRIN index
+- `*size`: Output parameter to receive the total size of the created placeholder tuple
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BrinDesc](../B/BrinDesc.md), BrinTuple (structure types)

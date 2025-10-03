@@ -20,8 +20,7 @@ The function implements a two-phase approach to rescanning. First, it propagates
 The parameter change handling follows PostgreSQL's lazy rescanning optimization - if a subplan has pending parameter changes (chgParam is not NULL), it will automatically be rescanned on its first subsequent execution call, so an explicit rescan is unnecessary and avoided for efficiency.
 
 ## Parameters / Member Variables
-- : Pointer to the BitmapAndState containing the subplans to be rescanned
-
+- `*node`: Pointer to the BitmapAndState containing the subplans to be rescanned
 ## Dependencies
 - Functions called/Symbols referenced:
   - [UpdateChangedParamSet](../U/UpdateChangedParamSet.md) (to propagate parameter changes to subplans)

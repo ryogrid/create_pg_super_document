@@ -18,9 +18,8 @@ This function manages the dependency relationships between database objects in p
 The dependency tracking is crucial for pg_dump's operation as it ensures objects are dumped in the correct order - dependencies must be dumped before the objects that depend on them. The function allows duplicate dependencies to be added, which may be intentional for certain dependency tracking scenarios.
 
 ## Parameters / Member Variables
-- : Pointer to the DumpableObject that will have a new dependency added to its dependency list
-- : The DumpId of the object that this DumpableObject depends on
-
+- `*dobj`: Pointer to the DumpableObject that will have a new dependency added to its dependency list
+- `refId`: The DumpId of the object that this DumpableObject depends on
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_malloc_array (initial memory allocation for dependencies array)

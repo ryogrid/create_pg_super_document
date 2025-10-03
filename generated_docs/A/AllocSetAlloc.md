@@ -28,10 +28,9 @@ The function is heavily optimized for performance since memory allocation is oft
 The function includes extensive debugging support through Valgrind instrumentation and optional memory context checking features.
 
 ## Parameters / Member Variables
-- : The AllocSet memory context from which to allocate
-- : The number of bytes to allocate  
-- : Allocation control flags (e.g., MCXT_ALLOC_NO_OOM to return NULL instead of ERROR on failure)
-
+- `context`: The AllocSet memory context from which to allocate
+- `size`: The number of bytes to allocate
+- `flags`: Allocation control flags (e.g., MCXT_ALLOC_NO_OOM to return NULL instead of ERROR on failure)
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetIsValid

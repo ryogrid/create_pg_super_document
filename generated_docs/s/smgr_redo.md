@@ -26,8 +26,7 @@ For truncation operations, the function performs a more complex sequence:
 The function ensures crash consistency by carefully ordering operations and maintaining the WAL-first rule, where WAL records must be flushed before corresponding data changes.
 
 ## Parameters / Member Variables
-- : XLogReaderState pointer containing the WAL record being replayed, including operation type and data
-
+- `*record`: XLogReaderState pointer containing the WAL record being replayed, including operation type and data
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetInfo (extracts operation info from WAL record)

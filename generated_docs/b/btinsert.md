@@ -22,15 +22,14 @@ The btinsert function serves as the main entry point for inserting tuples into B
 This function is part of PostgreSQL's index access method interface and is called whenever a new tuple needs to be added to a B-tree index, such as during INSERT operations, index creation, or tuple updates that affect indexed columns.
 
 ## Parameters / Member Variables
-- : The B-tree index relation where the tuple will be inserted
-- : Array of Datum values for each indexed column
-- : Array of boolean flags indicating which values are NULL
-- : ItemPointer to the heap tuple this index entry references
-- : The heap relation containing the actual tuple data
-- : Specifies how to handle uniqueness constraints during insertion
-- : Boolean indicating whether the index values have changed (optimization hint)
-- : Metadata about the index structure and properties
-
+- `rel`: The B-tree index relation where the tuple will be inserted
+- `*values`: Array of Datum values for each indexed column
+- `*isnull`: Array of boolean flags indicating which values are NULL
+- `ht_ctid`: ItemPointer to the heap tuple this index entry references
+- `heapRel`: The heap relation containing the actual tuple data
+- `checkUnique`: Specifies how to handle uniqueness constraints during insertion
+- `indexUnchanged`: Boolean indicating whether the index values have changed (optimization hint)
+- `*indexInfo`: Metadata about the index structure and properties
 ## Dependencies
 - Functions called/Symbols referenced:
   - [index_form_tuple](../i/index_form_tuple.md) (creates index tuple from values)

@@ -26,9 +26,8 @@ EnumValuesCreate is the core function responsible for populating the pg_enum cat
 The function assumes it will be called even for empty enum types, making it the single entry point for enum type transaction management.
 
 ## Parameters / Member Variables
-- : The OID of the enum type being created
-- : List of String values representing the enum labels to be created
-
+- `enumTypeOid`: The OID of the enum type being created
+- `*vals`: List of String values representing the enum labels to be created
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetCurrentTransactionNestLevel](../G/GetCurrentTransactionNestLevel.md)

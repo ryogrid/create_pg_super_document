@@ -22,8 +22,7 @@ On abort, the function only processes PriorCmdInvalidMsgs locally since other ba
 After processing, the function resets the invalidation state to empty, preparing for the next transaction. Memory cleanup is handled by TopTransactionContext destruction.
 
 ## Parameters / Member Variables
-- : Boolean flag indicating whether the transaction is committing (true) or aborting (false)
-
+- `isCommit`: Boolean flag indicating whether the transaction is committing (true) or aborting (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RelationCacheInitFilePreInvalidate](../R/RelationCacheInitFilePreInvalidate.md)

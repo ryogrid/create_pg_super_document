@@ -20,9 +20,8 @@ The function performs two key validations:
 2. Confirms that the CurrentOfExpr references the target relation by comparing relation IDs
 
 ## Parameters / Member Variables
-- : RestrictInfo pointer containing the clause to examine
-- : RelOptInfo pointer representing the relation being checked against
-
+- `*rinfo`: RestrictInfo pointer containing the clause to examine
+- `*rel`: RelOptInfo pointer representing the relation being checked against
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CurrentOfExpr](../C/CurrentOfExpr.md) (node type)

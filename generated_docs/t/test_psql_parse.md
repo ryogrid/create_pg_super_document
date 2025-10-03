@@ -17,11 +17,10 @@ test_psql_parse(pe_test_config *tc, PQExpBuffer testname,
 This function validates that the psql parser interprets the provided input buffer as a single SQL statement. It uses the psql scanner to parse the input and ensures that only one statement is detected. This verification is critical for testing escape functions because if an input can be parsed as multiple statements, it indicates that the escape function failed to prevent SQL injection through statement smuggling. The function scans the input using PostgreSQL's psql scanner, tracks the number of statements found, and reports whether the test passes or fails based on whether exactly one complete statement was parsed.
 
 ## Parameters / Member Variables
-- : Test configuration structure containing connection and test parameters
-- : PQExpBuffer containing the name of the current test being executed
-- : PQExpBuffer containing the input SQL text to be parsed and validated
-- : PQExpBuffer for accumulating detailed test output and diagnostic information
-
+- `*tc`: Test configuration structure containing connection and test parameters
+- `testname`: PQExpBuffer containing the name of the current test being executed
+- `input_buf`: PQExpBuffer containing the input SQL text to be parsed and validated
+- `details`: PQExpBuffer for accumulating detailed test output and diagnostic information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [createPQExpBuffer](../c/createPQExpBuffer.md)

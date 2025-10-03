@@ -23,8 +23,7 @@ This function takes an in-memory Ranges structure and converts it into a seriali
 Before serialization, the function deduplicates values and performs various sanity checks to ensure data integrity. The resulting serialized structure is a varlena object with a proper PostgreSQL varlena header.
 
 ## Parameters / Member Variables
-- : Input Ranges structure containing the in-memory representation of range data to be serialized
-
+- `*range`: Input Ranges structure containing the in-memory representation of range data to be serialized
 ## Dependencies
 - Functions called/Symbols referenced:
   - [range_deduplicate_values](../r/range_deduplicate_values.md)

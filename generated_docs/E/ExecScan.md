@@ -20,10 +20,9 @@ ExecScan serves as the central orchestrator for scan operations in PostgreSQL's 
 The function employs several optimizations: it bypasses qualification and projection overhead when neither is needed, efficiently handles memory context resets, and provides early termination when no more tuples are available. It maintains the tuple processing pipeline by coordinating between tuple fetching (via ExecScanFetch), qualification evaluation (via ExecQual), and result projection (via ExecProject).
 
 ## Parameters / Member Variables
-- : The ScanState containing execution state, qualification expressions, and projection information
-- : Function pointer to access method-specific tuple retrieval routine (e.g., heap_getnext, index_getnext)
-- : Function pointer to recheck access method-specific conditions during EvalPlanQual scenarios
-
+- `*node`: The ScanState containing execution state, qualification expressions, and projection information
+- `accessMtd`: Function pointer to access method-specific tuple retrieval routine (e.g., heap_getnext, index_getnext)
+- `recheckMtd`: Function pointer to recheck access method-specific conditions during EvalPlanQual scenarios
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecScanFetch](ExecScanFetch.md) (tuple fetching with EPQ handling)

@@ -18,8 +18,7 @@ This function provides a way to query the current number of entries in a hash ta
 The function is designed to be called when the caller has appropriate locks on the table partitions, as it does not acquire mutexes internally for performance reasons. This design assumes that the caller has ensured exclusive access or is comfortable with potentially reading slightly inconsistent intermediate values during concurrent modifications.
 
 ## Parameters / Member Variables
-- : Pointer to the hash table structure (HTAB) whose entry count should be returned
-
+- `*hashp`: Pointer to the hash table structure (HTAB) whose entry count should be returned
 ## Dependencies
 - Functions called/Symbols referenced:
   - IS_PARTITIONED (macro to determine if the hash table is partitioned)

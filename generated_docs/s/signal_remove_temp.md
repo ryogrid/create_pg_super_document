@@ -16,8 +16,7 @@ signal_remove_temp(SIGNAL_ARGS)
 This function serves as a signal handler for various termination signals during pg_regress execution. When a signal is received, it first calls remove_temp() to clean up the temporary socket directory and associated files, then restores the default signal handler and re-raises the same signal to maintain proper signal handling semantics. This ensures that temporary directories are cleaned up even when the program is terminated unexpectedly by signals.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL signal handler argument macro, typically expands to include the signal number via postgres_signal_arg
-
+- `SIGNAL_ARGS`: Standard PostgreSQL signal handler argument macro, typically expands to include the signal number via postgres_signal_arg
 ## Dependencies
 - Functions called/Symbols referenced:
   - [remove_temp](../r/remove_temp.md)

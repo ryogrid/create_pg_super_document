@@ -20,8 +20,7 @@ The handler checks for the existence of a "crashdumps" directory in the PostgreS
 The function generates uniquely named dump files using the process ID and system tick count to prevent filename collisions. After attempting to write the dump, it returns EXCEPTION_CONTINUE_SEARCH to allow Windows to continue with its normal exception handling process.
 
 ## Parameters / Member Variables
-- : Pointer to EXCEPTION_POINTERS structure containing detailed information about the exception that occurred, including the exception record and processor context
-
+- `*pExceptionInfo`: Pointer to EXCEPTION_POINTERS structure containing detailed information about the exception that occurred, including the exception record and processor context
 ## Dependencies
 - Functions called/Symbols referenced:
   - GetFileAttributesA (Windows API)

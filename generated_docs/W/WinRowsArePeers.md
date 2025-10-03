@@ -25,10 +25,9 @@ The function operates by:
 This is essential for window functions that need to understand row equivalence, such as ranking functions and cumulative distribution calculations.
 
 ## Parameters / Member Variables
-- : Window object containing the partition data and window state
-- : Absolute position of the first row within the partition (0-based)
-- : Absolute position of the second row within the partition (0-based)
-
+- `winobj`: Window object containing the partition data and window state
+- `pos1`: Absolute position of the first row within the partition (0-based)
+- `pos2`: Absolute position of the second row within the partition (0-based)
 ## Dependencies
 - Functions called/Symbols referenced:
   - WindowObjectIsValid

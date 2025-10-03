@@ -20,15 +20,14 @@ The  function constructs a Limit plan node that implements SQL LIMIT and OFFSET 
 The Limit node is essential for implementing query result pagination and limiting resource usage in large result sets. It can also enforce DISTINCT operations when uniqueness parameters are provided, making it a versatile node for both row limiting and duplicate elimination scenarios.
 
 ## Parameters / Member Variables
-- : The child plan node providing input tuples to limit
-- : Expression specifying how many initial tuples to skip (OFFSET clause)
-- : Expression specifying the maximum number of tuples to return (LIMIT clause)
-- : Options controlling limit behavior and optimization strategies
-- : Number of columns to consider for uniqueness checking (0 if no uniqueness required)
-- : Array of column indices to use for uniqueness comparison
-- : Array of equality operators for uniqueness comparison
-- : Array of collations to use when comparing columns for uniqueness
-
+- `*lefttree`: The child plan node providing input tuples to limit
+- `*limitOffset`: Expression specifying how many initial tuples to skip (OFFSET clause)
+- `*limitCount`: Expression specifying the maximum number of tuples to return (LIMIT clause)
+- `limitOption`: Options controlling limit behavior and optimization strategies
+- `uniqNumCols`: Number of columns to consider for uniqueness checking (0 if no uniqueness required)
+- `*uniqColIdx`: Array of column indices to use for uniqueness comparison
+- `*uniqOperators`: Array of equality operators for uniqueness comparison
+- `*uniqCollations`: Array of collations to use when comparing columns for uniqueness
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (creates a new Limit node)

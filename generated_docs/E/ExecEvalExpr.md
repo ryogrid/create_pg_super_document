@@ -20,10 +20,9 @@ ExecEvalExpr serves as the main entry point for expression evaluation in Postgre
 The function takes an expression state (containing the compiled evaluation function and other metadata), an execution context (providing access to tuple data and parameters), and returns the computed result along with a null indicator. This uniform interface allows expressions to be evaluated consistently across the entire query execution system.
 
 ## Parameters / Member Variables
-- : ExprState containing the compiled expression evaluation function and associated metadata
-- : ExprContext providing access to current tuple data, parameters, and evaluation context
-- : Pointer to bool that will be set to indicate whether the evaluated result is NULL
-
+- `*state`: ExprState containing the compiled expression evaluation function and associated metadata
+- `*econtext`: ExprContext providing access to current tuple data, parameters, and evaluation context
+- `*isNull`: Pointer to bool that will be set to indicate whether the evaluated result is NULL
 ## Dependencies
 - Functions called/Symbols referenced:
   - [state](../s/state.md)->evalfunc (the compiled expression evaluation function)

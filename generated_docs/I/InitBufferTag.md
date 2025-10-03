@@ -19,11 +19,10 @@ InitBufferTag serves as a convenience function for properly initializing a Buffe
 The function extracts the tablespace OID and database OID directly from the RelFileLocator, then delegates the setting of relation number and fork number to the BufTagSetRelForkDetails helper function, and finally sets the block number. This initialization is essential for buffer lookup operations, as the BufferTag serves as the key for finding buffers in the buffer hash table.
 
 ## Parameters / Member Variables
-- : Pointer to the BufferTag structure to be initialized
-- : Pointer to RelFileLocator containing tablespace, database, and relation identifiers
-- : Fork number identifying which fork of the relation (main, FSM, VM, etc.)
-- : Block number within the specified fork of the relation
-
+- `*tag`: Pointer to the BufferTag structure to be initialized
+- `*rlocator`: Pointer to RelFileLocator containing tablespace, database, and relation identifiers
+- `forkNum`: Fork number identifying which fork of the relation (main, FSM, VM, etc.)
+- `blockNum`: Block number within the specified fork of the relation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BufTagSetRelForkDetails](../B/BufTagSetRelForkDetails.md)

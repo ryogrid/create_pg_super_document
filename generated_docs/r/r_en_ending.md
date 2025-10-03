@@ -26,8 +26,7 @@ The r_en_ending function implements a complex rule for Dutch stemming that remov
 This function ensures that 'en' suffixes are only removed when they follow consonants and don't match specific exclusion patterns, preventing incorrect stemming in Dutch morphology.
 
 ## Parameters / Member Variables
-- : Pointer to SN_env structure containing the stemming environment with cursor positions, boundaries, and character data
-
+- `*z`: Pointer to SN_env structure containing the stemming environment with cursor positions, boundaries, and character data
 ## Dependencies
 - Functions called/Symbols referenced:
   - [r_R1](r_R1.md): Validates that the current position is within the R1 region

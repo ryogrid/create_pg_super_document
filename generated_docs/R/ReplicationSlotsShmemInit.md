@@ -19,7 +19,6 @@ The function performs different actions based on whether the shared memory struc
 - If not found (first initialization): Zeros memory and initializes all slot synchronization primitives
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

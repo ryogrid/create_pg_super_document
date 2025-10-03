@@ -18,8 +18,7 @@ The  function is responsible for serializing a PostgreSQL TIMETZ (time with time
 The function takes a TIMETZ value and packs its components (time and timezone offset) into a binary buffer using PostgreSQL's standard binary serialization functions. The time component is sent as a 64-bit integer and the timezone offset as a 32-bit integer.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function argument macro that provides access to function arguments and context
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument macro that provides access to function arguments and context
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_TIMETZADT_P: Extracts TIMETZ argument from function args

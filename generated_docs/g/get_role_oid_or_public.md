@@ -20,8 +20,7 @@ For all other role names, the function delegates to get_role_oid with missing_ok
 The "public" pseudo-role is a fundamental concept in PostgreSQL's permission system, representing all users/roles in the system. It doesn't exist as a regular role in pg_authid but is handled specially throughout the access control system.
 
 ## Parameters / Member Variables
-- : The name of the role to look up, or "public" for the public pseudo-role
-
+- `*rolname`: The name of the role to look up, or "public" for the public pseudo-role
 ## Dependencies
 - Functions called/Symbols referenced:
   - ACL_ID_PUBLIC (constant representing the public pseudo-role OID)

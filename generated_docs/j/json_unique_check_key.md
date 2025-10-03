@@ -18,10 +18,9 @@ The function implements duplicate key detection for JSON objects by maintaining 
 The function uses PostgreSQL's hash table infrastructure to efficiently track keys that have already been encountered during JSON object processing.
 
 ## Parameters / Member Variables
-- : Pointer to JsonUniqueCheckState containing the hash table for tracking unique keys
-- : The key string to check for uniqueness
-- : Integer identifier for the JSON object being processed
-
+- `*cxt`: Pointer to JsonUniqueCheckState containing the hash table for tracking unique keys
+- `*key`: The key string to check for uniqueness
+- `object_id`: Integer identifier for the JSON object being processed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hash_search](../h/hash_search.md)

@@ -21,9 +21,8 @@ The function supports three specific B-tree options:
 - deduplicate_items: Whether to enable deduplication of equal keys
 
 ## Parameters / Member Variables
-- : Datum containing the raw storage options to be parsed
-- : Boolean flag indicating whether to perform validation during parsing
-
+- `reloptions`: Datum containing the raw storage options to be parsed
+- `validate`: Boolean flag indicating whether to perform validation during parsing
 ## Dependencies
 - Functions called/Symbols referenced:
   - [build_reloptions](build_reloptions.md)

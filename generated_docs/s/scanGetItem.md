@@ -19,11 +19,10 @@ This function implements the core logic for advancing through GIN index scan res
 The function works by iterating through each scan key, fetching the next item that is greater than , and checking if all keys match the same item. If any key reports no match or is finished, the scan either advances or terminates. The logic is designed to work only when key streams don't mix exact and lossy pointers for the same page.
 
 ## Parameters / Member Variables
-- : Index scan descriptor containing scan state and configuration
-- : Item pointer position to advance beyond when searching  
-- : Output parameter to store the next matching item pointer
-- : Output parameter indicating if tuple needs rechecking with original conditions
-
+- `scan`: Index scan descriptor containing scan state and configuration
+- `advancePast`: Item pointer position to advance beyond when searching
+- `*item`: Output parameter to store the next matching item pointer
+- `*recheck`: Output parameter indicating if tuple needs rechecking with original conditions
 ## Dependencies
 - Functions called/Symbols referenced:
   - ItemPointerSetMin

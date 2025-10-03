@@ -20,10 +20,9 @@ The primary validation is checking if the system supports , which is required fo
 This validation occurs whenever the  setting is modified, whether through configuration files, SQL commands, or other GUC modification mechanisms.
 
 ## Parameters / Member Variables
-- : Pointer to the integer value representing the new setting for recovery_prefetch
-- : Pointer to additional data (unused in this function, but part of the GUC hook interface)
-- : GucSource enumeration indicating how the configuration change was initiated (e.g., configuration file, SQL command, etc.)
-
+- `*new_value`: Pointer to the integer value representing the new setting for recovery_prefetch
+- `**extra`: Pointer to additional data (unused in this function, but part of the GUC hook interface)
+- `source`: GucSource enumeration indicating how the configuration change was initiated (e.g., configuration file, SQL command, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Sets detailed error message for GUC validation failures

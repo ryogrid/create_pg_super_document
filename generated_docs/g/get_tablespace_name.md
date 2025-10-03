@@ -18,8 +18,7 @@ The  function performs a lookup in the  system catalog to retrieve the name asso
 The function opens the  relation with an AccessShareLock, performs a catalog scan with an equality condition on the OID column, and extracts the tablespace name from the matching tuple. The returned string is allocated using , making it the caller's responsibility to free the memory when no longer needed.
 
 ## Parameters / Member Variables
-- : The OID of the tablespace whose name is to be retrieved
-
+- `spc_oid`: The OID of the tablespace whose name is to be retrieved
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Opens the pg_tablespace system catalog

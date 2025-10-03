@@ -18,9 +18,8 @@ The  function is a core utility for iterating through PostgreSQL's List data str
 The function increments the cell pointer and validates that the result is still within the valid range of the list's elements array. This design ensures memory safety while providing efficient list iteration.
 
 ## Parameters / Member Variables
-- : A pointer to the List structure containing the cell
-- : A pointer to the current ListCell for which we want to find the next cell
-
+- `*l`: A pointer to the List structure containing the cell
+- `*c`: A pointer to the current ListCell for which we want to find the next cell
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (for bounds checking)

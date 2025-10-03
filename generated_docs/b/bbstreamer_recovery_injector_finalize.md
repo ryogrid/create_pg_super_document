@@ -18,8 +18,7 @@ This function implements the finalize operation for the bbstreamer_recovery_inje
 This is a standard implementation for bbstreamer finalization that doesn't require any special cleanup logic specific to the recovery injector functionality.
 
 ## Parameters / Member Variables
-- : The bbstreamer instance being finalized
-
+- `*streamer`: The bbstreamer instance being finalized
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bbstreamer_finalize](bbstreamer_finalize.md)

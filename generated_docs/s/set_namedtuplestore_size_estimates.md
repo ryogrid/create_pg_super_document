@@ -17,9 +17,8 @@ This function estimates cardinality for relations that reference named tuplestor
 Named tuplestores are commonly used in scenarios like stored procedures, triggers, or other contexts where intermediate results need to be materialized and referenced multiple times. The estimation strategy acknowledges that actual row counts may be known in some cases, while in others a typical or reusable estimate is more appropriate for plan caching and reuse.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing query planning context and global information
-- : RelOptInfo structure representing the named tuplestore relation being sized, must be a base relation with NAMEDTUPLESTORE RTE
-
+- `*root`: PlannerInfo structure containing query planning context and global information
+- `*rel`: RelOptInfo structure representing the named tuplestore relation being sized, must be a base relation with NAMEDTUPLESTORE RTE
 ## Dependencies
 - Functions called/Symbols referenced:
   - planner_rt_fetch

@@ -18,9 +18,8 @@ The  function is a PostgreSQL ECPG (Embedded SQL in C) compatibility library uti
 This function is part of the Informix compatibility layer in ECPG, providing safe string handling operations that prevent buffer overflows by limiting the copied length.
 
 ## Parameters / Member Variables
-- : Source string to be duplicated (const char *)
-- : Maximum number of characters to copy from the source string (size_t)
-
+- `*str`: Source string to be duplicated (const char *)
+- `len`: Maximum number of characters to copy from the source string (size_t)
 ## Dependencies
 - Functions called/Symbols referenced:
   - malloc

@@ -22,10 +22,9 @@ This function fetches timeline history information, which is essential for under
 The function also provides debug output when debug mode is enabled, displaying the timeline entries with their begin and end LSN positions.
 
 ## Parameters / Member Variables
-- : TimeLineID specifying which timeline's history to retrieve
-- : Boolean flag indicating whether to fetch from source system (true) or target directory (false)
-- : Output parameter returning the number of history entries found
-
+- `tli`: TimeLineID specifying which timeline's history to retrieve
+- `is_source`: Boolean flag indicating whether to fetch from source system (true) or target directory (false)
+- `*nentries`: Output parameter returning the number of history entries found
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_malloc](../p/pg_malloc.md) (memory allocation)

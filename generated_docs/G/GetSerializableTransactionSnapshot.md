@@ -24,8 +24,7 @@ The function performs several key validations and optimizations:
 The function maintains the same snapshot data structure passed in - no new allocation occurs within this function.
 
 ## Parameters / Member Variables
-- : A pointer to a static Snapshot data area that can safely be passed to GetSnapshotData; this same pointer is returned
-
+- `snapshot`: A pointer to a static Snapshot data area that can safely be passed to GetSnapshotData; this same pointer is returned
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsolationIsSerializable (checks if current isolation level is serializable)

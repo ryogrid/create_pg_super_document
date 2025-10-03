@@ -18,10 +18,9 @@ This function searches through the operator families associated with an Equivale
 The function iterates through each operator family in the EquivalenceClass and attempts to find an equality operator using the B-tree equal strategy. If security constraints are active, it additionally verifies that the operator's underlying function is marked as leakproof before returning it.
 
 ## Parameters / Member Variables
-- : Pointer to the EquivalenceClass containing operator families to search through
-- : OID of the data type for the left operand
-- : OID of the data type for the right operand
-
+- `*ec`: Pointer to the EquivalenceClass containing operator families to search through
+- `lefttype`: OID of the data type for the left operand
+- `righttype`: OID of the data type for the right operand
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_opfamily_member](../g/get_opfamily_member.md) (to find operators within operator families)

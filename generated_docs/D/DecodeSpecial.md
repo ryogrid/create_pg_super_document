@@ -18,10 +18,9 @@ DecodeSpecial recognizes special keywords listed in the datetktbl (date token ta
 Like DecodeUnits, this function implements a cache mechanism (datecache) to improve performance based on the assumption that date formats will often be related or repeated. The function first checks if there's a cached entry for the given field that matches the input token. If no cache hit occurs, it performs a binary search using datebsearch() on the main datetktbl. The input string must be pre-lowercased before calling this function.
 
 ## Parameters / Member Variables
-- : Index for the cache array to store/retrieve cached tokens
-- : The lowercased string token representing a special date/time keyword to decode
-- : Output parameter that receives the decoded numeric value associated with the token
-
+- `field`: Index for the cache array to store/retrieve cached tokens
+- `*lowtoken`: The lowercased string token representing a special date/time keyword to decode
+- `*val`: Output parameter that receives the decoded numeric value associated with the token
 ## Dependencies
 - Functions called/Symbols referenced:
   - datetkn (structure type for date/time tokens)

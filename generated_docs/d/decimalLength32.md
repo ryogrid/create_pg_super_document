@@ -23,8 +23,7 @@ The algorithm works by:
 This approach is significantly faster than repeated division by 10, making it suitable for performance-critical numeric formatting operations.
 
 ## Parameters / Member Variables
-- : The 32-bit unsigned integer value for which to calculate the decimal length
-
+- `v`: The 32-bit unsigned integer value for which to calculate the decimal length
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_leftmost_one_pos32](../p/pg_leftmost_one_pos32.md)

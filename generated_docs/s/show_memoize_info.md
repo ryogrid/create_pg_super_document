@@ -32,10 +32,9 @@ Key features include:
 The function handles the complexity of memory reporting where peak memory is only tracked when memory is freed, falling back to current usage when peak data is unavailable.
 
 ## Parameters / Member Variables
-- : Pointer to MemoizeState structure containing memoization execution state and statistics
-- : List of ancestor plan nodes used for expression deparsing context
-- : Pointer to ExplainState structure containing output formatting context and control flags
-
+- `*mstate`: Pointer to MemoizeState structure containing memoization execution state and statistics
+- `*ancestors`: List of ancestor plan nodes used for expression deparsing context
+- `*es`: Pointer to ExplainState structure containing output formatting context and control flags
 ## Dependencies
 - Functions called/Symbols referenced:
   - [set_deparse_context_plan](set_deparse_context_plan.md): Sets up context for expression deparsing

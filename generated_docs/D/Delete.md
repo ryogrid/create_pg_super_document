@@ -20,8 +20,7 @@ The function works by accessing the VFD at the specified file index and updating
 This function is a fundamental building block for VFD cache management, used when files need to be removed from LRU tracking without necessarily closing them.
 
 ## Parameters / Member Variables
-- : The File index (VFD index) to remove from the LRU chain
-
+- `file`: The File index (VFD index) to remove from the LRU chain
 ## Dependencies
 - Functions called/Symbols referenced:
   - File (typedef for VFD index)

@@ -22,8 +22,7 @@ This test function performs thorough validation of Red-Black Tree range search f
 5. **Boundary Testing**: Tests edge cases with out-of-bounds searches to ensure functions return NULL appropriately
 
 ## Parameters / Member Variables
-- : The number of natural numbers (1 to size) to insert into the test tree, also used as the upper bound for random key selection
-
+- `size`: The number of natural numbers (1 to size) to insert into the test tree, also used as the upper bound for random key selection
 ## Dependencies
 - Functions called/Symbols referenced:
   - [create_int_rbtree](../c/create_int_rbtree.md): Creates a new integer Red-Black Tree

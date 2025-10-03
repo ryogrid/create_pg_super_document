@@ -25,10 +25,9 @@ The conversion algorithm:
 The formula essentially treats the string as: char[0]/base + char[1]/base² + char[2]/base³ + ...
 
 ## Parameters / Member Variables
-- : The null-terminated string to convert to a scalar value
-- : The lowest character value in the expected range
-- : The highest character value in the expected range
-
+- `*value`: The null-terminated string to convert to a scalar value
+- `rangelo`: The lowest character value in the expected range
+- `rangehi`: The highest character value in the expected range
 ## Dependencies
 - Functions called/Symbols referenced:
   - strlen (standard C library function)

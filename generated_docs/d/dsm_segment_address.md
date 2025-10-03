@@ -18,8 +18,7 @@ This function is a simple accessor that returns the mapped address of a dynamic 
 Dynamic shared memory segments in PostgreSQL are used for inter-process communication, particularly in parallel query execution and background worker processes. Once a segment is created and mapped, this function allows processes to get the base address for accessing the shared data.
 
 ## Parameters / Member Variables
-- : Pointer to a dsm_segment structure representing the dynamic shared memory segment
-
+- `*seg`: Pointer to a dsm_segment structure representing the dynamic shared memory segment
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (assertion macro)

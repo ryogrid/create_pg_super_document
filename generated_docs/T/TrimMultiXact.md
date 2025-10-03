@@ -24,7 +24,6 @@ TrimMultiXact is responsible for finalizing the MultiXact subsystem after databa
 4. **Finalization**: Marks the MultiXact subsystem as officially up and running by setting the finishedStartup flag, then computes the next wraparound limit.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

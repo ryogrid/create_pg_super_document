@@ -26,9 +26,8 @@ The function performs the following key operations:
 This function ensures that all parallel workers can coordinate their scanning efforts and avoid duplicate work while maintaining consistency through the shared snapshot.
 
 ## Parameters / Member Variables
-- : Pointer to IndexScanState containing the index scan execution state, scan keys, and previously calculated shared memory size
-- : Pointer to ParallelContext containing the shared memory table of contents and coordination structures
-
+- `*node`: Pointer to IndexScanState containing the index scan execution state, scan keys, and previously calculated shared memory size
+- `*pcxt`: Pointer to ParallelContext containing the shared memory table of contents and coordination structures
 ## Dependencies
 - Functions called/Symbols referenced:
   - [shm_toc_allocate](../s/shm_toc_allocate.md)

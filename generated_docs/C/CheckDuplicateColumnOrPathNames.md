@@ -24,9 +24,8 @@ This function performs a comprehensive check for duplicate column and path names
 The function ensures that all column and path names within a JSON_TABLE are unique, which is required for proper SQL execution and disambiguation.
 
 ## Parameters / Member Variables
-- : JsonTableParseContext containing parsing state and the pathNames list for duplicate detection
-- : List of JsonTableColumn nodes to check for duplicate names
-
+- `*cxt`: JsonTableParseContext containing parsing state and the pathNames list for duplicate detection
+- `*columns`: List of JsonTableColumn nodes to check for duplicate names
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LookupPathOrColumnName](../L/LookupPathOrColumnName.md) (called twice - for path names and column names)

@@ -20,8 +20,7 @@ The function is a thin wrapper around stringToNodeInternal, always passing false
 This function is widely used throughout the PostgreSQL codebase for deserializing stored Node representations from system catalogs, including constraint expressions, index predicates, default values, partition qualifiers, and rule definitions.
 
 ## Parameters / Member Variables
-- : The string representation of the Node tree to be parsed and converted back to Node structures
-
+- `*str`: The string representation of the Node tree to be parsed and converted back to Node structures
 ## Dependencies
 - Functions called/Symbols referenced:
   - [stringToNodeInternal](stringToNodeInternal.md)

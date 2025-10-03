@@ -34,14 +34,13 @@ Key operations include:
 The function includes sophisticated error handling for various slot states including invalidated slots, synchronized slots on standbys, and database mismatches.
 
 ## Parameters / Member Variables
-- : WAL position to start decoding from (InvalidXLogRecPtr for auto-selection)
-- : Options to pass to the output plugin
-- : Skip change generation for fast position advancement
-- : WAL reading routine function pointer
-- : Callback for preparing output buffer writes
-- : Callback for performing actual output writes
-- : Callback for progress reporting during decoding
-
+- `start_lsn`: WAL position to start decoding from (InvalidXLogRecPtr for auto-selection)
+- `*output_plugin_options`: Options to pass to the output plugin
+- `fast_forward`: Skip change generation for fast position advancement
+- `*xl_routine`: WAL reading routine function pointer
+- `prepare_write`: Callback for preparing output buffer writes
+- `do_write`: Callback for performing actual output writes
+- `update_progress`: Callback for progress reporting during decoding
 ## Dependencies
 - Functions called/Symbols referenced:
   - SlotIsPhysical: Validates slot is logical type

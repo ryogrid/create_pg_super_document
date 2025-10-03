@@ -23,9 +23,8 @@ This function prepares a BRIN page for consistency checking by masking (zeroing 
 The function is specifically designed to handle both regular BRIN pages and meta pages, applying appropriate masking strategies for each page type.
 
 ## Parameters / Member Variables
-- : Character pointer to the raw page data that needs to be masked for consistency checking
-- : Block number of the page being masked (for potential future use or debugging purposes)
-
+- `*pagedata`: Character pointer to the raw page data that needs to be masked for consistency checking
+- `blkno`: Block number of the page being masked (for potential future use or debugging purposes)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [mask_page_lsn_and_checksum](../m/mask_page_lsn_and_checksum.md): Standard function to mask LSN and checksum

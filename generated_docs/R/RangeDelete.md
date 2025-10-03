@@ -26,8 +26,7 @@ The function operates through the following steps:
 This function is typically called as part of the DROP TYPE command processing for range types.
 
 ## Parameters / Member Variables
-- : The OID of the range type whose pg_range entry should be removed
-
+- `rangeTypeOid`: The OID of the range type whose pg_range entry should be removed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md)

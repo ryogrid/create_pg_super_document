@@ -18,11 +18,10 @@ The  function constructs and sends a standby status update message to inform the
 The feedback mechanism is crucial for preventing  from killing the connection and allows the server to track replication progress for lag monitoring and slot advancement.
 
 ## Parameters / Member Variables
-- : PostgreSQL connection handle for the replication session
-- : Current timestamp to include in the feedback message
-- : Boolean flag to force sending feedback even if LSN positions haven't changed
-- : Boolean indicating whether the server requested a reply
-
+- `*conn`: PostgreSQL connection handle for the replication session
+- `blockpos`: Current timestamp to include in the feedback message
+- `now`: Boolean flag to force sending feedback even if LSN positions haven't changed
+- `replyRequested`: Boolean indicating whether the server requested a reply
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_log_info

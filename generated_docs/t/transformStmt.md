@@ -23,9 +23,8 @@ For optimizable statements, the function calls specialized transformation functi
 The function also includes optional raw expression coverage testing for DML statements when compiled with RAW_EXPRESSION_COVERAGE_TEST.
 
 ## Parameters / Member Variables
-- : ParseState context containing parsing state, range tables, error context, and other semantic analysis information
-- : Raw parse tree node representing the statement to be transformed
-
+- `*pstate`: ParseState context containing parsing state, range tables, error context, and other semantic analysis information
+- `*parseTree`: Raw parse tree node representing the statement to be transformed
 ## Dependencies
 - Functions called/Symbols referenced:
   - nodeTag (node type identification)

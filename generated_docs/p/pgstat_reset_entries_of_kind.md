@@ -18,9 +18,8 @@ The function provides a convenient interface for resetting all statistics entrie
 The function converts the kind parameter to a  and passes it along with the  predicate function to the more general  function, which handles the actual scanning and resetting logic.
 
 ## Parameters / Member Variables
-- : The specific statistics kind () to match and reset. Only entries with this exact kind will be reset.
-- : TimestampTz value used as the timestamp for the reset operation, typically the current time.
-
+- `kind`: The specific statistics kind () to match and reset. Only entries with this exact kind will be reset.
+- `ts`: TimestampTz value used as the timestamp for the reset operation, typically the current time.
 ## Dependencies
 - Functions called/Symbols referenced:
   - : General function that resets matching entries based on a predicate

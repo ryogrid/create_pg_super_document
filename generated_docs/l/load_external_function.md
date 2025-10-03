@@ -19,11 +19,10 @@ The  function is a key component of PostgreSQL's dynamic function manager (dfmgr
 The function provides flexibility in error handling - it can either raise an error when a function is not found or return NULL based on the  parameter. Additionally, it can return a handle to the loaded library for efficient subsequent function lookups from the same library.
 
 ## Parameters / Member Variables
-- : The name or path of the dynamic library file to load (may be abbreviated)
-- : The name of the function to look up within the loaded library
-- : Boolean flag indicating whether to raise an error (true) or return NULL (false) when the function is not found
-- : Optional output parameter that receives a handle to the loaded library for subsequent use
-
+- `*filename`: The name or path of the dynamic library file to load (may be abbreviated)
+- `*funcname`: The name of the function to look up within the loaded library
+- `signalNotFound`: Boolean flag indicating whether to raise an error (true) or return NULL (false) when the function is not found
+- `**filehandle`: Optional output parameter that receives a handle to the loaded library for subsequent use
 ## Dependencies
 - Functions called/Symbols referenced:
   - [expand_dynamic_library_name](../e/expand_dynamic_library_name.md)

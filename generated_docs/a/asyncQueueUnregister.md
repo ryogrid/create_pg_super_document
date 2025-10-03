@@ -25,7 +25,6 @@ This function safely removes the current backend from the global notification li
 The function handles both cases where the backend is the first listener in the queue and where it appears elsewhere in the linked list.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

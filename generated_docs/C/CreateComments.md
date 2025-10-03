@@ -18,11 +18,10 @@ CreateComments manages object comments in the pg_description catalog table. It p
 The function treats empty strings as NULL comments, effectively deleting any existing comment. It uses heap tuple operations and the catalog update functions to maintain consistency with PostgreSQL's MVCC model.
 
 ## Parameters / Member Variables
-- : Object identifier of the target database object
-- : OID of the system catalog containing the object (e.g., RelationRelationId for tables)
-- : Sub-object identifier (e.g., column number for column comments, 0 for object-level comments)
-- : Comment text to store, or NULL to delete existing comment
-
+- `oid`: Object identifier of the target database object
+- `classoid`: OID of the system catalog containing the object (e.g., RelationRelationId for tables)
+- `subid`: Sub-object identifier (e.g., column number for column comments, 0 for object-level comments)
+- `*comment`: Comment text to store, or NULL to delete existing comment
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md): Opens the pg_description relation for modification

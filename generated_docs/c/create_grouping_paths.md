@@ -32,12 +32,11 @@ For ordinary grouping, it evaluates multiple factors:
 The function also sets up a GroupPathExtraData structure containing flags and metadata that guide the path creation process.
 
 ## Parameters / Member Variables
-- : PlannerInfo containing query planning context and statistics
-- : RelOptInfo containing the source data paths from lower query levels
-- : PathTarget specifying what columns and expressions the result paths should compute
-- : Boolean indicating if the target can be computed safely in parallel workers
-- : Grouping sets data structure with information about grouping sets and clauses
-
+- `*root`: PlannerInfo containing query planning context and statistics
+- `*input_rel`: RelOptInfo containing the source data paths from lower query levels
+- `*target`: PathTarget specifying what columns and expressions the result paths should compute
+- `target_parallel_safe`: Boolean indicating if the target can be computed safely in parallel workers
+- `*gd`: Grouping sets data structure with information about grouping sets and clauses
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_agg_clause_costs](../g/get_agg_clause_costs.md)

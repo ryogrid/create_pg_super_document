@@ -18,10 +18,9 @@ pgoutput_stream_abort(struct LogicalDecodingContext *ctx,
 pgoutput_stream_abort is a callback function in the pgoutput logical replication output plugin that handles the STREAM ABORT event for transactions that were being streamed but need to be aborted. When a streamed transaction needs to be rolled back, this function notifies downstream subscribers to discard all changes from the transaction and its subtransactions. The function determines the top-level transaction, writes a stream abort message containing transaction IDs and abort timing information, and performs cleanup of relation synchronization cache entries. It ensures the abort occurs outside of any streaming block and includes assertions to validate the transaction state.
 
 ## Parameters / Member Variables
-- : Logical decoding context containing output plugin state and configuration
-- : ReorderBufferTXN structure representing the transaction being aborted
-- : XLogRecPtr indicating the LSN where the abort occurred
-
+- `*ctx`: Logical decoding context containing output plugin state and configuration
+- `*txn`: ReorderBufferTXN structure representing the transaction being aborted
+- `abort_lsn`: XLogRecPtr indicating the LSN where the abort occurred
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LogicalDecodingContext](../L/LogicalDecodingContext.md)

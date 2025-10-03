@@ -36,8 +36,7 @@ canAcceptConnections serves as the gatekeeper for all new database connections, 
 - Only applies to normal user connections, not maintenance processes
 
 ## Parameters / Member Variables
-- : Type of backend connection being requested (BACKEND_TYPE_NORMAL, BACKEND_TYPE_AUTOVAC, or BACKEND_TYPE_BGWORKER)
-
+- `backend_type`: Type of backend connection being requested (BACKEND_TYPE_NORMAL, BACKEND_TYPE_AUTOVAC, or BACKEND_TYPE_BGWORKER)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CountChildren](../C/CountChildren.md)

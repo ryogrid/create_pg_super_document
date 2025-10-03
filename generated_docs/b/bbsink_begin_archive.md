@@ -16,9 +16,8 @@ bbsink_begin_archive(bbsink *sink, const char *archive_name)
 This inline function serves as a wrapper to begin a new archive within the PostgreSQL base backup system. It delegates to the sink-specific begin_archive operation, which handles the actual creation and initialization of an archive with the specified name. The function is part of PostgreSQL's backup sink architecture that supports different output formats and destinations for backup data.
 
 ## Parameters / Member Variables
-- : Pointer to the backup sink structure that will handle the archive operations
-- : Name of the archive to be created (null-terminated string)
-
+- `*sink`: Pointer to the backup sink structure that will handle the archive operations
+- `*archive_name`: Name of the archive to be created (null-terminated string)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bbsink](bbsink.md) (structure type)

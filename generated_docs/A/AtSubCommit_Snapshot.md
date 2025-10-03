@@ -20,8 +20,7 @@ The function ensures that snapshots created within a subtransaction continue to 
 The iteration stops when it encounters a snapshot with a level lower than the current subtransaction, as those snapshots already belong to outer transaction levels and should not be modified.
 
 ## Parameters / Member Variables
-- : The subtransaction level that is being committed (snapshots at this level will be transferred to level-1)
-
+- `level`: The subtransaction level that is being committed (snapshots at this level will be transferred to level-1)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ActiveSnapshotElt](ActiveSnapshotElt.md)

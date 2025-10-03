@@ -18,8 +18,7 @@ This function implements the XML specification's rules for valid characters that
 This validation is essential for ensuring that SQL identifiers can be properly converted to valid XML names while preserving as much of the original identifier as possible.
 
 ## Parameters / Member Variables
-- : A pg_wchar (Unicode codepoint) representing the character to be validated as a potential character in an XML name.
-
+- `c`: A pg_wchar (Unicode codepoint) representing the character to be validated as a potential character in an XML name.
 ## Dependencies
 - Functions called/Symbols referenced:
   - xmlIsBaseCharQ (libxml2 function to check if character is a base character)

@@ -18,9 +18,8 @@ This function serves as an interface to retrieve all currently registered dumpab
 The function is essential for pg_dump's operation as it provides access to the complete catalog of objects that need to be dumped, allowing other parts of the system to iterate over and process all registered objects.
 
 ## Parameters / Member Variables
-- : Output parameter - pointer to array of DumpableObject pointers that will be allocated and populated with all known dumpable objects
-- : Output parameter - pointer to integer that will be set to the number of objects in the returned array
-
+- `***objs`: Output parameter - pointer to array of DumpableObject pointers that will be allocated and populated with all known dumpable objects
+- `*numObjs`: Output parameter - pointer to integer that will be set to the number of objects in the returned array
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_malloc_array (memory allocation function)

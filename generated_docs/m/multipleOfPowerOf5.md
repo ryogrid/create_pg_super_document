@@ -18,9 +18,8 @@ This function checks if a value is divisible by 5 raised to the power p (5^p) by
 This function is commonly used in floating-point to decimal string conversion algorithms where determining divisibility by powers of 5 is crucial for optimizing decimal representation and rounding decisions.
 
 ## Parameters / Member Variables
-- : The 64-bit unsigned integer to test for divisibility
-- : The power of 5 (5^p) to test divisibility against
-
+- `value`: The 64-bit unsigned integer to test for divisibility
+- `p`: The power of 5 (5^p) to test divisibility against
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Calculates the highest power of 5 that divides the value

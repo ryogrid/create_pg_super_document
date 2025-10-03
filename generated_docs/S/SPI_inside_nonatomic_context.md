@@ -24,6 +24,7 @@ The logic matches the behavior of _SPI_commit regarding what constitutes an atom
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - _SPI_current (global variable pointing to current SPI connection)

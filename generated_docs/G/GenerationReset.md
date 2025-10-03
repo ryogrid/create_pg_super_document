@@ -18,8 +18,7 @@ GenerationReset efficiently clears a Generation memory context by freeing all al
 The function iterates through all blocks in the context's doubly-linked list, distinguishing between the keeper block (which is preserved) and regular blocks (which are freed). It also resets the allocation state to use the keeper block for future allocations and resets the block size allocation sequence back to the initial block size.
 
 ## Parameters / Member Variables
-- : The Generation memory context to reset (must be a valid GenerationContext)
-
+- `context`: The Generation memory context to reset (must be a valid GenerationContext)
 ## Dependencies
 - Functions called/Symbols referenced:
   - GenerationIsValid

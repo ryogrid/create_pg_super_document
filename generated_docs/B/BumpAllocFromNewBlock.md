@@ -17,11 +17,10 @@ BumpAllocFromNewBlock(MemoryContext context, Size size, int flags,
 This function is responsible for creating new memory blocks in the bump memory allocation context when the current block doesn't have sufficient space for the requested allocation. It implements a block size doubling strategy, starting with initBlockSize and doubling for each successive block up to maxBlockSize. The function calculates the required block size to accommodate the chunk plus necessary headers, rounds it up to the next power of 2 if needed, allocates the block using malloc, initializes it, adds it to the block list, and finally allocates the requested chunk from the new block.
 
 ## Parameters / Member Variables
-- : The memory context (BumpContext) requesting the new block
-- : The original size requested by the user
-- : Memory allocation flags (e.g., MCXT_ALLOC_NO_OOM)
-- : The aligned size needed for the chunk (calculated by caller)
-
+- `context`: The memory context (BumpContext) requesting the new block
+- `size`: The original size requested by the user
+- `flags`: Memory allocation flags (e.g., MCXT_ALLOC_NO_OOM)
+- `chunk_size`: The aligned size needed for the chunk (calculated by caller)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BumpContext](BumpContext.md) (cast context to bump-specific type)

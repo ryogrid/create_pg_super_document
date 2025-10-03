@@ -19,9 +19,8 @@ The verifybackup_system_identifier function serves as a callback function for th
 The system identifier is a unique identifier for a PostgreSQL database cluster that helps ensure backup integrity and prevents restoration of backups to incompatible database systems. This function extracts the private_data from the parsing context and stores the system identifier for later validation during the backup verification process.
 
 ## Parameters / Member Variables
-- : Pointer to JsonManifestParseContext containing parsing state and private data
-- : 64-bit unsigned integer representing the PostgreSQL system identifier extracted from the JSON manifest
-
+- `*context`: Pointer to JsonManifestParseContext containing parsing state and private data
+- `manifest_system_identifier`: 64-bit unsigned integer representing the PostgreSQL system identifier extracted from the JSON manifest
 ## Dependencies
 - Functions called/Symbols referenced:
   - [JsonManifestParseContext](../J/JsonManifestParseContext.md) (parsing context structure)

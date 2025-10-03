@@ -25,9 +25,8 @@ When a subcolor does need to be created, the function:
 This design allows multiple characters or character ranges to be moved into the same subcolor as needed, while maintaining the parent-child relationship in the color hierarchy.
 
 ## Parameters / Member Variables
-- : Pointer to the colormap structure containing color information
-- : The color for which to allocate a subcolor
-
+- `*cm`: Pointer to the colormap structure containing color information
+- `co`: The color for which to allocate a subcolor
 ## Dependencies
 - Functions called/Symbols referenced:
   - [newcolor](newcolor.md) (allocates a new color)

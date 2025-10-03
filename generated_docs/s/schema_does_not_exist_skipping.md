@@ -16,10 +16,9 @@ schema_does_not_exist_skipping(List *object, const char **msg, char **name)
 This function is used when a schema-qualified object specification returns that the object doesn't exist. It checks whether the specified schema exists. If no schema was specified or the schema exists, it returns false (meaning the object itself is missing). If the specified schema doesn't exist, it sets appropriate error message and name parameters and returns true (indicating the missing object should be skipped because its schema is missing).
 
 ## Parameters / Member Variables
-- : List representing the schema-qualified object specification
-- : Output parameter for error message format string when skipping
-- : Output parameter for the schema name to use in the error message
-
+- `*object`: List representing the schema-qualified object specification
+- `**msg`: Output parameter for error message format string when skipping
+- `**name`: Output parameter for the schema name to use in the error message
 ## Dependencies
 - Functions called/Symbols referenced:
   - [makeRangeVarFromNameList](../m/makeRangeVarFromNameList.md): Converts name list to RangeVar to extract schema information

@@ -24,10 +24,9 @@ This function is used in pg_rewind to process control file data that has been re
 The function is essential for ensuring that pg_rewind operates on valid control file data before proceeding with the rewind operation.
 
 ## Parameters / Member Variables
-- : Pointer to ControlFileData structure where the parsed control file data will be stored
-- : Raw bytes of the control file content as read from disk
-- : Size of the content buffer in bytes
-
+- `*ControlFile`: Pointer to ControlFileData structure where the parsed control file data will be stored
+- `*content`: Raw bytes of the control file content as read from disk
+- `size`: Size of the content buffer in bytes
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_fatal](../p/pg_fatal.md)

@@ -27,14 +27,13 @@ This function implements the worker's portion of a parallel B-tree index build b
 For unique indexes, the function manages two separate tuplesort states - one for live tuples and another for dead tuples, with different memory allocations.
 
 ## Parameters / Member Variables
-- : Primary BTSpool structure containing heap relation, index relation, and sorting state
-- : Secondary BTSpool for dead tuples in unique index builds (NULL for non-unique indexes)
-- : Shared state structure containing configuration and coordination data
-- : Shared tuplesort state for the primary spool
-- : Shared tuplesort state for the secondary spool (NULL if not needed)
-- : Amount of working memory allocated to this worker in KB
-- : Boolean flag indicating whether to report progress updates
-
+- `*btspool`: Primary BTSpool structure containing heap relation, index relation, and sorting state
+- `*btspool2`: Secondary BTSpool for dead tuples in unique index builds (NULL for non-unique indexes)
+- `*btshared`: Shared state structure containing configuration and coordination data
+- `*sharedsort`: Shared tuplesort state for the primary spool
+- `*sharedsort2`: Shared tuplesort state for the secondary spool (NULL if not needed)
+- `sortmem`: Amount of working memory allocated to this worker in KB
+- `progress`: Boolean flag indicating whether to report progress updates
 ## Dependencies
 - Functions called/Symbols referenced:
   - [tuplesort_begin_index_btree](../t/tuplesort_begin_index_btree.md)

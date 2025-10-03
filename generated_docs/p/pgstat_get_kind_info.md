@@ -18,8 +18,7 @@ This function serves as a simple accessor to retrieve the  structure for a given
 The function is a core utility in PostgreSQL's statistics infrastructure, providing a centralized way to access configuration information about different statistics kinds. This information is used throughout the statistics system to determine how to handle creation, deletion, serialization, and other operations for statistics entries.
 
 ## Parameters / Member Variables
-- : A  enum value specifying which type of statistics object to get information for (e.g., database, table, function statistics)
-
+- `kind`: A  enum value specifying which type of statistics object to get information for (e.g., database, table, function statistics)
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Validates that the provided kind is valid

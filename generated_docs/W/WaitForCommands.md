@@ -26,9 +26,8 @@ This function implements the core worker process loop in pg_dump's parallel arch
 The function runs in an infinite loop until it receives EOF from the leader, indicating that all work has been completed and the worker should terminate. This design allows for dynamic work distribution where the leader can assign tasks to workers as they become available.
 
 ## Parameters / Member Variables
-- : Archive handle containing database connection, function pointers (WorkerJobDumpPtr, WorkerJobRestorePtr), and other dump/restore context
-- : Two-element array representing the pipe file descriptors for communication with the leader process
-
+- `*AH`: Archive handle containing database connection, function pointers (WorkerJobDumpPtr, WorkerJobRestorePtr), and other dump/restore context
+- `pipefd[2]`: Two-element array representing the pipe file descriptors for communication with the leader process
 ## Dependencies
 - Functions called/Symbols referenced:
   - [getMessageFromLeader](../g/getMessageFromLeader.md) (receives commands from leader process)

@@ -16,7 +16,6 @@ BackendStatusShmemSize(void)
 This function computes the memory requirements for all components of the backend status system that will be allocated in shared memory. It calculates space for the main backend status array and various string buffers used to track backend activity information. The calculation includes conditional allocations for SSL and GSS status information when those features are enabled.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -23,8 +23,7 @@ The function accepts three types of values:
 The "noexec" option is particularly useful for developers and advanced users who want to see what SQL commands psql generates internally without actually executing them, which helps in understanding how psql implements various features.
 
 ## Parameters / Member Variables
-- : The string value being assigned to the ECHO_HIDDEN variable that needs to be validated and converted to an enum value
-
+- `*newval`: The string value being assigned to the ECHO_HIDDEN variable that needs to be validated and converted to an enum value
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_strcasecmp](../p/pg_strcasecmp.md)

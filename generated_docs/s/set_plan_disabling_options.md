@@ -16,10 +16,9 @@ set_plan_disabling_options(const char *arg, GucContext context, GucSource source
 This function provides a convenient mechanism to disable various query execution strategies through single-character command line arguments. It maps each character to a corresponding "enable_*" GUC parameter and sets it to "false", effectively disabling that particular execution strategy. This functionality is primarily used for testing the query planner's behavior when certain execution methods are unavailable, debugging performance issues, or forcing the planner to choose alternative execution paths.
 
 ## Parameters / Member Variables
-- : A string containing single-character codes representing execution strategies to disable ('s' for seqscan, 'i' for indexscan, etc.)
-- : The GUC context indicating when/how this configuration change is being applied
-- : The source of the configuration change (e.g., command line, configuration file, etc.)
-
+- `*arg`: A string containing single-character codes representing execution strategies to disable ('s' for seqscan, 'i' for indexscan, etc.)
+- `context`: The GUC context indicating when/how this configuration change is being applied
+- `source`: The source of the configuration change (e.g., command line, configuration file, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SetConfigOption](../S/SetConfigOption.md): Sets individual GUC parameters programmatically to disable execution strategies

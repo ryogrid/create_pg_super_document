@@ -23,10 +23,9 @@ This function determines if a user has the necessary permissions to access all r
 The function handles complex scenarios like partitioned tables where it must walk up the inheritance hierarchy and map child table attributes to their corresponding parent table attributes.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing query planning context and relation information
-- : Index of the relation in the range table (must be an RTE_RELATION type)
-- : Bitmapset of attribute numbers requiring permission checks, offset by FirstLowInvalidHeapAttributeNumber to handle system attributes; NULL means whole-table access is required
-
+- `*root`: PlannerInfo structure containing query planning context and relation information
+- `varno`: Index of the relation in the range table (must be an RTE_RELATION type)
+- `*varattnos`: Bitmapset of attribute numbers requiring permission checks, offset by FirstLowInvalidHeapAttributeNumber to handle system attributes; NULL means whole-table access is required
 ## Dependencies
 - Functions called/Symbols referenced:
   - [find_base_rel_noerr](../f/find_base_rel_noerr.md) (relation lookup without error)

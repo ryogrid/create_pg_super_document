@@ -23,8 +23,7 @@ The function takes a character value and converts it to PostgreSQL's external bi
 This creates a binary representation that can be efficiently transmitted over the network and later reconstructed using the corresponding charrecv() function.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function argument macro containing:
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument macro containing:
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_CHAR (to extract input character)

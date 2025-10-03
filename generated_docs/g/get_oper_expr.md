@@ -18,9 +18,8 @@ This static function is part of PostgreSQL's rule deparsing system, which conver
 The function distinguishes between binary and prefix operators by examining the argument count. For binary operators, it formats the expression as "arg1 operator arg2", while for prefix operators, it uses "operator arg" format. The operator name is resolved using the operator OID and operand types.
 
 ## Parameters / Member Variables
-- : Pointer to the OpExpr node containing the operator expression to be deparsed
-- : Deparse context containing the output buffer and formatting preferences
-
+- `*expr`: Pointer to the OpExpr node containing the operator expression to be deparsed
+- `*context`: Deparse context containing the output buffer and formatting preferences
 ## Dependencies
 - Functions called/Symbols referenced:
   - PRETTY_PAREN (macro for checking parentheses formatting preference)

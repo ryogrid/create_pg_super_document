@@ -24,12 +24,11 @@ The function retrieves the operator's restriction selectivity procedure () from 
 The selectivity function receives context information including the planner state, operator ID, argument list, collation, and variable relation ID to make informed estimates based on statistics and operator semantics.
 
 ## Parameters / Member Variables
-- : PlannerInfo containing global planner state and statistics information
-- : Object ID of the operator for which to estimate selectivity
-- : List of arguments (operands) to the operator clause
-- : Collation ID for string comparison operations
-- : Relation ID of the variable being restricted, or 0 if not applicable
-
+- `*root`: PlannerInfo containing global planner state and statistics information
+- `operatorid`: Object ID of the operator for which to estimate selectivity
+- `*args`: List of arguments (operands) to the operator clause
+- `inputcollid`: Collation ID for string comparison operations
+- `varRelid`: Relation ID of the variable being restricted, or 0 if not applicable
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_oprrest](../g/get_oprrest.md) (retrieves operator's restriction selectivity function)

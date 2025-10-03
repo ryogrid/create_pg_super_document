@@ -19,7 +19,6 @@ The function includes a safety check that immediately returns if the startup pro
 When called, the function uses `disable_timeout()` with the `STARTUP_PROGRESS_TIMEOUT` identifier to stop the timer, and then resets the `startup_progress_timer_expired` flag to false. This ensures a clean state where no progress timeout is active and no stale timeout signals remain.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called:

@@ -25,13 +25,12 @@ The algorithm works by:
 The crossover preserves the relative order of elements from the second parent while incorporating a contiguous segment from the first parent, helping maintain genetic diversity while preserving beneficial gene sequences.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planner state and random number generation context
-- : First parent gene sequence (array of Gene elements)
-- : Second parent gene sequence (array of Gene elements) 
-- : Output array where the resulting offspring gene sequence is stored
-- : Number of genes in the sequences (length of the arrays)
-- : Array of City structures used to track which genes have been used during crossover
-
+- `*root`: PlannerInfo structure containing planner state and random number generation context
+- `*tour1`: First parent gene sequence (array of Gene elements)
+- `*tour2`: Second parent gene sequence (array of Gene elements)
+- `*offspring`: Output array where the resulting offspring gene sequence is stored
+- `num_gene`: Number of genes in the sequences (length of the arrays)
+- `*city_table`: Array of City structures used to track which genes have been used during crossover
 ## Dependencies
 - Functions called/Symbols referenced:
   - [geqo_randint](../g/geqo_randint.md) (for generating random segment boundaries)

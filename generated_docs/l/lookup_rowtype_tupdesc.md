@@ -24,9 +24,8 @@ This function serves as the primary public interface for retrieving tuple descri
 The function handles both named composite types and transient record types transparently. Callers are responsible for calling ReleaseTupleDesc() when finished with the tuple descriptor to properly manage memory and prevent leaks.
 
 ## Parameters / Member Variables
-- : The OID of the composite type to look up
-- : Type modifier for transient record types (ignored for named composite types)
-
+- `type_id`: The OID of the composite type to look up
+- `typmod`: Type modifier for transient record types (ignored for named composite types)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lookup_rowtype_tupdesc_internal](lookup_rowtype_tupdesc_internal.md)

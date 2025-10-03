@@ -16,9 +16,8 @@ date_cmp_timestamptz_internal(DateADT dateVal, TimestampTz dt2)
 This internal function implements the core comparison logic for DATE vs TIMESTAMPTZ operations in PostgreSQL. It converts the date to a timestamptz using date2timestamptz_opt_overflow() which can detect overflow conditions. The function handles three scenarios: normal conversion where it delegates to timestamptz_cmp_internal(), positive overflow where the date exceeds finite timestamp bounds, and negative overflow where the date is below finite timestamp bounds. Special timestamp values like infinity and negative infinity are properly handled during overflow conditions.
 
 ## Parameters / Member Variables
-- : DateADT value representing the date to compare
-- : TimestampTz value representing the timestamp with timezone to compare against
-
+- `dateVal`: DateADT value representing the date to compare
+- `dt2`: TimestampTz value representing the timestamp with timezone to compare against
 ## Dependencies
 - Functions called/Symbols referenced:
   - [date2timestamptz_opt_overflow](date2timestamptz_opt_overflow.md) (converts date to timestamptz with overflow detection)

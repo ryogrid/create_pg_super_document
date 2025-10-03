@@ -22,9 +22,8 @@ The function performs two key validations:
 If either validation fails, the function raises an appropriate error. This strict validation ensures that only properly formed analyze functions can be associated with custom types.
 
 ## Parameters / Member Variables
-- : A List containing the qualified name components of the analyze function to validate
-- : The OID of the type for which this analyze function is being set (currently unused but available for future enhancements)
-
+- `*procname`: A List containing the qualified name components of the analyze function to validate
+- `typeOid`: The OID of the type for which this analyze function is being set (currently unused but available for future enhancements)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LookupFuncName](../L/LookupFuncName.md): Locates the function by name and signature

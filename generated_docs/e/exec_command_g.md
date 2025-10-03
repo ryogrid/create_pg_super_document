@@ -21,10 +21,9 @@ This function handles both \g and \gx commands which execute the current query b
 The function processes arguments in two phases: first parsing any pset options enclosed in parentheses, then handling the output destination. It uses different return values to indicate whether the query should be sent (PSQL_CMD_SEND) or if there was an error.
 
 ## Parameters / Member Variables
-- : Scanner state for parsing the command line arguments
-- : Boolean indicating whether this command should be executed (used for conditional processing)  
-- : String identifying the specific command ("g" or "gx")
-
+- `scan_state`: Scanner state for parsing the command line arguments
+- `active_branch`: Boolean indicating whether this command should be executed (used for conditional processing)
+- `*cmd`: String identifying the specific command ("g" or "gx")
 ## Dependencies
 - Functions called/Symbols referenced:
   - psql_scan_slash_option

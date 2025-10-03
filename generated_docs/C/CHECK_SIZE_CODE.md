@@ -27,8 +27,7 @@ This macro is a critical memory management utility used throughout the pg_bsd_in
 The macro implements a dynamic buffer expansion strategy that ensures the code formatting process never runs out of space. It includes error handling that terminates the program if memory allocation fails, which is appropriate for a command-line tool where recovery from memory allocation failure would be complex.
 
 ## Parameters / Member Variables
-- : The number of additional bytes needed in the code buffer
-
+- `desired_size`: The number of additional bytes needed in the code buffer
 ## Dependencies
 - Functions called/Symbols referenced:
   - realloc (standard C library function)

@@ -22,8 +22,7 @@ This function implements the core work distribution logic for parallel-aware App
 The function handles runtime partition pruning by identifying valid subplans on the first call and marking invalid subplans as finished. It maintains state through the ParallelAppendState structure, tracking which subplans are completed and determining the next available subplan for execution.
 
 ## Parameters / Member Variables
-- : Pointer to AppendState containing the append node's execution state, parallel state information, and subplan tracking data
-
+- `*node`: Pointer to AppendState containing the append node's execution state, parallel state information, and subplan tracking data
 ## Dependencies
 - Functions called/Symbols referenced:
   - ScanDirectionIsForward (direction validation)

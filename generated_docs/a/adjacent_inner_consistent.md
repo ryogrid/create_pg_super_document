@@ -23,11 +23,10 @@ The function performs a two-step analysis:
 This optimization helps avoid unnecessary tree traversals during adjacent range searches by leveraging information from the traversal path.
 
 ## Parameters / Member Variables
-- : Type cache entry containing comparison functions for the range type
-- : The argument bound from the search query
-- : The current level's centroid bound
-- : The previous level's centroid bound (can be NULL)
-
+- `*typcache`: Type cache entry containing comparison functions for the range type
+- `*arg`: The argument bound from the search query
+- `*centroid`: The current level's centroid bound
+- `*prev`: The previous level's centroid bound (can be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [adjacent_cmp_bounds](adjacent_cmp_bounds.md)

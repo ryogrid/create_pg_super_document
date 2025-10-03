@@ -19,6 +19,7 @@ Like other timeout handlers, this function is designed to be lightweight and sig
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SetLatch](../S/SetLatch.md)

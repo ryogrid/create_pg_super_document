@@ -20,9 +20,8 @@ When memory allocation fails, the function raises an ECPG error with the specifi
 The function allocates memory using , ensuring that all allocated memory is initialized to zero, which helps prevent bugs related to uninitialized memory usage.
 
 ## Parameters / Member Variables
-- : The number of bytes to allocate
-- : Line number in the source code where the allocation is requested, used for error reporting and debugging
-
+- `size`: The number of bytes to allocate
+- `lineno`: Line number in the source code where the allocation is requested, used for error reporting and debugging
 ## Dependencies
 - Functions called/Symbols referenced:
   - calloc (standard C library function)

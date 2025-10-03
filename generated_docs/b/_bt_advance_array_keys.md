@@ -27,14 +27,13 @@ The function operates by comparing each array element against the corresponding 
 The function also performs requalification by calling _bt_check_compare with the newly advanced keys to determine if the original tuple still satisfies the updated scan criteria. It can recursively call itself for "second pass" handling of required inequality scan keys that weren't initially detected.
 
 ## Parameters / Member Variables
-- : Index scan descriptor containing array key state and scan information  
-- : Page-level scan state for tracking page boundaries and scan direction
-- : The index tuple that triggered array advancement
-- : Number of attributes in the tuple
-- : Tuple descriptor for attribute access
-- : Index of the scan key that triggered the advancement
-- : Whether the triggering scan key is required in the current scan direction
-
+- `scan`: Index scan descriptor containing array key state and scan information
+- `*pstate`: Page-level scan state for tracking page boundaries and scan direction
+- `tuple`: The index tuple that triggered array advancement
+- `tupnatts`: Number of attributes in the tuple
+- `tupdesc`: Tuple descriptor for attribute access
+- `sktrig`: Index of the scan key that triggered the advancement
+- `sktrig_required`: Whether the triggering scan key is required in the current scan direction
 ## Dependencies
 - Functions called/Symbols referenced:
   - [_bt_tuple_before_array_skeys](_bt_tuple_before_array_skeys.md)

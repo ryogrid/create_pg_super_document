@@ -18,8 +18,7 @@ This function serves as an SQL wrapper around the internal  function. It retriev
 The function opens the relation with an AccessShareLock, retrieves the replica identity index OID through , and then closes the relation. If a valid replica identity index exists, it returns the index OID; otherwise, it returns NULL.
 
 ## Parameters / Member Variables
-- : OID of the relation (table) for which to find the replica identity index
-
+- `PG_FUNCTION_ARGS`: OID of the relation (table) for which to find the replica identity index
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_OID (to extract the relation OID parameter)

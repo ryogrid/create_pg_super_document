@@ -21,6 +21,7 @@ The calculation uses mul_size() for safe multiplication that prevents integer ov
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MaxLivePostmasterChildren](../M/MaxLivePostmasterChildren.md) (returns maximum concurrent child processes)

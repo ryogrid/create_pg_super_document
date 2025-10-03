@@ -18,6 +18,7 @@ This function implements a coordinated shutdown of the WAL receiver process. It 
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [WalRcvData](../W/WalRcvData.md)

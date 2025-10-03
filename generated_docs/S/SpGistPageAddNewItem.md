@@ -19,13 +19,12 @@ The  function intelligently adds new items to SP-GiST index pages by first attem
 The function includes sophisticated error handling with PANIC conditions when space calculations fail after placeholder deletion, ensuring index consistency. It also supports search optimization through a startOffset hint for repeated insertions.
 
 ## Parameters / Member Variables
-- : Pointer to SpGistState containing index configuration (currently unused but maintains API consistency)
-- : The target page where the item should be added
-- : The item data to be inserted into the page
-- : Size of the item being inserted
-- : Optional hint for optimizing placeholder search; updated to next search position (can be NULL)
-- : If false, function throws ERROR on failure instead of returning InvalidOffsetNumber
-
+- `*state`: Pointer to SpGistState containing index configuration (currently unused but maintains API consistency)
+- `page`: The target page where the item should be added
+- `item`: The item data to be inserted into the page
+- `size`: Size of the item being inserted
+- `*startOffset`: Optional hint for optimizing placeholder search; updated to next search position (can be NULL)
+- `errorOK`: If false, function throws ERROR on failure instead of returning InvalidOffsetNumber
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - retrieves page-specific SP-GiST metadata

@@ -20,9 +20,8 @@ The function performs a minimal reset operation - it only resets the  atomic cou
 This is more efficient than completely reinitializing the descriptor, as it preserves the existing configuration while resetting only the state that needs to be cleared between scan passes.
 
 ## Parameters / Member Variables
-- : Relation being scanned (currently unused but maintained for API consistency)
-- : Generic parallel table scan descriptor (cast to ParallelBlockTableScanDesc internally)
-
+- `rel`: Relation being scanned (currently unused but maintained for API consistency)
+- `pscan`: Generic parallel table scan descriptor (cast to ParallelBlockTableScanDesc internally)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_atomic_write_u64](../p/pg_atomic_write_u64.md)

@@ -20,9 +20,8 @@ The function follows the standard qsort comparison interface, taking two void po
 The sorted block number arrays enable efficient binary search during the simple deletion pass, where the system needs to quickly determine whether a given table block is among those referenced by LP_DEAD-marked index tuples.
 
 ## Parameters / Member Variables
-- : Pointer to the first BlockNumber value to compare (cast from void*)
-- : Pointer to the second BlockNumber value to compare (cast from void*)
-
+- `*arg1`: Pointer to the first BlockNumber value to compare (cast from void*)
+- `*arg2`: Pointer to the second BlockNumber value to compare (cast from void*)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_cmp_u32](../p/pg_cmp_u32.md)

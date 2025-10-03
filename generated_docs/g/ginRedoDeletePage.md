@@ -29,8 +29,7 @@ Key functionality:
 - Maintains proper locking order to prevent deadlocks
 
 ## Parameters / Member Variables
-- : XLogReaderState pointer containing the WAL record being replayed, including deletion metadata and affected page references
-
+- `*record`: XLogReaderState pointer containing the WAL record being replayed, including deletion metadata and affected page references
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData

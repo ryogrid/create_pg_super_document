@@ -21,12 +21,11 @@ When oldoffnum is valid, the function replaces the existing tuple at that offset
 The caller must hold an exclusive lock on the target buffer before calling this function. The lock remains held upon return, though the page content may have changed due to splits.
 
 ## Parameters / Member Variables
-- : GISTInsertState containing insertion context including relation, free space info, and build state
-- : GISTInsertStack representing the path from root to the target page being updated
-- : GISTSTATE containing cached information about the index's access methods and support functions
-- : IndexTuple to be inserted or used as replacement
-- : OffsetNumber of existing tuple to replace (InvalidOffsetNumber for new insertion)
-
+- `*state`: GISTInsertState containing insertion context including relation, free space info, and build state
+- `*stack`: GISTInsertStack representing the path from root to the target page being updated
+- `*giststate`: GISTSTATE containing cached information about the index's access methods and support functions
+- `tuple`: IndexTuple to be inserted or used as replacement
+- `oldoffnum`: OffsetNumber of existing tuple to replace (InvalidOffsetNumber for new insertion)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [gistinserttuples](gistinserttuples.md) (main implementation)

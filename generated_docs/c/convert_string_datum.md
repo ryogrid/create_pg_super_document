@@ -25,11 +25,10 @@ For non-C locales, the function applies  transformation to ensure correct locale
 The implementation includes Windows-specific error handling for strxfrm() failures and uses a two-pass approach to determine the required buffer size for transformed strings.
 
 ## Parameters / Member Variables
-- : The Datum containing the string value to convert
-- : The OID of the PostgreSQL data type (CHAROID, BPCHAROID, VARCHAROID, TEXTOID, or NAMEOID)
-- : The collation OID for locale-specific processing
-- : Output pointer set to true if conversion fails due to unsupported type
-
+- `value`: The Datum containing the string value to convert
+- `typid`: The OID of the PostgreSQL data type (CHAROID, BPCHAROID, VARCHAROID, TEXTOID, or NAMEOID)
+- `collid`: The collation OID for locale-specific processing
+- `*failure`: Output pointer set to true if conversion fails due to unsupported type
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DatumGetChar](../D/DatumGetChar.md) (for character type conversion)

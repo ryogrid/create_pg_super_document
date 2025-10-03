@@ -24,9 +24,8 @@ This function provides the core SQL execution capability for PL/Perl functions. 
 The sub-transaction mechanism ensures that errors don't corrupt the main transaction and provides clean rollback semantics.
 
 ## Parameters / Member Variables
-- : The SQL query string to execute
-- : Maximum number of rows to return (0 for unlimited)
-
+- `*query`: The SQL query string to execute
+- `limit`: Maximum number of rows to return (0 for unlimited)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_spi_usage_allowed](../c/check_spi_usage_allowed.md)

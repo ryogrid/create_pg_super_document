@@ -22,8 +22,7 @@ This function serves as a mapping utility for PostgreSQL's statistics logging co
 The function uses a simple switch statement on the first character of the argument, with additional character checking for disambiguation between parser and planner options.
 
 ## Parameters / Member Variables
-- : A string containing the command-line argument that specifies which statistics option to enable. Expected values are "pa" for parser, "pl" for planner, or "e" for executor.
-
+- `*arg`: A string containing the command-line argument that specifies which statistics option to enable. Expected values are "pa" for parser, "pl" for planner, or "e" for executor.
 ## Dependencies
 - Functions called/Symbols referenced:
   - No external function calls

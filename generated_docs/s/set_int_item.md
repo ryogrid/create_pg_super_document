@@ -18,11 +18,10 @@ This internal utility function is the counterpart to get_int_item, serving as pa
 The function supports the same comprehensive range of numeric types as get_int_item, performing appropriate type conversion from the source variable type to integer. It ensures type safety by validating that the source variable type is numeric before attempting the conversion.
 
 ## Parameters / Member Variables  
-- : Source code line number for error reporting and debugging
-- : Pointer to integer where the converted value will be stored
-- : Generic const pointer to the source variable containing the value to convert
-- : ECPG type enumeration specifying the source variable's data type
-
+- `lineno`: Source code line number for error reporting and debugging
+- `*target`: Pointer to integer where the converted value will be stored
+- `*var`: Generic const pointer to the source variable containing the value to convert
+- `vartype`: ECPG type enumeration specifying the source variable's data type
 ## Dependencies
 - Functions called/Symbols referenced:
   - ECPGttype

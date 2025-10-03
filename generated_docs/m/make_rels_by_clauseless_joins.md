@@ -23,10 +23,9 @@ This function serves as a fallback mechanism in PostgreSQL's join planning when 
 3. In special cases involving sub-joinlists where relations only have join clauses with relations outside the current sub-problem
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing the query planning context
-- : The relation entry for the relation to be joined with others
-- : A list containing the other relations to be considered for Cartesian product joins
-
+- `*root`: PlannerInfo structure containing the query planning context
+- `*old_rel`: The relation entry for the relation to be joined with others
+- `*other_rels`: A list containing the other relations to be considered for Cartesian product joins
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bms_overlap](../b/bms_overlap.md)

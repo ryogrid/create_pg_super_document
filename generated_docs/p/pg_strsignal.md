@@ -23,8 +23,7 @@ The function works by:
 This implementation ensures that callers always receive a valid string pointer, unlike some platform implementations of  that may return NULL. The function is designed to be used in conjunction with printing the numeric signal value, as the fallback cases provide only generic messages.
 
 ## Parameters / Member Variables
-- : The Unix signal number to be converted to a string representation
-
+- `signum`: The Unix signal number to be converted to a string representation
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (system function, when available via HAVE_STRSIGNAL)

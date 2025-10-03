@@ -28,18 +28,17 @@ The algorithm:
 Special handling is implemented for expressions containing "varno 0" (introduced by generate_append_tlist), which would confuse estimate_num_groups - in such cases it defaults to DEFAULT_NUM_DISTINCT.
 
 ## Parameters / Member Variables
-- : Output parameter - Path object to store the calculated costs and row estimates
-- : PlannerInfo containing planner state and statistics
-- : List of sort keys for the complete sort operation
-- : Number of leading pathkeys by which input is already sorted
-- : Startup cost of the input path
-- : Total cost of the input path
-- : Number of tuples from the input
-- : Average tuple width in bytes
-- : Extra cost per comparison operation
-- : Amount of work memory available for sorting (in kilobytes)
-- : Bound on output tuples; -1 if no limit
-
+- `*path`: Output parameter - Path object to store the calculated costs and row estimates
+- `*root`: PlannerInfo containing planner state and statistics
+- `*pathkeys`: List of sort keys for the complete sort operation
+- `presorted_keys`: Number of leading pathkeys by which input is already sorted
+- `input_startup_cost`: Startup cost of the input path
+- `input_total_cost`: Total cost of the input path
+- `input_tuples`: Number of tuples from the input
+- `width`: Average tuple width in bytes
+- `comparison_cost`: Extra cost per comparison operation
+- `sort_mem`: Amount of work memory available for sorting (in kilobytes)
+- `limit_tuples`: Bound on output tuples; -1 if no limit
 ## Dependencies
 - Functions called/Symbols referenced:
   - [cost_tuplesort](cost_tuplesort.md)

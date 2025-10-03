@@ -23,10 +23,9 @@ The function employs a multi-stage processing approach:
 While LoongArch doesn't require memory alignment for correctness, aligned memory access provides significant performance improvements, making the alignment preprocessing worthwhile.
 
 ## Parameters / Member Variables
-- : Input CRC32C value to continue computation from (typically initialized with INIT_CRC32C macro)
-- : Pointer to the data buffer to compute CRC32C checksum for
-- : Size of the data buffer in bytes
-
+- `crc`: Input CRC32C value to continue computation from (typically initialized with INIT_CRC32C macro)
+- `*data`: Pointer to the data buffer to compute CRC32C checksum for
+- `len`: Size of the data buffer in bytes
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (return type)

@@ -18,10 +18,9 @@ This utility function converts a list of publication names into a properly forma
 The function is designed to handle the common need to format publication lists for various SQL operations, error messages, and logging contexts within the subscription management system.
 
 ## Parameters / Member Variables
-- : List of publication names (as String nodes) to be formatted
-- : StringInfo buffer where the formatted string will be appended
-- : Boolean flag determining the quoting style - true uses SQL literal quoting, false uses simple double-quote wrapping
-
+- `*publications`: List of publication names (as String nodes) to be formatted
+- `dest`: StringInfo buffer where the formatted string will be appended
+- `quote_literal`: Boolean flag determining the quoting style - true uses SQL literal quoting, false uses simple double-quote wrapping
 ## Dependencies
 - Functions called/Symbols referenced:
   - strVal: Extracts string value from List node

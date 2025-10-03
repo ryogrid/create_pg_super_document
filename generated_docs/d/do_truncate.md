@@ -16,8 +16,7 @@ do_truncate(const char *path)
 The  function is a utility function within PostgreSQL's magnetic disk storage manager (md.c) that safely truncates a file to zero length. It serves as a wrapper around the system's  function, providing centralized error handling and logging functionality. The function is designed to handle cases where the file might not exist (ENOENT) gracefully while logging warnings for other types of errors. This function is primarily used during relation fork unlinking operations to ensure proper cleanup of storage files.
 
 ## Parameters / Member Variables
-- : The file system path of the file to be truncated to zero length
-
+- `*path`: The file system path of the file to be truncated to zero length
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_truncate](../p/pg_truncate.md)

@@ -17,10 +17,9 @@ database_to_xmlschema_internal(bool nulls, bool tableforest,
 This internal function creates a complete XML Schema (XSD) representation of the entire database structure. It retrieves all visible tables and schemas from the database, processes their tuple descriptors to extract type information, and generates corresponding XML Schema elements and type definitions. The function establishes an SPI connection to access the database catalog, collects metadata about tables and schemas, and delegates the actual XML Schema generation to specialized mapping functions.
 
 ## Parameters / Member Variables
-- : Boolean flag indicating whether to include nullable elements in the schema
-- : Boolean flag controlling the XML structure format (table forest vs. single table format)
-- : Target namespace for the generated XML Schema (can be NULL)
-
+- `nulls`: Boolean flag indicating whether to include nullable elements in the schema
+- `tableforest`: Boolean flag controlling the XML structure format (table forest vs. single table format)
+- `*targetns`: Target namespace for the generated XML Schema (can be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [makeStringInfo](../m/makeStringInfo.md)

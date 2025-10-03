@@ -18,8 +18,7 @@ pgstat_wal_reset_all_cb(TimestampTz ts)
 The function is part of PostgreSQL's statistics collection framework and is designed to be used as a callback in the statistics reset mechanism. It provides a clean slate for WAL statistics collection by clearing all accumulated counter values.
 
 ## Parameters / Member Variables
-- : A TimestampTz value representing the timestamp when the statistics reset occurred. This timestamp is stored in the statistics structure to track when the last reset happened.
-
+- `ts`: A TimestampTz value representing the timestamp when the statistics reset occurred. This timestamp is stored in the statistics structure to track when the last reset happened.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PgStatShared_Wal](../P/PgStatShared_Wal.md) (structure type)

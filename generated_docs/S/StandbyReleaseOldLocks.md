@@ -18,8 +18,7 @@ This function performs selective cleanup of recovery locks by releasing locks he
 The function iterates through all entries in the RecoveryLockXidHash and applies two key filters: it skips prepared transactions (using StandbyTransactionIdIsPrepared) and skips transactions that are not older than the specified oldxid (using TransactionIdPrecedes). This selective approach ensures that only appropriate locks are released while maintaining consistency for active and prepared transactions.
 
 ## Parameters / Member Variables
-- : The transaction ID threshold; only locks from transactions preceding this ID will be released
-
+- `oldxid`: The transaction ID threshold; only locks from transactions preceding this ID will be released
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hash_seq_init](../h/hash_seq_init.md) (initialize hash table sequential scan)

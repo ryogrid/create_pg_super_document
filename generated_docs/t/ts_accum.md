@@ -20,10 +20,9 @@ The function initializes a new TSVectorStat structure on the first call, then fo
 The core processing involves two key operations: first, it inserts a strategically chosen central word entry, then it delegates to  to recursively sample additional representative words from the TSVector. This approach balances statistical accuracy with performance, making it practical to generate statistics from large text corpora.
 
 ## Parameters / Member Variables
-- : Memory context that ensures allocated TSVectorStat structures and tree nodes persist across function calls
-- : Existing TSVectorStat structure to accumulate into, or NULL for first call to trigger initialization  
-- : Datum containing the TSVector data to be processed and accumulated into statistics
-
+- `persistentContext`: Memory context that ensures allocated TSVectorStat structures and tree nodes persist across function calls
+- `*stat`: Existing TSVectorStat structure to accumulate into, or NULL for first call to trigger initialization
+- `data`: Datum containing the TSVector data to be processed and accumulated into statistics
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Converts Datum to TSVector for processing

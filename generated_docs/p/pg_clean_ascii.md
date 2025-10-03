@@ -19,9 +19,8 @@ The function allocates memory differently based on compile-time context: in fron
 The filtering approach is conservative, allowing only printable ASCII characters (32-126) and escaping everything else, including extended ASCII and multi-byte Unicode characters.
 
 ## Parameters / Member Variables
-- : The null-terminated input string to be sanitized
-- : Memory allocation flags passed to  in backend code (ignored in frontend)
-
+- `*str`: The null-terminated input string to be sanitized
+- `alloc_flags`: Memory allocation flags passed to  in backend code (ignored in frontend)
 ## Dependencies
 - Functions called/Symbols referenced:
   - FRONTEND (compile-time macro)

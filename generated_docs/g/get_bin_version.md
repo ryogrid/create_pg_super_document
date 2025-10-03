@@ -16,8 +16,7 @@ get_bin_version(ClusterInfo *cluster)
 The  function determines the PostgreSQL version of the binaries in a cluster's bin directory. It executes the  command and parses the output to extract version numbers. The function handles both old-style versioning (e.g., 9.6.1) where major version is v1 and minor is v2, and new-style versioning (e.g., 10.1) where v1 is the complete major version number. The parsed version is stored as an integer in the cluster's bin_version field using the formula: major * 10000 + minor * 100 for old style, or major * 10000 for new style.
 
 ## Parameters / Member Variables
-- : Pointer to ClusterInfo structure that will have its bin_version field populated with the detected version number
-
+- `*cluster`: Pointer to ClusterInfo structure that will have its bin_version field populated with the detected version number
 ## Dependencies
 - Functions called/Symbols referenced:
   - snprintf

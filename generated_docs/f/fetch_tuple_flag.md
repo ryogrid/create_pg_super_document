@@ -18,9 +18,8 @@ This function retrieves the special flag column from a tuple that indicates whic
 The function accesses the flag column using the flagColIdx stored in the SetOp plan node, extracts the datum value using slot_getattr, converts it to an integer using DatumGetInt32, and validates its correctness with assertions. This flag information is crucial for implementing proper set operation semantics where the behavior depends on which input relation contributed each tuple.
 
 ## Parameters / Member Variables
-- : Pointer to the SetOpState execution state containing plan information and runtime state
-- : TupleTableSlot containing the input tuple from which to extract the flag value
-
+- `*setopstate`: Pointer to the SetOpState execution state containing plan information and runtime state
+- `*inputslot`: TupleTableSlot containing the input tuple from which to extract the flag value
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SetOpState](../S/SetOpState.md) (execution state structure)

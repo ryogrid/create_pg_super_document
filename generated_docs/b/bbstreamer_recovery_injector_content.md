@@ -35,12 +35,11 @@ This function processes archive stream chunks and selectively modifies them to i
 The function ensures proper recovery configuration injection while maintaining archive stream integrity.
 
 ## Parameters / Member Variables
-- : The bbstreamer instance (cast to bbstreamer_recovery_injector)
-- : Archive member information (NULL for trailer context)
-- : Chunk data to process
-- : Length of the data chunk
-- : Current archive context (header, contents, trailer, etc.)
-
+- `*streamer`: The bbstreamer instance (cast to bbstreamer_recovery_injector)
+- `*member`: Archive member information (NULL for trailer context)
+- `*data`: Chunk data to process
+- `len`: Length of the data chunk
+- `context`: Current archive context (header, contents, trailer, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   - memcpy

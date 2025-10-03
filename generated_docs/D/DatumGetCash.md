@@ -16,8 +16,7 @@ DatumGetCash(Datum X)
 DatumGetCash is a simple conversion function that extracts a Cash value from a Datum. Since Cash is typedef'd as int64, this function directly delegates to DatumGetInt64() to perform the conversion. The function is marked as static inline for performance optimization, as it's a simple wrapper that should be inlined at compile time. This function is part of PostgreSQL's type system infrastructure, providing a standardized way to extract Cash values from the generic Datum container type.
 
 ## Parameters / Member Variables
-- : The Datum value to be converted to Cash type
-
+- `X`: The Datum value to be converted to Cash type
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DatumGetInt64](DatumGetInt64.md)

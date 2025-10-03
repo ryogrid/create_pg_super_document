@@ -30,13 +30,12 @@ This function is a critical component of PostgreSQL's query planning that transf
 The function balances correctness, performance, and parallelism while maintaining plan consistency across platforms.
 
 ## Parameters / Member Variables
-- : PlannerInfo containing query planning context and metadata
-- : RelOptInfo representing the relation whose paths need target adjustment
-- : List of PathTarget objects representing different target list variants
-- : List indicating which targets contain Set-Returning Functions
-- : Boolean flag indicating whether the target can be computed in parallel workers
-- : Boolean optimization flag - when true, only sortgroupref information needs updating
-
+- `*root`: PlannerInfo containing query planning context and metadata
+- `*rel`: RelOptInfo representing the relation whose paths need target adjustment
+- `*scanjoin_targets`: List of PathTarget objects representing different target list variants
+- `*scanjoin_targets_contain_srfs`: List indicating which targets contain Set-Returning Functions
+- `scanjoin_target_parallel_safe`: Boolean flag indicating whether the target can be computed in parallel workers
+- `tlist_same_exprs`: Boolean optimization flag - when true, only sortgroupref information needs updating
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_stack_depth](../c/check_stack_depth.md)

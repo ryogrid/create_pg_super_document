@@ -16,10 +16,9 @@ findFkeyCast(Oid targetTypeId, Oid sourceTypeId, Oid *funcid)
 This function determines whether a type conversion (cast) is possible between a source type and target type in the context of foreign key constraints. It serves as a specialized wrapper around the general find_coercion_pathway() function, treating binary coercibility and exact type matches with equal preference. The function handles two scenarios: when types are identical (requiring only relabeling) and when types differ (requiring implicit coercion). If no valid coercion path exists, it raises an error indicating that a previously available cast is no longer available.
 
 ## Parameters / Member Variables
-- : OID of the target data type (typically from referenced table column)
-- : OID of the source data type (typically from referencing table column) 
-- : Output parameter that receives the OID of the coercion function, or InvalidOid if no function needed
-
+- `targetTypeId`: OID of the target data type (typically from referenced table column)
+- `sourceTypeId`: OID of the source data type (typically from referencing table column)
+- `*funcid`: Output parameter that receives the OID of the coercion function, or InvalidOid if no function needed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [find_coercion_pathway](find_coercion_pathway.md)

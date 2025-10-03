@@ -16,8 +16,7 @@ strspace_len(const char *str)
 This static function scans through the beginning of a string and counts consecutive whitespace characters. It uses the  function to identify whitespace characters and advances through the string until it encounters a non-whitespace character or reaches the end of the string. The function is primarily used in PostgreSQL's formatting module to handle whitespace parsing during date/time and number formatting operations.
 
 ## Parameters / Member Variables
-- : Input string to scan for leading whitespace characters
-
+- `*str`: Input string to scan for leading whitespace characters
 ## Dependencies
 - Functions called/Symbols referenced:
   - isspace() (standard C library function)

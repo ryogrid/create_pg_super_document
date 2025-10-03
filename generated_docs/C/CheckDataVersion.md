@@ -20,7 +20,6 @@ The function reads the first line from the PG_VERSION file, strips whitespace, a
 Unlike pg_control corruption (which pg_resetwal is designed to handle), a corrupted or mismatched PG_VERSION file is considered a serious error that should halt execution, as this file is unlikely to become corrupted accidentally and version mismatches usually indicate user error.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

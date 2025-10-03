@@ -28,14 +28,13 @@ The function operates in several phases:
 The function is designed to handle edge cases like tuple updates during deletion attempts, serializable transaction conflicts, and partition moves. It maintains data consistency through careful transaction ID management and proper handling of tuple chains.
 
 ## Parameters / Member Variables
-- : The heap relation containing the tuple to delete
-- : ItemPointer identifying the specific tuple location (page and offset)
-- : Command identifier for the current command within the transaction
-- : Optional snapshot for additional visibility validation (used in RI checks)
-- : Boolean indicating whether to wait for concurrent transactions or return immediately
-- : Output structure containing failure details when deletion cannot proceed
-- : Boolean flag indicating this deletion is part of a partition move operation
-
+- `relation`: The heap relation containing the tuple to delete
+- `tid`: ItemPointer identifying the specific tuple location (page and offset)
+- `cid`: Command identifier for the current command within the transaction
+- `crosscheck`: Optional snapshot for additional visibility validation (used in RI checks)
+- `wait`: Boolean indicating whether to wait for concurrent transactions or return immediately
+- `*tmfd`: Output structure containing failure details when deletion cannot proceed
+- `changingPart`: Boolean flag indicating this deletion is part of a partition move operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [HeapTupleSatisfiesUpdate](../H/HeapTupleSatisfiesUpdate.md)

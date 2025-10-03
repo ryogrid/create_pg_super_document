@@ -24,8 +24,7 @@ The function follows a structured cleanup approach:
 The function maintains consistency with the initialization and execution phases by applying the same EvalPlanQual logic - direct modification operations are only cleaned up when es_epq_active is NULL, mirroring the conditional initialization in ExecInitForeignScan.
 
 ## Parameters / Member Variables
-- : ForeignScanState structure containing the execution state to be cleaned up, including FDW routines, plan information, and any outer plan state
-
+- `*node`: ForeignScanState structure containing the execution state to be cleaned up, including FDW routines, plan information, and any outer plan state
 ## Dependencies
 - Functions called/Symbols referenced:
   - EndForeignScan (via fdwroutine callback)

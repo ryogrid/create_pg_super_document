@@ -20,9 +20,8 @@ The function performs early validation checks to determine if instrumentation is
 When instrumentation is required, the function calculates the total memory needed based on the number of worker processes. Each worker needs space for a HashInstrumentation structure, and the calculation includes the overhead for the SharedHashInfo container structure. The memory estimation is then registered with the shared memory table-of-contents (TOC) system for proper allocation during parallel query setup.
 
 ## Parameters / Member Variables
-- : HashState containing the hash node configuration and instrumentation settings
-- : ParallelContext containing worker count and memory estimation infrastructure
-
+- `*node`: HashState containing the hash node configuration and instrumentation settings
+- `*pcxt`: ParallelContext containing worker count and memory estimation infrastructure
 ## Dependencies
 - Functions called/Symbols referenced:
   - [mul_size](../m/mul_size.md) (safely multiplies sizes to avoid overflow)

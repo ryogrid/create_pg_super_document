@@ -25,9 +25,8 @@ The default resolution process follows this order:
 The function also implements advanced SSL configuration logic, automatically upgrading the sslmode to "verify-full" when sslrootcert="system" is specified but no explicit sslmode was provided.
 
 ## Parameters / Member Variables
-- : Array of PQconninfoOption structures to populate with default values
-- : Optional buffer for storing error messages (NULL if error reporting not needed)
-
+- `*options`: Array of PQconninfoOption structures to populate with default values
+- `errorMessage`: Optional buffer for storing error messages (NULL if error reporting not needed)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [parseServiceInfo](../p/parseServiceInfo.md)

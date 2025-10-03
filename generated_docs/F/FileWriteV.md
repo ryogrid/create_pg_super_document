@@ -28,12 +28,11 @@ Key features include:
 The function includes sophisticated temporary file management, automatically tracking file sizes and enforcing PostgreSQL's temporary file limits to prevent runaway temporary file growth.
 
 ## Parameters / Member Variables
-- : The virtual file descriptor to write to
-- : Array of iovec structures specifying the buffers to write from
-- : Number of iovec structures in the array
-- : Starting byte offset within the file for the write operation
-- : Wait event identifier for PostgreSQL's wait event monitoring system
-
+- `file`: The virtual file descriptor to write to
+- `*iov`: Array of iovec structures specifying the buffers to write from
+- `iovcnt`: Number of iovec structures in the array
+- `offset`: Starting byte offset within the file for the write operation
+- `wait_event_info`: Wait event identifier for PostgreSQL's wait event monitoring system
 ## Dependencies
 - Functions called/Symbols referenced:
   - FileIsValid: Validates the file descriptor

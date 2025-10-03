@@ -25,10 +25,9 @@ TransferPredicateLocksToNewTarget is a complex function that handles the migrati
 The function is essential for maintaining serializable isolation during index maintenance operations where lock targets need to be restructured without losing track of existing serialization constraints.
 
 ## Parameters / Member Variables
-- : The tag identifying the source lock target from which locks will be transferred
-- : The tag identifying the destination lock target to which locks will be transferred  
-- : Boolean flag indicating whether to remove the old locks and target after transfer (true for move operation, false for copy operation)
-
+- `oldtargettag`: The tag identifying the source lock target from which locks will be transferred
+- `newtargettag`: The tag identifying the destination lock target to which locks will be transferred
+- `removeOld`: Boolean flag indicating whether to remove the old locks and target after transfer (true for move operation, false for copy operation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockHeldByMeInMode](../L/LWLockHeldByMeInMode.md)

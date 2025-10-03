@@ -20,7 +20,6 @@ During transaction abort, it's essential to have a valid resource owner context 
 The function includes a safety comment noting that if TopTransactionResourceOwner is NULL, that's acceptable - the system can handle NULL resource owners in cleanup scenarios, though having a valid one is preferred for proper resource tracking.
 
 ## Parameters / Member Variables
-This function takes no parameters and operates on global resource owner variables.
 
 ## Dependencies
 - Functions called/Symbols referenced:

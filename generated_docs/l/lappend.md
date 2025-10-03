@@ -18,9 +18,8 @@ The  function is a fundamental list manipulation function in PostgreSQL that app
 When the input list is NIL, the function creates a new list with a single element. For existing lists, it adds a new tail cell and sets the data pointer. The function includes assertions to ensure the list is a pointer list (T_List type) and performs invariant checking for debugging purposes.
 
 ## Parameters / Member Variables
-- : The List to append to, or NIL to create a new list
-- : A void pointer to the data to be appended to the list
-
+- `*list`: The List to append to, or NIL to create a new list
+- `*datum`: A void pointer to the data to be appended to the list
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsPointerList (assertion check for list type)

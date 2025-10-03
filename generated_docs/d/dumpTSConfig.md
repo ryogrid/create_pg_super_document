@@ -18,9 +18,8 @@ The  function is responsible for dumping text search configuration objects durin
 The function performs two main database queries: first to get the parser information from pg_ts_parser and pg_namespace, and second to retrieve all mappings from pg_ts_config_map. It handles multiple dictionaries per token type and formats the output as separate ALTER statements for each token type.
 
 ## Parameters / Member Variables
-- : Archive structure containing dump configuration and output methods
-- : TSConfigInfo structure containing configuration metadata including parser OID and ownership information
-
+- `*fout`: Archive structure containing dump configuration and output methods
+- `*cfginfo`: TSConfigInfo structure containing configuration metadata including parser OID and ownership information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [createPQExpBuffer](../c/createPQExpBuffer.md)

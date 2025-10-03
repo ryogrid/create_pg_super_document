@@ -21,7 +21,6 @@ set_stack_base initializes the stack depth monitoring system by setting a refere
 The function is typically called early in process initialization to establish the baseline for stack depth measurements. This baseline is crucial for PostgreSQL's stack overflow protection mechanism, which prevents runaway recursion that could crash the server.
 
 ## Parameters / Member Variables
-This function takes no parameters and returns the previous stack base reference point.
 
 ## Dependencies
 - Functions called/Symbols referenced:

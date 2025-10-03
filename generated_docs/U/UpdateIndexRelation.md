@@ -29,19 +29,18 @@ This function creates a complete entry in the pg_index system catalog with all n
 The function is responsible for setting all index flags and properties including uniqueness, primary key status, exclusion constraints, validity, and readiness states. It serves as the central point for recording index metadata during index creation operations.
 
 ## Parameters / Member Variables
-- : Object identifier of the index relation being created
-- : Object identifier of the table (heap) that this index belongs to
-- : Object identifier of parent index (for partitioned indexes)
-- : IndexInfo structure containing index attribute numbers, expressions, predicates, and other properties
-- : Array of collation object identifiers for each index key column
-- : Array of operator class object identifiers for each index key column
-- : Array of option flags for each index key column
-- : Boolean flag indicating if this is a primary key index
-- : Boolean flag indicating if this is an exclusion constraint index
-- : Boolean flag indicating if constraint checking is immediate
-- : Boolean flag indicating if the index is valid for queries
-- : Boolean flag indicating if the index is ready for inserts
-
+- `indexoid`: Object identifier of the index relation being created
+- `heapoid`: Object identifier of the table (heap) that this index belongs to
+- `parentIndexId`: Object identifier of parent index (for partitioned indexes)
+- `*indexInfo`: IndexInfo structure containing index attribute numbers, expressions, predicates, and other properties
+- `*collationOids`: Array of collation object identifiers for each index key column
+- `*opclassOids`: Array of operator class object identifiers for each index key column
+- `*coloptions`: Array of option flags for each index key column
+- `primary`: Boolean flag indicating if this is a primary key index
+- `isexclusion`: Boolean flag indicating if this is an exclusion constraint index
+- `immediate`: Boolean flag indicating if constraint checking is immediate
+- `isvalid`: Boolean flag indicating if the index is valid for queries
+- `isready`: Boolean flag indicating if the index is ready for inserts
 ## Dependencies
 - Functions called/Symbols referenced:
   - [buildint2vector](../b/buildint2vector.md) (for index keys and options)

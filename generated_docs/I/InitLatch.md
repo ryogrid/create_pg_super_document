@@ -16,8 +16,7 @@ InitLatch(Latch *latch)
 InitLatch initializes a process-local latch by setting up its basic state and platform-specific synchronization mechanisms. The function sets the latch as unset, marks it as not sleeping, assigns the current process PID as the owner, and indicates it's not shared between processes. Depending on the platform compilation flags, it either verifies that the self-pipe or signalfd mechanisms are properly initialized, or on Windows, creates a new event object for synchronization.
 
 ## Parameters / Member Variables
-- : Pointer to the Latch structure to be initialized
-
+- `*latch`: Pointer to the Latch structure to be initialized
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Latch](../L/Latch.md) (structure type)

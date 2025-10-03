@@ -25,9 +25,8 @@ The function operates in several phases:
 The lookup mechanism is optimized for performance with early rejection strategies and assumes the hash function produces case-insensitive results for the keyword set.
 
 ## Parameters / Member Variables
-- : The input string to search for in the keyword list (null-terminated C string)
-- : Pointer to a ScanKeywordList structure containing the keyword data and hash function
-
+- `*str`: The input string to search for in the keyword list (null-terminated C string)
+- `*keywords`: Pointer to a ScanKeywordList structure containing the keyword data and hash function
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (C standard library)

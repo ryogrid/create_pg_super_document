@@ -26,9 +26,8 @@ For batch 0 (the initial batch), the function performs special handling by immed
 The function ensures that all parallel workers can coordinate effectively during the batch processing phases of parallel hash joins, particularly when memory pressure requires spilling tuples to disk and processing them in multiple batches.
 
 ## Parameters / Member Variables
-- : HashJoinTable containing parallel state and memory management information
-- : Number of batches to set up for the parallel hash join operation
-
+- `hashtable`: HashJoinTable containing parallel state and memory management information
+- `nbatch`: Number of batches to set up for the parallel hash join operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - dsa_allocate0 (zero-initialized shared memory allocation)

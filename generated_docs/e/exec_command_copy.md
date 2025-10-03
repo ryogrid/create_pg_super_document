@@ -18,9 +18,8 @@ The  function handles the  command in psql, which provides a client-side impleme
 This command is essential for data import/export operations in psql, allowing users to transfer data between PostgreSQL tables and local files with various formatting options and conditions.
 
 ## Parameters / Member Variables
-- : Scanner state for parsing the command line arguments
-- : Boolean indicating whether this command should be executed or just parsed
-
+- `scan_state`: Scanner state for parsing the command line arguments
+- `active_branch`: Boolean indicating whether this command should be executed or just parsed
 ## Dependencies
 - Functions called/Symbols referenced:
   - psql_scan_slash_option: Parses the entire command line using OT_WHOLE_LINE option

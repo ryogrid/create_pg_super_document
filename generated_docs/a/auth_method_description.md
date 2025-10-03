@@ -18,8 +18,7 @@ The  function provides user-friendly descriptions of PostgreSQL authentication m
 The function uses internationalization support through  to provide localized error messages. It handles all major PostgreSQL authentication methods including password-based, GSSAPI, SSPI, and SASL authentication types.
 
 ## Parameters / Member Variables
-- : AuthRequest enum value representing the authentication method requested by the server
-
+- `areq`: AuthRequest enum value representing the authentication method requested by the server
 ## Dependencies
 - Functions called/Symbols referenced:
   - [libpq_gettext](../l/libpq_gettext.md) (for internationalization support)

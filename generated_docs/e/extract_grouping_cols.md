@@ -18,9 +18,8 @@ This utility function processes a list of SortGroupClause structures alongside a
 The result column numbers (resnos) are essential for execution plan nodes to identify which columns from their input tuples should be used for grouping. This information allows the execution engine to efficiently access the correct columns during the grouping process without needing to re-parse expressions.
 
 ## Parameters / Member Variables
-- : A List of SortGroupClause structures representing the grouping columns
-- : A List of TargetEntry structures containing the target expressions to extract column numbers from
-
+- `*groupClause`: A List of SortGroupClause structures representing the grouping columns
+- `*tlist`: A List of TargetEntry structures containing the target expressions to extract column numbers from
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_length](../l/list_length.md) (to determine array size)

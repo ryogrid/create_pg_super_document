@@ -18,6 +18,7 @@ This function allocates and initializes a new conditional stack structure used b
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_malloc](../p/pg_malloc.md) (memory allocation function)

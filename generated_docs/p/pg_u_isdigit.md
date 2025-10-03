@@ -21,9 +21,8 @@ This function checks if a given Unicode code point represents a digit character.
 This dual-mode approach allows applications to choose between strict ASCII compatibility and full Unicode digit support based on their requirements.
 
 ## Parameters / Member Variables
-- : The Unicode code point (pg_wchar) to test for digit property
-- : Boolean flag controlling behavior - true for POSIX-compatible ASCII-only mode, false for full Unicode support
-
+- `code`: The Unicode code point (pg_wchar) to test for digit property
+- `posix`: Boolean flag controlling behavior - true for POSIX-compatible ASCII-only mode, false for full Unicode support
 ## Dependencies
 - Functions called/Symbols referenced:
   - [unicode_category](../u/unicode_category.md) (function to get Unicode general category)

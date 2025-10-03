@@ -20,8 +20,7 @@ The function also attempts to truncate the line pointer array on each page if th
 The two-pass approach is necessary because index entries must be removed before heap tuples can be safely removed, and index processing is more efficient when done in large batches.
 
 ## Parameters / Member Variables
-- : LVRelState structure containing all vacuum operation state including the relation being vacuumed, dead items collection, vacuum strategy, and progress tracking information
-
+- `*vacrel`: LVRelState structure containing all vacuum operation state including the relation being vacuumed, dead items collection, vacuum strategy, and progress tracking information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pgstat_progress_update_param](../p/pgstat_progress_update_param.md)

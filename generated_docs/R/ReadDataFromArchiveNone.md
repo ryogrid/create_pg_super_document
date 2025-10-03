@@ -16,9 +16,8 @@ ReadDataFromArchiveNone(ArchiveHandle *AH, CompressorState *cs)
 This function implements the data reading functionality for the "none" compression method in pg_dump. It reads data from the archive using the compressor state's read function and writes it directly to the archive handle without any decompression processing. The function operates in a simple loop, continuously reading chunks of data until no more data is available, then immediately writing each chunk to the archive output.
 
 ## Parameters / Member Variables
-- : Archive handle containing the archive context and output methods
-- : Compressor state structure containing the read function pointer and other compression-related state
-
+- `*AH`: Archive handle containing the archive context and output methods
+- `*cs`: Compressor state structure containing the read function pointer and other compression-related state
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CompressorState](../C/CompressorState.md) (struct type)

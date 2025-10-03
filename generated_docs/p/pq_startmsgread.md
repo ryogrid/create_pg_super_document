@@ -24,6 +24,7 @@ If a read operation is already active when this function is called, it indicates
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Global flag indicating whether a message read is in progress

@@ -22,14 +22,13 @@ create_groupingsets_path(PlannerInfo *root,
 This function creates a GroupingSetsPath node that represents sorted grouping with one or more grouping sets. The function handles different aggregation strategies (AGG_SORTED, AGG_PLAIN, AGG_HASHED, AGG_MIXED) and can simplify them when appropriate. It calculates the total cost by iterating through each rollup operation, considering whether each rollup is hashed or sorted, and accounting for sorting costs when necessary. The output will be in sorted order by group_pathkeys only if there is a single rollup operation on a non-empty list of grouping expressions.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planner state and configuration
-- : RelOptInfo representing the parent relation associated with the result
-- : Path representing the source of input data
-- : List containing HAVING clause qualifications, if any
-- : AggStrategy enum specifying the aggregation strategy to use
-- : List of RollupData nodes defining the rollup operations
-- : AggClauseCosts structure containing cost information about aggregate functions
-
+- `*root`: PlannerInfo structure containing planner state and configuration
+- `*rel`: RelOptInfo representing the parent relation associated with the result
+- `*subpath`: Path representing the source of input data
+- `*having_qual`: List containing HAVING clause qualifications, if any
+- `aggstrategy`: AggStrategy enum specifying the aggregation strategy to use
+- `*rollups`: List of RollupData nodes defining the rollup operations
+- `*agg_costs`: AggClauseCosts structure containing cost information about aggregate functions
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode

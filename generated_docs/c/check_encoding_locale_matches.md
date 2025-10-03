@@ -20,10 +20,9 @@ The function implements a policy with four specific exceptions where encoding-lo
 Both LC_COLLATE and LC_CTYPE are validated separately against the chosen encoding, with detailed error messages indicating which locale setting is incompatible and what encoding would be required.
 
 ## Parameters / Member Variables
-- : The character encoding ID selected for the database
-- : The LC_COLLATE locale name string to validate against
-- : The LC_CTYPE locale name string to validate against
-
+- `encoding`: The character encoding ID selected for the database
+- `*collate`: The LC_COLLATE locale name string to validate against
+- `*ctype`: The LC_CTYPE locale name string to validate against
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_get_encoding_from_locale](../p/pg_get_encoding_from_locale.md)

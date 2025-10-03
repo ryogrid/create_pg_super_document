@@ -23,8 +23,7 @@ The function's behavior depends on the barrier state:
 This operation is atomic and thread-safe, ensuring consistent barrier state during concurrent access.
 
 ## Parameters / Member Variables
-- : Pointer to the Barrier structure from which to arrive and detach
-
+- `*barrier`: Pointer to the Barrier structure from which to arrive and detach
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BarrierDetachImpl](BarrierDetachImpl.md)

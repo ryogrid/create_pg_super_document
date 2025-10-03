@@ -21,12 +21,11 @@ The function processes split information from right to left, inserting downlinks
 The function implements sophisticated parent page management, including handling cases where parent pages themselves split during downlink insertion. It uses gistFindCorrectParent to locate the appropriate parent and manages lock coordination to maintain tree consistency. Upon completion, it sets retry_from_parent to handle potential path changes caused by concurrent splits.
 
 ## Parameters / Member Variables
-- : GISTInsertState containing insertion context, relation information, and build state flags
-- : GISTInsertStack representing the path from root to the split page, including parent page information
-- : GISTSTATE with cached access method procedures and support function details
-- : List of GISTPageSplitInfo structures containing child pages from left-to-right split order
-- : Boolean flag indicating whether to release lock on stack->buffer upon completion
-
+- `*state`: GISTInsertState containing insertion context, relation information, and build state flags
+- `*stack`: GISTInsertStack representing the path from root to the split page, including parent page information
+- `*giststate`: GISTSTATE with cached access method procedures and support function details
+- `*splitinfo`: List of GISTPageSplitInfo structures containing child pages from left-to-right split order
+- `unlockbuf`: Boolean flag indicating whether to release lock on stack->buffer upon completion
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LockBuffer](../L/LockBuffer.md) (exclusive locking for parent page modifications)

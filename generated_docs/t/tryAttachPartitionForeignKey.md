@@ -37,17 +37,16 @@ If the constraints are equivalent, the function:
 4. If the referenced table is partitioned, removes extra constraint and trigger records that are no longer needed
 
 ## Parameters / Member Variables
-- : ForeignKeyCacheInfo structure containing details of the partition's existing FK constraint
-- : OID of the partition relation
-- : OID of the parent constraint to potentially attach to
-- : Number of foreign key columns
-- : Array of referencing column numbers mapped to partition's column layout
-- : Array of referenced column numbers
-- : Array of equality operator OIDs for foreign key columns
-- : OID of parent's insert trigger
-- : OID of parent's update trigger  
-- : Open relation handle for pg_trigger catalog
-
+- `*fk`: ForeignKeyCacheInfo structure containing details of the partition's existing FK constraint
+- `partRelid`: OID of the partition relation
+- `parentConstrOid`: OID of the parent constraint to potentially attach to
+- `numfks`: Number of foreign key columns
+- `*mapped_conkey`: Array of referencing column numbers mapped to partition's column layout
+- `*confkey`: Array of referenced column numbers
+- `*conpfeqop`: Array of equality operator OIDs for foreign key columns
+- `parentInsTrigger`: OID of parent's insert trigger
+- `parentUpdTrigger`: OID of parent's update trigger
+- `trigrel`: Open relation handle for pg_trigger catalog
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache1](../S/SearchSysCache1.md): Look up constraint tuples in system cache

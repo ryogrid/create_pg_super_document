@@ -24,12 +24,11 @@ The function uses a conservative approach where synchronization is only consider
 The algorithm compares each standby's positions and retains the smallest valid LSN for each operation type. Invalid LSN positions are properly handled by checking with  before comparison.
 
 ## Parameters / Member Variables
-- : Output parameter - receives the oldest write LSN position among sync standbys
-- : Output parameter - receives the oldest flush LSN position among sync standbys
-- : Output parameter - receives the oldest apply LSN position among sync standbys
-- : Input array of  structures containing standby positions
-- : Number of synchronous standbys in the input array
-
+- `*writePtr`: Output parameter - receives the oldest write LSN position among sync standbys
+- `*flushPtr`: Output parameter - receives the oldest flush LSN position among sync standbys
+- `*applyPtr`: Output parameter - receives the oldest apply LSN position among sync standbys
+- `*sync_standbys`: Input array of  structures containing standby positions
+- `num_standbys`: Number of synchronous standbys in the input array
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Validates LSN positions before comparison

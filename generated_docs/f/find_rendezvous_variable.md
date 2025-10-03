@@ -25,8 +25,7 @@ The function maintains a process-wide hash table of rendezvous variables, where 
 The rendezvous variables persist for the entire lifetime of the process, enabling long-term communication between libraries.
 
 ## Parameters / Member Variables
-- : The name identifier for the rendezvous variable, used as the hash table key
-
+- `*varName`: The name identifier for the rendezvous variable, used as the hash table key
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - PostgreSQL hash table type

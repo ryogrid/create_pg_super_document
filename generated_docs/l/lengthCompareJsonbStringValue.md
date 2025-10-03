@@ -22,9 +22,8 @@ The  function is a comparator designed for use with qsort() to sort JsonbValue s
 This comparator is specifically optimized for sorting JSONB object keys where the primary goal is to enable efficient binary searches, rather than to achieve traditional lexical ordering. The length-first strategy often provides better performance characteristics for JSONB operations.
 
 ## Parameters / Member Variables
-- : Pointer to the first JsonbValue to compare (must be of type jbvString)
-- : Pointer to the second JsonbValue to compare (must be of type jbvString)
-
+- `*a`: Pointer to the first JsonbValue to compare (must be of type jbvString)
+- `*b`: Pointer to the second JsonbValue to compare (must be of type jbvString)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lengthCompareJsonbString](lengthCompareJsonbString.md) (performs the actual string comparison logic)

@@ -18,8 +18,7 @@ This function standardizes daterange values to a canonical representation where 
 The function includes special handling for infinite dates using DATE_NOT_FINITE checks and validates date ranges using IS_VALID_DATE to prevent invalid date values after incrementing operations.
 
 ## Parameters / Member Variables
-- : The input daterange value to be canonicalized (accessed via )
-
+- `PG_FUNCTION_ARGS`: The input daterange value to be canonicalized (accessed via )
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_RANGE_P

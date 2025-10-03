@@ -26,8 +26,7 @@ The function operates in two phases:
 2. For procedure signatures, parse the name and arguments, then search the function catalog for exact matches
 
 ## Parameters / Member Variables
-- : Input string containing either a procedure signature "name(arg_types)" or numeric OID
-
+- `PG_FUNCTION_ARGS`: Input string containing either a procedure signature "name(arg_types)" or numeric OID
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Handles parsing of "-" or numeric OID inputs

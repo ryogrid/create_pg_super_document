@@ -24,10 +24,9 @@ This function processes a PartitionPruneStepCombine node to combine the results 
 The function handles special cases like steps with no source IDs (indicating no pruning should be performed) and properly manages flags for scanning null and default partitions based on the combination operation.
 
 ## Parameters / Member Variables
-- : PartitionPruneContext containing partitioning metadata and bound information
-- : PartitionPruneStepCombine node specifying the combination operation and source step IDs
-- : Array of PruneStepResult pointers from previously executed pruning steps
-
+- `*context`: PartitionPruneContext containing partitioning metadata and bound information
+- `*cstep`: PartitionPruneStepCombine node specifying the combination operation and source step IDs
+- `**step_results`: Array of PruneStepResult pointers from previously executed pruning steps
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc0](palloc0.md)

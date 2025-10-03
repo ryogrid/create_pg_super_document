@@ -17,6 +17,7 @@ This function iterates through all registered lock files and updates their times
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - DIRECTORY_LOCK_FILE (constant)

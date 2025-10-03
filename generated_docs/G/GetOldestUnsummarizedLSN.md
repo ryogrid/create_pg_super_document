@@ -18,9 +18,8 @@ This function calculates the oldest Log Sequence Number (LSN) that still needs t
 The function handles initialization of shared memory state and provides different behaviors for the WAL summarizer process versus other processes. It ensures that existing summary files are not re-summarized and that WAL retention policies can make informed decisions.
 
 ## Parameters / Member Variables
-- : Output parameter for the timeline ID corresponding to the returned LSN (optional, can be NULL)
-- : Output parameter indicating whether the returned LSN is exact (start of WAL record) or approximate (start of WAL segment) (optional, can be NULL)
-
+- `*tli`: Output parameter for the timeline ID corresponding to the returned LSN (optional, can be NULL)
+- `*lsn_is_exact`: Output parameter indicating whether the returned LSN is exact (start of WAL record) or approximate (start of WAL segment) (optional, can be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - AmWalSummarizerProcess (checks if current process is WAL summarizer)

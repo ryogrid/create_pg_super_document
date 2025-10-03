@@ -18,10 +18,9 @@ This function serves as a callback helper specifically for deparsing combining a
 The function validates that the node is indeed an Aggref (aggregate reference), then delegates the actual deparsing work to get_agg_expr, passing along the original aggregate reference for context. This ensures that the partial aggregate is displayed correctly in the context of the combining operation.
 
 ## Parameters / Member Variables
-- : Pointer to the Node that should contain the partial Aggref to be deparsed
-- : Deparse context containing the output buffer and formatting preferences
-- : Void pointer that contains the original Aggref for context (cast from Aggref*)
-
+- `*node`: Pointer to the Node that should contain the partial Aggref to be deparsed
+- `*context`: Deparse context containing the output buffer and formatting preferences
+- `*callback_arg`: Void pointer that contains the original Aggref for context (cast from Aggref*)
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (macro to check node type)

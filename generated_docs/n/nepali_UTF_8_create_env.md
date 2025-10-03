@@ -19,7 +19,6 @@ This function is a language-specific wrapper for creating a Snowball stemming en
 The function is part of PostgreSQL's text search infrastructure, specifically the Snowball stemming library integration, which provides morphological analysis capabilities for the Nepali language using UTF-8 character encoding.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

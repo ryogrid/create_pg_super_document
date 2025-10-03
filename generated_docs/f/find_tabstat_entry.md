@@ -18,8 +18,7 @@ This function searches for an existing PgStat_TableStatus entry for the specifie
 The function ensures that live subtransaction counts are properly reconciled into the returned copy, making it safe for the caller to use without worrying about incomplete statistics. The returned copy is allocated using palloc() and should be freed by the caller when no longer needed.
 
 ## Parameters / Member Variables
-- : Object ID of the relation for which to find statistics entry
-
+- `rel_id`: Object ID of the relation for which to find statistics entry
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pgstat_fetch_pending_entry](../p/pgstat_fetch_pending_entry.md) (to locate statistics entries)

@@ -16,8 +16,7 @@ check_list_invariants(const List *list)
 This function performs sanity checks on a List structure to ensure it maintains valid state. It validates that the list's internal properties are consistent and that the list type is one of the supported variants. The function is designed as a debugging aid and is called throughout the list manipulation functions to catch corruption early. It safely handles NIL lists and performs no action for them.
 
 ## Parameters / Member Variables
-- : A pointer to the List structure to be validated. Can be NIL, in which case the function returns immediately without performing any checks.
-
+- `*list`: A pointer to the List structure to be validated. Can be NIL, in which case the function returns immediately without performing any checks.
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (macro for runtime assertions)

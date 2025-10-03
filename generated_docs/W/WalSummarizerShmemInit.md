@@ -18,6 +18,7 @@ This function creates or attaches to the shared memory structure for WAL summari
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [WalSummarizerData](WalSummarizerData.md) (structure type being initialized)

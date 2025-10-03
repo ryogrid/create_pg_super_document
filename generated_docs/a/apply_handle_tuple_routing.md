@@ -30,11 +30,10 @@ The function sets up the necessary execution state including ModifyTableState an
 For UPDATE operations, it performs additional validation to check if the updated tuple still satisfies the current partition's constraints. If not, it performs a cross-partition move by deleting the old tuple and inserting the new tuple into the correct partition.
 
 ## Parameters / Member Variables
-- : ApplyExecutionData structure containing execution context and target relation information
-- : TupleTableSlot containing the incoming tuple from the remote publisher
-- : LogicalRepTupleData containing new tuple data (used for UPDATE operations)
-- : CmdType indicating the DML operation (CMD_INSERT, CMD_UPDATE, or CMD_DELETE)
-
+- `*edata`: ApplyExecutionData structure containing execution context and target relation information
+- `*remoteslot`: TupleTableSlot containing the incoming tuple from the remote publisher
+- `*newtup`: LogicalRepTupleData containing new tuple data (used for UPDATE operations)
+- `operation`: CmdType indicating the DML operation (CMD_INSERT, CMD_UPDATE, or CMD_DELETE)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecSetupPartitionTupleRouting](../E/ExecSetupPartitionTupleRouting.md)

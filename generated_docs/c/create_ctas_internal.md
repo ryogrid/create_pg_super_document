@@ -18,9 +18,8 @@ The  function serves as a core utility for implementing CREATE TABLE AS and CREA
 After creating the base relation, the function manages TOAST table creation when necessary and handles the view definition storage for materialized views. The function ensures proper command counter increments for visibility of created objects.
 
 ## Parameters / Member Variables
-- : List of  nodes representing the column definitions for the new relation
-- :  containing target relation information, options, and optional view query for materialized views
-
+- `*attrList`: List of  nodes representing the column definitions for the new relation
+- `*into`:  containing target relation information, options, and optional view query for materialized views
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DefineRelation](../D/DefineRelation.md)

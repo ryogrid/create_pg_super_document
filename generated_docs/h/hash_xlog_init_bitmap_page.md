@@ -18,8 +18,7 @@ This function handles WAL replay for bitmap page initialization in hash indexes.
 The function performs two main operations: first, it initializes the bitmap page buffer with the specified bitmap size; second, it updates the metapage's bitmap registry by adding an entry for the new bitmap page and incrementing the bitmap count. Special handling ensures init fork synchronization between shared buffers and disk state.
 
 ## Parameters / Member Variables  
-- : XLogReaderState pointer containing the WAL record with bitmap initialization data including the bitmap size (bmsize)
-
+- `*record`: XLogReaderState pointer containing the WAL record with bitmap initialization data including the bitmap size (bmsize)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [xl_hash_init_bitmap_page](../x/xl_hash_init_bitmap_page.md) (WAL record structure)

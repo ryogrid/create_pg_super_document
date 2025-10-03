@@ -16,8 +16,7 @@ BufferIsPermanent(Buffer buffer)
 BufferIsPermanent is a buffer management function that checks whether a given buffer is associated with permanent storage that will survive a database crash. The function first validates that the buffer is not a local buffer (which are used only for temporary relations) and then examines the buffer's state flags to determine if it has the BM_PERMANENT flag set. The function is designed to be safe to call while holding a buffer pin, as it performs atomic reads of the buffer state without requiring spinlock acquisition.
 
 ## Parameters / Member Variables
-- : The Buffer identifier to check for permanence
-
+- `buffer`: The Buffer identifier to check for permanence
 ## Dependencies
 - Functions called/Symbols referenced:
   - BufferIsLocal

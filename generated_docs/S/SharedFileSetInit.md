@@ -21,9 +21,8 @@ The function performs three main operations:
 3. Registers a cleanup callback (SharedFileSetOnDetach) with the DSM segment to handle cleanup when backends detach
 
 ## Parameters / Member Variables
-- : Pointer to the SharedFileSet structure to be initialized
-- : Pointer to the DSM segment that this shared file set will be associated with; can be NULL if no DSM cleanup is needed
-
+- `*fileset`: Pointer to the SharedFileSet structure to be initialized
+- `*seg`: Pointer to the DSM segment that this shared file set will be associated with; can be NULL if no DSM cleanup is needed
 ## Dependencies
 - Functions called/Symbols referenced:
   - SpinLockInit

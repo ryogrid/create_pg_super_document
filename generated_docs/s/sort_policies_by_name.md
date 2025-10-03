@@ -18,8 +18,7 @@ The  function provides deterministic ordering for restrictive row-level security
 This sorting is only applied to restrictive policies because they are combined using AND logic (all must pass), making the order of evaluation significant for consistent error reporting and performance. Permissive policies, in contrast, are combined using OR logic into a single check, making their individual order irrelevant.
 
 ## Parameters / Member Variables
-- : A List of RowSecurityPolicy structures to be sorted in-place by policy name
-
+- `*policies`: A List of RowSecurityPolicy structures to be sorted in-place by policy name
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_sort](../l/list_sort.md)

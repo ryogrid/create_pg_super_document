@@ -24,9 +24,8 @@ The resulting structure contains:
   - Computed ndistinct estimate for that combination
 
 ## Parameters / Member Variables
-- : Total number of rows in the relation being analyzed
-- : StatsBuildData structure containing attribute information and sample data for computing statistics
-
+- `totalrows`: Total number of rows in the relation being analyzed
+- `*data`: StatsBuildData structure containing attribute information and sample data for computing statistics
 ## Dependencies
 - Functions called/Symbols referenced:
   - [num_combinations](../n/num_combinations.md): Calculates total number of attribute combinations

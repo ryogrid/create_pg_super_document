@@ -16,10 +16,9 @@ CheckRelationLockedByMe(Relation relation, LOCKMODE lockmode, bool orstronger)
 This function verifies if the current transaction has acquired a lock on the specified relation. It constructs a lock tag from the relation's database and relation identifiers, then delegates to LockHeldByMe to perform the actual lock check. The function can optionally check for stronger lock modes when the orstronger parameter is true, where "stronger" is defined numerically (higher LOCKMODE values).
 
 ## Parameters / Member Variables
-- : The relation to check for lock ownership
-- : The minimum lock mode to check for
-- : If true, also accepts stronger (numerically higher) lock modes as satisfying the check
-
+- `relation`: The relation to check for lock ownership
+- `lockmode`: The minimum lock mode to check for
+- `orstronger`: If true, also accepts stronger (numerically higher) lock modes as satisfying the check
 ## Dependencies
 - Functions called/Symbols referenced:
   - SET_LOCKTAG_RELATION (macro to construct relation lock tag)

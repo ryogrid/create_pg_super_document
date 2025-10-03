@@ -18,8 +18,7 @@ FilePathName provides access to the pathname string associated with an open Post
 The returned string points to an internal buffer that remains valid until the file is closed. This design avoids unnecessary string copying while providing access to file path information needed for logging, error reporting, and backup operations.
 
 ## Parameters / Member Variables
-- : A PostgreSQL File descriptor representing an open file in the virtual file descriptor system
-
+- `file`: A PostgreSQL File descriptor representing an open file in the virtual file descriptor system
 ## Dependencies
 - Functions called/Symbols referenced:
   - FileIsValid (validates the file descriptor)

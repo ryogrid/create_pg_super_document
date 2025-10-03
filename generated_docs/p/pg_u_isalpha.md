@@ -18,8 +18,7 @@ The  function determines if a given Unicode character has the alphabetic propert
 For ASCII characters (code < 0x80), the function uses a pre-computed lookup table for optimal performance. For Unicode characters beyond ASCII, it performs a binary search through the Unicode alphabetic property ranges.
 
 ## Parameters / Member Variables
-- : The Unicode character code point to test (pg_wchar type)
-
+- `code`: The Unicode character code point to test (pg_wchar type)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_u_prop_alphabetic](pg_u_prop_alphabetic.md)

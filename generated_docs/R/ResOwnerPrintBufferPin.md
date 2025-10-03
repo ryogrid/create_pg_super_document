@@ -18,8 +18,7 @@ ResOwnerPrintBufferPin is a static callback function used by PostgreSQL's Resour
 This function serves as an advanced debugging tool that provides much more detailed information than basic error messages. It helps developers and administrators diagnose complex buffer management issues by providing context about buffer reference counts, which is crucial for understanding why a buffer pin was not properly released.
 
 ## Parameters / Member Variables
-- : Datum containing the buffer identifier for which to generate detailed diagnostic information, converted to Buffer using DatumGetInt32
-
+- `res`: Datum containing the buffer identifier for which to generate detailed diagnostic information, converted to Buffer using DatumGetInt32
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DebugPrintBufferRefcount](../D/DebugPrintBufferRefcount.md)

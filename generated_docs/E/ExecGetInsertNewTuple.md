@@ -27,9 +27,8 @@ Key behavioral notes:
 - Always returns a slot appropriate for the target relation
 
 ## Parameters / Member Variables
-- : Result relation information containing projection info and target slot
-- : Tuple table slot from the subplan containing the source tuple data
-
+- `*relinfo`: Result relation information containing projection info and target slot
+- `*planSlot`: Tuple table slot from the subplan containing the source tuple data
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecCopySlot](ExecCopySlot.md)

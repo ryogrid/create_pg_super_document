@@ -18,8 +18,7 @@ NameGetDatum converts a NameData structure pointer to a Datum by extracting the 
 The NameData type is a fixed-length structure containing a character array, typically 64 bytes in size (NAMEDATALEN). The NameStr macro extracts the null-terminated string from this structure. This function is the inverse of DatumGetName() and is widely used when storing or manipulating system catalog entries.
 
 ## Parameters / Member Variables
-- : A pointer to a NameData structure that will be converted to Datum format
-
+- `*X`: A pointer to a NameData structure that will be converted to Datum format
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CStringGetDatum](../C/CStringGetDatum.md)

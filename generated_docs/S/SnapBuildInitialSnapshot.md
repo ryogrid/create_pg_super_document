@@ -24,8 +24,7 @@ This function creates the initial snapshot for a logical replication slot, which
 4. **Resource Management**: Sets MyProc->xmin to enforce the snapshot's xmin horizon and allocates memory in the transaction context for the new xip array.
 
 ## Parameters / Member Variables
-- : The SnapBuild structure containing the logical decoding state and transaction tracking information
-
+- `*builder`: The SnapBuild structure containing the logical decoding state and transaction tracking information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SnapBuildBuildSnapshot](SnapBuildBuildSnapshot.md)

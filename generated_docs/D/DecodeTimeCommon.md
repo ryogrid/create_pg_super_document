@@ -27,12 +27,11 @@ DecodeTimeCommon parses time strings in various formats (HH:MM, HH:MM:SS, MM:SS.
 The function is designed as a shared utility between timestamp and interval parsing, with the range parameter controlling field reinterpretation behavior.
 
 ## Parameters / Member Variables
-- : Input string containing the time to be parsed
-- : Field mask indicating which fields are already present (input context)
-- : Interval range specification that affects field interpretation
-- : Output parameter receiving a mask of successfully parsed time fields
-- : Output parameter receiving the parsed time components (pg_itm structure)
-
+- `*str`: Input string containing the time to be parsed
+- `fmask`: Field mask indicating which fields are already present (input context)
+- `range`: Interval range specification that affects field interpretation
+- `*tmask`: Output parameter receiving a mask of successfully parsed time fields
+- `*itm`: Output parameter receiving the parsed time components (pg_itm structure)
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Converts string to 64-bit integer (for hours)

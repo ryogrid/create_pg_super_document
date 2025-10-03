@@ -21,14 +21,13 @@ This function produces comprehensive error reports when foreign key constraints 
 The function creates user-friendly error messages that include constraint names, table names, and when permitted, the actual key values that caused the violation.
 
 ## Parameters / Member Variables
-- : Constraint information structure containing constraint details and key mappings
-- : Primary key table relation
-- : Foreign key table relation
-- : Tuple slot containing the tuple that violated the constraint
-- : Tuple descriptor (can be NULL, will be inferred from relation)
-- : Query type identifier indicating the kind of RI check that failed
-- : Boolean indicating if this is a partition removal scenario
-
+- `*riinfo`: Constraint information structure containing constraint details and key mappings
+- `pk_rel`: Primary key table relation
+- `fk_rel`: Foreign key table relation
+- `*violatorslot`: Tuple slot containing the tuple that violated the constraint
+- `tupdesc`: Tuple descriptor (can be NULL, will be inferred from relation)
+- `queryno`: Query type identifier indicating the kind of RI check that failed
+- `partgone`: Boolean indicating if this is a partition removal scenario
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_enable_rls](../c/check_enable_rls.md)

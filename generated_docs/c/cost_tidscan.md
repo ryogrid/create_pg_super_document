@@ -17,12 +17,11 @@ cost_tidscan(Path *path, PlannerInfo *root,
 The  function calculates the cost of performing a TID scan on a relation, which is a direct access method that uses tuple identifiers to locate specific rows. This function handles several scenarios including regular TID equality comparisons, TID array operations (ScalarArrayOpExpr), and CURRENT OF expressions used in cursors. The costing model accounts for the fact that each TID typically corresponds to a different page, so random page access costs are applied. Special handling is provided for CURRENT OF expressions, which are forced to use TID scans and have their disable costs subtracted to prevent other scan types from being chosen.
 
 ## Parameters / Member Variables
-- : Output parameter where the calculated costs will be stored
-- : PlannerInfo structure containing global planner state
-- : RelOptInfo for the relation being scanned
-- : List of TID-checkable qualification clauses
-- : ParamPathInfo for parameterized paths, or NULL for non-parameterized paths
-
+- `*path`: Output parameter where the calculated costs will be stored
+- `*root`: PlannerInfo structure containing global planner state
+- `*baserel`: RelOptInfo for the relation being scanned
+- `*tidquals`: List of TID-checkable qualification clauses
+- `*param_info`: ParamPathInfo for parameterized paths, or NULL for non-parameterized paths
 ## Dependencies
 - Functions called/Symbols referenced:
   - [estimate_array_length](../e/estimate_array_length.md)

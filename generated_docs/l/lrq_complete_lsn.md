@@ -22,9 +22,8 @@ The function performs queue maintenance by:
 4. Optionally triggering new prefetch operations if recovery prefetch is enabled
 
 ## Parameters / Member Variables
-- : Pointer to the LsnReadQueue structure being managed
-- : The XLogRecPtr representing the LSN up to which processing should be marked as complete
-
+- `*lrq`: Pointer to the LsnReadQueue structure being managed
+- `lsn`: The XLogRecPtr representing the LSN up to which processing should be marked as complete
 ## Dependencies
 - Functions called/Symbols referenced:
   - RecoveryPrefetchEnabled

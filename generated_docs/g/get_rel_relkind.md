@@ -18,8 +18,7 @@ This function retrieves the relation kind (relkind) for a specified relation fro
 The function performs a system cache lookup on the pg_class catalog using the relation OID and extracts the relkind field. This information is critical for determining how to handle different types of database objects in various PostgreSQL operations.
 
 ## Parameters / Member Variables
-- : The OID of the relation whose kind is to be retrieved
-
+- `relid`: The OID of the relation whose kind is to be retrieved
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup)

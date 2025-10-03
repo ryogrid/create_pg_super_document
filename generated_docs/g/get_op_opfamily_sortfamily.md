@@ -16,9 +16,8 @@ get_op_opfamily_sortfamily(Oid opno, Oid opfamily)
 This function looks up an operator in the pg_amop system catalog to determine if it is an ordering operator within the given operator family, and if so, returns the associated sort family OID. Unlike the previous functions, this specifically searches for ordering operators (AMOP_ORDER) rather than search operators. Sort families define how operators sort data, which is essential for operations like ORDER BY clauses and certain index operations. If the operator is not found as an ordering operator in the specified family, InvalidOid is returned.
 
 ## Parameters / Member Variables
-- : The OID of the operator to look up
-- : The OID of the operator family to search within
-
+- `opno`: The OID of the operator to look up
+- `opfamily`: The OID of the operator family to search within
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache3](../S/SearchSysCache3.md) (system cache lookup function)

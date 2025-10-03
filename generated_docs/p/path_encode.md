@@ -16,10 +16,9 @@ path_encode(enum path_delim path_delim, int npts, Point *pt)
 The  function converts an array of Point structures into a properly formatted string representation of a geometric path. It handles three types of path delimiters: closed paths (surrounded by ), open paths (surrounded by ), and paths with no outer delimiters. Each point in the path is formatted as  with points separated by commas. The function uses PostgreSQL's StringInfo mechanism for efficient string building.
 
 ## Parameters / Member Variables
-- : Enumeration value specifying the type of path delimiter (PATH_CLOSED, PATH_OPEN, or PATH_NONE)
-- : Integer representing the number of points in the path
-- : Pointer to an array of Point structures containing the path coordinates
-
+- `path_delim`: Enumeration value specifying the type of path delimiter (PATH_CLOSED, PATH_OPEN, or PATH_NONE)
+- `npts`: Integer representing the number of points in the path
+- `*pt`: Pointer to an array of Point structures containing the path coordinates
 ## Dependencies
 - Functions called/Symbols referenced:
   - [initStringInfo](../i/initStringInfo.md)

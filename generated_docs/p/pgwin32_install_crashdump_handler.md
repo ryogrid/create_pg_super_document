@@ -20,6 +20,7 @@ The function is typically called during PostgreSQL startup to ensure crash dump 
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - SetUnhandledExceptionFilter (Windows API)

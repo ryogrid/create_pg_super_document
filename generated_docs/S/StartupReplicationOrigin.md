@@ -16,7 +16,6 @@ StartupReplicationOrigin(void)
 StartupReplicationOrigin is responsible for recovering the replication state during PostgreSQL startup by reading from the "pg_logical/replorigin_checkpoint" file. This function is called only at startup and not during every checkpoint read during recovery (e.g., in Hot Standby or Point-in-Time Recovery from a base backup). The function validates the file magic number, reads individual replication states, verifies the checksum, and loads the data into shared memory (replication_states array). It handles various error conditions including file corruption, missing files, and configuration limits being exceeded.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

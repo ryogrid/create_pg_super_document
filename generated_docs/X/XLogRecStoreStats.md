@@ -20,9 +20,8 @@ The function first extracts the resource manager ID from the record and calls XL
 For detailed per-record statistics, it extracts the record type identifier from the xl_info field (upper 4 bits), with special handling for XACT records which use a different bit layout. The statistics are stored in a two-dimensional array indexed by [rmgr_id][record_type].
 
 ## Parameters / Member Variables
-- : Pointer to XLogStats structure to update with the record's statistics  
-- : Pointer to XLogReaderState containing the parsed WAL record to analyze
-
+- `*stats`: Pointer to XLogStats structure to update with the record's statistics
+- `*record`: Pointer to XLogReaderState containing the parsed WAL record to analyze
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetRmid

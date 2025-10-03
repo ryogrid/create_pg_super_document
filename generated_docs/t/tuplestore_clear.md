@@ -20,8 +20,7 @@ The function handles both memory-resident tuples and disk-based storage, ensurin
 After clearing, the tuplestore is ready to accept new tuples as if it were newly created, but without the overhead of deallocating and reallocating the main data structure.
 
 ## Parameters / Member Variables
-- : Pointer to the Tuplestorestate structure to be cleared
-
+- `*state`: Pointer to the Tuplestorestate structure to be cleared
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BufFileClose](../B/BufFileClose.md) (closes temporary files)

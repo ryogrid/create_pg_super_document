@@ -18,9 +18,8 @@ The  function serves as the core implementation for both  and  SQL functions. It
 The function implements proper transaction safety by calling  to ensure that uncommitted enum values are not used in SQL operations, preventing potential index corruption during transaction rollbacks.
 
 ## Parameters / Member Variables
-- : The OID of the enum type for which to find the endpoint value
-- : The scan direction (ForwardScanDirection for first, BackwardScanDirection for last)
-
+- `enumtypoid`: The OID of the enum type for which to find the endpoint value
+- `direction`: The scan direction (ForwardScanDirection for first, BackwardScanDirection for last)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ScanKeyInit](../S/ScanKeyInit.md)

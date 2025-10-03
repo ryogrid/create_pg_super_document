@@ -18,8 +18,7 @@ This function implements a heuristic to decide whether recomputing the global vi
 The heuristic checks if RecentXmin has changed since the last update. If the oldest currently running transaction hasn't finished, recomputing the horizon is unlikely to be useful. Additionally, if the maybe_needed and definitely_needed boundaries are the same, refreshing boundaries won't provide benefit.
 
 ## Parameters / Member Variables
-- : Pointer to the GlobalVisState structure containing current visibility boundaries
-
+- `*state`: Pointer to the GlobalVisState structure containing current visibility boundaries
 ## Dependencies
 - Functions called/Symbols referenced:
   - TransactionIdIsValid

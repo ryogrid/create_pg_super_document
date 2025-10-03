@@ -24,17 +24,16 @@ ExecARUpdateTriggers(EState *estate, ResultRelInfo *relinfo,
 This function handles the execution of AFTER ROW UPDATE triggers and transition table capture for UPDATE operations. It supports complex scenarios including cross-partition updates where a tuple moves between partitions, foreign data wrapper triggers, and transition table requirements for OLD/NEW table references in triggers. The function retrieves the old tuple from either disk or FDW-supplied data, then delegates to the after-trigger event system for deferred execution. It includes validation to prevent unsupported operations like transition table capture from foreign child tables.
 
 ## Parameters / Member Variables
-- : Executor state containing execution context and memory management
-- : Primary relation information for the root/target table
-- : Source partition relation info for cross-partition updates (NULL otherwise)
-- : Destination partition relation info for cross-partition updates (NULL otherwise)
-- : ItemPointer to the old tuple in source partition (if applicable)
-- : Pre-supplied old tuple from FDW (NULL if using tupleid)
-- : TupleTableSlot containing the new tuple values after update
-- : List of indexes that need rechecking after the update
-- : State for capturing OLD/NEW table data for triggers
-- : Flag indicating this is a cross-partition update operation
-
+- `*estate`: Executor state containing execution context and memory management
+- `*relinfo`: Primary relation information for the root/target table
+- `*src_partinfo`: Source partition relation info for cross-partition updates (NULL otherwise)
+- `*dst_partinfo`: Destination partition relation info for cross-partition updates (NULL otherwise)
+- `tupleid`: ItemPointer to the old tuple in source partition (if applicable)
+- `fdw_trigtuple`: Pre-supplied old tuple from FDW (NULL if using tupleid)
+- `*newslot`: TupleTableSlot containing the new tuple values after update
+- `*recheckIndexes`: List of indexes that need rechecking after the update
+- `*transition_capture`: State for capturing OLD/NEW table data for triggers
+- `is_crosspart_update`: Flag indicating this is a cross-partition update operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecGetTriggerOldSlot](ExecGetTriggerOldSlot.md)

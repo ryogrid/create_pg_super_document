@@ -27,7 +27,6 @@ The critical shared catalogs that must be available include:
 This initialization is essential because these catalogs are needed before a backend can fully connect to a specific database. RelationCacheInitializePhase3 will later complete the initialization process once the transaction system is fully operational.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

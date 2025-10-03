@@ -17,14 +17,13 @@ OidFunctionCall5Coll(Oid functionId, Oid collation, Datum arg1, Datum arg2,
 This function provides a convenient wrapper for calling PostgreSQL functions identified by their OID when you need to pass exactly five arguments and specify a collation. It internally sets up the function manager information (FmgrInfo) for the given function OID and then delegates to FunctionCall5Coll to perform the actual function call. This is part of PostgreSQL's function manager (fmgr) system that handles dynamic function calls with type safety and collation awareness.
 
 ## Parameters / Member Variables
-- : The OID of the function to be called
-- : The OID of the collation to use for the function call
-- : First argument to pass to the function (as Datum)
-- : Second argument to pass to the function (as Datum)
-- : Third argument to pass to the function (as Datum)
-- : Fourth argument to pass to the function (as Datum)
-- : Fifth argument to pass to the function (as Datum)
-
+- `functionId`: The OID of the function to be called
+- `collation`: The OID of the collation to use for the function call
+- `arg1`: First argument to pass to the function (as Datum)
+- `arg2`: Second argument to pass to the function (as Datum)
+- `arg3`: Third argument to pass to the function (as Datum)
+- `arg4`: Fourth argument to pass to the function (as Datum)
+- `arg5`: Fifth argument to pass to the function (as Datum)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [fmgr_info](../f/fmgr_info.md)

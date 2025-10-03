@@ -16,10 +16,9 @@ rbt_find_less(RBTree *rbt, const RBTNode *data, bool equal_match)
 This function performs a specialized search to find the node with the largest value that is less than the search data. If equal_match is true, it will also accept an exact match. The algorithm traverses the tree while maintaining a pointer to the best candidate found so far. When the comparison shows the search data is greater than the current node, that node becomes a candidate and the search continues right to find potentially larger candidates. When the search data is less than or equal to the current node, the search continues left to find smaller values.
 
 ## Parameters / Member Variables
-- : Pointer to the RBTree structure to search in
-- : Pointer to the data to compare against (RBTNode fields need not be valid)
-- : Boolean flag - if true, the function will return exact matches; if false, only strictly lesser values are returned
-
+- `*rbt`: Pointer to the RBTree structure to search in
+- `*data`: Pointer to the data to compare against (RBTNode fields need not be valid)
+- `equal_match`: Boolean flag - if true, the function will return exact matches; if false, only strictly lesser values are returned
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RBTree](../R/RBTree.md) (structure type)

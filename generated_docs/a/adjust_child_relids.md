@@ -18,10 +18,9 @@ This function performs relation ID substitution for query planning optimization,
 The substitution process removes the parent relation ID from the set and adds the corresponding child relation ID. This is essential for query optimization when dealing with partitioned tables or inheritance hierarchies where the planner needs to work with specific child relations rather than abstract parent relations.
 
 ## Parameters / Member Variables
-- : Input Relids set containing relation IDs to be processed
-- : Number of AppendRelInfo structures in the appinfos array
-- : Array of AppendRelInfo pointers containing parent-to-child relation ID mappings
-
+- `relids`: Input Relids set containing relation IDs to be processed
+- `nappinfos`: Number of AppendRelInfo structures in the appinfos array
+- `**appinfos`: Array of AppendRelInfo pointers containing parent-to-child relation ID mappings
 ## Dependencies
 - Functions called/Symbols referenced:
   - [AppendRelInfo](../A/AppendRelInfo.md) (structure type)

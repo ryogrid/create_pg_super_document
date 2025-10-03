@@ -24,11 +24,10 @@ The function performs several critical tasks:
 5. Safely invokes the plugin's callback with proper error handling
 
 ## Parameters / Member Variables
-- : ReorderBuffer instance containing the private logical decoding context
-- : ReorderBufferTXN representing the current transaction being processed
-- : Relation object for the table being modified
-- : ReorderBufferChange containing the specific change being streamed
-
+- `*cache`: ReorderBuffer instance containing the private logical decoding context
+- `*txn`: ReorderBufferTXN representing the current transaction being processed
+- `relation`: Relation object for the table being modified
+- `*change`: ReorderBufferChange containing the specific change being streamed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReorderBuffer](../R/ReorderBuffer.md)

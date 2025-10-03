@@ -18,10 +18,9 @@ This function creates the physical storage (typically a disk file) for a specifi
 The isRedo parameter indicates whether this creation is being performed as part of WAL replay during recovery, which may affect how the storage manager handles the operation (e.g., different error handling or synchronization behavior).
 
 ## Parameters / Member Variables
-- : SMgrRelation pointer representing the relation for which storage should be created
-- : ForkNumber indicating which fork of the relation to create (main, FSM, VM, etc.)
-- : Boolean flag indicating if this operation is part of WAL replay during recovery
-
+- `reln`: SMgrRelation pointer representing the relation for which storage should be created
+- `forknum`: ForkNumber indicating which fork of the relation to create (main, FSM, VM, etc.)
+- `isRedo`: Boolean flag indicating if this operation is part of WAL replay during recovery
 ## Dependencies
 - Functions called/Symbols referenced:
   - smgrsw (storage manager switch table)

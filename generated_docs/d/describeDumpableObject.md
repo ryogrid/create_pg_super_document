@@ -18,10 +18,9 @@ This function takes a DumpableObject and produces a formatted string description
 The function formats the output to be useful for error messages and debugging, providing enough information to uniquely identify any database object. Each object type has a specific format that includes relevant identifying information such as source/target types for casts, language IDs for transforms, and table/column names for attribute defaults.
 
 ## Parameters / Member Variables
-- : Pointer to the DumpableObject to describe
-- : Output buffer to write the description string
-- : Size of the output buffer in bytes
-
+- `*obj`: Pointer to the DumpableObject to describe
+- `*buf`: Output buffer to write the description string
+- `bufsize`: Size of the output buffer in bytes
 ## Dependencies
 - Functions called/Symbols referenced:
   - snprintf (for formatting output strings)

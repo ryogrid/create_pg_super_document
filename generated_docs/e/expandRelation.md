@@ -25,15 +25,14 @@ This function serves as a specialized subroutine of expandRTE that specifically 
 This design encapsulates the relation access logic and provides a clean interface between the RTE expansion system and the tuple descriptor expansion functionality. The function ensures proper locking discipline by acquiring and releasing AccessShareLock, which is appropriate for read-only metadata access.
 
 ## Parameters / Member Variables
-- : Object identifier of the relation to expand, used to locate and open the relation
-- : Alias information for the relation, containing alternative column names if specified
-- : Range table index to use in created Var nodes, identifying this relation in the query context
-- : Nesting level for Var nodes, indicating how many subquery levels up this relation is referenced
-- : Source location information for error reporting and debugging purposes
-- : Boolean flag determining whether to include dropped columns in the expansion
-- : Output parameter for list of column name strings (pass NULL if not needed)
-- : Output parameter for list of Var nodes representing columns (pass NULL if not needed)
-
+- `relid`: Object identifier of the relation to expand, used to locate and open the relation
+- `*eref`: Alias information for the relation, containing alternative column names if specified
+- `rtindex`: Range table index to use in created Var nodes, identifying this relation in the query context
+- `sublevels_up`: Nesting level for Var nodes, indicating how many subquery levels up this relation is referenced
+- `location`: Source location information for error reporting and debugging purposes
+- `include_dropped`: Boolean flag determining whether to include dropped columns in the expansion
+- `**colnames`: Output parameter for list of column name strings (pass NULL if not needed)
+- `**colvars`: Output parameter for list of Var nodes representing columns (pass NULL if not needed)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [relation_open](../r/relation_open.md) (opens relation with specified lock)

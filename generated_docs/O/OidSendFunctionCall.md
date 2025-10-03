@@ -20,9 +20,8 @@ This function is the binary counterpart to OidOutputFunctionCall, producing bina
 The function ensures that the returned bytea result is not toasted, making it suitable for reliable data transmission and protocol operations.
 
 ## Parameters / Member Variables
-- : OID of the send function to call for the datatype conversion
-- : Internal Datum value to be converted to binary format
-
+- `functionId`: OID of the send function to call for the datatype conversion
+- `val`: Internal Datum value to be converted to binary format
 ## Dependencies
 - Functions called/Symbols referenced:
   - [fmgr_info](../f/fmgr_info.md)

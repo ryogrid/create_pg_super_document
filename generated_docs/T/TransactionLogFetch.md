@@ -23,8 +23,7 @@ TransactionLogFetch serves as the core function for fetching transaction commit 
 The function is designed to be efficient for repeated queries of the same transaction while maintaining correctness for all transaction states.
 
 ## Parameters / Member Variables
-- : The transaction ID whose commit status is to be retrieved
-
+- `transactionId`: The transaction ID whose commit status is to be retrieved
 ## Dependencies
 - Functions called/Symbols referenced:
   - TransactionIdEquals

@@ -27,7 +27,6 @@ This function checks whether a PostgreSQL server is currently running and provid
 For running postmaster processes, the function also reads and displays the server's command-line options from the postopts file, giving administrators insight into how the server was started.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

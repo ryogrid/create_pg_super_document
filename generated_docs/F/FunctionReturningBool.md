@@ -17,6 +17,7 @@ FunctionReturningBool serves a specific purpose in PostgreSQL's LLVM JIT compila
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (returns constant false)

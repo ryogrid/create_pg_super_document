@@ -20,10 +20,9 @@ For in-memory sorts (TSS_SORTEDINMEM), it simply advances the current position p
 The function currently only supports forward skipping, though the API is designed to accommodate backward skipping in future implementations. It includes proper bounds checking for limited sorts and handles EOF conditions appropriately.
 
 ## Parameters / Member Variables
-- : The Tuplesortstate containing the sort context and current position information
-- : The number of tuples to skip (must be >= 0, with 0 being a no-op)
-- : Direction flag (currently must be true, backward skipping not yet implemented)
-
+- `*state`: The Tuplesortstate containing the sort context and current position information
+- `ntuples`: The number of tuples to skip (must be >= 0, with 0 being a no-op)
+- `forward`: Direction flag (currently must be true, backward skipping not yet implemented)
 ## Dependencies
 - Functions called/Symbols referenced:
   - WORKER (macro to verify non-worker process context)

@@ -22,8 +22,7 @@ This function retrieves the error message string associated with a PostgreSQL co
 The error messages are persistent until the next operation that might generate a new error, making this function reliable for error reporting after failed operations.
 
 ## Parameters / Member Variables
-- : A pointer to the PGconn structure representing the database connection. Can be NULL, which will result in an appropriate error message.
-
+- `*conn`: A pointer to the PGconn structure representing the database connection. Can be NULL, which will result in an appropriate error message.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [libpq_gettext](../l/libpq_gettext.md) (for internationalized error messages)

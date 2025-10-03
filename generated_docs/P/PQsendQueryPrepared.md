@@ -24,14 +24,13 @@ PQsendQueryPrepared completes the prepare-bind-execute cycle by executing a stat
 The function validates the connection state and parameters before delegating to PQsendQueryGuts with specific arguments that indicate this is a prepared statement execution (NULL command, non-NULL statement name). It supports the same parameter binding capabilities as PQsendQueryParams but operates on pre-parsed statements for better performance.
 
 ## Parameters / Member Variables
-- : PostgreSQL connection handle for the database connection
-- : Name of the previously prepared statement to execute
-- : Number of parameter values to bind to the prepared statement
-- : Array of parameter values as strings (NULL elements represent SQL NULL)
-- : Array specifying the length of each parameter value (required for binary format)
-- : Array specifying format codes for each parameter (0 for text, 1 for binary)
-- : Format code for result data (0 for text, 1 for binary)
-
+- `*conn`: PostgreSQL connection handle for the database connection
+- `*stmtName`: Name of the previously prepared statement to execute
+- `nParams`: Number of parameter values to bind to the prepared statement
+- `*paramValues`: Array of parameter values as strings (NULL elements represent SQL NULL)
+- `*paramLengths`: Array specifying the length of each parameter value (required for binary format)
+- `*paramFormats`: Array specifying format codes for each parameter (0 for text, 1 for binary)
+- `resultFormat`: Format code for result data (0 for text, 1 for binary)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQsendQueryStart](PQsendQueryStart.md): Validates connection state and prepares for query sending

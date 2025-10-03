@@ -18,7 +18,6 @@ This function iterates through all replication slots to find the oldest (minimum
 The function acquires a shared lock on ReplicationSlotControlLock to safely read slot data, then examines each slot's restart_lsn while holding the slot's mutex for thread safety. Invalidated slots are skipped as they don't require WAL retention.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

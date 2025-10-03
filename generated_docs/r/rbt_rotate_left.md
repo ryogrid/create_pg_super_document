@@ -23,9 +23,8 @@ The rotation process involves three main steps:
 This operation preserves the binary search tree invariant: all nodes in the left subtree have values less than the parent, and all nodes in the right subtree have values greater than the parent.
 
 ## Parameters / Member Variables
-- : Pointer to the Red-Black Tree structure
-- : The node around which to perform the left rotation
-
+- `*rbt`: Pointer to the Red-Black Tree structure
+- `*x`: The node around which to perform the left rotation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RBTree](../R/RBTree.md) (tree structure type)

@@ -18,10 +18,9 @@ This function retrieves the serial number from the peer's X.509 certificate stor
 The serial number is a unique identifier assigned by the Certificate Authority (CA) when issuing the certificate, making it useful for certificate identification and logging purposes.
 
 ## Parameters / Member Variables
-- : Pointer to the Port structure containing the connection state, including the peer certificate
-- : Output buffer to store the decimal string representation of the serial number
-- : Size of the output buffer to prevent buffer overflow
-
+- `*port`: Pointer to the Port structure containing the connection state, including the peer certificate
+- `*ptr`: Output buffer to store the decimal string representation of the serial number
+- `len`: Size of the output buffer to prevent buffer overflow
 ## Dependencies
 - Functions called/Symbols referenced:
   - X509_get_serialNumber (OpenSSL function)

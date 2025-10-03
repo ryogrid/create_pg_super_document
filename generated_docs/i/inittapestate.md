@@ -22,9 +22,8 @@ The  function is responsible for setting up the infrastructure needed for tape-b
 The function calculates tape space as  and only decreases available memory if there's sufficient space remaining for tuple storage.
 
 ## Parameters / Member Variables
-- : Pointer to the  structure that maintains the overall state of the sorting operation
-- : The maximum number of tapes that will be used for the external merge sort
-
+- `*state`: Pointer to the  structure that maintains the overall state of the sorting operation
+- `maxTapes`: The maximum number of tapes that will be used for the external merge sort
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Gets the memory space used by the memtuples array

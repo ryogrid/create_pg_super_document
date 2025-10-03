@@ -18,8 +18,7 @@ LZ4Stream_close handles the proper termination and cleanup of both LZ4 compressi
 This function is critical for maintaining data integrity in compressed files, as it ensures that all buffered data is properly flushed and that the LZ4 stream format is correctly terminated with appropriate footers and checksums.
 
 ## Parameters / Member Variables
-- : Pointer to the CompressFileHandle structure containing the LZ4 state and file information
-
+- `*CFH`: Pointer to the CompressFileHandle structure containing the LZ4 state and file information
 ## Dependencies
 - Functions called/Symbols referenced:
   - LZ4F_compressEnd (finalizes compression stream)

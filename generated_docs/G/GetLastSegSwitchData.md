@@ -16,8 +16,7 @@ GetLastSegSwitchData(XLogRecPtr *lastSwitchLSN)
 This function returns the time when the last WAL (Write-Ahead Log) segment switch occurred and outputs the corresponding LSN through a pointer parameter. It accesses the shared XLogCtl control structure under WALWriteLock protection to ensure consistent reads of the segment switch timing data. The function uses only a shared lock since it performs read-only operations, allowing concurrent access from multiple processes while maintaining data consistency.
 
 ## Parameters / Member Variables
-- : Output parameter that receives the LSN of the last segment switch via pointer
-
+- `*lastSwitchLSN`: Output parameter that receives the LSN of the last segment switch via pointer
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockAcquire](../L/LWLockAcquire.md) (with WALWriteLock, LW_SHARED)

@@ -26,8 +26,7 @@ This function performs critical post-import processing of dictionary data to bui
 After processing affixes, it sorts all spell entries lexicographically and builds a prefix tree (SPNode structure) for fast dictionary lookups.
 
 ## Parameters / Member Variables
-- : Pointer to IspellDict structure containing the dictionary configuration and data to be processed
-
+- `*Conf`: Pointer to IspellDict structure containing the dictionary configuration and data to be processed
 ## Dependencies
 - Functions called/Symbols referenced:
   - qsort

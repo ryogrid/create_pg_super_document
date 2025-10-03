@@ -21,8 +21,7 @@ The  function serves as a dispatcher that determines the execution strategy for 
 This design provides flexibility in the isolation testing framework, allowing test authors to either specify precise test scenarios they want to validate or let the system exhaustively test all possible interleavings of concurrent operations.
 
 ## Parameters / Member Variables
-- : Pointer to the TestSpec structure containing the complete test specification including sessions, steps, and optional permutations
-
+- `*testspec`: Pointer to the TestSpec structure containing the complete test specification including sessions, steps, and optional permutations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [run_named_permutations](run_named_permutations.md) (executes explicitly specified permutations)

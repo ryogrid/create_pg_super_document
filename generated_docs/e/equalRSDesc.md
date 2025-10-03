@@ -18,9 +18,8 @@ This function compares two row security descriptor structures to determine if th
 The function assumes that RelationBuildRowSecurity builds policies in a consistent order, allowing direct parallel iteration through the policy lists without needing to sort or search.
 
 ## Parameters / Member Variables
-- : First RowSecurityDesc structure to compare (may be NULL)
-- : Second RowSecurityDesc structure to compare (may be NULL)
-
+- `*rsdesc1`: First RowSecurityDesc structure to compare (may be NULL)
+- `*rsdesc2`: Second RowSecurityDesc structure to compare (may be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RowSecurityDesc](../R/RowSecurityDesc.md) (structure type)

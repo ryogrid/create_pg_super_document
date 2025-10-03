@@ -17,6 +17,7 @@ This internal helper function generates a consistent error message when code att
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport (ERROR)

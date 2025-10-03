@@ -16,10 +16,9 @@ replace_token(char **lines, const char *token, const char *replacement)
 This function performs string replacement operations on an array of malloc'd strings, similar to basic sed functionality but without requiring regular expressions. It searches for the first occurrence of a token string in each line of the array and replaces it with the specified replacement string. The function handles memory management by freeing old strings and allocating new ones when replacements change the string length. This is primarily used during PostgreSQL database initialization to customize configuration templates.
 
 ## Parameters / Member Variables
-- : Array of malloc'd strings to be processed, terminated by NULL pointer
-- : The string to search for and replace in each line
-- : The string to replace the token with
-
+- `**lines`: Array of malloc'd strings to be processed, terminated by NULL pointer
+- `*token`: The string to search for and replace in each line
+- `*replacement`: The string to replace the token with
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (standard library function)

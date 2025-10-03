@@ -16,8 +16,7 @@ ATDetachCheckNoForeignKeyRefs(Relation partition)
 This function is called during the DETACH PARTITION operation to ensure referential integrity. It checks all foreign key constraints that reference the partition being detached to verify that no foreign key references would become invalid after the partition is detached. The function retrieves all parented foreign key references to the partition and for each constraint, it performs a referential integrity check using the RI_PartitionRemove_Check function. If any referenced values exist that would become orphaned after detaching the partition, an error is raised to prevent the operation.
 
 ## Parameters / Member Variables
-- : The relation (partition) that is being detached from its parent table
-
+- `partition`: The relation (partition) that is being detached from its parent table
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetParentedForeignKeyRefs](../G/GetParentedForeignKeyRefs.md)

@@ -18,9 +18,8 @@ BitmapHeapRecheck is a helper function specifically designed for EvalPlanQual (E
 The function is essential for maintaining MVCC (Multi-Version Concurrency Control) consistency by ensuring that tuples retrieved during bitmap heap scans still meet the query's WHERE clause conditions, even after potential modifications by concurrent transactions.
 
 ## Parameters / Member Variables
-- : BitmapHeapScanState pointer containing the bitmap heap scan execution state, including the expression context and original qualification conditions
-- : TupleTableSlot pointer containing the tuple to be rechecked against the original qualification conditions
-
+- `*node`: BitmapHeapScanState pointer containing the bitmap heap scan execution state, including the expression context and original qualification conditions
+- `*slot`: TupleTableSlot pointer containing the tuple to be rechecked against the original qualification conditions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecQualAndReset](../E/ExecQualAndReset.md)

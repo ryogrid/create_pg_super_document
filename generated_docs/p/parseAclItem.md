@@ -28,16 +28,15 @@ The function performs several key operations:
 The function supports all PostgreSQL object types including tables, sequences, functions, schemas, databases, tablespaces, types, foreign data wrappers, servers, parameters, and large objects. Each object type has its own set of valid privileges.
 
 ## Parameters / Member Variables
-- : The ACL item string to parse (format: "username=privilegecodes/grantor")
-- : The object type (TABLE, FUNCTION, SCHEMA, etc.) determining valid privileges
-- : The object name (used for context, not directly parsed)
-- : Sub-object name like column name (affects privilege applicability)
-- : Version of source database (for compatibility)
-- : Output buffer for the dequoted grantee username (empty for PUBLIC)
-- : Output buffer for the dequoted grantor username
-- : Output buffer for privileges without grant option
-- : Output buffer for privileges with grant option (can be NULL)
-
+- `*item`: The ACL item string to parse (format: "username=privilegecodes/grantor")
+- `*type`: The object type (TABLE, FUNCTION, SCHEMA, etc.) determining valid privileges
+- `*name`: The object name (used for context, not directly parsed)
+- `*subname`: Sub-object name like column name (affects privilege applicability)
+- `remoteVersion`: Version of source database (for compatibility)
+- `grantee`: Output buffer for the dequoted grantee username (empty for PUBLIC)
+- `grantor`: Output buffer for the dequoted grantor username
+- `privs`: Output buffer for privileges without grant option
+- `privswgo`: Output buffer for privileges with grant option (can be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_strdup](pg_strdup.md) (for string duplication)

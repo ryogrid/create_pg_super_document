@@ -23,7 +23,6 @@ HandleCheckpointerInterrupts is a critical function that processes various types
 The function is called at strategic points in the checkpointer main loop to ensure timely response to administrative requests and system signals.
 
 ## Parameters / Member Variables
-None - the function takes no parameters and processes global state variables.
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -24,9 +24,8 @@ The function implements two different saving strategies depending on available r
 The function includes special handling for /dev/null as a history file destination, avoiding unnecessary write attempts that could fail due to file permission issues on some platforms like macOS.
 
 ## Parameters / Member Variables
-- : The target filename where history should be saved (char pointer)
-- : Maximum number of history lines to preserve. If negative, saves all history lines. If non-negative, limits the total history size.
-
+- `*fname`: The target filename where history should be saved (char pointer)
+- `max_lines`: Maximum number of history lines to preserve. If negative, saves all history lines. If non-negative, limits the total history size.
 ## Dependencies
 - Functions called/Symbols referenced:
   - strcmp (string comparison for /dev/null check)

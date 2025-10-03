@@ -28,8 +28,7 @@ The function uses a multi-step approach:
 This is essential for operations that need to handle structured data differently from scalar types, such as field access, tuple construction, and record manipulation.
 
 ## Parameters / Member Variables
-- : OID of the type to test for row/composite nature
-
+- `typid`: OID of the type to test for row/composite nature
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_typtype](../g/get_typtype.md) (retrieve type category)

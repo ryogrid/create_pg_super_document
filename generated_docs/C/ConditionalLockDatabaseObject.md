@@ -21,11 +21,10 @@ The function uses LockAcquireExtended with the dontWait parameter set to true to
 When a lock is successfully acquired (and it wasn't already held in clear state), the function processes invalidation messages and marks the local lock as clear to maintain cache consistency.
 
 ## Parameters / Member Variables
-- : The OID of the system catalog that contains the object
-- : The OID of the specific object to lock within that catalog  
-- : A sub-object identifier (typically 0 for whole objects, or column numbers for attributes)
-- : The LOCKMODE specifying the type of lock to acquire
-
+- `classid`: The OID of the system catalog that contains the object
+- `objid`: The OID of the specific object to lock within that catalog
+- `objsubid`: A sub-object identifier (typically 0 for whole objects, or column numbers for attributes)
+- `lockmode`: The LOCKMODE specifying the type of lock to acquire
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LOCKTAG](../L/LOCKTAG.md) (data structure for lock identification)

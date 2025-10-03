@@ -27,14 +27,13 @@ Key responsibilities include:
 5. Safely invoking the plugin's callback with proper error handling
 
 ## Parameters / Member Variables
-- : ReorderBuffer instance containing the private logical decoding context
-- : ReorderBufferTXN representing the current transaction (can be NULL for non-transactional messages)
-- : XLogRecPtr indicating the LSN where the message was logged
-- : Boolean flag indicating whether the message is part of a transaction
-- : String prefix associated with the message
-- : Size of the message content
-- : The actual message content
-
+- `*cache`: ReorderBuffer instance containing the private logical decoding context
+- `*txn`: ReorderBufferTXN representing the current transaction (can be NULL for non-transactional messages)
+- `message_lsn`: XLogRecPtr indicating the LSN where the message was logged
+- `transactional`: Boolean flag indicating whether the message is part of a transaction
+- `*prefix`: String prefix associated with the message
+- `message_size`: Size of the message content
+- `*message`: The actual message content
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReorderBuffer](../R/ReorderBuffer.md)

@@ -27,6 +27,7 @@ The function is designed to be safe for concurrent access, as only the checkpoin
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - SyncStandbysDefined (checks current sync standby configuration)

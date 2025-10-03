@@ -24,9 +24,8 @@ This function serves as the execution layer for autovacuum operations after deci
 The function bridges the gap between autovacuum's table selection logic and PostgreSQL's core vacuum implementation, ensuring proper resource management and transaction handling.
 
 ## Parameters / Member Variables
-- : Autovacuum table structure containing table identification (namespace, relation name, OID) and vacuum parameters (at_params)
-- : Buffer access strategy to control I/O behavior during vacuum operations
-
+- `*tab`: Autovacuum table structure containing table identification (namespace, relation name, OID) and vacuum parameters (at_params)
+- `bstrategy`: Buffer access strategy to control I/O behavior during vacuum operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - autovac_report_activity

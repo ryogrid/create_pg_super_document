@@ -16,8 +16,7 @@ sigexit_handler(SIGNAL_ARGS)
 The  function is a simple signal handler designed to provide graceful termination for PostgreSQL WAL (Write-Ahead Log) receiver utilities. When termination signals (such as SIGTERM or SIGINT) are received, this handler sets the global boolean variable  to , which allows the main processing loop to detect the termination request and exit cleanly. This approach ensures that the process can complete any ongoing operations and perform proper cleanup before shutting down.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL macro for signal handler arguments, typically expands to  representing the signal number
-
+- `SIGNAL_ARGS`: Standard PostgreSQL macro for signal handler arguments, typically expands to  representing the signal number
 ## Dependencies
 - Functions called/Symbols referenced:
   - SIGNAL_ARGS (macro)

@@ -23,9 +23,8 @@ The function performs several initialization tasks:
 - Begins the JSON structure with version information and system identifier
 
 ## Parameters / Member Variables
-- : Target directory path where the backup_manifest file will be created
-- : PostgreSQL system identifier to include in the manifest metadata
-
+- `*directory`: Target directory path where the backup_manifest file will be created
+- `system_identifier`: PostgreSQL system identifier to include in the manifest metadata
 ## Dependencies
 - Functions called/Symbols referenced:
   - [manifest_writer](../m/manifest_writer.md) (structure type)

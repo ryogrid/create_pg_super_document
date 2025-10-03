@@ -21,12 +21,11 @@ SlabStats walks through all blocks in a Slab memory context to collect comprehen
 The function examines both empty blocks (stored in the emptyblocks list) and active blocks (organized in blocklist arrays by free chunk count). For each block, it tracks the block size, number of free chunks, and calculates free space based on the full chunk size multiplied by the number of free chunks.
 
 ## Parameters / Member Variables
-- : The MemoryContext to analyze (cast internally to SlabContext)
-- : Optional callback function to receive formatted statistics string
-- : Opaque pointer passed through to printfunc callback
-- : Optional MemoryContextCounters structure to accumulate statistics into
-- : Boolean flag controlling whether stats are printed to stderr or logged via elog
-
+- `context`: The MemoryContext to analyze (cast internally to SlabContext)
+- `printfunc`: Optional callback function to receive formatted statistics string
+- `*passthru`: Opaque pointer passed through to printfunc callback
+- `*totals`: Optional MemoryContextCounters structure to accumulate statistics into
+- `print_to_stderr`: Boolean flag controlling whether stats are printed to stderr or logged via elog
 ## Dependencies
 - Functions called/Symbols referenced:
   - SlabIsValid

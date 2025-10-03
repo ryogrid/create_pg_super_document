@@ -25,11 +25,10 @@ The function handles two execution modes:
 For each partition found to be valid, the function either adds the corresponding subplan index to the result set or recursively processes sub-partitions if the partition has been further partitioned. The function includes protection against stack overflow due to deeply nested partition hierarchies.
 
 ## Parameters / Member Variables
-- : Overall partition pruning data structure containing all partitioning information
-- : Specific partitioned relation pruning data for the current level in the hierarchy
-- : Boolean indicating whether this is initial pruning (true) or runtime pruning (false)
-- : Output parameter - pointer to bitmapset that accumulates valid subplan indexes
-
+- `*prunedata`: Overall partition pruning data structure containing all partitioning information
+- `*pprune`: Specific partitioned relation pruning data for the current level in the hierarchy
+- `initial_prune`: Boolean indicating whether this is initial pruning (true) or runtime pruning (false)
+- `**validsubplans`: Output parameter - pointer to bitmapset that accumulates valid subplan indexes
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_stack_depth](../c/check_stack_depth.md)

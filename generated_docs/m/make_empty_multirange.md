@@ -16,9 +16,8 @@ make_empty_multirange(Oid mltrngtypoid, TypeCacheEntry *rangetyp)
 This function constructs an empty multirange object by calling the general  function with zero ranges. An empty multirange represents a collection that contains no range values, which is a valid state in PostgreSQL's multirange type system. This is commonly used as a starting point for multirange operations or as a result when operations produce no overlapping ranges.
 
 ## Parameters / Member Variables
-- : Object identifier for the multirange type to create
-- : Type cache entry containing metadata about the underlying range type
-
+- `mltrngtypoid`: Object identifier for the multirange type to create
+- `*rangetyp`: Type cache entry containing metadata about the underlying range type
 ## Dependencies
 - Functions called/Symbols referenced:
   - [make_multirange](make_multirange.md)

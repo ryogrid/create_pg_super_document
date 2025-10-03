@@ -18,8 +18,7 @@ This function is a core component of PostgreSQL's Windows signal emulation syste
 The function validates the signal number against defined bounds and ignores invalid signals. Once a valid signal is queued, it sets the corresponding bit in the signal queue and signals the main thread via a Windows event object, allowing the main thread to process the queued signals at an appropriate time.
 
 ## Parameters / Member Variables
-- : The signal number to queue. Must be between 1 and PG_SIGNAL_COUNT-1 (inclusive) to be considered valid.
-
+- `signum`: The signal number to queue. Must be between 1 and PG_SIGNAL_COUNT-1 (inclusive) to be considered valid.
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert

@@ -18,9 +18,8 @@ This function creates the initial search item that serves as the starting point 
 The function establishes the foundation for the search by creating an inner node item at level 0 with zero distances (for KNN searches). All fields are properly initialized to safe default values, ensuring consistent behavior during subsequent tree traversal operations.
 
 ## Parameters / Member Variables
-- : SpGistScanOpaque structure containing the scan context and zero distances array for initialization
-- : Boolean flag indicating whether this start item should target the NULL partition (true) or the root block (false)
-
+- `so`: SpGistScanOpaque structure containing the scan context and zero distances array for initialization
+- `isnull`: Boolean flag indicating whether this start item should target the NULL partition (true) or the root block (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [spgAllocSearchItem](spgAllocSearchItem.md) (allocates the search item structure)

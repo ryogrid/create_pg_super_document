@@ -30,10 +30,9 @@ For finite numbers, the function performs exact multiplication by:
 The multiplication preserves maximum precision by setting the result scale to the sum of input scales, ensuring mathematical accuracy before any necessary rounding.
 
 ## Parameters / Member Variables
-- : The first multiplicand (Numeric value)
-- : The second multiplicand (Numeric value)  
-- : Optional pointer to boolean flag for error reporting. If provided and an error occurs, the flag is set to true and NULL is returned instead of throwing an exception
-
+- `num1`: The first multiplicand (Numeric value)
+- `num2`: The second multiplicand (Numeric value)
+- `*have_error`: Optional pointer to boolean flag for error reporting. If provided and an error occurs, the flag is set to true and NULL is returned instead of throwing an exception
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Checks if numeric value is NaN or infinity

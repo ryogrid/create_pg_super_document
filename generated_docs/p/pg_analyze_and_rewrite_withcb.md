@@ -26,12 +26,11 @@ This function is the core entry point for SQL query processing that transforms a
 The function supports performance tracking through  and includes DTrace/SystemTap tracing points for query rewrite operations. This variant differs from  by accepting a parser callback instead of a fixed parameter list, providing greater flexibility for advanced use cases.
 
 ## Parameters / Member Variables
-- : Raw parse tree structure containing the parsed SQL statement
-- : Original SQL query string for logging and error reporting
-- : Parser setup hook function for custom parameter resolution
-- : Argument to pass to the parser setup hook
-- : Query environment context for CTE handling and other environmental factors
-
+- `*parsetree`: Raw parse tree structure containing the parsed SQL statement
+- `*query_string`: Original SQL query string for logging and error reporting
+- `parserSetup`: Parser setup hook function for custom parameter resolution
+- `*parserSetupArg`: Argument to pass to the parser setup hook
+- `*queryEnv`: Query environment context for CTE handling and other environmental factors
 ## Dependencies
 - Functions called/Symbols referenced:
   - [parse_analyze_withcb](parse_analyze_withcb.md)

@@ -18,10 +18,9 @@ The  function performs comprehensive testing of the PostgreSQL IntegerSet implem
 The function strategically adds values in a specific order: the target value is added either before or after the filler range depending on its position relative to the range boundaries. This tests the IntegerSet's ability to handle values both within and outside of continuous ranges. The function then performs extensive validation using the helper function  to test membership queries around critical boundary points, and validates iteration order and completeness.
 
 ## Parameters / Member Variables
-- : The specific uint64 value to test in isolation within the set
-- : Starting value (inclusive) of the continuous range to add as filler
-- : Ending value (exclusive) of the continuous range to add as filler
-
+- `value`: The specific uint64 value to test in isolation within the set
+- `filler_min`: Starting value (inclusive) of the continuous range to add as filler
+- `filler_max`: Ending value (exclusive) of the continuous range to add as filler
 ## Dependencies
 - Functions called/Symbols referenced:
   - [IntegerSet](../I/IntegerSet.md) (data structure)

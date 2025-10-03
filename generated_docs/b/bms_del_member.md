@@ -18,9 +18,8 @@ The  function removes the specified integer member  from bitmapset . If the memb
 The function uses bitwise AND with a complement mask to clear the specific bit, then checks if optimization is needed. When the deleted bit was in the last word and that word becomes zero, it scans backwards to find the last non-empty word and adjusts the word count accordingly.
 
 ## Parameters / Member Variables
-- : Input Bitmapset to modify (can be NULL, which returns NULL unchanged)
-- : Integer member to remove from the set (must be non-negative)
-
+- `*a`: Input Bitmapset to modify (can be NULL, which returns NULL unchanged)
+- `x`: Integer member to remove from the set (must be non-negative)
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Validates the input bitmapset structure

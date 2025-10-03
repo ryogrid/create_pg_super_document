@@ -23,13 +23,12 @@ This function implements the core SCRAM authentication protocol exchange, managi
 The function includes timing-attack resistance by always computing client proofs even for mock authentication scenarios. It handles both successful authentication and various failure cases while maintaining consistent error reporting.
 
 ## Parameters / Member Variables
-- : Opaque pointer to scram_state structure containing authentication context
-- : SCRAM message from client (null-terminated string)
-- : Length of input message (must match strlen(input))
-- : Pointer to store the response message for client (allocated by function)
-- : Pointer to store the length of output message
-- : Optional detailed error information for server logs (not sent to client)
-
+- `*opaq`: Opaque pointer to scram_state structure containing authentication context
+- `*input`: SCRAM message from client (null-terminated string)
+- `inputlen`: Length of input message (must match strlen(input))
+- `**output`: Pointer to store the response message for client (allocated by function)
+- `*outputlen`: Pointer to store the length of output message
+- `**logdetail`: Optional detailed error information for server logs (not sent to client)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pstrdup](../p/pstrdup.md)

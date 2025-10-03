@@ -24,8 +24,7 @@ The function performs the following operations:
 This function is typically called when a slot needs to be reused for a different tuple or when clearing slot contents during query execution.
 
 ## Parameters / Member Variables
-- : A pointer to the TupleTableSlot to be cleared. This will be a VirtualTupleTableSlot structure that extends the base TupleTableSlot.
-
+- `*slot`: A pointer to the TupleTableSlot to be cleared. This will be a VirtualTupleTableSlot structure that extends the base TupleTableSlot.
 ## Dependencies
 - Functions called/Symbols referenced:
   - TTS_SHOULDFREE (macro to check if slot should free memory)

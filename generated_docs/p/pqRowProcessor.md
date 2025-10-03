@@ -20,9 +20,8 @@ In partial result mode, the function manages result cloning and switching to cre
 The function integrates with the tuple array management through pqAddTuple() and can trigger immediate result availability when enough rows have been accumulated in partial result mode.
 
 ## Parameters / Member Variables
-- : Pointer to the PGconn structure containing the connection state and current result
-- : Double pointer for returning error messages; set to NULL to use default "out of memory" message
-
+- `*conn`: Pointer to the PGconn structure containing the connection state and current result
+- `**errmsgp`: Double pointer for returning error messages; set to NULL to use default "out of memory" message
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQcopyResult](../P/PQcopyResult.md) (for cloning results in partial mode)

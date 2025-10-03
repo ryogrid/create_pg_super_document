@@ -16,10 +16,9 @@ listPartitionedTables(const char *reltypes, const char *pattern, bool verbose)
 This function provides functionality for the psql \\dP metacommand, which is specifically designed to list partitioned tables and indexes introduced in PostgreSQL 10.0 with declarative partitioning. The function supports filtering by relation types (tables 't', indexes 'i', and nested partitions 'n') and can display comprehensive information about partition hierarchies. In verbose mode, it shows partition sizes using either recursive queries (pre-12.0) or the pg_partition_tree function (12.0+). The function handles mixed output when both tables and indexes are requested and provides parent-child relationship information when nested partitions or patterns are specified.
 
 ## Parameters / Member Variables
-- : A string containing characters specifying which types to display ('t'=tables, 'i'=indexes, 'n'=nested/non-leaf partitioned tables)
-- : A SQL pattern (with wildcards) to filter by relation name, or NULL to match all partitioned relations
-- : Boolean flag to include additional columns like partition sizes and description
-
+- `*reltypes`: A string containing characters specifying which types to display ('t'=tables, 'i'=indexes, 'n'=nested/non-leaf partitioned tables)
+- `*pattern`: A SQL pattern (with wildcards) to filter by relation name, or NULL to match all partitioned relations
+- `verbose`: Boolean flag to include additional columns like partition sizes and description
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQExpBufferData](../P/PQExpBufferData.md) (PostgreSQL's expandable string buffer structure)

@@ -27,10 +27,9 @@ After processing either case, the function resets the deduplication state by cle
 The posting list overhead calculation () is important for the caller to make informed decisions about page space management and potential truncation during high key creation.
 
 ## Parameters / Member Variables
-- : BTWriteState structure containing the overall state of the index building operation
-- : BTPageState structure containing the state for the current page being built  
-- : BTDedupState structure containing the pending items to be finalized, including the base tuple and collected heap TIDs
-
+- `*wstate`: BTWriteState structure containing the overall state of the index building operation
+- `*state`: BTPageState structure containing the state for the current page being built
+- `dstate`: BTDedupState structure containing the pending items to be finalized, including the base tuple and collected heap TIDs
 ## Dependencies
 - Functions called/Symbols referenced:
   - [_bt_buildadd](_bt_buildadd.md)

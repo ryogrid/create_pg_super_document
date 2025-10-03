@@ -18,9 +18,8 @@ This function removes one or more entries from the pg_subscription_rel catalog b
 The function includes important safety checks to prevent removal of relation mappings when table synchronization is in progress, unless the entire subscription is being updated. This prevents orphaned tablesync slots or origins from remaining in the system. It uses a catalog scan with appropriate scan keys to locate matching entries and deletes them using CatalogTupleDelete.
 
 ## Parameters / Member Variables
-- : The OID of the subscription (can be InvalidOid to affect all subscriptions)
-- : The OID of the relation (can be InvalidOid to affect all relations)
-
+- `subid`: The OID of the subscription (can be InvalidOid to affect all subscriptions)
+- `relid`: The OID of the relation (can be InvalidOid to affect all relations)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TableScanDesc](../T/TableScanDesc.md)

@@ -24,9 +24,8 @@ The function performs the following operations:
 This is a read-only operation that does not modify the connection options array and provides a clean interface for accessing stored connection parameters.
 
 ## Parameters / Member Variables
-- : Array of PQconninfoOption structures to search
-- : The keyword name of the connection option to retrieve
-
+- `*connOptions`: Array of PQconninfoOption structures to search
+- `*keyword`: The keyword name of the connection option to retrieve
 ## Dependencies
 - Functions called/Symbols referenced:
   - [conninfo_find](conninfo_find.md)

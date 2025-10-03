@@ -16,10 +16,9 @@ check_recovery_target_timeline(char **newval, void **extra, GucSource source)
 This function serves as a GUC check hook for the  parameter. It validates the input value and converts it into an appropriate  enum value. The function accepts three types of values: "current" (uses control file timeline), "latest" (uses the latest available timeline), and numeric values (specific timeline ID). For numeric values, it performs validation using  to ensure the value is a valid number. The processed goal type is stored in the  parameter for later use by the assign hook.
 
 ## Parameters / Member Variables
-- : Pointer to the new value string being assigned to recovery_target_timeline
-- : Pointer to store additional processed data (RecoveryTargetTimeLineGoal enum)
-- : The source of the GUC setting (configuration file, command line, etc.)
-
+- `**newval`: Pointer to the new value string being assigned to recovery_target_timeline
+- `**extra`: Pointer to store additional processed data (RecoveryTargetTimeLineGoal enum)
+- `source`: The source of the GUC setting (configuration file, command line, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   - strtoul (for numeric validation)

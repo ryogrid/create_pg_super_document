@@ -16,9 +16,8 @@ does_not_exist_skipping(ObjectType objtype, Node *object)
 This function is the central dispatcher for generating NOTICE messages when objects don't exist in DROP IF EXISTS operations. It contains a large switch statement that handles different object types, using hierarchical checking through helper functions to determine whether the object itself is missing or its dependencies (schemas, types, owning relations) are missing. The function provides user-friendly error messages that accurately describe what is missing and being skipped.
 
 ## Parameters / Member Variables
-- : ObjectType enum value indicating the type of object being dropped (OBJECT_FUNCTION, OBJECT_TYPE, etc.)
-- : Node pointer containing the object specification (name, arguments, etc.)
-
+- `objtype`: ObjectType enum value indicating the type of object being dropped (OBJECT_FUNCTION, OBJECT_TYPE, etc.)
+- `*object`: Node pointer containing the object specification (name, arguments, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [schema_does_not_exist_skipping](../s/schema_does_not_exist_skipping.md): Checks if schema exists for schema-qualified objects

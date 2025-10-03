@@ -20,8 +20,7 @@ The function handles both scalar type names and their corresponding array type n
 This mapping doesn't completely mask the special nature of these names - for example, a wildcard pattern like "dec*" won't automatically match "numeric" - but it significantly reduces user confusion when working with type-related commands.
 
 ## Parameters / Member Variables
-- : Input type name pattern (const char*) that may be an alias or abbreviation needing normalization. Can be NULL.
-
+- `*pattern`: Input type name pattern (const char*) that may be an alias or abbreviation needing normalization. Can be NULL.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_strcasecmp](../p/pg_strcasecmp.md) (for case-insensitive string comparison)

@@ -16,12 +16,11 @@ addtype(zic_t utoff, char const *abbr, bool isdst, bool ttisstd, bool ttisut)
 The addtype function is a core component of PostgreSQL's timezone compiler that manages timezone type definitions. It handles timezone abbreviations, UTC offsets, daylight saving time flags, and standard/universal time indicators. The function first validates the UTC offset range, then searches for existing identical entries to avoid duplication. If no matching entry exists and the maximum type limit hasn't been reached, it creates a new timezone type entry. The function ensures timezone data integrity by deduplicating identical timezone configurations and enforcing system limits.
 
 ## Parameters / Member Variables
-- : A zic_t value representing the UTC offset in seconds for this timezone type
-- : A constant character pointer to the timezone abbreviation string (e.g., "EST", "PDT")
-- : A boolean flag indicating whether this timezone type represents daylight saving time
-- : A boolean flag indicating whether this type uses standard time designation
-- : A boolean flag indicating whether this type uses universal time designation
-
+- `utoff`: A zic_t value representing the UTC offset in seconds for this timezone type
+- `*abbr`: A constant character pointer to the timezone abbreviation string (e.g., "EST", "PDT")
+- `isdst`: A boolean flag indicating whether this timezone type represents daylight saving time
+- `ttisstd`: A boolean flag indicating whether this type uses standard time designation
+- `ttisut`: A boolean flag indicating whether this type uses universal time designation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [want_bloat](../w/want_bloat.md) (configuration check)

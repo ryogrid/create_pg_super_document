@@ -18,10 +18,9 @@ This function implements the fundamental rule of nbtree buffer management: it's 
 The function also applies _bt_checkpage to sanity-check the page and performs Valgrind client requests that help detect unsafe page accesses. All buffer lock requests in nbtree must go through wrapper functions like this one rather than calling LockBuffer() directly.
 
 ## Parameters / Member Variables
-- : The relation (B-tree index) from which to read the block
-- : The block number to retrieve (must be a valid block number)
-- : The type of access required (read or write), passed to _bt_lockbuf for appropriate locking
-
+- `rel`: The relation (B-tree index) from which to read the block
+- `blkno`: The block number to retrieve (must be a valid block number)
+- `access`: The type of access required (read or write), passed to _bt_lockbuf for appropriate locking
 ## Dependencies
 - Functions called/Symbols referenced:
   - BlockNumberIsValid (validates the block number)

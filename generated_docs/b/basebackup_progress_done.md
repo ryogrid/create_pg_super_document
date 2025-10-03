@@ -17,6 +17,7 @@ This function marks the completion of a PostgreSQL base backup operation by call
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pgstat_progress_end_command](../p/pgstat_progress_end_command.md)

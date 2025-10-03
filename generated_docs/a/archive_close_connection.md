@@ -32,9 +32,8 @@ This static function serves as a cleanup handler registered with on_exit_nicely(
 The function uses GetMyPSlot() to determine whether the calling context is a leader or worker, enabling appropriate cleanup behavior. This design ensures robust cleanup regardless of how the process terminates (normal exit, signal, error, etc.).
 
 ## Parameters / Member Variables
-- : Exit code indicating how the process is terminating (standard exit handler parameter)
-- : Void pointer to ShutdownInformation structure containing cleanup state information
-
+- `code`: Exit code indicating how the process is terminating (standard exit handler parameter)
+- `*arg`: Void pointer to ShutdownInformation structure containing cleanup state information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetMyPSlot](../G/GetMyPSlot.md) (finds current worker's parallel slot)

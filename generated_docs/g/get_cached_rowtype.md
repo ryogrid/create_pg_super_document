@@ -23,11 +23,10 @@ This function provides an optimized way to retrieve TupleDesc information for co
 The function is designed to be called multiple times during expression evaluation as composite type definitions can change. It maintains cache consistency by comparing identifiers and invalidating when necessary.
 
 ## Parameters / Member Variables
-- : OID identifying the rowtype to look up
-- : Type modifier for the rowtype (additional type information)
-- : Pointer to ExprEvalRowtypeCache structure for caching (cacheptr must be initialized to NULL)
-- : Optional pointer to bool that gets set to true when cache is updated
-
+- `type_id`: OID identifying the rowtype to look up
+- `typmod`: Type modifier for the rowtype (additional type information)
+- `*rowcache`: Pointer to ExprEvalRowtypeCache structure for caching (cacheptr must be initialized to NULL)
+- `*changed`: Optional pointer to bool that gets set to true when cache is updated
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lookup_type_cache](../l/lookup_type_cache.md)

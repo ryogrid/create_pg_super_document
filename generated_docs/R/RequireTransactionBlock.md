@@ -18,9 +18,8 @@ This function is a simple wrapper around CheckTransactionBlock that enforces str
 The function serves as the strict counterpart to WarnNoTransactionBlock - it's used for commands where execution outside a transaction block represents a genuine error condition rather than just poor practice. It's designed for commands like DECLARE CURSOR that have no meaningful effect outside of a transaction context.
 
 ## Parameters / Member Variables
-- : bool - indicates whether the statement is being executed at the top level (not inside a function)
-- : const char* - name of the statement type for error message formatting
-
+- `isTopLevel`: bool - indicates whether the statement is being executed at the top level (not inside a function)
+- `*stmtType`: const char* - name of the statement type for error message formatting
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CheckTransactionBlock](../C/CheckTransactionBlock.md) (with isTopLevel, true, stmtType parameters)

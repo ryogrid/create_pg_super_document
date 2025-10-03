@@ -20,9 +20,8 @@ The function performs essential validation to ensure that the chosen archive for
 The function is designed to work within the context of a data dumper routine, where AH->currToc points to the current table of contents entry being processed. This ensures that large object dumping occurs within the proper archival context and can be properly associated with the appropriate metadata.
 
 ## Parameters / Member Variables
-- : Archive pointer representing the current dump session
-- : Object identifier (OID) of the large object to begin archiving
-
+- `*AHX`: Archive pointer representing the current dump session
+- `oid`: Object identifier (OID) of the large object to begin archiving
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_fatal](../p/pg_fatal.md) (for error handling when format doesn't support LOs)

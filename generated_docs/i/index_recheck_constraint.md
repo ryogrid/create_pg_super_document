@@ -20,12 +20,11 @@ This function performs a detailed comparison between an existing tuple's indexed
 For each key attribute, the function calls the exclusion operator using the index's collation settings. If any operator returns false, indicating no conflict for that attribute, the entire constraint check returns false. Only when all operators return true does the function conclude that a genuine conflict exists.
 
 ## Parameters / Member Variables
-- : The index relation containing the exclusion constraint definition
-- : Array of OIDs representing the exclusion operators for each key attribute
-- : Array of Datum values from the existing tuple being compared
-- : Array of boolean flags indicating which existing values are NULL
-- : Array of Datum values from the new tuple being checked
-
+- `index`: The index relation containing the exclusion constraint definition
+- `*constr_procs`: Array of OIDs representing the exclusion operators for each key attribute
+- `*existing_values`: Array of Datum values from the existing tuple being compared
+- `*existing_isnull`: Array of boolean flags indicating which existing values are NULL
+- `*new_values`: Array of Datum values from the new tuple being checked
 ## Dependencies
 - Functions called/Symbols referenced:
   - IndexRelationGetNumberOfKeyAttributes

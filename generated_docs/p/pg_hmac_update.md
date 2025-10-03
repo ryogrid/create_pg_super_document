@@ -16,10 +16,9 @@ pg_hmac_update(pg_hmac_ctx *ctx, const uint8 *data, size_t len)
 The pg_hmac_update function feeds data into an existing HMAC context for incremental HMAC computation. This function allows processing data in chunks rather than requiring all data to be available at once. It serves as a wrapper around the underlying cryptographic hash update function, providing error handling specific to HMAC operations. The function returns 0 on success and -1 on failure, setting appropriate error codes in the context.
 
 ## Parameters / Member Variables
-- : Pointer to the HMAC context structure that maintains the computation state
-- : Pointer to the data buffer to be processed
-- : Size of the data buffer in bytes
-
+- `*ctx`: Pointer to the HMAC context structure that maintains the computation state
+- `*data`: Pointer to the data buffer to be processed
+- `len`: Size of the data buffer in bytes
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_cryptohash_update](pg_cryptohash_update.md)

@@ -25,9 +25,8 @@ This internal function is responsible for parsing PostgreSQL's pg_ident.conf aut
 The function handles both valid configuration entries and lines with errors, ensuring that diagnostic information is preserved in the resulting view. Each successfully parsed mapping is assigned an incrementing map_number for identification.
 
 ## Parameters / Member Variables
-- : Tuplestorestate pointer where the parsed identity mapping records will be stored
-- : TupleDesc describing the structure of the target view's tuples
-
+- `*tuple_store`: Tuplestorestate pointer where the parsed identity mapping records will be stored
+- `tupdesc`: TupleDesc describing the structure of the target view's tuples
 ## Dependencies
 - Functions called/Symbols referenced:
   - [open_auth_file](../o/open_auth_file.md)

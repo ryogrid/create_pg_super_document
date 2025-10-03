@@ -20,9 +20,8 @@ The function excludes the special PUBLIC role ID () from the results since it's 
 This function is commonly used in dependency tracking scenarios where the system needs to know which roles are referenced by an ACL before making changes to role membership or when processing GRANT/REVOKE operations.
 
 ## Parameters / Member Variables
-- : The Access Control List to examine for role references
-- : Output parameter - pointer to receive the allocated array of role OIDs
-
+- `*acl`: The Access Control List to examine for role references
+- `**roleids`: Output parameter - pointer to receive the allocated array of role OIDs
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_acl](../c/check_acl.md)

@@ -23,8 +23,7 @@ The function works by:
 5. Returning the cleaned string
 
 ## Parameters / Member Variables
-- : The input string to clean (const char *) - the original string is not modified
-
+- `*msg`: The input string to clean (const char *) - the original string is not modified
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pstrdup](../p/pstrdup.md) (PostgreSQL string duplication function)

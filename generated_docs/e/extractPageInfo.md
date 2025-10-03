@@ -20,8 +20,7 @@ The function recognizes several categories of WAL records: database creation/del
 For records that modify actual data blocks, the function iterates through all blocks referenced by the WAL record, extracting the RelFileLocator, fork number, and block number. It focuses only on the main fork of relations, as other forks (visibility map, free space map) are copied in their entirety. For each main fork block, it calls process_target_wal_block_change() to register the block in the page map.
 
 ## Parameters / Member Variables
-- : XLogReaderState containing the current WAL record to analyze
-
+- `*record`: XLogReaderState containing the current WAL record to analyze
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetRmid

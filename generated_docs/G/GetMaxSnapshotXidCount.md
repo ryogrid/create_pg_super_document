@@ -28,6 +28,7 @@ The function is specifically exported for use by snapmgr.c, demonstrating the mo
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - procArray->maxProcs (global variable access)

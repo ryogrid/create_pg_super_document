@@ -23,9 +23,8 @@ The function implements a lazy allocation strategy:
 This approach optimizes memory usage while ensuring serialization operations have adequate space to proceed without buffer overflow errors.
 
 ## Parameters / Member Variables
-- : Pointer to the ReorderBuffer structure containing the output buffer to be managed
-- : The minimum required size (in bytes) for the output buffer
-
+- `*rb`: Pointer to the ReorderBuffer structure containing the output buffer to be managed
+- `sz`: The minimum required size (in bytes) for the output buffer
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContextAlloc](../M/MemoryContextAlloc.md) (for initial buffer allocation)

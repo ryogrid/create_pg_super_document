@@ -19,11 +19,10 @@ This function provides string-to-unsigned-64-bit-integer conversion using Postgr
 Unlike uint32in_subr, this function doesn't require additional platform compatibility checks since it uses PostgreSQL's own strtou64() implementation rather than the standard library's strtoul(). This ensures consistent behavior across all supported platforms and architectures.
 
 ## Parameters / Member Variables
-- : Input string containing the integer representation to convert
-- : Optional pointer to store the location where parsing stopped; if NULL, entire string must be valid
-- : Type name string used in error messages for better diagnostics  
-- : Error context node for soft error handling; if NULL, errors are thrown via ereport()
-
+- `*s`: Input string containing the integer representation to convert
+- `**endloc`: Optional pointer to store the location where parsing stopped; if NULL, entire string must be valid
+- `*typname`: Type name string used in error messages for better diagnostics
+- `*escontext`: Error context node for soft error handling; if NULL, errors are thrown via ereport()
 ## Dependencies
 - Functions called/Symbols referenced:
   - strtou64 (PostgreSQL's 64-bit unsigned integer parsing function)

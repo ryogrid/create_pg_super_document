@@ -27,12 +27,11 @@ The function provides:
 The vectored I/O approach is particularly beneficial when reading scattered data pages or when the application needs to read into multiple separate buffers that are not physically contiguous in memory.
 
 ## Parameters / Member Variables
-- : The virtual file descriptor to read from
-- : Array of iovec structures specifying the buffers to read into
-- : Number of iovec structures in the array
-- : Starting byte offset within the file for the read operation
-- : Wait event identifier for PostgreSQL's wait event monitoring system
-
+- `file`: The virtual file descriptor to read from
+- `*iov`: Array of iovec structures specifying the buffers to read into
+- `iovcnt`: Number of iovec structures in the array
+- `offset`: Starting byte offset within the file for the read operation
+- `wait_event_info`: Wait event identifier for PostgreSQL's wait event monitoring system
 ## Dependencies
 - Functions called/Symbols referenced:
   - FileIsValid: Validates the file descriptor

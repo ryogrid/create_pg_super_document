@@ -19,7 +19,6 @@ The function delegates the actual deletion work to smgrDoPendingDeletes(false), 
 This immediate processing is safe and efficient because there's no possibility of the subtransaction committing, eliminating the need to defer deletions until the top-level transaction completes.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -25,8 +25,7 @@ The function simply generates a "CREATE EXTENSION plpgsql;" SQL command, which i
 PL/pgSQL is considered a core PostgreSQL feature and is typically installed by default in most PostgreSQL databases, making it readily available for application developers who need to implement server-side business logic.
 
 ## Parameters / Member Variables
-- : FILE pointer to the command file where SQL statements are written for execution during database initialization
-
+- `*cmdfd`: FILE pointer to the command file where SQL statements are written for execution during database initialization
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_CMD_PUTS (macro for writing SQL strings to the command file)

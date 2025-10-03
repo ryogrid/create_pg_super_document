@@ -18,9 +18,8 @@ This function implements the core buffer retrieval mechanism for read streams, f
 The fast path is optimized for scenarios where all data is already cached (behavior A), avoiding queue management overhead and using simple singular buffer reads. The full path handles complex scenarios involving pending I/O operations, dynamic distance adjustment, and per-buffer data management.
 
 ## Parameters / Member Variables
-- : The read stream object containing buffer queues and I/O state
-- : Optional output parameter for per-buffer callback data (valid until next call)
-
+- `*stream`: The read stream object containing buffer queues and I/O state
+- `**per_buffer_data`: Optional output parameter for per-buffer callback data (valid until next call)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [read_stream_get_block](read_stream_get_block.md)

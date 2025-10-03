@@ -27,9 +27,8 @@ The deduplication check is critical because:
 - When a constraint depends on multiple columns being altered, the definition must be captured before any column changes (ruleutils.c would get confused if asked to generate the definition after partial changes)
 
 ## Parameters / Member Variables
-- : OID of the constraint to be remembered for rebuilding
-- : AlteredTableInfo structure containing lists of constraints to rebuild
-
+- `conoid`: OID of the constraint to be remembered for rebuilding
+- `*tab`: AlteredTableInfo structure containing lists of constraints to rebuild
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_member_oid](../l/list_member_oid.md)

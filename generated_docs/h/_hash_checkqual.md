@@ -18,9 +18,8 @@ This function is designed to evaluate whether a given index tuple meets the scan
 The function's design reflects a limitation in the hash index implementation: it cannot directly check scan conditions on the index tuple because it lacks access to the original index entry value needed for the scan key function (). Instead, the hash index system relies on the  function to set a recheck flag, which causes the main indexscan code to perform the qualification checking at a higher level.
 
 ## Parameters / Member Variables
-- : IndexScanDesc pointer containing the scan descriptor with key data and scan conditions
-- : IndexTuple pointer to the index tuple being evaluated for qualification
-
+- `scan`: IndexScanDesc pointer containing the scan descriptor with key data and scan conditions
+- `itup`: IndexTuple pointer to the index tuple being evaluated for qualification
 ## Dependencies
 - Functions called/Symbols referenced:
   - [IndexScanDesc](../I/IndexScanDesc.md) (scan descriptor type)

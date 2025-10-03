@@ -16,10 +16,9 @@ send_feedback(XLogRecPtr recvpos, bool force, bool requestReply)
 This function constructs and sends a replication protocol feedback message ('r' message type) to inform the publisher about the logical replication worker's current progress. It tracks the latest LSN positions for received, written, flushed, and applied data. The function implements intelligent throttling by only sending feedback when necessary (based on time intervals or forced sends) and maintains static variables to track the last reported positions. It communicates three key LSN positions: write (latest received), flush (latest flushed to disk), and apply (latest applied), along with timestamps and reply request flags.
 
 ## Parameters / Member Variables
-- : The latest LSN position that has been received from the publisher
-- : Boolean flag to force sending feedback regardless of time intervals (used for timeouts and mandatory responses)
-- : Boolean flag indicating whether the publisher should send a reply to this feedback message
-
+- `recvpos`: The latest LSN position that has been received from the publisher
+- `force`: Boolean flag to force sending feedback regardless of time intervals (used for timeouts and mandatory responses)
+- `requestReply`: Boolean flag indicating whether the publisher should send a reply to this feedback message
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_flush_position](../g/get_flush_position.md)

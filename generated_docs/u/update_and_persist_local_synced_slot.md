@@ -22,9 +22,8 @@ The function implements two key safety checks:
 If both conditions are met, the slot is persisted using  and marked as sync-ready (RS_PERSISTENT state).
 
 ## Parameters / Member Variables
-- : Pointer to RemoteSlot structure containing the remote replication slot data to synchronize
-- : Object identifier (Oid) of the remote database associated with the slot
-
+- `*remote_slot`: Pointer to RemoteSlot structure containing the remote replication slot data to synchronize
+- `remote_dbid`: Object identifier (Oid) of the remote database associated with the slot
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Updates local slot with remote data and performs validation

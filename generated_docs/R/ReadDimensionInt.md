@@ -25,11 +25,10 @@ The function uses strtol() for parsing and validates that the result fits within
 This function is specifically designed for dimension parsing where integers must be within int32 range to prevent overflow in array size calculations.
 
 ## Parameters / Member Variables
-- : Pointer to current position in input string, advanced past parsed integer
-- : Output parameter for the parsed integer value
-- : Original input string (used only for error messages)
-- : Error context for soft error handling
-
+- `**srcptr`: Pointer to current position in input string, advanced past parsed integer
+- `*result`: Output parameter for the parsed integer value
+- `*origStr`: Original input string (used only for error messages)
+- `*escontext`: Error context for soft error handling
 ## Dependencies
 - Functions called/Symbols referenced:
   - strtol (C standard library)

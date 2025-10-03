@@ -18,9 +18,8 @@ The OpenArchive function is responsible for opening and initializing an existing
 The function operates in read mode (archModeRead) and configures the archive to use the setupRestoreWorker function for worker process management. It also sets the data directory synchronization method to fsync for data integrity.
 
 ## Parameters / Member Variables
-- : Path to the archive file to be opened
-- : Format of the archive (ArchiveFormat enum value)
-
+- `*FileSpec`: Path to the archive file to be opened
+- `fmt`: Format of the archive (ArchiveFormat enum value)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [_allocAH](../a/_allocAH.md)

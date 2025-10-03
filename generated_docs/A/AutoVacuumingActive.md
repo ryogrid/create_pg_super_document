@@ -23,7 +23,6 @@ The function returns  only when both conditions are met, ensuring that autovacuu
 The function is used throughout the autovacuum system to gate operations that should only occur when autovacuum is properly configured and enabled.
 
 ## Parameters / Member Variables
-None - this function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

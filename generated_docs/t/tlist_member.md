@@ -16,9 +16,8 @@ tlist_member(Expr *node, List *targetlist)
 The  function performs a linear search through a target list to find the first  whose expression is equal to the provided node expression. It uses PostgreSQL's  function to perform deep structural comparison of the expressions. This is a fundamental utility function used throughout the optimizer for finding existing target list entries to avoid duplication.
 
 ## Parameters / Member Variables
-- : The expression to search for in the target list
-- : A List of TargetEntry nodes to search through
-
+- `*node`: The expression to search for in the target list
+- `*targetlist`: A List of TargetEntry nodes to search through
 ## Dependencies
 - Functions called/Symbols referenced:
   - [equal](../e/equal.md) (for deep expression comparison)

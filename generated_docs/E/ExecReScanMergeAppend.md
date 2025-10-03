@@ -30,8 +30,7 @@ ExecReScanMergeAppend implements the rescan functionality for MergeAppend nodes,
 This design ensures that the MergeAppend node can be efficiently reused within the same query execution for operations like nested loops.
 
 ## Parameters / Member Variables
-- : The MergeAppendState containing the merge execution state, subplans, pruning information, and binary heap to be reset
-
+- `*node`: The MergeAppendState containing the merge execution state, subplans, pruning information, and binary heap to be reset
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bms_overlap](../b/bms_overlap.md) (checks if two bitmapsets have common members)

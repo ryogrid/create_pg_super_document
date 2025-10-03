@@ -16,10 +16,9 @@ print_elapse(struct timeval start_t, struct timeval stop_t, int ops)
 The print_elapse function performs timing analysis for filesystem synchronization benchmarking in the pg_test_fsync utility. It calculates the elapsed time between two timestamp measurements, computes performance metrics including operations per second and average operation time in microseconds, then formats and displays the results. The function is essential for providing meaningful performance feedback during PostgreSQL's filesystem synchronization method testing, helping users understand the relative performance characteristics of different sync methods on their system.
 
 ## Parameters / Member Variables
-- : struct timeval containing the start timestamp of the measured operation
-- : struct timeval containing the end timestamp of the measured operation  
-- : Integer count of operations performed during the measured time period
-
+- `start_t`: struct timeval containing the start timestamp of the measured operation
+- `stop_t`: struct timeval containing the end timestamp of the measured operation
+- `ops`: Integer count of operations performed during the measured time period
 ## Dependencies
 - Functions called/Symbols referenced:
   - USECS_SEC (constant for microseconds per second conversion)

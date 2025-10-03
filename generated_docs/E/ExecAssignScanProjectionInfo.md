@@ -18,8 +18,7 @@ ExecAssignScanProjectionInfo is a specialized wrapper function that configures p
 The function implements a key optimization in PostgreSQL's execution engine: avoiding unnecessary projection steps when the requested target list exactly matches the underlying tuple structure. This optimization is common not only in simple "SELECT *" queries but also in complex queries where the planner generates matching target lists for joined or processed nodes above the scan.
 
 ## Parameters / Member Variables
-- : The ScanState containing the scan plan and tuple slot with descriptor information
-
+- `*node`: The ScanState containing the scan plan and tuple slot with descriptor information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecConditionalAssignProjectionInfo](ExecConditionalAssignProjectionInfo.md) (performs the actual projection analysis and setup)

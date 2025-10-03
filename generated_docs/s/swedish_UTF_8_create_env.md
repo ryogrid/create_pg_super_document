@@ -23,6 +23,7 @@ The function calls SN_create_env with parameters (0, 2), where:
 ## Parameters / Member Variables
 
 
+
 ## Return Value
 - Returns a pointer to a newly allocated SN_env structure configured for Swedish UTF-8 stemming, or NULL if allocation fails
 

@@ -20,9 +20,8 @@ The function performs standard validation including database filtering and origi
 When the XLH_DELETE_CONTAINS_OLD flag is set, the function extracts the old tuple data from the WAL record, which contains the primary key or full row information needed for logical replication subscribers to identify and process the delete operation.
 
 ## Parameters / Member Variables
-- : LogicalDecodingContext containing the decoding state, replication slot, and configuration
-- : XLogRecordBuffer containing the WAL record with delete data to be processed
-
+- `*ctx`: LogicalDecodingContext containing the decoding state, replication slot, and configuration
+- `*buf`: XLogRecordBuffer containing the WAL record with delete data to be processed
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData

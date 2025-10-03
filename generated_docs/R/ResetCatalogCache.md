@@ -20,9 +20,8 @@ When an entry has a reference count greater than 0, it cannot be immediately rem
 The function also handles in-progress cache builds, marking them as dead unless this is being called for debug purposes (debug_discard mode), in which case in-progress builds are left alone to allow cache testing to make progress.
 
 ## Parameters / Member Variables
-- : Pointer to the CatCache structure to be reset
-- : Boolean flag indicating whether this is called from debug_discard_caches for testing purposes
-
+- `*cache`: Pointer to the CatCache structure to be reset
+- `debug_discard`: Boolean flag indicating whether this is called from debug_discard_caches for testing purposes
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CatCacheRemoveCList](../C/CatCacheRemoveCList.md)

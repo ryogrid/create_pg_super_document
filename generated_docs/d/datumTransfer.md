@@ -21,10 +21,9 @@ The  function provides an optimized alternative to  when transferring datums int
 This function is particularly valuable when working with expanded objects that will continue to be modified, as it maintains their expanded state while ensuring they survive context destruction.
 
 ## Parameters / Member Variables
-- : The datum value to be transferred into the current memory context
-- : Boolean indicating whether the type is passed by value (true) or by reference (false)
-- : The declared type length (-1 for varlena, positive for fixed-length)
-
+- `value`: The datum value to be transferred into the current memory context
+- `typByVal`: Boolean indicating whether the type is passed by value (true) or by reference (false)
+- `typLen`: The declared type length (-1 for varlena, positive for fixed-length)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DatumGetPointer](../D/DatumGetPointer.md)

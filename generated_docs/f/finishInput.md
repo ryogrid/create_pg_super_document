@@ -22,7 +22,6 @@ The function performs two key cleanup operations:
 This function is typically registered as an exit handler using  during the initialization process, ensuring that history is preserved even if the program terminates unexpectedly through normal exit paths.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

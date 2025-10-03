@@ -33,14 +33,13 @@ The function operates by:
 The exclusion logic ensures that when counting frame positions, only in-frame rows are considered, which can result in non-obvious position calculations.
 
 ## Parameters / Member Variables
-- : Window object containing frame definition and state
-- : Zero-based index of the argument expression to evaluate
-- : Signed offset from the seek position (must be >= 0 for HEAD, <= 0 for TAIL)
-- : Position reference point (WINDOW_SEEK_HEAD or WINDOW_SEEK_TAIL only)
-- : Whether to move the mark position (with exclusion-aware adjustments)
-- : Output parameter receiving null status of the evaluated expression
-- : Output parameter indicating if the target position is outside the frame
-
+- `winobj`: Window object containing frame definition and state
+- `argno`: Zero-based index of the argument expression to evaluate
+- `relpos`: Signed offset from the seek position (must be >= 0 for HEAD, <= 0 for TAIL)
+- `seektype`: Position reference point (WINDOW_SEEK_HEAD or WINDOW_SEEK_TAIL only)
+- `set_mark`: Whether to move the mark position (with exclusion-aware adjustments)
+- `*isnull`: Output parameter receiving null status of the evaluated expression
+- `*isout`: Output parameter indicating if the target position is outside the frame
 ## Dependencies
 - Functions called/Symbols referenced:
   - WindowObjectIsValid

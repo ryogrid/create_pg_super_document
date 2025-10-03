@@ -17,7 +17,6 @@ The `superuser` function is a simple wrapper that checks if the currently logged
 The function provides a convenient interface for checking superuser status without needing to explicitly pass the current user's OID, making the code more readable and reducing the chance of errors.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

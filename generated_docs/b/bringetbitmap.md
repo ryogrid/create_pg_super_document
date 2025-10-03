@@ -31,9 +31,8 @@ The function processes each page range by:
 - Adding qualifying page ranges to the output bitmap
 
 ## Parameters / Member Variables
-- : IndexScanDesc containing scan keys, index relation, and opaque scan state
-- : TIDBitmap to populate with qualifying heap page numbers
-
+- `scan`: IndexScanDesc containing scan keys, index relation, and opaque scan state
+- `*tbm`: TIDBitmap to populate with qualifying heap page numbers
 ## Dependencies
 - Functions called/Symbols referenced:
   - [brinGetTupleForHeapBlock](brinGetTupleForHeapBlock.md): Retrieves BRIN tuple for a given heap block

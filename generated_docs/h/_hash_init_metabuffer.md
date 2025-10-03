@@ -17,12 +17,11 @@ _hash_init_metabuffer(Buffer buf, double num_tuples, RegProcedure procid,
 This function sets up the metadata page for a hash index, which is the control structure that manages the overall state of the hash index. It calculates the initial number of buckets based on the estimated tuple count and fill factor, initializes the page structure, and sets up the metadata fields including magic numbers, version information, bucket configuration, and bitmap management parameters. The function ensures proper page layout by setting pd_lower to prevent metadata loss during WAL compression.
 
 ## Parameters / Member Variables
-- : Buffer containing the metadata page to be initialized
-- : Estimated number of tuples that will be stored in the index
-- : OID of the primary hash support function for forensic purposes
-- : Fill factor determining how full buckets should be before splitting
-- : Whether to initialize the page structure itself
-
+- `buf`: Buffer containing the metadata page to be initialized
+- `num_tuples`: Estimated number of tuples that will be stored in the index
+- `procid`: OID of the primary hash support function for forensic purposes
+- `ffactor`: Fill factor determining how full buckets should be before splitting
+- `initpage`: Whether to initialize the page structure itself
 ## Dependencies
 - Functions called/Symbols referenced:
   - [_hash_get_totalbuckets](_hash_get_totalbuckets.md)

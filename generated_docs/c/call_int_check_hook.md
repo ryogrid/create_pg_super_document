@@ -19,12 +19,11 @@ This function serves as a validation wrapper for integer-type GUC parameters in 
 The function first checks if a check hook exists for the parameter. If no hook is present, it immediately returns true (valid). When a hook exists, it resets global error message variables, calls the hook, and if validation fails, reports the error using ereport() with detailed error information including custom messages set by the hook or default validation failure messages.
 
 ## Parameters / Member Variables
-- : Pointer to the config_int structure containing the GUC parameter configuration and its check hook
-- : Pointer to the integer value being validated
-- : Pointer to extra data that may be set by the check hook for use during assignment
-- : The source of the configuration change (e.g., configuration file, command line, etc.)
-- : Error level for reporting validation failures (e.g., ERROR, WARNING)
-
+- `*conf`: Pointer to the config_int structure containing the GUC parameter configuration and its check hook
+- `*newval`: Pointer to the integer value being validated
+- `**extra`: Pointer to extra data that may be set by the check hook for use during assignment
+- `source`: The source of the configuration change (e.g., configuration file, command line, etc.)
+- `elevel`: Error level for reporting validation failures (e.g., ERROR, WARNING)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [config_int](config_int.md) (struct type)

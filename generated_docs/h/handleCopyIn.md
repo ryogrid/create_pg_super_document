@@ -18,11 +18,10 @@ The handleCopyIn function manages the data input phase of PostgreSQL's COPY FROM
 For text mode, the function reads data line by line to properly detect the EOF marker without consuming data beyond it (important when COPY commands are embedded in SQL scripts). For binary mode, it reads data in chunks directly. The function also handles user interrupts gracefully using longjmp/setjmp and provides interactive prompts when reading from a terminal.
 
 ## Parameters / Member Variables
-- : PostgreSQL database connection handle
-- : File stream to read data from (stdin, regular file, etc.)
-- : Boolean flag indicating whether to use binary or text copy mode
-- : Pointer to store the final PGresult from the copy operation
-
+- `*conn`: PostgreSQL database connection handle
+- `*copystream`: File stream to read data from (stdin, regular file, etc.)
+- `isbinary`: Boolean flag indicating whether to use binary or text copy mode
+- `**res`: Pointer to store the final PGresult from the copy operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - sigsetjmp (signal handling for interrupts)

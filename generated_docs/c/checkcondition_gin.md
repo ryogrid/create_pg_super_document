@@ -24,10 +24,9 @@ The function performs several key operations:
 This callback is crucial for the two-phase checking process in GIN text search: first determining basic presence/absence, then potentially requiring detailed recheck for complex conditions.
 
 ## Parameters / Member Variables
-- :  - Pointer to GinChkVal structure containing check context
-- :  - Query operand being evaluated for matching
-- :  - Phrase execution data (NULL if position info not needed)
-
+- `*checkval`:  - Pointer to GinChkVal structure containing check context
+- `*val`:  - Query operand being evaluated for matching
+- `*data`:  - Phrase execution data (NULL if position info not needed)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Structure containing check array and mapping information

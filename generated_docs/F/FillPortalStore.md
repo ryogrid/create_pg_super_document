@@ -16,9 +16,8 @@ FillPortalStore(Portal portal, bool isTopLevel)
 FillPortalStore is a specialized function used to execute queries and store their results in a portal's tuple store rather than streaming them directly to the client. This function is specifically designed for three portal strategies: PORTAL_ONE_RETURNING, PORTAL_ONE_MOD_WITH, and PORTAL_UTIL_SELECT. It creates a tuplestore destination receiver, configures it to write to the portal's hold store, and then executes the appropriate query execution path based on the portal's strategy. The function ensures that query results are captured and held in memory for later retrieval, which is essential for certain query patterns that require result buffering.
 
 ## Parameters / Member Variables
-- : The Portal structure containing the query to execute and where results will be stored
-- : Boolean flag indicating whether this is a top-level query execution
-
+- `portal`: The Portal structure containing the query to execute and where results will be stored
+- `isTopLevel`: Boolean flag indicating whether this is a top-level query execution
 ## Dependencies
 - Functions called/Symbols referenced:
   - [InitializeQueryCompletion](../I/InitializeQueryCompletion.md)

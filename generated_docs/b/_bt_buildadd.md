@@ -31,11 +31,10 @@ The function handles several critical aspects of B-tree construction:
 The function contains detailed logic for handling posting lists and considers their impact on page space calculations, particularly important for the soft fillfactor limit.
 
 ## Parameters / Member Variables
-- : BTWriteState structure containing the overall state of the index building operation
-- : BTPageState structure containing the state for the current page being built
-- : The IndexTuple to be added to the current page
-- : Size of any posting list in the tuple, used for space calculations and truncation decisions
-
+- `*wstate`: BTWriteState structure containing the overall state of the index building operation
+- `*state`: BTPageState structure containing the state for the current page being built
+- `itup`: The IndexTuple to be added to the current page
+- `truncextra`: Size of any posting list in the tuple, used for space calculations and truncation decisions
 ## Dependencies
 - Functions called/Symbols referenced:
   - CHECK_FOR_INTERRUPTS

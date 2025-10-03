@@ -20,10 +20,9 @@ The function implements a sophisticated algorithm that sorts entries by frequenc
 For exclude-only scan keys, all entries are placed in the additional set since no positive matches are required. For single-entry keys, the lone entry becomes required by default.
 
 ## Parameters / Member Variables
-- : Pointer to GIN state information containing index metadata
-- : GIN scan opaque structure containing scan context and memory contexts
-- : The GIN scan key to be initialized and partitioned
-
+- `*ginstate`: Pointer to GIN state information containing index metadata
+- `so`: GIN scan opaque structure containing scan context and memory contexts
+- `key`: The GIN scan key to be initialized and partitioned
 ## Dependencies
 - Functions called/Symbols referenced:
   - ItemPointerSetMin

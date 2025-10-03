@@ -20,13 +20,12 @@ This function processes a single partition bound value expression by transformin
 The function is essential for partition definition processing, ensuring that partition bounds are valid constant expressions that can be safely used for partition pruning and constraint checking. It handles both pre-evaluated constants and complex expressions that need runtime evaluation.
 
 ## Parameters / Member Variables
-- : ParseState pointer providing parser context for error reporting and expression transformation
-- : Node pointer to the raw expression that represents the partition bound value  
-- : String name of the partition column for error reporting purposes
-- : OID of the target column's data type for type coercion
-- : Type modifier for the target column (e.g., precision, length constraints)
-- : OID of the collation to be assigned to the resulting constant
-
+- `*pstate`: ParseState pointer providing parser context for error reporting and expression transformation
+- `*val`: Node pointer to the raw expression that represents the partition bound value
+- `*colName`: String name of the partition column for error reporting purposes
+- `colType`: OID of the target column's data type for type coercion
+- `colTypmod`: Type modifier for the target column (e.g., precision, length constraints)
+- `partCollation`: OID of the collation to be assigned to the resulting constant
 ## Dependencies
 - Functions called/Symbols referenced:
   - [transformExpr](transformExpr.md) (expression transformation)

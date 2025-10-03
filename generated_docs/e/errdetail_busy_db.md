@@ -20,9 +20,8 @@ The function handles three distinct scenarios: databases busy with both active c
 The function returns 0 solely to satisfy the  macro requirements, as the actual purpose is the side effect of calling  or  to set the error detail message.
 
 ## Parameters / Member Variables
-- : Number of other backend processes (active connections) using the database
-- : Number of prepared transactions associated with the database
-
+- `notherbackends`: Number of other backend processes (active connections) using the database
+- `npreparedxacts`: Number of prepared transactions associated with the database
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Set error detail message for cases with both backends and prepared transactions

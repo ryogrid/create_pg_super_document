@@ -18,10 +18,9 @@ This function serves as the key comparison function for PostgreSQL's internal ha
 The function follows the standard comparison function interface required by PostgreSQL's hash table implementation, returning 0 for equality and 1 for inequality. This ensures that RecordCacheEntry objects with structurally identical TupleDesc definitions are treated as equivalent keys in the hash table, preventing duplicate cache entries and enabling proper cache lookup functionality.
 
 ## Parameters / Member Variables
-- : Pointer to the first RecordCacheEntry structure to compare
-- : Pointer to the second RecordCacheEntry structure to compare  
-- : Size parameter (required by comparison function interface but not used in this implementation)
-
+- `*a`: Pointer to the first RecordCacheEntry structure to compare
+- `*b`: Pointer to the second RecordCacheEntry structure to compare
+- `size`: Size parameter (required by comparison function interface but not used in this implementation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [equalRowTypes](../e/equalRowTypes.md)

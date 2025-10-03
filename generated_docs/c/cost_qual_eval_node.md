@@ -20,10 +20,9 @@ The function initializes a cost evaluation context and directly calls  on the si
 This function is particularly useful in contexts where expressions are processed individually, such as during expression tree walking, specific clause cost evaluation, or when building cost estimates incrementally.
 
 ## Parameters / Member Variables
-- : Output parameter receiving the calculated QualCost structure with startup and per_tuple components
-- : Single qualification expression (Node* or RestrictInfo*) to evaluate
-- : PlannerInfo context for planning information (can be NULL, resulting in slightly worse estimates)
-
+- `*cost`: Output parameter receiving the calculated QualCost structure with startup and per_tuple components
+- `*qual`: Single qualification expression (Node* or RestrictInfo*) to evaluate
+- `*root`: PlannerInfo context for planning information (can be NULL, resulting in slightly worse estimates)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [cost_qual_eval_walker](cost_qual_eval_walker.md)

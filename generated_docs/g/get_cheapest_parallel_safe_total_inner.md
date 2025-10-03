@@ -18,8 +18,7 @@ This function is specifically designed for finding inner paths suitable for para
 This function is commonly used in join planning where the optimizer needs to select an inner path for parallel hash joins, merge joins, or nested loop joins. The parallel-safety requirement ensures the path can be used in parallel query execution, while the unparameterized requirement ensures the inner path can be materialized independently.
 
 ## Parameters / Member Variables
-- : List of possible paths, assumed to be sorted by total cost in ascending order
-
+- `*paths`: List of possible paths, assumed to be sorted by total cost in ascending order
 ## Dependencies
 - Functions called/Symbols referenced:
   - bms_is_empty

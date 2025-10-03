@@ -18,8 +18,7 @@ This function creates and initializes a new incremental parsing state for JSON m
 The function configures semantic handlers for various JSON elements (objects, arrays, fields, scalars) and initializes a SHA256 hash context for computing the manifest checksum during parsing.
 
 ## Parameters / Member Variables
-- : Pointer to JsonManifestParseContext containing error callback and other parsing context information
-
+- `*context`: Pointer to JsonManifestParseContext containing error callback and other parsing context information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md)

@@ -23,10 +23,9 @@ The function checks:
 If any of these comparisons fail, the constraints are considered non-equivalent.
 
 ## Parameters / Member Variables
-- : HeapTuple containing the first pg_constraint row to compare
-- : HeapTuple containing the second pg_constraint row to compare
-- : TupleDesc describing the structure of the pg_constraint tuples
-
+- `a`: HeapTuple containing the first pg_constraint row to compare
+- `b`: HeapTuple containing the second pg_constraint row to compare
+- `tupleDesc`: TupleDesc describing the structure of the pg_constraint tuples
 ## Dependencies
 - Functions called/Symbols referenced:
   - GETSTRUCT (macro)

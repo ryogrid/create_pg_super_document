@@ -24,9 +24,8 @@ The function appends a SQL expression to the provided buffer that:
 This standardized approach ensures consistent privilege display across all psql describe commands that show ACL information, such as tables, functions, types, databases, schemas, etc.
 
 ## Parameters / Member Variables
-- : PQExpBuffer to which the SQL expression will be appended
-- : Name of the database column containing the ACL array (e.g., "relacl", "datacl", "nspacl")
-
+- `buf`: PQExpBuffer to which the SQL expression will be appended
+- `*colname`: Name of the database column containing the ACL array (e.g., "relacl", "datacl", "nspacl")
 ## Dependencies
 - Functions called/Symbols referenced:
   - [appendPQExpBuffer](../a/appendPQExpBuffer.md) (for building the SQL expression)

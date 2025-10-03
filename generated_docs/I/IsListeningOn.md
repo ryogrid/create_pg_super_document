@@ -22,8 +22,7 @@ This function determines if the backend is currently listening to a specific not
 The function includes a performance note indicating that the linear search might be optimized to use binary search on a sorted array for better performance, though the list is expected to be relatively short in practice.
 
 ## Parameters / Member Variables
-- : The name of the notification channel to check (null-terminated string)
-
+- `*channel`: The name of the notification channel to check (null-terminated string)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - [List](../L/List.md) iteration macro

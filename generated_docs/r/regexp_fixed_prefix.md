@@ -21,11 +21,10 @@ The function compiles the regular expression with appropriate flags, then uses t
 The extracted prefix is converted from the internal wide character representation back to the database encoding before being returned as a palloc'd string that the caller must free.
 
 ## Parameters / Member Variables
-- : The input regular expression pattern as a PostgreSQL text datum
-- : Boolean flag indicating whether the regex should be case-insensitive
-- : The collation OID to use for character comparisons and case folding
-- : Output parameter set to true if the entire pattern is an exact literal match (not just a prefix)
-
+- `*text_re`: The input regular expression pattern as a PostgreSQL text datum
+- `case_insensitive`: Boolean flag indicating whether the regex should be case-insensitive
+- `collation`: The collation OID to use for character comparisons and case folding
+- `*exact`: Output parameter set to true if the entire pattern is an exact literal match (not just a prefix)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RE_compile_and_cache](../R/RE_compile_and_cache.md)

@@ -22,8 +22,7 @@ The function handles both local and shared buffers appropriately:
 This separation ensures proper cleanup without creating circular dependencies in the ResourceOwner system.
 
 ## Parameters / Member Variables
-- : Datum containing the buffer identifier that needs to be unpinned, converted to Buffer using DatumGetInt32
-
+- `res`: Datum containing the buffer identifier that needs to be unpinned, converted to Buffer using DatumGetInt32
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DatumGetInt32](../D/DatumGetInt32.md)

@@ -20,10 +20,9 @@ For simple query protocol, advancement only occurs when a ReadyForQuery message 
 When advancing, the function unlinks the head element, updates queue pointers, and recycles the queue entry for reuse.
 
 ## Parameters / Member Variables
-- : The PostgreSQL connection containing the command queue
-- : True if a ReadyForQuery message was received
-- : True if a SYNC response was received
-
+- `*conn`: The PostgreSQL connection containing the command queue
+- `isReadyForQuery`: True if a ReadyForQuery message was received
+- `gotSync`: True if a SYNC response was received
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pqRecycleCmdQueueEntry](pqRecycleCmdQueueEntry.md)

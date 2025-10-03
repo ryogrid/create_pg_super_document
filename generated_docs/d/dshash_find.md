@@ -16,10 +16,9 @@ dshash_find(dshash_table *hash_table, const void *key, bool exclusive)
 The  function performs a hash table lookup operation in PostgreSQL's dynamic shared hash table implementation. It searches for an entry matching the provided key and returns a pointer to the entry if found. The function acquires an LWLock on the appropriate partition of the hash table during the search operation, with the lock mode determined by the  parameter. If an entry is found, the lock is maintained and must be explicitly released by the caller using . The function ensures thread safety in multi-process environments by using lightweight locks and includes assertions to prevent deadlock scenarios.
 
 ## Parameters / Member Variables
-- : Pointer to the dynamic shared hash table to search in
-- : Pointer to the key to search for in the hash table
-- : Boolean flag determining lock mode - true for exclusive (LW_EXCLUSIVE), false for shared (LW_SHARED)
-
+- `*hash_table`: Pointer to the dynamic shared hash table to search in
+- `*key`: Pointer to the key to search for in the hash table
+- `exclusive`: Boolean flag determining lock mode - true for exclusive (LW_EXCLUSIVE), false for shared (LW_SHARED)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hash_key](../h/hash_key.md): Computes hash value for the given key

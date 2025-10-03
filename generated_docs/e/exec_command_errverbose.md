@@ -16,9 +16,8 @@ exec_command_errverbose(PsqlScanState scan_state, bool active_branch)
 This function retrieves and displays verbose error information from the last failed query result stored in pset.last_error_result. It uses PQresultVerboseErrorMessage() with verbose settings and context to provide comprehensive error details. If no previous error exists, it informs the user accordingly. The function handles memory management by freeing the error message after display.
 
 ## Parameters / Member Variables
-- : Scanner state for parsing the command line (unused in this function)
-- : Boolean indicating whether this command should be executed (used for conditional processing)
-
+- `scan_state`: Scanner state for parsing the command line (unused in this function)
+- `active_branch`: Boolean indicating whether this command should be executed (used for conditional processing)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQresultVerboseErrorMessage](../P/PQresultVerboseErrorMessage.md)

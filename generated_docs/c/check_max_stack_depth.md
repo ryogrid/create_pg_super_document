@@ -18,10 +18,9 @@ This function serves as a validation hook for the PostgreSQL configuration param
 If the validation fails, the function provides detailed error messages to help administrators understand the issue and suggests increasing the platform's stack depth limit using ulimit -s.
 
 ## Parameters / Member Variables
-- : Pointer to the new value being set for max_stack_depth (in kilobytes)
-- : Pointer to extra data (unused in this function)
-- : The source of the configuration change (GucSource enumeration)
-
+- `*newval`: Pointer to the new value being set for max_stack_depth (in kilobytes)
+- `**extra`: Pointer to extra data (unused in this function)
+- `source`: The source of the configuration change (GucSource enumeration)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_stack_depth_rlimit](../g/get_stack_depth_rlimit.md)

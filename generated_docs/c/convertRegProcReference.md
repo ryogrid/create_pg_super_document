@@ -18,8 +18,7 @@ This function processes REGPROCEDURE display strings that include both function 
 The function returns a dynamically allocated string containing only the function name, or NULL if the input represents an invalid OID (indicated by "-"). The caller is responsible for freeing the returned string.
 
 ## Parameters / Member Variables
-- : Input REGPROCEDURE display string containing function name and argument types
-
+- `*proc`: Input REGPROCEDURE display string containing function name and argument types
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_strdup](../p/pg_strdup.md) (for string duplication)

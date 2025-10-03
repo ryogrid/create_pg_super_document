@@ -18,10 +18,9 @@ This function is designed to advance the input pointer past a specified number o
 The function identifies numeric data characters as digits (0-9), decimal points (.), commas (,), and sign characters (+/-). Any other characters are considered non-data and can be skipped.
 
 ## Parameters / Member Variables
-- : Pointer to NUMProc structure containing input/output state and pointers
-- : Maximum number of characters to potentially skip
-- : Length of the input string (used for boundary checking via OVERLOAD_TEST)
-
+- `*Np`: Pointer to NUMProc structure containing input/output state and pointers
+- `n`: Maximum number of characters to potentially skip
+- `input_len`: Length of the input string (used for boundary checking via OVERLOAD_TEST)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [NUMProc](NUMProc.md) (structure type)

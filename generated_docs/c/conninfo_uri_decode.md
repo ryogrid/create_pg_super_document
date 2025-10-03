@@ -27,9 +27,8 @@ This function implements URI percent-decoding according to RFC 3986 standards. I
 The function provides comprehensive error handling for malformed percent-encoded sequences and memory allocation failures.
 
 ## Parameters / Member Variables
-- : The percent-encoded input string to decode
-- : Buffer to store error messages if decoding fails
-
+- `*str`: The percent-encoded input string to decode
+- `errorMessage`: Buffer to store error messages if decoding fails
 ## Dependencies
 - Functions called/Symbols referenced:
   - malloc

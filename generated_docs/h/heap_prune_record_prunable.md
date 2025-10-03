@@ -18,9 +18,8 @@ This function updates the pruning state to record the lowest soon-prunable trans
 The function follows the same logic as the PageSetPrunable macro but operates on working state rather than directly on the page header, since the page modifications are batched and applied later.
 
 ## Parameters / Member Variables
-- : Pointer to the PruneState structure that tracks the current pruning operation state
-- : Transaction ID that should be considered for recording as the prunable XID
-
+- `*prstate`: Pointer to the PruneState structure that tracks the current pruning operation state
+- `xid`: Transaction ID that should be considered for recording as the prunable XID
 ## Dependencies
 - Functions called/Symbols referenced:
   - PruneState (structure)

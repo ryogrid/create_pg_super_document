@@ -28,12 +28,11 @@ This function constructs the reltarget (relation target list) for a child join r
 This is a critical component of partitionwise join optimization, ensuring that child join relations have properly configured target lists that reference the correct partition-specific tables while maintaining cost and selectivity estimates for accurate planning.
 
 ## Parameters / Member Variables
-- : PlannerInfo containing global planner state and transformation context
-- : The parent join relation whose reltarget serves as the template
-- : The child join relation being constructed that will receive the adapted reltarget
-- : Number of AppendRelInfo structures in the appinfos array
-- : Array of AppendRelInfo structures containing parent-to-child relation mappings
-
+- `*root`: PlannerInfo containing global planner state and transformation context
+- `*parentrel`: The parent join relation whose reltarget serves as the template
+- `*childrel`: The child join relation being constructed that will receive the adapted reltarget
+- `nappinfos`: Number of AppendRelInfo structures in the appinfos array
+- `**appinfos`: Array of AppendRelInfo structures containing parent-to-child relation mappings
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Transforms expressions to replace parent relation references with child relation references

@@ -17,10 +17,9 @@ RenameRewriteRule(RangeVar *relation, const char *oldName,
 This function implements PostgreSQL's ALTER RULE RENAME functionality by updating the rule name in the pg_rewrite system catalog. It performs extensive validation including relation existence, permission checks, rule existence verification, name conflict detection, and special restrictions on ON SELECT rules. The operation maintains an AccessExclusiveLock on the target relation throughout the transaction to ensure consistency. The function follows PostgreSQL's standard pattern for DDL operations: validation, catalog updates, hook invocation, and cache invalidation to ensure all backends see the changes.
 
 ## Parameters / Member Variables
-- : RangeVar specifying the relation that owns the rule
-- : Current name of the rule to be renamed
-- : Desired new name for the rule
-
+- `*relation`: RangeVar specifying the relation that owns the rule
+- `*oldName`: Current name of the rule to be renamed
+- `*newName`: Desired new name for the rule
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RangeVarGetRelidExtended](RangeVarGetRelidExtended.md)

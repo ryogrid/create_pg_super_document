@@ -20,9 +20,8 @@ The function handles three cases: if the span has a next neighbor, it updates th
 The operation maintains the integrity of the doubly-linked list structure that organizes spans by their fullness level, which is crucial for the DSA allocator's ability to efficiently find suitable allocation targets and manage memory fragmentation.
 
 ## Parameters / Member Variables
-- : The DSA area containing the span and related structures
-- : The span to be removed from its fullness class list
-
+- `*area`: The DSA area containing the span and related structures
+- `*span`: The span to be removed from its fullness class list
 ## Dependencies
 - Functions called/Symbols referenced:
   - DsaPointerIsValid

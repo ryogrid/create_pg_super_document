@@ -19,10 +19,9 @@ The  function restricts a heap table scan to only examine tuples within a specif
 The function performs careful bounds checking against the relation's actual size, handles empty ranges gracefully, and optimizes the scan by calculating the minimum number of blocks that need to be examined to cover the requested TID range.
 
 ## Parameters / Member Variables
-- : The table scan descriptor to configure (cast to HeapScanDesc internally)
-- : Pointer to the minimum TID (inclusive) for the scan range
-- : Pointer to the maximum TID (inclusive) for the scan range
-
+- `sscan`: The table scan descriptor to configure (cast to HeapScanDesc internally)
+- `mintid`: Pointer to the minimum TID (inclusive) for the scan range
+- `maxtid`: Pointer to the maximum TID (inclusive) for the scan range
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ItemPointerSet](../I/ItemPointerSet.md)

@@ -18,9 +18,8 @@ This function creates a properly configured list of SortGroupClause nodes for se
 The function iterates through both the copied group clauses and the targetlist in parallel, matching each non-resjunk targetlist entry with its corresponding SortGroupClause and copying the ressortgroupref from the TargetEntry to the tleSortGroupRef field of the SortGroupClause. This establishes the proper linkage between the targetlist and the grouping/sorting specification.
 
 ## Parameters / Member Variables
-- : SetOperationStmt containing the original groupClauses from parse analysis
-- : targetlist for the set operation containing TargetEntry nodes with ressortgroupref values
-
+- `*op`: SetOperationStmt containing the original groupClauses from parse analysis
+- `*targetlist`: targetlist for the set operation containing TargetEntry nodes with ressortgroupref values
 ## Dependencies
 - Functions called/Symbols referenced:
   - copyObject

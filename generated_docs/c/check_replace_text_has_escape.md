@@ -22,8 +22,7 @@ This function examines replacement text strings used in regular expression repla
 The function optimizes performance by returning immediately upon finding the highest-priority escape type (submatch specifiers), avoiding unnecessary scanning of the remaining text.
 
 ## Parameters / Member Variables
-- : Input text object to be analyzed for escape sequences and submatch specifiers
-
+- `*replace_text`: Input text object to be analyzed for escape sequences and submatch specifiers
 ## Dependencies
 - Functions called/Symbols referenced:
   - VARDATA_ANY (macro for accessing text data)

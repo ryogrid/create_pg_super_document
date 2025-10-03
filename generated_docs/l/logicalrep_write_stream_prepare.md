@@ -20,10 +20,9 @@ The  function is a specialized wrapper that creates a logical replication messag
 The function ensures that transaction preparation information is properly serialized into the replication stream, including the transaction's prepare LSN, end LSN, prepare timestamp, transaction ID, and global identifier (GID).
 
 ## Parameters / Member Variables
-- : StringInfo buffer where the serialized STREAM PREPARE message will be written
-- : ReorderBufferTXN structure containing the transaction being prepared, must have a valid GID for two-phase commit
-- : XLogRecPtr indicating the LSN where the prepare record was written in the WAL
-
+- `out`: StringInfo buffer where the serialized STREAM PREPARE message will be written
+- `*txn`: ReorderBufferTXN structure containing the transaction being prepared, must have a valid GID for two-phase commit
+- `prepare_lsn`: XLogRecPtr indicating the LSN where the prepare record was written in the WAL
 ## Dependencies
 - Functions called/Symbols referenced:
   - [logicalrep_write_prepare_common](logicalrep_write_prepare_common.md)

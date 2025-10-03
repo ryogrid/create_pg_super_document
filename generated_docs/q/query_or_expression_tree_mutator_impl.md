@@ -21,11 +21,10 @@ The  function provides a unified entry point for tree mutation operations that c
 This hybrid approach mirrors the walker counterpart and is particularly useful when the caller needs to start mutation but doesn't know in advance whether they're dealing with a complete query or just an expression tree. It eliminates the need for callers to check node types and choose the appropriate mutator function, providing a clean and consistent interface for tree transformation operations.
 
 ## Parameters / Member Variables
-- : The root node to mutate (can be either a Query node or any other expression node)
-- : Callback function that defines the mutation behavior for each visited node
-- : Opaque context pointer passed through to the mutator callback
-- : Control flags that modify mutation behavior
-
+- `*node`: The root node to mutate (can be either a Query node or any other expression node)
+- `mutator`: Callback function that defines the mutation behavior for each visited node
+- `*context`: Opaque context pointer passed through to the mutator callback
+- `flags`: Control flags that modify mutation behavior
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (macro for type checking)

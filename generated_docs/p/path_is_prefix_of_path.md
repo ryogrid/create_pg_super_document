@@ -24,9 +24,8 @@ The function performs two checks:
 This prevents false positives where a path like '/tmp' would incorrectly match '/tmp123' - the function correctly requires '/tmp' to be followed by '/' or end-of-string.
 
 ## Parameters / Member Variables
-- : A null-terminated string representing the potential prefix path to test against
-- : A null-terminated string representing the path to check for having  as a prefix
-
+- `*path1`: A null-terminated string representing the potential prefix path to test against
+- `*path2`: A null-terminated string representing the path to check for having  as a prefix
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (platform-aware directory separator macro)

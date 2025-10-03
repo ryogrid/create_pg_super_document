@@ -24,9 +24,8 @@ The function performs several key operations:
 6. Invalidates the relation cache and invokes post-alter hooks
 
 ## Parameters / Member Variables
-- : The Relation structure representing the foreign table being altered
-- : A List of DefElem structures containing the new options to set or modify
-
+- `rel`: The Relation structure representing the foreign table being altered
+- `*options`: A List of DefElem structures containing the new options to set or modify
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md)

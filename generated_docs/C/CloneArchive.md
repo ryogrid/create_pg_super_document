@@ -16,8 +16,7 @@ CloneArchive(ArchiveHandle *AH)
 CloneArchive creates a deep clone of an ArchiveHandle for parallel processing in pg_dump/pg_restore operations. The function performs a "flat" copy of the main structure and then selectively clones or resets specific fields to ensure thread safety. Each clone gets its own database connection, error tracking, and transaction management settings. The cloned archive is immediately connected to the database using the same connection parameters as the original, and format-specific cloning is performed through the ClonePtr function pointer.
 
 ## Parameters / Member Variables
-- : The source ArchiveHandle to be cloned
-
+- `*AH`: The source ArchiveHandle to be cloned
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_malloc](../p/pg_malloc.md)

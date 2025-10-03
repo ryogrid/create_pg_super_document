@@ -16,9 +16,8 @@ should_ignore_relpath(verifier_context *context, const char *relpath)
 This function implements path matching logic to determine if a file or directory should be excluded from backup verification. It iterates through the ignore list stored in the verifier context and performs prefix matching against the provided relative path. The function uses a character-by-character comparison to check if the relative path matches any ignored path exactly or is a subdirectory of an ignored path. The matching logic ensures that "aa/bb" matches "aa/bb" exactly and also matches any path that starts with "aa/bb/" (indicating files or subdirectories within the ignored directory), but does not match "aa/bbb" (a different file with a similar name prefix).
 
 ## Parameters / Member Variables
-- : A pointer to the verifier_context structure that contains the ignore list and other verification settings
-- : A null-terminated string representing the relative path to check against the ignore list
-
+- `*context`: A pointer to the verifier_context structure that contains the ignore list and other verification settings
+- `*relpath`: A null-terminated string representing the relative path to check against the ignore list
 ## Dependencies
 - Functions called/Symbols referenced:
   - [verifier_context](../v/verifier_context.md) (structure type)

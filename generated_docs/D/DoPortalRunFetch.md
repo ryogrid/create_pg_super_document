@@ -27,11 +27,10 @@ The function implements SQL cursor semantics for different fetch operations:
 For absolute positioning, the function optimizes by choosing whether to rewind and scan forward or scan from the current position based on which approach requires fewer row movements.
 
 ## Parameters / Member Variables
-- : The portal from which to fetch rows
-- : The fetch direction (FETCH_FORWARD, FETCH_BACKWARD, FETCH_ABSOLUTE, FETCH_RELATIVE)
-- : Number of rows to fetch; negative values reverse direction, FETCH_ALL means all rows
-- : Destination receiver for the fetched rows
-
+- `portal`: The portal from which to fetch rows
+- `fdirection`: The fetch direction (FETCH_FORWARD, FETCH_BACKWARD, FETCH_ABSOLUTE, FETCH_RELATIVE)
+- `count`: Number of rows to fetch; negative values reverse direction, FETCH_ALL means all rows
+- `*dest`: Destination receiver for the fetched rows
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DoPortalRewind](DoPortalRewind.md)

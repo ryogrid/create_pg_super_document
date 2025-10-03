@@ -18,9 +18,8 @@ This function iterates through all registered event procedures associated with a
 The function handles the case where multiple event procedures may be registered with a result, calling each one with a PGEventResultCreate structure containing the connection and result pointers. If any event procedure fails (returns false), the overall operation is marked as failed but other procedures are still called.
 
 ## Parameters / Member Variables
-- : PGconn pointer that can be NULL if event procedures won't use the connection information
-- : PGresult pointer for which to fire the RESULTCREATE events; function returns false if NULL
-
+- `*conn`: PGconn pointer that can be NULL if event procedures won't use the connection information
+- `*res`: PGresult pointer for which to fire the RESULTCREATE events; function returns false if NULL
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PGEventResultCreate](PGEventResultCreate.md) (structure used for event data)

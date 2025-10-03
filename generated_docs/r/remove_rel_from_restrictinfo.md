@@ -26,10 +26,9 @@ The function operates in several phases:
 The function is conservative about cleaning - it only touches clause_relids and required_relids, leaving nullingrel bits in contained Vars and PlaceHolderVars unchanged (though this may need improvement in future versions).
 
 ## Parameters / Member Variables
-- : RestrictInfo structure containing the join restriction/qualification clause
-- : Base relation ID to be removed from the RestrictInfo's relid sets  
-- : Outer join relation ID to be removed from the RestrictInfo's relid sets
-
+- `*rinfo`: RestrictInfo structure containing the join restriction/qualification clause
+- `relid`: Base relation ID to be removed from the RestrictInfo's relid sets
+- `ojrelid`: Outer join relation ID to be removed from the RestrictInfo's relid sets
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bms_copy](../b/bms_copy.md): Creates private copies of bitmap sets to avoid modifying shared structures

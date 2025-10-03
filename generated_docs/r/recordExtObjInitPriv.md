@@ -23,9 +23,8 @@ The function handles different object types differently:
 The function skips objects that don't have permissions (indexes, partitioned indexes, composite types) and gracefully handles NULL ACLs by not recording entries for them.
 
 ## Parameters / Member Variables
-- : OID of the database object whose privileges should be recorded
-- : OID of the system catalog class that contains the object (e.g., RelationRelationId, ProcedureRelationId)
-
+- `objoid`: OID of the database object whose privileges should be recorded
+- `classoid`: OID of the system catalog class that contains the object (e.g., RelationRelationId, ProcedureRelationId)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [recordExtensionInitPrivWorker](recordExtensionInitPrivWorker.md) (worker function that actually inserts records into pg_init_privs)

@@ -22,11 +22,10 @@ This function performs validation checks on JSON format specifications to ensure
 The function will raise errors with appropriate error codes and position information when validation fails.
 
 ## Parameters / Member Variables
-- : ParseState pointer containing parser context and location information for error reporting
-- : JsonFormat pointer specifying the JSON format configuration to validate
-- : OID of the target output type that the format will be applied to
-- : Boolean flag that allows format application to non-string types when true
-
+- `*pstate`: ParseState pointer containing parser context and location information for error reporting
+- `*format`: JsonFormat pointer specifying the JSON format configuration to validate
+- `targettype`: OID of the target output type that the format will be applied to
+- `allow_format_for_non_strings`: Boolean flag that allows format application to non-string types when true
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_type_category_preferred](../g/get_type_category_preferred.md)

@@ -20,7 +20,6 @@ The calculation uses PostgreSQL's safe arithmetic functions (, ) to prevent inte
 This size calculation is used during PostgreSQL startup to allocate the appropriate amount of shared memory for B-tree VACUUM tracking.
 
 ## Parameters / Member Variables
-None - this is a parameter-less function that returns a size calculation.
 
 ## Dependencies
 - Functions called/Symbols referenced:

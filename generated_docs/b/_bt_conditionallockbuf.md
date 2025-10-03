@@ -20,9 +20,8 @@ When the lock is successfully acquired, the function marks the buffer memory as 
 The function includes a note that callers may need to call _bt_checkpage() to validate the buffer contents if the pin wasn't originally acquired through standard _bt_getbuf() or _bt_relandgetbuf() calls, as those functions normally handle page validation.
 
 ## Parameters / Member Variables
-- : The relation (table/index) that owns the buffer
-- : The buffer descriptor for the page to be conditionally locked
-
+- `rel`: The relation (table/index) that owns the buffer
+- `buf`: The buffer descriptor for the page to be conditionally locked
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ConditionalLockBuffer](../C/ConditionalLockBuffer.md)

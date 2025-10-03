@@ -29,13 +29,12 @@ Key parsing behaviors:
 - Maintains parsing invariants for safe string traversal
 
 ## Parameters / Member Variables
-- : Pointer to the character after the initial '%' in the format specifier (input)
-- : Pointer to the end of the format string (input, boundary check)
-- : Parsed argument position for the value to be formatted, -1 if unspecified (output)
-- : Argument position for width value, 0 if next argument should be used, -1 if no width argument (output)
-- : Bitmask of formatting flags (currently only supports ) (output)
-- : Direct width specification, 0 if width was omitted (output)
-
+- `*start_ptr`: Pointer to the character after the initial '%' in the format specifier (input)
+- `*end_ptr`: Pointer to the end of the format string (input, boundary check)
+- `*argpos`: Parsed argument position for the value to be formatted, -1 if unspecified (output)
+- `*widthpos`: Argument position for width value, 0 if next argument should be used, -1 if no width argument (output)
+- `*flags`: Bitmask of formatting flags (currently only supports ) (output)
+- `*width`: Direct width specification, 0 if width was omitted (output)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Parse numeric values from format string (called multiple times)

@@ -18,8 +18,7 @@ ClosePipeStream is responsible for properly closing FILE handles that represent 
 This function is part of PostgreSQL's file descriptor management system that ensures proper cleanup of pipe resources. Pipes are commonly used in PostgreSQL for communication with external programs, such as during COPY operations with external commands, SSL certificate operations, and system integration tasks.
 
 ## Parameters / Member Variables
-- : The FILE pointer representing a pipe stream to be closed, which should have been obtained from OpenPipeStream
-
+- `*file`: The FILE pointer representing a pipe stream to be closed, which should have been obtained from OpenPipeStream
 ## Dependencies
 - Functions called/Symbols referenced:
   - DO_DB (debug logging macro)

@@ -24,7 +24,6 @@ The function operates in two phases:
 2. **Expression Invalidation**: Iterates through all cached expressions, marking them all invalid
 
 ## Parameters / Member Variables
-None - this function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

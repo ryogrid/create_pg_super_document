@@ -24,11 +24,10 @@ ExecDeleteAct is a focused function that handles the core deletion operation for
 The function is intentionally minimal, focusing solely on the physical deletion operation. Higher-level concerns like trigger execution, constraint checking, and EvalPlanQual processing are handled by the calling functions (ExecDelete and ExecMergeMatched).
 
 ## Parameters / Member Variables
-- : ModifyTableContext containing execution state including snapshots and tuple metadata
-- : Information about the target relation being modified
-- : ItemPointer identifying the specific tuple to delete
-- : Boolean indicating if this deletion is part of a cross-partition update operation
-
+- `*context`: ModifyTableContext containing execution state including snapshots and tuple metadata
+- `*resultRelInfo`: Information about the target relation being modified
+- `tupleid`: ItemPointer identifying the specific tuple to delete
+- `changingPart`: Boolean indicating if this deletion is part of a cross-partition update operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_tuple_delete](../t/table_tuple_delete.md) (storage layer deletion function)

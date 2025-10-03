@@ -18,8 +18,7 @@ This static function manages the size of PostgreSQL's record cache arrays to ens
 The function uses PostgreSQL's memory management facilities, allocating memory in the CacheMemoryContext for persistent storage across transactions. The expansion strategy uses exponential growth to minimize the number of reallocations while avoiding excessive memory waste.
 
 ## Parameters / Member Variables
-- : The type modifier value that needs to be accommodated in the cache arrays
-
+- `typmod`: The type modifier value that needs to be accommodated in the cache arrays
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md)

@@ -16,7 +16,6 @@ pa_launch_parallel_worker(void)
 This function implements a worker pool management strategy for parallel apply workers in PostgreSQL logical replication. It first searches through the existing worker pool to find an available (not in use) worker. If no available worker is found, it creates a new worker by setting up shared memory communication and launching a new worker process through the logical replication worker system.
 
 ## Parameters / Member Variables
-(No parameters - void function, returns ParallelApplyWorkerInfo pointer)
 
 ## Dependencies
 - Functions called/Symbols referenced:

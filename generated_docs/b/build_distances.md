@@ -19,11 +19,10 @@ This function analyzes an array of expanded ranges and calculates the size of ga
 The computed distances are sorted in descending order so that the largest gaps appear first, allowing the calling code to prioritize merging ranges with smaller gaps while preserving larger gaps that provide better selectivity.
 
 ## Parameters / Member Variables
-- : Function pointer to the distance calculation function for the specific data type
-- : Collation identifier for proper comparison of values  
-- : Array of expanded ranges to analyze
-- : Number of ranges in the array
-
+- `*distanceFn`: Function pointer to the distance calculation function for the specific data type
+- `colloid`: Collation identifier for proper comparison of values
+- `*eranges`: Array of expanded ranges to analyze
+- `neranges`: Number of ranges in the array
 ## Dependencies
 - Functions called/Symbols referenced:
   - [FunctionCall2Coll](../F/FunctionCall2Coll.md)

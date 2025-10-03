@@ -18,9 +18,8 @@ The  function performs membership testing on PostgreSQL's List data structure sp
 This function is optimized for pointer comparison and should only be used with lists that contain pointer values. For other data types, use the appropriate variant functions like  or .
 
 ## Parameters / Member Variables
-- : A constant pointer to the List structure to search within. Must be a pointer list type.
-- : A constant void pointer representing the target value to search for in the list.
-
+- `*list`: A constant pointer to the List structure to search within. Must be a pointer list type.
+- `*datum`: A constant void pointer representing the target value to search for in the list.
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsPointerList - Validates that the list contains pointer values

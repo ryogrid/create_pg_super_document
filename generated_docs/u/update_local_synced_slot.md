@@ -24,11 +24,10 @@ This function synchronizes a local replication slot with its corresponding remot
 The function uses either direct updates (when serialized snapshots exist) or slot advancement machinery to ensure proper snapbuilder and slot status updates.
 
 ## Parameters / Member Variables
-- : Pointer to the remote slot structure containing the target state
-- : Database OID associated with the remote slot
-- : Output parameter indicating if decoding can reach a consistent snapshot
-- : Output parameter indicating if remote slot's position precedes local reserved position
-
+- `*remote_slot`: Pointer to the remote slot structure containing the target state
+- `remote_dbid`: Database OID associated with the remote slot
+- `*found_consistent_snapshot`: Output parameter indicating if decoding can reach a consistent snapshot
+- `*remote_slot_precedes`: Output parameter indicating if remote slot's position precedes local reserved position
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)

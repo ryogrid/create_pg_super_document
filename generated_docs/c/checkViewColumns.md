@@ -26,9 +26,8 @@ The function is similar to equalRowTypes() but provides specific error messages 
 The strict enforcement of type, typmod, and collation immutability is critical because these properties may be embedded in Vars of other views or rules that reference this view, and changing them would break those dependent objects.
 
 ## Parameters / Member Variables
-- : TupleDesc representing the column structure of the proposed new view
-- : TupleDesc representing the column structure of the existing view being replaced
-
+- `newdesc`: TupleDesc representing the column structure of the proposed new view
+- `olddesc`: TupleDesc representing the column structure of the existing view being replaced
 ## Dependencies
 - Functions called/Symbols referenced:
   - TupleDescAttr (macro for accessing tuple descriptor attributes)

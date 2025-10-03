@@ -19,10 +19,9 @@ AlterPublicationSchemas is a static function that manages schema membership in p
 The function maintains proper schema locking throughout the operation to prevent concurrent schema modifications that could lead to inconsistent states. It integrates with the publication system's schema management functions and handles edge cases like empty schema lists in SET operations.
 
 ## Parameters / Member Variables
-- : AlterPublicationStmt containing the alteration command details and action type
-- : HeapTuple representing the publication record being modified
-- : List of schema OIDs to be processed (can be NULL for SET operations that remove all schemas)
-
+- `*stmt`: AlterPublicationStmt containing the alteration command details and action type
+- `tup`: HeapTuple representing the publication record being modified
+- `*schemaidlist`: List of schema OIDs to be processed (can be NULL for SET operations that remove all schemas)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LockSchemaList](../L/LockSchemaList.md): Acquires locks on schemas to prevent concurrent modifications

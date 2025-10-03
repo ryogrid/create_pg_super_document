@@ -16,8 +16,7 @@ has_rolreplication(Oid roleid)
 This function determines if a given role has replication privileges in PostgreSQL. It first checks if the role is a superuser (which automatically grants all privileges including replication). If not a superuser, it queries the pg_authid system catalog to check the rolreplication attribute of the specified role. The function follows PostgreSQL's standard privilege checking pattern with superuser bypass and system catalog lookup.
 
 ## Parameters / Member Variables
-- : The object identifier (Oid) of the role to check for replication privileges
-
+- `roleid`: The object identifier (Oid) of the role to check for replication privileges
 ## Dependencies
 - Functions called/Symbols referenced:
   - [superuser_arg](../s/superuser_arg.md) (checks if role is a superuser)

@@ -17,11 +17,10 @@ examine_opclause_args(List *args, Node **exprp, Const **cstp,
 This utility function analyzes operator clause arguments to identify expressions that match the pattern (Expr op Const) or (Const op Expr). It handles RelabelType wrapper nodes by stripping them from both sides of the expression before analysis. The function is essential for extended statistics processing as it separates the variable expression part from the constant value part of operator clauses, which is necessary for statistics matching and selectivity estimation. The function returns true if the arguments match the expected pattern, false otherwise.
 
 ## Parameters / Member Variables
-- : List containing exactly two argument nodes from an operator expression
-- : Output parameter - pointer to store the extracted expression node (can be NULL if not needed)
-- : Output parameter - pointer to store the extracted constant node (can be NULL if not needed) 
-- : Output parameter - boolean flag indicating whether the expression was found on the left side (true) or right side (false) of the operator (can be NULL if not needed)
-
+- `*args`: List containing exactly two argument nodes from an operator expression
+- `**exprp`: Output parameter - pointer to store the extracted expression node (can be NULL if not needed)
+- `**cstp`: Output parameter - pointer to store the extracted constant node (can be NULL if not needed)
+- `*expronleftp`: Output parameter - boolean flag indicating whether the expression was found on the left side (true) or right side (false) of the operator (can be NULL if not needed)
 ## Dependencies
 - Functions called/Symbols referenced:
   - lsecond

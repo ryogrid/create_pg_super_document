@@ -27,10 +27,9 @@ Key responsibilities include:
 The function supports both unique and non-unique indexes, with unique indexes requiring an additional spool for duplicate handling.
 
 ## Parameters / Member Variables
-- : Main B-tree build state containing spool, heap relation, and other build context
-- : Boolean indicating if this is a CREATE INDEX CONCURRENTLY operation (affects snapshot selection)
-- : Target number of parallel worker processes to launch
-
+- `*buildstate`: Main B-tree build state containing spool, heap relation, and other build context
+- `isconcurrent`: Boolean indicating if this is a CREATE INDEX CONCURRENTLY operation (affects snapshot selection)
+- `request`: Target number of parallel worker processes to launch
 ## Dependencies
 - Functions called/Symbols referenced:
   - [EnterParallelMode](../E/EnterParallelMode.md): Enter PostgreSQL's parallel execution mode

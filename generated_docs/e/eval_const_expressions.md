@@ -22,9 +22,8 @@ Key behaviors include:
 - Prevents evaluation of functions like nextval() that produce non-constant results even with constant inputs
 
 ## Parameters / Member Variables
-- : PlannerInfo pointer containing planner context and bound parameters; can be NULL if no Param substitutions or inlined function tracking is needed
-- : Node pointer to the expression tree to be optimized and simplified
-
+- `*root`: PlannerInfo pointer containing planner context and bound parameters; can be NULL if no Param substitutions or inlined function tracking is needed
+- `*node`: Node pointer to the expression tree to be optimized and simplified
 ## Dependencies
 - Functions called/Symbols referenced:
   - [eval_const_expressions_context](eval_const_expressions_context.md)

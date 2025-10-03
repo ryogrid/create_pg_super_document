@@ -24,8 +24,7 @@ Key phases:
 The function maintains state across multiple calls, handling partial reads/writes and resuming from the correct point in the negotiation process.
 
 ## Parameters / Member Variables
-- : PostgreSQL connection object containing GSSAPI context, credentials, buffers, and socket information
-
+- `*conn`: PostgreSQL connection object containing GSSAPI context, credentials, buffers, and socket information
 ## Dependencies
 - Functions called/Symbols referenced:
   - gss_init_sec_context (primary GSSAPI negotiation function)

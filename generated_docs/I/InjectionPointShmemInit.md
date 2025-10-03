@@ -21,7 +21,6 @@ This function allocates and initializes shared memory for the injection point su
 The initialization is conditional on the USE_INJECTION_POINTS compilation flag, making it a no-op when injection points are disabled.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

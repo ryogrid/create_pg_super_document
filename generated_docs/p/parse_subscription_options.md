@@ -27,11 +27,10 @@ The function performs several key tasks:
 The function supports a comprehensive set of subscription options including connection settings, replication slot management, data copying behavior, streaming options, and various behavioral flags.
 
 ## Parameters / Member Variables
-- : ParseState context for error reporting and parsing state management
-- : List of DefElem structures containing user-specified subscription options
-- : Bitmask indicating which subscription options are valid for this command context
-- : Output parameter - SubOpts structure to be populated with parsed option values
-
+- `*pstate`: ParseState context for error reporting and parsing state management
+- `*stmt_options`: List of DefElem structures containing user-specified subscription options
+- `supported_opts`: Bitmask indicating which subscription options are valid for this command context
+- `*opts`: Output parameter - SubOpts structure to be populated with parsed option values
 ## Dependencies
 - Functions called/Symbols referenced:
   - [defGetBoolean](../d/defGetBoolean.md): Extracts boolean values from DefElem structures

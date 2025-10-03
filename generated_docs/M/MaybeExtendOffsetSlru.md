@@ -19,7 +19,6 @@ During upgrade, pg_upgrade updates pg_control to set the next MultiXact offset v
 The function calculates which page is needed for the next MultiXact ID, acquires the appropriate lock, checks if the physical page exists, and if not, creates and writes it to disk. The operation is safe because SimpleLruWritePage can handle creating new segment files even when the page being written is not the first in the segment.
 
 ## Parameters / Member Variables
-This function takes no parameters and operates on global MultiXact state.
 
 ## Dependencies
 - Functions called/Symbols referenced:

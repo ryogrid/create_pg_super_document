@@ -22,9 +22,8 @@ The function performs standard validation steps including database filtering and
 The old tuple data is stored separately in the record after the heap update structure, requiring careful offset calculations to extract properly.
 
 ## Parameters / Member Variables
-- : LogicalDecodingContext containing the decoding state, replication slot, and configuration
-- : XLogRecordBuffer containing the WAL record with update data to be processed
-
+- `*ctx`: LogicalDecodingContext containing the decoding state, replication slot, and configuration
+- `*buf`: XLogRecordBuffer containing the WAL record with update data to be processed
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData

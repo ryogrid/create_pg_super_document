@@ -20,12 +20,11 @@ This function provides a specialized comparison for unsigned integer values stor
 The function treats Datum values as unsigned integers and compares them directly using C comparison operators, making it suitable for unsigned integer types like OID, unsigned integers, and similar data types.
 
 ## Parameters / Member Variables
-- : The first Datum value to compare (treated as unsigned)
-- : Boolean flag indicating whether datum1 is NULL
-- : The second Datum value to compare (treated as unsigned)
-- : Boolean flag indicating whether datum2 is NULL
-- : SortSupport structure containing sort configuration
-
+- `datum1`: The first Datum value to compare (treated as unsigned)
+- `isNull1`: Boolean flag indicating whether datum1 is NULL
+- `datum2`: The second Datum value to compare (treated as unsigned)
+- `isNull2`: Boolean flag indicating whether datum2 is NULL
+- `ssup`: SortSupport structure containing sort configuration
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SortSupport](../S/SortSupport.md) (struct type)

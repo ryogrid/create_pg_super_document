@@ -25,8 +25,7 @@ The function operates by:
 The optional flush parameter allows callers to ensure that all changes up to the local LSN are durably written to disk before returning the progress information.
 
 ## Parameters / Member Variables
-- : boolean flag indicating whether to flush WAL up to the local LSN before returning
-
+- `flush`: boolean flag indicating whether to flush WAL up to the local LSN before returning
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease (with LW_SHARED mode)

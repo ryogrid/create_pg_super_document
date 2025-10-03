@@ -18,9 +18,8 @@ This function serves as the assignment hook for the synchronous_standby_names GU
 This is a simple but critical function in the GUC lifecycle - it takes the validated and parsed configuration data (stored in the extra parameter) and makes it the active configuration for synchronous replication behavior throughout the PostgreSQL system.
 
 ## Parameters / Member Variables
-- : The new string value for synchronous_standby_names (not directly used in this function)
-- : Pointer to the validated SyncRepConfigData structure created during the check phase
-
+- `*newval`: The new string value for synchronous_standby_names (not directly used in this function)
+- `*extra`: Pointer to the validated SyncRepConfigData structure created during the check phase
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SyncRepConfigData](../S/SyncRepConfigData.md) (cast to this type)

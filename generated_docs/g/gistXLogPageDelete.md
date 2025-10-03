@@ -21,11 +21,10 @@ The function creates a  record containing the transaction ID that performed the 
 This is a critical operation for maintaining index consistency during crash recovery, ensuring that both the page deletion and parent page update are atomic operations that can be correctly reconstructed on standby servers.
 
 ## Parameters / Member Variables
-- : Buffer containing the page to be deleted
-- : Full transaction ID of the transaction performing the deletion (used for visibility checks during recovery)
-- : Buffer containing the parent page that has a downlink to the page being deleted
-- : Offset number within the parent page where the downlink to be removed is located
-
+- `buffer`: Buffer containing the page to be deleted
+- `xid`: Full transaction ID of the transaction performing the deletion (used for visibility checks during recovery)
+- `parentBuffer`: Buffer containing the parent page that has a downlink to the page being deleted
+- `downlinkOffset`: Offset number within the parent page where the downlink to be removed is located
 ## Dependencies
 - Functions called/Symbols referenced:
   - [XLogBeginInsert](../X/XLogBeginInsert.md)

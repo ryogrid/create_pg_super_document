@@ -20,8 +20,7 @@ UnpinLocalBuffer serves as a wrapper function that performs two critical operati
 This function is part of PostgreSQL's local buffer management system, which handles temporary relations and other local-only data structures. Local buffers are used for temporary tables and other objects that don't need to be shared across processes. The function ensures proper cleanup and resource tracking when a buffer is no longer needed by the current operation.
 
 ## Parameters / Member Variables
-- : The Buffer identifier representing the local buffer to be unpinned
-
+- `buffer`: The Buffer identifier representing the local buffer to be unpinned
 ## Dependencies
 - Functions called/Symbols referenced:
   - [UnpinLocalBufferNoOwner](UnpinLocalBufferNoOwner.md)

@@ -18,8 +18,7 @@ This is a simple wrapper function around findNamespaceByOid that adds error hand
 The function provides a fatal error if the namespace cannot be found, which indicates a serious inconsistency in the database metadata that would prevent a successful dump operation.
 
 ## Parameters / Member Variables
-- : The OID of the namespace to find
-
+- `nsoid`: The OID of the namespace to find
 ## Dependencies
 - Functions called/Symbols referenced:
   - [findNamespaceByOid](findNamespaceByOid.md)

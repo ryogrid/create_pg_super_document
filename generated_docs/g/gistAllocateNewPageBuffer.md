@@ -20,8 +20,7 @@ The allocated page is zero-initialized using MemoryContextAllocZero to ensure al
 The page buffer is designed to hold multiple index tuples until it becomes full, at which point it may be written to the temporary file system managed by the GiST build buffers.
 
 ## Parameters / Member Variables
-- : The GiST build buffers structure that provides the memory context for allocation
-
+- `*gfbb`: The GiST build buffers structure that provides the memory context for allocation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md)

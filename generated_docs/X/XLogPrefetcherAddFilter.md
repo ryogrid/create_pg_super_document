@@ -25,11 +25,10 @@ The filtering mechanism is essential for correctness during WAL replay, as it pr
 When a filter already exists for a relation, the function extends the filter's lifetime to cover the new LSN while keeping the most restrictive block number (minimum of existing and new block numbers).
 
 ## Parameters / Member Variables
-- : Pointer to the XLogPrefetcher structure containing the filter infrastructure
-- : RelFileLocator identifying the specific relation (tablespace, database, relation)
-- : Starting block number from which to apply the filter (blocks >= blockno will be filtered)
-- : LSN that must be replayed before the filter can be removed
-
+- `*prefetcher`: Pointer to the XLogPrefetcher structure containing the filter infrastructure
+- `rlocator`: RelFileLocator identifying the specific relation (tablespace, database, relation)
+- `blockno`: Starting block number from which to apply the filter (blocks >= blockno will be filtered)
+- `lsn`: LSN that must be replayed before the filter can be removed
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - [Hash](../H/Hash.md) table operations for filter management

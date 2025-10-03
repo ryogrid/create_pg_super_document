@@ -25,9 +25,8 @@ The function implements a sophisticated target list transformation:
 For example, given , the function generates the subplan target:  where  will be used by Sort/Group steps and  will be used for computing the final aggregated results.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing query planning context and processed grouping information
-- : PathTarget representing the query's final target list that needs to be transformed for subplan use
-
+- `*root`: PlannerInfo structure containing query planning context and processed grouping information
+- `*final_target`: PathTarget representing the query's final target list that needs to be transformed for subplan use
 ## Dependencies
 - Functions called/Symbols referenced:
   - [create_empty_pathtarget](../c/create_empty_pathtarget.md)

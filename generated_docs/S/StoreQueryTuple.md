@@ -21,8 +21,7 @@ The function performs several validation checks:
 - Handles NULL values by unsetting variables rather than setting them
 
 ## Parameters / Member Variables
-- : A PGresult pointer containing the query execution results from libpq
-
+- `*result`: A PGresult pointer containing the query execution results from libpq
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQntuples](../P/PQntuples.md) (checks number of result rows)

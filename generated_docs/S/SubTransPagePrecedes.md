@@ -20,9 +20,8 @@ The function converts page numbers to representative transaction IDs by multiply
 This dual check ensures that page1 completely precedes all transactions that could be stored in page2, which is essential for safe truncation operations.
 
 ## Parameters / Member Variables
-- : First SUBTRANS page number to compare
-- : Second SUBTRANS page number to compare
-
+- `page1`: First SUBTRANS page number to compare
+- `page2`: Second SUBTRANS page number to compare
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md) (used twice for comprehensive comparison)

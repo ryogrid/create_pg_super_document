@@ -29,9 +29,8 @@ The function handles different output formats:
 This information is crucial for understanding which database pages are affected by a WAL record and whether full page images are included.
 
 ## Parameters / Member Variables
-- : A StringInfo buffer where the formatted block information will be appended
-- : An XLogReaderState pointer containing the WAL record to analyze
-
+- `buf`: A StringInfo buffer where the formatted block information will be appended
+- `*record`: An XLogReaderState pointer containing the WAL record to analyze
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (gets the maximum block ID in the record)

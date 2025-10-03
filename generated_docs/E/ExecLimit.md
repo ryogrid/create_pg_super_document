@@ -28,8 +28,7 @@ The state machine handles multiple execution states:
 The function supports both forward and backward scanning directions and handles the complex logic for WITH TIES, which requires comparing tuples to determine if they have equivalent ORDER BY values.
 
 ## Parameters / Member Variables
-- : Plan state containing the LimitState node and execution context
-
+- `*pstate`: Plan state containing the LimitState node and execution context
 ## Dependencies
 - Functions called/Symbols referenced:
   - [recompute_limits](../r/recompute_limits.md) (computes offset/count on first call)

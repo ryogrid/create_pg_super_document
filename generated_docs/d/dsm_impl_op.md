@@ -26,14 +26,13 @@ The function supports four fundamental operations:
 This design allows PostgreSQL to support multiple shared memory implementations while providing a unified interface to callers.
 
 ## Parameters / Member Variables
-- : The operation to perform (CREATE/ATTACH/DETACH/DESTROY)
-- : Handle of existing segment, or identifier for new segment in CREATE operations
-- : Requested size for CREATE operations, otherwise 0
-- : Pointer to implementation-specific private data, maintained across calls
-- : Pointer to current mapping address, updated with new mapping
-- : Pointer to current mapping size, updated with new size
-- : Error logging level for error messages
-
+- `op`: The operation to perform (CREATE/ATTACH/DETACH/DESTROY)
+- `handle`: Handle of existing segment, or identifier for new segment in CREATE operations
+- `request_size`: Requested size for CREATE operations, otherwise 0
+- `**impl_private`: Pointer to implementation-specific private data, maintained across calls
+- `**mapped_address`: Pointer to current mapping address, updated with new mapping
+- `*mapped_size`: Pointer to current mapping size, updated with new size
+- `elevel`: Error logging level for error messages
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dsm_impl_posix](dsm_impl_posix.md) (conditional on USE_DSM_POSIX)

@@ -16,9 +16,8 @@ enum_oid_cmp(const void *left, const void *right)
 The  function is a standard comparison function designed for use with sorting and searching algorithms like qsort and bsearch. It compares two EnumItem structures based on their enum_oid fields using PostgreSQL's  utility function. The function follows the standard C library comparison convention, returning a negative value if the left OID is smaller, zero if they are equal, and a positive value if the left OID is larger.
 
 ## Parameters / Member Variables
-- : Pointer to the first EnumItem structure to compare (cast from void*)
-- : Pointer to the second EnumItem structure to compare (cast from void*)
-
+- `*left`: Pointer to the first EnumItem structure to compare (cast from void*)
+- `*right`: Pointer to the second EnumItem structure to compare (cast from void*)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_cmp_u32](../p/pg_cmp_u32.md) (PostgreSQL utility function for comparing unsigned 32-bit values)

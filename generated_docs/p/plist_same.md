@@ -24,10 +24,9 @@ The algorithm works by:
 4. Returning true if either direction produces a complete match
 
 ## Parameters / Member Variables
-- : Number of points in both point lists
-- : First point list to compare
-- : Second point list to compare
-
+- `npts`: Number of points in both point lists
+- `*p1`: First point list to compare
+- `*p2`: Second point list to compare
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Point](../P/Point.md) (geometric point type)

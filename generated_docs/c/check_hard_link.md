@@ -24,7 +24,6 @@ The function performs a practical test by:
 Hard links can only be created between files on the same filesystem, so this test effectively validates that both data directories reside on the same filesystem - a requirement for link mode operation.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

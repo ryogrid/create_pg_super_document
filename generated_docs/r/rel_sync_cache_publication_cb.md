@@ -22,10 +22,9 @@ Since the function cannot easily determine which specific cache entries are affe
 The actual rebuilding of invalidated entries happens lazily on the next access via get_rel_sync_entry().
 
 ## Parameters / Member Variables
-- : Datum argument (unused in this implementation, required by callback signature)
-- : The system cache ID that was invalidated (identifies which catalog changed)
-- : The hash value of the invalidated cache entry (unused in this implementation)
-
+- `arg`: Datum argument (unused in this implementation, required by callback signature)
+- `cacheid`: The system cache ID that was invalidated (identifies which catalog changed)
+- `hashvalue`: The hash value of the invalidated cache entry (unused in this implementation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hash_seq_init](../h/hash_seq_init.md) (initialize hash table iteration)

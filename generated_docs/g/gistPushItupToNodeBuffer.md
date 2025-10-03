@@ -17,10 +17,9 @@ gistPushItupToNodeBuffer(GISTBuildBuffers *gfbb, GISTNodeBuffer *nodeBuffer,
 This function is the main entry point for adding index tuples to node buffers during GiST index builds. It handles several complex operations: initializing empty buffers with their first page, loading existing pages from disk when needed, managing page overflow by writing full pages to disk and allocating new ones, and monitoring buffer capacity to trigger emptying when buffers become half-full. The function also manages memory contexts to ensure allocations occur in the appropriate persistent context.
 
 ## Parameters / Member Variables
-- : Pointer to GISTBuildBuffers structure containing the build state and temporary file management
-- : Pointer to the target GISTNodeBuffer where the tuple should be added
-- : The IndexTuple to be added to the buffer
-
+- `*gfbb`: Pointer to GISTBuildBuffers structure containing the build state and temporary file management
+- `*nodeBuffer`: Pointer to the target GISTNodeBuffer where the tuple should be added
+- `itup`: The IndexTuple to be added to the buffer
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)

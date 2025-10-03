@@ -17,11 +17,10 @@ regexec_auth_token(const char *match, AuthToken *token, size_t nmatch,
 This function performs regular expression matching using a compiled regex stored in an AuthToken structure. It takes a target string and attempts to match it against the compiled regular expression pattern. The function handles multi-byte character encoding by converting the input match string to wide characters before executing the regex. It can optionally capture match groups by storing them in the provided pmatch array. This function is a critical component of PostgreSQL's host-based authentication system for pattern matching against database names, usernames, and other authentication parameters.
 
 ## Parameters / Member Variables
-- : The input string to match against the regular expression
-- : AuthToken containing the compiled regular expression to execute
-- : Number of match groups to capture (size of pmatch array)
-- : Array to store captured match groups (can be NULL if no capture needed)
-
+- `*match`: The input string to match against the regular expression
+- `*token`: AuthToken containing the compiled regular expression to execute
+- `nmatch`: Number of match groups to capture (size of pmatch array)
+- `pmatch[]`: Array to store captured match groups (can be NULL if no capture needed)
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Converts multi-byte string to wide character array

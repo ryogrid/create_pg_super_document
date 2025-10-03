@@ -18,10 +18,9 @@ The flagInhIndexes function processes indexes on partitioned tables to create In
 The function iterates through all tables, focusing only on partition tables that have parent tables. For each index on a partition table that has a parent index, it creates an IndexAttachInfo object that will generate the appropriate ATTACH INDEX command during restore. The function establishes explicit dependencies to ensure that both the parent and child indexes, as well as their underlying tables, exist before the attachment operation is attempted.
 
 ## Parameters / Member Variables
-- : Archive structure containing database connection and dump configuration
-- : Array of TableInfo structures representing all tables in the database  
-- : Number of tables in the tblinfo array
-
+- `*fout`: Archive structure containing database connection and dump configuration
+- `tblinfo[]`: Array of TableInfo structures representing all tables in the database
+- `numTables`: Number of tables in the tblinfo array
 ## Dependencies
 - Functions called/Symbols referenced:
   - [findIndexByOid](findIndexByOid.md) (locates parent index by OID)

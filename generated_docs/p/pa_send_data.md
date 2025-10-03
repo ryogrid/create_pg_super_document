@@ -25,10 +25,9 @@ The function includes several safety checks:
 If the parallel worker becomes detached (SHM_MQ_DETACHED), the function raises an error. On successful transmission (SHM_MQ_SUCCESS), it returns true. If the timeout is exceeded, it returns false, allowing the caller to handle the failure appropriately.
 
 ## Parameters / Member Variables
-- : ParallelApplyWorkerInfo pointer containing worker information including the shared-memory queue handle (mq_handle) and serialization state
-- : Size of the data to be sent in bytes  
-- : Pointer to the data buffer to be transmitted to the parallel worker
-
+- `*winfo`: ParallelApplyWorkerInfo pointer containing worker information including the shared-memory queue handle (mq_handle) and serialization state
+- `nbytes`: Size of the data to be sent in bytes
+- `*data`: Pointer to the data buffer to be transmitted to the parallel worker
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Checks if currently in a transaction state

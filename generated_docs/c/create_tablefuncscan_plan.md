@@ -25,11 +25,10 @@ Key processing steps include:
 - Creating the final TableFuncScan plan
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planner state and context information
-- : Path representing the chosen access path for the table function scan
-- : Target list specifying which columns to return from the table function scan
-- : List of restriction clauses to apply to the table function results
-
+- `*root`: PlannerInfo structure containing planner state and context information
+- `*best_path`: Path representing the chosen access path for the table function scan
+- `*tlist`: Target list specifying which columns to return from the table function scan
+- `*scan_clauses`: List of restriction clauses to apply to the table function results
 ## Dependencies
 - Functions called/Symbols referenced:
   - planner_rt_fetch

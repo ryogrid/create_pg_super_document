@@ -19,7 +19,6 @@ The function sets the IsUnderPostmaster flag to indicate this process is now a s
 This initialization is designed to be called as early as possible in a child process's lifecycle, after basic variable setup but before any substantial work begins.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

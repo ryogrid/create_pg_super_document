@@ -18,8 +18,7 @@ The  function must be called by all participants that have written data to the S
 This function ensures that all written data is properly persisted and that the participant transitions cleanly from write mode, allowing the reading phase to begin safely.
 
 ## Parameters / Member Variables
-- : SharedTuplestoreAccessor for the participant ending its write operations
-
+- `*accessor`: SharedTuplestoreAccessor for the participant ending its write operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SharedTuplestoreAccessor](../S/SharedTuplestoreAccessor.md) (struct type)

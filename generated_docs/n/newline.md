@@ -19,6 +19,7 @@ The function simply returns the result of `CHR('\n')`, which converts the litera
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - CHR (macro for creating character constants)

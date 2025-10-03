@@ -18,8 +18,7 @@ This function performs the critical task of generating access paths for each bas
 The function operates after size estimates have been established, ensuring that path costing can be performed accurately. It processes only base relations (RELOPT_BASEREL), filtering out other relation types that don't require individual access path generation.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global optimizer state, including the simple_rel_array and simple_rte_array
-
+- `*root`: PlannerInfo structure containing global optimizer state, including the simple_rel_array and simple_rte_array
 ## Dependencies
 - Functions called/Symbols referenced:
   - RELOPT_BASEREL (enum value)

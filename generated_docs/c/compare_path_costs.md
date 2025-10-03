@@ -24,10 +24,9 @@ For TOTAL_COST criterion (default):
 - Tiebreaker: startup_cost
 
 ## Parameters / Member Variables
-- : First path to compare
-- : Second path to compare
-- : Cost selection criterion (STARTUP_COST or TOTAL_COST)
-
+- `*path1`: First path to compare
+- `*path2`: Second path to compare
+- `criterion`: Cost selection criterion (STARTUP_COST or TOTAL_COST)
 ## Dependencies
 - Functions called/Symbols referenced:
   - CostSelector (enum type)

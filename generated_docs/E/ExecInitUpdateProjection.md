@@ -30,9 +30,8 @@ Key responsibilities include:
 4. **Projection Building**: Constructs an UpdateProjection that merges old and new column values appropriately
 
 ## Parameters / Member Variables
-- : ModifyTable executor state containing plan information, result relation array, and execution context
-- : Result relation information structure to be initialized with UPDATE projection data
-
+- `*mtstate`: ModifyTable executor state containing plan information, result relation array, and execution context
+- `*resultRelInfo`: Result relation information structure to be initialized with UPDATE projection data
 ## Dependencies
 - Functions called/Symbols referenced:
   - outerPlan

@@ -25,8 +25,7 @@ The function defines two character sets:
 - : Printable characters that may cause issues on some systems
 
 ## Parameters / Member Variables
-- : The timezone file name/path to validate (null-terminated string)
-
+- `*name`: The timezone file name/path to validate (null-terminated string)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [warning](../w/warning.md) (issues warnings for potentially problematic characters)

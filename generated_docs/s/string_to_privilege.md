@@ -18,8 +18,7 @@ This function performs case-sensitive string matching to convert human-readable 
 The function includes special handling for the legacy "rule" privilege type, which is ignored (returns 0) for backward compatibility. If an unrecognized privilege name is provided, the function raises an ERROR with ERRCODE_SYNTAX_ERROR.
 
 ## Parameters / Member Variables
-- : A null-terminated string containing the name of the privilege to convert (case-sensitive)
-
+- `*privname`: A null-terminated string containing the name of the privilege to convert (case-sensitive)
 ## Dependencies
 - Functions called/Symbols referenced:
   - ACL_INSERT

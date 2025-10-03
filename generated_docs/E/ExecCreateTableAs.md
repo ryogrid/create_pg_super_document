@@ -26,12 +26,11 @@ The function handles different execution paths based on the statement type and o
 The function manages snapshot handling, query descriptor creation, executor lifecycle, and proper cleanup. For materialized views, it implements a two-phase approach to leverage the security restrictions of the REFRESH operation.
 
 ## Parameters / Member Variables
-- : ParseState containing parsing context and source text information
-- : CreateTableAsStmt node containing the parsed statement structure
-- : ParamListInfo for handling parameterized queries
-- : QueryEnvironment for query execution context
-- : QueryCompletion structure for returning execution statistics
-
+- `*pstate`: ParseState containing parsing context and source text information
+- `*stmt`: CreateTableAsStmt node containing the parsed statement structure
+- `params`: ParamListInfo for handling parameterized queries
+- `*queryEnv`: QueryEnvironment for query execution context
+- `*qc`: QueryCompletion structure for returning execution statistics
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CreateTableAsRelExists](../C/CreateTableAsRelExists.md)

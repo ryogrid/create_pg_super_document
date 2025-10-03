@@ -22,8 +22,7 @@ This function performs the final cleanup phase of TOAST processing after all com
 The function uses the flags set during the TOAST initialization and processing phases to determine what cleanup actions are necessary, ensuring efficient cleanup without unnecessary work.
 
 ## Parameters / Member Variables
-- : ToastTupleContext containing the tuple data, metadata, and cleanup flags indicating what operations are needed
-
+- `*ttc`: ToastTupleContext containing the tuple data, metadata, and cleanup flags indicating what operations are needed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pfree](../p/pfree.md)

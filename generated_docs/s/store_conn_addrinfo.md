@@ -22,9 +22,8 @@ The function operates in two passes:
 Each address entry includes the address family (IPv4/IPv6) and the actual socket address data with its length. The function initializes the  field to 0, which is used by libpq to track which address in the array is currently being used for connection attempts.
 
 ## Parameters / Member Variables
-- : Pointer to the PGconn structure where address information will be stored
-- : Pointer to the head of a linked list of  structures containing resolved addresses
-
+- `*conn`: Pointer to the PGconn structure where address information will be stored
+- `*addrlist`: Pointer to the head of a linked list of  structures containing resolved addresses
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (memory allocation)

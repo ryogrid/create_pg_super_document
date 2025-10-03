@@ -18,9 +18,8 @@ PQdescribePrepared is a synchronous function that retrieves metadata about a pre
 This is a blocking operation that combines the functionality of sending the describe request and waiting for the result. If the query was not even sent due to connection issues, it returns NULL with an error message set in conn->errorMessage. On successful execution, it returns a PGresult with PGRES_COMMAND_OK status containing the statement's parameter and column metadata.
 
 ## Parameters / Member Variables
-- : Connection to the PostgreSQL server
-- : Name of the prepared statement to describe
-
+- `*conn`: Connection to the PostgreSQL server
+- `*stmt`: Name of the prepared statement to describe
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQexecStart](PQexecStart.md)

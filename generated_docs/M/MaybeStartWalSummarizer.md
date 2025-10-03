@@ -20,6 +20,7 @@ Unlike WAL receivers which can start during various recovery states, WAL summari
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [StartChildProcess](../S/StartChildProcess.md) (creates the WAL summarizer process with B_WAL_SUMMARIZER type)

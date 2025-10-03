@@ -19,12 +19,11 @@ WaitLatchOrSocket is a wrapper around the WaitEventSet API that provides a conve
 The function supports waiting for latch signals, socket readiness (readable/writable/connected), postmaster death detection, and timeouts. When a socket condition is detected, EOF and error conditions are always reported as readable/writable/connected, allowing the caller to handle these special cases appropriately.
 
 ## Parameters / Member Variables
-- : Pointer to the Latch object to monitor for signals
-- : Bitmask specifying which events to wait for (WL_LATCH_SET, WL_SOCKET_*, WL_POSTMASTER_DEATH, WL_EXIT_ON_PM_DEATH, WL_TIMEOUT)
-- : Socket descriptor to monitor for socket-related events (used when WL_SOCKET_* flags are set)
-- : Maximum time to wait in milliseconds (-1 for infinite wait, >= 0 when WL_TIMEOUT is specified)
-- : Information for wait event tracking and monitoring
-
+- `*latch`: Pointer to the Latch object to monitor for signals
+- `wakeEvents`: Bitmask specifying which events to wait for (WL_LATCH_SET, WL_SOCKET_*, WL_POSTMASTER_DEATH, WL_EXIT_ON_PM_DEATH, WL_TIMEOUT)
+- `sock`: Socket descriptor to monitor for socket-related events (used when WL_SOCKET_* flags are set)
+- `timeout`: Maximum time to wait in milliseconds (-1 for infinite wait, >= 0 when WL_TIMEOUT is specified)
+- `wait_event_info`: Information for wait event tracking and monitoring
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CreateWaitEventSet](../C/CreateWaitEventSet.md)

@@ -28,9 +28,8 @@ This static function handles the cleanup of individual relation cache entries du
 The function is designed to be idempotent since EOXactListAdd() doesn't prevent duplicate entries in the eoxact_list[].
 
 ## Parameters / Member Variables
-- : The Relation object to be cleaned up
-- : Boolean indicating whether this cleanup is happening at commit (true) or abort (false)
-
+- `relation`: The Relation object to be cleaned up
+- `isCommit`: Boolean indicating whether this cleanup is happening at commit (true) or abort (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsBootstrapProcessingMode

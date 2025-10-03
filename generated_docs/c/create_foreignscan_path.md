@@ -23,18 +23,17 @@ create_foreignscan_path(PlannerInfo *root, RelOptInfo *rel,
 This function constructs a ForeignPath node specifically for foreign table scan operations. Unlike other path creation functions in PostgreSQL core, this function is never called directly by core PostgreSQL code. Instead, it's designed to be called by Foreign Data Wrapper (FDW) implementations through their GetForeignPaths function. The FDW must supply all cost and row estimation fields since PostgreSQL core has no way to calculate these values for external data sources. The function creates a specialized ForeignPath structure that extends the basic Path structure with FDW-specific fields for storing optimizer state and private data.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global information about the query being planned
-- : RelOptInfo structure representing the foreign table relation being scanned
-- : PathTarget specifying the desired output columns and expressions (NULL defaults to rel->reltarget)
-- : Estimated number of rows this path will return
-- : Estimated cost to begin returning tuples
-- : Estimated total cost to return all tuples
-- : List of PathKey structures specifying the output ordering
-- : Set of relation IDs that must be available as outer relations
-- : Optional outer path for join pushdown scenarios
-- : List of restriction clauses that can be handled by the FDW
-- : FDW-specific private data for storing implementation details
-
+- `*root`: PlannerInfo structure containing global information about the query being planned
+- `*rel`: RelOptInfo structure representing the foreign table relation being scanned
+- `*target`: PathTarget specifying the desired output columns and expressions (NULL defaults to rel->reltarget)
+- `rows`: Estimated number of rows this path will return
+- `startup_cost`: Estimated cost to begin returning tuples
+- `total_cost`: Estimated total cost to return all tuples
+- `*pathkeys`: List of PathKey structures specifying the output ordering
+- `required_outer`: Set of relation IDs that must be available as outer relations
+- `*fdw_outerpath`: Optional outer path for join pushdown scenarios
+- `*fdw_restrictinfo`: List of restriction clauses that can be handled by the FDW
+- `*fdw_private`: FDW-specific private data for storing implementation details
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode

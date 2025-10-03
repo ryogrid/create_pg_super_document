@@ -16,9 +16,8 @@ print_html_text(const printTableContent *cont, FILE *fout)
 This function generates HTML table output from PostgreSQL query results stored in a printTableContent structure. It creates a properly formatted HTML table with configurable borders, alignment, and styling. The function handles the complete table lifecycle including opening table tags, headers, data rows, and closing tags with optional footers. It uses HTML escaping for all content to prevent HTML injection and ensures proper formatting. The function respects various output options like tuples-only mode and can handle cancellation during processing.
 
 ## Parameters / Member Variables
-- : Pointer to printTableContent structure containing table data, headers, formatting options, and configuration
-- : Output file stream where the HTML table will be written
-
+- `*cont`: Pointer to printTableContent structure containing table data, headers, formatting options, and configuration
+- `*fout`: Output file stream where the HTML table will be written
 ## Dependencies
 - Functions called/Symbols referenced:
   - [html_escaped_print](../h/html_escaped_print.md) (for escaping HTML content)

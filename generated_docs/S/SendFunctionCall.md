@@ -18,9 +18,8 @@ SendFunctionCall serves as a convenient wrapper around FunctionCall1 specificall
 The function is part of PostgreSQL's function manager (fmgr) system, which handles dynamic function calls and provides a consistent interface for calling various types of functions including built-in and user-defined functions.
 
 ## Parameters / Member Variables
-- : Pointer to FmgrInfo structure containing cached information about the binary output function to call
-- : The Datum value to be converted to binary format (must not be NULL)
-
+- `*flinfo`: Pointer to FmgrInfo structure containing cached information about the binary output function to call
+- `val`: The Datum value to be converted to binary format (must not be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - FunctionCall1

@@ -30,8 +30,7 @@ Key differences from ExecProcNode include:
 The function performs parameter change detection via chgParam and automatically triggers rescanning when parameters have changed, ensuring that multi-exec nodes remain consistent with their execution environment.
 
 ## Parameters / Member Variables
-- : The PlanState node to execute in multi-exec mode
-
+- `*node`: The PlanState node to execute in multi-exec mode
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_stack_depth](../c/check_stack_depth.md) (stack overflow prevention)

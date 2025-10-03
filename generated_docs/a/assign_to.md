@@ -19,9 +19,8 @@ The  function performs a complete assignment of the working buffer contents to t
 This operation is useful when you need to preserve the complete state of the working buffer at a particular point in the stemming process, or when copying the final result to an output buffer.
 
 ## Parameters / Member Variables
-- : Pointer to the Snowball environment structure containing the working string and its length
-- : Destination buffer where the entire working string will be copied (may be reallocated if too small)
-
+- `*z`: Pointer to the Snowball environment structure containing the working string and its length
+- `*p`: Destination buffer where the entire working string will be copied (may be reallocated if too small)
 ## Dependencies
 - Functions called/Symbols referenced:
   - CAPACITY (macro to get buffer capacity)

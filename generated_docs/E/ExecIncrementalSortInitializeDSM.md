@@ -25,9 +25,8 @@ The function performs the following initialization steps:
 This setup enables parallel workers to contribute their individual incremental sort statistics to a centralized location for later aggregation and reporting.
 
 ## Parameters / Member Variables
-- : The IncrementalSortState that will reference the shared memory structure
-- : The ParallelContext containing the shared memory table of contents and worker count
-
+- `*node`: The IncrementalSortState that will reference the shared memory structure
+- `*pcxt`: The ParallelContext containing the shared memory table of contents and worker count
 ## Dependencies
 - Functions called/Symbols referenced:
   - [shm_toc_allocate](../s/shm_toc_allocate.md) (allocates shared memory chunk)

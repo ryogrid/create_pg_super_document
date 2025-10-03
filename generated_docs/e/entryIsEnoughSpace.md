@@ -19,11 +19,10 @@ This function calculates whether a GIN index page has enough free space to perfo
 The calculation takes into account proper memory alignment using MAXALIGN and includes the overhead of ItemIdData structures that are required for each index tuple. The function uses the PageGetFreeSpace utility (which accounts for line pointer overhead) and compares the available space against the net space requirement after accounting for both additions and potential deletions.
 
 ## Parameters / Member Variables
-- : GinBtree structure (currently unused in function body)
-- : Buffer containing the page being evaluated for space availability
-- : Offset number of the position where insertion might occur or where existing entry might be deleted
-- : GinBtreeEntryInsertData structure containing the new entry to insert and deletion flag
-
+- `btree`: GinBtree structure (currently unused in function body)
+- `buf`: Buffer containing the page being evaluated for space availability
+- `off`: Offset number of the position where insertion might occur or where existing entry might be deleted
+- `*insertData`: GinBtreeEntryInsertData structure containing the new entry to insert and deletion flag
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BufferGetPage](../B/BufferGetPage.md)

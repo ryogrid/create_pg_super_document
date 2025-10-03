@@ -18,9 +18,8 @@ This function performs a complete deep copy of a NumericSumAccum structure from 
 This function is essential for operations that need to preserve the original accumulator state while creating a working copy, such as in combine operations for parallel aggregation.
 
 ## Parameters / Member Variables
-- : Pointer to the uninitialized destination NumericSumAccum structure
-- : Pointer to the source NumericSumAccum structure to be copied
-
+- `*dst`: Pointer to the uninitialized destination NumericSumAccum structure
+- `*src`: Pointer to the source NumericSumAccum structure to be copied
 ## Dependencies
 - Functions called/Symbols referenced:
   - [NumericSumAccum](../N/NumericSumAccum.md)

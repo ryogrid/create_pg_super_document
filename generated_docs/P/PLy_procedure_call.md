@@ -16,10 +16,9 @@ PLy_procedure_call(PLyProcedure *proc, const char *kargs, PyObject *vargs)
 This function is the core execution engine for PL/Python procedures. It sets up the execution environment by adding the provided arguments to the procedure's global namespace, then executes the compiled Python code using PyEval_EvalCode. The function implements proper subtransaction management by tracking the subtransaction nesting level before execution and ensuring any open subtransactions created during the procedure execution are properly aborted if needed. It uses PostgreSQL's PG_TRY/PG_FINALLY/PG_END_TRY exception handling mechanism to ensure cleanup occurs even if errors are raised. If the Python code returns NULL (indicating an error), the function propagates the Python exception to PostgreSQL using PLy_elog.
 
 ## Parameters / Member Variables
-- : Compiled PL/Python procedure containing code object and global namespace
-- : Name of the argument variable to set in the global namespace 
-- : Python object containing the procedure arguments to be made available to the Python code
-
+- `*proc`: Compiled PL/Python procedure containing code object and global namespace
+- `*kargs`: Name of the argument variable to set in the global namespace
+- `*vargs`: Python object containing the procedure arguments to be made available to the Python code
 ## Dependencies
 - Functions called/Symbols referenced:
   - PyDict_SetItemString

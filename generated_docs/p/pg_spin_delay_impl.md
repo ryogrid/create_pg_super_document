@@ -24,6 +24,7 @@ This implementation is conditionally compiled for GCC and Intel C compilers on x
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (uses inline assembly)

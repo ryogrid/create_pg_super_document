@@ -17,12 +17,11 @@ ProcessXLogDataMsg(PGconn *conn, StreamCtl *stream, char *copybuf, int len,
 This function is the core handler for actual WAL data received during streaming replication. It parses XLogData message headers to extract the WAL location information, validates that received data aligns with expected positions, and writes the data to appropriate WAL files. The function handles WAL segment boundaries by automatically closing completed segments and opening new ones as needed. It also implements position tracking to ensure data continuity and can terminate streaming when a configured stop condition is met. The function carefully manages file operations and handles potential write errors.
 
 ## Parameters / Member Variables
-- : PostgreSQL connection object for sending control messages
-- : StreamCtl structure containing WAL method configuration and callback functions
-- : Buffer containing the XLogData message
-- : Length of the message buffer
-- : Pointer to current block position, updated as data is processed
-
+- `*conn`: PostgreSQL connection object for sending control messages
+- `*stream`: StreamCtl structure containing WAL method configuration and callback functions
+- `*copybuf`: Buffer containing the XLogData message
+- `len`: Length of the message buffer
+- `*blockpos`: Pointer to current block position, updated as data is processed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [fe_recvint64](../f/fe_recvint64.md)

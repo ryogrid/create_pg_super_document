@@ -24,8 +24,7 @@ The setup_schema function is responsible for establishing the SQL standard infor
 The information schema provides a standardized way for applications to discover database capabilities and metadata, making PostgreSQL more compatible with SQL standard expectations.
 
 ## Parameters / Member Variables
-- : FILE pointer to the command file where SQL statements are written for execution during database initialization
-
+- `*cmdfd`: FILE pointer to the command file where SQL statements are written for execution during database initialization
 ## Dependencies
 - Functions called/Symbols referenced:
   - [setup_run_file](setup_run_file.md) (executes SQL script files)

@@ -21,8 +21,7 @@ This utility function identifies clauses that express negation and extracts the 
 The function is essential for predicate testing logic where the optimizer needs to work with both positive and negative forms of conditions. By extracting the core argument from negated expressions, other predicate testing functions can apply transformation rules and logical equivalences.
 
 ## Parameters / Member Variables
-- : The expression node to examine for negation patterns, may be NULL
-
+- `*clause`: The expression node to examine for negation patterns, may be NULL
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (for node type checking)

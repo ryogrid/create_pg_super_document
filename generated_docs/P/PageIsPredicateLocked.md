@@ -18,9 +18,8 @@ This function determines if any predicate locks exist on a specific page of a re
 The function is particularly important for GiST index vacuum operations, where it's necessary to know if a page is predicate-locked before performing vacuum operations that could affect serializable transaction consistency.
 
 ## Parameters / Member Variables
-- : The relation containing the page to check for predicate locks
-- : The block number of the specific page within the relation to check
-
+- `relation`: The relation containing the page to check for predicate locks
+- `blkno`: The block number of the specific page within the relation to check
 ## Dependencies
 - Functions called/Symbols referenced:
   - SET_PREDICATELOCKTARGETTAG_PAGE

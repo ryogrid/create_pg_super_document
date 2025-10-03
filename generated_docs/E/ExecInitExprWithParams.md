@@ -25,9 +25,8 @@ The function follows the same compilation process as ExecInitExpr:
 This function is typically used for expressions that need to be evaluated independently of query execution, such as in partition pruning contexts where expressions may need to be evaluated with external parameter values.
 
 ## Parameters / Member Variables
-- : The root of the expression tree to compile (Expr*). Returns NULL if NULL is passed for caller convenience.
-- : A ParamListInfo structure describing external parameters (PARAM_EXTERN) that may be referenced in the expression. Can be NULL if no external parameters are needed.
-
+- `*node`: The root of the expression tree to compile (Expr*). Returns NULL if NULL is passed for caller convenience.
+- `ext_params`: A ParamListInfo structure describing external parameters (PARAM_EXTERN) that may be referenced in the expression. Can be NULL if no external parameters are needed.
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (creates new ExprState)

@@ -20,8 +20,7 @@ The binary search implementation follows the standard algorithm: it starts with 
 If the input is NULL or an empty string, the function immediately returns CMDTAG_UNKNOWN without performing any search.
 
 ## Parameters / Member Variables
-- : A null-terminated string containing the command name to look up (e.g., "SELECT", "INSERT", "CREATE TABLE")
-
+- `*commandname`: A null-terminated string containing the command name to look up (e.g., "SELECT", "INSERT", "CREATE TABLE")
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (case-insensitive string comparison)

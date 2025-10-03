@@ -28,6 +28,7 @@ The function ensures all notifications are processed and displayed immediately, 
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - PGnotify (libpq structure type for notification data)

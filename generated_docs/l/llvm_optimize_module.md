@@ -28,9 +28,8 @@ This function performs code optimization on an LLVM module using either the lega
 - Maintains similar optimization philosophy but with modern LLVM infrastructure
 
 ## Parameters / Member Variables
-- : LLVMJitContext pointer containing JIT compilation flags and module reference
-- : LLVMModuleRef representing the LLVM module to be optimized
-
+- `*context`: LLVMJitContext pointer containing JIT compilation flags and module reference
+- `module`: LLVMModuleRef representing the LLVM module to be optimized
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LLVMJitContext](../L/LLVMJitContext.md) (context structure)

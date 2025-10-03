@@ -18,10 +18,9 @@ ExecInitWholeRowVar initializes an expression evaluation step for whole-row vari
 The function determines if a junk filter is needed by examining the parent plan state. When the parent is a SubqueryScan or CteScan, it checks if the subplan's target list contains any junk columns and creates a JunkFilter if necessary to remove these unwanted columns from the final whole-row result.
 
 ## Parameters / Member Variables
-- : ExprEvalStep structure to be initialized with whole-row evaluation settings
-- : Var node representing the whole-row variable being processed
-- : ExprState containing the expression evaluation context and parent plan information
-
+- `*scratch`: ExprEvalStep structure to be initialized with whole-row evaluation settings
+- `*variable`: Var node representing the whole-row variable being processed
+- `*state`: ExprState containing the expression evaluation context and parent plan information
 ## Dependencies
 - Functions called/Symbols referenced:
   - nodeTag (to identify parent plan type)

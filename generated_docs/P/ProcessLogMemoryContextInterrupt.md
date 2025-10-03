@@ -17,6 +17,7 @@ This function is responsible for actually performing memory context logging afte
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport (with LOG_SERVER_ONLY)

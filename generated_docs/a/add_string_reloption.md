@@ -18,13 +18,12 @@ add_string_reloption(bits32 kinds, const char *name, const char *desc,
 This function registers a new string-type reloption in PostgreSQL's reloption system. Reloptions are configuration parameters that can be specified when creating or altering database relations (tables, indexes, etc.). This particular function handles string-valued options and provides optional validation through a callback function. The function internally uses  to create the option structure and  to register it with the system.
 
 ## Parameters / Member Variables
-- : Bitmask specifying which relation kinds (tables, indexes, etc.) this option applies to
-- : The name of the reloption as it will appear in SQL statements
-- : Human-readable description of what this option does
-- : Default value for the option if not specified by users
-- : Optional function pointer for validating option values (can be NULL)
-- : Lock mode required when setting this option
-
+- `kinds`: Bitmask specifying which relation kinds (tables, indexes, etc.) this option applies to
+- `*name`: The name of the reloption as it will appear in SQL statements
+- `*desc`: Human-readable description of what this option does
+- `*default_val`: Default value for the option if not specified by users
+- `validator`: Optional function pointer for validating option values (can be NULL)
+- `lockmode`: Lock mode required when setting this option
 ## Dependencies
 - Functions called/Symbols referenced:
   - [init_string_reloption](../i/init_string_reloption.md)

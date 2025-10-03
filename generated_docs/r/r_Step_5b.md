@@ -26,8 +26,7 @@ This function performs the final step (5b) of the Porter stemming algorithm. It 
 This step ensures that words ending in double 'l' are properly stemmed according to English morphological rules, such as converting "mill" to "mill" (no change) but handling cases where the double 'l' is part of a derivational suffix.
 
 ## Parameters / Member Variables
-- : Pointer to the SN_env structure containing the stemming environment, including the word being processed, cursor positions, and region boundaries
-
+- `*z`: Pointer to the SN_env structure containing the stemming environment, including the word being processed, cursor positions, and region boundaries
 ## Dependencies
 - Functions called/Symbols referenced:
   - [r_R2](r_R2.md) (tests if cursor position is within R2 region)

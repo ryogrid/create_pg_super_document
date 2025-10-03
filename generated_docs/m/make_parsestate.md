@@ -18,8 +18,7 @@ The  function creates a new ParseState structure that serves as the central cont
 The function establishes the foundation for parsing by setting up default values for resolution numbering () and enabling unknown type resolution (). When a parent ParseState is provided, the function creates a hierarchical parsing context by copying source text, hook functions, and query environment settings.
 
 ## Parameters / Member Variables
-- : Optional parent ParseState to inherit configuration from. When non-NULL, the new ParseState inherits source text, column reference hooks, parameter hooks, coercion hooks, hook state, and query environment.
-
+- `*parentParseState`: Optional parent ParseState to inherit configuration from. When non-NULL, the new ParseState inherits source text, column reference hooks, parameter hooks, coercion hooks, hook state, and query environment.
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (memory allocation)

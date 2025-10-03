@@ -18,10 +18,9 @@ The  function provides positioning control within a large object, allowing appli
 The function performs bounds checking to ensure the new position is valid, rejecting negative offsets and positions beyond the maximum large object size. For SEEK_END operations, it calls  to determine the current size of the large object. The function allows seeking beyond the current end of the object, which enables sparse large objects with gaps.
 
 ## Parameters / Member Variables
-- : Pointer to the LargeObjectDesc structure for the large object
-- : The offset value, interpretation depends on the whence parameter
-- : Positioning mode (SEEK_SET, SEEK_CUR, or SEEK_END)
-
+- `*obj_desc`: Pointer to the LargeObjectDesc structure for the large object
+- `offset`: The offset value, interpretation depends on the whence parameter
+- `whence`: Positioning mode (SEEK_SET, SEEK_CUR, or SEEK_END)
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerIsValid (for assertion checking)

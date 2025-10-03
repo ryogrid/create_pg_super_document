@@ -18,11 +18,8 @@ The  function provides comprehensive equality comparison for PostgreSQL's List d
 The function first performs scalar field comparisons to quickly reject unequal lists by checking type and length. Then it uses a switch statement placed outside the iteration loop for efficiency, comparing elements according to their specific data types. For generic T_List types, it recursively calls the general  function on each element, while for specialized types (integers, OIDs, XIDs), it performs direct value comparisons.
 
 ## Parameters / Member Variables
-- : Pointer to the first List node to compare
-- : Pointer to the second List node to compare
-
-Returns:  if the lists are equal,  otherwise
-
+- `*a`: Pointer to the first List node to compare
+- `*b`: Pointer to the second List node to compare
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (macro for comparing scalar fields)

@@ -18,10 +18,9 @@ This function implements the standard Bloom filter insertion algorithm. It compu
 The double hashing approach provides good hash function independence while being computationally efficient compared to computing entirely separate hash functions.
 
 ## Parameters / Member Variables
-- : Pointer to the BloomFilter structure to add the value to
-- : The 32-bit unsigned integer value to add to the filter
-- : Optional output parameter that indicates whether any new bits were set (can be NULL)
-
+- `*filter`: Pointer to the BloomFilter structure to add the value to
+- `value`: The 32-bit unsigned integer value to add to the filter
+- `*updated`: Optional output parameter that indicates whether any new bits were set (can be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hash_bytes_uint32_extended](../h/hash_bytes_uint32_extended.md): PostgreSQL's extended hash function for 32-bit values

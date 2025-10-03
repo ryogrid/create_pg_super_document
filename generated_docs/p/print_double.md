@@ -18,8 +18,7 @@ The  function serves as a cross-platform wrapper around  to ensure consistent fo
 On Windows systems, the function captures the  output in a temporary buffer and reformats 3-digit exponents (e.g., "e+001") to 2-digit format (e.g., "e+01") by removing the leading zero from the exponent. On non-Windows platforms, it simply calls  directly.
 
 ## Parameters / Member Variables
-- : A double precision floating-point number to be printed with normalized formatting
-
+- `x`: A double precision floating-point number to be printed with normalized formatting
 ## Dependencies
 - Functions called/Symbols referenced:
   - sprintf (Windows only)

@@ -18,8 +18,7 @@ The  function serves as the initialization callback for the throttling basebacku
 This function marks the transition point where 'real data' transfer begins, as opposed to header information which is typically not subject to throttling controls.
 
 ## Parameters / Member Variables
-- : Pointer to the base bbsink structure, which is cast to bbsink_throttle for accessing throttling-specific members
-
+- `*sink`: Pointer to the base bbsink structure, which is cast to bbsink_throttle for accessing throttling-specific members
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (forwards the begin backup call to next sink)

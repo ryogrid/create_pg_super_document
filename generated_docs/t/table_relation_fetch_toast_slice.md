@@ -20,13 +20,12 @@ This function provides a table access method interface for retrieving TOAST (The
 The function delegates to the underlying table access method's relation_fetch_toast_slice function, allowing different storage engines to implement their own optimized TOAST retrieval logic. This abstraction is essential because different access methods may organize TOAST data differently and have varying strategies for efficient partial data retrieval.
 
 ## Parameters / Member Variables
-- : A Relation pointer to the TOAST table containing the stored value
-- : OID that identifies which TOAST value to fetch (corresponds to chunk_id in heap tables)
-- : Total size of the complete TOAST value being fetched
-- : Byte offset within the TOAST value where fetching should begin
-- : Number of bytes to fetch from the TOAST value
-- : Caller-allocated varlena structure where the fetched bytes will be stored
-
+- `toastrel`: A Relation pointer to the TOAST table containing the stored value
+- `valueid`: OID that identifies which TOAST value to fetch (corresponds to chunk_id in heap tables)
+- `attrsize`: Total size of the complete TOAST value being fetched
+- `sliceoffset`: Byte offset within the TOAST value where fetching should begin
+- `slicelength`: Number of bytes to fetch from the TOAST value
+- `*result`: Caller-allocated varlena structure where the fetched bytes will be stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - toastrel->rd_tableam->relation_fetch_toast_slice (table access method function pointer)

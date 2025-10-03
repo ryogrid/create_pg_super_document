@@ -18,9 +18,8 @@ mdnblocks calculates and returns the total number of blocks in a specified fork 
 The function works by starting from the last known open segment and iterating through segments, checking their sizes. It assumes that all intermediate segments are exactly RELSEG_SIZE blocks long (which is validated elsewhere), and only needs to determine the size of the final segment. The function handles segment boundaries carefully and stops when it encounters a segment smaller than RELSEG_SIZE or when no more segments exist.
 
 ## Parameters / Member Variables
-- : SMgrRelation pointer representing the relation to examine
-- : ForkNumber identifying which fork of the relation to measure
-
+- `reln`: SMgrRelation pointer representing the relation to examine
+- `forknum`: ForkNumber identifying which fork of the relation to measure
 ## Dependencies
 - Functions called/Symbols referenced:
   - [mdopenfork](mdopenfork.md)

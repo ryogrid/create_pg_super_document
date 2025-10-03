@@ -21,11 +21,10 @@ The  function allocates and initializes a new TargetEntry node, which is a funda
 The function creates a new TargetEntry node using PostgreSQL's node allocation system and initializes the essential fields. It deliberately sets several fields to default values (0 or InvalidOid) to reduce the chance of errors, requiring callers to explicitly modify these fields if needed.
 
 ## Parameters / Member Variables
-- : Expression to be evaluated for this target entry (can be a column reference, function call, constant, etc.)
-- : Result column number (position in the target list, starting from 1)
-- : Result column name (can be NULL for unnamed expressions)
-- : Boolean flag indicating whether this is a "junk" column (used internally but not returned to user)
-
+- `*expr`: Expression to be evaluated for this target entry (can be a column reference, function call, constant, etc.)
+- `resno`: Result column number (position in the target list, starting from 1)
+- `*resname`: Result column name (can be NULL for unnamed expressions)
+- `resjunk`: Boolean flag indicating whether this is a "junk" column (used internally but not returned to user)
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (macro for node allocation)

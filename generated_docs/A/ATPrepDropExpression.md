@@ -18,12 +18,11 @@ This function performs preliminary validation for dropping a generated column ex
 The function implements two key safety checks: first, it rejects ONLY operations when child tables exist (requiring explicit recursion), and second, it prevents dropping expressions from columns that are inherited from parent tables.
 
 ## Parameters / Member Variables
-- : The relation (table) being altered
-- : The ALTER TABLE command structure containing the column name and operation details
-- : Boolean flag indicating whether the operation should cascade to child tables
-- : Boolean flag indicating whether this call is part of a recursive operation on child tables
-- : The lock mode to use when accessing related tables
-
+- `rel`: The relation (table) being altered
+- `*cmd`: The ALTER TABLE command structure containing the column name and operation details
+- `recurse`: Boolean flag indicating whether the operation should cascade to child tables
+- `recursing`: Boolean flag indicating whether this call is part of a recursive operation on child tables
+- `lockmode`: The lock mode to use when accessing related tables
 ## Dependencies
 - Functions called/Symbols referenced:
   - [AlterTableCmd](AlterTableCmd.md) (structure)

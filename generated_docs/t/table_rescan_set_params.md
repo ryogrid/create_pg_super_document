@@ -19,12 +19,11 @@ The  function provides an advanced way to restart a table scan while allowing mo
 This function is particularly useful for operations that need to adjust scan behavior based on runtime conditions or when the scan requirements change during execution. The function preserves the previously selected start block even when sync scan settings are modified, ensuring consistent scanning behavior.
 
 ## Parameters / Member Variables
-- : The TableScanDesc structure representing the scan to be restarted
-- : Optional new scan key data to apply during the rescan (can be NULL)
-- : Whether to allow buffer strategy changes
-- : Whether to allow synchronized scanning changes
-- : Whether to allow page mode changes
-
+- `scan`: The TableScanDesc structure representing the scan to be restarted
+- `*key`: Optional new scan key data to apply during the rescan (can be NULL)
+- `allow_strat`: Whether to allow buffer strategy changes
+- `allow_sync`: Whether to allow synchronized scanning changes
+- `allow_pagemode`: Whether to allow page mode changes
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TableScanDesc](../T/TableScanDesc.md) (scan descriptor type)

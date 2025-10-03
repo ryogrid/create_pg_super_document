@@ -27,10 +27,9 @@ The function performs the following operations for each pattern:
 Unlike some other pattern expansion functions, this function does not have a strict_names parameter - it always requires that patterns match at least one foreign server, failing with a fatal error if no matches are found.
 
 ## Parameters / Member Variables
-- : Archive structure containing database connection and dump context
-- : SimpleStringList containing foreign server name patterns to match (may include wildcards)
-- : SimpleOidList to append matching foreign server OIDs to
-
+- `*fout`: Archive structure containing database connection and dump context
+- `*patterns`: SimpleStringList containing foreign server name patterns to match (may include wildcards)
+- `*oids`: SimpleOidList to append matching foreign server OIDs to
 ## Dependencies
 - Functions called/Symbols referenced:
   - [createPQExpBuffer](../c/createPQExpBuffer.md), resetPQExpBuffer, destroyPQExpBuffer (query buffer management)

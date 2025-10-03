@@ -16,9 +16,8 @@ simple_heap_insert(Relation relation, HeapTuple tup)
 This function serves as a convenience wrapper for heap_insert() with default parameters. It automatically supplies the current command ID using GetCurrentCommandId(true) and sets options to 0 with no bulk insert state. The function is designed for straightforward tuple insertions where the caller doesn't need to specify custom insertion options or provide bulk insert optimization state. It's the recommended interface for most system catalog operations where simplicity is preferred over fine-grained control.
 
 ## Parameters / Member Variables
-- : The target heap relation where the tuple will be inserted
-- : The HeapTuple to be inserted into the relation
-
+- `relation`: The target heap relation where the tuple will be inserted
+- `tup`: The HeapTuple to be inserted into the relation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [heap_insert](../h/heap_insert.md)

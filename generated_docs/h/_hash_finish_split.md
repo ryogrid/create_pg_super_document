@@ -24,14 +24,13 @@ This function is responsible for completing a bucket split operation that was pr
 The function handles the case where a split operation was interrupted (e.g., due to a crash) and needs to be completed. The TID hash table ensures that tuples already moved to the new bucket are not processed again during the completion of the split.
 
 ## Parameters / Member Variables
-- : The hash index relation being operated on
-- : Buffer containing the metapage (must be pinned but not locked)
-- : Buffer containing the old bucket's primary page (must be pinned but not locked)
-- : The bucket number of the old bucket being split
-- : The current maximum bucket number in the hash table
-- : High-order bits mask for hash value calculation
-- : Low-order bits mask for hash value calculation
-
+- `rel`: The hash index relation being operated on
+- `metabuf`: Buffer containing the metapage (must be pinned but not locked)
+- `obuf`: Buffer containing the old bucket's primary page (must be pinned but not locked)
+- `obucket`: The bucket number of the old bucket being split
+- `maxbucket`: The current maximum bucket number in the hash table
+- `highmask`: High-order bits mask for hash value calculation
+- `lowmask`: Low-order bits mask for hash value calculation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hash_create](hash_create.md) (creates the TID tracking hash table)

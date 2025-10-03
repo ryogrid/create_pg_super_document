@@ -19,10 +19,9 @@ This function constructs a LockRows plan node that handles row-level locking in 
 Since LockRows doesn't modify the target list, it simply passes through the tlist requirements from its parent operation to its subplan without modification.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global planning context and information for plan generation
-- : LockRowsPath representing the chosen execution strategy for the locking operation, containing subpath, row marks, and evaluation parameters
-- : Integer flags controlling plan creation behavior, passed through unchanged to the subplan
-
+- `*root`: PlannerInfo structure containing global planning context and information for plan generation
+- `*best_path`: LockRowsPath representing the chosen execution strategy for the locking operation, containing subpath, row marks, and evaluation parameters
+- `flags`: Integer flags controlling plan creation behavior, passed through unchanged to the subplan
 ## Dependencies
 - Functions called/Symbols referenced:
   - [create_plan_recurse](create_plan_recurse.md)

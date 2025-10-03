@@ -18,9 +18,8 @@ The  function is a static helper function that performs the crucial initializati
 The function ensures that partitioned hash tables have proper mutex initialization, computes bucket counts as the next power of two greater than the expected element count, and maintains partition independence by ensuring bucket count meets minimum requirements relative to partition count. It also handles the allocation of the directory structure and initial segments, setting up the foundation for dynamic hash table growth.
 
 ## Parameters / Member Variables
-- : Pointer to the HTAB structure representing the hash table being initialized
-- : Expected number of elements the hash table will contain, used for sizing calculations
-
+- `*hashp`: Pointer to the HTAB structure representing the hash table being initialized
+- `nelem`: Expected number of elements the hash table will contain, used for sizing calculations
 ## Dependencies
 - Functions called/Symbols referenced:
   - IS_PARTITIONED (macro to check if hash table is partitioned)

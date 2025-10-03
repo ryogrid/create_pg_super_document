@@ -26,8 +26,7 @@ The deletion process follows a specific order to prevent corruption:
 This approach ensures that if an error occurs during deletion, the system maintains a consistent state rather than having dangling pointers or partial deletions that could cause crashes.
 
 ## Parameters / Member Variables
-- : The ResourceOwner to delete along with all its descendants
-
+- `owner`: The ResourceOwner to delete along with all its descendants
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ResourceOwnerDelete](ResourceOwnerDelete.md) (recursive call for child deletion)

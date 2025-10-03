@@ -20,8 +20,7 @@ Named tranches are allocated in the MainLWLockArray after all fixed locks (indiv
 Once the caller obtains the base address, they can access the full range of locks in their tranche by indexing from the returned pointer. This allows extensions that requested multiple LWLocks via RequestNamedLWLockTranche() to access all their locks systematically.
 
 ## Parameters / Member Variables
-- : The name of the tranche to look up, as specified when the tranche was requested
-
+- `*tranche_name`: The name of the tranche to look up, as specified when the tranche was requested
 ## Dependencies
 - Functions called/Symbols referenced:
   - strcmp: String comparison to match tranche names

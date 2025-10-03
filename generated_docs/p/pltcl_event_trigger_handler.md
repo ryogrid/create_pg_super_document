@@ -19,10 +19,9 @@ This function serves as the event trigger handler for PL/Tcl functions. It manag
 The handler follows PostgreSQL's event trigger protocol by connecting to the SPI manager, compiling or finding the target Tcl function, constructing a Tcl command list with the procedure name and trigger parameters, executing the command in the Tcl interpreter, and properly cleaning up resources while handling any errors that occur during execution.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function call information structure containing function metadata and context
-- : Pointer to pltcl_call_state structure for tracking call-specific state and the procedure descriptor
-- : Boolean flag indicating whether this is a trusted or untrusted PL/Tcl function call
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function call information structure containing function metadata and context
+- `*call_state`: Pointer to pltcl_call_state structure for tracking call-specific state and the procedure descriptor
+- `pltrusted`: Boolean flag indicating whether this is a trusted or untrusted PL/Tcl function call
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SPI_connect](../S/SPI_connect.md)

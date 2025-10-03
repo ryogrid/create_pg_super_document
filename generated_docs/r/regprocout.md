@@ -22,8 +22,7 @@ The regprocout function is the output conversion function for PostgreSQL's regpr
 The function's key feature is its schema qualification logic - it only includes the schema name when the procedure name would be ambiguous without it. This is determined by checking if regprocin would uniquely resolve the unqualified name back to the same OID.
 
 ## Parameters / Member Variables
-- : Input RegProcedure OID to be converted to string representation
-
+- `PG_FUNCTION_ARGS`: Input RegProcedure OID to be converted to string representation
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Looks up procedure information in pg_proc system cache

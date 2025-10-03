@@ -28,10 +28,9 @@ The function processes each character in the buffer and updates the column posit
 This bounded version is particularly useful when analyzing comment text or partial strings where only a portion of the buffer needs to be considered for positioning calculations.
 
 ## Parameters / Member Variables
-- : The current column position to start calculation from (integer)
-- : Pointer to the character buffer to analyze
-- : Pointer marking the end boundary of the text to process
-
+- `cur`: The current column position to start calculation from (integer)
+- `*buffer`: Pointer to the character buffer to analyze
+- `*end`: Pointer marking the end boundary of the text to process
 ## Dependencies
 - Functions called/Symbols referenced:
   - Uses  global variable for tab stop calculations

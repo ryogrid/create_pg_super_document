@@ -22,9 +22,8 @@ The function uses platform-specific copy commands:
 The copy operation preserves the directory structure and file permissions from the old cluster. The function provides user feedback and ensures proper error handling throughout the process.
 
 ## Parameters / Member Variables
-- : The name of the subdirectory in the old cluster's data directory to copy from
-- : The name of the subdirectory in the new cluster's data directory to copy to (can be the same as old_subdir or different)
-
+- `*old_subdir`: The name of the subdirectory in the old cluster's data directory to copy from
+- `*new_subdir`: The name of the subdirectory in the new cluster's data directory to copy to (can be the same as old_subdir or different)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [remove_new_subdir](../r/remove_new_subdir.md): Removes the target subdirectory from the new cluster before copying

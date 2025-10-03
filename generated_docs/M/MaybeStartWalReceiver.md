@@ -22,6 +22,7 @@ If the receiver starts successfully, the function clears the WalReceiverRequeste
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [StartChildProcess](../S/StartChildProcess.md) (creates the WAL receiver process)

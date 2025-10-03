@@ -25,8 +25,7 @@ This function serves as the final cleanup phase in the Turkish stemming process,
 The function processes the string from right to left (backward processing) by setting the left boundary to current position and cursor to the end of the string.
 
 ## Parameters / Member Variables
-- : Pointer to the Snowball environment structure containing the string being processed and cursor positions
-
+- `*z`: Pointer to the Snowball environment structure containing the string being processed and cursor positions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [r_is_reserved_word](r_is_reserved_word.md) (checks for protected words that shouldn't be stemmed)

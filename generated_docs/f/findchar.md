@@ -20,9 +20,8 @@ The function iterates through the input string character by character, using  to
 The function is primarily used during dictionary file parsing to locate delimiter characters (like '/') that separate words from their affix flags in Ispell/Hunspell dictionary format.
 
 ## Parameters / Member Variables
-- : Pointer to the null-terminated string to search in
-- : The ASCII character to search for (must be a plain ASCII character)
-
+- `*str`: Pointer to the null-terminated string to search in
+- `c`: The ASCII character to search for (must be a plain ASCII character)
 ## Dependencies
 - Functions called/Symbols referenced:
   - t_iseq (macro for character comparison, defined in ts_locale.h)

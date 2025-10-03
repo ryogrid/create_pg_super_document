@@ -23,8 +23,7 @@ The key innovation in this implementation is the use of  instead of  for the con
 The extensive comment in the source code provides a detailed mathematical example (7.038531e-26) demonstrating how this double-rounding can lead to incorrect results, with specific hexadecimal representations showing the precision differences.
 
 ## Parameters / Member Variables
-- : String representation of the floating-point number (extracted via )
-
+- `PG_FUNCTION_ARGS`: String representation of the floating-point number (extracted via )
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (macro to extract string argument)

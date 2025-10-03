@@ -24,7 +24,6 @@ The function performs the following key operations:
 This initialization is crucial for CLOG operation as it establishes the baseline for determining which CLOG pages are currently relevant and may need to be extended as new transactions are assigned. The atomic write ensures that this initialization is visible to all processes in a thread-safe manner.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

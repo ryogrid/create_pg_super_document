@@ -18,9 +18,8 @@ This inline function implements the greater-than-or-equal comparison operation f
 The function returns true if val1 is NaN, or if val2 is not NaN and val1 is arithmetically greater than or equal to val2.
 
 ## Parameters / Member Variables
-- : The first double-precision floating-point value (left operand of the comparison)
-- : The second double-precision floating-point value (right operand of the comparison)
-
+- `val1`: The first double-precision floating-point value (left operand of the comparison)
+- `val2`: The second double-precision floating-point value (right operand of the comparison)
 ## Dependencies
 - Functions called/Symbols referenced:
   - isnan (for NaN detection)

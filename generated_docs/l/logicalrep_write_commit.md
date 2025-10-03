@@ -19,10 +19,9 @@ This function serializes a COMMIT message into the logical replication protocol 
 The COMMIT message serves as the counterpart to the BEGIN message and is essential for maintaining transaction boundaries in logical replication streams.
 
 ## Parameters / Member Variables
-- : StringInfo buffer where the serialized COMMIT message will be written
-- : ReorderBufferTXN structure containing transaction information to be serialized
-- : XLogRecPtr representing the LSN where the transaction was committed
-
+- `out`: StringInfo buffer where the serialized COMMIT message will be written
+- `*txn`: ReorderBufferTXN structure containing transaction information to be serialized
+- `commit_lsn`: XLogRecPtr representing the LSN where the transaction was committed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pq_sendbyte](../p/pq_sendbyte.md) (sends a single byte to the output buffer)

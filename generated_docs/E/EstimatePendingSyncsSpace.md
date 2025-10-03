@@ -22,7 +22,6 @@ The function works by:
 This size estimation is used during parallel query setup to allocate sufficient shared memory for communicating which relations are currently skipping WAL logging. Parallel workers need this information to properly handle buffer management and ensure data consistency during operations on relations that use the "Skipping WAL for New RelFileLocator" optimization.
 
 ## Parameters / Member Variables
-None - this function takes no parameters
 
 ## Dependencies
 - Functions called/Symbols referenced:

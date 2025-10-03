@@ -18,8 +18,7 @@ CheckProcSignal is a core function in PostgreSQL's inter-process signaling mecha
 The function implements an atomic test-and-clear operation on signal flags, ensuring that each signal is processed exactly once. This is crucial for PostgreSQL's reliable inter-process communication system where signals coordinate activities like recovery conflicts, parallel processing, and various maintenance operations.
 
 ## Parameters / Member Variables
-- : A ProcSignalReason enum value specifying which specific signal type to check for (e.g., PROCSIG_CATCHUP_INTERRUPT, PROCSIG_NOTIFY_INTERRUPT, etc.)
-
+- `reason`: A ProcSignalReason enum value specifying which specific signal type to check for (e.g., PROCSIG_CATCHUP_INTERRUPT, PROCSIG_NOTIFY_INTERRUPT, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   - ProcSignalReason (enum type)

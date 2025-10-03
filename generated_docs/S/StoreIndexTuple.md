@@ -21,11 +21,10 @@ A key aspect of this function is handling the special case of name columns that 
 The function uses the tuple descriptor provided by the access method rather than the slot's descriptor to ensure proper datatype handling, particularly important for cases like btree name_ops where datatypes may differ between index and table representations.
 
 ## Parameters / Member Variables
-- : IndexOnlyScanState containing scan state and configuration information including name column attributes
-- : TupleTableSlot to be filled with the index tuple data  
-- : IndexTuple containing the source data to be stored
-- : TupleDesc from the access method describing the index tuple structure
-
+- `*node`: IndexOnlyScanState containing scan state and configuration information including name column attributes
+- `*slot`: TupleTableSlot to be filled with the index tuple data
+- `itup`: IndexTuple containing the source data to be stored
+- `itupdesc`: TupleDesc from the access method describing the index tuple structure
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecClearTuple](../E/ExecClearTuple.md): Clears the tuple slot before storing new data

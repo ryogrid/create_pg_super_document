@@ -22,8 +22,7 @@ The implementation leverages two key operations:
 2. Set the mask length to maximum (-1 triggers max mask length behavior in inet_set_masklen)
 
 ## Parameters / Member Variables
-- : Input Datum containing the network value for which to find the last IP address
-
+- `in`: Input Datum containing the network value for which to find the last IP address
 ## Dependencies
 - Functions called/Symbols referenced:
   - DirectFunctionCall2 (PostgreSQL function call interface for 2-argument functions)

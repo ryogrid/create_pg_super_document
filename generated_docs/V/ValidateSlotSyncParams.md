@@ -24,8 +24,7 @@ The function validates the following requirements:
 Each validation failure results in an error report with a descriptive message indicating which parameter needs to be corrected.
 
 ## Parameters / Member Variables
-- : Error level to use when reporting validation failures (e.g., ERROR, WARNING, LOG)
-
+- `elevel`: Error level to use when reporting validation failures (e.g., ERROR, WARNING, LOG)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Constant defining the minimum required WAL level

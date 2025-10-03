@@ -20,9 +20,8 @@ The function handles a special case for partitioned tables when publish_via_part
 For each Var node encountered, it checks if the column's attribute number (adjusted for heap attribute numbering) is present in the replica identity bitmap. If any column is found that's not part of the replica identity, the function returns true, indicating the row filter contains invalid column references.
 
 ## Parameters / Member Variables
-- : The expression tree node being examined (can be any Node type)
-- : rf_context structure containing validation context including table IDs, replica identity bitmap, and pubviaroot flag
-
+- `*node`: The expression tree node being examined (can be any Node type)
+- `*context`: rf_context structure containing validation context including table IDs, replica identity bitmap, and pubviaroot flag
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_attname](../g/get_attname.md)

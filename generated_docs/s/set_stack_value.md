@@ -18,9 +18,8 @@ The  function is responsible for copying the current active value of a GUC confi
 For string variables, the function uses  to ensure proper memory management and reference counting. After copying the type-specific value, it uses  to copy any associated extra data structure, maintaining consistency between the value and its metadata.
 
 ## Parameters / Member Variables
-- : Pointer to the generic GUC configuration structure whose value will be copied
-- : Pointer to the config_var_value structure that will receive the copied value and extra data
-
+- `*gconf`: Pointer to the generic GUC configuration structure whose value will be copied
+- `*val`: Pointer to the config_var_value structure that will receive the copied value and extra data
 ## Dependencies
 - Functions called/Symbols referenced:
   - [config_var_value](../c/config_var_value.md), config_generic (structure types)

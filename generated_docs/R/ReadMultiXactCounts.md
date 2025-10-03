@@ -18,9 +18,8 @@ This function reads the current state from MultiXactState shared memory to calcu
 The counts are calculated by taking the difference between the next and oldest values for both multixacts and member offsets, providing a snapshot of current system usage.
 
 ## Parameters / Member Variables
-- : Pointer to store the count of current multixacts
-- : Pointer to store the count of current multixact members
-
+- `*multixacts`: Pointer to store the count of current multixacts
+- `*members`: Pointer to store the count of current multixact members
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockAcquire](../L/LWLockAcquire.md)

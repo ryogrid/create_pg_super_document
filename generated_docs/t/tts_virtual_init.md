@@ -18,8 +18,7 @@ The  function is the initialization callback for virtual tuple table slots in Po
 This function has an empty implementation because virtual tuple table slots require no special initialization beyond what is provided by the base  structure. The slot is already properly initialized when created, and virtual slots don't need additional setup for buffers, heap tuples, or other storage-specific resources.
 
 ## Parameters / Member Variables
-- : A pointer to the TupleTableSlot being initialized. This will be a VirtualTupleTableSlot structure that extends the base TupleTableSlot.
-
+- `*slot`: A pointer to the TupleTableSlot being initialized. This will be a VirtualTupleTableSlot structure that extends the base TupleTableSlot.
 ## Dependencies
 - Functions called/Symbols referenced: None (empty function body)
 - Called from (representative examples):

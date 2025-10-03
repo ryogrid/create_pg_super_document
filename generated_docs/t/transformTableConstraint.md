@@ -26,9 +26,8 @@ The function categorizes constraints into:
 For foreign tables, the function enforces PostgreSQL's design decision that certain constraints don't make sense since the data resides on external systems and cannot be enforced by the local PostgreSQL instance.
 
 ## Parameters / Member Variables
-- : CreateStmtContext containing parsing state and constraint accumulation lists
-- : Constraint node representing the table-level constraint to be processed
-
+- `*cxt`: CreateStmtContext containing parsing state and constraint accumulation lists
+- `*constraint`: Constraint node representing the table-level constraint to be processed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lappend](../l/lappend.md) (for adding constraints to respective lists)

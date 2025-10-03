@@ -26,9 +26,8 @@ The function performs the following operations:
 This function is typically called from the ALTER SUBSCRIPTION OWNER TO SQL command processing path.
 
 ## Parameters / Member Variables
-- : String name of the subscription whose ownership should be changed
-- : OID of the new owner role that will own the subscription
-
+- `*name`: String name of the subscription whose ownership should be changed
+- `newOwnerId`: OID of the new owner role that will own the subscription
 ## Dependencies
 - Functions called/Symbols referenced:
   - SearchSysCacheCopy2: Looks up subscription by name in system cache

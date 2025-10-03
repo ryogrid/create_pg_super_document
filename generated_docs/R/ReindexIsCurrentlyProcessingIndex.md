@@ -18,8 +18,7 @@ This static function provides a boolean check to determine if an index identifie
 The function is used internally within the index management system to coordinate various index operations and ensure that constraints and other index-dependent operations behave correctly when an index is being rebuilt. It's particularly important for exclusion constraint checking and serialized reindex state management.
 
 ## Parameters / Member Variables
-- : Object identifier of the index to check for active reindexing
-
+- `indexOid`: Object identifier of the index to check for active reindexing
 ## Dependencies
 - Functions called/Symbols referenced:
   - currentlyReindexedIndex: Global variable tracking the currently reindexed index

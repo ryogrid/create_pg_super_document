@@ -30,16 +30,15 @@ The function builds a series of evaluation steps that:
 - Returns NULL for zero-column comparisons (always true case)
 
 ## Parameters / Member Variables
-- : TupleDesc describing the structure of left (inner) tuples to compare
-- : TupleDesc describing the structure of right (outer) tuples to compare
-- : TupleTableSlotOps for left tuple operations
-- : TupleTableSlotOps for right tuple operations  
-- : Integer specifying the number of attributes to examine in the comparison
-- : Array of AttrNumber values indicating which column indices to compare
-- : Array of Oid values specifying the equality function OIDs to use for each attribute
-- : Array of Oid values specifying the collation OIDs for each attribute
-- : PlanState pointer to the parent executor node
-
+- `ldesc`: TupleDesc describing the structure of left (inner) tuples to compare
+- `rdesc`: TupleDesc describing the structure of right (outer) tuples to compare
+- `*lops`: TupleTableSlotOps for left tuple operations
+- `*rops`: TupleTableSlotOps for right tuple operations
+- `numCols`: Integer specifying the number of attributes to examine in the comparison
+- `*keyColIdx`: Array of AttrNumber values indicating which column indices to compare
+- `*eqfunctions`: Array of Oid values specifying the equality function OIDs to use for each attribute
+- `*collations`: Array of Oid values specifying the collation OIDs for each attribute
+- `*parent`: PlanState pointer to the parent executor node
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode

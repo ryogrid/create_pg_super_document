@@ -22,7 +22,6 @@ This function is called to completely clear the backend's list of listened chann
 This is a simple but comprehensive cleanup function that ensures all memory associated with channel listening is properly freed.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

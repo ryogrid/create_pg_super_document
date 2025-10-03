@@ -24,8 +24,7 @@ ExecEndSort is the cleanup function for Sort plan nodes in PostgreSQL's executor
 This function is critical for preventing resource leaks, especially when dealing with large sorts that may have created temporary files on disk or consumed significant amounts of memory.
 
 ## Parameters / Member Variables
-- : The SortState structure containing the sort execution state to be cleaned up
-
+- `*node`: The SortState structure containing the sort execution state to be cleaned up
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Release tuplesort resources and cleanup temporary files/memory

@@ -18,8 +18,7 @@ This function calculates the padding bytes needed to align a tar archive entry t
 Since TAR_BLOCK_SIZE is a power of 2, the TYPEALIGN macro can use bitwise operations for efficient alignment calculation.
 
 ## Parameters / Member Variables
-- : The current length of the data that needs to be padded to align to TAR_BLOCK_SIZE boundary
-
+- `len`: The current length of the data that needs to be padded to align to TAR_BLOCK_SIZE boundary
 ## Dependencies
 - Functions called/Symbols referenced:
   - TYPEALIGN

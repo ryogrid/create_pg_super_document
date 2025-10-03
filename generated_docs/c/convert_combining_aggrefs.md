@@ -22,9 +22,8 @@ The transformation is necessary for parallel aggregation scenarios where aggrega
 This step is performed during the setrefs phase rather than createplan phase to avoid breaking cross-plan-node-level matches, since modified Aggrefs would no longer be equal() to their original forms.
 
 ## Parameters / Member Variables
-- : The expression tree node to process (typically containing Aggref nodes)
-- : Context parameter passed through the expression tree traversal (unused in this function)
-
+- `*node`: The expression tree node to process (typically containing Aggref nodes)
+- `*context`: Context parameter passed through the expression tree traversal (unused in this function)
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (macro for type checking)

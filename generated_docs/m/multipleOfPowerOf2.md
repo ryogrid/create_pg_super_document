@@ -18,9 +18,8 @@ This function efficiently checks if a value is divisible by 2 raised to the powe
 The function includes a commented alternative implementation using  (count trailing zeros), which would also work but the current bitwise implementation was chosen. This is a fundamental utility in floating-point to decimal conversion where determining divisibility by powers of 2 is essential for binary representation analysis.
 
 ## Parameters / Member Variables
-- : The 64-bit unsigned integer to test for divisibility
-- : The power of 2 (2^p) to test divisibility against
-
+- `value`: The 64-bit unsigned integer to test for divisibility
+- `p`: The power of 2 (2^p) to test divisibility against
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Macro for creating 64-bit constants

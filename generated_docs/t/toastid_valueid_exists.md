@@ -18,9 +18,8 @@ This internal convenience function provides a simpler interface for checking toa
 The function maintains the same safety semantics as its underlying implementation, considering both live and dead tuples when determining existence. This approach is particularly useful during table rewrite operations where the caller needs to check for value existence in a toast relation that isn't currently open.
 
 ## Parameters / Member Variables
-- : The OID of the toast relation to search within
-- : The OID of the toast value to search for
-
+- `toastrelid`: The OID of the toast relation to search within
+- `valueid`: The OID of the toast value to search for
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](table_open.md)

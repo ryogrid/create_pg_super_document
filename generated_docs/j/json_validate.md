@@ -16,10 +16,9 @@ json_validate(text *json, bool check_unique_keys, bool throw_error)
 This function serves as PostgreSQL's primary JSON validation mechanism, performing both syntactic parsing and semantic validation of JSON text. It uses the core JSON parsing infrastructure (pg_parse_json) to verify that the input conforms to JSON syntax rules. When requested, it additionally performs uniqueness validation of object field names using a specialized callback system. The function can operate in two modes: returning a boolean result for programmatic use, or throwing errors for SQL context usage. The uniqueness checking utilizes a stack-based tracking system that monitors object nesting levels and maintains a hash table for efficient key collision detection.
 
 ## Parameters / Member Variables
-- : Pointer to text structure containing the JSON string to validate
-- : Boolean flag indicating whether to perform object field name uniqueness validation
-- : Boolean flag controlling whether to throw PostgreSQL errors on validation failure or return false
-
+- `*json`: Pointer to text structure containing the JSON string to validate
+- `check_unique_keys`: Boolean flag indicating whether to perform object field name uniqueness validation
+- `throw_error`: Boolean flag controlling whether to throw PostgreSQL errors on validation failure or return false
 ## Dependencies
 - Functions called/Symbols referenced:
   - [makeJsonLexContext](../m/makeJsonLexContext.md)

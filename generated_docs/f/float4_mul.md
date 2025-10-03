@@ -18,9 +18,8 @@ The  function multiplies two  (single-precision floating-point) values and retur
 The function uses the  macro to optimize branch prediction, as overflow and underflow conditions are expected to be rare in normal operation.
 
 ## Parameters / Member Variables
-- : The first floating-point operand (multiplicand)
-- : The second floating-point operand (multiplier)
-
+- `val1`: The first floating-point operand (multiplicand)
+- `val2`: The second floating-point operand (multiplier)
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Standard C library function to check for infinity

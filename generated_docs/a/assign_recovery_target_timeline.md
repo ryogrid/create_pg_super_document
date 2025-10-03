@@ -16,9 +16,8 @@ assign_recovery_target_timeline(const char *newval, void *extra)
 This function serves as a GUC assign hook for the  parameter. It receives the validated timeline goal type from the check hook via the  parameter and sets the global  variable accordingly. For numeric timeline specifications, it also parses and stores the specific timeline ID in . For non-numeric goals ("current" or "latest"), the requested timeline ID is set to 0, indicating that the actual timeline will be determined dynamically during recovery.
 
 ## Parameters / Member Variables
-- : The new value string for recovery_target_timeline (timestamp string or keyword)
-- : Pointer to RecoveryTargetTimeLineGoal enum value set by the check hook
-
+- `*newval`: The new value string for recovery_target_timeline (timestamp string or keyword)
+- `*extra`: Pointer to RecoveryTargetTimeLineGoal enum value set by the check hook
 ## Dependencies
 - Functions called/Symbols referenced:
   - strtoul (for numeric timeline ID conversion)

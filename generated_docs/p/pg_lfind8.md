@@ -18,10 +18,9 @@ The  function performs a linear search for a given 8-bit key value within an arr
 The implementation first processes elements in chunks using vectorized operations (Vector8), then handles any remaining elements individually. This hybrid approach maximizes performance while ensuring correctness for arrays of any size.
 
 ## Parameters / Member Variables
-- : The 8-bit value to search for in the array
-- : Pointer to the array of 8-bit unsigned integers to search through
-- : Number of elements in the array
-
+- `key`: The 8-bit value to search for in the array
+- `*base`: Pointer to the array of 8-bit unsigned integers to search through
+- `nelem`: Number of elements in the array
 ## Dependencies
 - Functions called/Symbols referenced:
   - Vector8 (vector data type for SIMD operations)

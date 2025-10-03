@@ -18,10 +18,9 @@ CreateOptsFile generates a persistent record of the postmaster's startup paramet
 The function performs error handling for both file creation and writing operations, logging appropriate error messages if either operation fails. The file is created in write mode, which overwrites any existing opts file from previous runs.
 
 ## Parameters / Member Variables
-- : Number of command-line arguments passed to the postmaster
-- : Array of command-line argument strings
-- : Full path to the postmaster executable
-
+- `argc`: Number of command-line arguments passed to the postmaster
+- `argv[]`: Array of command-line argument strings
+- `*fullprogname`: Full path to the postmaster executable
 ## Dependencies
 - Functions called/Symbols referenced:
   - fopen (standard C library file operations)

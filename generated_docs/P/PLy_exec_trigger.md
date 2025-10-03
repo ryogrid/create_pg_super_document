@@ -27,9 +27,8 @@ This function serves as the core execution handler for PL/Python trigger functio
 The function expects the Python trigger function to return either None (indicating the tuple is acceptable and unmodified) or a string value indicating the desired action.
 
 ## Parameters / Member Variables
-- : FunctionCallInfo structure containing the trigger call context and arguments
-- : PLyProcedure structure containing the compiled Python trigger procedure information
-
+- `fcinfo`: FunctionCallInfo structure containing the trigger call context and arguments
+- `*proc`: PLyProcedure structure containing the compiled Python trigger procedure information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PLy_global_args_push](PLy_global_args_push.md)/PLy_global_args_pop

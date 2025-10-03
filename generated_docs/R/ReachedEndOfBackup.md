@@ -23,9 +23,8 @@ The function performs several important control file updates:
 This function is critical for ensuring that recovery from base backups completes properly and that the database cannot be started in an inconsistent state if recovery is interrupted and restarted.
 
 ## Parameters / Member Variables
-- : The WAL record pointer marking the end of the backup, used to update the minimum recovery point
-- : The timeline ID associated with the end-of-backup record, stored as the minimum recovery point timeline
-
+- `EndRecPtr`: The WAL record pointer marking the end of the backup, used to update the minimum recovery point
+- `tli`: The timeline ID associated with the end-of-backup record, stored as the minimum recovery point timeline
 ## Dependencies
 - Functions called/Symbols referenced:
   - [UpdateControlFile](../U/UpdateControlFile.md) (persists control file changes to disk)

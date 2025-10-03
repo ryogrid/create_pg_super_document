@@ -18,8 +18,7 @@ This function handles WAL replay for adding overflow pages to hash indexes when 
 The function operates on up to 5 different buffers: the new overflow page (block 0), the left page that will point to it (block 1), an existing bitmap page (block 2), a potential new bitmap page (block 3), and the metapage (block 4). The function maintains proper page linkage by setting forward and backward pointers, updates bitmap allocation status, and manages metapage statistics including the first free overflow page pointer and overflow point counters.
 
 ## Parameters / Member Variables
-- : XLogReaderState pointer containing the WAL record with overflow page data including bucket number, bitmap size (bmsize), and bitmap page found status (bmpage_found)
-
+- `*record`: XLogReaderState pointer containing the WAL record with overflow page data including bucket number, bitmap size (bmsize), and bitmap page found status (bmpage_found)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [xl_hash_add_ovfl_page](../x/xl_hash_add_ovfl_page.md) (WAL record structure)

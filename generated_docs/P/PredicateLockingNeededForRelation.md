@@ -24,8 +24,7 @@ Both types of relations are exempt from predicate locking because:
 - Temporary relations are session-local and cannot be accessed by other transactions
 
 ## Parameters / Member Variables
-- : The Relation structure representing the table/index to check for predicate locking eligibility
-
+- `relation`: The Relation structure representing the table/index to check for predicate locking eligibility
 ## Dependencies
 - Functions called/Symbols referenced:
   - FirstUnpinnedObjectId (constant defining the boundary between system and user objects)

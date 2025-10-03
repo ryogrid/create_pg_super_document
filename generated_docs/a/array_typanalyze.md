@@ -18,8 +18,7 @@ This function is PostgreSQL's specialized type analyzer for array columns during
 The function stores all necessary type information in an ArrayAnalyzeExtraData structure, preserving the original standard statistics computation setup while overlaying array-specific analysis capabilities.
 
 ## Parameters / Member Variables
-- : VacAttrStats pointer containing column statistics information and analysis configuration
-
+- `PG_FUNCTION_ARGS`: VacAttrStats pointer containing column statistics information and analysis configuration
 ## Dependencies
 - Functions called/Symbols referenced:
   - [std_typanalyze](../s/std_typanalyze.md)

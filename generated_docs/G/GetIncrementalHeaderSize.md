@@ -16,8 +16,7 @@ GetIncrementalHeaderSize(unsigned num_blocks_required)
 This function calculates the header size needed for an incremental backup file that will store a given number of data blocks. The header contains three 32-bit values (magic number, truncation block length, and block count) followed by an array of block numbers. When the file will contain actual block data, the header size is rounded up to the nearest multiple of BLCKSZ for proper alignment, ensuring efficient I/O operations.
 
 ## Parameters / Member Variables
-- : The number of blocks that the incremental file will contain
-
+- `num_blocks_required`: The number of blocks that the incremental file will contain
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (macro for assertion checking)

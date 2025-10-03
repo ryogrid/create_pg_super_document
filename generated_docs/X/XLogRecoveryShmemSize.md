@@ -18,6 +18,7 @@ XLogRecoveryShmemSize is a utility function that computes the amount of shared m
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [XLogRecoveryCtlData](XLogRecoveryCtlData.md) (struct type for size calculation)

@@ -19,9 +19,8 @@ The  function dynamically expands the subRE (sub-regular expression) vector when
 The function first checks if the current  array is pointing to the static  array. If so, it allocates new memory and copies the existing entries. Otherwise, it uses  to expand the existing allocation. After successful allocation, it initializes the new entries to NULL and updates the  counter.
 
 ## Parameters / Member Variables
-- : Pointer to the vars structure containing regex compilation state, including the current subRE array and count
-- : The minimum number of subRE entries needed (must be greater than current )
-
+- `*v`: Pointer to the vars structure containing regex compilation state, including the current subRE array and count
+- `wanted`: The minimum number of subRE entries needed (must be greater than current )
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Memory allocation macro

@@ -20,10 +20,9 @@ The function includes special handling for PostgreSQL 15+ to show publication in
 The query can optionally exclude system schemas (those starting with 'pg_' and 'information_schema') and supports pattern matching for schema names.
 
 ## Parameters / Member Variables
-- : A SQL name pattern (with optional wildcards) to filter which schemas to display. If NULL, all visible schemas are shown. When a specific pattern is provided in PostgreSQL 15+, publication information is also retrieved.
-- : If true, includes access control lists (permissions) and schema descriptions from the  catalog in the output.
-- : If true, includes system schemas ('pg_*' and 'information_schema'); if false, excludes them (unless a pattern is specified).
-
+- `*pattern`: A SQL name pattern (with optional wildcards) to filter which schemas to display. If NULL, all visible schemas are shown. When a specific pattern is provided in PostgreSQL 15+, publication information is also retrieved.
+- `verbose`: If true, includes access control lists (permissions) and schema descriptions from the  catalog in the output.
+- `showSystem`: If true, includes system schemas ('pg_*' and 'information_schema'); if false, excludes them (unless a pattern is specified).
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Initializes a dynamic string buffer

@@ -18,10 +18,9 @@ The pg_cryptohash_update function is a generic interface for updating cryptograp
 The function performs input validation by checking for null context and then uses a switch statement to delegate to the appropriate hash algorithm implementation. All supported hash algorithms follow the same interface pattern, making this function a clean abstraction layer.
 
 ## Parameters / Member Variables
-- : Pointer to the cryptographic hash context containing the hash state and algorithm type
-- : Pointer to the input data buffer to be processed
-- : Number of bytes to read from the data buffer
-
+- `*ctx`: Pointer to the cryptographic hash context containing the hash state and algorithm type
+- `*data`: Pointer to the input data buffer to be processed
+- `len`: Number of bytes to read from the data buffer
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_md5_update](pg_md5_update.md)

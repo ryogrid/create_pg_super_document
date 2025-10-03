@@ -22,8 +22,7 @@ The function operates by:
 4. Repeating until all requested bytes are discarded
 
 ## Parameters / Member Variables
-- : The number of bytes to discard from the receive buffer
-
+- `len`: The number of bytes to discard from the receive buffer
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Called to receive more data when buffer is empty

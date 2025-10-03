@@ -21,9 +21,8 @@ This function identifies the specific datatypes passed to an aggregate call by e
 The function iterates through the  list in the Aggref node and populates the provided array with the corresponding Oid values representing the datatypes.
 
 ## Parameters / Member Variables
-- : Pointer to an Aggref node containing aggregate function call information
-- : Output array of Oid values to store the extracted argument datatypes (must be allocated with length FUNC_MAX_ARGS)
-
+- `*aggref`: Pointer to an Aggref node containing aggregate function call information
+- `*inputTypes`: Output array of Oid values to store the extracted argument datatypes (must be allocated with length FUNC_MAX_ARGS)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (struct type)

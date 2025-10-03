@@ -16,8 +16,7 @@ FetchPreparedStatementTargetList(PreparedStatement *stmt)
 FetchPreparedStatementTargetList retrieves the target list from a prepared statement's cached plan. The target list describes the columns and expressions that will be returned by the query. This function is primarily used in corner cases like the DESCRIBE statement on an EXECUTE command. The implementation is intentionally simple rather than optimized for performance, as it's not used in performance-critical paths. The function safely copies the target list into the caller's memory context to protect against plan invalidation.
 
 ## Parameters / Member Variables
-- : Pointer to the PreparedStatement from which to extract the target list
-
+- `*stmt`: Pointer to the PreparedStatement from which to extract the target list
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CachedPlanGetTargetList](../C/CachedPlanGetTargetList.md) (retrieves target list from cached plan)

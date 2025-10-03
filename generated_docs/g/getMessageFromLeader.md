@@ -24,8 +24,7 @@ The function abstracts the pipe communication details and provides a clean inter
 As a blocking operation, this function will suspend the worker process until a message arrives or the pipe is closed, making it suitable for the worker's main command processing loop where it should wait for instructions from the leader.
 
 ## Parameters / Member Variables
-- : Two-element array representing the pipe file descriptors for communication with the leader process, where pipefd[PIPE_READ] is used for reading commands
-
+- `pipefd[2]`: Two-element array representing the pipe file descriptors for communication with the leader process, where pipefd[PIPE_READ] is used for reading commands
 ## Dependencies
 - Functions called/Symbols referenced:
   - [readMessageFromPipe](../r/readMessageFromPipe.md) (low-level pipe reading function that handles message framing and memory allocation)

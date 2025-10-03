@@ -18,9 +18,8 @@ This function serves as a Windows timer callback that is executed by the Windows
 The function is designed to work with Windows Timer Queue timers created via  and is executed in a timer thread context. It provides a platform-specific implementation for duration-limited benchmark runs in pgbench.
 
 ## Parameters / Member Variables
-- : A user-defined parameter passed to the timer callback (unused in this implementation, set to NULL)
-- : A boolean indicating whether the callback was called because the timer fired (TRUE) or because an associated wait object was signaled (FALSE)
-
+- `lpParameter`: A user-defined parameter passed to the timer callback (unused in this implementation, set to NULL)
+- `TimerOrWaitFired`: A boolean indicating whether the callback was called because the timer fired (TRUE) or because an associated wait object was signaled (FALSE)
 ## Dependencies
 - Functions called/Symbols referenced:
   - timer_exceeded (global volatile variable)

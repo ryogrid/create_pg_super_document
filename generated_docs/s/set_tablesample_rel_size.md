@@ -18,10 +18,9 @@ This function estimates the size characteristics of a relation that will be acce
 The function assumes that only a SampleScan path will be considered for the sampled relation, so it directly overwrites the relation's pages and tuples estimates. If multiple path types were to be considered for sampled relations in the future, additional complexity would be needed.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global planner information and context
-- : RelOptInfo structure representing the relation being sized, will be updated with new estimates  
-- : RangeTblEntry containing the table sampling clause and related information
-
+- `*root`: PlannerInfo structure containing global planner information and context
+- `*rel`: RelOptInfo structure representing the relation being sized, will be updated with new estimates
+- `*rte`: RangeTblEntry containing the table sampling clause and related information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TableSampleClause](../T/TableSampleClause.md) (struct type for sampling clause)

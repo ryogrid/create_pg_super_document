@@ -32,8 +32,7 @@ The french_UTF_8_stem function implements the complete French Snowball stemming 
 The algorithm uses a priority-based approach where higher-priority suffix removal operations are attempted first, with fallbacks to lower-priority operations if no matches are found.
 
 ## Parameters / Member Variables
-- : Pointer to the Snowball environment structure containing the word to be stemmed, cursor positions, boundary markers, and working memory
-
+- `*z`: Pointer to the Snowball environment structure containing the word to be stemmed, cursor positions, boundary markers, and working memory
 ## Dependencies
 - Functions called/Symbols referenced:
   - [r_prelude](../r/r_prelude.md): Preprocessing operations

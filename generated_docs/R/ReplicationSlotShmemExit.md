@@ -17,9 +17,8 @@ This static function serves as an exit callback that ensures proper cleanup of r
 The function is designed to handle both normal and abnormal process termination scenarios to prevent resource leaks. It follows PostgreSQL's standard exit callback pattern, accepting exit code and argument parameters as required by the before_shmem_exit callback mechanism.
 
 ## Parameters / Member Variables
-- : Exit code from the terminating process (standard exit callback parameter)
-- : Datum argument passed to the callback (standard exit callback parameter, unused here)
-
+- `code`: Exit code from the terminating process (standard exit callback parameter)
+- `arg`: Datum argument passed to the callback (standard exit callback parameter, unused here)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReplicationSlotRelease](ReplicationSlotRelease.md)

@@ -16,8 +16,7 @@ tar_free(WalWriteMethod *wwmethod)
 This function serves as a cleanup routine for the tar-based WAL writing method. It performs proper memory deallocation for all resources associated with a TarMethodData structure, including the tar filename, compression-related buffers (when gzip compression is enabled), and the method structure itself. The function ensures no memory leaks occur when destroying a tar WAL method instance.
 
 ## Parameters / Member Variables
-- : A pointer to the WalWriteMethod structure that needs to be freed. This is cast internally to TarMethodData to access tar-specific fields.
-
+- `*wwmethod`: A pointer to the WalWriteMethod structure that needs to be freed. This is cast internally to TarMethodData to access tar-specific fields.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_free](../p/pg_free.md) (for memory deallocation)

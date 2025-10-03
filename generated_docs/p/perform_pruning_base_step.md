@@ -21,9 +21,8 @@ The function first builds a partition lookup key by extracting values from the s
 The function handles cross-type comparisons by setting up appropriate comparison functions and manages function caching for performance. It returns a PruneStepResult indicating which partition bounds match the pruning criteria.
 
 ## Parameters / Member Variables
-- : PartitionPruneContext containing partition metadata, bounds, and cached comparison functions
-- : PartitionPruneStepOp containing the pruning operation details including expressions, comparison functions, operator strategy, and null keys
-
+- `*context`: PartitionPruneContext containing partition metadata, bounds, and cached comparison functions
+- `*opstep`: PartitionPruneStepOp containing the pruning operation details including expressions, comparison functions, operator strategy, and null keys
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_length](../l/list_length.md), list_head, lnext (list operations)

@@ -19,9 +19,8 @@ The  function extracts the currently selected slice (the substring between  and 
 This function is essential for extracting parts of words during stemming operations, allowing stemmers to save portions of the original word for later use or analysis.
 
 ## Parameters / Member Variables
-- : Pointer to the Snowball environment structure containing the working string and cursor positions
-- : Destination buffer where the slice will be copied (may be reallocated if too small)
-
+- `*z`: Pointer to the Snowball environment structure containing the working string and cursor positions
+- `*p`: Destination buffer where the slice will be copied (may be reallocated if too small)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [slice_check](slice_check.md) (validates slice boundaries before operation)

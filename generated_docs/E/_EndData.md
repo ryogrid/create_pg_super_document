@@ -22,9 +22,8 @@ The function performs two critical tasks:
 After compression cleanup, the function sets the compression state pointer to NULL, ensuring that any subsequent attempts to use the compressor will fail safely rather than accessing deallocated memory.
 
 ## Parameters / Member Variables
-- : Archive handle containing the overall archive state and format configuration
-- : Table of Contents entry representing the table data that has just finished being written
-
+- `*AH`: Archive handle containing the overall archive state and format configuration
+- `*te`: Table of Contents entry representing the table data that has just finished being written
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Finalizes compression stream and cleans up compression resources

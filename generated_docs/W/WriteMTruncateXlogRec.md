@@ -18,12 +18,11 @@ WriteMTruncateXlogRec(Oid oldestMultiDB,
 This function creates and writes a TRUNCATE xlog record (xl_multixact_truncate) for multixact operations. It populates the record with the provided parameters and ensures the xlog record is flushed to disk before returning, which is critical for consistency similar to TruncateCLOG() operations. The function uses the standard xlog insertion pattern: begin insert, register data, insert record, and flush.
 
 ## Parameters / Member Variables
-- : The oldest multixact database OID
-- : Starting MultiXactId for the truncation range of offsets
-- : Ending MultiXactId for the truncation range of offsets  
-- : Starting MultiXactOffset for the truncation range of members
-- : Ending MultiXactOffset for the truncation range of members
-
+- `oldestMultiDB`: The oldest multixact database OID
+- `startTruncOff`: Starting MultiXactId for the truncation range of offsets
+- `endTruncOff`: Ending MultiXactId for the truncation range of offsets
+- `startTruncMemb`: Starting MultiXactOffset for the truncation range of members
+- `endTruncMemb`: Ending MultiXactOffset for the truncation range of members
 ## Dependencies
 - Functions called/Symbols referenced:
   - [XLogBeginInsert](../X/XLogBeginInsert.md)

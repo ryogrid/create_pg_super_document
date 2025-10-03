@@ -24,9 +24,8 @@ The transformation process involves:
 6. Constructing the final JsonConstructorExpr node with all necessary flags and settings
 
 ## Parameters / Member Variables
-- : ParseState pointer containing current parsing context and state information
-- : JsonObjectConstructor pointer containing the source JSON_OBJECT() constructor expression to be transformed
-
+- `*pstate`: ParseState pointer containing current parsing context and state information
+- `*ctor`: JsonObjectConstructor pointer containing the source JSON_OBJECT() constructor expression to be transformed
 ## Dependencies
 - Functions called/Symbols referenced:
   - castNode (for JsonKeyValue casting)

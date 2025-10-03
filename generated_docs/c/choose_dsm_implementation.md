@@ -18,6 +18,7 @@ The  function performs runtime detection to select the optimal dynamic shared me
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_prng_seed](../p/pg_prng_seed.md) (PostgreSQL pseudo-random number generator seed function)

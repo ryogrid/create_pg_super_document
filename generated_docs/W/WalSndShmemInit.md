@@ -24,7 +24,6 @@ This function allocates and initializes the shared memory control structure for 
 The function ensures that the WAL sender infrastructure is properly set up in shared memory before any replication connections are established.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -26,10 +26,9 @@ The function applies several filters to determine eligible attributes:
 The function returns the array index of the largest qualifying attribute, enabling the caller to target the most beneficial attribute for the next TOAST operation.
 
 ## Parameters / Member Variables
-- : ToastTupleContext containing tuple data and attribute metadata
-- : If true, searches for compression candidates and excludes incompressible attributes
-- : If true, only considers TYPSTORAGE_MAIN attributes; if false, considers EXTENDED/EXTERNAL attributes
-
+- `*ttc`: ToastTupleContext containing tuple data and attribute metadata
+- `for_compression`: If true, searches for compression candidates and excludes incompressible attributes
+- `check_main`: If true, only considers TYPSTORAGE_MAIN attributes; if false, considers EXTENDED/EXTERNAL attributes
 ## Dependencies
 - Functions called/Symbols referenced:
   - TupleDescAttr

@@ -18,8 +18,7 @@ This function performs a system cache lookup to retrieve the proretset attribute
 The function uses PostgreSQL's system cache mechanism (SearchSysCache1) for efficient lookups, avoiding direct table scans of pg_proc. If the function ID is not found in the cache, an ERROR is raised.
 
 ## Parameters / Member Variables
-- : Object identifier (Oid) of the function whose proretset flag is to be retrieved
-
+- `funcid`: Object identifier (Oid) of the function whose proretset flag is to be retrieved
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache1](../S/SearchSysCache1.md)

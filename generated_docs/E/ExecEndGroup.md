@@ -23,8 +23,7 @@ The cleanup process is straightforward but essential for preventing resource lea
 This function is part of PostgreSQL's disciplined resource management system where each node type is responsible for cleaning up its own resources and ensuring its children are properly shut down.
 
 ## Parameters / Member Variables
-- : The GroupState to be cleaned up and shut down
-
+- `*node`: The GroupState to be cleaned up and shut down
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GroupState](../G/GroupState.md) (node parameter type)

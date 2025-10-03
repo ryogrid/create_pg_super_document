@@ -23,8 +23,7 @@ This function converts a C-style null-terminated string from PostgreSQL's databa
 This function is the counterpart to sv2cstr(), enabling bidirectional conversion between PostgreSQL and Perl string representations.
 
 ## Parameters / Member Variables
-- : A C string in the current database encoding to convert to a Perl SV
-
+- `*str`: A C string in the current database encoding to convert to a Perl SV
 ## Dependencies
 - Functions called/Symbols referenced:
   - dTHX (Perl threading context macro)

@@ -23,11 +23,10 @@ The transform function is expected to handle all aspects of the conversion, incl
 The simplicity of this function reflects the design philosophy of transform functions: they encapsulate all conversion complexity, allowing the framework to provide a clean, uniform interface.
 
 ## Parameters / Member Variables
-- : Conversion argument structure containing the transform function information
-- : Python object to convert using the transform function
-- : Output parameter set to true if the result should be NULL
-- : Boolean indicating if this conversion is part of an array element conversion (passed to maintain interface consistency)
-
+- `*arg`: Conversion argument structure containing the transform function information
+- `*plrv`: Python object to convert using the transform function
+- `*isnull`: Output parameter set to true if the result should be NULL
+- `inarray`: Boolean indicating if this conversion is part of an array element conversion (passed to maintain interface consistency)
 ## Dependencies
 - Functions called/Symbols referenced:
   - FunctionCall1

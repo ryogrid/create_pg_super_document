@@ -22,12 +22,11 @@ GetCatCacheHashValue provides a public interface for computing hash values for c
 The function performs lazy initialization of the cache's tuple descriptor if needed, then delegates to CatalogCacheComputeHashValue to perform the actual hash computation using the cache's key configuration. This ensures that hash values computed externally match exactly with those used internally for cache storage and lookup.
 
 ## Parameters / Member Variables
-- : Pointer to the CatCache structure for which to compute the hash
-- : First key value (Datum) for hash computation
-- : Second key value (Datum) for hash computation  
-- : Third key value (Datum) for hash computation
-- : Fourth key value (Datum) for hash computation
-
+- `*cache`: Pointer to the CatCache structure for which to compute the hash
+- `v1`: First key value (Datum) for hash computation
+- `v2`: Second key value (Datum) for hash computation
+- `v3`: Third key value (Datum) for hash computation
+- `v4`: Fourth key value (Datum) for hash computation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CatalogCacheInitializeCache](../C/CatalogCacheInitializeCache.md)

@@ -24,10 +24,9 @@ The  function is designed for efficient output of repeated characters, which is 
 This function is particularly important for padding operations where many spaces, zeros, or other characters need to be output efficiently, avoiding the overhead of individual character-by-character calls.
 
 ## Parameters / Member Variables
-- : The character to output multiple times (passed as int following standard C conventions)
-- : The number of times to output the character
-- : PrintfTarget structure containing output buffer and state information
-
+- `c`: The character to output multiple times (passed as int following standard C conventions)
+- `slen`: The number of times to output the character
+- `*target`: PrintfTarget structure containing output buffer and state information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dopr_outch](dopr_outch.md)

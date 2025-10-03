@@ -16,10 +16,9 @@ appendStringInfoVA(StringInfo str, const char *fmt, va_list args)
 The  function is the core implementation for printf-style formatting in StringInfo operations. It takes a va_list argument (variable argument list) and attempts to format the text into the available buffer space. If successful, it returns 0 and updates the string length. If the buffer is too small, it returns an estimate of the additional space needed without modifying the string content. The function includes an optimization that skips formatting attempts when very little space is available (less than 16 bytes) and returns a conservative estimate. It uses  for the actual formatting work and carefully preserves the string's null termination.
 
 ## Parameters / Member Variables
-- : Pointer to the StringInfo structure to append to
-- : printf-style format string
-- : va_list containing the variable arguments for formatting
-
+- `str`: Pointer to the StringInfo structure to append to
+- `*fmt`: printf-style format string
+- `args`: va_list containing the variable arguments for formatting
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pvsnprintf](../p/pvsnprintf.md) (platform-specific vsnprintf implementation)

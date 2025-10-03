@@ -18,8 +18,7 @@ This function returns the OID of the unique index that is used to identify objec
 The function is a simple accessor that delegates to  to retrieve the object property structure and returns the  field from that structure.
 
 ## Parameters / Member Variables
-- : The OID of the catalog class (typically a system catalog table OID) for which to retrieve the unique index OID
-
+- `class_id`: The OID of the catalog class (typically a system catalog table OID) for which to retrieve the unique index OID
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Retrieves object property metadata

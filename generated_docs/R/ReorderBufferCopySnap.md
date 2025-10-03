@@ -38,11 +38,10 @@ The function performs several critical operations:
 The resulting snapshot maintains all the properties of the original while incorporating transaction-specific visibility rules necessary for logical decoding operations.
 
 ## Parameters / Member Variables
-- : Pointer to the ReorderBuffer structure providing the memory context for snapshot allocation
-- : The original snapshot to be copied and modified
-- : Pointer to the ReorderBufferTXN structure whose transaction and subtransaction IDs will be incorporated into the snapshot
-- : The CommandId to set as the current command ID in the copied snapshot
-
+- `*rb`: Pointer to the ReorderBuffer structure providing the memory context for snapshot allocation
+- `orig_snap`: The original snapshot to be copied and modified
+- `*txn`: Pointer to the ReorderBufferTXN structure whose transaction and subtransaction IDs will be incorporated into the snapshot
+- `cid`: The CommandId to set as the current command ID in the copied snapshot
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md)

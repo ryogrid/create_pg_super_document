@@ -22,8 +22,7 @@ The function handles several formatting cases:
 - Numbers 100-999: Combines hundreds with tens/units using "and" for teens
 
 ## Parameters / Member Variables
-- : Cash value (integer) to convert to words, expected to be in range 0-999
-
+- `value`: Cash value (integer) to convert to words, expected to be in range 0-999
 ## Dependencies
 - Functions called/Symbols referenced:
   - Cash (type)

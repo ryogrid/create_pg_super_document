@@ -18,8 +18,7 @@ This function updates the global visibility states for all relation types (share
 The function handles the case where longer-running transactions that were previously considered running are no longer around, advancing the definitely_needed boundary accordingly. For temporary relations, the definitely_needed boundary is always set equal to maybe_needed.
 
 ## Parameters / Member Variables
-- : Pointer to ComputeXidHorizonsResult structure containing computed horizon information for different relation types
-
+- `*horizons`: Pointer to ComputeXidHorizonsResult structure containing computed horizon information for different relation types
 ## Dependencies
 - Functions called/Symbols referenced:
   - [FullXidRelativeTo](../F/FullXidRelativeTo.md)

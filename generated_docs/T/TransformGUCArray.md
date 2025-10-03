@@ -25,10 +25,9 @@ The function performs these operations:
 The resulting lists maintain correspondence by position, making it easy to apply settings by iterating both lists simultaneously.
 
 ## Parameters / Member Variables
-- : Input ArrayType containing GUC settings as text elements in "name=value" format
-- : Output parameter receiving a List of parameter names (char* strings)
-- : Output parameter receiving a List of parameter values (char* strings)
-
+- `*array`: Input ArrayType containing GUC settings as text elements in "name=value" format
+- `**names`: Output parameter receiving a List of parameter names (char* strings)
+- `**values`: Output parameter receiving a List of parameter values (char* strings)
 ## Dependencies
 - Functions called/Symbols referenced:
   - ARR_ELEMTYPE/ARR_NDIM/ARR_LBOUND/ARR_DIMS (array metadata macros)

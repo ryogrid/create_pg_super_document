@@ -18,9 +18,8 @@ This function serves as a GUC (Grand Unified Configuration) assign hook for the 
 The function acts as a thin wrapper around , delegating the actual socket option setting to that lower-level function while providing the GUC system interface.
 
 ## Parameters / Member Variables
-- : The new tcp_user_timeout value in milliseconds to be applied to the connection
-- : Additional data from the GUC system (unused in this function)
-
+- `newval`: The new tcp_user_timeout value in milliseconds to be applied to the connection
+- `*extra`: Additional data from the GUC system (unused in this function)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pq_settcpusertimeout](../p/pq_settcpusertimeout.md)

@@ -21,11 +21,10 @@ The function opens both source and destination files, then uses a loop to copy t
 This approach is more efficient than traditional read/write loops as it avoids multiple context switches between user and kernel space and allows the kernel to optimize the copying process.
 
 ## Parameters / Member Variables
-- : Source file path to copy from
-- : Destination file path to create and copy to
-- : SQL schema name of the relation (used only for error reporting)
-- : SQL relation name (used only for error reporting)
-
+- `*src`: Source file path to copy from
+- `*dst`: Destination file path to create and copy to
+- `*schemaName`: SQL schema name of the relation (used only for error reporting)
+- `*relName`: SQL relation name (used only for error reporting)
 ## Dependencies
 - Functions called/Symbols referenced:
   - open

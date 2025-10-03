@@ -18,10 +18,9 @@ BufFileDeleteFileSet removes all segments of a BufFile that was previously creat
 This function provides proactive deletion capability, allowing backends to explicitly clean up BufFiles rather than relying on automatic FileSet cleanup. Only one backend should attempt to delete a given BufFile name, and the caller should know that the BufFile exists and has been properly exported or closed.
 
 ## Parameters / Member Variables
-- : Pointer to the FileSet containing the BufFile to delete
-- : String identifier of the BufFile to delete (same as used in creation/opening)
-- : If true, silently succeeds even if no segments are found; if false, throws an error when BufFile doesn't exist
-
+- `*fileset`: Pointer to the FileSet containing the BufFile to delete
+- `*name`: String identifier of the BufFile to delete (same as used in creation/opening)
+- `missing_ok`: If true, silently succeeds even if no segments are found; if false, throws an error when BufFile doesn't exist
 ## Dependencies
 - Functions called/Symbols referenced:
   - [FileSetSegmentName](../F/FileSetSegmentName.md): Constructs segment file names for deletion

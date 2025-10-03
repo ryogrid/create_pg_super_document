@@ -25,11 +25,10 @@ The  function is used to locate and verify other PostgreSQL executables that sho
 This process ensures that PostgreSQL utilities can reliably find and use compatible versions of related programs from the same installation.
 
 ## Parameters / Member Variables
-- : The command-line argument (program name) of the current program
-- : Name of the target executable to find (without extension)
-- : Expected version string that the target program should return with 
-- : Output buffer where the absolute path to the target executable will be stored (must be MAXPGPATH size)
-
+- `*argv0`: The command-line argument (program name) of the current program
+- `*target`: Name of the target executable to find (without extension)
+- `*versionstr`: Expected version string that the target program should return with
+- `*retpath`: Output buffer where the absolute path to the target executable will be stored (must be MAXPGPATH size)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (locates current executable)

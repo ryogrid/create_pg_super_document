@@ -24,9 +24,8 @@ The function handles two specific record types:
 The function performs validation of record payloads and updates global recovery state variables accordingly. It also provides debug logging for backup-related operations.
 
 ## Parameters / Member Variables
-- : XLogReaderState pointer containing the WAL record being processed and associated reading state
-- : TimeLineID representing the current replay timeline (passed but not directly used in current implementation)
-
+- `*record`: XLogReaderState pointer containing the WAL record being processed and associated reading state
+- `replayTLI`: TimeLineID representing the current replay timeline (passed but not directly used in current implementation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetInfo

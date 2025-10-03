@@ -22,9 +22,8 @@ The function operates in two phases:
 For each plan source, it performs validation checks to avoid unnecessary work, such as skipping already invalidated plans and plans that don't require revalidation.
 
 ## Parameters / Member Variables
-- : Datum argument passed by the callback system (unused in this function)
-- : OID of the relation that was invalidated, or InvalidOid to invalidate all relation-dependent plans
-
+- `arg`: Datum argument passed by the callback system (unused in this function)
+- `relid`: OID of the relation that was invalidated, or InvalidOid to invalidate all relation-dependent plans
 ## Dependencies
 - Functions called/Symbols referenced:
   - dlist_foreach (iteration over doubly-linked lists)

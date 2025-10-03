@@ -20,17 +20,16 @@ This function constructs a complete IndexInfo structure that serves as the prima
 The function initializes all fields of the IndexInfo structure, including runtime state fields that will be populated during index operations. It also performs validation checks to ensure the parameter combinations are valid (e.g., summarizing indexes cannot have non-key attributes).
 
 ## Parameters / Member Variables
-- : Total number of attributes (columns) in the index, including both key and non-key attributes
-- : Number of key attributes in the index (must be > 0 and ≤ numattrs)
-- : Object ID of the access method (index type) to be used
-- : List of expressions for expression-based index columns (NULL for simple column indexes)
-- : List of predicate expressions for partial indexes (NULL for complete indexes)
-- : Boolean flag indicating whether this is a unique index
-- : Boolean flag for unique indexes - whether NULL values should be considered distinct
-- : Boolean indicating whether the index is ready for inserts
-- : Boolean indicating whether this is a concurrent index operation
-- : Boolean indicating whether this is a summarizing index (cannot have non-key attributes)
-
+- `numattrs`: Total number of attributes (columns) in the index, including both key and non-key attributes
+- `numkeyattrs`: Number of key attributes in the index (must be > 0 and ≤ numattrs)
+- `amoid`: Object ID of the access method (index type) to be used
+- `*expressions`: List of expressions for expression-based index columns (NULL for simple column indexes)
+- `*predicates`: List of predicate expressions for partial indexes (NULL for complete indexes)
+- `unique`: Boolean flag indicating whether this is a unique index
+- `nulls_not_distinct`: Boolean flag for unique indexes - whether NULL values should be considered distinct
+- `isready`: Boolean indicating whether the index is ready for inserts
+- `concurrent`: Boolean indicating whether this is a concurrent index operation
+- `summarizing`: Boolean indicating whether this is a summarizing index (cannot have non-key attributes)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Creates a new node of type IndexInfo

@@ -18,7 +18,6 @@ The DumpAllLocks function is a comprehensive debugging utility that prints infor
 The function first checks if the current process (MyProc) is waiting on any lock and reports that information. Then it systematically walks through all PROCLOCK entries in the hash table, printing details about each process lock and its corresponding lock object.
 
 ## Parameters / Member Variables
-This function takes no parameters as it operates on global lock manager data structures.
 
 ## Dependencies
 - Functions called/Symbols referenced:

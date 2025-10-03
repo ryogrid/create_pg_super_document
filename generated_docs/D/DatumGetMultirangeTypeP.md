@@ -18,8 +18,7 @@ This function serves as a type conversion utility for PostgreSQL's multirange da
 The function is implemented as a static inline function in the header file, making it efficiently accessible throughout the codebase without function call overhead.
 
 ## Parameters / Member Variables
-- : A Datum value containing a multirange type that needs to be converted to a MultirangeType pointer
-
+- `X`: A Datum value containing a multirange type that needs to be converted to a MultirangeType pointer
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_DETOAST_DATUM (macro for TOAST decompression)

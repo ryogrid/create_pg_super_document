@@ -16,10 +16,9 @@ CleanQuerytext(const char *query, int *location, int *len)
 CleanQuerytext takes a potentially multi-statement SQL source string and confines attention to the relevant part based on the provided location and length parameters. The function handles cases where the query location might be unknown (-1) and applies intelligent defaults. It also trims whitespace from both ends using PostgreSQL's scanner_isspace() function to match lexer behavior, ensuring consistency in query text processing for features like query ID generation.
 
 ## Parameters / Member Variables
-- : Input SQL query string (potentially multi-statement)
-- : Pointer to starting offset within the query string (input/output parameter)
-- : Pointer to length of the relevant portion (input/output parameter)
-
+- `*query`: Input SQL query string (potentially multi-statement)
+- `*location`: Pointer to starting offset within the query string (input/output parameter)
+- `*len`: Pointer to length of the relevant portion (input/output parameter)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [scanner_isspace](../s/scanner_isspace.md) (used for whitespace detection matching lexer behavior)

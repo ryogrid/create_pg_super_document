@@ -17,12 +17,11 @@ add_local_bool_reloption(local_relopts *relopts, const char *name,
 This public function creates and adds a boolean reloption to a local reloption structure rather than the global registry. Local reloptions are used for relation-specific options that are not globally available but instead defined for specific access methods or relation types. The function initializes a boolean reloption with RELOPT_KIND_LOCAL and adds it to the provided local_relopts structure at the specified offset.
 
 ## Parameters / Member Variables
-- : Pointer to the local_relopts structure that will contain this option
-- : String name of the boolean reloption
-- : Optional description string for the reloption (can be NULL)
-- : The default boolean value for this reloption when not explicitly set
-- : Integer offset within the reloption structure where this option's value will be stored
-
+- `*relopts`: Pointer to the local_relopts structure that will contain this option
+- `*name`: String name of the boolean reloption
+- `*desc`: Optional description string for the reloption (can be NULL)
+- `default_val`: The default boolean value for this reloption when not explicitly set
+- `offset`: Integer offset within the reloption structure where this option's value will be stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - [init_bool_reloption](../i/init_bool_reloption.md) (for boolean reloption initialization with RELOPT_KIND_LOCAL)

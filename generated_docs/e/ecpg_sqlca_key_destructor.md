@@ -18,8 +18,7 @@ The  function serves as a destructor callback for pthread-specific data associat
 The function is designed to work with the pthread key-value system, where each thread can have its own instance of a SQLCA structure stored as thread-local data. When the thread exits, this destructor ensures cleanup of the allocated memory.
 
 ## Parameters / Member Variables
-- : Pointer to the SQLCA structure that was allocated for the terminating thread. This is the same pointer that was stored as thread-specific data and needs to be freed.
-
+- `*arg`: Pointer to the SQLCA structure that was allocated for the terminating thread. This is the same pointer that was stored as thread-specific data and needs to be freed.
 ## Dependencies
 - Functions called/Symbols referenced:
   - free (standard library function for memory deallocation)

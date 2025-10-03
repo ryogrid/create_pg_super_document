@@ -18,7 +18,6 @@ PLy_cursor_init_type is a PostgreSQL PL/Python initialization function that prep
 The function is essential for the PL/Python cursor functionality as it ensures that the cursor type is properly registered and ready for instantiation when Python code creates cursor objects through plpy.cursor().
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

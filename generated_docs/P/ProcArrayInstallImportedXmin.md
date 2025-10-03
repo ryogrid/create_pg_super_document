@@ -25,9 +25,8 @@ The function performs several critical safety checks:
 If all checks pass, the function atomically installs the imported xmin into both MyProc->xmin and TransactionXmin, maintaining consistency with the global transaction state. This prevents the system's oldest active transaction mark (OldestXmin) from moving backwards, which could lead to visibility inconsistencies.
 
 ## Parameters / Member Variables
-- : The transaction ID to install as the new xmin value
-- : Pointer to the VirtualTransactionId of the source transaction that created the snapshot being imported
-
+- `xmin`: The transaction ID to install as the new xmin value
+- `*sourcevxid`: Pointer to the VirtualTransactionId of the source transaction that created the snapshot being imported
 ## Dependencies
 - Functions called/Symbols referenced:
   - TransactionIdIsNormal (validates transaction ID format)

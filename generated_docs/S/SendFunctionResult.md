@@ -16,11 +16,10 @@ SendFunctionResult(Datum retval, bool isnull, Oid rettype, int16 format)
 SendFunctionResult is responsible for formatting and transmitting function call results to the client through the PostgreSQL message protocol. It handles three distinct cases: NULL values, text format output (format=0), and binary format output (format=1). The function uses the appropriate type output functions to convert the Datum value into the requested format and sends it as a FunctionCallResponse message. For text format, it uses the type's output function, while for binary format it uses the type's send function. The function ensures proper message framing and handles memory management for the converted output strings.
 
 ## Parameters / Member Variables
-- : The Datum value returned by the function call
-- : Boolean flag indicating whether the return value is NULL
-- : OID of the return type, used to determine appropriate output functions
-- : Output format code (0 for text, 1 for binary)
-
+- `retval`: The Datum value returned by the function call
+- `isnull`: Boolean flag indicating whether the return value is NULL
+- `rettype`: OID of the return type, used to determine appropriate output functions
+- `format`: Output format code (0 for text, 1 for binary)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pq_beginmessage](../p/pq_beginmessage.md)

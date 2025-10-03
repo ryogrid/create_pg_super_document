@@ -17,7 +17,6 @@ WalSndErrorCleanup is a critical error recovery function specifically designed f
 The cleanup process includes releasing all held LWLocks, canceling any condition variable sleeps, ending wait statistics reporting, closing WAL segment files, releasing replication slots, and optionally cleaning up resource owners if no transaction is in progress. If certain shutdown signals have been received, the process exits completely.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -18,9 +18,8 @@ ResourceOwnerForgetBufferIO is an inline function that serves as a specialized w
 The function delegates to ResourceOwnerForget with the buffer converted to a Datum and uses the buffer_io_resowner_desc descriptor to identify the resource type. This ensures that the buffer I/O resource is properly untracked from the resource owner's managed resources list.
 
 ## Parameters / Member Variables
-- : The ResourceOwner that currently owns the buffer I/O resource
-- : The Buffer identifier for which I/O operations are being forgotten/released
-
+- `owner`: The ResourceOwner that currently owns the buffer I/O resource
+- `buffer`: The Buffer identifier for which I/O operations are being forgotten/released
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ResourceOwnerForget](ResourceOwnerForget.md)

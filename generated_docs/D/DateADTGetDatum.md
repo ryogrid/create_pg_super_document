@@ -18,8 +18,7 @@ This function serves as a conversion utility in PostgreSQL's function manager (f
 The function is defined as a static inline function in the header file, meaning it will be inlined at compile time for performance optimization. This is the complementary function to DatumGetDateADT, providing bidirectional conversion between Datum and DateADT types.
 
 ## Parameters / Member Variables
-- : A DateADT value that needs to be converted to Datum format for return or storage
-
+- `X`: A DateADT value that needs to be converted to Datum format for return or storage
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Int32GetDatum](../I/Int32GetDatum.md) (underlying conversion mechanism)

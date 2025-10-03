@@ -24,12 +24,11 @@ The function returns a cache copy of the requested tuple if found, or NULL if no
 This is the primary interface used throughout PostgreSQL for accessing cached system catalog information, providing a standardized way to query system metadata.
 
 ## Parameters / Member Variables
-- : Integer identifier specifying which system cache to search (must be valid cache ID)
-- : First search key value (Datum type for flexibility)
-- : Second search key value (can be unused if cache uses fewer keys)
-- : Third search key value (can be unused if cache uses fewer keys)  
-- : Fourth search key value (can be unused if cache uses fewer keys)
-
+- `cacheId`: Integer identifier specifying which system cache to search (must be valid cache ID)
+- `key1`: First search key value (Datum type for flexibility)
+- `key2`: Second search key value (can be unused if cache uses fewer keys)
+- `key3`: Third search key value (can be unused if cache uses fewer keys)
+- `key4`: Fourth search key value (can be unused if cache uses fewer keys)
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerIsValid

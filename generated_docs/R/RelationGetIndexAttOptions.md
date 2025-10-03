@@ -18,9 +18,8 @@ This function returns AM (Access Method) and opclass-specific options for an ind
 The function handles memory management carefully, switching to the relation's index context when caching options to ensure proper lifetime management. When copy=false, the function cleans up temporary allocations and returns the cached version.
 
 ## Parameters / Member Variables
-- : The index relation for which to retrieve attribute options
-- : If true, returns a copy of the options array; if false, returns cached options directly
-
+- `relation`: The index relation for which to retrieve attribute options
+- `copy`: If true, returns a copy of the options array; if false, returns cached options directly
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationGetNumberOfAttributes

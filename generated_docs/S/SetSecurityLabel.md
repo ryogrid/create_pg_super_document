@@ -26,10 +26,9 @@ The function performs the following operations:
 5. Properly maintains catalog indexes and cleans up memory
 
 ## Parameters / Member Variables
-- : Pointer to ObjectAddress structure identifying the target database object (contains classId, objectId, and objectSubId)
-- : String identifying the security label provider (e.g., 'selinux')
-- : The security label string to set, or NULL to delete any existing label
-
+- `*object`: Pointer to ObjectAddress structure identifying the target database object (contains classId, objectId, and objectSubId)
+- `*provider`: String identifying the security label provider (e.g., 'selinux')
+- `*label`: The security label string to set, or NULL to delete any existing label
 ## Dependencies
 - Functions called/Symbols referenced:
   - [IsSharedRelation](../I/IsSharedRelation.md)

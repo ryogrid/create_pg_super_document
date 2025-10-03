@@ -27,9 +27,8 @@ The function uses a multi-step approach:
 - Upon finding a valid executable, it normalizes the path using 
 
 ## Parameters / Member Variables
-- : The command-line argument (program name) passed to the program
-- : Output buffer where the absolute path will be stored (must be MAXPGPATH size)
-
+- `*argv0`: The command-line argument (program name) passed to the program
+- `*retpath`: Output buffer where the absolute path will be stored (must be MAXPGPATH size)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (safe string copying)

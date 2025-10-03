@@ -16,8 +16,7 @@ getzname(const char *strp)
 This static function parses timezone strings by scanning forward from a given position until it finds a character that terminates a timezone abbreviation. It stops when encountering digits, commas, hyphens, plus signs, or null terminators - all characters that typically mark the end of a timezone name and the beginning of other timezone rule components like offsets or transition rules.
 
 ## Parameters / Member Variables
-- : Pointer to a position within a timezone string to begin scanning from
-
+- `*strp`: Pointer to a position within a timezone string to begin scanning from
 ## Dependencies
 - Functions called/Symbols referenced:
   - is_digit (macro/function for digit checking)

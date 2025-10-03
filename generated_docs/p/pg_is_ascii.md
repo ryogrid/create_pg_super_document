@@ -17,8 +17,7 @@ This function iterates through each character in the input string and uses the  
 The function provides a fast, efficient way to validate that a string contains only standard ASCII characters, which is important for various PostgreSQL operations including locale validation, collation processing, and SASL preparation.
 
 ## Parameters / Member Variables
-- : The null-terminated input string to check for ASCII-only content
-
+- `*str`: The null-terminated input string to check for ASCII-only content
 ## Dependencies
 - Functions called/Symbols referenced:
   - IS_HIGHBIT_SET (PostgreSQL macro for checking high bit)

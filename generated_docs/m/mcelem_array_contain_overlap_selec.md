@@ -23,15 +23,14 @@ For containment (@>), it starts with selectivity 1.0 and multiplies by each elem
 The function uses either binary search or linear scan to find matching elements in the MCELEM array, depending on which approach is more efficient based on the array sizes.
 
 ## Parameters / Member Variables
-- : Array of most common element values from statistics (presorted)
-- : Number of elements in mcelem array
-- : Array of frequency values corresponding to mcelem elements
-- : Number of elements in numbers array (should be nmcelem + 3)
-- : Elements from the constant array being compared (presorted)
-- : Number of elements in array_data
-- : The array operator being used (OID_ARRAY_CONTAINS_OP for @>, others for &&)
-- : Type cache entry for element comparison functions
-
+- `*mcelem`: Array of most common element values from statistics (presorted)
+- `nmcelem`: Number of elements in mcelem array
+- `*numbers`: Array of frequency values corresponding to mcelem elements
+- `nnumbers`: Number of elements in numbers array (should be nmcelem + 3)
+- `*array_data`: Elements from the constant array being compared (presorted)
+- `nitems`: Number of elements in array_data
+- `operator`: The array operator being used (OID_ARRAY_CONTAINS_OP for @>, others for &&)
+- `*typentry`: Type cache entry for element comparison functions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [floor_log2](../f/floor_log2.md)

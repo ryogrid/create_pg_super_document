@@ -19,10 +19,9 @@ This function constructs and executes an SQL query to retrieve operator informat
 The query joins multiple system catalogs (, , , ) to gather comprehensive information about operators within operator families. Results are sorted by access method, operator family, operator type compatibility (self-types first), left/right operand types, and strategy number for consistent and meaningful presentation.
 
 ## Parameters / Member Variables
-- : Optional regex pattern to filter results by index access method name (e.g., "btree", "hash"). If NULL, all access methods are included.
-- : Optional regex pattern to filter results by operator family name. If NULL, operators from all families are included.
-- : Boolean flag that controls whether to include additional columns (sort operator family) in the output.
-
+- `*access_method_pattern`: Optional regex pattern to filter results by index access method name (e.g., "btree", "hash"). If NULL, all access methods are included.
+- `*family_pattern`: Optional regex pattern to filter results by operator family name. If NULL, operators from all families are included.
+- `verbose`: Boolean flag that controls whether to include additional columns (sort operator family) in the output.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [initPQExpBuffer](../i/initPQExpBuffer.md)

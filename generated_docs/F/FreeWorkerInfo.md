@@ -18,9 +18,8 @@ FreeWorkerInfo serves as a cleanup callback function that is executed when an au
 The function performs several critical cleanup tasks: it removes the worker from the active workers list, resets all worker-specific fields to their default values, adds the worker back to the free workers list, and signals the autovacuum launcher to wake up for potential worker rebalancing. The function also preserves the launcher's PID for signaling purposes, though the actual signal is sent later during process cleanup.
 
 ## Parameters / Member Variables
-- : Exit code parameter (standard callback parameter, not actively used)
-- : Datum argument parameter (standard callback parameter, not actively used)
-
+- `code`: Exit code parameter (standard callback parameter, not actively used)
+- `arg`: Datum argument parameter (standard callback parameter, not actively used)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockAcquire](../L/LWLockAcquire.md)

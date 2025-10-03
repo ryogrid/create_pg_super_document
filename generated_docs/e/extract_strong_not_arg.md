@@ -24,8 +24,7 @@ The key difference from extract_not_arg is that this function excludes IS_NOT_TR
 This distinction is important in PostgreSQL's three-valued logic system where NULL values create different logical semantics than simple true/false evaluations.
 
 ## Parameters / Member Variables
-- : The expression node to examine for strong negation patterns, may be NULL
-
+- `*clause`: The expression node to examine for strong negation patterns, may be NULL
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (for node type checking)

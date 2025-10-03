@@ -23,9 +23,8 @@ The function handles two types of partition key expressions:
 It also initializes the nullable_partexprs array as empty lists since base relations don't have nullable partition expressions (no outer joins involved).
 
 ## Parameters / Member Variables
-- : The Relation structure representing the partitioned table
-- : The RelOptInfo structure to populate with partition key expressions
-
+- `relation`: The Relation structure representing the partitioned table
+- `*rel`: The RelOptInfo structure to populate with partition key expressions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RelationGetPartitionKey](../R/RelationGetPartitionKey.md)

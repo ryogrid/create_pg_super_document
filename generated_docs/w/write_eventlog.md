@@ -25,10 +25,9 @@ This Windows-specific function provides integration with the Windows Event Log s
 The function ensures that PostgreSQL log messages are properly formatted and encoded for the Windows Event Log system.
 
 ## Parameters / Member Variables
-- : PostgreSQL log level (DEBUG5, LOG, WARNING, ERROR, etc.)
-- : The log message string to be written
-- : Length of the message string
-
+- `level`: PostgreSQL log level (DEBUG5, LOG, WARNING, ERROR, etc.)
+- `*line`: The log message string to be written
+- `len`: Length of the message string
 ## Dependencies
 - Functions called/Symbols referenced:
   - RegisterEventSource (Windows API)

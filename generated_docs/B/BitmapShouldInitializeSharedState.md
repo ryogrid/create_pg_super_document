@@ -22,8 +22,7 @@ The function operates through a spin-lock protected state machine:
 - Worker processes return false and wait for the leader to complete initialization
 
 ## Parameters / Member Variables
-- : Pointer to ParallelBitmapHeapState structure containing shared state for parallel bitmap scanning, including mutex, condition variable, and current state
-
+- `*pstate`: Pointer to ParallelBitmapHeapState structure containing shared state for parallel bitmap scanning, including mutex, condition variable, and current state
 ## Dependencies
 - Functions called/Symbols referenced:
   - SpinLockAcquire

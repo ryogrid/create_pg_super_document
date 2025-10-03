@@ -27,14 +27,13 @@ This function serves as the entry point for generating partition pruning steps w
 When the prefix is empty (single partition key case), it directly generates a single pruning step. Otherwise, it delegates to the recursive helper function to generate all valid combinations.
 
 ## Parameters / Member Variables
-- : Context information for generating pruning steps including partition relation and strategy
-- : Strategy number for the comparison operation (BTEqualStrategyNumber, etc.)
-- : Boolean indicating if this is a not-equal operation (for LIST partitioning)
-- : Expression for the final partition key in the combination
-- : Comparison function OID for the final partition key
-- : Bitmapset indicating which keys should be treated as NULL (HASH partitioning only)
-- : List of PartClauseInfos for partition keys prior to the final key, sorted by keyno
-
+- `*context`: Context information for generating pruning steps including partition relation and strategy
+- `step_opstrategy`: Strategy number for the comparison operation (BTEqualStrategyNumber, etc.)
+- `step_op_is_ne`: Boolean indicating if this is a not-equal operation (for LIST partitioning)
+- `*step_lastexpr`: Expression for the final partition key in the combination
+- `step_lastcmpfn`: Comparison function OID for the final partition key
+- `*step_nullkeys`: Bitmapset indicating which keys should be treated as NULL (HASH partitioning only)
+- `*prefix`: List of PartClauseInfos for partition keys prior to the final key, sorted by keyno
 ## Dependencies
 - Functions called/Symbols referenced:
   - [gen_prune_step_op](gen_prune_step_op.md)

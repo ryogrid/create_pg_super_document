@@ -29,8 +29,7 @@ Key operations performed:
 - Maintains buffer state by clearing dirty flag and adjusting positions
 
 ## Parameters / Member Variables
-- : Pointer to the BufFile structure with dirty buffer contents to be written
-
+- `*file`: Pointer to the BufFile structure with dirty buffer contents to be written
 ## Dependencies
 - Functions called/Symbols referenced:
   - [extendBufFile](../e/extendBufFile.md) (creates new component files when needed)

@@ -20,10 +20,9 @@ Unlike the standard fmgr function calling mechanism, this function bypasses cata
 The function enforces strict non-NULL semantics - neither the argument nor the result can be NULL, and it will raise an error if the called function returns NULL. This makes it suitable for use in performance-critical code paths where NULL handling is not required.
 
 ## Parameters / Member Variables
-- : PGFunction pointer to the actual function to be called
-- : Oid specifying the collation to be used for the function call
-- : Datum containing the single argument value to pass to the function
-
+- `func`: PGFunction pointer to the actual function to be called
+- `collation`: Oid specifying the collation to be used for the function call
+- `arg1`: Datum containing the single argument value to pass to the function
 ## Dependencies
 - Functions called/Symbols referenced:
   - LOCAL_FCINFO (macro for stack-allocated FunctionCallInfo)

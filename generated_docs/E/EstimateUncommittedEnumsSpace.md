@@ -17,7 +17,6 @@ This function estimates the memory space needed to serialize information about u
 The function counts the number of entries in both the uncommitted_enum_types and uncommitted_enum_values hash tables, then calculates the space needed to store their OIDs plus two terminator entries. This size estimation is used by the parallel query infrastructure to allocate sufficient shared memory for serialization.
 
 ## Parameters / Member Variables
-None - this function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -18,10 +18,9 @@ GetCopyDataString is a utility function that safely reads a NUL-terminated strin
 This function is essential for parsing string fields in COPY protocol messages, such as archive names and tablespace locations during base backup operations.
 
 ## Parameters / Member Variables
-- : Total size of the data buffer in bytes
-- : Pointer to the buffer containing the COPY data message
-- : Pointer to the current position within the buffer, updated to point past the string after reading
-
+- `r`: Total size of the data buffer in bytes
+- `*copybuf`: Pointer to the buffer containing the COPY data message
+- `*cursor`: Pointer to the current position within the buffer, updated to point past the string after reading
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReportCopyDataParseError](../R/ReportCopyDataParseError.md)

@@ -25,8 +25,7 @@ The function performs several important steps:
 5. Closes any new subcolors to ensure the cache is self-contained
 
 ## Parameters / Member Variables
-- : Pointer to the vars structure containing regex compilation state, including the wordchrs cache pointer and compilation flags
-
+- `*v`: Pointer to the vars structure containing regex compilation state, including the wordchrs cache pointer and compilation flags
 ## Dependencies
 - Functions called/Symbols referenced:
   - [newstate](../n/newstate.md) (creates a new NFA state)

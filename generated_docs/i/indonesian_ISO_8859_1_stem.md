@@ -25,8 +25,7 @@ The function performs Indonesian stemming through a multi-stage process that fol
 The algorithm maintains strict vowel count checks (> 2 vowels) before each major transformation to prevent over-stemming of short words. The stemming environment tracks the current position in the word and maintains integer variables for vowel counts and processing state.
 
 ## Parameters / Member Variables
-- : Pointer to the Snowball stemming environment (SN_env) containing the word to be stemmed and processing state
-
+- `*z`: Pointer to the Snowball stemming environment (SN_env) containing the word to be stemmed and processing state
 ## Dependencies
 - Functions called/Symbols referenced:
   - [out_grouping](../o/out_grouping.md) (for vowel detection)

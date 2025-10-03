@@ -22,10 +22,9 @@ The gistbuild function is the primary interface for GiST index construction, imp
 The function automatically detects the optimal build strategy by checking for sort support functions, unless explicitly overridden by user options. For sorted builds, it leverages the tuplesort infrastructure to pre-sort all tuples before building pages bottom-up, which can be significantly more efficient for large datasets.
 
 ## Parameters / Member Variables
-- : Source relation containing the data to be indexed
-- : Target index relation being built 
-- : Metadata about the index including key attributes and predicates
-
+- `heap`: Source relation containing the data to be indexed
+- `index`: Target index relation being built
+- `*indexInfo`: Metadata about the index including key attributes and predicates
 ## Dependencies
 - Functions called/Symbols referenced:
   - [initGISTstate](../i/initGISTstate.md): Initialize GiST operational state

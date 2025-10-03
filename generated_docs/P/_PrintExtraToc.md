@@ -20,9 +20,8 @@ The function retrieves the local TOC entry context (lclTocEntry) that contains t
 This diagnostic information is valuable for debugging archive issues, understanding archive structure, and verifying that data positions are correctly maintained throughout the archive creation and restoration process.
 
 ## Parameters / Member Variables
-- : Pointer to the ArchiveHandle structure containing archive context and output functions
-- : Pointer to the TocEntry structure whose extra format information should be printed
-
+- `*AH`: Pointer to the ArchiveHandle structure containing archive context and output functions
+- `*te`: Pointer to the TocEntry structure whose extra format information should be printed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ahprintf](../a/ahprintf.md) (archiver utility function for formatted output)

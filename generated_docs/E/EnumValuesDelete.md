@@ -20,8 +20,7 @@ The function performs a systematic scan of the pg_enum table using the enum type
 The deletion process maintains catalog consistency by properly removing both the heap tuples and updating all associated indexes through the CatalogTupleDelete function.
 
 ## Parameters / Member Variables
-- : The OID of the enum type whose values should be deleted from pg_enum
-
+- `enumTypeOid`: The OID of the enum type whose values should be deleted from pg_enum
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md)

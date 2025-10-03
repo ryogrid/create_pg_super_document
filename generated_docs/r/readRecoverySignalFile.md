@@ -17,6 +17,7 @@ readRecoverySignalFile is a static function that scans for PostgreSQL recovery s
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsBootstrapProcessingMode (checks if in bootstrap mode)

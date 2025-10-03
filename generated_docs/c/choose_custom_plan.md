@@ -18,9 +18,8 @@ choose_custom_plan is the decision engine for PostgreSQL's adaptive planning sys
 The decision process follows a hierarchical approach: first checking for mandatory conditions (one-shot plans, missing parameters), then applying configuration overrides (global settings and cursor options), followed by a learning phase (first 5 executions), and finally comparing average custom plan costs against generic plan costs to make the optimal choice.
 
 ## Parameters / Member Variables
-- : The CachedPlanSource containing plan metadata and cost history
-- : Parameter values for the current execution (NULL indicates no parameters)
-
+- `*plansource`: The CachedPlanSource containing plan metadata and cost history
+- `boundParams`: Parameter values for the current execution (NULL indicates no parameters)
 ## Dependencies
 - Functions called/Symbols referenced:
   - StmtPlanRequiresRevalidation (to check if planning is needed)

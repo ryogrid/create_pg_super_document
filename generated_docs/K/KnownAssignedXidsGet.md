@@ -18,9 +18,8 @@ This function serves as a simplified wrapper around KnownAssignedXidsGetAndSetXm
 The function requires the caller to hold the ProcArrayLock in at least shared mode to ensure consistent access to the shared KnownAssignedXids structure.
 
 ## Parameters / Member Variables
-- : Output array where the retrieved transaction IDs will be stored. The caller is responsible for ensuring this array is large enough to hold all qualifying transaction IDs.
-- : Maximum transaction ID threshold. Any transaction IDs greater than or equal to this value will be filtered out from the results.
-
+- `*xarray`: Output array where the retrieved transaction IDs will be stored. The caller is responsible for ensuring this array is large enough to hold all qualifying transaction IDs.
+- `xmax`: Maximum transaction ID threshold. Any transaction IDs greater than or equal to this value will be filtered out from the results.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [KnownAssignedXidsGetAndSetXmin](KnownAssignedXidsGetAndSetXmin.md)

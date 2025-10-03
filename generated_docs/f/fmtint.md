@@ -20,16 +20,15 @@ This comprehensive function handles the formatting and output of integer values 
 The function uses a character buffer to build the string representation from right to left, then applies various formatting rules including zero-padding for precision, space/zero padding for field width, and proper sign handling. It includes special optimizations for common bases (8, 10, 16) to avoid expensive general-purpose division operations.
 
 ## Parameters / Member Variables
-- : The long long integer value to be formatted and output
-- : Format specifier character ('d', 'i', 'o', 'u', 'x', 'X') determining output format and base
-- : Flag to force output of '+' sign for positive numbers
-- : Flag indicating left justification (1 for left-justified, 0 for right-justified)
-- : Minimum field width; output will be padded to this width if shorter
-- : Flag indicating zero-padding should be used instead of space padding
-- : Minimum number of digits to output (adds leading zeros if necessary)
-- : Flag indicating whether precision was explicitly specified in format string
-- : Output destination structure containing formatting state and output buffer
-
+- `value`: The long long integer value to be formatted and output
+- `type`: Format specifier character ('d', 'i', 'o', 'u', 'x', 'X') determining output format and base
+- `forcesign`: Flag to force output of '+' sign for positive numbers
+- `leftjust`: Flag indicating left justification (1 for left-justified, 0 for right-justified)
+- `minlen`: Minimum field width; output will be padded to this width if shorter
+- `zpad`: Flag indicating zero-padding should be used instead of space padding
+- `precision`: Minimum number of digits to output (adds leading zeros if necessary)
+- `pointflag`: Flag indicating whether precision was explicitly specified in format string
+- `*target`: Output destination structure containing formatting state and output buffer
 ## Dependencies
 - Functions called/Symbols referenced:
   - PrintfTarget (struct type for output destination)

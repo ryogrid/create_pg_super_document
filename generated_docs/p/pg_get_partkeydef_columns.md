@@ -16,9 +16,8 @@ pg_get_partkeydef_columns(Oid relid, bool pretty)
 This function is an internal version of the partition key definition retrieval that specifically reports only the column definitions portion of a partition key. It serves as a wrapper around  with specific parameters to return just the column information. The function is used when you need to extract only the column names and expressions that make up a partition key, without the full SQL syntax that would normally include the "PARTITION BY" clause.
 
 ## Parameters / Member Variables
-- : Object identifier (OID) of the partitioned relation whose partition key columns should be retrieved
-- : Boolean flag indicating whether to use pretty-printing format for the output
-
+- `relid`: Object identifier (OID) of the partitioned relation whose partition key columns should be retrieved
+- `pretty`: Boolean flag indicating whether to use pretty-printing format for the output
 ## Dependencies
 - Functions called/Symbols referenced:
   - GET_PRETTY_FLAGS (macro to convert boolean to formatting flags)

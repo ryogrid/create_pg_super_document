@@ -20,16 +20,15 @@ XLogDumpStatsRow(const char *name,
 XLogDumpStatsRow formats and prints a single statistical row showing record counts and data sizes for WAL analysis. It calculates percentage values for each metric relative to the total and displays them in a formatted table row. The function handles division by zero cases by setting percentages to 0 when totals are zero. The output includes the name/identifier, record count with percentage, record length with percentage, full page image (FPI) length with percentage, and total length with percentage.
 
 ## Parameters / Member Variables
-- : String identifier for the row (typically rmgr name or record type)
-- : Number of records for this category
-- : Total number of records across all categories
-- : Total record length (bytes) for this category
-- : Total record length across all categories
-- : Total full page image length (bytes) for this category
-- : Total FPI length across all categories
-- : Total combined length (bytes) for this category
-- : Total combined length across all categories
-
+- `*name`: String identifier for the row (typically rmgr name or record type)
+- `n`: Number of records for this category
+- `total_count`: Total number of records across all categories
+- `rec_len`: Total record length (bytes) for this category
+- `total_rec_len`: Total record length across all categories
+- `fpi_len`: Total full page image length (bytes) for this category
+- `total_fpi_len`: Total FPI length across all categories
+- `tot_len`: Total combined length (bytes) for this category
+- `total_len`: Total combined length across all categories
 ## Dependencies
 - Functions called/Symbols referenced:
   - printf (standard C library function)

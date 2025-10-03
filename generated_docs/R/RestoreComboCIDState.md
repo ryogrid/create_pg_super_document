@@ -24,8 +24,7 @@ The function operates by:
 The function includes an assertion to ensure it's only called in a backend that currently has no combo CIDs (comboCids == NULL && comboHash == NULL), which is appropriate for newly spawned parallel workers. It also includes verification logic to ensure the combo CIDs are recreated in the same order as they were originally created.
 
 ## Parameters / Member Variables
-- : Pointer to the serialized combo CID state buffer (created by SerializeComboCIDState)
-
+- `*comboCIDstate`: Pointer to the serialized combo CID state buffer (created by SerializeComboCIDState)
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (for precondition checking)

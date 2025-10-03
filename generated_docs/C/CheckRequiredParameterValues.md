@@ -31,7 +31,6 @@ These validations are crucial because insufficient resources or incompatible WAL
 The function references the Administrator's Overview section in high-availability.sgml, indicating that these parameters are documented as requirements for high-availability configurations.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

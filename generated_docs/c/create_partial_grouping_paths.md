@@ -29,13 +29,12 @@ This function is a key component of PostgreSQL's parallel aggregation strategy. 
 The function intelligently determines whether partial aggregation is beneficial based on available input paths, parallelism settings, and partitionwise aggregation configuration.
 
 ## Parameters / Member Variables
-- : PlannerInfo containing query planning context and metadata
-- : RelOptInfo representing the final grouped relation that will receive finalized results
-- : RelOptInfo representing the input relation to be partially aggregated
-- : grouping_sets_data containing grouping sets configuration information
-- : GroupPathExtraData containing flags, costs, and additional planning parameters
-- : Boolean flag to force creation of the relation even when optimization suggests it's unnecessary
-
+- `*root`: PlannerInfo containing query planning context and metadata
+- `*grouped_rel`: RelOptInfo representing the final grouped relation that will receive finalized results
+- `*input_rel`: RelOptInfo representing the input relation to be partially aggregated
+- `*gd`: grouping_sets_data containing grouping sets configuration information
+- `*extra`: GroupPathExtraData containing flags, costs, and additional planning parameters
+- `force_rel_creation`: Boolean flag to force creation of the relation even when optimization suggests it's unnecessary
 ## Dependencies
 - Functions called/Symbols referenced:
   - [fetch_upper_rel](../f/fetch_upper_rel.md)

@@ -18,9 +18,8 @@ This function compares two MultiXact member page numbers to determine their rela
 The function is specifically designed for MultiXact member pages, which store the actual member information (transaction IDs and lock modes) referenced by MultiXact IDs. Unlike some other precedence functions, there is no "invalid page number" concept, so the comparison uses the page numbers directly.
 
 ## Parameters / Member Variables
-- : First page number to compare (int64)
-- : Second page number to compare (int64)
-
+- `page1`: First page number to compare (int64)
+- `page2`: Second page number to compare (int64)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MultiXactOffsetPrecedes](MultiXactOffsetPrecedes.md)

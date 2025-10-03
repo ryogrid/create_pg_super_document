@@ -26,9 +26,8 @@ This function manages a hash-based cache of relation synchronization entries for
 The function handles complex scenarios including partitioned tables, schema-level publications, and ancestor-based publishing rules.
 
 ## Parameters / Member Variables
-- : Pointer to PGOutputData containing publication names and configuration
-- : The PostgreSQL relation for which to find or create a sync entry
-
+- `*data`: Pointer to PGOutputData containing publication names and configuration
+- `relation`: The PostgreSQL relation for which to find or create a sync entry
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hash_search](../h/hash_search.md) (cache lookup)

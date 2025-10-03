@@ -18,8 +18,7 @@ The  function is one of PostgreSQL's inequality operators for range types. It pr
 The function is implemented as a simple wrapper around , returning true (1) when the comparison result is negative (indicating the first range is less than the second), and false (0) otherwise.
 
 ## Parameters / Member Variables
-- : Function call information structure containing the two range arguments to be compared
-
+- `PG_FUNCTION_ARGS`: Function call information structure containing the two range arguments to be compared
 ## Dependencies
 - Functions called/Symbols referenced:
   - [range_cmp](range_cmp.md) (performs the actual range comparison logic)

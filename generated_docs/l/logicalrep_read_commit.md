@@ -18,9 +18,8 @@ This function deserializes a COMMIT message from the logical replication protoco
 This is the counterpart to logicalrep_write_commit and is used by logical replication subscribers to process transaction commit messages received from publishers.
 
 ## Parameters / Member Variables
-- : StringInfo buffer containing the serialized COMMIT message data to be read
-- : LogicalRepCommitData structure that will be populated with the extracted transaction completion information
-
+- `in`: StringInfo buffer containing the serialized COMMIT message data to be read
+- `*commit_data`: LogicalRepCommitData structure that will be populated with the extracted transaction completion information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pq_getmsgbyte](../p/pq_getmsgbyte.md) (reads a single byte from the input buffer)

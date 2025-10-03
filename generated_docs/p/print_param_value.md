@@ -16,12 +16,11 @@ print_param_value(char *value, int len, int is_binary, int lineno, int nth)
 This function is responsible for logging parameter values in a human-readable format as part of ECPG's parameter debugging functionality. It handles three different cases: null values, text values, and binary values. For binary data, it performs hexadecimal encoding to make the content readable in log output. The function ensures proper memory management by allocating temporary storage for hex-encoded values and freeing it after logging.
 
 ## Parameters / Member Variables
-- : Pointer to the parameter value data (can be NULL)
-- : Length of the parameter value in bytes
-- : Flag indicating whether the value is binary (1) or text (0)
-- : Source line number where the parameter logging occurs
-- : Parameter number/index for identification in logs
-
+- `*value`: Pointer to the parameter value data (can be NULL)
+- `len`: Length of the parameter value in bytes
+- `is_binary`: Flag indicating whether the value is binary (1) or text (0)
+- `lineno`: Source line number where the parameter logging occurs
+- `nth`: Parameter number/index for identification in logs
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ecpg_alloc](../e/ecpg_alloc.md)

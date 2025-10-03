@@ -20,14 +20,13 @@ The visibilitymap_set function completes the second phase of visibility map bit 
 The function performs critical section protection during bit manipulation and handles WAL logging with special considerations for data checksums and hint bits. When setting all-visible bits, it ensures the corresponding heap page has the PD_ALL_VISIBLE bit set before proceeding. The cutoff_xid parameter supports Hot Standby by providing the oldest transaction ID that can see all tuples on the page.
 
 ## Parameters / Member Variables
-- : The relation whose visibility map is being updated  
-- : Block number of the heap page whose visibility bits are being set
-- : Buffer containing the heap page (required for WAL logging, except in recovery)
-- : LSN of the XLOG record being replayed (InvalidXLogRecPtr in normal operation)
-- : Pre-pinned buffer containing the correct visibility map page
-- : Largest xmin on the page (for Hot Standby, can be InvalidTransactionId)
-- : Bitmask specifying which visibility bits to set
-
+- `rel`: The relation whose visibility map is being updated
+- `heapBlk`: Block number of the heap page whose visibility bits are being set
+- `heapBuf`: Buffer containing the heap page (required for WAL logging, except in recovery)
+- `recptr`: LSN of the XLOG record being replayed (InvalidXLogRecPtr in normal operation)
+- `vmBuf`: Pre-pinned buffer containing the correct visibility map page
+- `cutoff_xid`: Largest xmin on the page (for Hot Standby, can be InvalidTransactionId)
+- `flags`: Bitmask specifying which visibility bits to set
 ## Dependencies
 - Functions called/Symbols referenced:
   - HEAPBLK_TO_MAPBLOCK/HEAPBLK_TO_MAPBYTE/HEAPBLK_TO_OFFSET (heap-to-map conversion macros)

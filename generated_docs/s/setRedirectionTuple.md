@@ -23,11 +23,10 @@ This utility function modifies an existing SPGIST_REDIRECT tuple to point to its
 This pattern is used during SPGiST operations where tuples may need to be moved or split, but the final locations are determined later in the process.
 
 ## Parameters / Member Variables
-- : Page descriptor for the page containing the redirection tuple to update
-- : The offset number of the redirection tuple on the page
-- : The destination block number to set in the redirection pointer
-- : The destination offset number to set in the redirection pointer
-
+- `*current`: Page descriptor for the page containing the redirection tuple to update
+- `position`: The offset number of the redirection tuple on the page
+- `blkno`: The destination block number to set in the redirection pointer
+- `offnum`: The destination offset number to set in the redirection pointer
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PageGetItem](../P/PageGetItem.md)/PageGetItemId (page item access functions)

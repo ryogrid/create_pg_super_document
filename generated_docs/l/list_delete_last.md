@@ -20,8 +20,7 @@ The function handles edge cases carefully: it returns NIL for empty lists, and w
 The efficiency advantage comes from the fact that removing the last element doesn't require shifting remaining elements, unlike removing from the front of the list.
 
 ## Parameters / Member Variables
-- : The PostgreSQL List from which to remove the last element. Can be NIL (empty list).
-
+- `*list`: The PostgreSQL List from which to remove the last element. Can be NIL (empty list).
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_list_invariants](../c/check_list_invariants.md): Validates list structure integrity

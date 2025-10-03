@@ -23,7 +23,6 @@ This function performs comprehensive initialization of the commit timestamp subs
 4. **Testing Support**: Includes unit test setup for page precedence logic to ensure correctness.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -20,10 +20,9 @@ The function serves as a thin wrapper around ExecJustVarVirtImpl, specifically a
 This function is typically used in scenarios where PostgreSQL's query planner and expression compiler can guarantee that the scan tuple will always be a virtual slot, allowing for more efficient variable access during query execution.
 
 ## Parameters / Member Variables
-- : ExprState containing the expression evaluation state and steps
-- : Expression context containing tuple slots and other evaluation context
-- : Output parameter that will be set to indicate if the retrieved value is NULL
-
+- `*state`: ExprState containing the expression evaluation state and steps
+- `*econtext`: Expression context containing tuple slots and other evaluation context
+- `*isnull`: Output parameter that will be set to indicate if the retrieved value is NULL
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecJustVarVirtImpl](ExecJustVarVirtImpl.md)

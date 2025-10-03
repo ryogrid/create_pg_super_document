@@ -24,14 +24,13 @@ This function handles the formatting of string-like conversions in PostgreSQL's 
 The function first handles NULL values appropriately for each conversion type, then converts the input value to a string using the provided output function, applies the necessary escaping based on the conversion type, and finally appends the formatted string to the output buffer with the specified formatting flags and width.
 
 ## Parameters / Member Variables
-- : StringInfo buffer where the formatted output is appended
-- : Character indicating the conversion type ('s', 'I', or 'L')
-- : Function manager info for the data type's output function
-- : The Datum value to be formatted
-- : Boolean indicating if the value is NULL
-- : Formatting flags controlling alignment and padding
-- : Field width for formatting
-
+- `buf`: StringInfo buffer where the formatted output is appended
+- `conversion`: Character indicating the conversion type ('s', 'I', or 'L')
+- `*typOutputInfo`: Function manager info for the data type's output function
+- `value`: The Datum value to be formatted
+- `isNull`: Boolean indicating if the value is NULL
+- `flags`: Formatting flags controlling alignment and padding
+- `width`: Field width for formatting
 ## Dependencies
 - Functions called/Symbols referenced:
   - [text_format_append_string](text_format_append_string.md)

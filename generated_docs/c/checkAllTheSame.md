@@ -26,11 +26,10 @@ When such a situation is detected, the function:
 The function includes special handling for cases where the tuple set is too large to fit on one page, excluding the new (incoming) tuple from the distribution check to avoid infinite loops.
 
 ## Parameters / Member Variables
-- : Input structure containing the tuples to be split and related information
-- : Output structure that will be modified to contain the new node assignments
-- : Boolean indicating if the tuple set is too large to fit on one page
-- : Output parameter indicating whether the new tuple should be included in the split
-
+- `*in`: Input structure containing the tuples to be split and related information
+- `*out`: Output structure that will be modified to contain the new node assignments
+- `tooBig`: Boolean indicating if the tuple set is too large to fit on one page
+- `*includeNew`: Output parameter indicating whether the new tuple should be included in the split
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md) (memory allocation for node labels array)

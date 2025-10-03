@@ -18,9 +18,8 @@ This function provides a way to modify the content of the most recently added fo
 The function automatically manages memory by freeing the old footer content and duplicating the new footer string using pg_strdup(), ensuring the caller doesn't need to maintain the original string.
 
 ## Parameters / Member Variables
-- : Pointer to the printTableContent structure containing the footer to modify
-- : The new string content for the footer (will be duplicated via pg_strdup)
-
+- `content`: Pointer to the printTableContent structure containing the footer to modify
+- `*footer`: The new string content for the footer (will be duplicated via pg_strdup)
 ## Dependencies
 - Functions called/Symbols referenced:
   - free (standard C library function)

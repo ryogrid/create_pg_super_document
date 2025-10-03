@@ -18,7 +18,6 @@ This function creates a temporary memory context that is used throughout GiST op
 The temporary context is created as a child of the current memory context and uses default allocation set sizes. This approach allows for efficient memory allocation and cleanup patterns typical in PostgreSQL's memory management system.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

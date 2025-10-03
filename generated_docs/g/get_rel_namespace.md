@@ -18,8 +18,7 @@ This function retrieves the namespace (schema) OID for a specified relation from
 The function uses PostgreSQL's system cache mechanism for efficient catalog lookups, which helps avoid repeated disk I/O for frequently accessed catalog information.
 
 ## Parameters / Member Variables
-- : The OID of the relation whose namespace is to be retrieved
-
+- `relid`: The OID of the relation whose namespace is to be retrieved
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup)

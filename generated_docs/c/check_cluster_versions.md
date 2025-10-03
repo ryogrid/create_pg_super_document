@@ -26,7 +26,6 @@ This function performs comprehensive version compatibility checking between the 
 The function uses assertions to verify that cluster version information has already been gathered, indicating this check occurs after cluster discovery.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

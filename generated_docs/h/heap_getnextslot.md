@@ -18,10 +18,9 @@ The  function is a slot-based variant of  that follows the modern PostgreSQL tup
 This function is part of the table access method interface and provides better memory management through the slot abstraction, allowing for more efficient tuple processing in the executor.
 
 ## Parameters / Member Variables
-- : The table scan descriptor (cast to HeapScanDesc internally)
-- : The scan direction (ForwardScanDirection or BackwardScanDirection)  
-- : The TupleTableSlot to store the retrieved tuple
-
+- `sscan`: The table scan descriptor (cast to HeapScanDesc internally)
+- `direction`: The scan direction (ForwardScanDirection or BackwardScanDirection)
+- `*slot`: The TupleTableSlot to store the retrieved tuple
 ## Dependencies
 - Functions called/Symbols referenced:
   - [heapgettup_pagemode](heapgettup_pagemode.md)

@@ -24,9 +24,8 @@ The function operates with the following strategy:
 The borrowing mechanism is crucial for maintaining the guarantee that elements can always be allocated if the table was initially sized appropriately or if elements have been previously deleted.
 
 ## Parameters / Member Variables
-- : Pointer to the hash table structure (HTAB) from which to allocate an entry
-- : Index of the freelist to allocate from (relevant for partitioned tables)
-
+- `*hashp`: Pointer to the hash table structure (HTAB) from which to allocate an entry
+- `freelist_idx`: Index of the freelist to allocate from (relevant for partitioned tables)
 ## Dependencies
 - Functions called/Symbols referenced:
   - IS_PARTITIONED (macro to check if hash table is partitioned)

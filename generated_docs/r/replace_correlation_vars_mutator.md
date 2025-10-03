@@ -25,9 +25,8 @@ The function handles five specific types of uplevel references:
 For each type of uplevel reference, it delegates to a specialized replacement function that creates the appropriate Param node. The function uses  to ensure complete traversal of the expression tree, including recursive calls to itself for nested expressions.
 
 ## Parameters / Member Variables
-- : The current expression node being processed in the tree walk
-- : PlannerInfo structure containing the query planning context
-
+- `*node`: The current expression node being processed in the tree walk
+- `*root`: PlannerInfo structure containing the query planning context
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Creates Param replacement for uplevel Var nodes

@@ -20,8 +20,7 @@ This function is used by other parts of PostgreSQL to determine whether communic
 The encryption flag is typically set to true after  successfully completes the GSSAPI handshake and sets up the encryption context.
 
 ## Parameters / Member Variables
-- : Pointer to Port structure containing connection state information
-
+- `*port`: Pointer to Port structure containing connection state information
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (simple accessor function)

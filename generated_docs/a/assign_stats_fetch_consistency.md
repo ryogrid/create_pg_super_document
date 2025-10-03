@@ -20,9 +20,8 @@ The function implements a defensive mechanism to prevent snapshot state inconsis
 This approach prevents situations where a transaction might see inconsistent statistics data due to changing consistency requirements during execution, which could lead to unpredictable query planning and execution behavior.
 
 ## Parameters / Member Variables
-- : The new value being assigned to the  GUC parameter
-- : Additional context data passed by the GUC system (unused in this implementation)
-
+- `newval`: The new value being assigned to the  GUC parameter
+- `*extra`: Additional context data passed by the GUC system (unused in this implementation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - pgstat_fetch_consistency: Global variable holding the current fetch consistency level

@@ -16,9 +16,8 @@ setNamespaceColumnVisibility(List *namespace, bool cols_visible)
 This function is a utility routine used within the PostgreSQL parser to modify the column visibility state of all namespace items in a given list. It iterates through each ParseNamespaceItem in the provided namespace list and sets the  flag to the specified boolean value. This functionality is crucial for controlling name resolution behavior in different parsing contexts, particularly when handling FROM clause items where column visibility needs to be managed based on the specific SQL construct being processed.
 
 ## Parameters / Member Variables
-- : A List of ParseNamespaceItem structures representing the current parsing namespace
-- : A boolean flag indicating whether columns should be visible (true) or hidden (false) in the namespace
-
+- `*namespace`: A List of ParseNamespaceItem structures representing the current parsing namespace
+- `cols_visible`: A boolean flag indicating whether columns should be visible (true) or hidden (false) in the namespace
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ParseNamespaceItem](../P/ParseNamespaceItem.md) (struct type)

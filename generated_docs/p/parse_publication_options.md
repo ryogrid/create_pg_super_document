@@ -23,13 +23,12 @@ This function processes publication creation or alteration options by parsing a 
 The function first sets default values for all publication actions (all enabled by default) and then processes the options list. For the 'publish' parameter, it parses a comma-separated list of operation names and enables only those explicitly specified. The function includes comprehensive error checking for duplicate options, invalid syntax, and unrecognized parameter names.
 
 ## Parameters / Member Variables
-- : ParseState context for error reporting and parsing operations
-- : List of DefElem nodes containing the publication options to parse
-- : Output parameter indicating whether the publish option was explicitly provided
-- : Output structure containing boolean flags for each publication action (insert, update, delete, truncate)
-- : Output parameter indicating whether the partition root option was explicitly provided
-- : Output parameter indicating whether to publish via partition root
-
+- `*pstate`: ParseState context for error reporting and parsing operations
+- `*options`: List of DefElem nodes containing the publication options to parse
+- `*publish_given`: Output parameter indicating whether the publish option was explicitly provided
+- `*pubactions`: Output structure containing boolean flags for each publication action (insert, update, delete, truncate)
+- `*publish_via_partition_root_given`: Output parameter indicating whether the partition root option was explicitly provided
+- `*publish_via_partition_root`: Output parameter indicating whether to publish via partition root
 ## Dependencies
 - Functions called/Symbols referenced:
   - [errorConflictingDefElem](../e/errorConflictingDefElem.md)

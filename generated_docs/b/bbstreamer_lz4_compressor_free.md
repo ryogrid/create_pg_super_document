@@ -18,8 +18,7 @@ This function performs cleanup and resource deallocation for the LZ4 compressor 
 The cleanup follows a specific order: downstream streamers are freed first, then LZ4-specific resources (compression context), followed by internal buffers, and finally the streamer structure. This ensures proper cleanup of the entire streaming chain.
 
 ## Parameters / Member Variables
-- : The LZ4 compressor streamer instance to free
-
+- `*streamer`: The LZ4 compressor streamer instance to free
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bbstreamer_free](bbstreamer_free.md)

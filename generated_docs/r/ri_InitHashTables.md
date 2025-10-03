@@ -18,7 +18,6 @@ This function sets up three critical hash tables that serve as caches for the re
 These hash tables provide significant performance improvements by avoiding repeated catalog lookups and query planning overhead during referential integrity operations.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

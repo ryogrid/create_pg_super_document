@@ -30,10 +30,9 @@ This function transfers all incoming arcs from oldState to newState with three d
 The function includes optimization logic via BULK_ARC_OP_USE_SORT() to determine when the sort-merge approach is more efficient than individual processing.
 
 ## Parameters / Member Variables
-- : Pointer to the NFA structure containing the states
-- : Source state whose incoming arcs will be moved
-- : Destination state that will receive the arcs
-
+- `*nfa`: Pointer to the NFA structure containing the states
+- `*oldState`: Source state whose incoming arcs will be moved
+- `*newState`: Destination state that will receive the arcs
 ## Dependencies
 - Functions called/Symbols referenced:
   - [createarc](../c/createarc.md) (creates new arc)

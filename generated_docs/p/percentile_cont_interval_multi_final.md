@@ -18,8 +18,7 @@ This function serves as the finalization function for the  ordered-set aggregate
 The function handles the computation of multiple percentiles simultaneously from a sorted set of interval values, performing linear interpolation when the desired percentile falls between two data points.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function call information structure containing aggregate state and percentile array parameter
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function call information structure containing aggregate state and percentile array parameter
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Core implementation for multi-percentile continuous calculations

@@ -18,9 +18,8 @@ OidFunctionCall0Coll is a wrapper function that simplifies calling PostgreSQL fu
 The function is designed for cases where a function needs to be called only once or infrequently. For repeated calls to the same function, it's more efficient to call fmgr_info() once and then use FunctionCall0Coll() directly to avoid the overhead of repeated function lookup.
 
 ## Parameters / Member Variables
-- : The OID (Object Identifier) of the function to be called
-- : The collation OID to be used for collation-sensitive operations within the function
-
+- `functionId`: The OID (Object Identifier) of the function to be called
+- `collation`: The collation OID to be used for collation-sensitive operations within the function
 ## Dependencies
 - Functions called/Symbols referenced:
   - [fmgr_info](../f/fmgr_info.md) (initializes function manager information)

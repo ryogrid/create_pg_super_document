@@ -22,14 +22,13 @@ DefineQueryRewrite(const char *rulename,
 DefineQueryRewrite implements the comprehensive logic for creating rewrite rules with extensive validation and constraint checking. It handles different rule types (SELECT vs non-SELECT) with specific restrictions for each, validates permissions and relation types, enforces PostgreSQL's rule system constraints, and manages rule installation. For SELECT rules, it enforces view-specific restrictions including single action requirements, target list matching, and proper naming conventions. For non-SELECT rules, it validates RETURNING list constraints and prevents misuse of reserved rule names. The function also manages locking, dependency tracking, and catalog updates to ensure rule integrity.
 
 ## Parameters / Member Variables
-- : The name to assign to the rule (must be _RETURN for SELECT rules)
-- : OID of the relation the rule applies to
-- : Optional qualification condition for rule firing (NULL if no condition)
-- : The type of event that triggers the rule (CMD_SELECT, CMD_INSERT, etc.)
-- : Boolean indicating if this is an INSTEAD rule
-- : Boolean indicating whether to replace an existing rule with the same name
-- : List of Query nodes representing the rule's action statements
-
+- `*rulename`: The name to assign to the rule (must be _RETURN for SELECT rules)
+- `event_relid`: OID of the relation the rule applies to
+- `*event_qual`: Optional qualification condition for rule firing (NULL if no condition)
+- `event_type`: The type of event that triggers the rule (CMD_SELECT, CMD_INSERT, etc.)
+- `is_instead`: Boolean indicating if this is an INSTEAD rule
+- `replace`: Boolean indicating whether to replace an existing rule with the same name
+- `*action`: List of Query nodes representing the rule's action statements
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md)

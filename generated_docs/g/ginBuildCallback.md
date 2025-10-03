@@ -27,13 +27,12 @@ This function serves as the callback mechanism for PostgreSQL's index build infr
 The function implements PostgreSQL's standard pattern for bulk index creation, balancing memory usage with insertion efficiency through batched operations.
 
 ## Parameters / Member Variables
-- : The GIN index relation being built
-- : ItemPointer (TID) of the current heap tuple being processed
-- : Array of attribute values from the heap tuple
-- : Array of null flags corresponding to the values
-- : Flag indicating if the tuple is visible (used for partial index builds)
-- : Opaque pointer to GinBuildState structure containing build context
-
+- `index`: The GIN index relation being built
+- `tid`: ItemPointer (TID) of the current heap tuple being processed
+- `*values`: Array of attribute values from the heap tuple
+- `*isnull`: Array of null flags corresponding to the values
+- `tupleIsAlive`: Flag indicating if the tuple is visible (used for partial index builds)
+- `*state`: Opaque pointer to GinBuildState structure containing build context
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ginHeapTupleBulkInsert](ginHeapTupleBulkInsert.md): Process each attribute value for bulk insertion

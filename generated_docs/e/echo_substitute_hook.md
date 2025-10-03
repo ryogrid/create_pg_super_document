@@ -20,8 +20,7 @@ The ECHO variable controls which SQL statements psql echoes to standard output. 
 This hook is part of psql's variable system that provides preprocessing and default value handling for configuration variables.
 
 ## Parameters / Member Variables
-- : The string value being assigned to the ECHO variable; may be NULL if the variable is being unset
-
+- `*newval`: The string value being assigned to the ECHO variable; may be NULL if the variable is being unset
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_strdup](../p/pg_strdup.md) (implicitly called to duplicate the "none" string)

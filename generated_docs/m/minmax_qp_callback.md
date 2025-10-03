@@ -22,9 +22,8 @@ This callback function is invoked during query planning to customize the pathkey
 This specialized configuration helps the query planner generate optimal index scan paths that can directly return the minimum or maximum values without full table scans or explicit sorting operations.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure for the MIN/MAX subquery being planned
-- : Unused extra parameter (standard callback interface)
-
+- `*root`: PlannerInfo structure for the MIN/MAX subquery being planned
+- `*extra`: Unused extra parameter (standard callback interface)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Converts ORDER BY clauses into pathkey specifications

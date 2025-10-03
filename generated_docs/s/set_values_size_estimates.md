@@ -18,9 +18,8 @@ This function calculates size estimates for relations that represent VALUES clau
 The function retrieves the range table entry for the VALUES relation, counts the number of value lists specified in the VALUES clause using , and sets this as the precise tuple count for the relation. This accuracy makes VALUES clause estimation one of the most reliable cardinality estimates in PostgreSQL's optimizer.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing query planning context and global information
-- : RelOptInfo structure representing the relation being sized, must be a base relation with VALUES RTE
-
+- `*root`: PlannerInfo structure containing query planning context and global information
+- `*rel`: RelOptInfo structure representing the relation being sized, must be a base relation with VALUES RTE
 ## Dependencies
 - Functions called/Symbols referenced:
   - planner_rt_fetch

@@ -18,13 +18,12 @@ PQescapeByteaInternal(PGconn *conn,
 PQescapeByteaInternal is the core implementation function for bytea escaping in libpq. It supports two encoding formats: hexadecimal (\\x followed by hex digits) and traditional escape format (using octal sequences for non-printable characters). In escape mode, it applies these transformations: null bytes become \\000, single quotes are doubled, backslashes are escaped appropriately based on standard_conforming_strings setting, and non-printable characters (< 0x20 or > 0x7e) become octal escape sequences (\\ooo). The function calculates the required output buffer size, allocates memory, and performs the encoding while handling the differences between standard and non-standard string modes.
 
 ## Parameters / Member Variables
-- : PostgreSQL connection handle for error reporting (may be NULL)
-- : Source binary data to be escaped
-- : Length of the source data in bytes
-- : Pointer to store the length of the resulting escaped string
-- : Whether standard_conforming_strings is enabled (affects backslash doubling)
-- : If true, use hexadecimal format; if false, use traditional escape format
-
+- `*conn`: PostgreSQL connection handle for error reporting (may be NULL)
+- `*from`: Source binary data to be escaped
+- `from_length`: Length of the source data in bytes
+- `*to_length`: Pointer to store the length of the resulting escaped string
+- `std_strings`: Whether standard_conforming_strings is enabled (affects backslash doubling)
+- `use_hex`: If true, use hexadecimal format; if false, use traditional escape format
 ## Dependencies
 - Functions called/Symbols referenced:
   - malloc

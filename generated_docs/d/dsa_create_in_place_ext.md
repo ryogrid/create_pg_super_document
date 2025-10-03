@@ -22,13 +22,12 @@ Unlike dsa_create_ext(), this function uses DSM_HANDLE_INVALID and NULL for the 
 The function requires explicit cleanup by all backends that create or attach to these areas, either through dsa_release_in_place() or automatically via DSM segment detach hooks when applicable.
 
 ## Parameters / Member Variables
-- : Pointer to the existing shared memory location where the DSA will be created
-- : Size of the existing shared memory space available for the DSA
-- : LWLock tranche identifier for synchronization (must be provided by caller)
-- : Optional pointer to containing DSM segment for automatic cleanup registration
-- : Size for initial additional DSM segments if expansion is needed
-- : Maximum size for additional DSM segments during expansion
-
+- `*place`: Pointer to the existing shared memory location where the DSA will be created
+- `size`: Size of the existing shared memory space available for the DSA
+- `tranche_id`: LWLock tranche identifier for synchronization (must be provided by caller)
+- `*segment`: Optional pointer to containing DSM segment for automatic cleanup registration
+- `init_segment_size`: Size for initial additional DSM segments if expansion is needed
+- `max_segment_size`: Maximum size for additional DSM segments during expansion
 ## Dependencies
 - Functions called/Symbols referenced:
   - [create_internal](../c/create_internal.md)

@@ -18,9 +18,8 @@ This inline function implements the "less than or equal to" comparison for singl
 The implementation uses short-circuit evaluation: if val2 is NaN, it immediately returns true; otherwise, it checks that val1 is not NaN and performs the standard floating-point comparison.
 
 ## Parameters / Member Variables
-- : The first single-precision floating-point value (left operand of the ≤ comparison)
-- : The second single-precision floating-point value (right operand of the ≤ comparison)
-
+- `val1`: The first single-precision floating-point value (left operand of the ≤ comparison)
+- `val2`: The second single-precision floating-point value (right operand of the ≤ comparison)
 ## Dependencies
 - Functions called/Symbols referenced:
   - float4 (type definition for single-precision float)

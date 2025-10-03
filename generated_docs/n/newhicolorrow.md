@@ -17,9 +17,8 @@ newhicolorrow(struct colormap *cm,
 The  function is part of PostgreSQL's regex color management system. It creates a new row in the hicolormap array by cloning data from an existing row. The function handles dynamic memory management by expanding the hicolormap storage when needed, doubling the array size when capacity is reached. After copying the row data, it updates color reference counts to maintain proper bookkeeping for the color management system.
 
 ## Parameters / Member Variables
-- : Pointer to the colormap structure containing the hicolormap array and related metadata
-- : Index of the existing row to clone from
-
+- `*cm`: Pointer to the colormap structure containing the hicolormap array and related metadata
+- `oldrow`: Index of the existing row to clone from
 ## Dependencies
 - Functions called/Symbols referenced:
   - CERR (error reporting macro)

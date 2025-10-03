@@ -22,10 +22,9 @@ The function includes several assertions to verify that the operation is being p
 This function is part of PostgreSQL's expression evaluation optimization framework, where the expression compiler can generate more efficient code paths when it can guarantee certain slot types will be used.
 
 ## Parameters / Member Variables
-- : ExprState containing the expression evaluation context and operation steps
-- : Input TupleTableSlot (must be virtual) from which to read the variable value
-- : Output parameter indicating if the assigned value is NULL (not used in return)
-
+- `*state`: ExprState containing the expression evaluation context and operation steps
+- `*inslot`: Input TupleTableSlot (must be virtual) from which to read the variable value
+- `*isnull`: Output parameter indicating if the assigned value is NULL (not used in return)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExprEvalStep](ExprEvalStep.md) (for accessing operation details)

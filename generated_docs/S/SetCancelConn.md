@@ -18,8 +18,7 @@ SetCancelConn is a thread-safe function that manages the global cancelConn varia
 The function uses critical sections on Windows to ensure thread safety during the connection replacement operation. It follows a careful sequence: first nullifying the global pointer, then freeing the old cancel object, and finally setting the new cancel object. This prevents race conditions with signal handlers that might attempt to use the cancel connection simultaneously.
 
 ## Parameters / Member Variables
-- : A pointer to the PostgreSQL database connection (PGconn) from which to create the cancel connection object
-
+- `*conn`: A pointer to the PostgreSQL database connection (PGconn) from which to create the cancel connection object
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQfreeCancel](../P/PQfreeCancel.md)

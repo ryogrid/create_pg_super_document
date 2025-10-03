@@ -20,6 +20,7 @@ WAL file recycling and preallocation help improve performance by reusing existin
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockAcquire](../L/LWLockAcquire.md)

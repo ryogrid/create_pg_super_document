@@ -22,7 +22,6 @@ The minimum size includes:
 The function uses an iterative approach to resolve the circular dependency: as more pages are needed to accommodate the growing page map, additional dsa_pointer entries must be allocated, which may require even more pages. The loop continues until the calculation converges on a stable value.
 
 ## Parameters / Member Variables
-None - this is a parameter-less function that returns a computed value.
 
 ## Dependencies
 - Functions called/Symbols referenced:

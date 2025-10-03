@@ -22,6 +22,7 @@ The function simply returns the current value of the  global flag, providing a n
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Global flag indicating whether a message read is in progress

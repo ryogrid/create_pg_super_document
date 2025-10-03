@@ -16,9 +16,8 @@ tstoken_list_member(char *token_name, List *tokens)
 This function performs a linear search through a list of TSTokenTypeItem structures to determine if a specified token type name is present. It iterates through each list element, comparing the provided token name with the name field of each TSTokenTypeItem using string comparison. The function returns true immediately upon finding a match, providing an early exit optimization.
 
 ## Parameters / Member Variables
-- : A null-terminated string representing the token type name to search for
-- : A PostgreSQL List containing TSTokenTypeItem structures to search through
-
+- `*token_name`: A null-terminated string representing the token type name to search for
+- `*tokens`: A PostgreSQL List containing TSTokenTypeItem structures to search through
 ## Dependencies
 - Functions called/Symbols referenced:
   - TSTokenTypeItem (structure type)

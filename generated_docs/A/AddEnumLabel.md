@@ -32,12 +32,11 @@ AddEnumLabel implements the core functionality for ALTER TYPE ADD VALUE operatio
 6. **Binary Upgrade Support**: Special handling for pg_dump binary upgrade scenarios with predetermined OIDs.
 
 ## Parameters / Member Variables
-- : The OID of the enum type to add the value to
-- : The string value of the new enum label to add
-- : Optional existing enum label to position relative to (NULL for end placement)
-- : When neighbor is specified, whether to place the new value after (true) or before (false) the neighbor
-- : If true, skip with NOTICE rather than ERROR when label already exists
-
+- `enumTypeOid`: The OID of the enum type to add the value to
+- `*newVal`: The string value of the new enum label to add
+- `*neighbor`: Optional existing enum label to position relative to (NULL for end placement)
+- `newValIsAfter`: When neighbor is specified, whether to place the new value after (true) or before (false) the neighbor
+- `skipIfExists`: If true, skip with NOTICE rather than ERROR when label already exists
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LockDatabaseObject](../L/LockDatabaseObject.md)

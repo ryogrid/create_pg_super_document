@@ -18,8 +18,7 @@ This function allocates and initializes a new SetConstraintState structure in To
 The SetConstraintState is used to track the current state of deferred constraints and their associated triggers, allowing PostgreSQL to manage constraint checking behavior during transaction execution.
 
 ## Parameters / Member Variables
-- : Number of SetConstraintTriggerData elements to allocate space for in the trigstates array
-
+- `numalloc`: Number of SetConstraintTriggerData elements to allocate space for in the trigstates array
 ## Dependencies
 - Functions called/Symbols referenced:
   - SetConstraintState (return type)

@@ -16,9 +16,8 @@ RecordConstLocation(JumbleState *jstate, int location)
 RecordConstLocation maintains a record of where constants appear in the original SQL query text during the query jumbling process. This location information is crucial for third-party modules (like pg_stat_statements) that need to extract and replace constant values with parameter placeholders for query normalization. The function manages a dynamically-growing array of LocationLen structures, doubling the buffer size when more space is needed. Location values of -1 are ignored as they indicate unknown or undefined positions.
 
 ## Parameters / Member Variables
-- : JumbleState containing the constant locations buffer and metadata
-- : Position of the constant in the original query string (-1 for unknown/undefined locations)
-
+- `*jstate`: JumbleState containing the constant locations buffer and metadata
+- `location`: Position of the constant in the original query string (-1 for unknown/undefined locations)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [repalloc](../r/repalloc.md) (reallocates memory when buffer needs expansion)

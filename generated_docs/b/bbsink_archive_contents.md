@@ -16,9 +16,8 @@ bbsink_archive_contents(bbsink *sink, size_t len)
 This inline function handles the processing of archive content data within PostgreSQL's base backup system. It validates that the specified length is within reasonable bounds (non-zero and not exceeding buffer capacity), then delegates to the sink-specific archive_contents operation to handle the actual processing and output of the data. The function expects callers to make reasonable efforts to fill the buffer before invocation, ensuring efficient data processing.
 
 ## Parameters / Member Variables
-- : Pointer to the backup sink structure that will process the archive contents
-- : Number of bytes to process from the sink's buffer (must be > 0 and <= buffer_length)
-
+- `*sink`: Pointer to the backup sink structure that will process the archive contents
+- `len`: Number of bytes to process from the sink's buffer (must be > 0 and <= buffer_length)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bbsink](bbsink.md) (structure type)

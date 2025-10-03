@@ -18,13 +18,12 @@ statext_is_compatible_clause_internal(PlannerInfo *root, Node *clause,
 This internal function recursively examines SQL clauses to determine compatibility with extended statistics MCV lists. It supports a specific set of clause types including OpExprs with comparison operators (=, <, >, >=, <=), NULL tests, ScalarArrayOpExprs (IN/ANY/ALL), and Boolean combinations (AND/OR/NOT). The function extracts variable attribute numbers and sub-expressions that need to be matched against statistics objects. It also tracks the leakproofness of operators to ensure security constraints are maintained during statistics-based estimation.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planning context information
-- : Node representing the (sub)clause to be inspected (bare clause, not RestrictInfo)
-- : Relation index that all variables in the clause must belong to
-- : Input/output bitmap collecting attribute numbers of mentioned variables
-- : Input/output list collecting primitive subclauses within the clause tree
-- : Input/output flag tracking leakproofness of the clause tree (starts true, set false if non-leakproof operators found)
-
+- `*root`: PlannerInfo structure containing planning context information
+- `*clause`: Node representing the (sub)clause to be inspected (bare clause, not RestrictInfo)
+- `relid`: Relation index that all variables in the clause must belong to
+- `**attnums`: Input/output bitmap collecting attribute numbers of mentioned variables
+- `**exprs`: Input/output list collecting primitive subclauses within the clause tree
+- `*leakproof`: Input/output flag tracking leakproofness of the clause tree (starts true, set false if non-leakproof operators found)
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (macro for type checking)

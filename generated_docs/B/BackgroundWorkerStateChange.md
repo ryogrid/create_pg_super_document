@@ -16,8 +16,7 @@ BackgroundWorkerStateChange(bool allow_new_workers)
 This critical function runs in the postmaster process to synchronize the postmaster's private worker list with changes made to shared memory by other backends. It iterates through all worker slots in shared memory, detecting newly registered workers or workers marked for termination. The function employs defensive programming practices to handle potentially corrupted shared memory safely, as a rogue backend could compromise the postmaster if trust is placed in shared memory contents. For new workers, it validates and copies registration data to the postmaster's private list using safe string copying functions. For terminated workers, it handles cleanup and notification procedures.
 
 ## Parameters / Member Variables
-- : Boolean flag controlling whether new worker registrations should be accepted (false during shutdown scenarios)
-
+- `allow_new_workers`: Boolean flag controlling whether new worker registrations should be accepted (false during shutdown scenarios)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (locates workers by slot number)

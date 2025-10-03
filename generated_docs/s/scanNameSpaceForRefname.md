@@ -16,10 +16,9 @@ scanNameSpaceForRefname(ParseState *pstate, const char *refname, int location)
 This static function scans through the p_namespace list in the current parsing state to find a namespace item that matches the given unqualified reference name. It implements PostgreSQL's relaxed alias scoping rules, allowing certain cases of duplicate aliases that would be forbidden in strict SQL. The function checks for ambiguous references and reports errors when multiple visible items match the same name. It also handles lateral-only items and performs lateral reference validation.
 
 ## Parameters / Member Variables
-- : Current parsing state containing the namespace list to search
-- : The unqualified name to search for (table alias or relation name)
-- : Source location in the query for error reporting
-
+- `*pstate`: Current parsing state containing the namespace list to search
+- `*refname`: The unqualified name to search for (table alias or relation name)
+- `location`: Source location in the query for error reporting
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_lateral_ref_ok](../c/check_lateral_ref_ok.md)

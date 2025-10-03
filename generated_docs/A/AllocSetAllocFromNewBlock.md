@@ -29,11 +29,10 @@ This function is called when AllocSetAlloc() determines that the current active 
 The function is marked as  to prevent inlining, which helps with performance profiling and keeps the main AllocSetAlloc() function smaller.
 
 ## Parameters / Member Variables
-- : The memory context requesting the allocation
-- : The actual size requested by the caller (bytes)
-- : Allocation flags (e.g., for error handling behavior)
-- : The free list index indicating which size class this allocation belongs to
-
+- `context`: The memory context requesting the allocation
+- `size`: The actual size requested by the caller (bytes)
+- `flags`: Allocation flags (e.g., for error handling behavior)
+- `fidx`: The free list index indicating which size class this allocation belongs to
 ## Dependencies
 - Functions called/Symbols referenced:
   - [AllocSetFreeIndex](AllocSetFreeIndex.md)

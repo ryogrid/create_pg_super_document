@@ -23,7 +23,6 @@ The function is effectively:
 This design reflects PostgreSQL's evolution toward better transaction management where explicit transaction control by SPI clients is generally not needed in atomic mode connections.
 
 ## Parameters / Member Variables
-This function takes no parameters and has no member variables.
 
 ## Dependencies
 - Functions called/Symbols referenced: None

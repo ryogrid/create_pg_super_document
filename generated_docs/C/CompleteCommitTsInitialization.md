@@ -21,7 +21,6 @@ The function handles both activation and deactivation scenarios:
 This dual-mode operation is essential for both primary and standby servers, as the activation state depends on control file contents and parameter changes that may have been replayed during recovery.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

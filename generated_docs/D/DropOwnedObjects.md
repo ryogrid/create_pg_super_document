@@ -18,8 +18,7 @@ DropOwnedObjects is the high-level interface for PostgreSQL's DROP OWNED command
 The function serves as a security wrapper around the shared dependency system's object dropping functionality, ensuring that only users with appropriate privileges can remove objects owned by other roles. This is crucial for maintaining database security and preventing unauthorized data deletion.
 
 ## Parameters / Member Variables
-- : DropOwnedStmt containing the list of roles whose objects should be dropped and the drop behavior (CASCADE or RESTRICT)
-
+- `*stmt`: DropOwnedStmt containing the list of roles whose objects should be dropped and the drop behavior (CASCADE or RESTRICT)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [roleSpecsToIds](../r/roleSpecsToIds.md): Convert role specifications to OID list

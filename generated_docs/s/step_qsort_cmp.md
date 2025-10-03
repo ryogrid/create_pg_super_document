@@ -18,9 +18,8 @@ This function implements a comparison callback for sorting Step pointers using t
 This sorting capability is used in the isolation tester to organize steps in a predictable order, which is important for test reproducibility and validation of test specifications.
 
 ## Parameters / Member Variables
-- : Pointer to the first Step pointer to compare (cast from void*)
-- : Pointer to the second Step pointer to compare (cast from void*)
-
+- `*a`: Pointer to the first Step pointer to compare (cast from void*)
+- `*b`: Pointer to the second Step pointer to compare (cast from void*)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Step](../S/Step.md) (struct type)

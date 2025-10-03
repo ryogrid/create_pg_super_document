@@ -16,8 +16,7 @@ _bt_vacuum_cycleid(Relation rel)
 This function provides coordination between B-tree maintenance operations and active VACUUM processes by returning the current vacuum cycle ID for a given index relation. It searches through the global btvacinfo structure under BtreeVacuumLock to find any active vacuum operation on the specified relation. The function is primarily used during page splits to ensure proper interlocking with concurrent vacuum operations. When a vacuum cycle ID is stored in newly created pages during splits, it prevents the vacuum from processing those pages until the split operation is complete, maintaining index consistency.
 
 ## Parameters / Member Variables
-- : Relation descriptor for the B-tree index being queried
-
+- `rel`: Relation descriptor for the B-tree index being queried
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease

@@ -22,8 +22,7 @@ This function computes the complete storage footprint of a PostgreSQL table by e
 The function works correctly when applied to indexes or TOAST tables themselves, treating them as regular relations without attached TOAST tables.
 
 ## Parameters / Member Variables
-- : Relation pointer to the table whose size is being calculated
-
+- `rel`: Relation pointer to the table whose size is being calculated
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Maximum fork number constant for iterating through all forks

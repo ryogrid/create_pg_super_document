@@ -28,10 +28,9 @@ The function also performs important transformations, such as converting X=X cla
 Security considerations are built in - the function rejects clauses containing leaky functions when security_level > 0 to ensure proper evaluation timing.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global optimizer state and equivalence class lists
-- : Pointer to RestrictInfo representing the equality clause being processed; may be modified to point to a transformed clause
-- : JoinDomain limiting the applicability of deductions from the EquivalenceClass
-
+- `*root`: PlannerInfo structure containing global optimizer state and equivalence class lists
+- `**p_restrictinfo`: Pointer to RestrictInfo representing the equality clause being processed; may be modified to point to a transformed clause
+- `*jdomain`: JoinDomain limiting the applicability of deductions from the EquivalenceClass
 ## Dependencies
 - Functions called/Symbols referenced:
   - [canonicalize_ec_expression](../c/canonicalize_ec_expression.md)

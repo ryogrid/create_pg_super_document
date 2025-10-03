@@ -20,9 +20,8 @@ The function performs the same core work as replorigin_advance() but operates di
 The function ensures that LSN values only advance forward (never backward) by checking that the new values are greater than the current stored values before updating them.
 
 ## Parameters / Member Variables
-- : XLogRecPtr representing the remote commit LSN position to advance to
-- : XLogRecPtr representing the local commit LSN position to advance to
-
+- `remote_commit`: XLogRecPtr representing the remote commit LSN position to advance to
+- `local_commit`: XLogRecPtr representing the local commit LSN position to advance to
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease (on session state lock)

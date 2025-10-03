@@ -20,8 +20,7 @@ The function implements a two-tier check: first, it verifies if the maximum numb
 The function also handles hint validation - it checks if the PageHasFreeLinePointers hint is accurate by scanning through line pointers when necessary, though it cannot correct incorrect hints due to lack of permission to mark the page dirty.
 
 ## Parameters / Member Variables
-- : A pointer to the heap page for which to calculate free space
-
+- `page`: A pointer to the heap page for which to calculate free space
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PageGetFreeSpace](PageGetFreeSpace.md)

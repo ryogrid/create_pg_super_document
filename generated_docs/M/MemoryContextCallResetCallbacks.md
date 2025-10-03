@@ -18,8 +18,7 @@ This function is responsible for calling all registered reset callbacks associat
 The function processes callbacks in a LIFO (Last In, First Out) order by iterating through the linked list of callbacks stored in the context's  field. Each callback is removed from the list before being invoked with its associated argument.
 
 ## Parameters / Member Variables
-- : The memory context whose reset callbacks should be executed
-
+- `context`: The memory context whose reset callbacks should be executed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContextCallback](MemoryContextCallback.md) (callback structure type)

@@ -22,10 +22,9 @@ Key behaviors:
 - Implements IEEE-compliant special value arithmetic
 
 ## Parameters / Member Variables
-- : The dividend (numerator) - the Numeric value to be divided
-- : The divisor (denominator) - the Numeric value to divide by  
-- : Optional pointer to bool flag; if provided, set to true on error instead of throwing exception
-
+- `num1`: The dividend (numerator) - the Numeric value to be divided
+- `num2`: The divisor (denominator) - the Numeric value to divide by
+- `*have_error`: Optional pointer to bool flag; if provided, set to true on error instead of throwing exception
 ## Dependencies
 - Functions called/Symbols referenced:
   - NUMERIC_IS_SPECIAL, NUMERIC_IS_NAN, NUMERIC_IS_PINF, NUMERIC_IS_NINF

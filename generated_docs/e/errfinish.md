@@ -25,10 +25,9 @@ Key responsibilities include:
 - Implementing different termination strategies based on error severity
 
 ## Parameters / Member Variables
-- : Source file where the error occurred
-- : Line number in the source file where the error occurred  
-- : Function name where the error occurred
-
+- `*filename`: Source file where the error occurred
+- `lineno`: Line number in the source file where the error occurred
+- `*funcname`: Function name where the error occurred
 ## Dependencies
 - Functions called/Symbols referenced:
   - [set_stack_entry_location](../s/set_stack_entry_location.md)

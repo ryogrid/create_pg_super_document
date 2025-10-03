@@ -23,9 +23,8 @@ ATExecDropOf implements the  SQL command functionality. When a table is created 
 The function assumes that ownership of the table provides sufficient rights to perform this operation, without requiring additional type ownership checks or locks on the type itself.
 
 ## Parameters / Member Variables
-- : The relation (table) to detach from its type
-- : The lock mode to use (parameter present but not actively used in the function body)
-
+- `rel`: The relation (table) to detach from its type
+- `lockmode`: The lock mode to use (parameter present but not actively used in the function body)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [drop_parent_dependency](../d/drop_parent_dependency.md): Removes the dependency relationship between table and type

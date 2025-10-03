@@ -18,9 +18,8 @@ This function efficiently searches for a word in a StopList using binary search 
 The implementation uses the standard C library  function with PostgreSQL's  comparison function to maintain consistency with the sorting performed during list creation.
 
 ## Parameters / Member Variables
-- : Pointer to the StopList structure to search within
-- : The word to search for in the stop list
-
+- `*s`: Pointer to the StopList structure to search within
+- `*key`: The word to search for in the stop list
 ## Dependencies
 - Functions called/Symbols referenced:
   - bsearch (standard C library binary search function)

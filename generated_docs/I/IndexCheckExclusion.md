@@ -25,10 +25,9 @@ The validation process involves:
 5. Verifying no exclusion constraint conflicts exist using check_exclusion_constraint
 
 ## Parameters / Member Variables
-- : The base table relation being indexed
-- : The exclusion index relation to validate
-- : Index metadata containing expressions, predicates, and other index information
-
+- `heapRelation`: The base table relation being indexed
+- `indexRelation`: The exclusion index relation to validate
+- `*indexInfo`: Index metadata containing expressions, predicates, and other index information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CreateExecutorState](../C/CreateExecutorState.md)

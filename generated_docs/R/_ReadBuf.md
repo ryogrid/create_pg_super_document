@@ -18,10 +18,9 @@ _ReadBuf is a mandatory function in the custom archive format implementation tha
 This function is part of the custom archive format's function table and is called by the archiver infrastructure whenever raw data needs to be read from the archive file during restore operations.
 
 ## Parameters / Member Variables
-- : ArchiveHandle pointer containing the archive context and file handle (AH->FH)
-- : Destination buffer where the read data will be stored
-- : Number of bytes to read from the archive
-
+- `*AH`: ArchiveHandle pointer containing the archive context and file handle (AH->FH)
+- `*buf`: Destination buffer where the read data will be stored
+- `len`: Number of bytes to read from the archive
 ## Dependencies
 - Functions called/Symbols referenced:
   - fread (standard C library function)

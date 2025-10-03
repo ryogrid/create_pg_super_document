@@ -17,7 +17,6 @@ The `tdr_attach_shmem` function is responsible for obtaining access to a named D
 The function sets the global `tdr_state` pointer to reference the shared memory structure, making it available for subsequent operations within the test module.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

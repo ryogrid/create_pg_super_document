@@ -20,10 +20,9 @@ The function handles both strict and lax parsing modes, error reporting through 
 The parsing process involves lexical analysis, syntax parsing, semantic validation, and binary serialization. The function supports PostgreSQL's soft error handling mechanism, allowing callers to handle parsing errors gracefully without throwing exceptions.
 
 ## Parameters / Member Variables
-- : C-string containing the JSON path expression to be parsed
-- : Length of the input string in bytes
-- : Error reporting context for soft error handling (NULL for normal error throwing)
-
+- `*in`: C-string containing the JSON path expression to be parsed
+- `len`: Length of the input string in bytes
+- `*escontext`: Error reporting context for soft error handling (NULL for normal error throwing)
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Primary parser function that converts string to AST representation

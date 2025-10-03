@@ -22,8 +22,7 @@ The function first checks if heap fetching is active () and resets the table ind
 This function is part of PostgreSQL's parallel query execution infrastructure, allowing multiple worker processes to coordinate when rescanning an index.
 
 ## Parameters / Member Variables
-- : An IndexScanDesc structure representing the index scan descriptor that needs to be reinitialized for parallel processing
-
+- `scan`: An IndexScanDesc structure representing the index scan descriptor that needs to be reinitialized for parallel processing
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (macro for scan validation)

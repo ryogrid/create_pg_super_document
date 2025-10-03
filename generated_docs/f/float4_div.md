@@ -18,9 +18,8 @@ The  function divides two  (single-precision floating-point) values and returns 
 The function performs the division operation but includes checks for division by zero, overflow (when the result becomes infinite), and underflow (when the result becomes zero despite having a non-zero dividend). The function uses the  macro to optimize branch prediction for error conditions.
 
 ## Parameters / Member Variables
-- : The dividend (numerator) - the floating-point value to be divided
-- : The divisor (denominator) - the floating-point value to divide by
-
+- `val1`: The dividend (numerator) - the floating-point value to be divided
+- `val2`: The divisor (denominator) - the floating-point value to divide by
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Standard C library function to check for NaN (Not a Number)

@@ -22,9 +22,8 @@ The function handles two main scenarios:
 The function also implements deadlock detection by sending signals to conflicting backends after the deadlock timeout expires, requesting them to check for deadlocks. It carefully manages the logging_conflict parameter to ensure recovery conflicts are properly logged without duplicate entries.
 
 ## Parameters / Member Variables
-- : The lock tag identifying the specific lock that is causing the recovery conflict
-- : Boolean flag indicating whether the recovery conflict has not been logged yet (true means logging is needed)
-
+- `locktag`: The lock tag identifying the specific lock that is causing the recovery conflict
+- `logging_conflict`: Boolean flag indicating whether the recovery conflict has not been logged yet (true means logging is needed)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetStandbyLimitTime](../G/GetStandbyLimitTime.md)

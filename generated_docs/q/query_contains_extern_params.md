@@ -18,8 +18,7 @@ This function provides a simple boolean check to determine if a given query tree
 The function is useful for determining whether a query has external parameter dependencies before execution or for optimization decisions that depend on parameter presence.
 
 ## Parameters / Member Variables
-- : Query tree to be examined for external parameters
-
+- `*query`: Query tree to be examined for external parameters
 ## Dependencies
 - Functions called/Symbols referenced:
   - query_tree_walker

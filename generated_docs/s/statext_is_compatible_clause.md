@@ -17,12 +17,11 @@ statext_is_compatible_clause(PlannerInfo *root, Node *clause, Index relid,
 This function serves as the public interface for clause compatibility checking with extended statistics MCV lists. It handles RestrictInfo superstructure that wraps actual clauses and performs essential security checks. The function first handles special cases like bare BoolExpr AND clauses, then validates that clauses reference only the target relation and are not pseudoconstants. It delegates the core compatibility analysis to statext_is_compatible_clause_internal and performs additional permission checks when non-leakproof operators are involved to ensure users cannot access data they lack permissions for through statistics inference.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planning context and security information
-- : Clause to be inspected (in RestrictInfo form)
-- : Relation index that all variables in the clause must belong to
-- : Input/output bitmap collecting attribute numbers of all mentioned variables
-- : Input/output list collecting primitive subclauses within the clause tree
-
+- `*root`: PlannerInfo structure containing planning context and security information
+- `*clause`: Clause to be inspected (in RestrictInfo form)
+- `relid`: Relation index that all variables in the clause must belong to
+- `**attnums`: Input/output bitmap collecting attribute numbers of all mentioned variables
+- `**exprs`: Input/output list collecting primitive subclauses within the clause tree
 ## Dependencies
 - Functions called/Symbols referenced:
   - [is_andclause](../i/is_andclause.md)

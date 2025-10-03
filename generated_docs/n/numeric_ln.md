@@ -18,8 +18,7 @@ The  function calculates the natural logarithm of a numeric input value. It enfo
 A key optimization is the use of  to predict the decimal weight of the logarithm result before performing the actual calculation. This allows for intelligent scale selection that ensures adequate precision while avoiding unnecessary computational overhead. The function maintains at least  significant digits in the result.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function argument structure containing the input numeric value
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument structure containing the input numeric value
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_NUMERIC: Extract numeric argument from function args

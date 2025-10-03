@@ -26,16 +26,15 @@ The  function is a core component of PostgreSQL's portable snprintf implementati
 The function uses a 1024-byte buffer to handle the extreme range of double values (approximately 1E±308) and implements safeguards against buffer overflow by limiting precision requests.
 
 ## Parameters / Member Variables
-- : The double-precision floating-point number to format
-- : Format type character ('f', 'e', 'E', 'g', 'G')
-- : Flag to force display of positive sign
-- : Flag for left justification in field width
-- : Minimum field width for output
-- : Flag to pad with zeros instead of spaces
-- : Number of decimal places or significant digits
-- : Flag indicating if precision was explicitly specified
-- : Output target structure to receive formatted result
-
+- `value`: The double-precision floating-point number to format
+- `type`: Format type character ('f', 'e', 'E', 'g', 'G')
+- `forcesign`: Flag to force display of positive sign
+- `leftjust`: Flag for left justification in field width
+- `minlen`: Minimum field width for output
+- `zpad`: Flag to pad with zeros instead of spaces
+- `precision`: Number of decimal places or significant digits
+- `pointflag`: Flag indicating if precision was explicitly specified
+- `*target`: Output target structure to receive formatted result
 ## Dependencies
 - Functions called/Symbols referenced:
   - [adjust_sign](../a/adjust_sign.md)

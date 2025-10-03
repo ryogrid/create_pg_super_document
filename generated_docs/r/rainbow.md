@@ -25,13 +25,12 @@ When an exception color is specified, the function falls back to the "hard way" 
 The RAINBOW optimization significantly reduces the number of arcs in the NFA, which improves both compilation time and runtime matching performance.
 
 ## Parameters / Member Variables
-- : Pointer to the NFA structure where arcs will be created
-- : Pointer to the colormap structure containing color information
-- : The type of arc to create (e.g., PLAIN)
-- : Exception color to exclude, or COLORLESS if no exceptions
-- : Source state for the arcs
-- : Destination state for the arcs
-
+- `*nfa`: Pointer to the NFA structure where arcs will be created
+- `*cm`: Pointer to the colormap structure containing color information
+- `type`: The type of arc to create (e.g., PLAIN)
+- `but`: Exception color to exclude, or COLORLESS if no exceptions
+- `*from`: Source state for the arcs
+- `*to`: Destination state for the arcs
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Creates new arcs in the NFA

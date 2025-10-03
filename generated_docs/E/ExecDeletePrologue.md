@@ -25,13 +25,12 @@ ExecDeletePrologue is a preparatory function called before the actual deletion o
 The function is essential for maintaining trigger semantics and data consistency. By flushing pending inserts before trigger execution, it ensures that triggers operate on the complete current state of the database rather than a partial view missing recent batched insertions.
 
 ## Parameters / Member Variables
-- : ModifyTableContext containing execution state, EPQ state, and operation metadata
-- : Information about the target relation being modified
-- : ItemPointer identifying the specific tuple to delete
-- : HeapTuple containing the current version of the tuple being deleted
-- : Output parameter for EvalPlanQual processing results
-- : Output parameter for tuple modification result status
-
+- `*context`: ModifyTableContext containing execution state, EPQ state, and operation metadata
+- `*resultRelInfo`: Information about the target relation being modified
+- `tupleid`: ItemPointer identifying the specific tuple to delete
+- `oldtuple`: HeapTuple containing the current version of the tuple being deleted
+- `**epqreturnslot`: Output parameter for EvalPlanQual processing results
+- `*result`: Output parameter for tuple modification result status
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecPendingInserts](ExecPendingInserts.md) (flush accumulated batch inserts)

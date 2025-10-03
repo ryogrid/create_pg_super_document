@@ -18,8 +18,7 @@ DatumGetName is a conversion function that extracts a Name value from a Datum re
 This function is the inverse operation of NameGetDatum() and is essential for retrieving name values from Datum representations when working with system catalogs or processing identifier-related operations.
 
 ## Parameters / Member Variables
-- : A Datum containing a Name value that will be extracted and returned as a Name type
-
+- `X`: A Datum containing a Name value that will be extracted and returned as a Name type
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DatumGetPointer](DatumGetPointer.md)

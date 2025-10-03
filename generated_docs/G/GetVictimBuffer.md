@@ -18,9 +18,8 @@ GetVictimBuffer is a critical function in PostgreSQL's buffer management that im
 The function operates in a loop (with 'again' label) to handle cases where a selected victim buffer becomes unavailable due to concurrent access. It ensures WAL-before-data consistency by flushing dirty buffers before reuse and coordinates with PostgreSQL's I/O statistics tracking.
 
 ## Parameters / Member Variables
-- : BufferAccessStrategy that guides buffer selection policy (can be NULL for default strategy)
-- : IOContext that tracks the type of I/O operation for statistics and optimization
-
+- `strategy`: BufferAccessStrategy that guides buffer selection policy (can be NULL for default strategy)
+- `io_context`: IOContext that tracks the type of I/O operation for statistics and optimization
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReservePrivateRefCountEntry](../R/ReservePrivateRefCountEntry.md)

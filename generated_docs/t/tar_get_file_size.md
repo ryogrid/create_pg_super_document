@@ -18,9 +18,8 @@ This function is part of the TAR-based WAL writing method infrastructure in pg_b
 The function follows the WalWriteMethod interface pattern but provides no actual functionality, indicating that file size retrieval is not currently needed or supported in the TAR-based WAL method.
 
 ## Parameters / Member Variables
-- : Pointer to the WalWriteMethod structure representing the TAR-based WAL writing method
-- : The path name of the file whose size is to be retrieved (currently unused)
-
+- `*wwmethod`: Pointer to the WalWriteMethod structure representing the TAR-based WAL writing method
+- `*pathname`: The path name of the file whose size is to be retrieved (currently unused)
 ## Dependencies
 - Functions called/Symbols referenced:
   - clear_error

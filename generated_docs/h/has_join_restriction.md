@@ -18,9 +18,8 @@ The  function is a lightweight screening function that determines whether a give
 The function is designed to be conservative, occasionally returning true when restrictions don't actually exist, which is acceptable for its screening purpose. It performs several checks: lateral references (both outgoing and incoming), PlaceHolderVars that require multiple relations for evaluation, and special join constraints from outer joins or subqueries. This allows the optimizer to efficiently identify relations that need special join-order consideration without expensive clause analysis.
 
 ## Parameters / Member Variables
-- : The PlannerInfo structure containing global query planning information including placeholder_list and join_info_list  
-- : The RelOptInfo to be examined for join-order restrictions
-
+- `relids`: The PlannerInfo structure containing global query planning information including placeholder_list and join_info_list
+- `relids`: The RelOptInfo to be examined for join-order restrictions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bms_is_subset](../b/bms_is_subset.md)

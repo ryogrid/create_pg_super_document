@@ -18,10 +18,9 @@ This function performs the mathematical operation  efficiently by utilizing the 
 The use of precomputed inverse values avoids expensive division operations at runtime, making this function critical for performance in floating-point to string conversion routines. The  parameter selects the appropriate precomputed inverse from the lookup table.
 
 ## Parameters / Member Variables
-- : The 32-bit multiplicand
-- : Index into the power-of-5 inverse lookup table (selects 5^(-q))
-- : The power of 2 for division (divides by 2^j)
-
+- `m`: The 32-bit multiplicand
+- `q`: Index into the power-of-5 inverse lookup table (selects 5^(-q))
+- `j`: The power of 2 for division (divides by 2^j)
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Performs the actual multiplication and shift operation

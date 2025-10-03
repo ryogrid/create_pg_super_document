@@ -18,8 +18,7 @@ This function provides a memory size estimate for parallel scan operations on bl
 This function is typically called during the planning phase of parallel query execution to allocate appropriate shared memory space for the parallel scan descriptor.
 
 ## Parameters / Member Variables
-- : Relation for which to estimate parallel scan memory requirements (currently unused in the implementation)
-
+- `rel`: Relation for which to estimate parallel scan memory requirements (currently unused in the implementation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ParallelBlockTableScanDescData](../P/ParallelBlockTableScanDescData.md) (struct type)

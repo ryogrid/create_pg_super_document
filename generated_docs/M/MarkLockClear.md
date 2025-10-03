@@ -18,8 +18,7 @@ MarkLockClear is a simple utility function that sets the lockCleared flag to tru
 The function is crucial for PostgreSQL's catalog caching mechanism, as it provides a way to mark when it's safe to rely on cached catalog information. When a lock is marked as clear, the backend can confidently assume that its view of catalog data protected by this lock is consistent and current.
 
 ## Parameters / Member Variables
-- : Pointer to the LOCALLOCK structure representing the backend's local view of the acquired lock
-
+- `*locallock`: Pointer to the LOCALLOCK structure representing the backend's local view of the acquired lock
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LOCALLOCK](../L/LOCALLOCK.md) (structure type)

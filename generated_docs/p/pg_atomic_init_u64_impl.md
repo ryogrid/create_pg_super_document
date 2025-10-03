@@ -18,9 +18,8 @@ This function provides the implementation for initializing 64-bit atomic variabl
 The function includes compile-time assertions to ensure proper size alignment between the atomic structure's semaphore field and the system's spinlock type. It conditionally uses either semaphore-based or spinlock-based synchronization depending on whether the system has native spinlock support.
 
 ## Parameters / Member Variables
-- : Pointer to the volatile pg_atomic_uint64 structure to be initialized
-- : The initial 64-bit unsigned integer value to store in the atomic variable
-
+- `*ptr`: Pointer to the volatile pg_atomic_uint64 structure to be initialized
+- `val_`: The initial 64-bit unsigned integer value to store in the atomic variable
 ## Dependencies
 - Functions called/Symbols referenced:
   - StaticAssertDecl (compile-time assertion)

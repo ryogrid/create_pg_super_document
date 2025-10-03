@@ -19,7 +19,6 @@ The function ensures that statistics snapshots reflect the true cumulative value
 The snapshot mechanism is crucial for providing consistent views of statistics across different PostgreSQL processes and for tools that query pg_stat_* views.
 
 ## Parameters / Member Variables
-(No parameters - this is a void function)
 
 ## Dependencies
 - Functions called/Symbols referenced:

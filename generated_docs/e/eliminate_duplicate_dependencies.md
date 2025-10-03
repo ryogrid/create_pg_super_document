@@ -26,8 +26,7 @@ Key optimizations:
 This function is critical for maintaining performance in the dependency system, as expression analysis can generate many redundant references that would otherwise create unnecessary catalog entries.
 
 ## Parameters / Member Variables
-- : ObjectAddresses collection to be deduplicated (modified in-place)
-
+- `*addrs`: ObjectAddresses collection to be deduplicated (modified in-place)
 ## Dependencies
 - Functions called/Symbols referenced:
   - qsort (for sorting object addresses)

@@ -16,9 +16,8 @@ shared_record_typmod_registry_detach(dsm_segment *segment, Datum datum)
 This function serves as a callback hook that is invoked when a dynamic shared memory (DSM) segment is being detached or destroyed. It safely cleans up the current session's references to shared record typmod infrastructure by detaching from the shared hash tables and clearing the registry pointer. The function includes defensive programming by checking for NULL pointers before attempting to detach, ensuring it can handle cases where initialization might not have completed successfully. This cleanup is essential for both parallel query leaders and workers to properly release shared resources.
 
 ## Parameters / Member Variables
-- : Pointer to the DSM segment being detached (parameter required by DSM callback interface)
-- : Additional data passed to the callback (parameter required by DSM callback interface, not used in this function)
-
+- `*segment`: Pointer to the DSM segment being detached (parameter required by DSM callback interface)
+- `datum`: Additional data passed to the callback (parameter required by DSM callback interface, not used in this function)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dshash_detach](../d/dshash_detach.md) (detaches from dynamic shared hash tables)

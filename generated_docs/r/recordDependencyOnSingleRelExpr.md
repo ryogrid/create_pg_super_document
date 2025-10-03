@@ -28,13 +28,12 @@ Key features:
 - Automatically eliminates duplicate dependencies
 
 ## Parameters / Member Variables
-- : Pointer to ObjectAddress of the object that depends on the expression
-- : Node tree representing the expression to analyze
-- : OID of the single relation expected to be referenced in the expression
-- : Dependency type for external object references
-- : Dependency type for references to the specified relation and its columns
-- : If true, column dependencies are reversed (columns depend on table, not vice versa)
-
+- `*depender`: Pointer to ObjectAddress of the object that depends on the expression
+- `*expr`: Node tree representing the expression to analyze
+- `relId`: OID of the single relation expected to be referenced in the expression
+- `behavior`: Dependency type for external object references
+- `self_behavior`: Dependency type for references to the specified relation and its columns
+- `reverse_self`: If true, column dependencies are reversed (columns depend on table, not vice versa)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [new_object_addresses](../n/new_object_addresses.md)

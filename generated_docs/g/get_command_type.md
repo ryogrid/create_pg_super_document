@@ -18,8 +18,7 @@ This function is part of the test_ddl_deparse module and serves as a utility fun
 The function is designed to help developers and testers understand what type of DDL command has been collected during the deparsing process by providing a clear textual description rather than just the enum value.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function argument macro that contains a CollectedCommand pointer as the first argument
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument macro that contains a CollectedCommand pointer as the first argument
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_POINTER (to extract the CollectedCommand pointer)

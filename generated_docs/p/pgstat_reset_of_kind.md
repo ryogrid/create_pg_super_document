@@ -20,8 +20,7 @@ For statistics kinds with a fixed amount of entries (like shared statistics), it
 The function captures the current timestamp to mark when the reset operation occurred, ensuring that statistics consumers can understand the temporal context of the reset.
 
 ## Parameters / Member Variables
-- : A  enum value specifying which type of statistics to reset (e.g., database stats, table stats, function stats, etc.)
-
+- `kind`: A  enum value specifying which type of statistics to reset (e.g., database stats, table stats, function stats, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pgstat_get_kind_info](pgstat_get_kind_info.md)

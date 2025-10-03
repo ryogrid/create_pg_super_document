@@ -20,8 +20,7 @@ This function simply returns the parent pointer from the resource owner structur
 The function is primarily used by the lock manager and other subsystems that need to understand the resource ownership hierarchy for proper resource management and transfer operations.
 
 ## Parameters / Member Variables
-- : The ResourceOwner whose parent is to be retrieved
-
+- `owner`: The ResourceOwner whose parent is to be retrieved
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ResourceOwner](ResourceOwner.md) (structure type only)

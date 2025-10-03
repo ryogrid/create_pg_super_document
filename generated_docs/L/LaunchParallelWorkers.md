@@ -20,8 +20,7 @@ The function handles registration failures gracefully by continuing to launch as
 Each worker is configured to execute the ParallelWorkerMain function with the DSM segment handle as its argument, allowing workers to attach to the shared memory and access all the serialized state information prepared by InitializeParallelDSM.
 
 ## Parameters / Member Variables
-- : The parallel context containing the DSM segment and worker configuration that will be used to launch the background processes
-
+- `*pcxt`: The parallel context containing the DSM segment and worker configuration that will be used to launch the background processes
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BecomeLockGroupLeader](../B/BecomeLockGroupLeader.md) (establishes lock group coordination)

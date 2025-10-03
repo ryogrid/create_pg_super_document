@@ -22,11 +22,10 @@ LockAcquire serves as the main public API for lock acquisition in PostgreSQL's l
 The function can return different results indicating whether the lock was freshly acquired, already held by the current transaction, or unavailable. This information is crucial for optimizing lock management and understanding transaction behavior.
 
 ## Parameters / Member Variables
-- : Pointer to LOCKTAG structure that uniquely identifies the lockable object (relation, tuple, page, etc.)
-- : The specific lock mode to acquire (e.g., AccessShareLock, RowExclusiveLock, AccessExclusiveLock)
-- : If true, acquire lock for the entire session rather than just the current transaction
-- : If true, return immediately if lock cannot be acquired without waiting
-
+- `*locktag`: Pointer to LOCKTAG structure that uniquely identifies the lockable object (relation, tuple, page, etc.)
+- `lockmode`: The specific lock mode to acquire (e.g., AccessShareLock, RowExclusiveLock, AccessExclusiveLock)
+- `sessionLock`: If true, acquire lock for the entire session rather than just the current transaction
+- `dontWait`: If true, return immediately if lock cannot be acquired without waiting
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LockAcquireExtended](LockAcquireExtended.md) (the actual implementation with extended parameters)

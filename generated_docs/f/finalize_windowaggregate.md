@@ -19,12 +19,11 @@ finalize_windowaggregate(WindowAggState *winstate,
 This function is parallel to  in nodeAgg.c and handles the final step of window aggregate computation. It determines whether the aggregate has a final function and either calls that function with the current transition value or returns the transition value directly as the result. When a final function is present, it handles strict function semantics by checking for NULL arguments and avoiding calls to strict functions with NULL inputs. The function carefully manages memory contexts and uses  to ensure result values are properly formatted and read-only when needed.
 
 ## Parameters / Member Variables
-- : The overall window aggregate execution state containing memory contexts and current aggregate context
-- : Per-function state containing collation information needed for the final function call
-- : Per-aggregate state containing the final function info, transition value, and type information
-- : Output parameter to store the final computed result value
-- : Output parameter to indicate whether the final result is NULL
-
+- `*winstate`: The overall window aggregate execution state containing memory contexts and current aggregate context
+- `perfuncstate`: Per-function state containing collation information needed for the final function call
+- `peraggstate`: Per-aggregate state containing the final function info, transition value, and type information
+- `*result`: Output parameter to store the final computed result value
+- `*isnull`: Output parameter to indicate whether the final result is NULL
 ## Dependencies
 - Functions called/Symbols referenced:
   - InitFunctionCallInfoData

@@ -18,10 +18,9 @@ This function constructs an interval structure from decomposed time components s
 The function performs overflow checking on the month calculation to prevent integer overflow when combining years and months. The time calculation aggregates all time components (days, hours, minutes, seconds) into a single microsecond value, using nested multiplication with 64-bit constants to avoid intermediate overflow issues.
 
 ## Parameters / Member Variables
-- : Pointer to tm structure containing the source time components (tm_year, tm_mon, tm_mday, tm_hour, tm_min, tm_sec)
-- : Fractional seconds value of type fsec_t to be included in the interval
-- : Pointer to interval structure that will receive the computed month and time values
-
+- `*tm`: Pointer to tm structure containing the source time components (tm_year, tm_mon, tm_mday, tm_hour, tm_min, tm_sec)
+- `fsec`: Fractional seconds value of type fsec_t to be included in the interval
+- `*span`: Pointer to interval structure that will receive the computed month and time values
 ## Dependencies
 - Functions called/Symbols referenced:
   - fsec_t (fractional seconds type)

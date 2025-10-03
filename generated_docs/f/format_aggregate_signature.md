@@ -18,10 +18,9 @@ The  function creates a formatted string representation of an aggregate function
 The function formats the signature as  or  for aggregates that accept any argument type. Argument type names are qualified if needed to avoid ambiguity. The aggregate name itself is never schema-qualified in the output.
 
 ## Parameters / Member Variables
-- : AggInfo structure containing aggregate function metadata including name and argument types
-- : Archive structure used for type name formatting context
-- : Boolean flag controlling whether to apply identifier quoting to the aggregate name
-
+- `*agginfo`: AggInfo structure containing aggregate function metadata including name and argument types
+- `*fout`: Archive structure used for type name formatting context
+- `honor_quotes`: Boolean flag controlling whether to apply identifier quoting to the aggregate name
 ## Dependencies
 - Functions called/Symbols referenced:
   - [initPQExpBuffer](../i/initPQExpBuffer.md)

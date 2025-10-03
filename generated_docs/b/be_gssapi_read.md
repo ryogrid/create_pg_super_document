@@ -25,10 +25,9 @@ The function uses a two-stage buffering approach: it first collects complete enc
 For non-blocking sockets, the function may return with  if insufficient data is available to complete a packet read or decrypt operation.
 
 ## Parameters / Member Variables
-- : Pointer to Port structure containing the connection state and GSSAPI context
-- : Buffer where decrypted data will be stored
-- : Maximum number of bytes to read into the buffer
-
+- `*port`: Pointer to Port structure containing the connection state and GSSAPI context
+- `*ptr`: Buffer where decrypted data will be stored
+- `len`: Maximum number of bytes to read into the buffer
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Reads raw encrypted data from the underlying socket

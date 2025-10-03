@@ -20,8 +20,7 @@ For ASCII characters (a-z), it performs direct conversion by subtracting the off
 The function includes a note that the entire approach is somewhat limited for multibyte character sets, as it operates on individual bytes rather than complete multibyte sequences.
 
 ## Parameters / Member Variables
-- : The unsigned character to convert to uppercase
-
+- `ch`: The unsigned character to convert to uppercase
 ## Dependencies
 - Functions called/Symbols referenced:
   - IS_HIGHBIT_SET (macro to check if character has high bit set)

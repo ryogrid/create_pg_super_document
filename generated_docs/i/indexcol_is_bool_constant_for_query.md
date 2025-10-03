@@ -20,10 +20,9 @@ This function addresses a specific optimization scenario for boolean index colum
 The function specifically handles this case by checking if a boolean index column matches any boolean restriction clauses, allowing such columns to be recognized as effectively constant for query optimization purposes, just as non-boolean columns with explicit "col = constant" restrictions are handled.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global query information
-- : IndexOptInfo structure representing the index being analyzed
-- : Column number within the index to check for boolean constant constraints
-
+- `*root`: PlannerInfo structure containing global query information
+- `*index`: IndexOptInfo structure representing the index being analyzed
+- `indexcol`: Column number within the index to check for boolean constant constraints
 ## Dependencies
 - Functions called/Symbols referenced:
   - [IsBooleanOpfamily](../I/IsBooleanOpfamily.md)

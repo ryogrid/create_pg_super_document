@@ -24,10 +24,9 @@ The function performs comprehensive validation including:
 - Reporting detailed notices about the test parameters and results
 
 ## Parameters / Member Variables
-- : Block number for the second TID to be tested
-- : Offset number for the second TID to be tested  
-- : Maximum allowed size in bytes for the compressed GinPostingList (used for overflow testing)
-
+- `blk`: Block number for the second TID to be tested
+- `off`: Offset number for the second TID to be tested
+- `maxsize`: Maximum allowed size in bytes for the compressed GinPostingList (used for overflow testing)
 ## Dependencies
 - Functions called/Symbols referenced:
   - elog (for NOTICE and ERROR reporting)

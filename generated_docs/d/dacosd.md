@@ -16,8 +16,7 @@ dacosd(PG_FUNCTION_ARGS)
 The  function computes the inverse cosine of a floating-point argument and returns the result in degrees rather than radians. It implements the principal branch of the arccosine function, mapping inputs in the range [-1, 1] to outputs in the range [0, 180] degrees. The function uses PostgreSQL's specialized degree-based trigonometric helper functions ( and ) to ensure accurate results, particularly for common angle values. It includes comprehensive error handling for invalid inputs and follows POSIX specifications for NaN handling.
 
 ## Parameters / Member Variables
-- : A float8 (double precision) input value in the range [-1, 1] representing the cosine value for which to find the angle
-
+- `PG_FUNCTION_ARGS`: A float8 (double precision) input value in the range [-1, 1] representing the cosine value for which to find the angle
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT8 (to extract the float8 argument)

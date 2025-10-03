@@ -24,9 +24,8 @@ This bounded approach makes it particularly useful in security-sensitive context
 Located in , this implementation is conditionally compiled and used only on systems that lack native strnlen support, as determined by the  configuration macro in .
 
 ## Parameters / Member Variables
-- : Pointer to the null-terminated string whose length is to be calculated
-- : Maximum number of characters to examine, providing an upper bound for safety
-
+- `*str`: Pointer to the null-terminated string whose length is to be calculated
+- `maxlen`: Maximum number of characters to examine, providing an upper bound for safety
 ## Dependencies
 - Functions called/Symbols referenced:
   - (None - uses only basic pointer arithmetic and dereferencing)

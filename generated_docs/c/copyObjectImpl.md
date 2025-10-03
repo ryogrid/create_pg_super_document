@@ -18,8 +18,7 @@ The  function serves as the central dispatcher for PostgreSQL's node copying inf
 The function includes stack depth checking to prevent stack overflow from overly complex expression trees, which is crucial for handling deeply nested parse trees that could potentially exhaust stack space during recursive copying operations.
 
 ## Parameters / Member Variables
-- : Pointer to the source object to be copied (can be any Node type or list)
-
+- `*from`: Pointer to the source object to be copied (can be any Node type or list)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_stack_depth](check_stack_depth.md) (prevents stack overflow during deep recursion)

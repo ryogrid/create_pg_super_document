@@ -18,8 +18,7 @@ CacheInvalidateCatalog is used to invalidate all cached entries for an entire sy
 The function determines whether the catalog is shared across databases or specific to the current database, then registers the appropriate invalidation message. For shared catalogs (like pg_database, pg_authid), the invalidation applies across all databases. For regular catalogs, it only applies to the current database.
 
 ## Parameters / Member Variables
-- : The OID of the system catalog relation to invalidate
-
+- `catalogId`: The OID of the system catalog relation to invalidate
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PrepareInvalidationState](../P/PrepareInvalidationState.md)

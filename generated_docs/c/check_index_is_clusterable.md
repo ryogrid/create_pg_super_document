@@ -23,10 +23,9 @@ The check_index_is_clusterable function performs comprehensive validation to ens
 The function is designed to be defensive, preventing clustering operations that could result in data corruption, incomplete results, or system inconsistencies. It acquires the specified lock on the index to prevent concurrent modifications during the validation process.
 
 ## Parameters / Member Variables
-- : Relation structure representing the table to be clustered
-- : OID of the index to validate for clustering
-- : Type of lock to acquire on the index (typically AccessExclusiveLock)
-
+- `OldHeap`: Relation structure representing the table to be clustered
+- `indexOid`: OID of the index to validate for clustering
+- `lockmode`: Type of lock to acquire on the index (typically AccessExclusiveLock)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [index_open](../i/index_open.md)

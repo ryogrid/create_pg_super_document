@@ -23,8 +23,7 @@ The  function performs cleanup operations for a tuplestore by:
 This function should be called when the tuplestore is no longer needed to prevent memory leaks and ensure proper resource cleanup.
 
 ## Parameters / Member Variables
-- : Pointer to the  structure to be cleaned up and freed
-
+- `*state`: Pointer to the  structure to be cleaned up and freed
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - closes the temporary file if one exists

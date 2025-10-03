@@ -22,8 +22,7 @@ The function performs I/O operations when needed, including flushing outbound da
 For COPY operations, the function delegates to getCopyResult to handle COPY_IN, COPY_OUT, and COPY_BOTH states. The function also supports chunked tuple processing (PGRES_TUPLES_CHUNK) for large result sets.
 
 ## Parameters / Member Variables
-- : Pointer to the PGconn structure representing the database connection from which to retrieve results
-
+- `*conn`: Pointer to the PGconn structure representing the database connection from which to retrieve results
 ## Dependencies
 - Functions called/Symbols referenced:
   - [parseInput](../p/parseInput.md)

@@ -22,9 +22,8 @@ The function performs the following operations:
 4. Closes the catalog and releases the lock
 
 ## Parameters / Member Variables
-- : The OID of the shared database object whose security labels are to be deleted
-- : The OID of the system catalog class that the object belongs to (e.g., AuthIdRelationId for roles)
-
+- `objectId`: The OID of the shared database object whose security labels are to be deleted
+- `classId`: The OID of the system catalog class that the object belongs to (e.g., AuthIdRelationId for roles)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [systable_beginscan](../s/systable_beginscan.md)

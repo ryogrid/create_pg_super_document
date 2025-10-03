@@ -15,7 +15,6 @@ double anl_random_fract(void)
 This function serves as a simplified wrapper around the sampling random number generation system specifically for ANALYZE operations. It maintains a global random state (oldrs) that is initialized lazily on first use. The initialization uses a seed derived from PostgreSQL's global PRNG state, ensuring different random sequences across different database sessions or restarts. Once initialized, it delegates to sampler_random_fract() to generate uniformly distributed random values in the range (0, 1).
 
 ## Parameters / Member Variables
-This function takes no parameters and manages its own internal state.
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -22,7 +22,6 @@ XLogBeginInsert is the first function that must be called when constructing a ne
 The function sets up the global state for WAL record construction by resetting counters and ensuring a clean starting state. It uses several assertions to verify that the system is in the expected state before beginning WAL record construction.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -24,12 +24,11 @@ Key behaviors include:
 - **Client encoding handling**: Automatically sets client_encoding to "auto" for terminal connections without PGCLIENTENCODING
 
 ## Parameters / Member Variables
-- : Controls whether to reuse parameters from previous connection (TRI_YES, TRI_NO, or TRI_DEFAULT)
-- : Target database name or connection string/URI
-- : Username for authentication (can be NULL to reuse previous or use defaults)
-- : Database server hostname (can be NULL to reuse previous or use defaults) 
-- : Database server port (can be NULL to reuse previous or use defaults)
-
+- `reuse_previous_specification`: Controls whether to reuse parameters from previous connection (TRI_YES, TRI_NO, or TRI_DEFAULT)
+- `*dbname`: Target database name or connection string/URI
+- `*user`: Username for authentication (can be NULL to reuse previous or use defaults)
+- `*host`: Database server hostname (can be NULL to reuse previous or use defaults)
+- `*port`: Database server port (can be NULL to reuse previous or use defaults)
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Identifies if dbname is a connection string

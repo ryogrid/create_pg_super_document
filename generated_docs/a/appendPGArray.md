@@ -23,9 +23,8 @@ The function determines whether quoting is needed based on:
 When quoting is required, it properly escapes internal quotes and backslashes. The caller is responsible for providing the opening '{' and closing '}' of the array.
 
 ## Parameters / Member Variables
-- : PQExpBuffer to append the formatted array element to
-- : String value to add as an array element
-
+- `buffer`: PQExpBuffer to append the formatted array element to
+- `*value`: String value to add as an array element
 ## Dependencies
 - Functions called/Symbols referenced:
   - [appendPQExpBufferChar](appendPQExpBufferChar.md)

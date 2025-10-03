@@ -23,9 +23,8 @@ The function resolves this cycle by removing the implicit dependency from the ru
 The function assumes that when this repair is applied, there are no other objects involved in the loop - it's specifically designed for simple two-object cycles between a view and its rule. The dump flags on both objects are already correctly set when this function is called, so no additional flag manipulation is needed.
 
 ## Parameters / Member Variables
-- : The DumpableObject representing the view or materialized view that's part of the circular dependency
-- : The DumpableObject representing the ON SELECT rule that depends on the view
-
+- `*viewobj`: The DumpableObject representing the view or materialized view that's part of the circular dependency
+- `*ruleobj`: The DumpableObject representing the ON SELECT rule that depends on the view
 ## Dependencies
 - Functions called/Symbols referenced:
   - [removeObjectDependency](removeObjectDependency.md)

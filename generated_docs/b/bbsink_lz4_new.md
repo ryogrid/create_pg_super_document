@@ -18,9 +18,8 @@ This function creates and initializes a new LZ4 compression sink for base backup
 The function includes compile-time conditional compilation - if PostgreSQL is built without LZ4 support ( not defined), it will report an error and return NULL.
 
 ## Parameters / Member Variables
-- : The next sink in the backup pipeline chain
-- : Compression specification containing the compression level and other settings
-
+- `*next`: The next sink in the backup pipeline chain
+- `*compress`: Compression specification containing the compression level and other settings
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport (error reporting)

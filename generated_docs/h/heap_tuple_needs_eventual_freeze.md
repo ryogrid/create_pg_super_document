@@ -23,8 +23,7 @@ The function checks:
 A tuple that passes all these checks is considered to not need eventual freezing, meaning it either already contains frozen values or special non-normal transaction IDs.
 
 ## Parameters / Member Variables
-- : Pointer to the tuple header to examine for freezing requirements
-
+- `tuple`: Pointer to the tuple header to examine for freezing requirements
 ## Dependencies
 - Functions called/Symbols referenced:
   - HeapTupleHeaderGetXmin

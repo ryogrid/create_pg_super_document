@@ -34,11 +34,10 @@ Result structure:
 The function is particularly important for headline generation and advanced text processing where knowing exactly where matches occur is essential.
 
 ## Parameters / Member Variables
-- : Pointer to the first QueryItem in the tsquery expression tree
-- : Opaque argument passed through to the TSExecuteCallback function
-- : Execution control flags (currently only TS_EXEC_EMPTY is supported)
-- : Callback function that must provide position data for lexeme matches
-
+- `*curitem`: Pointer to the first QueryItem in the tsquery expression tree
+- `*arg`: Opaque argument passed through to the TSExecuteCallback function
+- `flags`: Execution control flags (currently only TS_EXEC_EMPTY is supported)
+- `chkcond`: Callback function that must provide position data for lexeme matches
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TS_execute_locations_recurse](TS_execute_locations_recurse.md)

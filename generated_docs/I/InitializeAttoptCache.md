@@ -17,7 +17,6 @@ InitializeAttoptCache performs the one-time initialization of PostgreSQL's attri
 The initialization process ensures the CacheMemoryContext is available for storing cached data and registers an invalidation callback (InvalidateAttoptCacheCallback) with the system catalog cache manager. This callback will be triggered whenever the pg_attribute catalog (ATTNUM cache) is modified, ensuring cache consistency.
 
 ## Parameters / Member Variables
-None - this is a void function with no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

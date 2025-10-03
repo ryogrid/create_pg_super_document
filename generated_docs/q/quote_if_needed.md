@@ -20,13 +20,12 @@ The quote_if_needed function analyzes a source string to determine if it require
 The function implements proper escaping by doubling quote and escape characters within the string and wrapping the entire result in quote characters. This ensures the resulting string can be safely parsed by PostgreSQL's string parsing functions while preserving the original content.
 
 ## Parameters / Member Variables
-- : Input string to analyze and potentially quote (must not be NULL)
-- : Set of characters whose presence requires the string to be quoted
-- : Quote character to use for wrapping and doubling (must not be '\0')
-- : Escape character to be doubled within the string
-- : If true, quote the output even if it doesn't need it based on content analysis
-- : Active character-set encoding for proper multi-byte character handling
-
+- `*source`: Input string to analyze and potentially quote (must not be NULL)
+- `*entails_quote`: Set of characters whose presence requires the string to be quoted
+- `quote`: Quote character to use for wrapping and doubling (must not be '\0')
+- `escape`: Escape character to be doubled within the string
+- `force_quote`: If true, quote the output even if it doesn't need it based on content analysis
+- `encoding`: Active character-set encoding for proper multi-byte character handling
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_malloc](../p/pg_malloc.md)

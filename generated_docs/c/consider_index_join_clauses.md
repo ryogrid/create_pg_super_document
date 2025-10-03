@@ -30,14 +30,13 @@ The function operates under the assumption that it's always better to apply a cl
 The function processes both simple join clauses (jclauseset) and EquivalenceClass-derived join clauses (eclauseset) for each index column, delegating the actual path generation to consider_index_join_outer_rels.
 
 ## Parameters / Member Variables
-- : PlannerInfo containing query planning context
-- : RelOptInfo for the index's heap relation  
-- : IndexOptInfo for the index to generate paths for
-- : IndexClauseSet containing indexable restriction clauses
-- : IndexClauseSet containing indexable simple join clauses
-- : IndexClauseSet containing indexable clauses from EquivalenceClasses
-- : Output list to add bitmap index paths to for later processing
-
+- `*root`: PlannerInfo containing query planning context
+- `*rel`: RelOptInfo for the index's heap relation
+- `*index`: IndexOptInfo for the index to generate paths for
+- `*rclauseset`: IndexClauseSet containing indexable restriction clauses
+- `*jclauseset`: IndexClauseSet containing indexable simple join clauses
+- `*eclauseset`: IndexClauseSet containing indexable clauses from EquivalenceClasses
+- `**bitindexpaths`: Output list to add bitmap index paths to for later processing
 ## Dependencies
 - Functions called/Symbols referenced:
   - [consider_index_join_outer_rels](consider_index_join_outer_rels.md)

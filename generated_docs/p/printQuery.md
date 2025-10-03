@@ -19,12 +19,11 @@ This function serves as the bridge between PostgreSQL query result data (PGresul
 The function iterates through all rows and columns of the result set, applying locale-specific numeric formatting for right-aligned numeric columns when enabled. It also supports column content translation and custom NULL value representation. After populating the table content structure, it calls printTable to handle the actual output formatting and cleanup.
 
 ## Parameters / Member Variables
-- : Pointer to PGresult structure containing the query result data with rows, columns, and metadata
-- : Pointer to printQueryOpt structure containing formatting options, translation settings, null print string, title, and footers
-- : File pointer for the primary output destination (stdout, file, or pager pipe)  
-- : Boolean indicating whether the caller has already set up fout as a pager pipe
-- : Optional file pointer for simultaneous logging output (used with --log-file option)
-
+- `*result`: Pointer to PGresult structure containing the query result data with rows, columns, and metadata
+- `*opt`: Pointer to printQueryOpt structure containing formatting options, translation settings, null print string, title, and footers
+- `*fout`: File pointer for the primary output destination (stdout, file, or pager pipe)
+- `is_pager`: Boolean indicating whether the caller has already set up fout as a pager pipe
+- `*flog`: Optional file pointer for simultaneous logging output (used with --log-file option)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [printTableInit](printTableInit.md) (initialize table content structure)

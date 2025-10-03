@@ -19,10 +19,9 @@ The  function provides a unified interface for converting textual object descrip
 For functions, it constructs queries using regproc (for simple function names) or regprocedure (for function signatures with parentheses) to handle overloading. For views and relations, it uses regclass conversion. The function integrates with psql's ECHO_HIDDEN system to optionally display the lookup queries and handles various error conditions including non-existent objects, multiple matches, and syntax errors in object descriptions.
 
 ## Parameters / Member Variables
-- : EditableObjectType enum specifying the type of object to lookup (EditableFunction, EditableView)
-- : String description of the object (e.g., function name with or without signature, view name)
-- : Output parameter to store the retrieved OID upon successful lookup
-
+- `obj_type`: EditableObjectType enum specifying the type of object to lookup (EditableFunction, EditableView)
+- `*desc`: String description of the object (e.g., function name with or without signature, view name)
+- `*obj_oid`: Output parameter to store the retrieved OID upon successful lookup
 ## Dependencies
 - Functions called/Symbols referenced:
   - EditableObjectType (enum defining supported object types for editing)

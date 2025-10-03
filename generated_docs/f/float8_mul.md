@@ -18,9 +18,8 @@ The  function multiplies two  (double-precision floating-point) values and retur
 The function uses the  macro to optimize branch prediction, as overflow and underflow conditions are expected to be rare in normal operation. This function is widely used throughout PostgreSQL for geometric calculations, financial operations, and general floating-point arithmetic.
 
 ## Parameters / Member Variables
-- : The first double-precision floating-point operand (multiplicand)
-- : The second double-precision floating-point operand (multiplier)
-
+- `val1`: The first double-precision floating-point operand (multiplicand)
+- `val2`: The second double-precision floating-point operand (multiplier)
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Standard C library function to check for infinity

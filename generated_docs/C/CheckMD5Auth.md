@@ -16,10 +16,9 @@ CheckMD5Auth(Port *port, char *shadow_pass, const char **logdetail)
 CheckMD5Auth performs MD5-based challenge-response authentication by generating a cryptographically secure 4-byte random salt, sending it to the client along with an MD5 authentication request, and then verifying the client's hashed response against the stored password hash. This method prevents plaintext passwords from being transmitted over the network while providing authentication verification. The function handles the complete MD5 authentication flow including salt generation, client communication, and password verification.
 
 ## Parameters / Member Variables
-- : Connection port structure containing client connection information and user details
-- : Pre-retrieved password hash for the user from the database
-- : Output parameter for detailed error messages that can be included in authentication logs
-
+- `*port`: Connection port structure containing client connection information and user details
+- `*shadow_pass`: Pre-retrieved password hash for the user from the database
+- `**logdetail`: Output parameter for detailed error messages that can be included in authentication logs
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_strong_random](../p/pg_strong_random.md) (generates cryptographically secure random salt)

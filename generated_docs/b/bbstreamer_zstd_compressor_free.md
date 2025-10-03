@@ -18,8 +18,7 @@ This function performs cleanup and memory deallocation for a zstd compressor str
 The function is responsible for releasing the ZSTD compression context that was allocated during initialization, as well as any dynamically allocated buffer space used for compression operations.
 
 ## Parameters / Member Variables
-- : The bbstreamer instance to free (cast to bbstreamer_zstd_frame internally)
-
+- `*streamer`: The bbstreamer instance to free (cast to bbstreamer_zstd_frame internally)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bbstreamer_free](bbstreamer_free.md)

@@ -28,7 +28,6 @@ This function provides cleanup functionality for exported snapshots, ensuring pr
 This function is essential for maintaining proper transaction boundaries and preventing resource leaks when exported snapshots are no longer needed.
 
 ## Parameters / Member Variables
-This function takes no parameters and operates on global state variables related to snapshot export.
 
 ## Dependencies
 - Functions called/Symbols referenced:

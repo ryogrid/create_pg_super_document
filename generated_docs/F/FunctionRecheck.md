@@ -22,9 +22,8 @@ FunctionRecheck is a minimal implementation that always returns true, indicating
 The function serves as a placeholder in the scan method interface, ensuring compatibility with PostgreSQL's executor framework while acknowledging that function scan tuples don't require revalidation.
 
 ## Parameters / Member Variables
-- : FunctionScanState containing the function scan state (unused in this implementation)
-- : TupleTableSlot containing the tuple to recheck (unused in this implementation)
-
+- `*node`: FunctionScanState containing the function scan state (unused in this implementation)
+- `*slot`: TupleTableSlot containing the tuple to recheck (unused in this implementation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (trivial implementation)

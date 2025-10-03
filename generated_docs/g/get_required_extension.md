@@ -21,13 +21,12 @@ get_required_extension(char *reqExtensionName,
 This function handles the resolution of extension dependencies during extension installation. It first attempts to find the required extension by name using get_extension_oid(). If the extension doesn't exist and CASCADE mode is enabled, it automatically installs the required extension by calling CreateExtensionInternal() recursively. The function implements important safety measures including cyclic dependency detection by checking the parents list, and provides helpful error messages with hints when required extensions are missing. It propagates the SCHEMA and CASCADE options to dependent extensions while maintaining proper parent tracking for cycle detection.
 
 ## Parameters / Member Variables
-- : Name of the required extension to find or install
-- : Name of the extension that requires this dependency (for error reporting)
-- : Original schema name to propagate to dependent extensions
-- : Whether to automatically install missing required extensions
-- : List of extension names in current installation chain (for cycle detection)
-- : Flag indicating if this is a CREATE operation (affects error hint messages)
-
+- `*reqExtensionName`: Name of the required extension to find or install
+- `*extensionName`: Name of the extension that requires this dependency (for error reporting)
+- `*origSchemaName`: Original schema name to propagate to dependent extensions
+- `cascade`: Whether to automatically install missing required extensions
+- `*parents`: List of extension names in current installation chain (for cycle detection)
+- `is_create`: Flag indicating if this is a CREATE operation (affects error hint messages)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_extension_oid](get_extension_oid.md)

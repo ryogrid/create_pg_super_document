@@ -20,8 +20,7 @@ When single-row mode is enabled, the client must call PQgetResult() repeatedly t
 The function validates that it's safe to change the result mode using canChangeResultMode() before making the switch. It can only be called after a query has been sent but before any results have been retrieved.
 
 ## Parameters / Member Variables
-- : The PostgreSQL connection handle
-
+- `*conn`: The PostgreSQL connection handle
 ## Dependencies
 - Functions called/Symbols referenced:
   - [canChangeResultMode](../c/canChangeResultMode.md)

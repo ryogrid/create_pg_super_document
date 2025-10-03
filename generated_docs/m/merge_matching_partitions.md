@@ -25,12 +25,11 @@ This function handles the complex logic of merging partitions from outer and inn
 The function maintains the merged state in PartitionMap structures and handles re-mapping operations necessary for list partitioning to preserve canonical ordering.
 
 ## Parameters / Member Variables
-- : PartitionMap structure tracking merge state for outer relation partitions
-- : PartitionMap structure tracking merge state for inner relation partitions  
-- : Index of the partition in the outer relation to merge
-- : Index of the partition in the inner relation to merge
-- : Pointer to the next available merged partition index (incremented when creating new merged partitions)
-
+- `*outer_map`: PartitionMap structure tracking merge state for outer relation partitions
+- `*inner_map`: PartitionMap structure tracking merge state for inner relation partitions
+- `outer_index`: Index of the partition in the outer relation to merge
+- `inner_index`: Index of the partition in the inner relation to merge
+- `*next_index`: Pointer to the next available merged partition index (incremented when creating new merged partitions)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PartitionMap](../P/PartitionMap.md) (data structure)

@@ -27,8 +27,7 @@ This function processes STREAM START messages during logical replication, which 
 The function coordinates between the leader apply worker and parallel apply workers to optimize transaction processing performance.
 
 ## Parameters / Member Variables
-- : StringInfo containing the STREAM START message data to be processed
-
+- `s`: StringInfo containing the STREAM START message data to be processed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [logicalrep_read_stream_start](../l/logicalrep_read_stream_start.md)

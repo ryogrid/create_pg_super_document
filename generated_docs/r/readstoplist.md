@@ -18,10 +18,9 @@ This function loads stop words from a specified file into a StopList structure. 
 The implementation uses PostgreSQL's tsearch_readline facility to read the file line by line, trims trailing whitespace from each word, skips empty lines, and dynamically grows the storage array as needed. After loading all words, the array is sorted using qsort to enable binary search operations for efficient lookups.
 
 ## Parameters / Member Variables
-- : Base filename of the stop-word file (extension ".stop" will be appended automatically)
-- : Pointer to StopList structure to be populated with stop words
-- : Optional function pointer for word preprocessing; if NULL, words are stored as-is
-
+- `*fname`: Base filename of the stop-word file (extension ".stop" will be appended automatically)
+- `*s`: Pointer to StopList structure to be populated with stop words
+- `**wordop`: Optional function pointer for word preprocessing; if NULL, words are stored as-is
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_tsearch_config_filename](../g/get_tsearch_config_filename.md) (constructs full file path)

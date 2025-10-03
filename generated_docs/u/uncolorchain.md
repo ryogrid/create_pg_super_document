@@ -21,9 +21,8 @@ The function handles two main cases: when the arc is at the head of the chain (n
 This operation is crucial during color optimization phases where arcs may need to be moved between colors or removed entirely during NFA transformations.
 
 ## Parameters / Member Variables
-- : Pointer to the colormap structure containing color descriptors
-- : Pointer to the arc to be removed from the color chain
-
+- `*cm`: Pointer to the colormap structure containing color descriptors
+- `*a`: Pointer to the arc to be removed from the color chain
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Structure representing color descriptor information

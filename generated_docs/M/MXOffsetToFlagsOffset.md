@@ -21,8 +21,7 @@ The calculation involves:
 3. Computing the byte offset by multiplying the group position by MULTIXACT_MEMBERGROUP_SIZE
 
 ## Parameters / Member Variables
-- : A MultiXactOffset value that identifies a specific member within the MultiXact system
-
+- `offset`: A MultiXactOffset value that identifies a specific member within the MultiXact system
 ## Dependencies
 - Functions called/Symbols referenced:
   - MultiXactOffset (type)

@@ -18,8 +18,7 @@ This is a PostgreSQL set-returning function (SRF) that implements the ts_stat(qu
 The function follows PostgreSQL's SRF pattern with initialization on the first call and iteration on subsequent calls. It connects to SPI to execute the provided query, processes all tsvector results through statistical accumulation, and then iterates through the resulting tree structure to return one row per lexeme.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function arguments macro, containing the SQL query as a text parameter
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function arguments macro, containing the SQL query as a text parameter
 ## Dependencies
 - Functions called/Symbols referenced:
   - SRF_IS_FIRSTCALL

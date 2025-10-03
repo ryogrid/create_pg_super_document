@@ -16,10 +16,9 @@ write_target_range(char *buf, off_t begin, size_t size)
 This function writes a specified buffer to a target file at a given offset. It performs robust error handling with retry logic for partial writes, ensuring all data is written successfully. The function updates global progress tracking and respects the dry_run mode. It seeks to the specified position in the file and then writes the data in a loop to handle cases where the write system call doesn't write all requested bytes in a single operation. The function maintains the file open after writing to allow for subsequent operations.
 
 ## Parameters / Member Variables
-- : Pointer to the buffer containing data to write
-- : File offset position where writing should start (off_t type)
-- : Number of bytes to write from the buffer
-
+- `*buf`: Pointer to the buffer containing data to write
+- `begin`: File offset position where writing should start (off_t type)
+- `size`: Number of bytes to write from the buffer
 ## Dependencies
 - Functions called/Symbols referenced:
   - lseek (system call)

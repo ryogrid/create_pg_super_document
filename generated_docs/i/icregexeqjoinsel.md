@@ -18,8 +18,7 @@ icregexeqjoinsel(PG_FUNCTION_ARGS)
 The function returns a selectivity estimate as a floating-point value between 0 and 1, representing the expected fraction of rows that will match the join condition. Currently, the underlying implementation uses a simple default selectivity value rather than performing sophisticated pattern analysis.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function argument macro that provides access to function call information including operator arguments, though this specific function doesn't directly access individual arguments
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument macro that provides access to function call information including operator arguments, though this specific function doesn't directly access individual arguments
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Generic pattern matching join selectivity function

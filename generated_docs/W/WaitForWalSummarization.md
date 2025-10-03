@@ -18,8 +18,7 @@ This function blocks until the WAL summarizer has processed and summarized WAL r
 The function monitors both the summarized_lsn (data written to disk) and pending_lsn (data processed in memory) to distinguish between different types of stalls. It provides progressively more detailed error messages if the summarizer appears to be stuck, ultimately throwing an error if no progress is detected for 60 seconds (6 cycles of 10 seconds each).
 
 ## Parameters / Member Variables
-- : The target XLogRecPtr (LSN) that WAL summarization must reach before the function returns
-
+- `lsn`: The target XLogRecPtr (LSN) that WAL summarization must reach before the function returns
 ## Dependencies
 - Functions called/Symbols referenced:
   - CHECK_FOR_INTERRUPTS

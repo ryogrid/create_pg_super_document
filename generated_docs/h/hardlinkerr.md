@@ -16,9 +16,8 @@ hardlinkerr(char const *target, char const *linkname)
 The  function creates a hard link using the POSIX  system call with the  flag. This means that if the target is a symbolic link, the hard link will be created to the file that the symbolic link points to, rather than to the symbolic link itself. The function provides a simple wrapper around  that converts the return value to a more convenient error reporting format.
 
 ## Parameters / Member Variables
-- : The path to the existing file to which a hard link should be created
-- : The path where the new hard link should be created
-
+- `*target`: The path to the existing file to which a hard link should be created
+- `*linkname`: The path where the new hard link should be created
 ## Dependencies
 - Functions called/Symbols referenced:
   - linkat (POSIX system call for creating hard links)

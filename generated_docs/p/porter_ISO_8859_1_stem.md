@@ -24,8 +24,7 @@ This is the main entry point function for the Porter stemming algorithm implemen
 The function uses cursor positioning to work backwards from the end of the word, applying transformations based on suffix patterns and region boundaries. Each step is applied independently with cursor position restoration to ensure proper processing order.
 
 ## Parameters / Member Variables
-- : Pointer to SN_env structure containing:
-
+- `*z`: Pointer to SN_env structure containing:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [in_grouping](../i/in_grouping.md) (vowel group checking)

@@ -30,13 +30,12 @@ ExecOnConflictUpdate implements the core logic for INSERT ON CONFLICT DO UPDATE 
 The function returns true if processing is complete (with or without an update), or false if the caller should retry the entire INSERT operation from scratch due to concurrency conflicts.
 
 ## Parameters / Member Variables
-- : ModifyTableContext containing execution state and metadata
-- : ResultRelInfo for the target relation being updated
-- : ItemPointer identifying the conflicting tuple that needs to be updated
-- : TupleTableSlot containing the values from the conflicting INSERT (EXCLUDED tuple)
-- : Boolean indicating whether command tags can be set
-- : Pointer to TupleTableSlot pointer for storing RETURNING clause results
-
+- `*context`: ModifyTableContext containing execution state and metadata
+- `*resultRelInfo`: ResultRelInfo for the target relation being updated
+- `conflictTid`: ItemPointer identifying the conflicting tuple that needs to be updated
+- `*excludedSlot`: TupleTableSlot containing the values from the conflicting INSERT (EXCLUDED tuple)
+- `canSetTag`: Boolean indicating whether command tags can be set
+- `**returning`: Pointer to TupleTableSlot pointer for storing RETURNING clause results
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecUpdateLockMode](ExecUpdateLockMode.md)

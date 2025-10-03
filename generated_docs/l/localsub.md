@@ -25,10 +25,9 @@ The function handles several complex scenarios:
 The function implements a "drop-in replacement" design that avoids calling the standard library's  function while providing equivalent functionality.
 
 ## Parameters / Member Variables
-- : Pointer to a  containing timezone transition data, rules, and abbreviations. If NULL, defaults to GMT conversion.
-- : Pointer to a  value representing the UTC timestamp to convert.
-- : Pointer to a  structure that will be populated with the converted local time values.
-
+- `*sp`: Pointer to a  containing timezone transition data, rules, and abbreviations. If NULL, defaults to GMT conversion.
+- `*timep`: Pointer to a  value representing the UTC timestamp to convert.
+- `tmp`: Pointer to a  structure that will be populated with the converted local time values.
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (fallback for GMT conversion when sp is NULL)

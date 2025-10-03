@@ -23,7 +23,6 @@ This function is called during PREPARE TRANSACTION processing to serialize all t
 The function ensures that only transaction-level locks are preserved across the PREPARE/COMMIT PREPARED boundary, while maintaining proper reference counting for strong locks.
 
 ## Parameters / Member Variables
-This function takes no parameters and operates on global lock state.
 
 ## Dependencies
 - Functions called/Symbols referenced:

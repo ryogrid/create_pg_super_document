@@ -20,6 +20,7 @@ The function performs interrupt checking before reading input and processes clie
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - CHECK_FOR_INTERRUPTS() (PostgreSQL interrupt handling macro)

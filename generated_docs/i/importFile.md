@@ -16,9 +16,8 @@ importFile(PGconn *conn, char *filename)
 The  function provides functionality to import external files into PostgreSQL as large objects (LOBs). It opens a specified Unix file, creates a new large object in the database, and copies the file's contents into the large object using a buffered read/write approach. The function handles the complete lifecycle of large object creation including opening, writing data in chunks, and proper cleanup of file descriptors.
 
 ## Parameters / Member Variables
-- : Database connection handle for PostgreSQL operations
-- : Path to the Unix file to be imported into the database
-
+- `*conn`: Database connection handle for PostgreSQL operations
+- `*filename`: Path to the Unix file to be imported into the database
 ## Dependencies
 - Functions called/Symbols referenced:
   - open (Unix system call for file operations)

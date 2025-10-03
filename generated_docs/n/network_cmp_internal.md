@@ -24,9 +24,8 @@ The comparison logic ensures that network addresses are sorted in a hierarchical
 For different address families (IPv4 vs IPv6), the function simply compares the family values to establish ordering.
 
 ## Parameters / Member Variables
-- : First network address ( structure) to compare
-- : Second network address ( structure) to compare
-
+- `*a1`: First network address ( structure) to compare
+- `*a2`: Second network address ( structure) to compare
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (address family accessor)

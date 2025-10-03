@@ -18,8 +18,7 @@ ResOwnerReleaseBufferIO is a static callback function used by PostgreSQL's Resou
 This function is part of PostgreSQL's resource management infrastructure, ensuring that incomplete or abandoned buffer IO operations are properly cleaned up to prevent resource leaks and maintain system consistency.
 
 ## Parameters / Member Variables
-- : Datum containing the buffer identifier that needs IO cleanup, converted to Buffer using DatumGetInt32
-
+- `res`: Datum containing the buffer identifier that needs IO cleanup, converted to Buffer using DatumGetInt32
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DatumGetInt32](../D/DatumGetInt32.md)

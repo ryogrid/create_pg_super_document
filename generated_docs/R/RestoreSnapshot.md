@@ -18,8 +18,7 @@ RestoreSnapshot performs the inverse operation of SerializeSnapshot, reconstruct
 The restored snapshot is marked as 'copied' to indicate it was reconstructed from serialized data rather than taken directly from the transaction manager. This affects how reference counting is handled by the snapshot management system.
 
 ## Parameters / Member Variables
-- : Memory location containing the serialized snapshot data to be restored
-
+- `*start_address`: Memory location containing the serialized snapshot data to be restored
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SerializedSnapshotData](../S/SerializedSnapshotData.md) (struct type for deserialization)

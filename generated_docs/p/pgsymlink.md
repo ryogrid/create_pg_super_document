@@ -20,9 +20,8 @@ The function creates a directory at the target location, then configures it as a
 The implementation uses low-level Win32 APIs including  with reparse point flags,  with , and proper Unicode conversion for path storage. Error handling includes detailed error reporting and cleanup of partially created structures.
 
 ## Parameters / Member Variables
-- : Source path that the junction point should target
-- : Path where the new junction point should be created
-
+- `*oldpath`: Source path that the junction point should target
+- `*newpath`: Path where the new junction point should be created
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (Win32 directory creation)

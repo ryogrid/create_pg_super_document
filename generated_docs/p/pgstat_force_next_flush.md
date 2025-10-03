@@ -20,6 +20,7 @@ When the flag is set, pgstat_report_stat() will ignore its normal timing constra
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - pgStatForceNextFlush (global variable assignment)

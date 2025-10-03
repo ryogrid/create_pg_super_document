@@ -23,9 +23,8 @@ PageIndexTupleDeleteNoCompact provides a specialized deletion mechanism for inde
 This approach trades some space efficiency for TID stability, which is crucial for certain index types that rely on persistent tuple references.
 
 ## Parameters / Member Variables
-- : The index page containing the tuple to delete
-- : The offset number (line pointer index) of the tuple to delete
-
+- `page`: The index page containing the tuple to delete
+- `offnum`: The offset number (line pointer index) of the tuple to delete
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PageGetMaxOffsetNumber](PageGetMaxOffsetNumber.md)

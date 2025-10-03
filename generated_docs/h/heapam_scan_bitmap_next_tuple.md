@@ -18,10 +18,9 @@ heapam_scan_bitmap_next_tuple(TableScanDesc scan,
 This function works in conjunction with heapam_scan_bitmap_next_block to complete the bitmap scan process. After heapam_scan_bitmap_next_block identifies visible tuples on a block, this function retrieves them one by one. It handles the special case of "empty tuples" (when tuples don't need to be fetched), manages the scan cursor through visible tuples, constructs heap tuple structures, and populates the output slot. The function maintains proper buffer management and statistics reporting.
 
 ## Parameters / Member Variables
-- : The table scan descriptor containing scan state and parameters
-- : Bitmap iterator result (currently processed block information)  
-- : Output tuple slot to be populated with the next tuple
-
+- `scan`: The table scan descriptor containing scan state and parameters
+- `*tbmres`: Bitmap iterator result (currently processed block information)
+- `*slot`: Output tuple slot to be populated with the next tuple
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecStoreAllNullTuple](../E/ExecStoreAllNullTuple.md) (for empty tuple optimization)

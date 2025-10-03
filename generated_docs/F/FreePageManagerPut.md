@@ -24,10 +24,9 @@ The function performs several key operations:
 The function includes debug assertions to verify data structure consistency when  is enabled.
 
 ## Parameters / Member Variables
-- : Pointer to the FreePageManager structure to add pages to
-- : The starting page number of the range to be freed
-- : The number of contiguous pages to add to the free pool (must be > 0)
-
+- `*fpm`: Pointer to the FreePageManager structure to add pages to
+- `first_page`: The starting page number of the range to be freed
+- `npages`: The number of contiguous pages to add to the free pool (must be > 0)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [FreePageManagerPutInternal](FreePageManagerPutInternal.md)

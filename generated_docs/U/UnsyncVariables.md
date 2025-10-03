@@ -17,7 +17,6 @@ This function serves as the counterpart to SyncVariables(), cleaning up connecti
 The function is called whenever psql needs to reflect a disconnected state, ensuring that scripts and user queries cannot accidentally reference connection parameters from a previous session.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

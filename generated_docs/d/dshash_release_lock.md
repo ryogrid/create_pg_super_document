@@ -16,9 +16,8 @@ dshash_release_lock(dshash_table *hash_table, void *entry)
 The  function is responsible for releasing the lightweight lock (LWLock) that was acquired when an entry was found or inserted through  or . The function determines the appropriate partition by extracting the hash value stored in the entry's associated item structure, then releases the corresponding partition lock. This function is essential for proper resource management and preventing deadlocks in the dynamic shared hash table system. After calling this function, the entry pointer should not be accessed as it may be modified by other processes.
 
 ## Parameters / Member Variables
-- : Pointer to the dynamic shared hash table containing the entry
-- : Pointer to the entry whose lock should be released (must have been obtained through dshash_find or dshash_find_or_insert)
-
+- `*hash_table`: Pointer to the dynamic shared hash table containing the entry
+- `*entry`: Pointer to the entry whose lock should be released (must have been obtained through dshash_find or dshash_find_or_insert)
 ## Dependencies
 - Functions called/Symbols referenced:
   - ITEM_FROM_ENTRY: Macro to convert entry pointer to internal item structure

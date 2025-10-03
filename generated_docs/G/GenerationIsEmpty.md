@@ -18,8 +18,7 @@ The  function checks if a GenerationContext has any allocated memory chunks acro
 This function is part of PostgreSQL's generation memory context system, which is a specialized memory allocator that doesn't reuse freed chunks and can free entire blocks when all chunks within them are freed. The function serves as a utility to determine the allocation state of the context.
 
 ## Parameters / Member Variables
-- : A MemoryContext pointer that should point to a GenerationContext structure to be checked for emptiness
-
+- `context`: A MemoryContext pointer that should point to a GenerationContext structure to be checked for emptiness
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - validates the GenerationContext structure

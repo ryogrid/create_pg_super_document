@@ -24,7 +24,6 @@ When called, this function:
 - Returns SPI_OK_CONNECT on success
 
 ## Parameters / Member Variables
-This function takes no parameters and uses default connection options (atomic mode enabled).
 
 ## Dependencies
 - Functions called/Symbols referenced:

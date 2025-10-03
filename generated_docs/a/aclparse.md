@@ -20,10 +20,9 @@ The parser handles optional group/user keywords for backward compatibility with 
 The function supports comprehensive error handling through the escontext mechanism and validates that all referenced roles exist in the system catalog.
 
 ## Parameters / Member Variables
-- : Input string containing the ACL specification to parse
-- : Pointer to AclItem structure to populate with parsed values (grantee, grantor, privileges, grant options)
-- : Error context node - if ErrorSaveData, errors are logged rather than thrown immediately
-
+- `*s`: Input string containing the ACL specification to parse
+- `*aip`: Pointer to AclItem structure to populate with parsed values (grantee, grantor, privileges, grant options)
+- `*escontext`: Error context node - if ErrorSaveData, errors are logged rather than thrown immediately
 ## Dependencies
 - Functions called/Symbols referenced:
   - [getid](../g/getid.md) (extracts identifiers from input string)

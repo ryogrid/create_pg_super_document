@@ -22,9 +22,8 @@ The function implements a two-step validation process:
 This pattern is a security best practice to prevent search path attacks where malicious users could create objects in schemas that appear earlier in the search path, potentially hijacking function calls or table references.
 
 ## Parameters / Member Variables
-- : Pointer to the PostgreSQL connection object () to be validated and configured
-- : Database name parameter (currently unused in the function implementation but may be for future logging or error reporting)
-
+- `*conn`: Pointer to the PostgreSQL connection object () to be validated and configured
+- `*dbName`: Database name parameter (currently unused in the function implementation but may be for future logging or error reporting)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - libpq function to check connection status

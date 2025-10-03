@@ -27,11 +27,10 @@ This function performs the actual catalog modification to set a column's NOT NUL
 The function is designed to be efficient by skipping unnecessary validation when existing constraints already ensure NOT NULL semantics.
 
 ## Parameters / Member Variables
-- : AlteredTableInfo structure containing information about the table being altered and tracking validation requirements
-- : The relation being modified
-- : Name of the column to set as NOT NULL
-- : Lock mode for accessing the relation (currently unused in this function)
-
+- `*tab`: AlteredTableInfo structure containing information about the table being altered and tracking validation requirements
+- `rel`: The relation being modified
+- `*colName`: Name of the column to set as NOT NULL
+- `lockmode`: Lock mode for accessing the relation (currently unused in this function)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCacheCopyAttName](../S/SearchSysCacheCopyAttName.md) (to lookup column in system catalog)

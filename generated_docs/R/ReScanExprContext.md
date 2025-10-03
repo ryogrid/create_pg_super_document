@@ -20,8 +20,7 @@ The function executes all registered shutdown callbacks through ShutdownExprCont
 Unlike FreeExprContext, this function preserves the ExprContext structure itself and only cleans up transient state, making it suitable for rescan operations where the context will be reused.
 
 ## Parameters / Member Variables
-- : The ExprContext structure to be reset for rescanning
-
+- `*econtext`: The ExprContext structure to be reset for rescanning
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ShutdownExprContext](../S/ShutdownExprContext.md) (executes shutdown callbacks with isCommit=true)

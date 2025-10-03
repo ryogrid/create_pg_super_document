@@ -29,11 +29,10 @@ This function orchestrates the vacuuming of a single relation through a complex 
 The function implements various safety checks and early exit conditions for unsupported relation types, privilege violations, or special cases like partitioned tables.
 
 ## Parameters / Member Variables
-- : Object identifier of the relation to vacuum
-- : RangeVar containing the relation name (used only for error reporting; may be stale)
-- : VacuumParams structure containing vacuum options and configuration
-- : Buffer access strategy to use during vacuum operations
-
+- `relid`: Object identifier of the relation to vacuum
+- `*relation`: RangeVar containing the relation name (used only for error reporting; may be stale)
+- `*params`: VacuumParams structure containing vacuum options and configuration
+- `bstrategy`: Buffer access strategy to use during vacuum operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [StartTransactionCommand](../S/StartTransactionCommand.md)

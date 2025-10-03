@@ -29,7 +29,6 @@ The function performs a comprehensive reload process:
 This comprehensive approach ensures that configuration changes are propagated system-wide without requiring a server restart.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

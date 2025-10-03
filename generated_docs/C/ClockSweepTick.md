@@ -20,7 +20,6 @@ When a wraparound occurs (victim buffer ID reaches 0 after modulo operation), th
 The atomic operations allow multiple processes to safely advance the clock hand concurrently, though this may result in buffers being selected slightly out of apparent order.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

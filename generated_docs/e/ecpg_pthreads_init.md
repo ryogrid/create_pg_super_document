@@ -15,7 +15,6 @@ void ecpg_pthreads_init(void)
 This function provides a thread-safe way to initialize the pthread infrastructure needed for ECPG's per-thread connection management. It uses `pthread_once()` to ensure that the `ecpg_actual_connection_init()` function is called exactly once across all threads in the process, regardless of how many times `ecpg_pthreads_init()` itself is called. This is crucial for proper initialization of the `actual_connection_key` which allows different threads to maintain separate current database connections.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

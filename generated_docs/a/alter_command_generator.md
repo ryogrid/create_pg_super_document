@@ -18,9 +18,8 @@ This function is a wrapper around  that specifically handles tab completion for 
 The function provides context-sensitive autocompletion by leveraging the shared completion infrastructure while applying ALTER-specific filtering rules to present only relevant command options to the user.
 
 ## Parameters / Member Variables
-- : The partial command text that the user has typed after "ALTER"
-- : Call counter maintained by readline - 0 for first call, incremented on subsequent calls
-
+- `*text`: The partial command text that the user has typed after "ALTER"
+- `state`: Call counter maintained by readline - 0 for first call, incremented on subsequent calls
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Core completion logic function

@@ -25,8 +25,7 @@ The function enforces several strict requirements:
 These constraints ensure transform functions can reliably convert data between SQL types and procedural language types without side effects.
 
 ## Parameters / Member Variables
-- : Form_pg_proc structure containing the function's catalog information from pg_proc
-
+- `procstruct`: Form_pg_proc structure containing the function's catalog information from pg_proc
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport

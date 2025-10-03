@@ -26,8 +26,7 @@ This function is the core component for Tamil tense suffix removal, implementing
 The function uses complex branching logic to handle the diverse morphological variations in Tamil tense markers, including conditional checks on character sequences and UTF-8 byte patterns.
 
 ## Parameters / Member Variables
-- : Pointer to the Snowball environment structure () containing:
-
+- `*z`: Pointer to the Snowball environment structure () containing:
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Validates minimum word length before processing

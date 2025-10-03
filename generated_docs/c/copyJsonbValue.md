@@ -16,8 +16,7 @@ copyJsonbValue(JsonbValue *src)
 The copyJsonbValue function creates a shallow copy of a JsonbValue structure. It allocates memory for a new JsonbValue using palloc() and performs a structure assignment to copy all fields from the source to the destination. This is a utility function used internally in JSONPath execution to create copies of JSON values when needed.
 
 ## Parameters / Member Variables
-- : Pointer to the source JsonbValue structure to be copied
-
+- `*src`: Pointer to the source JsonbValue structure to be copied
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md) (memory allocation)

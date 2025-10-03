@@ -18,9 +18,8 @@ This function is responsible for completely removing a cache entry from the Post
 The function operates as part of the memoize node's cache management system, which is used to cache results of expensive subplan executions to improve query performance through result reuse.
 
 ## Parameters / Member Variables
-- : Pointer to the MemoizeState structure containing the cache state and memory tracking information
-- : Pointer to the MemoizeEntry structure to be removed from the cache
-
+- `*mstate`: Pointer to the MemoizeState structure containing the cache state and memory tracking information
+- `*entry`: Pointer to the MemoizeEntry structure to be removed from the cache
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dlist_delete](../d/dlist_delete.md) (removes entry from LRU list)

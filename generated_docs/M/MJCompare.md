@@ -24,8 +24,7 @@ This function performs the core comparison logic for merge joins by comparing th
 The function assumes that MJEvalOuterValues and MJEvalInnerValues have already been called to populate the datum values and null flags.
 
 ## Parameters / Member Variables
-- : The MergeJoinState containing the evaluated expression values, null flags, and merge clauses
-
+- `*mergestate`: The MergeJoinState containing the evaluated expression values, null flags, and merge clauses
 ## Dependencies
 - Functions called/Symbols referenced:
   - ResetExprContext

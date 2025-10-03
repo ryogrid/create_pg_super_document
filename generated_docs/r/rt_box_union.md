@@ -18,10 +18,9 @@ This function computes the spatial union of two boxes by finding the minimum bou
 The function calculates the union by taking the maximum of the high coordinates (top-right corner) and the minimum of the low coordinates (bottom-left corner) from both input boxes. This ensures the resulting box encompasses the entire area covered by both input boxes.
 
 ## Parameters / Member Variables
-- : Output parameter - pointer to the BOX structure where the union result will be stored
-- : Input parameter - pointer to the first BOX structure (read-only)
-- : Input parameter - pointer to the second BOX structure (read-only)
-
+- `*n`: Output parameter - pointer to the BOX structure where the union result will be stored
+- `*a`: Input parameter - pointer to the first BOX structure (read-only)
+- `*b`: Input parameter - pointer to the second BOX structure (read-only)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BOX](../B/BOX.md) (data type)

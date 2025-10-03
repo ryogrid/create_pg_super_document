@@ -25,11 +25,10 @@ This function implements the low-level mechanics of namespace relocation for tab
 The function ensures atomicity by tracking all moved objects in the objsMoved parameter, allowing for proper rollback if needed. It uses RowExclusiveLock on the pg_class catalog to ensure consistency during the relocation process.
 
 ## Parameters / Member Variables
-- : The Relation structure representing the table or materialized view being moved
-- : The OID of the source namespace (current schema)
-- : The OID of the target namespace (destination schema)
-- : ObjectAddresses structure to track all objects moved during the operation
-
+- `rel`: The Relation structure representing the table or materialized view being moved
+- `oldNspOid`: The OID of the source namespace (current schema)
+- `nspOid`: The OID of the target namespace (destination schema)
+- `*objsMoved`: ObjectAddresses structure to track all objects moved during the operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md)

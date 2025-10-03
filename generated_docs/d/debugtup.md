@@ -26,9 +26,8 @@ The function processes each attribute by:
 6. Adding a separator line after processing all attributes
 
 ## Parameters / Member Variables
-- : A TupleTableSlot containing the tuple data to be debugged, including the tuple descriptor and attribute values
-- : A DestReceiver pointer (unused in this function but required by the DestReceiver interface)
-
+- `*slot`: A TupleTableSlot containing the tuple data to be debugged, including the tuple descriptor and attribute values
+- `*self`: A DestReceiver pointer (unused in this function but required by the DestReceiver interface)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [slot_getattr](../s/slot_getattr.md): Extracts attribute values from the tuple slot

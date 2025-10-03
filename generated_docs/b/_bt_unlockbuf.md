@@ -18,9 +18,8 @@ _bt_unlockbuf is a fundamental B-tree buffer management function that safely unl
 This function is part of PostgreSQL's careful buffer management protocol where buffers must be both pinned (to prevent eviction) and locked (for exclusive access) during critical operations. The function specifically handles the unlocking phase while the buffer remains pinned.
 
 ## Parameters / Member Variables
-- : The relation (table/index) that owns the buffer
-- : The buffer descriptor for the page to be unlocked
-
+- `rel`: The relation (table/index) that owns the buffer
+- `buf`: The buffer descriptor for the page to be unlocked
 ## Dependencies
 - Functions called/Symbols referenced:
   - VALGRIND_CHECK_MEM_IS_DEFINED

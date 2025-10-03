@@ -24,12 +24,11 @@ The function handles special logic for clone clauses, which are created during o
 The function carefully eliminates duplicates using pointer equality comparison, since RestrictInfo nodes are multiply-linked rather than copied across different joinlists.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global query planner state
-- : The new join relation being constructed
-- : The input relation whose joininfo clauses are being processed
-- : Relids representing both inputs to the join (used for clone clause validation)
-- : Existing restriction list to which new clauses will be appended
-
+- `*root`: PlannerInfo structure containing global query planner state
+- `*joinrel`: The new join relation being constructed
+- `*input_rel`: The input relation whose joininfo clauses are being processed
+- `both_input_relids`: Relids representing both inputs to the join (used for clone clause validation)
+- `*new_restrictlist`: Existing restriction list to which new clauses will be appended
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bms_is_subset](../b/bms_is_subset.md)

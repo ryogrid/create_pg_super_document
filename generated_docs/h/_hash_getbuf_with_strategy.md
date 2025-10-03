@@ -18,12 +18,11 @@ _hash_getbuf_with_strategy(Relation rel, BlockNumber blkno,
  is a specialized version of the standard  function that allows specification of a custom buffer access strategy. This function is primarily used during VACUUM operations where different memory management policies may be beneficial for performance. The function validates that the block number is not P_NEW (which is not supported in hash indexes), reads the buffer using the specified strategy, applies the requested lock, and validates the page structure.
 
 ## Parameters / Member Variables
-- : The relation (hash index) from which to retrieve the buffer
-- : The block number of the page to retrieve (must not be P_NEW)
-- : The type of lock to acquire on the buffer (or HASH_NOLOCK for no locking)
-- : Validation flags passed to  for page structure checking
-- : The buffer access strategy to use for memory management policy
-
+- `rel`: The relation (hash index) from which to retrieve the buffer
+- `blkno`: The block number of the page to retrieve (must not be P_NEW)
+- `access`: The type of lock to acquire on the buffer (or HASH_NOLOCK for no locking)
+- `flags`: Validation flags passed to  for page structure checking
+- `bstrategy`: The buffer access strategy to use for memory management policy
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReadBufferExtended](../R/ReadBufferExtended.md) (buffer management)

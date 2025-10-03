@@ -19,9 +19,8 @@ This function generates the complete file path for an auxiliary control file ass
 The function constructs the path by combining the extension's script directory with a filename formatted as "name--version.control", where 'name' comes from the control structure and 'version' is the specified version string.
 
 ## Parameters / Member Variables
-- : Pointer to ExtensionControlFile structure containing extension metadata including the extension name
-- : String specifying the version for which to construct the auxiliary control filename
-
+- `*control`: Pointer to ExtensionControlFile structure containing extension metadata including the extension name
+- `*version`: String specifying the version for which to construct the auxiliary control filename
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_extension_script_directory](get_extension_script_directory.md)

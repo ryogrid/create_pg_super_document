@@ -15,7 +15,6 @@ Size EstimateClientConnectionInfoSpace(void)
 This function computes the total memory space required to serialize the current backend's client connection information (stored in the global `MyClientConnectionInfo`). The calculation includes the fixed-size structure `SerializedClientConnectionInfo` plus variable-length data such as the authentication identifier string. This is typically used in parallel query execution where client connection information needs to be passed to worker processes.
 
 ## Parameters / Member Variables
-This function takes no parameters and operates on the global `MyClientConnectionInfo` variable.
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -20,9 +20,8 @@ The function uses the  parameter (set up by ) to determine whether the seed assi
 The actual seed setting is performed by calling the  function through PostgreSQL's function call interface.
 
 ## Parameters / Member Variables
-- : The new double value for the random seed to be applied
-- : Pointer to extra data containing a flag that indicates whether the assignment should proceed (set by check_random_seed)
-
+- `newval`: The new double value for the random seed to be applied
+- `*extra`: Pointer to extra data containing a flag that indicates whether the assignment should proceed (set by check_random_seed)
 ## Dependencies
 - Functions called/Symbols referenced:
   - DirectFunctionCall1 (macro/function for calling PostgreSQL functions)

@@ -28,13 +28,12 @@ The function performs a catalog scan looking for triggers that:
 The function ensures that exactly one delete trigger and one update trigger are found, as every foreign key constraint must have both types of action triggers on the referenced side.
 
 ## Parameters / Member Variables
-- : Open relation handle for the pg_trigger catalog
-- : OID of the foreign key constraint to search for
-- : OID of the referenced table (where action triggers reside)
-- : OID of the referencing table (constrained table)
-- : Output parameter for the ON DELETE action trigger OID
-- : Output parameter for the ON UPDATE action trigger OID
-
+- `trigrel`: Open relation handle for the pg_trigger catalog
+- `conoid`: OID of the foreign key constraint to search for
+- `confrelid`: OID of the referenced table (where action triggers reside)
+- `conrelid`: OID of the referencing table (constrained table)
+- `*deleteTriggerOid`: Output parameter for the ON DELETE action trigger OID
+- `*updateTriggerOid`: Output parameter for the ON UPDATE action trigger OID
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ScanKeyInit](../S/ScanKeyInit.md): Initialize scan key for catalog search

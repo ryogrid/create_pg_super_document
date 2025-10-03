@@ -19,11 +19,10 @@ ProcessCopyOptions(ParseState *pstate,
 ProcessCopyOptions is the central option processing function for COPY statements, handling the parsing, validation, and normalization of all COPY options. It iterates through a list of DefElem options, extracting values and storing them in a CopyFormatOptions structure. The function performs extensive validation including: detecting conflicting option specifications, enforcing format-specific restrictions (e.g., CSV-only options), validating character constraints (single-byte requirements, forbidden characters), and ensuring directional compatibility (COPY FROM vs COPY TO restrictions). It also sets appropriate defaults for omitted options and performs cross-option validation to ensure the final configuration is internally consistent and operationally valid.
 
 ## Parameters / Member Variables
-- : ParseState for generating error messages with precise source location information
-- : Output CopyFormatOptions structure to populate with processed option values (can be NULL for external validation)
-- : Boolean flag indicating COPY FROM (true) vs COPY TO (false) for directional option validation  
-- : List of DefElem structures containing the raw COPY option specifications from the parser
-
+- `*pstate`: ParseState for generating error messages with precise source location information
+- `*opts_out`: Output CopyFormatOptions structure to populate with processed option values (can be NULL for external validation)
+- `is_from`: Boolean flag indicating COPY FROM (true) vs COPY TO (false) for directional option validation
+- `*options`: List of DefElem structures containing the raw COPY option specifications from the parser
 ## Dependencies
 - Functions called/Symbols referenced:
   - [defGetString](../d/defGetString.md)

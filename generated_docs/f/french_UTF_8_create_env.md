@@ -21,6 +21,7 @@ This function serves as the initialization point for French UTF-8 stemming sessi
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SN_create_env](../S/SN_create_env.md): Generic Snowball environment creation function that allocates and initializes the stemming environment

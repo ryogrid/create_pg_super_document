@@ -16,9 +16,8 @@ findTheLexeme(DictThesaurus *d, char *lexeme)
 The  function performs a binary search lookup on the thesaurus dictionary's sorted array of lexemes (). It searches for a specific lexeme string and returns a pointer to the corresponding  structure if the lexeme is found in the thesaurus. The function uses a temporary  structure as a search key and employs the  comparison function for the binary search operation.
 
 ## Parameters / Member Variables
-- : Pointer to the  structure containing the compiled thesaurus data
-- : The lexeme string to search for in the thesaurus dictionary
-
+- `*d`: Pointer to the  structure containing the compiled thesaurus data
+- `*lexeme`: The lexeme string to search for in the thesaurus dictionary
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (structure type)

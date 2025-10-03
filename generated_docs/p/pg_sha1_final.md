@@ -22,9 +22,8 @@ The  function completes the SHA1 hash computation process by performing the fina
 This function is part of PostgreSQL's internal SHA1 implementation, providing a clean interface for completing hash computations. After calling this function, the context should not be reused without reinitialization.
 
 ## Parameters / Member Variables
-- : Pointer to the SHA1 context structure () that contains the current hash state, message buffer, bit count, and internal working variables. This context must have been previously initialized with  and optionally updated with .
-- : Pointer to a buffer where the final 160-bit (20-byte) SHA1 hash digest will be written. The caller must ensure this buffer has at least 20 bytes of available space.
-
+- `*ctx`: Pointer to the SHA1 context structure () that contains the current hash state, message buffer, bit count, and internal working variables. This context must have been previously initialized with  and optionally updated with .
+- `*dest`: Pointer to a buffer where the final 160-bit (20-byte) SHA1 hash digest will be written. The caller must ensure this buffer has at least 20 bytes of available space.
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Applies SHA1 padding to complete message processing

@@ -23,10 +23,9 @@ The search process:
 5. Returns the index if found, or -1 if not present
 
 ## Parameters / Member Variables
-- : The TSVector to search within (read-only)
-- : The lexeme string to search for
-- : Length of the lexeme string
-
+- `tsv`: The TSVector to search within (read-only)
+- `*lexeme`: The lexeme string to search for
+- `lexeme_len`: Length of the lexeme string
 ## Dependencies
 - Functions called/Symbols referenced:
   - ARRPTR (macro to get WordEntry array pointer)

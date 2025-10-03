@@ -22,9 +22,8 @@ This function builds appropriate object descriptions for different PostgreSQL da
 The function uses string comparisons to determine the object type from the TOC entry's description field and formats the output accordingly. For objects that require schema qualification, it includes the namespace prefix when available.
 
 ## Parameters / Member Variables
-- : PQExpBuffer to append the object description to
-- : Pointer to TocEntry structure containing object metadata including type (desc), name (tag), namespace, and drop statement
-
+- `buf`: PQExpBuffer to append the object description to
+- `*te`: Pointer to TocEntry structure containing object metadata including type (desc), name (tag), namespace, and drop statement
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TocEntry](../T/TocEntry.md) (struct type)

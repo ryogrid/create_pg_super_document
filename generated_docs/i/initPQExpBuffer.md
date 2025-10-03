@@ -21,8 +21,7 @@ This function initializes a PQExpBufferData structure that has previously undefi
 This function is one of two standard ways to create a PQExpBuffer. Use this when you have a pre-allocated PQExpBufferData structure (e.g., as a local variable or struct member) that needs initialization.
 
 ## Parameters / Member Variables
-- : Pointer to the PQExpBufferData structure to be initialized (must not be NULL)
-
+- `str`: Pointer to the PQExpBufferData structure to be initialized (must not be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (standard C library function for memory allocation)

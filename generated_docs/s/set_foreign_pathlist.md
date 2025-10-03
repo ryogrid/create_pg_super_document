@@ -18,10 +18,9 @@ This function serves as a simple dispatcher that delegates the responsibility of
 The FDW's GetForeignPaths callback is expected to analyze the query context and generate one or more Path structures that represent different ways to scan the foreign table. This might include basic foreign scans, parameterized scans for join conditions, or specialized paths that take advantage of remote sorting, filtering, or aggregation capabilities.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global planner information and query context
-- : RelOptInfo structure representing the foreign relation, will have paths added to its pathlist
-- : RangeTblEntry containing information about the foreign table and its access requirements
-
+- `*root`: PlannerInfo structure containing global planner information and query context
+- `*rel`: RelOptInfo structure representing the foreign relation, will have paths added to its pathlist
+- `*rte`: RangeTblEntry containing information about the foreign table and its access requirements
 ## Dependencies
 - Functions called/Symbols referenced:
   - GetForeignPaths (FDW callback to generate access paths for the foreign table)

@@ -20,8 +20,7 @@ The fuzzy search optimization is a crucial performance feature that prevents que
 After handling the fuzzy search logic and obtaining final entry frequency estimates, the function completes the scan initialization by calling startScanKey for each scan key, which partitions entries into required and additional sets for optimal scanning.
 
 ## Parameters / Member Variables
-- : Index scan descriptor containing scan context, snapshot information, and opaque scan state
-
+- `scan`: Index scan descriptor containing scan context, snapshot information, and opaque scan state
 ## Dependencies
 - Functions called/Symbols referenced:
   - [startScanEntry](startScanEntry.md)

@@ -20,7 +20,6 @@ The function uses conditional compilation to support different CPUID access meth
 - Generates a compile error if no CPUID method is available
 
 ## Parameters / Member Variables
-This function takes no parameters and returns a boolean value indicating SSE 4.2 availability.
 
 ## Dependencies
 - Functions called/Symbols referenced:

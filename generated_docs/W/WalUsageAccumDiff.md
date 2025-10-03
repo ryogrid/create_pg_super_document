@@ -20,10 +20,9 @@ This function is essential for PostgreSQL's query instrumentation system, allowi
 The function handles all three WAL metrics: the number of WAL records produced, the number of full page images, and the total size in bytes of WAL records generated during the measured period.
 
 ## Parameters / Member Variables
-- : Pointer to the destination WalUsage structure that will accumulate the computed differences
-- : Pointer to the WalUsage structure representing the ending state (higher counter values)
-- : Pointer to the WalUsage structure representing the starting state (lower counter values)
-
+- `*dst`: Pointer to the destination WalUsage structure that will accumulate the computed differences
+- `*add`: Pointer to the WalUsage structure representing the ending state (higher counter values)
+- `*sub`: Pointer to the WalUsage structure representing the starting state (lower counter values)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [WalUsage](WalUsage.md) (struct type definition)

@@ -22,9 +22,8 @@ The function supports two usage patterns:
 The function also registers a cleanup handler on first use to ensure proper resource cleanup on process exit.
 
 ## Parameters / Member Variables
-- : RepOriginId identifying the replication origin to set up
-- : Process ID for shared usage (0 for exclusive single-process usage)
-
+- `node`: RepOriginId identifying the replication origin to set up
+- `acquired_by`: Process ID for shared usage (0 for exclusive single-process usage)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [on_shmem_exit](../o/on_shmem_exit.md)

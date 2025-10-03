@@ -20,8 +20,7 @@ The function constructs a SQL query that joins pg_default_acl with pg_namespace 
 The pattern matching supports filtering by either schema name or role name, making it easy to examine default privileges for specific contexts. Object types are displayed with localized names for better user experience.
 
 ## Parameters / Member Variables
-- : SQL pattern to match either schema names or role names (can be NULL to show all default ACLs)
-
+- `*pattern`: SQL pattern to match either schema names or role names (can be NULL to show all default ACLs)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [initPQExpBuffer](../i/initPQExpBuffer.md) (initialize query buffer)

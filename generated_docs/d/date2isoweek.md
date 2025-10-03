@@ -23,10 +23,9 @@ The algorithm works by:
 5. Handling edge cases where the date falls into the previous or next year's week numbering
 
 ## Parameters / Member Variables
-- : The year component of the date
-- : The month component of the date (1-12)
-- : The day component of the date (1-31)
-
+- `year`: The year component of the date
+- `mon`: The month component of the date (1-12)
+- `mday`: The day component of the date (1-31)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [date2j](date2j.md) (converts date to Julian day number)

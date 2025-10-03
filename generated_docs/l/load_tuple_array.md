@@ -20,9 +20,8 @@ The function implements a buffering strategy where it tries to fill up to MAX_TU
 The function includes special handling for the leader process (reader == 0) by doing nothing, as the leader doesn't need to read from itself. It also optimizes buffer management by resetting counters when all buffered tuples have been consumed.
 
 ## Parameters / Member Variables
-- : Pointer to the GatherMergeState structure containing the overall state of the Gather Merge operation, including tuple buffers for all workers
-- : Integer identifier for the worker process to read from (0 represents the leader, 1+ represent worker processes)
-
+- `*gm_state`: Pointer to the GatherMergeState structure containing the overall state of the Gather Merge operation, including tuple buffers for all workers
+- `reader`: Integer identifier for the worker process to read from (0 represents the leader, 1+ represent worker processes)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [gm_readnext_tuple](../g/gm_readnext_tuple.md)

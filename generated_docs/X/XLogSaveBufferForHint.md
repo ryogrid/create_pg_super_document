@@ -16,9 +16,8 @@ XLogSaveBufferForHint(Buffer buffer, bool buffer_std)
 XLogSaveBufferForHint handles WAL logging for hint bit modifications on pages that need crash recovery protection. Unlike normal WAL operations that require exclusive locks, this function works with only a shared lock on the buffer by copying the page data before logging. It only writes to WAL if the page's LSN is at or before the current Redo pointer, indicating the page hasn't been fully written in the current checkpoint cycle. For standard page layouts, it optimizes by copying only the data outside the pd_lower/pd_upper hole to reduce WAL volume. Multiple backends may concurrently write the same page, which is acceptable for correctness.
 
 ## Parameters / Member Variables
-- : The buffer containing the page being modified with hint bits
-- : Whether the page follows the standard PostgreSQL page layout (enables hole optimization)
-
+- `buffer`: The buffer containing the page being modified with hint bits
+- `buffer_std`: Whether the page follows the standard PostgreSQL page layout (enables hole optimization)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetRedoRecPtr](../G/GetRedoRecPtr.md) (gets current recovery checkpoint pointer)

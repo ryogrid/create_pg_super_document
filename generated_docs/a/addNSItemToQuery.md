@@ -24,12 +24,11 @@ This function is a key component of PostgreSQL's parser infrastructure that mana
 The function ensures that the namespace item is marked as unconditionally visible (not LATERAL-only), meaning it can be referenced from any part of the query without LATERAL restrictions.
 
 ## Parameters / Member Variables
-- : Parser state containing the current parsing context, including join lists and namespace lists
-- : The ParseNamespaceItem to be added, representing a relation and its associated metadata
-- : Boolean flag indicating whether to add the item to the join list for FROM clause processing
-- : Boolean flag indicating whether the relation name should be visible for relation references
-- : Boolean flag indicating whether the relation's columns should be visible for variable references
-
+- `*pstate`: Parser state containing the current parsing context, including join lists and namespace lists
+- `*nsitem`: The ParseNamespaceItem to be added, representing a relation and its associated metadata
+- `addToJoinList`: Boolean flag indicating whether to add the item to the join list for FROM clause processing
+- `addToRelNameSpace`: Boolean flag indicating whether the relation name should be visible for relation references
+- `addToVarNameSpace`: Boolean flag indicating whether the relation's columns should be visible for variable references
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (creates RangeTblRef node)

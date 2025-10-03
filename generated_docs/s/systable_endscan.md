@@ -19,8 +19,7 @@ The function performs several cleanup operations in sequence: first it drops the
 The bsysscan flag reset is specifically related to transaction monitoring during logical replication scenarios, where CheckXidAlive tracks transactions that need concurrent abort detection.
 
 ## Parameters / Member Variables
-- : A SysScanDesc structure containing the scan state to be cleaned up
-
+- `sysscan`: A SysScanDesc structure containing the scan state to be cleaned up
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecDropSingleTupleTableSlot](../E/ExecDropSingleTupleTableSlot.md) (slot cleanup)

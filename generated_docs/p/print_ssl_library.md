@@ -18,7 +18,6 @@ The  function is a simple diagnostic utility that queries and displays the SSL l
 This function is primarily used for testing and verification purposes in the libpq test client to ensure that SSL functionality is properly configured and to identify which SSL implementation (such as OpenSSL, LibreSSL, etc.) is being utilized.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

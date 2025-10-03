@@ -18,9 +18,8 @@ This function provides a safe way to determine if a node in a singly linked list
 The operation runs in O(1) constant time and is implemented as an inline function for optimal performance. This function is typically used in list traversal operations where you need to determine if it's safe to advance to the next node without reaching the end of the list.
 
 ## Parameters / Member Variables
-- : Pointer to the list head structure (used for integrity checking)
-- : Pointer to the node to check for a following node
-
+- `*head`: Pointer to the list head structure (used for integrity checking)
+- `*node`: Pointer to the node to check for a following node
 ## Dependencies
 - Functions called/Symbols referenced:
   - [slist_check](slist_check.md) (for list integrity validation)

@@ -18,9 +18,8 @@ ExecAggInitializeWorker is responsible for initializing a parallel worker's acce
 The function uses the shared memory table of contents (TOC) to locate the appropriate shared information based on the plan node ID, enabling workers to coordinate their aggregate computations with the leader process and other workers.
 
 ## Parameters / Member Variables
-- : Pointer to the AggState structure representing the aggregate node being initialized
-- : Pointer to the ParallelWorkerContext containing shared memory information and the TOC for locating shared data
-
+- `*node`: Pointer to the AggState structure representing the aggregate node being initialized
+- `*pwcxt`: Pointer to the ParallelWorkerContext containing shared memory information and the TOC for locating shared data
 ## Dependencies
 - Functions called/Symbols referenced:
   - [shm_toc_lookup](../s/shm_toc_lookup.md)

@@ -16,9 +16,8 @@ assign_restrict_nonsystem_relation_kind(const char *newval, void *extra)
 This function serves as the assign hook for the  GUC parameter. It receives the validated and parsed flags from the corresponding check hook and applies them to the global  variable. This simple assignment function ensures that the restriction settings take effect immediately when the configuration parameter is changed.
 
 ## Parameters / Member Variables
-- : The new string value of the configuration parameter (unused in this implementation as the parsed data is in extra)
-- : Pointer to the parsed flags data prepared by the check hook, cast to an integer pointer containing the restriction flags
-
+- `*newval`: The new string value of the configuration parameter (unused in this implementation as the parsed data is in extra)
+- `*extra`: Pointer to the parsed flags data prepared by the check hook, cast to an integer pointer containing the restriction flags
 ## Dependencies
 - Functions called/Symbols referenced:
   - restrict_nonsystem_relation_kind: Global variable that stores the active restriction flags

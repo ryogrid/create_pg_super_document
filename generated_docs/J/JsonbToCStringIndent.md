@@ -16,10 +16,9 @@ JsonbToCStringIndent(StringInfo out, JsonbContainer *in, int estimated_len)
 This function provides an interface for converting JSONB data to a formatted string representation with indentation and newlines for improved readability. It serves as a wrapper around JsonbToCStringWorker with indentation enabled (true). The function is primarily used for pretty-printing JSONB values where human readability is important, such as in debugging output or user-facing displays. Like its non-indented counterpart, it can work with either an existing StringInfo buffer or allocate a new string.
 
 ## Parameters / Member Variables
-- : Optional StringInfo buffer where the formatted result will be stored; if NULL, a new string is allocated
-- : Pointer to the JsonbContainer structure containing the JSONB data to be converted
-- : Estimated length of the resulting string for buffer pre-allocation optimization
-
+- `out`: Optional StringInfo buffer where the formatted result will be stored; if NULL, a new string is allocated
+- `*in`: Pointer to the JsonbContainer structure containing the JSONB data to be converted
+- `estimated_len`: Estimated length of the resulting string for buffer pre-allocation optimization
 ## Dependencies
 - Functions called/Symbols referenced:
   - [JsonbToCStringWorker](JsonbToCStringWorker.md) (the core conversion function with indentation control)

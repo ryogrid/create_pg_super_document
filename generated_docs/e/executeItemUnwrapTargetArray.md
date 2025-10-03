@@ -18,12 +18,11 @@ executeItemUnwrapTargetArray(JsonPathExecContext *cxt, JsonPathItem *jsp,
 The  function is a specialized JSONPath execution function that operates on array values. It validates that the provided JsonbValue represents a binary-encoded array and then delegates the actual execution to  with specific parameters optimized for array processing. The function ensures type safety by checking that the input is a binary type (not a direct array type) and throws an error for invalid types.
 
 ## Parameters / Member Variables
-- : JSONPath execution context containing state and configuration
-- : JSONPath item representing the path expression to execute
-- : JsonbValue containing the array data to process
-- : List to collect matching values during execution
-- : Boolean flag indicating whether to unwrap individual elements
-
+- `*cxt`: JSONPath execution context containing state and configuration
+- `*jsp`: JSONPath item representing the path expression to execute
+- `*jb`: JsonbValue containing the array data to process
+- `*found`: List to collect matching values during execution
+- `unwrapElements`: Boolean flag indicating whether to unwrap individual elements
 ## Dependencies
 - Functions called/Symbols referenced:
   - [executeAnyItem](executeAnyItem.md)

@@ -19,11 +19,10 @@ The  function is a specialized write operation designed for PostgreSQL block-lev
 This function is critical for maintaining data integrity during file reconstruction, as it ensures both successful block writing and proper checksum maintenance for the reconstructed files.
 
 ## Parameters / Member Variables
-- : File descriptor of the output file where the block will be written
-- : Name of the output file (used only for error reporting)
-- : Pointer to the buffer containing exactly BLCKSZ bytes to be written
-- : Context for checksum calculation that will be updated with the written block data
-
+- `fd`: File descriptor of the output file where the block will be written
+- `*output_filename`: Name of the output file (used only for error reporting)
+- `*buffer`: Pointer to the buffer containing exactly BLCKSZ bytes to be written
+- `*checksum_ctx`: Context for checksum calculation that will be updated with the written block data
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (system call for writing data to file)

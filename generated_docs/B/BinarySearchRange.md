@@ -24,10 +24,9 @@ The function handles two conversion directions:
 The algorithm includes sophisticated distance calculations that account for the different encoding structures and byte ranges of each character set.
 
 ## Parameters / Member Variables
-- : Pointer to a sorted array of codes_t structures containing code mappings
-- : The upper bound index for the binary search (array size - 1)
-- : The input character code to be converted
-
+- `*array`: Pointer to a sorted array of codes_t structures containing code mappings
+- `high`: The upper bound index for the binary search (array size - 1)
+- `code`: The input character code to be converted
 ## Dependencies
 - Functions called/Symbols referenced:
   - codes_t (structure type for code mappings)

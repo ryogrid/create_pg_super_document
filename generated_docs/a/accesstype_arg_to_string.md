@@ -25,9 +25,8 @@ The function supports the following object access types:
 - **OAT_TRUNCATE/OAT_FUNCTION_EXECUTE**: These access types don't expect arguments
 
 ## Parameters / Member Variables
-- : The type of object access operation (ObjectAccessType enum value)
-- : Generic pointer to access-type-specific argument structure (can be NULL)
-
+- `access`: The type of object access operation (ObjectAccessType enum value)
+- `*arg`: Generic pointer to access-type-specific argument structure (can be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pstrdup](../p/pstrdup.md)

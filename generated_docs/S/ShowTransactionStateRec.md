@@ -16,9 +16,8 @@ ShowTransactionStateRec(const char *str, TransactionState s)
 ShowTransactionStateRec is a recursive subroutine used internally by ShowTransactionState to provide comprehensive debugging output about transaction states. The function traverses up the transaction hierarchy by recursively calling itself on parent transactions first, then displays detailed state information for the current transaction including nesting level, block state, transaction state, XIDs, and child transaction information. To prevent stack overflow during deep recursion, the function includes a stack depth check that omits parent details when the stack becomes too deep.
 
 ## Parameters / Member Variables
-- : A descriptive string prefix used in debug messages to identify the context of the transaction state display
-- : Pointer to the TransactionState structure containing the transaction information to be displayed
-
+- `*str`: A descriptive string prefix used in debug messages to identify the context of the transaction state display
+- `s`: Pointer to the TransactionState structure containing the transaction information to be displayed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [stack_is_too_deep](../s/stack_is_too_deep.md)

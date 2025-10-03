@@ -18,8 +18,7 @@ This function advances the TidStore iteration to the next block and returns the 
 The function delegates to specialized iteration functions based on whether the TidStore is shared or local, then processes the retrieved page data to extract TIDs into the iterator's output structure.
 
 ## Parameters / Member Variables
-- : The TidStoreIter structure containing iteration state
-
+- `*iter`: The TidStoreIter structure containing iteration state
 ## Dependencies
 - Functions called/Symbols referenced:
   - TidStoreIsShared

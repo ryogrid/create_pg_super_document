@@ -17,7 +17,6 @@ This function iterates through all replication slots in the system and collects 
 The function performs validation by asserting that all synchronized slots must be logical slots, as physical slots cannot be synchronized in this context.
 
 ## Parameters / Member Variables
-None - this is a parameter-less function that returns a List pointer.
 
 ## Dependencies
 - Functions called/Symbols referenced:

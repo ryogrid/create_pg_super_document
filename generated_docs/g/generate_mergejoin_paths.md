@@ -33,17 +33,16 @@ The function performs several operations:
 7. Avoids creating duplicate paths and uses cost comparison to eliminate inferior options
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planner state and configuration
-- : RelOptInfo for the join relation being planned
-- : RelOptInfo for the inner join relation
-- : Path for the outer side of the join
-- : Type of join operation to perform
-- : JoinPathExtraData containing additional input values including mergeclause list
-- : Boolean indicating whether all mergeclauses must be used
-- : The cheapest total cost inner path
-- : List of pathkeys representing the merge ordering
-- : Boolean indicating whether this is for partial (parallel) execution
-
+- `*root`: PlannerInfo structure containing planner state and configuration
+- `*joinrel`: RelOptInfo for the join relation being planned
+- `*innerrel`: RelOptInfo for the inner join relation
+- `*outerpath`: Path for the outer side of the join
+- `jointype`: Type of join operation to perform
+- `*extra`: JoinPathExtraData containing additional input values including mergeclause list
+- `useallclauses`: Boolean indicating whether all mergeclauses must be used
+- `*inner_cheapest_total`: The cheapest total cost inner path
+- `*merge_pathkeys`: List of pathkeys representing the merge ordering
+- `is_partial`: Boolean indicating whether this is for partial (parallel) execution
 ## Dependencies
 - Functions called/Symbols referenced:
   - [find_mergeclauses_for_outer_pathkeys](../f/find_mergeclauses_for_outer_pathkeys.md)

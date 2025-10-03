@@ -18,9 +18,8 @@ The  function computes the straight-line distance between two points in a 2D coo
 This is a fundamental geometric operation used throughout PostgreSQL's geometric data type system for distance calculations, spatial comparisons, and geometric containment tests.
 
 ## Parameters / Member Variables
-- : Pointer to the first Point structure containing x and y coordinates
-- : Pointer to the second Point structure containing x and y coordinates
-
+- `*pt1`: Pointer to the first Point structure containing x and y coordinates
+- `*pt2`: Pointer to the second Point structure containing x and y coordinates
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (geometric data type structure)

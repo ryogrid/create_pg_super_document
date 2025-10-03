@@ -16,9 +16,8 @@ assign_recovery_target_xid(const char *newval, void *extra)
 This function serves as a GUC assign hook for the  parameter. It validates that no other recovery target type is currently set and then configures the recovery system to stop at a specific transaction ID. When a valid XID is provided, it sets the recovery target type to  and stores the transaction ID in . When the parameter is cleared (empty string), it resets the recovery target to unset. The function enforces mutual exclusivity among different recovery target types by calling  when conflicts are detected.
 
 ## Parameters / Member Variables
-- : The new value string for recovery_target_xid (transaction ID or empty string)
-- : Pointer to the validated TransactionId from the check hook
-
+- `*newval`: The new value string for recovery_target_xid (transaction ID or empty string)
+- `*extra`: Pointer to the validated TransactionId from the check hook
 ## Dependencies
 - Functions called/Symbols referenced:
   - error_multiple_recovery_targets (when multiple targets are detected)

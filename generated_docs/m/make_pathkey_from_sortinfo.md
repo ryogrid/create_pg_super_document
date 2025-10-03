@@ -35,17 +35,16 @@ This function is a comprehensive PathKey constructor that bridges the gap betwee
 The function handles optional EquivalenceClass creation based on the create_it parameter, returning NULL if an EC doesn't exist and shouldn't be created.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing query planning context
-- : The expression to be sorted on
-- : Operator family OID defining sorting semantics
-- : Input/comparison data type OID
-- : Collation OID for text sorting
-- : Boolean indicating descending sort order
-- : Boolean indicating NULL value positioning
-- : SortGroupRef from SortGroupClause, or zero if not applicable
-- : Relids indicating specific relation context, or NULL
-- : Boolean controlling EquivalenceClass creation
-
+- `*root`: PlannerInfo structure containing query planning context
+- `*expr`: The expression to be sorted on
+- `opfamily`: Operator family OID defining sorting semantics
+- `opcintype`: Input/comparison data type OID
+- `collation`: Collation OID for text sorting
+- `reverse_sort`: Boolean indicating descending sort order
+- `nulls_first`: Boolean indicating NULL value positioning
+- `sortref`: SortGroupRef from SortGroupClause, or zero if not applicable
+- `rel`: Relids indicating specific relation context, or NULL
+- `create_it`: Boolean controlling EquivalenceClass creation
 ## Dependencies
 - Functions called/Symbols referenced:
   - BTLessStrategyNumber, BTGreaterStrategyNumber (strategy constants)

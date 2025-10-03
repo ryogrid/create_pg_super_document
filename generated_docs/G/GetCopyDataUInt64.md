@@ -18,10 +18,9 @@ GetCopyDataUInt64 is a utility function that safely reads an 8-byte unsigned int
 This function is primarily used for reading numeric data fields in COPY protocol messages, such as progress report byte counts during base backup operations.
 
 ## Parameters / Member Variables
-- : Total size of the data buffer in bytes
-- : Pointer to the buffer containing the COPY data message
-- : Pointer to the current position within the buffer, updated by 8 bytes after reading
-
+- `r`: Total size of the data buffer in bytes
+- `*copybuf`: Pointer to the buffer containing the COPY data message
+- `*cursor`: Pointer to the current position within the buffer, updated by 8 bytes after reading
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReportCopyDataParseError](../R/ReportCopyDataParseError.md)

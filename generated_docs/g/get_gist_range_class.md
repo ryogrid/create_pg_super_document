@@ -21,8 +21,7 @@ The function examines the range flags and constructs a class number by setting a
 - The maximum possible class number is 8, since CLS_EMPTY cannot be combined with other properties
 
 ## Parameters / Member Variables
-- : A pointer to the RangeType structure to be classified
-
+- `*range`: A pointer to the RangeType structure to be classified
 ## Dependencies
 - Functions called/Symbols referenced:
   - [range_get_flags](../r/range_get_flags.md)

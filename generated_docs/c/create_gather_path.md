@@ -24,13 +24,12 @@ Key behaviors include:
 - Results in an unordered output unless it's a single-copy gather
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global planning information and context
-- : RelOptInfo structure representing the relation this path operates on
-- : The underlying parallel-safe path that will be executed by workers
-- : PathTarget specifying the columns and expressions to be returned
-- : Relids indicating which outer relations are required for parameter passing
-- : Optional row count estimate to override default estimates (can be NULL)
-
+- `*root`: PlannerInfo structure containing global planning information and context
+- `*rel`: RelOptInfo structure representing the relation this path operates on
+- `*subpath`: The underlying parallel-safe path that will be executed by workers
+- `*target`: PathTarget specifying the columns and expressions to be returned
+- `required_outer`: Relids indicating which outer relations are required for parameter passing
+- `*rows`: Optional row count estimate to override default estimates (can be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to create GatherPath node)

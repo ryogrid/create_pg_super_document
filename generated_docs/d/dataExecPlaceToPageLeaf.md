@@ -21,12 +21,11 @@ The function takes a pre-prepared disassembledLeaf structure from the workspace 
 This is part of PostgreSQL's GIN index data page management system, specifically handling leaf page modifications in a transactionally safe manner.
 
 ## Parameters / Member Variables
-- : GIN B-tree context containing index relation and build state information
-- : Target buffer containing the leaf page to be modified
-- : GIN B-tree stack representing the path to the current page (unused in this function)
-- : Data to be inserted (unused directly, changes are applied via workspace)
-- : Pre-prepared disassembledLeaf structure containing the modified page content and WAL information
-
+- `btree`: GIN B-tree context containing index relation and build state information
+- `buf`: Target buffer containing the leaf page to be modified
+- `*stack`: GIN B-tree stack representing the path to the current page (unused in this function)
+- `*insertdata`: Data to be inserted (unused directly, changes are applied via workspace)
+- `*ptp_workspace`: Pre-prepared disassembledLeaf structure containing the modified page content and WAL information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dataPlaceToPageLeafRecompress](dataPlaceToPageLeafRecompress.md)

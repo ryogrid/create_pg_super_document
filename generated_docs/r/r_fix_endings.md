@@ -19,8 +19,7 @@ This function serves as a controller for the Tamil ending normalization process.
 The function uses cursor position management to ensure that failed attempts don't affect the text position, restoring the cursor to its original position after the fixing process completes.
 
 ## Parameters / Member Variables
-- : Pointer to the Snowball environment structure containing the current word being processed, cursor position, and other stemming state information
-
+- `*z`: Pointer to the Snowball environment structure containing the current word being processed, cursor position, and other stemming state information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [r_fix_ending](r_fix_ending.md) (the actual ending fix function that performs individual transformations)

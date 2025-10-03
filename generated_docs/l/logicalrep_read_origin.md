@@ -18,9 +18,8 @@ The  function is the counterpart to , responsible for deserializing ORIGIN messa
 This function is crucial for maintaining replication origin information in logical replication subscribers, enabling proper tracking of change provenance and preventing replication loops in complex replication topologies.
 
 ## Parameters / Member Variables
-- : StringInfo buffer containing the serialized ORIGIN message to be parsed
-- : Pointer to XLogRecPtr where the parsed origin LSN will be stored
-
+- `in`: StringInfo buffer containing the serialized ORIGIN message to be parsed
+- `*origin_lsn`: Pointer to XLogRecPtr where the parsed origin LSN will be stored
 ## Return Value
 - Returns a newly allocated string (via pstrdup) containing the origin name, which must be freed by the caller
 

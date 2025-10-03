@@ -20,10 +20,9 @@ The function returns a combination of bit flags (REQ_SCHEMA, REQ_DATA, REQ_SPECI
 The decision logic flows through multiple stages: special entry handling, database creation rules, exclusion filters, section validation, ID-based filtering, and finally selective restore rules. For dependent objects like ACLs and comments, it checks whether their parent objects are being restored.
 
 ## Parameters / Member Variables
-- : Table of contents entry being evaluated for restoration
-- : Current section being processed (pre-data, data, or post-data)
-- : Archive handle containing restoration context and options
-
+- `*te`: Table of contents entry being evaluated for restoration
+- `curSection`: Current section being processed (pre-data, data, or post-data)
+- `*AH`: Archive handle containing restoration context and options
 ## Dependencies
 - Functions called/Symbols referenced:
   - strcmp/strncmp (C standard library string comparison)

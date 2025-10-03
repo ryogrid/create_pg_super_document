@@ -23,9 +23,8 @@ The function performs these key operations:
 5. Handles extension configuration tables (extconfig) and their conditions (extcondition)
 
 ## Parameters / Member Variables
-- : Archive structure containing dump configuration and output methods
-- : Output parameter that receives the total number of extensions found
-
+- `*fout`: Archive structure containing dump configuration and output methods
+- `*numExtensions`: Output parameter that receives the total number of extensions found
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)

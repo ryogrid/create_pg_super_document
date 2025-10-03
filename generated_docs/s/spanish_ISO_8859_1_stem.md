@@ -28,8 +28,7 @@ This function implements the complete Spanish stemming algorithm as part of the 
 The algorithm follows a backward processing approach, working from the end of the word toward the beginning. Each stage can modify the word, and subsequent stages operate on the results of previous transformations.
 
 ## Parameters / Member Variables
-- : Pointer to SN_env structure containing:
-
+- `*z`: Pointer to SN_env structure containing:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [r_mark_regions](../r/r_mark_regions.md): Identifies vowel-consonant regions for suffix rules

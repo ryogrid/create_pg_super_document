@@ -24,9 +24,8 @@ This function attempts to parse a string as a valid PostgreSQL Object Identifier
 The function is designed to be robust against malformed input and provides clear success/failure indication through its boolean return value.
 
 ## Parameters / Member Variables
-- : Input string to be parsed as an OID
-- : Pointer to an Oid variable where the parsed result will be stored on success
-
+- `*s`: Input string to be parsed as an OID
+- `*result`: Pointer to an Oid variable where the parsed result will be stored on success
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Standard C library function for string to unsigned long conversion

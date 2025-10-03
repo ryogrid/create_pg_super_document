@@ -18,10 +18,9 @@ This function serves as a comparison callback for PostgreSQL's pairing heap data
 The ordering ensures that snapshots with older (smaller) xmin values are prioritized at the top of the heap, which is crucial for snapshot management and garbage collection decisions.
 
 ## Parameters / Member Variables
-- : Pointer to the first pairing heap node containing a SnapshotData structure
-- : Pointer to the second pairing heap node containing a SnapshotData structure  
-- : Unused void pointer argument (required by pairing heap callback interface)
-
+- `*a`: Pointer to the first pairing heap node containing a SnapshotData structure
+- `*b`: Pointer to the second pairing heap node containing a SnapshotData structure
+- `*arg`: Unused void pointer argument (required by pairing heap callback interface)
 ## Dependencies
 - Functions called/Symbols referenced:
   - pairingheap_const_container

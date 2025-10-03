@@ -23,9 +23,8 @@ The function handles three categories of buffer usage:
 For each category, it tracks hit counts, read counts, blocks dirtied, blocks written, and timing information for read/write operations. The timing fields use the  macro to properly accumulate timing measurements.
 
 ## Parameters / Member Variables
-- : Pointer to the destination BufferUsage structure that will receive the accumulated values
-- : Pointer to the source BufferUsage structure whose values will be added to dst
-
+- `*dst`: Pointer to the destination BufferUsage structure that will receive the accumulated values
+- `*add`: Pointer to the source BufferUsage structure whose values will be added to dst
 ## Dependencies
 - Functions called/Symbols referenced:
   - INSTR_TIME_ADD (macro for adding timing measurements)

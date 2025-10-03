@@ -24,9 +24,8 @@ For transactions without XIDs (read-only transactions), no locking is required f
 The function ensures that transaction visibility changes are atomic with respect to snapshot taking, preventing race conditions where a transaction might appear to still be running during snapshot construction.
 
 ## Parameters / Member Variables
-- : Pointer to the PGPROC structure of the ending transaction (typically MyProc)
-- : Latest transaction ID among the main XID and subtransactions, or InvalidTransactionId if no XID
-
+- `*proc`: Pointer to the PGPROC structure of the ending transaction (typically MyProc)
+- `latestXid`: Latest transaction ID among the main XID and subtransactions, or InvalidTransactionId if no XID
 ## Dependencies
 - Functions called/Symbols referenced:
   - TransactionIdIsValid

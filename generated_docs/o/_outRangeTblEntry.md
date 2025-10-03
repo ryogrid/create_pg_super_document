@@ -29,9 +29,8 @@ The function handles eight different range table entry types:
 - RTE_RESULT: Result relations
 
 ## Parameters / Member Variables
-- : StringInfo buffer where the serialized RangeTblEntry representation will be written
-- : Pointer to the RangeTblEntry structure to be serialized
-
+- `str`: StringInfo buffer where the serialized RangeTblEntry representation will be written
+- `*node`: Pointer to the RangeTblEntry structure to be serialized
 ## Dependencies
 - Functions called/Symbols referenced:
   - WRITE_NODE_TYPE

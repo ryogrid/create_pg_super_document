@@ -18,9 +18,8 @@ The  function is a utility function in pg_dump's archiver that handles ownership
 The function includes safety checks to respect restore options that may disable ownership changes () or session authorization usage (). If either of these options is set, the function returns early without making any changes.
 
 ## Parameters / Member Variables
-- : Archive handle containing restore options and database connection information
-- : TOC entry representing the database object whose owner should be assumed
-
+- `*AH`: Archive handle containing restore options and database connection information
+- `*te`: TOC entry representing the database object whose owner should be assumed
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Actually performs the session authorization change

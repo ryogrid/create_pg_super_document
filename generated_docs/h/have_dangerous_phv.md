@@ -26,10 +26,9 @@ Any PHV that fails these safety checks is considered "dangerous" and will cause 
 This check is performed in two contexts: during initial join legality assessment in join_is_legal() and again in joinpath.c for each specific nestloop path, since inner paths might have more than minimum parameterization.
 
 ## Parameters / Member Variables
-- : Pointer to PlannerInfo containing global planner state and the placeholder list
-- : Bitmapset representing the relations in the outer side of the proposed join
-- : Bitmapset representing the parameterization requirements of the inner path
-
+- `*root`: Pointer to PlannerInfo containing global planner state and the placeholder list
+- `outer_relids`: Bitmapset representing the relations in the outer side of the proposed join
+- `inner_params`: Bitmapset representing the parameterization requirements of the inner path
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Structure containing PlaceHolderVar information

@@ -18,8 +18,7 @@ The PQconnectionNeedsPassword function checks if a PostgreSQL connection needs a
 The function returns true (non-zero) only when two conditions are met: the server has indicated that password authentication is needed (password_needed flag is set), and either no password has been provided or an empty password string has been provided.
 
 ## Parameters / Member Variables
-- : Pointer to the PGconn connection object to check for password requirements. If NULL, the function returns false.
-
+- `*conn`: Pointer to the PGconn connection object to check for password requirements. If NULL, the function returns false.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQpass](PQpass.md) (retrieves the current password from the connection)

@@ -19,11 +19,10 @@ This function takes a Ranges structure containing both multi-value ranges and si
 The expanded representation is essential for range merging algorithms as it provides a consistent interface regardless of whether the original data was stored as ranges or individual points.
 
 ## Parameters / Member Variables
-- : Function pointer to the comparison function for the data type
-- : Collation identifier for proper sorting and comparison
-- : Input structure containing both ranges and individual values
-- : Output parameter that receives the number of expanded ranges created
-
+- `*cmp`: Function pointer to the comparison function for the data type
+- `colloid`: Collation identifier for proper sorting and comparison
+- `*ranges`: Input structure containing both ranges and individual values
+- `*nranges`: Output parameter that receives the number of expanded ranges created
 ## Dependencies
 - Functions called/Symbols referenced:
   - [fill_expanded_ranges](../f/fill_expanded_ranges.md)

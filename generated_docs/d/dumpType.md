@@ -18,9 +18,8 @@ The  function serves as a dispatcher for dumping PostgreSQL user-defined data ty
 The function includes validation logic that logs a warning if it encounters an invalid or unexpected type type. For pseudo types, it only dumps undefined types (where  is false), as defined pseudo types are typically built-in types that don't need to be recreated.
 
 ## Parameters / Member Variables
-- : Archive structure representing the dump destination and containing connection/output information
-- : Pointer to TypeInfo structure containing type metadata including the type classification () and definition status
-
+- `*fout`: Archive structure representing the dump destination and containing connection/output information
+- `*tyinfo`: Pointer to TypeInfo structure containing type metadata including the type classification () and definition status
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dumpBaseType](dumpBaseType.md)

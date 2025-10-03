@@ -20,9 +20,8 @@ The fundamental issue is that EvalPlanQual (EPQ) operations require CTID (tuple 
 Rather than attempting to handle this impossible situation, the function immediately throws an error to indicate that the operation is fundamentally incompatible with index-only scan semantics.
 
 ## Parameters / Member Variables
-- : IndexOnlyScanState containing the scan state (unused, as function immediately errors)
-- : TupleTableSlot containing tuple data (unused, as function immediately errors)
-
+- `*node`: IndexOnlyScanState containing the scan state (unused, as function immediately errors)
+- `*slot`: TupleTableSlot containing tuple data (unused, as function immediately errors)
 ## Dependencies
 - Functions called/Symbols referenced:
   - elog: PostgreSQL logging/error reporting function used to throw the error

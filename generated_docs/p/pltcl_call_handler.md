@@ -18,8 +18,7 @@ pltcl_call_handler(PG_FUNCTION_ARGS)
 This handler is responsible for executing Tcl functions that have been defined within the database and called from SQL statements. The trusted nature means it operates with restricted privileges and limited access to system resources for security purposes.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function call information structure containing all necessary context for function execution, including arguments and call metadata
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function call information structure containing all necessary context for function execution, including arguments and call metadata
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pltcl_handler](pltcl_handler.md) (the core handler function)

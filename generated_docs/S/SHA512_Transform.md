@@ -30,9 +30,8 @@ The  function implements the SHA-512 compression algorithm as specified in FIPS 
 The function uses unrolled loops and optimized macros (ROUND512_0_TO_15, ROUND512) for performance.
 
 ## Parameters / Member Variables
-- : Pointer to SHA-512 context containing the current hash state and working buffer
-- : Pointer to exactly 128 bytes of input data to be processed
-
+- `*context`: Pointer to SHA-512 context containing the current hash state and working buffer
+- `*data`: Pointer to exactly 128 bytes of input data to be processed
 ## Dependencies
 - Functions called/Symbols referenced:
   - ROUND512_0_TO_15 (macro for rounds 0-15)

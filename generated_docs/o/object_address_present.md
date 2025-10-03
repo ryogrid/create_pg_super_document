@@ -19,9 +19,8 @@ The  function performs a lookup to determine if a given ObjectAddress is already
 A key feature of this function is its intelligent subobject handling: if the target object has a specific subobject ID but an entry in the array has  (representing the entire object), the function returns true. This means that if the whole object is already referenced, any specific subobject is considered present as well.
 
 ## Parameters / Member Variables
-- : Pointer to the ObjectAddress to search for in the array
-- : Pointer to the ObjectAddresses array to search within
-
+- `*object`: Pointer to the ObjectAddress to search for in the array
+- `*addrs`: Pointer to the ObjectAddresses array to search within
 ## Dependencies
 - Functions called/Symbols referenced:
   - ObjectAddresses (struct type)

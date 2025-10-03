@@ -24,8 +24,7 @@ The optimization applies when all these conditions are satisfied:
 This optimization is particularly beneficial for expressions like "column IN (const1, const2, ..., constN)" where N is large.
 
 ## Parameters / Member Variables
-- : Node pointer to the expression tree to be analyzed and potentially optimized for hash-based array operations
-
+- `*node`: Node pointer to the expression tree to be analyzed and potentially optimized for hash-based array operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [convert_saop_to_hashed_saop_walker](convert_saop_to_hashed_saop_walker.md)

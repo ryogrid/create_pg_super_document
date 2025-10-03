@@ -22,9 +22,8 @@ To address this, the function incorporates both the resource value and the resou
 The approach is deliberately lightweight since there are only a few resource kinds that store integers, making sophisticated mixing unnecessary.
 
 ## Parameters / Member Variables
-- : A Datum representing the resource value (typically a pointer, but can be an integer for some resource types like Files and Buffers)
-- : A pointer to ResourceOwnerDesc that identifies the type/kind of resource being hashed
-
+- `value`: A Datum representing the resource value (typically a pointer, but can be an integer for some resource types like Files and Buffers)
+- `*kind`: A pointer to ResourceOwnerDesc that identifies the type/kind of resource being hashed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ResourceOwnerDesc](../R/ResourceOwnerDesc.md) (struct type)

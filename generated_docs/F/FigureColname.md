@@ -27,8 +27,7 @@ Key naming strategies include:
 If no suitable name can be determined, the function returns the default PostgreSQL convention "?column?".
 
 ## Parameters / Member Variables
-- : The untransformed parse tree node for the target item from which to derive a column name
-
+- `*node`: The untransformed parse tree node for the target item from which to derive a column name
 ## Dependencies
 - Functions called/Symbols referenced:
   - [FigureColnameInternal](FigureColnameInternal.md)

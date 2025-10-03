@@ -26,9 +26,8 @@ This function provides a specialized variant of tuple descriptor lookup that ret
 This function is particularly useful when callers need to modify the tuple descriptor or when the descriptor needs to outlive the type cache entry. The copy semantics ensure that modifications don't affect the cached version and that the descriptor can be safely used across memory context switches.
 
 ## Parameters / Member Variables
-- : The OID of the composite type to look up
-- : Type modifier for transient record types (ignored for named composite types)
-
+- `type_id`: The OID of the composite type to look up
+- `typmod`: Type modifier for transient record types (ignored for named composite types)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lookup_rowtype_tupdesc_internal](lookup_rowtype_tupdesc_internal.md)

@@ -16,8 +16,7 @@ pg_prng_int32p(pg_prng_state *state)
 This function selects a random int32 uniformly from the range [0, PG_INT32_MAX], providing only non-negative values. The key difference from pg_prng_int32 is the use of a right shift by 33 bits (v >> 33) instead of 32 bits, which effectively removes the sign bit and ensures the result is always non-negative. This gives a uniform distribution over 31 bits of positive values.
 
 ## Parameters / Member Variables
-- : Pointer to the pseudo-random number generator state structure
-
+- `*state`: Pointer to the pseudo-random number generator state structure
 ## Dependencies
 - Functions called/Symbols referenced:
   - [xoroshiro128ss](../x/xoroshiro128ss.md) (the core PRNG algorithm)

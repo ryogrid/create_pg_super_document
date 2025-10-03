@@ -24,12 +24,11 @@ The function supports six different relation types: indexes (including partition
 After successful validation, the function sets the objectId to the relation's OID and returns the opened relation through the  parameter. The caller is responsible for closing the relation when done.
 
 ## Parameters / Member Variables
-- : The expected type of relation object (OBJECT_INDEX, OBJECT_TABLE, etc.)
-- : List of name components forming the qualified relation name
-- : Output parameter that receives the opened relation
-- : The lock mode to apply when opening the relation
-- : If true, return invalid ObjectAddress instead of throwing error when relation not found
-
+- `objtype`: The expected type of relation object (OBJECT_INDEX, OBJECT_TABLE, etc.)
+- `*object`: List of name components forming the qualified relation name
+- `*relp`: Output parameter that receives the opened relation
+- `lockmode`: The lock mode to apply when opening the relation
+- `missing_ok`: If true, return invalid ObjectAddress instead of throwing error when relation not found
 ## Dependencies
 - Functions called/Symbols referenced:
   - [relation_openrv_extended](../r/relation_openrv_extended.md) (for opening relations with missing_ok support)

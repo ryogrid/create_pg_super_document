@@ -15,7 +15,6 @@ void GucInfoMain(void)
 GucInfoMain serves as the primary function for the PostgreSQL configuration help utility. It initializes the GUC system, retrieves all available configuration variables, and outputs information about each one that should be displayed to users. The function filters out configuration parameters marked with specific flags (GUC_NO_SHOW_ALL, GUC_NOT_IN_SAMPLE, or GUC_DISALLOW_IN_FILE) to present only user-relevant options. After processing all variables, it terminates the program with exit(0).
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

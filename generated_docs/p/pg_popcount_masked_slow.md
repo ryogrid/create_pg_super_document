@@ -28,10 +28,9 @@ This function provides a portable masked buffer-based population count implement
 The mask expansion technique allows efficient word-level masking by creating a pattern where each byte position contains the original mask value.
 
 ## Parameters / Member Variables
-- : Pointer to the buffer containing the data to be processed
-- : The number of bytes in the buffer to process
-- : An 8-bit mask to be applied to each byte before counting bits
-
+- `*buf`: Pointer to the buffer containing the data to be processed
+- `bytes`: The number of bytes in the buffer to process
+- `mask`: An 8-bit mask to be applied to each byte before counting bits
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (for 64-bit chunk processing)

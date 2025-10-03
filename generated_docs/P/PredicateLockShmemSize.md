@@ -28,7 +28,6 @@ The function calculates memory for:
 The function uses PostgreSQL's size calculation utilities (add_size, mul_size) to safely handle potential overflow conditions.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

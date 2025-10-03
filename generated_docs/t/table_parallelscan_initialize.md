@@ -25,10 +25,9 @@ This function initializes the shared memory structures needed for coordinating a
 This function must be called in the leader process before parallel workers are launched to ensure proper shared memory setup.
 
 ## Parameters / Member Variables
-- : The relation that will be scanned in parallel
-- : The ParallelTableScanDesc structure in shared memory that coordinates the parallel scan
-- : The snapshot to be used by all parallel workers
-
+- `rel`: The relation that will be scanned in parallel
+- `pscan`: The ParallelTableScanDesc structure in shared memory that coordinates the parallel scan
+- `snapshot`: The snapshot to be used by all parallel workers
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsMVCCSnapshot (to determine if snapshot needs serialization)

@@ -16,9 +16,8 @@ defGetCopyLogVerbosityChoice(DefElem *def, ParseState *pstate)
 This function parses and validates the LOG_VERBOSITY option value for COPY statements. The LOG_VERBOSITY option controls the amount of detail included in log messages generated during COPY operations. It accepts two string values: "default" (standard logging level) and "verbose" (increased logging detail for debugging and monitoring purposes). The function provides case-insensitive string matching and generates descriptive error messages with precise parser position information when invalid values are provided.
 
 ## Parameters / Member Variables
-- : DefElem structure containing the LOG_VERBOSITY parameter definition and string value
-- : ParseState used for generating error messages with accurate source position information
-
+- `*def`: DefElem structure containing the LOG_VERBOSITY parameter definition and string value
+- `*pstate`: ParseState used for generating error messages with accurate source position information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [defGetString](defGetString.md)

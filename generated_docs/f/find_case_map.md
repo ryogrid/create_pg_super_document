@@ -22,8 +22,7 @@ The  function is responsible for efficiently locating case mapping information f
 The function returns a pointer to the  structure containing the case conversion mappings for the requested character, or NULL if no mapping exists for that codepoint. The case mapping table contains conversion information for lowercase, uppercase, and titlecase variants of each character.
 
 ## Parameters / Member Variables
-- : The Unicode codepoint (pg_wchar) to find case mapping for
-
+- `ucs`: The Unicode codepoint (pg_wchar) to find case mapping for
 ## Dependencies
 - Functions called/Symbols referenced:
   - lengthof (macro to get array length)

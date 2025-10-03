@@ -20,8 +20,7 @@ The function returns a void pointer to maintain API compatibility, but the actua
 This is part of the SSL information functions suite in libpq, designed to give applications low-level access to SSL connection details when needed for advanced SSL configuration or debugging purposes.
 
 ## Parameters / Member Variables
-- : Pointer to the PostgreSQL connection object (PGconn structure)
-
+- `*conn`: Pointer to the PostgreSQL connection object (PGconn structure)
 ## Dependencies
 - Functions called/Symbols referenced:
   - conn->ssl (direct member access to SSL object in PGconn structure)

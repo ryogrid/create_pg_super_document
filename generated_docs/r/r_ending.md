@@ -19,8 +19,7 @@ The  function is part of the Armenian language stemming algorithm implementation
 The function follows the typical Snowball stemming pattern: it sets the  marker at the current cursor position, searches for matching patterns using , sets the  marker, validates that the match is in the R2 region, and then deletes the matched suffix if all conditions are met.
 
 ## Parameters / Member Variables
-- : Pointer to the SN_env structure containing the stemming environment, including the word being processed and cursor positions
-
+- `*z`: Pointer to the SN_env structure containing the stemming environment, including the word being processed and cursor positions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [find_among_b](../f/find_among_b.md) (searches backwards through the  array of 57 Armenian ending patterns)

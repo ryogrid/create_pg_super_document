@@ -24,11 +24,10 @@ This function deserializes an IndexTuple from a logical tape during the external
 The extracted first-column key (datum1) and its null flag (isnull1) are cached in the SortTuple to avoid repeated attribute extraction during comparisons.
 
 ## Parameters / Member Variables
-- : Tuplesortstate containing sorting configuration and context
-- : SortTuple structure to populate with the deserialized tuple
-- : LogicalTape to read the tuple data from
-- : Total length of the serialized data (including length prefix)
-
+- `*state`: Tuplesortstate containing sorting configuration and context
+- `*stup`: SortTuple structure to populate with the deserialized tuple
+- `*tape`: LogicalTape to read the tuple data from
+- `len`: Total length of the serialized data (including length prefix)
 ## Dependencies
 - Functions called/Symbols referenced:
   - TuplesortstateGetPublic

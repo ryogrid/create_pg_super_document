@@ -18,8 +18,7 @@ TableFuncNext implements a lazy evaluation strategy for table function execution
 The function operates as a workhorse for ExecTableFuncScan, handling the low-level mechanics of tuple retrieval and maintaining the scan state across multiple calls.
 
 ## Parameters / Member Variables
-- : TableFuncScanState structure containing the scan state, including the tuplestore and scan tuple slot
-
+- `*node`: TableFuncScanState structure containing the scan state, including the tuplestore and scan tuple slot
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TableFuncScanState](TableFuncScanState.md) (struct type)

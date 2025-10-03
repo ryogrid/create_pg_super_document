@@ -25,10 +25,9 @@ This function performs syntax transformations on grouping set expressions to nor
 The function preserves CUBE and ROLLUP syntax within GROUPING SETS to maintain the originally specified grouping set syntax for deparsing, while full expansion is left to the planner. It also handles pathological input by checking stack depth to prevent infinite recursion.
 
 ## Parameters / Member Variables
-- : The grouping expression node to be flattened (can be a single expression, GroupingSet, RowExpr, or List)
-- : Boolean flag indicating whether this is a top-level call (affects how empty grouping sets and nested sets are handled)
-- : Output parameter (can be NULL) that gets set to true if any GroupingSet nodes are encountered during processing
-
+- `*expr`: The grouping expression node to be flattened (can be a single expression, GroupingSet, RowExpr, or List)
+- `toplevel`: Boolean flag indicating whether this is a top-level call (affects how empty grouping sets and nested sets are handled)
+- `*hasGroupingSets`: Output parameter (can be NULL) that gets set to true if any GroupingSet nodes are encountered during processing
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_stack_depth](../c/check_stack_depth.md)

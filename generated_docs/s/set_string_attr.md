@@ -18,10 +18,9 @@ This function is a helper utility in PostgreSQL's PL/Python extension that sets 
 The function performs proper Python reference counting, incrementing the reference count for Py_None when needed and decrementing the reference count for the created value object before returning. It returns a boolean indicating whether the attribute setting operation was successful.
 
 ## Parameters / Member Variables
-- : The Python object on which to set the attribute
-- : The name of the attribute to set (as a C string)
-- : The string value to set, or NULL to set the attribute to None
-
+- `*obj`: The Python object on which to set the attribute
+- `*attrname`: The name of the attribute to set (as a C string)
+- `*str`: The string value to set, or NULL to set the attribute to None
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PLyUnicode_FromString](../P/PLyUnicode_FromString.md)

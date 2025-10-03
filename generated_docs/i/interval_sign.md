@@ -16,8 +16,7 @@ interval_sign(const Interval *interval)
 The  function is a static helper function that evaluates the sign of an interval data type. It internally uses  to convert the interval to a comparable 128-bit integer representation, then compares this value with zero using . This function is essential for interval arithmetic operations that need to determine the direction or sign of time spans.
 
 ## Parameters / Member Variables
-- : A constant pointer to an Interval struct representing the time span to evaluate
-
+- `*interval`: A constant pointer to an Interval struct representing the time span to evaluate
 ## Dependencies
 - Functions called/Symbols referenced:
   - [interval_cmp_value](interval_cmp_value.md)

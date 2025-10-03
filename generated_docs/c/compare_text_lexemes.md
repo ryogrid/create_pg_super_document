@@ -24,9 +24,8 @@ The function process:
 This enables proper lexicographical ordering of lexemes when constructing TSVectors from text arrays.
 
 ## Parameters / Member Variables
-- : Pointer to the first Datum (text object) to compare (cast from void*)
-- : Pointer to the second Datum (text object) to compare (cast from void*)
-
+- `*va`: Pointer to the first Datum (text object) to compare (cast from void*)
+- `*vb`: Pointer to the second Datum (text object) to compare (cast from void*)
 ## Dependencies
 - Functions called/Symbols referenced:
   - VARDATA_ANY (macro to extract string data from varlena objects)

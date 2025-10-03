@@ -24,7 +24,6 @@ This function is called during the pre-commit phase to ensure that a backend pro
 The function uses exclusive locking on  to safely manipulate the shared queue structures and listener list.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

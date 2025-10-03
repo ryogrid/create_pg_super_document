@@ -30,8 +30,7 @@ The  function implements the SHA-512 message padding and finalization process as
 The function ensures that the message length modulo 1024 bits equals 896 bits, leaving exactly 128 bits for the length field.
 
 ## Parameters / Member Variables
-- : Pointer to SHA-512 context containing the current state, buffer, and bit count
-
+- `*context`: Pointer to SHA-512 context containing the current state, buffer, and bit count
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SHA512_Transform](SHA512_Transform.md)

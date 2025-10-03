@@ -16,7 +16,6 @@ ApplyLauncherWakeupAtCommit(void)
 This function sets a flag () that signals the logical replication launcher to wake up from its sleep state when the current transaction commits. This mechanism is essential for maintaining consistency between catalog changes and subscription processing. The function uses a simple boolean flag to avoid redundant wake-up requests within the same transaction. The actual wakeup occurs during transaction commit processing, ensuring that subscription changes are only acted upon after they are durably committed to the database.
 
 ## Parameters / Member Variables
-(This function takes no parameters)
 
 ## Dependencies
 - Functions called/Symbols referenced:

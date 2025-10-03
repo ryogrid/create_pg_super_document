@@ -23,10 +23,9 @@ This utility function constructs PostgreSQL connection strings by appending indi
 This function is essential for building connection strings dynamically in pg_createsubscriber, ensuring that connection parameters are properly formatted according to PostgreSQL's connection string syntax.
 
 ## Parameters / Member Variables
-- : PQExpBuffer to append the formatted keyword-value pair to
-- : Connection string parameter name (e.g., "host", "port", "dbname")
-- : Value to be associated with the keyword, will be properly quoted/escaped
-
+- `buf`: PQExpBuffer to append the formatted keyword-value pair to
+- `*keyword`: Connection string parameter name (e.g., "host", "port", "dbname")
+- `*val`: Value to be associated with the keyword, will be properly quoted/escaped
 ## Dependencies
 - Functions called/Symbols referenced:
   - [appendPQExpBufferChar](appendPQExpBufferChar.md) (to add space and equals sign characters)

@@ -18,9 +18,8 @@ OpenPipeStream serves as PostgreSQL's integrated replacement for the standard po
 The function manages file descriptor limits by releasing least-recently-used files when necessary and provides transaction-aware cleanup. All pipes opened through this function are automatically tracked and closed during transaction boundaries, preventing resource leaks. The function also implements retry logic when encountering file descriptor exhaustion.
 
 ## Parameters / Member Variables
-- : The shell command string to execute via the pipe
-- : The pipe mode ("r" for reading from command output, "w" for writing to command input)
-
+- `*command`: The shell command string to execute via the pipe
+- `*mode`: The pipe mode ("r" for reading from command output, "w" for writing to command input)
 ## Dependencies
 - Functions called/Symbols referenced:
   - DO_DB (debug logging macro)

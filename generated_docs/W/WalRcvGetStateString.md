@@ -20,8 +20,7 @@ The function is designed specifically for system interfaces and explicitly avoid
 This function is primarily used by monitoring and administrative functions to present WAL receiver status information in a user-friendly format.
 
 ## Parameters / Member Variables
-- : WalRcvState enumeration value representing the current state of the WAL receiver process
-
+- `state`: WalRcvState enumeration value representing the current state of the WAL receiver process
 ## Dependencies
 - Functions called/Symbols referenced:
   - WalRcvState enum values:

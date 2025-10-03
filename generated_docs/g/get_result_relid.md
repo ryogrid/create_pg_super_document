@@ -22,9 +22,8 @@ The function performs three checks:
 This is used extensively during RTE_RESULT optimization to identify candidates for removal or transformation.
 
 ## Parameters / Member Variables
-- : PlannerInfo containing the query parse tree and range table
-- : Join tree node to examine for RTE_RESULT status
-
+- `*root`: PlannerInfo containing the query parse tree and range table
+- `*jtnode`: Join tree node to examine for RTE_RESULT status
 ## Dependencies
 - Functions called/Symbols referenced:
   - rt_fetch (macro to access range table entries)

@@ -16,8 +16,7 @@ pq_getmsgrawstring(StringInfo msg)
 The  function retrieves a null-terminated string from a PostgreSQL message buffer without performing any character encoding conversion. It always returns a pointer directly into the message buffer, making it a zero-copy operation suitable for cases where the string data is already in the correct encoding or when encoding conversion is not desired. The function validates that a proper null terminator exists within the message boundaries and advances the cursor appropriately.
 
 ## Parameters / Member Variables
-- : A  structure representing the message buffer being read from
-
+- `msg`: A  structure representing the message buffer being read from
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (string length function)

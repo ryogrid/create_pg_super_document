@@ -16,9 +16,8 @@ JsonbValueInitNumericDatum(JsonbValue *jbv, Datum num)
 This is a static utility function in the JSON path execution module that initializes a JsonbValue structure to represent a numeric value. It sets the JsonbValue type to jbvNumeric and stores the numeric data by extracting it from a PostgreSQL Datum using DatumGetNumeric. This function is used internally during JSON path operations when numeric values need to be converted from PostgreSQL's internal Datum representation to JsonbValue format for JSON processing.
 
 ## Parameters / Member Variables
-- : Pointer to the JsonbValue structure to initialize
-- : PostgreSQL Datum containing the numeric value to extract and store
-
+- `*jbv`: Pointer to the JsonbValue structure to initialize
+- `num`: PostgreSQL Datum containing the numeric value to extract and store
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DatumGetNumeric](../D/DatumGetNumeric.md) (PostgreSQL macro to extract Numeric from Datum)

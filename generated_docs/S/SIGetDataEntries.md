@@ -20,9 +20,8 @@ The function implements an optimized reading strategy with an initial unlocked c
 The implementation carefully manages the backend's state tracking, including message counters and signaling flags, to ensure reliable message delivery without loss or duplication. It can run in parallel with other instances serving different backends and with SIInsertDataEntries operations.
 
 ## Parameters / Member Variables
-- : Array of SharedInvalidationMessage structures to be filled with retrieved messages
-- : Maximum number of messages that can be stored in the data array
-
+- `*data`: Array of SharedInvalidationMessage structures to be filled with retrieved messages
+- `datasize`: Maximum number of messages that can be stored in the data array
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease (for SInvalReadLock synchronization)

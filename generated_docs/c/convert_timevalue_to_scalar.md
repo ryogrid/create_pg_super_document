@@ -18,10 +18,9 @@ This function is a specialized converter that transforms PostgreSQL's various ti
 The function supports major PostgreSQL time types including timestamps (with and without timezone), dates, intervals, and time values. For interval types, it uses an approximation method that converts months to days using an average month length calculation. The conversion preserves the relative ordering and differences between values, which is crucial for statistical analysis.
 
 ## Parameters / Member Variables
-- : A Datum containing the time value to be converted
-- : The PostgreSQL type OID identifying the specific time data type
-- : Pointer to a boolean flag that gets set to true if the conversion fails due to unsupported type
-
+- `value`: A Datum containing the time value to be converted
+- `typid`: The PostgreSQL type OID identifying the specific time data type
+- `*failure`: Pointer to a boolean flag that gets set to true if the conversion fails due to unsupported type
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DatumGetTimestamp](../D/DatumGetTimestamp.md)

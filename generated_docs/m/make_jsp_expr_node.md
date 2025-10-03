@@ -18,9 +18,8 @@ This function constructs a JsonPathGinNode designed to hold complex expressions 
 The function sets up the node type and argument count but leaves the actual argument array uninitialized - this is typically filled in by the calling function after node creation. This design pattern allows for flexible creation of various types of expression nodes (logical operators, comparisons, etc.) in the JSONB GIN index system.
 
 ## Parameters / Member Variables
-- : JsonPathGinNodeType enum value specifying the type of expression node to create
-- : Integer specifying the number of arguments this expression node will contain
-
+- `type`: JsonPathGinNodeType enum value specifying the type of expression node to create
+- `nargs`: Integer specifying the number of arguments this expression node will contain
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md) (PostgreSQL memory allocation function)

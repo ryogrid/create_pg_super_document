@@ -28,11 +28,10 @@ The function performs several key calculations:
 The cost model considers nested loop scenarios where the index scan may be repeated multiple times, applying cache-aware algorithms to estimate realistic I/O costs rather than assuming every page access results in a disk read.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global planning context and statistics
-- : IndexPath structure describing the specific index access path being costed
-- : Expected number of times this index scan will be executed (for nested loops)
-- : GenericCosts output structure to store the calculated cost estimates
-
+- `*root`: PlannerInfo structure containing global planning context and statistics
+- `*path`: IndexPath structure describing the specific index access path being costed
+- `loop_count`: Expected number of times this index scan will be executed (for nested loops)
+- `*costs`: GenericCosts output structure to store the calculated cost estimates
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_quals_from_indexclauses](get_quals_from_indexclauses.md)

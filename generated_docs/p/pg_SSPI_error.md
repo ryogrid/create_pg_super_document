@@ -18,10 +18,9 @@ The pg_SSPI_error function is responsible for creating detailed error reports wh
 When FormatMessage succeeds in translating the SECURITY_STATUS code into a system message, the function reports both the custom error message and the detailed system message with the error code. If FormatMessage fails, it falls back to reporting just the custom message along with the raw hexadecimal error code.
 
 ## Parameters / Member Variables
-- : The PostgreSQL error severity level (e.g., ERROR, WARNING) to be used when reporting the error
-- : A custom error message string that should be translatable (caller should apply _() function)  
-- : The SECURITY_STATUS error code returned from SSPI operations that needs to be interpreted
-
+- `severity`: The PostgreSQL error severity level (e.g., ERROR, WARNING) to be used when reporting the error
+- `*errmsg`: A custom error message string that should be translatable (caller should apply _() function)
+- `r`: The SECURITY_STATUS error code returned from SSPI operations that needs to be interpreted
 ## Dependencies
 - Functions called/Symbols referenced:
   - FormatMessage (Windows API)

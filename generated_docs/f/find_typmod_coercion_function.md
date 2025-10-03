@@ -27,9 +27,8 @@ Common examples of types requiring length coercion include:
 -  and  for bit length adjustment
 
 ## Parameters / Member Variables
-- : The OID of the data type to check for length coercion requirements
-- : Pointer to store the OID of the length coercion function (set to InvalidOid if none found)
-
+- `typeId`: The OID of the data type to check for length coercion requirements
+- `*funcid`: Pointer to store the OID of the length coercion function (set to InvalidOid if none found)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [typeidType](../t/typeidType.md)

@@ -16,9 +16,8 @@ jspGetArg(JsonPathItem *v, JsonPathItem *a)
 This function extracts the single argument from unary JSON path operations that store their operand in the content.arg field. It validates that the provided JsonPathItem represents a unary operation (one that takes exactly one argument) and then initializes the argument JsonPathItem by calling jspInitByBuffer with the argument's buffer position. The function is specifically designed for operations like logical NOT, unary plus/minus, filters, existence checks, and various datetime conversion functions that all follow the single-argument pattern.
 
 ## Parameters / Member Variables
-- : Pointer to the JsonPathItem containing the unary operation whose argument should be extracted
-- : Pointer to the JsonPathItem structure to be initialized with the argument data
-
+- `*v`: Pointer to the JsonPathItem containing the unary operation whose argument should be extracted
+- `*a`: Pointer to the JsonPathItem structure to be initialized with the argument data
 ## Dependencies
 - Functions called/Symbols referenced:
   - JsonPathItem (struct type)

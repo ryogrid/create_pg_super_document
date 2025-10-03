@@ -22,7 +22,6 @@ The function showcases various option patterns:
 - String options with both NULL and non-NULL defaults, including custom validation
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

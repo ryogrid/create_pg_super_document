@@ -24,7 +24,6 @@ The function performs several critical operations:
 The function only handles hard deadlocks by aborting the current transaction. Soft deadlocks (resolved by queue reordering) are handled by the DeadLockCheck algorithm itself.
 
 ## Parameters / Member Variables
-None - operates on global state and MyProc
 
 ## Dependencies
 - Functions called/Symbols referenced:

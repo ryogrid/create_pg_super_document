@@ -26,10 +26,9 @@ Key parsing features:
 The function is designed to minimize memory allocation, making it suitable for GUC variable processing where memory leaks must be avoided. It modifies the input string in-place and returns pointers into the modified string.
 
 ## Parameters / Member Variables
-- : Input string to be parsed (must be modifiable; will be overwritten with separated identifiers)
-- : Character used to separate identifiers (typically '.' for qualified names or ',' for lists)
-- : Output parameter filled with a list of pointers to parsed identifiers within the modified rawstring
-
+- `*rawstring`: Input string to be parsed (must be modifiable; will be overwritten with separated identifiers)
+- `separator`: Character used to separate identifiers (typically '.' for qualified names or ',' for lists)
+- `**namelist`: Output parameter filled with a list of pointers to parsed identifiers within the modified rawstring
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Checks for whitespace characters using PostgreSQL's scanner rules

@@ -16,8 +16,7 @@ pg_u_isspace(pg_wchar code)
 This function determines if a given Unicode code point has the White_Space property as defined by the Unicode standard. It acts as a wrapper around , providing a simpler interface for checking whitespace characters. The function handles both ASCII and non-ASCII Unicode characters by delegating to the underlying property checking mechanism.
 
 ## Parameters / Member Variables
-- : The Unicode code point (pg_wchar) to test for whitespace property
-
+- `code`: The Unicode code point (pg_wchar) to test for whitespace property
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_u_prop_white_space](pg_u_prop_white_space.md)

@@ -31,10 +31,9 @@ The function operates in two main phases:
 For LIST and RANGE partitioning, the function implements sophisticated prefix logic where clauses for earlier partition keys form a "prefix" that constrains the search space for later keys. It handles complex scenarios with multiple clauses per key and ensures proper ordering based on operator inclusiveness.
 
 ## Parameters / Member Variables
-- : GeneratePruningStepsContext containing partition metadata and step generation state
-- : Array of List pointers indexed by partition key number, each containing PartClauseInfo for that key
-- : Bitmapset indicating which partition keys have IS NULL clauses
-
+- `*context`: GeneratePruningStepsContext containing partition metadata and step generation state
+- `**keyclauses`: Array of List pointers indexed by partition key number, each containing PartClauseInfo for that key
+- `*nullkeys`: Bitmapset indicating which partition keys have IS NULL clauses
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_op_opfamily_properties](get_op_opfamily_properties.md)

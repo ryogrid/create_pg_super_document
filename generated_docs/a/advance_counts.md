@@ -18,9 +18,8 @@ This function updates the duplicate counting state for a tuple group in SetOp op
 The function uses a simple conditional logic where a non-zero flag indicates a right-input tuple, while a zero flag indicates a left-input tuple. This binary classification allows the SetOp executor to maintain separate counts for tuples originating from different input sources.
 
 ## Parameters / Member Variables
-- : Pointer to a SetOpStatePerGroup structure that maintains the per-group working state for counting duplicates
-- : Integer flag indicating the input source (0 for left input, non-zero for right input)
-
+- `pergroup`: Pointer to a SetOpStatePerGroup structure that maintains the per-group working state for counting duplicates
+- `flag`: Integer flag indicating the input source (0 for left input, non-zero for right input)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SetOpStatePerGroup](../S/SetOpStatePerGroup.md) (typedef structure)

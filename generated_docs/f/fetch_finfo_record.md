@@ -24,9 +24,8 @@ fetch_finfo_record retrieves metadata about a C-language function by:
 The function ensures that C-language functions have proper PG_FUNCTION_INFO_V1 declarations and provides clear error messages when they're missing or invalid. It currently only supports API version 1.
 
 ## Parameters / Member Variables
-- : Handle to the loaded shared library containing the function
-- : Name of the C function whose info record should be fetched
-
+- `*filehandle`: Handle to the loaded shared library containing the function
+- `*funcname`: Name of the C function whose info record should be fetched
 ## Dependencies
 - Functions called/Symbols referenced:
   - [psprintf](../p/psprintf.md) (format string into allocated memory)

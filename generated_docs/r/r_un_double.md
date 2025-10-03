@@ -19,8 +19,7 @@ The r_un_double function implements a critical step in French morphological anal
 The function follows the standard Snowball stemmer pattern: it sets up a test position, searches for matching patterns using find_among_b with array a_8 (which contains 5 doubled consonant patterns), and if a match is found, it removes one character using slice_del. The function uses the standard Snowball boundary markers (bra/ket) to define the text region to be modified.
 
 ## Parameters / Member Variables
-- : Pointer to the Snowball environment structure containing the word being processed, cursor positions, and stemming boundaries
-
+- `*z`: Pointer to the Snowball environment structure containing the word being processed, cursor positions, and stemming boundaries
 ## Dependencies
 - Functions called/Symbols referenced:
   - [find_among_b](../f/find_among_b.md): Searches for patterns in the a_8 lookup table

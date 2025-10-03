@@ -25,8 +25,7 @@ The function follows a similar validation pattern to check_mergejoinable:
 Unlike merge joins, hash joins don't require sorted input data but do require the ability to compute hash values for the join keys. If all validation criteria are met, the function stores the operator OID in the hashjoinoperator field, enabling the query planner to consider hash join strategies.
 
 ## Parameters / Member Variables
-- : RestrictInfo structure containing the clause to evaluate and the hashjoinoperator field to populate if the clause qualifies for hash joins
-
+- `*restrictinfo`: RestrictInfo structure containing the clause to evaluate and the hashjoinoperator field to populate if the clause qualifies for hash joins
 ## Dependencies
 - Functions called/Symbols referenced:
   - [is_opclause](../i/is_opclause.md) (verifies expression is an operator clause)

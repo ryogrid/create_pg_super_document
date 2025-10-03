@@ -19,11 +19,10 @@ This function implements span migration between different fullness classes withi
 The function safely removes the first span from the source fullness class and inserts it at the head of the target fullness class, updating all necessary pointer relationships. This maintains the invariant that spans are organized by their allocation density, enabling efficient allocation strategies.
 
 ## Parameters / Member Variables
-- : Pointer to the DSA area containing the pool
-- : Pointer to the pool containing the span lists
-- : Source fullness class index (0=empty, 1=partially full, 2=nearly full, 3=full)
-- : Target fullness class index to move the span to
-
+- `*area`: Pointer to the DSA area containing the pool
+- `*pool`: Pointer to the pool containing the span lists
+- `fromclass`: Source fullness class index (0=empty, 1=partially full, 2=nearly full, 3=full)
+- `toclass`: Target fullness class index to move the span to
 ## Dependencies
 - Functions called/Symbols referenced:
   - DsaPointerIsValid

@@ -18,9 +18,8 @@ This static function provides the implementation for executing raw SQL query str
 The function respects the read-only status of the current procedure context and applies any specified row limit. It handles all aspects of query execution including encoding validation, SPI execution, result processing, and error reporting. Unlike PLy_spi_execute_plan, this function works with direct SQL strings rather than prepared statements.
 
 ## Parameters / Member Variables
-- : NULL-terminated SQL query string to execute
-- : Maximum number of rows to return (0 for no limit)
-
+- `*query`: NULL-terminated SQL query string to execute
+- `limit`: Maximum number of rows to return (0 for no limit)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PLy_current_execution_context](PLy_current_execution_context.md): Gets current execution context and procedure info

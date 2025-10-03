@@ -18,9 +18,8 @@ The  function retrieves the label values from all child nodes contained within a
 The function iterates through all nodes using the  macro and validates the consistency of null states across all nodes. This validation is crucial for maintaining the integrity of the SP-GiST index structure, where label nullness must be uniform within a single inner tuple.
 
 ## Parameters / Member Variables
-- : Pointer to SpGistState containing index configuration and type information needed for datum extraction
-- : The SP-GiST inner tuple containing the nodes whose labels should be extracted
-
+- `*state`: Pointer to SpGistState containing index configuration and type information needed for datum extraction
+- `innerTuple`: The SP-GiST inner tuple containing the nodes whose labels should be extracted
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - macro to get pointer to the first node in the inner tuple

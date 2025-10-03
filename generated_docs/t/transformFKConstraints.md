@@ -23,10 +23,9 @@ The function operates in two phases:
 The deferred execution ensures that foreign key constraints are added after all indexes are created and the table structure is complete, maintaining proper dependency ordering in the command execution sequence.
 
 ## Parameters / Member Variables
-- : Pointer to CreateStmtContext containing the foreign key constraints list and execution context
-- : Boolean indicating whether FK validation can be safely skipped (true for CREATE TABLE, ADD COLUMN with NULL default)
-- : Boolean indicating whether this is called from an explicit ADD CONSTRAINT operation (affects command generation behavior)
-
+- `*cxt`: Pointer to CreateStmtContext containing the foreign key constraints list and execution context
+- `skipValidation`: Boolean indicating whether FK validation can be safely skipped (true for CREATE TABLE, ADD COLUMN with NULL default)
+- `isAddConstraint`: Boolean indicating whether this is called from an explicit ADD CONSTRAINT operation (affects command generation behavior)
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (creates new node structures)

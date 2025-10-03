@@ -18,9 +18,8 @@ This function is part of PostgreSQL's multibyte character validation system for 
 The function follows the general contract for verifychar functions: given a pointer to the first byte of a string and the remaining length, it returns the length in bytes of a validly encoded character beginning at that position, or -1 if invalid. For ASCII, every single byte is valid, so it always returns 1.
 
 ## Parameters / Member Variables
-- : Pointer to the first byte of the character to verify (not examined in ASCII case)
-- : Remaining length of the string (assumed to be > 0 by contract)
-
+- `*s`: Pointer to the first byte of the character to verify (not examined in ASCII case)
+- `len`: Remaining length of the string (assumed to be > 0 by contract)
 ## Dependencies
 - Functions called/Symbols referenced: None
 - Called from (representative examples):

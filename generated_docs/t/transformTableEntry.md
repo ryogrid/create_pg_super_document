@@ -16,9 +16,8 @@ transformTableEntry(ParseState *pstate, RangeVar *r)
 The transformTableEntry function is a wrapper function that simplifies the transformation of a simple table reference (RangeVar) into a ParseNamespaceItem. It serves as an intermediary in the SQL parsing pipeline, specifically handling the transformation of basic table references in the FROM clause. The function extracts the necessary information from the RangeVar structure and passes it to addRangeTableEntry, which performs the actual work of adding the table to the range table and creating the corresponding ParseNamespaceItem.
 
 ## Parameters / Member Variables
-- : ParseState structure containing the current parsing context and state information
-- : RangeVar structure representing the simple relation reference to be transformed
-
+- `*pstate`: ParseState structure containing the current parsing context and state information
+- `*r`: RangeVar structure representing the simple relation reference to be transformed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [addRangeTableEntry](../a/addRangeTableEntry.md)

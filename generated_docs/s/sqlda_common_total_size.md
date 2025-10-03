@@ -18,11 +18,10 @@ This function computes the memory space needed to store actual data values for a
 Special handling is provided for the numeric type, which requires deconstructing the value to determine the exact size needed for its variable-length digit array. The function ensures all values are properly aligned according to their type requirements for optimal memory access and compatibility across different architectures.
 
 ## Parameters / Member Variables
-- : Pointer to PostgreSQL result set containing the data and metadata
-- : Zero-based row index in the result set to calculate storage for
-- : Compatibility mode (ECPG_COMPAT or ECPG_INFORMIX) affecting type mapping
-- : Starting memory offset where data storage calculations should begin
-
+- `*res`: Pointer to PostgreSQL result set containing the data and metadata
+- `row`: Zero-based row index in the result set to calculate storage for
+- `compat`: Compatibility mode (ECPG_COMPAT or ECPG_INFORMIX) affecting type mapping
+- `offset`: Starting memory offset where data storage calculations should begin
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQnfields](../P/PQnfields.md) (get number of fields)

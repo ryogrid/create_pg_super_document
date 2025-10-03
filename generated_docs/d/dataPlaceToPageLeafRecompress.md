@@ -22,9 +22,8 @@ During reassembly, the function tracks whether any modifications have been made 
 An important constraint is that segment pointers must not point directly to the same buffer being modified, except for unmodified segments whose preceding segments are also unmodified. This ensures memory safety during the reconstruction process.
 
 ## Parameters / Member Variables
-- : Target buffer containing the leaf page to be reconstructed
-- : Pointer to disassembledLeaf structure containing segment modifications and data
-
+- `buf`: Target buffer containing the leaf page to be reconstructed
+- `*leaf`: Pointer to disassembledLeaf structure containing segment modifications and data
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BufferGetPage](../B/BufferGetPage.md)

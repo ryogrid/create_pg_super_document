@@ -16,8 +16,7 @@ pg_euckr_mblen(const unsigned char *s)
 The pg_euckr_mblen function is a wrapper around the generic EUC (Extended Unix Code) multi-byte length function. It determines how many bytes are needed to represent a single character in EUC-KR encoding by delegating to the pg_euc_mblen function, which implements the standard EUC byte-length logic. EUC-KR uses 1-3 bytes per character, where single-byte characters represent ASCII, and multi-byte sequences represent Korean characters.
 
 ## Parameters / Member Variables
-- : Pointer to the first byte of a character sequence in EUC-KR encoding
-
+- `*s`: Pointer to the first byte of a character sequence in EUC-KR encoding
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_euc_mblen](pg_euc_mblen.md)

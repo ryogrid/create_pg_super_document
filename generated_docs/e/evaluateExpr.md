@@ -21,10 +21,9 @@ The function handles three main expression types:
 - **ENODE_FUNCTION**: Delegation to function evaluation via 
 
 ## Parameters / Member Variables
-- : Pointer to the current client state containing variable bindings and execution context
-- : Pointer to the expression node to be evaluated
-- : Output parameter that receives the computed value upon successful evaluation
-
+- `*st`: Pointer to the current client state containing variable bindings and execution context
+- `*expr`: Pointer to the expression node to be evaluated
+- `*retval`: Output parameter that receives the computed value upon successful evaluation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lookupVariable](../l/lookupVariable.md)

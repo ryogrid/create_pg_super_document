@@ -27,9 +27,8 @@ Key operations performed:
 The function must run after getFuncs() because it relies on function lookup capabilities for type dependencies.
 
 ## Parameters / Member Variables
-- : Archive structure containing dump configuration and output methods
-- : Output parameter that receives the total number of types found
-
+- `*fout`: Archive structure containing dump configuration and output methods
+- `*numTypes`: Output parameter that receives the total number of types found
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)

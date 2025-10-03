@@ -28,11 +28,10 @@ The function handles path normalization on Windows platforms by converting Unix-
 Error handling is built into the function through the  helper - if any required argument is NULL and the corresponding placeholder is found in the restore command, an error will be thrown.
 
 ## Parameters / Member Variables
-- : Template string containing the restore command with percent placeholders to be replaced
-- : File system path where the restored WAL file should be placed (replaces %p placeholder)  
-- : Name of the WAL file to be restored from the archive (replaces %f placeholder)
-- : Filename of the last restart point WAL file (replaces %r placeholder)
-
+- `*restoreCommand`: Template string containing the restore command with percent placeholders to be replaced
+- `*xlogpath`: File system path where the restored WAL file should be placed (replaces %p placeholder)
+- `*xlogfname`: Name of the WAL file to be restored from the archive (replaces %f placeholder)
+- `*lastRestartPointFname`: Filename of the last restart point WAL file (replaces %r placeholder)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Creates a duplicate copy of the xlogpath string

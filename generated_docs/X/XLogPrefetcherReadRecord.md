@@ -23,9 +23,8 @@ This function serves as the main entry point for reading WAL records with prefet
 The function dynamically adjusts prefetching behavior based on the  setting and whether recovery prefetching is enabled. When prefetching is disabled, it falls back to minimal I/O concurrency.
 
 ## Parameters / Member Variables
-- : Pointer to the XLogPrefetcher structure containing prefetching state and configuration
-- : Pointer to a char pointer where error messages will be stored if the operation fails
-
+- `*prefetcher`: Pointer to the XLogPrefetcher structure containing prefetching state and configuration
+- `**errmsg`: Pointer to a char pointer where error messages will be stored if the operation fails
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Frees Local Request Queue resources

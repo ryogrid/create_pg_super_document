@@ -21,6 +21,7 @@ The timeout mechanism protects the server from clients that send incomplete star
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - `_exit` (system call for immediate process termination)

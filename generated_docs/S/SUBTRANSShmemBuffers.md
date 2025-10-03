@@ -18,7 +18,6 @@ SUBTRANSShmemBuffers determines the appropriate number of shared memory buffers 
 When a specific buffer count is configured via subtransaction_buffers, the function enforces reasonable bounds by ensuring the value falls between a minimum of 16 buffers and the maximum allowed by the SLRU system (SLRU_MAX_ALLOWED_BUFFERS).
 
 ## Parameters / Member Variables
-This function takes no parameters and returns an integer representing the number of buffers to allocate.
 
 ## Dependencies
 - Functions called/Symbols referenced:

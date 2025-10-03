@@ -16,9 +16,8 @@ initAccount(PQExpBufferData *sql, int64 curr)
 This function is part of pgbench's database initialization process. It formats account data for the pgbench_accounts table by creating tab-separated values representing an account record. The function generates account data with an account ID (curr + 1), a branch ID (calculated as curr / naccounts + 1), an initial balance of 0, and leaves the filler column as blank-padded empty string (handled by default).
 
 ## Parameters / Member Variables
-- : Pointer to a PQExpBufferData structure where the formatted account data will be written
-- : Current account index (0-based) used to calculate the account ID and branch ID
-
+- `*sql`: Pointer to a PQExpBufferData structure where the formatted account data will be written
+- `curr`: Current account index (0-based) used to calculate the account ID and branch ID
 ## Dependencies
 - Functions called/Symbols referenced:
   - [printfPQExpBuffer](../p/printfPQExpBuffer.md): PostgreSQL utility function for formatting data into a buffer

@@ -29,10 +29,9 @@ The function handles different node types with specific logic:
 The function tracks pending rescans by checking the chgParam field of nodes. If any node in the path to a found scan has chgParam set, it indicates a pending parameter change that would invalidate the current tuple position.
 
 ## Parameters / Member Variables
-- : Current PlanState node being examined in the tree traversal
-- : OID of the target table to find a scan for
-- : Output flag set to true if a rescan is pending for the found scan
-
+- `*node`: Current PlanState node being examined in the tree traversal
+- `table_oid`: OID of the target table to find a scan for
+- `*pending_rescan`: Output flag set to true if a rescan is pending for the found scan
 ## Dependencies
 - Functions called/Symbols referenced:
   - nodeTag (to determine the specific node type)

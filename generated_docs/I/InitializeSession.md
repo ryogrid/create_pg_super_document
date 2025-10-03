@@ -18,7 +18,6 @@ InitializeSession creates a new Session object in the TopMemoryContext and assig
 The function uses MemoryContextAllocZero to ensure all fields in the Session struct are initialized to NULL/0, providing a clean starting state for the session infrastructure.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

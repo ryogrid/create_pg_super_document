@@ -30,10 +30,9 @@ The partial segment handling addresses a key architectural challenge: maintainin
 Special consideration is given to WAL summarization - if WAL summarization is active, the function waits for summarization to complete before renaming partial files to prevent failures.
 
 ## Parameters / Member Variables
-- : Timeline ID where recovery ended (the old timeline)
-- : WAL record pointer indicating the exact end position of recovery
-- : Timeline ID of the new timeline being established
-
+- `EndOfLogTLI`: Timeline ID where recovery ended (the old timeline)
+- `EndOfLog`: WAL record pointer indicating the exact end position of recovery
+- `newTLI`: Timeline ID of the new timeline being established
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecuteRecoveryCommand](../E/ExecuteRecoveryCommand.md): Executes the recovery_end_command script

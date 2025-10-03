@@ -16,8 +16,7 @@ convert_column_priv_string(text *priv_type_text)
 This static function parses a privilege string for column-level permissions and converts it to the corresponding AclMode bitmask. It uses a predefined mapping table (column_priv_map) that associates privilege name strings with their corresponding ACL constants. The function supports the standard column privileges: SELECT, INSERT, UPDATE, and REFERENCES, along with their "WITH GRANT OPTION" variants. The actual conversion logic is delegated to the generic convert_any_priv_string function.
 
 ## Parameters / Member Variables
-- : A PostgreSQL text object containing the privilege string to be converted (e.g., "SELECT", "INSERT WITH GRANT OPTION")
-
+- `*priv_type_text`: A PostgreSQL text object containing the privilege string to be converted (e.g., "SELECT", "INSERT WITH GRANT OPTION")
 ## Dependencies
 - Functions called/Symbols referenced:
   - [convert_any_priv_string](convert_any_priv_string.md)

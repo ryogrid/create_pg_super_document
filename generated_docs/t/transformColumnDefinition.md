@@ -24,9 +24,8 @@ transformColumnDefinition processes individual column definitions during table c
 For SERIAL columns, the function automatically creates NOT NULL and DEFAULT nextval() constraints. For IDENTITY columns, it generates the underlying sequence and sets up proper ownership relationships. The function also enforces business rules about which constraint combinations are valid and which are mutually exclusive.
 
 ## Parameters / Member Variables
-- : CreateStmtContext containing parsing state and accumulating lists of various statement types
-- : ColumnDef structure representing the column being processed
-
+- `*cxt`: CreateStmtContext containing parsing state and accumulating lists of various statement types
+- `*column`: ColumnDef structure representing the column being processed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [transformColumnType](transformColumnType.md)

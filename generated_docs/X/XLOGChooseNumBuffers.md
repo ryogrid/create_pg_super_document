@@ -21,7 +21,6 @@ The function calculates the number of buffers using the formula NBuffers / 32 (w
 This calculation must be performed after NBuffers (shared buffers count) has been finalized during server startup.
 
 ## Parameters / Member Variables
-This function takes no parameters and returns an integer representing the recommended number of WAL buffers.
 
 ## Dependencies
 - Functions called/Symbols referenced:

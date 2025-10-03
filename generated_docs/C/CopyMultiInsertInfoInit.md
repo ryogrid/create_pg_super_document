@@ -27,13 +27,12 @@ The function implements an important optimization strategy: regular tables get t
 The bufferedTuples and bufferedBytes counters start at zero and will track the total number of tuples and bytes across all buffers managed by this CopyMultiInsertInfo structure.
 
 ## Parameters / Member Variables
-- : Pointer to the CopyMultiInsertInfo structure to be initialized
-- : Pointer to ResultRelInfo representing the target relation
-- : Pointer to CopyFromState containing the current state of the COPY operation
-- : Pointer to EState providing execution context and environment
-- : CommandId identifying the current command for visibility and locking purposes
-- : Integer containing table insert options that control insertion behavior
-
+- `*miinfo`: Pointer to the CopyMultiInsertInfo structure to be initialized
+- `*rri`: Pointer to ResultRelInfo representing the target relation
+- `cstate`: Pointer to CopyFromState containing the current state of the COPY operation
+- `*estate`: Pointer to EState providing execution context and environment
+- `mycid`: CommandId identifying the current command for visibility and locking purposes
+- `ti_options`: Integer containing table insert options that control insertion behavior
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CopyMultiInsertInfo](CopyMultiInsertInfo.md) (struct type)

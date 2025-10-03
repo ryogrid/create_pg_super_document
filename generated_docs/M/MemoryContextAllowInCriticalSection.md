@@ -20,9 +20,8 @@ However, there are legitimate exceptions to this rule, particularly for debuggin
 The function simply sets the  flag in the memory context structure after validating that the context is valid.
 
 ## Parameters / Member Variables
-- : The memory context to modify the critical section behavior for
-- : Boolean flag - true to allow allocations in critical sections, false to prohibit them
-
+- `context`: The memory context to modify the critical section behavior for
+- `allow`: Boolean flag - true to allow allocations in critical sections, false to prohibit them
 ## Dependencies
 - Functions called/Symbols referenced:
   - MemoryContextIsValid (validation function)

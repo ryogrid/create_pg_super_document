@@ -20,9 +20,8 @@ The function retrieves the local TOC entry context (lclTocEntry) that was attach
 This mechanism allows the custom format to maintain precise offset information for efficient seeking during archive restoration, enabling random access to data blocks within the archive file.
 
 ## Parameters / Member Variables
-- : Pointer to the ArchiveHandle structure containing archive context and I/O functions
-- : Pointer to the TocEntry structure whose extra format data needs to be written
-
+- `*AH`: Pointer to the ArchiveHandle structure containing archive context and I/O functions
+- `*te`: Pointer to the TocEntry structure whose extra format data needs to be written
 ## Dependencies
 - Functions called/Symbols referenced:
   - [WriteOffset](WriteOffset.md) (archiver utility function for writing offset data)

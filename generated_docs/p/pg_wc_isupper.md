@@ -25,8 +25,7 @@ The function handles six different regex strategies:
 - **PG_REGEX_LOCALE_ICU**: Uses ICU library functions when available
 
 ## Parameters / Member Variables
-- : The wide character (pg_wchar) to test for uppercase property
-
+- `c`: The wide character (pg_wchar) to test for uppercase property
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_char_properties (character property table)

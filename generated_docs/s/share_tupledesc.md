@@ -16,10 +16,9 @@ share_tupledesc(dsa_area *area, TupleDesc tupdesc, uint32 typmod)
 The  function creates a copy of a tuple descriptor in shared memory managed by a dynamic shared area (DSA). It allocates space in the shared memory area sufficient to hold the tuple descriptor, copies the original descriptor using , and sets the typmod field to the specified value. The function returns a  that can be used to access the shared tuple descriptor from any process with access to the same DSA area.
 
 ## Parameters / Member Variables
-- : Pointer to the dynamic shared area where the tuple descriptor will be allocated
-- : The source tuple descriptor to copy into shared memory
-- : The type modifier value to set in the shared copy
-
+- `*area`: Pointer to the dynamic shared area where the tuple descriptor will be allocated
+- `tupdesc`: The source tuple descriptor to copy into shared memory
+- `typmod`: The type modifier value to set in the shared copy
 ## Dependencies
 - Functions called/Symbols referenced:
   - dsa_allocate (allocates memory in the dynamic shared area)

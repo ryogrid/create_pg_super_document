@@ -18,8 +18,7 @@ The  function serves as a cleanup callback for ordered-set aggregates. It is reg
 The function does not need to free memory allocated in the per-group context since that context will be reset by nodeAgg.c, nor does it free per-query context memory which is handled by ExecutorEnd. Instead, it focuses on releasing system resources like temporary files and clearing tuple slots that might be holding buffer pins.
 
 ## Parameters / Member Variables
-- : Datum containing a pointer to the OSAPerGroupState structure that needs cleanup
-
+- `arg`: Datum containing a pointer to the OSAPerGroupState structure that needs cleanup
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DatumGetPointer](../D/DatumGetPointer.md)

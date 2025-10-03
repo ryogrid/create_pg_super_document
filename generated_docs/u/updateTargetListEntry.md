@@ -26,13 +26,12 @@ This function is specifically designed for UPDATE statements (including ON CONFL
 The function delegates the complex expression processing to transformAssignedExpr with EXPR_KIND_UPDATE_TARGET context, then ensures the TargetEntry is properly marked with the target column's attribute number and name. The resname is primarily for debugging purposes and may become out of date in stored rules.
 
 ## Parameters / Member Variables
-- : Parse state containing context for the current query parsing
-- : Target entry to be modified for the UPDATE operation
-- : Name of the target column being assigned to
-- : Attribute number of the target column in the relation
-- : List of subscripts or field names for complex assignments (may be NULL)
-- : Error cursor position pointing at the column name (-1 if not applicable)
-
+- `*pstate`: Parse state containing context for the current query parsing
+- `*tle`: Target entry to be modified for the UPDATE operation
+- `*colname`: Name of the target column being assigned to
+- `attrno`: Attribute number of the target column in the relation
+- `*indirection`: List of subscripts or field names for complex assignments (may be NULL)
+- `location`: Error cursor position pointing at the column name (-1 if not applicable)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [transformAssignedExpr](../t/transformAssignedExpr.md)

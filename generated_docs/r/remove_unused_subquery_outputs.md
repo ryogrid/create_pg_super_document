@@ -30,10 +30,9 @@ The function performs several safety checks to ensure semantic correctness, avoi
 - Are required for DISTINCT operations
 
 ## Parameters / Member Variables
-- : The Query node representing the subquery to optimize
-- : RelOptInfo for the subquery relation, used to determine which columns are actually needed
-- : Bitmapset of additional columns (offset by FirstLowInvalidHeapAttributeNumber) that should not be removed; modified by the function
-
+- `*subquery`: The Query node representing the subquery to optimize
+- `*rel`: RelOptInfo for the subquery relation, used to determine which columns are actually needed
+- `*extra_used_attrs`: Bitmapset of additional columns (offset by FirstLowInvalidHeapAttributeNumber) that should not be removed; modified by the function
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pull_varattnos](../p/pull_varattnos.md) (extracts variable attribute numbers from expressions)

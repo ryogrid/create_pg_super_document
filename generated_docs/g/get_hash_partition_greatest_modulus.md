@@ -20,8 +20,7 @@ This function was part of the core partitioning logic but is no longer actively 
 The function simply returns the  field from the PartitionBoundInfo structure, which for hash partitions represents the total number of partitions (i.e., the greatest modulus).
 
 ## Parameters / Member Variables
-- : Partition bound information structure containing hash partition metadata
-
+- `bound`: Partition bound information structure containing hash partition metadata
 ## Dependencies
 - Functions called/Symbols referenced:
   - PARTITION_STRATEGY_HASH (constant for validation)

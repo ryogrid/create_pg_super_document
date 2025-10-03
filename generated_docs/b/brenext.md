@@ -28,9 +28,8 @@ Key BRE-specific behaviors include:
 - Numbered backreferences  through 
 
 ## Parameters / Member Variables
-- : Pointer to the regex parsing state structure containing the current position, flags, and context
-- : The current character being processed from the input string
-
+- `*v`: Pointer to the regex parsing state structure containing the current position, flags, and context
+- `c`: The current character being processed from the input string
 ## Dependencies
 - Functions called/Symbols referenced:
   - LASTTYPE (macro for checking previous token type)

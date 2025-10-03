@@ -28,8 +28,7 @@ Similar to frame head processing, the behavior varies by frame mode:
 The function maintains frame tail tracking through  and , ensures proper tuple spooling when accessing future rows, and uses memory context management for efficiency.
 
 ## Parameters / Member Variables
-- : WindowAggState pointer containing all window function execution state including:
-
+- `*winstate`: WindowAggState pointer containing all window function execution state including:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [spool_tuples](../s/spool_tuples.md) (tuple buffering to ensure data availability)

@@ -25,9 +25,8 @@ If expansion is needed, the buffer size is doubled repeatedly until it can accom
 External callers typically don't need to call this function directly since all stringinfo.c routines handle buffer expansion automatically. However, pre-enlarging the buffer can save palloc overhead when the final size is known in advance.
 
 ## Parameters / Member Variables
-- : The StringInfo structure to enlarge
-- : Number of additional bytes required (excluding the terminating null byte)
-
+- `str`: The StringInfo structure to enlarge
+- `needed`: Number of additional bytes required (excluding the terminating null byte)
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (validation macro)

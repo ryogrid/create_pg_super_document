@@ -24,9 +24,8 @@ Key characteristics:
 The function optionally returns the canonical name of the timezone through the canonname parameter, though in this simplified version it's just a copy of the input name.
 
 ## Parameters / Member Variables
-- : The timezone name to open (e.g., "America/New_York")
-- : Optional output buffer to store the canonical spelling of the timezone name (must be > TZ_STRLEN_MAX bytes). Can be NULL if canonical name is not needed.
-
+- `*name`: The timezone name to open (e.g., "America/New_York")
+- `*canonname`: Optional output buffer to store the canonical spelling of the timezone name (must be > TZ_STRLEN_MAX bytes). Can be NULL if canonical name is not needed.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [strlcpy](../s/strlcpy.md) (for safe string copying)

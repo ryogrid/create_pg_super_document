@@ -20,9 +20,8 @@ The function implements proper quote escaping by doubling any quote characters t
 The implementation must stay synchronized with dequoteAclUserName in pg_dump/dumputils.c to ensure compatibility between PostgreSQL server and dump utilities.
 
 ## Parameters / Member Variables
-- : Output buffer where the formatted identifier will be written (must have at least (2*NAMEDATALEN)+2 bytes available)
-- : Input identifier string to be formatted
-
+- `*p`: Output buffer where the formatted identifier will be written (must have at least (2*NAMEDATALEN)+2 bytes available)
+- `*s`: Input identifier string to be formatted
 ## Dependencies
 - Functions called/Symbols referenced:
   - [is_safe_acl_char](../i/is_safe_acl_char.md) (determines if characters require quoting - called with false for output context)

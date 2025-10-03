@@ -27,14 +27,13 @@ This function performs regular expression search and replace operations on text 
 The function operates by converting the source text to wide characters for proper regex processing, then iteratively finding matches and building the result string by copying non-matching segments and processed replacement text.
 
 ## Parameters / Member Variables
-- : Source text to search for pattern matches
-- : Regular expression pattern to match against  
-- : Replacement text that may contain back-references and escape sequences
-- : Regular expression compilation flags (e.g., case sensitivity options)
-- : Text collation to use for pattern matching
-- : Character offset in src_text where searching should begin
-- : If 0, replace all matches; if > 0, replace only the N-th match
-
+- `*src_text`: Source text to search for pattern matches
+- `*pattern_text`: Regular expression pattern to match against
+- `*replace_text`: Replacement text that may contain back-references and escape sequences
+- `cflags`: Regular expression compilation flags (e.g., case sensitivity options)
+- `collation`: Text collation to use for pattern matching
+- `search_start`: Character offset in src_text where searching should begin
+- `n`: If 0, replace all matches; if > 0, replace only the N-th match
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_replace_text_has_escape](../c/check_replace_text_has_escape.md) (analyze replacement text for optimization)

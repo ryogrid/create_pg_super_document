@@ -18,7 +18,6 @@ The  function creates and initializes a dedicated hash table () specifically for
 The function uses the same simplehash library infrastructure as the main file hash table but is configured specifically for storing  structures. The hash table uses file paths as keys and is initialized with a predefined size to efficiently manage WAL file tracking during the rewind operation.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

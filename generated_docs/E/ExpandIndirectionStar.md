@@ -29,11 +29,10 @@ The function supports both target list contexts (where TargetEntry nodes are nee
 The use of copyObject() ensures that the original A_Indirection node is not modified, maintaining parser state integrity.
 
 ## Parameters / Member Variables
-- : ParseState structure containing parsing context and state information
-- : A_Indirection node representing the indirection expression ending with "*"
-- : Boolean flag indicating whether to create TargetEntry nodes (true) or bare expressions (false)
-- : ParseExprKind enumeration value specifying the expression context for proper transformation
-
+- `*pstate`: ParseState structure containing parsing context and state information
+- `*ind`: A_Indirection node representing the indirection expression ending with "*"
+- `make_target_entry`: Boolean flag indicating whether to create TargetEntry nodes (true) or bare expressions (false)
+- `exprKind`: ParseExprKind enumeration value specifying the expression context for proper transformation
 ## Dependencies
 - Functions called/Symbols referenced:
   - copyObject

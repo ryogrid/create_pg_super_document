@@ -22,10 +22,9 @@ FinishSortSupportFunction implements a two-tier strategy for setting up sort com
 This design allows PostgreSQL to gradually transition from old-style comparison functions to the more efficient SortSupport framework while maintaining full backward compatibility. The sort support functions can make runtime decisions about whether to provide optimized comparators based on factors like collation settings.
 
 ## Parameters / Member Variables
-- : OID of the operator family to search for comparison functions
-- : OID of the input data type for the comparison operations
-- : SortSupport structure to be configured with the appropriate comparator
-
+- `opfamily`: OID of the operator family to search for comparison functions
+- `opcintype`: OID of the input data type for the comparison operations
+- `ssup`: SortSupport structure to be configured with the appropriate comparator
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SortSupport](../S/SortSupport.md) (type)

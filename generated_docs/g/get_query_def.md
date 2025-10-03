@@ -26,15 +26,14 @@ Before deparsing begins, the function performs important setup tasks:
 The function uses a switch statement to dispatch to command-specific handlers like , , etc., ensuring that each SQL command type is formatted according to its specific syntax requirements.
 
 ## Parameters / Member Variables
-- : Query parse tree to be converted back to SQL text
-- : StringInfo buffer where the generated SQL text will be appended
-- : List of outer-level deparse_namespace structures for nested query context
-- : Optional tuple descriptor for SELECT queries, used to provide preferred column names for output
-- : Boolean indicating whether column names should be visible in the current context
-- : Bitmask of PRETTYFLAG_XXX options controlling formatting style
-- : Maximum line length for wrapping, or -1 to disable line wrapping
-- : Initial indentation level for the generated SQL
-
+- `*query`: Query parse tree to be converted back to SQL text
+- `buf`: StringInfo buffer where the generated SQL text will be appended
+- `*parentnamespace`: List of outer-level deparse_namespace structures for nested query context
+- `resultDesc`: Optional tuple descriptor for SELECT queries, used to provide preferred column names for output
+- `colNamesVisible`: Boolean indicating whether column names should be visible in the current context
+- `prettyFlags`: Bitmask of PRETTYFLAG_XXX options controlling formatting style
+- `wrapColumn`: Maximum line length for wrapping, or -1 to disable line wrapping
+- `startIndent`: Initial indentation level for the generated SQL
 ## Dependencies
 - Functions called/Symbols referenced:
   - CHECK_FOR_INTERRUPTS

@@ -24,8 +24,7 @@ Key behaviors include:
 - **Quiet mode respect**: Suppresses output when psql is in quiet mode or non-terminal mode
 
 ## Parameters / Member Variables
-- : Boolean indicating whether this is called during psql startup (true) or during a runtime connection change (false)
-
+- `in_startup`: Boolean indicating whether this is called during psql startup (true) or during a runtime connection change (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Retrieves server version parameter from connection

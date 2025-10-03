@@ -21,8 +21,7 @@ This function performs validation checks to determine if a relation identified b
 The function is designed to be non-destructive - it returns false for invalid relations rather than throwing errors, allowing callers to decide how to handle invalid cases.
 
 ## Parameters / Member Variables
-- : The OID (Object Identifier) of the relation to be validated for partition tree participation
-
+- `relid`: The OID (Object Identifier) of the relation to be validated for partition tree participation
 ## Dependencies
 - Functions called/Symbols referenced:
   - SearchSysCacheExists1: Checks if the relation exists in the system catalog

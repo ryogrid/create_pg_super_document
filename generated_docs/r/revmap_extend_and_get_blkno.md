@@ -23,9 +23,8 @@ This function calculates and ensures the availability of the reverse map page fo
 Unlike revmap_get_blkno which returns InvalidBlockNumber for unallocated pages, this function ensures the page exists by extending the revmap as needed.
 
 ## Parameters / Member Variables
-- : The BRIN reverse map structure containing index metadata and current allocation state
-- : The heap block number for which to ensure a corresponding revmap page exists
-
+- `*revmap`: The BRIN reverse map structure containing index metadata and current allocation state
+- `heapBlk`: The heap block number for which to ensure a corresponding revmap page exists
 ## Dependencies
 - Functions called/Symbols referenced:
   - HEAPBLK_TO_REVMAP_BLK (macro for block number conversion)

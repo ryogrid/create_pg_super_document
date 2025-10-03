@@ -20,9 +20,8 @@ The function implements optimizations for array management, particularly when re
 The search ignores the validity status during the binary search phase since even invalid entries contain sorted XIDs, but validates the entry before returning true.
 
 ## Parameters / Member Variables
-- : The transaction ID to search for in the KnownAssignedXids array
-- : Boolean flag indicating whether to remove the transaction ID if found (true) or just search (false)
-
+- `xid`: The transaction ID to search for in the KnownAssignedXids array
+- `remove`: Boolean flag indicating whether to remove the transaction ID if found (true) or just search (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ProcArrayStruct](../P/ProcArrayStruct.md)

@@ -20,10 +20,9 @@ EOH_init_header is responsible for initializing the fundamental components of an
 The function sets the magic number that identifies this as an expanded object header, assigns the methods table that defines type-specific operations, and establishes the memory context for the object. It then creates both read-write and read-only external TOAST pointers that can be used to reference this expanded object from Datum values.
 
 ## Parameters / Member Variables
-- : Pointer to the ExpandedObjectHeader structure to initialize
-- : Pointer to the type-specific methods table that defines operations for this expanded object type  
-- : Memory context in which the expanded object resides
-
+- `*eohptr`: Pointer to the ExpandedObjectHeader structure to initialize
+- `*methods`: Pointer to the type-specific methods table that defines operations for this expanded object type
+- `obj_context`: Memory context in which the expanded object resides
 ## Dependencies
 - Functions called/Symbols referenced:
   - SET_VARTAG_EXTERNAL (macro)

@@ -20,8 +20,7 @@ The function optimizes execution by short-circuiting when any intermediate resul
 The function handles its own instrumentation for performance monitoring, calling InstrStartNode and InstrStopNode to track execution time. Each subplan is executed via MultiExecProcNode, and the resulting bitmaps are intersected using tbm_intersect. Memory management is handled by freeing intermediate bitmaps after intersection, keeping only the final result.
 
 ## Parameters / Member Variables
-- : Pointer to the BitmapAndState containing the initialized subplans to execute and combine
-
+- `*node`: Pointer to the BitmapAndState containing the initialized subplans to execute and combine
 ## Dependencies
 - Functions called/Symbols referenced:
   - [InstrStartNode](../I/InstrStartNode.md) (for performance instrumentation)

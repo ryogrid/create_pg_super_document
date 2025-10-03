@@ -16,8 +16,7 @@ get_func_variadictype(Oid funcid)
 This function retrieves the variadic type information for a specified function by performing a system cache lookup on the pg_proc table. It extracts the provariadic field from the function's catalog entry, which contains the OID of the type that the function's variadic parameters accept. If the function is not variadic, this field will be InvalidOid (0). The function is used to determine how to handle variable-length argument lists in function calls.
 
 ## Parameters / Member Variables
-- : The OID of the function whose variadic type is to be retrieved
-
+- `funcid`: The OID of the function whose variadic type is to be retrieved
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache1](../S/SearchSysCache1.md): Searches the system cache for the function entry

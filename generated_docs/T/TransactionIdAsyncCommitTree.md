@@ -21,11 +21,10 @@ The key difference from regular commits is that asynchronous commits include a s
 Asynchronous commits provide better performance by not waiting for the commit record to be flushed to disk immediately, but they come with the trade-off that recent transactions might be lost in case of a crash before the WAL is flushed.
 
 ## Parameters / Member Variables
-- : The top-level transaction ID to commit
-- : The number of subtransaction IDs in the xids array  
-- : Array of subtransaction IDs to be committed along with the main transaction
-- : The LSN (Log Sequence Number) of the commit record in the WAL
-
+- `xid`: The top-level transaction ID to commit
+- `nxids`: The number of subtransaction IDs in the xids array
+- `*xids`: Array of subtransaction IDs to be committed along with the main transaction
+- `lsn`: The LSN (Log Sequence Number) of the commit record in the WAL
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TransactionIdSetTreeStatus](TransactionIdSetTreeStatus.md)

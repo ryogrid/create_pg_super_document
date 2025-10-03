@@ -24,7 +24,6 @@ InitializeLWLocks is a static function that performs the detailed initialization
 The function ensures proper organization of locks by calculating offsets and systematically initializing each lock with its appropriate tranche ID for debugging and monitoring purposes.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

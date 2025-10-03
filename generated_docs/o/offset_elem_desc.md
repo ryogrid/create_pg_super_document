@@ -18,10 +18,9 @@ The  function is a specialized element description callback designed to work wit
 The function takes a void pointer to an OffsetNumber, casts it appropriately, dereferences it, and formats it as an unsigned integer using .
 
 ## Parameters / Member Variables
-- : StringInfo buffer where the formatted offset number will be appended
-- : Pointer to the OffsetNumber value to be formatted (cast from void*)
-- : Additional data parameter (unused in this implementation but required by callback signature)
-
+- `buf`: StringInfo buffer where the formatted offset number will be appended
+- `*offset`: Pointer to the OffsetNumber value to be formatted (cast from void*)
+- `*data`: Additional data parameter (unused in this implementation but required by callback signature)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [appendStringInfo](../a/appendStringInfo.md)

@@ -16,8 +16,7 @@ bbsink_begin_manifest(bbsink *sink)
 This inline function serves as a wrapper to begin the backup manifest generation within the PostgreSQL base backup system. The backup manifest is a critical component that contains metadata about all files included in the backup, their checksums, and other integrity information. The function delegates to the sink-specific begin_manifest operation, which handles the actual initialization of manifest creation according to the sink's output format and destination requirements.
 
 ## Parameters / Member Variables
-- : Pointer to the backup sink structure that will handle the manifest operations
-
+- `*sink`: Pointer to the backup sink structure that will handle the manifest operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bbsink](bbsink.md) (structure type)

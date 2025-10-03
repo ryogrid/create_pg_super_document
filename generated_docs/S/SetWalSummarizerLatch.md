@@ -20,6 +20,7 @@ The function uses a shared lock on WALSummarizerLock to safely read the summariz
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockAcquire](../L/LWLockAcquire.md)

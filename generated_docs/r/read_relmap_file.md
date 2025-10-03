@@ -18,11 +18,10 @@ read_relmap_file is the fundamental function that reads relation mapping files f
 The function manages concurrent access by acquiring RelationMappingLock unless the caller already holds it. It opens the file only after acquiring the lock to avoid Windows file renaming issues, reads the entire RelMapFile structure, and performs comprehensive validation including magic number checks, bounds checking, and CRC verification to ensure data integrity.
 
 ## Parameters / Member Variables
-- : Pointer to RelMapFile structure where the loaded data will be stored
-- : Database path string ("global" for shared relations, or specific database path for local relations)
-- : Boolean indicating whether caller already holds RelationMappingLock
-- : Error level for reporting problems (must be at least ERROR)
-
+- `*map`: Pointer to RelMapFile structure where the loaded data will be stored
+- `*dbpath`: Database path string ("global" for shared relations, or specific database path for local relations)
+- `lock_held`: Boolean indicating whether caller already holds RelationMappingLock
+- `elevel`: Error level for reporting problems (must be at least ERROR)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockAcquire](../L/LWLockAcquire.md)/LWLockRelease (locking primitives)

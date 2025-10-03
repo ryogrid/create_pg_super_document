@@ -16,8 +16,7 @@ database_is_invalid_form(Form_pg_database datform)
 This function determines if a database is in an invalid state by checking the datconnlimit field in the pg_database catalog entry. When PostgreSQL drops a database, the database row is marked as invalid by setting datconnlimit to DATCONNLIMIT_INVALID_DB, but the catalog contents still exist temporarily. This prevents new connections to the database while the drop operation is in progress. The function provides a clean interface to check this invalid state without directly accessing the catalog structure fields.
 
 ## Parameters / Member Variables
-- : A pointer to the Form_pg_database structure representing a database catalog entry
-
+- `datform`: A pointer to the Form_pg_database structure representing a database catalog entry
 ## Dependencies
 - Functions called/Symbols referenced:
   - Form_pg_database (catalog structure type)

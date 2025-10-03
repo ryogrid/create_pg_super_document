@@ -24,8 +24,7 @@ This function performs comprehensive validation of the publisher (primary server
 The function connects to the first database in the dbinfo array and executes a comprehensive query to gather all necessary configuration values in a single round trip.
 
 ## Parameters / Member Variables
-- : Array of LogicalRepInfo structures containing database connection information, uses the first entry for publisher validation
-
+- `*dbinfo`: Array of LogicalRepInfo structures containing database connection information, uses the first entry for publisher validation
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_log_info

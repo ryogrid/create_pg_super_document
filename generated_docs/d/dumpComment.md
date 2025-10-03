@@ -19,15 +19,14 @@ dumpComment(Archive *fout, const char *type,
 This function serves as a streamlined interface to dumpCommentExtended for cases where no special initdb comment processing is needed. It simply passes all parameters through to dumpCommentExtended with NULL for the initdb_comment parameter. This is the most commonly used function for dumping comments on database objects throughout pg_dump.
 
 ## Parameters / Member Variables
-- : Archive context for the dump operation
-- : Object type string (e.g., "TABLE", "FUNCTION", "INDEX")
-- : Object name ready for printing (without schema decoration)
-- : Schema namespace of the object for labeling
-- : Owner of the object for labeling
-- : Catalog identifier (tableoid and oid) for pg_description lookup
-- : Sub-object identifier for pg_description lookup (0 for main object)
-- : Dump ID for dependency tracking in the output
-
+- `*fout`: Archive context for the dump operation
+- `*type`: Object type string (e.g., "TABLE", "FUNCTION", "INDEX")
+- `*name`: Object name ready for printing (without schema decoration)
+- `*namespace`: Schema namespace of the object for labeling
+- `*owner`: Owner of the object for labeling
+- `catalogId`: Catalog identifier (tableoid and oid) for pg_description lookup
+- `subid`: Sub-object identifier for pg_description lookup (0 for main object)
+- `dumpId`: Dump ID for dependency tracking in the output
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dumpCommentExtended](dumpCommentExtended.md)

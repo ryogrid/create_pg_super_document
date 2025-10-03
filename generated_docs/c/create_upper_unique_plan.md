@@ -20,10 +20,9 @@ Unlike some other plan node types, Unique nodes do not perform projection - they
 The uniqueness determination is based on the pathkeys and the number of key columns specified in the UpperUniquePath, which defines which columns are used for duplicate detection.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global planning information and context
-- : UpperUniquePath structure representing the chosen uniqueness strategy and key specifications
-- : Integer bitmask controlling plan creation behavior, automatically enhanced with CP_LABEL_TLIST
-
+- `*root`: PlannerInfo structure containing global planning information and context
+- `*best_path`: UpperUniquePath structure representing the chosen uniqueness strategy and key specifications
+- `flags`: Integer bitmask controlling plan creation behavior, automatically enhanced with CP_LABEL_TLIST
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Recursively creates execution plans for subpaths with enhanced flags

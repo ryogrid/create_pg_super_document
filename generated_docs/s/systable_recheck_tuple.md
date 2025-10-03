@@ -17,9 +17,8 @@ This function provides a mechanism to verify whether a tuple that was previously
 The function works by obtaining a fresh catalog snapshot and using it to test tuple visibility via table_tuple_satisfies_snapshot(). It operates only with MVCC snapshots and does not handle non-MVCC scan snapshots, as no current caller requires that functionality. The function includes an assertion to verify that the passed tuple matches the most recently fetched tuple from the scan's slot, providing a cross-check that the caller is working with the correct tuple.
 
 ## Parameters / Member Variables
-- : A SysScanDesc structure containing the scan state, including the heap relation and tuple slot
-- : The HeapTuple to recheck for visibility (should match the most recently fetched tuple)
-
+- `sysscan`: A SysScanDesc structure containing the scan state, including the heap relation and tuple slot
+- `tup`: The HeapTuple to recheck for visibility (should match the most recently fetched tuple)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecFetchSlotHeapTuple](../E/ExecFetchSlotHeapTuple.md) (for tuple validation)

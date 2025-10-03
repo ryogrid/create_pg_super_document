@@ -16,8 +16,7 @@ pg_stat_us_to_ms(PgStat_Counter val_ms)
 This function performs a simple unit conversion from microseconds to milliseconds by multiplying the input value by 0.001. Despite the parameter name suggesting milliseconds (val_ms), this function actually converts microsecond values to milliseconds, which is a common pattern in PostgreSQL's statistics system where timing measurements are often stored in microseconds but reported in milliseconds for better readability.
 
 ## Parameters / Member Variables
-- : A PgStat_Counter value representing time in microseconds to be converted to milliseconds
-
+- `val_ms`: A PgStat_Counter value representing time in microseconds to be converted to milliseconds
 ## Dependencies
 - Functions called/Symbols referenced:
   - PgStat_Counter (type definition)

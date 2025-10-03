@@ -28,8 +28,7 @@ ExecMergeAppend is the core execution function that implements the merge logic f
 The function uses a binary heap as the core data structure to efficiently maintain sort order across multiple input streams, ensuring O(log n) complexity for each tuple retrieval where n is the number of active subplans.
 
 ## Parameters / Member Variables
-- : The PlanState pointer that is cast to MergeAppendState, containing the merge execution state including subplans, heap, and sort configuration
-
+- `*pstate`: The PlanState pointer that is cast to MergeAppendState, containing the merge execution state including subplans, heap, and sort configuration
 ## Dependencies
 - Functions called/Symbols referenced:
   - castNode

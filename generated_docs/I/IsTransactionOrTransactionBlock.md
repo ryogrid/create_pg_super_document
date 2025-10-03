@@ -17,7 +17,6 @@ IsTransactionOrTransactionBlock provides a comprehensive check for transaction a
 This broader definition is crucial for various PostgreSQL subsystems that need to understand when the backend is completely idle versus when it has any transaction-related state that might affect operations like interrupt processing, cleanup routines, or statistical reporting.
 
 ## Parameters / Member Variables
-This function takes no parameters and returns a boolean value indicating whether any transaction or transaction block is active.
 
 ## Dependencies
 - Functions called/Symbols referenced:

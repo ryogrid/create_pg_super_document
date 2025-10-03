@@ -18,10 +18,9 @@ DeleteComments removes comment entries from the pg_description catalog table bas
 The function performs a systematic scan using the DescriptionObjIndexId and deletes all matching tuples. It uses variable-length scan keys depending on whether sub-object specificity is required.
 
 ## Parameters / Member Variables
-- : Object identifier of the target database object whose comments should be deleted
-- : OID of the system catalog containing the object (e.g., RelationRelationId for tables)
-- : Sub-object identifier - if nonzero, deletes only comments for this specific sub-object; if zero, deletes all comments for the object
-
+- `oid`: Object identifier of the target database object whose comments should be deleted
+- `classoid`: OID of the system catalog containing the object (e.g., RelationRelationId for tables)
+- `subid`: Sub-object identifier - if nonzero, deletes only comments for this specific sub-object; if zero, deletes all comments for the object
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md): Opens the pg_description relation for modification

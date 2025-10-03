@@ -23,9 +23,8 @@ The function performs several key operations:
 This optimization is particularly important during bulk data loading as it prevents triggers from firing on each inserted row, which can significantly slow down the restoration process. It's designed to work in conjunction with _enableTriggersIfNecessary to restore triggers after data loading is complete.
 
 ## Parameters / Member Variables
-- : Archive handle containing restoration context and connection information
-- : TOC entry representing the table whose triggers should be disabled
-
+- `*AH`: Archive handle containing restoration context and connection information
+- `*te`: TOC entry representing the table whose triggers should be disabled
 ## Dependencies
 - Functions called/Symbols referenced:
   - [_becomeUser](../b/_becomeUser.md) (switches to specified user)

@@ -18,8 +18,7 @@ This function provides access to the current session's temporary schema namespac
 The function directly returns the value of the global variable , which tracks the temporary namespace for the current backend process. This namespace is created on-demand when the first temporary object is created in a session.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function argument structure (no arguments used)
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument structure (no arguments used)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (macro for returning OID result)

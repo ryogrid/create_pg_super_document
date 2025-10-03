@@ -17,6 +17,7 @@ This function performs comprehensive initialization of the XLOG shared memory st
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetContextCreate

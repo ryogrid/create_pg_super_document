@@ -24,13 +24,12 @@ This function creates timezone abbreviations based on the zone's format specific
 The function intelligently handles the daylight saving time context, selecting appropriate parts of slash-separated formats and calculating correct offsets for numeric abbreviations.
 
 ## Parameters / Member Variables
-- : Output buffer where the generated abbreviation will be written
-- : Pointer to the zone structure containing format information
-- : Variable part of the abbreviation (e.g., "D" in "EDT")
-- : Boolean indicating if this is for daylight saving time
-- : Amount of time saved during daylight saving time
-- : Whether to add angle brackets around non-alphabetic abbreviations
-
+- `*abbr`: Output buffer where the generated abbreviation will be written
+- `*zp`: Pointer to the zone structure containing format information
+- `*letters`: Variable part of the abbreviation (e.g., "D" in "EDT")
+- `isdst`: Boolean indicating if this is for daylight saving time
+- `save`: Amount of time saved during daylight saving time
+- `doquotes`: Whether to add angle brackets around non-alphabetic abbreviations
 ## Dependencies
 - Functions called/Symbols referenced:
   - strchr (to find slash separator in format)

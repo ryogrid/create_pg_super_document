@@ -18,8 +18,7 @@ This function is a SQL-callable PostgreSQL function that provides access to the 
 The pg_logical/mappings directory contains files that are part of PostgreSQL's logical replication infrastructure, storing mapping information used during logical decoding operations.
 
 ## Parameters / Member Variables
-- : Function call information structure (standard PostgreSQL function parameter)
-
+- `PG_FUNCTION_ARGS`: Function call information structure (standard PostgreSQL function parameter)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_ls_dir_files](pg_ls_dir_files.md)

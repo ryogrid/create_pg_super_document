@@ -24,10 +24,9 @@ The function performs several key operations:
 This function is specifically designed to work with the  structure and is called automatically by the JSON parser when encountering object field boundaries.
 
 ## Parameters / Member Variables
-- : A void pointer to  structure containing the current parsing context and state information
-- : Character pointer to the field name being processed (may be NULL for array elements)
-- : Boolean flag indicating whether the field value is null
-
+- `*state`: A void pointer to  structure containing the current parsing context and state information
+- `*fname`: Character pointer to the field name being processed (may be NULL for array elements)
+- `isnull`: Boolean flag indicating whether the field value is null
 ## Dependencies
 - Functions called/Symbols referenced:
   - JSON_SUCCESS (return constant)

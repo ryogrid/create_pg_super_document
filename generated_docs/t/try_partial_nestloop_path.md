@@ -24,14 +24,13 @@ This function is specialized for creating partial nestloop join paths that can b
 Unlike the regular nestloop path creation, this function is simpler as it doesn't need to handle complex parameterization scenarios that aren't supported in partial execution. It performs a quick cost estimation and uses add_partial_path_precheck for early elimination of poor paths.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global planning context and configuration
-- : Target RelOptInfo representing the join relation where the partial path will be added
-- : Path structure for the outer (driving) relation in the partial nestloop join
-- : Path structure for the inner (driven) relation in the partial nestloop join
-- : List of PathKey structures representing the required output ordering
-- : JoinType enumeration specifying the type of join (INNER, LEFT, etc.)
-- : JoinPathExtraData containing additional join-specific information and constraints
-
+- `*root`: PlannerInfo structure containing global planning context and configuration
+- `*joinrel`: Target RelOptInfo representing the join relation where the partial path will be added
+- `*outer_path`: Path structure for the outer (driving) relation in the partial nestloop join
+- `*inner_path`: Path structure for the inner (driven) relation in the partial nestloop join
+- `*pathkeys`: List of PathKey structures representing the required output ordering
+- `jointype`: JoinType enumeration specifying the type of join (INNER, LEFT, etc.)
+- `*extra`: JoinPathExtraData containing additional join-specific information and constraints
 ## Dependencies
 - Functions called/Symbols referenced:
   - bms_is_empty

@@ -28,9 +28,8 @@ For example:
 - Input:  → Output: 
 
 ## Parameters / Member Variables
-- : Output buffer that must be at least MAX_QUOTED_NAME_LEN characters long (includes room for null terminator)
-- : The SQL identifier name to be quoted
-
+- `*buffer`: Output buffer that must be at least MAX_QUOTED_NAME_LEN characters long (includes room for null terminator)
+- `*name`: The SQL identifier name to be quoted
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (uses only standard C string operations)

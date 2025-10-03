@@ -18,8 +18,7 @@ ExecEndGather performs the cleanup phase for Gather plan nodes as part of query 
 This function is critical for resource management in parallel queries, as it ensures that worker processes don't become orphaned and that shared memory segments used for inter-process communication are properly cleaned up when queries complete or are cancelled.
 
 ## Parameters / Member Variables
-- : The GatherState containing all parallel execution state and worker information to be cleaned up
-
+- `*node`: The GatherState containing all parallel execution state and worker information to be cleaned up
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecEndNode](ExecEndNode.md) (cleans up the outer child plan node recursively)

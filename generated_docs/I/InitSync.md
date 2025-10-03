@@ -18,7 +18,6 @@ InitSync is responsible for setting up the infrastructure needed for tracking pe
 The function creates a specialized memory context that is allowed to allocate memory within critical sections, which is normally forbidden but necessary for the checkpointer's operation when absorbing fsync requests.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

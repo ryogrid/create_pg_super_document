@@ -19,12 +19,11 @@ The  function is a specialized validation helper designed to test IntegerSet mem
 This function encapsulates the logic for determining expected membership in the mixed-content sets created by , providing a clean abstraction for boundary testing around critical points in the value space.
 
 ## Parameters / Member Variables
-- : Pointer to the IntegerSet being tested
-- : The value to query for membership in the set
-- : The specific isolated value that should be present in the set
-- : Starting value (inclusive) of the continuous filler range
-- : Ending value (exclusive) of the continuous filler range
-
+- `*intset`: Pointer to the IntegerSet being tested
+- `x`: The value to query for membership in the set
+- `value`: The specific isolated value that should be present in the set
+- `filler_min`: Starting value (inclusive) of the continuous filler range
+- `filler_max`: Ending value (exclusive) of the continuous filler range
 ## Dependencies
 - Functions called/Symbols referenced:
   - [IntegerSet](../I/IntegerSet.md) (data structure)

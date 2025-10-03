@@ -30,14 +30,13 @@ For qualified INSTEAD rules, the function creates a modified version of the orig
 The function also tracks whether any unqualified INSTEAD rules are found (which means the original query should be completely suppressed) and whether any rules modify the RETURNING clause.
 
 ## Parameters / Member Variables
-- : The original query being rewritten
-- : Range table index of the result relation in the original query
-- : Type of rule event (INSERT, UPDATE, DELETE)
-- : List of RewriteRule structures to process
-- : Output parameter set to true if any unqualified INSTEAD rule is found
-- : Output parameter set to true if any rule rewrites the RETURNING clause
-- : Output parameter filled with modified original query for qualified INSTEAD rules
-
+- `*parsetree`: The original query being rewritten
+- `rt_index`: Range table index of the result relation in the original query
+- `event`: Type of rule event (INSERT, UPDATE, DELETE)
+- `*locks`: List of RewriteRule structures to process
+- `*instead_flag`: Output parameter set to true if any unqualified INSTEAD rule is found
+- `*returning_flag`: Output parameter set to true if any rule rewrites the RETURNING clause
+- `**qual_product`: Output parameter filled with modified original query for qualified INSTEAD rules
 ## Dependencies
 - Functions called/Symbols referenced:
   - copyObject

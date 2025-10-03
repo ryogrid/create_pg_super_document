@@ -18,8 +18,7 @@ This function serves as the interrupt handler for the replication slot synchroni
 The function starts by calling CHECK_FOR_INTERRUPTS() macro to check for any pending interrupts, then handles specific interrupt types based on global flags.
 
 ## Parameters / Member Variables
-- : A pointer to WalReceiverConn structure representing the WAL receiver connection (parameter is accepted but not used in the current implementation)
-
+- `*wrconn`: A pointer to WalReceiverConn structure representing the WAL receiver connection (parameter is accepted but not used in the current implementation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - CHECK_FOR_INTERRUPTS (macro)

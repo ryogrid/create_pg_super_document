@@ -24,9 +24,8 @@ This function handles the initialization phase of GSSAPI authentication for Post
 This separation allows the continuation function to handle both initial and subsequent authentication rounds uniformly.
 
 ## Parameters / Member Variables
-- : PostgreSQL connection structure containing host information and GSS state
-- : Length of any incoming authentication data (typically 0 for initial startup)
-
+- `*conn`: PostgreSQL connection structure containing host information and GSS state
+- `payloadlen`: Length of any incoming authentication data (typically 0 for initial startup)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Error reporting for connection issues

@@ -17,6 +17,7 @@ The `initialize_custom_rmgrs` function sets up resource manager descriptors for 
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - RM_N_CUSTOM_IDS (constant defining number of custom resource manager slots)

@@ -25,8 +25,7 @@ The function includes recursive logic to handle nested utility statements. If th
 This capability is particularly important for cases like "EXPLAIN CREATE TABLE AS SELECT" where multiple levels of utility statements are nested.
 
 ## Parameters / Member Variables
-- : Pointer to a utility statement node that potentially contains a Query
-
+- `*parsetree`: Pointer to a utility statement node that potentially contains a Query
 ## Dependencies
 - Functions called/Symbols referenced:
   - nodeTag (to identify statement type)

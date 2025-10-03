@@ -18,8 +18,7 @@ This function sets up the zlib deflate compression infrastructure for pg_dump's 
 The function allocates a GzipCompressorState structure to maintain gzip-specific state and initializes the z_stream with default memory allocation functions. It also sets up an output buffer with a configurable size plus one extra byte for potential trailing zero bytes.
 
 ## Parameters / Member Variables
-- : CompressorState pointer containing compression specifications including the desired compression level
-
+- `*cs`: CompressorState pointer containing compression specifications including the desired compression level
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_malloc0](../p/pg_malloc0.md) (for allocating zeroed memory)

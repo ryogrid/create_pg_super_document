@@ -19,10 +19,9 @@ The expand_vacuum_rel function processes a VacuumRelation to create a complete l
 The function is designed to handle permission checks and locking carefully. It takes a transient AccessShareLock for syscache lookups and uses find_all_inheritors to discover partitions, but releases locks to avoid deadlock risks in multi-transaction scenarios. Autovacuum workers are not expected to reach this code since they supply OIDs directly.
 
 ## Parameters / Member Variables
-- : The input VacuumRelation containing either an OID or a relation name to be expanded
-- : Memory context in which to allocate new VacuumRelation structures
-- : Vacuum options flags that control behavior (e.g., VACOPT_SKIP_LOCKED, VACOPT_VACUUM)
-
+- `*vrel`: The input VacuumRelation containing either an OID or a relation name to be expanded
+- `vac_context`: Memory context in which to allocate new VacuumRelation structures
+- `options`: Vacuum options flags that control behavior (e.g., VACOPT_SKIP_LOCKED, VACOPT_VACUUM)
 ## Dependencies
 - Functions called/Symbols referenced:
   - AmAutoVacuumWorkerProcess

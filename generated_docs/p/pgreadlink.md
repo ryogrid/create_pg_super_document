@@ -22,10 +22,9 @@ After extracting the raw reparse data, the function validates that it's specific
 The implementation includes comprehensive error handling with detailed error reporting and automatic cleanup of resources.
 
 ## Parameters / Member Variables
-- : Path to the junction point/symbolic link to read
-- : Buffer to store the target path
-- : Size of the output buffer
-
+- `*path`: Path to the junction point/symbolic link to read
+- `*buf`: Buffer to store the target path
+- `size`: Size of the output buffer
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (Win32 file attribute retrieval)

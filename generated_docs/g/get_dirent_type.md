@@ -19,11 +19,10 @@ get_dirent_type(const char *path,
  provides a portable way to determine whether a directory entry represents a regular file, directory, symbolic link, or other file type. The function first attempts to use the BSD/Linux extension  field from the dirent structure for efficiency. If this information is unavailable or unknown (common on some filesystems), it falls back to using  or  system calls to determine the file type. The function can optionally follow symbolic links or treat them as links depending on the  parameter. Error handling is unified for both frontend and backend code through conditional compilation.
 
 ## Parameters / Member Variables
-- : Full path to the file/directory entry being examined
-- : Pointer to the dirent structure from readdir() containing the directory entry
-- : If true, follows symbolic links to determine the target's type; if false, returns PGFILETYPE_LNK for symbolic links
-- : Error reporting level for logging failures (frontend: logging.h levels, backend: elog.h levels)
-
+- `*path`: Full path to the file/directory entry being examined
+- `*de`: Pointer to the dirent structure from readdir() containing the directory entry
+- `look_through_symlinks`: If true, follows symbolic links to determine the target's type; if false, returns PGFILETYPE_LNK for symbolic links
+- `elevel`: Error reporting level for logging failures (frontend: logging.h levels, backend: elog.h levels)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dirent](../d/dirent.md)

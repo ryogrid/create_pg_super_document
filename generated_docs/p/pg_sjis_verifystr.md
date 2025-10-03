@@ -23,9 +23,8 @@ The function processes the string character by character, advancing by the appro
 This function is part of PostgreSQL's character encoding verification system, ensuring data integrity for Japanese text stored in Shift JIS encoding.
 
 ## Parameters / Member Variables
-- : Pointer to the unsigned char array containing the Shift JIS encoded string to verify
-- : Maximum number of bytes to verify in the string
-
+- `*s`: Pointer to the unsigned char array containing the Shift JIS encoded string to verify
+- `len`: Maximum number of bytes to verify in the string
 ## Dependencies
 - Functions called/Symbols referenced:
   - IS_HIGHBIT_SET (macro to check if high bit is set in a byte)

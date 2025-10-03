@@ -20,9 +20,8 @@ The OLD slot is essential for trigger processing because triggers often need acc
 The slot is created in the query's memory context to ensure it persists for the duration of the query execution.
 
 ## Parameters / Member Variables
-- : The executor state containing query execution context and memory management information
-- : Result relation info structure that maintains trigger-related tuple slots and relation metadata
-
+- `*estate`: The executor state containing query execution context and memory management information
+- `*relInfo`: Result relation info structure that maintains trigger-related tuple slots and relation metadata
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (creates and initializes a new tuple slot)

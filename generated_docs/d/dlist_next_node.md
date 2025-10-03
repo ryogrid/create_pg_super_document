@@ -18,9 +18,8 @@ This function provides safe navigation to the next node in a doubly-linked list 
 The function is implemented as a static inline function for performance reasons, as list traversal operations are common and benefit from the elimination of function call overhead. The assertion serves as both documentation (indicating the precondition) and a runtime safety check in debug builds.
 
 ## Parameters / Member Variables
-- : Pointer to the list head structure, used by the assertion to verify that a next node exists
-- : Pointer to the current node whose next node should be returned
-
+- `*head`: Pointer to the list head structure, used by the assertion to verify that a next node exists
+- `*node`: Pointer to the current node whose next node should be returned
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dlist_head](dlist_head.md) (struct type)

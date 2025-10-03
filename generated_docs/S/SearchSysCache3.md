@@ -17,11 +17,10 @@ SearchSysCache3(int cacheId,
 SearchSysCache3 provides a convenient wrapper around the lower-level SearchCatCache3 function for searching system caches with exactly three key values. It validates that the cache exists and has the expected number of keys (3) before delegating to the catalog cache search mechanism. The function is part of PostgreSQL's system cache infrastructure that provides fast access to frequently accessed system catalog information.
 
 ## Parameters / Member Variables
-- : Integer identifier of the system cache to search in
-- : First search key value as a Datum
-- : Second search key value as a Datum  
-- : Third search key value as a Datum
-
+- `cacheId`: Integer identifier of the system cache to search in
+- `key1`: First search key value as a Datum
+- `key2`: Second search key value as a Datum
+- `key3`: Third search key value as a Datum
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerIsValid

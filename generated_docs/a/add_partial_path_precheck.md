@@ -23,10 +23,9 @@ The function implements a two-phase evaluation:
 Unlike add_path_precheck, this function always compares pathkeys since partial_pathlist is expected to be short, making the comparison cost negligible while providing definitive answers.
 
 ## Parameters / Member Variables
-- : The RelOptInfo structure representing the relation being analyzed
-- : The total cost estimate for the proposed partial path
-- : The pathkeys (sort order) that the proposed partial path would provide
-
+- `*parent_rel`: The RelOptInfo structure representing the relation being analyzed
+- `total_cost`: The total cost estimate for the proposed partial path
+- `*pathkeys`: The pathkeys (sort order) that the proposed partial path would provide
 ## Dependencies
 - Functions called/Symbols referenced:
   - [compare_pathkeys](../c/compare_pathkeys.md)

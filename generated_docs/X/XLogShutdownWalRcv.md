@@ -20,6 +20,7 @@ The function combines WAL receiver shutdown with the cleanup of associated state
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ShutdownWalRcv](../S/ShutdownWalRcv.md)

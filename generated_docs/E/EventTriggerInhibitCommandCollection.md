@@ -20,6 +20,7 @@ The function performs a safety check by returning early if  is NULL, ensuring it
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - currentEventTriggerState (global state variable)

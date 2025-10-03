@@ -23,8 +23,7 @@ This function implements phase 2 of the hashed set operation strategy, iterating
 The function returns one tuple per call, maintaining state between calls to continue processing the same group if multiple copies are needed, or to move to the next hash table entry.
 
 ## Parameters / Member Variables
-- : Pointer to the SetOpState structure containing the hash table, hash iterator, result tuple slot, and output counting state
-
+- `*setopstate`: Pointer to the SetOpState structure containing the hash table, hash iterator, result tuple slot, and output counting state
 ## Dependencies
 - Functions called/Symbols referenced:
   - CHECK_FOR_INTERRUPTS (interrupt handling macro)

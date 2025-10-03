@@ -25,10 +25,9 @@ Key behaviors:
 - Provides helpful error messages with usage hints
 
 ## Parameters / Member Variables
-- : Function call information containing query context and execution details
-- : Name of the calling function (used in error messages for clarity)
-- : PopulateRecordCache structure to be populated with type information
-
+- `fcinfo`: Function call information containing query context and execution details
+- `*funcname`: Name of the calling function (used in error messages for clarity)
+- `*cache`: PopulateRecordCache structure to be populated with type information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_call_result_type](get_call_result_type.md)

@@ -18,8 +18,7 @@ regexp_substr_no_start(PG_FUNCTION_ARGS)
 This function represents a variant of REGEXP_SUBSTR that accepts a reduced parameter set compared to the full 6-parameter version, allowing SQL users to call the function with fewer arguments while still accessing the complete functionality.
 
 ## Parameters / Member Variables
-- : Function call information containing all passed arguments, forwarded directly to 
-
+- `PG_FUNCTION_ARGS`: Function call information containing all passed arguments, forwarded directly to
 ## Dependencies
 - Functions called/Symbols referenced:
   - 

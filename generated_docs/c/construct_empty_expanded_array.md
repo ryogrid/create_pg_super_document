@@ -20,10 +20,9 @@ The construct_empty_expanded_array function creates an empty array in PostgreSQL
 The function first creates a regular empty array using construct_empty_array, then converts it to the expanded format using expand_array. The original ArrayType structure is freed after conversion since the expanded form contains all necessary data. The expanded array can optionally use cached metadata for improved performance in repeated operations.
 
 ## Parameters / Member Variables
-- : OID of the data type that the empty expanded array would contain if it had elements
-- : Memory context in which the expanded array should be allocated
-- : Optional ArrayMetaState structure containing cached type metadata (can be NULL)
-
+- `element_type`: OID of the data type that the empty expanded array would contain if it had elements
+- `parentcontext`: Memory context in which the expanded array should be allocated
+- `*metacache`: Optional ArrayMetaState structure containing cached type metadata (can be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [construct_empty_array](construct_empty_array.md)

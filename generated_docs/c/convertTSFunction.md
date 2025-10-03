@@ -18,9 +18,8 @@ This function takes a function OID and converts it to a human-readable function 
 The function executes a SQL query to perform the conversion and returns the result as a dynamically allocated string. The conversion is search path dependent, so the caller must ensure the proper schema context.
 
 ## Parameters / Member Variables
-- : Archive connection handle for executing SQL queries
-- : The OID of the function to convert to a name string
-
+- `*fout`: Archive connection handle for executing SQL queries
+- `funcOid`: The OID of the function to convert to a name string
 ## Dependencies
 - Functions called/Symbols referenced:
   - snprintf (for query formatting)

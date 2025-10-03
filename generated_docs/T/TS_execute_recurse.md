@@ -32,11 +32,10 @@ Boolean logic implementation:
 The function maintains bug-compatibility with older implementations by converting TS_MAYBE to TS_NO at the topmost phrase operator level when TS_EXEC_PHRASE_NO_POS flag is not set.
 
 ## Parameters / Member Variables
-- : Pointer to the current QueryItem being processed in the query tree
-- : Opaque argument passed through to the TSExecuteCallback function
-- : Execution control flags including TS_EXEC_SKIP_NOT and TS_EXEC_PHRASE_NO_POS
-- : Callback function to check whether a primitive lexeme value is present
-
+- `*curitem`: Pointer to the current QueryItem being processed in the query tree
+- `*arg`: Opaque argument passed through to the TSExecuteCallback function
+- `flags`: Execution control flags including TS_EXEC_SKIP_NOT and TS_EXEC_PHRASE_NO_POS
+- `chkcond`: Callback function to check whether a primitive lexeme value is present
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_stack_depth](../c/check_stack_depth.md)

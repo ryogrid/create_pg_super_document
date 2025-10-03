@@ -21,10 +21,9 @@ This function provides a unified interface for opening different types of output
 The function abstracts the complexity of different output types and provides consistent error handling. It flushes all open streams before opening a pipe to ensure proper output ordering.
 
 ## Parameters / Member Variables
-- : Output destination specification - NULL/empty for stdout, '|command' for pipe, or filename for regular file
-- : Pointer to FILE* where the opened file handle will be stored
-- : Pointer to bool flag indicating whether the output is a pipe (affects cleanup behavior)
-
+- `*fname`: Output destination specification - NULL/empty for stdout, '|command' for pipe, or filename for regular file
+- `**fout`: Pointer to FILE* where the opened file handle will be stored
+- `*is_pipe`: Pointer to bool flag indicating whether the output is a pipe (affects cleanup behavior)
 ## Dependencies
 - Functions called/Symbols referenced:
   - popen (for pipe commands)

@@ -24,7 +24,6 @@ The function includes several important safety assertions:
 This design allows multiple recovery conflicts to be handled in a single interrupt processing cycle while maintaining proper ordering and safety guarantees.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

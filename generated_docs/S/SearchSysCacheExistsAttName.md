@@ -18,9 +18,8 @@ This function is an attisdropped-aware version of SearchSysCacheExists that spec
 The function returns true if a valid, non-dropped attribute with the specified name exists in the relation, and false otherwise.
 
 ## Parameters / Member Variables
-- : The OID of the relation to search for the attribute
-- : The name of the attribute to look for
-
+- `relid`: The OID of the relation to search for the attribute
+- `*attname`: The name of the attribute to look for
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCacheAttName](SearchSysCacheAttName.md)

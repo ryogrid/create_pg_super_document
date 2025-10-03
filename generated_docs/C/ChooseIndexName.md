@@ -24,13 +24,12 @@ ChooseIndexName generates index names following PostgreSQL's naming conventions 
 The function uses ChooseIndexNameAddition to create a column-based name component for most index types, except primary keys which have standardized naming.
 
 ## Parameters / Member Variables
-- : The name of the table for which the index is being created
-- : The OID of the namespace (schema) containing the table
-- : List of column names that the index covers
-- : List of exclusion operator names (non-NIL for exclusion constraints)
-- : Boolean flag indicating if this is a primary key index
-- : Boolean flag indicating if this index backs a constraint
-
+- `*tabname`: The name of the table for which the index is being created
+- `namespaceId`: The OID of the namespace (schema) containing the table
+- `*colnames`: List of column names that the index covers
+- `*exclusionOpNames`: List of exclusion operator names (non-NIL for exclusion constraints)
+- `primary`: Boolean flag indicating if this is a primary key index
+- `isconstraint`: Boolean flag indicating if this index backs a constraint
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ChooseRelationName](ChooseRelationName.md) (called multiple times with different suffixes)

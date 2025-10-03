@@ -23,11 +23,10 @@ The function supports three main data types:
 The parsing process includes whitespace handling, temporary null termination for safe parsing, and proper error detection through errno checking and return values.
 
 ## Parameters / Member Variables
-- : Union structure to store the parsed value in the appropriate type
-- : Integer constant specifying the expected data type (PGTYPES_TYPE_UINT, PGTYPES_TYPE_UINT_LONG, or PGTYPES_TYPE_STRING_MALLOCED)
-- : Pointer to the current position in the input string (modified to advance past parsed token)
-- : Format string used to determine token boundaries
-
+- `*scan_val`: Union structure to store the parsed value in the appropriate type
+- `scan_type`: Integer constant specifying the expected data type (PGTYPES_TYPE_UINT, PGTYPES_TYPE_UINT_LONG, or PGTYPES_TYPE_STRING_MALLOCED)
+- `**pstr`: Pointer to the current position in the input string (modified to advance past parsed token)
+- `*pfmt`: Format string used to determine token boundaries
 ## Dependencies
 - Functions called/Symbols referenced:
   - [find_end_token](../f/find_end_token.md)

@@ -27,12 +27,11 @@ The parsing follows XML 1.0 specification rules:
 The function also validates that all characters in the parsed declaration are ASCII (values ≤ 127), ensuring compatibility with XML processing requirements.
 
 ## Parameters / Member Variables
-- : Input XML string to parse (null-terminated xmlChar string)
-- : Output parameter for length of parsed declaration (can be NULL if not needed)
-- : Output parameter for XML version string (locally palloc'd, can be NULL if not wanted)
-- : Output parameter for encoding string (locally palloc'd, can be NULL if not wanted)  
-- : Output parameter for standalone flag (1=yes, 0=no, -1=not specified, can be NULL if not wanted)
-
+- `*str`: Input XML string to parse (null-terminated xmlChar string)
+- `*lenp`: Output parameter for length of parsed declaration (can be NULL if not needed)
+- `**version`: Output parameter for XML version string (locally palloc'd, can be NULL if not wanted)
+- `**encoding`: Output parameter for encoding string (locally palloc'd, can be NULL if not wanted)
+- `*standalone`: Output parameter for standalone flag (1=yes, 0=no, -1=not specified, can be NULL if not wanted)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_xml_init_library](pg_xml_init_library.md) (initialize libxml2)

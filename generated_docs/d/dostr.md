@@ -24,10 +24,9 @@ The  function is a core output routine in PostgreSQL's portable snprintf impleme
 The function is designed to handle both buffered output (when target->bufend is set) and unbuffered stream output, making it a versatile component for various output scenarios in the printf implementation.
 
 ## Parameters / Member Variables
-- : Pointer to the source string data to output
-- : Length of the string data in bytes
-- : PrintfTarget structure containing output buffer and state information
-
+- `*str`: Pointer to the source string data to output
+- `slen`: Length of the string data in bytes
+- `*target`: PrintfTarget structure containing output buffer and state information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dopr_outch](dopr_outch.md)

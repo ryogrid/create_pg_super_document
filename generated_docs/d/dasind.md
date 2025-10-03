@@ -21,8 +21,7 @@ This function implements the PostgreSQL SQL function  with degree output. It tak
 - Leverages symmetry properties (asin(-x) = -asin(x)) to handle negative inputs efficiently
 
 ## Parameters / Member Variables
-- : The floating-point input value for which to compute the inverse sine in degrees (must be in range [-1, 1])
-
+- `PG_FUNCTION_ARGS`: The floating-point input value for which to compute the inverse sine in degrees (must be in range [-1, 1])
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT8: Extracts float8 argument from function call

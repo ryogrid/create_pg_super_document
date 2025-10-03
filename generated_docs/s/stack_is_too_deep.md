@@ -25,7 +25,6 @@ The function works by:
 The check for stack_base_ptr != NULL prevents false positives during process setup or in non-backend processes where the stack base may not have been established yet. This check is performed after the depth calculation for performance optimization during normal operation.
 
 ## Parameters / Member Variables
-This function takes no parameters and returns a boolean indicating whether the stack is too deep.
 
 ## Dependencies
 - Functions called/Symbols referenced:

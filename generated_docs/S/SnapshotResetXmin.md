@@ -23,7 +23,6 @@ The function operates under three scenarios:
 The function assumes atomic Xid storage and doesn't require locking. It only recomputes when the active snapshot stack is empty for efficiency reasons.
 
 ## Parameters / Member Variables
-No parameters (void function)
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -19,11 +19,10 @@ mdtruncate safely reduces the size of a PostgreSQL relation by truncating it to 
 The function handles three scenarios for each segment: complete removal (truncate to 0 but keep the file), partial truncation (truncate to exact size needed), or preservation (no action needed). It maintains PostgreSQL's invariant of keeping at least the first segment and handles the special case where nblocks is exactly a multiple of RELSEG_SIZE by keeping a zero-length final segment.
 
 ## Parameters / Member Variables
-- : SMgrRelation pointer representing the relation to truncate
-- : ForkNumber identifying which fork of the relation to truncate
-- : BlockNumber indicating the current number of blocks (must be obtained while holding appropriate locks)
-- : BlockNumber specifying the target number of blocks after truncation
-
+- `reln`: SMgrRelation pointer representing the relation to truncate
+- `forknum`: ForkNumber identifying which fork of the relation to truncate
+- `curnblk`: BlockNumber indicating the current number of blocks (must be obtained while holding appropriate locks)
+- `nblocks`: BlockNumber specifying the target number of blocks after truncation
 ## Dependencies
 - Functions called/Symbols referenced:
   - relpath

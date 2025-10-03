@@ -20,8 +20,7 @@ The binary format consists of:
 2. The actual bit data as a sequence of bytes
 
 ## Parameters / Member Variables
-- : Function call information structure containing the input bit string argument
-
+- `PG_FUNCTION_ARGS`: Function call information structure containing the input bit string argument
 ## Dependencies
 - Functions called/Symbols referenced:
   - [varbit_send](../v/varbit_send.md) (delegates all functionality to this function)

@@ -18,9 +18,8 @@ This function is the counterpart to , responsible for properly deallocating memo
 The function uses PostgreSQL's  memory deallocation function, which is the standard way to free memory that was allocated with . The deallocation order is important to avoid accessing freed memory.
 
 ## Parameters / Member Variables
-- : PlannerInfo pointer representing the planner context (though not directly used in the current implementation)
-- : Pointer to the Chromosome structure to be deallocated
-
+- `*root`: PlannerInfo pointer representing the planner context (though not directly used in the current implementation)
+- `*chromo`: Pointer to the Chromosome structure to be deallocated
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (PostgreSQL memory deallocator)

@@ -30,9 +30,8 @@ Key responsibilities include:
 - Ensuring proper condition variable cleanup
 
 ## Parameters / Member Variables
-- : Main B-tree build state containing the BTLeader with shared state access
-- : Output parameter set to true if any worker detected broken HOT chains
-
+- `*buildstate`: Main B-tree build state containing the BTLeader with shared state access
+- `*brokenhotchain`: Output parameter set to true if any worker detected broken HOT chains
 ## Dependencies
 - Functions called/Symbols referenced:
   - SpinLockAcquire/SpinLockRelease: Protect access to shared state variables

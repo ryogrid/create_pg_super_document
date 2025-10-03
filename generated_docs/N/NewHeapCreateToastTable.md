@@ -19,11 +19,10 @@ This function is specialized for creating TOAST tables when building new heap re
 The function allows passing an old TOAST table OID, which can be useful for operations that are rebuilding tables and need to reference or coordinate with the previous TOAST table structure. It delegates the actual work to CheckAndCreateToastTable with the  parameter set to false, indicating this is for new heap creation rather than altering existing tables.
 
 ## Parameters / Member Variables
-- : The OID of the new relation for which to create a TOAST table
-- : Datum containing reloptions for the TOAST table, or (Datum) 0 for default options
-- : The lock mode to use when accessing the relation
-- : The OID of the old TOAST table, if any (can be InvalidOid if no old TOAST table exists)
-
+- `relOid`: The OID of the new relation for which to create a TOAST table
+- `reloptions`: Datum containing reloptions for the TOAST table, or (Datum) 0 for default options
+- `lockmode`: The lock mode to use when accessing the relation
+- `OIDOldToast`: The OID of the old TOAST table, if any (can be InvalidOid if no old TOAST table exists)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CheckAndCreateToastTable](../C/CheckAndCreateToastTable.md)

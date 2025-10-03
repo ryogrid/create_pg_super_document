@@ -20,8 +20,7 @@ The function first attempts to parse any available buffered data by calling pars
 This function is essential for implementing non-blocking query processing patterns in applications that need to avoid blocking on database operations.
 
 ## Parameters / Member Variables
-- : Pointer to the PGconn structure representing the database connection to check
-
+- `*conn`: Pointer to the PGconn structure representing the database connection to check
 ## Dependencies
 - Functions called/Symbols referenced:
   - [parseInput](../p/parseInput.md)

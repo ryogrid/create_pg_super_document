@@ -18,8 +18,7 @@ The parse_or_operator function is specifically designed for websearch_to_tsquery
 The function implements a lookahead mechanism to verify that there is indeed an operand following the OR keyword, even if separated by whitespace. If all validations pass, it advances the parser buffer by 2 characters (past "OR") and returns true.
 
 ## Parameters / Member Variables
-- : Parser state containing the current buffer position and parsing context
-
+- `pstate`: Parser state containing the current buffer position and parsing context
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TSQueryParserState](../T/TSQueryParserState.md)

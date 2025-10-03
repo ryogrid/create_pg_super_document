@@ -29,14 +29,13 @@ The function enforces a critical constraint: when multiple address families are 
 The algorithm initializes using the first key's values, then iterates through remaining keys to find minimums and compute bit-level commonality using the bitncommon() function.
 
 ## Parameters / Member Variables
-- : Array of GISTENTRY elements containing inet keys to analyze
-- : Starting index in the array (inclusive)
-- : Ending index in the array (inclusive) 
-- : Output parameter for minimum IP address family number
-- : Output parameter for maximum IP address family number
-- : Output parameter for minimum netmask width
-- : Output parameter for number of common address bits
-
+- `*ent`: Array of GISTENTRY elements containing inet keys to analyze
+- `m`: Starting index in the array (inclusive)
+- `n`: Ending index in the array (inclusive)
+- `*minfamily_p`: Output parameter for minimum IP address family number
+- `*maxfamily_p`: Output parameter for maximum IP address family number
+- `*minbits_p`: Output parameter for minimum netmask width
+- `*commonbits_p`: Output parameter for number of common address bits
 ## Dependencies
 - Functions called/Symbols referenced:
   - DatumGetInetKeyP

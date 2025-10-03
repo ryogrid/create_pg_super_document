@@ -24,15 +24,14 @@ The  function outputs a single row of data from a PostgreSQL query result set wi
 The function accesses pre-processed field data from the fields array, which was populated by , and applies formatting based on numeric content detection and maximum field widths calculated during earlier processing phases.
 
 ## Parameters / Member Variables
-- : Output file stream for writing the formatted row
-- : Print options structure containing formatting preferences (html3, standard, fieldSep)
-- : Total number of fields (columns) in the result set
-- : Pre-allocated array containing all field values, indexed by row and column
-- : Array indicating which fields contain non-numeric data for alignment purposes
-- : Array containing maximum width for each column for proper alignment
-- : Pre-constructed border string for standard format (created by do_header)
-- : Index of the current row being output
-
+- `*fout`: Output file stream for writing the formatted row
+- `*po`: Print options structure containing formatting preferences (html3, standard, fieldSep)
+- `nFields`: Total number of fields (columns) in the result set
+- `**fields`: Pre-allocated array containing all field values, indexed by row and column
+- `*fieldNotNum`: Array indicating which fields contain non-numeric data for alignment purposes
+- `*fieldMax`: Array containing maximum width for each column for proper alignment
+- `*border`: Pre-constructed border string for standard format (created by do_header)
+- `row_index`: Index of the current row being output
 ## Dependencies
 - Functions called/Symbols referenced:
   - PQprintOpt (struct type)

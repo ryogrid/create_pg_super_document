@@ -20,8 +20,7 @@ The function handles the special case where the input list is  (null) by returni
 This function is widely used throughout PostgreSQL for creating working copies of lists that can be modified without affecting the original list structure, while still sharing the underlying data elements.
 
 ## Parameters / Member Variables
-- : The source List to be copied. Can be NIL (null), in which case NIL is returned.
-
+- `*oldlist`: The source List to be copied. Can be NIL (null), in which case NIL is returned.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [new_list](../n/new_list.md)

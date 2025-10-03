@@ -17,7 +17,6 @@ This function performs critical queue maintenance by computing the minimum queue
 The function operates under exclusive locking to ensure consistency, but releases locks strategically to avoid holding them during potentially expensive SimpleLruTruncate operations. It only truncates data when the tail advances across SLRU segment boundaries, optimizing for both safety and performance.
 
 ## Parameters / Member Variables
-This function takes no parameters and operates on global shared memory structures.
 
 ## Dependencies
 - Functions called/Symbols referenced:

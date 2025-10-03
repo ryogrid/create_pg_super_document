@@ -24,9 +24,8 @@ The function supports two distinct output modes:
 The function was specifically designed to replace the previous use of  for display purposes because  doesn't support pager output and has compatibility issues with libedit implementations that prefer to encode their output format.
 
 ## Parameters / Member Variables
-- : Target filename for history output. If NULL, output goes to console with optional pager support.
-- : Flag controlling pager usage when outputting to console (non-zero enables pager).
-
+- `*fname`: Target filename for history output. If NULL, output goes to console with optional pager support.
+- `pager`: Flag controlling pager usage when outputting to console (non-zero enables pager).
 ## Dependencies
 - Functions called/Symbols referenced:
   - useHistory (global variable indicating if history is enabled)

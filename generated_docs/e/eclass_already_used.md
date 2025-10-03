@@ -25,10 +25,9 @@ When both conditions are met, it means that combining the current clause with th
 This check is essential because EquivalenceClasses can generate multiple logically equivalent join clauses, and without this filtering, the optimizer would waste time exploring redundant combinations that don't improve query execution.
 
 ## Parameters / Member Variables
-- : EquivalenceClass to check for previous usage
-- : Set of relation IDs from a previously considered combination
-- : List of IndexClause structures containing join clauses to examine
-
+- `*parent_ec`: EquivalenceClass to check for previous usage
+- `oldrelids`: Set of relation IDs from a previously considered combination
+- `*indexjoinclauses`: List of IndexClause structures containing join clauses to examine
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bms_is_subset](../b/bms_is_subset.md)

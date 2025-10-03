@@ -26,11 +26,10 @@ The function performs several key operations:
 This is distinct from ReorderBufferAbortOld() which handles implicitly aborted transactions, and ReorderBufferForget() which handles committed transactions that are no longer of interest.
 
 ## Parameters / Member Variables
-- : The ReorderBuffer instance managing the transaction
-- : Transaction ID of the transaction to abort
-- : Log Sequence Number where the abort occurred
-- : Timestamp when the transaction was aborted
-
+- `*rb`: The ReorderBuffer instance managing the transaction
+- `xid`: Transaction ID of the transaction to abort
+- `lsn`: Log Sequence Number where the abort occurred
+- `abort_time`: Timestamp when the transaction was aborted
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReorderBufferTXNByXid](ReorderBufferTXNByXid.md)

@@ -17,7 +17,6 @@ IsPromoteSignaled provides a clean interface to check whether a promotion signal
 The function simply returns the value of the global promote_signaled flag, which is set by signal handlers when promotion-related signals are received. This allows other parts of the recovery system to check promotion status without directly accessing global variables, maintaining better code organization and encapsulation.
 
 ## Parameters / Member Variables
-This function takes no parameters and returns a boolean value.
 
 ## Dependencies
 - Functions called/Symbols referenced:

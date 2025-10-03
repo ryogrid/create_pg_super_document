@@ -18,9 +18,8 @@ ExecGrant_Language_check serves as an object-specific validation callback for pr
 This function is called by ExecGrant_common during language privilege operations to enforce PostgreSQL's security model where untrusted languages require superuser privileges regardless of explicit grants.
 
 ## Parameters / Member Variables
-- : Internal representation of the GRANT/REVOKE statement (not directly used in this function)
-- : HeapTuple from pg_language catalog containing the language definition
-
+- `*istmt`: Internal representation of the GRANT/REVOKE statement (not directly used in this function)
+- `tuple`: HeapTuple from pg_language catalog containing the language definition
 ## Dependencies
 - Functions called/Symbols referenced:
   - Form_pg_language (catalog form structure)

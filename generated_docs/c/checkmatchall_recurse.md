@@ -27,10 +27,9 @@ Key features include:
 The function marks states as "busy" during traversal to detect cycles and prevent infinite recursion.
 
 ## Parameters / Member Variables
-- : Pointer to the NFA structure being analyzed
-- : The current state to analyze path lengths from
-- : Array of per-state path length arrays for memoization
-
+- `*nfa`: Pointer to the NFA structure being analyzed
+- `*s`: The current state to analyze path lengths from
+- `**haspaths`: Array of per-state path length arrays for memoization
 ## Dependencies
 - Functions called/Symbols referenced:
   - STACK_TOO_DEEP (stack overflow protection macro)

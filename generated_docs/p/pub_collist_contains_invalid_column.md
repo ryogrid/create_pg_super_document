@@ -21,11 +21,10 @@ The function handles special logic for partitioned tables when pubviaroot is ena
 For REPLICA IDENTITY FULL tables, the function immediately returns true (invalid) because column lists are not allowed when all columns are part of the replica identity.
 
 ## Parameters / Member Variables
-- : OID of the publication to validate
-- : The relation being validated for column list compatibility
-- : List of ancestor relations (used for partitioned tables)  
-- : Boolean indicating whether to publish via partition root
-
+- `pubid`: OID of the publication to validate
+- `relation`: The relation being validated for column list compatibility
+- `*ancestors`: List of ancestor relations (used for partitioned tables)
+- `pubviaroot`: Boolean indicating whether to publish via partition root
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetTopMostAncestorInPublication](../G/GetTopMostAncestorInPublication.md)

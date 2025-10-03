@@ -32,6 +32,7 @@ The function returns true if state was successfully created, false if no setup w
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [trackDroppedObjectsNeeded](../t/trackDroppedObjectsNeeded.md) (checks if event trigger state is necessary)

@@ -24,9 +24,8 @@ NIImportDictionary reads and processes a dictionary file line by line, extractin
 The function handles malformed entries gracefully by truncating invalid flag sequences and removing trailing whitespace from words.
 
 ## Parameters / Member Variables
-- : Pointer to IspellDict structure representing the current dictionary configuration
-- : Path to the .dict file to import (caller must have applied get_tsearch_config_filename)
-
+- `*Conf`: Pointer to IspellDict structure representing the current dictionary configuration
+- `*filename`: Path to the .dict file to import (caller must have applied get_tsearch_config_filename)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [tsearch_readline_begin](../t/tsearch_readline_begin.md)

@@ -18,9 +18,8 @@ This function is part of the pg_createsubscriber utility and monitors a PostgreS
 The function implements a polling mechanism with a fixed wait interval (WAIT_INTERVAL seconds) between status checks. It provides logging information to keep users informed about the recovery progress and includes helpful hints about recovery failure scenarios.
 
 ## Parameters / Member Variables
-- : Connection string used to connect to the target PostgreSQL server
-- : Pointer to CreateSubscriberOptions structure containing configuration options, particularly the recovery_timeout setting
-
+- `*conninfo`: Connection string used to connect to the target PostgreSQL server
+- `*opt`: Pointer to CreateSubscriberOptions structure containing configuration options, particularly the recovery_timeout setting
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_log_info

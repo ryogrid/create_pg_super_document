@@ -26,11 +26,10 @@ The function performs several filtering steps:
 The created ForeignKeyOptInfo structures are added to the root->fkey_list for later use by the query optimizer in join planning and constraint propagation.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing the global planning context and fkey_list
-- : RelOptInfo structure representing the relation being analyzed
-- : Open Relation structure providing access to cached foreign key information
-- : Boolean indicating if this is an inheritance parent (causes early return)
-
+- `*root`: PlannerInfo structure containing the global planning context and fkey_list
+- `*rel`: RelOptInfo structure representing the relation being analyzed
+- `relation`: Open Relation structure providing access to cached foreign key information
+- `inhparent`: Boolean indicating if this is an inheritance parent (causes early return)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RelationGetFKeyList](../R/RelationGetFKeyList.md)

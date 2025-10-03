@@ -20,10 +20,9 @@ The function delegates the actual validation logic to the generic check_slru_buf
 The transaction_buffers parameter controls the number of shared memory buffers allocated for the CLOG (Commit Log) subsystem, which is crucial for tracking transaction commit status and supporting MVCC operations.
 
 ## Parameters / Member Variables
-- : Pointer to the new integer value being assigned to transaction_buffers
-- : Pointer to extra data that can be set by the check hook (unused in this implementation)
-- : Enumeration indicating the source of the configuration change (e.g., config file, command line, etc.)
-
+- `*newval`: Pointer to the new integer value being assigned to transaction_buffers
+- `**extra`: Pointer to extra data that can be set by the check hook (unused in this implementation)
+- `source`: Enumeration indicating the source of the configuration change (e.g., config file, command line, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_slru_buffers](check_slru_buffers.md) (generic SLRU buffer validation function)

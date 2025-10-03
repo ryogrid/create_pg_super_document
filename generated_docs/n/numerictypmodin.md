@@ -16,8 +16,7 @@ numerictypmodin(PG_FUNCTION_ARGS)
 This function is part of PostgreSQL's type modifier input system for the NUMERIC type. It takes an array of type modifier values (typically precision and scale) from a type declaration like NUMERIC(10,2) and converts them into a single int32 typmod value used internally by the system. The function validates that precision and scale values are within acceptable ranges and handles both single-parameter (precision only) and dual-parameter (precision and scale) formats.
 
 ## Parameters / Member Variables
-- : Array of type modifier values from the type declaration (PG_GETARG_ARRAYTYPE_P(0))
-
+- `PG_FUNCTION_ARGS`: Array of type modifier values from the type declaration (PG_GETARG_ARRAYTYPE_P(0))
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_ARRAYTYPE_P: Extracts array argument from function call

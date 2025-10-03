@@ -26,8 +26,7 @@ The function follows the standard Snowball stemming methodology:
 The order of operations is crucial - general endings are removed first, followed by more specific grammatical category suffixes (verbs, adjectives, nouns). This ensures the most appropriate morphological reductions are applied.
 
 ## Parameters / Member Variables
-- : Pointer to the SN_env structure containing the stemming environment, word buffer, cursor positions, and morphological region markers
-
+- `*z`: Pointer to the SN_env structure containing the stemming environment, word buffer, cursor positions, and morphological region markers
 ## Dependencies
 - Functions called/Symbols referenced:
   - [r_mark_regions](../r/r_mark_regions.md) (identifies R1 and R2 morphological regions in the word)

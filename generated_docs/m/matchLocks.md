@@ -27,12 +27,11 @@ This function examines a relation's rewrite rules and returns those that match t
 6. **Range table usage**: For SELECT commands, verifies that the relation is actually used in the query
 
 ## Parameters / Member Variables
-- : The command type (INSERT, UPDATE, DELETE, SELECT, MERGE) to match against
-- : The relation whose rules are being examined
-- : The range table entry number for the relation
-- : The query being processed
-- : Output parameter set to true if any UPDATE rules are found
-
+- `event`: The command type (INSERT, UPDATE, DELETE, SELECT, MERGE) to match against
+- `relation`: The relation whose rules are being examined
+- `varno`: The range table entry number for the relation
+- `*parsetree`: The query being processed
+- `*hasUpdate`: Output parameter set to true if any UPDATE rules are found
 ## Dependencies
 - Functions called/Symbols referenced:
   - [rangeTableEntry_used](../r/rangeTableEntry_used.md)

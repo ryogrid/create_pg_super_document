@@ -26,7 +26,6 @@ When initializing a new segment, it sets up:
 The use of atomic operations ensures thread-safe access in PostgreSQL's multi-process architecture.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

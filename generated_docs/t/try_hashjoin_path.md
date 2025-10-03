@@ -24,14 +24,13 @@ This function is the main entry point for considering hash join strategies durin
 A key characteristic of hash joins is that they never produce any output pathkeys (sorted output), which is reflected in the NIL pathkeys parameter passed to add_path_precheck. The function creates non-parallel hash join paths, with parallel hash join functionality handled by separate mechanisms.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global planning context and configuration
-- : Target RelOptInfo representing the join relation where the path will be added
-- : Path structure for the outer (build) relation in the hash join
-- : Path structure for the inner (probe) relation in the hash join
-- : List of hash join clauses that define the equijoin conditions for hashing
-- : JoinType enumeration specifying the type of join (INNER, LEFT, etc.)
-- : JoinPathExtraData containing additional join-specific information and constraints
-
+- `*root`: PlannerInfo structure containing global planning context and configuration
+- `*joinrel`: Target RelOptInfo representing the join relation where the path will be added
+- `*outer_path`: Path structure for the outer (build) relation in the hash join
+- `*inner_path`: Path structure for the inner (probe) relation in the hash join
+- `*hashclauses`: List of hash join clauses that define the equijoin conditions for hashing
+- `jointype`: JoinType enumeration specifying the type of join (INNER, LEFT, etc.)
+- `*extra`: JoinPathExtraData containing additional join-specific information and constraints
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bms_is_member](../b/bms_is_member.md)

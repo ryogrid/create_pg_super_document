@@ -18,9 +18,8 @@ The  function serves as a GUC assign hook that actually applies the datestyle co
 This function is called by the GUC system after successful validation to make the configuration change effective. It's a simple assignment function that trusts the validation has already been performed by the corresponding check hook.
 
 ## Parameters / Member Variables
-- : The canonical string representation of the datestyle setting (unused in this function since values come from extra)
-- : A pointer to the extra data structure containing the validated integer values for date style and order (created by check_datestyle)
-
+- `*newval`: The canonical string representation of the datestyle setting (unused in this function since values come from extra)
+- `*extra`: A pointer to the extra data structure containing the validated integer values for date style and order (created by check_datestyle)
 ## Dependencies
 - Functions called/Symbols referenced:
   - DateStyle: Global variable storing the current date output style

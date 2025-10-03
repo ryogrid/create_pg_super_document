@@ -18,9 +18,8 @@ The  function handles the execution of the \set backslash command in psql, which
 When setting a variable, the function parses the variable name as the first argument, then collects all subsequent arguments and concatenates them to form the variable's value. This allows for multi-word values without requiring quotes. The concatenation process dynamically reallocates memory as needed to accommodate values of any length. If the variable name is provided but no value arguments follow, the variable is set to an empty string.
 
 ## Parameters / Member Variables
-- : Scanner state object used to parse the variable name and value arguments from the command line
-- : Boolean flag indicating whether this command should actually execute (used for conditional execution in psql)
-
+- `scan_state`: Scanner state object used to parse the variable name and value arguments from the command line
+- `active_branch`: Boolean flag indicating whether this command should actually execute (used for conditional execution in psql)
 ## Dependencies
 - Functions called/Symbols referenced:
   - psql_scan_slash_option

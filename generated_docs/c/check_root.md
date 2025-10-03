@@ -27,8 +27,7 @@ The function performs different checks based on the platform:
 If any of these security conditions are violated, the function immediately terminates the process with an error message directing users to the documentation for proper server startup procedures.
 
 ## Parameters / Member Variables
-- : The program name used in error messages to identify which PostgreSQL component failed the check
-
+- `*progname`: The program name used in error messages to identify which PostgreSQL component failed the check
 ## Dependencies
 - Functions called/Symbols referenced:
   - geteuid (get effective user ID, Unix/Linux)

@@ -18,9 +18,8 @@ The  function is a convenience wrapper that imports a file from the client's fil
 The internal implementation opens the specified file in binary read mode, creates a new large object with read/write permissions, and then copies the file contents in chunks using the large object API. The function handles errors gracefully, cleaning up resources and providing appropriate error messages if any step fails.
 
 ## Parameters / Member Variables
-- : PostgreSQL database connection handle
-- : Path to the file on the client filesystem to import
-
+- `*conn`: PostgreSQL database connection handle
+- `*filename`: Path to the file on the client filesystem to import
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lo_import_internal](lo_import_internal.md)

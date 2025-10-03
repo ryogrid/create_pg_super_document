@@ -18,8 +18,7 @@ This function performs a simple but important string cleanup operation by iterat
 The function is particularly useful in XML processing contexts where formatted output may accumulate unwanted trailing newlines that need to be cleaned up before final presentation.
 
 ## Parameters / Member Variables
-- : A StringInfo pointer containing the string to be processed. The string is modified in-place, with trailing newlines removed and the length adjusted accordingly.
-
+- `str`: A StringInfo pointer containing the string to be processed. The string is modified in-place, with trailing newlines removed and the length adjusted accordingly.
 ## Dependencies
 - Functions called/Symbols referenced:
   - (No external function calls - operates directly on StringInfo data and len fields)

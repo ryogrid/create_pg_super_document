@@ -28,9 +28,8 @@ The  function performs the final transformation phase of PostgreSQL's query plan
 Additionally, the function performs a final optimization by removing unnecessary SubqueryScan, Append, and MergeAppend nodes that don't serve a useful purpose after reference setting.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planning context and global information
-- : The root Plan node of the plan tree to process
-
+- `*root`: PlannerInfo structure containing planning context and global information
+- `*plan`: The root Plan node of the plan tree to process
 ## Dependencies
 - Functions called/Symbols referenced:
   - [add_rtes_to_flat_rtable](../a/add_rtes_to_flat_rtable.md)

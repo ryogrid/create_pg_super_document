@@ -22,10 +22,9 @@ The overlap test uses two conditions:
 If either condition is true, the ranges overlap.
 
 ## Parameters / Member Variables
-- : TypeCacheEntry containing range type metadata and comparison functions
-- : First RangeType to test for overlap
-- : Second RangeType to test for overlap
-
+- `*typcache`: TypeCacheEntry containing range type metadata and comparison functions
+- `*r1`: First RangeType to test for overlap
+- `*r2`: Second RangeType to test for overlap
 ## Dependencies
 - Functions called/Symbols referenced:
   - RangeTypeGetOid

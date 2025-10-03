@@ -18,10 +18,9 @@ GetCopyDataByte is a utility function that safely reads a single byte from a COP
 This function is typically used for reading message type indicators and other single-byte values from COPY protocol messages during base backup operations.
 
 ## Parameters / Member Variables
-- : Total size of the data buffer in bytes
-- : Pointer to the buffer containing the COPY data message
-- : Pointer to the current position within the buffer, updated after reading
-
+- `r`: Total size of the data buffer in bytes
+- `*copybuf`: Pointer to the buffer containing the COPY data message
+- `*cursor`: Pointer to the current position within the buffer, updated after reading
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReportCopyDataParseError](../R/ReportCopyDataParseError.md)

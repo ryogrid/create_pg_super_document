@@ -18,8 +18,7 @@ GUC_check_errcode is a utility function designed for use within GUC check hooks 
 The function works in conjunction with other GUC error reporting macros (GUC_check_errmsg, GUC_check_errhint, etc.) to provide comprehensive error information. When a check hook calls this function, the specified error code will be used when the validation failure is reported to the user, providing more contextually relevant error information.
 
 ## Parameters / Member Variables
-- : The SQL error code to use for the validation failure; typically one of the ERRCODE_* constants
-
+- `sqlerrcode`: The SQL error code to use for the validation failure; typically one of the ERRCODE_* constants
 ## Dependencies
 - Functions called/Symbols referenced:
   - GUC_check_errcode_value (global variable)

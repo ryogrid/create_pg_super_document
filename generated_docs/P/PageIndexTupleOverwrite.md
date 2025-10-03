@@ -24,11 +24,10 @@ PageIndexTupleOverwrite provides an efficient mechanism for replacing an existin
 The function calculates space requirements, validates the operation feasibility, relocates existing data if necessary, updates affected line pointers, and copies the new tuple data. It returns false if insufficient space is available, making it safe for callers to handle space constraints gracefully.
 
 ## Parameters / Member Variables
-- : The index page containing the tuple to replace
-- : The offset number (line pointer index) of the tuple to overwrite
-- : Pointer to the new tuple data to write
-- : Size of the new tuple data in bytes
-
+- `page`: The index page containing the tuple to replace
+- `offnum`: The offset number (line pointer index) of the tuple to overwrite
+- `newtup`: Pointer to the new tuple data to write
+- `newsize`: Size of the new tuple data in bytes
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PageGetMaxOffsetNumber](PageGetMaxOffsetNumber.md)

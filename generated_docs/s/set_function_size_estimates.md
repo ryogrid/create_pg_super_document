@@ -18,9 +18,8 @@ This function estimates the cardinality (number of rows) for a relation that rep
 The estimation process involves iterating through all functions listed in the range table entry, calling  to estimate each function's row output, and selecting the maximum count as the relation's tuple estimate. After establishing the base row count, it delegates to  to complete the size estimation process including selectivity calculations.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing query planning context and global information
-- : RelOptInfo structure representing the relation being sized, must be a base relation with relid > 0
-
+- `*root`: PlannerInfo structure containing query planning context and global information
+- `*rel`: RelOptInfo structure representing the relation being sized, must be a base relation with relid > 0
 ## Dependencies
 - Functions called/Symbols referenced:
   - planner_rt_fetch

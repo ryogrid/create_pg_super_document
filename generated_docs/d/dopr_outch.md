@@ -23,9 +23,8 @@ The  function is the most basic output primitive in PostgreSQL's portable snprin
 This function serves as the foundation for all character output in the printf system, ensuring consistent buffer management behavior across all formatting operations.
 
 ## Parameters / Member Variables
-- : The character to output (passed as int following standard C library conventions)
-- : PrintfTarget structure containing the output buffer and state information
-
+- `c`: The character to output (passed as int following standard C library conventions)
+- `*target`: PrintfTarget structure containing the output buffer and state information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [flushbuffer](../f/flushbuffer.md)

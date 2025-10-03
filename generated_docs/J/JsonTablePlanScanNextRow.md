@@ -16,8 +16,7 @@ JsonTablePlanScanNextRow(JsonTablePlanState *planstate)
 This function implements the core row iteration logic for JsonTablePathScan plans. It manages a two-level iteration process: first checking for rows from nested plans (child paths), then advancing to the next row from the current plan's path evaluation results. The function implements an outer join semantic where if a nested path has no matching rows, the columns at that level will compute to NULL. The function maintains the current row state in the planstate structure and manages memory contexts appropriately to ensure proper cleanup.
 
 ## Parameters / Member Variables
-- : Pointer to JsonTablePlanState structure containing the current scan state, including the found values list, iterator position, current row data, nested plans, and memory context
-
+- `*planstate`: Pointer to JsonTablePlanState structure containing the current scan state, including the found values list, iterator position, current row data, nested plans, and memory context
 ## Dependencies
 - Functions called/Symbols referenced:
   - [JsonTablePlanNextRow](JsonTablePlanNextRow.md) (recursive call for nested plans)

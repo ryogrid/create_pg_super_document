@@ -26,9 +26,8 @@ The function operates by:
 This approach allows the initdb process to modularize SQL setup scripts and execute them as part of the broader database initialization sequence.
 
 ## Parameters / Member Variables
-- : FILE pointer to the command file descriptor where SQL commands are written for execution
-- : String path to the external SQL file to be processed and executed
-
+- `*cmdfd`: FILE pointer to the command file descriptor where SQL commands are written for execution
+- `*filename`: String path to the external SQL file to be processed and executed
 ## Dependencies
 - Functions called/Symbols referenced:
   - : PostgreSQL utility function for reading file contents into string array

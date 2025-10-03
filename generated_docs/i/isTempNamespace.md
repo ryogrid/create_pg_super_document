@@ -18,8 +18,7 @@ The isTempNamespace function checks if the provided namespace OID matches the cu
 The function first validates that myTempNamespace is a valid OID using OidIsValid(), then performs a direct comparison. This is a simple but essential utility for namespace-related operations throughout the PostgreSQL system.
 
 ## Parameters / Member Variables
-- : The OID of the namespace to check against the current session's temporary namespace.
-
+- `namespaceId`: The OID of the namespace to check against the current session's temporary namespace.
 ## Dependencies
 - Functions called/Symbols referenced:
   - OidIsValid: Validates that myTempNamespace contains a valid OID

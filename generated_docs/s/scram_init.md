@@ -22,10 +22,9 @@ The function supports two SCRAM mechanisms:
 When a valid secret cannot be obtained, the function creates a mock secret to prevent information leakage to attackers.
 
 ## Parameters / Member Variables
-- : Connection port information containing user_name and SSL status
-- : The SASL mechanism selected by the client (must be supported)
-- : The role's stored secret from pg_authid.rolpassword (can be NULL for mock auth)
-
+- `*port`: Connection port information containing user_name and SSL status
+- `*selected_mech`: The SASL mechanism selected by the client (must be supported)
+- `*shadow_pass`: The role's stored secret from pg_authid.rolpassword (can be NULL for mock auth)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc0](../p/palloc0.md)

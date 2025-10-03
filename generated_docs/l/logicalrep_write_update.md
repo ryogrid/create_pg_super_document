@@ -26,14 +26,13 @@ This function serializes an UPDATE operation into the logical replication wire p
 The function respects the table's replica identity setting to determine what old tuple information to include in the stream.
 
 ## Parameters / Member Variables
-- : StringInfo buffer where the UPDATE message will be written
-- : Transaction ID (optional, used when streaming transactions)
-- : Relation descriptor for the table being updated
-- : TupleTableSlot containing the old tuple values (can be NULL)
-- : TupleTableSlot containing the new tuple values
-- : Boolean flag indicating whether to use binary or text format
-- : Bitmapset specifying which columns to include in the output
-
+- `out`: StringInfo buffer where the UPDATE message will be written
+- `xid`: Transaction ID (optional, used when streaming transactions)
+- `rel`: Relation descriptor for the table being updated
+- `*oldslot`: TupleTableSlot containing the old tuple values (can be NULL)
+- `*newslot`: TupleTableSlot containing the new tuple values
+- `binary`: Boolean flag indicating whether to use binary or text format
+- `*columns`: Bitmapset specifying which columns to include in the output
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pq_sendbyte](../p/pq_sendbyte.md) (sends single byte to output stream)

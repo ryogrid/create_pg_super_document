@@ -21,11 +21,10 @@ The function creates a CollectedCommand structure with type SCT_CreateOpClass an
 Operator classes define how PostgreSQL's indexing methods (like B-tree, GiST, GIN, etc.) work with specific data types. This function ensures that event triggers have access to all the details about newly created operator classes, including their constituent operators and support procedures.
 
 ## Parameters / Member Variables
-- : Pointer to a CreateOpClassStmt structure representing the parsed CREATE OPERATOR CLASS command
-- : OID of the newly created operator class
-- : List of operators that are part of this operator class definition
-- : List of support procedures that are part of this operator class definition
-
+- `*stmt`: Pointer to a CreateOpClassStmt structure representing the parsed CREATE OPERATOR CLASS command
+- `opcoid`: OID of the newly created operator class
+- `*operators`: List of operators that are part of this operator class definition
+- `*procedures`: List of support procedures that are part of this operator class definition
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Memory context switching

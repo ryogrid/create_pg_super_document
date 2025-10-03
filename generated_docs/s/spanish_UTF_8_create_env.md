@@ -23,6 +23,7 @@ This configuration is tailored to the requirements of the Spanish stemming algor
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SN_create_env](../S/SN_create_env.md)

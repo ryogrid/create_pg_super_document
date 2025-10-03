@@ -20,6 +20,7 @@ The function accesses global arrays that store the tranche registration informat
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (simple arithmetic computation)

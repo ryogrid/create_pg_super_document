@@ -29,11 +29,10 @@ For each resource created, the function performs several operations:
 The round-robin distribution ensures that resources are evenly distributed across all provided resource kinds, which is useful for testing scenarios where you want to verify resource management behavior across multiple resource types with different characteristics.
 
 ## Parameters / Member Variables
-- : ResourceOwner instance that will manage these resources
-- : Array of ManyTestResourceKind structures defining resource types
-- : Number of resource kinds in the kinds array
-- : Total number of resources to create and remember
-
+- `owner`: ResourceOwner instance that will manage these resources
+- `*kinds`: Array of ManyTestResourceKind structures defining resource types
+- `nkinds`: Number of resource kinds in the kinds array
+- `nresources`: Total number of resources to create and remember
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md) (PostgreSQL memory allocation)

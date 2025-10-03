@@ -22,9 +22,8 @@ The getsecs function parses time specifications from timezone strings, supportin
 The total seconds are calculated and stored in the provided output parameter. If any parsing error occurs, the function returns NULL.
 
 ## Parameters / Member Variables
-- : Pointer to the timezone string to parse
-- : Pointer to int32 where the calculated total seconds will be stored
-
+- `*strp`: Pointer to the timezone string to parse
+- `secsp`: Pointer to int32 where the calculated total seconds will be stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - [getnum](getnum.md) (for parsing numeric components)

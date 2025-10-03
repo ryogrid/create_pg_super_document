@@ -16,9 +16,8 @@ process_file(char *filename, bool use_relative_path)
 The  function is responsible for reading script files in pgbench, PostgreSQL's built-in benchmarking tool. It handles file I/O operations to read SQL script content from either a specified file or stdin (when filename is "-"), then parses the content and adds it to the script collection with the specified weight. The function includes proper error handling for file operations and memory management for the file contents.
 
 ## Parameters / Member Variables
-- : Path to the script file to be processed. Special value "-" indicates reading from stdin
-- : Numeric weight value assigned to this script, affecting its selection probability during benchmark execution
-
+- `*filename`: Path to the script file to be processed. Special value "-" indicates reading from stdin
+- `use_relative_path`: Numeric weight value assigned to this script, affecting its selection probability during benchmark execution
 ## Dependencies
 - Functions called/Symbols referenced:
   - fopen (standard library function for file opening)

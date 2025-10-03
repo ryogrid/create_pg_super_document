@@ -26,18 +26,17 @@ RecordTransactionCommitPrepared(TransactionId xid,
 RecordTransactionCommitPrepared is the final stage function for committing a prepared two-phase transaction. It writes a commit record to the WAL, marks the transaction as committed in the transaction status log (pg_xact), and handles all associated cleanup including relation file deletions, cache invalidation messages, and statistics updates. The function follows similar patterns to regular transaction commits but is specifically designed for two-phase transactions that have already been prepared. It includes special handling for replication origins when PostgreSQL is acting as a logical replication subscriber, and ensures proper synchronization with checkpointing and synchronous replication.
 
 ## Parameters / Member Variables
-- : The transaction ID of the prepared transaction being committed
-- : Number of subtransactions involved in this transaction
-- : Array of subtransaction IDs that are part of this transaction
-- : Number of relation files to be deleted as part of this commit
-- : Array of RelFileLocator structures identifying files to delete
-- : Number of statistics items to update
-- : Array of statistics items to be updated in system catalogs
-- : Number of shared invalidation messages to process
-- : Array of shared invalidation messages for cache consistency
-- : Boolean indicating whether to invalidate init files
-- : Global transaction identifier string for the prepared transaction
-
+- `xid`: The transaction ID of the prepared transaction being committed
+- `nchildren`: Number of subtransactions involved in this transaction
+- `*children`: Array of subtransaction IDs that are part of this transaction
+- `nrels`: Number of relation files to be deleted as part of this commit
+- `*rels`: Array of RelFileLocator structures identifying files to delete
+- `nstats`: Number of statistics items to update
+- `*stats`: Array of statistics items to be updated in system catalogs
+- `ninvalmsgs`: Number of shared invalidation messages to process
+- `*invalmsgs`: Array of shared invalidation messages for cache consistency
+- `initfileinval`: Boolean indicating whether to invalidate init files
+- `*gid`: Global transaction identifier string for the prepared transaction
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)

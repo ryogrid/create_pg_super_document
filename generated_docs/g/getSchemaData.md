@@ -18,9 +18,8 @@ The getSchemaData function is the central orchestrator in pg_dump that systemati
 The function carefully sequences the collection process to respect dependencies between different object types. For example, types must be read after tables and functions since they may depend on them, and inheritance relationships are processed after all basic object information is gathered to properly link parent-child relationships.
 
 ## Parameters / Member Variables
-- : Archive structure containing database connection and dump configuration information
-- : Output parameter that receives the count of tables found in the database
-
+- `*fout`: Archive structure containing database connection and dump configuration information
+- `*numTablesPtr`: Output parameter that receives the count of tables found in the database
 ## Dependencies
 - Functions called/Symbols referenced:
   - [getExtensions](getExtensions.md) (reads extension information first)

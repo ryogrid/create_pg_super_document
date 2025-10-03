@@ -23,9 +23,8 @@ The function handles two cases:
 Memory management is handled according to the private_cxt flag: if the ArrayBuildState was created with a separate memory context (subcontext=true), that context is cleaned up by makeMdArrayResult().
 
 ## Parameters / Member Variables
-- : Working state containing accumulated array elements (must not be NULL)
-- : Memory context where the final array result should be constructed
-
+- `*astate`: Working state containing accumulated array elements (must not be NULL)
+- `rcontext`: Memory context where the final array result should be constructed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [makeMdArrayResult](makeMdArrayResult.md) (performs the actual multi-dimensional array construction)

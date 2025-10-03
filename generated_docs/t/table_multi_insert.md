@@ -24,13 +24,12 @@ The function is designed to be more efficient than calling table_tuple_insert() 
 The function operates as an inline wrapper that calls the appropriate table access method's multi_insert function pointer, allowing different storage engines to provide their own optimized implementations.
 
 ## Parameters / Member Variables
-- : The relation (table) into which tuples will be inserted
-- : Array of TupleTableSlot pointers containing the tuples to be inserted
-- : Number of tuples in the slots array
-- : Command ID for transaction visibility and MVCC purposes
-- : Bitmask of insertion options controlling behavior
-- : Bulk insert state data for optimizing bulk operations
-
+- `rel`: The relation (table) into which tuples will be inserted
+- `**slots`: Array of TupleTableSlot pointers containing the tuples to be inserted
+- `nslots`: Number of tuples in the slots array
+- `cid`: Command ID for transaction visibility and MVCC purposes
+- `options`: Bitmask of insertion options controlling behavior
+- `*bistate`: Bulk insert state data for optimizing bulk operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - rel->rd_tableam->multi_insert (table access method function pointer)

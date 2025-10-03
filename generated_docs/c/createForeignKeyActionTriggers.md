@@ -19,16 +19,15 @@ createForeignKeyActionTriggers(Relation rel, Oid refRelOid, Constraint *fkconstr
 This function creates two constraint triggers on the referenced table to enforce foreign key actions when rows are deleted or updated. It builds and executes CREATE CONSTRAINT TRIGGER statements for both ON DELETE and ON UPDATE actions. The function supports all standard foreign key actions: NO ACTION, RESTRICT, CASCADE, SET NULL, and SET DEFAULT. Each action type is mapped to its corresponding referential integrity function (RI_FKey_*). The triggers are created as AFTER triggers that fire on row-level events.
 
 ## Parameters / Member Variables
-- : The referencing relation (foreign key table)
-- : OID of the referenced relation (primary key table)
-- : Constraint definition containing FK actions and deferrability settings
-- : OID of the foreign key constraint
-- : OID of the index supporting the foreign key
-- : OID of parent delete trigger (for inheritance)
-- : OID of parent update trigger (for inheritance)
-- : Output parameter for created delete trigger OID
-- : Output parameter for created update trigger OID
-
+- `rel`: The referencing relation (foreign key table)
+- `refRelOid`: OID of the referenced relation (primary key table)
+- `*fkconstraint`: Constraint definition containing FK actions and deferrability settings
+- `constraintOid`: OID of the foreign key constraint
+- `indexOid`: OID of the index supporting the foreign key
+- `parentDelTrigger`: OID of parent delete trigger (for inheritance)
+- `parentUpdTrigger`: OID of parent update trigger (for inheritance)
+- `*deleteTrigOid`: Output parameter for created delete trigger OID
+- `*updateTrigOid`: Output parameter for created update trigger OID
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (CreateTrigStmt creation)

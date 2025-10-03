@@ -26,8 +26,7 @@ For transaction aborts:
 The function also performs error cleanup by ensuring any pending lock waits are properly cancelled before proceeding with lock releases. It operates only on main transactions and does not handle subtransaction scenarios directly.
 
 ## Parameters / Member Variables
-- : Boolean flag indicating whether this is being called from a transaction commit (true) or abort (false)
-
+- `isCommit`: Boolean flag indicating whether this is being called from a transaction commit (true) or abort (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LockErrorCleanup](../L/LockErrorCleanup.md)

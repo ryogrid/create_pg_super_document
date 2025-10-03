@@ -22,6 +22,7 @@ The returned string remains constant throughout the session and is stored in lon
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - SystemUser (global static variable access)

@@ -24,9 +24,8 @@ Key behaviors:
 - New stack entries are allocated in TopTransactionContext for proper memory management
 
 ## Parameters / Member Variables
-- : Pointer to the GUC variable's configuration structure containing current state and stack information
-- : The type of GUC action being performed (GUC_ACTION_SET, GUC_ACTION_LOCAL, or GUC_ACTION_SAVE)
-
+- `*gconf`: Pointer to the GUC variable's configuration structure containing current state and stack information
+- `action`: The type of GUC action being performed (GUC_ACTION_SET, GUC_ACTION_LOCAL, or GUC_ACTION_SAVE)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [discard_stack_value](../d/discard_stack_value.md)

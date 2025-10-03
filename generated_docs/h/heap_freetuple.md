@@ -18,8 +18,7 @@ The  function is a simple wrapper around PostgreSQL's memory management system t
 This function is used extensively throughout the PostgreSQL codebase whenever heap tuples need to be cleaned up after processing, whether in storage operations, catalog maintenance, replication, or general tuple manipulation.
 
 ## Parameters / Member Variables
-- : A pointer to the HeapTuple structure to be freed. The tuple must have been previously allocated through PostgreSQL's memory management system.
-
+- `htup`: A pointer to the HeapTuple structure to be freed. The tuple must have been previously allocated through PostgreSQL's memory management system.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pfree](../p/pfree.md)

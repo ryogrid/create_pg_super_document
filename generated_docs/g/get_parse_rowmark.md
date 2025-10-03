@@ -24,9 +24,8 @@ Row marks are essential for:
 - Managing isolation levels and transaction semantics
 
 ## Parameters / Member Variables
-- : Query structure containing the rowMarks list to search
-- : Range table index of the relation to find row marking information for
-
+- `*qry`: Query structure containing the rowMarks list to search
+- `rtindex`: Range table index of the relation to find row marking information for
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RowMarkClause](../R/RowMarkClause.md) (structure type used in the search)

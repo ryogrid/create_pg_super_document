@@ -25,8 +25,7 @@ This function implements the complete Danish stemming algorithm as part of the S
 The function operates on the word from right to left (end to beginning) and uses cursor positions to track processing state. Each transformation step is applied conditionally and can be rolled back if unsuccessful.
 
 ## Parameters / Member Variables
-- : Pointer to SN_env structure containing the word to be stemmed along with processing state including cursor positions, string boundaries, and working buffers
-
+- `*z`: Pointer to SN_env structure containing the word to be stemmed along with processing state including cursor positions, string boundaries, and working buffers
 ## Dependencies
 - Functions called/Symbols referenced:
   - [r_mark_regions](../r/r_mark_regions.md): Identifies vowel/consonant regions for suffix boundary detection

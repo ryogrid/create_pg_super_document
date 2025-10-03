@@ -28,11 +28,10 @@ Key behaviors:
 - Materializes the updated slot to ensure data consistency
 
 ## Parameters / Member Variables
-- : Result relation information containing cached generated expressions and metadata
-- : Executor state providing memory contexts and expression evaluation infrastructure  
-- : Tuple table slot containing the tuple data to be updated with generated values
-- : Command type (CMD_INSERT, CMD_UPDATE) determining which generated expressions to evaluate
-
+- `*resultRelInfo`: Result relation information containing cached generated expressions and metadata
+- `*estate`: Executor state providing memory contexts and expression evaluation infrastructure
+- `*slot`: Tuple table slot containing the tuple data to be updated with generated values
+- `cmdtype`: Command type (CMD_INSERT, CMD_UPDATE) determining which generated expressions to evaluate
 ## Dependencies
 - Functions called/Symbols referenced:
   - GetPerTupleExprContext

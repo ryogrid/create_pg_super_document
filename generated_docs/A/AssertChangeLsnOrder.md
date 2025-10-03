@@ -24,8 +24,7 @@ AssertChangeLsnOrder is a debugging utility function that verifies the correct o
 This function is essential for maintaining data consistency in logical replication by catching LSN ordering violations early in development.
 
 ## Parameters / Member Variables
-- : Pointer to a ReorderBufferTXN structure containing the transaction whose changes need LSN order validation
-
+- `*txn`: Pointer to a ReorderBufferTXN structure containing the transaction whose changes need LSN order validation
 ## Dependencies
 - Functions called/Symbols referenced:
   - dlist_foreach (for iterating through transaction changes)

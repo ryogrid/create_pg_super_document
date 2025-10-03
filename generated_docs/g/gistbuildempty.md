@@ -18,8 +18,7 @@ This function creates an empty GiST index by initializing its root page in the i
 The function performs the operation within a critical section to ensure atomicity and proper crash recovery. The newly created page is marked as dirty and logged using the write-ahead logging (WAL) system to ensure durability.
 
 ## Parameters / Member Variables
-- : The Relation structure representing the GiST index to be initialized
-
+- `index`: The Relation structure representing the GiST index to be initialized
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExtendBufferedRel](../E/ExtendBufferedRel.md) (extends the relation with a new buffer)

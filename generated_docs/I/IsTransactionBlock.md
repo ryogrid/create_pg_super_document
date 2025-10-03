@@ -18,7 +18,6 @@ IsTransactionBlock checks the current transaction's block state to determine if 
 This function is crucial for PostgreSQL's transaction management as it helps enforce rules about which operations can be performed inside versus outside of transaction blocks. For example, certain DDL operations and administrative commands are prohibited within transaction blocks.
 
 ## Parameters / Member Variables
-This function takes no parameters and returns a boolean value indicating transaction block status.
 
 ## Dependencies
 - Functions called/Symbols referenced:

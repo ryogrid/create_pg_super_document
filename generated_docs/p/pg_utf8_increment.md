@@ -24,9 +24,8 @@ The function works by incrementing the last byte that can be safely incremented 
 The function is designed for use in range operations where exhaustive enumeration isn't feasible, so it doesn't reset lower-order bytes to minimum values.
 
 ## Parameters / Member Variables
-- : Pointer to the UTF-8 character bytes to be incremented
-- : Length of the UTF-8 character in bytes (1-4 bytes supported)
-
+- `*charptr`: Pointer to the UTF-8 character bytes to be incremented
+- `length`: Length of the UTF-8 character in bytes (1-4 bytes supported)
 ## Dependencies
 - Functions called/Symbols referenced: None (uses only basic operations)
 - Called from (representative examples):

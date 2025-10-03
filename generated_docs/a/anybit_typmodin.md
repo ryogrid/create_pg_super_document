@@ -23,9 +23,8 @@ The function performs several validation checks:
 If any validation fails, it reports an appropriate error. Upon successful validation, it returns the length as the type modifier value.
 
 ## Parameters / Member Variables
-- : ArrayType pointer containing the type modifier arguments from the SQL declaration
-- : String name of the data type ("bit" or "varbit") used in error messages
-
+- `*ta`: ArrayType pointer containing the type modifier arguments from the SQL declaration
+- `*typename`: String name of the data type ("bit" or "varbit") used in error messages
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ArrayGetIntegerTypmods](../A/ArrayGetIntegerTypmods.md)

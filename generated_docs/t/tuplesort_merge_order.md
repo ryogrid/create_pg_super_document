@@ -22,8 +22,7 @@ where M is the number of input tapes and N is the number of output tapes (typica
 The function enforces bounds with MINORDER (6) as the minimum merge order even in low memory situations, and MAXORDER (500) as the maximum to prevent CPU cache thrashing. The balance between higher merge orders (which reduce I/O passes) and CPU cache efficiency is crucial for optimal performance.
 
 ## Parameters / Member Variables
-- : The amount of memory available for tape buffers during the merge phase, specified in bytes
-
+- `allowedMem`: The amount of memory available for tape buffers during the merge phase, specified in bytes
 ## Dependencies
 - Functions called/Symbols referenced:
   - TAPE_BUFFER_OVERHEAD (constant defining buffer overhead per tape)

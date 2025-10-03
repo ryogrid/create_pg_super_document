@@ -18,8 +18,7 @@ The  macro is a fundamental building block of the Perl portability layer (ppport
 The macro is extensively used throughout ppport.h to create namespaced versions of Perl API functions, allowing the compatibility layer to provide implementations of newer Perl features for older Perl versions without conflicting with the core Perl symbols.
 
 ## Parameters / Member Variables
-- : The base symbol name that will be prefixed with the DPPP namespace
-
+- `my_die_sv`: The base symbol name that will be prefixed with the DPPP namespace
 ## Dependencies
 - Functions called/Symbols referenced:
   - DPPP_CAT2 (macro concatenation utility)

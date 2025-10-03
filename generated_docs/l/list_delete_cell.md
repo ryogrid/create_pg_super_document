@@ -18,9 +18,8 @@ This function removes a specific  from a  by calculating its position relative t
 If the deleted cell was the last remaining member of the list, the entire list structure is freed and  is returned, which is the canonical representation of an empty list in PostgreSQL. The function does not touch any data that the cell might have been pointing to - only the list structure itself is modified.
 
 ## Parameters / Member Variables
-- : The List from which to delete the cell
-- : Pointer to the specific ListCell to be removed from the list
-
+- `*list`: The List from which to delete the cell
+- `*cell`: Pointer to the specific ListCell to be removed from the list
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_delete_nth_cell](list_delete_nth_cell.md)

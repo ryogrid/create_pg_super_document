@@ -23,9 +23,8 @@ This function checks if a member (user or role) is a member of a target role thr
 The function implements fast-path optimizations for simple cases and leverages PostgreSQL's superuser privileges where applicable.
 
 ## Parameters / Member Variables
-- : The OID of the user/role being tested for membership
-- : The OID of the target role to check membership against
-
+- `member`: The OID of the user/role being tested for membership
+- `role`: The OID of the target role to check membership against
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Checks if the member has superuser privileges

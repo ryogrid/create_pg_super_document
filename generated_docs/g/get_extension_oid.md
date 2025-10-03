@@ -23,9 +23,8 @@ The function follows PostgreSQL's standard pattern for catalog lookups:
 5. Properly cleans up resources by ending the scan and closing the relation
 
 ## Parameters / Member Variables
-- : The name of the extension to look up (null-terminated C string)
-- : Boolean flag controlling error behavior - if false, throws ERROR when extension not found; if true, returns InvalidOid silently
-
+- `*extname`: The name of the extension to look up (null-terminated C string)
+- `missing_ok`: Boolean flag controlling error behavior - if false, throws ERROR when extension not found; if true, returns InvalidOid silently
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md) (opens pg_extension catalog)

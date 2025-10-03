@@ -22,14 +22,13 @@ The function handles WAL page boundaries correctly, skipping page headers when t
 Additionally, the function tracks WAL filenames that should be preserved during the rewind process by calling keepwal_add_entry() for each WAL segment encountered.
 
 ## Parameters / Member Variables
-- : Path to the PostgreSQL data directory containing pg_wal subdirectory
-- : XLogRecPtr indicating the WAL position where the fork occurred
-- : Index into the target timeline history array indicating which timeline to search
-- : Output parameter - XLogRecPtr of the found checkpoint record
-- : Output parameter - TimeLineID of the found checkpoint 
-- : Output parameter - XLogRecPtr of the checkpoint's redo point
-- : Command string used to restore archived WAL files if needed (can be NULL)
-
+- `*datadir`: Path to the PostgreSQL data directory containing pg_wal subdirectory
+- `forkptr`: XLogRecPtr indicating the WAL position where the fork occurred
+- `tliIndex`: Index into the target timeline history array indicating which timeline to search
+- `*lastchkptrec`: Output parameter - XLogRecPtr of the found checkpoint record
+- `*lastchkpttli`: Output parameter - TimeLineID of the found checkpoint
+- `*lastchkptredo`: Output parameter - XLogRecPtr of the checkpoint's redo point
+- `*restoreCommand`: Command string used to restore archived WAL files if needed (can be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [XLogReaderAllocate](../X/XLogReaderAllocate.md)

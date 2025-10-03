@@ -18,8 +18,7 @@ SlabCheck is a diagnostic function that thoroughly validates the internal consis
 The validation process includes checking empty blocks for correct free chunk counts, verifying that blocks are placed on appropriate blocklists based on their free chunk count, validating free list pointers and chunk alignment, checking unused chunk tracking, and verifying chunk headers and sentinel bytes for allocated chunks. All errors are reported as WARNING level messages rather than ERROR or FATAL to prevent infinite recursion during error handling.
 
 ## Parameters / Member Variables
-- : The MemoryContext to validate (cast internally to SlabContext)
-
+- `context`: The MemoryContext to validate (cast internally to SlabContext)
 ## Dependencies
 - Functions called/Symbols referenced:
   - SlabIsValid

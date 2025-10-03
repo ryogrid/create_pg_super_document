@@ -27,11 +27,10 @@ The function performs these key operations:
 The parsing process extracts all tokens from the input text in a single pass during the first call, storing them in memory for efficient retrieval in subsequent function calls.
 
 ## Parameters / Member Variables
-- : Function call context structure used for multi-call functions
-- : Function call information containing metadata about the function call
-- : OID of the text search parser to use for parsing
-- : Input text to be parsed and tokenized
-
+- `*funcctx`: Function call context structure used for multi-call functions
+- `fcinfo`: Function call information containing metadata about the function call
+- `prsid`: OID of the text search parser to use for parsing
+- `*txt`: Input text to be parsed and tokenized
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lookup_ts_parser_cache](../l/lookup_ts_parser_cache.md)

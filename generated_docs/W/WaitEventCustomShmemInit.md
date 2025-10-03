@@ -24,6 +24,7 @@ The function handles both first-time initialization (when structures don't exist
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ShmemInitStruct](../S/ShmemInitStruct.md) (shared memory structure initialization)

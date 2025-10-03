@@ -16,9 +16,8 @@ findTypeOutputFunction(List *procname, Oid typeOid)
 This function is responsible for locating and validating a type output function during type definition or modification. Type output functions are critical components that convert PostgreSQL's internal binary representation of a data type to its external string representation (cstring). The function performs several validation checks to ensure the specified function meets PostgreSQL's strict requirements for output functions, including proper signature validation and return type verification.
 
 ## Parameters / Member Variables
-- : A list representing the qualified name of the output function to look up
-- : The OID of the data type for which this will serve as the output function
-
+- `*procname`: A list representing the qualified name of the output function to look up
+- `typeOid`: The OID of the data type for which this will serve as the output function
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LookupFuncName](../L/LookupFuncName.md): Looks up function by name with specified argument types

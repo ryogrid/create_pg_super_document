@@ -24,10 +24,9 @@ The output format includes:
 - Line wrapping after every 5 transitions for readability
 
 ## Parameters / Member Variables
-- : The state number to be dumped (0-based index)
-- : Pointer to the compiled NFA structure containing the state
-- : File stream where the debug output will be written
-
+- `st`: The state number to be dumped (0-based index)
+- `*cnfa`: Pointer to the compiled NFA structure containing the state
+- `*f`: File stream where the debug output will be written
 ## Dependencies
 - Functions called/Symbols referenced:
   - fprintf

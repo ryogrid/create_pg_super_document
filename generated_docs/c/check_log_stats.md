@@ -18,10 +18,9 @@ This function serves as a validation hook for PostgreSQL's log_statement_stats c
 This works in conjunction with check_stage_log_stats to ensure that statement-level logging and stage-specific logging cannot be enabled simultaneously, as they would provide redundant or conflicting statistical information.
 
 ## Parameters / Member Variables
-- : Pointer to the new boolean value being set for log_statement_stats
-- : Pointer to extra data (unused in this function)
-- : The source of the configuration change (GucSource enumeration)
-
+- `*newval`: Pointer to the new boolean value being set for log_statement_stats
+- `**extra`: Pointer to extra data (unused in this function)
+- `source`: The source of the configuration change (GucSource enumeration)
 ## Dependencies
 - Functions called/Symbols referenced:
   - GUC_check_errdetail

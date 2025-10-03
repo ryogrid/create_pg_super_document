@@ -16,8 +16,7 @@ SPI_register_trigger_data(TriggerData *tdata)
 This function is designed for use by procedural language (PL) implementations' trigger handlers. It extracts transition tables (NEW and OLD tables) from TriggerData and registers them as ephemeral named relations so they can be referenced in SQL queries executed within the trigger context. The function handles both tg_newtable and tg_oldtable if they exist, creating EphemeralNamedRelation structures for each and registering them using SPI_register_relation. Each relation is configured as a named tuplestore with metadata extracted from the trigger data.
 
 ## Parameters / Member Variables
-- : Pointer to TriggerData structure containing trigger context information including transition tables (tg_newtable and tg_oldtable), trigger definition, and relation information.
-
+- `*tdata`: Pointer to TriggerData structure containing trigger context information including transition tables (tg_newtable and tg_oldtable), trigger definition, and relation information.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md) (for memory allocation)

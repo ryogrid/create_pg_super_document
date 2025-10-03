@@ -17,10 +17,9 @@ dshash_seq_init(dshash_seq_status *status, dshash_table *hash_table,
 dshash_seq_init prepares a dshash_seq_status structure for sequential scanning through a dynamic shared hash table. This function sets up the initial state for iteration, allowing the caller to traverse all elements in the hash table one by one using subsequent calls to dshash_seq_next(). The function supports both shared and exclusive scanning modes, where exclusive mode allows safe deletion of elements during iteration using dshash_delete_current().
 
 ## Parameters / Member Variables
-- : Pointer to a dshash_seq_status structure that will track the scan state
-- : The dynamic shared hash table to be scanned
-- : Boolean flag indicating whether the scan should be exclusive (allowing safe deletion during iteration)
-
+- `*status`: Pointer to a dshash_seq_status structure that will track the scan state
+- `*hash_table`: The dynamic shared hash table to be scanned
+- `exclusive`: Boolean flag indicating whether the scan should be exclusive (allowing safe deletion during iteration)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dshash_table](dshash_table.md) (hash table structure)

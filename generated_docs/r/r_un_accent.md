@@ -19,8 +19,7 @@ The r_un_accent function performs accent normalization as part of the French ste
 This accent removal is crucial for proper French stemming because many French words have variations with and without accents that should be treated as equivalent during morphological analysis. The function ensures that words like 'créer' and 'creer' would be processed consistently.
 
 ## Parameters / Member Variables
-- : Pointer to the Snowball environment structure containing the word being processed, cursor positions, and stemming boundaries
-
+- `*z`: Pointer to the Snowball environment structure containing the word being processed, cursor positions, and stemming boundaries
 ## Dependencies
 - Functions called/Symbols referenced:
   - [out_grouping_b](../o/out_grouping_b.md): Moves cursor backward while characters are outside the vowel group g_v

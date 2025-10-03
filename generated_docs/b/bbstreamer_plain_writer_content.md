@@ -20,12 +20,11 @@ This is the content processing callback function for the plain writer streamer o
 The function is part of the bbstreamer_plain_writer_ops operations table and is called during the content phase of base backup streaming. It casts the generic bbstreamer pointer to the specific bbstreamer_plain_writer type to access the file handle and pathname.
 
 ## Parameters / Member Variables
-- : Generic bbstreamer pointer, cast internally to bbstreamer_plain_writer
-- : Archive member information (unused in this implementation)
-- : Pointer to the data buffer to be written to the file
-- : Number of bytes to write from the data buffer
-- : Archive context information (unused in this implementation)
-
+- `*streamer`: Generic bbstreamer pointer, cast internally to bbstreamer_plain_writer
+- `*member`: Archive member information (unused in this implementation)
+- `*data`: Pointer to the data buffer to be written to the file
+- `len`: Number of bytes to write from the data buffer
+- `context`: Archive context information (unused in this implementation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - fwrite (standard C library file writing)

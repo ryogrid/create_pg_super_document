@@ -26,8 +26,7 @@ The function uses a cascading approach with multiple labeled sections (lab0 thro
 The function handles multiple categories of Tamil endings including grammatical markers, verb conjugations, and orthographic variations that need standardization.
 
 ## Parameters / Member Variables
-- : Pointer to the Snowball environment structure containing the current word being processed, cursor position, boundaries, and stemming state information
-
+- `*z`: Pointer to the Snowball environment structure containing the current word being processed, cursor position, boundaries, and stemming state information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [len_utf8](../l/len_utf8.md) (UTF-8 length calculation)

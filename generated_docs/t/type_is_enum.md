@@ -24,8 +24,7 @@ Enum types have special properties in PostgreSQL:
 - They can be used in indexes and have specialized sorting behavior
 
 ## Parameters / Member Variables
-- : OID of the type to test for enum nature
-
+- `typid`: OID of the type to test for enum nature
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_typtype](../g/get_typtype.md) (retrieve the type category)

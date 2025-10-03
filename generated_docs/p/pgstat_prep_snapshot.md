@@ -20,6 +20,7 @@ The function handles forced snapshot clearing, checks fetch consistency settings
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pgstat_clear_snapshot](pgstat_clear_snapshot.md)

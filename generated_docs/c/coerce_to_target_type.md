@@ -27,15 +27,14 @@ This function provides a comprehensive type coercion mechanism that attempts to 
 The function returns NULL rather than throwing errors directly, allowing callers to generate custom error messages with appropriate context information.
 
 ## Parameters / Member Variables
-- : Parse state context (can be NULL, see coerce_type)
-- : Input expression tree (already transformed by transformExpr)
-- : Current result type of the input expression
-- : Desired result type for the coercion
-- : Desired result typmod for the coercion
-- : Coercion context indicating the circumstances of the coercion
-- : Coercion format controlling how the coercion is displayed
-- : Parse location of the coercion request, or -1 if unknown/implicit
-
+- `*pstate`: Parse state context (can be NULL, see coerce_type)
+- `*expr`: Input expression tree (already transformed by transformExpr)
+- `exprtype`: Current result type of the input expression
+- `targettype`: Desired result type for the coercion
+- `targettypmod`: Desired result typmod for the coercion
+- `ccontext`: Coercion context indicating the circumstances of the coercion
+- `cformat`: Coercion format controlling how the coercion is displayed
+- `location`: Parse location of the coercion request, or -1 if unknown/implicit
 ## Dependencies
 - Functions called/Symbols referenced:
   - [can_coerce_type](can_coerce_type.md)

@@ -25,8 +25,7 @@ The tokenizer recognizes several types of tokens:
 The function uses a global state pointer (pg_strtok_ptr) to track the current parsing position, making it suitable for incremental parsing of Node string representations. Backslashes in tokens are preserved and must be processed by the caller using debackslash if needed.
 
 ## Parameters / Member Variables
-- : Output parameter that receives the length of the returned token (including any embedded backslashes)
-
+- `*length`: Output parameter that receives the length of the returned token (including any embedded backslashes)
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_strtok_ptr (global state variable)

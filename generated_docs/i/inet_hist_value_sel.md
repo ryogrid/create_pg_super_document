@@ -25,11 +25,10 @@ The algorithm handles mixed address families (IPv4/IPv6) and varying network mas
 For performance optimization, when there are too many histogram elements, the function decimates the data by examining every k-th element where k = (nvalues - 2) / MAX_CONSIDERED_ELEMS + 1.
 
 ## Parameters / Member Variables
-- : Array of Datum values representing histogram bucket boundaries
-- : Number of values in the histogram array
-- : The constant inet value to compare against (right-hand side of operator)
-- : Operator code number indicating the type of inclusion/overlap operation
-
+- `*values`: Array of Datum values representing histogram bucket boundaries
+- `nvalues`: Number of values in the histogram array
+- `constvalue`: The constant inet value to compare against (right-hand side of operator)
+- `opr_codenum`: Operator code number indicating the type of inclusion/overlap operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DatumGetInetPP](../D/DatumGetInetPP.md)

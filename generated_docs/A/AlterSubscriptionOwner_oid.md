@@ -16,9 +16,8 @@ AlterSubscriptionOwner_oid(Oid subid, Oid newOwnerId)
 This function serves as a public interface for changing subscription ownership when the subscription is identified by its OID rather than by name. It performs the necessary system catalog lookups to validate the subscription exists, then delegates the actual ownership change to the internal implementation function. The function handles error reporting if the specified subscription OID does not exist in the system.
 
 ## Parameters / Member Variables
-- : The OID of the subscription whose ownership is to be changed
-- : The OID of the new owner (user) who will own the subscription
-
+- `subid`: The OID of the subscription whose ownership is to be changed
+- `newOwnerId`: The OID of the new owner (user) who will own the subscription
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md)

@@ -18,8 +18,7 @@ This function determines if a heap tuple within a tuple table slot belongs to th
 The function requires the slot to be materialized (contain an actual HeapTuple) and will raise an error if called on a non-materialized slot, as transaction visibility cannot be determined without access to the tuple's header information.
 
 ## Parameters / Member Variables
-- : A TupleTableSlot pointer that must contain a materialized heap tuple for transaction ID examination
-
+- `*slot`: A TupleTableSlot pointer that must contain a materialized heap tuple for transaction ID examination
 ## Dependencies
 - Functions called/Symbols referenced:
   - [HeapTupleTableSlot](../H/HeapTupleTableSlot.md) (cast target type)

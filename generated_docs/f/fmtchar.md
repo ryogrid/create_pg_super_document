@@ -18,11 +18,10 @@ This function handles the formatting and output of single character values (%c f
 The function calculates any necessary padding based on the minimum field width, outputs leading padding for right-justified formatting, outputs the single character, and finally outputs trailing padding for left-justified formatting.
 
 ## Parameters / Member Variables
-- : The integer value representing the character to be output (typically from char promotion)
-- : Flag indicating left justification (1 for left-justified, 0 for right-justified) 
-- : Minimum field width; if 1 (the character width) is less than this, padding will be added
-- : Output destination structure containing formatting state and output buffer
-
+- `value`: The integer value representing the character to be output (typically from char promotion)
+- `leftjust`: Flag indicating left justification (1 for left-justified, 0 for right-justified)
+- `minlen`: Minimum field width; if 1 (the character width) is less than this, padding will be added
+- `*target`: Output destination structure containing formatting state and output buffer
 ## Dependencies
 - Functions called/Symbols referenced:
   - PrintfTarget (struct type for output destination)

@@ -20,10 +20,9 @@ This function is designed for callers who need to handle end-of-file conditions 
 The function is part of PostgreSQL's legacy BufFile interface, maintained for compatibility with existing code that expects traditional file-like read semantics where the caller must check the return value to determine how many bytes were actually read.
 
 ## Parameters / Member Variables
-- : Pointer to the BufFile structure to read from
-- : Destination buffer where read data will be stored
-- : Maximum number of bytes to read
-
+- `*file`: Pointer to the BufFile structure to read from
+- `*ptr`: Destination buffer where read data will be stored
+- `size`: Maximum number of bytes to read
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BufFileReadCommon](BufFileReadCommon.md) (the underlying implementation with exact=false, eofOK=false)

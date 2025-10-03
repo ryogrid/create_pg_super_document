@@ -18,8 +18,7 @@ DatumGetRangeTypeP is a conversion function that safely extracts a RangeType poi
 The function is defined as a static inline function in the header file, meaning it's expanded at compile time for optimal performance when converting Datum values to RangeType pointers throughout the range type subsystem.
 
 ## Parameters / Member Variables
-- : A Datum value that contains a RangeType object, potentially in toasted form
-
+- `X`: A Datum value that contains a RangeType object, potentially in toasted form
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_DETOAST_DATUM (macro for detoasting data)

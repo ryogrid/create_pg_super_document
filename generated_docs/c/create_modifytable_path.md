@@ -30,24 +30,23 @@ The function handles complex scenarios including partitioned tables, RETURNING c
 Cost calculation is intentionally simplified since ModifyTable is always a top-level node where cost differences don't affect higher-level planning decisions. The function sets parallel execution to false since data modification operations cannot be parallelized.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global planning information
-- : RelOptInfo representing the parent relation associated with the result
-- : Path producing source data for the modification operation
-- : CmdType specifying the operation (INSERT, UPDATE, DELETE, MERGE)
-- : Boolean indicating if the command can set the command tag/es_processed
-- : Parent RT index used for EXPLAIN output
-- : Partitioned/inherited table root RTI, or 0 if none
-- : Boolean indicating if any partitioning columns are being updated
-- : Integer list of actual RT indexes of target relations
-- : List of UPDATE target column number lists (one per relation)
-- : List of WITH CHECK OPTION lists (one per relation)
-- : List of RETURNING target lists (one per relation)
-- : List of PlanRowMarks for non-locking operations
-- : ON CONFLICT clause specification, or NULL
-- : Parameter ID for EvalPlanQual re-evaluation
-- : List of MERGE action lists (one per relation)
-- : List of join conditions for MERGE operations (one per relation)
-
+- `*root`: PlannerInfo structure containing global planning information
+- `*rel`: RelOptInfo representing the parent relation associated with the result
+- `*subpath`: Path producing source data for the modification operation
+- `operation`: CmdType specifying the operation (INSERT, UPDATE, DELETE, MERGE)
+- `canSetTag`: Boolean indicating if the command can set the command tag/es_processed
+- `nominalRelation`: Parent RT index used for EXPLAIN output
+- `rootRelation`: Partitioned/inherited table root RTI, or 0 if none
+- `partColsUpdated`: Boolean indicating if any partitioning columns are being updated
+- `*resultRelations`: Integer list of actual RT indexes of target relations
+- `*updateColnosLists`: List of UPDATE target column number lists (one per relation)
+- `*withCheckOptionLists`: List of WITH CHECK OPTION lists (one per relation)
+- `*returningLists`: List of RETURNING target lists (one per relation)
+- `*rowMarks`: List of PlanRowMarks for non-locking operations
+- `*onconflict`: ON CONFLICT clause specification, or NULL
+- `*mergeActionLists`: Parameter ID for EvalPlanQual re-evaluation
+- `*mergeJoinConditions`: List of MERGE action lists (one per relation)
+- `epqParam`: List of join conditions for MERGE operations (one per relation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to create ModifyTablePath node)

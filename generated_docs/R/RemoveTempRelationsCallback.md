@@ -25,9 +25,8 @@ The function follows a careful transaction management protocol:
 This callback mechanism ensures that temporary relations are cleaned up even in cases of abnormal backend termination, maintaining database hygiene.
 
 ## Parameters / Member Variables
-- : The exit code of the terminating process (standard exit callback parameter)
-- : Additional data passed to the callback (standard exit callback parameter, unused in this implementation)
-
+- `code`: The exit code of the terminating process (standard exit callback parameter)
+- `arg`: Additional data passed to the callback (standard exit callback parameter, unused in this implementation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [AbortOutOfAnyTransaction](../A/AbortOutOfAnyTransaction.md)

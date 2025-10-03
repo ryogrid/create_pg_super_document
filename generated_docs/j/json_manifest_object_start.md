@@ -18,8 +18,7 @@ This function serves as a semantic action callback for the JSON parser, invoked 
 The function handles three main object types in manifest JSON: the top-level document object, individual file objects within the files array, and WAL range objects within the WAL ranges array. For file and WAL range objects, it initializes the relevant parsing fields to NULL in preparation for processing the object's contents.
 
 ## Parameters / Member Variables
-- : Void pointer to JsonManifestParseState containing current parser state and field values
-
+- `*state`: Void pointer to JsonManifestParseState containing current parser state and field values
 ## Dependencies
 - Functions called/Symbols referenced:
   - [json_manifest_parse_failure](json_manifest_parse_failure.md)

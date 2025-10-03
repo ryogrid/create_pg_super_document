@@ -24,9 +24,8 @@ This function is particularly useful for:
 - Validating query rewrite rules
 
 ## Parameters / Member Variables
-- : The root node of the parse tree or expression to examine
-- : The target query nesting level to search for (0 = current level, 1 = one level up, etc.)
-
+- `*node`: The root node of the parse tree or expression to examine
+- `levelsup`: The target query nesting level to search for (0 = current level, 1 = one level up, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   - query_or_expression_tree_walker (tree traversal function)

@@ -16,11 +16,10 @@ line_decode(char *s, const char *str, LINE *line, Node *escontext)
 The  function is a static helper function that parses a string representation of a 2D line in PostgreSQL's geometric data types. It expects the input string to be in a specific format with three floating-point coefficients (A, B, C) representing a line equation in the form Ax + By + C = 0. The function processes the string by extracting each coefficient using , checking for proper delimiters between values, and validating the overall format. It performs comprehensive error checking and reports syntax errors with appropriate error messages.
 
 ## Parameters / Member Variables
-- : Pointer to the input string to parse (already advanced past leading delimiter)
-- : Original input string for error reporting purposes
-- : Pointer to LINE structure to fill with parsed coefficients
-- : Error context node for error handling and reporting
-
+- `*s`: Pointer to the input string to parse (already advanced past leading delimiter)
+- `*str`: Original input string for error reporting purposes
+- `*line`: Pointer to LINE structure to fill with parsed coefficients
+- `*escontext`: Error context node for error handling and reporting
 ## Dependencies
 - Functions called/Symbols referenced:
   - LINE (geometric line data type)

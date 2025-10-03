@@ -19,7 +19,6 @@ The calculation includes:
 - Space for max_replication_slots number of ReplicationSlot structures
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

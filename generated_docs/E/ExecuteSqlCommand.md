@@ -16,10 +16,9 @@ ExecuteSqlCommand(ArchiveHandle *AH, const char *qry, const char *desc)
 ExecuteSqlCommand is a utility function within pg_dump that wraps the execution of SQL queries. It sends a query to the PostgreSQL server using PQexec() and handles various result states appropriately. The function is specifically designed to work with pg_dump's archive handling system and includes special handling for COPY operations, which are commonly used during database dumps and restores. When a COPY IN result is detected, it sets the pgCopyIn flag in the ArchiveHandle to indicate that subsequent data should be treated as COPY data rather than regular query results.
 
 ## Parameters / Member Variables
-- : Pointer to ArchiveHandle containing the database connection and dump context information
-- : The SQL command string to execute
-- : A descriptive string used in error messages to identify the operation being performed
-
+- `*AH`: Pointer to ArchiveHandle containing the database connection and dump context information
+- `*qry`: The SQL command string to execute
+- `*desc`: A descriptive string used in error messages to identify the operation being performed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQexec](../P/PQexec.md)

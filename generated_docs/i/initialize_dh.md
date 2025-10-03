@@ -20,9 +20,8 @@ The function first attempts to load custom DH parameters from a file specified b
 Since DH parameter generation is computationally expensive, the parameters are precomputed and loaded rather than generated dynamically. The loaded parameters are applied to the SSL context and then freed, as OpenSSL maintains an internal copy.
 
 ## Parameters / Member Variables
-- : SSL context structure to configure with DH parameters
-- : Boolean flag indicating whether this is called during server startup (affects error reporting severity)
-
+- `*context`: SSL context structure to configure with DH parameters
+- `isServerStart`: Boolean flag indicating whether this is called during server startup (affects error reporting severity)
 ## Dependencies
 - Functions called/Symbols referenced:
   - SSL_CTX_set_options (OpenSSL function to set SSL options)

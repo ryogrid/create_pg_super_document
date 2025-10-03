@@ -25,13 +25,12 @@ This function takes an existing GIN index tuple and adds new item pointers to it
 The function ensures that all item pointers are properly merged and sorted, with no duplicates. It uses compression to minimize storage space and automatically handles the transition from posting lists to posting trees when necessary.
 
 ## Parameters / Member Variables
-- : GIN access method state information containing index configuration
-- : The existing index tuple to be modified (must not already be a posting tree)
-- : Array of new item pointers to add (must be sorted with no duplicates)
-- : Number of item pointers in the items array
-- : Statistics collection structure for tracking build progress
-- : Buffer containing the page where operations are performed
-
+- `*ginstate`: GIN access method state information containing index configuration
+- `old`: The existing index tuple to be modified (must not already be a posting tree)
+- `*items`: Array of new item pointers to add (must be sorted with no duplicates)
+- `nitem`: Number of item pointers in the items array
+- `*buildStats`: Statistics collection structure for tracking build progress
+- `buffer`: Buffer containing the page where operations are performed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [gintuple_get_attrnum](../g/gintuple_get_attrnum.md): Extract attribute number from tuple

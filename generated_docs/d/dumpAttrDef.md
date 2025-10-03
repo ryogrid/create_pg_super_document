@@ -20,9 +20,8 @@ The function generates both SET DEFAULT and DROP DEFAULT statements, handles for
 The function constructs human-readable tags combining table and column names for better identification in dump files and restoration logs.
 
 ## Parameters / Member Variables
-- : Archive context containing dump configuration and output handling
-- : Attribute default information including the default expression, associated table, column number, and separation flag
-
+- `*fout`: Archive context containing dump configuration and output handling
+- `*adinfo`: Attribute default information including the default expression, associated table, column number, and separation flag
 ## Dependencies
 - Functions called/Symbols referenced:
   - [createPQExpBuffer](../c/createPQExpBuffer.md)

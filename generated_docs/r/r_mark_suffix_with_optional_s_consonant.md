@@ -23,8 +23,7 @@ The function implements the same two-stage checking mechanism as its 'n' counter
 This type of consonant insertion is part of Turkish morphophonological processes that maintain phonological well-formedness and avoid problematic sound sequences. The 's' insertion particularly occurs in certain possessive and other grammatical constructions in Turkish.
 
 ## Parameters / Member Variables
-- : Pointer to the Snowball environment structure containing the text buffer, current position, and morphological analysis state
-
+- `*z`: Pointer to the Snowball environment structure containing the text buffer, current position, and morphological analysis state
 ## Dependencies
 - Functions called/Symbols referenced:
   - [in_grouping_b_U](../i/in_grouping_b_U.md) (called 2 times for vowel group checking)

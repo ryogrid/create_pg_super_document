@@ -24,10 +24,9 @@ The function performs the validation by:
 This validation is crucial for ensuring that join clauses can be properly used by various join algorithms (hash joins, merge joins, etc.).
 
 ## Parameters / Member Variables
-- : RestrictInfo structure containing information about the join clause, including which relations are referenced by each operand
-- : RelOptInfo structure representing the outer relation in the join
-- : RelOptInfo structure representing the inner relation in the join
-
+- `*rinfo`: RestrictInfo structure containing information about the join clause, including which relations are referenced by each operand
+- `outerrelids`: RelOptInfo structure representing the outer relation in the join
+- `innerrelids`: RelOptInfo structure representing the inner relation in the join
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bms_is_subset](../b/bms_is_subset.md): Checks if one bitmap set is a subset of another (used to verify relid containment)

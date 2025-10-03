@@ -18,9 +18,8 @@ This function generates SQL statements to recreate an access method during datab
 The function validates the access method type and logs warnings for invalid types. It respects dump options such as data-only mode and component-specific dump flags. The generated statements are registered with the archive system for inclusion in the dump output.
 
 ## Parameters / Member Variables
-- : Archive handle for output generation and dump options
-- : AccessMethodInfo structure containing access method details including name, type, and handler
-
+- `*fout`: Archive handle for output generation and dump options
+- `*aminfo`: AccessMethodInfo structure containing access method details including name, type, and handler
 ## Dependencies
 - Functions called/Symbols referenced:
   - [createPQExpBuffer](../c/createPQExpBuffer.md)/destroyPQExpBuffer (for SQL statement building)

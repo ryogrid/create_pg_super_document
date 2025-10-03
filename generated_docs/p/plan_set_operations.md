@@ -52,8 +52,7 @@ The function performs several key tasks:
 For recursive operations (Common Table Expressions with UNION), it calls . For non-recursive operations, it calls  to build the execution plan recursively through the set operation tree.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing the query context, parse tree, and optimizer state information
-
+- `hasRecursion`: PlannerInfo structure containing the query context, parse tree, and optimizer state information
 ## Dependencies
 - Functions called/Symbols referenced:
   - castNode

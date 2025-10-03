@@ -26,11 +26,10 @@ The function handles several special cases:
 - HEAP_MOVED tuples with xvac fields that are always frozen if they contain normal XIDs
 
 ## Parameters / Member Variables
-- : HeapTupleHeader to examine for freeze necessity
-- : VacuumCutoffs structure containing freeze limits (FreezeLimit, MultiXactCutoff, etc.)
-- : Input/output parameter tracking oldest unfrozen XID in relation
-- : Input/output parameter tracking oldest unfrozen MultiXact ID in relation
-
+- `tuple`: HeapTupleHeader to examine for freeze necessity
+- `*cutoffs`: VacuumCutoffs structure containing freeze limits (FreezeLimit, MultiXactCutoff, etc.)
+- `*NoFreezePageRelfrozenXid`: Input/output parameter tracking oldest unfrozen XID in relation
+- `*NoFreezePageRelminMxid`: Input/output parameter tracking oldest unfrozen MultiXact ID in relation
 ## Dependencies
 - Functions called/Symbols referenced:
   - HeapTupleHeaderGetXmin

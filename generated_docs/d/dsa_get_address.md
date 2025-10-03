@@ -24,9 +24,8 @@ This function performs the critical conversion from a portable  (which can be sh
 The function may trigger segment mapping operations if the target segment is not currently mapped in this process, making it a potentially expensive operation on first access to a segment.
 
 ## Parameters / Member Variables
-- : Pointer to the DSA area containing the memory referenced by the dsa_pointer
-- : The dsa_pointer to convert to a local address (may be InvalidDsaPointer, which returns NULL)
-
+- `*area`: Pointer to the DSA area containing the memory referenced by the dsa_pointer
+- `dp`: The dsa_pointer to convert to a local address (may be InvalidDsaPointer, which returns NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - 

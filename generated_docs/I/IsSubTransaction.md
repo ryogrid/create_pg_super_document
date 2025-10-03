@@ -17,7 +17,6 @@ IsSubTransaction provides a simple check to determine if the current transaction
 This function is essential for various PostgreSQL subsystems that need to behave differently when operating within subtransactions, such as SPI (Server Programming Interface) operations, trigger management, transaction property checks, and snapshot handling.
 
 ## Parameters / Member Variables
-This function takes no parameters and returns a boolean value indicating whether the current context is within a subtransaction.
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -16,9 +16,8 @@ exec_command_gdesc(PsqlScanState scan_state, bool active_branch)
 This function handles the \gdesc backslash command in psql. When executed, it sets a flag that causes the next query to return column descriptions (metadata) rather than query results. This is useful for inspecting the structure of query results without actually executing the query or viewing the data. The function is simple, only setting the gdesc_flag when in an active branch.
 
 ## Parameters / Member Variables
-- : Scanner state for reading command options (unused in this implementation)
-- : Whether to actually set the flag (true) or just parse the command (false)
-
+- `scan_state`: Scanner state for reading command options (unused in this implementation)
+- `active_branch`: Whether to actually set the flag (true) or just parse the command (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - PSQL_CMD_SKIP_LINE

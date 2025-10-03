@@ -23,7 +23,6 @@ This function creates a unique identifier for shared memory segments by expandin
 The function ensures that each PostgreSQL instance with a different data directory gets a unique shared memory segment name, preventing conflicts between multiple postmaster processes.
 
 ## Parameters / Member Variables
-This function takes no parameters and returns a dynamically allocated string containing the shared memory segment name.
 
 ## Dependencies
 - Functions called/Symbols referenced:

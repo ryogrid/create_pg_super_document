@@ -16,10 +16,9 @@ unionkey(BITVECP sbase, SignTSVector *add, int siglen)
 This function merges two TSVector signatures by performing a bitwise OR operation. It handles two different signature formats: signature keys (bit vectors) and array-based representations. When the input signature is marked as ALLTRUE, it returns 1 to indicate that the result should be treated as an all-true signature. For regular signature keys, it performs bitwise OR operations byte by byte. For array-based signatures, it hashes each element and sets the corresponding bits in the base signature.
 
 ## Parameters / Member Variables
-- : Base signature bit vector that will be modified with the union result
-- : TSVector signature to be merged into the base signature  
-- : Length of the signature in bytes
-
+- `sbase`: Base signature bit vector that will be modified with the union result
+- `*add`: TSVector signature to be merged into the base signature
+- `siglen`: Length of the signature in bytes
 ## Dependencies
 - Functions called/Symbols referenced:
   - ISSIGNKEY (macro to check if signature is a key type)

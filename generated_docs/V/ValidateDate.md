@@ -25,12 +25,11 @@ ValidateDate performs comprehensive validation of date components stored in a pg
 The function uses a field mask (fmask) to determine which date components need validation, allowing partial date validation when only some fields are present.
 
 ## Parameters / Member Variables
-- : Bit mask indicating which date/time fields are present and need validation
-- : Boolean flag indicating if the date uses Julian calendar
-- : Boolean flag indicating if the year was input as 1 or 2 digits
-- : Boolean flag indicating if the year is BC (Before Christ)
-- : Pointer to pg_tm structure containing the date components to validate
-
+- `fmask`: Bit mask indicating which date/time fields are present and need validation
+- `isjulian`: Boolean flag indicating if the date uses Julian calendar
+- `is2digits`: Boolean flag indicating if the year was input as 1 or 2 digits
+- `bc`: Boolean flag indicating if the year is BC (Before Christ)
+- `*tm`: Pointer to pg_tm structure containing the date components to validate
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Converts year/month/day to Julian day number

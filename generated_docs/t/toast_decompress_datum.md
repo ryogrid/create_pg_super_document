@@ -18,8 +18,7 @@ This function serves as a dispatch mechanism for decompressing TOAST-ed data tha
 The function acts as an abstraction layer that hides the complexity of multiple compression algorithms from the calling code, providing a unified interface for decompression regardless of the underlying compression method. This design allows PostgreSQL to support multiple compression algorithms while maintaining compatibility and extensibility.
 
 ## Parameters / Member Variables
-- : Pointer to a varlena structure containing compressed data that needs to be decompressed
-
+- `*attr`: Pointer to a varlena structure containing compressed data that needs to be decompressed
 ## Dependencies
 - Functions called/Symbols referenced:
   - VARATT_IS_COMPRESSED

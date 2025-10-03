@@ -29,12 +29,11 @@ The function handles multiple types of index qualification clauses:
 For each clause type, it identifies the index key operand(s) and calls fix_indexqual_operand() to perform the actual variable replacement. Row comparisons require special handling to process multiple index columns simultaneously.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planner context and state
-- : IndexOptInfo describing the index being used
-- : Index column number being referenced (for single-column cases)
-- : The qualification clause to be transformed
-- : List of index column numbers (used for multi-column row comparisons)
-
+- `*root`: PlannerInfo structure containing planner context and state
+- `*index`: IndexOptInfo describing the index being used
+- `indexcol`: Index column number being referenced (for single-column cases)
+- `*clause`: The qualification clause to be transformed
+- `*indexcolnos`: List of index column numbers (used for multi-column row comparisons)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [replace_nestloop_params](../r/replace_nestloop_params.md)

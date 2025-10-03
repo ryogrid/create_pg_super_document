@@ -22,8 +22,7 @@ The function performs several important operations:
 4. Broadcasts the completion status to wake up waiting workers
 
 ## Parameters / Member Variables
-- : IndexScanDesc structure containing the scan state, including parallel scan information
-
+- `scan`: IndexScanDesc structure containing the scan state, including parallel scan information
 ## Dependencies
 - Functions called/Symbols referenced:
   - OffsetToPointer

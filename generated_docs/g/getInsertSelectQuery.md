@@ -25,9 +25,8 @@ The function operates by examining the structure of the query tree:
 This is specifically designed for rule-action queries where OLD and NEW placeholder entries are used to reference row values in rule processing. The function handles the case where these placeholders have been pushed down into a SELECT subquery during query transformation.
 
 ## Parameters / Member Variables
-- : The Query tree to examine (expected to be an INSERT ... SELECT)
-- : Optional output parameter - if provided, receives a pointer to the location of the SELECT subquery within the parse tree (useful for in-place modifications)
-
+- `*parsetree`: The Query tree to examine (expected to be an INSERT ... SELECT)
+- `***subquery_ptr`: Optional output parameter - if provided, receives a pointer to the location of the SELECT subquery within the parse tree (useful for in-place modifications)
 ## Dependencies
 - Functions called/Symbols referenced:
   - CMD_INSERT, CMD_SELECT (command type constants)

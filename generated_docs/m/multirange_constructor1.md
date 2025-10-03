@@ -16,8 +16,7 @@ multirange_constructor1(PG_FUNCTION_ARGS)
 This function creates a multirange containing exactly one range element. While it might seem redundant compared to the variadic multirange_constructor2, this single-argument version is specifically required to support PostgreSQL's casting mechanism from range types to their corresponding multirange types. The function validates that the input range matches the expected range type for the target multirange, then constructs the multirange using the internal make_multirange function.
 
 ## Parameters / Member Variables
-- : PostgreSQL function call information structure containing the range argument and return type information
-
+- `PG_FUNCTION_ARGS`: PostgreSQL function call information structure containing the range argument and return type information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_fn_expr_rettype](../g/get_fn_expr_rettype.md)

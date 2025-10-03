@@ -25,11 +25,10 @@ This is the primary constructor function for creating multirange objects in Post
 The function modifies the input ranges array during canonicalization but does not alter the contents of existing RangeType structures. It is designed to be the standard way to create multiranges from range arrays.
 
 ## Parameters / Member Variables
-- : OID of the multirange type being created
-- : TypeCacheEntry containing type information for the underlying range type
-- : Initial number of ranges in the input array (may be reduced after canonicalization)
-- : Array of RangeType pointers containing the source ranges (should be detoasted and non-null)
-
+- `mltrngtypoid`: OID of the multirange type being created
+- `*rangetyp`: TypeCacheEntry containing type information for the underlying range type
+- `range_count`: Initial number of ranges in the input array (may be reduced after canonicalization)
+- `**ranges`: Array of RangeType pointers containing the source ranges (should be detoasted and non-null)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [multirange_canonicalize](multirange_canonicalize.md) (to sort and merge input ranges)

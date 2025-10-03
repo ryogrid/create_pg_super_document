@@ -18,7 +18,6 @@ The dosqlprint function is a simple error reporting utility used within the ECPG
 This function is part of the expected output generation for ECPG compatibility tests, ensuring that error handling behaves consistently with Informix-style error reporting patterns.
 
 ## Parameters / Member Variables
-This function takes no parameters and returns void.
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -18,9 +18,8 @@ generic_mask prepares a database page for consistency checking by masking out fi
 The function masks two types of variable data: LSN and checksum fields (which change with each WAL write), and unused space within the page (which may contain arbitrary data). By masking these fields, the consistency checker can focus on the actual data content that should be identical between original and replayed pages.
 
 ## Parameters / Member Variables
-- : Pointer to the database page data to be masked
-- : Block number of the page (currently unused in implementation but provided for interface compatibility)
-
+- `*page`: Pointer to the database page data to be masked
+- `blkno`: Block number of the page (currently unused in implementation but provided for interface compatibility)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [mask_page_lsn_and_checksum](../m/mask_page_lsn_and_checksum.md) (masks LSN and checksum fields in page header)

@@ -21,7 +21,6 @@ The returned callbacks structure includes:
 - `shutdown_cb`: Points to `shell_archive_shutdown`
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

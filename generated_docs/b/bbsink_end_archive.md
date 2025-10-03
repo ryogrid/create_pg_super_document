@@ -16,8 +16,7 @@ bbsink_end_archive(bbsink *sink)
 This inline function serves as a wrapper to finalize and close a previously opened archive within the PostgreSQL base backup system. It delegates to the sink-specific end_archive operation, which handles the actual completion tasks such as flushing remaining data, writing archive footers, and performing cleanup operations. The function is a critical part of the backup sink lifecycle, ensuring proper archive closure and data integrity.
 
 ## Parameters / Member Variables
-- : Pointer to the backup sink structure that will finalize the archive
-
+- `*sink`: Pointer to the backup sink structure that will finalize the archive
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bbsink](bbsink.md) (structure type)

@@ -18,8 +18,7 @@ RequestAddinShmemSpace is a critical function that enables PostgreSQL extensions
 The function includes strict validation to ensure it's only called during the appropriate initialization phase, indicated by the process_shmem_requests_in_progress flag. Attempts to call this function outside of the designated hook will result in a FATAL error, terminating the postmaster process.
 
 ## Parameters / Member Variables
-- : The amount of additional shared memory space requested, specified as a Size type (typically size_t)
-
+- `size`: The amount of additional shared memory space requested, specified as a Size type (typically size_t)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [add_size](../a/add_size.md) (utility function for safe size addition)

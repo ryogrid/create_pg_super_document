@@ -27,10 +27,9 @@ The function employs a multi-layered approach to detect catalog changes:
 This function is inline for performance reasons since it's called frequently during transaction processing in logical replication scenarios.
 
 ## Parameters / Member Variables
-- : The SnapBuild context containing catalog change tracking information
-- : Transaction ID to check for catalog modifications
-- : Transaction information flags, particularly checking for XACT_XINFO_HAS_INVALS
-
+- `*builder`: The SnapBuild context containing catalog change tracking information
+- `xid`: Transaction ID to check for catalog modifications
+- `xinfo`: Transaction information flags, particularly checking for XACT_XINFO_HAS_INVALS
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReorderBufferXidHasCatalogChanges](../R/ReorderBufferXidHasCatalogChanges.md)

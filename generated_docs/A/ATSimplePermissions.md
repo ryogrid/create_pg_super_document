@@ -16,10 +16,9 @@ ATSimplePermissions(AlterTableType cmdtype, Relation rel, int allowed_targets)
 ATSimplePermissions serves as a critical security gatekeeper for ALTER TABLE operations. It performs three essential validation checks: (1) verifies that the relation type matches the allowed target types for the specific ALTER operation, (2) confirms that the current user owns the relation, and (3) prevents unauthorized modifications to system catalogs. The function maps relation kinds to internal target type flags and validates them against the operation's allowed targets. If any validation fails, it generates appropriate error messages using the alter_table_type_to_string function for user-friendly reporting.
 
 ## Parameters / Member Variables
-- : The AlterTableType enumeration specifying the type of ALTER TABLE operation being attempted
-- : The Relation structure representing the target relation for the ALTER operation
-- : A bitmask of ATT_* flags indicating which relation types are valid targets for this operation
-
+- `cmdtype`: The AlterTableType enumeration specifying the type of ALTER TABLE operation being attempted
+- `rel`: The Relation structure representing the target relation for the ALTER operation
+- `allowed_targets`: A bitmask of ATT_* flags indicating which relation types are valid targets for this operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [alter_table_type_to_string](../a/alter_table_type_to_string.md)

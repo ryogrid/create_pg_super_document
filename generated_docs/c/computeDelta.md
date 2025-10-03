@@ -20,10 +20,9 @@ PostgreSQL pages have a specific layout with a lower region (containing line poi
 The function also includes debugging capability when WAL_DEBUG is enabled, allowing verification that the computed delta can correctly transform the current page into the target page.
 
 ## Parameters / Member Variables
-- : Pointer to PageData structure where the computed delta will be stored
-- : Page pointer to the current state of the page (source)
-- : Page pointer to the desired final state of the page (target)
-
+- `*pageData`: Pointer to PageData structure where the computed delta will be stored
+- `curpage`: Page pointer to the current state of the page (source)
+- `targetpage`: Page pointer to the desired final state of the page (target)
 ## Dependencies
 - Functions called/Symbols referenced:
   - PageData (struct type)

@@ -25,9 +25,8 @@ The function uses PostgreSQL's standard reloptions infrastructure:
 4. **Return Format**: Returns the processed options as a bytea structure
 
 ## Parameters / Member Variables
-- : Input Datum containing the raw reloptions text/array to be processed
-- : Boolean flag indicating whether to perform validation of option values
-
+- `reloptions`: Input Datum containing the raw reloptions text/array to be processed
+- `validate`: Boolean flag indicating whether to perform validation of option values
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Core function for building reloptions structures

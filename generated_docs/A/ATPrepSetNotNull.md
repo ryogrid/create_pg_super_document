@@ -26,14 +26,13 @@ This function prepares for setting a NOT NULL constraint on a column during ALTE
 4. **Traditional Inheritance Limitation**: The optimization only applies to partitioned tables since traditional inheritance doesn't enforce NOT NULL constraints consistently between parent and child tables.
 
 ## Parameters / Member Variables
-- : Work queue for queueing additional ALTER TABLE subcommands
-- : The relation being altered
-- : The ALTER TABLE command structure containing the column name
-- : Whether to apply the command to child tables
-- : Flag indicating if this call is part of an ongoing recursion
-- : Lock mode to use for accessing child relations
-- : ALTER TABLE utility context for the operation
-
+- `**wqueue`: Work queue for queueing additional ALTER TABLE subcommands
+- `rel`: The relation being altered
+- `*cmd`: The ALTER TABLE command structure containing the column name
+- `recurse`: Whether to apply the command to child tables
+- `recursing`: Flag indicating if this call is part of an ongoing recursion
+- `lockmode`: Lock mode to use for accessing child relations
+- `*context`: ALTER TABLE utility context for the operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCacheAttName](../S/SearchSysCacheAttName.md) (to check column existence and NOT NULL status)

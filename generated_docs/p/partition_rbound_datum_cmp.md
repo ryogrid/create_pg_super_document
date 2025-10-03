@@ -30,13 +30,12 @@ The function returns:
 - **Positive value** if the range bound is greater than the tuple values
 
 ## Parameters / Member Variables
-- : Array of comparison functions for each partitioning column
-- : Array of collation OIDs for each partitioning column  
-- : Array of datum values from the range bound
-- : Array of datum kinds (VALUE/MINVALUE/MAXVALUE) from the range bound
-- : Array of datum values from the tuple's partitioning key
-- : Number of partitioning attributes in the tuple
-
+- `*partsupfunc`: Array of comparison functions for each partitioning column
+- `*partcollation`: Array of collation OIDs for each partitioning column
+- `*rb_datums`: Array of datum values from the range bound
+- `*rb_kind`: Array of datum kinds (VALUE/MINVALUE/MAXVALUE) from the range bound
+- `*tuple_datums`: Array of datum values from the tuple's partitioning key
+- `n_tuple_datums`: Number of partitioning attributes in the tuple
 ## Dependencies
 - Functions called/Symbols referenced:
   - [FunctionCall2Coll](../F/FunctionCall2Coll.md) (comparison function invocation)

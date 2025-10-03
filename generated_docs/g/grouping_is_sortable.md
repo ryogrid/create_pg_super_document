@@ -20,8 +20,7 @@ The function leverages the fact that the parser includes sort operators in SortG
 This check is crucial for the query planner to decide between different grouping implementation strategies, such as sort-based grouping versus hash-based grouping.
 
 ## Parameters / Member Variables
-- : A List of SortGroupClause structures representing the grouping columns to be evaluated for sortability
-
+- `*groupClause`: A List of SortGroupClause structures representing the grouping columns to be evaluated for sortability
 ## Dependencies
 - Functions called/Symbols referenced:
   - lfirst (for list iteration)

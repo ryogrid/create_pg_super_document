@@ -18,10 +18,9 @@ This function is a simple wrapper around the standard C library  function that p
 The function returns  if the exact number of bytes requested was successfully read, and  otherwise. This makes it easy for callers to detect partial reads, which typically indicate file corruption or unexpected end-of-file conditions.
 
 ## Parameters / Member Variables
-- : FILE pointer to the input file stream from which data will be read
-- : Void pointer to the buffer where the read data will be stored
-- : Size in bytes of the data to read
-
+- `*fpin`: FILE pointer to the input file stream from which data will be read
+- `*ptr`: Void pointer to the buffer where the read data will be stored
+- `len`: Size in bytes of the data to read
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Standard C library function for reading data from a file

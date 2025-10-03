@@ -20,9 +20,8 @@ The function handles memory management by freeing the old value when compression
 This is a key component of PostgreSQL's TOAST strategy, which attempts compression before externalization to keep data in the main table when possible.
 
 ## Parameters / Member Variables
-- : ToastTupleContext containing the tuple data and metadata
-- : Index of the attribute to attempt compression on (0-based array index)
-
+- `*ttc`: ToastTupleContext containing the tuple data and metadata
+- `attribute`: Index of the attribute to attempt compression on (0-based array index)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [toast_compress_datum](toast_compress_datum.md)

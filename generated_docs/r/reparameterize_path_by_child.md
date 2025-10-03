@@ -27,10 +27,9 @@ The function performs several key operations:
 The function is designed to work only during create_plan() phase when final path choices have been made, as it can modify RangeTblEntries, RelOptInfos, and IndexOptInfos.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planner state and configuration
-- : The original path parameterized by the parent relation that needs reparameterization  
-- : The child relation (partition) that should be the new parameterization target
-
+- `*root`: PlannerInfo structure containing planner state and configuration
+- `*path`: The original path parameterized by the parent relation that needs reparameterization
+- `*child_rel`: The child relation (partition) that should be the new parameterization target
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ParamPathInfo](../P/ParamPathInfo.md) (structure used for parameterization information)

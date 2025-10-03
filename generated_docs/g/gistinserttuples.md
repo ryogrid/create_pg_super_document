@@ -24,17 +24,16 @@ The function performs serializable conflict checking before modification, then c
 The locking protocol is designed to avoid holding locks longer than necessary during tree traversal. Upon return, various combinations of locks may be released based on the unlock parameters, while pages remain pinned for continued access.
 
 ## Parameters / Member Variables
-- : GISTInsertState containing insertion context, relation info, free space tracking, and build state flags
-- : GISTInsertStack representing the path from root to the target page being updated
-- : GISTSTATE with cached access method information and support function details
-- : Array of IndexTuple pointers to be inserted
-- : Number of tuples in the tuples array
-- : OffsetNumber of existing tuple to replace (InvalidOffsetNumber for pure insertion)
-- : Buffer for left sibling page (used in split scenarios, InvalidBuffer if not applicable)
-- : Buffer for right child page (used in split scenarios, InvalidBuffer if not applicable) 
-- : Boolean flag indicating whether to release lock on stack->buffer upon completion
-- : Boolean flag indicating whether to release lock on leftchild buffer
-
+- `*state`: GISTInsertState containing insertion context, relation info, free space tracking, and build state flags
+- `*stack`: GISTInsertStack representing the path from root to the target page being updated
+- `*giststate`: GISTSTATE with cached access method information and support function details
+- `*tuples`: Array of IndexTuple pointers to be inserted
+- `ntup`: Number of tuples in the tuples array
+- `oldoffnum`: OffsetNumber of existing tuple to replace (InvalidOffsetNumber for pure insertion)
+- `leftchild`: Buffer for left sibling page (used in split scenarios, InvalidBuffer if not applicable)
+- `rightchild`: Buffer for right child page (used in split scenarios, InvalidBuffer if not applicable)
+- `unlockbuf`: Boolean flag indicating whether to release lock on stack->buffer upon completion
+- `unlockleftchild`: Boolean flag indicating whether to release lock on leftchild buffer
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CheckForSerializableConflictIn](../C/CheckForSerializableConflictIn.md) (serializable isolation conflict detection)

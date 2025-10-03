@@ -22,10 +22,9 @@ The conversion process involves:
 4. Delegation to PostgreSQL's built-in record_in function for actual parsing
 
 ## Parameters / Member Variables
-- : PLyObToDatum structure containing composite type information and function call context
-- : Python string object containing the record literal to be parsed
-- : Boolean flag indicating whether this conversion is happening within an array context
-
+- `*arg`: PLyObToDatum structure containing composite type information and function call context
+- `*string`: Python string object containing the record literal to be parsed
+- `inarray`: Boolean flag indicating whether this conversion is happening within an array context
 ## Dependencies
 - Functions called/Symbols referenced:
   - [fmgr_info_cxt](../f/fmgr_info_cxt.md) (initializes function call info for record_in)

@@ -24,10 +24,9 @@ This static helper function is used by the PostgreSQL format string parser to ex
 The function employs PostgreSQL's overflow-safe arithmetic macros ( and ) to detect integer overflow conditions and report appropriate errors. This ensures that maliciously crafted format strings cannot cause undefined behavior through integer overflow.
 
 ## Parameters / Member Variables
-- : Pointer to the current parsing position (input/output parameter, advanced past parsed digits)
-- : Pointer to the end of the string being parsed (boundary check)
-- : Pointer to store the parsed integer value (output parameter)
-
+- `**ptr`: Pointer to the current parsing position (input/output parameter, advanced past parsed digits)
+- `*end_ptr`: Pointer to the end of the string being parsed (boundary check)
+- `*value`: Pointer to store the parsed integer value (output parameter)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - 8-bit signed integer type definition

@@ -18,9 +18,8 @@ The  function is a utility function used during WAL recovery to extract timestam
 The function checks the resource manager ID (rmid) and operation info to determine the record type, then casts the record data to the appropriate structure to extract the timestamp field.
 
 ## Parameters / Member Variables
-- : Pointer to XLogReaderState containing the WAL record being examined
-- : Output parameter - pointer to TimestampTz where the extracted timestamp will be stored
-
+- `*record`: Pointer to XLogReaderState containing the WAL record being examined
+- `*recordXtime`: Output parameter - pointer to TimestampTz where the extracted timestamp will be stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetInfo: Gets the info field from the WAL record

@@ -24,9 +24,8 @@ The function performs a full scan of the pg_opclass system catalog, filtering by
 For domain types, the function automatically resolves to the base type before performing the search, ensuring that domains inherit the default operator class behavior of their underlying type.
 
 ## Parameters / Member Variables
-- : OID of the data type for which to find a default operator class
-- : OID of the access method (btree, hash, gist, etc.)
-
+- `type_id`: OID of the data type for which to find a default operator class
+- `am_id`: OID of the access method (btree, hash, gist, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [getBaseType](../g/getBaseType.md) (for domain type resolution)

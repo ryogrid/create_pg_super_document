@@ -21,10 +21,9 @@ The adjacency check works differently based on the range subtype:
 - For equal bounds: Adjacent only if they have different inclusivity flags (exactly one includes the boundary point)
 
 ## Parameters / Member Variables
-- : TypeCacheEntry containing range type information and canonicalization function
-- : RangeBound representing an upper bound to test
-- : RangeBound representing a lower bound to test
-
+- `*typcache`: TypeCacheEntry containing range type information and canonicalization function
+- `boundA`: RangeBound representing an upper bound to test
+- `boundB`: RangeBound representing a lower bound to test
 ## Dependencies
 - Functions called/Symbols referenced:
   - [range_cmp_bound_values](../r/range_cmp_bound_values.md)

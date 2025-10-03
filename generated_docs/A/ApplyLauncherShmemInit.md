@@ -17,6 +17,7 @@ This function sets up the shared memory infrastructure for the logical replicati
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LogicalRepCtxStruct](../L/LogicalRepCtxStruct.md)

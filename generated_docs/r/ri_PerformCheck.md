@@ -22,16 +22,15 @@ This is a core function in PostgreSQL's referential integrity enforcement system
 The function determines whether to query the primary key or foreign key table based on the query type, extracts the appropriate values from the source tuples, manages snapshots for consistency in different isolation levels, and executes the query with proper security context switching.
 
 ## Parameters / Member Variables
-- : Constraint information structure containing details about the foreign key relationship
-- : Query key identifying the specific type of RI query to execute
-- : Pre-compiled SPI plan for the query to be executed
-- : Foreign key table relation
-- : Primary key table relation  
-- : Tuple slot containing the old tuple values (for updates/deletes)
-- : Tuple slot containing the new tuple values (for inserts/updates)
-- : Whether to detect rows that became visible after transaction start
-- : Expected SPI result code for validation
-
+- `*riinfo`: Constraint information structure containing details about the foreign key relationship
+- `*qkey`: Query key identifying the specific type of RI query to execute
+- `qplan`: Pre-compiled SPI plan for the query to be executed
+- `fk_rel`: Foreign key table relation
+- `pk_rel`: Primary key table relation
+- `*oldslot`: Tuple slot containing the old tuple values (for updates/deletes)
+- `*newslot`: Tuple slot containing the new tuple values (for inserts/updates)
+- `detectNewRows`: Whether to detect rows that became visible after transaction start
+- `expect_OK`: Expected SPI result code for validation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ri_ExtractValues](ri_ExtractValues.md)

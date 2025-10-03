@@ -24,9 +24,8 @@ The initialization process:
 6. Initializes all freelists to empty
 
 ## Parameters / Member Variables
-- : Pointer to caller-provided FreePageManager structure to initialize
-- : Base address for relative pointer calculations; typically the start of a dynamic shared memory segment or NULL/start of extent for backend-private memory
-
+- `*fpm`: Pointer to caller-provided FreePageManager structure to initialize
+- `*base`: Base address for relative pointer calculations; typically the start of a dynamic shared memory segment or NULL/start of extent for backend-private memory
 ## Dependencies
 - Functions called/Symbols referenced:
   - relptr_store (for setting up relative pointers)

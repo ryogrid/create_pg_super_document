@@ -18,8 +18,7 @@ PageGetSpecialPointer is a static inline function that provides access to the sp
 The function includes validation through PageValidateSpecialPointer to ensure the page structure is valid before accessing the special space. This is crucial for maintaining data integrity and preventing access to corrupted or improperly formatted pages.
 
 ## Parameters / Member Variables
-- : A Page (pointer to page data) from which to retrieve the special space pointer
-
+- `page`: A Page (pointer to page data) from which to retrieve the special space pointer
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PageValidateSpecialPointer](PageValidateSpecialPointer.md) (validation function)

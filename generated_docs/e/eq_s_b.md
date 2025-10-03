@@ -19,10 +19,9 @@ The  function is a core utility in the Snowball stemming framework that performs
 The function first verifies that there are enough characters between the current cursor position and the left boundary to accommodate the string being matched. It then performs a byte-wise comparison using . If the strings match exactly, the cursor is moved backward and the function returns 1 (success). If there's insufficient space or the strings don't match, it returns 0 (failure).
 
 ## Parameters / Member Variables
-- : Pointer to the Snowball environment structure containing the text buffer and cursor positions
-- : The length of the string pattern to match (number of symbols)  
-- : Pointer to the symbol array containing the pattern to match against
-
+- `*z`: Pointer to the Snowball environment structure containing the text buffer and cursor positions
+- `s_size`: The length of the string pattern to match (number of symbols)
+- `*s`: Pointer to the symbol array containing the pattern to match against
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (C standard library function)

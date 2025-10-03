@@ -27,15 +27,14 @@ This function implements the actual waiting logic for multixact conflicts by:
 The function handles pre-upgrade tuples as a special case and supports both conditional (nowait) and unconditional waiting modes. It ensures that by completion, all conflicting transactions from other backends have finished, though the caller may need to iterate if the tuple's Xmax has changed during the wait.
 
 ## Parameters / Member Variables
-- : The multixact ID whose members need to be waited for
-- : The lock status being requested, used to determine conflicts
-- : Tuple header information mask for optimization
-- : If true, use conditional locking to avoid blocking
-- : Relation for error context information
-- : Tuple identifier for error context
-- : Operation type for error context
-- : Output parameter for count of remaining active members (can be NULL)
-
+- `multi`: The multixact ID whose members need to be waited for
+- `status`: The lock status being requested, used to determine conflicts
+- `infomask`: Tuple header information mask for optimization
+- `nowait`: If true, use conditional locking to avoid blocking
+- `rel`: Relation for error context information
+- `ctid`: Tuple identifier for error context
+- `oper`: Operation type for error context
+- `*remaining`: Output parameter for count of remaining active members (can be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - HEAP_LOCKED_UPGRADED

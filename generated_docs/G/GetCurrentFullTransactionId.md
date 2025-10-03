@@ -19,6 +19,7 @@ The function works with the CurrentTransactionState to check if the transaction 
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - TransactionState (type)

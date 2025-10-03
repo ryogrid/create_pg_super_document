@@ -16,10 +16,9 @@ ParseCommitRecord(uint8 info, xl_xact_commit *xlrec, xl_xact_parsed_commit *pars
 This function is responsible for parsing binary WAL commit record data into a structured format that can be easily processed by various PostgreSQL components. It extracts transaction metadata including timing information, database/tablespace identifiers, subtransaction information, relation file locators, dropped statistics, invalidation messages, two-phase commit data, and replication origin details. The function handles variable-length records by sequentially parsing optional sections based on info flags, making it suitable for both WAL replay in the backend and WAL analysis in frontend tools like pg_waldump.
 
 ## Parameters / Member Variables
-- : Info flags indicating which optional sections are present in the WAL record
-- : Pointer to the raw WAL commit record data structure
-- : Output structure to store the parsed commit record information
-
+- `info`: Info flags indicating which optional sections are present in the WAL record
+- `*xlrec`: Pointer to the raw WAL commit record data structure
+- `*parsed`: Output structure to store the parsed commit record information
 ## Dependencies
 - Functions called/Symbols referenced:
   - memset

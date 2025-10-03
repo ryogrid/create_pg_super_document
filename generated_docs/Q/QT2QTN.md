@@ -22,9 +22,8 @@ The function handles two types of query items:
 For operators, the function recursively processes child nodes and combines their signature bits using bitwise OR. The signature bits are used for efficient query optimization and filtering.
 
 ## Parameters / Member Variables
-- : Pointer to the current QueryItem in the array being processed
-- : Pointer to the operand string data, used to set word pointers for leaf nodes
-
+- `*in`: Pointer to the current QueryItem in the array being processed
+- `*operand`: Pointer to the operand string data, used to set word pointers for leaf nodes
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc0](../p/palloc0.md) (memory allocation)

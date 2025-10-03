@@ -18,9 +18,8 @@ This function implements an atomic write operation with full memory barrier sema
 The function discards the previous value returned by the exchange operation (using void cast), as the primary purpose is to write the new value with barrier semantics rather than retrieve the old value.
 
 ## Parameters / Member Variables
-- : Pointer to the atomic 64-bit unsigned integer variable to be written
-- : The new 64-bit unsigned integer value to be stored
-
+- `*ptr`: Pointer to the atomic 64-bit unsigned integer variable to be written
+- `val`: The new 64-bit unsigned integer value to be stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - 

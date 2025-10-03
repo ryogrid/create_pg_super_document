@@ -21,6 +21,7 @@ Finally, it calls SetLatch() to wake up any process that might be waiting on the
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - InterruptPending (global variable)

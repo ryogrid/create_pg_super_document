@@ -23,10 +23,9 @@ This function implements the decoding counterpart to the Simple8b compression al
 The function processes deltas in order (since they were stored in reverse order during encoding) and reconstructs the original integer sequence. Each delta represents the difference minus 1 between consecutive integers, so the reconstruction formula is .
 
 ## Parameters / Member Variables
-- : The 64-bit Simple8b encoded codeword to decode
-- : Pointer to array where the decoded integers will be stored
-- : The base value that precedes the first encoded integer, used to reconstruct absolute values
-
+- `codeword`: The 64-bit Simple8b encoded codeword to decode
+- `*decoded`: Pointer to array where the decoded integers will be stored
+- `base`: The base value that precedes the first encoded integer, used to reconstruct absolute values
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Constant checked to handle empty/invalid codewords

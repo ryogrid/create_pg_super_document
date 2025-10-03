@@ -17,6 +17,7 @@ The `get_descriptors` function provides access to the thread-local descriptor st
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - pthread_once

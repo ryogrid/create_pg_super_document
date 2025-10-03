@@ -18,10 +18,9 @@ The  function is part of PostgreSQL's ECPG Informix compatibility library. It pa
 The function includes a TODO comment indicating that it should handle the DBCENTURY environment variable, though currently PostgreSQL functions allow all centuries. Error handling maps various PostgreSQL date parsing errors to their Informix equivalents for compatibility.
 
 ## Parameters / Member Variables
-- : Pointer to a date variable where the parsed date will be stored
-- : Format string specifying how to interpret the input date string
-- : Input date string to be parsed
-
+- `*d`: Pointer to a date variable where the parsed date will be stored
+- `*fmt`: Format string specifying how to interpret the input date string
+- `*str`: Input date string to be parsed
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Internal PostgreSQL function for parsing date strings

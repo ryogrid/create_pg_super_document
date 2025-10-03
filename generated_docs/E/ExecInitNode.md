@@ -25,10 +25,9 @@ The function performs several critical tasks:
 The initialization process ensures that all necessary data structures, memory contexts, and execution state are properly established before query execution begins.
 
 ## Parameters / Member Variables
-- : The Plan node from the query planner to be initialized (can be NULL for leaf nodes)
-- : The shared execution state structure for the entire plan tree
-- : Bitwise OR of execution flags that control initialization behavior (defined in executor.h)
-
+- `*node`: The Plan node from the query planner to be initialized (can be NULL for leaf nodes)
+- `*estate`: The shared execution state structure for the entire plan tree
+- `eflags`: Bitwise OR of execution flags that control initialization behavior (defined in executor.h)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_stack_depth](../c/check_stack_depth.md) (stack overflow prevention)

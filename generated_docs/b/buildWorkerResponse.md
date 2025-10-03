@@ -17,13 +17,12 @@ buildWorkerResponse(ArchiveHandle *AH, TocEntry *te, T_Action act, int status,
 buildWorkerResponse constructs standardized response messages that worker processes send to the leader process through inter-process communication channels after completing their assigned tasks. The function creates a response string containing the dump ID, completion status, and error count information. The response format is consistent across all archive formats and provides essential feedback for the leader to track worker progress and handle any errors that occurred during processing. The error count is only included when the worker encountered errors but chose to ignore them.
 
 ## Parameters / Member Variables
-- : Archive handle containing error count information
-- : Table of contents entry that was processed, providing the dump ID
-- : Action type that was performed (not currently used in response formatting)
-- : Completion status code indicating success, failure, or ignored errors
-- : Caller-supplied buffer to store the formatted response string
-- : Size of the buffer to prevent buffer overflows
-
+- `*AH`: Archive handle containing error count information
+- `*te`: Table of contents entry that was processed, providing the dump ID
+- `act`: Action type that was performed (not currently used in response formatting)
+- `status`: Completion status code indicating success, failure, or ignored errors
+- `*buf`: Caller-supplied buffer to store the formatted response string
+- `buflen`: Size of the buffer to prevent buffer overflows
 ## Dependencies
 - Functions called/Symbols referenced:
   - snprintf (formatted string construction)

@@ -18,10 +18,9 @@ This function queries the pg_subscription_rel catalog to retrieve the current re
 The function handles cases where the subscription-relation mapping doesn't exist by returning SUBREL_STATE_UNKNOWN and setting the LSN to InvalidXLogRecPtr. It properly manages null LSN values in the catalog by checking the isnull flag from SysCacheGetAttr.
 
 ## Parameters / Member Variables
-- : The OID of the subscription to query
-- : The OID of the relation (table) to look up
-- : Output parameter that receives the LSN position (pointer to XLogRecPtr)
-
+- `subid`: The OID of the subscription to query
+- `relid`: The OID of the relation (table) to look up
+- `*sublsn`: Output parameter that receives the LSN position (pointer to XLogRecPtr)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache2](../S/SearchSysCache2.md)

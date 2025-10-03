@@ -29,15 +29,14 @@ The function currently uses the generic cost model without hash-specific adjustm
 - Hash comparison costs (considered minimal compared to general datatype comparisons)
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global planning context and statistics
-- : IndexPath structure describing the specific hash index access path being costed
-- : Expected number of times this index scan will be executed (for nested loops)
-- : Output parameter for one-time startup cost of the index scan
-- : Output parameter for total cost including per-tuple processing
-- : Output parameter for estimated fraction of table rows that will be returned
-- : Output parameter for correlation between index and table ordering (typically 0.0 for hash)
-- : Output parameter for estimated number of index pages to be accessed
-
+- `*root`: PlannerInfo structure containing global planning context and statistics
+- `*path`: IndexPath structure describing the specific hash index access path being costed
+- `loop_count`: Expected number of times this index scan will be executed (for nested loops)
+- `*indexStartupCost`: Output parameter for one-time startup cost of the index scan
+- `*indexTotalCost`: Output parameter for total cost including per-tuple processing
+- `*indexSelectivity`: Output parameter for estimated fraction of table rows that will be returned
+- `*indexCorrelation`: Output parameter for correlation between index and table ordering (typically 0.0 for hash)
+- `*indexPages`: Output parameter for estimated number of index pages to be accessed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [genericcostestimate](../g/genericcostestimate.md)

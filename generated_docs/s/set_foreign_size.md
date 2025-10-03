@@ -18,10 +18,9 @@ This function establishes size estimates for foreign tables by coordinating with
 The function includes important sanity checks to prevent unreasonable estimates that could negatively impact query planning. It ensures that the row estimate is never zero (which could cause division errors) and that the tuple count is at least as large as the row estimate, handling cases where pg_class.reltuples might contain -1 or other invalid values.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global planner information and context
-- : RelOptInfo structure representing the foreign relation, will be updated with size estimates
-- : RangeTblEntry containing information about the foreign table being sized
-
+- `*root`: PlannerInfo structure containing global planner information and context
+- `*rel`: RelOptInfo structure representing the foreign relation, will be updated with size estimates
+- `*rte`: RangeTblEntry containing information about the foreign table being sized
 ## Dependencies
 - Functions called/Symbols referenced:
   - [set_foreign_size_estimates](set_foreign_size_estimates.md) (sets initial size estimates using standard logic)

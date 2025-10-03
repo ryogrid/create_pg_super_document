@@ -24,11 +24,10 @@ PublicationAddTables is a static function that handles the addition of multiple 
 The function ensures that only authorized users can add tables to publications and maintains proper integration with PostgreSQL's event trigger and dependency tracking systems.
 
 ## Parameters / Member Variables
-- : OID of the publication to which tables will be added
-- : List of PublicationRelInfo structures containing the tables and their associated metadata (WHERE clauses, column lists)
-- : Boolean flag indicating whether to suppress errors if the table is already in the publication
-- : Optional AlterPublicationStmt for event trigger integration (can be NULL)
-
+- `pubid`: OID of the publication to which tables will be added
+- `*rels`: List of PublicationRelInfo structures containing the tables and their associated metadata (WHERE clauses, column lists)
+- `if_not_exists`: Boolean flag indicating whether to suppress errors if the table is already in the publication
+- `*stmt`: Optional AlterPublicationStmt for event trigger integration (can be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [object_ownercheck](../o/object_ownercheck.md) (validates table ownership)

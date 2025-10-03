@@ -18,8 +18,7 @@ ExecMergeTupleDumpMarked is a specialized debugging utility function within the 
 The function examines the marked tuple slot in the merge join state and prints either the tuple contents using MJ_debugtup or "(nil)" if no tuple is currently marked. This debugging capability is crucial for developers working on merge join algorithms, especially when dealing with complex scenarios involving duplicate join keys where the algorithm needs to backtrack to previously processed positions.
 
 ## Parameters / Member Variables
-- : MergeJoinState structure containing the merge join execution state, specifically accessing the marked tuple slot used for backtracking
-
+- `*mergestate`: MergeJoinState structure containing the merge join execution state, specifically accessing the marked tuple slot used for backtracking
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MergeJoinState](../M/MergeJoinState.md) (merge join state structure)

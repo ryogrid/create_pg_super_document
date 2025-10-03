@@ -17,7 +17,6 @@ TrimCLOG is called exactly once at the end of PostgreSQL startup or recovery to 
 The function operates on the current CLOG page only, as future pages will be automatically zeroed when first used. If nextXID is exactly at a page boundary, no action is taken since the current page likely doesn't exist yet.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

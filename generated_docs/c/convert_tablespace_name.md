@@ -16,8 +16,7 @@ convert_tablespace_name(text *tablespacename)
 This is a utility function within the tablespace privilege checking system that takes a tablespace name in PostgreSQL's internal text format and converts it to the corresponding tablespace Object Identifier (OID). The function serves as a bridge between string-based tablespace names and the internal OID-based representation used throughout the PostgreSQL system. It performs the conversion by first extracting a null-terminated C string from the PostgreSQL text type, then using the system catalog lookup function to find the corresponding OID.
 
 ## Parameters / Member Variables
-- : A PostgreSQL text type containing the name of the tablespace to look up
-
+- `*tablespacename`: A PostgreSQL text type containing the name of the tablespace to look up
 ## Dependencies
 - Functions called/Symbols referenced:
   - [text_to_cstring](../t/text_to_cstring.md)

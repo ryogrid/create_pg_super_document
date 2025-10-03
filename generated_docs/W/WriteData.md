@@ -18,10 +18,9 @@ WriteData serves as a wrapper function in the pg_dump archiver interface that va
 The function performs a critical safety check by verifying that  is not NULL before proceeding with the write operation. If called outside the context of a DataDumper routine, it terminates the program with a fatal error. Upon successful validation, it delegates the actual writing to the function pointer , which points to the format-specific implementation (e.g., for custom, tar, or directory formats).
 
 ## Parameters / Member Variables
-- : Archive pointer (cast from ArchiveHandle) representing the current dump session
-- : Pointer to the binary data to be written to the archive
-- : Size in bytes of the data to be written
-
+- `*AHX`: Archive pointer (cast from ArchiveHandle) representing the current dump session
+- `*data`: Pointer to the binary data to be written to the archive
+- `dLen`: Size in bytes of the data to be written
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_fatal](../p/pg_fatal.md) (for error handling)

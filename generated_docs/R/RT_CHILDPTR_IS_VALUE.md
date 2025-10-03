@@ -22,8 +22,7 @@ The function's behavior depends on compile-time configuration:
 - When RT_VARLEN_VALUE_SIZE is not defined, it performs a compile-time check comparing the value type size to the pointer allocation size
 
 ## Parameters / Member Variables
-- : The child pointer (RT_PTR_ALLOC) to check for embedded value
-
+- `child`: The child pointer (RT_PTR_ALLOC) to check for embedded value
 ## Dependencies
 - Functions called/Symbols referenced:
   - RT_MAKE_NAME (macro for generating function names)

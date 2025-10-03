@@ -18,8 +18,7 @@ This function provides a thread-safe mechanism to update the WalWriterSleeping f
 The WalWriterSleeping flag is used for coordination between the WAL writer process and other parts of the system that need to ensure WAL data is flushed to disk, allowing for efficient wake-up mechanisms when the writer is dormant.
 
 ## Parameters / Member Variables
-- : boolean value indicating the desired sleep state (true = sleeping, false = active)
-
+- `sleeping`: boolean value indicating the desired sleep state (true = sleeping, false = active)
 ## Dependencies
 - Functions called/Symbols referenced:
   - SpinLockAcquire

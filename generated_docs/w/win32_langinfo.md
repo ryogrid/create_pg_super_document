@@ -22,8 +22,7 @@ The function implements a two-tier approach:
 The function handles special cases such as CP_ACP (no ANSI codepage available, returns "utf8") and Unix-style locale strings that Windows' setlocale() accepts but GetLocaleInfoEx() doesn't recognize.
 
 ## Parameters / Member Variables
-- : Input locale string to be parsed for codepage information
-
+- `*ctype`: Input locale string to be parsed for codepage information
 ## Dependencies
 - Functions called/Symbols referenced:
   - malloc (for memory allocation)

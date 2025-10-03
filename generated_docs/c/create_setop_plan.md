@@ -18,10 +18,9 @@ This function is responsible for constructing a SetOp plan node that implements 
 The function ensures that grouping columns are properly labeled by passing the CP_LABEL_TLIST flag to the recursive plan creation, which is essential for set operations to correctly identify and compare tuples.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global planning context and information
-- : SetOpPath representing the chosen execution path for the set operation, containing operation details like command type, strategy, and cardinality estimates  
-- : Integer flags controlling plan creation behavior, modified to include CP_LABEL_TLIST for proper column labeling
-
+- `*root`: PlannerInfo structure containing global planning context and information
+- `*best_path`: SetOpPath representing the chosen execution path for the set operation, containing operation details like command type, strategy, and cardinality estimates
+- `flags`: Integer flags controlling plan creation behavior, modified to include CP_LABEL_TLIST for proper column labeling
 ## Dependencies
 - Functions called/Symbols referenced:
   - [create_plan_recurse](create_plan_recurse.md)

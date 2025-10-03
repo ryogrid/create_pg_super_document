@@ -24,15 +24,14 @@ This function constructs a targetlist for set-operation plan nodes by creating T
 The function sets all non-resjunk columns to have ressortgroupref equal to their resno by convention, which is used by the set-operation planning logic. It can optionally add a resjunk flag column when needed for distinguishing between different input relations in the set operation.
 
 ## Parameters / Member Variables
-- : OID list of the set-operation's result column datatypes
-- : OID list of the set-operation's result column collations  
-- : -1 if no flag column needed, 0 or 1 to create a const flag column
-- : varno to use in generated Vars that reference input columns
-- : true to copy up constants directly rather than referencing them
-- : targetlist of this node's input node
-- : targetlist to take column names from
-- : output parameter, set to true if resulting targetlist is trivial
-
+- `*colTypes`: OID list of the set-operation's result column datatypes
+- `*colCollations`: OID list of the set-operation's result column collations
+- `flag`: -1 if no flag column needed, 0 or 1 to create a const flag column
+- `varno`: varno to use in generated Vars that reference input columns
+- `hack_constants`: true to copy up constants directly rather than referencing them
+- `*input_tlist`: targetlist of this node's input node
+- `*refnames_tlist`: targetlist to take column names from
+- `*trivial_tlist`: output parameter, set to true if resulting targetlist is trivial
 ## Dependencies
 - Functions called/Symbols referenced:
   - [makeVar](../m/makeVar.md)

@@ -17,12 +17,11 @@ log_newpage(RelFileLocator *rlocator, ForkNumber forknum, BlockNumber blkno,
 log_newpage creates a WAL record with a complete full-page image of the provided page data. This function is designed for scenarios where pages are constructed in private memory and then written directly to storage via the storage manager (smgr), bypassing the buffer manager. It forces the inclusion of the page image in the WAL record and optionally optimizes standard page layouts by excluding unused space between pd_lower and pd_upper. After writing the WAL record, it updates the page's LSN unless the page is uninitialized. The caller is responsible for actually writing the page to disk after calling this function.
 
 ## Parameters / Member Variables
-- : Pointer to the relation file locator identifying the relation
-- : Fork number (main, FSM, visibility map, etc.)
-- : Block number within the relation fork
-- : Pointer to the page data to be logged
-- : Whether the page follows standard layout (enables space optimization)
-
+- `*rlocator`: Pointer to the relation file locator identifying the relation
+- `forknum`: Fork number (main, FSM, visibility map, etc.)
+- `blkno`: Block number within the relation fork
+- `page`: Pointer to the page data to be logged
+- `page_std`: Whether the page follows standard layout (enables space optimization)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [XLogBeginInsert](../X/XLogBeginInsert.md) (starts WAL record construction)

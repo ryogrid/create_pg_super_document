@@ -23,8 +23,7 @@ This function is responsible for converting a MERGE statement into a join operat
 The function creates a new RangeTblEntry for the join, constructs a JoinExpr that combines the target and source relations, and updates the query's jointree accordingly. It also handles nullability adjustments for variables that may be affected by the outer join conditions.
 
 ## Parameters / Member Variables
-- : The Query structure representing the MERGE statement to be transformed
-
+- `*parse`: The Query structure representing the MERGE statement to be transformed
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (for creating RangeTblEntry, JoinExpr, RangeTblRef, FromExpr, NullTest)

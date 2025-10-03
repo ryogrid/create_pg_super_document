@@ -24,8 +24,7 @@ The backend PID is useful for several purposes:
 The function only returns a valid PID when the connection is in CONNECTION_OK status, ensuring that the backend process is actually established and ready.
 
 ## Parameters / Member Variables
-- : A pointer to the PGconn structure representing the database connection. Must not be NULL and should be in CONNECTION_OK status for valid results.
-
+- `*conn`: A pointer to the PGconn structure representing the database connection. Must not be NULL and should be in CONNECTION_OK status for valid results.
 ## Dependencies
 - Functions called/Symbols referenced:
   - CONNECTION_OK (connection status constant)

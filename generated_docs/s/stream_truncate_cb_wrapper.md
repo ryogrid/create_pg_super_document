@@ -27,12 +27,11 @@ Key responsibilities include:
 5. Safely invoking the plugin's callback with proper error handling
 
 ## Parameters / Member Variables
-- : ReorderBuffer instance containing the private logical decoding context
-- : ReorderBufferTXN representing the current transaction being processed
-- : Integer count of the number of relations being truncated
-- : Array of Relation objects representing the tables being truncated
-- : ReorderBufferChange containing the specific truncate change being streamed
-
+- `*cache`: ReorderBuffer instance containing the private logical decoding context
+- `*txn`: ReorderBufferTXN representing the current transaction being processed
+- `nrelations`: Integer count of the number of relations being truncated
+- `relations[]`: Array of Relation objects representing the tables being truncated
+- `*change`: ReorderBufferChange containing the specific truncate change being streamed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReorderBuffer](../R/ReorderBuffer.md)

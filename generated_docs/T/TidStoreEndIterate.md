@@ -18,8 +18,7 @@ This function completes the TidStore iteration process by properly terminating t
 This function is the required counterpart to TidStoreBeginIterate and must be called to prevent memory leaks.
 
 ## Parameters / Member Variables
-- : The TidStoreIter structure to clean up and free
-
+- `*iter`: The TidStoreIter structure to clean up and free
 ## Dependencies
 - Functions called/Symbols referenced:
   - TidStoreIsShared

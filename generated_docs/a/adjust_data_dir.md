@@ -25,7 +25,6 @@ The function performs the following detection and resolution process:
 The function uses the postgres backend's ability to read configuration files and return the  setting, ensuring accurate resolution even with complex configuration setups.
 
 ## Parameters / Member Variables
-This function takes no parameters but operates on several global variables.
 
 ## Dependencies
 - Functions called/Symbols referenced:

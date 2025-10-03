@@ -25,9 +25,8 @@ The function performs the following operations:
 The function intentionally avoids being used for queries comparing variables to parameters, as this allows for better index usage on referencing columns while maintaining semantic correctness due to all collations having the same notion of equality.
 
 ## Parameters / Member Variables
-- : StringInfo buffer to which the COLLATE clause will be appended
-- : OID of the collation to be applied; if invalid (OidIsValid returns false), the function returns without action
-
+- `buf`: StringInfo buffer to which the COLLATE clause will be appended
+- `collation`: OID of the collation to be applied; if invalid (OidIsValid returns false), the function returns without action
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Checks if the collation OID is valid

@@ -25,13 +25,12 @@ The function retrieves the operator's join selectivity procedure () from the sys
 The join selectivity function receives comprehensive context information including the planner state, operator details, join arguments, join type (inner, left, right, full outer), and special join information for outer joins. This allows for sophisticated selectivity estimates that consider join semantics and statistical correlations between joined tables.
 
 ## Parameters / Member Variables
-- : PlannerInfo containing global planner state, statistics, and relation information
-- : Object ID of the join operator for which to estimate selectivity
-- : List of arguments (operands) to the join operator clause
-- : Collation ID for string comparison operations in the join condition
-- : Type of join operation (JoinType enum: INNER, LEFT, RIGHT, FULL, etc.)
-- : SpecialJoinInfo structure containing additional context for outer joins
-
+- `*root`: PlannerInfo containing global planner state, statistics, and relation information
+- `operatorid`: Object ID of the join operator for which to estimate selectivity
+- `*args`: List of arguments (operands) to the join operator clause
+- `inputcollid`: Collation ID for string comparison operations in the join condition
+- `jointype`: Type of join operation (JoinType enum: INNER, LEFT, RIGHT, FULL, etc.)
+- `*sjinfo`: SpecialJoinInfo structure containing additional context for outer joins
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_oprjoin](../g/get_oprjoin.md) (retrieves operator's join selectivity function)

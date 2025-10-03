@@ -17,11 +17,10 @@ CopyStreamReceive(PGconn *conn, long timeout, pgsocket stop_socket,
 This function is responsible for receiving streaming replication data from a PostgreSQL server via the COPY protocol. It implements a non-blocking receive mechanism that attempts to get data immediately, and if none is available, waits for data up to the specified timeout using CopyStreamPoll. The function manages the message buffer lifecycle, automatically freeing previous buffers and setting up new ones. It distinguishes between different types of completion states: normal timeout, server-initiated end of stream, and actual errors. The function is designed to be called repeatedly in a loop to continuously receive streaming data.
 
 ## Parameters / Member Variables
-- : PostgreSQL connection object for the streaming replication connection
-- : Maximum time to wait for data in milliseconds
-- : Optional socket that can interrupt the wait operation
-- : Pointer to a char pointer that will be set to point to the received message buffer
-
+- `*conn`: PostgreSQL connection object for the streaming replication connection
+- `timeout`: Maximum time to wait for data in milliseconds
+- `stop_socket`: Optional socket that can interrupt the wait operation
+- `**buffer`: Pointer to a char pointer that will be set to point to the received message buffer
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQfreemem](../P/PQfreemem.md)

@@ -18,9 +18,8 @@ This function compares the absolute values of two NumericVar structures, ignorin
 The function is part of PostgreSQL's lowest-level numeric operations that work on the variable level with unsigned arithmetic. It provides a clean interface for absolute value comparisons while the actual comparison logic is implemented in the more general cmp_abs_common() function.
 
 ## Parameters / Member Variables
-- : Pointer to the first NumericVar to compare
-- : Pointer to the second NumericVar to compare
-
+- `*var1`: Pointer to the first NumericVar to compare
+- `*var2`: Pointer to the second NumericVar to compare
 ## Dependencies
 - Functions called/Symbols referenced:
   - [cmp_abs_common](cmp_abs_common.md) (performs the actual comparison using digit arrays)

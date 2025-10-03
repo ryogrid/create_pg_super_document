@@ -20,13 +20,12 @@ This function serves as a simplified tokenizer for plain text tsquery input. Unl
 The function reads the entire remaining content of the input buffer, sets the appropriate output parameters, and advances the parser state. It always returns either PT_VAL (if there's content) or PT_END (if the buffer is empty), making it suitable for simple text-based queries.
 
 ## Parameters / Member Variables
-- : TSQueryParserState containing the current parsing context and input buffer
-- : Output parameter for operator type (set but not used in plain text parsing)
-- : Output parameter receiving the length of the extracted token
-- : Output parameter receiving a pointer to the token string
-- : Output parameter for token weight (always set to 0 for plain text)
-- : Output parameter for prefix matching flag (always set to false)
-
+- `state`: TSQueryParserState containing the current parsing context and input buffer
+- `*operator`: Output parameter for operator type (set but not used in plain text parsing)
+- `*lenval`: Output parameter receiving the length of the extracted token
+- `**strval`: Output parameter receiving a pointer to the token string
+- `*weight`: Output parameter for token weight (always set to 0 for plain text)
+- `*prefix`: Output parameter for prefix matching flag (always set to false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - strlen (standard C library function)

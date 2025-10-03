@@ -18,10 +18,9 @@ This function creates a new tuplestore optimized for heap tuples, which are the 
 The function configures execution flags based on the randomAccess parameter to determine scanning capabilities, then calls tuplestore_begin_common for basic initialization. After common setup, it installs heap-specific function pointers for tuple operations (copy, write, read), completing the tuplestore configuration for heap tuple handling.
 
 ## Parameters / Member Variables
-- : Boolean flag enabling both forward and backward tuple access when true; forward-only when false
-- : Boolean flag indicating whether the tuplestore should persist beyond the current transaction boundary
-- : Maximum memory allocation in kilobytes before spilling tuples to disk storage
-
+- `randomAccess`: Boolean flag enabling both forward and backward tuple access when true; forward-only when false
+- `interXact`: Boolean flag indicating whether the tuplestore should persist beyond the current transaction boundary
+- `maxKBytes`: Maximum memory allocation in kilobytes before spilling tuples to disk storage
 ## Dependencies
 - Functions called/Symbols referenced:
   - [tuplestore_begin_common](tuplestore_begin_common.md) (common initialization)

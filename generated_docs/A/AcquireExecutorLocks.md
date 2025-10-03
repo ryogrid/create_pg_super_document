@@ -16,9 +16,8 @@ AcquireExecutorLocks(List *stmt_list, bool acquire)
 This function is responsible for managing locks on relations that are referenced in a cached execution plan. It traverses through a list of planned statements and either acquires or releases appropriate locks on all relations mentioned in the range table entries (RTEs) of each statement. For utility statements that contain embedded queries (like EXPLAIN), it delegates to ScanQueryForLocks to handle the locking. The function operates at the plan execution level, ensuring that all necessary table locks are held before plan execution begins or properly released afterward.
 
 ## Parameters / Member Variables
-- : List of PlannedStmt structures representing the cached plan statements
-- : Boolean flag indicating whether to acquire locks (true) or release them (false)
-
+- `*stmt_list`: List of PlannedStmt structures representing the cached plan statements
+- `acquire`: Boolean flag indicating whether to acquire locks (true) or release them (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PlannedStmt](../P/PlannedStmt.md)

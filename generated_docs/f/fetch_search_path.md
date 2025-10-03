@@ -18,8 +18,7 @@ This function returns the current active search path as a dynamically allocated 
 A notable side effect is that this function may trigger a CommandCounterIncrement operation if it needs to create or clean out the temporary namespace to ensure the returned path accurately reflects the actual default creation namespace.
 
 ## Parameters / Member Variables
-- : Boolean flag controlling whether implicitly-prepended namespaces are included in the returned list
-
+- `includeImplicit`: Boolean flag controlling whether implicitly-prepended namespaces are included in the returned list
 ## Dependencies
 - Functions called/Symbols referenced:
   - [recomputeNamespacePath](../r/recomputeNamespacePath.md)

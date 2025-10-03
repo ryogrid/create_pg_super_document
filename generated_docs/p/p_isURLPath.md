@@ -20,8 +20,7 @@ This function is essential for URL parsing within text search, specifically for 
 The function creates a new parser position state and sets it to TPS_InURLPathFirst to properly initialize the URL path parsing context. It includes stack depth checking before recursing to prevent stack overflow in complex parsing scenarios.
 
 ## Parameters / Member Variables
-- : Pointer to a TParser structure containing the current parser state
-
+- `*prs`: Pointer to a TParser structure containing the current parser state
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TParser](../T/TParser.md) (structure type)

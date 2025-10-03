@@ -16,10 +16,9 @@ tuplesort_putbrintuple(Tuplesortstate *state, BrinTuple *tuple, Size size)
 This function is a specialized variant of tuple insertion for BRIN (Block Range Index) tuples during the sorting process. It allocates memory for a BrinSortTuple structure, copies the provided BRIN tuple data, and sets up the sorting key (block number) for comparison purposes. The function handles memory management by switching to the appropriate memory context and calculating the correct tuple length based on whether bump contexts are being used.
 
 ## Parameters / Member Variables
-- : Tuplesortstate pointer representing the current sorting operation state
-- : BrinTuple pointer to the BRIN tuple to be inserted into the sort
-- : Size of the BRIN tuple data in bytes
-
+- `*state`: Tuplesortstate pointer representing the current sorting operation state
+- `*tuple`: BrinTuple pointer to the BRIN tuple to be inserted into the sort
+- `size`: Size of the BRIN tuple data in bytes
 ## Dependencies
 - Functions called/Symbols referenced:
   - TuplesortstateGetPublic

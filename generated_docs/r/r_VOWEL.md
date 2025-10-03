@@ -17,8 +17,7 @@ static int r_VOWEL(struct SN_env * z)
 This function checks if the character at the current position in the stemmer environment is a vowel. It uses the Snowball framework's  function to test against the  character grouping, which defines Indonesian vowels in the ASCII range 97-117 (covering 'a' through 'u'). The function is used as a validation condition in the Indonesian stemming algorithm to ensure morphological transformations are applied correctly based on vowel/consonant patterns.
 
 ## Parameters / Member Variables
-- : Pointer to SN_env structure containing the stemmer environment and current position
-
+- `*z`: Pointer to SN_env structure containing the stemmer environment and current position
 ## Dependencies
 - Functions called/Symbols referenced:
   - [in_grouping](../i/in_grouping.md) (Snowball framework function for character group testing)

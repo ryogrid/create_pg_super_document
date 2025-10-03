@@ -18,9 +18,8 @@ This function provides essential synchronization for shared dependency tracking 
 The locking prevents the object from being dropped while a dependency is being recorded, while the existence check ensures that the object wasn't dropped between the time the dependency operation started and when the lock was acquired. If the object is found to be missing, the function raises an error and does not return.
 
 ## Parameters / Member Variables
-- : OID of the catalog table containing the object (AuthIdRelationId, TableSpaceRelationId, or DatabaseRelationId)
-- : OID of the shared object to lock and verify
-
+- `classId`: OID of the catalog table containing the object (AuthIdRelationId, TableSpaceRelationId, or DatabaseRelationId)
+- `objectId`: OID of the shared object to lock and verify
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LockSharedObject](../L/LockSharedObject.md)

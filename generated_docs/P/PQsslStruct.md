@@ -20,9 +20,8 @@ Currently, the function only recognizes the string "OpenSSL" as a valid structur
 The function is designed to be SSL implementation-agnostic, providing a way for applications to query for specific SSL structures without needing to know the underlying SSL library details at compile time.
 
 ## Parameters / Member Variables
-- : Pointer to the PostgreSQL connection object (PGconn structure)
-- : String identifying the requested SSL structure type (currently only "OpenSSL" is supported)
-
+- `*conn`: Pointer to the PostgreSQL connection object (PGconn structure)
+- `*struct_name`: String identifying the requested SSL structure type (currently only "OpenSSL" is supported)
 ## Dependencies
 - Functions called/Symbols referenced:
   - strcmp (standard C library function for string comparison)

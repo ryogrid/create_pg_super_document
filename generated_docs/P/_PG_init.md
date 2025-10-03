@@ -20,7 +20,6 @@ This module provides libpq-specific implementations for PostgreSQL's WAL receive
 The function includes a safety check to prevent the module from being loaded multiple times, which would indicate a configuration error or programming bug.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

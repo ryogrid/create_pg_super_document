@@ -17,11 +17,10 @@ create_ctescan_path(PlannerInfo *root, RelOptInfo *rel,
 This function constructs a Path node specifically for CTE scan operations. It initializes all the necessary fields of the Path structure with CTE-specific values, including setting the path type to T_CteScan and computing the associated costs. The function handles non-self-reference CTEs, which are CTEs that don't recursively reference themselves. The created path represents one possible execution strategy that the query planner can choose from when determining the optimal query execution plan.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global information about the query being planned
-- : RelOptInfo structure representing the CTE relation being scanned
-- : List of PathKey structures specifying the desired output ordering
-- : Set of relation IDs that must be available as outer relations for this path
-
+- `*root`: PlannerInfo structure containing global information about the query being planned
+- `*rel`: RelOptInfo structure representing the CTE relation being scanned
+- `*pathkeys`: List of PathKey structures specifying the desired output ordering
+- `required_outer`: Set of relation IDs that must be available as outer relations for this path
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode

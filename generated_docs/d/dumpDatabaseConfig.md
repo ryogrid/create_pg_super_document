@@ -17,11 +17,10 @@ dumpDatabaseConfig(Archive *AH, PQExpBuffer outbuf,
 This function retrieves configuration settings that have been set at the database level or for specific role-database combinations using ALTER DATABASE SET and ALTER ROLE IN DATABASE SET commands. It queries the pg_db_role_setting system catalog to find these settings and formats them as appropriate ALTER commands for restoration. The function handles two types of configurations: database-wide settings (where setrole = 0) and role-specific settings within the database context. The generated ALTER commands are appended to the provided output buffer for inclusion in the dump.
 
 ## Parameters / Member Variables
-- : Pointer to Archive structure providing database connection and context
-- : PQExpBuffer where the generated ALTER configuration commands will be appended
-- : Name of the database for which to collect configuration settings
-- : OID of the database to query for configuration settings
-
+- `*AH`: Pointer to Archive structure providing database connection and context
+- `outbuf`: PQExpBuffer where the generated ALTER configuration commands will be appended
+- `*dbname`: Name of the database for which to collect configuration settings
+- `dboid`: OID of the database to query for configuration settings
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetConnection](../G/GetConnection.md)

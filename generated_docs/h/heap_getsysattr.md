@@ -25,11 +25,10 @@ The function handles six different system attributes:
 The function is designed as a support routine for heap_getattr() and is only called after it has been determined that the requested attribute number refers to a system attribute.
 
 ## Parameters / Member Variables
-- : HeapTuple containing the tuple data and metadata
-- : System attribute number (negative values identifying specific system attributes)
-- : TupleDesc structure (may be unused for system attributes but included for interface consistency)
-- : Output parameter set to indicate if the attribute is null (always false for system attributes)
-
+- `tup`: HeapTuple containing the tuple data and metadata
+- `attnum`: System attribute number (negative values identifying specific system attributes)
+- `tupleDesc`: TupleDesc structure (may be unused for system attributes but included for interface consistency)
+- `*isnull`: Output parameter set to indicate if the attribute is null (always false for system attributes)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PointerGetDatum](../P/PointerGetDatum.md) (convert pointer to Datum for ctid)

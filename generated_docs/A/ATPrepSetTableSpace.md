@@ -18,11 +18,10 @@ This function serves as the preparation phase for moving a table to a different 
 The function follows PostgreSQL's multi-phase ALTER TABLE design where preparation functions validate and collect information, while execution functions perform the actual changes. This separation allows for proper dependency handling and transaction safety.
 
 ## Parameters / Member Variables
-- : Pointer to AlteredTableInfo structure that accumulates information about table alterations during the ALTER TABLE command
-- : The relation (table) being altered
-- : Name of the target tablespace to move the table to
-- : Lock mode to be used (though not directly used in this function)
-
+- `*tab`: Pointer to AlteredTableInfo structure that accumulates information about table alterations during the ALTER TABLE command
+- `rel`: The relation (table) being altered
+- `*tablespacename`: Name of the target tablespace to move the table to
+- `lockmode`: Lock mode to be used (though not directly used in this function)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_tablespace_oid](../g/get_tablespace_oid.md): Resolves tablespace name to OID

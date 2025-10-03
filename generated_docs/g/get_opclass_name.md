@@ -19,10 +19,9 @@ This function retrieves the name of an operator class from the system catalog an
 The function performs a system catalog lookup to retrieve operator class information, checks if the operator class is the default for the given data type, and formats the output with appropriate schema qualification when necessary.
 
 ## Parameters / Member Variables
-- : The OID of the operator class to look up
-- : The OID of the actual data type; if InvalidOid, suppression logic is bypassed
-- : StringInfo buffer where the operator class name will be appended (after a space)
-
+- `opclass`: The OID of the operator class to look up
+- `actual_datatype`: The OID of the actual data type; if InvalidOid, suppression logic is bypassed
+- `buf`: StringInfo buffer where the operator class name will be appended (after a space)
 ## Dependencies
 - Functions called/Symbols referenced:
   - Form_pg_opclass (system catalog form)

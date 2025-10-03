@@ -18,8 +18,7 @@ pg_mblen(const char *mbstr)
 The function delegates to the appropriate encoding-specific implementation through the function pointer , which ensures that the correct multibyte handling logic is applied based on the database's character encoding (UTF-8, EUC-JP, etc.).
 
 ## Parameters / Member Variables
-- : Pointer to the start of a multibyte string. The function examines the character at this position to determine its byte length.
-
+- `*mbstr`: Pointer to the start of a multibyte string. The function examines the character at this position to determine its byte length.
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (global encoding function table)

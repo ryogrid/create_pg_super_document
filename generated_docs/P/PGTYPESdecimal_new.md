@@ -18,6 +18,7 @@ The `PGTYPESdecimal_new` function serves as the primary constructor for creating
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pgtypes_alloc](../p/pgtypes_alloc.md) (allocates memory for the decimal structure)

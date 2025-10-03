@@ -18,8 +18,7 @@ regexp_substr_no_subexpr(PG_FUNCTION_ARGS)
 When the subexpression parameter is not provided,  defaults to returning the full match (subexpression 0) rather than a specific captured group. This wrapper enables SQL queries to use the simpler function signature for common cases where only the complete match is needed, while still providing access to the full pattern matching capabilities.
 
 ## Parameters / Member Variables
-- : Function call information containing all passed arguments, forwarded directly to 
-
+- `PG_FUNCTION_ARGS`: Function call information containing all passed arguments, forwarded directly to
 ## Dependencies
 - Functions called/Symbols referenced:
   - 

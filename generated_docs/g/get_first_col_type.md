@@ -19,11 +19,10 @@ This function retrieves the essential type information (datatype, type modifier,
 The function handles edge cases such as EXISTS queries where the target list might be empty, defaulting to VOID type in such scenarios. It also skips resjunk entries when determining the column type.
 
 ## Parameters / Member Variables
-- : Input plan whose first column type information is to be extracted
-- : Output parameter to store the OID of the column's datatype
-- : Output parameter to store the type modifier of the column
-- : Output parameter to store the collation OID of the column
-
+- `*plan`: Input plan whose first column type information is to be extracted
+- `*coltype`: Output parameter to store the OID of the column's datatype
+- `*coltypmod`: Output parameter to store the type modifier of the column
+- `*colcollation`: Output parameter to store the collation OID of the column
 ## Dependencies
 - Functions called/Symbols referenced:
   - linitial_node

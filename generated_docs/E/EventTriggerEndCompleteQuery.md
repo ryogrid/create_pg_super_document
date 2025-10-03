@@ -25,6 +25,7 @@ The function is designed to be safe for use in error handling contexts (PG_CATCH
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContextDelete](../M/MemoryContextDelete.md) (bulk memory cleanup)

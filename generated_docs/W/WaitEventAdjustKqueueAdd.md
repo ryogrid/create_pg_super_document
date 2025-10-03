@@ -17,11 +17,10 @@ WaitEventAdjustKqueueAdd(struct kevent *k_ev, int filter, int action,
 This function serves as a helper routine for the kqueue-based event waiting mechanism in PostgreSQL. It initializes a kevent structure with the necessary parameters to add or modify event monitoring for a specific file descriptor. The function sets up the kevent with the file descriptor from the WaitEvent, applies the specified filter and action flags, clears additional flags and data fields, and establishes the association between the kevent and the WaitEvent structure through the AccessWaitEvent macro.
 
 ## Parameters / Member Variables
-- : Pointer to the kevent structure to be configured
-- : The kqueue filter type to be applied (e.g., EVFILT_READ, EVFILT_WRITE)
-- : Action flags for the kevent operation (e.g., EV_ADD, EV_DELETE)
-- : Pointer to the WaitEvent structure containing the file descriptor and event information
-
+- `*k_ev`: Pointer to the kevent structure to be configured
+- `filter`: The kqueue filter type to be applied (e.g., EVFILT_READ, EVFILT_WRITE)
+- `action`: Action flags for the kevent operation (e.g., EV_ADD, EV_DELETE)
+- `*event`: Pointer to the WaitEvent structure containing the file descriptor and event information
 ## Dependencies
 - Functions called/Symbols referenced:
   - AccessWaitEvent (macro for accessing WaitEvent from kevent)

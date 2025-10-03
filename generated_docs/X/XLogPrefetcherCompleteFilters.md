@@ -20,9 +20,8 @@ The function operates on the principle that once a specific LSN has been replaye
 The filter queue is organized with the most recently added filters at the head and older filters at the tail, allowing efficient processing of expired filters by examining from the tail. The function processes filters until it encounters one that hasn't expired yet, at which point all remaining filters in the queue are still active.
 
 ## Parameters / Member Variables
-- : Pointer to the XLogPrefetcher structure containing the filter infrastructure
-- : Current LSN being replayed, used to determine which filters have expired
-
+- `*prefetcher`: Pointer to the XLogPrefetcher structure containing the filter infrastructure
+- `replaying_lsn`: Current LSN being replayed, used to determine which filters have expired
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Check if filter queue has any entries

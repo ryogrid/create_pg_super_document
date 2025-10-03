@@ -16,8 +16,7 @@ LogicalRepApplyLoop(XLogRecPtr last_received)
 This function implements the core message processing loop for a logical replication apply worker. It continuously receives messages from the publisher via the WAL receiver connection, processes different message types ('w' for WAL data, 'k' for keepalive), applies changes to the local database, and sends feedback to the publisher. The function manages memory contexts, handles timeouts, processes configuration reloads, and maintains replication statistics. It operates in an infinite loop until the stream ends, handling both streamed and non-streamed transactions while managing error contexts and ensuring proper cleanup.
 
 ## Parameters / Member Variables
-- : The LSN (Log Sequence Number) of the last successfully received and processed message from the publisher
-
+- `last_received`: The LSN (Log Sequence Number) of the last successfully received and processed message from the publisher
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)

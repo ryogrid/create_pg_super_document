@@ -24,11 +24,10 @@ The function performs these key operations:
 6. Returns an ObjectAddress pointing to the modified column
 
 ## Parameters / Member Variables
-- : The Relation structure representing the table being altered
-- : The name of the column whose compression method is being set
-- : A Node containing the string value of the compression method name
-- : The lock mode to use when accessing related objects
-
+- `rel`: The Relation structure representing the table being altered
+- `*column`: The name of the column whose compression method is being set
+- `*newValue`: A Node containing the string value of the compression method name
+- `lockmode`: The lock mode to use when accessing related objects
 ## Dependencies
 - Functions called/Symbols referenced:
   - strVal

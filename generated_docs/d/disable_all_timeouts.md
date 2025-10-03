@@ -18,8 +18,7 @@ This function provides a comprehensive way to shut down the timeout system in Po
 The function is designed with performance considerations in mind - it deliberately leaves the timer interrupt enabled in common usage patterns to avoid the overhead of repeatedly enabling/disabling it when timeouts are likely to be re-established shortly afterward.
 
 ## Parameters / Member Variables
-- : Boolean flag that controls whether timeout indicator flags should be preserved (true) or reset to false (false)
-
+- `keep_indicators`: Boolean flag that controls whether timeout indicator flags should be preserved (true) or reset to false (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - disable_alarm (disables the SIGALRM signal handler)

@@ -18,10 +18,9 @@ This function handles the dynamic allocation of SpGistSearchItem structures, imp
 For non-NULL items with distance-based ordering, the function allocates additional space for the distances array and copies the provided distance values. This design optimizes memory usage by avoiding unnecessary distance array allocation for NULL items or scans without ORDER BY clauses.
 
 ## Parameters / Member Variables
-- : SpGistScanOpaque structure containing scan context, specifically the numberOfNonNullOrderBys field used for sizing calculations
-- : Boolean flag indicating whether this search item represents a NULL value (affects memory allocation size)
-- : Pointer to array of double values representing distances from ORDER BY clauses (may be NULL)
-
+- `so`: SpGistScanOpaque structure containing scan context, specifically the numberOfNonNullOrderBys field used for sizing calculations
+- `isnull`: Boolean flag indicating whether this search item represents a NULL value (affects memory allocation size)
+- `*distances`: Pointer to array of double values representing distances from ORDER BY clauses (may be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md) (PostgreSQL memory allocation function)

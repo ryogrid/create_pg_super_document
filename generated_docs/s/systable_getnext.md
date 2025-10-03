@@ -19,8 +19,7 @@ For index scans, it uses index_getnext_slot() to fetch the next tuple that match
 The function includes safety checks for lossy index conditions, which are not currently supported for system catalog scans but could be implemented if needed.
 
 ## Parameters / Member Variables
-- : A SysScanDesc structure containing the scan state, including pointers to the index relation (if any), scan descriptors, and tuple slots
-
+- `sysscan`: A SysScanDesc structure containing the scan state, including pointers to the index relation (if any), scan descriptors, and tuple slots
 ## Dependencies
 - Functions called/Symbols referenced:
   - [index_getnext_slot](../i/index_getnext_slot.md) (for index-based scans)

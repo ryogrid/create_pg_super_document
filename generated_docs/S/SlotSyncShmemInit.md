@@ -19,7 +19,6 @@ When creating a new shared memory segment, the function initializes all fields t
 The shared memory structure contains critical coordination information including the slot sync worker's process ID, synchronization flags, timing information, and mutual exclusion primitives needed for safe concurrent access.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

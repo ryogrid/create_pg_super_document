@@ -16,10 +16,9 @@ jspInitByBuffer(JsonPathItem *v, char *base, int32 pos)
 This function is the core initialization routine for JsonPathItem structures, responsible for parsing the binary representation of JSON path nodes from a buffer. It reads the node type, aligns the position for proper data alignment, reads the next position offset, and then processes type-specific data based on a comprehensive switch statement. The function handles all JSON path item types including literals, operators, functions, and complex constructs like arrays and regex patterns. Each node type has specific data layout requirements that this function properly interprets and loads into the JsonPathItem structure.
 
 ## Parameters / Member Variables
-- : Pointer to the JsonPathItem structure to be initialized with the parsed node data
-- : Pointer to the beginning of the buffer containing the JSON path binary data
-- : Starting position (offset) within the buffer where the node data begins
-
+- `*v`: Pointer to the JsonPathItem structure to be initialized with the parsed node data
+- `*base`: Pointer to the beginning of the buffer containing the JSON path binary data
+- `pos`: Starting position (offset) within the buffer where the node data begins
 ## Dependencies
 - Functions called/Symbols referenced:
   - JsonPathItem (struct type)

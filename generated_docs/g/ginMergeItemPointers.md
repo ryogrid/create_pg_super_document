@@ -24,12 +24,11 @@ This function implements an optimized merge algorithm for combining two pre-sort
 The function automatically detects duplicates during the merge process and ensures each unique ItemPointer appears only once in the result. The output is always a properly sorted array suitable for further GIN index operations.
 
 ## Parameters / Member Variables
-- : First sorted array of ItemPointers to merge
-- : Number of elements in array 'a'
-- : Second sorted array of ItemPointers to merge  
-- : Number of elements in array 'b'
-- : Output parameter that receives the number of items in the merged result
-
+- `*a`: First sorted array of ItemPointers to merge
+- `na`: Number of elements in array 'a'
+- `*b`: Second sorted array of ItemPointers to merge
+- `nb`: Number of elements in array 'b'
+- `*nmerged`: Output parameter that receives the number of items in the merged result
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md) (memory allocation)

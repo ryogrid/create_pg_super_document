@@ -16,8 +16,7 @@ CreateEventTrigger(CreateEventTrigStmt *stmt)
 CreateEventTrigger is the main function responsible for creating event triggers in PostgreSQL. Event triggers are special triggers that fire on DDL events (like CREATE, ALTER, DROP commands), login events, or table rewrite operations across the entire database rather than on specific tables. The function performs comprehensive validation including superuser privilege checks, event name validation, filter condition parsing, tag validation, function signature verification, and prevents duplicate trigger names before inserting the new trigger into the system catalogs.
 
 ## Parameters / Member Variables
-- : A CreateEventTrigStmt structure containing all the information needed to create the event trigger, including trigger name, event name, function name, and filter conditions (WHEN clauses)
-
+- `*stmt`: A CreateEventTrigStmt structure containing all the information needed to create the event trigger, including trigger name, event name, function name, and filter conditions (WHEN clauses)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [superuser](../s/superuser.md)() - checks if current user has superuser privileges

@@ -18,9 +18,8 @@ This function is part of the TupleTableSlot implementation for minimal tuples in
 The function is specifically designed for minimal tuple table slots, which store tuples in a compact MinimalTuple format. This format is used for efficiency in certain execution contexts where the full HeapTuple overhead is not needed.
 
 ## Parameters / Member Variables
-- : Pointer to the TupleTableSlot containing the minimal tuple to be processed
-- : Number of attributes to extract from the tuple (1-based count)
-
+- `*slot`: Pointer to the TupleTableSlot containing the minimal tuple to be processed
+- `natts`: Number of attributes to extract from the tuple (1-based count)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MinimalTupleTableSlot](../M/MinimalTupleTableSlot.md) (type cast)

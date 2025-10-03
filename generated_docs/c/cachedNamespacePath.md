@@ -22,9 +22,8 @@ The function handles two main cached components:
 When object access hooks are present, the finalPath must be recomputed each time to ensure hook effects are properly applied, though this is still more efficient than full string reprocessing.
 
 ## Parameters / Member Variables
-- : The namespace search path string to resolve
-- : The OID of the role for which to resolve the search path
-
+- `*searchPath`: The namespace search path string to resolve
+- `roleid`: The OID of the role for which to resolve the search path
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchPathCacheEntry](../S/SearchPathCacheEntry.md) (struct type)

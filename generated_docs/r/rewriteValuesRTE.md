@@ -24,12 +24,11 @@ This function processes INSERT ... VALUES statements with multiple VALUES lists 
 The function performs optimization by first scanning for DEFAULT placeholders to avoid unnecessary processing if none exist.
 
 ## Parameters / Member Variables
-- : The INSERT query being rewritten
-- : The VALUES range table entry containing the VALUES lists
-- : Range table index of the VALUES RTE
-- : The target relation for the INSERT operation
-- : Bitmapset of column numbers that are no longer used in the targetlist
-
+- `*parsetree`: The INSERT query being rewritten
+- `*rte`: The VALUES range table entry containing the VALUES lists
+- `rti`: Range table index of the VALUES RTE
+- `target_relation`: The target relation for the INSERT operation
+- `*unused_cols`: Bitmapset of column numbers that are no longer used in the targetlist
 ## Dependencies
 - Functions called/Symbols referenced:
   - [searchForDefault](../s/searchForDefault.md)

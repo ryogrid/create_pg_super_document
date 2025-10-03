@@ -32,7 +32,6 @@ The function creates two mapping files:
 - **Local map**: Contains mappings for database-specific catalogs (stored in the database's default tablespace)
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

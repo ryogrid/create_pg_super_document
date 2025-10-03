@@ -16,9 +16,8 @@ assign_backtrace_functions(const char *newval, void *extra)
 This function serves as an assignment hook for the PostgreSQL GUC system, specifically for the  configuration parameter. When this parameter is modified through configuration changes, this function is called to update the internal  variable. The function takes the validated configuration value (passed via the  parameter after validation) and assigns it to the global  variable, which likely controls which functions should include backtrace information in error reporting.
 
 ## Parameters / Member Variables
-- : The new string value for the backtrace_functions parameter (not directly used in this implementation)
-- : A void pointer containing the validated and processed configuration data, cast from the result of the corresponding check hook
-
+- `*newval`: The new string value for the backtrace_functions parameter (not directly used in this implementation)
+- `*extra`: A void pointer containing the validated and processed configuration data, cast from the result of the corresponding check hook
 ## Dependencies
 - Functions called/Symbols referenced:
   - backtrace_function_list (global variable)

@@ -16,9 +16,8 @@ _hash_dropbuf(Relation rel, Buffer buf)
  is a specialized buffer release function that drops the pin (reference count) on a buffer without attempting to release any locks. This function is specifically designed for situations where the buffer is not locked but still has a reference count that needs to be decremented. It serves as a counterpart to , which releases both locks and pins, making it suitable for different buffer management scenarios in hash index operations.
 
 ## Parameters / Member Variables
-- : The relation (hash index) associated with the buffer (parameter present for interface consistency but not actively used)
-- : The buffer to be released, which must be currently pinned but not locked
-
+- `rel`: The relation (hash index) associated with the buffer (parameter present for interface consistency but not actively used)
+- `buf`: The buffer to be released, which must be currently pinned but not locked
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReleaseBuffer](../R/ReleaseBuffer.md) (core buffer management function for unpinning)

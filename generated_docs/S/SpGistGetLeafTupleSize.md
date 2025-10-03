@@ -27,10 +27,9 @@ This function computes the total space needed for a leaf tuple in an SP-GiST ind
 5. **Minimum size**: Guarantees the tuple is at least SGDTSIZE bytes to allow future replacement with dead tuples.
 
 ## Parameters / Member Variables
-- : TupleDesc structure describing the tuple's attribute schema
-- : Array of Datum values for each attribute
-- : Array of boolean flags indicating which attributes are null
-
+- `tupleDescriptor`: TupleDesc structure describing the tuple's attribute schema
+- `*datums`: Array of Datum values for each attribute
+- `*isnulls`: Array of boolean flags indicating which attributes are null
 ## Dependencies
 - Functions called/Symbols referenced:
   - [heap_compute_data_size](../h/heap_compute_data_size.md) (computes data storage requirements)

@@ -18,9 +18,8 @@ This function extends the functionality of  by not only removing a node from the
 The function decrements the list's count after performing the deletion, maintaining the counted list's integrity. It includes an assertion to ensure the list is not empty before attempting deletion.
 
 ## Parameters / Member Variables
-- : Pointer to the counted list head structure from which to remove the node
-- : Pointer to the list node to be removed and thoroughly cleaned
-
+- `*head`: Pointer to the counted list head structure from which to remove the node
+- `*node`: Pointer to the list node to be removed and thoroughly cleaned
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dlist_delete_from_thoroughly](dlist_delete_from_thoroughly.md)

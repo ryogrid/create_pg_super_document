@@ -19,10 +19,9 @@ This function provides the capability to retrieve only a portion of a large TOAS
 The function handles boundary conditions gracefully, adjusting slice parameters when they exceed the actual data size, and optimizes for cases where the requested slice length is zero. For compressed datums, it accounts for the additional space required by the compression metadata (va_tcinfo) stored as an int32 value at the beginning of the data.
 
 ## Parameters / Member Variables
-- : Pointer to a varlena structure containing the TOAST pointer that references the externally stored data
-- : Starting byte offset within the external datum from which to begin the slice (must be 0 for compressed datums)
-- : Number of bytes to retrieve from the external datum starting at sliceoffset
-
+- `*attr`: Pointer to a varlena structure containing the TOAST pointer that references the externally stored data
+- `sliceoffset`: Starting byte offset within the external datum from which to begin the slice (must be 0 for compressed datums)
+- `slicelength`: Number of bytes to retrieve from the external datum starting at sliceoffset
 ## Dependencies
 - Functions called/Symbols referenced:
   - VARATT_IS_EXTERNAL_ONDISK

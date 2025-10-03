@@ -18,10 +18,9 @@ This function is responsible for identifying and processing variable references 
 The function handles different types of range table entries (RTEs) including relations with table samples, subqueries, functions, table functions, and VALUES clauses. For each type, it uses the appropriate mechanism to extract variables at the correct nesting level, then processes these variables to ensure they reference the correct scope.
 
 ## Parameters / Member Variables
-- : The PlannerInfo structure containing global planning information
-- : The RelOptInfo structure for the base relation being processed
-- : The range table index of the relation being analyzed
-
+- `*root`: The PlannerInfo structure containing global planning information
+- `*brel`: The RelOptInfo structure for the base relation being processed
+- `rtindex`: The range table index of the relation being analyzed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pull_vars_of_level](../p/pull_vars_of_level.md)

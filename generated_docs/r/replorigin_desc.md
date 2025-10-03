@@ -23,9 +23,8 @@ The function examines the info byte of the WAL record to determine the type of r
 The output is appended to the provided StringInfo buffer, allowing for efficient string building without multiple memory allocations.
 
 ## Parameters / Member Variables
-- : StringInfo buffer where the formatted description will be appended
-- : XLogReaderState containing the WAL record to be described
-
+- `buf`: StringInfo buffer where the formatted description will be appended
+- `*record`: XLogReaderState containing the WAL record to be described
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData

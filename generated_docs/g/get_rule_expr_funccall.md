@@ -21,10 +21,9 @@ The function first uses  to determine if the expression will naturally appear as
 This mechanism ensures grammatical correctness when reconstructing SQL from internal parse tree representations, particularly in contexts like function arguments or table function calls where function-like syntax is mandatory.
 
 ## Parameters / Member Variables
-- : The parse tree node to convert to SQL text
-- : Deparse context containing output buffer, formatting options, and namespace information
-- : Boolean flag controlling whether implicit casts are displayed (set to false for the inner expression when wrapping in CAST)
-
+- `*node`: The parse tree node to convert to SQL text
+- `*context`: Deparse context containing output buffer, formatting options, and namespace information
+- `showimplicit`: Boolean flag controlling whether implicit casts are displayed (set to false for the inner expression when wrapping in CAST)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [looks_like_function](../l/looks_like_function.md)

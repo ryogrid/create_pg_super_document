@@ -22,7 +22,6 @@ The function initializes the IntegerSet with:
 - Inactive iterator state
 
 ## Parameters / Member Variables
-(No parameters - this function takes no arguments)
 
 ## Dependencies
 - Functions called/Symbols referenced:

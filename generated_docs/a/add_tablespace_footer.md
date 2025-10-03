@@ -21,11 +21,10 @@ The function performs a targeted query to pg_tablespace to retrieve the tablespa
 The function includes proper error handling and resource cleanup, ensuring that any database query failures don't affect the overall describe operation.
 
 ## Parameters / Member Variables
-- : Pointer to the printTableContent structure that manages the table formatting and footer information
-- : Character representing the relation kind (table, index, materialized view, etc.) to determine if tablespace information is applicable
-- : OID of the tablespace to describe. If 0 (default tablespace), no information is displayed
-- : Boolean flag controlling formatting - if true, adds tablespace info as a new footer line; if false, appends to the current footer
-
+- `cont`: Pointer to the printTableContent structure that manages the table formatting and footer information
+- `relkind`: Character representing the relation kind (table, index, materialized view, etc.) to determine if tablespace information is applicable
+- `tablespace`: OID of the tablespace to describe. If 0 (default tablespace), no information is displayed
+- `newline`: Boolean flag controlling formatting - if true, adds tablespace info as a new footer line; if false, appends to the current footer
 ## Dependencies
 - Functions called/Symbols referenced:
   - [initPQExpBuffer](../i/initPQExpBuffer.md): Initialize buffer for SQL query construction

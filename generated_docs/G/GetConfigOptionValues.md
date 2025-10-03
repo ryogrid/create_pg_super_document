@@ -23,9 +23,8 @@ The function performs type-specific handling to format values appropriately:
 - For all types: manages source file information based on user privileges
 
 ## Parameters / Member Variables
-- : Pointer to the generic configuration parameter structure containing the parameter's metadata and current values
-- : Output array of string pointers (17 elements) to be populated with formatted parameter information
-
+- `*conf`: Pointer to the generic configuration parameter structure containing the parameter's metadata and current values
+- `**values`: Output array of string pointers (17 elements) to be populated with formatted parameter information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ShowGUCOption](../S/ShowGUCOption.md)

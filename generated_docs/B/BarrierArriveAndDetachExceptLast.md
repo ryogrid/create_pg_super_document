@@ -22,8 +22,7 @@ The function's behavior is deterministic based on timing:
 This operation is atomic and does not involve waiting or condition variable signaling, making it more efficient than full barrier synchronization when only one participant needs to continue.
 
 ## Parameters / Member Variables
-- : Pointer to the Barrier structure to operate on
-
+- `*barrier`: Pointer to the Barrier structure to operate on
 ## Dependencies
 - Functions called/Symbols referenced:
   - SpinLockAcquire/SpinLockRelease

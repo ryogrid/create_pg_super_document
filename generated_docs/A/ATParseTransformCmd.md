@@ -22,15 +22,14 @@ The transformation process can produce three types of outputs: before-statements
 The function handles sophisticated scheduling logic, determining which pass each generated subcommand should be executed in based on its type and the current pass being processed. Some operations like index constraints and foreign key constraints must be scheduled into later passes to ensure proper dependency handling.
 
 ## Parameters / Member Variables
-- : Double pointer to the work queue list for managing cascading operations across related tables
-- : Pointer to AlteredTableInfo structure containing the table being altered and its scheduling information
-- : Relation pointer to the table being altered
-- : Pointer to the AlterTableCmd to be transformed
-- : Boolean indicating whether the command should recurse to child tables
-- : Lock mode to acquire during the operation
-- : Current execution pass in the multi-pass ALTER TABLE framework
-- : Pointer to AlterTableUtilityContext maintaining context across the ALTER TABLE operation
-
+- `**wqueue`: Double pointer to the work queue list for managing cascading operations across related tables
+- `*tab`: Pointer to AlteredTableInfo structure containing the table being altered and its scheduling information
+- `rel`: Relation pointer to the table being altered
+- `*cmd`: Pointer to the AlterTableCmd to be transformed
+- `recurse`: Boolean indicating whether the command should recurse to child tables
+- `lockmode`: Lock mode to acquire during the operation
+- `cur_pass`: Current execution pass in the multi-pass ALTER TABLE framework
+- `*context`: Pointer to AlterTableUtilityContext maintaining context across the ALTER TABLE operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode

@@ -20,9 +20,8 @@ The function modifies the typmod parameter in-place as it traverses the domain s
 The implementation uses a loop to handle nested domains efficiently, looking up each type in the system cache (pg_type) and checking if it's a domain type. If it is, the function follows the typbasetype reference and updates the typmod accordingly.
 
 ## Parameters / Member Variables
-- : Input type OID that may be a domain type
-- : Pointer to type modifier; updated in-place to reflect the base type's typmod
-
+- `typid`: Input type OID that may be a domain type
+- `*typmod`: Pointer to type modifier; updated in-place to reflect the base type's typmod
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup)

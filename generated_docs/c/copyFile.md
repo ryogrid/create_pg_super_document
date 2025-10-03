@@ -31,11 +31,10 @@ The  function is part of PostgreSQL's pg_upgrade utility and is responsible for 
 The function is designed to be robust and efficient, handling large database files while providing clear diagnostic information when failures occur.
 
 ## Parameters / Member Variables
-- : Source file path to copy from
-- : Destination file path to copy to  
-- : SQL schema name of the relation (used only for error messages)
-- : SQL relation name (used only for error messages)
-
+- `*src`: Source file path to copy from
+- `*dst`: Destination file path to copy to
+- `*schemaName`: SQL schema name of the relation (used only for error messages)
+- `*relName`: SQL relation name (used only for error messages)
 ## Dependencies
 - Functions called/Symbols referenced:
   - xdg-open - opens a file or URL in the user's preferred application

@@ -18,8 +18,7 @@ This function retrieves the tablespace OID for a specified relation from the sys
 It's important to note that InvalidOid can have two meanings: either the relation doesn't exist, or the relation is stored in the database's default tablespace. When a relation is created without specifying a tablespace, it uses the default tablespace, and the reltablespace field is set to InvalidOid (0).
 
 ## Parameters / Member Variables
-- : The OID of the relation whose tablespace OID is to be retrieved
-
+- `relid`: The OID of the relation whose tablespace OID is to be retrieved
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup)

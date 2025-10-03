@@ -26,9 +26,8 @@ The  function is responsible for dumping user-defined indexes in pg_dump. It gen
 The function follows PostgreSQL's dump architecture by creating both creation and deletion statements, then archiving them with appropriate metadata.
 
 ## Parameters / Member Variables
-- : Archive pointer containing dump options and output context
-- : IndxInfo structure containing index metadata including:
-
+- `*fout`: Archive pointer containing dump options and output context
+- `*indxinfo`: IndxInfo structure containing index metadata including:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [createPQExpBuffer](../c/createPQExpBuffer.md)

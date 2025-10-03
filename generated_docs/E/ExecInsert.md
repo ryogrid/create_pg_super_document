@@ -31,13 +31,12 @@ ExecInsert is the core function responsible for inserting tuples in PostgreSQL's
 The function supports batching for FDWs that can handle multiple rows efficiently. For ON CONFLICT scenarios, it uses speculative insertion to minimize rollback overhead when conflicts occur.
 
 ## Parameters / Member Variables
-- : ModifyTableContext containing execution state and plan information
-- : Information about the target relation for insertion  
-- : TupleTableSlot containing the tuple values to be inserted
-- : Whether the command tag counter should be incremented
-- : Output parameter returning the effectively inserted tuple
-- : Output parameter returning the relation where insertion occurred
-
+- `*context`: ModifyTableContext containing execution state and plan information
+- `*resultRelInfo`: Information about the target relation for insertion
+- `*slot`: TupleTableSlot containing the tuple values to be inserted
+- `canSetTag`: Whether the command tag counter should be incremented
+- `**inserted_tuple`: Output parameter returning the effectively inserted tuple
+- `**insert_destrel`: Output parameter returning the relation where insertion occurred
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecPrepareTupleRouting](ExecPrepareTupleRouting.md) (partition routing)

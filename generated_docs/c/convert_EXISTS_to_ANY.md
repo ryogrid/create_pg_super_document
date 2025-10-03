@@ -27,11 +27,10 @@ The conversion process:
 The function includes extensive validation to ensure the transformation is safe and beneficial, including checks for volatile functions, variable level constraints, and aggregate functions.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing the planning context
-- : The EXISTS subquery to be converted (must be a fresh copy and pre-simplified)
-- : Output parameter for the test expression to be used in the parent query
-- : Output parameter for the list of Param IDs created for the subquery outputs
-
+- `*root`: PlannerInfo structure containing the planning context
+- `*subselect`: The EXISTS subquery to be converted (must be a fresh copy and pre-simplified)
+- `**testexpr`: Output parameter for the test expression to be used in the parent query
+- `**paramIds`: Output parameter for the list of Param IDs created for the subquery outputs
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Checks for variable references at specific query nesting levels

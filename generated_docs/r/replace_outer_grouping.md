@@ -25,9 +25,8 @@ The function performs several key operations:
 The approach deliberately avoids de-duplication of outer aggregate references, creating a new parameter slot for each reference to maintain simplicity and correctness.
 
 ## Parameters / Member Variables
-- : PlannerInfo pointer representing the current query level's planning context
-- : GroupingFunc pointer to the grouping function expression that references an outer query level (must have agglevelsup > 0)
-
+- `*root`: PlannerInfo pointer representing the current query level's planning context
+- `*grp`: GroupingFunc pointer to the grouping function expression that references an outer query level (must have agglevelsup > 0)
 ## Dependencies
 - Functions called/Symbols referenced:
   - copyObject: Creates a deep copy of the GroupingFunc

@@ -20,8 +20,7 @@ The function helps with scenarios such as subquery pull-up operations, where an 
 Unlike most other functions in prepjointree.c, this function does not recurse on sub-queries, relying on other processing stages to invoke it at appropriate times.
 
 ## Parameters / Member Variables
-- : The Query structure whose jointree may need to be replaced if empty
-
+- `*parse`: The Query structure whose jointree may need to be replaced if empty
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (for RangeTblEntry, RangeTblRef)

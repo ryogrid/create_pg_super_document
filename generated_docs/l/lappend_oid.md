@@ -20,9 +20,8 @@ When the input list is NIL, the function creates a new OidList with a single OID
 This function is extensively used throughout PostgreSQL for managing collections of object identifiers, including relation OIDs, type OIDs, function OIDs, and other database object references.
 
 ## Parameters / Member Variables
-- : The OidList to append to, or NIL to create a new OID list
-- : The OID value to be appended to the list
-
+- `*list`: The OidList to append to, or NIL to create a new OID list
+- `datum`: The OID value to be appended to the list
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsOidList (assertion check for OID list type)

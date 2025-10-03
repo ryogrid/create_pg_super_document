@@ -18,6 +18,7 @@ InitQueryHashTable creates and configures the global hash table that stores prep
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hash_create](../h/hash_create.md) (creates new hash table)

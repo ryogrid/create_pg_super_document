@@ -19,12 +19,11 @@ This function is part of PostgreSQL's function manager (fmgr) system that provid
 The function creates a local FunctionCallInfoData structure with space for 3 arguments, initializes it with the provided function info and collation, sets all three argument values and their null indicators to false, then calls the actual function through FunctionCallInvoke.
 
 ## Parameters / Member Variables
-- : Pointer to FmgrInfo structure containing the previously-looked-up function information
-- : OID of the collation to be used during function execution
-- : The first Datum argument to pass to the function
-- : The second Datum argument to pass to the function
-- : The third Datum argument to pass to the function
-
+- `*flinfo`: Pointer to FmgrInfo structure containing the previously-looked-up function information
+- `collation`: OID of the collation to be used during function execution
+- `arg1`: The first Datum argument to pass to the function
+- `arg2`: The second Datum argument to pass to the function
+- `arg3`: The third Datum argument to pass to the function
 ## Dependencies
 - Functions called/Symbols referenced:
   - LOCAL_FCINFO (macro for creating local FunctionCallInfoData)

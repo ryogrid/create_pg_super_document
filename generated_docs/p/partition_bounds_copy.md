@@ -24,9 +24,8 @@ Key copying behaviors:
 - Copies interleaved partition bitmaps for list partitions
 
 ## Parameters / Member Variables
-- : Source PartitionBoundInfo structure to copy from
-- : PartitionKey containing partitioning metadata (data types, strategy, etc.)
-
+- `src`: Source PartitionBoundInfo structure to copy from
+- `key`: PartitionKey containing partitioning metadata (data types, strategy, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [datumCopy](../d/datumCopy.md)

@@ -22,13 +22,12 @@ The function handles several complex scenarios: it validates that analyzable chi
 Sampling is distributed proportionally based on each child's block count, ensuring that larger child tables contribute more samples. When child table schemas differ from the parent, the function converts tuples using column name matching to maintain compatibility.
 
 ## Parameters / Member Variables
-- : The parent relation of the inheritance tree
-- : Error reporting level for progress messages
-- : Caller-allocated array to store sampled tuples from all children
-- : Target total number of rows to sample across all children
-- : Output parameter for estimated total live rows across all children
-- : Output parameter for estimated total dead rows across all children
-
+- `onerel`: The parent relation of the inheritance tree
+- `elevel`: Error reporting level for progress messages
+- `*rows`: Caller-allocated array to store sampled tuples from all children
+- `targrows`: Target total number of rows to sample across all children
+- `*totalrows`: Output parameter for estimated total live rows across all children
+- `*totaldeadrows`: Output parameter for estimated total dead rows across all children
 ## Dependencies
 - Functions called/Symbols referenced:
   - [find_all_inheritors](../f/find_all_inheritors.md)

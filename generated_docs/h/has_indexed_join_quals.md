@@ -28,8 +28,7 @@ The function performs several checks:
 For BitmapHeapScan paths, only simple bitmap scans are accepted, not complex AND/OR combinations.
 
 ## Parameters / Member Variables
-- : NestPath representing the nested loop join path to analyze
-
+- `*path`: NestPath representing the nested loop join path to analyze
 ## Dependencies
 - Functions called/Symbols referenced:
   - [join_clause_is_movable_into](../j/join_clause_is_movable_into.md)

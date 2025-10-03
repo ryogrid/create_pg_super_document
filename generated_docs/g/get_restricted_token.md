@@ -25,7 +25,6 @@ This design allows PostgreSQL utilities (initdb, pg_resetwal, pg_rewind, etc.) t
 The function uses an environment variable flag to prevent infinite recursion during the re-execution process.
 
 ## Parameters / Member Variables
-None - This function takes no parameters and uses global environment state.
 
 ## Dependencies  
 - Functions called/Symbols referenced:

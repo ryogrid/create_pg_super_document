@@ -20,12 +20,11 @@ AlterPublicationTables is a static function that manages table membership in pub
 The function handles complex scenarios involving partition hierarchies, schema publications, and ensures that WHERE clauses and column lists are properly validated and transformed. It maintains referential integrity and performs appropriate cache invalidation.
 
 ## Parameters / Member Variables
-- : AlterPublicationStmt containing the alteration command details and action type
-- : HeapTuple representing the publication record being modified
-- : List of tables to be processed (can be NULL for SET operations that remove all tables)
-- : Original SQL command string used for WHERE clause transformation
-- : Boolean indicating if this is related to schema-based publications
-
+- `*stmt`: AlterPublicationStmt containing the alteration command details and action type
+- `tup`: HeapTuple representing the publication record being modified
+- `*tables`: List of tables to be processed (can be NULL for SET operations that remove all tables)
+- `*queryString`: Original SQL command string used for WHERE clause transformation
+- `publish_schema`: Boolean indicating if this is related to schema-based publications
 ## Dependencies
 - Functions called/Symbols referenced:
   - [OpenTableList](../O/OpenTableList.md)/CloseTableList: Opens and closes table relations with appropriate locks

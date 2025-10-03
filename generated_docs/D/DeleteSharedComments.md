@@ -18,9 +18,8 @@ DeleteSharedComments removes comment entries from the pg_shdescription catalog t
 The function is typically called during the dropping of shared objects to clean up their associated comments as part of the cascade deletion process.
 
 ## Parameters / Member Variables
-- : Object identifier of the shared object whose comments should be deleted (database, tablespace, or role OID)
-- : OID of the system catalog containing the shared object (e.g., DatabaseRelationId, TableSpaceRelationId, AuthIdRelationId)
-
+- `oid`: Object identifier of the shared object whose comments should be deleted (database, tablespace, or role OID)
+- `classoid`: OID of the system catalog containing the shared object (e.g., DatabaseRelationId, TableSpaceRelationId, AuthIdRelationId)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md): Opens the pg_shdescription relation for modification

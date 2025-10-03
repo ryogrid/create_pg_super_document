@@ -18,8 +18,7 @@ This function provides a simple interface to obtain the version number of the Po
 The function returns the server version as an integer in the same format used throughout PostgreSQL, where the version number is encoded as a single integer (e.g., 90600 for version 9.6.0).
 
 ## Parameters / Member Variables
-- : Pointer to WalReceiverConn structure containing the established connection to the primary server
-
+- `*conn`: Pointer to WalReceiverConn structure containing the established connection to the primary server
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQserverVersion](../P/PQserverVersion.md)

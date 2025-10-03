@@ -22,9 +22,8 @@ The function works by:
 4. Ensuring that page1's highest transaction ID still precedes page2's lowest transaction ID
 
 ## Parameters / Member Variables
-- : The first serial page number to compare
-- : The second serial page number to compare
-
+- `page1`: The first serial page number to compare
+- `page2`: The second serial page number to compare
 ## Dependencies
 - Functions called/Symbols referenced:
   - 

@@ -20,13 +20,12 @@ The  function is a convenience wrapper around  that handles RangeVar-based objec
 The function builds a qualified name list by prepending the relation name, schema name (if specified), and catalog name (if specified) from the RangeVar to the provided object list. This creates a complete hierarchical name that can be processed by the main  function.
 
 ## Parameters / Member Variables
-- : The type of object being looked up (from ObjectType enumeration)
-- : RangeVar specifying the relation context (can be NULL)
-- : List of object name components (may be empty)
-- : Output parameter that receives an open relation if applicable
-- : The lock mode to apply to the target object
-- : If true, return invalid ObjectAddress instead of throwing error when object not found
-
+- `objtype`: The type of object being looked up (from ObjectType enumeration)
+- `*rel`: RangeVar specifying the relation context (can be NULL)
+- `*object`: List of object name components (may be empty)
+- `*relp`: Output parameter that receives an open relation if applicable
+- `lockmode`: The lock mode to apply to the target object
+- `missing_ok`: If true, return invalid ObjectAddress instead of throwing error when object not found
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lcons](../l/lcons.md) (for list construction)

@@ -23,9 +23,8 @@ The comparison is performed hierarchically:
 The function returns -1 if ba < bb, 0 if ba == bb, and 1 if ba > bb, following standard C comparison function conventions.
 
 ## Parameters / Member Variables
-- : Pointer to the first BufferTag to compare
-- : Pointer to the second BufferTag to compare
-
+- `*ba`: Pointer to the first BufferTag to compare
+- `*bb`: Pointer to the second BufferTag to compare
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BufTagGetRelFileLocator](../B/BufTagGetRelFileLocator.md)

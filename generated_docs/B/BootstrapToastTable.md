@@ -20,10 +20,9 @@ The function performs validation to ensure the target relation is either a regul
 The bootstrap context means this function operates in a controlled environment where catalog consistency is critical, hence the requirement for pre-specified OIDs and the stricter error handling compared to the runtime TOAST table creation functions.
 
 ## Parameters / Member Variables
-- : The name of the relation for which to create a TOAST table
-- : The pre-assigned OID for the TOAST table to be created
-- : The pre-assigned OID for the TOAST table's index
-
+- `*relName`: The name of the relation for which to create a TOAST table
+- `toastOid`: The pre-assigned OID for the TOAST table to be created
+- `toastIndexOid`: The pre-assigned OID for the TOAST table's index
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_openrv](../t/table_openrv.md)

@@ -24,8 +24,7 @@ The function performs several validation steps before sending the flush request:
 Unlike pipeline sync operations, flush requests do not create synchronization boundaries and do not affect the pipeline's command queue structure.
 
 ## Parameters / Member Variables
-- : PostgreSQL connection handle that must be in a valid connected state
-
+- `*conn`: PostgreSQL connection handle that must be in a valid connected state
 ## Dependencies
 - Functions called/Symbols referenced:
   - [libpq_append_conn_error](../l/libpq_append_conn_error.md)

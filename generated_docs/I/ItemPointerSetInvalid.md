@@ -18,8 +18,7 @@ ItemPointerSetInvalid initializes an ItemPointerData structure to represent an i
 This function is commonly used during tuple deletion, cleanup operations, error handling, and initialization scenarios where a definitive invalid state is required. The invalid state is consistent and recognizable throughout the PostgreSQL codebase, making it safe for comparisons and conditional logic.
 
 ## Parameters / Member Variables
-- : Pointer to the ItemPointerData structure to be invalidated (must be valid)
-
+- `*pointer`: Pointer to the ItemPointerData structure to be invalidated (must be valid)
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerIsValid (assertion validation)

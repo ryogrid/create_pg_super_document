@@ -27,8 +27,7 @@ This function is a core component of the Hungarian stemmer that processes case e
 The function operates by matching against these patterns using find_among_b, ensuring the suffix is in the morphologically active R1 region, removing the suffix, and then applying vowel ending adjustments.
 
 ## Parameters / Member Variables
-- : Pointer to the SN_env structure containing the word being processed, cursor positions, and string boundaries
-
+- `*z`: Pointer to the SN_env structure containing the word being processed, cursor positions, and string boundaries
 ## Dependencies
 - Functions called/Symbols referenced:
   - [find_among_b](../f/find_among_b.md) (searches for case suffixes from array a_4 containing 44 patterns)

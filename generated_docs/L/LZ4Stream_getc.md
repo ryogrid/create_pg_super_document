@@ -18,8 +18,7 @@ LZ4Stream_getc implements the standard C library fgetc() interface for LZ4 compr
 This function is part of PostgreSQL's compression infrastructure for pg_dump, allowing byte-by-byte reading from LZ4 compressed backup files. It maintains the familiar fgetc() semantics while handling the complexities of LZ4 decompression internally.
 
 ## Parameters / Member Variables
-- : Pointer to the CompressFileHandle structure containing the LZ4 state and file information
-
+- `*CFH`: Pointer to the CompressFileHandle structure containing the LZ4 state and file information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LZ4Stream_read_internal](LZ4Stream_read_internal.md) (performs the actual decompression work)

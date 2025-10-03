@@ -17,10 +17,9 @@ ConstraintExclusionType controls the behavior of constraint exclusion, a query o
 The enumeration defines three distinct modes of operation, ranging from completely disabled to fully enabled, with a middle option that targets only partition scenarios.
 
 ## Parameters / Member Variables
-- : Completely disables constraint exclusion optimization. No constraint-based table exclusion will occur.
-- : Enables constraint exclusion for all relations. The planner will attempt to use constraints to exclude tables/partitions whenever possible.
-- : Enables constraint exclusion only for partitioned table scenarios (appendrel members). This is the default setting as it provides the most benefit with the least overhead.
-
+- `*runion`: Completely disables constraint exclusion optimization. No constraint-based table exclusion will occur.
+- `*nrterm`: Enables constraint exclusion for all relations. The planner will attempt to use constraints to exclude tables/partitions whenever possible.
+- `*rterm`: Enables constraint exclusion only for partitioned table scenarios (appendrel members). This is the default setting as it provides the most benefit with the least overhead.
 ## Dependencies
 - Functions called/Symbols referenced:
   - Cost

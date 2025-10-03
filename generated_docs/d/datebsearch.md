@@ -18,10 +18,9 @@ datebsearch implements a binary search algorithm based on Knuth's Algorithm B (6
 The algorithm maintains two pointers (base and last) and iteratively narrows the search range by comparing the middle element with the search key. The search terminates when either a match is found or the search space is exhausted.
 
 ## Parameters / Member Variables
-- : The string token to search for in the date/time token array
-- : Pointer to the first element of the sorted datetkn array to search
-- : Number of elements in the array to search
-
+- `*key`: The string token to search for in the date/time token array
+- `*base`: Pointer to the first element of the sorted datetkn array to search
+- `nel`: Number of elements in the array to search
 ## Dependencies
 - Functions called/Symbols referenced:
   - datetkn (structure type for date/time tokens)

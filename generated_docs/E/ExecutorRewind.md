@@ -18,8 +18,7 @@ The  function provides the capability to reset a query execution to its initial 
 The function performs a rescan operation on the plan state, which recursively resets all plan nodes in the execution tree to their initial conditions. It operates within the per-query memory context and includes safety checks to ensure it's only used with SELECT operations, as rewinding UPDATE/INSERT/DELETE operations would not be semantically meaningful.
 
 ## Parameters / Member Variables
-- : Pointer to the QueryDesc structure containing the execution context and plan state to be rewound
-
+- `*queryDesc`: Pointer to the QueryDesc structure containing the execution context and plan state to be rewound
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)

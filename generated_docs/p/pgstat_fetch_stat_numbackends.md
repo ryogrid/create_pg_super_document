@@ -18,6 +18,7 @@ This is a support function for PostgreSQL's SQL-callable pgstat* functions that 
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pgstat_read_current_status](pgstat_read_current_status.md)

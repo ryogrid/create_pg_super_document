@@ -24,11 +24,10 @@ The  function provides a convenient way to calculate the total cost of evaluatin
 This function is designed for scan types that evaluate all qualifications "the hard way" during tuple retrieval, making it suitable for sequential scans and similar operations but not for index scans where the index machinery handles some qualifications.
 
 ## Parameters / Member Variables
-- : PlannerInfo context containing global planning information
-- : RelOptInfo structure for the base relation being scanned
-- : ParamPathInfo containing pushed-down join clauses (can be NULL)
-- : Output parameter receiving the total qualification evaluation costs
-
+- `*root`: PlannerInfo context containing global planning information
+- `*baserel`: RelOptInfo structure for the base relation being scanned
+- `*param_info`: ParamPathInfo containing pushed-down join clauses (can be NULL)
+- `*qpqual_cost`: Output parameter receiving the total qualification evaluation costs
 ## Dependencies
 - Functions called/Symbols referenced:
   - [cost_qual_eval](../c/cost_qual_eval.md)

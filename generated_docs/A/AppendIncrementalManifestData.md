@@ -23,10 +23,9 @@ The function implements a streaming parser approach where:
 - Memory management is handled by switching to the incremental backup's memory context
 
 ## Parameters / Member Variables
-- : IncrementalBackupInfo structure containing the incremental backup state and buffer
-- : Pointer to the manifest data chunk to append
-- : Length of the data chunk in bytes
-
+- `*ib`: IncrementalBackupInfo structure containing the incremental backup state and buffer
+- `*data`: Pointer to the manifest data chunk to append
+- `len`: Length of the data chunk in bytes
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)

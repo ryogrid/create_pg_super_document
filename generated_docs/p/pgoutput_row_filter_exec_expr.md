@@ -16,9 +16,8 @@ pgoutput_row_filter_exec_expr(ExprState *state, ExprContext *econtext)
 This function evaluates row filter expressions in the context of logical replication to determine if a particular row change should be transmitted to subscribers. It uses PostgreSQL's expression evaluation infrastructure to execute the compiled filter expression within the provided expression context. The function implements specific semantics for NULL handling: if the expression evaluates to NULL, it is treated as false, meaning the change will not be replicated. This follows SQL's three-valued logic where NULL in a boolean context typically means 'unknown' but is treated as false for filtering purposes.
 
 ## Parameters / Member Variables
-- : ExprState pointer representing the compiled expression to evaluate
-- : ExprContext pointer providing the execution context including tuple data and variable values
-
+- `*state`: ExprState pointer representing the compiled expression to evaluate
+- `*econtext`: ExprContext pointer providing the execution context including tuple data and variable values
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecEvalExprSwitchContext](../E/ExecEvalExprSwitchContext.md)

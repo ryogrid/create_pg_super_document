@@ -20,8 +20,7 @@ This function is essential for table synchronization operations where data needs
 The function uses PostgreSQL's list manipulation functions to build a list of  nodes, where each node contains the name of one column from the remote relation.
 
 ## Parameters / Member Variables
-- : Pointer to a LogicalRepRelMapEntry structure containing the logical replication relation mapping information, including the remote relation details with column names and count
-
+- `*rel`: Pointer to a LogicalRepRelMapEntry structure containing the logical replication relation mapping information, including the remote relation details with column names and count
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lappend](../l/lappend.md) (list manipulation function)

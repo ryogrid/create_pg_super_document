@@ -25,15 +25,14 @@ The function supports multiple operational modes through its parameters: it can 
 Return values indicate the outcome: +1 for successful application, 0 for validation errors (when elevel < ERROR), and -1 for cases where validation passed but the value wasn't applied due to operational constraints.
 
 ## Parameters / Member Variables
-- : The configuration parameter name to set
-- : The new value as a string (NULL means set to default value)
-- : The GUC context level (e.g., PGC_SUSET, PGC_USERSET) determining access requirements
-- : Source of the configuration change (e.g., PGC_S_FILE, PGC_S_USER, PGC_S_INTERACTIVE)
-- : Whether to set globally, locally to current transaction, or just for function duration
-- : If false, perform validation only without actually changing the value
-- : Error reporting level to use, or 0 for automatic choice
-- : True when loading settings from another process (affects error handling)
-
+- `*name`: The configuration parameter name to set
+- `*value`: The new value as a string (NULL means set to default value)
+- `context`: The GUC context level (e.g., PGC_SUSET, PGC_USERSET) determining access requirements
+- `source`: Source of the configuration change (e.g., PGC_S_FILE, PGC_S_USER, PGC_S_INTERACTIVE)
+- `action`: Whether to set globally, locally to current transaction, or just for function duration
+- `changeVal`: If false, perform validation only without actually changing the value
+- `elevel`: Error reporting level to use, or 0 for automatic choice
+- `is_reload`: True when loading settings from another process (affects error handling)
 ## Dependencies
 - Functions called/Symbols referenced:
   - GucContext, GucSource, GucAction (enum types)

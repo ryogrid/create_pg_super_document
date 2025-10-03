@@ -25,9 +25,8 @@ The function performs the following operations:
 The registered provider becomes available for use with SECURITY LABEL SQL commands and related security label operations throughout the database cluster.
 
 ## Parameters / Member Variables
-- : String identifying the security label provider (e.g., 'selinux', 'dummy')
-- : Function pointer of type check_object_relabel_type that will be called to validate security label operations for this provider
-
+- `*provider_name`: String identifying the security label provider (e.g., 'selinux', 'dummy')
+- `hook`: Function pointer of type check_object_relabel_type that will be called to validate security label operations for this provider
 ## Dependencies
 - Functions called/Symbols referenced:
   - LabelProvider (struct type)

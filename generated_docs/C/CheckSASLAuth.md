@@ -24,11 +24,10 @@ CheckSASLAuth orchestrates a complete SASL authentication session between Postgr
 The function uses the provided SASL mechanism implementation (mech) to handle mechanism-specific logic while managing the PostgreSQL protocol aspects. It supports both mechanisms that use shadow passwords and those that implement alternative authentication schemes.
 
 ## Parameters / Member Variables
-- : Pointer to a SASL mechanism implementation structure containing function pointers for get_mechanisms, init, and exchange operations
-- : PostgreSQL connection port structure containing client connection information and state
-- : Optional stored password hash from pg_authid.rolpassword; NULL indicates user not found or mechanism doesn't use passwords
-- : Output parameter for detailed error information to assist server administrators with debugging authentication failures
-
+- `*mech`: Pointer to a SASL mechanism implementation structure containing function pointers for get_mechanisms, init, and exchange operations
+- `*port`: PostgreSQL connection port structure containing client connection information and state
+- `*shadow_pass`: Optional stored password hash from pg_authid.rolpassword; NULL indicates user not found or mechanism doesn't use passwords
+- `**logdetail`: Output parameter for detailed error information to assist server administrators with debugging authentication failures
 ## Dependencies
 - Functions called/Symbols referenced:
   - [sendAuthRequest](../s/sendAuthRequest.md) (sends authentication requests to client)

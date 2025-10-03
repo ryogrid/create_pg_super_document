@@ -18,9 +18,8 @@ This function serves as a transitional interface for legacy code that needs to k
 The function is designed to support gradual migration of code from manual buffer reading to the full read stream interface, allowing developers to leverage the stream's intelligent block prediction while maintaining control over the actual I/O operations.
 
 ## Parameters / Member Variables
-- : The read stream object containing the lookahead state
-- : Output parameter that receives the buffer access strategy for the returned block
-
+- `*stream`: The read stream object containing the lookahead state
+- `*strategy`: Output parameter that receives the buffer access strategy for the returned block
 ## Dependencies
 - Functions called/Symbols referenced:
   - [read_stream_get_block](read_stream_get_block.md)

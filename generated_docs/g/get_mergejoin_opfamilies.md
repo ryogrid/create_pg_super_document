@@ -20,8 +20,7 @@ An operator can potentially be registered as equality in multiple operator famil
 The function is designed to support the planner's optimization decisions, particularly for recognizing when two expressions can be merged-joined. The list ordering is typically sorted by OID due to syscache implementation, which the planner relies on for consistent comparisons.
 
 ## Parameters / Member Variables
-- : The OID of the operator to examine for merge join compatibility
-
+- `opno`: The OID of the operator to examine for merge join compatibility
 ## Dependencies
 - Functions called/Symbols referenced:
   - SearchSysCacheList1

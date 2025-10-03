@@ -18,9 +18,8 @@ The  function is part of PostgreSQL's SP-GiST (Space-Partitioned Generalized Sea
 This function is used in spatial indexing operations to optimize geometric queries by quickly eliminating rectangles that don't satisfy certain spatial relationships.
 
 ## Parameters / Member Variables
-- : A pointer to a RectBox structure containing the rectangle box to be tested
-- : A pointer to a RangeBox structure representing the query boundaries for comparison
-
+- `*rect_box`: A pointer to a RectBox structure containing the rectangle box to be tested
+- `*query`: A pointer to a RangeBox structure representing the query boundaries for comparison
 ## Dependencies
 - Functions called/Symbols referenced:
   - [overLower2D](overLower2D.md)

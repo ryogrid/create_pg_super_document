@@ -18,14 +18,13 @@ fill_hba_line(Tuplestorestate *tuple_store, TupleDesc tupdesc,
 The  function constructs a complete row for the pg_hba_file_rules system view, which exposes PostgreSQL's host-based authentication configuration to SQL queries. It processes a parsed HBA line structure and extracts all relevant information including connection type, database names, user roles, network addresses, authentication methods, and options. The function handles both successful parsing results and error conditions, formatting network addresses appropriately and converting internal data structures into SQL-compatible formats. Memory leaks are acceptable since this runs in a short-lived memory context.
 
 ## Parameters / Member Variables
-- : Tuplestore where the constructed row will be added
-- : Tuple descriptor defining the structure of the pg_hba_file_rules view
-- : Unique identifier for valid HBA rules (NULL for invalid rules)
-- : Name of the HBA configuration file (always valid)
-- : Line number within the configuration file (always valid)
-- : Parsed HBA line data structure (can be NULL for parsing errors)
-- : Error message for invalid rules (NULL if rule is valid)
-
+- `*tuple_store`: Tuplestore where the constructed row will be added
+- `tupdesc`: Tuple descriptor defining the structure of the pg_hba_file_rules view
+- `rule_number`: Unique identifier for valid HBA rules (NULL for invalid rules)
+- `*filename`: Name of the HBA configuration file (always valid)
+- `lineno`: Line number within the configuration file (always valid)
+- `*hba`: Parsed HBA line data structure (can be NULL for parsing errors)
+- `*err_msg`: Error message for invalid rules (NULL if rule is valid)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Int32GetDatum](../I/Int32GetDatum.md), CStringGetTextDatum, PointerGetDatum

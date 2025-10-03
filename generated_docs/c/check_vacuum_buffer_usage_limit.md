@@ -19,10 +19,9 @@ This function serves as a validation hook for PostgreSQL's GUC system, specifica
 The function implements a dual validation logic: it accepts a value of 0 (which typically means unlimited or disabled) or any value between the minimum and maximum buffer allocation service vacuum ring size constants. If the value falls outside these acceptable ranges, it generates a detailed error message indicating the valid ranges.
 
 ## Parameters / Member Variables
-- : Pointer to the integer value being validated for the vacuum_buffer_usage_limit parameter
-- : Pointer to extra data that can be passed to the check function (unused in this implementation)
-- : The source from which the GUC value is being set (e.g., configuration file, command line, etc.)
-
+- `*newval`: Pointer to the integer value being validated for the vacuum_buffer_usage_limit parameter
+- `**extra`: Pointer to extra data that can be passed to the check function (unused in this implementation)
+- `source`: The source from which the GUC value is being set (e.g., configuration file, command line, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   - GUC_check_errdetail

@@ -25,11 +25,10 @@ Key behaviors:
 - On error, the amount of data actually written is unspecified
 
 ## Parameters / Member Variables
-- : File descriptor to write to
-- : Array of iovec structures describing the data buffers to write
-- : Number of iovec structures in the array (must not exceed PG_IOV_MAX)
-- : File offset at which to begin writing
-
+- `fd`: File descriptor to write to
+- `*iov`: Array of iovec structures describing the data buffers to write
+- `iovcnt`: Number of iovec structures in the array (must not exceed PG_IOV_MAX)
+- `offset`: File offset at which to begin writing
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_pwritev](pg_pwritev.md): Underlying vectored positional write function

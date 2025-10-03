@@ -16,10 +16,9 @@ AppendJumble(JumbleState *jstate, const unsigned char *item, Size size)
 AppendJumble is responsible for adding meaningful query data to the jumble buffer used in query fingerprinting. When the buffer becomes full (reaches JUMBLE_SIZE), it employs a sophisticated compression strategy: it hashes the current buffer contents and replaces the entire buffer with just the hash value, then continues appending new data. This approach ensures that even very large or complex queries can be processed while maintaining a bounded buffer size and preserving the essential characteristics needed for query identification.
 
 ## Parameters / Member Variables
-- : JumbleState containing the jumble buffer and metadata
-- : Pointer to the data to be appended to the jumble
-- : Size in bytes of the data to append
-
+- `*jstate`: JumbleState containing the jumble buffer and metadata
+- `*item`: Pointer to the data to be appended to the jumble
+- `size`: Size in bytes of the data to append
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hash_any_extended](../h/hash_any_extended.md) (computes hash when buffer is full)

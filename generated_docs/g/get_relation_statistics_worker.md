@@ -22,13 +22,12 @@ The function supports four types of extended statistics: NDISTINCT (n-distinct e
 The function handles the case where the requested statistics data may not exist by checking the validity of the cache lookup result and returning early if no data is found.
 
 ## Parameters / Member Variables
-- : Pointer to list of StatisticExtInfo structures to append results to
-- : RelOptInfo structure representing the relation in the optimizer
-- : OID of the statistics object to load data for
-- : Whether to include inherited statistics data
-- : Bitmapset of attribute numbers covered by the statistics object
-- : List of expressions covered by the statistics object
-
+- `**stainfos`: Pointer to list of StatisticExtInfo structures to append results to
+- `*rel`: RelOptInfo structure representing the relation in the optimizer
+- `statOid`: OID of the statistics object to load data for
+- `inh`: Whether to include inherited statistics data
+- `*keys`: Bitmapset of attribute numbers covered by the statistics object
+- `*exprs`: List of expressions covered by the statistics object
 ## Dependencies
 - Functions called/Symbols referenced:
   - Form_pg_statistic_ext_data

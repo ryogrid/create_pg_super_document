@@ -23,10 +23,9 @@ The comparison_shim function serves as an adapter between PostgreSQL's modern So
 This shim is essentially an inlined, optimized version of FunctionCall2Coll(), with the assumption that most of the FunctionCallInfoBaseData structure was already initialized by PrepareSortSupportComparisonShim.
 
 ## Parameters / Member Variables
-- : First Datum value to compare
-- : Second Datum value to compare  
-- : SortSupport structure containing the extra data with function call information
-
+- `x`: First Datum value to compare
+- `y`: Second Datum value to compare
+- `ssup`: SortSupport structure containing the extra data with function call information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SortSupport](../S/SortSupport.md) (type)

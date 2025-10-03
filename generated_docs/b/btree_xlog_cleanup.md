@@ -18,7 +18,6 @@ This function is responsible for cleaning up resources allocated by the B-tree W
 The function is part of PostgreSQL's resource manager framework and is automatically called by the WAL system when cleanup is required. It ensures proper memory management by deleting the operational memory context and setting the global  variable to NULL to prevent dangling pointers.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

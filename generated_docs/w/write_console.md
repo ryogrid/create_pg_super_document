@@ -27,9 +27,8 @@ This function provides cross-platform console output for PostgreSQL log messages
 The function is designed to be resilient, ignoring write errors since there's no meaningful way to report console write failures.
 
 ## Parameters / Member Variables
-- : The log message string to write to console
-- : Length of the message string in bytes
-
+- `*line`: The log message string to write to console
+- `len`: Length of the message string in bytes
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pgwin32_message_to_UTF16](../p/pgwin32_message_to_UTF16.md) (Windows: PostgreSQL UTF-16 conversion utility)

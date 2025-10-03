@@ -18,8 +18,7 @@ This function implements the standard "pop from head" operation for PostgreSQL's
 The operation runs in O(1) constant time and includes safety checks to ensure the list is not empty before attempting the pop operation. After the removal, the function validates the list state using slist_check() to maintain data structure integrity. This is a destructive operation that modifies the list structure.
 
 ## Parameters / Member Variables
-- : Pointer to the list head structure from which to remove the first node
-
+- `*head`: Pointer to the list head structure from which to remove the first node
 ## Dependencies
 - Functions called/Symbols referenced:
   - [slist_is_empty](slist_is_empty.md) (to verify list is not empty before popping)

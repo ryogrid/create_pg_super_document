@@ -24,9 +24,8 @@ This static function transforms a single CTE from its raw parsed form into an an
 The function performs extensive error checking and provides detailed error messages for various invalid CTE constructs.
 
 ## Parameters / Member Variables
-- : Parse state containing context information for error reporting and CTE namespace management
-- : The CommonTableExpr node to be analyzed and transformed
-
+- `*pstate`: Parse state containing context information for error reporting and CTE namespace management
+- `*cte`: The CommonTableExpr node to be analyzed and transformed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [transformExpr](../t/transformExpr.md) - transforms cycle mark expressions

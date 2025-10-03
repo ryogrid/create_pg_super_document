@@ -18,9 +18,8 @@ This function serves as the core parsing logic for LSN string input validation a
 The LSN format consists of two 32-bit hexadecimal numbers separated by a forward slash, representing the timeline ID and offset within that timeline. The function validates that each component contains only valid hexadecimal characters and doesn't exceed the maximum allowed length.
 
 ## Parameters / Member Variables
-- : Input string containing the LSN in "XXXXXXXX/XXXXXXXX" format
-- : Output parameter set to true if parsing fails, false on success
-
+- `*str`: Input string containing the LSN in "XXXXXXXX/XXXXXXXX" format
+- `*have_error`: Output parameter set to true if parsing fails, false on success
 ## Dependencies
 - Functions called/Symbols referenced:
   - MAXPG_LSNCOMPONENT (constant defining maximum length of LSN components)

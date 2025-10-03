@@ -26,15 +26,14 @@ printCrosstab is the core rendering function for the crosstab view feature in ps
 The function includes validation to ensure each cell receives at most one data value, reporting errors for duplicate entries that would create ambiguous crosstab results.
 
 ## Parameters / Member Variables
-- : The original PGresult containing the query data to be cross-tabulated
-- : Number of distinct values in the horizontal header (columns)
-- : Array of pivot_field structures representing column headers, sorted by rank
-- : Column index in the result set used for horizontal headers
-- : Number of distinct values in the vertical header (rows)
-- : Array of pivot_field structures representing row headers, sorted by rank
-- : Column index in the result set used for vertical headers
-- : Column index in the result set containing the data values to display
-
+- `*result`: The original PGresult containing the query data to be cross-tabulated
+- `num_columns`: Number of distinct values in the horizontal header (columns)
+- `*piv_columns`: Array of pivot_field structures representing column headers, sorted by rank
+- `field_for_columns`: Column index in the result set used for horizontal headers
+- `num_rows`: Number of distinct values in the vertical header (rows)
+- `*piv_rows`: Array of pivot_field structures representing row headers, sorted by rank
+- `field_for_rows`: Column index in the result set used for vertical headers
+- `field_for_data`: Column index in the result set containing the data values to display
 ## Dependencies
 - Functions called/Symbols referenced:
   - [printTableInit](printTableInit.md), printTableAddHeader, printTable, printTableCleanup

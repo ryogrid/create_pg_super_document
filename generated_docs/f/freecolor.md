@@ -23,9 +23,8 @@ When freeing a color, the function handles two main scenarios:
 The function includes special handling for the WHITE color, which cannot be freed, and performs extensive freelist maintenance to keep the data structure consistent.
 
 ## Parameters / Member Variables
-- : Pointer to the colormap structure containing the color to be freed
-- : The color identifier to be freed (must be >= 0 and not WHITE)
-
+- `*cm`: Pointer to the colormap structure containing the color to be freed
+- `co`: The color identifier to be freed (must be >= 0 and not WHITE)
 ## Dependencies
 - Functions called/Symbols referenced:
   - UNUSEDCOLOR (macro to check if color is unused)

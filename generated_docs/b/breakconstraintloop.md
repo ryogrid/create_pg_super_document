@@ -24,9 +24,8 @@ The algorithm works by:
 The cloning process is recursive and handles complex scenarios including overlapping loops and non-loop states reachable via constraint arcs. The function optimizes for common cases where constraint arcs have identical labels, allowing clone state merging to reduce the number of new states needed.
 
 ## Parameters / Member Variables
-- : Pointer to the NFA structure being modified
-- : Any member state of the constraint loop to be broken (tmp fields link to loop successors)
-
+- `*nfa`: Pointer to the NFA structure being modified
+- `*sinitial`: Any member state of the constraint loop to be broken (tmp fields link to loop successors)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [isconstraintarc](../i/isconstraintarc.md) (checks if an arc is a constraint arc)

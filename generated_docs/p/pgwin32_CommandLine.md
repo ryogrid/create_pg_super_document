@@ -28,8 +28,7 @@ Key functionality includes:
 The function carefully handles Windows path conventions and service-specific requirements.
 
 ## Parameters / Member Variables
-- : Boolean flag indicating whether to build command line for service registration (true) or direct execution (false)
-
+- `registration`: Boolean flag indicating whether to build command line for service registration (true) or direct execution (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [createPQExpBuffer](../c/createPQExpBuffer.md)

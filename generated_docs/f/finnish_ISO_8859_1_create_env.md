@@ -27,6 +27,7 @@ The function delegates to the generic SN_create_env function with the appropriat
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SN_create_env](../S/SN_create_env.md) (generic Snowball environment creation function)

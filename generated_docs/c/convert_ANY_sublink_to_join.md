@@ -27,10 +27,9 @@ The conversion process involves several key steps:
 The function performs extensive safety checks to ensure the transformation preserves query semantics, particularly around variable scoping and outer join interactions. The available_rels parameter restricts which relations can be safely referenced to avoid semantic changes in complex queries with outer joins.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing the current query's planner state and parse tree
-- : The SubLink node to be converted (must be ANY_SUBLINK type)
-- : Bitmapset of relation IDs that can safely be referenced in the converted expression (used to maintain proper semantics with outer joins)
-
+- `*root`: PlannerInfo structure containing the current query's planner state and parse tree
+- `*sublink`: The SubLink node to be converted (must be ANY_SUBLINK type)
+- `available_rels`: Bitmapset of relation IDs that can safely be referenced in the converted expression (used to maintain proper semantics with outer joins)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pull_varnos_of_level](../p/pull_varnos_of_level.md)

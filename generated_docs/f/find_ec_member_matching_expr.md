@@ -30,10 +30,9 @@ Key features of the matching algorithm:
 This function is commonly used in sort operation planning where the planner needs to determine if a sort expression already has a corresponding EquivalenceMember that could be utilized for optimization purposes.
 
 ## Parameters / Member Variables
-- : EquivalenceClass to search within
-- : Target expression to find a match for
-- : Relation set limiting which child members can be considered
-
+- `*ec`: EquivalenceClass to search within
+- `*expr`: Target expression to find a match for
+- `relids`: Relation set limiting which child members can be considered
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA

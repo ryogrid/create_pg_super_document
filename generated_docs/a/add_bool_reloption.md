@@ -17,12 +17,11 @@ add_bool_reloption(bits32 kinds, const char *name, const char *desc,
 This public function creates and registers a new boolean reloption in the global reloption system. It combines the initialization of a boolean reloption structure through init_bool_reloption and its registration through add_reloption. This function is the main entry point for adding boolean-type reloptions that can be used by various relation types throughout PostgreSQL.
 
 ## Parameters / Member Variables
-- : A bits32 value specifying the kinds of relations this option applies to (e.g., tables, indexes)
-- : String name of the boolean reloption that users will specify
-- : Optional description string for the reloption (can be NULL)
-- : The default boolean value for this reloption when not explicitly set
-- : The lock mode required when setting this reloption
-
+- `kinds`: A bits32 value specifying the kinds of relations this option applies to (e.g., tables, indexes)
+- `*name`: String name of the boolean reloption that users will specify
+- `*desc`: Optional description string for the reloption (can be NULL)
+- `default_val`: The default boolean value for this reloption when not explicitly set
+- `lockmode`: The lock mode required when setting this reloption
 ## Dependencies
 - Functions called/Symbols referenced:
   - [init_bool_reloption](../i/init_bool_reloption.md) (for boolean reloption initialization)

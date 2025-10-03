@@ -15,7 +15,6 @@ Size EstimateRelationMapSpace(void)
 This function provides a size estimate for the space needed to serialize the current active shared and local relation maps when setting up parallel query execution. It returns the size of the SerializedActiveRelMaps structure, which is used to package the relation mapping information for transmission to parallel workers. This estimation is crucial for proper memory allocation in the parallel query infrastructure, ensuring that worker processes receive the necessary relation mapping data to access system catalogs correctly.
 
 ## Parameters / Member Variables
-This function takes no parameters and returns a Size value representing the required space in bytes.
 
 ## Dependencies
 - Functions called/Symbols referenced:

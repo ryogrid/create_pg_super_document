@@ -21,8 +21,7 @@ The function performs three main operations in sequence:
 3. Releases all dynamically allocated memory including the file array and BufFile structure itself
 
 ## Parameters / Member Variables
-- : Pointer to the BufFile structure to be closed and cleaned up
-
+- `*file`: Pointer to the BufFile structure to be closed and cleaned up
 ## Simplified Source
 
 ```c

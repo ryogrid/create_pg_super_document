@@ -20,8 +20,7 @@ The implementation uses Windows NT's native API  with the  flag to achieve data-
 The function handles Windows-specific error mapping and provides proper POSIX-compliant return values and error codes.
 
 ## Parameters / Member Variables
-- : The file descriptor of the file to be synchronized. Must be a valid file descriptor obtained from a successful file open operation.
-
+- `fd`: The file descriptor of the file to be synchronized. Must be a valid file descriptor obtained from a successful file open operation.
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Convert C runtime file descriptor to Windows HANDLE

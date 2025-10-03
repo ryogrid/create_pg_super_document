@@ -16,8 +16,7 @@ SPI_unregister_relation(const char *name)
 This function is part of the SPI (Server Programming Interface) API that allows removal of previously registered ephemeral named relations (ENRs) by their string name. The function validates the input parameter, searches for the named relation using the internal lookup function, and if found, removes it from the query environment. This is typically a rarely used function since SPI_finish will automatically clear all registered relations when the SPI connection ends.
 
 ## Parameters / Member Variables
-- : A C string containing the name of the ephemeral named relation to unregister. Must not be NULL.
-
+- `*name`: A C string containing the name of the ephemeral named relation to unregister. Must not be NULL.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [_SPI_begin_call](_SPI_begin_call.md) (to start SPI call context)

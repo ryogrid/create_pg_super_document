@@ -18,10 +18,9 @@ The  function serves as a configuration validation hook for the SSL-related Post
 This function follows the standard GUC check hook pattern, where it receives the proposed new value and validates whether it's acceptable given the current system state and build configuration.
 
 ## Parameters / Member Variables
-- : Pointer to the proposed boolean value for the SSL configuration parameter
-- : Pointer to extra data (unused in this implementation, can store additional validation context)
-- : The source of the configuration change (e.g., configuration file, command line, etc.)
-
+- `*newval`: Pointer to the proposed boolean value for the SSL configuration parameter
+- `**extra`: Pointer to extra data (unused in this implementation, can store additional validation context)
+- `source`: The source of the configuration change (e.g., configuration file, command line, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   - GUC_check_errmsg (for error reporting when SSL is not supported)

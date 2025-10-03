@@ -22,6 +22,7 @@ This function is called during InitPostgres to properly initialize the search pa
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsBootstrapProcessingMode

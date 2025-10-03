@@ -18,8 +18,7 @@ The  function is a PostgreSQL system function that provides SQL access to list f
 This function returns detailed information about each regular file found in the WAL directory, including the filename, file size in bytes, and last modification timestamp. The function is particularly useful for monitoring WAL file accumulation, sizes, and ages, which is crucial for database administration tasks like backup management and replication monitoring.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function call information structure (no user arguments required)
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function call information structure (no user arguments required)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_ls_dir_files](pg_ls_dir_files.md) (the core implementation that performs the actual directory listing)

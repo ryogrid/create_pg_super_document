@@ -20,9 +20,8 @@ Like SH_ALLOCATE, this function can be customized when SH_USE_NONDEFAULT_ALLOCAT
 The function is critical for preventing memory leaks during hash table destruction and resizing operations, where old data arrays need to be properly deallocated before new ones are allocated.
 
 ## Parameters / Member Variables
-- : Pointer to the hash table structure (used for context in custom allocators)
-- : Pointer to the memory block to be deallocated
-
+- `*type`: Pointer to the hash table structure (used for context in custom allocators)
+- `*pointer`: Pointer to the memory block to be deallocated
 ## Dependencies
 - Functions called/Symbols referenced:
   - SH_MAKE_NAME (macro for name generation)

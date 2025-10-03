@@ -21,10 +21,9 @@ The function accepts a callback function () that receives each hash table entry 
 If no hash table exists or if the match callback is NULL, the function handles these cases gracefully by either returning early or processing all entries respectively.
 
 ## Parameters / Member Variables
-- : Boolean flag indicating whether to discard pending statistics data when releasing entry references
-- : Callback function pointer of type  that determines which entries to release
-- : Additional data passed to the match callback function as context
-
+- `discard_pending`: Boolean flag indicating whether to discard pending statistics data when releasing entry references
+- `match`: Callback function pointer of type  that determines which entries to release
+- `match_data`: Additional data passed to the match callback function as context
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Starts iteration over the entry reference hash table

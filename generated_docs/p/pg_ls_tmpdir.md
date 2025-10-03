@@ -16,9 +16,8 @@ pg_ls_tmpdir(FunctionCallInfo fcinfo, Oid tblspc)
 This function provides the core functionality for listing files in PostgreSQL's temporary directory structure. It validates that the specified tablespace exists in the system catalog, constructs the path to the temporary directory for that tablespace, and delegates the actual file listing to the generic pg_ls_dir_files function. The function is designed to be called by wrapper functions that provide different parameter interfaces for SQL functions.
 
 ## Parameters / Member Variables
-- : Function call information structure containing context and parameters for the function call
-- : Object ID (Oid) of the tablespace whose temporary directory should be listed
-
+- `fcinfo`: Function call information structure containing context and parameters for the function call
+- `tblspc`: Object ID (Oid) of the tablespace whose temporary directory should be listed
 ## Dependencies
 - Functions called/Symbols referenced:
   - SearchSysCacheExists1 (validates tablespace existence)

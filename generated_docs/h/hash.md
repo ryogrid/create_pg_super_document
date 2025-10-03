@@ -19,9 +19,8 @@ This function implements a simple but effective hash algorithm for bitvectors by
 The function iterates through the array and XORs all values together to produce a single hash value that can be used for state set identification and caching in the DFA engine.
 
 ## Parameters / Member Variables
-- : Pointer to an array of unsigned integers representing the bitvector to hash
-- : Number of elements in the bitvector array
-
+- `*uv`: Pointer to an array of unsigned integers representing the bitvector to hash
+- `n`: Number of elements in the bitvector array
 ## Dependencies
 - Functions called/Symbols referenced:
   - [sset](../s/sset.md) (struct type - used in context via HASH macro)

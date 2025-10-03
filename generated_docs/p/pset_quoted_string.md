@@ -18,8 +18,7 @@ The pset_quoted_string function creates a quoted version of an input string by w
 This function is essential for displaying string values in psql settings output, ensuring that special characters are properly represented and that the output remains parseable and visually clear.
 
 ## Parameters / Member Variables
-- : Input string to be quoted and escaped
-
+- `*str`: Input string to be quoted and escaped
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_malloc](pg_malloc.md) (for memory allocation)

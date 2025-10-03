@@ -18,9 +18,8 @@ This function determines if the physical file corresponding to a specific fork o
 The function uses the storage manager switch (smgrsw) to call the appropriate exists method based on the relation's storage manager type (reln->smgr_which). This abstraction allows PostgreSQL to support different storage managers while providing a uniform interface for existence checking.
 
 ## Parameters / Member Variables
-- : SMgrRelation pointer representing the relation to check
-- : ForkNumber indicating which fork of the relation to check (main, FSM, VM, etc.)
-
+- `reln`: SMgrRelation pointer representing the relation to check
+- `forknum`: ForkNumber indicating which fork of the relation to check (main, FSM, VM, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   - smgrsw (storage manager switch table)

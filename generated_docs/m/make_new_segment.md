@@ -27,9 +27,8 @@ The  function creates a new segment to expand the available memory in a dynamic 
 **Resource Management**: Creates the underlying DSM segment, pins it to prevent automatic cleanup, updates control structures, and initializes the free page manager.
 
 ## Parameters / Member Variables
-- : Pointer to the dynamic shared area that will contain the new segment
-- : Minimum number of usable pages required in the new segment
-
+- `*area`: Pointer to the dynamic shared area that will contain the new segment
+- `requested_pages`: Minimum number of usable pages required in the new segment
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockHeldByMe](../L/LWLockHeldByMe.md) / DSA_AREA_LOCK (lock assertion)

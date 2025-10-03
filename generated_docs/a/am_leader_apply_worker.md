@@ -22,6 +22,7 @@ The function includes an assertion to ensure that the worker is currently in use
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (assertion macro)

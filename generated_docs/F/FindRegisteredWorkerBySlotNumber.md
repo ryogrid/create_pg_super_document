@@ -16,8 +16,7 @@ FindRegisteredWorkerBySlotNumber(int slotno)
 This static function performs a linear search through the postmaster's backend-private BackgroundWorkerList to locate the RegisteredBgWorker structure that maps to the specified shared memory slot number. Each registered worker maintains a correspondence between its entry in the private list and its assigned slot in shared memory through the rw_shmem_slot field. This mapping enables the postmaster to efficiently look up worker metadata when processing shared memory slot-based events or state changes.
 
 ## Parameters / Member Variables
-- : The shared memory slot number to search for (integer index into the shared memory worker array)
-
+- `slotno`: The shared memory slot number to search for (integer index into the shared memory worker array)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (single-linked list iterator type)

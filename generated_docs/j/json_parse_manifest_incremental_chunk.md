@@ -19,11 +19,10 @@ This function is the core of incremental JSON manifest parsing, processing indiv
 The function handles both intermediate chunks (where JSON parsing may be incomplete) and the final chunk (which must result in complete JSON parsing and EOF state). For non-final chunks, it updates the manifest checksum hash. For the final chunk, it verifies the manifest checksum against the computed hash.
 
 ## Parameters / Member Variables
-- : Pointer to the incremental parser state containing lexical context, semantic handlers, and hash context
-- : Pointer to the data chunk to be processed  
-- : Size in bytes of the chunk to process
-- : Boolean flag indicating whether this is the final chunk of the manifest
-
+- `*incstate`: Pointer to the incremental parser state containing lexical context, semantic handlers, and hash context
+- `*chunk`: Pointer to the data chunk to be processed
+- `size`: Size in bytes of the chunk to process
+- `is_last`: Boolean flag indicating whether this is the final chunk of the manifest
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_parse_json_incremental](../p/pg_parse_json_incremental.md)

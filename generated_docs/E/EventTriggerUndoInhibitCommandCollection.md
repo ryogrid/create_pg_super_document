@@ -19,6 +19,7 @@ The function includes the same safety check as its counterpart, returning early 
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - currentEventTriggerState (global state variable)

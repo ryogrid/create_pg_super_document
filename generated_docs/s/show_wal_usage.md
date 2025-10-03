@@ -27,9 +27,8 @@ The function tracks three key WAL metrics:
 This information helps database administrators and developers understand the WAL generation characteristics of their queries, which affects both performance and storage requirements.
 
 ## Parameters / Member Variables
-- : ExplainState structure containing output formatting context and destination string buffer
-- : WalUsage structure containing WAL operation counters (records, full page images, bytes)
-
+- `*es`: ExplainState structure containing output formatting context and destination string buffer
+- `*usage`: WalUsage structure containing WAL operation counters (records, full page images, bytes)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExplainIndentText](../E/ExplainIndentText.md)

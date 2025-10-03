@@ -15,9 +15,8 @@ void assign_recovery_target_lsn(const char *newval, void *extra)
 This function serves as the assignment hook for the  PostgreSQL configuration parameter. It is called after the corresponding check hook has validated the input value. The function ensures that only one recovery target can be set at a time by checking if another recovery target is already configured and calling  if there's a conflict. When a valid LSN value is provided (non-empty string), it sets the global recovery target type to  and stores the parsed LSN value from the extra data. If an empty string is provided, it unsets the recovery target.
 
 ## Parameters / Member Variables
-- : The new string value being assigned to the GUC parameter (validated by check hook)
-- : Additional data containing the pre-parsed XLogRecPtr LSN value from the check hook
-
+- `*newval`: The new string value being assigned to the GUC parameter (validated by check hook)
+- `*extra`: Additional data containing the pre-parsed XLogRecPtr LSN value from the check hook
 ## Dependencies
 - Functions called/Symbols referenced:
   - error_multiple_recovery_targets (prevents multiple recovery targets from being set)

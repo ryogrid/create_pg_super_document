@@ -18,12 +18,11 @@ This function serves as a wrapper that delegates network-to-presentation convers
 The function was authored by Paul Vixie (ISC) in October 1998 and is part of PostgreSQL's portable network address handling infrastructure.
 
 ## Parameters / Member Variables
-- : Address family constant (PGSQL_AF_INET, PGSQL_AF_INET6, AF_INET6)
-- : Pointer to the binary network address to convert
-- : Number of network bits (for CIDR notation)
-- : Output buffer to store the presentation format string
-- : Size of the destination buffer
-
+- `af`: Address family constant (PGSQL_AF_INET, PGSQL_AF_INET6, AF_INET6)
+- `*src`: Pointer to the binary network address to convert
+- `bits`: Number of network bits (for CIDR notation)
+- `*dst`: Output buffer to store the presentation format string
+- `size`: Size of the destination buffer
 ## Dependencies
 - Functions called/Symbols referenced:
   - [inet_net_ntop_ipv4](../i/inet_net_ntop_ipv4.md)

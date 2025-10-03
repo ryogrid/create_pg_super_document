@@ -20,7 +20,6 @@ This function is called during process initialization to ensure that each backen
 When LWLOCK_STATS is not defined (which is the typical case in production builds), this function effectively becomes a no-op, but it still serves as an important hook for any future per-process LWLock initialization that might be needed.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

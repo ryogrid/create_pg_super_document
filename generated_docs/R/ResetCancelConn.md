@@ -20,6 +20,7 @@ Like SetCancelConn, this function uses critical sections on Windows platforms to
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQfreeCancel](../P/PQfreeCancel.md)

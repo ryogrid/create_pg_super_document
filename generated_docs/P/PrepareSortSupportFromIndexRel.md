@@ -25,10 +25,9 @@ PrepareSortSupportFromIndexRel configures sort support functionality specificall
 This function is primarily used in contexts where sorting needs to match the ordering defined by an existing B-tree index, such as during index builds, cluster operations, or when leveraging index ordering for query execution.
 
 ## Parameters / Member Variables
-- : The index relation containing operator family and type information
-- : B-tree strategy number (BTLessStrategyNumber for ascending, BTGreaterStrategyNumber for descending)
-- : SortSupport structure to be configured (must be pre-initialized with context, attribute number, collation, and nulls handling)
-
+- `indexRel`: The index relation containing operator family and type information
+- `strategy`: B-tree strategy number (BTLessStrategyNumber for ascending, BTGreaterStrategyNumber for descending)
+- `ssup`: SortSupport structure to be configured (must be pre-initialized with context, attribute number, collation, and nulls handling)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SortSupport](../S/SortSupport.md) (type)

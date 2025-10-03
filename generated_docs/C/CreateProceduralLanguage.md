@@ -27,8 +27,7 @@ Key operations include:
 The function supports both creating new languages and replacing existing ones when the REPLACE option is specified.
 
 ## Parameters / Member Variables
-- : Pointer to CreatePLangStmt containing the parsed CREATE LANGUAGE statement with all language definition details including name, handler function, trust level, and optional inline/validator functions
-
+- `*stmt`: Pointer to CreatePLangStmt containing the parsed CREATE LANGUAGE statement with all language definition details including name, handler function, trust level, and optional inline/validator functions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [superuser](../s/superuser.md)

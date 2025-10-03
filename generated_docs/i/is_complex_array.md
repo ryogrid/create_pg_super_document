@@ -23,8 +23,7 @@ The function works by:
 This function is used internally within the type coercion system to make decisions about allowable type conversions, especially in the context of binary coercibility checks.
 
 ## Parameters / Member Variables
-- : The OID of the type to test for being a composite array
-
+- `typid`: The OID of the type to test for being a composite array
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_element_type](../g/get_element_type.md)

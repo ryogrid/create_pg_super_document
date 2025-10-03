@@ -25,13 +25,12 @@ The function supports only a core set of PostgreSQL builtin types: TEXT, TEXTARR
 Unlike TupleDescInitEntry which can handle any type by consulting the catalog, this function uses hardcoded type information for the supported builtin types, making it suitable for use in constrained environments.
 
 ## Parameters / Member Variables
-- : The tuple descriptor to modify
-- : The 1-based position of the attribute within the tuple descriptor
-- : The name to assign to the attribute (required, cannot be NULL)
-- : The OID of the PostgreSQL data type (must be one of the supported builtin types)
-- : Type modifier value for the attribute
-- : Number of array dimensions (0 for non-array types)
-
+- `desc`: The tuple descriptor to modify
+- `attributeNumber`: The 1-based position of the attribute within the tuple descriptor
+- `*attributeName`: The name to assign to the attribute (required, cannot be NULL)
+- `oidtypeid`: The OID of the PostgreSQL data type (must be one of the supported builtin types)
+- `typmod`: Type modifier value for the attribute
+- `attdim`: Number of array dimensions (0 for non-array types)
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerIsValid (validation macro)

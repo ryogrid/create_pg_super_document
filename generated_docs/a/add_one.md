@@ -16,8 +16,7 @@ add_one(PG_FUNCTION_ARGS)
 The  function is a PostgreSQL C function that takes a single 32-bit integer parameter and returns the value incremented by 1. This function is part of the PostgreSQL tutorial examples, demonstrating the basic structure and conventions for writing PostgreSQL C functions. It uses the standard PostgreSQL function calling conventions with  macro for parameter handling and  for returning values.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL macro that provides access to function arguments and context information
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL macro that provides access to function arguments and context information
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Macro to extract a 32-bit integer argument

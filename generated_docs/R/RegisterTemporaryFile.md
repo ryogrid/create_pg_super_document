@@ -24,8 +24,7 @@ This dual approach provides robust cleanup guarantees for temporary files, preve
 The function also sets a global flag (have_xact_temporary_files) to indicate that the current transaction has temporary files that need cleanup.
 
 ## Parameters / Member Variables
-- : The File (virtual file descriptor) of the temporary file to register
-
+- `file`: The File (virtual file descriptor) of the temporary file to register
 ## Dependencies
 - Functions called/Symbols referenced:
   - File (type definition for virtual file descriptor)

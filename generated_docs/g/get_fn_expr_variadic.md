@@ -18,8 +18,7 @@ This function examines the function expression within an FmgrInfo structure to d
 The function only works with FuncExpr nodes, as other expression types (operators, etc.) do not support variadic syntax. The funcvariadic flag indicates whether the parser recognized a VARIADIC call syntax during query parsing.
 
 ## Parameters / Member Variables
-- : Pointer to FmgrInfo structure containing function metadata and expression tree
-
+- `*flinfo`: Pointer to FmgrInfo structure containing function metadata and expression tree
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (macro)

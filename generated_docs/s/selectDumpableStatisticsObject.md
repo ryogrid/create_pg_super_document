@@ -18,9 +18,8 @@ This function implements the policy-setting logic for extended statistics object
 The current implementation assumes statistics objects operate on a single table, with a note that cross-table statistics would require additional consideration in the future.
 
 ## Parameters / Member Variables
-- : Pointer to the StatsExtInfo structure representing the extended statistics object to be evaluated
-- : Pointer to the Archive structure containing dump options and configuration
-
+- `*sobj`: Pointer to the StatsExtInfo structure representing the extended statistics object to be evaluated
+- `*fout`: Pointer to the Archive structure containing dump options and configuration
 ## Dependencies
 - Functions called/Symbols referenced:
   - [checkExtensionMembership](../c/checkExtensionMembership.md)

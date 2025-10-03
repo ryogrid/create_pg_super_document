@@ -18,10 +18,9 @@ This function serializes type metadata for logical replication by writing a LOGI
 The function is part of PostgreSQL's logical replication protocol implementation, ensuring that type information is correctly transmitted to subscribers so they can properly interpret data values.
 
 ## Parameters / Member Variables
-- : StringInfo buffer where the serialized type information will be written
-- : Transaction ID for streaming replication context (written to output if valid)
-- : Object ID of the PostgreSQL type to serialize
-
+- `out`: StringInfo buffer where the serialized type information will be written
+- `xid`: Transaction ID for streaming replication context (written to output if valid)
+- `typoid`: Object ID of the PostgreSQL type to serialize
 ## Dependencies
 - Functions called/Symbols referenced:
   - [getBaseType](../g/getBaseType.md): Resolves complex types to their base types

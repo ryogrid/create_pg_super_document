@@ -24,8 +24,7 @@ ClosePostmasterPorts is called during child process startup to release file desc
 The function handles platform-specific differences between Unix and Windows systems, particularly for pipe and socket handling.
 
 ## Parameters / Member Variables
-- : Boolean flag indicating whether the calling process is the syslogger process. If true, the syslog pipe read end is not closed since the syslogger needs it.
-
+- `am_syslogger`: Boolean flag indicating whether the calling process is the syslogger process. If true, the syslog pipe read end is not closed since the syslogger needs it.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [FreeWaitEventSetAfterFork](../F/FreeWaitEventSetAfterFork.md)

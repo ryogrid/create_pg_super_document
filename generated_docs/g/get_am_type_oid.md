@@ -16,10 +16,9 @@ get_am_type_oid(const char *amname, char amtype, bool missing_ok)
 get_am_type_oid serves as a core utility function for access method OID lookups with optional type validation. It searches the pg_am system catalog for an access method by name and can enforce type constraints when specified. The function supports both strict mode (throwing errors for missing access methods) and lenient mode (returning InvalidOid), making it suitable for various use cases throughout the access method subsystem.
 
 ## Parameters / Member Variables
-- : Name of the access method to look up
-- : Expected access method type character ('\0' to skip type validation)
-- : If false, throws error when access method not found; if true, returns InvalidOid
-
+- `*amname`: Name of the access method to look up
+- `amtype`: Expected access method type character ('\0' to skip type validation)
+- `missing_ok`: If false, throws error when access method not found; if true, returns InvalidOid
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache1](../S/SearchSysCache1.md): Searches system cache for access method by name

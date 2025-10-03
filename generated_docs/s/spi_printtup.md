@@ -18,9 +18,8 @@ The spi_printtup function serves as a destination receiver callback used within 
 The function operates within the memory context of the SPI tuple table to ensure proper memory management and cleanup. It validates that an SPI connection is active and that the tuple table is properly initialized before attempting to store tuples.
 
 ## Parameters / Member Variables
-- : TupleTableSlot containing the tuple data to be stored
-- : DestReceiver pointer (unused in this implementation but required by the callback interface)
-
+- `*slot`: TupleTableSlot containing the tuple data to be stored
+- `*self`: DestReceiver pointer (unused in this implementation but required by the callback interface)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)

@@ -20,15 +20,14 @@ This function constructs a Memoize plan node, which implements result caching fo
 The function initializes all the memoization-specific fields including the hash operators for key comparison, collation information, parameter expressions that form the cache key, and various control flags and estimates.
 
 ## Parameters / Member Variables
-- : The input Plan node whose results will be cached
-- : Array of hash operators for the memoization keys
-- : Array of collations for the memoization keys  
-- : List of parameter expressions that form the cache key
-- : Boolean indicating if the child plan produces at most one row per parameter combination
-- : Boolean indicating if binary comparison mode should be used
-- : Estimated number of cache entries
-- : Bitmapset identifying which parameters are part of the cache key
-
+- `*lefttree`: The input Plan node whose results will be cached
+- `*hashoperators`: Array of hash operators for the memoization keys
+- `*collations`: Array of collations for the memoization keys
+- `*param_exprs`: List of parameter expressions that form the cache key
+- `singlerow`: Boolean indicating if the child plan produces at most one row per parameter combination
+- `binary_mode`: Boolean indicating if binary comparison mode should be used
+- `est_entries`: Estimated number of cache entries
+- `*keyparamids`: Bitmapset identifying which parameters are part of the cache key
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Memoize](../M/Memoize.md) (struct type, created with makeNode())

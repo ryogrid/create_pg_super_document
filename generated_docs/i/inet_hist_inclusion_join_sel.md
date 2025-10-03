@@ -28,12 +28,11 @@ For performance optimization, when there are too many histogram elements, the fu
 The approach is asymmetric (it samples from hist2 and tests against hist1), and the comment notes that using the operator's commutator to do it both ways and average the results might provide more reliable estimates.
 
 ## Parameters / Member Variables
-- : Array of Datum values representing the first histogram's bucket boundaries
-- : Number of values in the first histogram array
-- : Array of Datum values representing the second histogram's bucket boundaries (source of samples)
-- : Number of values in the second histogram array
-- : Operator code number indicating the type of inclusion operation
-
+- `*hist1_values`: Array of Datum values representing the first histogram's bucket boundaries
+- `hist1_nvalues`: Number of values in the first histogram array
+- `*hist2_values`: Array of Datum values representing the second histogram's bucket boundaries (source of samples)
+- `hist2_nvalues`: Number of values in the second histogram array
+- `opr_codenum`: Operator code number indicating the type of inclusion operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [inet_hist_value_sel](inet_hist_value_sel.md)

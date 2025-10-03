@@ -20,9 +20,8 @@ The algorithm walks through the provided pathkeys sequentially and counts how ma
 For example, with pathkeys (a,b,c) and group keys (a,b,e), the function determines that (a,b) pathkeys are useful for grouping, potentially enabling an incremental sort to achieve the final ordering of (a,b,e) rather than sorting from scratch.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing query planning context including group pathkeys
-- : List of PathKey structures to evaluate for grouping usefulness
-
+- `*root`: PlannerInfo structure containing query planning context including group pathkeys
+- `*pathkeys`: List of PathKey structures to evaluate for grouping usefulness
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PathKey](../P/PathKey.md) (structure type)

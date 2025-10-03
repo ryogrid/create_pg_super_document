@@ -25,9 +25,8 @@ The logging process involves:
 This ensures that the split operation can be properly replayed during crash recovery or on standby servers.
 
 ## Parameters / Member Variables
-- : The hash index relation for which the split is being logged
-- : Buffer containing the page to be logged (must be locked by caller)
-
+- `rel`: The hash index relation for which the split is being logged
+- `buf`: Buffer containing the page to be logged (must be locked by caller)
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationNeedsWAL (checks if relation requires WAL logging)

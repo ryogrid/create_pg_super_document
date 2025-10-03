@@ -35,9 +35,8 @@ Special handling is included for:
 - Ordered aggregates that defeat partial aggregation
 
 ## Parameters / Member Variables
-- : Aggref node representing the aggregate function reference to be processed
-- : PlannerInfo structure containing planner context, including agginfos and aggtransinfos lists
-
+- `*aggref`: Aggref node representing the aggregate function reference to be processed
+- `*root`: PlannerInfo structure containing planner context, including agginfos and aggtransinfos lists
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_aggregate_argtypes](../g/get_aggregate_argtypes.md)

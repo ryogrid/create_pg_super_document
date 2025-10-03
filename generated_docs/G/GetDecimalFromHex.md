@@ -18,8 +18,7 @@ This simple utility function performs hexadecimal to decimal character conversio
 For numeric characters, it subtracts the ASCII value of '0' to get the decimal value. For alphabetic characters, it first converts to lowercase, then subtracts the ASCII value of 'a' and adds 10 to get the proper decimal value in the range 10-15. This function is typically used as a helper for processing hexadecimal escape sequences in text input parsing.
 
 ## Parameters / Member Variables
-- : A single hexadecimal character that should be converted to its decimal equivalent
-
+- `hex`: A single hexadecimal character that should be converted to its decimal equivalent
 ## Dependencies
 - Functions called/Symbols referenced:
   - isdigit: Standard library function to check if character is a decimal digit

@@ -16,9 +16,8 @@ flushAndSendFeedback(PGconn *conn, TimestampTz *now)
 The  function is responsible for ensuring data durability and maintaining communication with the PostgreSQL server during logical replication. It performs two critical operations in sequence: first, it forces any buffered output data to be written to disk using  to ensure durability, and then it sends a feedback message to the server indicating the current flush position. The function updates the provided timestamp to reflect the current time just before sending feedback, which helps maintain accurate timing information for replication lag monitoring. This function is essential for maintaining data consistency and providing the server with up-to-date information about the client's progress in processing the logical replication stream.
 
 ## Parameters / Member Variables
-- : A pointer to the PostgreSQL connection object used for communication with the server
-- : A pointer to a TimestampTz variable that gets updated with the current timestamp before sending feedback
-
+- `*conn`: A pointer to the PostgreSQL connection object used for communication with the server
+- `*now`: A pointer to a TimestampTz variable that gets updated with the current timestamp before sending feedback
 ## Dependencies
 - Functions called/Symbols referenced:
   - [OutputFsync](../O/OutputFsync.md) (forces buffered data to disk)

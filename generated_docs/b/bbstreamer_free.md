@@ -18,8 +18,7 @@ bbstreamer_free is a static inline function that provides a standardized interfa
 The function performs a basic assertion to ensure the streamer is not NULL before delegating to the appropriate free handler based on the streamer's type. This is crucial in the frontend environment where PostgreSQL's memory contexts are not available, requiring explicit memory management. The free callback typically deallocates the bbstreamer structure itself along with any private data it may contain.
 
 ## Parameters / Member Variables
-- : Pointer to the bbstreamer object to be freed
-
+- `*streamer`: Pointer to the bbstreamer object to be freed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bbstreamer](bbstreamer.md) (struct type)

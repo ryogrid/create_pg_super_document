@@ -21,9 +21,8 @@ This function implements a heuristic to detect whether two heap TIDs represent a
 This adjacency information helps the B-tree split algorithm make better decisions about where to split pages to maintain locality of related data.
 
 ## Parameters / Member Variables
-- : ItemPointer to the lower (earlier) heap tuple identifier
-- : ItemPointer to the higher (later) heap tuple identifier that should be tested for adjacency with lowhtid
-
+- `lowhtid`: ItemPointer to the lower (earlier) heap tuple identifier
+- `highhtid`: ItemPointer to the higher (later) heap tuple identifier that should be tested for adjacency with lowhtid
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)

@@ -20,8 +20,7 @@ The function operates by iterating through all subplans and checking each one ag
 The function includes safety checks to ensure it's only called in appropriate contexts - specifically when parallel execution is active and runtime pruning is enabled. It also includes an early return optimization when all subplans are valid.
 
 ## Parameters / Member Variables
-- : Pointer to AppendState containing the append node's execution state, valid subplans bitmap, and parallel state information for tracking finished subplans
-
+- `*node`: Pointer to AppendState containing the append node's execution state, valid subplans bitmap, and parallel state information for tracking finished subplans
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bms_num_members](../b/bms_num_members.md) (bitmap membership counting)

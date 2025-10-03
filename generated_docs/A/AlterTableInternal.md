@@ -18,10 +18,9 @@ AlterTableInternal provides a streamlined entry point for ALTER TABLE operations
 The function follows a straightforward execution pattern: it determines the appropriate lock level based on the commands, opens the relation with that lock, triggers any relevant event triggers, and delegates the actual work to ATController.
 
 ## Parameters / Member Variables
-- : The OID of the relation to be altered
-- : A list of ALTER TABLE subcommands to execute
-- : Boolean flag indicating whether to apply changes recursively to child tables
-
+- `relid`: The OID of the relation to be altered
+- `*cmds`: A list of ALTER TABLE subcommands to execute
+- `recurse`: Boolean flag indicating whether to apply changes recursively to child tables
 ## Dependencies
 - Functions called/Symbols referenced:
   - [AlterTableGetLockLevel](AlterTableGetLockLevel.md)

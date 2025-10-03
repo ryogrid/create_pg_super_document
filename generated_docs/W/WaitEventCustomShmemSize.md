@@ -24,6 +24,7 @@ The function uses proper memory alignment (MAXALIGN) and safe size addition (add
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - MAXALIGN (memory alignment macro)

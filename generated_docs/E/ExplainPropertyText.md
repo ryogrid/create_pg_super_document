@@ -22,10 +22,9 @@ This is a convenience function that serves as a type-specific wrapper around the
 This function provides a clean, type-safe interface for the most common use case of displaying string properties, eliminating the need for callers to remember the correct parameter combinations for text values.
 
 ## Parameters / Member Variables
-- : The property label/name to be displayed
-- : The string value to be displayed 
-- : Pointer to ExplainState containing output format information and string buffer
-
+- `*qlabel`: The property label/name to be displayed
+- `*value`: The string value to be displayed
+- `*es`: Pointer to ExplainState containing output format information and string buffer
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExplainState](ExplainState.md) (struct type)

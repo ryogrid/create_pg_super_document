@@ -18,8 +18,7 @@ regexnejoinsel(PG_FUNCTION_ARGS)
 The function returns a selectivity estimate as a floating-point value between 0 and 1, representing the expected fraction of rows that will NOT match the regular expression pattern in the join condition. Since this is a negated operation, it returns  (approximately 0.995 or 99.5%) instead of the default match selectivity. This estimate helps PostgreSQL's query planner determine the most efficient join order and execution strategy for negated regex operations.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function argument macro that provides access to function call information including operator arguments, though this specific function doesn't directly access individual arguments
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument macro that provides access to function call information including operator arguments, though this specific function doesn't directly access individual arguments
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Generic pattern matching join selectivity function

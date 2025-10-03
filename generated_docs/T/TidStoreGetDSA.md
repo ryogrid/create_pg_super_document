@@ -18,8 +18,7 @@ This function provides access to the Dynamic Shared Area (DSA) that contains a s
 The returned DSA area can be used for managing shared memory allocation and accessing other shared structures within the same memory area.
 
 ## Parameters / Member Variables
-- : The shared TidStore for which to retrieve the DSA area
-
+- `*ts`: The shared TidStore for which to retrieve the DSA area
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert

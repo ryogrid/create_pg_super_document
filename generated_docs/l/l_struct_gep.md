@@ -16,12 +16,11 @@ l_struct_gep(LLVMBuilderRef b, LLVMTypeRef t, LLVMValueRef v, int32 idx, const c
 This function serves as a compatibility wrapper for LLVM's struct GEP (Get Element Pointer) operations, which are used to generate addresses of struct members. The function automatically handles the API differences between LLVM versions - for LLVM versions prior to 16, it uses , while for version 16 and later, it uses  which requires an explicit type parameter. This abstraction allows PostgreSQL's JIT code to work across different LLVM versions without conditional compilation scattered throughout the codebase. The function is essential for accessing members of complex data structures in JIT-compiled code.
 
 ## Parameters / Member Variables
-- : LLVM builder reference used to construct the instruction
-- : LLVM type reference representing the struct type (used in LLVM 16+)
-- : LLVM value reference to the struct instance
-- : 32-bit integer index of the struct member to access
-- : Name for the generated instruction (currently unused, empty string is passed)
-
+- `b`: LLVM builder reference used to construct the instruction
+- `t`: LLVM type reference representing the struct type (used in LLVM 16+)
+- `v`: LLVM value reference to the struct instance
+- `idx`: 32-bit integer index of the struct member to access
+- `*name`: Name for the generated instruction (currently unused, empty string is passed)
 ## Dependencies
 - Functions called/Symbols referenced:
   - LLVMBuildStructGEP (LLVM C API function, for LLVM < 16)

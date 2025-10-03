@@ -23,8 +23,7 @@ This function implements the core logic for set operations when inputs are sorte
 The function processes one group at a time, scanning through all tuples in the current group before determining the output. It handles the transition between groups by preserving the first tuple of the next group for the subsequent iteration.
 
 ## Parameters / Member Variables
-- : Pointer to the SetOpState structure containing the execution state, including tuple storage, counting information, equality functions, and output control
-
+- `*setopstate`: Pointer to the SetOpState structure containing the execution state, including tuple storage, counting information, equality functions, and output control
 ## Dependencies
 - Functions called/Symbols referenced:
   - outerPlanState (gets the outer plan state)

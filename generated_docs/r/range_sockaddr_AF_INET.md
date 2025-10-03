@@ -18,10 +18,9 @@ range_sockaddr_AF_INET(const struct sockaddr_in *addr,
 This static function implements IPv4 subnet matching using bitwise operations. It performs an XOR operation between the target address and network address, then applies the netmask using a bitwise AND operation. If the result is zero, the address is within the subnet; otherwise, it's outside the subnet range. This is the standard algorithm for IPv4 subnet matching.
 
 ## Parameters / Member Variables
-- : The IPv4 socket address to be checked for subnet membership
-- : The IPv4 network address that defines the subnet base
-- : The IPv4 netmask that defines the subnet boundaries
-
+- `*addr`: The IPv4 socket address to be checked for subnet membership
+- `*netaddr`: The IPv4 network address that defines the subnet base
+- `*netmask`: The IPv4 netmask that defines the subnet boundaries
 ## Dependencies
 - Functions called/Symbols referenced:
   - (No external function calls - uses only standard bitwise operations)

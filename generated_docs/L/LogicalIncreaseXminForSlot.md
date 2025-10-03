@@ -31,9 +31,8 @@ Key responsibilities include:
 5. Thread-safe manipulation of replication slot data
 
 ## Parameters / Member Variables
-- : XLogRecPtr indicating the LSN position associated with this xmin requirement
-- : TransactionId representing the minimum transaction ID that must be preserved
-
+- `current_lsn`: XLogRecPtr indicating the LSN position associated with this xmin requirement
+- `xmin`: TransactionId representing the minimum transaction ID that must be preserved
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReplicationSlot](../R/ReplicationSlot.md)

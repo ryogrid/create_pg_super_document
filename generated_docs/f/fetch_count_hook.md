@@ -18,8 +18,7 @@ This function serves as a validation hook for the FETCH_COUNT psql variable. Whe
 The FETCH_COUNT variable in psql determines how many rows should be retrieved and displayed at once when executing queries. Setting it to 0 means all rows are fetched, while positive values limit the number of rows fetched per batch.
 
 ## Parameters / Member Variables
-- : A string containing the new value being assigned to the FETCH_COUNT variable that needs to be validated and parsed
-
+- `*newval`: A string containing the new value being assigned to the FETCH_COUNT variable that needs to be validated and parsed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ParseVariableNum](../P/ParseVariableNum.md)

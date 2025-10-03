@@ -18,10 +18,9 @@ This function serves as a specialized callback for resolve_special_varno when de
 The function's primary responsibility is to format the resolved expression node for output. It receives the actual expression that the special variable references (after resolve_special_varno has located the appropriate TargetEntry) and formats it appropriately. The key logic handles non-Var expressions by wrapping them in parentheses to maintain correct precedence when the caller expects a simple variable reference.
 
 ## Parameters / Member Variables
-- : The resolved expression node that the special variable actually references
-- : Deparse context containing output buffer and formatting state
-- : Unused callback argument (reserved for potential future extensions)
-
+- `*node`: The resolved expression node that the special variable actually references
+- `*context`: Deparse context containing output buffer and formatting state
+- `*callback_arg`: Unused callback argument (reserved for potential future extensions)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_rule_expr](get_rule_expr.md) (for recursive expression formatting)

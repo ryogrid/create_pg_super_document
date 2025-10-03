@@ -20,9 +20,8 @@ The function creates a Python exception object of the specified class, populates
 The function implements careful memory management for Python objects, using proper reference counting and cleanup on failure paths to prevent memory leaks.
 
 ## Parameters / Member Variables
-- : PyObject pointer to the Python exception class to instantiate (e.g., SPIError)
-- : Pointer to PostgreSQL's ErrorData structure containing detailed error information
-
+- `*excclass`: PyObject pointer to the Python exception class to instantiate (e.g., SPIError)
+- `*edata`: Pointer to PostgreSQL's ErrorData structure containing detailed error information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ErrorData](../E/ErrorData.md) (PostgreSQL error data structure)

@@ -17,10 +17,9 @@ exec_command_if(PsqlScanState scan_state, ConditionalStack cstack,
 This function handles the execution of the \if backslash command in psql, which begins a conditional block. It evaluates a boolean expression and determines whether subsequent commands should be executed or ignored until the matching \endif. The function manages a conditional stack to track nested \if..\endif blocks and their states (true, false, or ignored). When in an active branch, it evaluates the expression and sets the appropriate state. When already in an inactive branch, the entire inner \if block is ignored without evaluating the expression. The function also saves the current query state to enable proper restoration when exiting the conditional block.
 
 ## Parameters / Member Variables
-- : PsqlScanState pointer that tracks the current parsing state of the psql input
-- : ConditionalStack managing the hierarchy of nested conditional blocks
-- : PQExpBuffer containing the current query text that may need restoration
-
+- `scan_state`: PsqlScanState pointer that tracks the current parsing state of the psql input
+- `cstack`: ConditionalStack managing the hierarchy of nested conditional blocks
+- `query_buf`: PQExpBuffer containing the current query text that may need restoration
 ## Dependencies
 - Functions called/Symbols referenced:
   - [conditional_active](../c/conditional_active.md) (checks if currently in an active conditional branch)

@@ -22,7 +22,6 @@ The function currently supports:
 This approach provides optimal performance for supported encodings while maintaining compatibility for all other encodings through the generic incrementer.
 
 ## Parameters / Member Variables
-None - this function takes no parameters
 
 ## Dependencies
 - Functions called/Symbols referenced:

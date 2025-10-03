@@ -18,9 +18,8 @@ The  function serves as the core implementation for consuming (allocating) trans
 The function maintains progress reporting by logging a NOTICE message every 10 million consumed XIDs, helping administrators monitor the progress of XID consumption operations. It uses subtransactions to consume XIDs, marking them as subtransactions of the current top-level transaction.
 
 ## Parameters / Member Variables
-- : Target FullTransactionId to consume up to (used when nxids is 0; InvalidFullTransactionId when consuming a specific count)
-- : Number of XIDs to consume (used when untilxid is InvalidFullTransactionId; 0 when consuming until a target XID)
-
+- `untilxid`: Target FullTransactionId to consume up to (used when nxids is 0; InvalidFullTransactionId when consuming a specific count)
+- `nxids`: Number of XIDs to consume (used when untilxid is InvalidFullTransactionId; 0 when consuming until a target XID)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReadNextFullTransactionId](../R/ReadNextFullTransactionId.md)

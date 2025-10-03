@@ -22,10 +22,9 @@ The count_nulls function is a common subroutine that analyzes function call info
 The function returns a boolean indicating success (true) or failure (false). On success, it populates the provided output parameters with the total argument count and null count. If a VARIADIC array argument itself is null, the function returns false since it cannot determine meaningful information about element nullability.
 
 ## Parameters / Member Variables
-- : Function call information structure containing argument data and metadata
-- : Output parameter - pointer to store the total number of arguments processed
-- : Output parameter - pointer to store the count of null arguments found
-
+- `fcinfo`: Function call information structure containing argument data and metadata
+- `*nargs`: Output parameter - pointer to store the total number of arguments processed
+- `*nulls`: Output parameter - pointer to store the count of null arguments found
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_fn_expr_variadic](../g/get_fn_expr_variadic.md)

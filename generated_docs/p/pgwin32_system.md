@@ -18,8 +18,7 @@ The  function is a Windows-specific implementation that wraps the standard C lib
 The function creates a dynamically allocated buffer that is 2 characters larger than the input command to accommodate the surrounding quotes, then calls the standard  function with this quoted version. After execution, it properly cleans up the allocated memory while preserving any errno value that may have been set during execution.
 
 ## Parameters / Member Variables
-- : A null-terminated string containing the system command to execute
-
+- `*command`: A null-terminated string containing the system command to execute
 ## Dependencies
 - Functions called/Symbols referenced:
   - malloc

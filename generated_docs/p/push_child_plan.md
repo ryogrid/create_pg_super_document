@@ -19,10 +19,9 @@ The  function is used during the deparsing process to temporarily shift focus to
 The function modifies the top stack entry in-place to avoid affecting levelsup issues, which is important for maintaining proper variable reference resolution in Plan trees. It saves the current state, links the current plan into the ancestors list, and then sets attention on the specified child plan.
 
 ## Parameters / Member Variables
-- : Pointer to the current deparse namespace context that will be modified
-- : The child plan node to focus deparsing attention on
-- : Local deparse_namespace variable used to save the previous state for later restoration via pop_child_plan
-
+- `*dpns`: Pointer to the current deparse namespace context that will be modified
+- `*plan`: The child plan node to focus deparsing attention on
+- `*save_dpns`: Local deparse_namespace variable used to save the previous state for later restoration via pop_child_plan
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lcons](../l/lcons.md) (list constructor function)

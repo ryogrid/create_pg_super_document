@@ -21,8 +21,7 @@ Examples of behavior:
 - "12" (no decimal) → returns NULL
 
 ## Parameters / Member Variables
-- : Input numeric string to analyze for the last relevant decimal digit
-
+- `*num`: Input numeric string to analyze for the last relevant decimal digit
 ## Dependencies
 - Functions called/Symbols referenced:
   - strchr (locates decimal point character)

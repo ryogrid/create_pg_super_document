@@ -16,8 +16,7 @@ ReceiveCopyBegin(CopyFromState cstate)
 ReceiveCopyBegin sets up the COPY FROM operation by sending a CopyInResponse message to the frontend. This function prepares the communication channel for receiving copy data by specifying the format (text or binary) and the number of columns expected. It also initializes the frontend message buffer and sets the copy source to COPY_FRONTEND. The function ensures that the frontend receives this information by flushing the output buffer immediately.
 
 ## Parameters / Member Variables
-- : CopyFromState structure containing the current state and configuration of the COPY FROM operation, including format options and attribute information
-
+- `cstate`: CopyFromState structure containing the current state and configuration of the COPY FROM operation, including format options and attribute information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_length](../l/list_length.md) (to get number of attributes)

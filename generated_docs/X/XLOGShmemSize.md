@@ -17,6 +17,7 @@ This function computes the total shared memory size needed for PostgreSQL's Writ
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [XLOGChooseNumBuffers](XLOGChooseNumBuffers.md)

@@ -17,12 +17,11 @@ range_deserialize(TypeCacheEntry *typcache, const RangeType *range,
 This function extracts the internal components of a serialized RangeType object, parsing the binary format to reconstruct the lower bound, upper bound, and empty flag. It reads the flags byte from the end of the range object, then uses type information to properly deserialize the bound values based on their storage characteristics. The function handles both fixed-length and variable-length element types, properly aligning data according to the element type's requirements. For pass-by-reference element types, the returned datums point directly into the original range object's memory.
 
 ## Parameters / Member Variables
-- : Type cache entry containing metadata about the range type and its element type
-- : Serialized range object to deserialize (must be fully detoasted)
-- : Output parameter for lower bound information (value, inclusivity, infinity flags)
-- : Output parameter for upper bound information (value, inclusivity, infinity flags)
-- : Output parameter indicating whether the range is empty
-
+- `*typcache`: Type cache entry containing metadata about the range type and its element type
+- `*range`: Serialized range object to deserialize (must be fully detoasted)
+- `*lower`: Output parameter for lower bound information (value, inclusivity, infinity flags)
+- `*upper`: Output parameter for upper bound information (value, inclusivity, infinity flags)
+- `*empty`: Output parameter indicating whether the range is empty
 ## Dependencies
 - Functions called/Symbols referenced:
   - RangeTypeGetOid

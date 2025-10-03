@@ -21,11 +21,10 @@ The function operates in two main phases:
 2. **Index Fixing**: It iterates through the merged_indexes list and updates each index using the constructed mapping, ensuring that all references point to the correct new positions.
 
 ## Parameters / Member Variables
-- : PartitionMap pointer containing information about the outer partition mapping, including remapping details
-- : PartitionMap pointer containing information about the inner partition mapping, including remapping details  
-- : Integer representing the number of merged partitions to process
-- : List of integer indexes that need to be adjusted based on the new partition structure
-
+- `*outer_map`: PartitionMap pointer containing information about the outer partition mapping, including remapping details
+- `*inner_map`: PartitionMap pointer containing information about the inner partition mapping, including remapping details
+- `nmerged`: Integer representing the number of merged partitions to process
+- `*merged_indexes`: List of integer indexes that need to be adjusted based on the new partition structure
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PartitionMap](../P/PartitionMap.md) (struct type)

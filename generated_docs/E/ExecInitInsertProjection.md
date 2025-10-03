@@ -25,9 +25,8 @@ The function performs several critical tasks:
 The function optimizes for the common case where no projection is needed (when the subplan output exactly matches the target table format), but handles the general case where transformation is required.
 
 ## Parameters / Member Variables
-- : ModifyTable executor state containing plan information and execution context
-- : Result relation information structure to be initialized with projection data
-
+- `*mtstate`: ModifyTable executor state containing plan information and execution context
+- `*resultRelInfo`: Result relation information structure to be initialized with projection data
 ## Dependencies
 - Functions called/Symbols referenced:
   - outerPlan

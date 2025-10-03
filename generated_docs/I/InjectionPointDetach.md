@@ -24,8 +24,7 @@ This function searches for and removes an injection point with the specified nam
 The function optimizes the shared memory usage by compacting the active range when possible, reducing the search space for future operations.
 
 ## Parameters / Member Variables
-- : The unique identifier of the injection point to remove
-
+- `*name`: The unique identifier of the injection point to remove
 ## Return Value
 - Returns  if the injection point was successfully found and detached
 - Returns  if no injection point with the given name was found

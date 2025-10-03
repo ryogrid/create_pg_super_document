@@ -18,12 +18,11 @@ PQsetvalue allows modification of field values within a PGresult, supporting bot
 The function performs comprehensive validation of parameters and handles various value types including NULL values (represented by NULL_LEN or NULL pointer), empty strings (len <= 0), and regular data values. Memory management is handled through the result's memory context, ensuring proper cleanup. All allocations include space for null termination of string values.
 
 ## Parameters / Member Variables
-- : Target PGresult to modify
-- : Tuple (row) number (0-based, can equal ntups to create new tuple)
-- : Field (column) number (0-based)
-- : Pointer to the value data (can be NULL)
-- : Length of the value data (NULL_LEN for NULL values)
-
+- `*res`: Target PGresult to modify
+- `tup_num`: Tuple (row) number (0-based, can equal ntups to create new tuple)
+- `field_num`: Field (column) number (0-based)
+- `*value`: Pointer to the value data (can be NULL)
+- `len`: Length of the value data (NULL_LEN for NULL values)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_field_number](../c/check_field_number.md)

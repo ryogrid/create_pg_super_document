@@ -25,10 +25,9 @@ This function handles the initialization phase of SSPI (Security Support Provide
 The function provides flexibility in authentication protocols while maintaining compatibility with Unix-based PostgreSQL servers when using Kerberos.
 
 ## Parameters / Member Variables
-- : PostgreSQL connection structure for storing SSPI context, credentials, and connection state
-- : Flag to select security package (0 = kerberos only, 1 = negotiate package supporting Kerberos/NTLM)
-- : Length of any incoming authentication data (typically 0 for initial startup)
-
+- `*conn`: PostgreSQL connection structure for storing SSPI context, credentials, and connection state
+- `use_negotiate`: Flag to select security package (0 = kerberos only, 1 = negotiate package supporting Kerberos/NTLM)
+- `payloadlen`: Length of any incoming authentication data (typically 0 for initial startup)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Memory allocation for credentials handle and target principal string

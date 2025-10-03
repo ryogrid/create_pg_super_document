@@ -16,8 +16,7 @@ gistInitParentMap(GISTBuildState *buildstate)
 This function creates and configures a hash table within the GiST build state that serves as a parent map during index construction. The hash table maps block numbers (BlockNumber) to parent map entries (ParentMapEntry), allowing the build process to efficiently track parent-child relationships between index pages. The hash table is configured with specific parameters optimized for the GiST build process, including the use of blob-based hashing for block numbers and a custom memory context.
 
 ## Parameters / Member Variables
-- : Pointer to the GISTBuildState structure that maintains the overall state during GiST index construction. The function initializes the parentMap field within this structure.
-
+- `*buildstate`: Pointer to the GISTBuildState structure that maintains the overall state during GiST index construction. The function initializes the parentMap field within this structure.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hash_create](../h/hash_create.md)

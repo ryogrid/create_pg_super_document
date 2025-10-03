@@ -18,7 +18,6 @@ This function performs the one-time initialization of PostgreSQL's tablespace ca
 The hash table is configured with Oid as the key (tablespace OID) and TableSpaceCacheEntry as the entry structure. The function uses PostgreSQL's standard hash table creation mechanisms with HASH_ELEM and HASH_BLOBS flags for efficient key-based lookups. It also integrates with the system cache invalidation framework to maintain cache consistency.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

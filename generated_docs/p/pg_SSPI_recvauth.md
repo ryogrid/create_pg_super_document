@@ -29,8 +29,7 @@ pg_SSPI_recvauth implements the complete server-side SSPI authentication handsha
 The function handles various error conditions gracefully, ensuring proper cleanup of allocated resources and security contexts.
 
 ## Parameters / Member Variables
-- : Pointer to the Port structure containing connection information, HBA configuration, and client details
-
+- `*port`: Pointer to the Port structure containing connection information, HBA configuration, and client details
 ## Dependencies
 - Functions called/Symbols referenced:
   - AcquireCredentialsHandle (Windows SSPI API)

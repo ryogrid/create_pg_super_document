@@ -18,9 +18,8 @@ The function serves as a callback predicate for statistics entry filtering opera
 The function extracts the integer kind value from the  parameter and compares it against the entry's key kind field, returning true when they match.
 
 ## Parameters / Member Variables
-- : Pointer to a shared statistics hash entry () to be evaluated
-- : Datum containing the target statistics kind (as an integer) to match against
-
+- `*p`: Pointer to a shared statistics hash entry () to be evaluated
+- `match_data`: Datum containing the target statistics kind (as an integer) to match against
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Converts Datum to int32 value to extract the target kind

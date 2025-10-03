@@ -18,10 +18,9 @@ The  function is a wrapper around the standard  system call that ensures exactly
 This function is part of the pg_combinebackup utility's reconstruction module, specifically designed to handle reliable file I/O operations during backup reconstruction processes.
 
 ## Parameters / Member Variables
-- : Pointer to an rfile structure containing the file descriptor and filename for the file being read
-- : Pointer to the destination buffer where the read data will be stored
-- : Number of bytes to read from the file (unsigned integer)
-
+- `*rf`: Pointer to an rfile structure containing the file descriptor and filename for the file being read
+- `*buffer`: Pointer to the destination buffer where the read data will be stored
+- `length`: Number of bytes to read from the file (unsigned integer)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (system call)

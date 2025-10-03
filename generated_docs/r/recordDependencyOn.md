@@ -18,10 +18,9 @@ recordDependencyOn(const ObjectAddress *depender,
 This function provides a simple interface for recording a dependency relationship between two PostgreSQL database objects. It serves as a wrapper around  for the common case of recording a single dependency. The function creates an entry in the pg_depend system catalog table without performing any additional processing or validation. The dependency relationship indicates that the depender object relies on the referenced object and helps PostgreSQL's dependency tracking system manage object lifecycles, particularly during DROP operations.
 
 ## Parameters / Member Variables
-- : Pointer to ObjectAddress of the dependent object (the one that depends on another)
-- : Pointer to ObjectAddress of the referenced object (the one being depended upon)
-- : DependencyType enum value specifying the type of dependency relationship (e.g., DEPENDENCY_NORMAL, DEPENDENCY_AUTO, etc.)
-
+- `*depender`: Pointer to ObjectAddress of the dependent object (the one that depends on another)
+- `*referenced`: Pointer to ObjectAddress of the referenced object (the one being depended upon)
+- `behavior`: DependencyType enum value specifying the type of dependency relationship (e.g., DEPENDENCY_NORMAL, DEPENDENCY_AUTO, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [recordMultipleDependencies](recordMultipleDependencies.md)

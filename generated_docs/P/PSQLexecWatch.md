@@ -26,11 +26,10 @@ PSQLexecWatch is specifically designed to support psql's \watch command function
 The function is optimized for repeated execution scenarios and provides detailed control over result display and formatting, making it ideal for monitoring queries that need to be run periodically.
 
 ## Parameters / Member Variables
-- : The SQL query string to be executed
-- : Pointer to printQueryOpt structure containing formatting options for query results
-- : FILE pointer for output destination (can be different from stdout)
-- : Minimum number of rows threshold for result processing behavior
-
+- `*query`: The SQL query string to be executed
+- `*opt`: Pointer to printQueryOpt structure containing formatting options for query results
+- `*printQueryFout`: FILE pointer for output destination (can be different from stdout)
+- `min_rows`: Minimum number of rows threshold for result processing behavior
 ## Dependencies
 - Functions called/Symbols referenced:
   - [printQueryOpt](../p/printQueryOpt.md) (structure type for formatting options)

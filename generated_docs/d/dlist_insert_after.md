@@ -22,9 +22,8 @@ The insertion process involves four pointer updates:
 4. Update the next node's previous pointer to point back to the new node
 
 ## Parameters / Member Variables
-- : Pointer to the existing node after which the new node will be inserted
-- : Pointer to the new node to be inserted into the list
-
+- `*after`: Pointer to the existing node after which the new node will be inserted
+- `*node`: Pointer to the new node to be inserted into the list
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dlist_node](dlist_node.md) (data structure)

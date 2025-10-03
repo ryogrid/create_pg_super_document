@@ -18,10 +18,9 @@ This function implements the core logic for range adjacency testing. Two ranges 
 The adjacency test is bidirectional: ranges A..B and C..D are adjacent if B is adjacent to C OR if D is adjacent to A. This handles cases where ranges might be passed in either order.
 
 ## Parameters / Member Variables
-- : TypeCacheEntry containing range type metadata and comparison functions
-- : First RangeType to test for adjacency
-- : Second RangeType to test for adjacency
-
+- `*typcache`: TypeCacheEntry containing range type metadata and comparison functions
+- `*r1`: First RangeType to test for adjacency
+- `*r2`: Second RangeType to test for adjacency
 ## Dependencies
 - Functions called/Symbols referenced:
   - RangeTypeGetOid

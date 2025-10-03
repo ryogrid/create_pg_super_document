@@ -20,8 +20,7 @@ The Tcl notifier subsystem normally handles event processing and can introduce m
 This approach is safe because PostgreSQL never enters the Tcl event loop, so the notifier capabilities are initialized but never actively used in a way that would require actual implementation.
 
 ## Parameters / Member Variables
-- : Opaque pointer to client-specific data, passed through from Tcl's notifier system but unused in this stub implementation
-
+- `clientData`: Opaque pointer to client-specific data, passed through from Tcl's notifier system but unused in this stub implementation
 ## Dependencies
 - Functions called/Symbols referenced:
   - (None - this is an empty stub function)

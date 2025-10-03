@@ -17,8 +17,7 @@ static int r_mark_possessives(struct SN_env * z)
 This function is part of the Turkish language stemming implementation in PostgreSQL's Snowball stemmer library. It identifies possessive suffixes in Turkish words by performing backwards pattern matching against a predefined set of possessive suffix patterns. The function uses bit manipulation to optimize character checking and employs the  function to match against an array of 10 possessive suffix patterns (). Upon successful pattern identification, it calls  to handle vowel harmony rules specific to Turkish morphology.
 
 ## Parameters / Member Variables
-- : Pointer to the Snowball environment structure containing the word being processed, current position markers, and other stemming state information
-
+- `*z`: Pointer to the Snowball environment structure containing the word being processed, current position markers, and other stemming state information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [find_among_b](../f/find_among_b.md) (Snowball library function for backwards pattern matching)

@@ -28,11 +28,10 @@ The function performs the following operations for each pattern:
 Unlike schema patterns, extension patterns cannot be qualified names - any pattern containing dots will cause a fatal error since extensions are not schema-qualified objects.
 
 ## Parameters / Member Variables
-- : Archive structure containing database connection and dump context
-- : SimpleStringList containing extension name patterns to match (may include wildcards)
-- : SimpleOidList to append matching extension OIDs to
-- : Boolean flag that causes failure if any pattern matches no extensions
-
+- `*fout`: Archive structure containing database connection and dump context
+- `*patterns`: SimpleStringList containing extension name patterns to match (may include wildcards)
+- `*oids`: SimpleOidList to append matching extension OIDs to
+- `strict_names`: Boolean flag that causes failure if any pattern matches no extensions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [createPQExpBuffer](../c/createPQExpBuffer.md), resetPQExpBuffer, destroyPQExpBuffer (query buffer management)

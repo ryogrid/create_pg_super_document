@@ -18,9 +18,8 @@ The  function implements the relation options parsing interface for the dummy in
 This function demonstrates how index access methods can define and parse custom options that users can specify when creating indexes. The dummy AM defines several option types including integer, real, boolean, enum, and string options for testing purposes. The parsed options are returned as a bytea structure that can be accessed by other parts of the index AM.
 
 ## Parameters / Member Variables
-- : Datum containing the raw relation options data to be parsed
-- : Boolean flag indicating whether to validate option values during parsing
-
+- `reloptions`: Datum containing the raw relation options data to be parsed
+- `validate`: Boolean flag indicating whether to validate option values during parsing
 ## Dependencies
 - Functions called/Symbols referenced:
   - [build_reloptions](../b/build_reloptions.md) (PostgreSQL relation options parsing function)

@@ -24,8 +24,7 @@ The function performs a switch-case analysis on the node type:
 The function adopts a conservative approach - when in doubt, it returns false, which is always safe since calling code can then apply appropriate wrapping (like CAST()) to ensure grammatical compliance.
 
 ## Parameters / Member Variables
-- : The parse tree node to examine (can be NULL)
-
+- `*node`: The parse tree node to examine (can be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - nodeTag (for node type identification)

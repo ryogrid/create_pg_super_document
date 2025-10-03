@@ -18,8 +18,7 @@ The  function calculates the square root of a PostgreSQL numeric data type. It h
 The function carefully determines the appropriate result scale to ensure at least  significant digits while respecting the input's decimal scale. It uses an optimized weight calculation that accounts for whether  is even or odd to minimize computational overhead.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function argument structure containing the input numeric value
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument structure containing the input numeric value
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_NUMERIC: Extract numeric argument from function args

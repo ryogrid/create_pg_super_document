@@ -16,9 +16,8 @@ StartupProcExit(int code, Datum arg)
 StartupProcExit serves as an exit callback function for the startup process in PostgreSQL. It is registered as a signal handler to ensure proper cleanup when the startup process terminates. The function's primary responsibility is to cleanly shut down the recovery transaction environment if the server is running in standby mode. This ensures that recovery-related resources are properly released and the system maintains consistency during process termination.
 
 ## Parameters / Member Variables
-- : Exit code indicating the reason for process termination
-- : Additional argument data (Datum type) passed to the exit handler
-
+- `code`: Exit code indicating the reason for process termination
+- `arg`: Additional argument data (Datum type) passed to the exit handler
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ShutdownRecoveryTransactionEnvironment](ShutdownRecoveryTransactionEnvironment.md)

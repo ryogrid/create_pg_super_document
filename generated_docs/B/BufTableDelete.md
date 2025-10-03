@@ -20,9 +20,8 @@ The function performs a hash table search with the HASH_REMOVE operation to dele
 The caller must hold an exclusive lock on BufMappingLock for the tag's partition before calling this function to ensure thread safety and data consistency.
 
 ## Parameters / Member Variables
-- : Pointer to a BufferTag structure that uniquely identifies the buffer page to be removed from the hash table
-- : Pre-computed hash value for the buffer tag, used for efficient hash table operations
-
+- `*tagPtr`: Pointer to a BufferTag structure that uniquely identifies the buffer page to be removed from the hash table
+- `hashcode`: Pre-computed hash value for the buffer tag, used for efficient hash table operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hash_search_with_hash_value](../h/hash_search_with_hash_value.md)

@@ -21,10 +21,9 @@ PageIndexMultiDelete is an optimized function for removing multiple tuples from 
 The function requires that the item numbers array be provided in sorted order and performs comprehensive corruption checks on page structure before making any modifications.
 
 ## Parameters / Member Variables
-- : The index page from which to delete tuples
-- : Array of item offset numbers to delete, must be in sorted order
-- : Number of items in the itemnos array, must be ≤ MaxIndexTuplesPerPage
-
+- `page`: The index page from which to delete tuples
+- `*itemnos`: Array of item offset numbers to delete, must be in sorted order
+- `nitems`: Number of items in the itemnos array, must be ≤ MaxIndexTuplesPerPage
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PageIndexTupleDelete](PageIndexTupleDelete.md)

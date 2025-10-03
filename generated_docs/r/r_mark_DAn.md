@@ -23,8 +23,7 @@ The function operates by:
 4. Using find_among_b() to match against suffix patterns in array a_8
 
 ## Parameters / Member Variables
-- : Pointer to SN_env structure containing the stemming environment, including the word being processed, current position, and boundaries
-
+- `*z`: Pointer to SN_env structure containing the stemming environment, including the word being processed, current position, and boundaries
 ## Dependencies
 - Functions called/Symbols referenced:
   - [r_check_vowel_harmony](r_check_vowel_harmony.md)

@@ -40,9 +40,8 @@ The function processes several constraint types:
 The function also handles special cases like binary upgrades, foreign tables, partitioned tables, and extension dependencies.
 
 ## Parameters / Member Variables
-- : Archive pointer containing dump options and output context
-- : ConstraintInfo structure containing:
-
+- `*fout`: Archive pointer containing dump options and output context
+- `*coninfo`: ConstraintInfo structure containing:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [createPQExpBuffer](../c/createPQExpBuffer.md)

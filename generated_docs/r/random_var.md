@@ -28,11 +28,10 @@ The core challenge is generating uniform random values for arbitrary-precision d
 - Handling decimal scale requirements by ensuring the final digit is a multiple of the appropriate power of 10
 
 ## Parameters / Member Variables
-- : Pointer to PostgreSQL's pseudo-random number generator state
-- : Pointer to NumericVar representing the minimum bound of the range (inclusive)
-- : Pointer to NumericVar representing the maximum bound of the range (inclusive)
-- : Pointer to NumericVar where the generated random value will be stored
-
+- `*state`: Pointer to PostgreSQL's pseudo-random number generator state
+- `*rmin`: Pointer to NumericVar representing the minimum bound of the range (inclusive)
+- `*rmax`: Pointer to NumericVar representing the maximum bound of the range (inclusive)
+- `*result`: Pointer to NumericVar where the generated random value will be stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - [sub_var](../s/sub_var.md) (computes range length)

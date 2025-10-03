@@ -22,12 +22,11 @@ This function is a high-level interface to the table access method layer for cre
 The function is designed to be called before updating the relcache entry when creating new storage for an existing relation. This ensures proper ordering of operations during DDL commands that require new storage allocation. The function also handles the establishment of transaction visibility horizons for the new storage.
 
 ## Parameters / Member Variables
-- : The relation for which new storage is being created
-- : Pointer to the new RelFileLocator that specifies the new storage location and properties
-- : Character indicating the persistence level ('p' for permanent, 't' for temporary, 'u' for unlogged)
-- : Output parameter set to the transaction ID horizon that should be recorded in pg_class.relfrozenxid
-- : Output parameter set to the MultiXactId horizon that should be recorded in pg_class.relminmxid
-
+- `rel`: The relation for which new storage is being created
+- `*newrlocator`: Pointer to the new RelFileLocator that specifies the new storage location and properties
+- `persistence`: Character indicating the persistence level ('p' for permanent, 't' for temporary, 'u' for unlogged)
+- `*freezeXid`: Output parameter set to the transaction ID horizon that should be recorded in pg_class.relfrozenxid
+- `*minmulti`: Output parameter set to the MultiXactId horizon that should be recorded in pg_class.relminmxid
 ## Dependencies
 - Functions called/Symbols referenced:
   - rel->rd_tableam->relation_set_new_filelocator (table access method implementation)

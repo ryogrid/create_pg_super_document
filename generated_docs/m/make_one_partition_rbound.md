@@ -25,11 +25,10 @@ For each datum in the input list, the function extracts the datum kind and, if i
 The resulting structure is used throughout the range partitioning system for bound comparisons, partition pruning, and constraint generation.
 
 ## Parameters / Member Variables
-- : Partition key containing metadata about partitioning columns and their count
-- : Integer index identifying which partition this bound belongs to  
-- : List of PartitionRangeDatum elements containing the boundary values
-- : Boolean flag indicating if this is a lower bound (true) or upper bound (false)
-
+- `key`: Partition key containing metadata about partitioning columns and their count
+- `index`: Integer index identifying which partition this bound belongs to
+- `*datums`: List of PartitionRangeDatum elements containing the boundary values
+- `lower`: Boolean flag indicating if this is a lower bound (true) or upper bound (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc0](../p/palloc0.md) (memory allocation)

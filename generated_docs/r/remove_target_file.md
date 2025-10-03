@@ -16,9 +16,8 @@ remove_target_file(const char *path, bool missing_ok)
 This function is part of the pg_rewind utility's file operations module. It safely removes a specified file from the target PostgreSQL data directory by constructing the full path and calling the system's unlink() function. The function includes error handling that can optionally ignore missing files based on the missing_ok parameter. If dry_run mode is enabled, the function returns early without performing any actual file operations.
 
 ## Parameters / Member Variables
-- : Relative path to the file within the target data directory that should be removed
-- : Boolean flag indicating whether it's acceptable for the target file to not exist (true = ignore missing files, false = treat missing files as an error)
-
+- `*path`: Relative path to the file within the target data directory that should be removed
+- `missing_ok`: Boolean flag indicating whether it's acceptable for the target file to not exist (true = ignore missing files, false = treat missing files as an error)
 ## Dependencies
 - Functions called/Symbols referenced:
   - unlink (system call)

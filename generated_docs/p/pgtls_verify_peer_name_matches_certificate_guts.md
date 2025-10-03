@@ -26,10 +26,9 @@ This function performs SSL/TLS certificate hostname verification by comparing th
 The implementation deviates from strict RFC compliance in one key area: when connecting to an IP address, it allows CN matching even if dNSName SANs are present, which RFC 6125 prohibits but provides more intuitive behavior.
 
 ## Parameters / Member Variables
-- : PostgreSQL connection object containing the peer certificate and connection details
-- : Output parameter that returns the total number of certificate names examined during verification
-- : Output parameter that returns the first name found in the certificate (for error reporting)
-
+- `*conn`: PostgreSQL connection object containing the peer certificate and connection details
+- `*names_examined`: Output parameter that returns the total number of certificate names examined during verification
+- `**first_name`: Output parameter that returns the first name found in the certificate (for error reporting)
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Determines if hostname is an IP address vs DNS name

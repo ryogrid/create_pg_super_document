@@ -18,8 +18,7 @@ The  function implements the operator class validation interface for the dummy i
 However, since the dummy index AM is designed for testing and doesn't perform actual indexing operations, it accepts any operator class by always returning true. This permissive approach allows the dummy AM to be used with various data types and operator classes for testing purposes without the complexity of implementing proper validation logic.
 
 ## Parameters / Member Variables
-- : Object identifier (OID) of the operator class to validate
-
+- `opclassoid`: Object identifier (OID) of the operator class to validate
 ## Dependencies
 - Functions called/Symbols referenced:
   - Oid (PostgreSQL object identifier type)

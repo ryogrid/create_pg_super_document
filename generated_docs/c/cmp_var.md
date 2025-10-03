@@ -18,9 +18,8 @@ This function provides a high-level interface for comparing two NumericVar struc
 This is a convenience wrapper that simplifies the interface for comparing complete NumericVar structures by automatically extracting the necessary components for comparison.
 
 ## Parameters / Member Variables
-- : Pointer to the first NumericVar structure to compare
-- : Pointer to the second NumericVar structure to compare
-
+- `*var1`: Pointer to the first NumericVar structure to compare
+- `*var2`: Pointer to the second NumericVar structure to compare
 ## Dependencies
 - Functions called/Symbols referenced:
   - [cmp_var_common](cmp_var_common.md): Core comparison function that performs the actual comparison logic

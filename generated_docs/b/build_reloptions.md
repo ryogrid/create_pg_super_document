@@ -20,13 +20,12 @@ build_reloptions(Datum reloptions, bool validate,
 This function serves as the main entry point for building relation options structures. It orchestrates the complete process of parsing raw relation options: first calling parseRelOptions to convert the input Datum into structured relopt_value entries, then allocating memory for the result structure using allocateReloptStruct, and finally filling the structure with parsed values using fillRelOptions. The function handles the case where no options are provided by returning NULL, and properly manages memory by freeing the intermediate parsed options array.
 
 ## Parameters / Member Variables
-- : Input Datum containing the raw relation options to be parsed
-- : Must be true if reloptions is freshly built by transformRelOptions(), false if read from catalog with pre-validated values
-- : The specific kind of relation options being processed (relopt_kind enum)
-- : Size of the target options structure to be allocated
-- : Parsing table describing allowed options and their properties
-- : Number of elements in the parsing table
-
+- `reloptions`: Input Datum containing the raw relation options to be parsed
+- `validate`: Must be true if reloptions is freshly built by transformRelOptions(), false if read from catalog with pre-validated values
+- `kind`: The specific kind of relation options being processed (relopt_kind enum)
+- `relopt_struct_size`: Size of the target options structure to be allocated
+- `*relopt_elems`: Parsing table describing allowed options and their properties
+- `num_relopt_elems`: Number of elements in the parsing table
 ## Dependencies
 - Functions called/Symbols referenced:
   - relopt_kind (enum type)

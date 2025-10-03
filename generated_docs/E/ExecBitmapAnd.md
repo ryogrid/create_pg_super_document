@@ -18,8 +18,7 @@ ExecBitmapAnd serves as a placeholder function that implements the standard Exec
 The function immediately throws an error if called, indicating that BitmapAnd nodes do not support the conventional ExecProcNode call convention. This design reflects the fact that bitmap scan nodes operate differently from regular tuple-producing nodes - they generate bitmaps of qualifying tuple identifiers rather than streams of tuples.
 
 ## Parameters / Member Variables
-- : PlanState pointer to the BitmapAnd node state (unused, as function immediately errors)
-
+- `*pstate`: PlanState pointer to the BitmapAnd node state (unused, as function immediately errors)
 ## Dependencies
 - Functions called/Symbols referenced:
   - elog (for error reporting)

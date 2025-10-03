@@ -16,8 +16,7 @@ copy_dest_shutdown(DestReceiver *self)
 This function serves as the shutdown callback for the COPY destination receiver in PostgreSQL's executor framework. It implements the DestReceiver interface requirement for a shutdown function but performs no operations (no-op). The function is called by the executor when completing or terminating COPY operations, but since COPY destination receivers handle all cleanup operations through their destroy callback rather than the shutdown callback, this function remains empty. The actual cleanup of COPY state, file handles, and resources occurs in the copy_dest_destroy function.
 
 ## Parameters / Member Variables
-- : Pointer to the DestReceiver structure representing the COPY destination receiver
-
+- `*self`: Pointer to the DestReceiver structure representing the COPY destination receiver
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (interface structure)

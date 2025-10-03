@@ -24,9 +24,8 @@ The function assumes that ReadBuffer has already validated basic page header int
 When corruption is detected, the function reports detailed error information including the index name and block number, and suggests REINDEXing to repair the corruption.
 
 ## Parameters / Member Variables
-- : The B-tree index relation that owns the page
-- : Buffer containing the page to be validated
-
+- `rel`: The B-tree index relation that owns the page
+- `buf`: Buffer containing the page to be validated
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BufferGetPage](../B/BufferGetPage.md): Gets page from buffer

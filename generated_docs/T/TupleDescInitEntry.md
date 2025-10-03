@@ -33,13 +33,12 @@ The function handles several special cases:
 - Default collation is set based on the type's collation property
 
 ## Parameters / Member Variables
-- : The TupleDesc structure containing the attribute to initialize
-- : 1-based attribute position within the TupleDesc (must be valid)
-- : Name for the attribute (NULL creates empty name, existing name preserves current name)
-- : PostgreSQL type OID identifying the data type
-- : Type modifier value for the attribute
-- : Number of array dimensions (0 for non-arrays, validated against PG_INT16_MAX)
-
+- `desc`: The TupleDesc structure containing the attribute to initialize
+- `attributeNumber`: 1-based attribute position within the TupleDesc (must be valid)
+- `*attributeName`: Name for the attribute (NULL creates empty name, existing name preserves current name)
+- `oidtypeid`: PostgreSQL type OID identifying the data type
+- `typmod`: Type modifier value for the attribute
+- `attdim`: Number of array dimensions (0 for non-arrays, validated against PG_INT16_MAX)
 ## Dependencies
 - Functions called/Symbols referenced:
   - Form_pg_type (type catalog structure access)

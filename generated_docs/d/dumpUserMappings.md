@@ -27,13 +27,12 @@ Key features include:
 The function is typically called after a foreign server has been archived to ensure that all related user mappings are also preserved in the dump.
 
 ## Parameters / Member Variables
-- : Archive structure for writing the generated SQL statements
-- : Name of the foreign server whose user mappings should be dumped
-- : Schema namespace context for the user mappings
-- : Owner of the parent foreign server object
-- : Catalog identifier of the foreign server (used in the SQL query)
-- : Dump identifier for dependency tracking
-
+- `*fout`: Archive structure for writing the generated SQL statements
+- `*servername`: Name of the foreign server whose user mappings should be dumped
+- `*namespace`: Schema namespace context for the user mappings
+- `*owner`: Owner of the parent foreign server object
+- `catalogId`: Catalog identifier of the foreign server (used in the SQL query)
+- `dumpId`: Dump identifier for dependency tracking
 ## Dependencies
 - Functions called/Symbols referenced:
   - [createPQExpBuffer](../c/createPQExpBuffer.md)

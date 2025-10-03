@@ -16,9 +16,8 @@ get_per_buffer_data(ReadStream *stream, int16 buffer_index)
 This is a utility function that calculates the memory address of per-buffer data for a given buffer index in a ReadStream. It performs pointer arithmetic to find the correct offset within the stream's per_buffer_data memory region. The function multiplies the per_buffer_data_size by the buffer_index to determine the byte offset from the base address.
 
 ## Parameters / Member Variables
-- : Pointer to the ReadStream structure containing the per-buffer data array
-- : The index of the buffer whose per-buffer data is being accessed
-
+- `*stream`: Pointer to the ReadStream structure containing the per-buffer data array
+- `buffer_index`: The index of the buffer whose per-buffer data is being accessed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReadStream](../R/ReadStream.md) (structure type)

@@ -26,7 +26,6 @@ If any of these structures contains mapping updates (num_mappings != 0), the fun
 This restriction exists because relation mapping changes are complex to handle in the context of two-phase commit. The mapping files need to be updated atomically and consistently across all participating processes, which would require significant additional infrastructure to support properly in the two-phase commit protocol.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

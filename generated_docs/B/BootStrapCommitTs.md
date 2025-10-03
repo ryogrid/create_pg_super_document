@@ -22,7 +22,6 @@ The design assumes that:
 3. Actual segment file creation will happen when needed during normal operation
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

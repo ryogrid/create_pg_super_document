@@ -18,9 +18,8 @@ This function constructs a ModifyTable plan node that implements data modificati
 The ModifyTable node is one of the most complex plan nodes in PostgreSQL due to the variety of features it must support, including triggers, constraints, returning clauses, conflict handling (UPSERT), and partitioned table operations.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global planning context, processed target lists, and other planning information
-- : ModifyTablePath representing the chosen execution strategy for the table modification, containing operation type, target relations, constraint lists, and various configuration parameters
-
+- `*root`: PlannerInfo structure containing global planning context, processed target lists, and other planning information
+- `*best_path`: ModifyTablePath representing the chosen execution strategy for the table modification, containing operation type, target relations, constraint lists, and various configuration parameters
 ## Dependencies
 - Functions called/Symbols referenced:
   - [create_plan_recurse](create_plan_recurse.md)

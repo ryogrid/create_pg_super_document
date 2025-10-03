@@ -16,8 +16,7 @@ isvarchar(unsigned char c)
 The  function checks if a given character is considered valid for variable name parsing in ECPG. It extends the standard alphanumeric character set to include specific special characters that are commonly used in PostgreSQL identifiers and variable references. The function handles both ASCII and extended character sets (characters with values >= 128).
 
 ## Parameters / Member Variables
-- : An unsigned character to be tested for validity in variable names
-
+- `c`: An unsigned character to be tested for validity in variable names
 ## Dependencies
 - Functions called/Symbols referenced:
   - isalnum (standard C library function)

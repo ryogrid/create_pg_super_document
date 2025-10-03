@@ -22,8 +22,7 @@ The abort record creation occurs within a critical section to ensure atomicity. 
 After recording the abort, it marks the transaction tree as aborted in clog and, for subtransactions, immediately removes failed XIDs from the running transaction cache. Finally, it computes and returns the latest XID among the transaction and its children.
 
 ## Parameters / Member Variables
-- : Boolean flag indicating whether this is a subtransaction (true) or main transaction (false) abort
-
+- `isSubXact`: Boolean flag indicating whether this is a subtransaction (true) or main transaction (false) abort
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetCurrentTransactionIdIfAny](../G/GetCurrentTransactionIdIfAny.md) (check for valid transaction ID)

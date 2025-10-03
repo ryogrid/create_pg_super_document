@@ -22,12 +22,11 @@ The function performs several key optimizations: it evaluates expressions that b
 The function returns false if any qualifier evaluates to constant false or NULL, signaling that the child relation should be marked as dummy since it contributes no rows to the query result.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planner state and context
-- : RelOptInfo for the parent relation containing base restriction info
-- : RelOptInfo for the child relation to receive translated qualifiers  
-- : RangeTblEntry for the child relation
-- : AppendRelInfo containing variable translation mappings between parent and child
-
+- `*root`: PlannerInfo structure containing planner state and context
+- `*parentrel`: RelOptInfo for the parent relation containing base restriction info
+- `*childrel`: RelOptInfo for the child relation to receive translated qualifiers
+- `*childRTE`: RangeTblEntry for the child relation
+- `*appinfo`: AppendRelInfo containing variable translation mappings between parent and child
 ## Dependencies
 - Functions called/Symbols referenced:
   - [adjust_appendrel_attrs](adjust_appendrel_attrs.md) (translates variable references)

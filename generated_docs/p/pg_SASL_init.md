@@ -18,9 +18,8 @@ The  function handles the initial phase of SASL (Simple Authentication and Secur
 The function implements mechanism selection logic that prioritizes SCRAM-SHA-256-PLUS (with channel binding) over SCRAM-SHA-256 when SSL is available and channel binding is not disabled. It validates channel binding requirements and ensures secure authentication practices by preventing downgrade attacks.
 
 ## Parameters / Member Variables
-- : Pointer to the PGconn connection structure containing connection state and configuration
-- : Length of the payload in the AuthenticationSASL message (currently unused in the implementation)
-
+- `*conn`: Pointer to the PGconn connection structure containing connection state and configuration
+- `payloadlen`: Length of the payload in the AuthenticationSASL message (currently unused in the implementation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [initPQExpBuffer](../i/initPQExpBuffer.md)

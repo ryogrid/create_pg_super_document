@@ -16,9 +16,8 @@ SetResultVariables(PGresult *result, bool success)
 SetResultVariables is a static function that maintains psql's special variables that track the status of user-entered queries. When a query succeeds, it sets ERROR to "false", SQLSTATE to "00000" (indicating no error), and ROW_COUNT to the number of affected/returned rows. When a query fails, it sets ERROR to "true", extracts the SQLSTATE code and primary error message from the result, sets ROW_COUNT to "0", and updates the LAST_ERROR_SQLSTATE and LAST_ERROR_MESSAGE variables for later reference. The function handles cases where SQLSTATE information may be unavailable (such as libpq-detected connection errors) by using empty strings as fallbacks.
 
 ## Parameters / Member Variables
-- : Pointer to the PGresult structure containing query execution results and potential error information
-- : Boolean indicating whether the query execution was successful
-
+- `*result`: Pointer to the PGresult structure containing query execution results and potential error information
+- `success`: Boolean indicating whether the query execution was successful
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQcmdTuples](../P/PQcmdTuples.md) (PostgreSQL libpq function for row count)

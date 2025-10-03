@@ -24,8 +24,7 @@ This function handles the ALTER COLLATION REFRESH VERSION SQL command by:
 The function ensures version consistency between PostgreSQL's catalog and the underlying collation library, which is important for detecting potential collation behavior changes that could affect index integrity.
 
 ## Parameters / Member Variables
-- : AlterCollationStmt structure containing the collation name to refresh
-
+- `*stmt`: AlterCollationStmt structure containing the collation name to refresh
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_collation_oid](../g/get_collation_oid.md)

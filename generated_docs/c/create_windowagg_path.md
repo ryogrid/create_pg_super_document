@@ -24,16 +24,15 @@ create_windowagg_path(PlannerInfo *root,
 This function creates a WindowAggPath node that represents the execution of window functions. Window functions are computed over a set of rows related to the current row within a partition, and they require the input to be properly sorted by partition and order keys. The function preserves the input sort order and can handle both top-level and intermediate WindowAgg operations. For costing purposes, it assumes no redundant partitioning or ordering columns and delegates to cost_windowagg for detailed cost calculation. The path can include run conditions for short-circuiting execution and qualification conditions for top-level windows.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planner state and configuration
-- : RelOptInfo representing the parent relation associated with the result
-- : Path representing the source of input data (must be properly sorted)
-- : PathTarget structure defining the target list to be computed
-- : List of WindowFunc structures representing window functions to compute
-- : List of OpExprs used to short-circuit WindowAgg execution when possible
-- : WindowClause structure common to all the WindowFuncs being processed
-- : List of qualification conditions from lower-level WindowAggPaths (must be NIL unless topwindow is true)
-- : Boolean flag indicating if this is the top-level WindowAgg (true) or intermediate (false)
-
+- `*root`: PlannerInfo structure containing planner state and configuration
+- `*rel`: RelOptInfo representing the parent relation associated with the result
+- `*subpath`: Path representing the source of input data (must be properly sorted)
+- `*target`: PathTarget structure defining the target list to be computed
+- `*windowFuncs`: List of WindowFunc structures representing window functions to compute
+- `*runCondition`: List of OpExprs used to short-circuit WindowAgg execution when possible
+- `*winclause`: WindowClause structure common to all the WindowFuncs being processed
+- `*qual`: List of qualification conditions from lower-level WindowAggPaths (must be NIL unless topwindow is true)
+- `topwindow`: Boolean flag indicating if this is the top-level WindowAgg (true) or intermediate (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode

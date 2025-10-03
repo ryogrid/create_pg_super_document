@@ -19,11 +19,10 @@ This function constructs a GroupResultPath node for degenerate grouping scenario
 The cost calculation is specialized since it doesn't use the standard cost_resultscan() function. Instead, it manually calculates costs based on the target expressions and any HAVING qualifications, assuming exactly one output row regardless of the HAVING clause selectivity.
 
 ## Parameters / Member Variables
-- : PlannerInfo context for the query being planned
-- : RelOptInfo for the relation this path represents (typically a grouped relation)
-- : PathTarget specifying the output columns and expressions to compute
-- : Optional list of HAVING qualification expressions to apply
-
+- `*root`: PlannerInfo context for the query being planned
+- `*rel`: RelOptInfo for the relation this path represents (typically a grouped relation)
+- `*target`: PathTarget specifying the output columns and expressions to compute
+- `*havingqual`: Optional list of HAVING qualification expressions to apply
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (GroupResultPath creation)

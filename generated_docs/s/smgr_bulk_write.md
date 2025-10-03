@@ -18,11 +18,10 @@ This function is a core component of PostgreSQL's bulk write optimization system
 The bulk write mechanism is designed to optimize storage performance by batching multiple write operations together, reducing the overhead of individual I/O calls. This is particularly beneficial during operations like index builds, table rewrites, and other scenarios involving sequential writes to storage.
 
 ## Parameters / Member Variables
-- : Pointer to the BulkWriteState structure that tracks the bulk write operation and contains the pending writes array
-- : The block number where the buffer data should be written in the target relation
-- : The BulkWriteBuffer containing the data to be written (ownership transfers to the bulk write state)
-- : Boolean flag indicating whether the page follows the standard PostgreSQL page format
-
+- `*bulkstate`: Pointer to the BulkWriteState structure that tracks the bulk write operation and contains the pending writes array
+- `blocknum`: The block number where the buffer data should be written in the target relation
+- `buf`: The BulkWriteBuffer containing the data to be written (ownership transfers to the bulk write state)
+- `page_std`: Boolean flag indicating whether the page follows the standard PostgreSQL page format
 ## Dependencies
 - Functions called/Symbols referenced:
   - [smgr_bulk_flush](smgr_bulk_flush.md)

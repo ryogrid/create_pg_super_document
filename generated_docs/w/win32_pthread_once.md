@@ -18,9 +18,8 @@ This function provides a pthread_once equivalent for Windows systems in the ECPG
 The implementation uses a global mutex  to synchronize access and employs double-checked locking for performance optimization - checking the once flag before acquiring the mutex and again after acquiring it to avoid unnecessary synchronization in subsequent calls.
 
 ## Parameters / Member Variables
-- : A volatile pointer to a pthread_once_t flag that tracks whether the initialization has already occurred
-- : A function pointer to the initialization function that should be called exactly once
-
+- `*once`: A volatile pointer to a pthread_once_t flag that tracks whether the initialization has already occurred
+- `*fn`: A function pointer to the initialization function that should be called exactly once
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pthread_mutex_lock](../p/pthread_mutex_lock.md)

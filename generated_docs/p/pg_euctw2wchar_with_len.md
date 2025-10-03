@@ -23,10 +23,9 @@ This function performs character encoding conversion from EUC-TW to PostgreSQL's
 The conversion preserves the multibyte structure by encoding different code sets into different bit patterns within the pg_wchar value, allowing for proper round-trip conversion.
 
 ## Parameters / Member Variables
-- : Pointer to the input EUC-TW encoded byte string to convert
-- : Pointer to the output buffer where converted pg_wchar characters will be stored
-- : Maximum number of input bytes to process from the source string
-
+- `*from`: Pointer to the input EUC-TW encoded byte string to convert
+- `*to`: Pointer to the output buffer where converted pg_wchar characters will be stored
+- `len`: Maximum number of input bytes to process from the source string
 ## Dependencies
 - Functions called/Symbols referenced:
   - SS2 (Single Shift 2 control character constant)

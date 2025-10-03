@@ -18,6 +18,7 @@ spg_xlog_cleanup(void)
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContextDelete](../M/MemoryContextDelete.md) (deletes the memory context and all its allocated memory)

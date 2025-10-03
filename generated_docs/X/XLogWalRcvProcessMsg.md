@@ -21,11 +21,10 @@ This function is the core message processor for the WAL receiver process in Post
 For WAL record messages, the function extracts header information including the data start LSN, WAL end LSN, and send timestamp, then delegates the actual writing to . For keepalive messages, it processes connection state information and may send an immediate reply if requested by the primary.
 
 ## Parameters / Member Variables
-- : Message type identifier ('w' for WAL records, 'k' for keepalive)  
-- : Raw message buffer containing the payload data
-- : Length of the message buffer in bytes
-- : Timeline ID for the WAL data being processed
-
+- `type`: Message type identifier ('w' for WAL records, 'k' for keepalive)
+- `*buf`: Raw message buffer containing the payload data
+- `len`: Length of the message buffer in bytes
+- `tli`: Timeline ID for the WAL data being processed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [initReadOnlyStringInfo](../i/initReadOnlyStringInfo.md)

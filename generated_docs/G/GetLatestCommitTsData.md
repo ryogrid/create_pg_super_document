@@ -16,9 +16,8 @@ GetLatestCommitTsData(TimestampTz *ts, RepOriginId *nodeid)
 This function retrieves information about the most recently committed transaction from the commit timestamp module. It acquires a shared lock on the commit timestamp data structure to safely read the latest commit information. The function is designed to provide transactional metadata that can be useful for replication, monitoring, and debugging purposes. The caller must ensure that the commit timestamp tracking feature is enabled before calling this function.
 
 ## Parameters / Member Variables
-- : Optional output parameter (can be NULL) that receives the commit timestamp of the latest committed transaction
-- : Optional output parameter (can be NULL) that receives the replication origin node ID associated with the latest committed transaction
-
+- `*ts`: Optional output parameter (can be NULL) that receives the commit timestamp of the latest committed transaction
+- `*nodeid`: Optional output parameter (can be NULL) that receives the replication origin node ID associated with the latest committed transaction
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockAcquire](../L/LWLockAcquire.md) (CommitTsLock, LW_SHARED)

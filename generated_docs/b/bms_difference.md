@@ -16,9 +16,8 @@ bms_difference(const Bitmapset *a, const Bitmapset *b)
 This function performs a bitwise difference operation (A - B) on two Bitmapsets, creating a new Bitmapset that contains only the bits that are set in the first set but not in the second set. The function includes several optimizations: it pre-checks if the result would be empty using bms_nonempty_difference() to avoid unnecessary allocation, handles cases where the first set has more words than the second efficiently, and trims trailing zero words when necessary. The operation uses bitwise AND with the complement of the second set (~b->words[i]).
 
 ## Parameters / Member Variables
-- : First input bitmapset (minuend - what to subtract from, can be NULL)
-- : Second input bitmapset (subtrahend - what to subtract, can be NULL)
-
+- `*a`: First input bitmapset (minuend - what to subtract from, can be NULL)
+- `*b`: Second input bitmapset (subtrahend - what to subtract, can be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bms_is_valid_set](bms_is_valid_set.md) (validation macro for input bitmapsets)

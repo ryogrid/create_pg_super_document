@@ -25,13 +25,12 @@ This internal function constructs a new EquivalenceMember node and integrates it
 The function assumes that expressions from process_equivalence() are already validated (no aggregates, SRFs, volatility checked), but places the burden of more thorough validation on callers like get_eclass_for_sort_expr().
 
 ## Parameters / Member Variables
-- : EquivalenceClass to add the new member to
-- : Expression to be represented by this member
-- : Bitmap of relation IDs referenced by the expression
-- : JoinDomain within which this member is valid
-- : Parent EquivalenceMember for child relationships, NULL for top-level members
-- : Data type of the expression
-
+- `*ec`: EquivalenceClass to add the new member to
+- `*expr`: Expression to be represented by this member
+- `relids`: Bitmap of relation IDs referenced by the expression
+- `*jdomain`: JoinDomain within which this member is valid
+- `*parent`: Parent EquivalenceMember for child relationships, NULL for top-level members
+- `datatype`: Data type of the expression
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode

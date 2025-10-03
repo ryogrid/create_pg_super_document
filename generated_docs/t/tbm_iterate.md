@@ -18,8 +18,7 @@ The  function is the core iteration mechanism for TIDBitmap structures in Postgr
 The function maintains iteration state through the TBMIterator, ensuring pages are delivered in numerical order by comparing chunk block numbers with individual page block numbers. When lossy chunks are encountered, the function returns a result with  to indicate the caller must examine all tuples on the page. For exact pages, it extracts specific tuple offsets using .
 
 ## Parameters / Member Variables
-- : TBMIterator pointer containing iteration state including current positions in chunks and pages arrays
-
+- `*iterator`: TBMIterator pointer containing iteration state including current positions in chunks and pages arrays
 ## Dependencies
 - Functions called/Symbols referenced:
   - [tbm_advance_schunkbit](tbm_advance_schunkbit.md)

@@ -25,10 +25,9 @@ Unlike the public  function which handles PostgreSQL's function calling conventi
 The function is marked as , indicating it's an internal implementation detail of the network data type's sort optimization system.
 
 ## Parameters / Member Variables
-- : First network address as a Datum value
-- : Second network address as a Datum value  
-- : SortSupport context (unused but required by the SortSupport interface)
-
+- `x`: First network address as a Datum value
+- `y`: Second network address as a Datum value
+- `ssup`: SortSupport context (unused but required by the SortSupport interface)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (Datum to inet pointer conversion macro)

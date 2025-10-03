@@ -19,11 +19,10 @@ This function creates a new index that is a copy of an existing index, intended 
 The function performs thorough metadata extraction from system catalogs (pg_index, pg_class, pg_attribute) rather than relying solely on the IndexInfo structure, as some information like expressions and predicates may have been flattened for planner use. It explicitly prevents creation of indexes with exclusion constraints during concurrent operations.
 
 ## Parameters / Member Variables
-- : The table relation that the index belongs to
-- : Object identifier of the existing index to copy
-- : Tablespace where the new index should be created
-- : Name for the new index copy
-
+- `heapRelation`: The table relation that the index belongs to
+- `oldIndexId`: Object identifier of the existing index to copy
+- `tablespaceOid`: Tablespace where the new index should be created
+- `*newName`: Name for the new index copy
 ## Dependencies
 - Functions called/Symbols referenced:
   - [index_open](index_open.md) (to access the original index)

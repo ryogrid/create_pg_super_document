@@ -18,8 +18,7 @@ This function sets the opfuncid field in an OpExpr node, which stores the OID of
 Due to struct equivalence, this function can also be used for DistinctExpr and NullIfExpr nodes, which have the same memory layout as OpExpr for the relevant fields.
 
 ## Parameters / Member Variables
-- : Pointer to the OpExpr node whose opfuncid field needs to be set
-
+- `*opexpr`: Pointer to the OpExpr node whose opfuncid field needs to be set
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_opcode](../g/get_opcode.md)

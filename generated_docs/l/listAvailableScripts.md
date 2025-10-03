@@ -17,6 +17,7 @@ The `listAvailableScripts` function provides a user-friendly way to display all 
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - fprintf (standard library)

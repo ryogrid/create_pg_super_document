@@ -16,8 +16,7 @@ strip_implicit_coercions(Node *node)
 This function recursively traverses down expression trees to remove implicit type coercions that were inserted by PostgreSQL's type system. It handles various types of coercion nodes including function calls, relabel operations, I/O-based coercions, array coercions, row type conversions, and domain coercions. The function only removes coercions marked with  format, leaving explicit coercions intact. It returns a pointer to a location within the original tree rather than creating copies, making it efficient for cases where the original structure needs to be preserved.
 
 ## Parameters / Member Variables
-- : The root node of the expression tree from which to strip implicit coercions. Can be NULL.
-
+- `*node`: The root node of the expression tree from which to strip implicit coercions. Can be NULL.
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (macro for type checking)

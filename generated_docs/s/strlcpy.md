@@ -20,10 +20,9 @@ The function copies at most siz-1 characters from the source string to the desti
 This implementation is part of PostgreSQL's portability layer (src/port/), providing the function on systems where it's not natively available. The function follows the OpenBSD strlcpy specification and is widely used throughout the PostgreSQL codebase for safe string operations.
 
 ## Parameters / Member Variables
-- : Destination buffer where the string will be copied
-- : Source string to be copied (null-terminated)
-- : Size of the destination buffer, including space for null terminator
-
+- `*dst`: Destination buffer where the string will be copied
+- `*src`: Source string to be copied (null-terminated)
+- `siz`: Size of the destination buffer, including space for null terminator
 ## Dependencies
 - Functions called/Symbols referenced:
   - No external function calls (implements basic string copying using pointer arithmetic)

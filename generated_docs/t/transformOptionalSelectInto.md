@@ -23,9 +23,8 @@ This function performs a specialized transformation that converts SELECT ... INT
 The transformation ensures that SELECT INTO statements are properly converted to the equivalent CREATE TABLE AS form, which is the internal representation used by PostgreSQL for table creation from query results.
 
 ## Parameters / Member Variables
-- : ParseState context containing parsing state information and error reporting context
-- : Node representing the top-level statement to be potentially transformed
-
+- `*pstate`: ParseState context containing parsing state information and error reporting context
+- `*parseTree`: Node representing the top-level statement to be potentially transformed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SelectStmt](../S/SelectStmt.md) (structure access and casting)

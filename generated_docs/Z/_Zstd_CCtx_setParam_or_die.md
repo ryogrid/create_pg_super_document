@@ -17,11 +17,10 @@ _Zstd_CCtx_setParam_or_die(ZSTD_CStream *cstream,
 This function provides a wrapper around the ZSTD library's  function with error handling. It attempts to set a compression parameter on the given ZSTD compression stream and calls  to terminate the program if the operation fails. The function is designed to be used during initialization of ZSTD compression contexts where parameter setting failures are considered unrecoverable errors.
 
 ## Parameters / Member Variables
-- : Pointer to the ZSTD compression stream context
-- : The ZSTD compression parameter type to set
-- : The integer value to assign to the parameter
-- : Human-readable name of the parameter for error reporting
-
+- `*cstream`: Pointer to the ZSTD compression stream context
+- `param`: The ZSTD compression parameter type to set
+- `value`: The integer value to assign to the parameter
+- `*paramname`: Human-readable name of the parameter for error reporting
 ## Dependencies
 - Functions called/Symbols referenced:
   - ZSTD_CCtx_setParameter (from ZSTD library)

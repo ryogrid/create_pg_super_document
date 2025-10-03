@@ -22,10 +22,9 @@ The function iterates through the key columns of the index (excluding INCLUDE co
 The resulting pathkeys list is canonical, meaning redundant pathkeys are removed, and may contain fewer entries than the number of index key columns.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing query planning context and metadata
-- : IndexOptInfo structure describing the index, including sort operators and column information  
-- : Scan direction (forward or backward) for which to build pathkeys
-
+- `*root`: PlannerInfo structure containing query planning context and metadata
+- `*index`: IndexOptInfo structure describing the index, including sort operators and column information
+- `scandir`: Scan direction (forward or backward) for which to build pathkeys
 ## Dependencies
 - Functions called/Symbols referenced:
   - ScanDirectionIsBackward

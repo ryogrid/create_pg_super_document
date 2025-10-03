@@ -22,8 +22,7 @@ SendPostmasterSignal provides a mechanism for child processes to communicate wit
 This two-step approach (shared memory flag + signal) allows multiple types of signals to be communicated using a single OS signal, with the specific reason encoded in shared memory flags that the postmaster can check upon receiving SIGUSR1.
 
 ## Parameters / Member Variables
-- : PMSignalReason enum value indicating the specific type of signal/event to communicate to the postmaster
-
+- `reason`: PMSignalReason enum value indicating the specific type of signal/event to communicate to the postmaster
 ## Dependencies
 - Functions called/Symbols referenced:
   - PMSignalReason (enum type for signal reasons)

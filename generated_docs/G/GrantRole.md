@@ -25,9 +25,8 @@ Key responsibilities include:
 The function supports flexible role membership management with granular control over inheritance and administrative privileges.
 
 ## Parameters / Member Variables
-- : Parse state for error reporting and location tracking
-- : GrantRoleStmt containing the complete grant/revoke specification including roles, options, and grantor information
-
+- `*pstate`: Parse state for error reporting and location tracking
+- `*stmt`: GrantRoleStmt containing the complete grant/revoke specification including roles, options, and grantor information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [InitGrantRoleOptions](../I/InitGrantRoleOptions.md): Initialize role grant options structure

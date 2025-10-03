@@ -16,8 +16,7 @@ PLy_abort_open_subtransactions(int save_subxact_level)
 This function serves as a cleanup mechanism for PL/Python subtransaction management. It iterates through the explicit_subtransactions list and aborts any subtransactions that remain open beyond the specified save point level. For each open subtransaction, it issues a WARNING message to inform about the forced abort, calls RollbackAndReleaseCurrentSubTransaction() to perform the actual rollback, removes the subtransaction from the tracking list, restores the previous memory context and resource owner, and frees the associated subtransaction data structure. This ensures that incomplete subtransaction management in Python code doesn't leave the PostgreSQL transaction system in an inconsistent state.
 
 ## Parameters / Member Variables
-- : The target subtransaction nesting level to return to (number of subtransactions that should remain open)
-
+- `save_subxact_level`: The target subtransaction nesting level to return to (number of subtransactions that should remain open)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_length](../l/list_length.md)

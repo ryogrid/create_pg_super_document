@@ -16,7 +16,6 @@ test_atomic_spin_nest(void)
 This function tests the compatibility between atomic operations and spinlocks in PostgreSQL. It verifies that atomic operations can be performed safely while holding a spinlock, which is particularly important when both --disable-spinlocks and --disable-atomics compilation options are used. The test works by initializing multiple atomic variables (more than NUM_SPINLOCK_SEMAPHORES) and then manipulating them while holding a spinlock to detect any potential conflicts or overlaps in the underlying implementation.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

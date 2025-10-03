@@ -16,9 +16,8 @@ get_op_opfamily_strategy(Oid opno, Oid opfamily)
 This function looks up an operator in the pg_amop system catalog to determine its strategy number within a given operator family. Strategy numbers define the semantic meaning of operators within an operator family (e.g., 1 for less-than, 2 for less-equal, 3 for equal, etc.). The function only considers search operators (AMOP_SEARCH), not ordering operators. If the operator is not found in the specified family, it returns 0.
 
 ## Parameters / Member Variables
-- : The OID of the operator to look up
-- : The OID of the operator family to search within
-
+- `opno`: The OID of the operator to look up
+- `opfamily`: The OID of the operator family to search within
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache3](../S/SearchSysCache3.md) (system cache lookup function)

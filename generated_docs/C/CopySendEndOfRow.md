@@ -18,8 +18,7 @@ CopySendEndOfRow is a critical function in PostgreSQL's COPY TO implementation t
 The function implements sophisticated error handling, particularly for program pipes where it attempts to get more meaningful error messages by closing the pipe and checking the subprocess exit code before falling back to generic pipe errors.
 
 ## Parameters / Member Variables
-- : CopyToState structure containing the current state of the COPY operation, including destination type, options, message buffer, and file handles
-
+- `cstate`: CopyToState structure containing the current state of the COPY operation, including destination type, options, message buffer, and file handles
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CopySendChar](CopySendChar.md)

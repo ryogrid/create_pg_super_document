@@ -18,10 +18,9 @@ The  function adds a new entry to the end of a linked list of arguments. This fu
 The function handles both empty lists (where the new node becomes the head) and non-empty lists (where the new node is appended to the tail). This FIFO behavior preserves the order in which variables are encountered during parsing.
 
 ## Parameters / Member Variables
-- : Double pointer to the head of the arguments list; allows modification of the list head pointer when the list is initially empty
-- : Pointer to the main variable to be added to the list
-- : Pointer to the indicator variable associated with the main variable (can be NULL if no indicator is needed)
-
+- `**list`: Double pointer to the head of the arguments list; allows modification of the list head pointer when the list is initially empty
+- `*var`: Pointer to the main variable to be added to the list
+- `*ind`: Pointer to the indicator variable associated with the main variable (can be NULL if no indicator is needed)
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Memory allocation function used to create new argument nodes

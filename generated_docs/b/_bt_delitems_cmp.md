@@ -23,9 +23,8 @@ The function follows the standard C library comparator interface, returning:
 The comparison is performed using  which safely compares 16-bit signed integers, handling the ID field of the TM_IndexDelete structures.
 
 ## Parameters / Member Variables
-- : Pointer to the first TM_IndexDelete structure to compare
-- : Pointer to the second TM_IndexDelete structure to compare
-
+- `*a`: Pointer to the first TM_IndexDelete structure to compare
+- `*b`: Pointer to the second TM_IndexDelete structure to compare
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Structure type containing index deletion information

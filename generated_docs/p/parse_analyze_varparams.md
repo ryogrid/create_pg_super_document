@@ -27,12 +27,11 @@ The function follows a similar workflow to parse_analyze_fixedparams but include
 This approach is particularly useful for dynamic SQL scenarios where parameter information may not be fully known upfront, allowing PostgreSQL to infer parameter types based on how they are used within the query.
 
 ## Parameters / Member Variables
-- : The raw parse tree structure produced by the SQL parser
-- : The original SQL source text (required as of PostgreSQL 8.4)
-- : Pointer to array of parameter type OIDs (can be modified/enlarged)
-- : Pointer to number of parameters (can be updated)
-- : Query environment containing additional context like WITH clause data
-
+- `*parseTree`: The raw parse tree structure produced by the SQL parser
+- `*sourceText`: The original SQL source text (required as of PostgreSQL 8.4)
+- `**paramTypes`: Pointer to array of parameter type OIDs (can be modified/enlarged)
+- `*numParams`: Pointer to number of parameters (can be updated)
+- `*queryEnv`: Query environment containing additional context like WITH clause data
 ## Dependencies
 - Functions called/Symbols referenced:
   - [make_parsestate](../m/make_parsestate.md): Creates parse state structure

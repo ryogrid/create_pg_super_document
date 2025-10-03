@@ -22,8 +22,7 @@ This function is the first step in the two-phase revoke planning process used by
 The resulting array serves as a working space where the system can plan what should happen to each membership grant before actually executing the changes. This approach allows for comprehensive dependency analysis and ensures transactional consistency.
 
 ## Parameters / Member Variables
-- : CatCList containing all existing role membership grants for the target role from pg_auth_members
-
+- `*memlist`: CatCList containing all existing role membership grants for the target role from pg_auth_members
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CatCList](../C/CatCList.md)

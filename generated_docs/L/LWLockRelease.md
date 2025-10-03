@@ -20,8 +20,7 @@ The function uses atomic operations to release the lock state and carefully chec
 After releasing the lock, the function may call LWLockWakeup() to notify waiting processes. Finally, it re-enables interrupts that were disabled during the lock acquisition to maintain consistency of shared memory structures.
 
 ## Parameters / Member Variables
-- : Pointer to the LWLock to release
-
+- `*lock`: Pointer to the LWLock to release
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_atomic_sub_fetch_u32](../p/pg_atomic_sub_fetch_u32.md) (atomic lock state updates)

@@ -26,8 +26,7 @@ CopyLoadInputBuf serves as the central coordinator for the COPY FROM input pipel
 The function guarantees that on successful return, at least one new character is available in input_buf, or input_reached_eof is set if no more data can be processed.
 
 ## Parameters / Member Variables
-- : CopyFromState structure containing all COPY operation state, including buffer management variables, encoding flags, and progress tracking
-
+- `cstate`: CopyFromState structure containing all COPY operation state, including buffer management variables, encoding flags, and progress tracking
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CopyConvertBuf](CopyConvertBuf.md)

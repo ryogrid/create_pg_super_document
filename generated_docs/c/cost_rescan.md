@@ -27,11 +27,10 @@ For most plan types, rescan costs equal original costs, but several key optimiza
 The function accounts for spilling to disk when materialized results exceed work_mem, adding sequential page read costs.
 
 ## Parameters / Member Variables
-- : PlannerInfo context containing global planning information
-- : The Path node whose rescan costs are being estimated
-- : Output parameter for startup cost on rescan
-- : Output parameter for total cost on rescan
-
+- `*root`: PlannerInfo context containing global planning information
+- `*path`: The Path node whose rescan costs are being estimated
+- `*rescan_startup_cost`: Output parameter for startup cost on rescan
+- `*rescan_total_cost`: Output parameter for total cost on rescan
 ## Dependencies
 - Functions called/Symbols referenced:
   - [relation_byte_size](../r/relation_byte_size.md)

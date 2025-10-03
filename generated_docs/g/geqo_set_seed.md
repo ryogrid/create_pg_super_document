@@ -18,9 +18,8 @@ The  function initializes the pseudo-random number generator state used by the G
 The function operates on the GEQO private data structure stored within the planner's join search private context, maintaining proper encapsulation of the random state within the GEQO subsystem.
 
 ## Parameters / Member Variables
-- : Pointer to the PlannerInfo structure containing query planning context and private data
-- : Double-precision floating-point value used to initialize the random number generator
-
+- `*root`: Pointer to the PlannerInfo structure containing query planning context and private data
+- `seed`: Double-precision floating-point value used to initialize the random number generator
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GeqoPrivateData](../G/GeqoPrivateData.md) (struct type)

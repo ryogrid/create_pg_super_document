@@ -23,8 +23,7 @@ This function handles the loading of profile configuration files for the pg_bsd_
 The function follows PostgreSQL's configuration precedence where local directory settings can override home directory settings.
 
 ## Parameters / Member Variables
-- : A string specifying a custom profile file path. If NULL, the default home directory profile is used. When provided, the first 2 characters are skipped (to handle command-line argument format like "--profile-name").
-
+- `*profile_name`: A string specifying a custom profile file path. If NULL, the default home directory profile is used. When provided, the first 2 characters are skipped (to handle command-line argument format like "--profile-name").
 ## Dependencies
 - Functions called/Symbols referenced:
   - snprintf (standard C library)

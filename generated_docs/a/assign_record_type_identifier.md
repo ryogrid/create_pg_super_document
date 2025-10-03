@@ -22,9 +22,8 @@ For RECORD types, the behavior depends on the typmod value. Registered RECORD ty
 The function serves PostgreSQL's expanded record infrastructure by providing a way to detect when cached expanded records become invalid due to type definition changes.
 
 ## Parameters / Member Variables
-- : OID of the composite type (RECORDOID for record types, or a named composite type OID)
-- : Type modifier specifying the particular variant for RECORD types, or -1 for anonymous records
-
+- `type_id`: OID of the composite type (RECORDOID for record types, or a named composite type OID)
+- `typmod`: Type modifier specifying the particular variant for RECORD types, or -1 for anonymous records
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lookup_type_cache](../l/lookup_type_cache.md)

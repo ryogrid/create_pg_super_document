@@ -16,9 +16,8 @@ print_latex_longtable_text(const printTableContent *cont, FILE *fout)
 This function generates LaTeX code using the longtable package, which is designed for tables that can span multiple pages. It creates sophisticated table layouts with first headers, continuing headers, footers, and last footers. The function supports proportional column widths through the tableAttr option, where widths can be specified as fractions of \textwidth. It uses professional table formatting with \toprule, \midrule, and \bottomrule commands, and supports captions that appear on continuation pages with "(Continued)" notation.
 
 ## Parameters / Member Variables
-- : Pointer to printTableContent structure containing table data, headers, column alignments, border options, table attributes for column widths, and other formatting metadata
-- : File stream where the generated LaTeX longtable code will be written
-
+- `*cont`: Pointer to printTableContent structure containing table data, headers, column alignments, border options, table attributes for column widths, and other formatting metadata
+- `*fout`: File stream where the generated LaTeX longtable code will be written
 ## Dependencies
 - Functions called/Symbols referenced:
   - [latex_escaped_print](../l/latex_escaped_print.md) (for escaping special LaTeX characters in content)

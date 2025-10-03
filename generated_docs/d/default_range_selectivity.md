@@ -22,8 +22,7 @@ The selectivity values are carefully chosen based on the expected frequency and 
 - Comparison and positioning operators use standard inequality selectivity
 
 ## Parameters / Member Variables
-- : The OID of the range operator for which to estimate selectivity
-
+- `operator`: The OID of the range operator for which to estimate selectivity
 ## Dependencies
 - Functions called/Symbols referenced:
   - DEFAULT_RANGE_INEQ_SEL (constant for range inequality selectivity)

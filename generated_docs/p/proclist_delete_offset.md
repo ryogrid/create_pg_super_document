@@ -16,10 +16,9 @@ proclist_delete_offset(proclist_head *list, int procno, size_t node_offset)
 This function removes a specified process from a doubly-linked process list. It operates on process lists where the list nodes are embedded at a specific offset within the process structure, allowing for multiple different process lists to coexist within the same process objects. The function performs proper list maintenance by updating the previous and next pointers of adjacent nodes, and handles special cases for head and tail nodes. After removal, the node's pointers are reset to indicate it's no longer part of any list.
 
 ## Parameters / Member Variables
-- : Pointer to the process list head structure from which to remove the process
-- : Process number (identifier) of the process to be removed from the list
-- : Byte offset within the process structure where the proclist_node is located
-
+- `*list`: Pointer to the process list head structure from which to remove the process
+- `procno`: Process number (identifier) of the process to be removed from the list
+- `node_offset`: Byte offset within the process structure where the proclist_node is located
 ## Dependencies
 - Functions called/Symbols referenced:
   - [proclist_node_get](proclist_node_get.md) (to access node structures at specified offsets)

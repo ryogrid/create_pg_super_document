@@ -19,14 +19,13 @@ ATExecDropConstraint(Relation rel, const char *constrName,
 This function implements constraint deletion for ALTER TABLE operations. Unlike normal ALTER TABLE recursion, it uses a custom recursion mechanism to properly handle inherited constraints. The function searches for the target constraint in pg_constraint, validates permissions, handles foreign key locking requirements, performs the actual deletion via the dependency system, and recursively processes child tables. It properly manages inheritance counts for CHECK constraints and handles both CASCADE and RESTRICT behaviors. For partitioned tables, it enforces that constraints cannot be dropped from only the parent when partitions exist.
 
 ## Parameters / Member Variables
-- : The relation from which to drop the constraint
-- : Name of the constraint to drop
-- : CASCADE or RESTRICT behavior for dependency handling
-- : Whether to recursively drop from child tables
-- : True when called recursively on child tables
-- : Whether to report error if constraint doesn't exist
-- : Lock level to use when accessing child relations
-
+- `rel`: The relation from which to drop the constraint
+- `*constrName`: Name of the constraint to drop
+- `behavior`: CASCADE or RESTRICT behavior for dependency handling
+- `recurse`: Whether to recursively drop from child tables
+- `recursing`: True when called recursively on child tables
+- `missing_ok`: Whether to report error if constraint doesn't exist
+- `lockmode`: Lock level to use when accessing child relations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ATSimplePermissions](ATSimplePermissions.md) (permission checking)

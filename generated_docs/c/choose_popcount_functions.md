@@ -21,6 +21,7 @@ The function uses a lazy initialization pattern - it's called only on the first 
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_popcount_available](../p/pg_popcount_available.md)

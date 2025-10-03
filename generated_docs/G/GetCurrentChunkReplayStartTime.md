@@ -17,6 +17,7 @@ This function fetches the timestamp that marks the start time of the current chu
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - SpinLockAcquire (for thread-safe access)

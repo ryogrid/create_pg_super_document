@@ -27,12 +27,11 @@ The function works by:
 This is used in SQL standard compliance for GROUP BY queries, where columns not in the GROUP BY clause can still be selected if they are functionally dependent on the grouped columns (typically through a primary key relationship).
 
 ## Parameters / Member Variables
-- : OID of the relation to check for functional dependency
-- : Variable number identifying the relation in the query's range table
-- : Nesting level for the variable reference (0 for current query level)
-- : List of grouping expressions from the GROUP BY clause
-- : Output parameter - list of constraint OIDs that prove the functional dependency
-
+- `relid`: OID of the relation to check for functional dependency
+- `varno`: Variable number identifying the relation in the query's range table
+- `varlevelsup`: Nesting level for the variable reference (0 for current query level)
+- `*grouping_columns`: List of grouping expressions from the GROUP BY clause
+- `**constraintDeps`: Output parameter - list of constraint OIDs that prove the functional dependency
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Retrieves primary key column bitmap and constraint OID

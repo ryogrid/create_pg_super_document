@@ -21,11 +21,10 @@ For normal relations, the function creates a whole-row Var using , marks it for 
 The function also handles the special case of scalar functions, where it creates a plain reference to the function value rather than a composite containing a single column, maintaining historical behavior for consistency.
 
 ## Parameters / Member Variables
-- : ParseState context for the current parsing operation
-- : ParseNamespaceItem representing the relation being referenced
-- : Number of query levels up from the current level
-- : Source location for error reporting
-
+- `*pstate`: ParseState context for the current parsing operation
+- `*nsitem`: ParseNamespaceItem representing the relation being referenced
+- `sublevels_up`: Number of query levels up from the current level
+- `location`: Source location for error reporting
 ## Dependencies
 - Functions called/Symbols referenced:
   - [makeWholeRowVar](../m/makeWholeRowVar.md)

@@ -16,9 +16,8 @@ makeInt128AggState(FunctionCallInfo fcinfo, bool calcSumX2)
 This function prepares state data for 128-bit aggregate functions by allocating and initializing an  structure in the appropriate aggregate memory context. The function ensures proper memory management by switching to the aggregate context during allocation, which guarantees that the state persists for the duration of the aggregation operation. The state structure will track whether sum of squares calculation is needed based on the  parameter.
 
 ## Parameters / Member Variables
-- : Function call information structure containing context about the aggregate function call
-- : Boolean flag indicating whether the aggregate should calculate sum of squares in addition to sum and count
-
+- `fcinfo`: Function call information structure containing context about the aggregate function call
+- `calcSumX2`: Boolean flag indicating whether the aggregate should calculate sum of squares in addition to sum and count
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Validates that the function is being called in an aggregate context

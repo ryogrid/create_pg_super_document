@@ -24,6 +24,7 @@ This approach is designed for psql's current architecture where nested pipe oper
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pqsignal](../p/pqsignal.md) (PostgreSQL's signal handling wrapper)

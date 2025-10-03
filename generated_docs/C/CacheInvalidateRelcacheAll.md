@@ -20,6 +20,7 @@ The function works by registering a special invalidation message with InvalidOid
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PrepareInvalidationState](../P/PrepareInvalidationState.md)

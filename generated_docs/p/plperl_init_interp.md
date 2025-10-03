@@ -27,7 +27,6 @@ Key functionality includes:
 The function is designed to create interpreters that can later be specialized as either trusted or untrusted through subsequent initialization calls.
 
 ## Parameters / Member Variables
-None - the function takes no parameters and returns a new PerlInterpreter pointer.
 
 ## Dependencies
 - Functions called/Symbols referenced:

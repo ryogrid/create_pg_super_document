@@ -21,12 +21,11 @@ The function manages file descriptor state for the currently open WAL segment, a
 The function handles various error conditions gracefully and provides detailed logging for debugging purposes. It ensures that exactly XLOG_BLCKSZ bytes are read and updates the reader state with the appropriate timeline information.
 
 ## Parameters / Member Variables
-- : XLogReaderState containing reader context and private data
-- : XLogRecPtr indicating the WAL page position to read
-- : Requested length (typically ignored, reads full XLOG_BLCKSZ pages)
-- : XLogRecPtr of the target record (used for context)
-- : Buffer to store the read WAL page data
-
+- `*xlogreader`: XLogReaderState containing reader context and private data
+- `targetPagePtr`: XLogRecPtr indicating the WAL page position to read
+- `reqLen`: Requested length (typically ignored, reads full XLOG_BLCKSZ pages)
+- `targetRecPtr`: XLogRecPtr of the target record (used for context)
+- `*readBuf`: Buffer to store the read WAL page data
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLByteToSeg

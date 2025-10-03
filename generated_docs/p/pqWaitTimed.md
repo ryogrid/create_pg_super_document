@@ -16,11 +16,10 @@ pqWaitTimed(int forRead, int forWrite, PGconn *conn, pg_usec_time_t end_time)
 pqWaitTimed provides timed socket waiting functionality for PostgreSQL client connections. It waits for the connection socket to become ready for reading or writing operations, but will not wait past the specified end time. The function delegates the actual socket checking to pqSocketCheck and handles the return value interpretation. It returns different values to indicate success (socket ready), timeout, or failure conditions.
 
 ## Parameters / Member Variables
-- : Integer flag indicating whether to wait for read readiness (non-zero means wait for read)
-- : Integer flag indicating whether to wait for write readiness (non-zero means wait for write)
-- : Pointer to the PGconn connection structure representing the database connection
-- : Timeout specified as microseconds since Unix epoch (pg_usec_time_t). Use -1 for infinite timeout, 0 for immediate return
-
+- `forRead`: Integer flag indicating whether to wait for read readiness (non-zero means wait for read)
+- `forWrite`: Integer flag indicating whether to wait for write readiness (non-zero means wait for write)
+- `*conn`: Pointer to the PGconn connection structure representing the database connection
+- `end_time`: Timeout specified as microseconds since Unix epoch (pg_usec_time_t). Use -1 for infinite timeout, 0 for immediate return
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pqSocketCheck](pqSocketCheck.md)

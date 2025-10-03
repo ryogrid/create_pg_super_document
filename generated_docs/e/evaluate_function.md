@@ -24,16 +24,15 @@ This function performs constant folding optimization on function calls. It can s
 The function includes several safety checks to prevent simplification when inappropriate, such as functions that return sets, functions that return RECORD type, or functions with non-constant inputs. It respects PostgreSQL's function volatility categories and only evaluates immutable functions normally, though it allows stable function evaluation during estimation phases.
 
 ## Parameters / Member Variables
-- : OID of the function to evaluate
-- : Expected result type OID of the function
-- : Type modifier for the result
-- : Collation ID for the result
-- : Collation ID for the inputs
-- : List of function arguments
-- : Whether the function is variadic
-- : HeapTuple containing the function's catalog entry
-- : Evaluation context containing optimization settings
-
+- `funcid`: OID of the function to evaluate
+- `result_type`: Expected result type OID of the function
+- `result_typmod`: Type modifier for the result
+- `result_collid`: Collation ID for the result
+- `input_collid`: Collation ID for the inputs
+- `*args`: List of function arguments
+- `funcvariadic`: Whether the function is variadic
+- `func_tuple`: HeapTuple containing the function's catalog entry
+- `*context`: Evaluation context containing optimization settings
 ## Dependencies
 - Functions called/Symbols referenced:
   - Form_pg_proc (function catalog entry structure)

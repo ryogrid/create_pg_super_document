@@ -36,18 +36,17 @@ Key features include:
 - **Retry Logic**: Provides mechanisms to handle concurrent updates that may require operation retry
 
 ## Parameters / Member Variables
-- : ModifyTableContext containing execution state and metadata
-- : Information about the source partition relation
-- : ItemPointer identifying the tuple to be moved
-- : HeapTuple containing the original tuple data
-- : TupleTableSlot containing the new tuple data after update
-- : Boolean controlling whether to increment processed tuple count
-- : UpdateContext containing update-specific execution state
-- : Output parameter receiving the tuple modification result
-- : Output parameter returning tuple data if retry is needed due to concurrent modification
-- : Output parameter returning the inserted tuple slot
-- : Output parameter returning the destination relation info for the insert
-
+- `*context`: ModifyTableContext containing execution state and metadata
+- `*resultRelInfo`: Information about the source partition relation
+- `tupleid`: ItemPointer identifying the tuple to be moved
+- `oldtuple`: HeapTuple containing the original tuple data
+- `*slot`: TupleTableSlot containing the new tuple data after update
+- `canSetTag`: Boolean controlling whether to increment processed tuple count
+- `*updateCxt`: UpdateContext containing update-specific execution state
+- `*tmresult`: Output parameter receiving the tuple modification result
+- `**retry_slot`: Output parameter returning tuple data if retry is needed due to concurrent modification
+- `**inserted_tuple`: Output parameter returning the inserted tuple slot
+- `**insert_destrel`: Output parameter returning the destination relation info for the insert
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecDelete](ExecDelete.md) (removes tuple from current partition)

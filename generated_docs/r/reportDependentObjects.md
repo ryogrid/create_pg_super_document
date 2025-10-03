@@ -31,11 +31,10 @@ reportDependentObjects serves as both a validation and reporting function in Pos
 **Message Management**: Implements smart message handling with client-side message limiting (MAX_REPORTED_DEPS = 100) while logging complete details to the server log. Uses different message levels based on the PERFORM_DELETION_QUIETLY flag.
 
 ## Parameters / Member Variables
-- : Pointer to ObjectAddresses containing all objects scheduled for deletion with their dependency metadata
-- : DropBehavior enum (DROP_RESTRICT or DROP_CASCADE) controlling how dependencies are handled  
-- : Integer bitmask including PERFORM_DELETION_QUIETLY to control message verbosity level
-- : Pointer to ObjectAddress of the original object being dropped (NULL for DROP OWNED operations)
-
+- `*targetObjects`: Pointer to ObjectAddresses containing all objects scheduled for deletion with their dependency metadata
+- `behavior`: DropBehavior enum (DROP_RESTRICT or DROP_CASCADE) controlling how dependencies are handled
+- `flags`: Integer bitmask including PERFORM_DELETION_QUIETLY to control message verbosity level
+- `*origObject`: Pointer to ObjectAddress of the original object being dropped (NULL for DROP OWNED operations)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [getObjectDescription](../g/getObjectDescription.md)

@@ -25,9 +25,8 @@ SysLoggerMain implements the core functionality of the PostgreSQL logging system
 The function operates differently on Windows vs Unix-like systems, using threads on Windows and direct pipe reading on Unix systems.
 
 ## Parameters / Member Variables
-- : Serialized startup data containing file descriptors and configuration (used only in EXEC_BACKEND builds)
-- : Length of the startup_data buffer, expected to be sizeof(SysloggerStartupData) in EXEC_BACKEND builds or 0 otherwise
-
+- `*startup_data`: Serialized startup data containing file descriptors and configuration (used only in EXEC_BACKEND builds)
+- `startup_data_len`: Length of the startup_data buffer, expected to be sizeof(SysloggerStartupData) in EXEC_BACKEND builds or 0 otherwise
 ## Dependencies
 - Functions called/Symbols referenced:
   - [syslogger_fdopen](../s/syslogger_fdopen.md) (re-opens log files from passed descriptors)

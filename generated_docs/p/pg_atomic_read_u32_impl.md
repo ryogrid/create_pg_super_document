@@ -18,8 +18,7 @@ This function serves as the fallback generic implementation for reading 32-bit a
 The function is marked as  for performance optimization, allowing the compiler to inline the call and eliminate function call overhead. The  qualifier on the pointer parameter ensures that the compiler doesn't optimize away the memory access.
 
 ## Parameters / Member Variables
-- : Pointer to a volatile pg_atomic_uint32 structure containing the atomic variable to be read
-
+- `*ptr`: Pointer to a volatile pg_atomic_uint32 structure containing the atomic variable to be read
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_atomic_uint32](pg_atomic_uint32.md) (atomic variable type)

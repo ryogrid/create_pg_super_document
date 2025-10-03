@@ -21,7 +21,6 @@ This function provides the clean termination sequence for parallel worker transa
 The function ensures that parallel workers properly finalize their transaction state before termination, maintaining consistency with the overall transaction management system.
 
 ## Parameters / Member Variables
-This function takes no parameters and operates on the global CurrentTransactionState.
 
 ## Dependencies
 - Functions called/Symbols referenced:

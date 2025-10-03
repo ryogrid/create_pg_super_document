@@ -22,7 +22,6 @@ This function implements a polling loop that waits for all WAL senders to comple
 The function ensures that the shutdown checkpoint can be safely performed without interfering with active replication processes.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

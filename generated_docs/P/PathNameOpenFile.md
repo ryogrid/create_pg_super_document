@@ -16,9 +16,8 @@ PathNameOpenFile(const char *fileName, int fileFlags)
 PathNameOpenFile serves as a simplified interface to PathNameOpenFilePerm by automatically providing the default file creation mode (pg_file_create_mode) as the third parameter. This function eliminates the need for callers to explicitly specify file permissions when the default PostgreSQL file creation mode is sufficient. The function is essentially a thin wrapper that promotes code simplicity and consistency across the codebase where custom file permissions are not required.
 
 ## Parameters / Member Variables
-- : Path to the file to be opened
-- : File access flags (read, write, etc.) passed through to the underlying open system call
-
+- `*fileName`: Path to the file to be opened
+- `fileFlags`: File access flags (read, write, etc.) passed through to the underlying open system call
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PathNameOpenFilePerm](PathNameOpenFilePerm.md)

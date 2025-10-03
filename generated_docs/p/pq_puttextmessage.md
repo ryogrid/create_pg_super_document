@@ -18,9 +18,8 @@ The  function provides a convenient one-step method for sending text messages to
 The function first attempts to convert the string from the server encoding to the client encoding using . If conversion occurs (indicated by the returned pointer being different from the input), it sends the converted string and frees the conversion buffer. If no conversion is needed, it sends the original string directly.
 
 ## Parameters / Member Variables
-- : The message type character that identifies the type of message being sent
-- : A null-terminated string containing the message content to be sent
-
+- `msgtype`: The message type character that identifies the type of message being sent
+- `*str`: A null-terminated string containing the message content to be sent
 ## Dependencies
 - Functions called/Symbols referenced:
   - strlen (to determine string length)

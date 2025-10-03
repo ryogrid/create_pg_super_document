@@ -27,11 +27,10 @@ This function is responsible for the core transformation of JSON_TABLE column sp
 The function integrates with the broader JSON_TABLE execution framework by creating JsonTablePathScan plans that can be executed during query runtime.
 
 ## Parameters / Member Variables
-- : JsonTableParseContext containing parsing state, including the current JsonTable and TableFunc being processed
-- : List of JsonTableColumn nodes representing the column specifications to transform
-- : List of PASSING clause arguments that provide context values for JSON path expressions
-- : JsonTablePathSpec defining the path specification for this level of columns
-
+- `*cxt`: JsonTableParseContext containing parsing state, including the current JsonTable and TableFunc being processed
+- `*columns`: List of JsonTableColumn nodes representing the column specifications to transform
+- `*passingArgs`: List of PASSING clause arguments that provide context values for JSON path expressions
+- `*pathspec`: JsonTablePathSpec defining the path specification for this level of columns
 ## Dependencies
 - Functions called/Symbols referenced:
   - [typenameTypeIdAndMod](typenameTypeIdAndMod.md) (type resolution)

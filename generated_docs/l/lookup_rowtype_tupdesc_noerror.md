@@ -24,10 +24,9 @@ This function provides a variant of lookup_rowtype_tupdesc() with configurable e
 The function is particularly useful in scenarios where the existence of a composite type is uncertain and the caller needs to implement fallback behavior rather than abort the operation.
 
 ## Parameters / Member Variables
-- : The OID of the composite type to look up
-- : Type modifier for transient record types (ignored for named composite types)  
-- : If true, returns NULL instead of throwing an error when the composite type is not found
-
+- `type_id`: The OID of the composite type to look up
+- `typmod`: Type modifier for transient record types (ignored for named composite types)
+- `noError`: If true, returns NULL instead of throwing an error when the composite type is not found
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lookup_rowtype_tupdesc_internal](lookup_rowtype_tupdesc_internal.md)

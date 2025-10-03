@@ -20,9 +20,8 @@ The function includes several safety checks: it returns NIL if the input list is
 This function is particularly useful in query optimization and planning where only a subset of a list (typically the most significant elements) is needed for processing.
 
 ## Parameters / Member Variables
-- : The source List from which to copy the head elements. Can be NIL.
-- : The maximum number of elements to copy from the beginning of the list. If negative or zero, NIL is returned.
-
+- `*oldlist`: The source List from which to copy the head elements. Can be NIL.
+- `len`: The maximum number of elements to copy from the beginning of the list. If negative or zero, NIL is returned.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [new_list](../n/new_list.md)

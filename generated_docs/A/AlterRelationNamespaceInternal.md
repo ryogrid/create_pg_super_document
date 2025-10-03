@@ -19,13 +19,12 @@ AlterRelationNamespaceInternal(Relation classRel, Oid relOid,
 This function implements the core logic for moving a relation between namespaces. It operates on the pg_class catalog directly, updating the relnamespace field and managing associated dependencies. The function includes safeguards against duplicate relation names in the target namespace and tracks moved objects to prevent duplicate operations. It requires the caller to have already opened and write-locked the pg_class relation for thread safety.
 
 ## Parameters / Member Variables
-- : Pre-opened and write-locked pg_class relation for catalog updates
-- : Object identifier of the relation being moved
-- : Object identifier of the source namespace
-- : Object identifier of the destination namespace  
-- : Boolean indicating whether to update schema dependency entries
-- : Collection tracking objects already processed to prevent duplicates
-
+- `classRel`: Pre-opened and write-locked pg_class relation for catalog updates
+- `relOid`: Object identifier of the relation being moved
+- `oldNspOid`: Object identifier of the source namespace
+- `newNspOid`: Object identifier of the destination namespace
+- `hasDependEntry`: Boolean indicating whether to update schema dependency entries
+- `*objsMoved`: Collection tracking objects already processed to prevent duplicates
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCacheLockedCopy1](../S/SearchSysCacheLockedCopy1.md)

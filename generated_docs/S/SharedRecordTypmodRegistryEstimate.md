@@ -20,6 +20,7 @@ The function returns the exact size needed for a SharedRecordTypmodRegistry, whi
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SharedRecordTypmodRegistry](SharedRecordTypmodRegistry.md) (struct type)

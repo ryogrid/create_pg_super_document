@@ -22,9 +22,8 @@ The data state is set to either:
 - K_OFFSET_NO_DATA: When the entry has no data dumper (indicating no data associated with this entry)
 
 ## Parameters / Member Variables
-- : Pointer to the ArchiveHandle structure containing archive context information
-- : Pointer to the TocEntry structure representing the TOC entry being processed
-
+- `*AH`: Pointer to the ArchiveHandle structure containing archive context information
+- `*te`: Pointer to the TocEntry structure representing the TOC entry being processed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_malloc0](../p/pg_malloc0.md) (memory allocation)

@@ -23,7 +23,6 @@ The function operates by:
 The key purpose is to ensure that pg_subtrans is properly updated so that any subtransactions belonging to prepared transactions will be correctly visible as in-progress in snapshots taken during recovery. This maintains transaction isolation and consistency for read queries executed on the standby server.
 
 ## Parameters / Member Variables
-This function takes no parameters and operates on the global TwoPhaseState.
 
 ## Dependencies
 - Functions called/Symbols referenced:

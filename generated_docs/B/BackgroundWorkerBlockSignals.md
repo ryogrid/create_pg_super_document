@@ -18,7 +18,6 @@ This function blocks signal delivery to the current background worker process by
 The function uses the system's BlockSig signal set, which contains signals that should be blocked during critical sections to prevent interruption of important operations. This is part of PostgreSQL's signal management infrastructure for background processes.
 
 ## Parameters / Member Variables
-This function takes no parameters and returns void.
 
 ## Dependencies
 - Functions called/Symbols referenced:

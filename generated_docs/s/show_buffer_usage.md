@@ -25,9 +25,8 @@ For text format, the function intelligently groups related statistics and only d
 The function must stay synchronized with  to ensure consistent buffer usage reporting across different contexts.
 
 ## Parameters / Member Variables
-- : ExplainState structure containing output formatting context and destination string buffer
-- : BufferUsage structure containing all buffer operation counters and timing information to be displayed
-
+- `*es`: ExplainState structure containing output formatting context and destination string buffer
+- `*usage`: BufferUsage structure containing all buffer operation counters and timing information to be displayed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExplainIndentText](../E/ExplainIndentText.md)

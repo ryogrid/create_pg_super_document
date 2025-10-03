@@ -25,8 +25,7 @@ The algorithm uses a pile-based approach where each session's steps are conceptu
 The function is particularly useful for discovering race conditions and concurrency bugs that might only manifest under specific execution orders.
 
 ## Parameters / Member Variables
-- : Pointer to the TestSpec structure containing all sessions and their steps to be permuted
-
+- `*testspec`: Pointer to the TestSpec structure containing all sessions and their steps to be permuted
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_malloc0](../p/pg_malloc0.md) (zero-initialized memory allocation for PermutationStep array)

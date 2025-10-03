@@ -19,11 +19,10 @@ This internal function handles the core logic for opening SPI cursors. It valida
 The function performs extensive validation including checking that the plan contains only cursor-compatible queries (primarily SELECT statements), handling scroll cursor restrictions (disallowing SELECT FOR UPDATE with SCROLL), and validating read-only requirements when specified.
 
 ## Parameters / Member Variables
-- : The name for the cursor portal (NULL or empty string generates a random name)
-- : The prepared SPIPlan containing the query to execute as a cursor
-- : Parameter list information for parameterized queries (can be NULL)
-- : Boolean flag indicating if cursor should be restricted to read-only operations
-
+- `*name`: The name for the cursor portal (NULL or empty string generates a random name)
+- `plan`: The prepared SPIPlan containing the query to execute as a cursor
+- `paramLI`: Parameter list information for parameterized queries (can be NULL)
+- `read_only`: Boolean flag indicating if cursor should be restricted to read-only operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SPI_is_cursor_plan](SPI_is_cursor_plan.md) (validates plan is cursor-compatible)

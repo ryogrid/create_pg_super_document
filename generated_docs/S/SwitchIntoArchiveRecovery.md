@@ -24,9 +24,8 @@ The function performs several critical state updates:
 This transition is essential for ensuring that archive recovery can proceed safely while maintaining data consistency guarantees.
 
 ## Parameters / Member Variables
-- : The WAL record pointer where the transition to archive recovery occurs, used to update the minimum recovery point
-- : The timeline ID being replayed at the transition point, stored as the minimum recovery point timeline
-
+- `EndRecPtr`: The WAL record pointer where the transition to archive recovery occurs, used to update the minimum recovery point
+- `replayTLI`: The timeline ID being replayed at the transition point, stored as the minimum recovery point timeline
 ## Dependencies
 - Functions called/Symbols referenced:
   - [UpdateControlFile](../U/UpdateControlFile.md) (persists control file changes to disk)

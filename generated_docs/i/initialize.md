@@ -27,10 +27,9 @@ The function performs several key operations:
 7. Updates DFA's tracking pointers
 
 ## Parameters / Member Variables
-- : Pointer to the variables structure containing execution context
-- : Pointer to the DFA structure being initialized
-- : Pointer to the starting character position in the input string
-
+- `*v`: Pointer to the variables structure containing execution context
+- `*d`: Pointer to the DFA structure being initialized
+- `*start`: Pointer to the starting character position in the input string
 ## Dependencies
 - Functions called/Symbols referenced:
   - [getvacant](../g/getvacant.md) (allocates a new state set)

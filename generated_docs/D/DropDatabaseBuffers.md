@@ -18,8 +18,7 @@ This function removes all buffers belonging to a specific database from the Post
 The implementation performs an unlocked precheck on each buffer's database OID for performance, only acquiring the buffer header lock when a match is found. This approach is safe because the database being dropped cannot be the current database (local buffers are not considered), ensuring no concurrent access conflicts.
 
 ## Parameters / Member Variables
-- : The OID (Object Identifier) of the database whose buffers should be dropped from the buffer cache
-
+- `dbid`: The OID (Object Identifier) of the database whose buffers should be dropped from the buffer cache
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetBufferDescriptor](../G/GetBufferDescriptor.md)

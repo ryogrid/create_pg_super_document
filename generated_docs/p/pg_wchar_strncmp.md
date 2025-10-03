@@ -21,10 +21,9 @@ The function returns:
 - A positive value if s1 is lexicographically greater than s2
 
 ## Parameters / Member Variables
-- : Pointer to the first wide character string to compare
-- : Pointer to the second wide character string to compare  
-- : Maximum number of wide characters to compare
-
+- `*s1`: Pointer to the first wide character string to compare
+- `*s2`: Pointer to the second wide character string to compare
+- `n`: Maximum number of wide characters to compare
 ## Dependencies
 - Functions called/Symbols referenced: None (implements basic comparison logic)
 - Called from: No direct references found in the indexed codebase

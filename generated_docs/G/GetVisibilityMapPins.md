@@ -28,14 +28,13 @@ This function manages the acquisition of visibility map pins for heap pages that
 The function includes a retry loop to handle cases where visibility status changes during pin acquisition.
 
 ## Parameters / Member Variables
-- : The relation containing the heap pages
-- : First buffer that may need visibility map pinning
-- : Second buffer that may need visibility map pinning (may be InvalidBuffer)
-- : Block number corresponding to buffer1
-- : Block number corresponding to buffer2 (may be smaller than block1)
-- : Output parameter for visibility map buffer corresponding to block1
-- : Output parameter for visibility map buffer corresponding to block2
-
+- `relation`: The relation containing the heap pages
+- `buffer1`: First buffer that may need visibility map pinning
+- `buffer2`: Second buffer that may need visibility map pinning (may be InvalidBuffer)
+- `block1`: Block number corresponding to buffer1
+- `block2`: Block number corresponding to buffer2 (may be smaller than block1)
+- `*vmbuffer1`: Output parameter for visibility map buffer corresponding to block1
+- `*vmbuffer2`: Output parameter for visibility map buffer corresponding to block2
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BufferIsValid](../B/BufferIsValid.md)

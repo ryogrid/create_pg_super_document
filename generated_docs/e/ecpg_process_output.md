@@ -22,9 +22,8 @@ This is a comprehensive result processing function that handles the complex task
 The function intelligently handles different variable types (regular variables, descriptors, SQLDA), manages memory allocation/deallocation for complex structures, performs data type conversions, validates field counts, and provides comprehensive error reporting. It also processes asynchronous notifications and maintains SQLCA state information.
 
 ## Parameters / Member Variables
-- : Pointer to statement structure containing the PGresult to process and the list of output variables to populate
-- : Boolean flag indicating whether to call PQclear() on the result when finished (supports result reuse scenarios like cursor operations)
-
+- `*stmt`: Pointer to statement structure containing the PGresult to process and the list of output variables to populate
+- `clear_result`: Boolean flag indicating whether to call PQclear() on the result when finished (supports result reuse scenarios like cursor operations)
 ## Dependencies
 - Functions called/Symbols referenced:
   - ECPGget_sqlca: Gets SQLCA structure for error/status reporting

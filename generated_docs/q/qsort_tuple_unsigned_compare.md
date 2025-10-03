@@ -18,10 +18,9 @@ This function is part of PostgreSQL's tuple sorting optimization system. It prov
 The function is marked with  to ensure the compiler inlines it, eliminating function call overhead during sorting operations. This is particularly beneficial for sorting large datasets where comparison function overhead can be significant.
 
 ## Parameters / Member Variables
-- : Pointer to the first SortTuple to compare
-- : Pointer to the second SortTuple to compare  
-- : Pointer to the Tuplesortstate containing sort configuration and callback functions
-
+- `*a`: Pointer to the first SortTuple to compare
+- `*b`: Pointer to the second SortTuple to compare
+- `*state`: Pointer to the Tuplesortstate containing sort configuration and callback functions
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Performs the actual unsigned comparison of datum values

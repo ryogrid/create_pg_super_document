@@ -22,8 +22,7 @@ When a relation already exists, the function handles two scenarios:
 The function also validates that pre-existing objects are members of the current extension when running in an extension script context, preventing security risks from object confusion.
 
 ## Parameters / Member Variables
-- : CreateTableAsStmt structure containing the complete statement information including the target relation specification and IF NOT EXISTS flag
-
+- `*ctas`: CreateTableAsStmt structure containing the complete statement information including the target relation specification and IF NOT EXISTS flag
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RangeVarGetCreationNamespace](../R/RangeVarGetCreationNamespace.md)

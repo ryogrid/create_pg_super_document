@@ -20,9 +20,8 @@ The function creates an xl_standby_lock record containing the current transactio
 This logging is essential for Hot Standby operation, as AccessExclusive locks can conflict with read-only queries running on standby servers, requiring the standby to either wait or cancel conflicting queries.
 
 ## Parameters / Member Variables
-- : The OID of the database containing the relation being locked
-- : The OID of the relation (table, index, etc.) on which the AccessExclusive lock is being acquired
-
+- `dbOid`: The OID of the database containing the relation being locked
+- `relOid`: The OID of the relation (table, index, etc.) on which the AccessExclusive lock is being acquired
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetCurrentTransactionId](../G/GetCurrentTransactionId.md)

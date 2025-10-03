@@ -27,6 +27,7 @@ This function is typically called once at the beginning of a stemming session to
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SN_create_env](../S/SN_create_env.md) (creates Snowball environment with specified parameters)

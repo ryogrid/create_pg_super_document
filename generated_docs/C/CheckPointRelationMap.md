@@ -24,7 +24,6 @@ The function uses a straightforward approach: it acquires and immediately releas
 The design prioritizes correctness and simplicity over performance, as relation map updates are relatively infrequent operations and checkpoint consistency is critical for database integrity.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

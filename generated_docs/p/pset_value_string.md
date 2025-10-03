@@ -18,9 +18,8 @@ The pset_value_string function serves as a comprehensive formatter for all psql 
 The function uses a large if-else chain to handle each supported parameter, with special formatting rules for each type. String parameters are quoted and escaped using pset_quoted_string, boolean parameters use pset_bool_string for "on"/"off" representation, and numeric parameters use psprintf for integer formatting. Special cases include the "expanded" parameter which can be "auto", "on", or "off", and the "xheader_width" parameter which supports multiple modes.
 
 ## Parameters / Member Variables
-- : Name of the parameter to format (must not be NULL)
-- : Pointer to the printQueryOpt structure containing current settings
-
+- `*param`: Name of the parameter to format (must not be NULL)
+- `*popt`: Pointer to the printQueryOpt structure containing current settings
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pset_quoted_string](pset_quoted_string.md) (for string parameter formatting)

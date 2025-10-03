@@ -22,9 +22,8 @@ The  function implements a backward search through Perl's context stack to locat
 This functionality is essential for implementing caller() and other introspection functions that need to understand the call stack structure. The function returns the index of the first matching context found, or the final loop index if no matching context is found.
 
 ## Parameters / Member Variables
-- : Pointer to the Perl context stack array (const PERL_CONTEXT *)
-- : Starting index in the context stack to begin the backward search (I32)
-
+- `*cxstk`: Pointer to the Perl context stack array (const PERL_CONTEXT *)
+- `startingblock`: Starting index in the context stack to begin the backward search (I32)
 ## Dependencies
 - Functions called/Symbols referenced:
   - CxTYPE (macro to get context type)

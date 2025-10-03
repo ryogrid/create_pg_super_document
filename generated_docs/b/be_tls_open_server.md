@@ -26,8 +26,7 @@ Key operations include:
 The function handles various SSL error conditions with appropriate error reporting and includes retry logic for non-blocking socket operations.
 
 ## Parameters / Member Variables
-- : Pointer to the Port structure representing the client connection. Must have port->ssl and port->peer initially set to NULL. The function populates various SSL-related fields in this structure upon success.
-
+- `*port`: Pointer to the Port structure representing the client connection. Must have port->ssl and port->peer initially set to NULL. The function populates various SSL-related fields in this structure upon success.
 ## Dependencies
 - Functions called/Symbols referenced:
   - SSL_CTX_set_info_callback (debugging callback setup)

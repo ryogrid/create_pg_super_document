@@ -18,9 +18,8 @@ The  function is part of PostgreSQL's ECPG Informix compatibility library. It pr
 The function always returns 0, indicating successful execution. The actual NULL-setting logic is delegated to the underlying ECPG library function .
 
 ## Parameters / Member Variables
-- : Integer representing the data type identifier for the value to be set to NULL
-- : Pointer to the memory location where the NULL value should be set
-
+- `t`: Integer representing the data type identifier for the value to be set to NULL
+- `*ptr`: Pointer to the memory location where the NULL value should be set
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ECPGset_noind_null](../E/ECPGset_noind_null.md)

@@ -20,8 +20,7 @@ The allocation strategy is designed for efficiency during range operations - by 
 The function calculates the total memory needed by combining the fixed header size (using offsetof for the Ranges structure up to the values field) with the variable-length array space needed for the Datum values.
 
 ## Parameters / Member Variables
-- : Maximum number of Datum values the Ranges structure should be able to hold
-
+- `maxvalues`: Maximum number of Datum values the Ranges structure should be able to hold
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc0](../p/palloc0.md) (implicit via memory allocation)

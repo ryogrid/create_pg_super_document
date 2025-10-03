@@ -25,11 +25,10 @@ The function works by:
 This mechanism allows tests to control the timing of query planning operations, which is essential for testing concurrent operations, deadlock scenarios, and other timing-dependent behaviors in PostgreSQL.
 
 ## Parameters / Member Variables
-- : The Query structure representing the parsed SQL statement to be planned
-- : The original SQL query string as provided by the client
-- : Integer flags controlling cursor behavior and options
-- : Parameter list information for parameterized queries (can be NULL)
-
+- `*parse`: The Query structure representing the parsed SQL statement to be planned
+- `*query_string`: The original SQL query string as provided by the client
+- `cursorOptions`: Integer flags controlling cursor behavior and options
+- `boundParams`: Parameter list information for parameterized queries (can be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - prev_planner_hook (function pointer to previous hook)

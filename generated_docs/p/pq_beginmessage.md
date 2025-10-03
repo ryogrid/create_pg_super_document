@@ -18,9 +18,8 @@ This function prepares a StringInfo buffer for constructing a PostgreSQL protoco
 The function is part of PostgreSQL's internal protocol formatting system and is typically the first step when constructing any protocol message that will be sent from the backend to a client.
 
 ## Parameters / Member Variables
-- : StringInfo buffer to be initialized for message construction
-- : Single character identifying the type of PostgreSQL protocol message (e.g., 'Q' for Query, 'T' for RowDescription, etc.)
-
+- `buf`: StringInfo buffer to be initialized for message construction
+- `msgtype`: Single character identifying the type of PostgreSQL protocol message (e.g., 'Q' for Query, 'T' for RowDescription, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [initStringInfo](../i/initStringInfo.md) (from StringInfo API)

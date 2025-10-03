@@ -18,10 +18,9 @@ The  function is a utility function used in PostgreSQL's custom sprintf implemen
 This function is part of the formatting logic that handles the display of positive and negative numbers according to format specifiers. It supports both mandatory negative signs and optional positive signs when explicitly requested through format flags.
 
 ## Parameters / Member Variables
-- : Integer flag indicating whether the number being formatted is negative
-- : Integer flag indicating whether a positive sign should be displayed for positive numbers
-- : Pointer to integer where the sign character ('-' or '+') will be stored
-
+- `is_negative`: Integer flag indicating whether the number being formatted is negative
+- `forcesign`: Integer flag indicating whether a positive sign should be displayed for positive numbers
+- `*signvalue`: Pointer to integer where the sign character ('-' or '+') will be stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - (None - this is a leaf function)

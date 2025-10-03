@@ -21,10 +21,9 @@ The function performs safe type conversions by:
 3. Converting back to signed int64 with special handling for values larger than PG_INT64_MAX
 
 ## Parameters / Member Variables
-- : Pointer to the pseudo-random number generator state structure
-- : Minimum value of the range (inclusive)
-- : Maximum value of the range (inclusive)
-
+- `*state`: Pointer to the pseudo-random number generator state structure
+- `rmin`: Minimum value of the range (inclusive)
+- `rmax`: Maximum value of the range (inclusive)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_prng_uint64_range](pg_prng_uint64_range.md)

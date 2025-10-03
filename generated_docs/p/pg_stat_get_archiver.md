@@ -26,8 +26,7 @@ The  function provides detailed statistics about PostgreSQL's Write-Ahead Log (W
 The function handles NULL values appropriately for optional fields (empty strings for WAL names and zero timestamps are converted to SQL NULL values). It fetches the current archiver statistics using  and formats them into a PostgreSQL tuple for SQL consumption.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function argument macro (no specific arguments for this function)
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument macro (no specific arguments for this function)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Retrieves current archiver statistics

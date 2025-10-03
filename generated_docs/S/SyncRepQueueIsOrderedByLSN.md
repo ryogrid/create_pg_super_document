@@ -18,8 +18,7 @@ This function iterates through the synchronous replication wait queue for a spec
 The function walks through the doubly-linked list of processes waiting for synchronous replication confirmation and compares each process's waitLSN with the previous one to ensure strict ascending order.
 
 ## Parameters / Member Variables
-- : Integer specifying which synchronous replication wait queue to check (must be between 0 and NUM_SYNC_REP_WAIT_MODE-1)
-
+- `mode`: Integer specifying which synchronous replication wait queue to check (must be between 0 and NUM_SYNC_REP_WAIT_MODE-1)
 ## Dependencies
 - Functions called/Symbols referenced:
   - dlist_foreach (doubly-linked list iteration macro)

@@ -19,6 +19,7 @@ The function is lightweight and signal-safe, performing minimal work within the 
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SetLatch](../S/SetLatch.md)

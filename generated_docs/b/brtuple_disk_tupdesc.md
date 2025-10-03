@@ -18,8 +18,7 @@ This function creates and caches a tuple descriptor that defines the on-disk sto
 The function iterates through each attribute in the BRIN descriptor and for each attribute, processes all stored values defined by the opclass, creating tuple descriptor entries with the appropriate type information from the type cache.
 
 ## Parameters / Member Variables
-- : Pointer to BrinDesc structure containing BRIN descriptor information including attribute details, opclass info, and memory context for caching
-
+- `*brdesc`: Pointer to BrinDesc structure containing BRIN descriptor information including attribute details, opclass info, and memory context for caching
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BrinDesc](../B/BrinDesc.md) (structure type)

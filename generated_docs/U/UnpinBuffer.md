@@ -16,8 +16,7 @@ UnpinBuffer(BufferDesc *buf)
 UnpinBuffer is a static function that serves as a wrapper around UnpinBufferNoOwner while also handling resource ownership tracking. It specifically deals with shared buffers (never local ones) and always adjusts the CurrentResourceOwner by removing the buffer from its tracked resources before calling UnpinBufferNoOwner to perform the actual unpinning operation. This ensures proper resource management and prevents resource leaks in PostgreSQL's buffer management system.
 
 ## Parameters / Member Variables
-- : Pointer to the BufferDesc structure representing the buffer to be unpinned
-
+- `*buf`: Pointer to the BufferDesc structure representing the buffer to be unpinned
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BufferDescriptorGetBuffer](../B/BufferDescriptorGetBuffer.md)

@@ -16,10 +16,9 @@ EncodeTimezone(char *str, int tz, int style)
 EncodeTimezone converts a timezone offset (given in seconds) into its string representation following standard timezone format conventions. The function handles the conversion of seconds to hours, minutes, and seconds components, and formats them according to the specified style. It correctly handles the sign inversion needed for timezone display (negative offsets are displayed as positive and vice versa). The function supports different formatting styles including XSD date format requirements.
 
 ## Parameters / Member Variables
-- : Pointer to the destination string buffer where the timezone representation will be written
-- : Timezone offset in seconds (negative values represent east of UTC, positive west of UTC)  
-- : Formatting style flag (USE_XSD_DATES forces inclusion of minutes even when zero)
-
+- `*str`: Pointer to the destination string buffer where the timezone representation will be written
+- `tz`: Timezone offset in seconds (negative values represent east of UTC, positive west of UTC)
+- `style`: Formatting style flag (USE_XSD_DATES forces inclusion of minutes even when zero)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_ultostr_zeropad](../p/pg_ultostr_zeropad.md) (for zero-padded number formatting)

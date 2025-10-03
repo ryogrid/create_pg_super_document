@@ -32,11 +32,10 @@ The vacuum process involves:
 The function is designed to be lightweight and non-blocking, only performing cleanup when conditions are favorable.
 
 ## Parameters / Member Variables
-- : The hash index relation being vacuumed
-- : The heap relation (used for snapshot conflict horizon calculation)
-- : Buffer containing the hash index metapage (for tuple count updates)
-- : Buffer containing the page to be vacuumed (must have cleanup lock)
-
+- `rel`: The hash index relation being vacuumed
+- `hrel`: The heap relation (used for snapshot conflict horizon calculation)
+- `metabuf`: Buffer containing the hash index metapage (for tuple count updates)
+- `buf`: Buffer containing the page to be vacuumed (must have cleanup lock)
 ## Dependencies
 - Functions called/Symbols referenced:
   - , : Page inspection functions

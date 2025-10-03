@@ -26,8 +26,7 @@ The function works as follows:
 The result is always a freshly allocated string using PostgreSQL's memory management functions.
 
 ## Parameters / Member Variables
-- : The library path string that may contain macro placeholders to be substituted
-
+- `*name`: The library path string that may contain macro placeholders to be substituted
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - locates the first directory separator in the path

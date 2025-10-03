@@ -23,10 +23,9 @@ The function handles two distinct cases:
 The logic incorporates adjacency checking using  to handle edge cases where bounds are exactly adjacent, which affects the search direction.
 
 ## Parameters / Member Variables
-- : Type cache entry containing comparison functions for the range type
-- : The argument bound from the search query
-- : The centroid bound used for partitioning
-
+- `*typcache`: Type cache entry containing comparison functions for the range type
+- `*arg`: The argument bound from the search query
+- `*centroid`: The centroid bound used for partitioning
 ## Dependencies
 - Functions called/Symbols referenced:
   - [range_cmp_bounds](../r/range_cmp_bounds.md)

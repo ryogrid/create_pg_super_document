@@ -23,8 +23,7 @@ The function performs several checks:
 The function does not force revalidation of the cached plan, as invalidation typically affects the rowtype of returned tuples rather than whether tuples are returned at all.
 
 ## Parameters / Member Variables
-- : An SPIPlanPtr pointing to a previously prepared SPI plan using SPI_prepare. Must be a valid, non-NULL plan.
-
+- `plan`: An SPIPlanPtr pointing to a previously prepared SPI plan using SPI_prepare. Must be a valid, non-NULL plan.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SPIPlanPtr](SPIPlanPtr.md) (typedef for struct _SPI_plan *)

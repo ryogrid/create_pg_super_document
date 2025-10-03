@@ -23,11 +23,10 @@ The second stage uses PostgreSQL's InputFunctionCall to parse the string represe
 The function is designed to work within PostgreSQL's array processing framework, as indicated by the inarray parameter, allowing it to handle both standalone scalar conversions and array element conversions.
 
 ## Parameters / Member Variables
-- : Conversion argument structure containing type-specific conversion information including the input function
-- : Python object to convert to PostgreSQL scalar type
-- : Output parameter set to true if the result should be NULL
-- : Boolean indicating if this conversion is part of an array element conversion
-
+- `*arg`: Conversion argument structure containing type-specific conversion information including the input function
+- `*plrv`: Python object to convert to PostgreSQL scalar type
+- `*isnull`: Output parameter set to true if the result should be NULL
+- `inarray`: Boolean indicating if this conversion is part of an array element conversion
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PLyObject_AsString](PLyObject_AsString.md)

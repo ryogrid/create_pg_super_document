@@ -20,12 +20,11 @@ This function provides selectivity estimation for row comparison expressions (e.
 The function determines whether the clause should be treated as a join clause or restriction clause based on the calling context and the number of relations involved, then delegates to the appropriate selectivity estimation function ( or ).
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planner state and context
-- : RowCompareExpr node representing the row comparison expression to analyze
-- : Relation ID when forcing restriction mode; 0 for normal operation
-- : Type of join operation (used for join selectivity estimation)
-- : Special join information structure; NULL for restriction clauses
-
+- `*root`: PlannerInfo structure containing planner state and context
+- `*clause`: RowCompareExpr node representing the row comparison expression to analyze
+- `varRelid`: Relation ID when forcing restriction mode; 0 for normal operation
+- `jointype`: Type of join operation (used for join selectivity estimation)
+- `*sjinfo`: Special join information structure; NULL for restriction clauses
 ## Dependencies
 - Functions called/Symbols referenced:
   - linitial_oid

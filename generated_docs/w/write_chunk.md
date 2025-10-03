@@ -18,10 +18,9 @@ This function is a simple wrapper around the standard C library  function. It wr
 The function is marked as , indicating it's only used within the same source file. It serves as a building block for more complex file writing operations in the PostgreSQL statistics subsystem, particularly for writing statistics snapshots to persistent storage.
 
 ## Parameters / Member Variables
-- : FILE pointer to the output file stream where data will be written
-- : Void pointer to the data buffer to be written
-- : Size in bytes of the data to write
-
+- `*fpout`: FILE pointer to the output file stream where data will be written
+- `*ptr`: Void pointer to the data buffer to be written
+- `len`: Size in bytes of the data to write
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Standard C library function for writing data to a file

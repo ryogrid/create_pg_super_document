@@ -18,8 +18,7 @@ This function outputs a standardized banner message to inform users that consist
 The banner serves as a visual separator and progress indicator in the upgrade process, helping users understand what phase of the upgrade is currently executing.
 
 ## Parameters / Member Variables
-- : Boolean flag indicating whether the checks are being performed on a live running server (true) or offline (false)
-
+- `live_check`: Boolean flag indicating whether the checks are being performed on a live running server (true) or offline (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_log](../p/pg_log.md)

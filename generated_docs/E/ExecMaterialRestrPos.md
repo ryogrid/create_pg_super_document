@@ -18,8 +18,7 @@ ExecMaterialRestrPos implements the restore operation for Material nodes by copy
 The function is the counterpart to ExecMaterialMarkPos and provides the restore half of the mark/restore functionality. It includes the same safety checks as the mark function, ensuring that mark/restore was properly configured during initialization and handling the case where materialization hasn't occurred yet.
 
 ## Parameters / Member Variables
-- : The MaterialState node for which to restore the marked position
-
+- `*node`: The MaterialState node for which to restore the marked position
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MaterialState](../M/MaterialState.md)

@@ -18,9 +18,8 @@ This function generates a comprehensive CREATE OPERATOR CLASS statement by query
 The function handles complex relationships between operator classes and their components by joining multiple system catalog tables (pg_opclass, pg_amop, pg_amproc, pg_opfamily, pg_depend) to ensure only relevant operators and functions tied to the specific operator class are included. It properly formats operator and function references, handles cross-type comparisons, and includes sorting operator families when specified.
 
 ## Parameters / Member Variables
-- : Archive handle containing dump options and database connection
-- : OpclassInfo structure containing operator class metadata including OID, name, namespace, and role information
-
+- `*fout`: Archive handle containing dump options and database connection
+- `*opcinfo`: OpclassInfo structure containing operator class metadata including OID, name, namespace, and role information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [createPQExpBuffer](../c/createPQExpBuffer.md)/destroyPQExpBuffer (for SQL statement building)

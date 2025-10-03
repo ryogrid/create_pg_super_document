@@ -27,10 +27,9 @@ This function is the subtransaction counterpart to AtEOXact_RelationCache, handl
 The function must be called before processing invalidation messages, similar to its main transaction counterpart.
 
 ## Parameters / Member Variables
-- : Boolean indicating whether this is a subtransaction commit (true) or abort (false)
-- : The SubTransactionId of the subtransaction being terminated
-- : The SubTransactionId of the parent subtransaction
-
+- `isCommit`: Boolean indicating whether this is a subtransaction commit (true) or abort (false)
+- `mySubid`: The SubTransactionId of the subtransaction being terminated
+- `parentSubid`: The SubTransactionId of the parent subtransaction
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hash_seq_init](../h/hash_seq_init.md)

@@ -31,9 +31,8 @@ For traditional escape format, the following transformations are reversed:
 The function automatically detects the format by checking if the string starts with '\x'.
 
 ## Parameters / Member Variables
-- : Pointer to the null-terminated escaped string to be converted
-- : Output parameter - pointer to size_t where the length of the result buffer will be stored
-
+- `*strtext`: Pointer to the null-terminated escaped string to be converted
+- `*retbuflen`: Output parameter - pointer to size_t where the length of the result buffer will be stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - malloc (memory allocation for result buffer)

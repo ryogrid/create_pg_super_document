@@ -18,8 +18,7 @@ This function implements the SQL function  which decomposes a JSONB array into i
 The function serves as a thin wrapper around the  function, which performs the actual array element extraction and iteration logic. It specifically handles JSONB data (binary JSON format) as opposed to textual JSON.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function call information structure containing the JSONB array input parameter
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function call information structure containing the JSONB array input parameter
 ## Dependencies
 - Functions called/Symbols referenced:
   - [elements_worker_jsonb](../e/elements_worker_jsonb.md) (core worker function that extracts array elements from JSONB)

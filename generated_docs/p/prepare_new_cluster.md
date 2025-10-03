@@ -22,7 +22,6 @@ The prepare_new_cluster function performs critical post-schema-loading optimizat
 The function carefully sequences these operations - analyze before freeze - to preserve frozenxids that were restored during schema loading while ensuring pg_statistic tables are also properly frozen.
 
 ## Parameters / Member Variables
-No parameters - operates on the global new_cluster structure.
 
 ## Dependencies
 - Functions called/Symbols referenced:

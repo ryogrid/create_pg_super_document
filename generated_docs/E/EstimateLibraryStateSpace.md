@@ -18,6 +18,7 @@ This function estimates the total size required to serialize the current state o
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - DynamicFileList (data structure)

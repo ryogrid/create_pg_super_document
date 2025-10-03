@@ -17,12 +17,11 @@ regcomp_auth_token(AuthToken *token, char *filename, int line_num,
 This function handles the compilation of regular expression patterns used in PostgreSQL's host-based authentication (HBA) system. It takes a string from an AuthToken that begins with '/' (indicating a regex pattern) and compiles it using PostgreSQL's internal regex engine. The function converts the input string from the database encoding to wide characters before compilation, which allows proper handling of multi-byte character sets. If compilation fails, it generates detailed error messages including the line number and filename from the configuration file where the pattern was found.
 
 ## Parameters / Member Variables
-- : AuthToken structure containing the regex string to compile and where the compiled regex will be stored
-- : Name of the configuration file being processed (used for error reporting)
-- : Line number in the configuration file (used for error reporting)  
-- : Pointer to store error message string on compilation failure
-- : Error level for logging (e.g., ERROR, LOG, WARNING)
-
+- `*token`: AuthToken structure containing the regex string to compile and where the compiled regex will be stored
+- `*filename`: Name of the configuration file being processed (used for error reporting)
+- `line_num`: Line number in the configuration file (used for error reporting)
+- `**err_msg`: Pointer to store error message string on compilation failure
+- `elevel`: Error level for logging (e.g., ERROR, LOG, WARNING)
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Converts multi-byte string to wide character array

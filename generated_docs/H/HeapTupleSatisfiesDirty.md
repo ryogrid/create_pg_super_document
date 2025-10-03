@@ -28,10 +28,9 @@ Key behaviors include:
 - Includes effects of other in-progress transactions unlike standard visibility checks
 
 ## Parameters / Member Variables
-- : The heap tuple to check for visibility, containing tuple data and metadata
-- : Input/output parameter used to return concurrent transaction IDs affecting the tuple (xmin, xmax, speculativeToken)
-- : The buffer containing the tuple, used for setting hint bits to optimize future visibility checks
-
+- `htup`: The heap tuple to check for visibility, containing tuple data and metadata
+- `snapshot`: Input/output parameter used to return concurrent transaction IDs affecting the tuple (xmin, xmax, speculativeToken)
+- `buffer`: The buffer containing the tuple, used for setting hint bits to optimize future visibility checks
 ## Dependencies
 - Functions called/Symbols referenced:
   - HeapTupleHeaderXminCommitted

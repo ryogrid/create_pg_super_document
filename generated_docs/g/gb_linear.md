@@ -22,8 +22,7 @@ The function handles the specific byte range constraints of GB18030 4-byte seque
 The linear conversion uses weighted multipliers (12600, 1260, 10, 1) that correspond to the positional significance of each byte, then subtracts a base offset to normalize the result starting from 0.
 
 ## Parameters / Member Variables
-- : A 32-bit unsigned integer containing the 4-byte GB18030 encoded character, with bytes packed in big-endian format
-
+- `gb`: A 32-bit unsigned integer containing the 4-byte GB18030 encoded character, with bytes packed in big-endian format
 ## Dependencies
 - Functions called/Symbols referenced: None
 - Called from (representative examples):

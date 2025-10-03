@@ -18,8 +18,7 @@ This function is responsible for releasing all local references to shared statis
 The function works by delegating to  with NULL match criteria, meaning all entries are released. After releasing all references, it verifies that the hash table is empty and destroys the local entry reference hash table structure.
 
 ## Parameters / Member Variables
-- : Boolean flag indicating whether pending statistics updates should be discarded rather than flushed to shared memory before releasing references
-
+- `discard_pending`: Boolean flag indicating whether pending statistics updates should be discarded rather than flushed to shared memory before releasing references
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Core function that performs the actual reference release logic

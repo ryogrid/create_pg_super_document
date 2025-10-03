@@ -17,11 +17,10 @@ prepareToTerminate(PGconn *conn, XLogRecPtr endpos, StreamStopReason reason,
 The  function handles the graceful shutdown of a logical replication stream by notifying the server that the client is about to disconnect. It sends a copy end message to the server using  and flushes the connection to ensure the message is transmitted. The function also provides informative logging when verbose mode is enabled, displaying different messages based on the reason for termination (signal received, keepalive reached end position, or WAL record reached end position). The function is designed to be non-blocking and fault-tolerant - it doesn't wait for responses or retry on failures, as the primary goal is to attempt clean disconnection before termination.
 
 ## Parameters / Member Variables
-- : A pointer to the PostgreSQL connection object for server communication
-- : The final XLogRecPtr position that was reached before termination
-- : An enum value of type StreamStopReason indicating why the stream is being stopped
-- : The XLogRecPtr position of the specific WAL record that triggered termination (used with STREAM_STOP_END_OF_WAL)
-
+- `*conn`: A pointer to the PostgreSQL connection object for server communication
+- `endpos`: The final XLogRecPtr position that was reached before termination
+- `reason`: An enum value of type StreamStopReason indicating why the stream is being stopped
+- `lsn`: The XLogRecPtr position of the specific WAL record that triggered termination (used with STREAM_STOP_END_OF_WAL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQputCopyEnd](../P/PQputCopyEnd.md) (sends copy end message to server)

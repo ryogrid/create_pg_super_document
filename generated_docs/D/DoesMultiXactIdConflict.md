@@ -26,11 +26,10 @@ This function analyzes a multixact ID to determine if any of its member transact
 The function also handles special cases like upgraded locks and differentiates between update operations and lock-only operations.
 
 ## Parameters / Member Variables
-- : The multixact ID to examine for conflicts
-- : Tuple header information mask that pairs with the multixact
-- : The lock strength the current transaction wants to acquire
-- : Output parameter set to true if current transaction is a member of the multixact (can be NULL)
-
+- `multi`: The multixact ID to examine for conflicts
+- `infomask`: Tuple header information mask that pairs with the multixact
+- `lockmode`: The lock strength the current transaction wants to acquire
+- `*current_is_member`: Output parameter set to true if current transaction is a member of the multixact (can be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetMultiXactIdMembers](../G/GetMultiXactIdMembers.md)

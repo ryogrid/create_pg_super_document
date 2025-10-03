@@ -20,9 +20,8 @@ On Unix-like systems, it uses the provided  parameter to perform a lookup via . 
 The function allocates memory for the returned username string using , making the caller responsible for freeing the memory. It provides comprehensive error handling and reporting through the optional  parameter.
 
 ## Parameters / Member Variables
-- : User ID to look up (ignored on Windows, used on Unix-like systems)
-- : Optional buffer for error message reporting; if NULL, errors are not reported
-
+- `user_id`: User ID to look up (ignored on Windows, used on Unix-like systems)
+- `errorMessage`: Optional buffer for error message reporting; if NULL, errors are not reported
 ## Dependencies
 - Functions called/Symbols referenced:
   - GetUserName (Windows API for current user lookup)

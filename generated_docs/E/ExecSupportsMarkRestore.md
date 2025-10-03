@@ -31,8 +31,7 @@ The function examines the pathtype (which corresponds to the Plan node type that
 For complex path types like ProjectionPath, the function recursively checks the underlying subpath's capabilities. This ensures accurate assessment even through multiple layers of path transformations.
 
 ## Parameters / Member Variables
-- : Pointer to the Path node being analyzed. The function examines the pathtype field to determine the corresponding plan node type and assess mark/restore support.
-
+- `*pathnode`: Pointer to the Path node being analyzed. The function examines the pathtype field to determine the corresponding plan node type and assess mark/restore support.
 ## Dependencies
 - Functions called/Symbols referenced:
   - castNode (safe type casting)

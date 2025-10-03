@@ -21,7 +21,6 @@ This function serves as a crucial component in the ECPG preprocessor lexical ana
 The function implements a lookahead mechanism using global variables to peek at the next token and make contextual decisions about token replacement. This approach is more efficient than trying to recognize multiword tokens directly in the scanner, as it avoids the complexity of handling comments between words and prevents the need for scanner backtracking.
 
 ## Parameters / Member Variables
-This function takes no parameters and returns an integer token code.
 
 ## Dependencies
 - Functions called/Symbols referenced:

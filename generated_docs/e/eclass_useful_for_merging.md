@@ -24,10 +24,9 @@ The function checks several conditions:
 4. Looks for at least one EC member that doesn't overlap with the target relation
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global planner state and information
-- : EquivalenceClass to test for potential merge join clause generation
-- : RelOptInfo representing the relation to test merging potential against
-
+- `*root`: PlannerInfo structure containing global planner state and information
+- `*eclass`: EquivalenceClass to test for potential merge join clause generation
+- `*rel`: RelOptInfo representing the relation to test merging potential against
 ## Dependencies
 - Functions called/Symbols referenced:
   - IS_OTHER_REL (macro for checking relation type)

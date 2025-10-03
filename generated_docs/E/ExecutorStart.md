@@ -20,9 +20,8 @@ The function supports a plugin architecture through the ExecutorStart_hook varia
 An important memory management aspect is that the CurrentMemoryContext when this function is called becomes the parent of the per-query context used for the entire Executor invocation.
 
 ## Parameters / Member Variables
-- : A QueryDesc structure containing the parsed and planned query information, including the planned statement and other execution metadata
-- : Flag bits as described in executor.h that control various aspects of execution behavior
-
+- `*queryDesc`: A QueryDesc structure containing the parsed and planned query information, including the planned statement and other execution metadata
+- `eflags`: Flag bits as described in executor.h that control various aspects of execution behavior
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pgstat_report_query_id](../p/pgstat_report_query_id.md) (for query statistics reporting)

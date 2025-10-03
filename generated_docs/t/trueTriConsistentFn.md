@@ -16,8 +16,7 @@ trueTriConsistentFn(GinScanKey key)
 This function serves as a placeholder ternary consistent function for GIN (Generalized Inverted Index) scan keys representing "EVERYTHING" keys. Unlike the boolean version (trueConsistentFn), this function returns a ternary value (GIN_TRUE) rather than a simple boolean. It always indicates a definitive positive match without performing any actual consistency checking, making it suitable for scan keys that should match all possible values.
 
 ## Parameters / Member Variables
-- : A GinScanKey pointer representing the scan key being processed. This parameter is not used in the function body since the result is always GIN_TRUE.
-
+- `key`: A GinScanKey pointer representing the scan key being processed. This parameter is not used in the function body since the result is always GIN_TRUE.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GinScanKey](../G/GinScanKey.md) (struct type)

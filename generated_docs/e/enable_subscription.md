@@ -16,9 +16,8 @@ enable_subscription(PGconn *conn, const struct LogicalRepInfo *dbinfo)
 This function is part of the pg_createsubscriber utility and is responsible for enabling a logical replication subscription that was created in a disabled state during an earlier step of the subscription setup process. The function executes an ALTER SUBSCRIPTION ENABLE command to activate the subscription after the initial logical replication location has been properly adjusted. It includes comprehensive error handling and logging to track the operation's progress and handle potential failures during the enable operation.
 
 ## Parameters / Member Variables
-- : PGconn pointer representing the database connection to execute the enable command
-- : Pointer to LogicalRepInfo struct containing subscription details including subscription name and database name
-
+- `*conn`: PGconn pointer representing the database connection to execute the enable command
+- `*dbinfo`: Pointer to LogicalRepInfo struct containing subscription details including subscription name and database name
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQescapeIdentifier](../P/PQescapeIdentifier.md) (escapes subscription name for SQL safety)

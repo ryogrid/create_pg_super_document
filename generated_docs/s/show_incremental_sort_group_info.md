@@ -26,11 +26,10 @@ Key features include:
 - Memory and disk space reporting in kilobytes
 
 ## Parameters / Member Variables
-- : Pointer to IncrementalSortGroupInfo structure containing aggregated statistics for the sort group
-- : String label identifying the type of group (e.g., "Full-sort", "Pre-sorted")
-- : Boolean flag indicating whether to indent the output (used for text format alignment)
-- : Pointer to ExplainState structure containing output formatting context and buffers
-
+- `*groupInfo`: Pointer to IncrementalSortGroupInfo structure containing aggregated statistics for the sort group
+- `*groupLabel`: String label identifying the type of group (e.g., "Full-sort", "Pre-sorted")
+- `indent`: Boolean flag indicating whether to indent the output (used for text format alignment)
+- `*es`: Pointer to ExplainState structure containing output formatting context and buffers
 ## Dependencies
 - Functions called/Symbols referenced:
   - [tuplesort_method_name](../t/tuplesort_method_name.md): Gets human-readable name for sort methods

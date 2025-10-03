@@ -21,11 +21,10 @@ This function generates the complete file path for a WAL segment file by formatt
 The segment number is split into high and low parts based on the number of segments per XLogId, which depends on the WAL segment size configuration.
 
 ## Parameters / Member Variables
-- : Output buffer that receives the constructed file path (must be at least MAXPGPATH bytes)
-- : Timeline ID identifying which timeline the WAL segment belongs to
-- : Logical segment number within the timeline
-- : Size of WAL segments in bytes, used to calculate segment boundaries
-
+- `*path`: Output buffer that receives the constructed file path (must be at least MAXPGPATH bytes)
+- `tli`: Timeline ID identifying which timeline the WAL segment belongs to
+- `logSegNo`: Logical segment number within the timeline
+- `wal_segsz_bytes`: Size of WAL segments in bytes, used to calculate segment boundaries
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogSegmentsPerXLogId (to calculate segment boundaries)

@@ -18,8 +18,7 @@ This function performs cleanup operations after reading a text search configurat
 The function carefully manages memory by freeing the current line buffer (if it was separately allocated), the internal string buffer, and closing the file handle. It also removes the error context callback from the error context stack.
 
 ## Parameters / Member Variables
-- : Pointer to the tsearch_readline_state structure that was used for reading operations
-
+- `*stp`: Pointer to the tsearch_readline_state structure that was used for reading operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pfree](../p/pfree.md)

@@ -21,11 +21,10 @@ The algorithm selects a random sample of  blocks out of the total  blocks in the
 The function initializes all necessary state variables and sets up the random number generator with the provided seed. It returns the actual number of blocks that will be sampled, which is the minimum of the requested sample size and the total number of blocks available.
 
 ## Parameters / Member Variables
-- : Pointer to the BlockSampler structure to initialize
-- : Total number of blocks in the relation (measured table size)
-- : Desired number of blocks to sample
-- : Seed for the random number generator to ensure reproducible sampling
-
+- `bs`: Pointer to the BlockSampler structure to initialize
+- `nblocks`: Total number of blocks in the relation (measured table size)
+- `samplesize`: Desired number of blocks to sample
+- `randseed`: Seed for the random number generator to ensure reproducible sampling
 ## Dependencies
 - Functions called/Symbols referenced:
   - [sampler_random_init_state](../s/sampler_random_init_state.md) (initializes the random number generator state)

@@ -26,10 +26,9 @@ Key aspects of the function:
 The function is designed with careful consideration of interrupt handling and state consistency, ensuring that the lock state remains coherent even if the process is interrupted during the wait.
 
 ## Parameters / Member Variables
-- : Pointer to the LOCALLOCK structure representing the lock being waited for
-- : ResourceOwner that will own the lock once acquired
-- : If true, don't actually wait but set up state as if waiting (for conditional lock attempts)
-
+- `*locallock`: Pointer to the LOCALLOCK structure representing the lock being waited for
+- `owner`: ResourceOwner that will own the lock once acquired
+- `dontWait`: If true, don't actually wait but set up state as if waiting (for conditional lock attempts)
 ## Dependencies
 - Functions called/Symbols referenced:
   - LOCALLOCK_LOCKMETHOD (macro)

@@ -19,10 +19,9 @@ The  function handles the execution of the \restrict backslash command in psql. 
 When executed in an active branch, the function parses the required key argument using the scanner, validates that a non-empty key was provided, and then sets the global  flag to true while storing the provided key in . If no key is provided or the key is empty, the function returns an error. In inactive branches, the function simply ignores any slash options to maintain parser consistency.
 
 ## Parameters / Member Variables
-- : Scanner state object used to parse the key argument from the command line
-- : Boolean flag indicating whether this command should actually execute (used for conditional execution in psql)
-- : The name of the command being executed (used for error reporting)
-
+- `scan_state`: Scanner state object used to parse the key argument from the command line
+- `active_branch`: Boolean flag indicating whether this command should actually execute (used for conditional execution in psql)
+- `*cmd`: The name of the command being executed (used for error reporting)
 ## Dependencies
 - Functions called/Symbols referenced:
   - psql_scan_slash_option

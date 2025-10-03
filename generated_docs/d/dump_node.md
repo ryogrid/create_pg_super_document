@@ -22,9 +22,8 @@ The function traverses the FormatNode array from the starting node up to the spe
 - For unknown node types: reports an error
 
 ## Parameters / Member Variables
-- : Pointer to the first FormatNode in the array to be dumped
-- : Maximum index to traverse in the FormatNode array (0-based indexing)
-
+- `*node`: Pointer to the first FormatNode in the array to be dumped
+- `max`: Maximum index to traverse in the FormatNode array (0-based indexing)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [FormatNode](../F/FormatNode.md) (struct type)

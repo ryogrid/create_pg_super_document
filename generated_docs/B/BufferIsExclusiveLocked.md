@@ -18,8 +18,7 @@ BufferIsExclusiveLocked provides a utility function to determine if the current 
 This function is critical for WAL logging operations and other scenarios where exclusive access to buffer content must be verified before proceeding with modifications. It ensures that the calling code has proper exclusive access before performing operations that require consistent buffer content.
 
 ## Parameters / Member Variables
-- : Buffer handle to check for exclusive locking (must be pinned)
-
+- `buffer`: Buffer handle to check for exclusive locking (must be pinned)
 ## Dependencies
 - Functions called/Symbols referenced:
   - BufferIsLocal

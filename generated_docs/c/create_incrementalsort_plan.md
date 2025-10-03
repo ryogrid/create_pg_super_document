@@ -21,10 +21,9 @@ IncrementalSort is a performance optimization introduced in PostgreSQL that can 
 The function follows the same pattern as , including the CP_SMALL_TLIST optimization and special handling for child relations in inheritance scenarios.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global planning information and context
-- : IncrementalSortPath structure representing the chosen incremental sorting strategy
-- : Integer bitmask controlling plan creation behavior, including optimization flags
-
+- `*root`: PlannerInfo structure containing global planning information and context
+- `*best_path`: IncrementalSortPath structure representing the chosen incremental sorting strategy
+- `flags`: Integer bitmask controlling plan creation behavior, including optimization flags
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Recursively creates execution plans for subpaths

@@ -17,6 +17,7 @@ This function resets the wait event reporting storage location by setting the gl
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (simple assignment operation)

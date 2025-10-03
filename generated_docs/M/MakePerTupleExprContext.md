@@ -20,8 +20,7 @@ This function provides a mechanism for sharing a single ExprContext across multi
 The function is typically accessed through the GetPerTupleExprContext() macro rather than being called directly, providing a convenient interface for obtaining the per-tuple context.
 
 ## Parameters / Member Variables
-- : The EState structure that will own or already owns the per-tuple ExprContext
-
+- `*estate`: The EState structure that will own or already owns the per-tuple ExprContext
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CreateExprContext](../C/CreateExprContext.md) (creates new ExprContext if none exists)

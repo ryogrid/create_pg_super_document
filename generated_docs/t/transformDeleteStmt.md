@@ -25,9 +25,8 @@ This function performs comprehensive semantic analysis and transformation of DEL
 The function carefully manages namespace visibility, ensuring that subqueries in the USING clause cannot reference the target table, while allowing normal references in WHERE and RETURNING clauses.
 
 ## Parameters / Member Variables
-- : ParseState context containing parsing state, range tables, namespace information, and error reporting context
-- : DeleteStmt parse tree node containing the raw DELETE statement structure
-
+- `*pstate`: ParseState context containing parsing state, range tables, namespace information, and error reporting context
+- `*stmt`: DeleteStmt parse tree node containing the raw DELETE statement structure
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DeleteStmt](../D/DeleteStmt.md), ParseNamespaceItem (structure types)

@@ -24,10 +24,9 @@ The function works by examining each bit of the quadrant parameter (0x8, 0x4, 0x
 The algorithm either sets a low boundary (if the bit is set) or a high boundary (if the bit is not set), effectively partitioning the 4D space for more precise spatial constraint propagation during tree traversal.
 
 ## Parameters / Member Variables
-- : Pointer to the current RectBox representing existing traversal constraints
-- : Pointer to the RangeBox representing the centroid for spatial partitioning
-- : 8-bit unsigned integer encoding the quadrant information for boundary refinement
-
+- `*rect_box`: Pointer to the current RectBox representing existing traversal constraints
+- `*centroid`: Pointer to the RangeBox representing the centroid for spatial partitioning
+- `quadrant`: 8-bit unsigned integer encoding the quadrant information for boundary refinement
 ## Dependencies
 - Functions called/Symbols referenced:
   - RectBox (4D rectangular constraint structure)

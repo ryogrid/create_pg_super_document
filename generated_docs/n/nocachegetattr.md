@@ -30,10 +30,9 @@ Key optimizations include:
 - Strategic caching decisions based on alignment requirements for variable-length attributes
 
 ## Parameters / Member Variables
-- : HeapTuple containing the tuple data to extract from
-- : Attribute number to extract (1-based indexing)
-- : TupleDesc describing the tuple structure and containing cached offset information
-
+- `tup`: HeapTuple containing the tuple data to extract from
+- `attnum`: Attribute number to extract (1-based indexing)
+- `tupleDesc`: TupleDesc describing the tuple structure and containing cached offset information
 ## Dependencies
 - Functions called/Symbols referenced:
   - HeapTupleNoNulls, HeapTupleHasVarWidth, HeapTupleHasNulls (tuple property checks)

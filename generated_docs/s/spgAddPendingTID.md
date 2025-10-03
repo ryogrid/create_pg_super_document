@@ -18,9 +18,8 @@ This function maintains a list of pending TIDs during SP-GiST vacuum operations.
 The function allocates memory for new pending items and initializes them with the provided TID, setting the 'done' flag to false and the 'next' pointer to NULL.
 
 ## Parameters / Member Variables
-- : Pointer to spgBulkDeleteState structure containing the vacuum state information, including the pendingList
-- : ItemPointer (TID) to be added to the pending list
-
+- `*bds`: Pointer to spgBulkDeleteState structure containing the vacuum state information, including the pendingList
+- `tid`: ItemPointer (TID) to be added to the pending list
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ItemPointerEquals](../I/ItemPointerEquals.md): Compares two ItemPointer values for equality

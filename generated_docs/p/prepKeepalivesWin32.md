@@ -18,8 +18,7 @@ This function serves as a preparation and coordination layer for configuring TCP
 The function handles two key keepalive parameters: idle time (how long to wait before sending the first keepalive probe) and interval time (time between subsequent probes). It uses the pqParseIntParam utility to safely convert string parameters to integers, providing proper error handling and connection error reporting if parsing fails or if the underlying Windows socket configuration fails.
 
 ## Parameters / Member Variables
-- : Pointer to the PGconn structure representing the PostgreSQL connection. The function accesses the , , and  fields from this structure.
-
+- `*conn`: Pointer to the PGconn structure representing the PostgreSQL connection. The function accesses the , , and  fields from this structure.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pqParseIntParam](pqParseIntParam.md) (parses integer parameters from connection strings)

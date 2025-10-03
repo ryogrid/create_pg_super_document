@@ -20,6 +20,7 @@ The design philosophy follows PostgreSQL's practice of centralizing common error
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (PostgreSQL's error reporting function)

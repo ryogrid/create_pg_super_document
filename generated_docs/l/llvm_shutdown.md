@@ -26,9 +26,8 @@ This function serves as the cleanup handler for LLVM JIT resources, registered v
 The function ensures all LLVM resources are properly released to prevent memory leaks and allow profiling data to be written out.
 
 ## Parameters / Member Variables
-- : Exit code (standard on_proc_exit parameter, unused)
-- : Datum argument (standard on_proc_exit parameter, unused)
-
+- `code`: Exit code (standard on_proc_exit parameter, unused)
+- `arg`: Datum argument (standard on_proc_exit parameter, unused)
 ## Dependencies
 - Functions called/Symbols referenced:
   - PANIC (error level for assertion failures)

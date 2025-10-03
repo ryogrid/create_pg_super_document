@@ -18,9 +18,8 @@ The  function determines whether a line segment is completely contained within a
 This function is used internally by other geometric operations and is not directly exposed as a PostgreSQL function (hence the static declaration).
 
 ## Parameters / Member Variables
-- :  - Pointer to the box to test containment against
-- :  - Pointer to the line segment to test for containment
-
+- `*box`:  - Pointer to the box to test containment against
+- `*lseg`:  - Pointer to the line segment to test for containment
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Tests if a point is contained within the box (called twice, once for each endpoint)

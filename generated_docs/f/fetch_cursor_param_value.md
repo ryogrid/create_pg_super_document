@@ -20,9 +20,8 @@ The function first checks if parameter information is available in the execution
 Type safety is enforced by verifying that the parameter is of REFCURSOR type (OID REFCURSOROID). If the types don't match, it reports a detailed error indicating both the actual and expected types. For valid REFCURSOR parameters, it extracts the string value using text I/O routines since REFCURSOR uses the same representation as the text type.
 
 ## Parameters / Member Variables
-- : Expression context containing parameter list information
-- : 1-based parameter ID to fetch (must be > 0)
-
+- `*econtext`: Expression context containing parameter list information
+- `paramId`: 1-based parameter ID to fetch (must be > 0)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ParamListInfo](../P/ParamListInfo.md) (parameter list structure)

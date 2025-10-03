@@ -20,9 +20,8 @@ The function first checks if a local TOC entry context (lclTocEntry) already exi
 The function also handles backward compatibility with older archive versions. Prior to version 1.7 (PostgreSQL 7.3), archives included an additional data size field that is no longer used. For these older archives, the function reads and discards this obsolete integer value to maintain compatibility.
 
 ## Parameters / Member Variables
-- : Pointer to the ArchiveHandle structure containing archive context and I/O functions
-- : Pointer to the TocEntry structure whose extra format data needs to be read
-
+- `*AH`: Pointer to the ArchiveHandle structure containing archive context and I/O functions
+- `*te`: Pointer to the TocEntry structure whose extra format data needs to be read
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReadOffset](ReadOffset.md) (archiver utility function for reading offset data)

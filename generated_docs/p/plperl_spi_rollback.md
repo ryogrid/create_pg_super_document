@@ -19,6 +19,7 @@ The function enables explicit transaction control from PL/Perl code, complementi
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_spi_usage_allowed](../c/check_spi_usage_allowed.md)

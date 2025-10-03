@@ -20,9 +20,8 @@ The function opens the pg_event_trigger system catalog, searches for the trigger
 Unlike its name-based counterpart, this function returns void rather than an ObjectAddress since the caller presumably already has the necessary identification information.
 
 ## Parameters / Member Variables
-- : OID of the event trigger whose ownership should be changed
-- : OID of the user/role who should become the new owner of the event trigger
-
+- `trigOid`: OID of the event trigger whose ownership should be changed
+- `newOwnerId`: OID of the user/role who should become the new owner of the event trigger
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md) (to open the pg_event_trigger relation)

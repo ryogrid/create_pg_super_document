@@ -18,8 +18,7 @@ SPI_cursor_close is used to properly close and deallocate a cursor (Portal) that
 The function is essential for proper resource management in SPI applications, as unclosed cursors can lead to memory leaks and resource exhaustion. It should be called for every cursor that was successfully opened when the cursor is no longer needed.
 
 ## Parameters / Member Variables
-- : A Portal object representing the cursor to be closed. Must be a valid, previously opened cursor.
-
+- `portal`: A Portal object representing the cursor to be closed. Must be a valid, previously opened cursor.
 ## Dependencies
 - Functions called/Symbols referenced:
   - PortalIsValid (validation function)

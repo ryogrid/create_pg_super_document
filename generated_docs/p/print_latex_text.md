@@ -16,9 +16,8 @@ print_latex_text(const printTableContent *cont, FILE *fout)
 This function generates LaTeX code for displaying tabular data using the standard tabular environment. It creates a complete LaTeX table with configurable borders (0-3 levels), proper column alignment specifications, optional titles centered above the table, headers in italics, and footers below the table. The function handles LaTeX-specific formatting requirements including proper escaping of special characters and appropriate use of LaTeX table syntax including column separators (&) and row terminators (\\).
 
 ## Parameters / Member Variables
-- : Pointer to printTableContent structure containing table data, headers, alignment specifications, border options, and other formatting metadata
-- : File stream where the generated LaTeX tabular code will be written
-
+- `*cont`: Pointer to printTableContent structure containing table data, headers, alignment specifications, border options, and other formatting metadata
+- `*fout`: File stream where the generated LaTeX tabular code will be written
 ## Dependencies
 - Functions called/Symbols referenced:
   - [latex_escaped_print](../l/latex_escaped_print.md) (for escaping special LaTeX characters in content)

@@ -29,10 +29,9 @@ Key coordination features include:
 The function ensures thread-safe allocation while maintaining optimal performance through lock-free fast paths for common allocation scenarios.
 
 ## Parameters / Member Variables
-- : HashJoinTable containing parallel state and memory management structures
-- : Size of memory to allocate for the tuple (automatically aligned to MAXALIGN boundary)
-- : Output parameter receiving the DSA pointer to the allocated shared memory location
-
+- `hashtable`: HashJoinTable containing parallel state and memory management structures
+- `size`: Size of memory to allocate for the tuple (automatically aligned to MAXALIGN boundary)
+- `*shared`: Output parameter receiving the DSA pointer to the allocated shared memory location
 ## Dependencies
 - Functions called/Symbols referenced:
   - MAXALIGN (memory alignment)

@@ -20,8 +20,7 @@ The function relies on the parser to have correctly set the hashable flag for ea
 This check is crucial for the query planner to decide between different grouping implementation strategies, particularly when choosing between sort-based and hash-based grouping algorithms.
 
 ## Parameters / Member Variables
-- : A List of SortGroupClause structures representing the grouping columns to be evaluated for hashability
-
+- `*groupClause`: A List of SortGroupClause structures representing the grouping columns to be evaluated for hashability
 ## Dependencies
 - Functions called/Symbols referenced:
   - lfirst (for list iteration)

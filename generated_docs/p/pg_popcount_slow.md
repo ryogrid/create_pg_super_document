@@ -26,9 +26,8 @@ This function provides a portable buffer-based population count implementation t
 The function accumulates the total popcount across all processed chunks and bytes, returning the final count as a 64-bit value to handle large buffers.
 
 ## Parameters / Member Variables
-- : Pointer to the buffer containing the data to be processed
-- : The number of bytes in the buffer to process
-
+- `*buf`: Pointer to the buffer containing the data to be processed
+- `bytes`: The number of bytes in the buffer to process
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (for 64-bit chunk processing)

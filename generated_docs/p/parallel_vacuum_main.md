@@ -44,9 +44,8 @@ Key responsibilities include:
 - Frees allocated resources
 
 ## Parameters / Member Variables
-- : DSM segment containing shared memory for parallel vacuum coordination
-- : Shared memory table of contents for locating different data structures
-
+- `*seg`: DSM segment containing shared memory for parallel vacuum coordination
+- `*toc`: Shared memory table of contents for locating different data structures
 ## Dependencies
 - Functions called/Symbols referenced:
   - [shm_toc_lookup](../s/shm_toc_lookup.md)

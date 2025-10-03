@@ -22,8 +22,7 @@ For ECs without constants, it generates "member1 = member2" clauses for each pai
 The function also handles fallback scenarios when cross-type operators are incomplete by marking ECs as "ec_broken" and reverting to original source RestrictInfos. Additionally, it optimizes future lookups by marking base relations with their associated eclass indexes.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing the planner's global state and equivalence class information
-
+- `*root`: PlannerInfo structure containing the planner's global state and equivalence class information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [generate_base_implied_equalities_const](generate_base_implied_equalities_const.md)

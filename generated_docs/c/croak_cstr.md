@@ -23,8 +23,7 @@ The implementation uses two different approaches depending on Perl version:
 The function ensures proper error location reporting and UTF-8 handling across different Perl versions.
 
 ## Parameters / Member Variables
-- : A C string in the current database encoding containing the error message
-
+- `*str`: A C string in the current database encoding containing the error message
 ## Dependencies
 - Functions called/Symbols referenced:
   - dTHX (Perl threading context macro)

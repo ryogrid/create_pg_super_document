@@ -16,8 +16,7 @@ check_collation_set(Oid collid)
 This function validates that a collation identifier (OID) is valid and properly set. When called with an invalid OID (typically InvalidOid), it reports a specific error indicating that the collation could not be determined for string comparison operations. This typically occurs when the PostgreSQL parser encounters conflicting implicit collations and cannot resolve which one to use. The function serves as a centralized validation point for collation requirements in string comparison functions, ensuring that operations requiring collation have a valid collation context before proceeding.
 
 ## Parameters / Member Variables
-- : The collation OID to validate
-
+- `collid`: The collation OID to validate
 ## Dependencies
 - Functions called/Symbols referenced:
   - OidIsValid (macro to check if OID is valid)

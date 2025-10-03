@@ -30,12 +30,11 @@ The ORDER procedures are essential for:
 - Maintaining consistency with index column ordering
 
 ## Parameters / Member Variables
-- : The index scan descriptor containing scan context and relation information
-- : The scan key for which to set up comparison procedures
-- : The OID of the array element data type
-- : Pointer to store the ORDER procedure for binary searches
-- : Pointer to pointer for storing the same-type ORDER procedure for sorting (can be NULL for non-array keys)
-
+- `scan`: The index scan descriptor containing scan context and relation information
+- `skey`: The scan key for which to set up comparison procedures
+- `elemtype`: The OID of the array element data type
+- `*orderproc`: Pointer to store the ORDER procedure for binary searches
+- `**sortprocp`: Pointer to pointer for storing the same-type ORDER procedure for sorting (can be NULL for non-array keys)
 ## Dependencies
 - Functions called/Symbols referenced:
   - BTScanOpaque

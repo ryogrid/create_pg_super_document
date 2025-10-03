@@ -21,7 +21,6 @@ The function operates by:
 4. Terminating the upgrade process with a fatal error if any non-pg_catalog relations are found
 
 ## Parameters / Member Variables
-This function takes no parameters and operates on global cluster state.
 
 ## Dependencies
 - Functions called/Symbols referenced:

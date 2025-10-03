@@ -16,8 +16,7 @@ RetrieveDataDirCreatePerm(PGconn *conn)
 RetrieveDataDirCreatePerm determines the permission mode of the PostgreSQL data directory on the server side and configures the local environment to create files and directories with matching permissions. This function is particularly important for PostgreSQL 11+ which introduced support for optional group read/execute rights on the data directory. For earlier versions, it maintains default group access settings. The function executes "SHOW data_directory_mode" to retrieve the octal permission value and applies it via SetDataDirectoryCreatePerm.
 
 ## Parameters / Member Variables
-- : PGconn pointer to an active PostgreSQL connection
-
+- `*conn`: PGconn pointer to an active PostgreSQL connection
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQserverVersion](../P/PQserverVersion.md)

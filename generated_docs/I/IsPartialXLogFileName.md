@@ -16,8 +16,7 @@ IsPartialXLogFileName(const char *fname)
 IsPartialXLogFileName checks if a filename represents a partial WAL segment file by verifying three criteria: the total filename length matches the standard WAL filename length plus the ".partial" suffix length, the first 24 characters are valid hexadecimal digits, and the filename ends with ".partial". Partial WAL files are used by pg_receivewal and during archive recovery when a WAL segment might not be complete yet but needs to be archived or processed.
 
 ## Parameters / Member Variables
-- : The filename string to validate
-
+- `*fname`: The filename string to validate
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLOG_FNAME_LEN

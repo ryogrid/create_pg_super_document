@@ -26,8 +26,7 @@ This function is the main entry point for processing DELETE messages received fr
 The function includes early exit conditions for skipped changes or streamed transaction handling, and ensures proper error handling through callback mechanisms.
 
 ## Parameters / Member Variables
-- : StringInfo buffer containing the serialized DELETE message from the publisher
-
+- `s`: StringInfo buffer containing the serialized DELETE message from the publisher
 ## Dependencies
 - Functions called/Symbols referenced:
   - is_skipping_changes

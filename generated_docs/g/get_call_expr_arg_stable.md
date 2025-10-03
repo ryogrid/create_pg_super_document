@@ -18,9 +18,8 @@ This function examines a calling expression tree to determine if a specific argu
 The function considers two types of expressions as stable: true constants (Const nodes) and external parameters (PARAM_EXTERN), which are bound once per query execution. Future extensions might include other stable expressions like now() function calls.
 
 ## Parameters / Member Variables
-- : The expression node representing a function call or operator expression to analyze
-- : Zero-based index of the argument to check for stability
-
+- `*expr`: The expression node representing a function call or operator expression to analyze
+- `argnum`: Zero-based index of the argument to check for stability
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_nth](../l/list_nth.md)

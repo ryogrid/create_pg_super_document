@@ -18,10 +18,9 @@ LZ4Stream_gets implements the standard C library fgets() interface for LZ4 compr
 This function is part of PostgreSQL's compression infrastructure for pg_dump, allowing line-by-line reading from LZ4 compressed backup files. It maintains the familiar fgets() semantics, including NULL-termination of the result string, while handling the complexities of LZ4 decompression internally.
 
 ## Parameters / Member Variables
-- : Pointer to the character buffer where the line will be stored
-- : Maximum number of characters to read (including the null terminator)
-- : Pointer to the CompressFileHandle structure containing the LZ4 state and file information
-
+- `*ptr`: Pointer to the character buffer where the line will be stored
+- `size`: Maximum number of characters to read (including the null terminator)
+- `*CFH`: Pointer to the CompressFileHandle structure containing the LZ4 state and file information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LZ4Stream_read_internal](LZ4Stream_read_internal.md) (performs the actual decompression work with eol_flag=true)

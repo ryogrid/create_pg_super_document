@@ -18,9 +18,8 @@ This function serves as an assignment hook for the PostgreSQL configuration para
 This hook works in conjunction with check_max_stack_depth to ensure that stack depth limits are properly validated before being applied to the system.
 
 ## Parameters / Member Variables
-- : The new value for max_stack_depth (in kilobytes) that has been validated
-- : Pointer to extra data (unused in this function)
-
+- `newval`: The new value for max_stack_depth (in kilobytes) that has been validated
+- `*extra`: Pointer to extra data (unused in this function)
 ## Dependencies
 - Functions called/Symbols referenced:
   - max_stack_depth_bytes (global variable assignment)

@@ -27,17 +27,16 @@ This function is specialized for creating partial merge join paths that can be e
 Like other partial path functions, it uses simplified validation logic due to the constraints of parallel execution. The function performs initial cost estimation and uses add_partial_path_precheck for early elimination of poor paths before creating the full path structure.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global planning context and configuration
-- : Target RelOptInfo representing the join relation where the partial path will be added
-- : Path structure for the outer (left) relation in the partial merge join
-- : Path structure for the inner (right) relation in the partial merge join
-- : List of PathKey structures representing the required output ordering
-- : List of merge join clauses that define the join conditions
-- : List of PathKey structures for required outer relation sorting (NULL if no sort needed)
-- : List of PathKey structures for required inner relation sorting (NULL if no sort needed)
-- : JoinType enumeration specifying the type of join (INNER, LEFT, etc.)
-- : JoinPathExtraData containing additional join-specific information and constraints
-
+- `*root`: PlannerInfo structure containing global planning context and configuration
+- `*joinrel`: Target RelOptInfo representing the join relation where the partial path will be added
+- `*outer_path`: Path structure for the outer (left) relation in the partial merge join
+- `*inner_path`: Path structure for the inner (right) relation in the partial merge join
+- `*pathkeys`: List of PathKey structures representing the required output ordering
+- `*mergeclauses`: List of merge join clauses that define the join conditions
+- `*outersortkeys`: List of PathKey structures for required outer relation sorting (NULL if no sort needed)
+- `*innersortkeys`: List of PathKey structures for required inner relation sorting (NULL if no sort needed)
+- `jointype`: JoinType enumeration specifying the type of join (INNER, LEFT, etc.)
+- `*extra`: JoinPathExtraData containing additional join-specific information and constraints
 ## Dependencies
 - Functions called/Symbols referenced:
   - bms_is_empty

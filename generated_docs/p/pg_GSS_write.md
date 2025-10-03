@@ -23,10 +23,9 @@ Key behaviors:
 - Validates confidentiality of encrypted packets
 
 ## Parameters / Member Variables
-- : PostgreSQL connection object containing GSSAPI context and buffers
-- : Pointer to the data buffer to be encrypted and transmitted
-- : Number of bytes to encrypt and send
-
+- `*conn`: PostgreSQL connection object containing GSSAPI context and buffers
+- `*ptr`: Pointer to the data buffer to be encrypted and transmitted
+- `len`: Number of bytes to encrypt and send
 ## Dependencies
 - Functions called/Symbols referenced:
   - gss_wrap (GSSAPI function for encryption)

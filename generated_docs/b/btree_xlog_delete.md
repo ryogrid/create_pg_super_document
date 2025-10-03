@@ -27,8 +27,7 @@ Key operations performed:
 The main difference from btree_xlog_vacuum is the conflict resolution step and the fact that it uses a regular buffer lock rather than a cleanup lock.
 
 ## Parameters / Member Variables
-- : XLogReaderState containing the WAL record data for the delete operation
-
+- `*record`: XLogReaderState containing the WAL record data for the delete operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData

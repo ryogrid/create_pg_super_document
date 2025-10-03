@@ -25,8 +25,7 @@ Key functionality includes:
 The function uses a state machine approach, examining the current character to determine token type and delegating to specialized lexers for complex tokens (strings, numbers). For incremental parsing, it maintains partial token buffers and handles token completion across input boundaries.
 
 ## Parameters / Member Variables
-- : Pointer to JsonLexContext containing lexical state including input position, token boundaries, line numbers, and incremental parsing state
-
+- `*lex`: Pointer to JsonLexContext containing lexical state including input position, token boundaries, line numbers, and incremental parsing state
 ## Dependencies
 - Functions called/Symbols referenced:
   - [resetStringInfo](../r/resetStringInfo.md) (partial token buffer management)

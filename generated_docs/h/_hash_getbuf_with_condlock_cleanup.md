@@ -23,10 +23,9 @@ The cleanup process follows these steps:
 5. If successful, validates the page and returns the locked buffer
 
 ## Parameters / Member Variables
-- : The hash index relation to read from
-- : Block number of the page to retrieve (must not be P_NEW)
-- : Bitwise OR of allowed page types for validation by _hash_checkpage
-
+- `rel`: The hash index relation to read from
+- `blkno`: Block number of the page to retrieve (must not be P_NEW)
+- `flags`: Bitwise OR of allowed page types for validation by _hash_checkpage
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReadBuffer](../R/ReadBuffer.md) (buffer manager function to read a page)

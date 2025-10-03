@@ -24,10 +24,9 @@ This static function is a core component of PostgreSQL's rule deparsing system t
 The function extracts argument types, handles named arguments, manages variadic functions, and ensures proper comma separation between arguments. It also enforces the FUNC_MAX_ARGS limit on function arguments.
 
 ## Parameters / Member Variables
-- : Pointer to the FuncExpr node containing the function call to be deparsed
-- : Deparse context containing the output buffer and formatting preferences
-- : Boolean flag indicating whether to show implicit coercions explicitly
-
+- `*expr`: Pointer to the FuncExpr node containing the function call to be deparsed
+- `*context`: Deparse context containing the output buffer and formatting preferences
+- `showimplicit`: Boolean flag indicating whether to show implicit coercions explicitly
 ## Dependencies
 - Functions called/Symbols referenced:
   - COERCE_IMPLICIT_CAST, COERCE_EXPLICIT_CAST, COERCE_SQL_SYNTAX (function format constants)

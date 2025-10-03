@@ -16,9 +16,8 @@ print_latex_vertical(const printTableContent *cont, FILE *fout)
 This function formats tabular data in a vertical LaTeX layout using a two-column table structure where the left column contains field names (headers) and the right column contains the corresponding values. Each record is preceded by a "Record N" header that spans both columns. The function uses a standard tabular environment with configurable borders and supports optional titles displayed in a centered environment above the table. Record numbering continues from previous tables using prior_records.
 
 ## Parameters / Member Variables
-- : Pointer to printTableContent structure containing table data, headers, border options, titles, footers, and formatting metadata
-- : File stream where the generated vertical LaTeX table code will be written
-
+- `*cont`: Pointer to printTableContent structure containing table data, headers, border options, titles, footers, and formatting metadata
+- `*fout`: File stream where the generated vertical LaTeX table code will be written
 ## Dependencies
 - Functions called/Symbols referenced:
   - [latex_escaped_print](../l/latex_escaped_print.md) (for escaping special LaTeX characters in headers and content)

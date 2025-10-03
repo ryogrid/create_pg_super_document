@@ -24,8 +24,7 @@ The function performs several key initialization steps:
 The async execution model allows the database to initiate I/O operations or remote queries on multiple subplans simultaneously, then collect results as they become available, significantly improving performance for queries that access multiple partitions or foreign tables.
 
 ## Parameters / Member Variables
-- : Pointer to AppendState containing the append node's execution state, async subplan information, and request tracking structures
-
+- `*node`: Pointer to AppendState containing the append node's execution state, async subplan information, and request tracking structures
 ## Dependencies
 - Functions called/Symbols referenced:
   - ScanDirectionIsForward (direction validation)

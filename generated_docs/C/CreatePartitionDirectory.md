@@ -18,9 +18,8 @@ CreatePartitionDirectory initializes a new partition directory structure that se
 The partition directory is particularly useful in scenarios where multiple partition lookups are expected, as it avoids repeated calls to RelationGetPartitionDesc for the same relations. The omit_detached parameter controls whether the directory should exclude detached partitions when building partition descriptors.
 
 ## Parameters / Member Variables
-- : Memory context in which to allocate the partition directory and its hash table
-- : Boolean flag indicating whether detached partitions should be omitted from partition descriptors
-
+- `mcxt`: Memory context in which to allocate the partition directory and its hash table
+- `omit_detached`: Boolean flag indicating whether detached partitions should be omitted from partition descriptors
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)

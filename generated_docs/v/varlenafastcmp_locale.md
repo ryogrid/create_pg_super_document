@@ -18,10 +18,9 @@ varlenafastcmp_locale(Datum x, Datum y, SortSupport ssup)
 The function is designed to work with PostgreSQL's sort support infrastructure, which optimizes sorting operations by providing specialized comparison functions that can be called directly without the overhead of the general-purpose comparison framework.
 
 ## Parameters / Member Variables
-- : First Datum value to compare (contains a varlena string)
-- : Second Datum value to compare (contains a varlena string)  
-- : SortSupport structure containing sorting context and locale information
-
+- `x`: First Datum value to compare (contains a varlena string)
+- `y`: Second Datum value to compare (contains a varlena string)
+- `ssup`: SortSupport structure containing sorting context and locale information
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Extracts VarString from Datum with proper detoasting

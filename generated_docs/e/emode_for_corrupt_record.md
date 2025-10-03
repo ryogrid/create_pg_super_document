@@ -20,9 +20,8 @@ The key behavior is the suppression of repeated error messages for the same reco
 The function maintains state via a static variable to track the last record position that generated a complaint, enabling the suppression logic to work across multiple function calls.
 
 ## Parameters / Member Variables
-- : Integer representing the initial error mode (typically LOG, PANIC, etc.) that would be used for reporting
-- : XLogRecPtr indicating the WAL record position where corruption was detected
-
+- `emode`: Integer representing the initial error mode (typically LOG, PANIC, etc.) that would be used for reporting
+- `RecPtr`: XLogRecPtr indicating the WAL record position where corruption was detected
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLOG_FROM_PG_WAL (constant comparison)

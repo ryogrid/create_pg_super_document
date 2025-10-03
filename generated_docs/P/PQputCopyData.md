@@ -23,10 +23,9 @@ The function performs several key operations:
 - Handles both blocking and non-blocking operation modes
 
 ## Parameters / Member Variables
-- : PostgreSQL connection handle that must be in COPY IN or COPY BOTH state
-- : Pointer to the data buffer to be sent to the server
-- : Number of bytes to send from the buffer (must be > 0 for actual data transmission)
-
+- `*conn`: PostgreSQL connection handle that must be in COPY IN or COPY BOTH state
+- `*buffer`: Pointer to the data buffer to be sent to the server
+- `nbytes`: Number of bytes to send from the buffer (must be > 0 for actual data transmission)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [libpq_append_conn_error](../l/libpq_append_conn_error.md)

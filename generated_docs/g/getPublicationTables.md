@@ -18,10 +18,9 @@ This function queries the  system catalog to collect information about which tab
 The function filters results based on dump options and only processes relationships where both the publication and table are of interest to the dump operation. Each qualifying relationship results in a  dumpable object.
 
 ## Parameters / Member Variables
-- : Archive structure containing dump configuration and state information
-- : Array of table information structures
-- : Number of tables in the tblinfo array
-
+- `*fout`: Archive structure containing dump configuration and state information
+- `tblinfo[]`: Array of table information structures
+- `numTables`: Number of tables in the tblinfo array
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md) - executes the catalog query

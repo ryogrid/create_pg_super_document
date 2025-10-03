@@ -21,11 +21,10 @@ The  function is a core component of PostgreSQL's regex DFA (Deterministic Finit
 The cleanup process involves two main phases: first, it clears all incoming arcs by traversing the incoming arc chain and removing corresponding outgoing arc references from source states. Second, it removes the state set from the incoming arc chains of all states that it points to via outgoing arcs. This bidirectional cleanup ensures no dangling references remain in the arc structure.
 
 ## Parameters / Member Variables
-- : Pointer to the vars structure containing regex execution variables and context
-- : Pointer to the DFA structure representing the finite automaton
-- : Current character pointer in the input string being matched  
-- : Pointer to the start of the input string being processed
-
+- `*v`: Pointer to the vars structure containing regex execution variables and context
+- `*d`: Pointer to the DFA structure representing the finite automaton
+- `*cp`: Current character pointer in the input string being matched
+- `*start`: Pointer to the start of the input string being processed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pickss](../p/pickss.md) (to obtain a candidate state set)

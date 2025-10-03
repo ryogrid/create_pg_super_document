@@ -20,8 +20,7 @@ The function performs several key initialization steps: allocating aligned memor
 The memory allocation uses PG_IO_ALIGN_SIZE alignment to ensure optimal performance when the data is eventually written to disk during WAL operations.
 
 ## Parameters / Member Variables
-- : Relation pointer for the table/index being modified, used to determine WAL logging requirements
-
+- `relation`: Relation pointer for the table/index being modified, used to determine WAL logging requirements
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GenericXLogState](GenericXLogState.md) (struct type for the returned state object)

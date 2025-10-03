@@ -16,11 +16,10 @@ dummy_ssl_passwd_cb(char *buf, int size, int rwflag, void *userdata)
 This function serves as a protective mechanism against OpenSSL's default behavior of prompting for passphrases on /dev/tty when encountering password-protected SSL certificates or keys. During automated operations like postmaster SIGHUP cycles or SSL context reloads in EXEC_BACKEND postmaster children, interactive prompting would cause system hangs or failures. This dummy callback intentionally returns an empty passphrase, which guarantees that the SSL key loading will fail gracefully rather than block waiting for user input. The function also sets a flag (dummy_ssl_passwd_cb_called) to enable more descriptive error reporting when this callback is invoked.
 
 ## Parameters / Member Variables
-- : Buffer to store the passphrase (receives empty string)
-- : Maximum size of the buffer (must be > 0)
-- : Read/write flag (unused in this implementation)
-- : User-defined data passed to the callback (unused)
-
+- `*buf`: Buffer to store the passphrase (receives empty string)
+- `size`: Maximum size of the buffer (must be > 0)
+- `rwflag`: Read/write flag (unused in this implementation)
+- `*userdata`: User-defined data passed to the callback (unused)
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (only uses direct assignments and assertions)

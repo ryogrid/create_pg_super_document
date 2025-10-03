@@ -23,9 +23,8 @@ The caller must provide a pre-allocated MemoryContextCallback structure with the
 Importantly, there is no deregistration API - once a callback is registered, it cannot be removed. If conditional behavior is needed, the callback function should check state in its argument to determine whether to perform any actions.
 
 ## Parameters / Member Variables
-- : The memory context to attach the callback to. Must be a valid MemoryContext.
-- : Pointer to a MemoryContextCallback structure containing the function to call and its argument.
-
+- `context`: The memory context to attach the callback to. Must be a valid MemoryContext.
+- `*cb`: Pointer to a MemoryContextCallback structure containing the function to call and its argument.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContextCallback](MemoryContextCallback.md) (structure type)

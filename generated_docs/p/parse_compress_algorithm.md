@@ -16,9 +16,8 @@ parse_compress_algorithm(char *name, pg_compress_algorithm *algorithm)
 The  function looks up a compression algorithm by its string name and sets the corresponding enumeration value. It supports the standard compression algorithms available in PostgreSQL: "none", "gzip", "lz4", and "zstd". The function performs case-sensitive string comparison to identify the algorithm and returns a boolean indicating whether the name was successfully recognized.
 
 ## Parameters / Member Variables
-- : A null-terminated string containing the compression algorithm name to parse
-- : A pointer to a  variable where the parsed algorithm value will be stored
-
+- `*name`: A null-terminated string containing the compression algorithm name to parse
+- `*algorithm`: A pointer to a  variable where the parsed algorithm value will be stored
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (standard C library function)

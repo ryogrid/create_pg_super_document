@@ -20,12 +20,11 @@ refnameNamespaceItem(ParseState *pstate,
 This function performs namespace resolution for relation references in SQL queries. It handles both qualified names (schema.table) and unqualified names (table), searching through the parsing state's namespace stack to find matching items. For qualified names, it converts the schema.relation pair to a relation OID and searches by relid. For unqualified names, it searches by alias or relation name. The function can optionally track nesting depth and will traverse parent parsing states when sublevels_up is provided.
 
 ## Parameters / Member Variables
-- : Current parsing state containing the namespace stack
-- : Schema name for qualified references (NULL for unqualified)
-- : The relation/alias name to search for
-- : Source location for error reporting
-- : Optional output parameter for nesting depth (NULL to search current level only)
-
+- `*pstate`: Current parsing state containing the namespace stack
+- `*schemaname`: Schema name for qualified references (NULL for unqualified)
+- `*refname`: The relation/alias name to search for
+- `location`: Source location for error reporting
+- `*sublevels_up`: Optional output parameter for nesting depth (NULL to search current level only)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LookupNamespaceNoError](../L/LookupNamespaceNoError.md)

@@ -18,8 +18,7 @@ This function performs a complete deep copy of a SetConstraintState structure. I
 This copying mechanism is essential for maintaining separate constraint states across different transaction contexts or when preserving constraint state snapshots.
 
 ## Parameters / Member Variables
-- : The original SetConstraintState structure to copy from
-
+- `origstate`: The original SetConstraintState structure to copy from
 ## Dependencies
 - Functions called/Symbols referenced:
   - SetConstraintState (parameter and return type)

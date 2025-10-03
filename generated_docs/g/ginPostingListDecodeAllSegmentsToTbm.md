@@ -21,10 +21,9 @@ The function leverages  to perform the actual decoding work, then uses  to effic
 This is particularly useful during query processing where multiple posting lists need to be combined into a single result set represented as a TID bitmap.
 
 ## Parameters / Member Variables
-- : Pointer to the first posting list segment to decode
-- : Total number of bytes containing all segments to process  
-- : Target TID bitmap to receive the decoded item pointers
-
+- `*ptr`: Pointer to the first posting list segment to decode
+- `len`: Total number of bytes containing all segments to process
+- `*tbm`: Target TID bitmap to receive the decoded item pointers
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ginPostingListDecodeAllSegments](ginPostingListDecodeAllSegments.md)

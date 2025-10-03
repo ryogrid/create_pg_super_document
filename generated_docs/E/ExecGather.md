@@ -18,8 +18,7 @@ ExecGather implements the core logic for parallel query execution coordination i
 The execution strategy adapts based on runtime conditions: if no workers are launched or if parallel_leader_participation is enabled and the plan is not single-copy, the leader process executes the plan locally. Otherwise, it purely coordinates workers. The function uses gather_getnext to retrieve the next tuple, which implements the complex logic of reading from multiple sources (workers and/or local execution). If projection is needed, it applies the projection using ExecProject.
 
 ## Parameters / Member Variables
-- : The plan state containing execution context and configuration, cast to GatherState
-
+- `*pstate`: The plan state containing execution context and configuration, cast to GatherState
 ## Dependencies
 - Functions called/Symbols referenced:
   - castNode (safely casts PlanState to GatherState)

@@ -18,9 +18,8 @@ The  function compares two null-terminated strings character by character in a c
 The function iterates through both strings simultaneously, converting characters to lowercase before comparison. If characters differ after case conversion, it returns the difference. If one string ends before the other, the comparison reflects the shorter string as "less than" the longer one. The function returns 0 when strings are equal (case-insensitively).
 
 ## Parameters / Member Variables
-- : First null-terminated string to compare
-- : Second null-terminated string to compare
-
+- `*s1`: First null-terminated string to compare
+- `*s2`: Second null-terminated string to compare
 ## Dependencies
 - Functions called/Symbols referenced:
   - IS_HIGHBIT_SET (macro to check if character has high bit set)

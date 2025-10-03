@@ -23,12 +23,11 @@ This recursive function constructs a prefix tree from a range of affix rules to 
 The resulting tree structure allows efficient traversal during affix matching, where each node represents a character position and contains both child nodes for longer patterns and completed affix rules.
 
 ## Parameters / Member Variables
-- : Pointer to IspellDict containing affix configuration and data
-- : Lower index in the Conf->Affix array for processing range
-- : Upper index in the Conf->Affix array for processing range  
-- : Current depth/level in the prefix tree being built
-- : Affix type - either FF_SUFFIX or FF_PREFIX indicating processing direction
-
+- `*Conf`: Pointer to IspellDict containing affix configuration and data
+- `low`: Lower index in the Conf->Affix array for processing range
+- `high`: Upper index in the Conf->Affix array for processing range
+- `level`: Current depth/level in the prefix tree being built
+- `type`: Affix type - either FF_SUFFIX or FF_PREFIX indicating processing direction
 ## Dependencies
 - Functions called/Symbols referenced:
   - GETCHAR (macro for character extraction)

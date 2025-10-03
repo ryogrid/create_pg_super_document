@@ -20,7 +20,6 @@ The function operates by iterating through the global list of attached segments 
 This function is crucial for maintaining system stability and preventing shared memory leaks, especially in scenarios where a backend process might terminate unexpectedly or when normal detachment procedures haven't been completed.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

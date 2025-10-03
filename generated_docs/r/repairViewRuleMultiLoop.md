@@ -25,9 +25,8 @@ This function is part of pg_dump's dependency loop repair mechanism. When a circ
 The function specifically handles multi-object loops (as opposed to simple view-rule loops handled by repairViewRuleLoop). It works by temporarily creating a dummy view definition that can be dumped early, while deferring the actual rule to the post-data phase.
 
 ## Parameters / Member Variables
-- : Pointer to the DumpableObject representing the view involved in the dependency loop
-- : Pointer to the DumpableObject representing the ON SELECT rule that needs to be separated from the view
-
+- `*viewobj`: Pointer to the DumpableObject representing the view involved in the dependency loop
+- `*ruleobj`: Pointer to the DumpableObject representing the ON SELECT rule that needs to be separated from the view
 ## Dependencies
 - Functions called/Symbols referenced:
   - [removeObjectDependency](removeObjectDependency.md) (removes existing dependency relationships)

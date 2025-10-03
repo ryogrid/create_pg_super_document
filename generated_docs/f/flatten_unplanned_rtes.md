@@ -20,9 +20,8 @@ The function uses PostgreSQL's query tree walker mechanism to systematically tra
 The  flag ensures that RTEs are examined before recursing into substructures, which is important for proper handling of nested subqueries and maintaining the correct order of RTE extraction.
 
 ## Parameters / Member Variables
-- : PlannerGlobal structure containing the global planner state and the flat rangetable being built
-- : RangeTblEntry representing the subquery whose contained RTEs need to be extracted
-
+- `*glob`: PlannerGlobal structure containing the global planner state and the flat rangetable being built
+- `*rte`: RangeTblEntry representing the subquery whose contained RTEs need to be extracted
 ## Dependencies
 - Functions called/Symbols referenced:
   - query_tree_walker

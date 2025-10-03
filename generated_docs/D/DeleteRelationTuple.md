@@ -30,8 +30,7 @@ The function performs a straightforward but critical operation:
 This function is intentionally designed to be shared between relation deletion (heap_drop_with_catalog) and index deletion (index_drop) operations, as both types of objects have entries in pg_class that need to be removed when the object is dropped.
 
 ## Parameters / Member Variables
-- : The OID of the relation whose pg_class entry should be deleted
-
+- `relid`: The OID of the relation whose pg_class entry should be deleted
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md) (opens pg_class catalog for modification)

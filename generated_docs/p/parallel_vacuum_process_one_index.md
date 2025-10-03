@@ -27,10 +27,9 @@ Key design aspects include:
 - **Lock-free Updates**: Each worker operates on different index slots, avoiding contention
 
 ## Parameters / Member Variables
-- : Parallel vacuum state containing shared memory structures, heap relation, buffer strategy, and coordination data
-- : The index relation being processed
-- : Per-index statistics structure in shared memory containing status and bulk-deletion results
-
+- `*pvs`: Parallel vacuum state containing shared memory structures, heap relation, buffer strategy, and coordination data
+- `indrel`: The index relation being processed
+- `*indstats`: Per-index statistics structure in shared memory containing status and bulk-deletion results
 ## Dependencies
 - Functions called/Symbols referenced:
   - [vac_bulkdel_one_index](../v/vac_bulkdel_one_index.md)

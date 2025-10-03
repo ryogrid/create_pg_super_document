@@ -32,11 +32,10 @@ This function implements the execution phase for ALTER TABLE ALTER COLUMN SET/DR
 The function ensures data integrity by validating column types and providing clear error messages for unsupported operations.
 
 ## Parameters / Member Variables
-- : The relation being altered
-- : Name of the column whose default is being modified
-- : New default expression (NULL for DROP DEFAULT operations)
-- : Lock mode for the operation (currently unused in function body)
-
+- `rel`: The relation being altered
+- `*colName`: Name of the column whose default is being modified
+- `*newDefault`: New default expression (NULL for DROP DEFAULT operations)
+- `lockmode`: Lock mode for the operation (currently unused in function body)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_attnum](../g/get_attnum.md) (to resolve column name to attribute number)

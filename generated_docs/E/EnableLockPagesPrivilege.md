@@ -24,8 +24,7 @@ The function performs the following sequence of operations:
 The function provides detailed error reporting with appropriate PostgreSQL error codes and hints for system administrators.
 
 ## Parameters / Member Variables
-- : Error reporting level (e.g., ERROR, WARNING, LOG) to use if privilege acquisition fails
-
+- `elevel`: Error reporting level (e.g., ERROR, WARNING, LOG) to use if privilege acquisition fails
 ## Dependencies
 - Functions called/Symbols referenced:
   - OpenProcessToken (Windows API)

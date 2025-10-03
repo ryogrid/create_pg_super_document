@@ -23,9 +23,8 @@ The function performs the following key operations:
 5. Returns the configured revmap object for subsequent operations
 
 ## Parameters / Member Variables
-- : The BRIN index relation for which to initialize the revmap
-- : Output parameter that receives the number of heap pages covered by each index range
-
+- `idxrel`: The BRIN index relation for which to initialize the revmap
+- `*pagesPerRange`: Output parameter that receives the number of heap pages covered by each index range
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReadBuffer](../R/ReadBuffer.md)

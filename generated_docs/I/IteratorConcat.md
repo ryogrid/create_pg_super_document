@@ -24,10 +24,9 @@ This function iterates over two JsonbIterator instances and merges their content
 The function uses JsonbIteratorNext to traverse the input iterators and pushJsonbValue to build the result structure incrementally.
 
 ## Parameters / Member Variables
-- : Pointer to the first JsonbIterator to be concatenated
-- : Pointer to the second JsonbIterator to be concatenated  
-- : Pointer to JsonbParseState used for building the result structure
-
+- `**it1`: Pointer to the first JsonbIterator to be concatenated
+- `**it2`: Pointer to the second JsonbIterator to be concatenated
+- `**state`: Pointer to JsonbParseState used for building the result structure
 ## Dependencies
 - Functions called/Symbols referenced:
   - [JsonbIteratorNext](../J/JsonbIteratorNext.md)

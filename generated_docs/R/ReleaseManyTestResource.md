@@ -26,8 +26,7 @@ The function performs several critical operations:
 The priority validation ensures that the resource management system releases resources in the correct order, which is crucial for maintaining system consistency during cleanup operations.
 
 ## Parameters / Member Variables
-- : A Datum containing a pointer to the ManyTestResource object to be released
-
+- `res`: A Datum containing a pointer to the ManyTestResource object to be released
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DatumGetPointer](../D/DatumGetPointer.md) (macro to extract pointer from Datum)

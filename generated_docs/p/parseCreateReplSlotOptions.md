@@ -30,12 +30,11 @@ The function supports several key options:
 - **failover**: Enables failover support for logical replication slots
 
 ## Parameters / Member Variables
-- : Pointer to CreateReplicationSlotCmd containing the slot creation command and options list
-- : Output parameter set to true if WAL should be reserved (physical slots only)
-- : Output parameter indicating the desired snapshot action (logical slots only)
-- : Output parameter enabling two-phase commit support (logical slots only)
-- : Output parameter enabling failover capability (logical slots only)
-
+- `*cmd`: Pointer to CreateReplicationSlotCmd containing the slot creation command and options list
+- `*reserve_wal`: Output parameter set to true if WAL should be reserved (physical slots only)
+- `*snapshot_action`: Output parameter indicating the desired snapshot action (logical slots only)
+- `*two_phase`: Output parameter enabling two-phase commit support (logical slots only)
+- `*failover`: Output parameter enabling failover capability (logical slots only)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [defGetString](../d/defGetString.md)

@@ -18,7 +18,6 @@ This function is designed specifically for Windows environments to detect and wa
 The function uses Windows API calls GetACP() and GetConsoleCP() to retrieve the respective code pages and displays a localized warning message if they don't match, directing users to the psql reference documentation for guidance on resolving Windows-specific character encoding issues.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

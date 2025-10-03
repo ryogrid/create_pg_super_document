@@ -20,6 +20,7 @@ The assertion will cause the program to abort in debug builds if the statistics 
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Global variable indicating if stats system is initialized

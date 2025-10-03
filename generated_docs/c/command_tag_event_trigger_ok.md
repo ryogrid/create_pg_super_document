@@ -18,8 +18,7 @@ This function checks the event_trigger_ok property of a command tag to determine
 The function performs a direct lookup into the tag_behavior array to retrieve the pre-configured event_trigger_ok boolean flag. Commands that are eligible for event triggers are typically DDL commands (CREATE, ALTER, DROP) and some utility commands, while transactional commands (BEGIN, COMMIT, ROLLBACK), system commands (ALTER SYSTEM), and commands that operate outside normal transactional context generally are not eligible.
 
 ## Parameters / Member Variables
-- : The CommandTag enumeration value to check for event trigger eligibility
-
+- `commandTag`: The CommandTag enumeration value to check for event trigger eligibility
 ## Dependencies
 - Functions called/Symbols referenced:
   - CommandTag (enum type)

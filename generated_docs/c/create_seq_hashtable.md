@@ -17,7 +17,6 @@ This static function initializes the global sequence hash table (`seqhashtab`) t
 The function sets up a hash table with specific parameters optimized for sequence operations: it uses Oid values as keys and SeqTableData structures as entries. The hash table is created with an initial size of 16 entries and uses the HASH_ELEM and HASH_BLOBS flags to indicate that it stores fixed-size elements and should use simple byte-wise comparison for keys.
 
 ## Parameters / Member Variables
-(This function takes no parameters)
 
 ## Dependencies
 - Functions called/Symbols referenced:

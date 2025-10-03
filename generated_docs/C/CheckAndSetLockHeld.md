@@ -18,9 +18,8 @@ CheckAndSetLockHeld is a specialized tracking function that maintains the global
 Relation extension locks are special locks used when extending relations (adding new blocks), and PostgreSQL enforces that no other heavyweight locks should be acquired while holding a relation extension lock. This function helps enforce that invariant by tracking the state and allowing other parts of the system to assert against improper nesting.
 
 ## Parameters / Member Variables
-- : Pointer to LOCALLOCK structure representing the lock being acquired or released
-- : Boolean indicating whether the lock was acquired (true) or released (false)
-
+- `*locallock`: Pointer to LOCALLOCK structure representing the lock being acquired or released
+- `acquired`: Boolean indicating whether the lock was acquired (true) or released (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - LOCALLOCK_LOCKTAG (macro to extract lock tag from LOCALLOCK)

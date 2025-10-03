@@ -18,8 +18,7 @@ This function handles the finalization phase of zstd compression when no more in
 The function manages the output buffer similarly to the content function, forwarding data to the next streamer when the buffer needs space and ensuring that all remaining compressed data is sent to the next stage of the pipeline. Finally, it calls bbstreamer_finalize on the next streamer to propagate the finalization through the entire streaming chain.
 
 ## Parameters / Member Variables
-- : The bbstreamer instance to finalize (cast to bbstreamer_zstd_frame internally)
-
+- `*streamer`: The bbstreamer instance to finalize (cast to bbstreamer_zstd_frame internally)
 ## Dependencies
 - Functions called/Symbols referenced:
   - ZSTD_compressBound

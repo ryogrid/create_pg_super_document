@@ -23,8 +23,7 @@ This function cleans up the data buffer associated with a PQExpBuffer while leav
 After calling this function, the PQExpBuffer is in a "broken" but safe state, similar to what  achieves. The structure remains valid and can be reinitialized later with .
 
 ## Parameters / Member Variables
-- : Pointer to the PQExpBuffer whose data buffer should be terminated (must not be NULL)
-
+- `str`: Pointer to the PQExpBuffer whose data buffer should be terminated (must not be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (standard C library function to deallocate the data buffer)

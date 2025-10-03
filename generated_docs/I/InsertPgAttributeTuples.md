@@ -24,12 +24,11 @@ The function copies attribute metadata from the provided TupleDesc into pg_attri
 The function uses a sophisticated batching mechanism that limits the number of slots based on memory constraints (MAX_CATALOG_MULTI_INSERT_BYTES) and processes attributes in groups to optimize catalog insertion performance.
 
 ## Parameters / Member Variables
-- : An already opened and locked relation handle for the pg_attribute catalog
-- : TupleDesc containing the attributes to insert into pg_attribute
-- : Relation OID to assign to the inserted attributes; if InvalidOid, uses the relation OID from tupdesc
-- : Optional array providing values for variable-length/nullable pg_attribute fields; must match tupdesc length or be NULL
-- : Index state for CatalogTupleInsertWithInfo; can be NULL (will fetch necessary info automatically)
-
+- `pg_attribute_rel`: An already opened and locked relation handle for the pg_attribute catalog
+- `tupdesc`: TupleDesc containing the attributes to insert into pg_attribute
+- `new_rel_oid`: Relation OID to assign to the inserted attributes; if InvalidOid, uses the relation OID from tupdesc
+- `tupdesc_extra[]`: Optional array providing values for variable-length/nullable pg_attribute fields; must match tupdesc length or be NULL
+- `indstate`: Index state for CatalogTupleInsertWithInfo; can be NULL (will fetch necessary info automatically)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md)

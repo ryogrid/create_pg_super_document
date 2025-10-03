@@ -20,8 +20,7 @@ For each slot with an active connection, the function calls consumeQueryResult t
 This function is essential for ensuring all parallel operations complete before proceeding to the next phase of execution or cleanup.
 
 ## Parameters / Member Variables
-- : Pointer to the ParallelSlotArray structure containing the connections to wait for completion
-
+- `*sa`: Pointer to the ParallelSlotArray structure containing the connections to wait for completion
 ## Dependencies
 - Functions called/Symbols referenced:
   - [consumeQueryResult](../c/consumeQueryResult.md)

@@ -23,8 +23,7 @@ This function is responsible for actually starting a background worker process a
 The function is heavily based on autovacuum.c implementation and follows PostgreSQL's standard pattern for launching child processes. It ensures proper cleanup on failure and maintains consistent state tracking.
 
 ## Parameters / Member Variables
-- : Pointer to RegisteredBgWorker structure containing worker configuration and state information
-
+- `*rw`: Pointer to RegisteredBgWorker structure containing worker configuration and state information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [assign_backendlist_entry](../a/assign_backendlist_entry.md)

@@ -20,6 +20,7 @@ The function checks if there is an active query output stream (pset.queryFout) a
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - fflush (standard C library function)

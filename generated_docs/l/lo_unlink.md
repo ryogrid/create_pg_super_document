@@ -18,9 +18,8 @@ The  function permanently deletes a large object from the PostgreSQL database. I
 The function communicates with the PostgreSQL server using the internal large object function  to perform the deletion operation. It takes the large object's OID as a parameter rather than a file descriptor, since the object doesn't need to be open to be deleted.
 
 ## Parameters / Member Variables
-- : PostgreSQL database connection handle
-- : Object identifier (OID) of the large object to delete
-
+- `*conn`: PostgreSQL database connection handle
+- `lobjId`: Object identifier (OID) of the large object to delete
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lo_initialize](lo_initialize.md)

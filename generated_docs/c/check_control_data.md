@@ -31,9 +31,8 @@ Special handling includes:
 - Float8 pass-by-value checking is noted but handled separately in other functions
 
 ## Parameters / Member Variables
-- : ControlData structure containing control information from the source cluster
-- : ControlData structure containing control information from the target cluster
-
+- `*oldctrl`: ControlData structure containing control information from the source cluster
+- `*newctrl`: ControlData structure containing control information from the target cluster
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_fatal](../p/pg_fatal.md) (error handling and termination)

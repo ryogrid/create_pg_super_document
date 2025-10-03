@@ -16,9 +16,8 @@ DeleteVariable(VariableSpace space, const char *name)
 The  function provides a convenient wrapper for deleting variables from psql's variable storage system. It internally delegates to  with a NULL value, which effectively removes the variable from the space. The function implements a forgiving deletion policy where attempting to delete a nonexistent variable does not result in an error condition, making it safe to use in cleanup operations where the existence of the variable is uncertain.
 
 ## Parameters / Member Variables
-- : The VariableSpace from which to delete the variable
-- : The name of the variable to delete (const char pointer)
-
+- `space`: The VariableSpace from which to delete the variable
+- `*name`: The name of the variable to delete (const char pointer)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SetVariable](../S/SetVariable.md)

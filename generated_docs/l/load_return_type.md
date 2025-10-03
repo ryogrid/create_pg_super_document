@@ -23,9 +23,8 @@ This utility function serves as a helper for , providing a convenient way to ext
 This function is particularly useful when setting up PostgreSQL's internal LLVM type mappings by examining the return types of existing C functions that have been compiled into LLVM IR.
 
 ## Parameters / Member Variables
-- : LLVMModuleRef pointing to the LLVM module containing the target function
-- : const char* specifying the name of the function whose return type should be extracted
-
+- `mod`: LLVMModuleRef pointing to the LLVM module containing the target function
+- `*name`: const char* specifying the name of the function whose return type should be extracted
 ## Dependencies
 - Functions called/Symbols referenced:
   - LLVMGetNamedFunction (LLVM API function)

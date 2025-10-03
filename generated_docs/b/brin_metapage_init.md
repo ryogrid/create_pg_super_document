@@ -20,10 +20,9 @@ The function first calls  to set up the basic page structure with the  type, the
 A key aspect of the initialization is setting the  to 0, which represents a bootstrap value that enables the first revmap page to be created when needed. The function also carefully sets the page's  boundary to protect the metadata from being lost during WAL compression.
 
 ## Parameters / Member Variables
-- : Pointer to the page that will become the metapage
-- : Number of heap pages that each BRIN tuple will summarize
-- : BRIN version number for compatibility and upgrade handling
-
+- `page`: Pointer to the page that will become the metapage
+- `pagesPerRange`: Number of heap pages that each BRIN tuple will summarize
+- `version`: BRIN version number for compatibility and upgrade handling
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Initializes the basic page structure

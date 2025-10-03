@@ -16,8 +16,7 @@ AllocSetGetChunkContext(void *pointer)
 AllocSetGetChunkContext takes a memory pointer and returns the associated MemoryContext by traversing from the memory chunk header to its containing memory block and then to the AllocSet context. This function enables context identification for debugging and memory management purposes. It handles both regular memory chunks and external chunks, using appropriate Valgrind annotations to control memory access validation during the process.
 
 ## Parameters / Member Variables
-- : A void pointer to allocated memory whose containing MemoryContext needs to be determined
-
+- `*pointer`: A void pointer to allocated memory whose containing MemoryContext needs to be determined
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerGetMemoryChunk

@@ -20,9 +20,8 @@ The function is designed to be registered as an exit callback and is called auto
 This function is part of PostgreSQL's process lifecycle management, ensuring that terminated processes are properly removed from shared data structures to prevent resource leaks and maintain system consistency.
 
 ## Parameters / Member Variables
-- : Exit code (unused in this function but required by exit callback interface)
-- : Datum argument (unused in this function but required by exit callback interface)
-
+- `code`: Exit code (unused in this function but required by exit callback interface)
+- `arg`: Datum argument (unused in this function but required by exit callback interface)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ProcArrayRemove](../P/ProcArrayRemove.md)

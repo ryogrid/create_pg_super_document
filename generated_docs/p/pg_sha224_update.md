@@ -18,10 +18,9 @@ This function serves as a thin wrapper around  to provide SHA-224 hash functiona
 The function processes input data incrementally, allowing for streaming hash computation where data can be fed in multiple chunks rather than all at once. This is particularly useful for large datasets or when data arrives in fragments.
 
 ## Parameters / Member Variables
-- : Pointer to the SHA-224 context structure that maintains the current hash state
-- : Pointer to the input data buffer to be processed
-- : Number of bytes in the data buffer to process
-
+- `*context`: Pointer to the SHA-224 context structure that maintains the current hash state
+- `*data`: Pointer to the input data buffer to be processed
+- `len`: Number of bytes in the data buffer to process
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_sha256_update](pg_sha256_update.md)

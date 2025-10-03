@@ -19,13 +19,12 @@ The  function reinitializes an existing heap table scan to start over from the b
 The function first updates scan flags based on the provided parameters if  is true, then releases any currently held buffer pins, resets bitmap scan state, resets the read stream if present, and finally calls  to reinitialize the scan from the beginning.
 
 ## Parameters / Member Variables
-- : The table scan descriptor to rescan (cast to HeapScanDesc internally)
-- : New scan key to use for the rescan, or NULL to keep the existing key
-- : Whether to update scan parameters (strategy, sync, pagemode flags)
-- : Whether to enable synchronized scanning strategy
-- : Whether to allow synchronized scanning with other concurrent scans
-- : Whether to enable page-at-a-time scanning mode (requires MVCC snapshot)
-
+- `sscan`: The table scan descriptor to rescan (cast to HeapScanDesc internally)
+- `key`: New scan key to use for the rescan, or NULL to keep the existing key
+- `set_params`: Whether to update scan parameters (strategy, sync, pagemode flags)
+- `allow_strat`: Whether to enable synchronized scanning strategy
+- `allow_sync`: Whether to allow synchronized scanning with other concurrent scans
+- `allow_pagemode`: Whether to enable page-at-a-time scanning mode (requires MVCC snapshot)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReleaseBuffer](../R/ReleaseBuffer.md)

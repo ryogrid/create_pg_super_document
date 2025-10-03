@@ -18,8 +18,7 @@ This function controls the blocking behavior of the current client connection so
 The function requires an active client connection (MyProcPort must not be NULL) and will raise an error if called without an established connection. This is part of PostgreSQL's low-level I/O routines that handle communication between the backend and frontend clients.
 
 ## Parameters / Member Variables
-- : Boolean flag indicating whether to set the socket to non-blocking (true) or blocking (false) mode
-
+- `nonblocking`: Boolean flag indicating whether to set the socket to non-blocking (true) or blocking (false) mode
 ## Dependencies
 - Functions called/Symbols referenced:
   - MyProcPort (global variable pointing to current client connection structure)

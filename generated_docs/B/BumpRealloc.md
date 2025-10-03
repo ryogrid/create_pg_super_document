@@ -16,10 +16,9 @@ BumpRealloc(void *pointer, Size size, int flags)
 BumpRealloc is an intentionally non-functional implementation of the memory context reallocation operation for the bump allocator. Instead of attempting to resize the memory pointed to by the given pointer, this function immediately throws an ERROR indicating that 'realloc is not supported by the bump memory allocator'. This design choice is consistent with bump allocator principles: once memory is allocated sequentially, it cannot be individually managed, resized, or freed. The function returns NULL after the error to satisfy compiler requirements, though this return statement is never reached due to the error.
 
 ## Parameters / Member Variables
-- : Pointer to the memory block to be reallocated (parameter is ignored as the function always errors)
-- : The new size requested for the memory block (parameter is ignored)
-- : Flags controlling reallocation behavior (parameter is ignored)
-
+- `*pointer`: Pointer to the memory block to be reallocated (parameter is ignored as the function always errors)
+- `size`: The new size requested for the memory block (parameter is ignored)
+- `flags`: Flags controlling reallocation behavior (parameter is ignored)
 ## Dependencies
 - Functions called/Symbols referenced:
   - elog (error logging function)

@@ -18,8 +18,7 @@ bbstreamer_finalize is a static inline function that provides a standardized int
 The function performs a basic assertion to ensure the streamer is not NULL before delegating to the appropriate finalize handler based on the streamer's type. This is part of the three-callback architecture of bbstreamers: content (for processing data), finalize (for cleanup), and free (for memory deallocation).
 
 ## Parameters / Member Variables
-- : Pointer to the bbstreamer object to be finalized
-
+- `*streamer`: Pointer to the bbstreamer object to be finalized
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bbstreamer](bbstreamer.md) (struct type)

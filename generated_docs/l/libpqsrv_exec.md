@@ -16,10 +16,9 @@ libpqsrv_exec(PGconn *conn, const char *query, uint32 wait_event_info)
 This function serves as a wrapper around PostgreSQL's PQexec() functionality but with enhanced interrupt handling capabilities. It combines PQsendQuery() to initiate the query and libpqsrv_get_result_last() to retrieve results while properly handling interrupts. The function follows the preconditions of PQsendQuery() rather than PQexec(), meaning it doesn't automatically discard prior query results. For queries with long strings relative to TCP buffer size, consider using PQsetnonblocking(conn, 1) to enable interrupt processing during query text transmission.
 
 ## Parameters / Member Variables
-- : PostgreSQL connection handle to execute the query on
-- : SQL query string to execute
-- : Wait event information for monitoring and debugging purposes
-
+- `*conn`: PostgreSQL connection handle to execute the query on
+- `*query`: SQL query string to execute
+- `wait_event_info`: Wait event information for monitoring and debugging purposes
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQsendQuery](../P/PQsendQuery.md)

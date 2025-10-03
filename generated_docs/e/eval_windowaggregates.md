@@ -16,8 +16,7 @@ eval_windowaggregates(WindowAggState *winstate)
 This is the core function for evaluating window aggregates and differs significantly from nodeAgg.c in two key ways: it uses inverse transition functions to remove rows when the window frame start moves, and it supports calling aggregate final functions repeatedly on the same transition value. The function implements sophisticated optimizations including incremental aggregation for contiguous frames, frame reuse when successive rows share identical frames, and selective restart strategies. It handles complex frame semantics including exclusion clauses, manages memory contexts carefully, and coordinates between forward aggregation (via ) and backward removal (via ).
 
 ## Parameters / Member Variables
-- : The complete window aggregate execution state containing all per-function and per-aggregate states, frame positions, memory contexts, and optimization flags
-
+- `*winstate`: The complete window aggregate execution state containing all per-function and per-aggregate states, frame positions, memory contexts, and optimization flags
 ## Dependencies
 - Functions called/Symbols referenced:
   - [update_frameheadpos](../u/update_frameheadpos.md)

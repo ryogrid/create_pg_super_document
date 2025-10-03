@@ -18,9 +18,8 @@ ItemPointerSetBlockNumber is a specialized inline function that modifies only th
 The function provides a focused interface for block-level updates without affecting intra-block positioning, making it ideal for scenarios where only the block reference needs to change. It maintains the same validation and delegation pattern as ItemPointerSet but operates on a subset of the item pointer components.
 
 ## Parameters / Member Variables
-- : Pointer to the ItemPointerData structure to be modified (must be valid)
-- : The new block number to assign to the item pointer
-
+- `*pointer`: Pointer to the ItemPointerData structure to be modified (must be valid)
+- `blockNumber`: The new block number to assign to the item pointer
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerIsValid (assertion validation)

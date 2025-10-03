@@ -18,9 +18,8 @@ This function implements a lexicographic comparison of ItemPointer structures, f
 The comparison logic prioritizes block numbers (physical storage blocks) over offset numbers (tuple positions within blocks), ensuring that tuples from earlier blocks always sort before tuples from later blocks, regardless of their offset positions.
 
 ## Parameters / Member Variables
-- : First ItemPointer to compare - may be user-supplied and potentially invalid
-- : Second ItemPointer to compare - may be user-supplied and potentially invalid
-
+- `arg1`: First ItemPointer to compare - may be user-supplied and potentially invalid
+- `arg2`: Second ItemPointer to compare - may be user-supplied and potentially invalid
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ItemPointerGetBlockNumberNoCheck](ItemPointerGetBlockNumberNoCheck.md): Safely extracts block number without validation assertions

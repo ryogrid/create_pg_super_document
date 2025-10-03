@@ -28,8 +28,7 @@ This function provides the height (level) of the B-tree index, counting from zer
 The function prioritizes performance over absolute accuracy since it's used for estimation rather than critical operations.
 
 ## Parameters / Member Variables
-- : The B-tree index relation for which to determine the tree height
-
+- `rel`: The B-tree index relation for which to determine the tree height
 ## Dependencies
 - Functions called/Symbols referenced:
   - [_bt_getbuf](_bt_getbuf.md): Acquires buffer for metadata page

@@ -16,8 +16,7 @@ CheckPointBuffers(int flags)
 CheckPointBuffers serves as the main entry point for flushing dirty buffers during PostgreSQL checkpoints. It acts as a wrapper around the BufferSync function, providing a clean interface for the checkpoint process. The function is responsible for ensuring that all modified pages in the shared buffer pool are written to persistent storage, which is crucial for maintaining data consistency and enabling crash recovery. Temporary relations are explicitly excluded from this process since they don't participate in checkpoints and don't need to be flushed to disk for recovery purposes.
 
 ## Parameters / Member Variables
-- : Control flags that specify the behavior of the checkpoint buffer operation (passed directly to BufferSync)
-
+- `flags`: Control flags that specify the behavior of the checkpoint buffer operation (passed directly to BufferSync)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BufferSync](../B/BufferSync.md)

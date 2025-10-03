@@ -17,12 +17,11 @@ init_bool_reloption(bits32 kinds, const char *name, const char *desc,
 This static function creates a new boolean reloption by calling allocate_reloption with RELOPT_TYPE_BOOL and then setting the boolean-specific default value. It serves as a specialized constructor for boolean reloptions, handling both the general reloption initialization and the boolean-specific field setup.
 
 ## Parameters / Member Variables
-- : A bits32 value specifying the kinds of relations this option applies to
-- : String name of the boolean reloption
-- : Optional description string for the reloption (can be NULL)
-- : The default boolean value for this reloption
-- : The lock mode required when setting this reloption
-
+- `kinds`: A bits32 value specifying the kinds of relations this option applies to
+- `*name`: String name of the boolean reloption
+- `*desc`: Optional description string for the reloption (can be NULL)
+- `default_val`: The default boolean value for this reloption
+- `lockmode`: The lock mode required when setting this reloption
 ## Dependencies
 - Functions called/Symbols referenced:
   - [allocate_reloption](../a/allocate_reloption.md) (for basic reloption allocation and initialization)

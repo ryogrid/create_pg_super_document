@@ -20,6 +20,7 @@ The function operates by updating shared statistics directly, which is acceptabl
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pgstat_report_checksum_failures_in_db](pgstat_report_checksum_failures_in_db.md)

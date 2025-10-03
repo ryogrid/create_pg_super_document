@@ -18,9 +18,8 @@ This static function processes a list of SET/RESET statements to update function
 The function is used internally by PostgreSQL's function management system to maintain the proconfig array that stores function-specific configuration settings like search_path, work_mem, and other GUC parameters.
 
 ## Parameters / Member Variables
-- : ArrayType pointer representing the current proconfig array (can be NULL for no existing config)
-- : List of VariableSetStmt structures containing the configuration changes to apply
-
+- `*a`: ArrayType pointer representing the current proconfig array (can be NULL for no existing config)
+- `*set_items`: List of VariableSetStmt structures containing the configuration changes to apply
 ## Dependencies
 - Functions called/Symbols referenced:
   - lfirst_node (macro for list traversal)

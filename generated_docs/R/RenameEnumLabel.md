@@ -25,10 +25,9 @@ This function handles the renaming of an existing enum label within a PostgreSQL
 The function uses the system cache to efficiently retrieve all existing enum values and performs in-memory validation before making any permanent changes to the catalog.
 
 ## Parameters / Member Variables
-- : Object identifier of the enum type containing the label to be renamed
-- : Current name of the enum label that should be renamed
-- : New name for the enum label (must be unique within the enum type)
-
+- `enumTypeOid`: Object identifier of the enum type containing the label to be renamed
+- `*oldVal`: Current name of the enum label that should be renamed
+- `*newVal`: New name for the enum label (must be unique within the enum type)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LockDatabaseObject](../L/LockDatabaseObject.md): Acquires exclusive lock on the enum type

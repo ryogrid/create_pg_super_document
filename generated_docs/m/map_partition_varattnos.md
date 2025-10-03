@@ -22,11 +22,10 @@ The function works by:
 3. Handling whole-row variable references appropriately
 
 ## Parameters / Member Variables
-- : List of expression nodes containing variables to be remapped
-- : The range table entry number of the source relation in the expression
-- : Target relation to map attribute numbers to
-- : Source relation to map attribute numbers from
-
+- `*expr`: List of expression nodes containing variables to be remapped
+- `fromrel_varno`: The range table entry number of the source relation in the expression
+- `to_rel`: Target relation to map attribute numbers to
+- `from_rel`: Source relation to map attribute numbers from
 ## Dependencies
 - Functions called/Symbols referenced:
   - [build_attrmap_by_name](../b/build_attrmap_by_name.md)

@@ -19,14 +19,13 @@ shdepChangeDep(Relation sdepRel,
 This is a core internal function that handles updating pg_shdepend entries when a referenced shared object changes (such as during owner or tablespace changes). It performs intelligent dependency management by: 1) searching for existing dependency entries, 2) handling pinned objects appropriately (not creating dependencies for them), 3) updating existing entries or creating new ones as needed, and 4) cleaning up when dependencies are no longer required. The function ensures there is only one entry per dependent object and dependency type.
 
 ## Parameters / Member Variables
-- : Already opened pg_shdepend relation with appropriate lock
-- : OID of the catalog containing the dependent object
-- : OID of the dependent object
-- : Sub-object ID (typically 0 for most objects)
-- : OID of the catalog containing the new referenced object
-- : OID of the new referenced object
-- : Type of shared dependency (SHARED_DEPENDENCY_OWNER or SHARED_DEPENDENCY_TABLESPACE)
-
+- `sdepRel`: Already opened pg_shdepend relation with appropriate lock
+- `classid`: OID of the catalog containing the dependent object
+- `objid`: OID of the dependent object
+- `objsubid`: Sub-object ID (typically 0 for most objects)
+- `refclassid`: OID of the catalog containing the new referenced object
+- `refobjid`: OID of the new referenced object
+- `deptype`: Type of shared dependency (SHARED_DEPENDENCY_OWNER or SHARED_DEPENDENCY_TABLESPACE)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [classIdGetDbId](../c/classIdGetDbId.md)

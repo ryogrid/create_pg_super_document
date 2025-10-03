@@ -20,10 +20,9 @@ The function handles a special case where the boot value is NULL (when no value 
 For non-NULL values, it loads the specified timezone abbreviation file using  and stores the resulting TimeZoneAbbrevTable structure for use by the assignment hook.
 
 ## Parameters / Member Variables
-- : Pointer to the new timezone abbreviation file name to be validated
-- : Pointer to store the loaded TimeZoneAbbrevTable for the assign hook
-- : The source of the GUC setting (checked for default values)
-
+- `**newval`: Pointer to the new timezone abbreviation file name to be validated
+- `**extra`: Pointer to store the loaded TimeZoneAbbrevTable for the assign hook
+- `source`: The source of the GUC setting (checked for default values)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [load_tzoffsets](../l/load_tzoffsets.md)

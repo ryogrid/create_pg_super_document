@@ -18,8 +18,7 @@ This function performs validation on a restrict key string to ensure it meets th
 The function uses strspn() to count how many characters from the beginning of the string are found in the restrict_chars character set, then compares this count with the total string length. If they match, all characters in the string are valid.
 
 ## Parameters / Member Variables
-- : The restrict key string to validate (const char pointer)
-
+- `*restrict_key`: The restrict key string to validate (const char pointer)
 ## Dependencies
 - Functions called/Symbols referenced:
   - strspn: Counts characters in restrict_key that are present in restrict_chars

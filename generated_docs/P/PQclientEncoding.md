@@ -18,8 +18,7 @@ The PQclientEncoding function retrieves the current client-side character encodi
 The function first validates that the connection is not null and that the connection status is CONNECTION_OK, ensuring that encoding information is only retrieved from properly established connections. If these conditions are not met, the function returns -1 to indicate an error or unavailable encoding information.
 
 ## Parameters / Member Variables
-- : Pointer to the PGconn connection object from which to retrieve the client encoding. Must be a valid, established connection.
-
+- `*conn`: Pointer to the PGconn connection object from which to retrieve the client encoding. Must be a valid, established connection.
 ## Dependencies
 - Functions called/Symbols referenced:
   - CONNECTION_OK (connection status constant)

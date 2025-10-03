@@ -18,9 +18,8 @@ The  function analyzes a token string and determines its semantic type based on 
 The function uses pattern matching and syntax validation to distinguish between different token types. For numeric tokens, it performs both syntax checking and range validation using  to determine whether a numeric token should be classified as an integer or float. The classification is essential for proper deserialization of PostgreSQL's internal node structures.
 
 ## Parameters / Member Variables
-- : Pointer to the string token to be analyzed
-- : Length of the token string in characters
-
+- `*token`: Pointer to the string token to be analyzed
+- `length`: Length of the token string in characters
 ## Dependencies
 - Functions called/Symbols referenced:
   - [strtoint](../s/strtoint.md)

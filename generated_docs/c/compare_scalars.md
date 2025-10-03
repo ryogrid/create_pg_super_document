@@ -18,10 +18,9 @@ The  function serves as a custom comparator for sorting  structures during stati
 The function uses PostgreSQL's  to perform the actual datum comparison using the appropriate sort operator for the column's data type. For equal datums, it falls back to sorting by tuple number () to ensure deterministic ordering.
 
 ## Parameters / Member Variables
-- : Pointer to the first  to compare
-- : Pointer to the second  to compare  
-- : Pointer to  containing comparison context and the  array for tracking equal values
-
+- `*a`: Pointer to the first  to compare
+- `*b`: Pointer to the second  to compare
+- `*arg`: Pointer to  containing comparison context and the  array for tracking equal values
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (struct)

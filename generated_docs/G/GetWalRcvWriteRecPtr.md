@@ -18,6 +18,7 @@ This function provides a fast, lock-free method to retrieve the current write po
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [WalRcvData](../W/WalRcvData.md) (shared memory structure)

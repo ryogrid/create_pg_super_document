@@ -19,11 +19,10 @@ The qunique function is designed to eliminate duplicate elements from an array t
 The function uses a two-pointer technique where 'i' scans through all elements and 'j' tracks the position where the next unique element should be placed. The algorithm ensures that all unique elements are packed at the beginning of the array, and returns the new size of the deduplicated array.
 
 ## Parameters / Member Variables
-- : Pointer to the array to be processed for duplicate removal
-- : Number of elements in the input array
-- : Size in bytes of each array element
-- : Function pointer to comparator that returns 0 for equal elements, non-zero for different elements
-
+- `*array`: Pointer to the array to be processed for duplicate removal
+- `elements`: Number of elements in the input array
+- `width`: Size in bytes of each array element
+- `*compare`: Function pointer to comparator that returns 0 for equal elements, non-zero for different elements
 ## Dependencies
 - Functions called/Symbols referenced:
   - [compare](../c/compare.md) (user-provided comparator function)

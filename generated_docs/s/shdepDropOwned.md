@@ -23,9 +23,8 @@ The shdepDropOwned function scans the pg_shdepend catalog to find all objects th
 The function uses a two-phase approach: grants and policy modifications are handled immediately during the scan, while object deletions are deferred and performed in batch using performMultipleDeletions to avoid dependency ordering issues.
 
 ## Parameters / Member Variables
-- : List of role OIDs to process for owned object deletion
-- : DropBehavior enum controlling cascade vs restrict semantics for deletions
-
+- `*roleids`: List of role OIDs to process for owned object deletion
+- `behavior`: DropBehavior enum controlling cascade vs restrict semantics for deletions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [new_object_addresses](../n/new_object_addresses.md) - Creates ObjectAddresses collection for batch deletion

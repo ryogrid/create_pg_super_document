@@ -18,8 +18,7 @@ The  function marks a specified WAL file path for preservation by adding it to t
 The function performs an insertion operation similar to the main file hash table but specifically for WAL files. If the entry doesn't already exist, it creates a new entry and duplicates the path string for safe storage. The function includes an assertion to ensure the keepwal hash table has been properly initialized before use.
 
 ## Parameters / Member Variables
-- : The WAL file path to be marked for preservation during the rewind operation
-
+- `*path`: The WAL file path to be marked for preservation during the rewind operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - keepwal_insert

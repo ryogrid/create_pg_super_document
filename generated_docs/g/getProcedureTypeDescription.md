@@ -19,10 +19,9 @@ This function serves as a subroutine for getObjectTypeDescription to provide acc
 The function handles missing procedures gracefully when missing_ok is true, falling back to the generic term "routine" if the procedure cannot be found in the catalog.
 
 ## Parameters / Member Variables
-- : StringInfo buffer where the procedure type description will be appended
-- : Object ID (OID) of the procedure to describe
-- : Boolean flag indicating whether to handle missing procedures gracefully (true) or raise an error (false)
-
+- `buffer`: StringInfo buffer where the procedure type description will be appended
+- `procid`: Object ID (OID) of the procedure to describe
+- `missing_ok`: Boolean flag indicating whether to handle missing procedures gracefully (true) or raise an error (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup)

@@ -19,11 +19,10 @@ This function combines two operations into one convenient call: finding a statis
 The function is designed to ensure thread-safe access to PostgreSQL's shared statistics system by preventing concurrent modifications while a process is reading or updating statistics data.
 
 ## Parameters / Member Variables
-- : The type of statistics entry (e.g., database, relation, function statistics)
-- : Database OID for the statistics entry
-- : Object OID for the statistics entry
-- : If true, returns NULL immediately if the lock cannot be acquired; if false, waits for the lock
-
+- `kind`: The type of statistics entry (e.g., database, relation, function statistics)
+- `dboid`: Database OID for the statistics entry
+- `objoid`: Object OID for the statistics entry
+- `nowait`: If true, returns NULL immediately if the lock cannot be acquired; if false, waits for the lock
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Finds and returns the statistics entry reference

@@ -25,12 +25,11 @@ The function processes each posting list tuple that needs updating by:
 The original IndexTuple pointers in the  array are replaced with pointers to the final updated versions in palloc'd memory, which the caller must free when done.
 
 ## Parameters / Member Variables
-- : Array of BTVacuumPosting structures describing tuples to be updated
-- : Number of tuples in the updatable array (must be > 0)
-- : Output array that receives the page offset numbers for updated tuples
-- : Output parameter that receives the final size of the returned buffer
-- : Boolean indicating whether WAL logging is required
-
+- `*updatable`: Array of BTVacuumPosting structures describing tuples to be updated
+- `nupdatable`: Number of tuples in the updatable array (must be > 0)
+- `*updatedoffsets`: Output array that receives the page offset numbers for updated tuples
+- `*updatedbuflen`: Output parameter that receives the final size of the returned buffer
+- `needswal`: Boolean indicating whether WAL logging is required
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Updates posting list tuples by removing specified TIDs

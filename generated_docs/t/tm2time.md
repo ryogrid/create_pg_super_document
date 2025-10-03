@@ -16,10 +16,9 @@ tm2time(struct pg_tm *tm, fsec_t fsec, TimeADT *result)
 The tm2time function performs a conversion from a broken-down time representation (struct pg_tm) to PostgreSQL's internal time representation (TimeADT). It calculates the total number of microseconds since midnight by combining the hour, minute, second components from the tm structure with additional fractional seconds. The conversion follows the formula: ((hours * 60 + minutes) * 60 + seconds) * 1,000,000 + fractional_seconds.
 
 ## Parameters / Member Variables
-- : Pointer to a pg_tm structure containing the broken-down time components (tm_hour, tm_min, tm_sec)
-- : Fractional seconds component in microseconds (fsec_t type)
-- : Pointer to TimeADT where the converted time value will be stored
-
+- `*tm`: Pointer to a pg_tm structure containing the broken-down time components (tm_hour, tm_min, tm_sec)
+- `fsec`: Fractional seconds component in microseconds (fsec_t type)
+- `*result`: Pointer to TimeADT where the converted time value will be stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - MINS_PER_HOUR (constant)

@@ -18,9 +18,8 @@ This function is responsible for setting up parameter references in parallel exe
 The function walks up the planner hierarchy to collect all initplan parameters from the current and parent query levels, then intersects this set with the external parameters required by the subtree to determine which parameters need to be passed down to parallel workers.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planner state and context information
-- : The Plan node (must be either Gather or GatherMerge) that needs parameter initialization
-
+- `*root`: PlannerInfo structure containing planner state and context information
+- `*plan`: The Plan node (must be either Gather or GatherMerge) that needs parameter initialization
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (macro for type checking)

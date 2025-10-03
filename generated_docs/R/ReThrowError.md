@@ -23,8 +23,7 @@ The function works by:
 5. Using PG_RE_THROW() to actually re-throw the error
 
 ## Parameters / Member Variables
-- : Pointer to the ErrorData structure containing the error information to be re-thrown. Must have elevel set to ERROR.
-
+- `*edata`: Pointer to the ErrorData structure containing the error information to be re-thrown. Must have elevel set to ERROR.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ErrorData](../E/ErrorData.md) (type)

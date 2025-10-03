@@ -28,6 +28,7 @@ This design provides O(1) allocation and deallocation performance while maintain
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SERIALIZABLEXACT](../S/SERIALIZABLEXACT.md) (the main serializable transaction structure type)

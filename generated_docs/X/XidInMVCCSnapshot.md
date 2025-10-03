@@ -18,9 +18,8 @@ XidInMVCCSnapshot is a core function in PostgreSQL's MVCC (Multi-Version Concurr
 The function uses range checks for optimization, followed by searches through the snapshot's transaction ID arrays. It handles different storage formats used during recovery versus normal operation, and manages subtransaction-to-parent transaction ID conversion when needed.
 
 ## Parameters / Member Variables
-- : The transaction ID to check for visibility in the snapshot
-- : The MVCC snapshot containing the transaction visibility information
-
+- `xid`: The transaction ID to check for visibility in the snapshot
+- `snapshot`: The MVCC snapshot containing the transaction visibility information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md) (for XID ordering comparison)

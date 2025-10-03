@@ -22,8 +22,7 @@ CopyConversionError is responsible for generating detailed error reports when ch
 The function is designed to be called only after CopyConvertBuf has detected an encoding problem (indicated by input_reached_error flag), ensuring that error reporting happens at the right time in the processing pipeline.
 
 ## Parameters / Member Variables
-- : CopyFromState structure containing the COPY operation state, including buffer positions, encoding settings, and error flags
-
+- `cstate`: CopyFromState structure containing the COPY operation state, including buffer positions, encoding settings, and error flags
 ## Dependencies
 - Functions called/Symbols referenced:
   - [report_invalid_encoding](../r/report_invalid_encoding.md)

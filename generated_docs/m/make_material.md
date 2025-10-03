@@ -18,8 +18,7 @@ This function constructs a Material plan node, which is used to materialize (sto
 The Material node acts as a buffer between its child and parent plans, allowing the child's output to be stored and retrieved multiple times without re-executing the child plan.
 
 ## Parameters / Member Variables
-- : The input Plan node whose output will be materialized
-
+- `*lefttree`: The input Plan node whose output will be materialized
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Material](../M/Material.md) (struct type, created with makeNode())

@@ -25,10 +25,9 @@ The function implements several important behaviors:
 **IMPORTANT**: This function is deprecated because it cannot handle binary data properly. Modern applications should use PQgetCopyData instead.
 
 ## Parameters / Member Variables
-- : PostgreSQL connection handle for the COPY operation
-- : Character buffer to receive the line data (must be pre-allocated)
-- : Maximum number of characters to read (including null terminator)
-
+- `*conn`: PostgreSQL connection handle for the COPY operation
+- `*buffer`: Character buffer to receive the line data (must be pre-allocated)
+- `length`: Maximum number of characters to read (including null terminator)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pqGetline3](../p/pqGetline3.md)

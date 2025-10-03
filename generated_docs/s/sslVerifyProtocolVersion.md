@@ -16,8 +16,7 @@ sslVerifyProtocolVersion(const char *version)
 This function serves as a sanity check routine for the connection parameters  and . It validates that the input string represents a supported SSL/TLS protocol version. The function accepts standard TLS version identifiers and treats empty strings or NULL values as valid (equivalent to ignoring the parameter).
 
 ## Parameters / Member Variables
-- : A string containing the SSL/TLS protocol version to validate (e.g., "TLSv1.2")
-
+- `*version`: A string containing the SSL/TLS protocol version to validate (e.g., "TLSv1.2")
 ## Dependencies
 - Functions called/Symbols referenced:
   - strlen (standard C library function)

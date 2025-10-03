@@ -16,8 +16,7 @@ Async_Unlisten(const char *channel)
 Async_Unlisten is the entry point function for the SQL UNLISTEN command. It provides a wrapper around the queue_listen function, specifically requesting a LISTEN_UNLISTEN action for the given channel. The function includes optional debug logging and an optimization that avoids queueing unnecessary work when the session could not possibly be listening to any channels (no pending actions and no exit handler registered). Like other async notification functions, it defers the actual unlisten operation until transaction commit.
 
 ## Parameters / Member Variables
-- : The notification channel name to stop listening on
-
+- `*channel`: The notification channel name to stop listening on
 ## Dependencies
 - Functions called/Symbols referenced:
   - elog (for debug logging)

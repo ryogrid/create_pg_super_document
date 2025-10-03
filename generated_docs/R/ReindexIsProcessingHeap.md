@@ -18,8 +18,7 @@ This function provides a simple boolean check to determine if a heap relation id
 The function is part of PostgreSQL's reindex coordination system that prevents issues that could arise from attempting to reindex a relation that is already being reindexed, or from using indexes that are in an inconsistent state during rebuilding.
 
 ## Parameters / Member Variables
-- : Object identifier of the heap relation to check for active reindexing
-
+- `heapOid`: Object identifier of the heap relation to check for active reindexing
 ## Dependencies
 - Functions called/Symbols referenced:
   - currentlyReindexedHeap: Global variable tracking the currently reindexed heap relation

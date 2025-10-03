@@ -25,6 +25,7 @@ Both instruction sets must be available for the function to return true. The fun
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - `__get_cpuid_count()` or `__cpuidex()` (platform-specific CPUID intrinsics)

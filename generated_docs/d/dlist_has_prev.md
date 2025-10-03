@@ -18,9 +18,8 @@ This function determines if a node has a previous element by comparing the node'
 The function is marked as static inline for performance, as it's a simple pointer comparison that benefits from inlining. However, it comes with an important caveat: the function assumes the node is actually part of the specified list and will produce unreliable results if the node is detached or belongs to a different list.
 
 ## Parameters / Member Variables
-- : Pointer to the list head structure containing the sentinel node
-- : Pointer to the node being checked for a preceding element
-
+- `*head`: Pointer to the list head structure containing the sentinel node
+- `*node`: Pointer to the node being checked for a preceding element
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dlist_head](dlist_head.md) (struct type)

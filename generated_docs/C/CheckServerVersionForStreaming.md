@@ -18,8 +18,7 @@ The  function performs version compatibility checks to ensure that the connected
 This function is essential for preventing runtime errors and ensuring reliable streaming replication connections across different PostgreSQL versions.
 
 ## Parameters / Member Variables
-- : PostgreSQL connection handle to check the server version against
-
+- `*conn`: PostgreSQL connection handle to check the server version against
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQserverVersion](../P/PQserverVersion.md)

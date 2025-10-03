@@ -18,9 +18,8 @@ This function is a thin wrapper around  that specifically handles tab completion
 The function follows the standard readline completion generator interface, taking the partial text and state parameter, and returning matching command names one at a time until exhausted.
 
 ## Parameters / Member Variables
-- : The partial command text that the user has typed after "CREATE"
-- : Call counter maintained by readline - 0 for first call, incremented on subsequent calls
-
+- `*text`: The partial command text that the user has typed after "CREATE"
+- `state`: Call counter maintained by readline - 0 for first call, incremented on subsequent calls
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Core completion logic function

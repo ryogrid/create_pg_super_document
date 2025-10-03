@@ -19,11 +19,10 @@ compute_remaining_iovec(struct iovec *destination,
  is designed to handle the common scenario in vectored I/O where read/write operations may transfer only part of the requested data. When a  or  system call completes with fewer bytes transferred than requested, this function calculates what remains to be transferred by adjusting the iovec array. It skips over wholly transferred iovecs, adjusts the first partially transferred iovec by advancing its base pointer and reducing its length, and copies the remaining iovecs to the destination array. The function supports in-place adjustment when source and destination arrays are the same, making it efficient for retry scenarios in I/O operations.
 
 ## Parameters / Member Variables
-- : Output iovec array that will contain the adjusted vectors for remaining transfers
-- : Input iovec array representing the original I/O request
-- : Number of iovec structures in the source array
-- : Number of bytes that were successfully transferred in the previous I/O operation
-
+- `*destination`: Output iovec array that will contain the adjusted vectors for remaining transfers
+- `*source`: Input iovec array representing the original I/O request
+- `iovcnt`: Number of iovec structures in the source array
+- `transferred`: Number of bytes that were successfully transferred in the previous I/O operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [iovec](../i/iovec.md) (system struct)

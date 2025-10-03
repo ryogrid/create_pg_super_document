@@ -16,9 +16,8 @@ ecpg_free_params(struct statement *stmt, bool print)
 This function performs cleanup of all parameter-related data structures associated with an ECPG prepared statement. It iterates through all parameters, optionally logging their values for debugging, then systematically frees all allocated memory including parameter values, lengths, and formats arrays. The function also resets the parameter-related fields in the statement structure to ensure clean state.
 
 ## Parameters / Member Variables
-- : Pointer to the statement structure containing parameter data to be freed
-- : Boolean flag indicating whether to log parameter values before freeing (used for debugging)
-
+- `*stmt`: Pointer to the statement structure containing parameter data to be freed
+- `print`: Boolean flag indicating whether to log parameter values before freeing (used for debugging)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [print_param_value](../p/print_param_value.md)

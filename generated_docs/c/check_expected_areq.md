@@ -20,9 +20,8 @@ The function is crucial for preventing authentication bypass attacks and ensurin
 The function implements multiple security checks: SSL certificate validation when required, authentication method allowlisting when specified by the client, channel binding enforcement for SASL authentication, and prevention of authentication downgrade attacks.
 
 ## Parameters / Member Variables
-- : AuthRequest enum value representing the authentication method requested by the server
-- : Pointer to the PGconn connection structure containing security configuration and connection state
-
+- `areq`: AuthRequest enum value representing the authentication method requested by the server
+- `*conn`: Pointer to the PGconn connection structure containing security configuration and connection state
 ## Dependencies
 - Functions called/Symbols referenced:
   - StaticAssertDecl (compile-time assertion)

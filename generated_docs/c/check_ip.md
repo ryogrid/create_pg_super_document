@@ -18,10 +18,9 @@ The  function is a fundamental component of PostgreSQL's HBA (Host-Based Authent
 The function first ensures that the client's address family (IPv4 or IPv6) matches the specified network's address family, then delegates the actual subnet range checking to the  utility function. This design provides a clean abstraction for network-based access control rules in pg_hba.conf.
 
 ## Parameters / Member Variables
-- : Pointer to SockAddr structure containing the client's remote IP address information
-- : Pointer to sockaddr structure representing the base network address to match against
-- : Pointer to sockaddr structure representing the subnet mask for the network range
-
+- `*raddr`: Pointer to SockAddr structure containing the client's remote IP address information
+- `*addr`: Pointer to sockaddr structure representing the base network address to match against
+- `*mask`: Pointer to sockaddr structure representing the subnet mask for the network range
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Performs the actual subnet range checking with address family-specific logic

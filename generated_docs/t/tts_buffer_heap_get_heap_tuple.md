@@ -20,8 +20,7 @@ The function serves as part of the BufferHeapTupleTableSlot's virtual method tab
 After this function returns, the caller can be confident that the slot contains a valid HeapTuple that will remain accessible as long as the slot exists and hasn't been cleared.
 
 ## Parameters / Member Variables
-- : The TupleTableSlot from which to extract the HeapTuple (must be a BufferHeapTupleTableSlot)
-
+- `*slot`: The TupleTableSlot from which to extract the HeapTuple (must be a BufferHeapTupleTableSlot)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BufferHeapTupleTableSlot](../B/BufferHeapTupleTableSlot.md) (cast to access slot-specific fields)

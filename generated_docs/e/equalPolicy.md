@@ -18,9 +18,8 @@ This function performs a comprehensive comparison of two row security policy str
 The function handles null pointer cases and performs deep comparison of array data for roles and Node structures for qualification expressions.
 
 ## Parameters / Member Variables
-- : First RowSecurityPolicy structure to compare (may be NULL)
-- : Second RowSecurityPolicy structure to compare (may be NULL)
-
+- `*policy1`: First RowSecurityPolicy structure to compare (may be NULL)
+- `*policy2`: Second RowSecurityPolicy structure to compare (may be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RowSecurityPolicy](../R/RowSecurityPolicy.md) (structure type)

@@ -16,8 +16,7 @@ smgrdestroy(SMgrRelation reln)
 The  function is responsible for properly destroying an SMgrRelation object. It performs a complete cleanup by first closing all fork files associated with the relation, then removing the relation from the doubly-linked list of SMgrRelation objects, and finally removing it from the SMgrRelationHash hash table. This function ensures that all resources are properly released and that the storage manager's internal data structures remain consistent.
 
 ## Parameters / Member Variables
-- : Pointer to the SMgrRelation object to be destroyed. The relation must have a pincount of 0 (not in use by any backend).
-
+- `reln`: Pointer to the SMgrRelation object to be destroyed. The relation must have a pincount of 0 (not in use by any backend).
 ## Dependencies
 - Functions called/Symbols referenced:
   - smgrsw[].smgr_close (closes file descriptors for all forks)

@@ -18,8 +18,7 @@ This function constructs and executes an SQL query to retrieve large object info
 The query uses system functions like  to resolve owner IDs to usernames and  to retrieve descriptive comments. Results are sorted by OID for consistent presentation. The function is used by both the  describe command and the  large object command.
 
 ## Parameters / Member Variables
-- : Boolean flag that controls whether to include additional columns (access control lists/ACLs) in the output. When true, shows permissions granted on each large object.
-
+- `verbose`: Boolean flag that controls whether to include additional columns (access control lists/ACLs) in the output. When true, shows permissions granted on each large object.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [initPQExpBuffer](../i/initPQExpBuffer.md)

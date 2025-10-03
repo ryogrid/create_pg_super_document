@@ -19,7 +19,6 @@ The function is designed with the understanding that all memory associated with 
 This approach is both efficient and safe, as it avoids potential double-free errors while ensuring that memory is properly reclaimed when the transaction context is cleaned up.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

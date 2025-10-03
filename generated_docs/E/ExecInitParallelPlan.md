@@ -39,12 +39,11 @@ Key components initialized:
 - DSA (Dynamic Shared Area) for variable-size allocations
 
 ## Parameters / Member Variables
-- : Root plan state node to be executed in parallel
-- : Execution state containing query context, parameters, and configuration
-- : Bitmapset identifying which execution parameters to send to workers
-- : Number of parallel worker processes to create
-- : Hint about expected number of result tuples (for optimization)
-
+- `*planstate`: Root plan state node to be executed in parallel
+- `*estate`: Execution state containing query context, parameters, and configuration
+- `*sendParams`: Bitmapset identifying which execution parameters to send to workers
+- `nworkers`: Number of parallel worker processes to create
+- `tuples_needed`: Hint about expected number of result tuples (for optimization)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecSetParamPlanMulti](ExecSetParamPlanMulti.md) (evaluate initplan parameters)

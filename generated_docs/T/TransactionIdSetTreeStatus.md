@@ -25,12 +25,11 @@ When all transactions fit on a single CLOG page, the operation is straightforwar
 This ensures that concurrent readers never see an inconsistent state where the main transaction appears committed but some subtransactions appear uncommitted.
 
 ## Parameters / Member Variables
-- : The main transaction ID to set status for (typically the top-level transaction)
-- : Number of subtransaction IDs in the subxids array
-- : Array of subtransaction IDs in the transaction tree
-- : Final status to set (TRANSACTION_STATUS_COMMITTED or TRANSACTION_STATUS_ABORTED)
-- : WAL location of commit record (for async commits) or InvalidXLogRecPtr (for sync commits/aborts)
-
+- `xid`: The main transaction ID to set status for (typically the top-level transaction)
+- `nsubxids`: Number of subtransaction IDs in the subxids array
+- `*subxids`: Array of subtransaction IDs in the transaction tree
+- `status`: Final status to set (TRANSACTION_STATUS_COMMITTED or TRANSACTION_STATUS_ABORTED)
+- `lsn`: WAL location of commit record (for async commits) or InvalidXLogRecPtr (for sync commits/aborts)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TransactionIdToPage](TransactionIdToPage.md)

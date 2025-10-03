@@ -22,12 +22,11 @@ The function ensures that PathKeys are allocated in the main planning context ra
 The canonicalization process involves chasing up the equivalence class hierarchy to find the top-level (non-merged) equivalence class, ensuring consistency in the canonical representation.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing the query planning context and canonical pathkey list
-- : EquivalenceClass that represents a set of expressions considered equivalent for sorting purposes
-- : Operator family OID that defines the sorting semantics
-- : Strategy number within the operator family (e.g., BTLessStrategyNumber)
-- : Boolean indicating whether NULL values should sort before non-NULL values
-
+- `*root`: PlannerInfo structure containing the query planning context and canonical pathkey list
+- `*eclass`: EquivalenceClass that represents a set of expressions considered equivalent for sorting purposes
+- `opfamily`: Operator family OID that defines the sorting semantics
+- `strategy`: Strategy number within the operator family (e.g., BTLessStrategyNumber)
+- `nulls_first`: Boolean indicating whether NULL values should sort before non-NULL values
 ## Dependencies
 - Functions called/Symbols referenced:
   - elog (error logging)

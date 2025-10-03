@@ -16,8 +16,7 @@ RemovePublicationSchemaById(Oid psoid)
 This function removes a specific publication-schema mapping from the pg_publication_namespace catalog table using the mapping's OID. It performs extensive cache invalidation by identifying all publishable relations within the schema and invalidating their cache entries, including all partitions in partition hierarchies. This comprehensive invalidation approach ensures that logical replication remains consistent when schema-based publications are modified. The function is primarily invoked by the dependency system during cascading deletions.
 
 ## Parameters / Member Variables
-- : OID of the publication-schema mapping entry in pg_publication_namespace to be removed
-
+- `psoid`: OID of the publication-schema mapping entry in pg_publication_namespace to be removed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md) (catalog access)

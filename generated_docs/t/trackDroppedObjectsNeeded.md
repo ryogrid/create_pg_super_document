@@ -23,6 +23,7 @@ The function examines three types of events:
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [EventCacheLookup](../E/EventCacheLookup.md) (called 3 times to check for different event types)

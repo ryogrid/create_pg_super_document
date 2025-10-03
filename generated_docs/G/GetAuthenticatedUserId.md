@@ -22,6 +22,7 @@ The function includes an assertion to ensure that the AuthenticatedUserId has be
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (for validation)

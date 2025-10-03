@@ -16,8 +16,7 @@ varchartypmodin(PG_FUNCTION_ARGS)
 This function serves as the type modifier input handler for the VARCHAR data type. It accepts an array of type modifiers (typically containing a length specification) and validates them according to VARCHAR constraints. The function delegates the actual validation logic to , which is shared between VARCHAR and CHAR types. The function ensures that the specified length is within valid bounds (at least 1 and not exceeding MaxAttrSize) and returns the processed type modifier value.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function calling convention macro that provides access to function arguments through the function call context
-
+- `PG_FUNCTION_ARGS`: Standard PostgreSQL function calling convention macro that provides access to function arguments through the function call context
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_ARRAYTYPE_P (macro to extract ArrayType argument)

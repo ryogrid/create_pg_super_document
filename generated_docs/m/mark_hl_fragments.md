@@ -23,15 +23,14 @@ The selection process prioritizes fragments with the maximum number of query wor
 If no suitable fragments are found, it falls back to showing the first min_words of the document.
 
 ## Parameters / Member Variables
-- : HeadlineParsedText structure containing the parsed document words and metadata
-- : TSQuery object containing the search query terms to highlight
-- : List of query word locations in the document
-- : Boolean flag controlling presentation details (disregarded for phrase selection in this mode)
-- : Minimum word length threshold (parameter present but not actively used in fragment selection logic)
-- : Minimum number of words to show if no good fragments are found
-- : Maximum number of words allowed per fragment
-- : Maximum number of fragments to select and mark
-
+- `*prs`: HeadlineParsedText structure containing the parsed document words and metadata
+- `query`: TSQuery object containing the search query terms to highlight
+- `*locations`: List of query word locations in the document
+- `highlightall`: Boolean flag controlling presentation details (disregarded for phrase selection in this mode)
+- `shortword`: Minimum word length threshold (parameter present but not actively used in fragment selection logic)
+- `min_words`: Minimum number of words to show if no good fragments are found
+- `max_words`: Maximum number of words allowed per fragment
+- `max_fragments`: Maximum number of fragments to select and mark
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hlCover](../h/hlCover.md) (finds query word covers)

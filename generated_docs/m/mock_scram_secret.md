@@ -20,14 +20,13 @@ This function creates realistic-looking SCRAM authentication parameters for use 
 The function generates deterministic salt based on the username using the cluster's nonce value, sets standard SCRAM-SHA-256 parameters, and zeros out the stored and server keys since they won't be used in the doomed authentication process. All generated parameters appear realistic to prevent information disclosure to potential attackers.
 
 ## Parameters / Member Variables
-- : The username for which to generate mock parameters (used for deterministic salt generation)
-- : Output parameter set to PG_SHA256 (enforced for consistency)
-- : Output parameter set to SCRAM_SHA_256_DEFAULT_ITERATIONS 
-- : Output parameter set to SCRAM_SHA_256_KEY_LEN
-- : Output parameter for the base64-encoded salt string (palloc'd)
-- : Pre-allocated buffer that is zeroed out (not used in mock authentication)
-- : Pre-allocated buffer that is zeroed out (not used in mock authentication)
-
+- `*username`: The username for which to generate mock parameters (used for deterministic salt generation)
+- `*hash_type`: Output parameter set to PG_SHA256 (enforced for consistency)
+- `*iterations`: Output parameter set to SCRAM_SHA_256_DEFAULT_ITERATIONS
+- `*key_length`: Output parameter set to SCRAM_SHA_256_KEY_LEN
+- `**salt`: Output parameter for the base64-encoded salt string (palloc'd)
+- `*stored_key`: Pre-allocated buffer that is zeroed out (not used in mock authentication)
+- `*server_key`: Pre-allocated buffer that is zeroed out (not used in mock authentication)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [scram_mock_salt](../s/scram_mock_salt.md)

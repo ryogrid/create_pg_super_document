@@ -20,9 +20,8 @@ The function uses the connection's inCursor to track the current reading positio
 This function is part of the internal protocol parsing infrastructure and is used extensively by higher-level protocol parsing functions to process messages received from the PostgreSQL backend.
 
 ## Parameters / Member Variables
-- : Pointer to a char where the read character will be stored
-- : Pointer to the PGconn structure representing the database connection
-
+- `*result`: Pointer to a char where the read character will be stored
+- `*conn`: Pointer to the PGconn structure representing the database connection
 ## Dependencies
 - Functions called/Symbols referenced:
   - conn->inBuffer (connection input buffer)

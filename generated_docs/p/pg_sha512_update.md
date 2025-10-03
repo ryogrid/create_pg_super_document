@@ -27,10 +27,9 @@ The  function processes input data of any length for SHA-512 hashing by:
 This streaming approach allows hashing of data larger than memory by processing it incrementally in multiple update calls.
 
 ## Parameters / Member Variables
-- : Pointer to the SHA-512 context structure containing state and buffer
-- : Pointer to input data to be processed (can be NULL if len is 0)
-- : Number of bytes to process from the data buffer
-
+- `*context`: Pointer to the SHA-512 context structure containing state and buffer
+- `*data`: Pointer to input data to be processed (can be NULL if len is 0)
+- `len`: Number of bytes to process from the data buffer
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SHA512_Transform](../S/SHA512_Transform.md)

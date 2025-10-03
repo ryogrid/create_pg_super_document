@@ -28,9 +28,8 @@ The function performs the following checks:
 The restrictions mirror those applied to subquery pullup optimization, ensuring consistent behavior across different types of query optimizations.
 
 ## Parameters / Member Variables
-- : PlannerInfo containing the overall query planning context and the parse tree being analyzed
-- : The RangeTblEntry of type RTE_VALUES that is being evaluated for pullup eligibility
-
+- `*root`: PlannerInfo containing the overall query planning context and the parse tree being analyzed
+- `*rte`: The RangeTblEntry of type RTE_VALUES that is being evaluated for pullup eligibility
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_length](../l/list_length.md)

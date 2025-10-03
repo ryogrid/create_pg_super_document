@@ -20,8 +20,7 @@ In a normal Tcl environment, this function would wait for events (such as file I
 By always returning 0, PostgreSQL's implementation ensures that the Tcl event loop (if it were ever entered) would immediately conclude that no events are available, preventing any blocking behavior that could interfere with PostgreSQL's single-threaded architecture.
 
 ## Parameters / Member Variables
-- : Pointer to a Tcl_Time structure specifying the maximum time to wait for events (unused in this stub implementation, but would normally define timeout behavior)
-
+- `*timePtr`: Pointer to a Tcl_Time structure specifying the maximum time to wait for events (unused in this stub implementation, but would normally define timeout behavior)
 ## Dependencies
 - Functions called/Symbols referenced:
   - CONST86 (Tcl compatibility macro for const qualifier)

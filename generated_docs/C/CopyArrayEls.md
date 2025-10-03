@@ -25,15 +25,14 @@ CopyArrayEls is a core utility function in PostgreSQL's array handling system th
 The function operates by iterating through all elements, setting appropriate bits in the null bitmap for null values, and using ArrayCastAndSet to properly store non-null values with correct alignment. The bitmap management uses bit manipulation to efficiently pack null indicators into bytes.
 
 ## Parameters / Member Variables
-- : Target ArrayType object with header fields already initialized
-- : Array of Datum values to be copied into the array
-- : Array of boolean flags indicating null values (can be NULL if no nulls)
-- : Number of Datum elements to be copied
-- : Length of the element data type (-1 for variable length)
-- : Whether the element type is passed by value or reference
-- : Alignment requirement for the element data type
-- : Whether to free pass-by-reference data values after copying
-
+- `*array`: Target ArrayType object with header fields already initialized
+- `*values`: Array of Datum values to be copied into the array
+- `*nulls`: Array of boolean flags indicating null values (can be NULL if no nulls)
+- `nitems`: Number of Datum elements to be copied
+- `typlen`: Length of the element data type (-1 for variable length)
+- `typbyval`: Whether the element type is passed by value or reference
+- `typalign`: Alignment requirement for the element data type
+- `freedata`: Whether to free pass-by-reference data values after copying
 ## Dependencies
 - Functions called/Symbols referenced:
   - ARR_DATA_PTR

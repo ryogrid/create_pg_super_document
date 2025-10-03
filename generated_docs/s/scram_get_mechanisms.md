@@ -20,9 +20,8 @@ The function supports:
 - SCRAM-SHA-256 (standard variant)
 
 ## Parameters / Member Variables
-- : Connection port information containing SSL status and other connection details
-- : StringInfo buffer where mechanism names will be appended, separated by null bytes
-
+- `*port`: Connection port information containing SSL status and other connection details
+- `buf`: StringInfo buffer where mechanism names will be appended, separated by null bytes
 ## Dependencies
 - Functions called/Symbols referenced:
   - [appendStringInfoString](../a/appendStringInfoString.md)

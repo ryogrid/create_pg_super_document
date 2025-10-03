@@ -18,8 +18,7 @@ This function performs validation and synchronization of domain constraint refer
 When constraint changes are detected, the function performs proper reference count management by decrementing the old constraint cache reference count and incrementing the new one. If expression states are needed, it calls prep_domain_constraints to prepare executable constraint states. The function includes a deliberate design decision to leak previous executable domain constraint lists rather than managing child memory contexts, as constraint updates are expected to be rare.
 
 ## Parameters / Member Variables
-- : Pointer to the DomainConstraintRef structure to be updated with current constraint information
-
+- `*ref`: Pointer to the DomainConstraintRef structure to be updated with current constraint information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DomainConstraintRef](../D/DomainConstraintRef.md) (struct for managing constraint references)  

@@ -19,11 +19,10 @@ This function searches for a ResultRelInfo structure corresponding to a given ta
 The function first checks if a hash table () exists for fast lookups. If present, it uses  to find the target relation. If no hash table exists (typically for nodes with few target relations), it performs a linear search through the  array, comparing each relation's OID with the target OID.
 
 ## Parameters / Member Variables
-- : ModifyTableState containing the result relations to search through
-- : The OID of the target relation to locate
-- : If true, return NULL when relation is not found; if false, raise an error
-- : If true and lookup succeeds, update the node's one-element cache (should only be true when called from ExecModifyTable)
-
+- `*node`: ModifyTableState containing the result relations to search through
+- `resultoid`: The OID of the target relation to locate
+- `missing_ok`: If true, return NULL when relation is not found; if false, raise an error
+- `update_cache`: If true and lookup succeeds, update the node's one-element cache (should only be true when called from ExecModifyTable)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hash_search](../h/hash_search.md)

@@ -22,11 +22,10 @@ MemoryChunkSetHdrMask is a core function in PostgreSQL's memory management syste
 The function performs several validation checks to ensure the parameters are within valid ranges and then combines them using bit manipulation operations at specific bit positions defined by the MEMORYCHUNK_*_BASEBIT constants.
 
 ## Parameters / Member Variables
-- : Pointer to the MemoryChunk structure whose hdrmask will be set
-- : Pointer to the memory block that contains this chunk (must be MAXALIGN'd)
-- : Size or context-specific value to store (must be <= MEMORYCHUNK_MAX_VALUE)
-- : Memory context method identifier (must be <= MEMORY_CONTEXT_METHODID_MASK)
-
+- `*chunk`: Pointer to the MemoryChunk structure whose hdrmask will be set
+- `*block`: Pointer to the memory block that contains this chunk (must be MAXALIGN'd)
+- `value`: Size or context-specific value to store (must be <= MEMORYCHUNK_MAX_VALUE)
+- `methodid`: Memory context method identifier (must be <= MEMORY_CONTEXT_METHODID_MASK)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryChunk](MemoryChunk.md) (structure type)

@@ -24,9 +24,8 @@ The function performs several optimizations:
 The search algorithm examines each segment in a bin, checks its largest contiguous free space using , and either returns the segment if it's suitable or continues to the next segment/bin.
 
 ## Parameters / Member Variables
-- : Pointer to the dynamic shared area containing the segment management structures
-- : Number of contiguous pages required for the allocation request
-
+- `*area`: Pointer to the dynamic shared area containing the segment management structures
+- `npages`: Number of contiguous pages required for the allocation request
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockHeldByMe](../L/LWLockHeldByMe.md) / DSA_AREA_LOCK (lock assertion)

@@ -18,10 +18,9 @@ This function creates and stores a message field in the PGresult's error/notice 
 The function implements a singly-linked list where new fields are prepended to the existing list (res->errFields), making the most recently added field the head of the list. Each field consists of a code (identifying the field type) and the actual text content.
 
 ## Parameters / Member Variables
-- : Pointer to the PGresult structure that will store the message field
-- : Single character code identifying the field type (e.g., 'M' for primary message, 'S' for severity)
-- : String content of the message field to be stored
-
+- `*res`: Pointer to the PGresult structure that will store the message field
+- `code`: Single character code identifying the field type (e.g., 'M' for primary message, 'S' for severity)
+- `*value`: String content of the message field to be stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pqResultAlloc](pqResultAlloc.md) (for memory allocation with result tracking)

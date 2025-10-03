@@ -22,9 +22,8 @@ This function serves as a finalization step in the set operation planning proces
 The function is intentionally lightweight as the heavy lifting of path generation is handled by the specific set operation functions (, , etc.). Its primary purpose is to ensure proper finalization and allow for extensibility.
 
 ## Parameters / Member Variables
-- : PlannerInfo containing the global planning context and configuration settings
-- : RelOptInfo for the set operation that needs post-processing after all paths have been added
-
+- `*root`: PlannerInfo containing the global planning context and configuration settings
+- `*rel`: RelOptInfo for the set operation that needs post-processing after all paths have been added
 ## Dependencies
 - Functions called/Symbols referenced:
   - create_upper_paths_hook (global function pointer)

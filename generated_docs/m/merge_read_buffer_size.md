@@ -21,11 +21,10 @@ The memory allocation strategy reserves TAPE_BUFFER_OVERHEAD bytes for each outp
 The calculation follows the inverse of the formula used in tuplesort_merge_order, deriving input buffer sizes from available memory rather than determining memory requirements from desired buffer sizes. The function ensures a minimum return value of 0 to handle cases where memory is extremely constrained.
 
 ## Parameters / Member Variables
-- : Total memory available for all tape buffers (both input and output) in bytes
-- : Number of input tapes in the current merge pass
-- : Total number of input runs to be processed
-- : Maximum number of output tapes that should be produced
-
+- `avail_mem`: Total memory available for all tape buffers (both input and output) in bytes
+- `nInputTapes`: Number of input tapes in the current merge pass
+- `nInputRuns`: Total number of input runs to be processed
+- `maxOutputTapes`: Maximum number of output tapes that should be produced
 ## Dependencies
 - Functions called/Symbols referenced:
   - TAPE_BUFFER_OVERHEAD (constant defining fixed memory overhead per tape)

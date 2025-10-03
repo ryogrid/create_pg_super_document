@@ -18,8 +18,7 @@ The skip_sql_comments function processes SQL command text to locate the beginnin
 The function uses a simple state machine approach, continuously checking each character and advancing the pointer until it encounters the first non-whitespace, non-comment character. If the entire string contains only whitespace and comments, the function returns NULL to indicate no executable content was found.
 
 ## Parameters / Member Variables
-- : Pointer to a null-terminated string containing the SQL command text to process
-
+- `*sql_command`: Pointer to a null-terminated string containing the SQL command text to process
 ## Dependencies
 - Functions called/Symbols referenced:
   - isspace: Standard C library function to check for whitespace characters

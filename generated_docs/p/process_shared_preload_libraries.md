@@ -19,7 +19,6 @@ The function sets progress tracking flags to indicate that shared preload librar
 The libraries loaded by this function are available to all PostgreSQL processes since they are loaded in the postmaster before process forking occurs. This makes shared preload libraries ideal for extensions that need to be available system-wide or that require initialization at the postmaster level.
 
 ## Parameters / Member Variables
-None (void function)
 
 ## Dependencies
 - Functions called/Symbols referenced:

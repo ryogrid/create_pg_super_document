@@ -26,11 +26,10 @@ The function performs the following operations:
 This function is particularly important for checkpoint operations and buffer management, where PostgreSQL needs to ensure data consistency by controlling when dirty pages are written to disk.
 
 ## Parameters / Member Variables
-- : The virtual file descriptor to perform writeback on
-- : Starting byte offset within the file for the writeback operation
-- : Number of bytes to write back from the offset
-- : Wait event identifier for PostgreSQL's wait event monitoring system
-
+- `file`: The virtual file descriptor to perform writeback on
+- `offset`: Starting byte offset within the file for the writeback operation
+- `nbytes`: Number of bytes to write back from the offset
+- `wait_event_info`: Wait event identifier for PostgreSQL's wait event monitoring system
 ## Dependencies
 - Functions called/Symbols referenced:
   - FileIsValid: Validates the file descriptor

@@ -22,6 +22,7 @@ This function is called by the GUC system when users query the current timezone 
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_get_timezone_name](../p/pg_get_timezone_name.md): Function that retrieves the canonical name from a pg_tz timezone object

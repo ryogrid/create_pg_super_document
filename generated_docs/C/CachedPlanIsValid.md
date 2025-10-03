@@ -18,8 +18,7 @@ CachedPlanIsValid is a simple validity check function that returns the current v
 The result is only trustworthy and free from race conditions if the caller has acquired locks on all the relations used in the plan. This is crucial for ensuring that the validity check reflects the current state of the database objects referenced by the plan.
 
 ## Parameters / Member Variables
-- : Pointer to the CachedPlanSource structure whose validity is being checked
-
+- `*plansource`: Pointer to the CachedPlanSource structure whose validity is being checked
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CachedPlanSource](CachedPlanSource.md) (structure type)

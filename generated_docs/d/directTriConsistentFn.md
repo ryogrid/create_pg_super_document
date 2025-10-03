@@ -16,8 +16,7 @@ directTriConsistentFn(GinScanKey key)
 This function serves as a wrapper for calling user-defined ternary consistent functions in GIN (Generalized Inverted Index) operations. Unlike the binary logic version (directBoolConsistentFn), this function calls the ternary version of the consistent function which can return three states: GIN_FALSE, GIN_MAYBE, or GIN_TRUE. It uses FunctionCall7Coll to invoke the user's ternary consistent function with the appropriate parameters and returns the result as a GinTernaryValue.
 
 ## Parameters / Member Variables
-- : A GinScanKey pointer containing all the information needed for the ternary consistency check, including the ternary function to call and query parameters.
-
+- `key`: A GinScanKey pointer containing all the information needed for the ternary consistency check, including the ternary function to call and query parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GinScanKey](../G/GinScanKey.md) (struct type)

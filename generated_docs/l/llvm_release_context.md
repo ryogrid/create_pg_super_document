@@ -18,8 +18,7 @@ This function performs comprehensive cleanup of an LLVM JIT context, including d
 The function decrements the global usage counter and handles both the LLVM-specific cleanup (modules, execution sessions, symbol pools) and PostgreSQL-specific cleanup (resource owner tracking).
 
 ## Parameters / Member Variables
-- : JitContext pointer that gets cast to LLVMJitContext for LLVM-specific cleanup operations
-
+- `*context`: JitContext pointer that gets cast to LLVMJitContext for LLVM-specific cleanup operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - LLVMDisposeModule (LLVM API)

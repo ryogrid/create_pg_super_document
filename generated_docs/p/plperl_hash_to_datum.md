@@ -22,9 +22,8 @@ This function serves as a high-level wrapper around plperl_build_tuple_result, s
 This function is typically used when PL/Perl functions return hash references that need to be converted to PostgreSQL composite types or records. It provides a clean interface for the common pattern of hash-to-composite-type conversion.
 
 ## Parameters / Member Variables
-- : Perl scalar reference (SV *) that should contain a reference to a hash (HV)
-- : Tuple descriptor (TupleDesc) defining the structure and types of the target composite type
-
+- `*src`: Perl scalar reference (SV *) that should contain a reference to a hash (HV)
+- `td`: Tuple descriptor (TupleDesc) defining the structure and types of the target composite type
 ## Dependencies
 - Functions called/Symbols referenced:
   - SvRV (Perl macro to extract reference value)

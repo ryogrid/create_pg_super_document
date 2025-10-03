@@ -24,10 +24,9 @@ The function works backwards (from highest index to lowest) to avoid uniqueness 
 The renumbering is triggered only when the normal enum insertion algorithm cannot find suitable sort order values between existing entries, typically after many enum labels have been added in non-sequential order.
 
 ## Parameters / Member Variables
-- : Open relation handle for the pg_enum catalog table
-- : Array of HeapTuple pointers representing the current enum values in sort order
-- : Number of elements in the existing array
-
+- `pg_enum`: Open relation handle for the pg_enum catalog table
+- `*existing`: Array of HeapTuple pointers representing the current enum values in sort order
+- `nelems`: Number of elements in the existing array
 ## Dependencies
 - Functions called/Symbols referenced:
   - [heap_copytuple](../h/heap_copytuple.md): Creates writable copies of existing enum tuples

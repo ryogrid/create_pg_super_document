@@ -20,8 +20,7 @@ The function employs a multi-pass algorithm that processes role memberships role
 The function is version-aware, handling differences between PostgreSQL versions: PostgreSQL 16+ supports explicit grantors and grant-level options (INHERIT, SET), while earlier versions use simplified logic. It also handles orphaned entries gracefully by detecting and warning about OIDs that no longer exist in the system catalogs.
 
 ## Parameters / Member Variables
-- : PostgreSQL database connection handle used to query system catalogs and determine server version
-
+- `*conn`: PostgreSQL database connection handle used to query system catalogs and determine server version
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQserverVersion](../P/PQserverVersion.md) (determine PostgreSQL server version for compatibility)

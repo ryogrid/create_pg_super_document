@@ -20,9 +20,8 @@ This function performs a simple but critical operation: it converts the 1-based 
 The function is implemented as a static inline function for optimal performance since it's called frequently throughout query execution whenever executor nodes need to access table metadata.
 
 ## Parameters / Member Variables
-- : Range Table Index (1-based) identifying which RangeTblEntry to retrieve from the range table
-- : EState containing the es_range_table list with all RangeTblEntry objects for the current query
-
+- `rti`: Range Table Index (1-based) identifying which RangeTblEntry to retrieve from the range table
+- `*estate`: EState containing the es_range_table list with all RangeTblEntry objects for the current query
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_nth](../l/list_nth.md) (for list element access)

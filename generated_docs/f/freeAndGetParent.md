@@ -18,8 +18,7 @@ freeAndGetParent is a simple but critical memory management utility function use
 The function implements the bottom-up cleanup pattern used in the JSONB iterator hierarchy, where child iterators are automatically freed when their processing is complete, allowing the parent iterator to continue processing at its level of nesting.
 
 ## Parameters / Member Variables
-- : Pointer to the JsonbIterator to be freed
-
+- `*it`: Pointer to the JsonbIterator to be freed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pfree](../p/pfree.md)

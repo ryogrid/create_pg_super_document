@@ -23,8 +23,7 @@ The function performs several safety checks before pausing:
 During the pause loop, it periodically checks for interrupts and standby triggers while confirming the paused state. The implementation uses a condition variable with timeout for efficient waiting.
 
 ## Parameters / Member Variables
-- : Boolean indicating whether the pause occurs at the end of recovery due to recovery_target_action=pause (true) or during intermediate recovery (false)
-
+- `endOfRecovery`: Boolean indicating whether the pause occurs at the end of recovery due to recovery_target_action=pause (true) or during intermediate recovery (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetRecoveryPauseState](../G/GetRecoveryPauseState.md)

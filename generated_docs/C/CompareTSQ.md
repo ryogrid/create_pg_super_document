@@ -20,9 +20,8 @@ For non-empty queries, the function converts both TSQuery objects to their corre
 The function is static, indicating it's used internally within the tsquery_op.c module for comparison operations and sorting.
 
 ## Parameters / Member Variables
-- : First TSQuery object to compare
-- : Second TSQuery object to compare
-
+- `a`: First TSQuery object to compare
+- `b`: Second TSQuery object to compare
 ## Dependencies
 - Functions called/Symbols referenced:
   - VARSIZE (macro for getting variable-length object size)

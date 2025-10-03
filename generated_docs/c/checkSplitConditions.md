@@ -19,11 +19,10 @@ The function traverses a chain of leaf tuples starting at current->offnum to cou
 The function walks through the linked chain of tuples using SGLT_GET_NEXTOFFSET(), counting only SPGIST_LIVE tuples while ignoring SPGIST_DEAD tuples (which won't be moved during splits). For each live tuple, it adds the tuple size plus the ItemIdData overhead to get the true storage cost.
 
 ## Parameters / Member Variables
-- : The SPGiST index relation being examined
-- : SPGiST state information (not actively used in this function)
-- : Page descriptor containing the starting offset for the chain to examine
-- : Output parameter that receives the count of live tuples in the chain
-
+- `index`: The SPGiST index relation being examined
+- `*state`: SPGiST state information (not actively used in this function)
+- `*current`: Page descriptor containing the starting offset for the chain to examine
+- `*nToSplit`: Output parameter that receives the count of live tuples in the chain
 ## Dependencies
 - Functions called/Symbols referenced:
   - SpGistBlockIsRoot (checks if the current block is the root page)

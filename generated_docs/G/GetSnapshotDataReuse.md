@@ -20,8 +20,7 @@ The function works by checking if the snapXactCompletionCount stored in the snap
 When reuse is possible, the function updates time-sensitive fields (curcid, active_count, regd_count, etc.) while preserving the core visibility data. It also re-establishes the snapshot's xmin in the PGPROC array to maintain proper transaction coordination.
 
 ## Parameters / Member Variables
-- : The Snapshot structure to potentially reuse, containing cached visibility information including snapXactCompletionCount and xmin values
-
+- `snapshot`: The Snapshot structure to potentially reuse, containing cached visibility information including snapXactCompletionCount and xmin values
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockHeldByMe](../L/LWLockHeldByMe.md) (assertion check for ProcArrayLock)

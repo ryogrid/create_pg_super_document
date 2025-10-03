@@ -26,11 +26,10 @@ Key aspects of the implementation:
 - Uses prepared statement caching for performance
 
 ## Parameters / Member Variables
-- : Relation pointer to the primary key table being checked
-- : Relation pointer to the foreign key table (used for plan caching)
-- : TupleTableSlot containing the tuple values to match against
-- : RI_ConstraintInfo structure containing constraint metadata including key column mappings
-
+- `pk_rel`: Relation pointer to the primary key table being checked
+- `fk_rel`: Relation pointer to the foreign key table (used for plan caching)
+- `*oldslot`: TupleTableSlot containing the tuple values to match against
+- `*riinfo`: RI_ConstraintInfo structure containing constraint metadata including key column mappings
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ri_NullCheck](ri_NullCheck.md)

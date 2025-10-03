@@ -23,15 +23,14 @@ The function performs element-by-element extraction, properly handling null valu
 The caller is responsible for providing element type information (length, alignment, pass-by-value status) rather than the function looking it up from system catalogs. This design allows callers to cache type information across multiple calls for better performance.
 
 ## Parameters / Member Variables
-- : The PostgreSQL array object to deconstruct (must not be NULL)
-- : The OID of the array element data type (used for assertion checking)
-- : Length of each array element (-1 for variable-length types)
-- : Whether elements are passed by value (true) or by reference (false)
-- : Alignment requirement for array elements ('c', 's', 'i', or 'd')
-- : Output parameter, set to point to palloc'd array of Datum values
-- : Output parameter, set to point to palloc'd array of null indicators (may be NULL if nulls not supported)
-- : Output parameter, set to the number of elements extracted
-
+- `*array`: The PostgreSQL array object to deconstruct (must not be NULL)
+- `elmtype`: The OID of the array element data type (used for assertion checking)
+- `elmlen`: Length of each array element (-1 for variable-length types)
+- `elmbyval`: Whether elements are passed by value (true) or by reference (false)
+- `elmalign`: Alignment requirement for array elements ('c', 's', 'i', or 'd')
+- `**elemsp`: Output parameter, set to point to palloc'd array of Datum values
+- `**nullsp`: Output parameter, set to point to palloc'd array of null indicators (may be NULL if nulls not supported)
+- `*nelemsp`: Output parameter, set to the number of elements extracted
 ## Dependencies
 - Functions called/Symbols referenced:
   - ARR_ELEMTYPE (macro for getting array element type)

@@ -22,9 +22,8 @@ The function operates by:
 4. Quoting the relation name and appending it to the buffer
 
 ## Parameters / Member Variables
-- : A character array that must be at least MAX_QUOTED_REL_NAME_LEN bytes long (includes room for null terminator) to store the fully quoted relation name
-- : A Relation structure representing the database relation whose name is to be quoted
-
+- `*buffer`: A character array that must be at least MAX_QUOTED_REL_NAME_LEN bytes long (includes room for null terminator) to store the fully quoted relation name
+- `rel`: A Relation structure representing the database relation whose name is to be quoted
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Retrieves the namespace name for the relation

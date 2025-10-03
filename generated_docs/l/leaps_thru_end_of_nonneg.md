@@ -26,8 +26,7 @@ The function uses integer division to efficiently count leap years without itera
 The function is specifically designed for non-negative years and defines year 0 as having zero leap years for mathematical convenience.
 
 ## Parameters / Member Variables
-- : An integer representing the year for which to calculate the cumulative leap year count. Must be non-negative (>= 0).
-
+- `y`: An integer representing the year for which to calculate the cumulative leap year count. Must be non-negative (>= 0).
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (performs only arithmetic operations)

@@ -16,8 +16,7 @@ dlist_node_init(dlist_node *node)
 The  function initializes a doubly-linked list node by setting both its  and  pointers to NULL. This creates a detached node state that can be safely detected using . The function is specifically designed for scenarios where it's necessary to determine whether a node is currently linked to a list or exists in an unattached state. This initialization is particularly useful in resource management and transaction processing where nodes may be temporarily detached and later reattached to lists.
 
 ## Parameters / Member Variables
-- : Pointer to the  structure that will be initialized to a detached state
-
+- `*node`: Pointer to the  structure that will be initialized to a detached state
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dlist_node](dlist_node.md) (structure type)

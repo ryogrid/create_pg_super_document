@@ -16,8 +16,7 @@ plpython_trigger_error_callback(void *arg)
 This function serves as an error context callback specifically for PL/Python trigger operations. It is registered with PostgreSQL's error context system to provide additional context information when errors occur during trigger execution, particularly during row modification operations. When an error occurs, this callback checks if there is an active PL/Python execution context with a current procedure, and if so, adds the contextual message "while modifying trigger row" to the error report. This helps developers and administrators understand that the error occurred specifically during the trigger row modification phase of PL/Python execution.
 
 ## Parameters / Member Variables
-- : Unused argument parameter (required by error callback function signature)
-
+- `*arg`: Unused argument parameter (required by error callback function signature)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PLy_current_execution_context](../P/PLy_current_execution_context.md)

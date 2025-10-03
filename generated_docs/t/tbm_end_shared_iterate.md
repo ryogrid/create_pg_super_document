@@ -18,8 +18,7 @@ The  function serves as the cleanup routine for shared TIDBitmap iterations. Unl
 This distinction is crucial in parallel processing scenarios where multiple processes share the same bitmap iteration state. Each process maintains its own TBMSharedIterator structure pointing to shared memory segments, but only cleans up its local references when finished.
 
 ## Parameters / Member Variables
-- : TBMSharedIterator pointer containing backend-private state to be deallocated
-
+- `*iterator`: TBMSharedIterator pointer containing backend-private state to be deallocated
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pfree](../p/pfree.md)

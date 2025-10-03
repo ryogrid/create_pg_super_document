@@ -24,10 +24,9 @@ The function processes both upper and lower subscripts (for slice operations) an
 The converted integer subscripts are stored in the workspace for use by subsequent array operations. The function returns false if any subscript is NULL in a fetch context, signaling the caller to skip the remaining SubscriptingRef sequence.
 
 ## Parameters / Member Variables
-- : Expression state context (not directly used in this function)
-- : Expression evaluation step containing the SubscriptingRef state and workspace information
-- : Expression evaluation context (not directly used in this function)
-
+- `*state`: Expression state context (not directly used in this function)
+- `*op`: Expression evaluation step containing the SubscriptingRef state and workspace information
+- `*econtext`: Expression evaluation context (not directly used in this function)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DatumGetInt32](../D/DatumGetInt32.md) (converts Datum values to 32-bit integers)

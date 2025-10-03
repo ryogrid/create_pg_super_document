@@ -20,12 +20,11 @@ The float4in_internal function serves as the robust core implementation for conv
 The function uses strtof() as the primary parsing mechanism but supplements it with custom handling for special floating-point values (NaN, Infinity, +/-Inf) to ensure consistent behavior across different platforms. It also includes special logic for handling denormalized numbers and provides clear error messages for various failure cases.
 
 ## Parameters / Member Variables
-- : Input string containing the number to be parsed
-- : Optional pointer to store the position where parsing stopped (can be NULL)
-- : Type name string used in error messages (e.g., "real")
-- : Original input string for error reporting purposes
-- : Error context for soft error handling
-
+- `*num`: Input string containing the number to be parsed
+- `**endptr_p`: Optional pointer to store the position where parsing stopped (can be NULL)
+- `*type_name`: Type name string used in error messages (e.g., "real")
+- `*orig_string`: Original input string for error reporting purposes
+- `*escontext`: Error context for soft error handling
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereturn (error handling)

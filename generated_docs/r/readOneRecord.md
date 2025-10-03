@@ -19,11 +19,10 @@ This utility function is designed to read exactly one WAL record from a given po
 The function sets up an XLogReader, reads one record at the specified position, captures the end position, and then cleans up the reader resources. It provides detailed error reporting if the WAL record cannot be read from the specified position.
 
 ## Parameters / Member Variables
-- : Path to the PostgreSQL data directory containing pg_wal subdirectory
-- : XLogRecPtr indicating the exact WAL position to read the record from
-- : Index into the target timeline history array indicating which timeline to read from
-- : Command string used to restore archived WAL files if needed (can be NULL)
-
+- `*datadir`: Path to the PostgreSQL data directory containing pg_wal subdirectory
+- `ptr`: XLogRecPtr indicating the exact WAL position to read the record from
+- `tliIndex`: Index into the target timeline history array indicating which timeline to read from
+- `*restoreCommand`: Command string used to restore archived WAL files if needed (can be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [XLogReaderAllocate](../X/XLogReaderAllocate.md)

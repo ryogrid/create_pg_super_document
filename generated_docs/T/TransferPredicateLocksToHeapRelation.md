@@ -20,8 +20,7 @@ The function delegates the actual work to DropAllPredicateLocksFromTable with th
 This consolidation approach ensures that serializable transaction isolation guarantees are maintained even when the underlying physical structure changes, by using the most coarse-grained lock that still provides the necessary conflict detection.
 
 ## Parameters / Member Variables
-- : The relation (heap table or index) whose predicate locks should be transferred to the heap relation
-
+- `relation`: The relation (heap table or index) whose predicate locks should be transferred to the heap relation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DropAllPredicateLocksFromTable](../D/DropAllPredicateLocksFromTable.md)

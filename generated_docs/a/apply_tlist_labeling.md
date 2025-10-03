@@ -20,9 +20,8 @@ The function copies all the labeling attributes that don't affect the actual com
 Both target lists must have the same length and corresponding entries must have matching resno values, which is enforced by assertions.
 
 ## Parameters / Member Variables
-- : The destination target list that will receive the labeling attributes
-- : The source target list containing the desired labeling attributes
-
+- `*dest_tlist`: The destination target list that will receive the labeling attributes
+- `*src_tlist`: The source target list containing the desired labeling attributes
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_length](../l/list_length.md) (implicit via Assert)

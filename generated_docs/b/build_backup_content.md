@@ -25,9 +25,8 @@ When  is false, it generates content for an active backup_label file. When true,
 The function uses the log timezone (not session timezone) for timestamp formatting to ensure consistency across different client sessions.
 
 ## Parameters / Member Variables
-- : Pointer to BackupState structure containing backup metadata including start/stop points, timelines, checkpoint location, backup name, and timing information
-- : Boolean flag determining output format - true for backup history file content, false for backup_label file content
-
+- `*state`: Pointer to BackupState structure containing backup metadata including start/stop points, timelines, checkpoint location, backup name, and timing information
+- `ishistoryfile`: Boolean flag determining output format - true for backup history file content, false for backup_label file content
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Creates dynamic string buffer for building output

@@ -19,11 +19,10 @@ smgrread(SMgrRelation reln, ForkNumber forknum, BlockNumber blocknum,
 The function is defined as a static inline function in the header file, which means it will be inlined at compile time for optimal performance when reading individual blocks.
 
 ## Parameters / Member Variables
-- : SMgrRelation pointer representing the relation to read from
-- : ForkNumber indicating which fork of the relation to read (main, FSM, VM, etc.)
-- : BlockNumber specifying the block number to read
-- : void pointer to the buffer where the block data will be stored
-
+- `reln`: SMgrRelation pointer representing the relation to read from
+- `forknum`: ForkNumber indicating which fork of the relation to read (main, FSM, VM, etc.)
+- `blocknum`: BlockNumber specifying the block number to read
+- `*buffer`: void pointer to the buffer where the block data will be stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - 

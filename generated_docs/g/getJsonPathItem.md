@@ -17,10 +17,9 @@ getJsonPathItem(JsonPathExecContext *cxt, JsonPathItem *item,
 This function serves as a converter that transforms jsonpath items (nodes in the jsonpath expression tree) into concrete JsonbValue structures that can be used in JSON operations. It handles five main jsonpath item types: null literals, boolean literals, numeric literals, string literals, and variable references. For the first four types, it directly converts the values using appropriate accessor functions. For variables, it delegates to getJsonPathVariable to resolve the variable value from the execution context.
 
 ## Parameters / Member Variables
-- : JsonPathExecContext pointer providing the execution context, particularly needed for variable resolution
-- : JsonPathItem pointer representing the jsonpath node to convert
-- : JsonbValue pointer where the converted value will be stored (output parameter)
-
+- `*cxt`: JsonPathExecContext pointer providing the execution context, particularly needed for variable resolution
+- `*item`: JsonPathItem pointer representing the jsonpath node to convert
+- `*value`: JsonbValue pointer where the converted value will be stored (output parameter)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [jspGetBool](../j/jspGetBool.md) (extracts boolean value from jsonpath item)

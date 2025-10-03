@@ -18,10 +18,9 @@ This function serves as a validation check hook for PostgreSQL's GUC (Grand Unif
 The function is part of PostgreSQL's configuration validation framework, ensuring that users cannot set invalid huge page configurations that would cause runtime failures.
 
 ## Parameters / Member Variables
-- : Pointer to the new integer value being set for huge_page_size
-- : Pointer to extra data (unused in this implementation) 
-- : The source of the configuration change (e.g., postgresql.conf, SET command)
-
+- `*newval`: Pointer to the new integer value being set for huge_page_size
+- `**extra`: Pointer to extra data (unused in this implementation)
+- `source`: The source of the configuration change (e.g., postgresql.conf, SET command)
 ## Dependencies
 - Functions called/Symbols referenced:
   - GucSource

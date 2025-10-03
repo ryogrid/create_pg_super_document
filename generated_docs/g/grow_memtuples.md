@@ -31,8 +31,7 @@ Key design principles:
 - Balances between array space and tuple storage space
 
 ## Parameters / Member Variables
-- : Pointer to the  structure containing the sort operation state
-
+- `*state`: Pointer to the  structure containing the sort operation state
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - decrements available memory tracking

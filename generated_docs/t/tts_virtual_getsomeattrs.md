@@ -20,9 +20,8 @@ Virtual tuple table slots differ from other slot types (like heap tuple slots) i
 Since virtual slots store their data directly as Datum arrays, all attributes are immediately available without any deformation process. Therefore, calling this function indicates a logic error in the code, and the function responds by throwing an error.
 
 ## Parameters / Member Variables
-- : A pointer to the TupleTableSlot (unused in the implementation)
-- : The number of attributes to extract (unused in the implementation)
-
+- `*slot`: A pointer to the TupleTableSlot (unused in the implementation)
+- `natts`: The number of attributes to extract (unused in the implementation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - elog (error logging function)

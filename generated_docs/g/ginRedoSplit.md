@@ -24,8 +24,7 @@ Key functionality includes:
 The function expects the WAL record to contain full-page images rather than incremental changes, as page splits involve significant structural modifications that are best captured as complete page snapshots.
 
 ## Parameters / Member Variables
-- : XLogReaderState pointer containing the WAL record being replayed, including split operation data and full-page images
-
+- `*record`: XLogReaderState pointer containing the WAL record being replayed, including split operation data and full-page images
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData

@@ -16,8 +16,7 @@ dlist_head_node(dlist_head *head)
 This function is a convenience wrapper around  that returns the first node in a doubly-linked list. It assumes the list contains at least one element and will return undefined behavior if called on an empty list. The function is implemented as a static inline for performance, calling  with a zero offset to get the actual node structure. This is part of PostgreSQL's intrusive doubly-linked list implementation where list nodes are embedded within the data structures they organize.
 
 ## Parameters / Member Variables
-- : Pointer to the list head structure that contains metadata about the doubly-linked list
-
+- `*head`: Pointer to the list head structure that contains metadata about the doubly-linked list
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dlist_head_element_off](dlist_head_element_off.md)

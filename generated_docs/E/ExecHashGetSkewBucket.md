@@ -20,9 +20,8 @@ The function uses open addressing with linear probing to handle hash collisions.
 The function returns INVALID_SKEW_BUCKET_NO in two cases: when skew optimization is disabled (typically after the initial batch), or when no skew bucket exists for the given hash value.
 
 ## Parameters / Member Variables
-- : The HashJoinTable containing the skew bucket array to search
-- : The 32-bit hash value to look up in the skew bucket table
-
+- `hashtable`: The HashJoinTable containing the skew bucket array to search
+- `hashvalue`: The 32-bit hash value to look up in the skew bucket table
 ## Dependencies
 - Functions called/Symbols referenced:
   - INVALID_SKEW_BUCKET_NO (constant returned when no bucket found)

@@ -26,14 +26,13 @@ The algorithm handles two search modes: normal search (nextkey=false) looking fo
 When forupdate is true, the function also completes any incomplete splits encountered, which is required before allowing insertions to proceed on a page.
 
 ## Parameters / Member Variables
-- : The B-tree index relation
-- : The heap relation (required when forupdate is true for split completion)
-- : BTScanInsert structure containing the search key and search parameters
-- : Input buffer that may need to be moved right from
-- : Boolean indicating whether to complete incomplete splits encountered
-- : BTStack for context when completing splits (used only if forupdate is true)
-- : Lock type (BT_READ or BT_WRITE) to maintain while moving
-
+- `rel`: The B-tree index relation
+- `heaprel`: The heap relation (required when forupdate is true for split completion)
+- `key`: BTScanInsert structure containing the search key and search parameters
+- `buf`: Input buffer that may need to be moved right from
+- `forupdate`: Boolean indicating whether to complete incomplete splits encountered
+- `stack`: BTStack for context when completing splits (used only if forupdate is true)
+- `access`: Lock type (BT_READ or BT_WRITE) to maintain while moving
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BufferGetPage](../B/BufferGetPage.md)

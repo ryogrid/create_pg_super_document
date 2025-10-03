@@ -20,8 +20,7 @@ The function allocates memory in CacheMemoryContext for storing constraint infor
 After loading all constraints, the function sorts them by name to ensure deterministic ordering, which is important for both consistent constraint application and efficient comparison operations in equalTupleDescs().
 
 ## Parameters / Member Variables
-- : The Relation structure for which check constraints should be loaded
-
+- `relation`: The Relation structure for which check constraints should be loaded
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md)

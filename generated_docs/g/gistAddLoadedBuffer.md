@@ -20,9 +20,8 @@ The function implements dynamic array growth - when the array becomes full, it d
 An important safety check prevents temporary buffers (those marked with isTemp flag) from being added to the tracking array, as these buffers have different lifecycle management requirements and are handled separately.
 
 ## Parameters / Member Variables
-- : The GiST build buffers structure containing the loadedBuffers array and related metadata
-- : The node buffer to be added to the tracking array (must not be a temporary buffer)
-
+- `*gfbb`: The GiST build buffers structure containing the loadedBuffers array and related metadata
+- `*nodeBuffer`: The node buffer to be added to the tracking array (must not be a temporary buffer)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [repalloc](../r/repalloc.md)

@@ -24,9 +24,8 @@ The function performs several validation steps:
 This is crucial for pathkey conversion, as it prevents the creation of pathkeys that reference values not actually available above the subquery level.
 
 ## Parameters / Member Variables
-- : RelOptInfo representing the subquery relation in the outer query context
-- : TargetEntry from the subquery's target list to check for visibility
-
+- `*rel`: RelOptInfo representing the subquery relation in the outer query context
+- `*tle`: TargetEntry from the subquery's target list to check for visibility
 ## Dependencies
 - Functions called/Symbols referenced:
   - copyObject (to create a safe copy of the Var node)

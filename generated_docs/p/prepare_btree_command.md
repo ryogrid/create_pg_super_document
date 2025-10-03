@@ -28,10 +28,9 @@ The prepare_btree_command function creates a SQL query that invokes btree checki
 4. **Handles error reporting** through PostgreSQL's error mechanism rather than returning result columns, as btree checking functions report corruption by raising errors
 
 ## Parameters / Member Variables
-- : PQExpBuffer into which the constructed SQL command will be written
-- : RelationInfo structure containing information about the index to be checked, including relation OID and database info
-- : PGconn connection handle used for string escaping purposes (though not actively used in current implementation)
-
+- `sql`: PQExpBuffer into which the constructed SQL command will be written
+- `*rel`: RelationInfo structure containing information about the index to be checked, including relation OID and database info
+- `*conn`: PGconn connection handle used for string escaping purposes (though not actively used in current implementation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [resetPQExpBuffer](../r/resetPQExpBuffer.md) (clears the SQL buffer)

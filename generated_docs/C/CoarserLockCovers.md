@@ -20,8 +20,7 @@ The function iteratively calls GetParentPredicateLockTag to walk up the hierarch
 Like PredicateLockExists, this function may return false negatives due to the local lock table limitations, but it will never return false positives, ensuring safety in lock acquisition decisions.
 
 ## Parameters / Member Variables
-- : A pointer to the predicate lock target tag to check for coverage by coarser locks
-
+- `*newtargettag`: A pointer to the predicate lock target tag to check for coverage by coarser locks
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetParentPredicateLockTag](../G/GetParentPredicateLockTag.md)

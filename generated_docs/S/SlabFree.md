@@ -25,8 +25,7 @@ SlabFree is the deallocation function for the slab memory allocator in PostgreSQ
 The function uses sophisticated block list management to maintain performance by keeping blocks sorted by utilization levels.
 
 ## Parameters / Member Variables
-- : The memory pointer to be freed, previously allocated by SlabAlloc
-
+- `*pointer`: The memory pointer to be freed, previously allocated by SlabAlloc
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerGetMemoryChunk

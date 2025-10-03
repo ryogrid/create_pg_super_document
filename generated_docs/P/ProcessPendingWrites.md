@@ -17,7 +17,6 @@ This function implements the "slow path" for WAL sender operations when there ar
 The function uses PostgreSQL`s wait event infrastructure to efficiently wait for socket writability or readability, computing appropriate sleep times to balance responsiveness with resource usage. It ensures proper cleanup by resetting latches and reactivating them upon completion so the main WAL sender loop can continue.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -18,8 +18,7 @@ pg_strdup serves as a robust alternative to the standard strdup() function with 
 This function is part of PostgreSQL's frontend memory utilities, designed to provide safer memory operations for client-side tools and utilities that need reliable string duplication with automatic error handling.
 
 ## Parameters / Member Variables
-- : The input string to be duplicated. Must not be NULL or the function will terminate the program with an error message.
-
+- `*in`: The input string to be duplicated. Must not be NULL or the function will terminate the program with an error message.
 ## Dependencies
 - Functions called/Symbols referenced:
   - strdup (standard C library function)

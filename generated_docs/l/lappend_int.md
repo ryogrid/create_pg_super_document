@@ -20,9 +20,8 @@ When the input list is NIL, the function creates a new IntList with a single int
 This function is widely used throughout PostgreSQL for building lists of integer identifiers, column numbers, partition bounds, and other numeric collections.
 
 ## Parameters / Member Variables
-- : The IntList to append to, or NIL to create a new integer list
-- : The integer value to be appended to the list
-
+- `*list`: The IntList to append to, or NIL to create a new integer list
+- `datum`: The integer value to be appended to the list
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsIntegerList (assertion check for integer list type)

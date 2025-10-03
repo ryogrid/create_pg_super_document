@@ -18,11 +18,8 @@ The  function provides equality comparison for PostgreSQL's extensible node fram
 The function performs a two-stage comparison: first it verifies that both nodes have the same extension name (), and then it delegates to the extension-specific equality function through the  interface. This design allows each extension to define its own comparison logic for its private data while maintaining consistency with PostgreSQL's node system.
 
 ## Parameters / Member Variables
-- : Pointer to the first ExtensibleNode to compare
-- : Pointer to the second ExtensibleNode to compare
-
-Returns:  if the nodes are equal,  otherwise
-
+- `*a`: Pointer to the first ExtensibleNode to compare
+- `*b`: Pointer to the second ExtensibleNode to compare
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (macro for comparing string fields)

@@ -38,14 +38,13 @@ Key operations performed:
 This function is essential for integrating complex expression evaluation operations that cannot be efficiently inlined into LLVM IR and must be implemented as C function calls.
 
 ## Parameters / Member Variables
-- : The LLVM IR builder for generating instructions
-- : The LLVM module containing function references
-- : The name of the PostgreSQL function to call
-- : LLVM value representing the ExprState pointer
-- : Pointer to the ExprEvalStep being implemented
-- : Number of additional arguments beyond state and op
-- : Array of LLVM values representing the additional function arguments
-
+- `b`: The LLVM IR builder for generating instructions
+- `mod`: The LLVM module containing function references
+- `*funcname`: The name of the PostgreSQL function to call
+- `v_state`: LLVM value representing the ExprState pointer
+- `*op`: Pointer to the ExprEvalStep being implemented
+- `nargs`: Number of additional arguments beyond state and op
+- `*v_args`: Array of LLVM values representing the additional function arguments
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExprEvalStep](../E/ExprEvalStep.md)

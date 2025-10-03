@@ -19,11 +19,10 @@ insert_item_into_bucket(dshash_table *hash_table,
 This is a low-level utility function in PostgreSQL's dynamic shared hash table implementation that handles the actual insertion of a pre-allocated hash table item into a specific bucket. The function implements a simple linked list insertion at the head of the bucket chain, where the new item becomes the first element and points to the previously first item. This operation is used internally by the hash table resize and insertion operations.
 
 ## Parameters / Member Variables
-- : Pointer to the dynamic shared hash table structure
-- : DSA pointer to the allocated item in shared memory
-- : Local address of the hash table item to insert
-- : Pointer to the bucket (head of linked list) where the item should be inserted
-
+- `*hash_table`: Pointer to the dynamic shared hash table structure
+- `item_pointer`: DSA pointer to the allocated item in shared memory
+- `*item`: Local address of the hash table item to insert
+- `*bucket`: Pointer to the bucket (head of linked list) where the item should be inserted
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dsa_get_address](../d/dsa_get_address.md)

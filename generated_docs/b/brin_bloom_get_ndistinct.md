@@ -22,9 +22,8 @@ This function calculates the appropriate number of distinct values to use when s
 The function includes several safeguards to ensure the bloom filter is appropriately sized - not too small to be ineffective, and not too large to waste memory.
 
 ## Parameters / Member Variables
-- : BRIN descriptor containing index information, used to get pages per range
-- : Bloom filter options containing the base ndistinct value
-
+- `*bdesc`: BRIN descriptor containing index information, used to get pages per range
+- `*opts`: Bloom filter options containing the base ndistinct value
 ## Dependencies
 - Functions called/Symbols referenced:
   - BrinGetPagesPerRange

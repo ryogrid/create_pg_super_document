@@ -16,8 +16,7 @@ verbosity_hook(const char *newval)
 This hook function is responsible for parsing and setting the error message verbosity level when the VERBOSITY variable is modified in psql. It accepts one of four valid string values ("default", "verbose", "terse", "sqlstate") and maps them to corresponding PostgreSQL error verbosity constants. The function also applies the new verbosity setting to the current database connection if one exists. If an invalid value is provided, it displays an error message and returns false to indicate failure.
 
 ## Parameters / Member Variables
-- : The new verbosity level as a string. Must be one of: "default", "verbose", "terse", or "sqlstate". Cannot be NULL (guaranteed by verbosity_substitute_hook).
-
+- `*newval`: The new verbosity level as a string. Must be one of: "default", "verbose", "terse", or "sqlstate". Cannot be NULL (guaranteed by verbosity_substitute_hook).
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (assertion macro)

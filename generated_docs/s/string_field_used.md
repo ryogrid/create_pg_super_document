@@ -18,9 +18,8 @@ string_field_used(struct config_string *conf, char *strval)
 This function is essential for memory management within the GUC system. Before freeing a string value, the system needs to ensure that the string is not referenced elsewhere. The function checks multiple potential reference points: the current variable value, the reset value (used when resetting to defaults), the boot value (initial system value), and any values stored in the stack (which maintains a history of configuration changes for transaction rollback purposes).
 
 ## Parameters / Member Variables
-- : Pointer to the config_string structure representing the string configuration variable
-- : The string value to check for references
-
+- `*conf`: Pointer to the config_string structure representing the string configuration variable
+- `*strval`: The string value to check for references
 ## Dependencies
 - Functions called/Symbols referenced:
   - [config_string](../c/config_string.md) (struct type for string configuration variables)

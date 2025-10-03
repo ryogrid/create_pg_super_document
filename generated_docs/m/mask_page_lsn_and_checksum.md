@@ -18,8 +18,7 @@ This function is used in PostgreSQL's WAL (Write-Ahead Logging) consistency chec
 The function operates directly on the page header structure, modifying the pd_lsn and pd_checksum fields in place.
 
 ## Parameters / Member Variables
-- : A pointer to the page whose LSN and checksum should be masked
-
+- `page`: A pointer to the page whose LSN and checksum should be masked
 ## Dependencies
 - Functions called/Symbols referenced:
   - PageXLogRecPtrSet (macro to set LSN field)

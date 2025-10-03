@@ -16,8 +16,7 @@ GetLeaderApplyWorkerPid(pid_t pid)
 This function searches through the logical replication worker array to find a parallel apply worker with the specified process ID. If found, it returns the PID of that worker's leader apply worker. The function is designed to support parallel logical replication where multiple workers can be coordinated under a single leader worker. It acquires a shared lock on the LogicalRepWorkerLock to safely iterate through the worker array, checking each worker to see if it's a parallel apply worker and if its PID matches the provided parameter. If no matching parallel worker is found, it returns InvalidPid.
 
 ## Parameters / Member Variables
-- : The process ID to look up, expected to be a parallel apply worker PID
-
+- `pid`: The process ID to look up, expected to be a parallel apply worker PID
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockAcquire](../L/LWLockAcquire.md), LWLockRelease

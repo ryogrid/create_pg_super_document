@@ -23,8 +23,7 @@ PrintTiming formats and prints execution timing information to stdout. The funct
 The function always displays the raw millisecond value followed by a breakdown into larger time units when appropriate. This provides both precise timing data and intuitive understanding of longer durations.
 
 ## Parameters / Member Variables
-- : The elapsed time in milliseconds to be formatted and displayed
-
+- `elapsed_msec`: The elapsed time in milliseconds to be formatted and displayed
 ## Dependencies
 - Functions called/Symbols referenced:
   - printf (standard C library function)

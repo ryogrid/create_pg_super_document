@@ -21,6 +21,7 @@ If the process is found to be in a synchronous replication queue, the function p
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dlist_node_is_detached](../d/dlist_node_is_detached.md) (checks if process is queued)

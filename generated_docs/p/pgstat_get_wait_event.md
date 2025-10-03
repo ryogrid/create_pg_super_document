@@ -20,8 +20,7 @@ The function extracts the wait event class and event ID from the provided 32-bit
 If the wait_event_info parameter is 0, the function returns NULL, indicating that the process is not currently waiting on any event.
 
 ## Parameters / Member Variables
-- : A 32-bit unsigned integer containing encoded wait event information, where the upper bits represent the wait event class and the lower bits represent the specific event ID within that class
-
+- `wait_event_info`: A 32-bit unsigned integer containing encoded wait event information, where the upper bits represent the wait event class and the lower bits represent the specific event ID within that class
 ## Dependencies
 - Functions called/Symbols referenced:
   - WAIT_EVENT_CLASS_MASK (mask for extracting wait event class)

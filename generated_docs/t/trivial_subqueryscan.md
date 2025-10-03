@@ -28,8 +28,7 @@ The triviality check verifies:
 The function supports scenarios where targetlist entries are constants rather than just variables, which is important for set operations (see  for context).
 
 ## Parameters / Member Variables
-- : The SubqueryScan node to evaluate for triviality
-
+- `*plan`: The SubqueryScan node to evaluate for triviality
 ## Dependencies
 - Functions called/Symbols referenced:
   - forboth: Macro for parallel iteration over two lists

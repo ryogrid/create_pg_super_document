@@ -17,7 +17,6 @@ GetMockAuthenticationNonce is an accessor function that retrieves the mock authe
 This function is primarily used in authentication-related code, particularly in SCRAM authentication testing where a predictable nonce value is needed for reproducible test results.
 
 ## Parameters / Member Variables
-This function takes no parameters and returns a char pointer to the nonce string.
 
 ## Dependencies
 - Functions called/Symbols referenced:

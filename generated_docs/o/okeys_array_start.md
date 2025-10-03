@@ -18,8 +18,7 @@ This function serves as a validation callback in PostgreSQL's JSON parser framew
 The function performs a simple but critical validation: if an array is encountered at the top level (lex_level == 0), it immediately raises an error with an appropriate message. This prevents inappropriate usage of json_object_keys on JSON arrays, which would be meaningless since arrays don't have named keys.
 
 ## Parameters / Member Variables
-- : Void pointer to OkeysState structure containing the JSON lexer context and parsing state
-
+- `*state`: Void pointer to OkeysState structure containing the JSON lexer context and parsing state
 ## Dependencies
 - Functions called/Symbols referenced:
   - [OkeysState](../O/OkeysState.md) (cast from state parameter)

@@ -18,10 +18,9 @@ This function extends the basic SPI_cursor_fetch functionality by accepting a Fe
 Like other SPI cursor functions, it wraps _SPI_cursor_operation and uses the DestSPI receiver to capture results in the standard SPI result variables. The function is designed for cursors that have been opened with scrolling capability.
 
 ## Parameters / Member Variables
-- : The Portal handle for the scrollable cursor
-- : FetchDirection enum specifying the type and direction of movement (e.g., FETCH_FORWARD, FETCH_BACKWARD, FETCH_ABSOLUTE, FETCH_RELATIVE, FETCH_FIRST, FETCH_LAST)
-- : Number of rows or position value (interpretation depends on direction type)
-
+- `portal`: The Portal handle for the scrollable cursor
+- `direction`: FetchDirection enum specifying the type and direction of movement (e.g., FETCH_FORWARD, FETCH_BACKWARD, FETCH_ABSOLUTE, FETCH_RELATIVE, FETCH_FIRST, FETCH_LAST)
+- `count`: Number of rows or position value (interpretation depends on direction type)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [_SPI_cursor_operation](_SPI_cursor_operation.md) (internal cursor operation handler)

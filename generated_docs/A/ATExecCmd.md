@@ -22,13 +22,12 @@ The function operates within PostgreSQL's multi-pass ALTER TABLE framework, wher
 After executing each subcommand, the function reports the operation to event triggers and increments the command counter to ensure subsequent commands can see the changes made by the current command.
 
 ## Parameters / Member Variables
-- : Double pointer to the work queue list for managing dependent operations and cascading changes
-- : Pointer to AlteredTableInfo structure containing information about the table being altered
-- : Pointer to AlterTableCmd structure containing the specific subcommand to execute
-- : The lock mode to acquire on the relation during the operation
-- : The current pass of the ALTER TABLE operation (for multi-pass execution)
-- : Pointer to AlterTableUtilityContext for maintaining context across operations
-
+- `**wqueue`: Double pointer to the work queue list for managing dependent operations and cascading changes
+- `*tab`: Pointer to AlteredTableInfo structure containing information about the table being altered
+- `*cmd`: Pointer to AlterTableCmd structure containing the specific subcommand to execute
+- `lockmode`: The lock mode to acquire on the relation during the operation
+- `cur_pass`: The current pass of the ALTER TABLE operation (for multi-pass execution)
+- `*context`: Pointer to AlterTableUtilityContext for maintaining context across operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ATExecAddColumn](ATExecAddColumn.md)

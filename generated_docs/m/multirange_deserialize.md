@@ -22,11 +22,10 @@ The function handles both empty and non-empty multiranges appropriately: for emp
 The input multirange must be fully detoasted and cannot have a short varlena header, ensuring that all data is accessible in the expected format.
 
 ## Parameters / Member Variables
-- : TypeCacheEntry containing type information for range reconstruction
-- : Pointer to the source MultirangeType structure (must be fully detoasted)
-- : Output parameter receiving the number of ranges in the multirange
-- : Output parameter receiving an allocated array of RangeType pointers
-
+- `*rangetyp`: TypeCacheEntry containing type information for range reconstruction
+- `*multirange`: Pointer to the source MultirangeType structure (must be fully detoasted)
+- `*range_count`: Output parameter receiving the number of ranges in the multirange
+- `***ranges`: Output parameter receiving an allocated array of RangeType pointers
 ## Dependencies
 - Functions called/Symbols referenced:
   - [multirange_get_range](multirange_get_range.md)

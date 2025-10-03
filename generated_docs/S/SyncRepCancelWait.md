@@ -21,6 +21,7 @@ This function is typically called during error conditions, process termination, 
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockAcquire](../L/LWLockAcquire.md) (acquires SyncRepLock exclusively)

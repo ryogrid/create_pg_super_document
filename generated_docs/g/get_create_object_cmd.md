@@ -19,10 +19,9 @@ The  function generates complete DDL (Data Definition Language) statements for P
 For functions, it uses pg_get_functiondef() which returns a complete CREATE OR REPLACE FUNCTION statement. For views, it performs more complex processing: it retrieves the view definition using pg_get_viewdef(), constructs the proper CREATE OR REPLACE VIEW prefix with schema-qualified names, handles reloptions (storage parameters), and processes CHECK OPTION settings. The function also includes version-specific handling for PostgreSQL 9.4+ features like LOCAL/CASCADED CHECK OPTION.
 
 ## Parameters / Member Variables
-- : EditableObjectType enum specifying the type of object (EditableFunction, EditableView)
-- : Object Identifier of the database object to retrieve
-- : PQExpBuffer to store the resulting CREATE OR REPLACE statement
-
+- `obj_type`: EditableObjectType enum specifying the type of object (EditableFunction, EditableView)
+- `oid`: Object Identifier of the database object to retrieve
+- `buf`: PQExpBuffer to store the resulting CREATE OR REPLACE statement
 ## Dependencies
 - Functions called/Symbols referenced:
   - EditableObjectType (enum defining supported object types)

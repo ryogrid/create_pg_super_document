@@ -25,9 +25,8 @@ The function formats the output to show:
 - Detailed state-by-state breakdown via dumpcstate calls
 
 ## Parameters / Member Variables
-- : Pointer to the compiled NFA structure to be dumped
-- : File stream where the debug output will be written
-
+- `*cnfa`: Pointer to the compiled NFA structure to be dumped
+- `*f`: File stream where the debug output will be written
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dumpcstate](dumpcstate.md)

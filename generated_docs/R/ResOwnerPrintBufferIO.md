@@ -18,8 +18,7 @@ ResOwnerPrintBufferIO is a static callback function used by PostgreSQL's Resourc
 This function serves as a debugging and diagnostic tool, helping developers and administrators identify resource management issues where buffer IO operations were not properly cleaned up. The generated message can be used in logging, error reporting, or debugging scenarios to track down resource leaks.
 
 ## Parameters / Member Variables
-- : Datum containing the buffer identifier for which to generate the diagnostic message, converted to Buffer using DatumGetInt32
-
+- `res`: Datum containing the buffer identifier for which to generate the diagnostic message, converted to Buffer using DatumGetInt32
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DatumGetInt32](../D/DatumGetInt32.md)

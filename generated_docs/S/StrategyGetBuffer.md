@@ -26,10 +26,9 @@ StrategyGetBuffer implements PostgreSQL's buffer replacement policy, selecting a
 The function ensures that the selected buffer is returned with its header spinlock held to prevent other processes from using it before the caller can pin it. It also maintains statistics by incrementing numBufferAllocs for bgwriter rate estimation.
 
 ## Parameters / Member Variables
-- : BufferAccessStrategy object for ring buffer allocation, or NULL for default strategy
-- : Output parameter returning the buffer's state value
-- : Output parameter indicating whether the buffer came from a strategy ring
-
+- `strategy`: BufferAccessStrategy object for ring buffer allocation, or NULL for default strategy
+- `*buf_state`: Output parameter returning the buffer's state value
+- `*from_ring`: Output parameter indicating whether the buffer came from a strategy ring
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetBufferFromRing](../G/GetBufferFromRing.md)

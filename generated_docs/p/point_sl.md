@@ -21,9 +21,8 @@ The  function computes the slope of a line passing through two given points usin
 This is an internal utility function used by various geometric operations throughout PostgreSQL's spatial data type system.
 
 ## Parameters / Member Variables
-- : Pointer to the first Point structure containing x and y coordinates
-- : Pointer to the second Point structure containing x and y coordinates
-
+- `*pt1`: Pointer to the first Point structure containing x and y coordinates
+- `*pt2`: Pointer to the second Point structure containing x and y coordinates
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (geometric data type structure)

@@ -16,8 +16,7 @@ optionListToArray(List *options)
 This static function transforms a linked list of DefElem structures (representing option name-value pairs) into a PostgreSQL text array datum. Each option is formatted as "name=value" and stored as a text element in the array. The function performs validation to ensure that option names do not contain "=" characters, which would make the format ambiguous. If the input list is empty, the function returns PointerGetDatum(NULL). The resulting array is typically stored directly in database system catalogs without further processing, so validation should be performed before calling this function.
 
 ## Parameters / Member Variables
-- : A List of DefElem structures containing option name-value pairs to be converted into array format
-
+- `*options`: A List of DefElem structures containing option name-value pairs to be converted into array format
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ArrayBuildState](../A/ArrayBuildState.md) (type used for building arrays)

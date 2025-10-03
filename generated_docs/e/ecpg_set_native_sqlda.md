@@ -18,12 +18,11 @@ This function populates a pre-allocated native SQLDA structure with actual data 
 The function processes each field in the native SQLDA, calculates proper memory offsets with alignment, sets up sqldata pointers to point to the correct locations within the SQLDA buffer, and converts PostgreSQL result data to the target data type. It handles the same data types as the compatibility version but uses the native sqlda_struct format instead of sqlda_compat. The main difference from the compatibility version is the absence of sqlilongdata handling for long strings and some differences in the structure layout.
 
 ## Parameters / Member Variables
-- : Line number for logging and debugging purposes
-- : Double pointer to the sqlda_struct (native format) to be populated
-- : PGresult structure containing the query results
-- : Row number in the result set to extract data from (negative values cause early return)
-- : Compatibility mode that affects data type handling
-
+- `lineno`: Line number for logging and debugging purposes
+- `**_sqlda`: Double pointer to the sqlda_struct (native format) to be populated
+- `*res`: PGresult structure containing the query results
+- `row`: Row number in the result set to extract data from (negative values cause early return)
+- `compat`: Compatibility mode that affects data type handling
 ## Dependencies
 - Functions called/Symbols referenced:
   - [sqlda_native_empty_size](../s/sqlda_native_empty_size.md)

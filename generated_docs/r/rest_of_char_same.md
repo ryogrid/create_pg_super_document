@@ -16,10 +16,9 @@ rest_of_char_same(const char *s1, const char *s2, int len)
 This function provides a fast character-by-character comparison of two string segments, working backwards from the specified length. It's optimized for use in Levenshtein distance algorithms where you need to quickly determine if the remaining characters in two strings are identical. The function is marked as inline for performance and uses a backwards iteration approach that can be more efficient than forward iteration in certain scenarios.
 
 ## Parameters / Member Variables
-- : Pointer to the first string to compare
-- : Pointer to the second string to compare  
-- : Number of characters to compare from the end of both strings
-
+- `*s1`: Pointer to the first string to compare
+- `*s2`: Pointer to the second string to compare
+- `len`: Number of characters to compare from the end of both strings
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (uses only basic character array indexing)

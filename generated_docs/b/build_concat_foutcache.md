@@ -16,9 +16,8 @@ build_concat_foutcache(FunctionCallInfo fcinfo, int argidx)
 This static function builds and caches FmgrInfo structures for the output functions of data types starting from a specified argument index. The cache is stored in the function's memory context (fn_mcxt) to survive across multiple function calls, providing performance optimization for concatenation operations that need to convert various data types to their string representations. The function allocates memory for all arguments but only populates entries starting from the specified .
 
 ## Parameters / Member Variables
-- : Function call information structure containing argument details and function metadata
-- : Starting argument index from which to begin caching output function information (earlier slots are allocated but not filled)
-
+- `fcinfo`: Function call information structure containing argument details and function metadata
+- `argidx`: Starting argument index from which to begin caching output function information (earlier slots are allocated but not filled)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContextAlloc](../M/MemoryContextAlloc.md)

@@ -19,6 +19,7 @@ The function examines the global recovery target settings and recovery stop info
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - snprintf: Formats the reason string based on recovery target type

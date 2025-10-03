@@ -18,10 +18,9 @@ SlruSyncFileTag is a shared implementation function used by individual SLRU subs
 The function opens the file in read-write mode with binary flags, performs the fsync operation while reporting wait events for monitoring purposes, and properly handles error conditions by preserving errno values.
 
 ## Parameters / Member Variables
-- : SlruCtl structure containing the SLRU control information needed to build the file path and handle the sync operation
-- : FileTag structure containing the segment number and other file identification information
-- : Character buffer where the constructed file path will be stored
-
+- `ctl`: SlruCtl structure containing the SLRU control information needed to build the file path and handle the sync operation
+- `*ftag`: FileTag structure containing the segment number and other file identification information
+- `*path`: Character buffer where the constructed file path will be stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SlruFileName](SlruFileName.md) (constructs the SLRU file name)

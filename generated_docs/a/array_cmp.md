@@ -18,8 +18,7 @@ The  function implements a comprehensive comparison algorithm for PostgreSQL arr
 The function handles NULL values by treating two NULLs as equal and considering NULL greater than any non-NULL value. It uses the type cache system to efficiently look up and cache comparison functions for the array element type.
 
 ## Parameters / Member Variables
-- : Function call information structure containing:
-
+- `fcinfo`: Function call information structure containing:
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Get number of dimensions

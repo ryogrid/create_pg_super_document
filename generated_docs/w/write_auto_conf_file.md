@@ -18,10 +18,9 @@ This function is responsible for writing configuration parameters to the automat
 The function begins by writing a header comment warning users not to manually edit the file, as it will be overwritten by ALTER SYSTEM commands. It then iterates through all configuration parameters, formatting each as "parameter_name = 'escaped_value'" and writing them to the file. The function ensures data integrity by performing fsync before considering the write operation successful.
 
 ## Parameters / Member Variables
-- : File descriptor of the temporary file to write to
-- : Name of the file being written (used for error messages)
-- : Pointer to the first node of a linked list containing ConfigVariable structures with parameter names and values
-
+- `fd`: File descriptor of the temporary file to write to
+- `*filename`: Name of the file being written (used for error messages)
+- `*head`: Pointer to the first node of a linked list containing ConfigVariable structures with parameter names and values
 ## Dependencies
 - Functions called/Symbols referenced:
   - [initStringInfo](../i/initStringInfo.md)

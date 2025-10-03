@@ -16,8 +16,7 @@ jsonb_build_object(PG_FUNCTION_ARGS)
 This function serves as the entry point for the SQL function . It accepts a variable number of arguments that must be provided in alternating key-value pairs and constructs a JSONB object from them. The function extracts the variadic arguments and delegates the actual object construction to . If an odd number of arguments is provided, an error will be raised by the worker function since keys must be paired with values.
 
 ## Parameters / Member Variables
-- : Function call information structure containing the variadic arguments passed to the SQL function
-
+- `PG_FUNCTION_ARGS`: Function call information structure containing the variadic arguments passed to the SQL function
 ## Dependencies
 - Functions called/Symbols referenced:
   - [extract_variadic_args](../e/extract_variadic_args.md)

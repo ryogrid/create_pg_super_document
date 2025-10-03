@@ -22,8 +22,7 @@ This function is part of initdb's authentication configuration validation system
 The "trust" authentication method allows connections without any password or authentication checks, which is convenient for development but poses security risks in production environments. The warning system ensures users are aware of this security implication.
 
 ## Parameters / Member Variables
-- : Double pointer to authentication method string that can be modified to set default value
-
+- `**authmethod`: Double pointer to authentication method string that can be modified to set default value
 ## Dependencies
 - Functions called/Symbols referenced:
   - Global variable : Boolean flag used to track whether a security warning should be displayed

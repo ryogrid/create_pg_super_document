@@ -19,8 +19,7 @@ typedef unsigned PG_INT128_TYPE uint128
 This macro wraps GCC's  functionality to ensure that variables or structures are aligned to specific byte boundaries in memory. Memory alignment is crucial for performance optimization and ensuring proper access patterns, especially for atomic operations and I/O operations. The macro provides a consistent interface across different compiler environments while abstracting the underlying compiler-specific syntax.
 
 ## Parameters / Member Variables
-- : The alignment boundary in bytes (must be a power of 2)
-
+- `pg_attribute_aligned`: The alignment boundary in bytes (must be a power of 2)
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (preprocessor macro)

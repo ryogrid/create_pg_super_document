@@ -18,8 +18,7 @@ This function is a lazy cache update mechanism for tracking the largest contiguo
 When called, it recomputes the actual largest contiguous page run by calling  and updates the cached value in . After the update, it clears the dirty flag to indicate the cache is now current.
 
 ## Parameters / Member Variables
-- : Pointer to the FreePageManager structure whose largest contiguous pages cache needs updating
-
+- `*fpm`: Pointer to the FreePageManager structure whose largest contiguous pages cache needs updating
 ## Dependencies
 - Functions called/Symbols referenced:
   - [FreePageManager](FreePageManager.md) (struct type)

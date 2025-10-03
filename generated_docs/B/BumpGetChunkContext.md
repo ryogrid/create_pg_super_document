@@ -16,8 +16,7 @@ BumpGetChunkContext(void *pointer)
 BumpGetChunkContext is an intentionally non-functional implementation of the memory context chunk context retrieval operation for the bump allocator. Rather than returning the memory context associated with a given memory chunk, this function immediately throws an ERROR indicating that 'GetMemoryChunkContext is not supported by the bump memory allocator'. This limitation reflects the bump allocator's simplified design: it does not maintain metadata linking individual memory chunks back to their originating context, which would add overhead and complexity that contradicts the allocator's performance-oriented philosophy.
 
 ## Parameters / Member Variables
-- : Pointer to a memory chunk whose context would be retrieved (parameter is ignored as the function always errors)
-
+- `*pointer`: Pointer to a memory chunk whose context would be retrieved (parameter is ignored as the function always errors)
 ## Dependencies
 - Functions called/Symbols referenced:
   - elog (error logging function)

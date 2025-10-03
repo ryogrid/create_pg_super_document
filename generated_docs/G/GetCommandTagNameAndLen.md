@@ -18,9 +18,8 @@ This function is an optimized variant of GetCommandTagName that also retrieves t
 The function sets the output parameter *len to the namelen field from the CommandTagBehavior structure, which contains the pre-calculated string length (computed as sizeof(name) - 1 during initialization). This optimization is particularly useful in performance-critical code paths where string length information is frequently needed alongside the string itself.
 
 ## Parameters / Member Variables
-- : The CommandTag enumeration value for which to retrieve the name and length
-- : Output parameter that receives the length of the returned string (in bytes, excluding null terminator)
-
+- `commandTag`: The CommandTag enumeration value for which to retrieve the name and length
+- `*len`: Output parameter that receives the length of the returned string (in bytes, excluding null terminator)
 ## Dependencies
 - Functions called/Symbols referenced:
   - CommandTag (enum type)

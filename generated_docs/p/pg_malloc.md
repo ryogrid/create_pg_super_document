@@ -18,8 +18,7 @@ pg_malloc is a wrapper function around pg_malloc_internal that provides the stan
 The function is widely used throughout PostgreSQL frontend utilities and tools as the primary memory allocation routine, providing consistent behavior across all PostgreSQL client applications.
 
 ## Parameters / Member Variables
-- : The number of bytes to allocate
-
+- `size`: The number of bytes to allocate
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_malloc_internal](pg_malloc_internal.md) (with flags = 0)

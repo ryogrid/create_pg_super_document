@@ -19,18 +19,17 @@ CreateTrigger(CreateTrigStmt *stmt, const char *queryString,
 CreateTrigger is a simplified interface for creating triggers that delegates to CreateTriggerFiringOn with the default TRIGGER_FIRES_ON_ORIGIN firing behavior. This function handles the creation of database triggers with support for constraint triggers, partitioned tables, and various internal trigger scenarios. It provides extensive parameter flexibility to support different trigger creation contexts including user-initiated CREATE TRIGGER commands and internally generated triggers for constraints and foreign keys.
 
 ## Parameters / Member Variables
-- : CreateTrigStmt structure containing the parsed CREATE TRIGGER statement
-- : Source text of the CREATE TRIGGER command (required if whenClause is specified)
-- : OID of the relation on which to create the trigger (0 to look up by name)
-- : OID of the constraint reference relation (0 to look up by name)
-- : OID of the constraint this trigger implements (0 for user triggers)
-- : OID of associated constraint index (stored in pg_trigger.tgconstrindid)
-- : OID of the trigger function (0 to use stmt->funcname)
-- : OID of parent trigger for inheritance relationships
-- : Pre-transformed WHEN expression (overrides stmt->whenClause)
-- : Whether this is an internally-generated trigger
-- : Indicates recursive call for partition triggers
-
+- `*stmt`: CreateTrigStmt structure containing the parsed CREATE TRIGGER statement
+- `*queryString`: Source text of the CREATE TRIGGER command (required if whenClause is specified)
+- `relOid`: OID of the relation on which to create the trigger (0 to look up by name)
+- `refRelOid`: OID of the constraint reference relation (0 to look up by name)
+- `constraintOid`: OID of the constraint this trigger implements (0 for user triggers)
+- `indexOid`: OID of associated constraint index (stored in pg_trigger.tgconstrindid)
+- `funcoid`: OID of the trigger function (0 to use stmt->funcname)
+- `parentTriggerOid`: OID of parent trigger for inheritance relationships
+- `*whenClause`: Pre-transformed WHEN expression (overrides stmt->whenClause)
+- `isInternal`: Whether this is an internally-generated trigger
+- `in_partition`: Indicates recursive call for partition triggers
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CreateTriggerFiringOn](CreateTriggerFiringOn.md)

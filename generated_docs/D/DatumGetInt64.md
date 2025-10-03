@@ -20,8 +20,7 @@ On platforms where 64-bit integers can be passed by value (USE_FLOAT8_BYVAL is d
 This abstraction allows the same code to work correctly across different platforms with varying capabilities for handling 64-bit values, making PostgreSQL portable across 32-bit and 64-bit architectures.
 
 ## Parameters / Member Variables
-- : A Datum containing a 64-bit signed integer value to be extracted
-
+- `X`: A Datum containing a 64-bit signed integer value to be extracted
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DatumGetPointer](DatumGetPointer.md) (on pass-by-reference platforms)

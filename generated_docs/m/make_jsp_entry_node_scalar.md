@@ -18,9 +18,8 @@ This function serves as a convenience wrapper that combines two operations: conv
 This is commonly used in JSONB GIN index extraction to create indexable nodes from scalar values found within JSONB documents, ensuring they are properly formatted for efficient searching.
 
 ## Parameters / Member Variables
-- : Pointer to JsonbValue containing the scalar value to be indexed (string, number, boolean, or null)
-- : Boolean flag indicating whether this scalar represents a JSON object key (true) or a value (false)
-
+- `*scalar`: Pointer to JsonbValue containing the scalar value to be indexed (string, number, boolean, or null)
+- `iskey`: Boolean flag indicating whether this scalar represents a JSON object key (true) or a value (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [make_jsp_entry_node](make_jsp_entry_node.md) (creates the JsonPathGinNode wrapper)

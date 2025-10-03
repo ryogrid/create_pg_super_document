@@ -19,7 +19,6 @@ The function works by checking the global variable `numTempTableSpaces`, which i
 This is a lightweight utility function that enables proper coordination between the file descriptor management system and the tablespace management system.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

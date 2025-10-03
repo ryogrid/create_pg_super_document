@@ -18,9 +18,8 @@ This function creates a filtered copy of a source file, specifically designed to
 The function processes the input file line by line, detecting lines that start with "#line " and then removing any leading path components (sequences of '.' and '/') from the quoted filename portion of the directive. This normalization is crucial for regression testing where build paths may vary between environments.
 
 ## Parameters / Member Variables
-- : Input source file path to be filtered
-- : Output file path where the filtered content will be written
-
+- `*sourcefile`: Input source file path to be filtered
+- `*outfile`: Output file path where the filtered content will be written
 ## Dependencies
 - Functions called/Symbols referenced:
   - fopen (for file I/O operations)

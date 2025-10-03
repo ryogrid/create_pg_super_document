@@ -20,12 +20,11 @@ This function serves as a callback for  to determine if a specific EquivalenceCl
 For btree indexes, the function enforces strict opfamily compatibility since no clause generated from an incompatible EC could be used with the index. For non-btree indexes, opfamily checking is skipped due to the difficulty of determining clause compatibility, though this may result in false positives that require later verification.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing global query information
-- : RelOptInfo structure representing the relation
-- : EquivalenceClass being tested for compatibility
-- : EquivalenceMember within the equivalence class to test
-- : Void pointer to ec_member_matches_arg structure containing index and column information
-
+- `*root`: PlannerInfo structure containing global query information
+- `*rel`: RelOptInfo structure representing the relation
+- `*ec`: EquivalenceClass being tested for compatibility
+- `*em`: EquivalenceMember within the equivalence class to test
+- `*arg`: Void pointer to ec_member_matches_arg structure containing index and column information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_member_oid](../l/list_member_oid.md)

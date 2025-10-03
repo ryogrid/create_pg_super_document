@@ -19,11 +19,10 @@ This static function is a specialized permission checker for INSERT and UPDATE o
 The function prevents whole-row updates by explicitly checking for InvalidAttrNumber and throwing an error if encountered, as whole-row updates are not implemented in PostgreSQL.
 
 ## Parameters / Member Variables
-- : OID of the relation being checked
-- : User ID to check permissions for
-- : Bitmap of columns that are being modified (inserted or updated)
-- : The specific permission being checked (ACL_INSERT or ACL_UPDATE)
-
+- `relOid`: OID of the relation being checked
+- `userid`: User ID to check permissions for
+- `*modifiedCols`: Bitmap of columns that are being modified (inserted or updated)
+- `requiredPerms`: The specific permission being checked (ACL_INSERT or ACL_UPDATE)
 ## Dependencies
 - Functions called/Symbols referenced:
   - bms_is_empty

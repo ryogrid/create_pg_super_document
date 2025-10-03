@@ -16,9 +16,8 @@ recordAdditionalCatalogID(CatalogId catId, DumpableObject *dobj)
 This function is part of pg_dump's internal catalog ID management system. It associates an additional catalog ID with an existing DumpableObject by inserting or updating an entry in the global catalogIdHash table. The function ensures that each CatalogId maps to exactly one DumpableObject, with assertions to verify the integrity of these mappings. This is crucial for pg_dump's ability to track database objects and their relationships during the dump process.
 
 ## Parameters / Member Variables
-- : The CatalogId to be recorded, representing a unique identifier for a catalog object
-- : Pointer to the DumpableObject that should be associated with this catalog ID
-
+- `catId`: The CatalogId to be recorded, representing a unique identifier for a catalog object
+- `*dobj`: Pointer to the DumpableObject that should be associated with this catalog ID
 ## Dependencies
 - Functions called/Symbols referenced:
   - catalogid_insert (for hash table insertion)

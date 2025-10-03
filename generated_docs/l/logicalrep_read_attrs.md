@@ -22,9 +22,8 @@ This function parses attribute metadata from a logical replication protocol mess
 The function allocates memory for attribute arrays and populates the LogicalRepRelation structure with the parsed information. Attributes marked with the LOGICALREP_IS_REPLICA_IDENTITY flag are added to a bitmap set for efficient tracking of replica identity columns.
 
 ## Parameters / Member Variables
-- : StringInfo buffer containing the incoming logical replication message data
-- : Pointer to LogicalRepRelation structure to be populated with attribute metadata
-
+- `in`: StringInfo buffer containing the incoming logical replication message data
+- `*rel`: Pointer to LogicalRepRelation structure to be populated with attribute metadata
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pq_getmsgint](../p/pq_getmsgint.md) (extract integer values from message)

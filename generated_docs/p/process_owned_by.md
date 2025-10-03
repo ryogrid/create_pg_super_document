@@ -24,10 +24,9 @@ The  function handles the OWNED BY clause in sequence operations, which establis
 The function supports two dependency types: DEPENDENCY_AUTO for regular sequences and DEPENDENCY_INTERNAL for identity sequences.
 
 ## Parameters / Member Variables
-- : The sequence relation being modified
-- : List containing either "none" or table.column specification
-- : Boolean flag indicating if this is for an identity sequence (determines dependency type)
-
+- `seqrel`: The sequence relation being modified
+- `*owned_by`: List containing either "none" or table.column specification
+- `for_identity`: Boolean flag indicating if this is for an identity sequence (determines dependency type)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_length](../l/list_length.md)

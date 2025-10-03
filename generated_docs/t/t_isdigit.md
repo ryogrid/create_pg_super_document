@@ -18,8 +18,7 @@ This function provides locale-aware digit detection for PostgreSQL's text search
 The function is part of PostgreSQL's text search locale handling infrastructure, ensuring that digit classification works correctly across different character encodings and locales.
 
 ## Parameters / Member Variables
-- : Pointer to the character string to test for digit classification
-
+- `*ptr`: Pointer to the character string to test for digit classification
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_mblen](../p/pg_mblen.md)

@@ -22,7 +22,6 @@ The function performs a two-phase reset operation:
 This comprehensive approach ensures that no stale or potentially corrupted statistics remain in memory after a failure, allowing PostgreSQL to continue operating with a clean statistics slate.
 
 ## Parameters / Member Variables
-This function takes no parameters and operates on global statistics state.
 
 ## Dependencies
 - Functions called/Symbols referenced:

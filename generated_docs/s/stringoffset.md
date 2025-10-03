@@ -23,9 +23,8 @@ The function automatically handles negative offsets by prepending a minus sign. 
 The function includes validation to prevent extremely large offsets (>= HOURSPERDAY * DAYSPERWEEK hours) that would be unrealistic for timezone purposes, returning an empty string in such cases.
 
 ## Parameters / Member Variables
-- : Output buffer where the formatted offset string will be written
-- : The timezone offset in seconds (positive or negative)
-
+- `*result`: Output buffer where the formatted offset string will be written
+- `offset`: The timezone offset in seconds (positive or negative)
 ## Dependencies
 - Functions called/Symbols referenced:
   - zic_t (timezone calculation type)

@@ -18,10 +18,9 @@ PQgetvalue is a fundamental function in libpq for extracting data from query res
 The returned value is a null-terminated string representation of the field data. For binary format results, this would be the binary data, but most commonly it returns text representations. The returned pointer points to storage within the PGresult structure and should not be freed by the caller.
 
 ## Parameters / Member Variables
-- : Pointer to the PGresult structure containing the query results
-- : Zero-based row number (tuple index) to retrieve data from
-- : Zero-based column number (field index) to retrieve data from
-
+- `*res`: Pointer to the PGresult structure containing the query results
+- `tup_num`: Zero-based row number (tuple index) to retrieve data from
+- `field_num`: Zero-based column number (field index) to retrieve data from
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_tuple_field_number](../c/check_tuple_field_number.md)

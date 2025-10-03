@@ -20,8 +20,7 @@ This signature is primarily used by PostgreSQL's GiST (Generalized Search Tree) 
 The function iterates through all QueryItem elements in the TSQuery, but only processes value operands (QI_VAL), ignoring operators (QI_OPR). The resulting signature is a bitwise OR of all individual hash positions, creating a lossy but efficient representation of the query's content.
 
 ## Parameters / Member Variables
-- : The TSQuery object to create a signature for
-
+- `a`: The TSQuery object to create a signature for
 ## Dependencies
 - Functions called/Symbols referenced:
   - GETQUERY (macro to get QueryItem array from TSQuery)

@@ -18,8 +18,7 @@ This function implements the Windows-specific signal handling mechanism for Post
 The named pipe is created with duplex access, message-type communication, and supports unlimited instances. It uses a standardized naming convention that includes the process ID to ensure uniqueness across different PostgreSQL processes.
 
 ## Parameters / Member Variables
-- : The process ID for which to create the signal listener pipe. This PID is incorporated into the pipe name to ensure uniqueness.
-
+- `pid`: The process ID for which to create the signal listener pipe. This PID is incorporated into the pipe name to ensure uniqueness.
 ## Dependencies
 - Functions called/Symbols referenced:
   - CreateNamedPipe (Windows API)

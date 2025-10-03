@@ -20,9 +20,8 @@ The function searches for an unconnected slot in the slots array and assigns the
 The connection's parameters (user, host, port, etc.) should match those configured for the slots array, except possibly the database name. If parameters differ, the behavior is undefined.
 
 ## Parameters / Member Variables
-- : Pointer to the ParallelSlotArray structure that will adopt the connection
-- : The established PGconn database connection to be adopted by the slots array
-
+- `*sa`: Pointer to the ParallelSlotArray structure that will adopt the connection
+- `*conn`: The established PGconn database connection to be adopted by the slots array
 ## Dependencies
 - Functions called/Symbols referenced:
   - [find_unconnected_slot](../f/find_unconnected_slot.md)

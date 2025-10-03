@@ -25,9 +25,8 @@ The  function creates and initializes a new shared memory statistics entry for P
 The function ensures atomicity by holding the dshash partition lock during initialization, preventing the entry from being found or accessed until fully initialized.
 
 ## Parameters / Member Variables
-- : The type of statistics entry being created (PgStat_Kind), which determines the size and structure of the allocated memory
-- : Pointer to the shared hash entry that will contain the reference to the newly initialized statistics entry
-
+- `kind`: The type of statistics entry being created (PgStat_Kind), which determines the size and structure of the allocated memory
+- `*shhashent`: Pointer to the shared hash entry that will contain the reference to the newly initialized statistics entry
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_atomic_init_u32](pg_atomic_init_u32.md)

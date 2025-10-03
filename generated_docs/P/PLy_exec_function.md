@@ -25,9 +25,8 @@ This function serves as the core execution handler for PL/Python functions and p
 The function uses PostgreSQL's exception handling mechanism (PG_TRY/PG_CATCH) to ensure proper cleanup in case of errors, and implements a state machine approach for set-returning functions to maintain iteration state across multiple calls.
 
 ## Parameters / Member Variables
-- : FunctionCallInfo structure containing function call context, arguments, and return information
-- : PLyProcedure structure containing the compiled Python procedure information and metadata
-
+- `fcinfo`: FunctionCallInfo structure containing function call context, arguments, and return information
+- `*proc`: PLyProcedure structure containing the compiled Python procedure information and metadata
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PLy_global_args_push](PLy_global_args_push.md)/PLy_global_args_pop

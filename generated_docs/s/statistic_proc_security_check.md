@@ -21,9 +21,8 @@ This function implements a security check that prevents unauthorized access to s
 This mechanism prevents potential information leakage where statistical data could reveal information about table contents to users who don't have permission to see the actual data.
 
 ## Parameters / Member Variables
-- : VariableStatData structure containing statistical information and access control metadata (specifically the acl_ok field)
-- : Object identifier of the function that wants to access the statistical data
-
+- `*vardata`: VariableStatData structure containing statistical information and access control metadata (specifically the acl_ok field)
+- `func_oid`: Object identifier of the function that wants to access the statistical data
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_func_leakproof](../g/get_func_leakproof.md) (check if function is marked as leak-proof)

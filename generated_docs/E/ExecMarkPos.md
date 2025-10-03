@@ -27,8 +27,7 @@ The function operates by examining the node type and calling the appropriate nod
 The mark/restore capability is specifically designed for nodes that can produce sorted output, as MergeJoin requires sorted input streams. Node types that cannot produce sorted output typically don't need this functionality, and if mark/restore is required but not supported, the planner compensates by inserting a Material node.
 
 ## Parameters / Member Variables
-- : Pointer to the PlanState node where the current position should be marked. The node must be of a type that supports mark/restore operations.
-
+- `*node`: Pointer to the PlanState node where the current position should be marked. The node must be of a type that supports mark/restore operations.
 ## Dependencies
 - Functions called/Symbols referenced:
   - nodeTag (node type identification)

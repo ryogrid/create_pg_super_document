@@ -22,14 +22,13 @@ init_custom_variable(const char *name,
 This internal function serves as the common initialization routine for all DefineCustomXXXVariable functions. It allocates memory for a new custom GUC variable's configuration structure and fills in the generic fields that are common to all variable types. The function performs several validation checks to ensure custom variables are created safely and securely, including restrictions on PGC_POSTMASTER variables (must be created during shared library preload) and security restrictions on certain pljava variables.
 
 ## Parameters / Member Variables
-- : The name of the custom GUC variable
-- : Brief description of the variable
-- : Detailed description of the variable (can be NULL)
-- : GUC context level (determines who can set the variable)
-- : Bitfield of GUC flags controlling variable behavior
-- : The configuration type enum (bool, int, real, string, enum)
-- : Size of the specific config structure to allocate
-
+- `*name`: The name of the custom GUC variable
+- `*short_desc`: Brief description of the variable
+- `*long_desc`: Detailed description of the variable (can be NULL)
+- `context`: GUC context level (determines who can set the variable)
+- `flags`: Bitfield of GUC flags controlling variable behavior
+- `type`: The configuration type enum (bool, int, real, string, enum)
+- `sz`: Size of the specific config structure to allocate
 ## Dependencies
 - Functions called/Symbols referenced:
   - [guc_malloc](../g/guc_malloc.md)

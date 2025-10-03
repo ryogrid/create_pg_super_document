@@ -18,9 +18,8 @@ This function provides a robust string-to-integer conversion with comprehensive 
 The function uses unsigned arithmetic internally to correctly handle the full range of 32-bit signed integers, including the most negative value that cannot be represented as a positive number in two's complement representation.
 
 ## Parameters / Member Variables
-- : Input string containing the integer representation to convert
-- : Error context node for soft error handling; if NULL, errors are thrown via ereport()
-
+- `*s`: Input string containing the integer representation to convert
+- `*escontext`: Error context node for soft error handling; if NULL, errors are thrown via ereport()
 ## Dependencies
 - Functions called/Symbols referenced:
   - likely (branch prediction macro)

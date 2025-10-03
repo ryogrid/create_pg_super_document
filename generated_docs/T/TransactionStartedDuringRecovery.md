@@ -18,7 +18,6 @@ This function provides a way to check if the currently active transaction began 
 The function is particularly important because recovery mode might have completed since the transaction started, meaning that  could return false even though this transaction was initiated during recovery. This distinction is crucial for maintaining proper transaction semantics and ensuring that operations behave correctly based on the recovery state at transaction start time.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

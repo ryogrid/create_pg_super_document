@@ -18,8 +18,7 @@ TrimTrailingZeros is a utility function that removes unnecessary trailing zeros 
 The function works by scanning backwards from the end of the string, removing '0' characters until it encounters either a non-zero digit or reaches a position where only 2 fractional digits would remain (indicated by checking if the character 3 positions back is a decimal point).
 
 ## Parameters / Member Variables
-- : Null-terminated string containing a numeric value that may have trailing zeros to be removed
-
+- `*str`: Null-terminated string containing a numeric value that may have trailing zeros to be removed
 ## Dependencies
 - Functions called/Symbols referenced:
   - strlen (standard C library function for string length)

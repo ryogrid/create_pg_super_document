@@ -20,14 +20,13 @@ This function serves as a simple wrapper around Do_MultiXactIdWait with blocking
 The function unconditionally waits (blocking mode) and returns the count of remaining active members, including any non-aborted subtransactions from the current transaction. This count helps callers determine if further action is needed after the wait completes.
 
 ## Parameters / Member Variables
-- : The multixact ID to wait for
-- : The lock status being requested to determine conflicts
-- : Tuple header information mask for optimization
-- : Relation for error context information
-- : Tuple identifier for error context
-- : Operation type for error context and logging
-- : Output parameter for count of remaining active members (can be NULL)
-
+- `multi`: The multixact ID to wait for
+- `status`: The lock status being requested to determine conflicts
+- `infomask`: Tuple header information mask for optimization
+- `rel`: Relation for error context information
+- `ctid`: Tuple identifier for error context
+- `oper`: Operation type for error context and logging
+- `*remaining`: Output parameter for count of remaining active members (can be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Do_MultiXactIdWait](../D/Do_MultiXactIdWait.md) (with nowait=false)

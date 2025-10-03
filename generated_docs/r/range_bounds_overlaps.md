@@ -18,12 +18,11 @@ range_bounds_overlaps(TypeCacheEntry *typcache,
 This function implements overlap detection logic for range intervals using boundary comparisons. It checks if two ranges defined by their lower and upper bounds have any overlapping portion. The function uses a two-way comparison approach: it checks if the lower bound of the first range falls within the second range, or if the lower bound of the second range falls within the first range. This is more efficient than constructing full range objects when only boundary information is needed for overlap detection.
 
 ## Parameters / Member Variables
-- : Type cache entry containing comparison functions and metadata for the range element type
-- : Lower boundary of the first range
-- : Upper boundary of the first range  
-- : Lower boundary of the second range
-- : Upper boundary of the second range
-
+- `*typcache`: Type cache entry containing comparison functions and metadata for the range element type
+- `*lower1`: Lower boundary of the first range
+- `*upper1`: Upper boundary of the first range
+- `*lower2`: Lower boundary of the second range
+- `*upper2`: Upper boundary of the second range
 ## Dependencies
 - Functions called/Symbols referenced:
   - [range_cmp_bounds](range_cmp_bounds.md) (used for boundary comparisons)

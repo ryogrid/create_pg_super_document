@@ -18,10 +18,9 @@ prepare_sql_fn_parse_info(HeapTuple procedureTuple,
 This function creates and initializes a SQLFunctionParseInfo structure that contains all the necessary information for parsing and executing SQL function bodies. The function extracts function metadata from the pg_proc system catalog entry, resolves polymorphic argument types using the provided call expression, and collects argument names and types. This preparation is essential for the SQL function parser to correctly handle parameter references and type checking within the function body.
 
 ## Parameters / Member Variables
-- : HeapTuple containing the pg_proc catalog entry for the function
-- : Node representing the function call expression (can be NULL, but will fail if polymorphic arguments exist)
-- : Oid specifying the input collation to use for the function
-
+- `procedureTuple`: HeapTuple containing the pg_proc catalog entry for the function
+- `*call_expr`: Node representing the function call expression (can be NULL, but will fail if polymorphic arguments exist)
+- `inputCollation`: Oid specifying the input collation to use for the function
 ## Dependencies
 - Functions called/Symbols referenced:
   - SQLFunctionParseInfoPtr

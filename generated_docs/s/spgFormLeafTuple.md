@@ -29,11 +29,10 @@ Key aspects of the tuple formation process:
 5. **Minimum size enforcement**: Ensures the tuple meets minimum size requirements for future dead tuple replacement.
 
 ## Parameters / Member Variables
-- : SpGistState structure containing index configuration and type descriptors
-- : ItemPointer referencing the corresponding heap tuple
-- : Array of Datum values for each indexed attribute
-- : Array of boolean flags indicating which attributes are null
-
+- `*state`: SpGistState structure containing index configuration and type descriptors
+- `heapPtr`: ItemPointer referencing the corresponding heap tuple
+- `*datums`: Array of Datum values for each indexed attribute
+- `*isnulls`: Array of boolean flags indicating which attributes are null
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SpGistState](../S/SpGistState.md) (index state structure)

@@ -16,10 +16,9 @@ pg_sha256_update(pg_sha256_ctx *context, const uint8 *data, size_t len)
 pg_sha256_update is the core function for feeding data into a SHA-256 hash computation. It handles the complexity of buffering input data until complete 512-bit (64-byte) blocks are available for processing. The function operates in three phases: first, it fills any partially used buffer from previous calls; second, it processes complete blocks directly from the input data; and third, it buffers any remaining incomplete block for future processing. The function maintains an accurate bit count of all processed data and efficiently handles data of any size, from single bytes to large streams. This design allows for optimal performance while maintaining the strict block-based requirements of the SHA-256 algorithm.
 
 ## Parameters / Member Variables
-- : Pointer to the pg_sha256_ctx structure maintaining the hash state and buffer
-- : Pointer to the input data to be hashed 
-- : Number of bytes of input data to process
-
+- `*context`: Pointer to the pg_sha256_ctx structure maintaining the hash state and buffer
+- `*data`: Pointer to the input data to be hashed
+- `len`: Number of bytes of input data to process
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_sha256_ctx](pg_sha256_ctx.md) (context structure type)

@@ -21,10 +21,9 @@ The function is simple but crucial - it checks if there are any AFTER STATEMENT 
 The function also passes information about updated columns and transition capture state, allowing triggers to access comprehensive information about the UPDATE operation.
 
 ## Parameters / Member Variables
-- : Executor state containing execution context and memory management information
-- : ResultRelInfo containing relation metadata and trigger information (must be the root relation, not a partition)  
-- : State for capturing tuples into OLD and NEW transition tables for trigger access
-
+- `*estate`: Executor state containing execution context and memory management information
+- `*relinfo`: ResultRelInfo containing relation metadata and trigger information (must be the root relation, not a partition)
+- `*transition_capture`: State for capturing tuples into OLD and NEW transition tables for trigger access
 ## Dependencies
 - Functions called/Symbols referenced:
   - [AfterTriggerSaveEvent](../A/AfterTriggerSaveEvent.md)

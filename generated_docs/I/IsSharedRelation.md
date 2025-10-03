@@ -16,8 +16,7 @@ IsSharedRelation(Oid relationId)
 This function checks if a relation is shared across the entire database cluster rather than being specific to a single database. Shared relations include system catalogs that contain cluster-wide information (like roles, databases, tablespaces) and their associated indexes and TOAST tables. The function uses a hard-coded list of OIDs for performance and locking reasons. While MVCC catalog access has reduced some race conditions that originally required this approach, the current implementation avoids potential complexity and performance issues that could arise from dynamically checking the pg_class.relisshared field.
 
 ## Parameters / Member Variables
-- : The OID of the relation to check
-
+- `relationId`: The OID of the relation to check
 ## Dependencies
 - Functions called/Symbols referenced: None (uses only OID constant comparisons)
 - Called from (representative examples):

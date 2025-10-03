@@ -18,9 +18,8 @@ TransferExpandedObject is a utility function that manages memory context ownersh
 The function performs ownership transfer by changing the parent memory context of the expanded object header's context, ensuring proper memory management hierarchy within PostgreSQL's memory context system.
 
 ## Parameters / Member Variables
-- : A Datum containing a read-write pointer to the expanded object to be transferred
-- : The target MemoryContext that will become the new parent for the expanded object
-
+- `d`: A Datum containing a read-write pointer to the expanded object to be transferred
+- `new_parent`: The target MemoryContext that will become the new parent for the expanded object
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DatumGetEOHP](../D/DatumGetEOHP.md)

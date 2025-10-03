@@ -20,6 +20,7 @@ The calculation uses safe arithmetic functions (mul_size, add_size) to prevent i
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [NumLWLocksForNamedTranches](../N/NumLWLocksForNamedTranches.md)

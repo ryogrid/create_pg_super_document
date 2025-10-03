@@ -25,10 +25,9 @@ Key features include:
 The function uses  for actual data transmission, which provides SSL/TLS encryption support when configured. It includes critical safety measures to prevent recursive errors and stack overflow during error reporting.
 
 ## Parameters / Member Variables
-- : Pointer to the buffer containing data to be sent
-- : Pointer to the starting offset within the buffer (updated as data is sent)
-- : Pointer to the ending offset within the buffer (marks end of valid data)
-
+- `*buf`: Pointer to the buffer containing data to be sent
+- `*start`: Pointer to the starting offset within the buffer (updated as data is sent)
+- `*end`: Pointer to the ending offset within the buffer (marks end of valid data)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [secure_write](../s/secure_write.md) (encrypted/secure data transmission)

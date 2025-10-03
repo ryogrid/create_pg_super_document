@@ -23,8 +23,7 @@ The function is designed to be robust and safe:
 This design allows the caller to use PG_TRY blocks around the start_vacuum operation while ensuring cleanup always succeeds.
 
 ## Parameters / Member Variables
-- : The B-tree index relation for which VACUUM is ending
-
+- `rel`: The B-tree index relation for which VACUUM is ending
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockAcquire](../L/LWLockAcquire.md) (with BtreeVacuumLock)

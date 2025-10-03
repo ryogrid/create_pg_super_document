@@ -16,10 +16,9 @@ buildDefItem(const char *name, const char *val, bool was_quoted)
 This function creates a DefElem (Definition Element) structure from a name-value pair extracted during parameter parsing. It performs intelligent type detection by attempting to parse unquoted values as integers, floats, or booleans before falling back to string representation. Quoted values are always treated as strings to preserve their exact textual representation. This function is essential for reconstructing structured configuration data from serialized text formats.
 
 ## Parameters / Member Variables
-- : The parameter name/key as a null-terminated string
-- : The parameter value as a null-terminated string  
-- : Boolean flag indicating whether the original value was enclosed in quotes
-
+- `*name`: The parameter name/key as a null-terminated string
+- `*val`: The parameter value as a null-terminated string
+- `was_quoted`: Boolean flag indicating whether the original value was enclosed in quotes
 ## Dependencies
 - Functions called/Symbols referenced:
   - [strtoint](../s/strtoint.md)

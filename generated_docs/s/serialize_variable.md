@@ -21,10 +21,9 @@ The function first checks if the GUC variable can be skipped using . For variabl
 Additionally, the function serializes metadata including the source file path, source line number (if applicable), source type, source context, and the role that set the variable.
 
 ## Parameters / Member Variables
-- : Pointer to destination buffer pointer that gets updated as data is written
-- : Pointer to remaining buffer size that gets decremented as data is written  
-- : Generic configuration structure containing the GUC variable to serialize
-
+- `**destptr`: Pointer to destination buffer pointer that gets updated as data is written
+- `*maxbytes`: Pointer to remaining buffer size that gets decremented as data is written
+- `*gconf`: Generic configuration structure containing the GUC variable to serialize
 ## Dependencies
 - Functions called/Symbols referenced:
   - [can_skip_gucvar](../c/can_skip_gucvar.md)

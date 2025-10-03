@@ -17,7 +17,6 @@ This function manages the parallel mode state within a PostgreSQL transaction by
 The function performs a simple increment operation on the parallel mode level counter, which tracks how deeply nested the current transaction is in parallel execution contexts. This counter-based approach allows for proper nesting of parallel operations and ensures that parallel mode is only fully exited when all parallel contexts have been properly unwound.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

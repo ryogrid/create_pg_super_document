@@ -18,9 +18,8 @@ This static function performs a two-phase operation on GIN posting tree leaf pag
 The function uses a temporary memory context (gvs->tmpCxt) for each leaf page vacuum operation, which is reset after processing each page to prevent memory bloat during long vacuum operations. It employs careful locking strategies, starting with shared locks during tree descent and upgrading to exclusive locks for actual vacuuming.
 
 ## Parameters / Member Variables
-- : GinVacuumState containing index context, temporary memory context, buffer strategy, and vacuum state
-- : Block number of the root or starting page of the posting tree to begin traversal
-
+- `*gvs`: GinVacuumState containing index context, temporary memory context, buffer strategy, and vacuum state
+- `blkno`: Block number of the root or starting page of the posting tree to begin traversal
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReadBufferExtended](../R/ReadBufferExtended.md) (read pages into buffers)

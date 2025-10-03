@@ -18,9 +18,8 @@ SPI_fnumber searches through a tuple descriptor to find the attribute number cor
 This function is essential for dynamic attribute access in stored procedures and trigger functions where attribute positions may not be known at compile time. It handles dropped attributes correctly by skipping them during the search.
 
 ## Parameters / Member Variables
-- : The TupleDesc structure containing attribute information for the tuple
-- : The name of the attribute to look up (null-terminated string)
-
+- `tupdesc`: The TupleDesc structure containing attribute information for the tuple
+- `*fname`: The name of the attribute to look up (null-terminated string)
 ## Dependencies
 - Functions called/Symbols referenced:
   - TupleDescAttr (macro for accessing tuple descriptor attributes)

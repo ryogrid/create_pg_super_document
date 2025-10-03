@@ -25,6 +25,7 @@ The function requires XSAVE intrinsics to be available and returns false if they
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - `_xgetbv()` (XSAVE intrinsic for reading extended control registers)

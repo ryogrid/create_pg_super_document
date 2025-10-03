@@ -16,10 +16,9 @@ initClosestMatch(ClosestMatchState *state, const char *source, int max_d)
 This function initializes a ClosestMatchState structure that is used to track the closest matching string to a given source string using Levenshtein distance calculations. It's part of PostgreSQL's fuzzy string matching system, commonly used to provide "did you mean?" suggestions in error messages when users provide invalid option names, function names, or other identifiers. The function sets up the initial state with the source string to match against and the maximum acceptable distance for matches.
 
 ## Parameters / Member Variables
-- : Pointer to ClosestMatchState structure to initialize
-- : The source string to find matches for
-- : Maximum Levenshtein distance to consider for matches (must be >= 0)
-
+- `*state`: Pointer to ClosestMatchState structure to initialize
+- `*source`: The source string to find matches for
+- `max_d`: Maximum Levenshtein distance to consider for matches (must be >= 0)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ClosestMatchState](../C/ClosestMatchState.md) (struct type)

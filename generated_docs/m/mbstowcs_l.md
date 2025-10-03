@@ -16,11 +16,10 @@ mbstowcs_l(wchar_t *dest, const char *src, size_t n, locale_t loc)
 This function provides a portable implementation of locale-specific multibyte to wide character conversion. On Windows, it directly uses the system's  function. On other platforms, it temporarily switches to the specified locale using , performs the conversion with standard , then restores the original locale. This ensures thread-safe locale-specific character conversion across different operating systems.
 
 ## Parameters / Member Variables
-- : Pointer to the destination wide character array where converted characters will be stored
-- : Pointer to the source multibyte character string to be converted  
-- : Maximum number of wide characters to write to the destination array
-- : The locale to use for the conversion
-
+- `*dest`: Pointer to the destination wide character array where converted characters will be stored
+- `*src`: Pointer to the source multibyte character string to be converted
+- `n`: Maximum number of wide characters to write to the destination array
+- `loc`: The locale to use for the conversion
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (Windows only)

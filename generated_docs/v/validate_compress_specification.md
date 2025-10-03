@@ -32,8 +32,7 @@ Advanced features validation:
 - Long-distance mode: Only supported by ZSTD algorithm
 
 ## Parameters / Member Variables
-- : Pointer to pg_compress_specification structure containing the parsed compression specification to validate
-
+- `*spec`: Pointer to pg_compress_specification structure containing the parsed compression specification to validate
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_compress_algorithm_name](../g/get_compress_algorithm_name.md)

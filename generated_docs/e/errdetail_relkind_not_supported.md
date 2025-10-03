@@ -18,8 +18,7 @@ This function provides standardized error detail messages for operations that ca
 The function uses a switch statement to map each RELKIND constant to a specific error message, ensuring that users receive clear feedback about why their operation failed. If an unrecognized relkind is passed, it raises an ERROR-level log message.
 
 ## Parameters / Member Variables
-- : A character constant representing the type of relation (table, index, view, etc.) using PostgreSQL's RELKIND_* constants
-
+- `relkind`: A character constant representing the type of relation (table, index, view, etc.) using PostgreSQL's RELKIND_* constants
 ## Dependencies
 - Functions called/Symbols referenced:
   - [errdetail](errdetail.md) (for generating error detail messages)

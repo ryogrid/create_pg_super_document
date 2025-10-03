@@ -18,9 +18,8 @@ This function implements the low-level atomic fetch-and-OR operation for 64-bit 
 The function is marked as  for performance, allowing the compiler to inline the call and optimize it directly to the underlying hardware atomic instruction when possible.
 
 ## Parameters / Member Variables
-- : Pointer to the atomic 64-bit unsigned integer variable to be modified
-- : The value to be bitwise ORed with the current value
-
+- `*ptr`: Pointer to the atomic 64-bit unsigned integer variable to be modified
+- `or_`: The value to be bitwise ORed with the current value
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (GCC builtin)

@@ -20,10 +20,9 @@ For aggregate functions with zero arguments, the function explicitly adds "(*)" 
 The function returns a dynamically allocated string that the caller is responsible for freeing.
 
 ## Parameters / Member Variables
-- : FuncInfo structure containing function metadata, particularly the function name
-- : Pre-formatted argument list string from pg_get_function_arguments
-- : Boolean flag indicating whether this is an aggregate function
-
+- `*finfo`: FuncInfo structure containing function metadata, particularly the function name
+- `*funcargs`: Pre-formatted argument list string from pg_get_function_arguments
+- `is_agg`: Boolean flag indicating whether this is an aggregate function
 ## Dependencies
 - Functions called/Symbols referenced:
   - [fmtId](fmtId.md)

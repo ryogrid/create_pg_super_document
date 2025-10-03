@@ -18,10 +18,9 @@ This function checks for membership in a multibitmapset, which is represented as
 The function first validates that both indices are non-negative, then checks if the list index is within bounds. If the list index is beyond the List's length, it returns false (indicating the member is not present). Otherwise, it retrieves the target Bitmapset and uses bms_is_member to check if the specified bit is set.
 
 ## Parameters / Member Variables
-- : Zero-based index of the List element (Bitmapset) to check
-- : Bit number to test within the target Bitmapset
-- : The List representing the multibitmapset to query (read-only)
-
+- `listidx`: Zero-based index of the List element (Bitmapset) to check
+- `bitidx`: Bit number to test within the target Bitmapset
+- `*a`: The List representing the multibitmapset to query (read-only)
 ## Dependencies
 - Functions called/Symbols referenced:
   - list_nth_node

@@ -20,9 +20,8 @@ The function uses PostgreSQL's system table scanning infrastructure to search fo
 The  parameter controls error handling behavior: when , the function throws an error if the database doesn't exist, making it suitable for operations that require the database to exist. When , it returns  for missing databases, allowing callers to handle the absence gracefully.
 
 ## Parameters / Member Variables
-- : The name of the database to look up
-- : If , throw an error for missing databases; if , return  instead
-
+- `*dbname`: The name of the database to look up
+- `missing_ok`: If , throw an error for missing databases; if , return  instead
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Open the pg_database system catalog

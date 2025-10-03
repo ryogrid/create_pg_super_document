@@ -29,10 +29,9 @@ The function includes important optimizations:
 The function returns NULL when no more tuples are available in the current batch, signaling the hash join algorithm to either process unmatched inner tuples (for outer joins) or advance to the next batch.
 
 ## Parameters / Member Variables
-- : The outer plan node to fetch tuples from (during first pass)
-- : The HashJoinState containing join execution state
-- : Output parameter to store the computed hash value of the returned tuple
-
+- `*outerNode`: The outer plan node to fetch tuples from (during first pass)
+- `*hjstate`: The HashJoinState containing join execution state
+- `*hashvalue`: Output parameter to store the computed hash value of the returned tuple
 ## Dependencies
 - Functions called/Symbols referenced:
   - TupIsNull: Checks if a tuple slot is empty

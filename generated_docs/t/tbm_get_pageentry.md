@@ -22,9 +22,8 @@ This function is a core internal utility for TID bitmap management that handles 
 When creating a new entry, the function initializes it as an exact (non-chunk) entry and updates the bitmap's entry and page counters. The function may cause the bitmap to exceed desired memory limits, requiring the caller to invoke tbm_lossify() when appropriate.
 
 ## Parameters / Member Variables
-- : Pointer to the TIDBitmap structure containing the page table
-- : Block number of the page for which to find or create an entry
-
+- `*tbm`: Pointer to the TIDBitmap structure containing the page table
+- `pageno`: Block number of the page for which to find or create an entry
 ## Dependencies
 - Functions called/Symbols referenced:
   - [tbm_create_pagetable](tbm_create_pagetable.md) (to transition from single-page to hash table mode)

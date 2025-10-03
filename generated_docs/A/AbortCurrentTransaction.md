@@ -21,6 +21,7 @@ This wrapper is essential for PostgreSQL's robust error handling and recovery me
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [AbortCurrentTransactionInternal](AbortCurrentTransactionInternal.md)

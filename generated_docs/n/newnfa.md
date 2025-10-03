@@ -18,10 +18,9 @@ newnfa(struct vars *v,
 The  function allocates and initializes a new NFA structure used in PostgreSQL's regular expression engine. It creates the basic infrastructure needed for pattern matching by setting up initial and final states, along with the necessary arcs and transitions. The function handles memory allocation, creates required states (post, pre, init, final), and establishes basic transitions including start-of-string (^) and end-of-string ($) anchors. If any error occurs during initialization, the function properly cleans up allocated memory using .
 
 ## Parameters / Member Variables
-- : Pointer to the vars structure containing regex compilation context and error handling
-- : Pointer to the colormap structure that manages character class mappings
-- : Pointer to parent NFA (NULL if this is the primary NFA), used for nested regex constructs
-
+- `*v`: Pointer to the vars structure containing regex compilation context and error handling
+- `*cm`: Pointer to the colormap structure that manages character class mappings
+- `*parent`: Pointer to parent NFA (NULL if this is the primary NFA), used for nested regex constructs
 ## Dependencies
 - Functions called/Symbols referenced:
   - MALLOC

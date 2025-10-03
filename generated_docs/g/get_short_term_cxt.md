@@ -18,8 +18,7 @@ This static function manages a dedicated memory context for short-term operation
 The function prevents memory leaks during domain constraint checking and detoasting operations by providing a dedicated space that can be easily cleaned up after each operation cycle.
 
 ## Parameters / Member Variables
-- : Pointer to the ExpandedRecordHeader that will own the short-term context
-
+- `*erh`: Pointer to the ExpandedRecordHeader that will own the short-term context
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetContextCreate

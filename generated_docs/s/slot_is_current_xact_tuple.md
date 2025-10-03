@@ -18,8 +18,7 @@ This inline function provides a uniform interface for checking whether the tuple
 The function is critical for transaction isolation and MVCC (Multi-Version Concurrency Control) operations, particularly when determining whether a tuple modification is allowed or when checking referential integrity constraints during foreign key operations.
 
 ## Parameters / Member Variables
-- : Pointer to a TupleTableSlot containing the tuple to check
-
+- `*slot`: Pointer to a TupleTableSlot containing the tuple to check
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TupleTableSlot](../T/TupleTableSlot.md) (struct type)

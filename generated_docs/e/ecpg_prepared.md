@@ -16,9 +16,8 @@ ecpg_prepared(const char *name, struct connection *con)
  provides a lookup mechanism to retrieve the original SQL command text from a prepared statement by its name within a specific database connection. The function searches through the connection's list of prepared statements to find the named statement and returns a pointer to the stored command string. This functionality is useful for debugging, logging, or when applications need to inspect the SQL commands associated with their prepared statements. The function returns a direct pointer to the internal command string, so the caller should not modify or free the returned memory.
 
 ## Parameters / Member Variables
-- : Name of the prepared statement whose command text should be retrieved
-- : Pointer to the database connection structure containing the prepared statements
-
+- `*name`: Name of the prepared statement whose command text should be retrieved
+- `*con`: Pointer to the database connection structure containing the prepared statements
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ecpg_find_prepared_statement](ecpg_find_prepared_statement.md) (locate the named prepared statement in the connection's list)

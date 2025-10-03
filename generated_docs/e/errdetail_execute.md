@@ -18,8 +18,7 @@ This function searches through a list of raw parse trees to find EXECUTE stateme
 The function iterates through the provided parse tree list, identifies EXECUTE statements, fetches the corresponding prepared statement, and adds the original query string as an error detail using the errdetail() function.
 
 ## Parameters / Member Variables
-- : List of RawStmt nodes representing the parsed SQL statements to examine for EXECUTE statements
-
+- `*raw_parsetree_list`: List of RawStmt nodes representing the parsed SQL statements to examine for EXECUTE statements
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RawStmt](../R/RawStmt.md) (parse tree node structure)

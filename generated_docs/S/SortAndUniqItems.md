@@ -23,9 +23,8 @@ The function operates in several phases:
 This preprocessing is essential for efficient query processing in text search ranking algorithms, as it eliminates redundant work and provides a predictable order for operand processing.
 
 ## Parameters / Member Variables
-- : The TSQuery structure to process
-- : Input/output parameter - initially contains the maximum number of items, returns the actual count of unique operands
-
+- `q`: The TSQuery structure to process
+- `*size`: Input/output parameter - initially contains the maximum number of items, returns the actual count of unique operands
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (macro to get operand string from TSQuery)

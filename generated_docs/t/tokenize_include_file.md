@@ -22,14 +22,13 @@ tokenize_include_file(const char *outer_filename,
 This function handles the inclusion of authentication configuration files within PostgreSQL's HBA system. It's used when processing "include", "include_if_exists", or "include_dir" directives in authentication configuration files. The function resolves the included file path relative to the outer file, opens it, and processes its entire contents by calling tokenize_auth_file. All new tokens are allocated in the dedicated tokenize_context memory context. The function provides flexible error handling - it can either require the included file to exist or optionally skip missing files based on the missing_ok parameter.
 
 ## Parameters / Member Variables
-- : Path of the file that contains the include directive (used for relative path resolution)
-- : Path of the file to be included (may be relative or absolute)
-- : Pointer to list of token lines where included file's tokens will be added
-- : Error reporting level for ereport calls (e.g., ERROR, LOG, WARNING)
-- : Current recursion depth for nested includes (prevents infinite recursion)
-- : If true, missing files are silently skipped; if false, missing files cause errors
-- : Pointer to store error message string if processing fails
-
+- `*outer_filename`: Path of the file that contains the include directive (used for relative path resolution)
+- `*inc_filename`: Path of the file to be included (may be relative or absolute)
+- `**tok_lines`: Pointer to list of token lines where included file's tokens will be added
+- `elevel`: Error reporting level for ereport calls (e.g., ERROR, LOG, WARNING)
+- `depth`: Current recursion depth for nested includes (prevents infinite recursion)
+- `missing_ok`: If true, missing files are silently skipped; if false, missing files cause errors
+- `**err_msg`: Pointer to store error message string if processing fails
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Resolves relative paths to absolute paths

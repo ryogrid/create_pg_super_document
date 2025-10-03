@@ -18,8 +18,7 @@ gather_readnext manages the complex task of reading tuples from multiple paralle
 The function maintains an array of active TupleQueueReader objects and tracks the current position with nextreader. When a worker completes, it's removed from the array using memmove, and the reader count is adjusted. The function includes an optimization where it continues reading from the same worker until that would require blocking, rather than advancing after every tuple, which proves more efficient in practice.
 
 ## Parameters / Member Variables
-- : The GatherState containing the array of active tuple queue readers and worker management state
-
+- `*gatherstate`: The GatherState containing the array of active tuple queue readers and worker management state
 ## Dependencies
 - Functions called/Symbols referenced:
   - CHECK_FOR_INTERRUPTS (allows query cancellation during worker communication)

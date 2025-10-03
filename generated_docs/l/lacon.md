@@ -29,11 +29,10 @@ The function includes important optimizations:
 - Efficient handling of both positive and negative assertions
 
 ## Parameters / Member Variables
-- : Pointer to the variables structure containing execution context and cached state
-- : Pointer to the parent compiled NFA structure
-- : Pointer to the character position where the constraint is being tested
-- : The "color" (identifier) of the lookaround constraint to evaluate
-
+- `*v`: Pointer to the variables structure containing execution context and cached state
+- `*pcnfa`: Pointer to the parent compiled NFA structure
+- `*cp`: Pointer to the character position where the constraint is being tested
+- `co`: The "color" (identifier) of the lookaround constraint to evaluate
 ## Dependencies
 - Functions called/Symbols referenced:
   - [getladfa](../g/getladfa.md) (retrieves the DFA for the lookaround constraint)

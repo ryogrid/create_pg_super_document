@@ -20,10 +20,9 @@ This function processes a list of database name patterns and expands them into a
 For each pattern provided, the function constructs and executes a SQL query that uses PostgreSQL's pattern matching capabilities. The function validates that database name patterns don't contain improper qualified names (dotted names) since database names should be simple identifiers. All matching database names are appended to the output list, with duplicate entries being acceptable since the list is only used for membership testing.
 
 ## Parameters / Member Variables
-- : Active PostgreSQL database connection used to execute queries
-- : Input list containing database name patterns to expand
-- : Output list where matching database names will be appended
-
+- `*conn`: Active PostgreSQL database connection used to execute queries
+- `*patterns`: Input list containing database name patterns to expand
+- `*names`: Output list where matching database names will be appended
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SimpleStringList](../S/SimpleStringList.md) (data structure)

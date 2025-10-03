@@ -23,8 +23,7 @@ This function safely converts a Perl SV to a C-style null-terminated string in P
 The function is specifically designed to handle Perl's quirks, such as SvPVutf8() croaking on certain object types like typeglobs and readonly objects (e.g., $^V).
 
 ## Parameters / Member Variables
-- : The Perl SV (scalar value) to convert to a C string
-
+- `*sv`: The Perl SV (scalar value) to convert to a C string
 ## Dependencies
 - Functions called/Symbols referenced:
   - dTHX (Perl threading context macro)

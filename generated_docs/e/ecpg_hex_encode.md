@@ -18,10 +18,9 @@ This function performs binary-to-hexadecimal encoding by converting each byte of
 The encoding process iterates through the source data, extracting the upper nibble using a right shift and bit mask operation , and the lower nibble using just a bit mask . Both nibbles are used as indices into the hexadecimal character table to produce the two-character hex representation of each byte.
 
 ## Parameters / Member Variables
-- : Pointer to the source binary data to be encoded
-- : Length of the source data in bytes
-- : Pointer to the destination buffer where hexadecimal string will be written (must be at least len*2 bytes)
-
+- `*src`: Pointer to the source binary data to be encoded
+- `len`: Length of the source data in bytes
+- `*dst`: Pointer to the destination buffer where hexadecimal string will be written (must be at least len*2 bytes)
 ## Dependencies
 - Functions called/Symbols referenced: (none - uses only basic C operations and static lookup table)
 - Called from (representative examples):

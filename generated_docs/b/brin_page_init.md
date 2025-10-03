@@ -20,9 +20,8 @@ This function is essential for creating new BRIN pages, whether they are regular
 The function is designed to be called during page extension, page creation, and WAL replay operations where new pages need to be properly initialized according to BRIN standards.
 
 ## Parameters / Member Variables
-- : Pointer to the page to be initialized
-- : The BRIN page type identifier (e.g., , , )
-
+- `page`: Pointer to the page to be initialized
+- `type`: The BRIN page type identifier (e.g., , , )
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Generic PostgreSQL page initialization function

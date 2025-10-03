@@ -25,9 +25,8 @@ The setup function prepares the pg_upgrade environment by performing critical in
 The function ensures that no postmaster processes interfere with the upgrade process, while allowing for "live check" mode where existing servers can remain running during validation.
 
 ## Parameters / Member Variables
-- : Path to the pg_upgrade executable (used to determine default binary directory)
-- : Pointer to boolean flag indicating if live servers are detected during check mode
-
+- `*argv0`: Path to the pg_upgrade executable (used to determine default binary directory)
+- `*live_check`: Pointer to boolean flag indicating if live servers are detected during check mode
 ## Dependencies
 - Functions called/Symbols referenced:
   - [check_pghost_envvar](../c/check_pghost_envvar.md) (environment validation)

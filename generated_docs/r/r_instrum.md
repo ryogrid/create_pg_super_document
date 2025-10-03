@@ -25,8 +25,7 @@ This function is part of the Hungarian stemmer that processes instrumental case 
 The function follows the standard Hungarian stemming rules where instrumental case markers are removed only when they appear in morphologically appropriate contexts.
 
 ## Parameters / Member Variables
-- : Pointer to the SN_env structure containing the word being processed, cursor positions, and string boundaries
-
+- `*z`: Pointer to the SN_env structure containing the word being processed, cursor positions, and string boundaries
 ## Dependencies
 - Functions called/Symbols referenced:
   - [find_among_b](../f/find_among_b.md) (searches for suffixes from array a_3 containing 'al', 'el')

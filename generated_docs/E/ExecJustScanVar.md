@@ -18,10 +18,9 @@ ExecJustScanVar is a specialized, optimized function designed to handle the simp
 The function serves as a thin wrapper around ExecJustVarImpl, specifically configured to extract values from the scan tuple (econtext->ecxt_scantuple). This optimization is particularly important for performance as variable references are extremely common in SQL queries.
 
 ## Parameters / Member Variables
-- : ExprState containing the expression evaluation state and step information
-- : ExprContext providing access to the various tuple slots (scan, inner, outer)
-- : Output parameter set to true if the retrieved value is NULL
-
+- `*state`: ExprState containing the expression evaluation state and step information
+- `*econtext`: ExprContext providing access to the various tuple slots (scan, inner, outer)
+- `*isnull`: Output parameter set to true if the retrieved value is NULL
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecJustVarImpl](ExecJustVarImpl.md)

@@ -18,8 +18,7 @@ This function analyzes a list of partition pruning steps to identify all executi
 This function is essential for determining which runtime parameters affect partition pruning decisions, which is crucial for query optimization and execution planning. The collected parameter IDs help the executor understand which partitions need to be re-evaluated when parameter values change.
 
 ## Parameters / Member Variables
-- : List of partition pruning steps (PartitionPruneStepOp structures) to analyze
-
+- `*steps`: List of partition pruning steps (PartitionPruneStepOp structures) to analyze
 ## Dependencies
 - Functions called/Symbols referenced:
   - foreach (macro for list iteration)

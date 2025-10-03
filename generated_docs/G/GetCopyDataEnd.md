@@ -18,10 +18,9 @@ This function serves as a validation mechanism to ensure that streaming replicat
 The function is designed as a simple but critical safety check in the pg_basebackup utility's data processing pipeline, helping to maintain data integrity during base backup operations.
 
 ## Parameters / Member Variables
-- : The total length of the received COPY data message in bytes
-- : Pointer to the buffer containing the COPY data message (used for error reporting)
-- : Current position/offset within the message after parsing, indicating how many bytes were consumed
-
+- `r`: The total length of the received COPY data message in bytes
+- `*copybuf`: Pointer to the buffer containing the COPY data message (used for error reporting)
+- `cursor`: Current position/offset within the message after parsing, indicating how many bytes were consumed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReportCopyDataParseError](../R/ReportCopyDataParseError.md)

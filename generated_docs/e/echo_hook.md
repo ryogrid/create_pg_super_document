@@ -24,8 +24,7 @@ The function performs case-insensitive comparison of the input string against va
 If an invalid value is provided, the function calls PsqlVarEnumError to display an appropriate error message and returns false to indicate validation failure.
 
 ## Parameters / Member Variables
-- : The string value being assigned to the ECHO variable that needs to be validated and converted to an enum value
-
+- `*newval`: The string value being assigned to the ECHO variable that needs to be validated and converted to an enum value
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_strcasecmp](../p/pg_strcasecmp.md)

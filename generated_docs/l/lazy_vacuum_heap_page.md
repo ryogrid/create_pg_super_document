@@ -22,13 +22,12 @@ After marking items as unused, it attempts to truncate the line pointer array if
 The function carefully manages the critical section to avoid doing complex operations (like visibility tests) while holding exclusive locks, which could lead to deadlocks or performance issues.
 
 ## Parameters / Member Variables
-- : LVRelState structure containing vacuum operation state and relation information
-- : Block number of the heap page being processed  
-- : Buffer containing the heap page, must be exclusively locked by caller
-- : Array of offset numbers for LP_DEAD items to be marked as LP_UNUSED
-- : Number of offsets in the deadoffsets array
-- : Buffer for the visibility map page, must be pinned by caller
-
+- `*vacrel`: LVRelState structure containing vacuum operation state and relation information
+- `blkno`: Block number of the heap page being processed
+- `buffer`: Buffer containing the heap page, must be exclusively locked by caller
+- `*deadoffsets`: Array of offset numbers for LP_DEAD items to be marked as LP_UNUSED
+- `num_offsets`: Number of offsets in the deadoffsets array
+- `vmbuffer`: Buffer for the visibility map page, must be pinned by caller
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pgstat_progress_update_param](../p/pgstat_progress_update_param.md)

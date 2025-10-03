@@ -20,9 +20,8 @@ The function uses a switch statement based on the expression  field to handle di
 After handling the kind-specific information, the function serializes the common fields present in all A_Expr nodes: the left expression, right expression, and location information for error reporting.
 
 ## Parameters / Member Variables
-- : StringInfo buffer where the serialized A_Expr representation will be written
-- : Pointer to the A_Expr structure to be serialized
-
+- `str`: StringInfo buffer where the serialized A_Expr representation will be written
+- `*node`: Pointer to the A_Expr structure to be serialized
 ## Dependencies
 - Functions called/Symbols referenced:
   - WRITE_NODE_TYPE

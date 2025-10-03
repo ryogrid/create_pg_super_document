@@ -18,9 +18,8 @@ The  function is responsible for dumping text search dictionary objects during a
 The function performs a database query to retrieve the template namespace and name from pg_ts_template and pg_namespace system catalogs to properly reference the dictionary's template in the dump output.
 
 ## Parameters / Member Variables
-- : Archive structure containing dump configuration and output methods
-- : TSDictInfo structure containing dictionary metadata including template OID, initialization options, and ownership information
-
+- `*fout`: Archive structure containing dump configuration and output methods
+- `*dictinfo`: TSDictInfo structure containing dictionary metadata including template OID, initialization options, and ownership information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [createPQExpBuffer](../c/createPQExpBuffer.md)

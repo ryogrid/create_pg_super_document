@@ -20,7 +20,6 @@ The function creates:
 2.  - A memory context specifically for hash table operations involving statistics entry references
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

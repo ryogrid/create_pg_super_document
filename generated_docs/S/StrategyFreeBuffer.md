@@ -20,8 +20,7 @@ The function implements a singly-linked list using the freeNext field in buffer 
 When adding a buffer to the free list, it becomes the new head (firstFreeBuffer), and the previous head becomes its successor. If the free list was empty before adding this buffer, it also updates lastFreeBuffer to point to this buffer since it becomes both the first and last element.
 
 ## Parameters / Member Variables
-- : Pointer to the BufferDesc structure to be added to the free list
-
+- `*buf`: Pointer to the BufferDesc structure to be added to the free list
 ## Dependencies
 - Functions called/Symbols referenced:
   - SpinLockAcquire

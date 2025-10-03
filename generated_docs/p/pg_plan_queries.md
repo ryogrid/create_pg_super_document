@@ -27,11 +27,10 @@ This function serves as a batch planning interface that processes multiple queri
 The function iterates through each query in the input list, determines the appropriate planning strategy, and builds a corresponding list of PlannedStmt nodes that can be executed by PostgreSQL's executor.
 
 ## Parameters / Member Variables
-- : List of rewritten Query structures ready for planning
-- : Original SQL query string for logging and error reporting
-- : Cursor-specific options affecting plan generation
-- : Parameter values for prepared statement planning
-
+- `*querytrees`: List of rewritten Query structures ready for planning
+- `*query_string`: Original SQL query string for logging and error reporting
+- `cursorOptions`: Cursor-specific options affecting plan generation
+- `boundParams`: Parameter values for prepared statement planning
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_plan_query](pg_plan_query.md)

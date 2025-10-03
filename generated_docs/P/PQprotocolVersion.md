@@ -18,8 +18,7 @@ This function extracts and returns the major protocol version number from an act
 The function uses the PG_PROTOCOL_MAJOR macro to extract the major version number from the connection's pversion field, which contains the full protocol version information.
 
 ## Parameters / Member Variables
-- : A pointer to the PGconn structure representing the database connection. Must not be NULL for valid results.
-
+- `*conn`: A pointer to the PGconn structure representing the database connection. Must not be NULL for valid results.
 ## Dependencies
 - Functions called/Symbols referenced:
   - CONNECTION_BAD (connection status constant)

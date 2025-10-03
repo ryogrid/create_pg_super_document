@@ -15,7 +15,6 @@ long get_stack_depth_rlimit(void)
 `get_stack_depth_rlimit` retrieves the system's stack size limit and caches the result for subsequent calls. The function handles platform differences by using POSIX `getrlimit` system call on Unix-like systems and a predefined constant on Windows. The implementation includes overflow protection and handles the special case of unlimited stack size by returning `LONG_MAX`. The result is cached since stack limits don't change during process execution, making subsequent calls very efficient.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

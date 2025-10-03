@@ -28,9 +28,8 @@ The function performs several key optimizations:
 The function handles three types of slots (inner, outer, scan) and uses different strategies for each based on the plan state configuration and slot operation settings.
 
 ## Parameters / Member Variables
-- : The ExprState containing the expression evaluation context and parent plan information
-- : The ExprEvalStep representing a FETCHSOME operation that needs slot information computed
-
+- `*state`: The ExprState containing the expression evaluation context and parent plan information
+- `*op`: The ExprEvalStep representing a FETCHSOME operation that needs slot information computed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecGetResultSlotOps](ExecGetResultSlotOps.md) (retrieves slot operations and fixedness information)

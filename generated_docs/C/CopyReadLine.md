@@ -18,8 +18,7 @@ This static function is responsible for reading a complete line of input data du
 The function ensures that the final line buffer contains only the actual data without terminating characters, making it ready for subsequent parsing operations. It also manages the line_buf_valid flag to indicate when the buffer contains valid data for error reporting purposes.
 
 ## Parameters / Member Variables
-- : The COPY FROM state structure containing the line buffer, EOL type information, and input source details
-
+- `cstate`: The COPY FROM state structure containing the line buffer, EOL type information, and input source details
 ## Dependencies
 - Functions called/Symbols referenced:
   - [resetStringInfo](../r/resetStringInfo.md): Clears and resets the line buffer string

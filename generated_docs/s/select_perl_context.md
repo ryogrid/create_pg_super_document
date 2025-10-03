@@ -26,8 +26,7 @@ The function handles interpreter lifecycle including:
 The function ensures proper isolation between different users' Perl code while optimizing performance through interpreter reuse.
 
 ## Parameters / Member Variables
-- : Boolean flag indicating whether to use a trusted or untrusted Perl interpreter context
-
+- `trusted`: Boolean flag indicating whether to use a trusted or untrusted Perl interpreter context
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetUserId](../G/GetUserId.md)

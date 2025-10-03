@@ -18,10 +18,9 @@ This function is a high-level wrapper around CheckAndCreateToastTable that is sp
 The function expects that the caller has already performed necessary permission checks and verified that the relation is indeed a table. It will automatically issue a CommandCounterIncrement if any changes are made to ensure proper catalog visibility.
 
 ## Parameters / Member Variables
-- : The OID of the relation for which to potentially create a TOAST table
-- : Datum containing reloptions for the TOAST table, or (Datum) 0 for default options
-- : The lock mode to use when accessing the relation
-
+- `relOid`: The OID of the relation for which to potentially create a TOAST table
+- `reloptions`: Datum containing reloptions for the TOAST table, or (Datum) 0 for default options
+- `lockmode`: The lock mode to use when accessing the relation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CheckAndCreateToastTable](../C/CheckAndCreateToastTable.md)

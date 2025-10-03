@@ -16,7 +16,6 @@ pgwin32_doRunAsService(void)
 This function sets up the service table entry for PostgreSQL when running as a Windows service. It creates a SERVICE_TABLE_ENTRY structure that maps the registered service name to the main service function (pgwin32_ServiceMain), then calls StartServiceCtrlDispatcher to hand control over to the Windows Service Control Manager. If the service dispatcher fails to start, it outputs an error message and exits the program with status code 1.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

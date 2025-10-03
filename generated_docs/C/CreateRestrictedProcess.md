@@ -16,10 +16,9 @@ CreateRestrictedProcess(char *cmd, PROCESS_INFORMATION *processInfo, bool as_ser
 This function implements a comprehensive security sandboxing mechanism for Windows processes. It creates a restricted token by removing administrative and power user privileges, drops dangerous privileges, and optionally creates a job object to further constrain the process. The function first obtains the current process token, then creates a restricted version by removing specific SIDs (Administrators and Power Users groups) and privileges returned by GetPrivilegesToDelete(). If job objects are supported and the process isn't already in one, it creates a job with various restrictions including UI limitations and security constraints. The process is created in a suspended state, assigned to the job object, and then resumed.
 
 ## Parameters / Member Variables
-- : Command line string for the process to be created
-- : Pointer to PROCESS_INFORMATION structure that will receive information about the created process
-- : Boolean indicating whether the process is being created as a service (affects job object behavior)
-
+- `*cmd`: Command line string for the process to be created
+- `*processInfo`: Pointer to PROCESS_INFORMATION structure that will receive information about the created process
+- `as_service`: Boolean indicating whether the process is being created as a service (affects job object behavior)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [InheritStdHandles](../I/InheritStdHandles.md)

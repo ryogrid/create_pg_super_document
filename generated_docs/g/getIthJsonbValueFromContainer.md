@@ -18,9 +18,8 @@ This function provides indexed access to elements within a JSONB array container
 Unlike object lookups which require key comparison, array access is direct using integer indices. The function validates that the container is indeed an array type and throws an error if not. For valid indices, it allocates a new JsonbValue and fills it with the element data.
 
 ## Parameters / Member Variables
-- : The JSONB array container to access (must be an array type)
-- : The zero-based index of the element to retrieve
-
+- `*container`: The JSONB array container to access (must be an array type)
+- `i`: The zero-based index of the element to retrieve
 ## Dependencies
 - Functions called/Symbols referenced:
   - JsonContainerIsArray

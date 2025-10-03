@@ -24,8 +24,7 @@ This function performs comprehensive validation of the subscriber (standby serve
 The function connects to the subscriber using the first database connection info and performs parameter validation to prevent runtime failures during logical replication setup.
 
 ## Parameters / Member Variables
-- : Array of LogicalRepInfo structures containing database connection information, uses the first entry for subscriber validation
-
+- `*dbinfo`: Array of LogicalRepInfo structures containing database connection information, uses the first entry for subscriber validation
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_log_info

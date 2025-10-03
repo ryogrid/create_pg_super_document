@@ -16,8 +16,7 @@ degrees(PG_FUNCTION_ARGS)
 The  function performs a straightforward mathematical conversion from radians to degrees using the standard conversion factor. It divides the input radian value by the constant  (which represents π/180) to obtain the equivalent degree measurement. The function uses PostgreSQL's  function to ensure proper floating-point division with appropriate error handling.
 
 ## Parameters / Member Variables
-- : The input angle in radians (float8 type extracted via PG_GETARG_FLOAT8)
-
+- `PG_FUNCTION_ARGS`: The input angle in radians (float8 type extracted via PG_GETARG_FLOAT8)
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT8: Extracts float8 argument from function call

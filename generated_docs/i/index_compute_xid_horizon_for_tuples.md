@@ -22,12 +22,11 @@ index_compute_xid_horizon_for_tuples is a generic helper function that provides 
 The function operates on index tuples that are already known to be deletable (typically marked with LP_DEAD line pointer status) and builds the necessary data structures to communicate with the table access method. It assumes the standard IndexTuple representation where table TIDs are stored in the t_tid field and validates that all specified line pointers are properly marked as dead.
 
 ## Parameters / Member Variables
-- : The index relation containing the tuples to be deleted
-- : The heap (table) relation that the index points to
-- : Buffer containing the index page with tuples to be deleted
-- : Array of offset numbers identifying the index tuples to be deleted
-- : Number of items in the itemnos array
-
+- `irel`: The index relation containing the tuples to be deleted
+- `hrel`: The heap (table) relation that the index points to
+- `ibuf`: Buffer containing the index page with tuples to be deleted
+- `*itemnos`: Array of offset numbers identifying the index tuples to be deleted
+- `nitems`: Number of items in the itemnos array
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BufferGetPage](../B/BufferGetPage.md) (get page from buffer)

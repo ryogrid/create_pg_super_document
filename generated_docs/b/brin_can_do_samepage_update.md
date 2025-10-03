@@ -20,10 +20,9 @@ The logic is straightforward: if the new tuple is smaller than or equal to the o
 This function is typically called before attempting a same-page update to avoid unnecessary work and ensure atomic operations can be completed successfully.
 
 ## Parameters / Member Variables
-- : Buffer containing the page where the update would be performed
-- : Size of the original tuple that would be replaced
-- : Size of the new tuple that would be inserted
-
+- `buffer`: Buffer containing the page where the update would be performed
+- `origsz`: Size of the original tuple that would be replaced
+- `newsz`: Size of the new tuple that would be inserted
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Gets the exact amount of free space available on the page

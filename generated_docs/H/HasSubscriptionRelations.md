@@ -18,8 +18,7 @@ HasSubscriptionRelations is a utility function that performs a quick existence c
 The function uses a system catalog scan with an equality condition on the subscription ID column (srsubid). It only needs to find a single matching tuple to return true, making it more efficient than GetSubscriptionRelations when you don't need the actual list of relations.
 
 ## Parameters / Member Variables
-- : The OID of the subscription to check for associated relations
-
+- `subid`: The OID of the subscription to check for associated relations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_open](../t/table_open.md)

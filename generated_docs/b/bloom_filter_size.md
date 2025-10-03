@@ -19,12 +19,11 @@ This function implements the mathematical formulas for calculating optimal Bloom
 The function ensures the filter size is rounded to whole bytes and implements a portable rounding mechanism that doesn't rely on the round() function, which may not be available on all platforms (particularly Windows).
 
 ## Parameters / Member Variables
-- : Expected number of distinct values to be stored in the Bloom filter
-- : Desired false positive rate (probability between 0 and 1)
-- : Output pointer to store the calculated number of bytes (can be NULL if not needed)
-- : Output pointer to store the calculated number of bits (can be NULL if not needed)  
-- : Output pointer to store the calculated number of hash functions (can be NULL if not needed)
-
+- `ndistinct`: Expected number of distinct values to be stored in the Bloom filter
+- `false_positive_rate`: Desired false positive rate (probability between 0 and 1)
+- `*nbytesp`: Output pointer to store the calculated number of bytes (can be NULL if not needed)
+- `*nbitsp`: Output pointer to store the calculated number of bits (can be NULL if not needed)
+- `*nhashesp`: Output pointer to store the calculated number of hash functions (can be NULL if not needed)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BloomFilter](../B/BloomFilter.md) (data structure)

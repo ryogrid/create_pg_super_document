@@ -25,9 +25,8 @@ The function implements several important optimizations and safety checks:
 This function is fundamental to query execution as it determines which tuples satisfy filtering conditions throughout the execution tree.
 
 ## Parameters / Member Variables
-- : ExprState pointer containing the compiled expression to evaluate; if NULL, the function returns true (no restrictions)
-- : ExprContext providing the execution context including current tuple data, parameter values, and memory contexts
-
+- `*state`: ExprState pointer containing the compiled expression to evaluate; if NULL, the function returns true (no restrictions)
+- `*econtext`: ExprContext providing the execution context including current tuple data, parameter values, and memory contexts
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecEvalExprSwitchContext](ExecEvalExprSwitchContext.md)

@@ -18,8 +18,7 @@ This function provides the proper cleanup mechanism for read stream objects. It 
 The function is the counterpart to read_stream_begin_relation and must be called to prevent memory leaks and ensure proper resource cleanup. It handles all aspects of stream cleanup including buffers, I/O tracking structures, and per-buffer data.
 
 ## Parameters / Member Variables
-- : The read stream object to release and deallocate
-
+- `*stream`: The read stream object to release and deallocate
 ## Dependencies
 - Functions called/Symbols referenced:
   - [read_stream_reset](read_stream_reset.md)

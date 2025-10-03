@@ -21,13 +21,12 @@ This function creates and configures a PartitionDispatch structure for a partiti
 The function manages the partition directory for tracking partition metadata and handles concurrency considerations by optionally excluding partitions being detached (except in snapshot-isolation mode). It also maintains dynamic arrays of PartitionDispatch structures and creates minimal ResultRelInfo structures for non-leaf partitions when needed for constraint checking.
 
 ## Parameters / Member Variables
-- : Executor state providing partition directory management and memory contexts
-- : PartitionTupleRouting structure where the new PartitionDispatch will be stored
-- : Object ID of the partitioned table to initialize dispatch information for
-- : Parent PartitionDispatch (NULL for root partitioned table) used to establish hierarchy links
-- : Index of this partition within the parent's partition list (unused for root table)
-- : ResultRelInfo for the root table, used as template for creating sub-partition ResultRelInfo structures
-
+- `*estate`: Executor state providing partition directory management and memory contexts
+- `*proute`: PartitionTupleRouting structure where the new PartitionDispatch will be stored
+- `partoid`: Object ID of the partitioned table to initialize dispatch information for
+- `parent_pd`: Parent PartitionDispatch (NULL for root partitioned table) used to establish hierarchy links
+- `partidx`: Index of this partition within the parent's partition list (unused for root table)
+- `*rootResultRelInfo`: ResultRelInfo for the root table, used as template for creating sub-partition ResultRelInfo structures
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CreatePartitionDirectory](../C/CreatePartitionDirectory.md)

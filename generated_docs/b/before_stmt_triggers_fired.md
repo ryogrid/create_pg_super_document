@@ -22,9 +22,8 @@ The state is maintained in the same AfterTriggersTableData structure that holds 
 The function includes the same safety checks as AfterTriggerSaveEvent, ensuring it's only called within a valid query context and that adequate storage exists for the current query depth.
 
 ## Parameters / Member Variables
-- : The OID of the relation for which to check trigger firing status
-- : The command type (INSERT, UPDATE, DELETE) to check for trigger firing
-
+- `relid`: The OID of the relation for which to check trigger firing status
+- `cmdType`: The command type (INSERT, UPDATE, DELETE) to check for trigger firing
 ## Dependencies
 - Functions called/Symbols referenced:
   - [AfterTriggerEnlargeQueryState](../A/AfterTriggerEnlargeQueryState.md) (ensures adequate query depth storage)

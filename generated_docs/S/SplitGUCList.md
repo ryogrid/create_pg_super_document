@@ -24,10 +24,9 @@ The function handles both quoted and unquoted elements:
 The function modifies the input string in-place to contain the separated identifiers and returns a list of pointers into the modified string.
 
 ## Parameters / Member Variables
-- : The input string that must be overwritable. On return, it's been modified to contain the separated identifiers with null terminators
-- : The separator punctuation expected between identifiers (typically '.' or ','). Whitespace may also appear around identifiers
-- : Output parameter filled with a palloc'd list of pointers to identifiers within the modified rawstring. Caller should list_free() this even on error return
-
+- `*rawstring`: The input string that must be overwritable. On return, it's been modified to contain the separated identifiers with null terminators
+- `separator`: The separator punctuation expected between identifiers (typically '.' or ','). Whitespace may also appear around identifiers
+- `***namelist`: Output parameter filled with a palloc'd list of pointers to identifiers within the modified rawstring. Caller should list_free() this even on error return
 ## Dependencies
 - Functions called/Symbols referenced:
   - [scanner_isspace](../s/scanner_isspace.md): Used to skip whitespace characters

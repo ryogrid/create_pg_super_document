@@ -18,8 +18,7 @@ This function is a utility for looking up function statistics entries in Postgre
 The function operates by calling  with the function kind, current database ID, and the target function ID. If a pending entry exists, it returns the pending statistics data; otherwise, it returns NULL.
 
 ## Parameters / Member Variables
-- : The OID (Object Identifier) of the function for which to search for statistics entry
-
+- `func_id`: The OID (Object Identifier) of the function for which to search for statistics entry
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pgstat_fetch_pending_entry](../p/pgstat_fetch_pending_entry.md)

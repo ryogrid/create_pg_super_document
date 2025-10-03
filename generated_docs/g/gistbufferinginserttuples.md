@@ -20,15 +20,14 @@ This function is analogous to gistinserttuples() in the regular insertion code b
 When a page split occurs, the function recursively inserts downlink tuples to the parent page. For root splits, it updates the root level information and memorizes parent relationships for all affected pages. The function also handles buffer relocation when pages are split, ensuring that buffered tuples are properly redistributed to the correct new pages.
 
 ## Parameters / Member Variables
-- : GiST build state containing index relation, build buffers, and other construction context
-- : Buffer containing the target page for insertion (will be unlocked and unpinned by this function)
-- : Level in the tree where insertion is happening (0 for leaf level)
-- : Array of index tuples to insert
-- : Number of tuples in the itup array
-- : Offset number of existing tuple being replaced (if any)
-- : Block number of the parent page
-- : Offset number of the downlink in the parent page
-
+- `*buildstate`: GiST build state containing index relation, build buffers, and other construction context
+- `buffer`: Buffer containing the target page for insertion (will be unlocked and unpinned by this function)
+- `level`: Level in the tree where insertion is happening (0 for leaf level)
+- `*itup`: Array of index tuples to insert
+- `ntup`: Number of tuples in the itup array
+- `oldoffnum`: Offset number of existing tuple being replaced (if any)
+- `parentblk`: Block number of the parent page
+- `downlinkoffnum`: Offset number of the downlink in the parent page
 ## Dependencies
 - Functions called/Symbols referenced:
   - [gistplacetopage](gistplacetopage.md)

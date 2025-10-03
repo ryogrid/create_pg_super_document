@@ -21,10 +21,9 @@ For DEFAULT behaviors, the function additionally processes the associated expres
 The implementation includes bounds checking to ensure the behavior type is valid, throwing an error for invalid behavior types to maintain system integrity.
 
 ## Parameters / Member Variables
-- : JsonBehavior structure containing the behavior type and optional default expression
-- : Deparse context containing the output buffer and formatting settings  
-- : String specifying the ON clause context (e.g., "ERROR", "EMPTY")
-
+- `*behavior`: JsonBehavior structure containing the behavior type and optional default expression
+- `*context`: Deparse context containing the output buffer and formatting settings
+- `*on`: String specifying the ON clause context (e.g., "ERROR", "EMPTY")
 ## Dependencies
 - Functions called/Symbols referenced:
   - lengthof (macro to get array length)

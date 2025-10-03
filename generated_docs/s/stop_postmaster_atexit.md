@@ -17,6 +17,7 @@ This function serves as an atexit handler that ensures proper cleanup of the pos
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [stop_postmaster](stop_postmaster.md)

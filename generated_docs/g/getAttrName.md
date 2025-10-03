@@ -20,9 +20,8 @@ The function performs bounds checking to ensure the requested attribute number i
 If an invalid attribute number is provided, the function terminates the program with a fatal error message.
 
 ## Parameters / Member Variables
-- : Attribute number (positive for user columns, negative/zero for system columns)
-- : Table information structure containing user attribute names and total attribute count
-
+- `attrnum`: Attribute number (positive for user columns, negative/zero for system columns)
+- `*tblInfo`: Table information structure containing user attribute names and total attribute count
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_fatal](../p/pg_fatal.md)

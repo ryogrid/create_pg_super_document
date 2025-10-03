@@ -18,9 +18,8 @@ This function formats and outputs heap block statistics for bitmap heap scans wh
 For exact pages, the bitmap can identify specific tuples within the page. For lossy pages, the bitmap indicates that the entire page needs to be checked, but doesn't specify which tuples within the page are relevant.
 
 ## Parameters / Member Variables
-- : BitmapHeapScanState containing execution statistics including exact_pages and lossy_pages counters
-- : ExplainState containing output formatting information and the destination string buffer
-
+- `*planstate`: BitmapHeapScanState containing execution statistics including exact_pages and lossy_pages counters
+- `*es`: ExplainState containing output formatting information and the destination string buffer
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExplainPropertyInteger](../E/ExplainPropertyInteger.md)

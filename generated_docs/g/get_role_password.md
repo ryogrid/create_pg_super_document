@@ -16,9 +16,8 @@ get_role_password(const char *role, const char **logdetail)
 This function retrieves a user's password from the PostgreSQL system catalog  and performs several validation checks. It searches for the specified role in the system cache and extracts both the password and password expiration date. The function also validates that the password has not expired by comparing the  timestamp with the current time. If any error occurs (role doesn't exist, no password assigned, or password expired), the function returns NULL and provides a detailed error message for logging purposes. The error details are specifically designed not to be sent to the client to avoid exposing sensitive user information.
 
 ## Parameters / Member Variables
-- : The name of the role/user whose password is being retrieved
-- : Output parameter that receives a palloc'd string describing any error that occurred, intended for postmaster logging (not client-facing)
-
+- `*role`: The name of the role/user whose password is being retrieved
+- `**logdetail`: Output parameter that receives a palloc'd string describing any error that occurred, intended for postmaster logging (not client-facing)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache1](../S/SearchSysCache1.md) (to find the role in pg_authid)

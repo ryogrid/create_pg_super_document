@@ -18,10 +18,9 @@ This function sets up an iterator state for traversing a red-black tree. It init
 The iterator maintains internal state to track the current position in the tree traversal. If the tree is modified during iteration, the behavior of subsequent rbt_iterate() calls becomes undefined. However, multiple concurrent iterators on the same tree are supported.
 
 ## Parameters / Member Variables
-- : Pointer to the RBTree structure to iterate over
-- : RBTOrderControl enum value specifying the traversal order (LeftRightWalk or RightLeftWalk)  
-- : Pointer to RBTreeIterator structure that will be initialized with iteration state
-
+- `*rbt`: Pointer to the RBTree structure to iterate over
+- `ctrl`: RBTOrderControl enum value specifying the traversal order (LeftRightWalk or RightLeftWalk)
+- `*iter`: Pointer to RBTreeIterator structure that will be initialized with iteration state
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RBTree](../R/RBTree.md) (tree structure)

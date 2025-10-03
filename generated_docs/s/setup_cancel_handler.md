@@ -18,8 +18,7 @@ setup_cancel_handler is a Windows-specific initialization function that configur
 The function initializes global variables used by the cancel handling system, including the callback function that will be invoked when a cancellation is requested, and the messages displayed to users when cancellation succeeds or fails. It also initializes the critical section used for thread-safe access to the cancel connection and registers the consoleHandler function to handle Windows console control events.
 
 ## Parameters / Member Variables
-- : A function pointer to a user-defined callback function that will be called when a cancellation is requested (can be NULL)
-
+- `*callback`: A function pointer to a user-defined callback function that will be called when a cancellation is requested (can be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [consoleHandler](../c/consoleHandler.md)

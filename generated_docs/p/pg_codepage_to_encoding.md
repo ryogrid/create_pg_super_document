@@ -24,8 +24,7 @@ The function works by:
 This function serves as a critical bridge between Windows' codepage system and PostgreSQL's internal encoding representation, enabling proper character set handling on Windows platforms.
 
 ## Parameters / Member Variables
-- : Windows code page identifier (UINT) to be converted to PostgreSQL encoding
-
+- `cp`: Windows code page identifier (UINT) to be converted to PostgreSQL encoding
 ## Dependencies
 - Functions called/Symbols referenced:
   - sprintf (for string formatting)

@@ -18,9 +18,8 @@ This function handles the complete deallocation of a SpGistSearchItem structure,
 The function follows PostgreSQL's memory management conventions, using pfree() for all deallocations and checking for NULL pointers before freeing. The value field requires special handling because its type depends on whether the item represents a leaf or inner node.
 
 ## Parameters / Member Variables
-- : SpGistScanOpaque structure containing the scan operation context and type information needed for proper memory management
-- : Pointer to the SpGistSearchItem structure to be freed, along with all its allocated components
-
+- `so`: SpGistScanOpaque structure containing the scan operation context and type information needed for proper memory management
+- `*item`: Pointer to the SpGistSearchItem structure to be freed, along with all its allocated components
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DatumGetPointer](../D/DatumGetPointer.md) (PostgreSQL utility to extract pointer from Datum)

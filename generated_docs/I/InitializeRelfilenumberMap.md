@@ -22,7 +22,6 @@ This function performs the complete initialization of the relfilenumber mapping 
 The function uses a two-element scan key array to efficiently query pg_class by both reltablespace and relfilenode attributes, enabling fast reverse lookups from file identifiers to relation OIDs.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

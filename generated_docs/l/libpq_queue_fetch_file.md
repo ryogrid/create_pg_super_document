@@ -20,10 +20,9 @@ The function includes intelligent size handling to deal with potential race cond
 The function acknowledges inherent race conditions in file copying operations but follows the same approach as pg_basebackup, which has proven adequate in practice.
 
 ## Parameters / Member Variables
-- : Pointer to the rewind_source structure containing connection and state information for the remote system
-- : String containing the file path relative to the PostgreSQL data directory that should be fetched
-- : Size in bytes of the file as determined during directory scanning
-
+- `*source`: Pointer to the rewind_source structure containing connection and state information for the remote system
+- `*path`: String containing the file path relative to the PostgreSQL data directory that should be fetched
+- `len`: Size in bytes of the file as determined during directory scanning
 ## Dependencies
 - Functions called/Symbols referenced:
   - [open_target_file](../o/open_target_file.md) (prepares the local target file by truncating it)

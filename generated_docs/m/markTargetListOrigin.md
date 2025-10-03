@@ -23,11 +23,10 @@ The function performs different actions based on the RTE (Range Table Entry) typ
 - For other RTE types (joins, functions, values, etc.): leaves the entry unmarked
 
 ## Parameters / Member Variables
-- : Parse state containing context for the current query parsing
-- : Target entry to be marked with origin information
-- : Variable node to analyze for origin determination
-- : Extra offset to correctly interpret the variable's varlevelsup for nested contexts
-
+- `*pstate`: Parse state containing context for the current query parsing
+- `*tle`: Target entry to be marked with origin information
+- `*var`: Variable node to analyze for origin determination
+- `levelsup`: Extra offset to correctly interpret the variable's varlevelsup for nested contexts
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GetRTEByRangeTablePosn](../G/GetRTEByRangeTablePosn.md)

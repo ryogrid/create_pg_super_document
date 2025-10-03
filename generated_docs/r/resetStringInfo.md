@@ -16,8 +16,7 @@ resetStringInfo(StringInfo str)
 The  function clears the content of a StringInfo structure without deallocating its data buffer. It sets the string length to zero, null-terminates the string at position 0, and resets the cursor position to the beginning. The function includes an assertion to prevent resetting read-only StringInfos (those with maxlen == 0). This is an efficient way to reuse a StringInfo for new content without the overhead of memory deallocation and reallocation.
 
 ## Parameters / Member Variables
-- : Pointer to the StringInfo structure to be reset
-
+- `str`: Pointer to the StringInfo structure to be reset
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (debugging assertion)

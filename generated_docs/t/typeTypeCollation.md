@@ -20,8 +20,7 @@ This attribute is primarily relevant for character-based types (like text, varch
 The default collation can be overridden at the column level or in specific operations, but this function returns the type's inherent default collation.
 
 ## Parameters / Member Variables
-- : A Type structure (HeapTuple) representing a row from the pg_type system catalog
-
+- `typ`: A Type structure (HeapTuple) representing a row from the pg_type system catalog
 ## Dependencies
 - Functions called/Symbols referenced:
   - Type (typedef for HeapTuple)

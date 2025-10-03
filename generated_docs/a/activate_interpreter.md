@@ -20,8 +20,7 @@ The function includes optimization to avoid unnecessary context switches when th
 The function determines the trust level of the interpreter based on whether the user_id is valid (trusted interpreters have a real user ID, while untrusted interpreters use InvalidOid) and configures the require mechanism accordingly.
 
 ## Parameters / Member Variables
-- : Pointer to the interpreter descriptor structure containing the Perl interpreter instance and associated metadata
-
+- `*interp_desc`: Pointer to the interpreter descriptor structure containing the Perl interpreter instance and associated metadata
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (for debugging validation)

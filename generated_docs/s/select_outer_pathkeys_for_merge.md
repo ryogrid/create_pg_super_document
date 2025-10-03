@@ -27,10 +27,9 @@ Key optimization strategies:
 - Prioritizes "popular" equivalence classes (those with more unmatched members) for better higher-level merge join opportunities
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planner state and context, including query_pathkeys
-- : List of RestrictInfos for mergejoin clauses marked with outer_is_left indicators
-- : The join relation being constructed, used to determine which equivalence class members are potential future join partners
-
+- `*root`: PlannerInfo structure containing planner state and context, including query_pathkeys
+- `*mergeclauses`: List of RestrictInfos for mergejoin clauses marked with outer_is_left indicators
+- `*joinrel`: The join relation being constructed, used to determine which equivalence class members are potential future join partners
 ## Dependencies
 - Functions called/Symbols referenced:
   - [update_mergeclause_eclasses](../u/update_mergeclause_eclasses.md)

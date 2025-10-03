@@ -22,12 +22,11 @@ The function implements the mathematical formula:
 Where A=length1 and B=length2. The geometrical interpretation is calculating the area under the graph of P(x) defined by the length histogram.
 
 ## Parameters / Member Variables
-- : Array of histogram bin boundary values for range lengths
-- : Number of values in the length histogram array  
-- : Lower bound of the length interval to analyze
-- : Upper bound of the length interval to analyze
-- : If true, use <= comparison instead of < for boundary conditions
-
+- `*length_hist_values`: Array of histogram bin boundary values for range lengths
+- `length_hist_nvalues`: Number of values in the length histogram array
+- `length1`: Lower bound of the length interval to analyze
+- `length2`: Upper bound of the length interval to analyze
+- `equal`: If true, use <= comparison instead of < for boundary conditions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [length_hist_bsearch](../l/length_hist_bsearch.md)

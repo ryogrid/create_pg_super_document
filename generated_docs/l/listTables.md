@@ -16,11 +16,10 @@ listTables(const char *tabtypes, const char *pattern, bool verbose, bool showSys
 This function is the primary handler for multiple psql metacommands that list database relations. It supports listing tables (\\dt), indexes (\\di), views (\\dv), materialized views (\\dm), sequences (\\ds), and foreign tables (\\dE) either individually or in combination. The tabtypes parameter determines which relation types to include using single character codes (t=tables, i=indexes, v=views, m=materialized views, s=sequences, E=foreign tables). The function constructs a complex SQL query that joins pg_class with pg_namespace and optionally with pg_am (access methods) and pg_index depending on the requested information. It provides detailed information including schema, name, type, owner, and optionally persistence, access method, size, and description.
 
 ## Parameters / Member Variables
-- : A string containing characters specifying which relation types to display ('t'=tables, 'i'=indexes, 'v'=views, 'm'=materialized views, 's'=sequences, 'E'=foreign tables)
-- : A SQL pattern (with wildcards) to filter by relation name, or NULL to match all relations
-- : Boolean flag to include additional columns like persistence, access method, size, and description
-- : Boolean flag indicating whether to include system relations (catalog tables, toast tables, etc.)
-
+- `*tabtypes`: A string containing characters specifying which relation types to display ('t'=tables, 'i'=indexes, 'v'=views, 'm'=materialized views, 's'=sequences, 'E'=foreign tables)
+- `*pattern`: A SQL pattern (with wildcards) to filter by relation name, or NULL to match all relations
+- `verbose`: Boolean flag to include additional columns like persistence, access method, size, and description
+- `showSystem`: Boolean flag indicating whether to include system relations (catalog tables, toast tables, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PQExpBufferData](../P/PQExpBufferData.md) (PostgreSQL's expandable string buffer structure)

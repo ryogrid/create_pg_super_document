@@ -18,12 +18,11 @@ This function populates a pre-allocated compatibility SQLDA structure with actua
 The function processes each field in the SQLDA, calculates proper memory offsets with alignment, sets up sqldata pointers to point to the correct locations within the SQLDA buffer, and converts the PostgreSQL result data to the target data type. It handles special cases like numeric types that require additional buffer space for digit storage, string data with length considerations, and NULL value indicators.
 
 ## Parameters / Member Variables
-- : Line number for logging and debugging purposes
-- : Double pointer to the sqlda_compat structure to be populated
-- : PGresult structure containing the query results
-- : Row number in the result set to extract data from (negative values cause early return)
-- : Compatibility mode that affects data type handling
-
+- `lineno`: Line number for logging and debugging purposes
+- `**_sqlda`: Double pointer to the sqlda_compat structure to be populated
+- `*res`: PGresult structure containing the query results
+- `row`: Row number in the result set to extract data from (negative values cause early return)
+- `compat`: Compatibility mode that affects data type handling
 ## Dependencies
 - Functions called/Symbols referenced:
   - [sqlda_compat_empty_size](../s/sqlda_compat_empty_size.md)

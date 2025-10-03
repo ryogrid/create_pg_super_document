@@ -16,8 +16,7 @@ interpret_func_volatility(DefElem *defel)
 This function takes a DefElem containing a volatility specification and translates the string value ("immutable", "stable", or "volatile") into the appropriate PostgreSQL internal constant. The function provides a clean interface for converting user-facing volatility keywords into the system catalog representation. If an invalid volatility value is provided, the function raises an error with the problematic value in the error message.
 
 ## Parameters / Member Variables
-- : DefElem containing the volatility specification with a string argument
-
+- `*defel`: DefElem containing the volatility specification with a string argument
 ## Dependencies  
 - Functions called/Symbols referenced:
   - strVal: Extracts string value from the DefElem argument

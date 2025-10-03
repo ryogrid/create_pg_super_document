@@ -20,8 +20,7 @@ The function carefully manages reference counting for the tuple descriptor to en
 Additionally, the function assigns a unique identifier to the cached tuple descriptor by incrementing a global counter. This identifier can be used to detect when the descriptor has changed in future cache lookups.
 
 ## Parameters / Member Variables
-- : Pointer to the TypeCacheEntry structure to populate with tuple descriptor information
-
+- `*typentry`: Pointer to the TypeCacheEntry structure to populate with tuple descriptor information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [relation_open](../r/relation_open.md) (to open the relation associated with the composite type)

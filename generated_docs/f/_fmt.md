@@ -21,12 +21,11 @@ The function implements a comprehensive set of format specifiers including POSIX
 Error handling includes bounds checking to prevent buffer overflows and warning propagation for potentially problematic conversions like 2-digit years. The function maintains locale awareness through the global Locale structure for month names, day names, and other locale-specific formatting.
 
 ## Parameters / Member Variables
-- : Format string containing literal text and % format specifiers
-- : Pointer to pg_tm structure containing the timestamp components to format
-- : Current position in the output buffer where formatted text should be written
-- : Pointer to the end of the output buffer (exclusive limit)
-- : Pointer to warning level that tracks potential formatting issues
-
+- `*format`: Format string containing literal text and % format specifiers
+- `*t`: Pointer to pg_tm structure containing the timestamp components to format
+- `*pt`: Current position in the output buffer where formatted text should be written
+- `*ptlim`: Pointer to the end of the output buffer (exclusive limit)
+- `*warnp`: Pointer to warning level that tracks potential formatting issues
 ## Dependencies
 - Functions called/Symbols referenced:
   - [_add](../a/_add.md) (adds strings to output buffer)

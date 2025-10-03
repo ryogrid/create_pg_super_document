@@ -24,8 +24,7 @@ UtilityTupleDescriptor creates and returns a tuple descriptor that describes the
 The returned tuple descriptor is created in or copied into the current memory context, ensuring proper memory management.
 
 ## Parameters / Member Variables
-- : Pointer to the parsed utility statement node for which to fetch the tuple descriptor
-
+- `*parsetree`: Pointer to the parsed utility statement node for which to fetch the tuple descriptor
 ## Dependencies
 - Functions called/Symbols referenced:
   - nodeTag (to identify statement type)

@@ -18,10 +18,9 @@ This function implements a three-level comparison algorithm for  structures used
 The hierarchical comparison approach ensures proper segregation of keys across different JSON objects while providing efficient string comparison for keys within the same object.
 
 ## Parameters / Member Variables
-- : Pointer to the first  structure to compare
-- : Pointer to the second  structure to compare  
-- : Size parameter (required by hash table interface but not directly used)
-
+- `*key1`: Pointer to the first  structure to compare
+- `*key2`: Pointer to the second  structure to compare
+- `keysize`: Size parameter (required by hash table interface but not directly used)
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Structure containing key string, key length, and object ID

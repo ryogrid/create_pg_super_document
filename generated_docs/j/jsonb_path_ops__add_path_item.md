@@ -22,9 +22,8 @@ This function is a core component of PostgreSQL's JSONB GIN indexing system for 
 The function returns false for unsupported path item types (wildcards, item methods), indicating that the path cannot be efficiently indexed using the path_ops strategy.
 
 ## Parameters / Member Variables
-- : Pointer to JsonPathGinPath structure containing the cumulative hash value being built
-- : Pointer to JsonPathItem representing the current path element to be processed
-
+- `*path`: Pointer to JsonPathGinPath structure containing the cumulative hash value being built
+- `*jsp`: Pointer to JsonPathItem representing the current path element to be processed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [jspGetString](jspGetString.md) (extracts string value from JSON path item)

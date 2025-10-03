@@ -26,8 +26,7 @@ The function performs comprehensive validation and cleanup:
 The entire operation is wrapped in a PG_TRY/PG_CATCH block to handle errors during rollback. If the rollback itself fails, the function attempts to abort again and ensures a new transaction is started, maintaining database consistency.
 
 ## Parameters / Member Variables
-- : boolean parameter that determines whether transaction characteristics should be preserved across the rollback boundary
-
+- `chain`: boolean parameter that determines whether transaction characteristics should be preserved across the rollback boundary
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SavedTransactionCharacteristics](SavedTransactionCharacteristics.md) (transaction state structure)

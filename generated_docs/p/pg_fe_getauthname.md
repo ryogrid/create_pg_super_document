@@ -20,8 +20,7 @@ On Unix-like systems, it uses  to get the effective user ID of the current proce
 This function is commonly used during connection establishment when no explicit username is provided, falling back to the system-authenticated user identity.
 
 ## Parameters / Member Variables
-- : Optional buffer for error message reporting; if NULL, errors are not reported
-
+- `errorMessage`: Optional buffer for error message reporting; if NULL, errors are not reported
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_fe_getusername](pg_fe_getusername.md) (core username resolution functionality)

@@ -24,11 +24,10 @@ For literals, the function handles backslashes by using PostgreSQL's escape stri
 The function includes comprehensive multibyte character validation to prevent security issues where invalid sequences could be used to bypass quote characters during parsing.
 
 ## Parameters / Member Variables
-- : PostgreSQL connection handle (required - function fails if NULL)
-- : Input string to be escaped
-- : Maximum length of the source string to process
-- : Boolean flag determining escape mode (true for identifiers, false for literals)
-
+- `*conn`: PostgreSQL connection handle (required - function fails if NULL)
+- `*str`: Input string to be escaped
+- `len`: Maximum length of the source string to process
+- `as_ident`: Boolean flag determining escape mode (true for identifiers, false for literals)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [strnlen](../s/strnlen.md)

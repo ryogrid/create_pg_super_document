@@ -16,9 +16,8 @@ pg_atomic_write_u64_impl(volatile pg_atomic_uint64 *ptr, uint64 val)
 This function implements the platform-specific atomic write operation for 64-bit unsigned integers in PostgreSQL's atomic operations framework. It performs a direct assignment to the atomic variable's value field, relying on the platform's guarantee that aligned 64-bit memory writes are atomic operations. The function includes an assertion to verify proper 8-byte alignment of the target pointer, which is crucial for the atomicity guarantee. This implementation is part of the generic atomics header and is used when the platform supports native atomic 64-bit writes without requiring special CPU instructions or compiler intrinsics.
 
 ## Parameters / Member Variables
-- : Pointer to the atomic 64-bit unsigned integer variable that will receive the new value
-- : The 64-bit unsigned integer value to be written atomically to the target location
-
+- `*ptr`: Pointer to the atomic 64-bit unsigned integer variable that will receive the new value
+- `val`: The 64-bit unsigned integer value to be written atomically to the target location
 ## Dependencies
 - Functions called/Symbols referenced:
   - AssertPointerAlignment (ensures 8-byte alignment)

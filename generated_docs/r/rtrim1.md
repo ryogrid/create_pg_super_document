@@ -16,8 +16,7 @@ rtrim1(PG_FUNCTION_ARGS)
 The rtrim1 function provides a streamlined version of PostgreSQL's rtrim functionality with a fixed character set of just space characters (' '). It serves as a wrapper around the internal dotrim function, specifically configured to trim only trailing spaces from text input. This function is part of PostgreSQL's Oracle compatibility layer, providing behavior similar to Oracle's RTRIM function when called without specifying a trim set.
 
 ## Parameters / Member Variables
-- : The input text string from which trailing spaces will be removed
-
+- `PG_FUNCTION_ARGS`: The input text string from which trailing spaces will be removed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dotrim](../d/dotrim.md)

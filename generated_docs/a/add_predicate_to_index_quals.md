@@ -22,9 +22,8 @@ For example, when a query uses qualifier "x = 42" with a partial index "WHERE x 
 The function returns a mixed list containing both RestrictInfo nodes (from indexQuals) and raw expression nodes (from the index predicate), which is acceptable for the intended use cases in selectivity estimation.
 
 ## Parameters / Member Variables
-- : IndexOptInfo structure containing information about the index, including its predicate (indpred)
-- : List of RestrictInfo nodes representing the explicitly given index qualifiers from the query
-
+- `*index`: IndexOptInfo structure containing information about the index, including its predicate (indpred)
+- `*indexQuals`: List of RestrictInfo nodes representing the explicitly given index qualifiers from the query
 ## Dependencies
 - Functions called/Symbols referenced:
   - [predicate_implied_by](../p/predicate_implied_by.md)

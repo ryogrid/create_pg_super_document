@@ -22,9 +22,8 @@ The function follows the same pattern as ExecPrepareExpr and ExecPrepareQual but
 Check constraints have specific evaluation semantics (must return boolean, handle NULLs appropriately for constraint logic) that ExecInitCheck is designed to handle correctly.
 
 ## Parameters / Member Variables
-- : List of expressions representing the check constraint conditions (boolean expressions with constraint semantics)
-- : The execution state providing the execution environment and memory context
-
+- `*qual`: List of expressions representing the check constraint conditions (boolean expressions with constraint semantics)
+- `*estate`: The execution state providing the execution environment and memory context
 ## Dependencies
 - Functions called/Symbols referenced:
   - [expression_planner](../e/expression_planner.md) (applies planning transformations to constraint expressions)

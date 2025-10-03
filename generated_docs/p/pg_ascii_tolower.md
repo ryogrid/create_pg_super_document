@@ -18,8 +18,7 @@ pg_ascii_tolower(unsigned char ch)
 The function is designed to provide reliable, predictable behavior for ASCII character processing in PostgreSQL, which is crucial for database operations that need to be independent of locale settings.
 
 ## Parameters / Member Variables
-- : The input character (as unsigned char) to be converted to lowercase
-
+- `ch`: The input character (as unsigned char) to be converted to lowercase
 ## Dependencies
 - Functions called/Symbols referenced:
   - (None - uses only basic arithmetic operations)

@@ -18,9 +18,8 @@ The  function is part of PostgreSQL's WAL record description system, specificall
 The function handles the formatting carefully, adding semicolons and spaces between multiple entries, but omitting the trailing semicolon for the last entry to produce clean output.
 
 ## Parameters / Member Variables
-- : A StringInfo buffer where the formatted description text will be appended
-- : An XLogReaderState pointer containing the WAL record to be described, including its data payload
-
+- `buf`: A StringInfo buffer where the formatted description text will be appended
+- `*record`: An XLogReaderState pointer containing the WAL record to be described, including its data payload
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData: Retrieves the data portion of the WAL record

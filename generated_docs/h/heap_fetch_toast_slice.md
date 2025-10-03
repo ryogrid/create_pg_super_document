@@ -26,13 +26,12 @@ The function performs the following key operations:
 6. Performs extensive error checking for data corruption and missing chunks
 
 ## Parameters / Member Variables
-- : The relation (table) containing the TOAST chunks to be fetched from
-- : Object identifier that uniquely identifies the specific TOAST value
-- : Total size in bytes of the complete TOAST value (all chunks combined)
-- : Starting byte offset within the TOAST value from which to begin fetching
-- : Number of bytes to fetch from the TOAST value starting at sliceoffset
-- : Pre-allocated varlena structure where the fetched slice data will be written
-
+- `toastrel`: The relation (table) containing the TOAST chunks to be fetched from
+- `valueid`: Object identifier that uniquely identifies the specific TOAST value
+- `attrsize`: Total size in bytes of the complete TOAST value (all chunks combined)
+- `sliceoffset`: Starting byte offset within the TOAST value from which to begin fetching
+- `slicelength`: Number of bytes to fetch from the TOAST value starting at sliceoffset
+- `*result`: Pre-allocated varlena structure where the fetched slice data will be written
 ## Dependencies
 - Functions called/Symbols referenced:
   - [toast_open_indexes](../t/toast_open_indexes.md)

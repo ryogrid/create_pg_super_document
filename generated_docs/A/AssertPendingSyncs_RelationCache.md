@@ -20,7 +20,6 @@ The function works by iterating through all locks held by the current transactio
 Additionally, it iterates through all entries in the RelationIdCache hash table and calls AssertPendingSyncConsistency() on each relation descriptor to verify consistency.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

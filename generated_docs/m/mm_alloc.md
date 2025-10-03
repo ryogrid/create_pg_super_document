@@ -16,8 +16,7 @@ mm_alloc(size_t size)
 The  function serves as a safe wrapper around the standard  function specifically designed for the ECPG (Embedded SQL in C) preprocessor. It performs dynamic memory allocation with automatic error checking, ensuring that allocation failures are handled gracefully by terminating the program with an appropriate error message. This function is critical for maintaining memory management reliability throughout the ECPG preprocessing pipeline.
 
 ## Parameters / Member Variables
-- : The number of bytes to allocate in memory
-
+- `size`: The number of bytes to allocate in memory
 ## Dependencies
 - Functions called/Symbols referenced:
   - malloc (standard C library function)

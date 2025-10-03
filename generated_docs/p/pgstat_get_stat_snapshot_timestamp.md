@@ -20,8 +20,7 @@ The function first checks if a forced snapshot clear is pending and performs the
 This function serves as a diagnostic and informational tool within the statistics system, allowing other components to understand the state and timing of the statistics snapshot.
 
 ## Parameters / Member Variables
-- : A pointer to a boolean that will be set to true if a snapshot exists, false otherwise
-
+- `*have_snapshot`: A pointer to a boolean that will be set to true if a snapshot exists, false otherwise
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pgstat_clear_snapshot](pgstat_clear_snapshot.md)

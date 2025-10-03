@@ -16,8 +16,7 @@ dtand(PG_FUNCTION_ARGS)
 The  function implements the tangent function for degree-based input, following POSIX specifications for special value handling. It uses a sophisticated domain reduction algorithm to map arbitrary degree inputs to the range [0,90] degrees, then computes the tangent using the ratio of  and  functions. The implementation includes special handling for NaN inputs, infinite inputs, and ensures portability by normalizing minus zero to plain zero. The function leverages the mathematical properties of tangent to reduce computational complexity while maintaining accuracy.
 
 ## Parameters / Member Variables
-- : The input angle in degrees (float8 type extracted via PG_GETARG_FLOAT8)
-
+- `PG_FUNCTION_ARGS`: The input angle in degrees (float8 type extracted via PG_GETARG_FLOAT8)
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT8: Extracts float8 argument from function call

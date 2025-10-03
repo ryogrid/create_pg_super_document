@@ -16,9 +16,8 @@ get_windowfunc_expr(WindowFunc *wfunc, deparse_context *context)
 This function serves as a simplified interface to the WindowFunc deparsing functionality. It takes a WindowFunc node and a deparse context, then immediately calls get_windowfunc_expr_helper with default parameters (NULL for both window name and frame options, and false for the show window name flag). This design pattern provides a clean, minimal interface for the most common case of deparsing window functions while allowing the helper function to handle more complex scenarios with additional parameters.
 
 ## Parameters / Member Variables
-- : Pointer to the WindowFunc node to be deparsed into string representation
-- : Pointer to the deparse_context containing state and configuration for the deparsing operation
-
+- `*wfunc`: Pointer to the WindowFunc node to be deparsed into string representation
+- `*context`: Pointer to the deparse_context containing state and configuration for the deparsing operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_windowfunc_expr_helper](get_windowfunc_expr_helper.md)

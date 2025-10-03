@@ -16,9 +16,8 @@ fmtCopyColumnList(const TableInfo *ti, PQExpBuffer buffer)
 This function constructs a properly formatted column list for use in COPY statements by iterating through a table's attributes and including only regular (non-dropped, non-generated) columns. The function formats the output as a parenthesized, comma-separated list of properly quoted column names. It includes special handling for the edge case where no valid columns exist, returning an empty string instead of invalid empty parentheses.
 
 ## Parameters / Member Variables
-- : TableInfo structure containing table metadata including column information
-- : PQExpBuffer used to construct the formatted column list
-
+- `*ti`: TableInfo structure containing table metadata including column information
+- `buffer`: PQExpBuffer used to construct the formatted column list
 ## Dependencies
 - Functions called/Symbols referenced:
   - [appendPQExpBufferChar](../a/appendPQExpBufferChar.md)

@@ -18,9 +18,8 @@ The  function is part of the PostgreSQL regression testing infrastructure (). It
 The function first creates a role with LOGIN privilege, then iterates through the provided list of database names, granting ALL privileges on each database to the newly created role. This is typically used during test setup to create roles with appropriate permissions for regression testing scenarios.
 
 ## Parameters / Member Variables
-- : The name of the database role to be created
-- : A linked list of database names (_stringlist) on which the role should be granted ALL privileges; can be NULL if no database grants are needed
-
+- `*rolename`: The name of the database role to be created
+- `*granted_dbs`: A linked list of database names (_stringlist) on which the role should be granted ALL privileges; can be NULL if no database grants are needed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [psql_start_command](../p/psql_start_command.md)

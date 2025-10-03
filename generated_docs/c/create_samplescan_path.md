@@ -26,10 +26,9 @@ Key characteristics of the created path:
 The function delegates cost calculation to , which accounts for the reduced I/O and processing overhead compared to full table scans.
 
 ## Parameters / Member Variables
-- : The PlannerInfo structure containing global planning context and information
-- : The RelOptInfo structure representing the relation to be sampled  
-- : Set of outer relations whose parameters are needed by this path (for parameterized paths)
-
+- `*root`: The PlannerInfo structure containing global planning context and information
+- `*rel`: The RelOptInfo structure representing the relation to be sampled
+- `required_outer`: Set of outer relations whose parameters are needed by this path (for parameterized paths)
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (creates new Path node)

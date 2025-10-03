@@ -18,9 +18,8 @@ OpenTransientFile provides a simplified interface for opening files through Post
 The function is designed for files that need to be opened with standard PostgreSQL default permissions without requiring explicit permission specification from the caller.
 
 ## Parameters / Member Variables
-- : The path to the file to be opened
-- : File access flags (O_RDONLY, O_WRONLY, O_RDWR, etc., similar to open() system call)
-
+- `*fileName`: The path to the file to be opened
+- `fileFlags`: File access flags (O_RDONLY, O_WRONLY, O_RDWR, etc., similar to open() system call)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [OpenTransientFilePerm](OpenTransientFilePerm.md) (the underlying function that performs the actual file opening)

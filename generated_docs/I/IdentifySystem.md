@@ -19,7 +19,6 @@ The function determines whether the server is in recovery mode (cascading WAL se
 The function constructs a tuple descriptor with four columns and sends a single tuple containing the system identifier, current timeline ID, WAL position formatted as a string, and database name (or NULL if not connected to a specific database).
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

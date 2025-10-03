@@ -25,12 +25,11 @@ The function distinguishes between indexes that support tuple retrieval () for p
 For ScalarArrayOpExpr clauses that cannot be handled natively by the index AM, the function makes a separate call to  specifically for bitmap scans, allowing executor-managed ScalarArrayOpExpr processing.
 
 ## Parameters / Member Variables
-- : PlannerInfo containing planner state and configuration
-- : RelOptInfo representing the relation being planned
-- : IndexOptInfo describing the index being considered
-- : IndexClauseSet containing the index clauses to be used
-- : Output parameter - list of IndexPaths suitable for bitmap scans
-
+- `*root`: PlannerInfo containing planner state and configuration
+- `*rel`: RelOptInfo representing the relation being planned
+- `*index`: IndexOptInfo describing the index being considered
+- `*clauses`: IndexClauseSet containing the index clauses to be used
+- `**bitindexpaths`: Output parameter - list of IndexPaths suitable for bitmap scans
 ## Dependencies
 - Functions called/Symbols referenced:
   - [build_index_paths](../b/build_index_paths.md)

@@ -26,14 +26,13 @@ Key implementation details:
 - Stores the file mapping handle in impl_private for later cleanup
 
 ## Parameters / Member Variables
-- : The operation to perform (CREATE/ATTACH/DETACH/DESTROY)
-- : DSM handle used to generate unique segment names
-- : Size for CREATE operations, ignored for others
-- : Stores the Windows HANDLE for the file mapping object
-- : Pointer to current/new mapping address
-- : Pointer to current/new mapping size
-- : Error logging level for error messages
-
+- `op`: The operation to perform (CREATE/ATTACH/DETACH/DESTROY)
+- `handle`: DSM handle used to generate unique segment names
+- `request_size`: Size for CREATE operations, ignored for others
+- `**impl_private`: Stores the Windows HANDLE for the file mapping object
+- `**mapped_address`: Pointer to current/new mapping address
+- `*mapped_size`: Pointer to current/new mapping size
+- `elevel`: Error logging level for error messages
 ## Dependencies
 - Functions called/Symbols referenced:
   - CreateFileMapping (create new file mapping object)

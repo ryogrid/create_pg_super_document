@@ -22,7 +22,6 @@ The function uses conditional compilation with the  preprocessor macro to determ
 - When  is not defined (backend compilation): returns 
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -18,8 +18,7 @@ This utility function efficiently removes trailing spaces from a StringInfo buff
 The implementation is optimized for performance, using a simple while loop that processes characters from the end of the string until a non-space character is encountered or the string becomes empty.
 
 ## Parameters / Member Variables
-- : The StringInfo buffer from which to remove trailing spaces
-
+- `str`: The StringInfo buffer from which to remove trailing spaces
 ## Dependencies
 - Functions called/Symbols referenced:
   - (None - uses only basic StringInfo structure members)

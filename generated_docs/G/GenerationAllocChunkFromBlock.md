@@ -19,11 +19,10 @@ GenerationAllocChunkFromBlock is an inline helper function that performs the act
 The function positions the new chunk at the current freeptr location, advances the freeptr by the chunk size plus header size, and sets up the chunk header with appropriate metadata. It includes comprehensive debugging support with sentinel bytes, memory randomization, and Valgrind annotations.
 
 ## Parameters / Member Variables
-- : The Generation memory context (used for consistency, though not directly used in this function)
-- : The GenerationBlock to allocate the chunk from (must have sufficient free space)
-- : The requested allocation size in bytes
-- : The actual chunk size after alignment (may be larger than size)
-
+- `context`: The Generation memory context (used for consistency, though not directly used in this function)
+- `*block`: The GenerationBlock to allocate the chunk from (must have sufficient free space)
+- `size`: The requested allocation size in bytes
+- `chunk_size`: The actual chunk size after alignment (may be larger than size)
 ## Dependencies
 - Functions called/Symbols referenced:
   - VALGRIND_MAKE_MEM_UNDEFINED

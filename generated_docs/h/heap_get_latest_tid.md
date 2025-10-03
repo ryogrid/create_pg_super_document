@@ -19,9 +19,8 @@ heap_get_latest_tid traverses the tuple update chain starting from a given TID b
 The function performs integrity checks during traversal, including validation of xmin/xmax transaction relationships to ensure the chain hasn't been broken by concurrent operations. It stops traversal when encountering invalid tuples, broken transaction chains, or tuples that indicate the end of the update chain (through xmax invalidation, lock-only updates, or partition movement).
 
 ## Parameters / Member Variables
-- : Table scan descriptor containing relation and snapshot information
-- : Input/output TID parameter; initially points to the starting tuple, updated to point to the latest visible version
-
+- `sscan`: Table scan descriptor containing relation and snapshot information
+- `tid`: Input/output TID parameter; initially points to the starting tuple, updated to point to the latest visible version
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReadBuffer](../R/ReadBuffer.md): Read and pin pages containing tuple versions

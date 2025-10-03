@@ -18,8 +18,7 @@ The isTempToastNamespace function checks if the provided namespace OID matches t
 This function provides a way to identify whether a given namespace is the calling session's temporary TOAST namespace by comparing the input OID with the global variable myTempToastNamespace. Like its counterpart isTempNamespace, it first validates the OID before performing the comparison.
 
 ## Parameters / Member Variables
-- : The OID of the namespace to check against the current session's temporary TOAST namespace.
-
+- `namespaceId`: The OID of the namespace to check against the current session's temporary TOAST namespace.
 ## Dependencies
 - Functions called/Symbols referenced:
   - OidIsValid: Validates that myTempToastNamespace contains a valid OID

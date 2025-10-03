@@ -18,9 +18,8 @@ The  function copies tuple data from a source HeapTuple into a destination HeapT
 This function is useful when the caller wants to manage the HeapTuple structure allocation themselves, or when working with stack-allocated HeapTuple structures. The resulting tuple will have the same metadata and data as the source, but the memory layout differs from  as the HeapTuple struct and data are not allocated as a single block.
 
 ## Parameters / Member Variables
-- : The source HeapTuple to copy from. Must be a valid tuple with non-NULL t_data field.
-- : The destination HeapTuple structure (caller-allocated) where the copied data will be stored.
-
+- `src`: The source HeapTuple to copy from. Must be a valid tuple with non-NULL t_data field.
+- `dest`: The destination HeapTuple structure (caller-allocated) where the copied data will be stored.
 ## Dependencies
 - Functions called/Symbols referenced:
   - HeapTupleIsValid (macro for tuple validation)

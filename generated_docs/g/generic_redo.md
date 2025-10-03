@@ -18,8 +18,7 @@ generic_redo is the main redo function for generic WAL records in PostgreSQL's c
 The function iterates through all blocks referenced in the WAL record, reads each affected buffer, and applies delta changes using applyPageRedo. It handles the critical task of zeroing the "hole" between pd_lower and pd_upper in page headers to ensure consistency with the original logged operations. After applying changes, it sets the LSN, marks buffers dirty, and properly releases all acquired buffer locks.
 
 ## Parameters / Member Variables
-- : XLogReaderState containing the WAL record to be replayed, including block references and delta data
-
+- `*record`: XLogReaderState containing the WAL record to be replayed, including block references and delta data
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecMaxBlockId (gets maximum block ID in the record)

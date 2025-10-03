@@ -21,11 +21,10 @@ This is a specialized binary search implementation designed for IntegerSet's int
 The implementation uses the standard binary search algorithm with low and high pointers that converge on the target position. It's optimized to avoid integer overflow by using  instead of .
 
 ## Parameters / Member Variables
-- : The uint64 value to search for
-- : Pointer to the sorted array of uint64 values to search in
-- : Number of elements in the array
-- : Boolean flag controlling behavior when equal keys are found
-
+- `item`: The uint64 value to search for
+- `*arr`: Pointer to the sorted array of uint64 values to search in
+- `arr_elems`: Number of elements in the array
+- `nextkey`: Boolean flag controlling behavior when equal keys are found
 ## Dependencies
 - Functions called/Symbols referenced:
   - (None - this is a self-contained utility function)

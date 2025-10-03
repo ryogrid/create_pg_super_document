@@ -25,11 +25,10 @@ The execCurrentOf function implements the core logic for PostgreSQL's "WHERE CUR
 The function validates that the cursor exists, is a SELECT query, is not a held cursor from a previous transaction, and is currently positioned on a row. It handles inheritance cases where multiple tables might be involved by returning false (rather than an error) when the specified table didn't produce the cursor's current row.
 
 ## Parameters / Member Variables
-- : CurrentOfExpr structure containing the cursor name or parameter reference
-- : Expression evaluation context containing parameter values if needed
-- : OID of the target table for the CURRENT OF operation
-- : Output parameter to receive the TID of the current row
-
+- `*cexpr`: CurrentOfExpr structure containing the cursor name or parameter reference
+- `*econtext`: Expression evaluation context containing parameter values if needed
+- `table_oid`: OID of the target table for the CURRENT OF operation
+- `current_tid`: Output parameter to receive the TID of the current row
 ## Dependencies
 - Functions called/Symbols referenced:
   - [fetch_cursor_param_value](../f/fetch_cursor_param_value.md) (for parameterized cursor names)

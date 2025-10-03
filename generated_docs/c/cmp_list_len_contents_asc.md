@@ -27,9 +27,8 @@ This function implements a hierarchical comparison strategy for lists of integer
 The function is specifically designed for sorting lists of integers that represent grouping column references (ressortgroupref values).
 
 ## Parameters / Member Variables
-- : ListCell pointer containing the first List of integers to compare
-- : ListCell pointer containing the second List of integers to compare
-
+- `*a`: ListCell pointer containing the first List of integers to compare
+- `*b`: ListCell pointer containing the second List of integers to compare
 ## Dependencies
 - Functions called/Symbols referenced:
   - [cmp_list_len_asc](cmp_list_len_asc.md): Primary length-based comparison

@@ -19,7 +19,6 @@ The function iterates through all portals in the PortalHashTable and converts an
 The function includes safety checks to ensure that only read-only cursors (SELECT statements) can be held during transaction control, preventing issues with UPDATE/DELETE cursors that have complex semantics during transaction control.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

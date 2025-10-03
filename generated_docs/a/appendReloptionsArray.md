@@ -26,12 +26,11 @@ Key behaviors:
 - Handles encoding and standard string settings
 
 ## Parameters / Member Variables
-- : PQExpBuffer to append the formatted options to
-- : String containing the PostgreSQL array of relation options
-- : Prefix to prepend to option names (typically "" or "toast.")
-- : Character encoding for string literal formatting
-- : Whether to use standard string literal syntax
-
+- `buffer`: PQExpBuffer to append the formatted options to
+- `*reloptions`: String containing the PostgreSQL array of relation options
+- `*prefix`: Prefix to prepend to option names (typically "" or "toast.")
+- `encoding`: Character encoding for string literal formatting
+- `std_strings`: Whether to use standard string literal syntax
 ## Dependencies
 - Functions called/Symbols referenced:
   - [parsePGArray](../p/parsePGArray.md)

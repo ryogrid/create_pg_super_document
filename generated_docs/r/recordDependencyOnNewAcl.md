@@ -21,12 +21,11 @@ The function serves as a specialized wrapper around updateAclDependencies() for 
 If the ACL parameter is NULL (indicating default system permissions), the function returns early without recording any dependencies, as default permissions don't create explicit role dependencies.
 
 ## Parameters / Member Variables
-- : OID of the system catalog class (e.g., RelationRelationId for tables)
-- : OID of the specific object being created
-- : Sub-object identifier (0 for whole objects, positive for columns, etc.)
-- : OID of the role that owns the object
-- : The access control list containing role privileges (NULL for default permissions)
-
+- `classId`: OID of the system catalog class (e.g., RelationRelationId for tables)
+- `objectId`: OID of the specific object being created
+- `objsubId`: Sub-object identifier (0 for whole objects, positive for columns, etc.)
+- `ownerId`: OID of the role that owns the object
+- `*acl`: The access control list containing role privileges (NULL for default permissions)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [aclmembers](../a/aclmembers.md) (extracts all role OIDs from an ACL)

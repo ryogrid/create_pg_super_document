@@ -22,11 +22,10 @@ The function calculates the required buffer size first, accounting for:
 - Extra characters needed for escaping internal double quotes
 
 ## Parameters / Member Variables
-- : The schema name component of the identifier (can be NULL)
-- : The object name component of the identifier (can be NULL)
-- : Boolean flag indicating whether to force quoting of the schema name
-- : Boolean flag indicating whether to force quoting of the object name
-
+- `*schemaname`: The schema name component of the identifier (can be NULL)
+- `*objectname`: The object name component of the identifier (can be NULL)
+- `quote_schema`: Boolean flag indicating whether to force quoting of the schema name
+- `quote_object`: Boolean flag indicating whether to force quoting of the object name
 ## Dependencies
 - Functions called/Symbols referenced:
   - [identifier_needs_quotes](../i/identifier_needs_quotes.md) (called twice to determine if quoting is needed)

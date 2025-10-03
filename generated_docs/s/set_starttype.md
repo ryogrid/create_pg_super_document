@@ -22,8 +22,7 @@ The function supports two start types:
 The function validates the input and terminates the program with an error message if an invalid start type is provided.
 
 ## Parameters / Member Variables
-- : String containing the start type specification (short or long form: "a"/"auto" or "d"/"demand")
-
+- `*starttypeopt`: String containing the start type specification (short or long form: "a"/"auto" or "d"/"demand")
 ## Dependencies
 - Functions called/Symbols referenced:
   - strcmp (string comparison)

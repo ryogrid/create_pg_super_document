@@ -20,9 +20,8 @@ The function first ensures all active segments are opened by calling mdnblocks, 
 This function is particularly important for handling cases where a relation might skip WAL logging, and ensures that even segments that have been truncated or made inactive are properly synced to prevent data corruption during recovery.
 
 ## Parameters / Member Variables
-- : SMgrRelation pointer representing the storage manager relation to sync
-- : ForkNumber indicating which fork of the relation to sync (main, FSM, VM, etc.)
-
+- `reln`: SMgrRelation pointer representing the storage manager relation to sync
+- `forknum`: ForkNumber indicating which fork of the relation to sync (main, FSM, VM, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [mdnblocks](mdnblocks.md)

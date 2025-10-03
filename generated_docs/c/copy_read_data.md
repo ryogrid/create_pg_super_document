@@ -25,10 +25,9 @@ The function implements a sophisticated buffering mechanism using a static  (Str
 The function continues reading until either the minimum read requirement is satisfied or no more data is available. It uses PostgreSQL's latch mechanism to efficiently wait for network data without busy-waiting.
 
 ## Parameters / Member Variables
-- : Pointer to the output buffer where data should be written for the COPY process
-- : Minimum number of bytes that should be read if possible (for efficiency)  
-- : Maximum number of bytes that can be read in this call (buffer size limit)
-
+- `*outbuf`: Pointer to the output buffer where data should be written for the COPY process
+- `minread`: Minimum number of bytes that should be read if possible (for efficiency)
+- `maxread`: Maximum number of bytes that can be read in this call (buffer size limit)
 ## Dependencies
 - Functions called/Symbols referenced:
   - walrcv_receive (reads data from WAL receiver connection)

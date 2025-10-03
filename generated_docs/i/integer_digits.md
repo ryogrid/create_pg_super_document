@@ -16,8 +16,7 @@ integer_digits(const char *my_str)
 The  function is a utility function that counts the number of consecutive digits at the beginning of a numeric string, effectively determining the length of the integral (non-fractional) part of a number. The function ignores any leading sign character ('+' or '-') and uses  to count consecutive characters that are decimal digits (0-9). This information is typically used for formatting numbers with thousands separators or other locale-specific numeric formatting.
 
 ## Parameters / Member Variables
-- : A null-terminated string representing a numeric value that may include a leading sign character
-
+- `*my_str`: A null-terminated string representing a numeric value that may include a leading sign character
 ## Dependencies
 - Functions called/Symbols referenced:
   - strspn (standard C library function)

@@ -25,9 +25,8 @@ This function serves as the central cleanup mechanism for the snapshot managemen
 The function handles both commit and abort scenarios, with additional validation during commits to detect potential snapshot leaks.
 
 ## Parameters / Member Variables
-- : Boolean indicating whether this is a commit (true) or abort (false) scenario
-- : Boolean indicating whether to reset the process's xmin value (false during normal commit as ProcArrayEndTransaction handles it)
-
+- `isCommit`: Boolean indicating whether this is a commit (true) or abort (false) scenario
+- `resetXmin`: Boolean indicating whether to reset the process's xmin value (false during normal commit as ProcArrayEndTransaction handles it)
 ## Dependencies
 - Functions called/Symbols referenced:
   - pairingheap_is_empty

@@ -18,8 +18,7 @@ The dshash_detach function cleanly disconnects a backend from a shared hash tabl
 The shared hash table continues to exist after detachment and can be accessed by other backends that remain attached or by new backends that attach using the table handle. The shared data is only freed when the hash table is explicitly destroyed or when the entire dynamic shared area is deallocated.
 
 ## Parameters / Member Variables
-- : Pointer to the backend-local dshash_table structure to detach from
-
+- `*hash_table`: Pointer to the backend-local dshash_table structure to detach from
 ## Dependencies
 - Functions called/Symbols referenced:
   - ASSERT_NO_PARTITION_LOCKS_HELD_BY_ME (debug assertion macro)

@@ -18,9 +18,8 @@ This function performs a complete bitmap scan of a GIN index, collecting all tup
 The function handles concurrent access considerations by ensuring the pending list is scanned before the main index to prevent missing entries due to concurrent cleanup operations. It supports both exact tuple references and lossy page references for efficient bitmap storage.
 
 ## Parameters / Member Variables
-- : An IndexScanDesc structure containing the scan state and conditions for the GIN index scan
-- : A TIDBitmap structure where matching tuple IDs and page references will be collected
-
+- `scan`: An IndexScanDesc structure containing the scan state and conditions for the GIN index scan
+- `*tbm`: A TIDBitmap structure where matching tuple IDs and page references will be collected
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ginFreeScanKeys](ginFreeScanKeys.md)

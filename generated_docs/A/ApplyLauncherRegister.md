@@ -17,6 +17,7 @@ This function sets up and registers a background worker process for the logical 
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BackgroundWorker](../B/BackgroundWorker.md)

@@ -18,8 +18,7 @@ This function serves as a simple initialization routine for SetOp operations tha
 The function is implemented as a static inline function for performance, as it's a simple operation that gets called frequently during SetOp execution.
 
 ## Parameters / Member Variables
-- : Pointer to a SetOpStatePerGroup structure that holds the per-group working state for counting duplicates
-
+- `pergroup`: Pointer to a SetOpStatePerGroup structure that holds the per-group working state for counting duplicates
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SetOpStatePerGroup](../S/SetOpStatePerGroup.md) (typedef structure)

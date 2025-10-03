@@ -18,11 +18,10 @@ This function computes the MD5 cryptographic hash of the specified input buffer 
 Like pg_md5_hash, this function uses PostgreSQL's cryptohash API for secure MD5 computation with proper error handling and memory management, but skips the hexadecimal conversion step to provide the raw digest bytes.
 
 ## Parameters / Member Variables
-- : Pointer to the input buffer containing the data to be hashed
-- : Size in bytes of the input buffer
-- : Output buffer to receive the 16-byte binary MD5 digest (must be at least MD5_DIGEST_LENGTH bytes)
-- : Pointer to a const char pointer that will be set to an error message on failure, or NULL on success
-
+- `*buff`: Pointer to the input buffer containing the data to be hashed
+- `len`: Size in bytes of the input buffer
+- `*outbuf`: Output buffer to receive the 16-byte binary MD5 digest (must be at least MD5_DIGEST_LENGTH bytes)
+- `**errstr`: Pointer to a const char pointer that will be set to an error message on failure, or NULL on success
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_cryptohash_create](pg_cryptohash_create.md)

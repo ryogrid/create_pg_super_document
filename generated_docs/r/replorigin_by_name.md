@@ -16,9 +16,8 @@ replorigin_by_name(const char *roname, bool missing_ok)
 This function searches the pg_replication_origin system catalog for a replication origin with the specified name. It converts the C string name to a PostgreSQL text datum and performs a system cache lookup using the REPLORIGNAME cache. If found, it extracts and returns the origin identifier (roident). The function provides flexible error handling: when missing_ok is false, it throws an error if the origin doesn't exist; when missing_ok is true, it returns InvalidOid for missing origins, allowing callers to handle the absence gracefully.
 
 ## Parameters / Member Variables
-- : The name of the replication origin to look up (null-terminated C string)
-- : Boolean flag controlling error behavior when the origin is not found (true = return InvalidOid, false = throw error)
-
+- `*roname`: The name of the replication origin to look up (null-terminated C string)
+- `missing_ok`: Boolean flag controlling error behavior when the origin is not found (true = return InvalidOid, false = throw error)
 ## Dependencies
 - Functions called/Symbols referenced:
   - CStringGetTextDatum

@@ -20,8 +20,7 @@ The function operates in the context where there is no active transaction (since
 Note that if the transaction was prepared in a parallel apply worker, no additional waiting is required here as the wait was already handled in apply_handle_stream_prepare(), ensuring all operations completed on the subscriber.
 
 ## Parameters / Member Variables
-- : StringInfo containing the serialized COMMIT PREPARED message data from the publisher
-
+- `s`: StringInfo containing the serialized COMMIT PREPARED message data from the publisher
 ## Dependencies
 - Functions called/Symbols referenced:
   - [logicalrep_read_commit_prepared](../l/logicalrep_read_commit_prepared.md)

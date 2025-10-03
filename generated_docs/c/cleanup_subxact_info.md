@@ -23,7 +23,6 @@ The function operates on the global subxact_data structure, which maintains info
 This cleanup is essential for preventing memory leaks and ensuring proper state reset between transaction processing cycles.
 
 ## Parameters / Member Variables
-This function takes no parameters and operates on the global subxact_data structure.
 
 ## Dependencies
 - Functions called/Symbols referenced:

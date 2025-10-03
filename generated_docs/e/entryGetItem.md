@@ -23,10 +23,9 @@ For posting lists (when buffer is invalid), it performs simple array traversal t
 The function also implements result reduction logic when GinFuzzySearchLimit is active, using the dropItem function to probabilistically skip items and reduce result set size for performance.
 
 ## Parameters / Member Variables
-- : Pointer to GIN state containing index metadata and configuration
-- : GIN scan entry to advance, containing current position and data source information
-- : Item pointer indicating the minimum position for the next item to return
-
+- `*ginstate`: Pointer to GIN state containing index metadata and configuration
+- `entry`: GIN scan entry to advance, containing current position and data source information
+- `advancePast`: Item pointer indicating the minimum position for the next item to return
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ginCompareItemPointers](../g/ginCompareItemPointers.md)

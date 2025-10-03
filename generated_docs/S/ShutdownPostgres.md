@@ -20,9 +20,8 @@ The function performs two critical cleanup operations: it forcibly aborts any ac
 This callback is designed to execute reliably even if user-level cleanup operations fail, which is why it runs as a separate callback rather than being combined with user-level cleanup routines.
 
 ## Parameters / Member Variables
-- : Exit code passed to the shutdown callback (unused in this function)
-- : Additional data passed to the callback (unused in this function)
-
+- `code`: Exit code passed to the shutdown callback (unused in this function)
+- `arg`: Additional data passed to the callback (unused in this function)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [AbortOutOfAnyTransaction](../A/AbortOutOfAnyTransaction.md)

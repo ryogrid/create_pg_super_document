@@ -18,10 +18,9 @@ The  function is designed for precise block-level reading operations within Post
 This function is essential for the block-by-block reconstruction process, where individual PostgreSQL data blocks need to be read from various source files at specific offsets and assembled into the final reconstructed file.
 
 ## Parameters / Member Variables
-- : Pointer to an rfile structure containing the file descriptor and metadata for the source file
-- : File offset (in bytes) where the block should be read from
-- : Pointer to a buffer that will receive exactly BLCKSZ bytes of data
-
+- `*s`: Pointer to an rfile structure containing the file descriptor and metadata for the source file
+- `off`: File offset (in bytes) where the block should be read from
+- `*buffer`: Pointer to a buffer that will receive exactly BLCKSZ bytes of data
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (PostgreSQL wrapper for positioned read operations)

@@ -16,9 +16,8 @@ dclist_tail_element_off(dclist_head *head, size_t off)
 This function is an internal utility that calculates the memory address of the structure containing the tail node of a doubly-linked circular list. It works by taking the address of the tail node (accessed through head->dlist.head.prev) and subtracting the specified offset to get back to the beginning of the containing structure. This is part of PostgreSQL's intrusive list implementation where list nodes are embedded within larger data structures.
 
 ## Parameters / Member Variables
-- : Pointer to the doubly-linked circular list head structure
-- : Byte offset of the dlist_node member within the containing structure
-
+- `*head`: Pointer to the doubly-linked circular list head structure
+- `off`: Byte offset of the dlist_node member within the containing structure
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dclist_is_empty](dclist_is_empty.md) (validation check)

@@ -20,10 +20,9 @@ The function allocates extra storage to track whether the seed assignment should
 The extra storage mechanism ensures that transaction rollbacks don't attempt to re-execute the random seed assignment, maintaining the integrity of the random sequence.
 
 ## Parameters / Member Variables
-- : Pointer to the new double value for the random seed
-- : Pointer to extra data storage, used to store a flag indicating whether the assignment should proceed
-- : The source of the configuration change (GucSource enum)
-
+- `*newval`: Pointer to the new double value for the random seed
+- `**extra`: Pointer to extra data storage, used to store a flag indicating whether the assignment should proceed
+- `source`: The source of the configuration change (GucSource enum)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [guc_malloc](../g/guc_malloc.md)

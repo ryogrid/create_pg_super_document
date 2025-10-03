@@ -22,8 +22,7 @@ The function performs two main operations:
 The function assumes it is called exactly once per leaked resource and that there are no other callers, as indicated by the XXX comment. This assumption allows it to accurately track leak statistics by simply incrementing the counter each time it's called.
 
 ## Parameters / Member Variables
-- : A Datum containing a pointer to the ManyTestResource object to be described
-
+- `res`: A Datum containing a pointer to the ManyTestResource object to be described
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DatumGetPointer](../D/DatumGetPointer.md) (macro to extract pointer from Datum)

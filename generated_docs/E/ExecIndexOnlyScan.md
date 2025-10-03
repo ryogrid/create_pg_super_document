@@ -20,8 +20,7 @@ The function first checks if runtime keys need to be computed and sets them up b
 After ensuring that runtime keys are ready, the function calls ExecScan with specialized access method functions: IndexOnlyNext for tuple retrieval and IndexOnlyRecheck for EvalPlanQual operations (though the latter will always error for index-only scans).
 
 ## Parameters / Member Variables
-- : PlanState pointer that will be cast to IndexOnlyScanState, containing all scan state and configuration information
-
+- `*pstate`: PlanState pointer that will be cast to IndexOnlyScanState, containing all scan state and configuration information
 ## Dependencies
 - Functions called/Symbols referenced:
   - castNode: PostgreSQL macro for safe type casting with debug assertions

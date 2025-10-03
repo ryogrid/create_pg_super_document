@@ -20,10 +20,9 @@ This internal function implements the core logic for determining if a range is s
 The function deserializes the range bounds and gets the bounds of the multirange's rightmost range (at index ), then uses  to perform the actual comparison with a "greater than" check.
 
 ## Parameters / Member Variables
-- : TypeCacheEntry containing range type information and comparison functions
-- : The range to check (left operand)
-- : The multirange to compare against (right operand)
-
+- `*rangetyp`: TypeCacheEntry containing range type information and comparison functions
+- `*r`: The range to check (left operand)
+- `*mr`: The multirange to compare against (right operand)
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Check if a range is empty

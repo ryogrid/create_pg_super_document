@@ -18,11 +18,10 @@ This function is responsible for removing a specific gene from the edge table da
 The removal process involves finding the gene in each edge list and replacing it with the last element in the list, then decrementing the unused_edges counter. This maintains the compactness of the edge lists while preserving the integrity of the edge table structure.
 
 ## Parameters / Member Variables
-- : PlannerInfo pointer providing access to planner context (not directly used in this function)
-- : The gene to be removed from the edge table
-- : The edge structure containing the list of genes that have edges to the input gene
-- : Array of Edge structures representing the complete edge table
-
+- `*root`: PlannerInfo pointer providing access to planner context (not directly used in this function)
+- `gene`: The gene to be removed from the edge table
+- `edge`: The edge structure containing the list of genes that have edges to the input gene
+- `*edge_table`: Array of Edge structures representing the complete edge table
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Edge](../E/Edge.md) (type)

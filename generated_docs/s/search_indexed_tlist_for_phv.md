@@ -20,11 +20,10 @@ This function searches through an indexed target list to find a PlaceHolderVar t
 The function includes validation of phnullingrels between the input PlaceHolderVar and the subplan output PlaceHolderVar based on the nrm_match parameter, similar to the corresponding validation in search_indexed_tlist_for_var.
 
 ## Parameters / Member Variables
-- : The PlaceHolderVar to search for in the indexed target list
-- : The indexed target list structure to search within
-- : The varno value to assign to the constructed Var if a match is found
-- : Controls how phnullingrels are compared (NRM_EQUAL for exact match, NRM_SUBSET/NRM_SUPERSET for partial matches)
-
+- `*phv`: The PlaceHolderVar to search for in the indexed target list
+- `*itlist`: The indexed target list structure to search within
+- `newvarno`: The varno value to assign to the constructed Var if a match is found
+- `nrm_match`: Controls how phnullingrels are compared (NRM_EQUAL for exact match, NRM_SUBSET/NRM_SUPERSET for partial matches)
 ## Dependencies
 - Functions called/Symbols referenced:
   - lfirst

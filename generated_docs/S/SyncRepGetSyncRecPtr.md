@@ -23,11 +23,10 @@ The function supports two synchronous replication methods:
 The function performs validation to ensure sufficient synchronous standbys are available and determines whether the current WAL sender is among the synchronous standbys.
 
 ## Parameters / Member Variables
-- : Output parameter - receives the synchronized write LSN position
-- : Output parameter - receives the synchronized flush LSN position  
-- : Output parameter - receives the synchronized apply LSN position
-- : Output parameter - set to true if current WAL sender is a sync standby
-
+- `*writePtr`: Output parameter - receives the synchronized write LSN position
+- `*flushPtr`: Output parameter - receives the synchronized flush LSN position
+- `*applyPtr`: Output parameter - receives the synchronized apply LSN position
+- `*am_sync`: Output parameter - set to true if current WAL sender is a sync standby
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Gets list of candidate synchronous standbys

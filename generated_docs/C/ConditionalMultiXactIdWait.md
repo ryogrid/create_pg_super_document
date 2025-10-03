@@ -19,12 +19,11 @@ This function serves as a wrapper around Do_MultiXactIdWait with non-blocking be
 The function attempts to acquire locks on all conflicting multixact members, but if any lock cannot be obtained without blocking, it returns false. When it returns true, it means all conflicting transactions have completed and the caller can proceed. The remaining count provides information about how many members are still active.
 
 ## Parameters / Member Variables
-- : The multixact ID to conditionally wait for
-- : The lock status being requested to determine conflicts
-- : Tuple header information mask for optimization
-- : Relation for error context information
-- : Output parameter for count of remaining active members (can be NULL)
-
+- `multi`: The multixact ID to conditionally wait for
+- `status`: The lock status being requested to determine conflicts
+- `infomask`: Tuple header information mask for optimization
+- `rel`: Relation for error context information
+- `*remaining`: Output parameter for count of remaining active members (can be NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Do_MultiXactIdWait](../D/Do_MultiXactIdWait.md) (with nowait=true)

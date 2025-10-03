@@ -17,11 +17,10 @@ TupleDescCopyEntry(TupleDesc dst, AttrNumber dstAttno,
 This function copies a single attribute definition from a source tuple descriptor to a destination tuple descriptor at specified positions. It performs a memory copy of the fixed-part attribute structure, updates the attribute number, and resets the cache offset. Like other copy functions in this family, it explicitly does not copy constraint-related information and clears all constraint flags in the destination attribute. The function includes sanity checks to ensure valid source and destination descriptors and attribute numbers.
 
 ## Parameters / Member Variables
-- : Destination TupleDesc to copy the attribute into
-- : Attribute number in destination (1-based index)
-- : Source TupleDesc to copy the attribute from
-- : Attribute number in source (1-based index)
-
+- `dst`: Destination TupleDesc to copy the attribute into
+- `dstAttno`: Attribute number in destination (1-based index)
+- `src`: Source TupleDesc to copy the attribute from
+- `srcAttno`: Attribute number in source (1-based index)
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerIsValid

@@ -24,10 +24,9 @@ Generic_Text_IC_like implements case-insensitive pattern matching (ILIKE) with s
 The dual approach optimizes performance: single-byte encodings can perform case folding during matching (avoiding memory allocation for lowercased strings), while multibyte encodings require pre-processing due to the complexity of multibyte case conversion.
 
 ## Parameters / Member Variables
-- : Input text string to match against the pattern
-- : ILIKE pattern string containing wildcards and literal characters  
-- : OID of the collation to use for case-insensitive comparison
-
+- `*str`: Input text string to match against the pattern
+- `*pat`: ILIKE pattern string containing wildcards and literal characters
+- `collation`: OID of the collation to use for case-insensitive comparison
 ## Dependencies
 - Functions called/Symbols referenced:
   - [lc_ctype_is_c](../l/lc_ctype_is_c.md) (check if collation uses C locale)

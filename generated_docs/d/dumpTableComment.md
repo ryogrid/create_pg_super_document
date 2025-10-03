@@ -22,10 +22,9 @@ This function handles comment dumping specifically for table-like objects (table
 The function generates appropriate COMMENT ON TABLE/VIEW or COMMENT ON COLUMN statements and creates separate archive entries for each comment found. All comments are marked as SECTION_NONE to ensure they appear in the same section as the parent table.
 
 ## Parameters / Member Variables
-- : Archive context for the dump operation
-- : TableInfo structure containing table metadata including name, namespace, owner, and column information
-- : Relation type name ("TABLE", "VIEW", "MATERIALIZED VIEW", etc.) for use in COMMENT ON statements
-
+- `*fout`: Archive context for the dump operation
+- `*tbinfo`: TableInfo structure containing table metadata including name, namespace, owner, and column information
+- `*reltypename`: Relation type name ("TABLE", "VIEW", "MATERIALIZED VIEW", etc.) for use in COMMENT ON statements
 ## Dependencies
 - Functions called/Symbols referenced:
   - [findComments](../f/findComments.md)

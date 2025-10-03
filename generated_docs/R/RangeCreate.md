@@ -26,14 +26,13 @@ The function operates in several phases:
 6. Closes the catalog table
 
 ## Parameters / Member Variables
-- : The OID of the range type being created
-- : The OID of the element type (subtype) that the range contains
-- : The OID of the collation to use for the range elements (may be InvalidOid)
-- : The OID of the operator class for the subtype
-- : The OID of the canonical function for normalizing range values (may be InvalidOid)
-- : The OID of the subdiff function for computing differences (may be InvalidOid)
-- : The OID of the associated multirange type
-
+- `rangeTypeOid`: The OID of the range type being created
+- `rangeSubType`: The OID of the element type (subtype) that the range contains
+- `rangeCollation`: The OID of the collation to use for the range elements (may be InvalidOid)
+- `rangeSubOpclass`: The OID of the operator class for the subtype
+- `rangeCanonical`: The OID of the canonical function for normalizing range values (may be InvalidOid)
+- `rangeSubDiff`: The OID of the subdiff function for computing differences (may be InvalidOid)
+- `multirangeTypeOid`: The OID of the associated multirange type
 ## Dependencies
 - Functions called/Symbols referenced:
   - [heap_form_tuple](../h/heap_form_tuple.md)

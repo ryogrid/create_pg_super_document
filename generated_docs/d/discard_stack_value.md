@@ -18,9 +18,8 @@ The  function is responsible for properly cleaning up values stored in GUC confi
 The function handles different GUC variable types appropriately: for simple types (boolean, integer, real, enum), no special cleanup is needed as they are stored by value. For string types, it uses  with NULL to ensure proper memory management and reference counting. For all types, it clears any associated extra data using  with NULL.
 
 ## Parameters / Member Variables
-- : Pointer to the generic GUC configuration structure associated with the stack entry
-- : Pointer to the config_var_value structure whose values will be discarded and cleaned up
-
+- `*gconf`: Pointer to the generic GUC configuration structure associated with the stack entry
+- `*val`: Pointer to the config_var_value structure whose values will be discarded and cleaned up
 ## Dependencies
 - Functions called/Symbols referenced:
   - [config_var_value](../c/config_var_value.md), config_generic (structure types)

@@ -23,9 +23,8 @@ The function extends standard constant folding with three additional optimizatio
 This more permissive approach enables better cost estimates and planning decisions while maintaining the safety boundary between planning and execution phases.
 
 ## Parameters / Member Variables
-- : PlannerInfo pointer containing planner context and bound parameters needed for parameter substitution and estimation
-- : Node pointer to the expression tree to be evaluated and optimized for planning estimation
-
+- `*root`: PlannerInfo pointer containing planner context and bound parameters needed for parameter substitution and estimation
+- `*node`: Node pointer to the expression tree to be evaluated and optimized for planning estimation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [eval_const_expressions_context](eval_const_expressions_context.md)  

@@ -18,8 +18,7 @@ The  function is a simple query function that checks whether GSSAPI authenticati
 This function is typically used by other parts of PostgreSQL to determine the authentication method used for logging, statistics, or security policy decisions. It only indicates that GSSAPI authentication occurred, not whether GSSAPI encryption is active (which would be checked separately).
 
 ## Parameters / Member Variables
-- : Pointer to Port structure containing connection state information
-
+- `*port`: Pointer to Port structure containing connection state information
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (simple accessor function)

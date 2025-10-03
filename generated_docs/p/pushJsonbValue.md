@@ -28,10 +28,9 @@ For binary data (compressed JSONB structures), it initializes an iterator to tra
 The function maintains state through the JsonbParseState pointer, enabling incremental construction of complex nested structures across multiple function calls.
 
 ## Parameters / Member Variables  
-- : Pointer to JsonbParseState pointer (modified to track construction state)
-- : JsonbIteratorToken indicating the type of token being processed
-- : JsonbValue to process (may be NULL for structural tokens like WJB_BEGIN_OBJECT)
-
+- `**pstate`: Pointer to JsonbParseState pointer (modified to track construction state)
+- `seq`: JsonbIteratorToken indicating the type of token being processed
+- `*jbval`: JsonbValue to process (may be NULL for structural tokens like WJB_BEGIN_OBJECT)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pushJsonbValueScalar](pushJsonbValueScalar.md)

@@ -16,8 +16,7 @@ UInt32GetDatum(uint32 X)
 UInt32GetDatum is a static inline function that provides type-safe conversion from a 32-bit unsigned integer (uint32) to PostgreSQL's universal Datum type. This function is part of PostgreSQL's datum conversion system that enables uniform handling of different data types within the database engine. The conversion is implemented as a direct cast, taking advantage of the fact that 32-bit unsigned integers can be stored directly in the Datum representation without additional encoding or memory allocation.
 
 ## Parameters / Member Variables
-- : The 32-bit unsigned integer value to be converted to Datum format
-
+- `X`: The 32-bit unsigned integer value to be converted to Datum format
 ## Dependencies
 - Functions called/Symbols referenced:
   - (None - simple cast operation)

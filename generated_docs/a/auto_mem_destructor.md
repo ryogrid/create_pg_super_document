@@ -20,8 +20,7 @@ The function ignores its argument parameter (which would typically contain the t
 This automatic cleanup mechanism is essential for embedded SQL applications that use multiple threads, as it prevents memory leaks that could occur if threads terminate without explicitly freeing their automatic memory allocations.
 
 ## Parameters / Member Variables
-- : Unused parameter (thread-specific data value), cast to void to prevent compiler warnings
-
+- `*arg`: Unused parameter (thread-specific data value), cast to void to prevent compiler warnings
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ECPGfree_auto_mem](../E/ECPGfree_auto_mem.md) (frees all automatic memory allocations for the current thread)

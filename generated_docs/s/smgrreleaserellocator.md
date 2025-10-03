@@ -18,8 +18,7 @@ This function provides an optimized way to release storage manager resources for
 The function performs a hash table lookup using HASH_FIND to locate the SMgrRelation entry. If found, it calls smgrrelease() to perform the actual resource cleanup. If the hash table hasn't been initialized yet (SMgrRelationHash == NULL), the function returns early without performing any operations.
 
 ## Parameters / Member Variables
-- : RelFileLocatorBackend structure that uniquely identifies the relation whose resources should be released
-
+- `rlocator`: RelFileLocatorBackend structure that uniquely identifies the relation whose resources should be released
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hash_search](../h/hash_search.md) (for hash table lookup)

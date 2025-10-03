@@ -20,6 +20,7 @@ The function is used when the system determines that the current visibility boun
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ComputeXidHorizons](../C/ComputeXidHorizons.md)

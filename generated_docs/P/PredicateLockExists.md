@@ -18,8 +18,7 @@ This function verifies if a specific predicate lock target is currently held by 
 The function has important limitations: it may return false positives or false negatives because the local lock table isn't always synchronized when other transactions modify lock lists (such as during index page splits). It can also return true when a coarser granularity lock that covers the target is being held. These characteristics make it suitable only for specific use cases where such inaccuracies are acceptable.
 
 ## Parameters / Member Variables
-- : A pointer to the predicate lock target tag identifying the specific lock to check
-
+- `*targettag`: A pointer to the predicate lock target tag identifying the specific lock to check
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hash_search](../h/hash_search.md)

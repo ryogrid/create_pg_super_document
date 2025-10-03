@@ -22,9 +22,8 @@ The function iterates through each member of the input relids set. For each rang
 This process effectively "flattens" join aliases by expanding them to show the actual relations involved, which is crucial for various optimizer operations that need to work with the actual base relations rather than join aliases.
 
 ## Parameters / Member Variables
-- : Pointer to the Query structure containing the range table and other query information
-- : Input bitmap set of range table indexes to be processed and potentially expanded
-
+- `*query`: Pointer to the Query structure containing the range table and other query information
+- `relids`: Input bitmap set of range table indexes to be processed and potentially expanded
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Iterates through members of the bitmap set

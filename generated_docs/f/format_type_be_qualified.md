@@ -20,8 +20,7 @@ The function forces qualification by using the  flag, but makes an exception for
 Like other backend functions, it will fail for invalid type OIDs rather than returning fallback values, making it suitable for contexts where type validity is expected.
 
 ## Parameters / Member Variables
-- : PostgreSQL type OID from pg_type.oid that must be valid
-
+- `type_oid`: PostgreSQL type OID from pg_type.oid that must be valid
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Core formatting implementation with forced qualification flag

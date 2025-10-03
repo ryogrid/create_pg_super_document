@@ -26,7 +26,6 @@ CLOGShmemInit is responsible for initializing the CLOG (Commit Log) shared memor
 The CLOG subsystem tracks transaction commit status and is essential for MVCC (Multi-Version Concurrency Control) in PostgreSQL.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

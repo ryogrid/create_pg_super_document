@@ -23,9 +23,8 @@ This function performs a comprehensive test to determine if a full transaction I
 The state parameter must be initialized for the relation that fxid belongs to, or NULL for general use, to ensure correct results.
 
 ## Parameters / Member Variables
-- : Pointer to GlobalVisState containing visibility boundaries for the relevant relation type
-- : The full transaction ID to test for removability
-
+- `*state`: Pointer to GlobalVisState containing visibility boundaries for the relevant relation type
+- `fxid`: The full transaction ID to test for removability
 ## Dependencies
 - Functions called/Symbols referenced:
   - FullTransactionIdPrecedes

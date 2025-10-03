@@ -16,10 +16,9 @@ json_unique_object_field_start(void *_state, char *field, bool isnull)
 This function is a specialized JSON parsing callback that ensures object field names are unique within their containing objects. It operates as part of the JSON validation framework and is called when the parser encounters the beginning of an object field. The function maintains a stack-based tracking system to monitor object nesting levels and uses a key collision detection mechanism to identify duplicate field names. When a duplicate is found, it marks the parsing state as non-unique and cleans up the object tracking stack.
 
 ## Parameters / Member Variables
-- : Void pointer to JsonUniqueParsingState containing the parsing context and uniqueness tracking information
-- : Character pointer to the field name being processed
-- : Boolean indicating whether the field value is null (currently unused in the implementation)
-
+- `*_state`: Void pointer to JsonUniqueParsingState containing the parsing context and uniqueness tracking information
+- `*field`: Character pointer to the field name being processed
+- `isnull`: Boolean indicating whether the field value is null (currently unused in the implementation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [json_unique_check_key](json_unique_check_key.md)

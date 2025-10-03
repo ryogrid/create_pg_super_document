@@ -26,7 +26,6 @@ The function performs several critical tasks:
 The function carefully handles the bootstrap case and manages the criticalRelcachesBuilt and criticalSharedRelcachesBuilt flags to control when to use heapscans vs. indexscans during catalog access.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -21,9 +21,8 @@ This function generates the full filesystem path to the temporary files director
 The function ensures that temporary files are organized properly within PostgreSQL's directory structure and provides a consistent interface for locating temp file storage areas across different tablespaces.
 
 ## Parameters / Member Variables
-- : Output buffer that receives the constructed path string (must be at least MAXPGPATH bytes)
-- : OID of the target tablespace, or special values like InvalidOid for default tablespace
-
+- `*path`: Output buffer that receives the constructed path string (must be at least MAXPGPATH bytes)
+- `tablespace`: OID of the target tablespace, or special values like InvalidOid for default tablespace
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_TEMP_FILES_DIR (constant for temp directory name)

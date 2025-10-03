@@ -20,8 +20,7 @@ The function iterates through levels in descending order and processes all buffe
 Once a buffer is completely emptied (blocksCount == 0), it is removed from the level's buffer list. This process continues until all buffers at all levels have been processed and emptied.
 
 ## Parameters / Member Variables
-- : GiST build state containing the buffer management structures and build context
-
+- `*buildstate`: GiST build state containing the buffer management structures and build context
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)

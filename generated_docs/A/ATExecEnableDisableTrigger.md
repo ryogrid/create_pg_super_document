@@ -18,13 +18,12 @@ ATExecEnableDisableTrigger(Relation rel, const char *trigname,
 The  function is the execution handler for ALTER TABLE ENABLE/DISABLE TRIGGER commands within the ALTER TABLE infrastructure. It serves as a thin wrapper that delegates the actual trigger manipulation to the specialized trigger subsystem while ensuring proper integration with the ALTER TABLE framework, including invoking necessary post-alter hooks for event triggers and dependency tracking.
 
 ## Parameters / Member Variables
-- : The relation (table) containing the trigger to be enabled or disabled
-- : The name of the trigger to enable or disable
-- : Character indicating when the trigger should fire (e.g., 'O' for ORIGIN, 'D' for DISABLED, 'R' for REPLICA, 'A' for ALWAYS)
-- : Boolean flag indicating whether to skip system triggers
-- : Boolean flag indicating whether to recursively apply to inherited tables
-- : The lock mode to use during the operation
-
+- `rel`: The relation (table) containing the trigger to be enabled or disabled
+- `*trigname`: The name of the trigger to enable or disable
+- `fires_when`: Character indicating when the trigger should fire (e.g., 'O' for ORIGIN, 'D' for DISABLED, 'R' for REPLICA, 'A' for ALWAYS)
+- `skip_system`: Boolean flag indicating whether to skip system triggers
+- `recurse`: Boolean flag indicating whether to recursively apply to inherited tables
+- `lockmode`: The lock mode to use during the operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [EnableDisableTrigger](../E/EnableDisableTrigger.md)

@@ -22,6 +22,7 @@ This mechanism enables responsive synchronous replication by ensuring that apply
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - SpinLockAcquire

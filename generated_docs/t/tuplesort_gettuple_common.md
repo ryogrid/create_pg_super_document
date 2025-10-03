@@ -23,10 +23,9 @@ This is the central tuple retrieval function in PostgreSQL's tuplesort implement
 The function implements bidirectional tuple access for random access sorts and manages memory through a slab allocator system. It handles EOF conditions, bounded sorts validation, and complex tape positioning for backward scans. The returned tuple belongs to the tuplesort memory context and may be recycled on subsequent calls.
 
 ## Parameters / Member Variables
-- : The Tuplesortstate containing all sort context including current position, memory management, and tape references
-- : Boolean indicating scan direction - true for forward, false for backward (requires TUPLESORT_RANDOMACCESS)
-- : Output parameter where the retrieved SortTuple is stored
-
+- `*state`: The Tuplesortstate containing all sort context including current position, memory management, and tape references
+- `forward`: Boolean indicating scan direction - true for forward, false for backward (requires TUPLESORT_RANDOMACCESS)
+- `*stup`: Output parameter where the retrieved SortTuple is stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - WORKER (macro to check worker process state)

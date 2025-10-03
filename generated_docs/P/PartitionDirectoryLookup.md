@@ -20,9 +20,8 @@ The function uses a hash table lookup to find existing entries or creates new on
 This caching mechanism is particularly important for query execution and planning phases where multiple lookups of the same partition information may occur, and consistency of that information is crucial for correctness.
 
 ## Parameters / Member Variables
-- : The partition directory to search in
-- : The partitioned relation to look up
-
+- `pdir`: The partition directory to search in
+- `rel`: The partitioned relation to look up
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationGetRelid

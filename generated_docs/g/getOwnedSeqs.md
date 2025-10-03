@@ -20,10 +20,9 @@ The function distinguishes between two types of owned sequences: identity sequen
 This approach handles complex scenarios where a table might be part of an extension (with only non-extension components like ACLs being dumped) while its sequence is not part of the extension (requiring full definition dump). The function also ensures that both sequence and owning table are marked as "interesting" when dump components are present.
 
 ## Parameters / Member Variables
-- : Archive structure containing connection information and dump configuration
-- : Array of TableInfo structures representing all tables and sequences
-- : Number of entries in the tblinfo array
-
+- `*fout`: Archive structure containing connection information and dump configuration
+- `tblinfo[]`: Array of TableInfo structures representing all tables and sequences
+- `numTables`: Number of entries in the tblinfo array
 ## Dependencies
 - Functions called/Symbols referenced:
   - OidIsValid

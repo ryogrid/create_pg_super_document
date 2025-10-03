@@ -18,9 +18,8 @@ This function implements the atomic add-and-fetch operation for 64-bit unsigned 
 The implementation follows the pattern: new_value = fetch_add(ptr, add_) + add_, ensuring atomicity through the underlying fetch-add operation while providing the post-operation semantics.
 
 ## Parameters / Member Variables
-- : Pointer to the atomic 64-bit unsigned integer variable to be modified
-- : The signed 64-bit value to be added to the current value (can be negative for subtraction)
-
+- `*ptr`: Pointer to the atomic 64-bit unsigned integer variable to be modified
+- `add_`: The signed 64-bit value to be added to the current value (can be negative for subtraction)
 ## Dependencies
 - Functions called/Symbols referenced:
   - 

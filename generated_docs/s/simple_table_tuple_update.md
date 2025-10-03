@@ -30,12 +30,11 @@ All possible return values from  are handled:
 - : Tuple was concurrently deleted - throws ERROR
 
 ## Parameters / Member Variables
-- : Relation containing the tuple to be updated
-- : ItemPointer to the old tuple's location (TID)
-- : TupleTableSlot containing the new tuple data
-- : Snapshot to use for the update operation
-- : Pointer to TU_UpdateIndexes structure controlling index update behavior
-
+- `rel`: Relation containing the tuple to be updated
+- `otid`: ItemPointer to the old tuple's location (TID)
+- `*slot`: TupleTableSlot containing the new tuple data
+- `snapshot`: Snapshot to use for the update operation
+- `*update_indexes`: Pointer to TU_UpdateIndexes structure controlling index update behavior
 ## Dependencies
 - Functions called/Symbols referenced:
   - [table_tuple_update](../t/table_tuple_update.md)

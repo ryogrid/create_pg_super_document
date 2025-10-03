@@ -23,9 +23,8 @@ The algorithm considers three main scenarios:
 The function includes comprehensive tracing support for debugging sort performance issues when TRACE_SORT is enabled.
 
 ## Parameters / Member Variables
-- : Number of tuples currently in memory during sorting operation
-- : SortSupport structure containing sorting context and abbreviated key state information
-
+- `memtupcount`: Number of tuples currently in memory during sorting operation
+- `ssup`: SortSupport structure containing sorting context and abbreviated key state information
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Estimates cardinality of abbreviated keys using HyperLogLog algorithm

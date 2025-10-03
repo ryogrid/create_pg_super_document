@@ -23,8 +23,7 @@ The rescan process involves several key steps:
 The function includes an optimization where it only rescans the child node if no parameters have changed (chgParam is NULL). If parameters have changed, the child will be automatically rescanned when ExecProcNode is first called, avoiding redundant work.
 
 ## Parameters / Member Variables
-- : The GroupState node to be rescanned and reset for re-execution
-
+- `*node`: The GroupState node to be rescanned and reset for re-execution
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GroupState](../G/GroupState.md) (node parameter type)

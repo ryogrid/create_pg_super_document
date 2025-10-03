@@ -21,9 +21,8 @@ The cleanup process handles different operator types:
 - **AND/PHRASE operators**: Simplified by removing NULL operands, promoting single remaining operands
 
 ## Parameters / Member Variables
-- : Input array of QueryItem structures representing the TSQuery in postfix notation
-- : Pointer to integer containing the length of the input array; updated with the length of the cleaned array
-
+- `*ptr`: Input array of QueryItem structures representing the TSQuery in postfix notation
+- `*len`: Pointer to integer containing the length of the input array; updated with the length of the cleaned array
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Converts flat QueryItem array to tree structure

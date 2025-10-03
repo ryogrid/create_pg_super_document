@@ -18,8 +18,7 @@ The  function is responsible for the final phase of query execution, handling po
 The function operates within the query's memory context and includes comprehensive sanity checks to ensure it's called exactly once per executor instance. It's a critical component of the executor's lifecycle, bridging the gap between plan execution and final cleanup.
 
 ## Parameters / Member Variables
-- : Pointer to the QueryDesc structure containing the query execution context, estate, and associated metadata
-
+- `*queryDesc`: Pointer to the QueryDesc structure containing the query execution context, estate, and associated metadata
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)

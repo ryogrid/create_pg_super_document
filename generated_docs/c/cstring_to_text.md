@@ -18,8 +18,7 @@ The  function is a convenience wrapper that converts a null-terminated C string 
 This function is part of PostgreSQL's conversion routines exported for use by C code, allowing seamless integration between C string data and PostgreSQL's type system.
 
 ## Parameters / Member Variables
-- : A null-terminated C string to be converted into a PostgreSQL text value
-
+- `*s`: A null-terminated C string to be converted into a PostgreSQL text value
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - performs the actual conversion with explicit length

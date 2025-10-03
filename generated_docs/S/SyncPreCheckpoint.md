@@ -17,7 +17,6 @@ SyncPreCheckpoint is a critical function in PostgreSQL's checkpoint process that
 This timing is crucial for operations like DROP TABLESPACE, which depend on the guarantee that recently forwarded unlink requests will be processed in the next checkpoint. The function must be called before the checkpoint REDO point is determined to ensure files aren't deleted prematurely.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

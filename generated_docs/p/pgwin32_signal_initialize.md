@@ -24,7 +24,6 @@ This function sets up the complete signal handling infrastructure for PostgreSQL
 The function is essential for making PostgreSQL's Unix-style signal handling work on Windows, which has a fundamentally different signal model.
 
 ## Parameters / Member Variables
-This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:

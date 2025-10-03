@@ -18,6 +18,7 @@ This function handles the cleanup and reset of background worker states followin
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - slist_foreach_modify (macro for safely iterating and modifying singly-linked lists)

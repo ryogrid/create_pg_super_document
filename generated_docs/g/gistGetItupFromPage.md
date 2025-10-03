@@ -16,9 +16,8 @@ gistGetItupFromPage(GISTNodeBufferPage *pageBuffer, IndexTuple *itup)
 This function extracts the most recently added index tuple from a buffer page using a LIFO (Last In, First Out) approach. It locates the tuple at the end of the free space area, creates a copy of it using palloc, and then marks the space previously occupied by the tuple as free again. The function assumes the page is not empty and includes an assertion to verify this precondition.
 
 ## Parameters / Member Variables
-- : Pointer to the GISTNodeBufferPage from which to retrieve the tuple
-- : Pointer to IndexTuple pointer where the copied tuple will be stored
-
+- `*pageBuffer`: Pointer to the GISTNodeBufferPage from which to retrieve the tuple
+- `*itup`: Pointer to IndexTuple pointer where the copied tuple will be stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - PAGE_IS_EMPTY (macro)

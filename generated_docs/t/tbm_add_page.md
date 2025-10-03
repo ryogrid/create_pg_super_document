@@ -18,9 +18,8 @@ The  function is used to add an entire page to a TIDBitmap structure. When a pag
 The function works by first marking the page as lossy using , then checking if the bitmap has exceeded its memory limit. If the limit is exceeded, it calls  to convert some exact page entries to lossy format to stay within memory bounds.
 
 ## Parameters / Member Variables
-- : Pointer to the TIDBitmap structure to which the page will be added
-- : Block number of the page to be added to the bitmap
-
+- `*tbm`: Pointer to the TIDBitmap structure to which the page will be added
+- `pageno`: Block number of the page to be added to the bitmap
 ## Dependencies
 - Functions called/Symbols referenced:
   - [tbm_mark_page_lossy](tbm_mark_page_lossy.md)

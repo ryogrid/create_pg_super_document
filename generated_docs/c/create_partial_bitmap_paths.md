@@ -19,10 +19,9 @@ This function generates partial paths for bitmap heap scans that can be executed
 The function serves as a bridge between index path creation and parallel execution planning, allowing the optimizer to consider parallelized bitmap scans as an alternative to sequential or other types of parallel scans.
 
 ## Parameters / Member Variables
-- : PlannerInfo containing global planner state and configuration
-- : RelOptInfo for the relation to create bitmap paths for
-- : Path representing the bitmap qualification (typically from index scans)
-
+- `*root`: PlannerInfo containing global planner state and configuration
+- `*rel`: RelOptInfo for the relation to create bitmap paths for
+- `*bitmapqual`: Path representing the bitmap qualification (typically from index scans)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [compute_bitmap_pages](compute_bitmap_pages.md) (calculates expected number of heap pages to fetch)

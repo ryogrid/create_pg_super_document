@@ -18,8 +18,7 @@ pqPipelineProcessQueue is a subroutine for PQgetResult that manages the processi
 The function first checks if the connection is in a state where it can process the next query (not busy with current operations). It then transitions the connection to the appropriate state, resets result accumulation modes, and either prepares for normal query processing or handles aborted pipeline scenarios by generating PGRES_PIPELINE_ABORTED results.
 
 ## Parameters / Member Variables
-- : The PostgreSQL connection containing the command queue to process
-
+- `*conn`: The PostgreSQL connection containing the command queue to process
 ## Dependencies
 - Functions called/Symbols referenced:
   - pqClearConnErrorState

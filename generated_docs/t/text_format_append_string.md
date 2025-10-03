@@ -17,11 +17,10 @@ text_format_append_string(StringInfo buf, const char *str,
 This function handles string appending with formatting capabilities including field width control and alignment. It supports both left and right justification through flags or negative width values. When a field width is specified, the function pads the string with spaces to meet the required width. The function uses multibyte-aware string length calculation to properly handle Unicode characters.
 
 ## Parameters / Member Variables
-- : StringInfo buffer where the formatted string will be appended
-- : The input string to be formatted and appended
-- : Formatting flags (TEXT_FORMAT_FLAG_MINUS for left alignment)
-- : Field width for formatting (negative values imply left alignment)
-
+- `buf`: StringInfo buffer where the formatted string will be appended
+- `*str`: The input string to be formatted and appended
+- `flags`: Formatting flags (TEXT_FORMAT_FLAG_MINUS for left alignment)
+- `width`: Field width for formatting (negative values imply left alignment)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [appendStringInfoString](../a/appendStringInfoString.md)

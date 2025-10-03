@@ -21,9 +21,8 @@ The DELETE message format includes:
 3. The actual tuple data in the protocol-specific format
 
 ## Parameters / Member Variables
-- : StringInfo buffer containing the incoming logical replication stream data
-- : Pointer to LogicalRepTupleData structure that will be filled with the old tuple information
-
+- `in`: StringInfo buffer containing the incoming logical replication stream data
+- `*oldtup`: Pointer to LogicalRepTupleData structure that will be filled with the old tuple information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pq_getmsgint](../p/pq_getmsgint.md) (reads 4-byte integer from message)

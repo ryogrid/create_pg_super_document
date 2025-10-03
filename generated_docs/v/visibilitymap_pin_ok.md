@@ -18,9 +18,8 @@ The visibilitymap_pin_ok function provides a lightweight check to determine if a
 The function performs a simple validation: it converts the heap block number to the corresponding map block number and compares it with the block number of the pinned buffer. This allows callers to efficiently determine whether they can reuse an existing pinned buffer or need to pin a different page.
 
 ## Parameters / Member Variables
-- : Block number of the heap page whose visibility map page is being checked
-- : Buffer that may contain the correct visibility map page (can be InvalidBuffer)
-
+- `heapBlk`: Block number of the heap page whose visibility map page is being checked
+- `vmbuf`: Buffer that may contain the correct visibility map page (can be InvalidBuffer)
 ## Dependencies
 - Functions called/Symbols referenced:
   - HEAPBLK_TO_MAPBLOCK (macro for converting heap block to map block)

@@ -18,11 +18,10 @@ This function serves as a wrapper that conditionally records initial privileges 
 The function acts as a gatekeeper, checking the appropriate conditions before delegating the actual work to . This design allows the system to distinguish between normal privilege operations and those that should be recorded as initial extension privileges.
 
 ## Parameters / Member Variables
-- : The OID of the object for which to record initial privileges
-- : The OID of the system catalog table that defines the object type
-- : Sub-object identifier (used for table columns, 0 for objects without sub-components)
-- : The complete ACL to store; passing NULL removes existing entries for the object
-
+- `objoid`: The OID of the object for which to record initial privileges
+- `classoid`: The OID of the system catalog table that defines the object type
+- `objsubid`: Sub-object identifier (used for table columns, 0 for objects without sub-components)
+- `*new_acl`: The complete ACL to store; passing NULL removes existing entries for the object
 ## Dependencies
 - Functions called/Symbols referenced:
   - [recordExtensionInitPrivWorker](recordExtensionInitPrivWorker.md)

@@ -20,9 +20,8 @@ The local_relopts structure is used as a temporary workspace during option parsi
 This initialization is typically the first step in setting up custom relation option parsing for access methods, operator classes, or other PostgreSQL components that need to handle user-configurable options.
 
 ## Parameters / Member Variables
-- : Pointer to the local_relopts structure to initialize
-- : Size of the target structure that will hold the parsed option values
-
+- `*relopts`: Pointer to the local_relopts structure to initialize
+- `relopt_struct_size`: Size of the target structure that will hold the parsed option values
 ## Dependencies
 - Functions called/Symbols referenced:
   - NIL (empty list constant)

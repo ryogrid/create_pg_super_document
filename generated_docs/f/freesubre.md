@@ -23,9 +23,8 @@ The function operates in two phases:
 This design allows for controlled cleanup of parse tree sections while maintaining the integrity of the overall tree structure during traversal. The function handles NULL pointers gracefully, making it safe to call in various cleanup scenarios.
 
 ## Parameters / Member Variables
-- : Pointer to vars structure containing regex compilation state (may be NULL)
-- : Pointer to the subre structure to be freed (checked for NULL)
-
+- `*v`: Pointer to vars structure containing regex compilation state (may be NULL)
+- `*sr`: Pointer to the subre structure to be freed (checked for NULL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [freesubreandsiblings](freesubreandsiblings.md) (recursively frees child nodes and their siblings)

@@ -20,8 +20,7 @@ The Sync message serves as a synchronization point in pipeline mode, allowing th
 The function validates that the connection is in pipeline mode, checks the async status, allocates a command queue entry, constructs and sends the Sync message, and immediately flushes the output buffer.
 
 ## Parameters / Member Variables
-- : The PostgreSQL connection in pipeline mode
-
+- `*conn`: The PostgreSQL connection in pipeline mode
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pqPipelineSyncInternal](../p/pqPipelineSyncInternal.md)

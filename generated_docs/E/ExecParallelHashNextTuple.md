@@ -18,9 +18,8 @@ This function provides the mechanism to traverse a linked list of hash join tupl
 This function is essential for iterating through all tuples that hash to the same bucket value during hash join processing. It works in conjunction with ExecParallelHashFirstTuple to enable complete traversal of bucket chains in a thread-safe manner suitable for parallel execution.
 
 ## Parameters / Member Variables
-- : The HashJoinTable structure containing the DSA area for pointer resolution
-- : The current HashJoinTuple from which to retrieve the next tuple in the chain
-
+- `hashtable`: The HashJoinTable structure containing the DSA area for pointer resolution
+- `tuple`: The current HashJoinTuple from which to retrieve the next tuple in the chain
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dsa_get_address](../d/dsa_get_address.md)

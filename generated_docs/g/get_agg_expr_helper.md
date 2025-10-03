@@ -27,13 +27,12 @@ This function serves as the comprehensive implementation for converting aggregat
 The function extracts argument types, resolves function names, formats arguments with proper separators, and adds appropriate SQL keywords and clauses based on the aggregate's properties.
 
 ## Parameters / Member Variables
-- : Pointer to the Aggref node containing the aggregate expression to be deparsed
-- : Deparse context containing the output buffer and formatting preferences  
-- : Pointer to the original Aggref node, used for context in combining aggregates
-- : Optional function name override (NULL to auto-resolve)
-- : Optional additional SQL options string to append
-- : Boolean flag indicating special JSON object aggregate formatting
-
+- `*aggref`: Pointer to the Aggref node containing the aggregate expression to be deparsed
+- `*context`: Deparse context containing the output buffer and formatting preferences
+- `*original_aggref`: Pointer to the original Aggref node, used for context in combining aggregates
+- `*funcname`: Optional function name override (NULL to auto-resolve)
+- `*options`: Optional additional SQL options string to append
+- `is_json_objectagg`: Boolean flag indicating special JSON object aggregate formatting
 ## Dependencies
 - Functions called/Symbols referenced:
   - DO_AGGSPLIT_COMBINE, DO_AGGSPLIT_SKIPFINAL (aggregate splitting macros)

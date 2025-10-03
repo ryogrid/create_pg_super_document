@@ -18,8 +18,7 @@ This is a simple utility function that tracks the range of years being processed
 The function serves as a bounds tracker for timezone data processing, ensuring that the compiler knows the full temporal range of the timezone rules being processed. This information is used later for optimization and validation purposes.
 
 ## Parameters / Member Variables
-- : The year value to compare against current minimum and maximum bounds
-
+- `x`: The year value to compare against current minimum and maximum bounds
 ## Dependencies
 - Functions called/Symbols referenced:
   - zic_t (timezone calculation type)

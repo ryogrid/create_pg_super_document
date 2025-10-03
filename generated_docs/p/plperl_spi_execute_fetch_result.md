@@ -22,10 +22,9 @@ This function transforms the raw results from PostgreSQL's SPI execution into a 
 The function handles large result sets by checking for overflow conditions and uses appropriate Perl data types (UV for integers within range, NV for larger numbers). Each row is converted using plperl_hash_from_tuple() to create nested hash structures.
 
 ## Parameters / Member Variables
-- : PostgreSQL SPI tuple table containing the result data
-- : Number of rows processed by the SPI operation
-- : SPI result status code indicating success/failure and operation type
-
+- `*tuptable`: PostgreSQL SPI tuple table containing the result data
+- `processed`: Number of rows processed by the SPI operation
+- `status`: SPI result status code indicating success/failure and operation type
 ## Dependencies
 - Functions called/Symbols referenced:
   - dTHX (Perl threading context)

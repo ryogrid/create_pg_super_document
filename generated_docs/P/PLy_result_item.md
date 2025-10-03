@@ -16,9 +16,8 @@ PLy_result_item(PyObject *arg, Py_ssize_t idx)
 This function provides the implementation for Python's item access operation (sq_item) when indexing into a PLython result object. It enables natural Python syntax like result[0] to access the first row, result[1] for the second row, etc. The function delegates to PyList_GetItem() to retrieve the specified row from the internal rows list and properly manages reference counting by incrementing the reference count of the returned object before returning it to the caller.
 
 ## Parameters / Member Variables
-- : PLyResultObject pointer cast as PyObject, representing the result object being indexed
-- : Py_ssize_t index value specifying which row to retrieve (0-based indexing)
-
+- `*arg`: PLyResultObject pointer cast as PyObject, representing the result object being indexed
+- `idx`: Py_ssize_t index value specifying which row to retrieve (0-based indexing)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PLyResultObject](PLyResultObject.md) (cast target type)

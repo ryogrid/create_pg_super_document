@@ -18,9 +18,8 @@ This function analyzes whether a particular argument to a function call remains 
 The function checks for the availability of both FmgrInfo and its associated fn_expr before delegating to the underlying expression analysis function.
 
 ## Parameters / Member Variables
-- : Pointer to FmgrInfo structure containing function metadata and expression tree
-- : Zero-based index of the argument to check for stability
-
+- `*flinfo`: Pointer to FmgrInfo structure containing function metadata and expression tree
+- `argnum`: Zero-based index of the argument to check for stability
 ## Dependencies
 - Functions called/Symbols referenced:
   - [get_call_expr_arg_stable](get_call_expr_arg_stable.md)

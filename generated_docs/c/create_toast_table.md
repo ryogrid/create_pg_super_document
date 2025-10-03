@@ -27,14 +27,13 @@ This is the internal workhorse function for creating TOAST tables in PostgreSQL.
 The function handles both normal operation mode and bootstrap mode with different update strategies for catalog modifications. It also manages proper namespace assignment (pg_toast for regular tables, temp-toast namespace for temporary tables) and ensures TOAST tables inherit sharing and mapping properties from their parent relations.
 
 ## Parameters / Member Variables
-- : The relation (table) for which to create a TOAST table, must be already opened and locked
-- : OID to assign to the TOAST table (normally InvalidOid except during bootstrap)
-- : OID to assign to the TOAST table's index (normally InvalidOid except during bootstrap)
-- : Relation options (storage parameters) to apply to the TOAST table
-- : Lock mode held on the parent relation (should be AccessExclusiveLock for safety)
-- : Whether to verify that the lockmode is sufficient (performs safety check)
-- : OID of the old TOAST table during binary upgrade operations
-
+- `rel`: The relation (table) for which to create a TOAST table, must be already opened and locked
+- `toastOid`: OID to assign to the TOAST table (normally InvalidOid except during bootstrap)
+- `toastIndexOid`: OID to assign to the TOAST table's index (normally InvalidOid except during bootstrap)
+- `reloptions`: Relation options (storage parameters) to apply to the TOAST table
+- `lockmode`: Lock mode held on the parent relation (should be AccessExclusiveLock for safety)
+- `check`: Whether to verify that the lockmode is sufficient (performs safety check)
+- `OIDOldToast`: OID of the old TOAST table during binary upgrade operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [needs_toast_table](../n/needs_toast_table.md)

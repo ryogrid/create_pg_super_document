@@ -17,12 +17,11 @@ ATTypedTableRecursion(List **wqueue, Relation rel, AlterTableCmd *cmd,
 ATTypedTableRecursion handles the complex propagation of ALTER TYPE operations on composite types to all tables that are defined as being "OF" that type (typed tables). When a composite type is altered, all typed tables based on that type must be updated accordingly. The function uses find_typed_table_dependencies to locate all dependent typed tables, respecting the CASCADE/RESTRICT behavior specified in the command. For each dependent typed table found, it performs safety validation and adds the ALTER command to the work queue with recursion enabled, allowing the changes to further propagate to inheritance children of the typed tables if applicable.
 
 ## Parameters / Member Variables
-- : Double pointer to the work queue list where ALTER TABLE commands for dependent typed tables are added
-- : The Relation structure representing the composite type being altered (must be RELKIND_COMPOSITE_TYPE)
-- : The AlterTableCmd structure containing the ALTER TYPE command and its behavior settings
-- : The lock mode to use when accessing dependent typed tables
-- : The AlterTableUtilityContext providing additional context for the ALTER TABLE operation
-
+- `**wqueue`: Double pointer to the work queue list where ALTER TABLE commands for dependent typed tables are added
+- `rel`: The Relation structure representing the composite type being altered (must be RELKIND_COMPOSITE_TYPE)
+- `*cmd`: The AlterTableCmd structure containing the ALTER TYPE command and its behavior settings
+- `lockmode`: The lock mode to use when accessing dependent typed tables
+- `*context`: The AlterTableUtilityContext providing additional context for the ALTER TABLE operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [find_typed_table_dependencies](../f/find_typed_table_dependencies.md)

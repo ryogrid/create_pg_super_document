@@ -18,8 +18,7 @@ The isTempOrTempToastNamespace function is a convenience function that combines 
 The function first validates that myTempNamespace is valid (which is a prerequisite for having any temporary namespaces), then performs a logical OR comparison against both myTempNamespace and myTempToastNamespace. This design recognizes that both temporary namespaces are related and often need to be treated similarly in PostgreSQL operations.
 
 ## Parameters / Member Variables
-- : The OID of the namespace to check against the current session's temporary namespaces.
-
+- `namespaceId`: The OID of the namespace to check against the current session's temporary namespaces.
 ## Dependencies
 - Functions called/Symbols referenced:
   - OidIsValid: Validates that myTempNamespace contains a valid OID

@@ -18,8 +18,7 @@ The printtup_destroy function is a simple cleanup function that deallocates the 
 The function performs only one operation: freeing the memory allocated for the DestReceiver structure itself using PostgreSQL's pfree function. This is the final step in the lifecycle of a printtup DestReceiver, ensuring that all memory associated with it is returned to the system.
 
 ## Parameters / Member Variables
-- : DestReceiver pointer to the DR_printtup structure to be destroyed
-
+- `*self`: DestReceiver pointer to the DR_printtup structure to be destroyed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pfree](pfree.md): PostgreSQL memory deallocation function

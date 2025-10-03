@@ -21,8 +21,7 @@ The function follows a two-step validation process:
 2. Then it performs boundary checking and pattern matching using  with array 
 
 ## Parameters / Member Variables
-- : Pointer to the Snowball environment structure containing the word being processed, cursor position, and other stemming state information
-
+- `*z`: Pointer to the Snowball environment structure containing the word being processed, cursor position, and other stemming state information
 ## Dependencies
 - Functions called/Symbols referenced:
   - [r_check_vowel_harmony](r_check_vowel_harmony.md): Validates Turkish vowel harmony rules

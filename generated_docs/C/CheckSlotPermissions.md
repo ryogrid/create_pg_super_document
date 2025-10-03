@@ -18,6 +18,7 @@ This function performs a security check to ensure that only users with the REPLI
 ## Parameters / Member Variables
 
 
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [has_rolreplication](../h/has_rolreplication.md)

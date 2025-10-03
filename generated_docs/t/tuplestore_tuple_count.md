@@ -16,8 +16,7 @@ tuplestore_tuple_count(Tuplestorestate *state)
 This function provides a simple accessor to retrieve the count of tuples stored in the tuplestore. The count represents the total number of tuples added via  or similar functions since the tuplestore was created or last cleared with . The count is maintained internally in the  field and includes both tuples currently in memory and those that may have been written to temporary files.
 
 ## Parameters / Member Variables
-- : Pointer to the  structure whose tuple count is requested
-
+- `*state`: Pointer to the  structure whose tuple count is requested
 ## Dependencies
 - Functions called/Symbols referenced:
   - Uses only the  field from  structure

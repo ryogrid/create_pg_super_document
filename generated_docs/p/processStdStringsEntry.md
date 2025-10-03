@@ -18,9 +18,8 @@ The  function is responsible for parsing a  configuration setting from an archiv
 The function performs string parsing to locate the value portion of the SET command and determines whether standard-conforming string literals should be enabled ('on') or disabled ('off'). This setting affects how string literals with backslash escapes are interpreted during the restoration process.
 
 ## Parameters / Member Variables
-- : Archive handle containing the restoration context and configuration
-- : Table of contents entry containing the standard_conforming_strings definition
-
+- `*AH`: Archive handle containing the restoration context and configuration
+- `*te`: Table of contents entry containing the standard_conforming_strings definition
 ## Dependencies
 - Functions called/Symbols referenced:
   - strchr (C standard library)

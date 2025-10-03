@@ -21,11 +21,10 @@ The bulk deletion process removes all index tuples that point to dead heap tuple
 The function carefully manages error context information, temporarily storing the index name in the vacuum state for error reporting purposes and cleaning it up when done.
 
 ## Parameters / Member Variables
-- : The index relation being vacuumed
-- : Previous IndexBulkDeleteResult from earlier operations, or NULL for the first call
-- : Estimated number of heap tuples to be passed to the index AM's bulkdelete callback  
-- : LVRelState containing vacuum state including dead_items collection and buffer access strategy
-
+- `indrel`: The index relation being vacuumed
+- `*istat`: Previous IndexBulkDeleteResult from earlier operations, or NULL for the first call
+- `reltuples`: Estimated number of heap tuples to be passed to the index AM's bulkdelete callback
+- `*vacrel`: LVRelState containing vacuum state including dead_items collection and buffer access strategy
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pstrdup](../p/pstrdup.md)
