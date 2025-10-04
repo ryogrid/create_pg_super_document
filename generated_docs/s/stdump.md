@@ -71,7 +71,7 @@ static void stdump(struct subre *t, FILE *f, int nfapresent) {
 
     // Print quantifiers
     if (t->min != 1 || t->max != 1) {
-        fprintf(f, " {%d,", t->min);
+        fprintf(f, " %d,", t->min);
         if (t->max != DUPINF) fprintf(f, "%d", t->max);
         fprintf(f, "}");
     }
