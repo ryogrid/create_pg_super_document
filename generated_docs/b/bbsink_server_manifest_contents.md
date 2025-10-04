@@ -35,3 +35,42 @@ The function ensures data integrity by verifying that all requested bytes are su
 - The function maintains the file position counter (filepos) for proper sequential writing
 - Uses PostgreSQL's file I/O abstraction layer (FileWrite) rather than standard C file operations
 - Part of the bbsink callback interface pattern used throughout the base backup system
+
+## Simplified Source
+
+```c
+// Simplified version of bbsink_server_manifest_contents
+static void bbsink_server_manifest_contents(bbsink *sink, size_t len)
+{
+    bbsink_server *mysink = (bbsink_server *) sink;
+    int nbytes;
+
+    // Write manifest data to file
+    nbytes = FileWrite(mysink->file, mysink->base.bbs_buffer, len,
+                       mysink->filepos, WAIT_EVENT_BASEBACKUP_WRITE);
+
+    // Handle write errors (I/O error or partial write)
+    if (nbytes != len) {
+        if (nbytes < 0)
+            ereport(ERROR,
+                    (errcode_for_file_access(),
+                     errmsg("could not write file \"%s\": %m",
+                            FilePathName(mysink->file)),
+                     errhint("Check free disk space.")));
+
+        // Handle partial write (disk full)
+        ereport(ERROR,
+                (errcode(ERRCODE_DISK_FULL),
+                 errmsg("could not write file \"%s\": wrote only %d of %d bytes at offset %u",
+                        FilePathName(mysink->file),
+                        nbytes, (int) len, (unsigned) mysink->filepos),
+                 errhint("Check free disk space.")));
+    }
+
+    // Update file position
+    mysink->filepos += nbytes;
+
+    // Forward to next sink
+    bbsink_forward_manifest_contents(sink, len);
+}
+```

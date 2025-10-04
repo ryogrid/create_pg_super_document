@@ -41,3 +41,37 @@ The function is specifically designed for UPDATE commands and includes appropria
 - Essential for PostgreSQL's handling of UPDATE operations on partitioned and inherited tables
 - Separates translation of target list expressions and column numbers for accuracy
 - The resnos in processed_tlist are explicitly noted as unreliable for column identification
+
+## Simplified Source
+
+```c
+void get_translated_update_targetlist(PlannerInfo *root, Index relid,
+                                      List **processed_tlist, List **update_colnos) {
+    // This function is only meaningful for UPDATE commands
+    Assert(root->parse->commandType == CMD_UPDATE);
+
+    if (relid == root->parse->resultRelation) {
+        // Simple case: no inheritance, just copy the existing lists
+        *processed_tlist = copyObject(root->processed_tlist);
+        if (update_colnos)
+            *update_colnos = copyObject(root->update_colnos);
+    } else {
+        // Inheritance case: translate expressions and column numbers for child relation
+        Assert(bms_is_member(relid, root->all_result_relids));
+
+        // Translate target list expressions for the child relation
+        *processed_tlist = (List *)
+            adjust_appendrel_attrs_multilevel(root,
+                                            (Node *) root->processed_tlist,
+                                            find_base_rel(root, relid),
+                                            find_base_rel(root, root->parse->resultRelation));
+
+        // Translate column numbers if requested
+        if (update_colnos)
+            *update_colnos = adjust_inherited_attnums_multilevel(root,
+                                                               root->update_colnos,
+                                                               relid,
+                                                               root->parse->resultRelation);
+    }
+}
+```

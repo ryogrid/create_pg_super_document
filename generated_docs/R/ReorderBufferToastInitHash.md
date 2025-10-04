@@ -36,3 +36,24 @@ This function creates a hash table specifically designed to handle TOAST data re
 - HASH_CONTEXT ensures the hash table is allocated in the reorder buffer's memory context
 - Critical for reconstructing large column values during logical replication decode operations
 - Must only be called when txn->toast_hash is NULL (enforced by Assert)
+
+## Simplified Source
+
+```c
+static void
+ReorderBufferToastInitHash(ReorderBuffer *rb, ReorderBufferTXN *txn)
+{
+	// Ensure hash table is not already initialized
+	Assert(txn->toast_hash == NULL);
+
+	// Configure hash table for TOAST entries
+	HASHCTL hash_ctl;
+	hash_ctl.keysize = sizeof(Oid);  // Use OID as key
+	hash_ctl.entrysize = sizeof(ReorderBufferToastEnt);
+	hash_ctl.hcxt = rb->context;  // Use reorder buffer's memory context
+
+	// Create hash table for tracking TOAST chunks
+	txn->toast_hash = hash_create("ReorderBufferToastHash", 5, &hash_ctl,
+								  HASH_ELEM | HASH_BLOBS | HASH_CONTEXT);
+}
+```

@@ -35,3 +35,30 @@ On Windows systems, the function captures the  output in a temporary buffer and 
 - The function is primarily used in PostgreSQL's ECPG (Embedded SQL in C) test suite
 - The Windows-specific formatting logic handles the conversion of 3-digit exponents by shifting characters in the string buffer
 - The function ensures consistent test output across platforms, which is crucial for automated testing frameworks
+
+## Simplified Source
+```c
+static void print_double(double x) {
+#ifdef WIN32
+    // Windows uses 3-digit exponents, normalize to 2-digit format
+    char convert[128];
+    sprintf(convert, "%g", x);
+    int vallen = strlen(convert);
+
+    // Check if we have a 3-digit exponent (e.g., "e+001")
+    if (vallen >= 6 &&
+        convert[vallen - 5] == 'e' &&
+        convert[vallen - 3] == '0') {
+        // Remove leading zero from exponent: "e+001" -> "e+01"
+        convert[vallen - 3] = convert[vallen - 2];
+        convert[vallen - 2] = convert[vallen - 1];
+        convert[vallen - 1] = '\0';
+    }
+
+    printf("%s", convert);
+#else
+    // On non-Windows platforms, standard printf is consistent
+    printf("%g", x);
+#endif
+}
+```

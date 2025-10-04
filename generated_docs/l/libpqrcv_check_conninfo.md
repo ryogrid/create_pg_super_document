@@ -44,3 +44,53 @@ When `must_use_password` is true (typically for non-superuser connections), the 
 - Validation occurs before actual connection attempts to catch issues early
 - Security check prevents non-superusers from relying on external password sources
 - Function is designed to be called multiple times safely with the same connection string
+
+## Simplified Source
+
+```c
+static void libpqrcv_check_conninfo(const char *conninfo, bool must_use_password)
+{
+    PQconninfoOption *opts = NULL;
+    PQconninfoOption *opt;
+    char *err = NULL;
+
+    // Parse and validate connection string syntax
+    opts = PQconninfoParse(conninfo, &err);
+    if (opts == NULL)
+    {
+        char *errcopy = err ? pstrdup(err) : "out of memory";
+        PQfreemem(err);
+        ereport(ERROR, (errcode(ERRCODE_SYNTAX_ERROR),
+                       errmsg("invalid connection string syntax: %s", errcopy)));
+    }
+
+    // Enforce password requirement if specified
+    if (must_use_password)
+    {
+        bool uses_password = false;
+
+        // Check if password option is present and non-empty
+        for (opt = opts; opt->keyword != NULL; ++opt)
+        {
+            if (opt->val == NULL)
+                continue;
+
+            if (strcmp(opt->keyword, "password") == 0 && opt->val[0] != '\0')
+            {
+                uses_password = true;
+                break;
+            }
+        }
+
+        if (!uses_password)
+        {
+            PQconninfoFree(opts);
+            ereport(ERROR, (errcode(ERRCODE_S_R_E_PROHIBITED_SQL_STATEMENT_ATTEMPTED),
+                           errmsg("password is required"),
+                           errdetail("Non-superusers must provide a password in the connection string.")));
+        }
+    }
+
+    PQconninfoFree(opts);
+}
+```

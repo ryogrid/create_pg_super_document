@@ -34,3 +34,30 @@ GetForeignColumnOptions is a specialized function that extracts column-level for
 
 ## Notes and Other Information
 The function uses the ATTNUM system cache to efficiently look up attribute information. Column-level options provide flexibility for foreign data wrappers to handle heterogeneous remote schemas or apply column-specific transformations. If no options are defined for the column (isnull is true), the function returns NIL (empty list). The function is located in src/backend/foreign/foreign.c:292-324 and is essential for fine-grained foreign table column management.
+
+## Simplified Source
+
+```c
+List *
+GetForeignColumnOptions(Oid relid, AttrNumber attnum)
+{
+    List *options;
+    HeapTuple tp;
+
+    // Look up column attributes in system catalog
+    tp = SearchSysCache2(ATTNUM,
+                         ObjectIdGetDatum(relid),
+                         Int16GetDatum(attnum));
+    if (!HeapTupleIsValid(tp))
+        elog(ERROR, "cache lookup failed for attribute %d of relation %u",
+             attnum, relid);
+
+    // Extract column FDW options
+    Datum datum = SysCacheGetAttr(ATTNUM, tp,
+                                  Anum_pg_attribute_attfdwoptions, &isnull);
+    options = isnull ? NIL : untransformRelOptions(datum);
+
+    ReleaseSysCache(tp);
+    return options;
+}
+```

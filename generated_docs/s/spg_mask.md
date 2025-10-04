@@ -35,3 +35,21 @@ spg_mask(char *pagedata, BlockNumber blkno)
 - The  parameter is provided for interface compatibility but is not currently used in the implementation
 - Located in src/backend/access/spgist/spgxlog.c:994-1009
 - The conditional unused space masking prevents potential corruption of valid page data by ensuring pd_lower is reasonable before proceeding
+
+## Simplified Source
+
+```c
+void spg_mask(char *pagedata, BlockNumber blkno) {
+    Page page = (Page) pagedata;
+    PageHeader pagehdr = (PageHeader) page;
+
+    // Mask fields that are expected to differ between original and replayed pages
+    mask_page_lsn_and_checksum(page);
+    mask_page_hint_bits(page);
+
+    // Mask unused space only if page header looks valid
+    if (pagehdr->pd_lower >= SizeOfPageHeaderData) {
+        mask_unused_space(page);
+    }
+}
+```

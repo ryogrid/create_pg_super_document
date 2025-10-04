@@ -42,3 +42,49 @@ The function processes each option in the input array, extracting the option nam
 - NULL values are used for options that don't have explicit arguments
 - The function is primarily used by system catalogs and administrative utilities for option introspection
 - Located in src/backend/foreign/foreign.c:522-563
+
+## Simplified Source
+
+```c
+Datum
+pg_options_to_table(PG_FUNCTION_ARGS)
+{
+    Datum array = PG_GETARG_DATUM(0);
+    List *options;
+    ReturnSetInfo *rsinfo = (ReturnSetInfo *) fcinfo->resultinfo;
+    ListCell *cell;
+
+    // Convert options array to internal list format
+    options = untransformRelOptions(array);
+
+    // Initialize set-returning function
+    InitMaterializedSRF(fcinfo, MAT_SRF_USE_EXPECTED_DESC);
+
+    // Process each option and add to result set
+    foreach(cell, options)
+    {
+        DefElem *def = lfirst(cell);
+        Datum values[2];
+        bool nulls[2];
+
+        // Set option name
+        values[0] = CStringGetTextDatum(def->defname);
+        nulls[0] = false;
+
+        // Set option value (or NULL if no value)
+        if (def->arg) {
+            values[1] = CStringGetTextDatum(strVal(def->arg));
+            nulls[1] = false;
+        } else {
+            values[1] = (Datum) 0;
+            nulls[1] = true;
+        }
+
+        // Add row to result set
+        tuplestore_putvalues(rsinfo->setResult, rsinfo->setDesc,
+                             values, nulls);
+    }
+
+    return (Datum) 0;
+}
+```

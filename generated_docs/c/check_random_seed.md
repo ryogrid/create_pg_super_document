@@ -38,3 +38,20 @@ The extra storage mechanism ensures that transaction rollbacks don't attempt to 
 - Prevents configuration file reloads and non-interactive sources from affecting the random sequence
 - The check function works in conjunction with an assign hook that uses the  data to determine whether to actually set the seed
 - Memory allocation failure is handled by returning , preventing the seed change
+
+## Simplified Source
+
+```c
+bool check_random_seed(double *newval, void **extra, GucSource source)
+{
+    // Allocate memory to store assignment flag
+    *extra = guc_malloc(LOG, sizeof(int));
+    if (!*extra)
+        return false;
+
+    // Only allow interactive SET commands to change the seed
+    *((int *) *extra) = (source >= PGC_S_INTERACTIVE);
+
+    return true;
+}
+```

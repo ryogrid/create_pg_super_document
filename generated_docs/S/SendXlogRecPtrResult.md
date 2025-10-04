@@ -41,3 +41,35 @@ This function creates and sends a two-column result set containing an XLog recor
 - The XLogRecPtr is formatted as a hexadecimal string in the format 'X/X' using LSN_FORMAT_ARGS
 - Sends a complete result set with proper PostgreSQL protocol messages including RowDescription and CommandComplete
 - Used to communicate WAL position information during base backup operations
+
+## Simplified Source
+
+```c
+static void SendXlogRecPtrResult(XLogRecPtr ptr, TimeLineID tli) {
+    DestReceiver *dest;
+    TupOutputState *tstate;
+    TupleDesc tupdesc;
+    Datum values[2];
+    bool nulls[2] = {0};
+
+    // Create destination for result output
+    dest = CreateDestReceiver(DestRemoteSimple);
+
+    // Create tuple descriptor with recptr (TEXT) and tli (INT8) columns
+    tupdesc = CreateTemplateTupleDesc(2);
+    TupleDescInitBuiltinEntry(tupdesc, 1, "recptr", TEXTOID, -1, 0);
+    TupleDescInitBuiltinEntry(tupdesc, 2, "tli", INT8OID, -1, 0);
+
+    // Begin tuple output
+    tstate = begin_tup_output_tupdesc(dest, tupdesc, &TTSOpsVirtual);
+
+    // Format and send data row
+    values[0] = CStringGetTextDatum(psprintf("%X/%X", LSN_FORMAT_ARGS(ptr)));
+    values[1] = Int64GetDatum(tli);
+    do_tup_output(tstate, values, nulls);
+
+    // End output and send completion message
+    end_tup_output(tstate);
+    pq_puttextmessage(PqMsg_CommandComplete, "SELECT");
+}
+```

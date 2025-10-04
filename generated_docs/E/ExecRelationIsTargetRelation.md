@@ -35,3 +35,14 @@ Although this function is no longer actively used in PostgreSQL's core executor 
 - Located in src/backend/executor/execUtils.c:684-696
 - Returns true if the relation is a target relation, false otherwise
 - Target relations are those specified in the resultRelations list of the planned statement
+
+## Simplified Source
+
+```c
+bool
+ExecRelationIsTargetRelation(EState *estate, Index scanrelid)
+{
+    // Check if scanrelid is in the list of target relations
+    return list_member_int(estate->es_plannedstmt->resultRelations, scanrelid);
+}
+```

@@ -42,3 +42,53 @@ The sleep loop is designed to handle interruptions and ensures that sufficient t
 - Updates the throttled_last timestamp after each throttling cycle for future calculations
 - The throttling counter is reset to the remainder after processing whole samples
 - Uses PostgreSQL's latch mechanism for interruptible sleeping during rate limiting
+
+## Simplified Source
+
+```c
+static void throttle(bbsink_throttle *sink, size_t increment) {
+    TimeOffset elapsed_min;
+
+    // Accumulate transferred bytes
+    sink->throttling_counter += increment;
+    if (sink->throttling_counter < sink->throttling_sample)
+        return;
+
+    // Calculate minimum time that should have elapsed
+    elapsed_min = sink->elapsed_min_unit *
+        (sink->throttling_counter / sink->throttling_sample);
+
+    // Sleep loop to enforce rate limit
+    for (;;) {
+        TimeOffset elapsed, sleep;
+        int wait_result;
+
+        // Check how much time has actually elapsed
+        elapsed = GetCurrentTimestamp() - sink->throttled_last;
+
+        // Calculate required sleep time
+        sleep = elapsed_min - elapsed;
+        if (sleep <= 0)
+            break; // Transfer rate is acceptable
+
+        ResetLatch(MyLatch);
+        CHECK_FOR_INTERRUPTS();
+
+        // Sleep with timeout, allowing interruption
+        wait_result = WaitLatch(MyLatch,
+                               WL_LATCH_SET | WL_TIMEOUT | WL_EXIT_ON_PM_DEATH,
+                               (long) (sleep / 1000),
+                               WAIT_EVENT_BASE_BACKUP_THROTTLE);
+
+        if (wait_result & WL_LATCH_SET)
+            CHECK_FOR_INTERRUPTS();
+
+        if (wait_result & WL_TIMEOUT)
+            break;
+    }
+
+    // Reset counter to remainder and update timestamp
+    sink->throttling_counter %= sink->throttling_sample;
+    sink->throttled_last = GetCurrentTimestamp();
+}
+```

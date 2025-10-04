@@ -43,3 +43,22 @@ This function is a core component of PostgreSQL's logical replication system, re
 - Supports selective column replication through the columns bitmapset parameter
 - Part of PostgreSQL's logical replication protocol implementation
 - Located in src/backend/replication/logical/proto.c:414-435
+
+## Simplified Source
+
+```c
+void logicalrep_write_insert(StringInfo out, TransactionId xid, Relation rel,
+                            TupleTableSlot *newslot, bool binary, Bitmapset *columns) {
+    // Write INSERT message type
+    pq_sendbyte(out, LOGICAL_REP_MSG_INSERT);
+
+    // Send transaction ID if streaming
+    if (TransactionIdIsValid(xid))
+        pq_sendint32(out, xid);
+
+    // Send relation identifier and new tuple
+    pq_sendint32(out, RelationGetRelid(rel));
+    pq_sendbyte(out, 'N');  // Mark as new tuple
+    logicalrep_write_tuple(out, rel, newslot, binary, columns);
+}
+```

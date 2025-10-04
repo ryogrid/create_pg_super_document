@@ -45,3 +45,46 @@ The materialization is performed in the slot's memory context to ensure proper m
 - Buffer release is handled carefully - the TTS_FLAG_SHOULDFREE flag is only set after buffer release to maintain assertion invariants
 - The function resets slot->tts_nvalid and bslot->base.off to 0, forcing re-deformation of the tuple to ensure all pointers reference the materialized data
 - This is a static function in src/backend/executor/execTuples.c, part of the BufferHeapTupleTableSlot virtual method table implementation
+
+## Simplified Source
+
+```c
+static void
+tts_buffer_heap_materialize(TupleTableSlot *slot)
+{
+    BufferHeapTupleTableSlot *bslot = (BufferHeapTupleTableSlot *) slot;
+    MemoryContext oldContext;
+
+    Assert(!TTS_EMPTY(slot));
+
+    // Skip if already materialized
+    if (TTS_SHOULDFREE(slot))
+        return;
+
+    oldContext = MemoryContextSwitchTo(slot->tts_mcxt);
+
+    // Reset deformation state for fresh materialization
+    bslot->base.off = 0;
+    slot->tts_nvalid = 0;
+
+    if (!bslot->base.tuple) {
+        // Create tuple from virtual values/nulls arrays
+        bslot->base.tuple = heap_form_tuple(slot->tts_tupleDescriptor,
+                                           slot->tts_values,
+                                           slot->tts_isnull);
+    } else {
+        // Copy existing buffer-backed tuple
+        bslot->base.tuple = heap_copytuple(bslot->base.tuple);
+
+        // Release the buffer since we now own a copy
+        if (BufferIsValid(bslot->buffer))
+            ReleaseBuffer(bslot->buffer);
+        bslot->buffer = InvalidBuffer;
+    }
+
+    // Mark slot as owning the tuple memory
+    slot->tts_flags |= TTS_FLAG_SHOULDFREE;
+
+    MemoryContextSwitchTo(oldContext);
+}
+```

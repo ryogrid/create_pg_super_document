@@ -37,3 +37,34 @@ ReplicationOriginExitCleanup is a process exit callback function that ensures pr
 - Critical for preventing resource leaks and ensuring proper cleanup of replication origin sessions
 - Only performs cleanup if the current process actually acquired the session replication state
 - Part of the broader session management infrastructure for logical replication
+
+## Simplified Source
+
+```c
+static void
+ReplicationOriginExitCleanup(int code, Datum arg)
+{
+    ConditionVariable *cv = NULL;
+
+    // Skip cleanup if no session state is active
+    if (session_replication_state == NULL)
+        return;
+
+    // Acquire exclusive lock for thread-safe cleanup
+    LWLockAcquire(ReplicationOriginLock, LW_EXCLUSIVE);
+
+    // Release origin if acquired by this process
+    if (session_replication_state->acquired_by == MyProcPid)
+    {
+        cv = &session_replication_state->origin_cv;
+        session_replication_state->acquired_by = 0;
+        session_replication_state = NULL;
+    }
+
+    LWLockRelease(ReplicationOriginLock);
+
+    // Notify other processes waiting for this origin
+    if (cv)
+        ConditionVariableBroadcast(cv);
+}
+```

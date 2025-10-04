@@ -48,3 +48,67 @@ This function takes no parameters.
 - Any I/O error results in PANIC since pg_control is essential for database startup
 - Must be called after InitControlFile() has prepared the ControlFile buffer
 - The file is created in the data directory as "global/pg_control"
+
+## Simplified Source
+
+```c
+static void
+WriteControlFile(void)
+{
+    int fd;
+    char buffer[PG_CONTROL_FILE_SIZE];
+
+    // Set version and compatibility information
+    ControlFile->pg_control_version = PG_CONTROL_VERSION;
+    ControlFile->catalog_version_no = CATALOG_VERSION_NO;
+
+    // Set system architecture parameters
+    ControlFile->maxAlign = MAXIMUM_ALIGNOF;
+    ControlFile->floatFormat = FLOATFORMAT_VALUE;
+    ControlFile->blcksz = BLCKSZ;
+    ControlFile->relseg_size = RELSEG_SIZE;
+    ControlFile->xlog_blcksz = XLOG_BLCKSZ;
+    ControlFile->xlog_seg_size = wal_segment_size;
+    ControlFile->nameDataLen = NAMEDATALEN;
+    ControlFile->indexMaxKeys = INDEX_MAX_KEYS;
+    ControlFile->toast_max_chunk_size = TOAST_MAX_CHUNK_SIZE;
+    ControlFile->loblksize = LOBLKSIZE;
+    ControlFile->float8ByVal = FLOAT8PASSBYVAL;
+
+    // Calculate and store CRC32C checksum for data integrity
+    INIT_CRC32C(ControlFile->crc);
+    COMP_CRC32C(ControlFile->crc, (char *) ControlFile, offsetof(ControlFileData, crc));
+    FIN_CRC32C(ControlFile->crc);
+
+    // Prepare write buffer with zero padding
+    memset(buffer, 0, PG_CONTROL_FILE_SIZE);
+    memcpy(buffer, ControlFile, sizeof(ControlFileData));
+
+    // Create the pg_control file (must not already exist)
+    fd = BasicOpenFile(XLOG_CONTROL_FILE, O_RDWR | O_CREAT | O_EXCL | PG_BINARY);
+    if (fd < 0)
+        ereport(PANIC, (errcode_for_file_access(),
+                       errmsg("could not create file \"%s\": %m", XLOG_CONTROL_FILE)));
+
+    // Write the control data with monitoring
+    pgstat_report_wait_start(WAIT_EVENT_CONTROL_FILE_WRITE);
+    if (write(fd, buffer, PG_CONTROL_FILE_SIZE) != PG_CONTROL_FILE_SIZE) {
+        if (errno == 0) errno = ENOSPC;  // Assume disk space issue
+        ereport(PANIC, (errcode_for_file_access(),
+                       errmsg("could not write to file \"%s\": %m", XLOG_CONTROL_FILE)));
+    }
+    pgstat_report_wait_end();
+
+    // Ensure data is written to disk
+    pgstat_report_wait_start(WAIT_EVENT_CONTROL_FILE_SYNC);
+    if (pg_fsync(fd) != 0)
+        ereport(PANIC, (errcode_for_file_access(),
+                       errmsg("could not fsync file \"%s\": %m", XLOG_CONTROL_FILE)));
+    pgstat_report_wait_end();
+
+    // Close the file
+    if (close(fd) != 0)
+        ereport(PANIC, (errcode_for_file_access(),
+                       errmsg("could not close file \"%s\": %m", XLOG_CONTROL_FILE)));
+}
+```

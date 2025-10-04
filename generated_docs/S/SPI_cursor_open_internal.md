@@ -45,3 +45,70 @@ The function performs extensive validation including checking that the plan cont
 - Enforces restriction that scrollable cursors must be read-only when using SELECT FOR UPDATE/SHARE
 - Manages memory contexts carefully to prevent leaks, especially during error conditions
 - Returns a Portal handle that can be used with other SPI cursor functions
+
+## Simplified Source
+
+```c
+static Portal SPI_cursor_open_internal(const char *name, SPIPlanPtr plan,
+                                      ParamListInfo paramLI, bool read_only) {
+    CachedPlanSource *plansource;
+    CachedPlan *cplan;
+    Portal portal;
+    char *query_string;
+    Snapshot snapshot;
+
+    // Validate plan is suitable for cursor operations
+    if (!SPI_is_cursor_plan(plan)) {
+        // Error handling for invalid plans
+        ereport(ERROR, (errcode(ERRCODE_INVALID_CURSOR_DEFINITION),
+                       errmsg("cannot open multi-query plan as cursor")));
+    }
+
+    plansource = (CachedPlanSource *) linitial(plan->plancache_list);
+
+    // Initialize SPI context
+    if (_SPI_begin_call(true) < 0)
+        elog(ERROR, "SPI_cursor_open called while not connected");
+
+    // Create portal with name or auto-generate
+    if (name == NULL || name[0] == '\0')
+        portal = CreateNewPortal();
+    else
+        portal = CreatePortal(name, false, false);
+
+    // Set up portal with query and plan
+    query_string = MemoryContextStrdup(portal->portalContext, plansource->query_string);
+    cplan = GetCachedPlan(plansource, paramLI, NULL, _SPI_current->queryEnv);
+
+    PortalDefineQuery(portal, NULL, query_string, plansource->commandTag,
+                     cplan->stmt_list, cplan);
+
+    // Configure cursor options (scroll behavior, etc.)
+    portal->cursorOptions = plan->cursor_options;
+    if (!(portal->cursorOptions & (CURSOR_OPT_SCROLL | CURSOR_OPT_NO_SCROLL))) {
+        // Auto-determine scroll capability
+        portal->cursorOptions |= CURSOR_OPT_SCROLL; // Simplified logic
+    }
+
+    // Validate read-only requirements
+    if (read_only) {
+        // Check all statements in plan are read-only
+        // Simplified validation logic
+    }
+
+    // Set up execution snapshot
+    snapshot = read_only ? GetActiveSnapshot() : GetTransactionSnapshot();
+
+    // Copy parameters if provided
+    if (paramLI) {
+        paramLI = copyParamList(paramLI);
+    }
+
+    // Start portal execution
+    PortalStart(portal, paramLI, 0, snapshot);
+
+    // Clean up and return
+    _SPI_end_call(true);
+    return portal;
+}
+```

@@ -34,3 +34,21 @@ ECPGdo serves as the primary public interface for executing embedded SQL stateme
 - Uses standard C variable argument handling (va_start, va_end)
 - Located in src/interfaces/ecpg/ecpglib/execute.c:2277-2291
 - The function signature matches what the ECPG preprocessor generates for embedded SQL statements
+
+## Simplified Source
+
+```c
+bool ECPGdo(const int lineno, const int compat, const int force_indicator,
+           const char *connection_name, const bool questionmarks,
+           const int st, const char *query, ...) {
+    va_list args;
+
+    // Convert variable arguments to va_list and delegate to ecpg_do
+    va_start(args, query);
+    bool result = ecpg_do(lineno, compat, force_indicator, connection_name,
+                         questionmarks, st, query, args);
+    va_end(args);
+
+    return result;
+}
+```

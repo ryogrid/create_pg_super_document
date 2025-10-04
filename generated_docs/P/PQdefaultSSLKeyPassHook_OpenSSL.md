@@ -41,3 +41,26 @@ When the stored password is longer than the available buffer, the function trunc
 - Applications can call this explicitly to bypass OpenSSL's default stdin prompting behavior
 - Thread-safe as it only reads from the connection object and uses stack-based buffers
 - The sslpassword field is typically populated from connection parameters like 'sslpassword' or connection string options
+
+## Simplified Source
+
+```c
+int PQdefaultSSLKeyPassHook_OpenSSL(char *buf, int size, PGconn *conn) {
+    // Check if connection and password are available
+    if (conn && conn->sslpassword) {
+        // Warn if password will be truncated
+        if (strlen(conn->sslpassword) + 1 > size) {
+            fprintf(stderr, "WARNING: sslpassword truncated\n");
+        }
+
+        // Copy password to buffer with size limit
+        strncpy(buf, conn->sslpassword, size);
+        buf[size - 1] = '\0';  // Ensure null termination
+        return strlen(buf);
+    } else {
+        // No password available - return empty string
+        buf[0] = '\0';
+        return 0;
+    }
+}
+```

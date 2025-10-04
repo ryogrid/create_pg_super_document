@@ -37,3 +37,15 @@ This setup allows the worker process to report its tuplesort performance statist
 - The shared memory lookup uses `strict = true`, meaning it will error if the shared memory segment is not found
 - This function must be called after ExecSortInitializeDSM has been executed by the leader process
 - The shared memory connection established here will be used later by ExecSortRetrieveInstrumentation to collect statistics
+
+## Simplified Source
+
+```c
+void ExecSortInitializeWorker(SortState *node, ParallelWorkerContext *pwcxt) {
+    // Attach to shared memory segment for sort statistics
+    node->shared_info = shm_toc_lookup(pwcxt->toc, node->ss.ps.plan->plan_node_id, true);
+
+    // Mark this as a worker process
+    node->am_worker = true;
+}
+```

@@ -39,3 +39,24 @@ Unlike pg_wal_replay_pause(), this function does not need to wake up the recover
 - The function returns immediately after clearing the pause state
 - Commonly used to resume operations after maintenance on standby servers
 - Located in src/backend/access/transam/xlogfuncs.c:547-570
+
+## Simplified Source
+
+```c
+Datum
+pg_wal_replay_resume(PG_FUNCTION_ARGS)
+{
+    // Must be in recovery mode to control WAL replay
+    if (!RecoveryInProgress())
+        ereport(ERROR, "recovery is not in progress");
+
+    // Cannot resume during promotion
+    if (PromoteIsTriggered())
+        ereport(ERROR, "standby promotion is ongoing");
+
+    // Clear the pause flag to resume recovery
+    SetRecoveryPause(false);
+
+    PG_RETURN_VOID();
+}
+```

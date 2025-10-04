@@ -34,3 +34,21 @@ None - this function takes no parameters and operates on the global sqlca state.
 - Handles gracefully when sqlca is NULL (out of memory conditions)
 - Part of the public ECPG API for error reporting and debugging
 - Simple interface requiring no parameters, making it easy to use in error handling code
+
+## Simplified Source
+
+```c
+void sqlprint(void) {
+    struct sqlca_t *sqlca = ECPGget_sqlca();
+
+    // Handle out of memory condition
+    if (sqlca == NULL) {
+        ecpg_log("out of memory");
+        return;
+    }
+
+    // Ensure error message is null-terminated and print to stderr
+    sqlca->sqlerrm.sqlerrmc[sqlca->sqlerrm.sqlerrml] = '\0';
+    fprintf(stderr, ecpg_gettext("SQL error: %s\n"), sqlca->sqlerrm.sqlerrmc);
+}
+```

@@ -40,3 +40,32 @@ The `cbracket` function processes complemented bracket expressions (like `[^abc]
 - The result cannot be a rainbow since empty brackets are not allowed
 - Performs proper cleanup of temporary states to avoid memory leaks
 - Located in src/backend/regex/regcomp.c:1729-1762
+
+## Simplified Source
+
+```c
+static void cbracket(struct vars *v, struct state *lp, struct state *rp) {
+    struct state *left = newstate(v->nfa);
+    struct state *right = newstate(v->nfa);
+
+    NOERR();
+
+    // Build positive bracket expression using temporary states
+    bracket(v, left, right);
+
+    // In NLSTOP mode, exclude newlines from the result
+    if (v->cflags & REG_NLSTOP)
+        newarc(v->nfa, PLAIN, v->nlcolor, left, right);
+    NOERR();
+
+    // Create complement of the bracket expression
+    assert(lp->nouts == 0);
+    colorcomplement(v->nfa, v->cm, PLAIN, left, lp, rp);
+    NOERR();
+
+    // Clean up temporary states
+    dropstate(v->nfa, left);
+    assert(right->nins == 0);
+    freestate(v->nfa, right);
+}
+```

@@ -32,3 +32,12 @@ The function eliminates the need for SPI clients to track which memory context a
 - Part of PostgreSQL's SPI memory management system, specifically handling tuple-related memory cleanup
 - Attempting to free a NULL tuple pointer is typically handled safely by the underlying implementation
 - Complements other SPI memory management functions like SPI_palloc, SPI_repalloc, and SPI_pfree for comprehensive memory management
+
+## Simplified Source
+
+```c
+void SPI_freetuple(HeapTuple tuple) {
+    // Delegate to standard heap_freetuple - no context tracking needed
+    heap_freetuple(tuple);
+}
+```

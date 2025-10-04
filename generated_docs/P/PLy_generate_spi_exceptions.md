@@ -42,3 +42,40 @@ This function iterates through a predefined exception_map array to create Python
 - Creates a comprehensive exception hierarchy allowing fine-grained error handling in PL/Python
 - The exception_map array defines the complete set of PostgreSQL SPI exceptions to be generated
 - Essential for enabling PL/Python functions to catch and handle specific database error conditions
+
+## Simplified Source
+
+```c
+static void PLy_generate_spi_exceptions(PyObject *mod, PyObject *base) {
+    int i;
+
+    // Iterate through all mapped PostgreSQL error codes
+    for (i = 0; exception_map[i].name != NULL; i++) {
+        bool found;
+        PyObject *exc;
+        PLyExceptionEntry *entry;
+        PyObject *dict = PyDict_New();
+
+        if (dict == NULL)
+            PLy_elog(ERROR, NULL);
+
+        // Add SQL state as exception attribute
+        PyObject *sqlstate = PLyUnicode_FromString(unpack_sql_state(exception_map[i].sqlstate));
+        if (sqlstate == NULL)
+            PLy_elog(ERROR, "could not generate SPI exceptions");
+
+        PyDict_SetItemString(dict, "sqlstate", sqlstate);
+        Py_DECREF(sqlstate);
+
+        // Create exception as subclass of SPIError
+        exc = PLy_create_exception(exception_map[i].name, base, dict,
+                                   exception_map[i].classname, mod);
+
+        // Register in hash table for lookup by SQL state
+        entry = hash_search(PLy_spi_exceptions, &exception_map[i].sqlstate,
+                            HASH_ENTER, &found);
+        Assert(!found);
+        entry->exc = exc;
+    }
+}
+```

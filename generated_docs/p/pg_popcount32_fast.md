@@ -32,3 +32,16 @@ This function provides an optimized implementation for counting the number of 1-
 - Static inline function for optimal performance
 - Part of PostgreSQL's runtime-optimized bit manipulation utilities
 - Returns int rather than uint32 to match conventional popcount API
+
+## Simplified Source
+
+```c
+static inline int pg_popcount32_fast(uint32 word) {
+    // Use hardware popcount instruction
+#ifdef _MSC_VER
+    return __popcnt(word);           // Microsoft Visual C++
+#else
+    return __builtin_popcount(word); // GCC/Clang builtin
+#endif
+}
+```

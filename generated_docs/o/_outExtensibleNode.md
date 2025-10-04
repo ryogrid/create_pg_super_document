@@ -36,3 +36,19 @@ The function first retrieves the appropriate method structure for the specific e
 - The function assumes that the ExtensibleNodeMethods structure contains a valid  callback function
 - Part of PostgreSQL's extensibility framework that allows third-party extensions to define custom node types
 - The serialized output follows PostgreSQL's standard node format with type identification followed by field data
+
+## Simplified Source
+
+```c
+static void _outExtensibleNode(StringInfo str, const ExtensibleNode *node) {
+    // Get extension-specific methods for this node type
+    const ExtensibleNodeMethods *methods = GetExtensibleNodeMethods(node->extnodename, false);
+
+    // Write standard node header
+    WRITE_NODE_TYPE("EXTENSIBLENODE");
+    WRITE_STRING_FIELD(extnodename);
+
+    // Delegate private field serialization to extension
+    methods->nodeOut(str, node);
+}
+```

@@ -36,3 +36,20 @@ This internal helper function generates a consistent error message when code att
 - Located in src/backend/access/transam/commit_ts.c:381-396
 - Part of PostgreSQL's error handling infrastructure for commit timestamp tracking
 - The error message guides users to enable the track_commit_timestamp configuration parameter
+
+## Simplified Source
+
+```c
+static void error_commit_ts_disabled(void)
+{
+    // Generate standardized error when commit timestamp tracking is disabled
+    ereport(ERROR,
+            (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+             errmsg("could not get commit timestamp data"),
+             RecoveryInProgress() ?
+             errhint("Make sure the configuration parameter \"%s\" is set on the primary server.",
+                     "track_commit_timestamp") :
+             errhint("Make sure the configuration parameter \"%s\" is set.",
+                     "track_commit_timestamp")));
+}
+```

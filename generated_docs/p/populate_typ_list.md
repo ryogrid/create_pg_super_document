@@ -41,3 +41,37 @@ This function takes no parameters.
 - The populated Typ list serves as a cache for type lookups during bootstrap operations
 - Each typmap entry contains both the type OID (am_oid) and a complete copy of the type structure (am_typ)
 - This function is critical for bootstrap performance as it avoids repeated pg_type lookups
+
+## Simplified Source
+
+```c
+static void populate_typ_list(void) {
+    Assert(Typ == NIL);
+
+    // Open pg_type catalog and scan all types
+    Relation rel = table_open(TypeRelationId, NoLock);
+    TableScanDesc scan = table_beginscan_catalog(rel, 0, NULL);
+
+    // Switch to TopMemoryContext for persistent allocations
+    MemoryContext old = MemoryContextSwitchTo(TopMemoryContext);
+
+    // Read each type tuple and create typmap entry
+    HeapTuple tup;
+    while ((tup = heap_getnext(scan, ForwardScanDirection)) != NULL) {
+        Form_pg_type typForm = (Form_pg_type) GETSTRUCT(tup);
+
+        // Allocate new typmap entry and add to list
+        struct typmap *newtyp = (struct typmap *) palloc(sizeof(struct typmap));
+        Typ = lappend(Typ, newtyp);
+
+        // Copy type OID and complete type structure
+        newtyp->am_oid = typForm->oid;
+        memcpy(&newtyp->am_typ, typForm, sizeof(newtyp->am_typ));
+    }
+
+    // Cleanup and restore memory context
+    MemoryContextSwitchTo(old);
+    table_endscan(scan);
+    table_close(rel, NoLock);
+}
+```

@@ -34,3 +34,17 @@ This sorting capability is used in the isolation tester to organize steps in a p
 - Essential for test validation and reproducible test execution
 - The function dereferences void pointers to Step** then to Step* to access the name field
 - Part of the isolation testing framework's validation infrastructure
+
+## Simplified Source
+
+```c
+static int
+step_qsort_cmp(const void *a, const void *b)
+{
+    // Compare step names alphabetically for qsort
+    Step *stepa = *((Step **) a);
+    Step *stepb = *((Step **) b);
+
+    return strcmp(stepa->name, stepb->name);
+}
+```

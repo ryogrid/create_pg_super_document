@@ -42,3 +42,17 @@ The pgresStatus array is kept in the same order as the ExecStatusType enumeratio
 - The function is thread-safe as it only accesses static read-only data
 - Essential for converting numeric status codes to human-readable form for error messages
 - The function is located at src/interfaces/libpq/fe-exec.c:3419-3426
+
+## Simplified Source
+
+```c
+char *PQresStatus(ExecStatusType status)
+{
+    // Bounds check for valid status code
+    if ((unsigned int) status >= lengthof(pgresStatus))
+        return libpq_gettext("invalid ExecStatusType code");
+
+    // Return corresponding string from status array
+    return pgresStatus[status];
+}
+```

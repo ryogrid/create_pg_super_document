@@ -33,3 +33,30 @@ This function performs cleanup of all parameter-related data structures associat
 - After execution, the statement structure's parameter fields are reset to NULL/0 to prevent dangling pointers
 - The function handles cleanup of three parallel arrays: paramvalues, paramlengths, and paramformats
 - Called extensively throughout the ECPG execution flow wherever parameter cleanup is needed
+
+## Simplified Source
+
+```c
+void
+ecpg_free_params(struct statement *stmt, bool print)
+{
+    // Free all parameter values and optionally log them
+    for (int n = 0; n < stmt->nparams; n++) {
+        if (print)
+            print_param_value(stmt->paramvalues[n], stmt->paramlengths[n],
+                              stmt->paramformats[n], stmt->lineno, n + 1);
+        ecpg_free(stmt->paramvalues[n]);
+    }
+
+    // Free the parameter arrays
+    ecpg_free(stmt->paramvalues);
+    ecpg_free(stmt->paramlengths);
+    ecpg_free(stmt->paramformats);
+
+    // Reset statement parameter state
+    stmt->paramvalues = NULL;
+    stmt->paramlengths = NULL;
+    stmt->paramformats = NULL;
+    stmt->nparams = 0;
+}
+```

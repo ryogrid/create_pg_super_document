@@ -43,3 +43,48 @@ The implementation leverages Intel's _mm512_popcnt_epi64 intrinsic for hardware-
 - Part of PostgreSQL's runtime CPU feature detection and function pointer selection system
 - The function uses careful pointer arithmetic and masking to handle unaligned buffers and arbitrary byte counts safely
 - Performance is typically much higher than scalar implementations, especially for larger data sizes
+
+## Simplified Source
+
+```c
+uint64 pg_popcount_avx512(const char *buf, int bytes)
+{
+    __m512i accum = _mm512_setzero_si512();
+    const char *final;
+    int tail_idx;
+    __mmask64 mask = ~UINT64CONST(0);
+
+    // Align buffer and calculate masks for unaligned access
+    mask <<= ((uintptr_t) buf) % sizeof(__m512i);
+    tail_idx = (((uintptr_t) buf + bytes - 1) % sizeof(__m512i)) + 1;
+    final = (const char *) TYPEALIGN_DOWN(sizeof(__m512i), buf + bytes - 1);
+    buf = (const char *) TYPEALIGN_DOWN(sizeof(__m512i), buf);
+
+    // Process all chunks except the final one
+    if (buf < final) {
+        // First iteration with mask for alignment
+        __m512i val = _mm512_maskz_loadu_epi8(mask, (const __m512i *) buf);
+        __m512i cnt = _mm512_popcnt_epi64(val);
+        accum = _mm512_add_epi64(accum, cnt);
+
+        buf += sizeof(__m512i);
+        mask = ~UINT64CONST(0);
+
+        // Main loop - process full 64-byte chunks
+        for (; buf < final; buf += sizeof(__m512i)) {
+            val = _mm512_load_si512((const __m512i *) buf);
+            cnt = _mm512_popcnt_epi64(val);
+            accum = _mm512_add_epi64(accum, cnt);
+        }
+    }
+
+    // Final iteration with mask for remaining bytes
+    mask &= (~UINT64CONST(0) >> (sizeof(__m512i) - tail_idx));
+    __m512i val = _mm512_maskz_loadu_epi8(mask, (const __m512i *) buf);
+    __m512i cnt = _mm512_popcnt_epi64(val);
+    accum = _mm512_add_epi64(accum, cnt);
+
+    // Sum all lanes and return total
+    return _mm512_reduce_add_epi64(accum);
+}
+```

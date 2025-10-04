@@ -45,3 +45,81 @@ The function ensures crash recovery consistency by properly managing the "hole" 
 - Returns InvalidXLogRecPtr for unlogged relations since they don't generate WAL records
 - Memory for the GenericXLogState is automatically freed after processing
 - The "hole zeroing" between pd_lower and pd_upper is crucial for maintaining consistency during recovery replay
+
+## Simplified Source
+
+```c
+XLogRecPtr
+GenericXLogFinish(GenericXLogState *state)
+{
+    XLogRecPtr lsn;
+    int i;
+
+    if (state->isLogged) {
+        // Logged relation: create WAL record
+        XLogBeginInsert();
+        START_CRIT_SECTION();
+
+        // Process each modified page
+        for (i = 0; i < MAX_GENERIC_XLOG_PAGES; i++) {
+            PageData *pageData = &state->pages[i];
+            Page page;
+            PageHeader pageHeader;
+
+            if (BufferIsInvalid(pageData->buffer))
+                continue;
+
+            page = BufferGetPage(pageData->buffer);
+            pageHeader = (PageHeader) pageData->image;
+
+            // Compute delta if not doing full image logging
+            if (!(pageData->flags & GENERIC_XLOG_FULL_IMAGE))
+                computeDelta(pageData, page, (Page) pageData->image);
+
+            // Apply page changes, zeroing the hole for consistency
+            memcpy(page, pageData->image, pageHeader->pd_lower);
+            memset(page + pageHeader->pd_lower, 0,
+                   pageHeader->pd_upper - pageHeader->pd_lower);
+            memcpy(page + pageHeader->pd_upper,
+                   pageData->image + pageHeader->pd_upper,
+                   BLCKSZ - pageHeader->pd_upper);
+
+            MarkBufferDirty(pageData->buffer);
+
+            // Register buffer with WAL system
+            if (pageData->flags & GENERIC_XLOG_FULL_IMAGE) {
+                XLogRegisterBuffer(i, pageData->buffer,
+                                   REGBUF_FORCE_IMAGE | REGBUF_STANDARD);
+            } else {
+                XLogRegisterBuffer(i, pageData->buffer, REGBUF_STANDARD);
+                XLogRegisterBufData(i, pageData->delta, pageData->deltaLen);
+            }
+        }
+
+        // Insert WAL record and set LSN on pages
+        lsn = XLogInsert(RM_GENERIC_ID, 0);
+        for (i = 0; i < MAX_GENERIC_XLOG_PAGES; i++) {
+            PageData *pageData = &state->pages[i];
+            if (BufferIsInvalid(pageData->buffer))
+                continue;
+            PageSetLSN(BufferGetPage(pageData->buffer), lsn);
+        }
+        END_CRIT_SECTION();
+    } else {
+        // Unlogged relation: just copy pages without WAL
+        START_CRIT_SECTION();
+        for (i = 0; i < MAX_GENERIC_XLOG_PAGES; i++) {
+            PageData *pageData = &state->pages[i];
+            if (BufferIsInvalid(pageData->buffer))
+                continue;
+            memcpy(BufferGetPage(pageData->buffer), pageData->image, BLCKSZ);
+            MarkBufferDirty(pageData->buffer);
+        }
+        END_CRIT_SECTION();
+        lsn = InvalidXLogRecPtr;
+    }
+
+    pfree(state);
+    return lsn;
+}
+```

@@ -33,3 +33,28 @@ When auto-tuning is requested (-1), the function either preserves the boot value
 - The minimum of 4 blocks was enforced by guc.c prior to PostgreSQL 9.1
 - Auto-tuning (-1) is handled differently during boot vs runtime
 - Values below minimum are silently corrected rather than rejected
+
+## Simplified Source
+
+```c
+bool
+check_wal_buffers(int *newval, void **extra, GucSource source)
+{
+    // Handle auto-tuning request (-1)
+    if (*newval == -1) {
+        // If still at boot default, leave as-is for later adjustment
+        if (XLOGbuffers == -1)
+            return true;
+
+        // Otherwise, calculate optimal buffer count
+        *newval = XLOGChooseNumBuffers();
+    }
+
+    // Enforce minimum of 4 blocks
+    // Values below minimum are silently adjusted upward
+    if (*newval < 4)
+        *newval = 4;
+
+    return true;  // Always succeed, adjusting values as needed
+}
+```

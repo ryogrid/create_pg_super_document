@@ -38,3 +38,53 @@ Error handling is comprehensive, generating specific protocol violation errors f
 - Comprehensive error reporting for protocol violations with detailed error messages
 - Used during both client-first and client-final message parsing phases
 - The function assumes comma-separated attribute-value pairs and handles both intermediate and final pairs
+
+## Simplified Source
+
+```c
+static char *read_any_attr(char **input, char *attr_p) {
+    char *begin = *input;
+    char *end;
+    char attr = *begin;
+
+    // Check for end of string
+    if (attr == '\0')
+        ereport(ERROR, (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                       errmsg("malformed SCRAM message"),
+                       errdetail("Attribute expected, but found end of string.")));
+
+    // Validate attribute is alphabetic (A-Z, a-z)
+    if (!((attr >= 'A' && attr <= 'Z') || (attr >= 'a' && attr <= 'z')))
+        ereport(ERROR, (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                       errmsg("malformed SCRAM message"),
+                       errdetail("Attribute expected, but found invalid character \"%s\".",
+                                sanitize_char(attr))));
+
+    // Return attribute character if requested
+    if (attr_p)
+        *attr_p = attr;
+    begin++;
+
+    // Expect '=' after attribute
+    if (*begin != '=')
+        ereport(ERROR, (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                       errmsg("malformed SCRAM message"),
+                       errdetail("Expected character \"=\" for attribute \"%c\".", attr)));
+    begin++;
+
+    // Find end of value (comma or end of string)
+    end = begin;
+    while (*end && *end != ',')
+        end++;
+
+    // Null-terminate value and advance input pointer
+    if (*end) {
+        *end = '\0';
+        *input = end + 1;
+    } else {
+        *input = end;
+    }
+
+    return begin;  // Return pointer to value
+}
+```

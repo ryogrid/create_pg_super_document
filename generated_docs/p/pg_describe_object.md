@@ -44,3 +44,34 @@ The function uses missing_ok=true when calling getObjectDescription, meaning it 
 - Useful for introspection queries and debugging dependency relationships
 - Part of PostgreSQL's system administration and introspection capabilities
 - Can be used in queries against pg_depend to get readable object descriptions
+
+## Simplified Source
+
+```c
+Datum
+pg_describe_object(PG_FUNCTION_ARGS)
+{
+    Oid         classid = PG_GETARG_OID(0);
+    Oid         objid = PG_GETARG_OID(1);
+    int32       objsubid = PG_GETARG_INT32(2);
+    char       *description;
+    ObjectAddress address;
+
+    // Handle pinned items in pg_depend (return null)
+    if (!OidIsValid(classid) && !OidIsValid(objid))
+        PG_RETURN_NULL();
+
+    // Build object address structure
+    address.classId = classid;
+    address.objectId = objid;
+    address.objectSubId = objsubid;
+
+    // Get description using internal function
+    description = getObjectDescription(&address, true);
+
+    if (description == NULL)
+        PG_RETURN_NULL();
+
+    PG_RETURN_TEXT_P(cstring_to_text(description));
+}
+```

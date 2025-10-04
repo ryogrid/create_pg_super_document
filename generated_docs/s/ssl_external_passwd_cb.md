@@ -33,3 +33,20 @@ This function implements OpenSSL's password callback interface to retrieve passp
 - The prompt string matches OpenSSL's internal prompt for consistency
 - Enables secure passphrase collection through external commands rather than interactive input
 - Part of PostgreSQL's SSL certificate management system for automated deployments
+
+## Simplified Source
+
+```c
+static int
+ssl_external_passwd_cb(char *buf, int size, int rwflag, void *userdata)
+{
+    // Use OpenSSL's standard passphrase prompt
+    const char *prompt = "Enter PEM pass phrase:";
+
+    // Ensure we're only reading passphrases, not writing them
+    Assert(rwflag == 0);
+
+    // Execute external command to get passphrase
+    return run_ssl_passphrase_command(prompt, ssl_is_server_start, buf, size);
+}
+```

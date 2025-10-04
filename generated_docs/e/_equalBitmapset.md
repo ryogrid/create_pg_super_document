@@ -35,3 +35,12 @@ Rather than implementing comparison logic directly, this function delegates to t
 - The comparison performed by  includes checking word counts and then comparing each word in the bitmap arrays
 - Bitmapsets are extensively used in PostgreSQL's query planner for representing sets of relations, attributes, and other entities
 - The delegation pattern allows the equality framework to work with bitmapsets while keeping bitmapset-specific logic encapsulated in the bitmapset module
+
+## Simplified Source
+
+```c
+static bool _equalBitmapset(const Bitmapset *a, const Bitmapset *b) {
+    // Simply delegate to the specialized Bitmapset comparison function
+    return bms_equal(a, b);
+}
+```

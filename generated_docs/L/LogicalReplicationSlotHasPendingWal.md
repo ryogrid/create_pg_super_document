@@ -45,3 +45,64 @@ The function includes proper exception handling to ensure system caches are prop
 - Critical for upgrade scenarios where determining replication lag is important
 - The processing_required flag in the decoding context indicates when meaningful changes are encountered
 - System cache invalidation is performed both during normal operation and in exception paths to maintain consistency
+
+## Simplified Source
+
+```c
+bool LogicalReplicationSlotHasPendingWal(XLogRecPtr end_of_wal)
+{
+    bool has_pending_wal = false;
+
+    Assert(MyReplicationSlot);
+
+    PG_TRY();
+    {
+        // Create decoding context in fast-forward mode
+        LogicalDecodingContext *ctx = CreateDecodingContext(
+            InvalidXLogRecPtr,  // Start from confirmed_flush
+            NIL,
+            true,  // fast_forward mode
+            XL_ROUTINE(.page_read = read_local_xlog_page,
+                       .segment_open = wal_segment_open,
+                       .segment_close = wal_segment_close),
+            NULL, NULL, NULL);
+
+        // Begin reading from slot's restart_lsn
+        XLogBeginRead(ctx->reader, MyReplicationSlot->data.restart_lsn);
+
+        InvalidateSystemCaches();
+
+        // Scan WAL records until end or changes found
+        while (!has_pending_wal && ctx->reader->EndRecPtr < end_of_wal)
+        {
+            XLogRecord *record;
+            char *errm = NULL;
+
+            record = XLogReadRecord(ctx->reader, &errm);
+
+            if (errm)
+                elog(ERROR, "could not find record for logical decoding: %s", errm);
+
+            if (record != NULL)
+                LogicalDecodingProcessRecord(ctx, ctx->reader);
+
+            // Check if processing is required (meaningful changes found)
+            has_pending_wal = ctx->processing_required;
+
+            CHECK_FOR_INTERRUPTS();
+        }
+
+        // Cleanup
+        FreeDecodingContext(ctx);
+        InvalidateSystemCaches();
+    }
+    PG_CATCH();
+    {
+        InvalidateSystemCaches();
+        PG_RE_THROW();
+    }
+    PG_END_TRY();
+
+    return has_pending_wal;
+}
+```

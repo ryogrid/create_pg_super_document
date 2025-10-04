@@ -48,3 +48,40 @@ This approach ensures that both successful insertions and collision scenarios ar
 - The collision test (re-inserting first value) validates that duplicate detection works correctly
 - Critical component of the red-black tree test suite, used by virtually all test functions
 - Memory management follows PostgreSQL conventions (uses pfree for cleanup)
+
+## Simplified Source
+
+```c
+static void rbt_populate(RBTree *tree, int size, int step)
+{
+    int *permutation = GetPermutation(size);
+    IntRBTreeNode node;
+    bool isNew;
+    int i;
+
+    // Phase 1: Insert values in random order (0, step, 2*step, ...)
+    for (i = 0; i < size; i++)
+    {
+        node.key = step * permutation[i];
+        rbt_insert(tree, (RBTNode *) &node, &isNew);
+
+        // All initial insertions should be new
+        if (!isNew)
+            elog(ERROR, "unexpected !isNew result from rbt_insert");
+    }
+
+    // Phase 2: Test collision handling by re-inserting first value
+    if (size > 0)
+    {
+        node.key = step * permutation[0];
+        rbt_insert(tree, (RBTNode *) &node, &isNew);
+
+        // This should be a collision (not new)
+        if (isNew)
+            elog(ERROR, "unexpected isNew result from rbt_insert");
+    }
+
+    // Cleanup
+    pfree(permutation);
+}
+```

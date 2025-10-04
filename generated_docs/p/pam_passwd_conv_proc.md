@@ -42,3 +42,82 @@ The implementation includes special handling for Solaris 2.6 where the PAM libra
 - Returns PAM_SUCCESS on successful processing, PAM_CONV_ERR on failure
 - Validates message count against PAM_MAX_NUM_MSG to prevent buffer overflows
 - Logs errors and unsupported conversation types for debugging purposes
+
+## Simplified Source
+
+```c
+// Simplified version of pam_passwd_conv_proc
+static int pam_passwd_conv_proc(int num_msg, PG_PAM_CONST struct pam_message **msg,
+                                struct pam_response **resp, void *appdata_ptr) {
+    const char *passwd;
+    struct pam_response *reply;
+
+    // Step 1: Get password from appdata or fallback global
+    if (appdata_ptr) {
+        passwd = (char *) appdata_ptr;
+    } else {
+        passwd = pam_passwd;  // Solaris 2.6 workaround
+    }
+
+    *resp = NULL;
+
+    // Step 2: Validate message count
+    if (num_msg <= 0 || num_msg > PAM_MAX_NUM_MSG) {
+        return PAM_CONV_ERR;
+    }
+
+    // Step 3: Allocate response array (PAM will free this)
+    reply = calloc(num_msg, sizeof(struct pam_response));
+    if (!reply) {
+        ereport(LOG, (errcode(ERRCODE_OUT_OF_MEMORY), errmsg("out of memory")));
+        return PAM_CONV_ERR;
+    }
+
+    // Step 4: Process each PAM message
+    for (int i = 0; i < num_msg; i++) {
+        switch (msg[i]->msg_style) {
+            case PAM_PROMPT_ECHO_OFF:  // Password prompt
+                if (strlen(passwd) == 0) {
+                    // Request password from client
+                    sendAuthRequest(pam_port_cludge, AUTH_REQ_PASSWORD, NULL, 0);
+                    passwd = recv_password_packet(pam_port_cludge);
+                    if (!passwd) {
+                        pam_no_password = true;
+                        goto fail;
+                    }
+                }
+                reply[i].resp = strdup(passwd);
+                if (!reply[i].resp) goto fail;
+                reply[i].resp_retcode = PAM_SUCCESS;
+                break;
+
+            case PAM_ERROR_MSG:  // Error message
+                ereport(LOG, (errmsg("error from underlying PAM layer: %s", msg[i]->msg)));
+                // Fall through
+
+            case PAM_TEXT_INFO:  // Informational message
+                reply[i].resp = strdup("");
+                if (!reply[i].resp) goto fail;
+                reply[i].resp_retcode = PAM_SUCCESS;
+                break;
+
+            default:  // Unsupported message type
+                ereport(LOG, (errmsg("unsupported PAM conversation %d/\"%s\"",
+                                    msg[i]->msg_style,
+                                    msg[i]->msg ? msg[i]->msg : "(none)")));
+                goto fail;
+        }
+    }
+
+    *resp = reply;
+    return PAM_SUCCESS;
+
+fail:
+    // Step 5: Clean up on failure
+    for (int i = 0; i < num_msg; i++) {
+        free(reply[i].resp);
+    }
+    free(reply);
+    return PAM_CONV_ERR;
+}
+```

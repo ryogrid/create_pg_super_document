@@ -39,3 +39,17 @@ This function is typically used when PL/Perl functions return hash references th
 - This function is part of the PL/Perl type conversion infrastructure that allows seamless data exchange between Perl and PostgreSQL
 - The resulting Datum can be used anywhere PostgreSQL expects a composite type value
 - Error handling is delegated to plperl_build_tuple_result, which will report appropriate errors for invalid hash contents
+
+## Simplified Source
+
+```c
+static Datum
+plperl_hash_to_datum(SV *src, TupleDesc td)
+{
+    // Extract hash from Perl reference and convert to tuple
+    HeapTuple tuple = plperl_build_tuple_result((HV *) SvRV(src), td);
+
+    // Convert tuple to Datum and return
+    return HeapTupleGetDatum(tuple);
+}
+```

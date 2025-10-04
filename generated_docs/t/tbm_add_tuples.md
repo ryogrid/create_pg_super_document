@@ -58,3 +58,63 @@ When the bitmap exceeds its memory limit (`maxentries`), the function triggers l
 - Forces new page lookup after lossification since pages may have been converted to lossy
 - Critical function called by all major index access methods (btree, hash, GIN, GiST, SP-GiST)
 - Must not be called while the bitmap is being iterated (checked via assertion)
+
+## Simplified Source
+
+```c
+void
+tbm_add_tuples(TIDBitmap *tbm, const ItemPointer tids, int ntids, bool recheck)
+{
+    BlockNumber current_block = InvalidBlockNumber;
+    PagetableEntry *page = NULL;
+
+    Assert(tbm->iterating == TBM_NOT_ITERATING);
+
+    // Process each tuple ID
+    for (int i = 0; i < ntids; i++) {
+        BlockNumber block = ItemPointerGetBlockNumber(tids + i);
+        OffsetNumber offset = ItemPointerGetOffsetNumber(tids + i);
+
+        // Validate tuple offset to prevent array bounds errors
+        if (offset < 1 || offset > MAX_TUPLES_PER_PAGE) {
+            elog(ERROR, "tuple offset out of range: %u", offset);
+        }
+
+        // Optimize: only lookup page if block number changed
+        if (block != current_block) {
+            if (tbm_page_is_lossy(tbm, block)) {
+                page = NULL;  // Entire page already marked lossy
+            } else {
+                page = tbm_get_pageentry(tbm, block);
+            }
+            current_block = block;
+        }
+
+        // Skip if page is already fully marked
+        if (page == NULL) {
+            continue;
+        }
+
+        // Set the appropriate bit for this tuple
+        int wordnum, bitnum;
+        if (page->ischunk) {
+            // Lossy chunk: set bit for entire page
+            wordnum = bitnum = 0;
+        } else {
+            // Exact page: set bit for specific tuple
+            wordnum = WORDNUM(offset - 1);
+            bitnum = BITNUM(offset - 1);
+        }
+
+        page->words[wordnum] |= ((bitmapword) 1 << bitnum);
+        page->recheck |= recheck;
+
+        // Check memory limit and lossify if necessary
+        if (tbm->nentries > tbm->maxentries) {
+            tbm_lossify(tbm);
+            // Force new lookup since pages may have changed
+            current_block = InvalidBlockNumber;
+        }
+    }
+}
+```

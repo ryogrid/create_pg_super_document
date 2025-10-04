@@ -36,3 +36,15 @@ The function ensures that transaction preparation information is properly serial
 - The transaction must have a valid GID and be in prepared state
 - Part of the logical replication protocol message formatting system
 - Located in src/backend/replication/logical/proto.c:364-375
+
+## Simplified Source
+
+```c
+void logicalrep_write_stream_prepare(StringInfo out,
+                                    ReorderBufferTXN *txn,
+                                    XLogRecPtr prepare_lsn) {
+    // Delegate to common prepare logic with STREAM_PREPARE message type
+    logicalrep_write_prepare_common(out, LOGICAL_REP_MSG_STREAM_PREPARE,
+                                   txn, prepare_lsn);
+}
+```

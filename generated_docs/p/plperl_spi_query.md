@@ -54,3 +54,66 @@ The function handles errors by rolling back the subtransaction and propagating t
 - Memory context management preserves function-level allocations
 - Error propagation uses Perl's croak mechanism for consistent exception handling
 - No query parameters are supported (uses 0 parameters in SPI_prepare)
+
+## Simplified Source
+
+```c
+SV *
+plperl_spi_query(char *query)
+{
+    SV *cursor;
+    MemoryContext oldcontext = CurrentMemoryContext;
+    ResourceOwner oldowner = CurrentResourceOwner;
+
+    check_spi_usage_allowed();
+
+    // Execute query in subtransaction for error handling
+    BeginInternalSubTransaction(NULL);
+    MemoryContextSwitchTo(oldcontext);
+
+    PG_TRY();
+    {
+        SPIPlanPtr plan;
+        Portal portal;
+
+        // Validate query encoding
+        pg_verifymbstr(query, strlen(query), false);
+
+        // Create and execute cursor
+        plan = SPI_prepare(query, 0, NULL);
+        if (plan == NULL)
+            elog(ERROR, "SPI_prepare() failed:%s", SPI_result_code_string(SPI_result));
+
+        portal = SPI_cursor_open(NULL, plan, NULL, NULL, false);
+        SPI_freeplan(plan);
+        if (portal == NULL)
+            elog(ERROR, "SPI_cursor_open() failed:%s", SPI_result_code_string(SPI_result));
+
+        cursor = cstr2sv(portal->name);
+        PinPortal(portal);
+
+        // Commit subtransaction
+        ReleaseCurrentSubTransaction();
+        MemoryContextSwitchTo(oldcontext);
+        CurrentResourceOwner = oldowner;
+    }
+    PG_CATCH();
+    {
+        // Handle errors: rollback and propagate to Perl
+        ErrorData *edata;
+        MemoryContextSwitchTo(oldcontext);
+        edata = CopyErrorData();
+        FlushErrorState();
+
+        RollbackAndReleaseCurrentSubTransaction();
+        MemoryContextSwitchTo(oldcontext);
+        CurrentResourceOwner = oldowner;
+
+        croak_cstr(edata->message);
+        return NULL;
+    }
+    PG_END_TRY();
+
+    return cursor;
+}
+```

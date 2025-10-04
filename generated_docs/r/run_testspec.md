@@ -37,3 +37,18 @@ This design provides flexibility in the isolation testing framework, allowing te
 - This function represents the main execution entry point after test specification validation is complete
 - Provides a clean abstraction that separates test specification parsing/validation from test execution strategies
 - The choice of execution strategy significantly affects test runtime and coverage (all permutations can be exponentially larger than named permutations)
+
+## Simplified Source
+
+```c
+static void run_testspec(TestSpec *testspec) {
+    // Choose execution strategy based on whether permutations are manually specified
+    if (testspec->permutations) {
+        // Execute only the explicitly defined permutations
+        run_named_permutations(testspec);
+    } else {
+        // Generate and execute all possible permutations
+        run_all_permutations(testspec);
+    }
+}
+```

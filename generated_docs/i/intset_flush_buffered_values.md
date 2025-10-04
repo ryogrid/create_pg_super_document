@@ -49,3 +49,63 @@ The function uses Simple-8b encoding to compress sequences of integers relative 
 - Uses memmove to efficiently relocate remaining buffered values after partial processing
 - Critical for maintaining the performance characteristics of the IntegerSet data structure
 - The function ensures that the rightmost_nodes array is kept up-to-date for efficient future insertions
+
+## Simplified Source
+
+```c
+static void
+intset_flush_buffered_values(IntegerSet *intset)
+{
+    uint64 *values = intset->buffered_values;
+    uint64 num_values = intset->num_buffered_values;
+    int num_packed = 0;
+    intset_leaf_node *leaf;
+
+    leaf = (intset_leaf_node *) intset->rightmost_nodes[0];
+
+    // Initialize first leaf node if tree is empty
+    if (leaf == NULL)
+    {
+        leaf = intset_new_leaf_node(intset);
+        intset->root = (intset_node *) leaf;
+        intset->leftmost_leaf = leaf;
+        intset->rightmost_nodes[0] = (intset_node *) leaf;
+        intset->num_levels = 1;
+    }
+
+    // Process values in batches, ensuring enough values for efficient encoding
+    while (num_values - num_packed >= MAX_VALUES_PER_LEAF_ITEM)
+    {
+        leaf_item item;
+        int num_encoded;
+
+        // Create leaf item with Simple-8b encoding
+        item.first = values[num_packed];
+        item.codeword = simple8b_encode(&values[num_packed + 1],
+                                        &num_encoded,
+                                        item.first);
+
+        // Create new leaf node if current one is full
+        if (leaf->num_items >= MAX_LEAF_ITEMS)
+        {
+            intset_leaf_node *old_leaf = leaf;
+            leaf = intset_new_leaf_node(intset);
+            old_leaf->next = leaf;
+            intset->rightmost_nodes[0] = (intset_node *) leaf;
+            intset_update_upper(intset, 1, (intset_node *) leaf, item.first);
+        }
+
+        leaf->items[leaf->num_items++] = item;
+        num_packed += 1 + num_encoded;
+    }
+
+    // Move remaining unprocessed values to buffer start
+    if (num_packed < intset->num_buffered_values)
+    {
+        memmove(&intset->buffered_values[0],
+                &intset->buffered_values[num_packed],
+                (intset->num_buffered_values - num_packed) * sizeof(uint64));
+    }
+    intset->num_buffered_values -= num_packed;
+}
+```

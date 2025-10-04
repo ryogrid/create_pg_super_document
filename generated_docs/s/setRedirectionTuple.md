@@ -44,3 +44,24 @@ This pattern is used during SPGiST operations where tuples may need to be moved 
 - Used as part of larger operations that handle their own WAL logging
 - The "impossible" destination of the metapage serves as a placeholder until the real destination is determined
 - Location: src/backend/access/spgist/spgdoinsert.c:568-598
+
+## Simplified Source
+
+```c
+static void setRedirectionTuple(SPPageDesc *current, OffsetNumber position,
+                               BlockNumber blkno, OffsetNumber offnum)
+{
+    SpGistDeadTuple dt;
+
+    // Get the redirection tuple from the page
+    dt = (SpGistDeadTuple) PageGetItem(current->page,
+                                      PageGetItemId(current->page, position));
+
+    // Verify it's a redirect tuple with placeholder destination
+    Assert(dt->tupstate == SPGIST_REDIRECT);
+    Assert(ItemPointerGetBlockNumber(&dt->pointer) == SPGIST_METAPAGE_BLKNO);
+
+    // Update to point to actual destination
+    ItemPointerSet(&dt->pointer, blkno, offnum);
+}
+```

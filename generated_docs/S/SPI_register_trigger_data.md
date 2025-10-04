@@ -37,3 +37,49 @@ This function is designed for use by procedural language (PL) implementations' t
 - Uses trigger names from tdata->tg_trigger->tgnewtable and tdata->tg_trigger->tgoldtable
 - Essential for making transition tables accessible in trigger-executed SQL
 - Used by all major procedural language implementations in PostgreSQL
+
+## Simplified Source
+
+```c
+int SPI_register_trigger_data(TriggerData *tdata) {
+    // Validate input parameter
+    if (tdata == NULL)
+        return SPI_ERROR_ARGUMENT;
+
+    // Register NEW table if it exists
+    if (tdata->tg_newtable) {
+        EphemeralNamedRelation enr = palloc(sizeof(EphemeralNamedRelationData));
+
+        // Set up metadata for the NEW table
+        enr->md.name = tdata->tg_trigger->tgnewtable;
+        enr->md.reliddesc = tdata->tg_relation->rd_id;
+        enr->md.tupdesc = NULL;  // Inferred from tuplestore
+        enr->md.enrtype = ENR_NAMED_TUPLESTORE;
+        enr->md.enrtuples = tuplestore_tuple_count(tdata->tg_newtable);
+        enr->reldata = tdata->tg_newtable;
+
+        int rc = SPI_register_relation(enr);
+        if (rc != SPI_OK_REL_REGISTER)
+            return rc;
+    }
+
+    // Register OLD table if it exists
+    if (tdata->tg_oldtable) {
+        EphemeralNamedRelation enr = palloc(sizeof(EphemeralNamedRelationData));
+
+        // Set up metadata for the OLD table
+        enr->md.name = tdata->tg_trigger->tgoldtable;
+        enr->md.reliddesc = tdata->tg_relation->rd_id;
+        enr->md.tupdesc = NULL;  // Inferred from tuplestore
+        enr->md.enrtype = ENR_NAMED_TUPLESTORE;
+        enr->md.enrtuples = tuplestore_tuple_count(tdata->tg_oldtable);
+        enr->reldata = tdata->tg_oldtable;
+
+        int rc = SPI_register_relation(enr);
+        if (rc != SPI_OK_REL_REGISTER)
+            return rc;
+    }
+
+    return SPI_OK_TD_REGISTER;
+}
+```

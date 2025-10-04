@@ -37,3 +37,16 @@ The function includes an assertion to ensure that the communication method has b
 - This information is used by the message queue flush operations to notify the leader
 - Critical for the proper functioning of parallel query execution and result communication
 - The stored information enables SendProcSignal() calls to notify the leader of available data
+
+## Simplified Source
+
+```c
+void pq_set_parallel_leader(pid_t pid, ProcNumber procNumber) {
+    // Ensure we're using message queue communication
+    Assert(PqCommMethods == &PqCommMqMethods);
+
+    // Store the parallel leader's process identification
+    pq_mq_parallel_leader_pid = pid;
+    pq_mq_parallel_leader_proc_number = procNumber;
+}
+```

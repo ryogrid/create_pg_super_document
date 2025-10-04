@@ -45,3 +45,26 @@ The function is essential for backup and recovery operations where external tool
 - WAL filenames follow a specific format that includes timeline ID and segment number
 - Commonly used in backup and recovery scripts to determine which WAL files are needed for point-in-time recovery
 - Located in src/backend/access/transam/xlogfuncs.c:437-461
+
+## Simplified Source
+
+```c
+Datum
+pg_walfile_name(PG_FUNCTION_ARGS)
+{
+    XLogSegNo xlogsegno;
+    XLogRecPtr locationpoint = PG_GETARG_LSN(0);
+    char xlogfilename[MAXFNAMELEN];
+
+    // Cannot run during recovery
+    if (RecoveryInProgress())
+        ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                       errmsg("recovery is in progress")));
+
+    // Convert LSN to segment number and generate filename
+    XLByteToSeg(locationpoint, xlogsegno, wal_segment_size);
+    XLogFileName(xlogfilename, GetWALInsertionTimeLine(), xlogsegno, wal_segment_size);
+
+    PG_RETURN_TEXT_P(cstring_to_text(xlogfilename));
+}
+```

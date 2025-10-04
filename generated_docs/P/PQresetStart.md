@@ -33,3 +33,22 @@ The function is designed to work in conjunction with PQresetPoll to provide non-
 - The connection parameters from the original connection are preserved and reused
 - The function is part of libpq's public API for non-blocking database operations
 - After calling this function, the connection should be considered invalid until the reset completes successfully
+
+## Simplified Source
+
+```c
+int
+PQresetStart(PGconn *conn)
+{
+    if (conn)
+    {
+        // Close existing connection
+        pqClosePGconn(conn);
+
+        // Start asynchronous reconnection process
+        return pqConnectDBStart(conn);
+    }
+
+    return 0;
+}
+```

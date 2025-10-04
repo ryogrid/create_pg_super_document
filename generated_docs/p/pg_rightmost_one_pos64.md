@@ -36,3 +36,35 @@ The implementation follows the same pattern as other bit utilities:
 - The MSVC implementation is optimized for 64-bit architectures (AMD64/ARM64)
 - Essential for advanced data structure operations that work with large bit patterns
 - Provides consistent behavior across different 64-bit integer type definitions
+
+## Simplified Source
+
+```c
+static inline int pg_rightmost_one_pos64(uint64 word) {
+    Assert(word != 0);
+
+#ifdef HAVE__BUILTIN_CTZ
+    // Use GCC/Clang builtin for efficiency
+#if defined(HAVE_LONG_INT_64)
+    return __builtin_ctzl(word);
+#else
+    return __builtin_ctzll(word);
+#endif
+
+#elif defined(_MSC_VER) && (defined(_M_AMD64) || defined(_M_ARM64))
+    // Use MSVC intrinsic
+    unsigned long result;
+    _BitScanForward64(&result, word);
+    return (int)result;
+
+#else
+    // Fallback: scan bytes for trailing zeros
+    int result = 0;
+    while ((word & 255) == 0) {
+        word >>= 8;
+        result += 8;
+    }
+    return result + pg_rightmost_one_pos[word & 255];
+#endif
+}
+```

@@ -44,3 +44,29 @@ The function is part of PostgreSQL's constraint validation system and ensures th
 - Collation handling ensures string comparisons work correctly within the constraint
 - The comment mentions that some validation may be "dead code" due to historical changes in query processing
 - CHECK constraints are fundamental to PostgreSQL's data integrity enforcement system
+
+## Simplified Source
+
+```c
+static Node *cookConstraint(ParseState *pstate, Node *raw_constraint, char *relname) {
+    Node *expr;
+
+    // Transform raw expression into executable format
+    expr = transformExpr(pstate, raw_constraint, EXPR_KIND_CHECK_CONSTRAINT);
+
+    // Ensure the expression yields a boolean result
+    expr = coerce_to_boolean(pstate, expr, "CHECK");
+
+    // Assign proper collations for string comparisons
+    assign_expr_collations(pstate, expr);
+
+    // Validate that only the target table is referenced
+    if (list_length(pstate->p_rtable) != 1) {
+        ereport(ERROR, (errcode(ERRCODE_INVALID_COLUMN_REFERENCE),
+                       errmsg("only table \"%s\" can be referenced in check constraint",
+                              relname)));
+    }
+
+    return expr;
+}
+```

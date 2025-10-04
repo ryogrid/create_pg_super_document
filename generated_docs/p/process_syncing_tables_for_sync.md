@@ -54,3 +54,60 @@ The function includes careful transaction management and error handling to ensur
 - Critical for maintaining consistency between the synchronized table and ongoing replication
 - Part of the table synchronization state machine that coordinates between sync and apply workers
 - The function is static, used only within the tablesync.c module for WORKERTYPE_TABLESYNC workers
+
+## Simplified Source
+
+```c
+static void process_syncing_tables_for_sync(XLogRecPtr current_lsn)
+{
+    SpinLockAcquire(&MyLogicalRepWorker->relmutex);
+
+    // Check if we've reached the synchronization point
+    if (MyLogicalRepWorker->relstate == SUBREL_STATE_CATCHUP &&
+        current_lsn >= MyLogicalRepWorker->relstate_lsn)
+    {
+        char syncslotname[NAMEDATALEN] = {0};
+        char originname[NAMEDATALEN] = {0};
+
+        // Mark table as synchronized
+        MyLogicalRepWorker->relstate = SUBREL_STATE_SYNCDONE;
+        MyLogicalRepWorker->relstate_lsn = current_lsn;
+
+        SpinLockRelease(&MyLogicalRepWorker->relmutex);
+
+        // Update catalog state within transaction
+        if (!IsTransactionState())
+            StartTransactionCommand();
+
+        UpdateSubscriptionRelState(MyLogicalRepWorker->subid,
+                                 MyLogicalRepWorker->relid,
+                                 MyLogicalRepWorker->relstate,
+                                 MyLogicalRepWorker->relstate_lsn);
+
+        // Stop streaming and cleanup sync slot
+        walrcv_endstreaming(LogRepWorkerWalRcvConn, &tli);
+
+        ReplicationSlotNameForTablesync(MyLogicalRepWorker->subid,
+                                      MyLogicalRepWorker->relid,
+                                      syncslotname, sizeof(syncslotname));
+
+        ReplicationSlotDropAtPubNode(LogRepWorkerWalRcvConn, syncslotname, false);
+        CommitTransactionCommand();
+
+        // Clean up origin tracking in new transaction
+        StartTransactionCommand();
+
+        ReplicationOriginNameForLogicalRep(MyLogicalRepWorker->subid,
+                                         MyLogicalRepWorker->relid,
+                                         originname, sizeof(originname));
+
+        // Reset origin session and drop tracking
+        replorigin_session_reset();
+        replorigin_drop_by_name(originname, true, false);
+
+        finish_sync_worker();
+    }
+    else
+        SpinLockRelease(&MyLogicalRepWorker->relmutex);
+}
+```

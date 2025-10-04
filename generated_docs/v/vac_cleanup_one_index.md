@@ -41,3 +41,30 @@ This function is typically called during the cleanup phase of vacuum operations,
 - The reporting includes both summary statistics (total row versions, pages) and detailed breakdown (removed tuples, deleted pages, reusable pages)
 - This function is part of PostgreSQL's vacuum subsystem and plays a crucial role in maintaining index health and reclaiming space
 - The message level for reporting is controlled by the `ivinfo->message_level` setting, allowing for configurable verbosity
+
+## Simplified Source
+
+```c
+IndexBulkDeleteResult *
+vac_cleanup_one_index(IndexVacuumInfo *ivinfo, IndexBulkDeleteResult *istat)
+{
+    // Perform index cleanup operations
+    istat = index_vacuum_cleanup(ivinfo, istat);
+
+    // Report detailed cleanup statistics if available
+    if (istat)
+        ereport(ivinfo->message_level,
+                (errmsg("index \"%s\" now contains %.0f row versions in %u pages",
+                        RelationGetRelationName(ivinfo->index),
+                        istat->num_index_tuples,
+                        istat->num_pages),
+                 errdetail("%.0f index row versions were removed.\n"
+                          "%u index pages were newly deleted.\n"
+                          "%u index pages are currently deleted, of which %u are currently reusable.",
+                          istat->tuples_removed,
+                          istat->pages_newly_deleted,
+                          istat->pages_deleted, istat->pages_free)));
+
+    return istat;
+}
+```

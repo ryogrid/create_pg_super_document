@@ -49,3 +49,46 @@ The function provides intelligent handling of different string types, including 
 - Returns true on successful assignment, false on type validation error
 - Provides automatic size constraint enforcement to prevent buffer overflows
 - Essential component of ECPG's descriptor character field value assignment mechanism
+
+## Simplified Source
+
+```c
+static bool get_char_item(int lineno, void *var, enum ECPGttype vartype, char *value, int varcharsize) {
+    // Assign string value based on target character type
+    switch (vartype) {
+        case ECPGt_char:
+        case ECPGt_unsigned_char:
+        case ECPGt_string:
+            // Simple character array/string copy with size limit
+            strncpy((char *) var, value, varcharsize);
+            break;
+
+        case ECPGt_varchar: {
+            // Handle PostgreSQL VARCHAR structure
+            struct ECPGgeneric_varchar *variable = (struct ECPGgeneric_varchar *) var;
+
+            // Copy string data with size constraint
+            if (varcharsize == 0) {
+                memcpy(variable->arr, value, strlen(value));
+            } else {
+                strncpy(variable->arr, value, varcharsize);
+            }
+
+            // Set length field, respecting size constraints
+            variable->len = strlen(value);
+            if (varcharsize > 0 && variable->len > varcharsize) {
+                variable->len = varcharsize;
+            }
+            break;
+        }
+
+        default:
+            // Error: target type is not character-based
+            ecpg_raise(lineno, ECPG_VAR_NOT_CHAR,
+                       ECPG_SQLSTATE_RESTRICTED_DATA_TYPE_ATTRIBUTE_VIOLATION, NULL);
+            return false;
+    }
+
+    return true;
+}
+```

@@ -37,3 +37,30 @@ The function allocates a `win32_deadchild_waitinfo` structure to store the proce
 - Memory allocated for the `win32_deadchild_waitinfo` structure is freed later by the `waitpid()` implementation
 - If `RegisterWaitForSingleObject` fails, the function reports a FATAL error, as this indicates a critical system failure
 - The callback runs in a separate Windows thread pool thread, requiring all operations within the callback to be thread-safe
+
+## Simplified Source
+
+```c
+void
+pgwin32_register_deadchild_callback(HANDLE procHandle, DWORD procId)
+{
+    win32_deadchild_waitinfo *child_info;
+
+    // Allocate structure to store child process information
+    child_info = palloc(sizeof(win32_deadchild_waitinfo));
+    child_info->procHandle = procHandle;
+    child_info->procId = procId;
+
+    // Register asynchronous wait for child process termination
+    if (!RegisterWaitForSingleObject(&child_info->waitHandle,
+                                    procHandle,
+                                    pgwin32_deadchild_callback,
+                                    child_info,
+                                    INFINITE,
+                                    WT_EXECUTEONLYONCE | WT_EXECUTEINWAITTHREAD)) {
+        ereport(FATAL,
+               (errmsg_internal("could not register process for wait: error code %lu",
+                               GetLastError())));
+    }
+}
+```

@@ -38,3 +38,35 @@ AppendJumble is responsible for adding meaningful query data to the jumble buffe
 - The compression strategy preserves query uniqueness while preventing buffer overflow
 - Used indirectly through various JUMBLE_* macros that process different data types
 - Part of the core query fingerprinting mechanism in PostgreSQL
+
+## Simplified Source
+
+```c
+static void
+AppendJumble(JumbleState *jstate, const unsigned char *item, Size size)
+{
+    unsigned char *jumble = jstate->jumble;
+    Size jumble_len = jstate->jumble_len;
+
+    // Process data in chunks, handling buffer overflow
+    while (size > 0) {
+        // If buffer is full, compress it to a hash
+        if (jumble_len >= JUMBLE_SIZE) {
+            uint64 hash = DatumGetUInt64(hash_any_extended(jumble, JUMBLE_SIZE, 0));
+            memcpy(jumble, &hash, sizeof(hash));
+            jumble_len = sizeof(hash);
+        }
+
+        // Copy as much data as fits in remaining buffer space
+        Size chunk_size = Min(size, JUMBLE_SIZE - jumble_len);
+        memcpy(jumble + jumble_len, item, chunk_size);
+
+        // Update pointers and remaining size
+        jumble_len += chunk_size;
+        item += chunk_size;
+        size -= chunk_size;
+    }
+
+    jstate->jumble_len = jumble_len;
+}
+```

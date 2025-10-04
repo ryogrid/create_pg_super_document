@@ -41,3 +41,62 @@ The PGTYPESnumeric_add function implements signed numeric addition by analyzing 
 - Part of the ECPG pgtypes library providing PostgreSQL-compatible numeric operations for client applications
 - [Result](../R/Result.md) scaling (rscale and dscale) is handled appropriately for all operation types
 - The function is designed to be a public interface, unlike the internal static functions it calls
+
+## Simplified Source
+
+```c
+int PGTYPESnumeric_add(numeric *var1, numeric *var2, numeric *result)
+{
+    // Handle all four sign combinations for addition
+    if (var1->sign == NUMERIC_POS) {
+        if (var2->sign == NUMERIC_POS) {
+            // Both positive: result = +(|var1| + |var2|)
+            if (add_abs(var1, var2, result) != 0)
+                return -1;
+            result->sign = NUMERIC_POS;
+        } else {
+            // Positive + Negative: compare absolute values
+            switch (cmp_abs(var1, var2)) {
+                case 0:  // Equal absolute values = 0
+                    zero_var(result);
+                    result->rscale = Max(var1->rscale, var2->rscale);
+                    result->dscale = Max(var1->dscale, var2->dscale);
+                    break;
+                case 1:  // |var1| > |var2|: result = +(|var1| - |var2|)
+                    if (sub_abs(var1, var2, result) != 0) return -1;
+                    result->sign = NUMERIC_POS;
+                    break;
+                case -1: // |var1| < |var2|: result = -(|var2| - |var1|)
+                    if (sub_abs(var2, var1, result) != 0) return -1;
+                    result->sign = NUMERIC_NEG;
+                    break;
+            }
+        }
+    } else { // var1 is negative
+        if (var2->sign == NUMERIC_POS) {
+            // Negative + Positive: similar logic, opposite signs
+            switch (cmp_abs(var1, var2)) {
+                case 0:  // Equal absolute values = 0
+                    zero_var(result);
+                    result->rscale = Max(var1->rscale, var2->rscale);
+                    result->dscale = Max(var1->dscale, var2->dscale);
+                    break;
+                case 1:  // |var1| > |var2|: result = -(|var1| - |var2|)
+                    if (sub_abs(var1, var2, result) != 0) return -1;
+                    result->sign = NUMERIC_NEG;
+                    break;
+                case -1: // |var1| < |var2|: result = +(|var2| - |var1|)
+                    if (sub_abs(var2, var1, result) != 0) return -1;
+                    result->sign = NUMERIC_POS;
+                    break;
+            }
+        } else {
+            // Both negative: result = -(|var1| + |var2|)
+            if (add_abs(var1, var2, result) != 0)
+                return -1;
+            result->sign = NUMERIC_NEG;
+        }
+    }
+    return 0;
+}
+```

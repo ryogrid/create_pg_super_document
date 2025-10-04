@@ -37,5 +37,25 @@ This approach optimizes memory usage while ensuring serialization operations hav
 - This is a static function, only accessible within the reorderbuffer.c file
 - Part of the disk serialization support subsystem for logical replication
 - Uses PostgreSQL's memory management functions (MemoryContextAlloc/repalloc) for proper memory handling
-- The function guarantees that after successful execution, 
+- The function guarantees that after successful execution, the buffer size will be at least the requested size
 - Memory allocation failures will be handled by PostgreSQL's standard error handling mechanisms in the called allocation functions
+
+## Simplified Source
+
+```c
+static void
+ReorderBufferSerializeReserve(ReorderBuffer *rb, Size sz)
+{
+    if (!rb->outbufsize) {
+        // First allocation: create new buffer
+        rb->outbuf = MemoryContextAlloc(rb->context, sz);
+        rb->outbufsize = sz;
+    }
+    else if (rb->outbufsize < sz) {
+        // Buffer too small: reallocate to larger size
+        rb->outbuf = repalloc(rb->outbuf, sz);
+        rb->outbufsize = sz;
+    }
+    // If buffer is already large enough, do nothing
+}
+```

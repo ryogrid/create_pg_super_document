@@ -33,3 +33,29 @@ This utility function manages the accumulation of invalidation messages into a d
 - Uses repalloc for efficient memory reallocation when extending the array
 - The function modifies its output parameters by reference using double pointers
 - Memory management is handled automatically - caller doesn't need to pre-allocate
+
+## Simplified Source
+
+```c
+static void
+ReorderBufferAccumulateInvalidations(SharedInvalidationMessage **invals_out,
+                                    uint32 *ninvals_out,
+                                    SharedInvalidationMessage *msgs_new,
+                                    Size nmsgs_new)
+{
+    if (*ninvals_out == 0) {
+        // First time: allocate new array and copy messages
+        *ninvals_out = nmsgs_new;
+        *invals_out = palloc(sizeof(SharedInvalidationMessage) * nmsgs_new);
+        memcpy(*invals_out, msgs_new, sizeof(SharedInvalidationMessage) * nmsgs_new);
+    }
+    else {
+        // Extend existing array: reallocate and append new messages
+        *invals_out = repalloc(*invals_out,
+                              sizeof(SharedInvalidationMessage) * (*ninvals_out + nmsgs_new));
+        memcpy(*invals_out + *ninvals_out, msgs_new,
+               nmsgs_new * sizeof(SharedInvalidationMessage));
+        *ninvals_out += nmsgs_new;
+    }
+}
+```

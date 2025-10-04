@@ -35,3 +35,43 @@ The function iterates through the bitmap of missing attributes, extracts the col
 - Supports internationalization through the _() macro and errmsg_plural function
 - The error message format distinguishes between single and multiple missing columns for better user experience
 - Critical for logical replication integrity as it prevents replication to incompatible target schemas
+
+## Simplified Source
+
+```c
+static void logicalrep_report_missing_attrs(LogicalRepRelation *remoterel,
+                                            Bitmapset *missingatts) {
+    // Exit early if no missing attributes
+    if (bms_is_empty(missingatts))
+        return;
+
+    StringInfoData missingattsbuf;
+    int missingattcnt = 0;
+    int i;
+
+    initStringInfo(&missingattsbuf);
+
+    // Build comma-separated list of missing attribute names
+    i = -1;
+    while ((i = bms_next_member(missingatts, i)) >= 0) {
+        missingattcnt++;
+        if (missingattcnt == 1) {
+            appendStringInfo(&missingattsbuf, _("\"%s\""),
+                             remoterel->attnames[i]);
+        } else {
+            appendStringInfo(&missingattsbuf, _(", \"%s\""),
+                             remoterel->attnames[i]);
+        }
+    }
+
+    // Report error with proper pluralization
+    ereport(ERROR,
+            (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+             errmsg_plural("logical replication target relation \"%s.%s\" is missing replicated column: %s",
+                           "logical replication target relation \"%s.%s\" is missing replicated columns: %s",
+                           missingattcnt,
+                           remoterel->nspname,
+                           remoterel->relname,
+                           missingattsbuf.data)));
+}
+```

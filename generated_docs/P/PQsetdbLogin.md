@@ -57,3 +57,96 @@ Key operations performed:
 - The function performs a complete synchronous connection attempt before returning
 - Supports both traditional parameter-based connections and modern connection string formats
 - All string parameters are internally duplicated, so caller-provided strings can be freed after the call
+
+## Simplified Source
+
+```c
+PGconn *
+PQsetdbLogin(const char *pghost, const char *pgport, const char *pgoptions,
+             const char *pgtty, const char *dbName, const char *login,
+             const char *pwd)
+{
+    PGconn *conn;
+
+    // Allocate and initialize connection structure
+    conn = pqMakeEmptyPGconn();
+    if (conn == NULL)
+        return NULL;
+
+    // Handle connection string in dbName parameter
+    if (dbName && recognized_connection_string(dbName))
+    {
+        if (!connectOptions1(conn, dbName))
+            return conn;
+    }
+    else
+    {
+        // Set up defaults, then override with dbName
+        if (!connectOptions1(conn, ""))
+            return conn;
+
+        if (dbName && dbName[0] != '\0')
+        {
+            free(conn->dbName);
+            conn->dbName = strdup(dbName);
+            if (!conn->dbName)
+                goto oom_error;
+        }
+    }
+
+    // Override connection parameters with provided values
+    if (pghost && pghost[0] != '\0')
+    {
+        free(conn->pghost);
+        conn->pghost = strdup(pghost);
+        if (!conn->pghost)
+            goto oom_error;
+    }
+
+    if (pgport && pgport[0] != '\0')
+    {
+        free(conn->pgport);
+        conn->pgport = strdup(pgport);
+        if (!conn->pgport)
+            goto oom_error;
+    }
+
+    if (pgoptions && pgoptions[0] != '\0')
+    {
+        free(conn->pgoptions);
+        conn->pgoptions = strdup(pgoptions);
+        if (!conn->pgoptions)
+            goto oom_error;
+    }
+
+    if (login && login[0] != '\0')
+    {
+        free(conn->pguser);
+        conn->pguser = strdup(login);
+        if (!conn->pguser)
+            goto oom_error;
+    }
+
+    if (pwd && pwd[0] != '\0')
+    {
+        free(conn->pgpass);
+        conn->pgpass = strdup(pwd);
+        if (!conn->pgpass)
+            goto oom_error;
+    }
+
+    // Finalize connection options and connect
+    if (!pqConnectOptions2(conn))
+        return conn;
+
+    if (pqConnectDBStart(conn))
+        (void) pqConnectDBComplete(conn);
+
+    return conn;
+
+oom_error:
+    conn->status = CONNECTION_BAD;
+    libpq_append_conn_error(conn, "out of memory");
+    return conn;
+}
+```

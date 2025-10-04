@@ -69,3 +69,77 @@ The function is essential for logical replication as it transforms low-level WAL
 - Prepare transaction processing can potentially deadlock if prepared transactions lock catalog tables exclusively
 - Fast-forward mode can skip certain invalidation processing for performance
 - The function coordinates closely with the reorder buffer to maintain transaction ordering during logical replication
+
+## Simplified Source
+
+```c
+void xact_decode(LogicalDecodingContext *ctx, XLogRecordBuffer *buf)
+{
+    SnapBuild *builder = ctx->snapshot_builder;
+    ReorderBuffer *reorder = ctx->reorder;
+    XLogReaderState *r = buf->record;
+    uint8 info = XLogRecGetInfo(r) & XLOG_XACT_OPMASK;
+
+    // Wait for full snapshot before processing transaction events
+    if (SnapBuildCurrentState(builder) < SNAPBUILD_FULL_SNAPSHOT)
+        return;
+
+    switch (info) {
+        case XLOG_XACT_COMMIT:
+        case XLOG_XACT_COMMIT_PREPARED:
+            // Parse commit record and determine transaction ID
+            xl_xact_commit *xlrec = (xl_xact_commit *) XLogRecGetData(r);
+            xl_xact_parsed_commit parsed;
+            ParseCommitRecord(XLogRecGetInfo(buf->record), xlrec, &parsed);
+
+            TransactionId xid = TransactionIdIsValid(parsed.twophase_xid) ?
+                               parsed.twophase_xid : XLogRecGetXid(r);
+
+            // Check if two-phase processing is enabled and not filtered
+            bool two_phase = (info == XLOG_XACT_COMMIT_PREPARED) &&
+                           !FilterPrepare(ctx, xid, parsed.twophase_gid);
+
+            DecodeCommit(ctx, buf, &parsed, xid, two_phase);
+            break;
+
+        case XLOG_XACT_ABORT:
+        case XLOG_XACT_ABORT_PREPARED:
+            // Similar processing for abort records
+            // [simplified abort processing logic]
+            DecodeAbort(ctx, buf, &parsed, xid, two_phase);
+            break;
+
+        case XLOG_XACT_PREPARE:
+            // Parse prepare record and check filtering
+            xl_xact_prepare *prep_xlrec = (xl_xact_prepare *) XLogRecGetData(r);
+            xl_xact_parsed_prepare prep_parsed;
+            ParsePrepareRecord(XLogRecGetInfo(buf->record), prep_xlrec, &prep_parsed);
+
+            if (!FilterPrepare(ctx, prep_parsed.twophase_xid, prep_parsed.twophase_gid))
+                DecodePrepare(ctx, buf, &prep_parsed);
+            break;
+
+        case XLOG_XACT_INVALIDATIONS:
+            // Handle cache invalidations for transactional and immediate processing
+            xl_xact_invals *invals = (xl_xact_invals *) XLogRecGetData(r);
+            TransactionId inval_xid = XLogRecGetXid(r);
+
+            if (TransactionIdIsValid(inval_xid)) {
+                if (!ctx->fast_forward)
+                    ReorderBufferAddInvalidations(reorder, inval_xid, buf->origptr,
+                                                 invals->nmsgs, invals->msgs);
+                ReorderBufferXidSetCatalogChanges(ctx->reorder, inval_xid, buf->origptr);
+            } else if (!ctx->fast_forward) {
+                ReorderBufferImmediateInvalidation(ctx->reorder, invals->nmsgs, invals->msgs);
+            }
+            break;
+
+        case XLOG_XACT_ASSIGNMENT:
+            // Handled at higher level in LogicalDecodingProcessRecord
+            break;
+
+        default:
+            elog(ERROR, "unexpected RM_XACT_ID record type: %u", info);
+    }
+}
+```

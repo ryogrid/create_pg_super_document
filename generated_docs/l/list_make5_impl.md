@@ -42,3 +42,26 @@ The function ensures list integrity by calling check_list_invariants before retu
 - Direct calls to this function are discouraged in favor of using the type-safe macros like list_make5, list_make5_int, etc.
 - The list capacity is fixed at creation time to exactly 5 elements, making this efficient for small, known-size lists
 - This represents the largest fixed-size list creation function in the family, as larger lists typically use dynamic allocation approaches
+
+## Simplified Source
+
+```c
+List *
+list_make5_impl(NodeTag t, ListCell datum1, ListCell datum2,
+                ListCell datum3, ListCell datum4, ListCell datum5)
+{
+    // Create new list with capacity for 5 elements
+    List *list = new_list(t, 5);
+
+    // Assign all five datums to list elements
+    list->elements[0] = datum1;
+    list->elements[1] = datum2;
+    list->elements[2] = datum3;
+    list->elements[3] = datum4;
+    list->elements[4] = datum5;
+
+    // Validate list consistency and return
+    check_list_invariants(list);
+    return list;
+}
+```

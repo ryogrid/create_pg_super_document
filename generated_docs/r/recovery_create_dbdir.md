@@ -40,3 +40,34 @@ This function handles a specific recovery scenario where PostgreSQL needs to cre
 - Part of PostgreSQL's crash recovery mechanism for handling missing tablespace directories
 - Uses pg_mkdir_p for recursive directory creation with proper permissions
 - Critical for ensuring database creation can proceed during recovery even when tablespaces are missing
+
+## Simplified Source
+
+```c
+static void
+recovery_create_dbdir(char *path, bool only_tblspc)
+{
+    struct stat st;
+
+    Assert(RecoveryInProgress());
+
+    // Directory already exists, nothing to do
+    if (stat(path, &st) == 0)
+        return;
+
+    // Safety check: ensure directory is in pg_tblspc/ if required
+    if (only_tblspc && strstr(path, "pg_tblspc/") == NULL)
+        elog(PANIC, "requested to created invalid directory: %s", path);
+
+    // After reaching consistency, panic if directory missing (unless in-place tablespaces allowed)
+    if (reachedConsistency && !allow_in_place_tablespaces)
+        ereport(PANIC, errmsg("missing directory \"%s\"", path));
+
+    // Log directory creation (different levels based on consistency state)
+    elog(reachedConsistency ? WARNING : DEBUG1, "creating missing directory: %s", path);
+
+    // Create directory with proper permissions
+    if (pg_mkdir_p(path, pg_dir_create_mode) != 0)
+        ereport(PANIC, errmsg("could not create missing directory \"%s\": %m", path));
+}
+```

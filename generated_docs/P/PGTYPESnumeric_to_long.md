@@ -39,3 +39,34 @@ When an ERANGE error occurs during strtol conversion, the function maps it to Po
 - Sets errno to appropriate PGTYPES error codes on overflow/underflow
 - Part of the ECPG pgtypes library for embedded SQL applications
 - Located in src/interfaces/ecpg/pgtypeslib/numeric.c:1518-1546
+
+## Simplified Source
+
+```c
+int PGTYPESnumeric_to_long(numeric *nv, long *lp) {
+    // Convert numeric to string representation
+    char *s = PGTYPESnumeric_to_asc(nv, 0);
+    if (s == NULL) return -1;
+
+    // Parse string to long integer
+    char *endptr;
+    errno = 0;
+    *lp = strtol(s, &endptr, 10);
+
+    // Check for parsing errors
+    if (endptr == s) {
+        free(s);
+        return -1;
+    }
+
+    free(s);
+
+    // Handle range overflow/underflow
+    if (errno == ERANGE) {
+        errno = (*lp == LONG_MIN) ? PGTYPES_NUM_UNDERFLOW : PGTYPES_NUM_OVERFLOW;
+        return -1;
+    }
+
+    return 0;
+}
+```

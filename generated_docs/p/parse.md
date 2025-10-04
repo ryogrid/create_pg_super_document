@@ -45,3 +45,69 @@ The function creates a branching structure in the NFA (Non-deterministic Finite 
 - Error handling is integrated throughout with assertions and error reporting for malformed expressions
 - The function is part of PostgreSQL's regex engine located in src/backend/regex/regcomp.c
 - Uses a bottom-up parsing approach where branches are parsed individually and then combined into alternation structures
+
+## Simplified Source
+
+```c
+static struct subre *
+parse(struct vars *v, int stopper, int type, struct state *init, struct state *final)
+{
+    struct subre *branches;     // Top-level alternation node
+    struct subre *lastbranch;   // Track last processed branch
+
+    // Create top-level '|' node to hold all branches
+    branches = subre(v, '|', LONGER, init, final);
+    NOERRN();
+    lastbranch = NULL;
+
+    // Parse each branch separated by '|'
+    do {
+        struct subre *branch;
+        struct state *left, *right;
+
+        // Create states for this branch
+        left = newstate(v->nfa);
+        right = newstate(v->nfa);
+        NOERRN();
+
+        // Connect states with empty arcs
+        EMPTYARC(init, left);
+        EMPTYARC(right, final);
+        NOERRN();
+
+        // Parse this branch
+        branch = parsebranch(v, stopper, type, left, right, 0);
+        NOERRN();
+
+        // Link branch into tree structure
+        if (lastbranch)
+            lastbranch->sibling = branch;
+        else
+            branches->child = branch;
+
+        // Update flags from branch
+        branches->flags |= UP(branches->flags | branch->flags);
+        lastbranch = branch;
+
+    } while (EAT('|'));  // Continue while seeing '|'
+
+    // Validate proper termination
+    if (!SEE(stopper)) {
+        ERR(REG_EPAREN);
+    }
+
+    // Optimize simple cases
+    if (lastbranch == branches->child) {
+        // Only one branch - eliminate unnecessary alternation
+        freesrnode(v, branches);
+        branches = lastbranch;
+    } else if (!MESSY(branches->flags)) {
+        // No complex features - simplify to basic match
+        freesubreandsiblings(v, branches->child);
+        branches->child = NULL;
+        branches->op = '=';
+    }
+
+    return branches;
+}
+```

@@ -50,3 +50,101 @@ This function constructs and executes a CREATE_REPLICATION_SLOT command on the p
 - Error handling follows PostgreSQL conventions with ereport() for failures
 - The LSN returned represents the consistent point from which replication can begin
 - Location: src/backend/replication/libpqwalreceiver/libpqwalreceiver.c:1010-1122
+
+## Simplified Source
+
+```c
+static char *
+libpqrcv_create_slot(WalReceiverConn *conn, const char *slotname, bool temporary,
+                     bool two_phase, bool failover, CRSSnapshotAction snapshot_action,
+                     XLogRecPtr *lsn)
+{
+    PGresult *res;
+    StringInfoData cmd;
+    char *snapshot;
+    bool use_new_options_syntax = (PQserverVersion(conn->streamConn) >= 150000);
+
+    initStringInfo(&cmd);
+
+    // Build CREATE_REPLICATION_SLOT command
+    appendStringInfo(&cmd, "CREATE_REPLICATION_SLOT \"%s\"", slotname);
+
+    if (temporary)
+        appendStringInfoString(&cmd, " TEMPORARY");
+
+    if (conn->logical) {
+        // Logical slot with pgoutput plugin
+        appendStringInfoString(&cmd, " LOGICAL pgoutput ");
+        if (use_new_options_syntax)
+            appendStringInfoChar(&cmd, '(');
+
+        // Add optional features
+        if (two_phase) {
+            appendStringInfoString(&cmd, "TWO_PHASE");
+            appendStringInfoString(&cmd, use_new_options_syntax ? ", " : " ");
+        }
+
+        if (failover) {
+            appendStringInfoString(&cmd, "FAILOVER");
+            appendStringInfoString(&cmd, use_new_options_syntax ? ", " : " ");
+        }
+
+        // Add snapshot action
+        if (use_new_options_syntax) {
+            switch (snapshot_action) {
+                case CRS_EXPORT_SNAPSHOT:
+                    appendStringInfoString(&cmd, "SNAPSHOT 'export'");
+                    break;
+                case CRS_NOEXPORT_SNAPSHOT:
+                    appendStringInfoString(&cmd, "SNAPSHOT 'nothing'");
+                    break;
+                case CRS_USE_SNAPSHOT:
+                    appendStringInfoString(&cmd, "SNAPSHOT 'use'");
+                    break;
+            }
+            appendStringInfoChar(&cmd, ')');
+        } else {
+            switch (snapshot_action) {
+                case CRS_EXPORT_SNAPSHOT:
+                    appendStringInfoString(&cmd, "EXPORT_SNAPSHOT");
+                    break;
+                case CRS_NOEXPORT_SNAPSHOT:
+                    appendStringInfoString(&cmd, "NOEXPORT_SNAPSHOT");
+                    break;
+                case CRS_USE_SNAPSHOT:
+                    appendStringInfoString(&cmd, "USE_SNAPSHOT");
+                    break;
+            }
+        }
+    } else {
+        // Physical slot
+        if (use_new_options_syntax)
+            appendStringInfoString(&cmd, " PHYSICAL (RESERVE_WAL)");
+        else
+            appendStringInfoString(&cmd, " PHYSICAL RESERVE_WAL");
+    }
+
+    // Execute slot creation
+    res = libpqrcv_PQexec(conn->streamConn, cmd.data);
+    pfree(cmd.data);
+
+    if (PQresultStatus(res) != PGRES_TUPLES_OK) {
+        PQclear(res);
+        ereport(ERROR, (errmsg("could not create replication slot \"%s\": %s",
+                               slotname, pchomp(PQerrorMessage(conn->streamConn)))));
+    }
+
+    // Extract LSN and snapshot from result
+    if (lsn)
+        *lsn = DatumGetLSN(DirectFunctionCall1Coll(pg_lsn_in, InvalidOid,
+                                                   CStringGetDatum(PQgetvalue(res, 0, 1))));
+
+    if (!PQgetisnull(res, 0, 2))
+        snapshot = pstrdup(PQgetvalue(res, 0, 2));
+    else
+        snapshot = NULL;
+
+    PQclear(res);
+    return snapshot;
+}
+```

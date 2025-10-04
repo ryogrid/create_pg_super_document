@@ -45,3 +45,33 @@ The function is specifically designed to handle Perl's quirks, such as SvPVutf8(
 - Optimized for SQL_ASCII databases by bypassing UTF-8 conversion
 - Critical for safe interaction between Perl and PostgreSQL data types
 - Part of the PL/Perl procedural language implementation
+
+## Simplified Source
+
+```c
+static inline char *sv2cstr(SV *sv) {
+    char *val, *res;
+    STRLEN len;
+
+    // Handle problematic SV types by making safe copies
+    if (SvREADONLY(sv) || isGV_with_GP(sv) ||
+        (SvTYPE(sv) > SVt_PVLV && SvTYPE(sv) != SVt_PVFM))
+        sv = newSVsv(sv);  // Create copy
+    else
+        SvREFCNT_inc_simple_void(sv);  // Just increment reference
+
+    // Get string from Perl - UTF-8 if possible, raw bytes for SQL_ASCII
+    if (GetDatabaseEncoding() == PG_SQL_ASCII)
+        val = SvPV(sv, len);
+    else
+        val = SvPVutf8(sv, len);
+
+    // Convert from UTF-8 to database encoding
+    res = utf_u2e(val, len);
+
+    // Clean up Perl reference
+    SvREFCNT_dec(sv);
+
+    return res;
+}
+```

@@ -33,3 +33,14 @@ The function is declared as static inline, meaning it will be inlined by the com
 - Part of the family of DatumGet* conversion functions in PostgreSQL
 - Less commonly used than DatumGetInt16, primarily for specialized unsigned integer operations
 - Used in GIN index operations and function argument processing where unsigned 16-bit values are needed
+
+## Simplified Source
+
+```c
+static inline uint16
+DatumGetUInt16(Datum X)
+{
+    // Direct cast from Datum to 16-bit unsigned integer
+    return (uint16) X;
+}
+```

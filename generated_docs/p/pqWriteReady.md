@@ -29,3 +29,13 @@ pqWriteReady provides a non-blocking check to determine if the connection socket
 - The function checks only for write readiness, not read readiness
 - Internally calls pqSocketCheck(conn, 0, 1, 0) where parameters are (conn, forRead=0, forWrite=1, timeout=0)
 - File location: src/interfaces/libpq/fe-misc.c:1053-1066
+
+## Simplified Source
+
+```c
+int pqWriteReady(PGconn *conn) {
+    // Check if socket is ready for writing (non-blocking)
+    // Parameters: conn, forRead=0, forWrite=1, timeout=0
+    return pqSocketCheck(conn, 0, 1, 0);
+}
+```

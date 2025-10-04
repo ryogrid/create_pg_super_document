@@ -44,3 +44,33 @@ This function supports PostgreSQL's comprehensive type system by preserving all 
 - Works in conjunction with `_outConst` in outfuncs.c for round-trip serialization
 - Critical for query plan deserialization, allowing stored plans and distributed query processing
 - The `:constvalue` token is explicitly skipped as it serves as a field marker in the serialized format
+
+## Simplified Source
+
+```c
+static Const *
+_readConst(void)
+{
+    READ_LOCALS(Const);
+
+    // Read type metadata
+    READ_OID_FIELD(consttype);
+    READ_INT_FIELD(consttypmod);
+    READ_OID_FIELD(constcollid);
+    READ_INT_FIELD(constlen);
+    READ_BOOL_FIELD(constbyval);
+    READ_BOOL_FIELD(constisnull);
+    READ_LOCATION_FIELD(location);
+
+    // Skip :constvalue token
+    token = pg_strtok(&length);
+
+    // Handle NULL vs actual value
+    if (local_node->constisnull)
+        token = pg_strtok(&length); // skip "<>"
+    else
+        local_node->constvalue = readDatum(local_node->constbyval);
+
+    READ_DONE();
+}
+```

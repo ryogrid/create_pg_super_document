@@ -38,3 +38,23 @@ This function is essential for implementing format specifiers that control field
 - Part of PostgreSQL's portable snprintf implementation ensuring consistent formatting behavior across platforms
 - The function handles the core logic for format width specifiers in printf-family functions
 - Always ensures non-negative actual padding by setting padlen to 0 when minlen < vallen
+
+## Simplified Source
+
+```c
+static int compute_padlen(int minlen, int vallen, int leftjust) {
+    // Calculate padding needed: minlen - actual value length
+    int padlen = minlen - vallen;
+
+    // No padding if value is already long enough
+    if (padlen < 0)
+        padlen = 0;
+
+    // Left-justified: return negative padding (indicates left padding)
+    // Right-justified: return positive padding (indicates right padding)
+    if (leftjust)
+        padlen = -padlen;
+
+    return padlen;
+}
+```

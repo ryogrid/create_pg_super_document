@@ -40,3 +40,12 @@ The rollback operation is wrapped in a PG_TRY/PG_CATCH block to handle errors gr
 - The function is primarily used by procedural language implementations to provide transaction control to user code
 - Unlike commit operations, rollback operations are generally more forgiving of error conditions
 - Commonly used in exception handling blocks within procedural languages
+
+## Simplified Source
+
+```c
+void SPI_rollback(void) {
+    // Rollback current transaction without preserving characteristics
+    _SPI_rollback(false);  // false = no chaining
+}
+```

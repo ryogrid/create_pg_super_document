@@ -38,3 +38,20 @@ PGTYPESdate_to_asc converts a PostgreSQL internal date representation (days sinc
 - Part of the ECPG pgtypeslib interface for date-to-string conversions
 - Located in src/interfaces/ecpg/pgtypeslib/datetime.c:101-114
 - Widely used throughout ECPG test suites and compatibility libraries
+
+## Simplified Source
+
+```c
+char *PGTYPESdate_to_asc(date dDate) {
+    struct tm tm;
+    char buf[MAXDATELEN + 1];
+
+    // Convert PostgreSQL date to calendar date
+    j2date(dDate + date2j(2000, 1, 1), &tm.tm_year, &tm.tm_mon, &tm.tm_mday);
+
+    // Format date using PostgreSQL's encoding
+    EncodeDateOnly(&tm, 1, buf, false);
+
+    return pgtypes_strdup(buf);
+}
+```

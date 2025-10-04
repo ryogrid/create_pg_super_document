@@ -46,3 +46,41 @@ After converting all string values to Datums and determining their null status, 
 - The function supports both pass-by-value and pass-by-reference data types through the PostgreSQL input function interface
 - Commonly used by SRFs, text processing functions, and data import utilities that work with string representations of data
 - The returned HeapTuple is allocated in the current memory context and must be freed by the caller when no longer needed
+
+## Simplified Source
+
+```c
+HeapTuple
+BuildTupleFromCStrings(AttInMetadata *attinmeta, char **values)
+{
+    TupleDesc tupdesc = attinmeta->tupdesc;
+    int natts = tupdesc->natts;
+    Datum *dvalues = (Datum *) palloc(natts * sizeof(Datum));
+    bool *nulls = (bool *) palloc(natts * sizeof(bool));
+
+    // Convert each string value to appropriate datum
+    for (int i = 0; i < natts; i++) {
+        if (!TupleDescAttr(tupdesc, i)->attisdropped) {
+            // Convert non-dropped attributes using input functions
+            dvalues[i] = InputFunctionCall(&attinmeta->attinfuncs[i],
+                                         values[i],
+                                         attinmeta->attioparams[i],
+                                         attinmeta->atttypmods[i]);
+            nulls[i] = (values[i] == NULL);
+        } else {
+            // Handle dropped attributes as NULL
+            dvalues[i] = (Datum) 0;
+            nulls[i] = true;
+        }
+    }
+
+    // Create tuple from converted values
+    HeapTuple tuple = heap_form_tuple(tupdesc, dvalues, nulls);
+
+    // Clean up temporary arrays
+    pfree(dvalues);
+    pfree(nulls);
+
+    return tuple;
+}
+```

@@ -49,3 +49,50 @@ The function distinguishes between two types of configuration changes:
 - Part of PostgreSQL's graceful configuration management for background worker processes
 - Critical for maintaining slot synchronization worker stability during configuration changes
 - Uses string comparison to detect connection parameter changes accurately
+
+## Simplified Source
+
+```c
+static void slotsync_reread_config(void)
+{
+    // Store current configuration values for comparison
+    char *old_primary_conninfo = pstrdup(PrimaryConnInfo);
+    char *old_primary_slotname = pstrdup(PrimarySlotName);
+    bool old_sync_replication_slots = sync_replication_slots;
+    bool old_hot_standby_feedback = hot_standby_feedback;
+
+    // Reload configuration file
+    ConfigReloadPending = false;
+    ProcessConfigFile(PGC_SIGHUP);
+
+    // Check if connection parameters changed
+    bool conninfo_changed = strcmp(old_primary_conninfo, PrimaryConnInfo) != 0;
+    bool primary_slotname_changed = strcmp(old_primary_slotname, PrimarySlotName) != 0;
+
+    pfree(old_primary_conninfo);
+    pfree(old_primary_slotname);
+
+    // Exit if slot sync is disabled
+    if (old_sync_replication_slots != sync_replication_slots)
+    {
+        ereport(LOG,
+                errmsg("replication slot synchronization worker will shut down because "
+                       "\"%s\" is disabled", "sync_replication_slots"));
+        proc_exit(0);
+    }
+
+    // Exit for restart if key parameters changed
+    if (conninfo_changed ||
+        primary_slotname_changed ||
+        (old_hot_standby_feedback != hot_standby_feedback))
+    {
+        ereport(LOG,
+                errmsg("replication slot synchronization worker will restart because "
+                       "of a parameter change"));
+
+        // Allow immediate restart by resetting start time
+        SlotSyncCtx->last_start_time = 0;
+        proc_exit(0);
+    }
+}
+```

@@ -35,3 +35,23 @@ The validation allows empty strings (which effectively disable the primary slot 
 - This is part of PostgreSQL's GUC system architecture where check hooks provide parameter validation
 - The primary_slot_name parameter is used in streaming replication to specify which slot on the primary server the standby should use
 - Validation occurs before the value is actually assigned, preventing invalid configurations from being stored
+
+## Simplified Source
+
+```c
+bool check_primary_slot_name(char **newval, void **extra, GucSource source) {
+    // Allow empty string (disables primary slot feature)
+    if (*newval && strcmp(*newval, "") != 0) {
+        // Validate non-empty slot name
+        if (!ReplicationSlotValidateName(*newval, WARNING))
+            return false;
+    }
+
+    return true;
+}
+```
+
+**Simplified Logic:**
+1. **Empty String Check**: Allows empty strings which disable the primary slot feature
+2. **Name Validation**: For non-empty values, validates the slot name using PostgreSQL's replication slot naming rules
+3. **Return Result**: Returns true if validation passes, false to reject the configuration value

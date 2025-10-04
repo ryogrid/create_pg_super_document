@@ -63,3 +63,117 @@ The function validates:
 - Demonstrates proper error handling and result validation throughout different processing modes
 - The test ensures that mode flags are properly isolated and do not affect subsequent queries
 - Validates that pipeline mode can handle mixed result processing modes within a single pipeline
+
+## Simplified Source
+
+```c
+static void test_singlerowmode(PGconn *conn) {
+    PGresult *res;
+    int i;
+    bool pipeline_ended = false;
+
+    if (PQenterPipelineMode(conn) != 1)
+        pg_fatal("failed to enter pipeline mode");
+
+    // Send three queries: generate_series(42, 44), (42, 45), (42, 46)
+    for (i = 0; i < 3; i++) {
+        char *param[1];
+        param[0] = psprintf("%d", 44 + i);
+
+        if (PQsendQueryParams(conn, "SELECT generate_series(42, $1)",
+                             1, NULL, (const char **) param,
+                             NULL, NULL, 0) != 1)
+            pg_fatal("failed to send query");
+        pfree(param[0]);
+    }
+    if (PQpipelineSync(conn) != 1)
+        pg_fatal("pipeline sync failed");
+
+    // Process results: single-row mode for first 2, normal mode for 3rd
+    for (i = 0; !pipeline_ended; i++) {
+        bool first = true;
+        bool saw_ending_tuplesok;
+
+        // Enable single row mode for first 2 queries only
+        if (i < 2) {
+            if (PQsetSingleRowMode(conn) != 1)
+                pg_fatal("PQsetSingleRowMode() failed for i=%d", i);
+        }
+
+        // Process all results for this query
+        saw_ending_tuplesok = false;
+        while ((res = PQgetResult(conn)) != NULL) {
+            ExecStatusType est = PQresultStatus(res);
+
+            if (est == PGRES_PIPELINE_SYNC) {
+                fprintf(stderr, "end of pipeline reached\n");
+                pipeline_ended = true;
+                PQclear(res);
+                break;
+            }
+
+            // Validate expected result types
+            if (first) {
+                if (i <= 1 && est != PGRES_SINGLE_TUPLE)
+                    pg_fatal("Expected PGRES_SINGLE_TUPLE for query %d", i);
+                if (i >= 2 && est != PGRES_TUPLES_OK)
+                    pg_fatal("Expected PGRES_TUPLES_OK for query %d", i);
+                first = false;
+            }
+
+            // Process different result types
+            switch (est) {
+                case PGRES_TUPLES_OK:
+                    saw_ending_tuplesok = true;
+                    break;
+                case PGRES_SINGLE_TUPLE:
+                    // Single tuple processing
+                    break;
+                default:
+                    pg_fatal("unexpected result status");
+            }
+            PQclear(res);
+        }
+        if (!pipeline_ended && !saw_ending_tuplesok)
+            pg_fatal("didn't get expected terminating TUPLES_OK");
+    }
+
+    // Test single-row mode reset between queries
+    if (PQsendQueryParams(conn, "SELECT generate_series(0, 0)",
+                         0, NULL, NULL, NULL, NULL, 0) != 1)
+        pg_fatal("failed to send query");
+    if (PQsetSingleRowMode(conn) != 1)
+        pg_fatal("PQsetSingleRowMode() failed");
+
+    // Verify single-row mode works
+    res = PQgetResult(conn);
+    if (PQresultStatus(res) != PGRES_SINGLE_TUPLE)
+        pg_fatal("Expected PGRES_SINGLE_TUPLE");
+    res = PQgetResult(conn);
+    if (PQresultStatus(res) != PGRES_TUPLES_OK)
+        pg_fatal("Expected PGRES_TUPLES_OK");
+
+    // Test chunked row mode
+    if (PQsendQueryParams(conn, "SELECT generate_series(1, 5)",
+                         0, NULL, NULL, NULL, NULL, 0) != 1)
+        pg_fatal("failed to send query");
+    if (PQsetChunkedRowsMode(conn, 3) != 1)
+        pg_fatal("PQsetChunkedRowsMode() failed");
+
+    // Expect 3 rows, then 2 rows, then empty result
+    res = PQgetResult(conn);
+    if (PQresultStatus(res) != PGRES_TUPLES_CHUNK || PQntuples(res) != 3)
+        pg_fatal("Expected 3-row chunk");
+    res = PQgetResult(conn);
+    if (PQresultStatus(res) != PGRES_TUPLES_CHUNK || PQntuples(res) != 2)
+        pg_fatal("Expected 2-row chunk");
+    res = PQgetResult(conn);
+    if (PQresultStatus(res) != PGRES_TUPLES_OK || PQntuples(res) != 0)
+        pg_fatal("Expected empty final result");
+
+    if (PQexitPipelineMode(conn) != 1)
+        pg_fatal("failed to end pipeline mode");
+
+    fprintf(stderr, "ok\n");
+}
+```

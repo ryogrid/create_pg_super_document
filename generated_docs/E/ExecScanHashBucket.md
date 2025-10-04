@@ -47,3 +47,42 @@ The function maintains scan state in hjstate->hj_CurTuple to support resuming th
 - Maintains scan state to allow multiple calls for finding all matches in a bucket
 - Returns immediately upon finding the first match, requiring multiple calls to find all matches
 - The function does not pfree the stored tuple, leaving memory management to the caller
+
+## Simplified Source
+
+```c
+bool ExecScanHashBucket(HashJoinState *hjstate, ExprContext *econtext)
+{
+    ExprState *hjclauses = hjstate->hashclauses;
+    HashJoinTable hashtable = hjstate->hj_HashTable;
+    HashJoinTuple hashTuple = hjstate->hj_CurTuple;
+    uint32 hashvalue = hjstate->hj_CurHashValue;
+
+    // Determine starting point for scan
+    if (hashTuple != NULL)
+        hashTuple = hashTuple->next.unshared; // Continue from previous position
+    else if (hjstate->hj_CurSkewBucketNo != INVALID_SKEW_BUCKET_NO)
+        hashTuple = hashtable->skewBucket[hjstate->hj_CurSkewBucketNo]->tuples; // Start skew bucket
+    else
+        hashTuple = hashtable->buckets.unshared[hjstate->hj_CurBucketNo]; // Start regular bucket
+
+    // Scan through hash chain looking for matches
+    while (hashTuple != NULL) {
+        if (hashTuple->hashvalue == hashvalue) {
+            // Store tuple in execution slot for evaluation
+            TupleTableSlot *inntuple = ExecStoreMinimalTuple(
+                HJTUPLE_MINTUPLE(hashTuple), hjstate->hj_HashTupleSlot, false);
+            econtext->ecxt_innertuple = inntuple;
+
+            // Test join conditions
+            if (ExecQualAndReset(hjclauses, econtext)) {
+                hjstate->hj_CurTuple = hashTuple;
+                return true; // Found match
+            }
+        }
+        hashTuple = hashTuple->next.unshared;
+    }
+
+    return false; // No match found
+}
+```

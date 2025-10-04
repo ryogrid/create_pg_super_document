@@ -35,3 +35,45 @@ The function also performs cleanup for distance-ordered scans by freeing previou
 - Properly manages memory cleanup for distance-ordered scans and reconstructed tuples to prevent memory leaks
 - Resets the scan to its initial state, allowing for scan reuse without creating a new scan structure
 - Uses a pairing heap data structure for efficient distance-ordered search operations
+
+## Simplified Source
+
+```c
+static void
+resetSpGistScanOpaque(SpGistScanOpaque so)
+{
+    // Reset traversal memory context
+    MemoryContextReset(so->traversalCxt);
+
+    MemoryContext oldCtx = MemoryContextSwitchTo(so->traversalCxt);
+
+    // Initialize priority queue for distance-ordered scans
+    so->scanQueue = pairingheap_allocate(pairingheap_SpGistSearchItem_cmp, so);
+
+    // Add search start items based on scan configuration
+    if (so->searchNulls)
+        spgAddStartItem(so, true);     // Add NULL partition search
+
+    if (so->searchNonNulls)
+        spgAddStartItem(so, false);    // Add root search
+
+    MemoryContextSwitchTo(oldCtx);
+
+    // Clean up previous scan results to prevent memory leaks
+    if (so->numberOfOrderBys > 0) {
+        // Free distance arrays from previous scan
+        for (int i = 0; i < so->nPtrs; i++)
+            if (so->distances[i])
+                pfree(so->distances[i]);
+    }
+
+    if (so->want_itup) {
+        // Free reconstructed tuples from previous scan
+        for (int i = 0; i < so->nPtrs; i++)
+            pfree(so->reconTups[i]);
+    }
+
+    // Reset scan position
+    so->iPtr = so->nPtrs = 0;
+}
+```

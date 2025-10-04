@@ -57,3 +57,84 @@ Key responsibilities include:
 - Password is cleared from memory after authentication attempt regardless of success/failure
 - Returns STATUS_OK on successful authentication, STATUS_ERROR on failure
 - Part of PostgreSQL's external authentication infrastructure for RADIUS servers
+
+## Simplified Source
+
+```c
+static int
+CheckRADIUSAuth(Port *port)
+{
+    char       *passwd;
+    ListCell   *server, *secrets, *radiusports, *identifiers;
+
+    // Validate RADIUS configuration
+    if (port->hba->radiusservers == NIL)
+    {
+        ereport(LOG, (errmsg("RADIUS server not specified")));
+        return STATUS_ERROR;
+    }
+
+    if (port->hba->radiussecrets == NIL)
+    {
+        ereport(LOG, (errmsg("RADIUS secret not specified")));
+        return STATUS_ERROR;
+    }
+
+    // Request password from client
+    sendAuthRequest(port, AUTH_REQ_PASSWORD, NULL, 0);
+    passwd = recv_password_packet(port);
+    if (passwd == NULL)
+        return STATUS_EOF;
+
+    // Validate password length
+    if (strlen(passwd) > RADIUS_MAX_PASSWORD_LENGTH)
+    {
+        ereport(LOG, (errmsg("RADIUS authentication does not support passwords longer than %d characters",
+                             RADIUS_MAX_PASSWORD_LENGTH)));
+        pfree(passwd);
+        return STATUS_ERROR;
+    }
+
+    // Initialize list iterators for server parameters
+    secrets = list_head(port->hba->radiussecrets);
+    radiusports = list_head(port->hba->radiusports);
+    identifiers = list_head(port->hba->radiusidentifiers);
+
+    // Try each RADIUS server in order
+    foreach(server, port->hba->radiusservers)
+    {
+        int ret = PerformRadiusTransaction(lfirst(server),
+                                          lfirst(secrets),
+                                          radiusports ? lfirst(radiusports) : NULL,
+                                          identifiers ? lfirst(identifiers) : NULL,
+                                          port->user_name,
+                                          passwd);
+
+        if (ret == STATUS_OK)
+        {
+            // Authentication successful
+            set_authn_id(port, port->user_name);
+            pfree(passwd);
+            return STATUS_OK;
+        }
+        else if (ret == STATUS_EOF)
+        {
+            // Hard failure - don't try more servers
+            pfree(passwd);
+            return STATUS_ERROR;
+        }
+
+        // Advance to next parameter values if configured with multiple values
+        if (list_length(port->hba->radiussecrets) > 1)
+            secrets = lnext(port->hba->radiussecrets, secrets);
+        if (list_length(port->hba->radiusports) > 1)
+            radiusports = lnext(port->hba->radiusports, radiusports);
+        if (list_length(port->hba->radiusidentifiers) > 1)
+            identifiers = lnext(port->hba->radiusidentifiers, identifiers);
+    }
+
+    // All servers failed
+    pfree(passwd);
+    return STATUS_ERROR;
+}
+```

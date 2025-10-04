@@ -44,3 +44,55 @@ The `stdump` function is the recursive implementation core of the `dumpst` funct
 - Recursively dumps child and sibling nodes to show complete tree structure
 - When NFA is present, displays node range information for debugging
 - Part of PostgreSQL's internal regex debugging infrastructure
+
+## Simplified Source
+
+```c
+static void stdump(struct subre *t, FILE *f, int nfapresent) {
+    char idbuf[50];
+    struct subre *t2;
+
+    // Print basic node information
+    fprintf(f, "%s. `%c'", stid(t, idbuf, sizeof(idbuf)), t->op);
+
+    // Print flags
+    if (t->flags & LONGER) fprintf(f, " longest");
+    if (t->flags & SHORTER) fprintf(f, " shortest");
+    if (t->flags & MIXED) fprintf(f, " hasmixed");
+    if (t->flags & CAP) fprintf(f, " hascapture");
+    if (t->flags & BACKR) fprintf(f, " hasbackref");
+    if (t->flags & BRUSE) fprintf(f, " isreferenced");
+    if (!(t->flags & INUSE)) fprintf(f, " UNUSED");
+
+    // Print special attributes
+    if (t->latype != (char) -1) fprintf(f, " latype(%d)", t->latype);
+    if (t->capno != 0) fprintf(f, " capture(%d)", t->capno);
+    if (t->backno != 0) fprintf(f, " backref(%d)", t->backno);
+
+    // Print quantifiers
+    if (t->min != 1 || t->max != 1) {
+        fprintf(f, " {%d,", t->min);
+        if (t->max != DUPINF) fprintf(f, "%d", t->max);
+        fprintf(f, "}");
+    }
+
+    // Print relationships and NFA info
+    if (nfapresent) fprintf(f, " %ld-%ld", (long) t->begin->no, (long) t->end->no);
+    if (t->child != NULL) fprintf(f, " C:%s", stid(t->child, idbuf, sizeof(idbuf)));
+    if (t->child != NULL && t->child->sibling != NULL)
+        fprintf(f, " C2:%s", stid(t->child->sibling, idbuf, sizeof(idbuf)));
+    if (t->sibling != NULL) fprintf(f, " S:%s", stid(t->sibling, idbuf, sizeof(idbuf)));
+
+    // Dump compiled NFA if present
+    if (!NULLCNFA(t->cnfa)) {
+        fprintf(f, "\n");
+        dumpcnfa(&t->cnfa, f);
+    }
+
+    fprintf(f, "\n");
+
+    // Recursively dump children
+    for (t2 = t->child; t2 != NULL; t2 = t2->sibling)
+        stdump(t2, f, nfapresent);
+}
+```

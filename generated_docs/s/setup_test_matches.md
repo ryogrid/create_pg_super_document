@@ -52,3 +52,119 @@ The function returns a test_regex_ctx structure containing all match information
 - Supports partial matching details when no full matches are found
 - Stores match locations as integer pairs (start, end) for each subpattern
 - Located in src/test/modules/test_regex/test_regex.c:435-617
+
+## Simplified Source
+
+```c
+static test_regex_ctx *setup_test_matches(text *orig_str, regex_t *cpattern,
+                                         test_re_flags *re_flags, Oid collation,
+                                         bool use_subpatterns) {
+    test_regex_ctx *matchctx = palloc0(sizeof(test_regex_ctx));
+    int eml = pg_database_encoding_max_length();
+    int orig_len;
+    pg_wchar *wide_str;
+    int wide_len;
+    regmatch_t *pmatch;
+    int pmatch_len;
+    int array_len;
+    int array_idx;
+    int start_search;
+    int maxlen = 0;
+
+    // Save flags and original string
+    matchctx->re_flags = *re_flags;
+    matchctx->orig_str = orig_str;
+
+    // Convert string to wide characters for regex engine
+    orig_len = VARSIZE_ANY_EXHDR(orig_str);
+    wide_str = (pg_wchar *) palloc(sizeof(pg_wchar) * (orig_len + 1));
+    wide_len = pg_mb2wchar_with_len(VARDATA_ANY(orig_str), wide_str, orig_len);
+
+    // Determine number of patterns to capture
+    if (use_subpatterns && cpattern->re_nsub > 0) {
+        matchctx->npatterns = cpattern->re_nsub + 1;
+        pmatch_len = cpattern->re_nsub + 1;
+    } else {
+        use_subpatterns = false;
+        matchctx->npatterns = 1;
+        pmatch_len = 1;
+    }
+
+    // Allocate temporary match array and dynamic result storage
+    pmatch = palloc(sizeof(regmatch_t) * pmatch_len);
+    array_len = re_flags->glob ? 255 : 31;  // Start size: 2^n-1
+    matchctx->match_locs = (int *) palloc(sizeof(int) * array_len);
+    array_idx = 0;
+
+    // Execute pattern repeatedly until no more matches
+    start_search = 0;
+    while (test_re_execute(cpattern, wide_str, wide_len, start_search,
+                          &matchctx->details, pmatch_len, pmatch, re_flags->eflags)) {
+
+        // Grow storage if needed
+        while (array_idx + matchctx->npatterns * 2 + 1 > array_len) {
+            array_len += array_len + 1;  // 2^n-1 => 2^(n+1)-1
+            if (array_len > MaxAllocSize / sizeof(int))
+                ereport(ERROR, (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                               errmsg("too many regular expression matches")));
+            matchctx->match_locs = (int *) repalloc(matchctx->match_locs,
+                                                   sizeof(int) * array_len);
+        }
+
+        // Store match locations for all patterns
+        for (int i = 0; i < matchctx->npatterns; i++) {
+            int so = pmatch[i].rm_so;
+            int eo = pmatch[i].rm_eo;
+            matchctx->match_locs[array_idx++] = so;
+            matchctx->match_locs[array_idx++] = eo;
+            if (so >= 0 && eo >= 0 && (eo - so) > maxlen)
+                maxlen = (eo - so);
+        }
+        matchctx->nmatches++;
+
+        // Stop if not global matching
+        if (!re_flags->glob) break;
+
+        // Advance search position, handle zero-length matches
+        start_search = pmatch[0].rm_eo;
+        if (pmatch[0].rm_so == pmatch[0].rm_eo)
+            start_search++;
+        if (start_search > wide_len) break;
+    }
+
+    // Handle partial match details when no matches found
+    if (matchctx->nmatches == 0 && re_flags->partial && re_flags->indices) {
+        // Ensure space and store partial match details
+        while (array_idx + matchctx->npatterns * 2 + 1 > array_len) {
+            array_len += array_len + 1;
+            matchctx->match_locs = (int *) repalloc(matchctx->match_locs,
+                                                   sizeof(int) * array_len);
+        }
+        matchctx->match_locs[array_idx++] = matchctx->details.rm_extend.rm_so;
+        matchctx->match_locs[array_idx++] = matchctx->details.rm_extend.rm_eo;
+        for (int i = 1; i < matchctx->npatterns; i++) {
+            matchctx->match_locs[array_idx++] = -1;
+            matchctx->match_locs[array_idx++] = -1;
+        }
+        matchctx->nmatches++;
+    }
+
+    // Setup conversion buffer for multibyte encodings
+    if (eml > 1) {
+        int64 maxsiz = eml * (int64) maxlen;
+        int conv_bufsiz = (maxsiz > orig_len) ? orig_len + 1 : maxsiz + 1;
+        matchctx->conv_buf = palloc(conv_bufsiz);
+        matchctx->conv_bufsiz = conv_bufsiz;
+        matchctx->wide_str = wide_str;
+    } else {
+        // Single-byte encoding - don't need wide string
+        pfree(wide_str);
+        matchctx->wide_str = NULL;
+        matchctx->conv_buf = NULL;
+        matchctx->conv_bufsiz = 0;
+    }
+
+    pfree(pmatch);
+    return matchctx;
+}
+```

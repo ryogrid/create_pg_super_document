@@ -37,3 +37,34 @@ The `pg_notify` function serves as the SQL interface for PostgreSQL's NOTIFY com
 - Returns void (no result value) as appropriate for notification commands
 - Part of the broader asynchronous messaging system alongside LISTEN commands
 - The actual notification logic is implemented in the Async_Notify function
+
+## Simplified Source
+
+```c
+Datum
+pg_notify(PG_FUNCTION_ARGS)
+{
+    const char *channel;
+    const char *payload;
+
+    // Extract channel name (use empty string if NULL)
+    if (PG_ARGISNULL(0))
+        channel = "";
+    else
+        channel = text_to_cstring(PG_GETARG_TEXT_PP(0));
+
+    // Extract payload (use empty string if NULL)
+    if (PG_ARGISNULL(1))
+        payload = "";
+    else
+        payload = text_to_cstring(PG_GETARG_TEXT_PP(1));
+
+    // Prevent operation during database recovery
+    PreventCommandDuringRecovery("NOTIFY");
+
+    // Send the notification
+    Async_Notify(channel, payload);
+
+    PG_RETURN_VOID();
+}
+```

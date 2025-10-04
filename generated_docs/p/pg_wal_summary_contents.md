@@ -53,3 +53,74 @@ This function reads the contents of a specified WAL summary file identified by t
 - Includes interrupt checking for query cancellation during long operations
 - Performs proper resource cleanup by destroying the reader and closing files
 - The function provides detailed visibility into WAL summary file contents for backup and recovery operations
+
+## Simplified Source
+```c
+Datum pg_wal_summary_contents(PG_FUNCTION_ARGS) {
+    ReturnSetInfo *rsi;
+    Datum values[NUM_SUMMARY_ATTS];
+    bool nulls[NUM_SUMMARY_ATTS];
+    WalSummaryFile ws;
+    WalSummaryIO io;
+    BlockRefTableReader *reader;
+
+    // Initialize set-returning function
+    InitMaterializedSRF(fcinfo, 0);
+    rsi = (ReturnSetInfo *) fcinfo->resultinfo;
+    memset(nulls, 0, sizeof(nulls));
+
+    // Validate timeline ID parameter
+    int64 raw_tli = PG_GETARG_INT64(0);
+    if (raw_tli < 1 || raw_tli > PG_INT32_MAX) {
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                errmsg("invalid timeline %lld", (long long) raw_tli)));
+    }
+
+    // Open WAL summary file
+    ws.tli = (TimeLineID) raw_tli;
+    ws.start_lsn = PG_GETARG_LSN(1);
+    ws.end_lsn = PG_GETARG_LSN(2);
+    io.file = OpenWalSummaryFile(&ws, false);
+    reader = CreateBlockRefTableReader(ReadWalSummary, &io, FilePathName(io.file),
+                                       ReportWalSummaryError, NULL);
+
+    // Process each relation fork
+    RelFileLocator rlocator;
+    ForkNumber forknum;
+    BlockNumber limit_block;
+
+    while (BlockRefTableReaderNextRelation(reader, &rlocator, &forknum, &limit_block)) {
+        CHECK_FOR_INTERRUPTS();
+
+        // Set common relation info
+        values[0] = ObjectIdGetDatum(rlocator.relNumber);
+        values[1] = ObjectIdGetDatum(rlocator.spcOid);
+        values[2] = ObjectIdGetDatum(rlocator.dbOid);
+        values[3] = Int16GetDatum((int16) forknum);
+
+        // Emit limit block if valid
+        if (BlockNumberIsValid(limit_block)) {
+            values[4] = Int64GetDatum((int64) limit_block);
+            values[5] = BoolGetDatum(true);
+            tuplestore_puttuple(rsi->setResult, heap_form_tuple(rsi->setDesc, values, nulls));
+        }
+
+        // Process modified blocks in batches
+        BlockNumber blocks[MAX_BLOCKS_PER_CALL];
+        unsigned nblocks;
+        while ((nblocks = BlockRefTableReaderGetBlocks(reader, blocks, MAX_BLOCKS_PER_CALL)) > 0) {
+            CHECK_FOR_INTERRUPTS();
+            values[5] = BoolGetDatum(false);
+            for (unsigned i = 0; i < nblocks; ++i) {
+                values[4] = Int64GetDatum((int64) blocks[i]);
+                tuplestore_puttuple(rsi->setResult, heap_form_tuple(rsi->setDesc, values, nulls));
+            }
+        }
+    }
+
+    // Cleanup
+    DestroyBlockRefTableReader(reader);
+    FileClose(io.file);
+    return (Datum) 0;
+}
+```

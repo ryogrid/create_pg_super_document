@@ -48,3 +48,33 @@ The function provides comprehensive error handling for unrecognized boolean oper
 - The `args` field typically contains a list of expression nodes that are the operands of the boolean operation
 - For NOT expressions, the `args` list typically contains a single element; for AND/OR expressions, it can contain multiple elements
 - Critical component in PostgreSQL's expression evaluation system used throughout query processing
+
+## Simplified Source
+
+```c
+static BoolExpr *
+_readBoolExpr(void)
+{
+    READ_LOCALS(BoolExpr);
+
+    // Skip :boolop token, read operation type
+    token = pg_strtok(&length);
+    token = pg_strtok(&length);
+
+    // Map string to enum value
+    if (length == 3 && strncmp(token, "and", 3) == 0)
+        local_node->boolop = AND_EXPR;
+    else if (length == 2 && strncmp(token, "or", 2) == 0)
+        local_node->boolop = OR_EXPR;
+    else if (length == 3 && strncmp(token, "not", 3) == 0)
+        local_node->boolop = NOT_EXPR;
+    else
+        elog(ERROR, "unrecognized boolop \"%.*s\"", length, token);
+
+    // Read arguments and location
+    READ_NODE_FIELD(args);
+    READ_LOCATION_FIELD(location);
+
+    READ_DONE();
+}
+```

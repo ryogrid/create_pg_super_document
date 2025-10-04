@@ -36,3 +36,45 @@ ReorderBufferReturnTXN performs complete cleanup of a transaction structure. It 
 - Calls ReorderBufferToastReset to clean up any TOAST-related hash tables
 - Complementary function to ReorderBufferGetTXN
 - Memory for the transaction structure itself is freed with pfree, not returned to a pool
+
+## Simplified Source
+
+```c
+static void ReorderBufferReturnTXN(ReorderBuffer *rb, ReorderBufferTXN *txn) {
+    // Clear lookup cache if this transaction was cached
+    if (rb->by_txn_last_xid == txn->xid) {
+        rb->by_txn_last_xid = InvalidTransactionId;
+        rb->by_txn_last_txn = NULL;
+    }
+
+    // Free all dynamically allocated fields
+    if (txn->gid != NULL) {
+        pfree(txn->gid);
+        txn->gid = NULL;
+    }
+
+    if (txn->tuplecid_hash != NULL) {
+        hash_destroy(txn->tuplecid_hash);
+        txn->tuplecid_hash = NULL;
+    }
+
+    if (txn->invalidations) {
+        pfree(txn->invalidations);
+        txn->invalidations = NULL;
+    }
+
+    if (txn->invalidations_distributed) {
+        pfree(txn->invalidations_distributed);
+        txn->invalidations_distributed = NULL;
+    }
+
+    // Reset toast-related data
+    ReorderBufferToastReset(rb, txn);
+
+    // Verify all changes have been deallocated
+    Assert(txn->size == 0);
+
+    // Free the transaction structure itself
+    pfree(txn);
+}
+```

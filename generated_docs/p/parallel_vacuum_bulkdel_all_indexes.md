@@ -40,3 +40,21 @@ The function is a lightweight coordinator that prepares shared state and then de
 - The tuple count is stored as an approximation () because exact counts are not always available or necessary for bulk delete operations
 - Serves as a specialized interface to the general parallel vacuum processing infrastructure
 - The bulk delete phase is typically the first major parallel operation in vacuum processing, removing dead tuples from index structures
+
+## Simplified Source
+
+```c
+void
+parallel_vacuum_bulkdel_all_indexes(ParallelVacuumState *pvs, long num_table_tuples,
+                                   int num_index_scans)
+{
+    Assert(!IsParallelWorker());
+
+    // Store table metadata for workers to use
+    pvs->shared->reltuples = num_table_tuples;
+    pvs->shared->estimated_count = true;  // Approximate value for now
+
+    // Delegate to general parallel processing with bulk delete enabled
+    parallel_vacuum_process_all_indexes(pvs, num_index_scans, true);
+}
+```

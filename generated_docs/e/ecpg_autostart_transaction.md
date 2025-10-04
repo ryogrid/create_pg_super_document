@@ -37,3 +37,34 @@ The function checks the current transaction status of the connection and only st
 - Part of ECPG's automatic transaction management system
 - Only operates when autocommit is disabled on the connection
 - Essential for maintaining ACID properties in embedded SQL applications
+
+## Simplified Source
+
+```c
+bool
+ecpg_autostart_transaction(struct statement *stmt)
+{
+    // Check if we need to start a transaction
+    // Only start if connection is idle AND not in autocommit mode
+    if (PQtransactionStatus(stmt->connection->connection) == PQTRANS_IDLE &&
+        !stmt->connection->autocommit)
+    {
+        // Execute "begin transaction" command
+        stmt->results = PQexec(stmt->connection->connection, "begin transaction");
+
+        // Check if the transaction start was successful
+        if (!ecpg_check_PQresult(stmt->results, stmt->lineno,
+                                stmt->connection->connection, stmt->compat))
+        {
+            ecpg_free_params(stmt, false);
+            return false;
+        }
+
+        // Clean up the result
+        PQclear(stmt->results);
+        stmt->results = NULL;
+    }
+
+    return true;
+}
+```

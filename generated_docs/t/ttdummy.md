@@ -51,3 +51,113 @@ ttdummy is a sophisticated PostgreSQL trigger function that implements temporal 
 - Implements sophisticated validation to ensure data consistency and proper temporal semantics
 - Located in src/test/regress/regress.c, primarily used for testing temporal database patterns
 - Demonstrates advanced PostgreSQL trigger programming including SPI usage and plan caching
+
+## Simplified Source
+
+```c
+Datum ttdummy(PG_FUNCTION_ARGS) {
+    // Validate trigger context and event type
+    TriggerData *trigdata = (TriggerData *) fcinfo->context;
+    if (!CALLED_AS_TRIGGER(fcinfo))
+        elog(ERROR, "ttdummy: not fired by trigger manager");
+    if (!TRIGGER_FIRED_FOR_ROW(trigdata->tg_event) ||
+        !TRIGGER_FIRED_BEFORE(trigdata->tg_event) ||
+        TRIGGER_FIRED_BY_INSERT(trigdata->tg_event))
+        elog(ERROR, "ttdummy: invalid trigger type");
+
+    // Get tuple and relation info
+    HeapTuple trigtuple = trigdata->tg_trigtuple;
+    HeapTuple newtuple = TRIGGER_FIRED_BY_UPDATE(trigdata->tg_event) ?
+                         trigdata->tg_newtuple : NULL;
+    Relation rel = trigdata->tg_relation;
+    char *relname = SPI_getrelname(rel);
+
+    // Early exit if temporal tracking is disabled
+    if (ttoff) {
+        pfree(relname);
+        return PointerGetDatum((newtuple != NULL) ? newtuple : trigtuple);
+    }
+
+    // Validate trigger arguments (start/stop column names)
+    Trigger *trigger = trigdata->tg_trigger;
+    if (trigger->tgnargs != 2)
+        elog(ERROR, "ttdummy: invalid number of arguments");
+
+    // Find and validate start/stop date columns
+    int attnum[2];
+    TupleDesc tupdesc = rel->rd_att;
+    for (int i = 0; i < 2; i++) {
+        attnum[i] = SPI_fnumber(tupdesc, trigger->tgargs[i]);
+        if (attnum[i] <= 0 || SPI_gettypeid(tupdesc, attnum[i]) != INT4OID)
+            elog(ERROR, "ttdummy: invalid temporal column");
+    }
+
+    // Get old temporal values and validate
+    bool isnull;
+    Datum oldon = SPI_getbinval(trigtuple, tupdesc, attnum[0], &isnull);
+    Datum oldoff = SPI_getbinval(trigtuple, tupdesc, attnum[1], &isnull);
+
+    // For UPDATE: prevent manual changes to temporal columns
+    if (newtuple != NULL) {
+        Datum newon = SPI_getbinval(newtuple, tupdesc, attnum[0], &isnull);
+        Datum newoff = SPI_getbinval(newtuple, tupdesc, attnum[1], &isnull);
+
+        if (oldon != newon || oldoff != newoff)
+            elog(ERROR, "ttdummy: cannot change temporal columns manually");
+
+        // Skip if already ended
+        if (newoff != TTDUMMY_INFINITY) {
+            pfree(relname);
+            return PointerGetDatum(NULL);
+        }
+    } else if (oldoff != TTDUMMY_INFINITY) {
+        // DELETE: skip if already ended
+        pfree(relname);
+        return PointerGetDatum(NULL);
+    }
+
+    // Generate new timestamp from sequence
+    Datum newoff = DirectFunctionCall1(nextval, CStringGetTextDatum("ttdummy_seq"));
+    newoff = Int32GetDatum((int32) DatumGetInt64(newoff));
+
+    // Create historical record via SPI
+    SPI_connect();
+
+    // Prepare column values for INSERT
+    int natts = tupdesc->natts;
+    Datum *cvals = (Datum *) palloc(natts * sizeof(Datum));
+    char *cnulls = (char *) palloc(natts * sizeof(char));
+
+    for (int i = 0; i < natts; i++) {
+        cvals[i] = SPI_getbinval((newtuple != NULL) ? newtuple : trigtuple,
+                                tupdesc, i + 1, &isnull);
+        cnulls[i] = (isnull) ? 'n' : ' ';
+    }
+
+    // Update temporal columns for historical record
+    if (newtuple) {
+        // UPDATE: new record starts now, old ends at infinity
+        cvals[attnum[0] - 1] = newoff;
+        cvals[attnum[1] - 1] = TTDUMMY_INFINITY;
+    } else {
+        // DELETE: end current record
+        cvals[attnum[1] - 1] = newoff;
+    }
+
+    // Execute INSERT using prepared plan
+    if (splan == NULL) {
+        // Create and cache INSERT plan (simplified)
+        // ... plan preparation logic ...
+    }
+    SPI_execp(splan, cvals, cnulls, 0);
+
+    // Return modified tuple for UPDATE, original for DELETE
+    HeapTuple rettuple = newtuple ?
+        SPI_modifytuple(rel, trigtuple, 1, &(attnum[1]), &newoff, NULL) :
+        trigtuple;
+
+    SPI_finish();
+    pfree(relname);
+    return PointerGetDatum(rettuple);
+}
+```

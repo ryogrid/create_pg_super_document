@@ -36,3 +36,20 @@ The function reads the binary data in the same order it was written: first the 4
 - The subscriber uses this information to properly initialize transaction streaming state
 - Enables incremental processing of large transactions to reduce memory usage
 - The first_segment flag helps distinguish between new streams and continuation of existing streams
+
+## Simplified Source
+
+```c
+TransactionId logicalrep_read_stream_start(StringInfo in, bool *first_segment)
+{
+    Assert(first_segment);
+
+    // Read transaction ID from message
+    TransactionId xid = pq_getmsgint(in, 4);
+
+    // Read first segment flag (1 = true, 0 = false)
+    *first_segment = (pq_getmsgbyte(in) == 1);
+
+    return xid;
+}
+```

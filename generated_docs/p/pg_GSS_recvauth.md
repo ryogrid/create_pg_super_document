@@ -40,3 +40,95 @@ pg_GSS_recvauth is the core function for server-side GSSAPI authentication in Po
 - Delegates final authentication checks to pg_GSS_checkauth
 - Expects PqMsg_GSSResponse message types from client during token exchange
 - Maximum token length limited by PG_MAX_AUTH_TOKEN_LENGTH
+
+## Simplified Source
+
+```c
+static int
+pg_GSS_recvauth(Port *port)
+{
+    OM_uint32 maj_stat, min_stat, lmin_s, gflags;
+    int mtype;
+    StringInfoData buf;
+    gss_buffer_desc gbuf;
+    gss_cred_id_t delegated_creds;
+
+    // Configure Kerberos keytab if specified
+    if (pg_krb_server_keyfile != NULL && pg_krb_server_keyfile[0] != '\0') {
+        if (setenv("KRB5_KTNAME", pg_krb_server_keyfile, 1) != 0) {
+            ereport(FATAL, (errcode(ERRCODE_OUT_OF_MEMORY),
+                           errmsg("could not set environment: %m")));
+        }
+    }
+
+    // Initialize GSS context
+    port->gss->cred = GSS_C_NO_CREDENTIAL;
+    port->gss->ctx = GSS_C_NO_CONTEXT;
+    delegated_creds = GSS_C_NO_CREDENTIAL;
+    port->gss->delegated_creds = false;
+
+    // GSSAPI token exchange loop
+    do {
+        pq_startmsgread();
+        CHECK_FOR_INTERRUPTS();
+
+        // Expect GSS response message
+        mtype = pq_getbyte();
+        if (mtype != PqMsg_GSSResponse) {
+            if (mtype != EOF) {
+                ereport(ERROR, (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                               errmsg("expected GSS response, got message type %d", mtype)));
+            }
+            return STATUS_ERROR;
+        }
+
+        // Get GSS token from client
+        initStringInfo(&buf);
+        if (pq_getmessage(&buf, PG_MAX_AUTH_TOKEN_LENGTH)) {
+            pfree(buf.data);
+            return STATUS_ERROR;
+        }
+
+        gbuf.length = buf.len;
+        gbuf.value = buf.data;
+
+        // Process GSS token
+        maj_stat = gss_accept_sec_context(&min_stat, &port->gss->ctx,
+                                          port->gss->cred, &gbuf,
+                                          GSS_C_NO_CHANNEL_BINDINGS,
+                                          &port->gss->name, NULL,
+                                          &port->gss->outbuf, &gflags,
+                                          NULL, pg_gss_accept_delegation ? &delegated_creds : NULL);
+
+        pfree(buf.data);
+        CHECK_FOR_INTERRUPTS();
+
+        // Handle delegated credentials if enabled
+        if (delegated_creds != GSS_C_NO_CREDENTIAL && gflags & GSS_C_DELEG_FLAG) {
+            pg_store_delegated_credential(delegated_creds);
+            port->gss->delegated_creds = true;
+        }
+
+        // Send response token if needed
+        if (port->gss->outbuf.length != 0) {
+            sendAuthRequest(port, AUTH_REQ_GSS_CONT,
+                           port->gss->outbuf.value, port->gss->outbuf.length);
+            gss_release_buffer(&lmin_s, &port->gss->outbuf);
+        }
+
+        // Check for GSS errors
+        if (maj_stat != GSS_S_COMPLETE && maj_stat != GSS_S_CONTINUE_NEEDED) {
+            gss_delete_sec_context(&lmin_s, &port->gss->ctx, GSS_C_NO_BUFFER);
+            pg_GSS_error("accepting GSS security context failed", maj_stat, min_stat);
+            return STATUS_ERROR;
+        }
+
+    } while (maj_stat == GSS_S_CONTINUE_NEEDED);
+
+    // Clean up and proceed to authorization check
+    if (port->gss->cred != GSS_C_NO_CREDENTIAL)
+        gss_release_cred(&min_stat, &port->gss->cred);
+
+    return pg_GSS_checkauth(port);
+}
+```

@@ -39,3 +39,46 @@ The function deliberately does not add successfully allocated pages to the lastU
 
 ## Notes and Other Information
 The parity mechanism is crucial for SP-GiST index structure integrity, ensuring inner pages are allocated with appropriate characteristics. Pages with wrong parity are not immediately discarded but cached for potential future use, reducing waste. The function operates in a loop until a suitable page is found, which is always guaranteed since SpGistNewBuffer can extend the index file if necessary.
+
+## Simplified Source
+
+```c
+static Buffer allocNewBuffer(Relation index, int flags) {
+    SpGistCache *cache = spgGetCache(index);
+    uint16 pageflags = 0;
+
+    // Set page type flags
+    if (GBUF_REQ_LEAF(flags))
+        pageflags |= SPGIST_LEAF;
+    if (GBUF_REQ_NULLS(flags))
+        pageflags |= SPGIST_NULLS;
+
+    while (true) {
+        Buffer buffer = SpGistNewBuffer(index);
+        SpGistInitBuffer(buffer, pageflags);
+
+        if (pageflags & SPGIST_LEAF) {
+            // Leaf pages don't need parity checking
+            return buffer;
+        } else {
+            // Check if inner page has correct parity
+            BlockNumber blkno = BufferGetBlockNumber(buffer);
+            int blkFlags = GBUF_INNER_PARITY(blkno);
+
+            if ((flags & GBUF_PARITY_MASK) == blkFlags) {
+                // Correct parity, use this page
+                return buffer;
+            } else {
+                // Wrong parity - cache it and try again
+                if (pageflags & SPGIST_NULLS)
+                    blkFlags |= GBUF_NULLS;
+
+                cache->lastUsedPages.cachedPage[blkFlags].blkno = blkno;
+                cache->lastUsedPages.cachedPage[blkFlags].freeSpace =
+                    PageGetExactFreeSpace(BufferGetPage(buffer));
+                UnlockReleaseBuffer(buffer);
+            }
+        }
+    }
+}
+```

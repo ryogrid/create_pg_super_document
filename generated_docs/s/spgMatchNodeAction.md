@@ -35,3 +35,56 @@ The  function implements the "match" operation in SP-GiST tree traversal. When t
 
 ## Notes and Other Information
 This function manages buffer references carefully, releasing the previous parent buffer if it differs from the current buffer to prevent resource leaks. The function performs bounds checking to ensure the requested node number exists within the inner tuple. After execution, current.buffer and current.page are set to InvalidBuffer and NULL respectively, indicating that the target page needs to be read in the next iteration of the insertion loop.
+
+## Simplified Source
+
+```c
+static void spgMatchNodeAction(Relation index, SpGistState *state,
+                              SpGistInnerTuple innerTuple,
+                              SPPageDesc *current, SPPageDesc *parent, int nodeN)
+{
+    int i;
+    SpGistNodeTuple node;
+
+    // Release previous parent buffer if different from current
+    if (parent->buffer != InvalidBuffer && parent->buffer != current->buffer)
+    {
+        SpGistSetLastUsedPage(index, parent->buffer);
+        UnlockReleaseBuffer(parent->buffer);
+    }
+
+    // Update parent to point to current inner tuple and specified node
+    parent->blkno = current->blkno;
+    parent->buffer = current->buffer;
+    parent->page = current->page;
+    parent->offnum = current->offnum;
+    parent->node = nodeN;
+
+    // Find the specified node in the inner tuple
+    SGITITERATE(innerTuple, i, node)
+    {
+        if (i == nodeN)
+            break;
+    }
+
+    if (i != nodeN)
+        elog(ERROR, "failed to find requested node %d in SPGiST inner tuple", nodeN);
+
+    // Set current to point to the node's downlink location
+    if (ItemPointerIsValid(&node->t_tid))
+    {
+        current->blkno = ItemPointerGetBlockNumber(&node->t_tid);
+        current->offnum = ItemPointerGetOffsetNumber(&node->t_tid);
+    }
+    else
+    {
+        // No downlink exists, will need to allocate new page
+        current->blkno = InvalidBlockNumber;
+        current->offnum = InvalidOffsetNumber;
+    }
+
+    // Clear current buffer/page (will be loaded in next iteration)
+    current->buffer = InvalidBuffer;
+    current->page = NULL;
+}
+```

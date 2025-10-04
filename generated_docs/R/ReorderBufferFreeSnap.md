@@ -20,31 +20,8 @@ This function is responsible for proper cleanup of snapshots used in PostgreSQL'
 The function provides a unified interface for snapshot cleanup regardless of how the snapshot was originally obtained, ensuring proper memory management in the replication system.
 
 ## Parameters / Member Variables
-- : ReorderBuffer pointer - the reorder buffer context (currently unused in the implementation)
-Snaps are packages that work across many different Linux distributions,
-enabling secure delivery and operation of the latest apps and utilities.
-
-Usage: snap <command> [<options>...]
-
-Commonly used commands can be classified as follows:
-
-           Basics: find, info, install, remove, list, components
-          ...more: refresh, revert, switch, disable, enable, create-cohort
-          History: changes, tasks, abort, watch
-          Daemons: services, start, stop, restart, logs
-      Permissions: connections, interface, connect, disconnect
-    Configuration: get, set, unset, wait
-      App Aliases: alias, aliases, unalias, prefer
-          Account: login, logout, whoami
-        Snapshots: saved, save, check-snapshot, restore, forget
-           Device: model, remodel, reboot, recovery
-     Quota Groups: set-quota, remove-quota, quotas, quota
-  Validation Sets: validate
-        ... Other: warnings, okay, known, ack, version
-      Development: validate
-
-For more information about a command, run 'snap help <command>'.
-For a short summary of all commands, run 'snap help --all'.: Snapshot pointer - the snapshot to be freed
+- `*rb`: ReorderBuffer pointer - the reorder buffer context (currently unused in the implementation)
+- `snap`: Snapshot pointer - the snapshot to be freed
 
 ## Dependencies
 - Functions called/Symbols referenced:
@@ -61,3 +38,17 @@ For a short summary of all commands, run 'snap help --all'.: Snapshot pointer - 
 - The function complements ReorderBufferCopySnap which creates the snapshots
 - Proper snapshot cleanup is critical for preventing memory leaks in long-running logical replication processes
 - The rb parameter is currently unused but maintained for API consistency
+
+## Simplified Source
+
+```c
+static void
+ReorderBufferFreeSnap(ReorderBuffer *rb, Snapshot snap)
+{
+    // Handle different snapshot types appropriately
+    if (snap->copied)
+        pfree(snap);           // Directly free copied snapshots
+    else
+        SnapBuildSnapDecRefcount(snap);  // Decrement reference count for shared snapshots
+}
+```

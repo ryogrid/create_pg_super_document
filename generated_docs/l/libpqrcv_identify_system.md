@@ -40,3 +40,45 @@ The function performs strict validation of the response format, checking for the
 - The function will raise an ERROR if the IDENTIFY_SYSTEM command fails or returns unexpected data
 - Supports backward compatibility with PostgreSQL versions 9.3 and earlier (3 columns) vs 9.4+ (4+ columns)
 - Located at src/backend/replication/libpqwalreceiver/libpqwalreceiver.c:444-490
+
+## Simplified Source
+
+```c
+static char *libpqrcv_identify_system(WalReceiverConn *conn, TimeLineID *primary_tli)
+{
+    PGresult *res;
+    char *primary_sysid;
+
+    // Execute IDENTIFY_SYSTEM command on primary server
+    res = libpqrcv_PQexec(conn->streamConn, "IDENTIFY_SYSTEM");
+    if (PQresultStatus(res) != PGRES_TUPLES_OK)
+    {
+        PQclear(res);
+        ereport(ERROR, (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                       errmsg("could not receive database system identifier and timeline ID from "
+                              "the primary server: %s",
+                              pchomp(PQerrorMessage(conn->streamConn)))));
+    }
+
+    // Validate response format (3 columns in 9.3-, 4+ columns in 9.4+)
+    if (PQnfields(res) < 3 || PQntuples(res) != 1)
+    {
+        int ntuples = PQntuples(res);
+        int nfields = PQnfields(res);
+
+        PQclear(res);
+        ereport(ERROR, (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                       errmsg("invalid response from primary server"),
+                       errdetail("Could not identify system: got %d rows and %d fields, "
+                                "expected %d rows and %d or more fields.",
+                                ntuples, nfields, 1, 3)));
+    }
+
+    // Extract system identifier and timeline ID
+    primary_sysid = pstrdup(PQgetvalue(res, 0, 0));
+    *primary_tli = pg_strtoint32(PQgetvalue(res, 0, 1));
+    PQclear(res);
+
+    return primary_sysid;
+}
+```

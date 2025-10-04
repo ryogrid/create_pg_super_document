@@ -50,3 +50,126 @@ For data items, it calls ecpg_store_input to convert and format the input data, 
 - Returns false on any error condition with appropriate SQLSTATE codes
 - Handles both fixed-size and dynamic arrays through arrsize/varcharsize parameters
 - Critical for implementing SQL SET DESCRIPTOR functionality in ECPG applications
+
+## Simplified Source
+
+```c
+bool ECPGset_desc(int lineno, const char *desc_name, int index, ...) {
+    va_list args;
+    struct descriptor *desc;
+    struct descriptor_item *desc_item;
+    struct variable *var;
+
+    // Find the named descriptor
+    desc = ecpg_find_desc(lineno, desc_name);
+    if (desc == NULL)
+        return false;
+
+    // Find existing descriptor item or create new one
+    for (desc_item = desc->items; desc_item; desc_item = desc_item->next) {
+        if (desc_item->num == index)
+            break;
+    }
+
+    if (desc_item == NULL) {
+        // Create new descriptor item
+        desc_item = (struct descriptor_item *)ecpg_alloc(sizeof(*desc_item), lineno);
+        if (!desc_item)
+            return false;
+
+        desc_item->num = index;
+        if (desc->count < index)
+            desc->count = index;
+
+        // Insert at head of list
+        desc_item->next = desc->items;
+        desc->items = desc_item;
+    }
+
+    // Allocate temporary variable structure
+    if (!(var = (struct variable *)ecpg_alloc(sizeof(struct variable), lineno)))
+        return false;
+
+    va_start(args, index);
+
+    // Process variable arguments until ECPGd_EODT
+    for (;;) {
+        enum ECPGdtype itemtype;
+        char *tobeinserted = NULL;
+
+        itemtype = va_arg(args, enum ECPGdtype);
+        if (itemtype == ECPGd_EODT)
+            break;
+
+        // Extract variable information from arguments
+        var->type = va_arg(args, enum ECPGttype);
+        var->pointer = va_arg(args, char *);
+        var->varcharsize = va_arg(args, long);
+        var->arrsize = va_arg(args, long);
+        var->offset = va_arg(args, long);
+
+        // Set value pointer based on array configuration
+        if (var->arrsize == 0 || var->varcharsize == 0)
+            var->value = *((char **)(var->pointer));
+        else
+            var->value = var->pointer;
+
+        // Handle negative values (reset to zero)
+        if (var->arrsize < 0)
+            var->arrsize = 0;
+        if (var->varcharsize < 0)
+            var->varcharsize = 0;
+
+        var->next = NULL;
+
+        switch (itemtype) {
+            case ECPGd_data:
+                // Store input data and set descriptor attributes
+                if (!ecpg_store_input(lineno, true, var, &tobeinserted, false)) {
+                    ecpg_free(var);
+                    va_end(args);
+                    return false;
+                }
+                set_desc_attr(desc_item, var, tobeinserted);
+                tobeinserted = NULL;
+                break;
+
+            case ECPGd_indicator:
+                // Set indicator value
+                set_int_item(lineno, &desc_item->indicator, var->pointer, var->type);
+                break;
+
+            case ECPGd_length:
+                // Set length value
+                set_int_item(lineno, &desc_item->length, var->pointer, var->type);
+                break;
+
+            case ECPGd_precision:
+                // Set precision value
+                set_int_item(lineno, &desc_item->precision, var->pointer, var->type);
+                break;
+
+            case ECPGd_scale:
+                // Set scale value
+                set_int_item(lineno, &desc_item->scale, var->pointer, var->type);
+                break;
+
+            case ECPGd_type:
+                // Set type value
+                set_int_item(lineno, &desc_item->type, var->pointer, var->type);
+                break;
+
+            default:
+                // Unknown descriptor item type
+                ecpg_raise(lineno, ECPG_UNKNOWN_DESCRIPTOR_ITEM, ECPG_SQLSTATE_ECPG_INTERNAL_ERROR, NULL);
+                ecpg_free(var);
+                va_end(args);
+                return false;
+        }
+    }
+
+    ecpg_free(var);
+    va_end(args);
+    return true;
+}
+```

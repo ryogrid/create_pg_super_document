@@ -42,3 +42,34 @@ The error handling assumes that Perl code may trap the converted error, so it do
 - The actual implementation logic is delegated to plperl_return_next_internal()
 - Essential for PL/Perl functions that return multiple rows or values incrementally
 - Error conversion allows Perl exception handling mechanisms to work with PostgreSQL errors
+
+## Simplified Source
+
+```c
+void
+plperl_return_next(SV *sv)
+{
+    MemoryContext oldcontext = CurrentMemoryContext;
+
+    check_spi_usage_allowed();
+
+    PG_TRY();
+    {
+        // Delegate to internal implementation
+        plperl_return_next_internal(sv);
+    }
+    PG_CATCH();
+    {
+        ErrorData *edata;
+
+        // Handle error: restore context and copy error data
+        MemoryContextSwitchTo(oldcontext);
+        edata = CopyErrorData();
+        FlushErrorState();
+
+        // Convert PostgreSQL error to Perl exception
+        croak_cstr(edata->message);
+    }
+    PG_END_TRY();
+}
+```

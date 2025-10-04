@@ -52,3 +52,54 @@ The function handles three types of objects differently: LOCAL_OBJECT and SHARED
 - Uses plural forms correctly for REMOTE_OBJECT via ngettext
 - Properly manages memory by freeing the object description string
 - Entries are separated with newlines for multi-line error messages
+
+## Simplified Source
+
+```c
+static void storeObjectDescription(StringInfo descs,
+                                 SharedDependencyObjectType type,
+                                 ObjectAddress *object,
+                                 SharedDependencyType deptype,
+                                 int count) {
+    char *objdesc = getObjectDescription(object, false);
+
+    // Skip objects being dropped concurrently
+    if (objdesc == NULL)
+        return;
+
+    // Add newline separator if not first entry
+    if (descs->len != 0)
+        appendStringInfoChar(descs, '\n');
+
+    switch (type) {
+        case LOCAL_OBJECT:
+        case SHARED_OBJECT:
+            // Format based on dependency type
+            if (deptype == SHARED_DEPENDENCY_OWNER)
+                appendStringInfo(descs, _("owner of %s"), objdesc);
+            else if (deptype == SHARED_DEPENDENCY_ACL)
+                appendStringInfo(descs, _("privileges for %s"), objdesc);
+            else if (deptype == SHARED_DEPENDENCY_INITACL)
+                appendStringInfo(descs, _("initial privileges for %s"), objdesc);
+            else if (deptype == SHARED_DEPENDENCY_POLICY)
+                appendStringInfo(descs, _("target of %s"), objdesc);
+            else if (deptype == SHARED_DEPENDENCY_TABLESPACE)
+                appendStringInfo(descs, _("tablespace for %s"), objdesc);
+            else
+                elog(ERROR, "unrecognized dependency type: %d", (int) deptype);
+            break;
+
+        case REMOTE_OBJECT:
+            // Format with count and plural handling
+            appendStringInfo(descs, ngettext("%d object in %s",
+                                           "%d objects in %s", count),
+                           count, objdesc);
+            break;
+
+        default:
+            elog(ERROR, "unrecognized object type: %d", type);
+    }
+
+    pfree(objdesc);
+}
+```

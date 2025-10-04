@@ -41,3 +41,15 @@ DatumGetPointP is part of PostgreSQL's function manager (fmgr) interface functio
 
 ## Notes and Other Information
 This function is defined as a static inline function in src/include/utils/geo_decls.h:176-180. It is extensively used in spatial indexing implementations (GiST and SP-GiST) and throughout the geometric operations codebase. The function assumes that the Datum contains a valid pointer to a Point structure - no validation is performed. Point is a fixed-size pass-by-reference type, unlike Path and Polygon which are toastable varlena types.
+
+## Simplified Source
+
+```c
+static inline Point *
+DatumGetPointP(Datum X)
+{
+    // Convert generic Datum to Point pointer
+    // Used to extract Point data from PostgreSQL's internal format
+    return (Point *) DatumGetPointer(X);
+}
+```

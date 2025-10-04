@@ -34,3 +34,15 @@ The function works in conjunction with `check_role` which performs all the heavy
 - Works with the session management system to maintain role identity
 - Simple implementation reflects that all complex validation is handled in the check phase
 - Critical for maintaining security context throughout the database session
+
+## Simplified Source
+
+```c
+void assign_role(const char *newval, void *extra)
+{
+    role_auth_extra *myextra = (role_auth_extra *) extra;
+
+    // Apply the role change using validated role information
+    SetCurrentRoleId(myextra->roleid, myextra->is_superuser);
+}
+```

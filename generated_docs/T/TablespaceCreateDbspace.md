@@ -38,3 +38,60 @@ For the global tablespace (GLOBALTABLESPACE_OID), the function returns early as 
 - Global tablespace is exempt from per-database subdirectory creation
 - Performs double-checked locking pattern to avoid unnecessary work
 - Error handling differs between normal operation and WAL replay modes
+
+## Simplified Source
+
+```c
+void TablespaceCreateDbspace(Oid spcOid, Oid dbOid, bool isRedo) {
+    struct stat st;
+    char *dir;
+
+    // Global tablespace doesn't need per-database subdirectories
+    if (spcOid == GLOBALTABLESPACE_OID)
+        return;
+
+    Assert(OidIsValid(spcOid));
+    Assert(OidIsValid(dbOid));
+
+    // Get the path for this database in the tablespace
+    dir = GetDatabasePath(dbOid, spcOid);
+
+    if (stat(dir, &st) < 0) {
+        // Directory doesn't exist
+        if (errno == ENOENT) {
+            // Acquire lock to prevent concurrent DROP TABLESPACE operations
+            LWLockAcquire(TablespaceCreateLock, LW_EXCLUSIVE);
+
+            // Double-check if directory was created while waiting for lock
+            if (stat(dir, &st) == 0 && S_ISDIR(st.st_mode)) {
+                // Directory was created by another process
+            } else {
+                // Try to create the directory
+                if (MakePGDirectory(dir) < 0) {
+                    // During WAL replay, handle missing parent directories
+                    if (errno != ENOENT || !isRedo)
+                        ereport(ERROR, (errcode_for_file_access(),
+                                errmsg("could not create directory \"%s\": %m", dir)));
+
+                    // Create directory hierarchy for WAL replay
+                    if (pg_mkdir_p(dir, pg_dir_create_mode) < 0)
+                        ereport(ERROR, (errcode_for_file_access(),
+                                errmsg("could not create directory \"%s\": %m", dir)));
+                }
+            }
+
+            LWLockRelease(TablespaceCreateLock);
+        } else {
+            ereport(ERROR, (errcode_for_file_access(),
+                    errmsg("could not stat directory \"%s\": %m", dir)));
+        }
+    } else {
+        // Path exists - verify it's a directory
+        if (!S_ISDIR(st.st_mode))
+            ereport(ERROR, (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                    errmsg("\"%s\" exists but is not a directory", dir)));
+    }
+
+    pfree(dir);
+}
+```

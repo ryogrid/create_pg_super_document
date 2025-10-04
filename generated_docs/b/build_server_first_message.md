@@ -50,3 +50,37 @@ This message is critical for the SCRAM authentication flow as it provides the cl
 - The server nonce is stored in the scram_state for use in subsequent authentication steps
 - Follows RFC 5802 specification for SCRAM server-first-message format
 - The function is static and only used within the auth-scram.c module
+
+## Simplified Source
+
+```c
+static char *
+build_server_first_message(scram_state *state)
+{
+    char raw_nonce[SCRAM_RAW_NONCE_LEN];
+    int encoded_len;
+
+    // Generate cryptographically secure random nonce
+    if (!pg_strong_random(raw_nonce, SCRAM_RAW_NONCE_LEN))
+        ereport(ERROR, (errcode(ERRCODE_INTERNAL_ERROR),
+                        errmsg("could not generate random nonce")));
+
+    // Base64 encode the server nonce
+    encoded_len = pg_b64_enc_len(SCRAM_RAW_NONCE_LEN);
+    state->server_nonce = palloc(encoded_len + 1);
+    encoded_len = pg_b64_encode(raw_nonce, SCRAM_RAW_NONCE_LEN,
+                                state->server_nonce, encoded_len);
+    if (encoded_len < 0)
+        ereport(ERROR, (errcode(ERRCODE_INTERNAL_ERROR),
+                        errmsg("could not encode random nonce")));
+    state->server_nonce[encoded_len] = '\0';
+
+    // Build server-first-message: r=client_nonce+server_nonce,s=salt,i=iterations
+    state->server_first_message =
+        psprintf("r=%s%s,s=%s,i=%d",
+                 state->client_nonce, state->server_nonce,
+                 state->salt, state->iterations);
+
+    return pstrdup(state->server_first_message);
+}
+```

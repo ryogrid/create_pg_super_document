@@ -49,3 +49,64 @@ The function processes each scan key sequentially and returns false immediately 
 - The function assumes that for box containment queries, the query argument can be safely cast from Point* to BOX*
 - Part of PostgreSQL's extensible indexing framework, specifically designed for 2D spatial data
 - Provides the final filtering stage in SP-GiST quadtree queries, ensuring only truly matching tuples are returned
+
+## Simplified Source
+
+```c
+Datum
+spg_quad_leaf_consistent(PG_FUNCTION_ARGS)
+{
+    spgLeafConsistentIn *in = (spgLeafConsistentIn *) PG_GETARG_POINTER(0);
+    spgLeafConsistentOut *out = (spgLeafConsistentOut *) PG_GETARG_POINTER(1);
+    Point *datum = DatumGetPointP(in->leafDatum);
+    bool result = true;
+
+    // All tests are exact (no rechecking needed)
+    out->recheck = false;
+    out->leafValue = in->leafDatum;
+
+    // Check each scan key constraint
+    for (int i = 0; i < in->nkeys; i++) {
+        Point *query = DatumGetPointP(in->scankeys[i].sk_argument);
+
+        switch (in->scankeys[i].sk_strategy) {
+            case RTLeftStrategyNumber:
+                result = SPTEST(point_left, datum, query);
+                break;
+            case RTRightStrategyNumber:
+                result = SPTEST(point_right, datum, query);
+                break;
+            case RTSameStrategyNumber:
+                result = SPTEST(point_eq, datum, query);
+                break;
+            case RTBelowStrategyNumber:
+            case RTOldBelowStrategyNumber:
+                result = SPTEST(point_below, datum, query);
+                break;
+            case RTAboveStrategyNumber:
+            case RTOldAboveStrategyNumber:
+                result = SPTEST(point_above, datum, query);
+                break;
+            case RTContainedByStrategyNumber:
+                // Query is a box, check if point is contained
+                result = SPTEST(box_contain_pt, query, datum);
+                break;
+            default:
+                elog(ERROR, "unrecognized strategy number: %d",
+                     in->scankeys[i].sk_strategy);
+                break;
+        }
+
+        // Early termination if any constraint fails
+        if (!result)
+            break;
+    }
+
+    // Calculate distances for ORDER BY if all constraints satisfied
+    if (result && in->norderbys > 0)
+        out->distances = spg_key_orderbys_distances(in->leafDatum, true,
+                                                    in->orderbys, in->norderbys);
+
+    PG_RETURN_BOOL(result);
+}
+```

@@ -41,3 +41,27 @@ The bootstrap context means this function operates in a controlled environment w
 - Will throw an ERROR if the relation doesn't actually need a TOAST table, indicating bootstrap data inconsistency
 - Uses AccessExclusiveLock consistently, appropriate for the bootstrap environment
 - The function name uses the relation name (string) rather than OID, typical for bootstrap operations
+
+## Simplified Source
+
+```c
+void BootstrapToastTable(char *relName, Oid toastOid, Oid toastIndexOid) {
+    // Open the relation exclusively for TOAST table creation
+    Relation rel = table_openrv(makeRangeVar(NULL, relName, -1), AccessExclusiveLock);
+
+    // Validate that this is a table or materialized view
+    if (rel->rd_rel->relkind != RELKIND_RELATION &&
+        rel->rd_rel->relkind != RELKIND_MATVIEW) {
+        elog(ERROR, "\"%s\" is not a table or materialized view", relName);
+    }
+
+    // Create the TOAST table with pre-specified OIDs
+    if (!create_toast_table(rel, toastOid, toastIndexOid, (Datum) 0,
+                           AccessExclusiveLock, false, InvalidOid)) {
+        elog(ERROR, "\"%s\" does not require a toast table", relName);
+    }
+
+    // Release the relation (but not the lock, as it's NoLock)
+    table_close(rel, NoLock);
+}
+```

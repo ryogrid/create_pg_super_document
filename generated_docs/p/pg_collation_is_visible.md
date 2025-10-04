@@ -35,3 +35,20 @@ The visibility check considers both the current search path and database encodin
 - Part of PostgreSQL's namespace and visibility system for schema-qualified object resolution
 - Unlike some other visibility functions, collation visibility also considers database encoding compatibility
 - Located in src/backend/catalog/namespace.c:4978-4991
+
+## Simplified Source
+
+```c
+Datum pg_collation_is_visible(PG_FUNCTION_ARGS) {
+    Oid collation_oid = PG_GETARG_OID(0);
+    bool is_missing = false;
+
+    // Check if collation is visible in current search path
+    bool result = CollationIsVisibleExt(collation_oid, &is_missing);
+
+    // Return NULL if collation doesn't exist, otherwise return visibility status
+    if (is_missing)
+        PG_RETURN_NULL();
+    PG_RETURN_BOOL(result);
+}
+```

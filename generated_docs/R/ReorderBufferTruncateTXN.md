@@ -66,3 +66,71 @@ The function performs several key operations:
 - Tuplecid removal is conditional based on the prepared state to optimize memory usage
 - The function maintains important flags like RBTXN_IS_SERIALIZED_CLEAR for accurate statistics
 - Part of PostgreSQL's logical replication infrastructure for transaction state management
+
+## Simplified Source
+
+```c
+static void
+ReorderBufferTruncateTXN(ReorderBuffer *rb, ReorderBufferTXN *txn, bool txn_prepared)
+{
+    dlist_mutable_iter iter;
+    Size mem_freed = 0;
+
+    // Recursively truncate all subtransactions
+    dlist_foreach_modify(iter, &txn->subtxns)
+    {
+        ReorderBufferTXN *subtxn = dlist_container(ReorderBufferTXN, node, iter.cur);
+        ReorderBufferTruncateTXN(rb, subtxn, txn_prepared);
+    }
+
+    // Remove all changes from the transaction
+    dlist_foreach_modify(iter, &txn->changes)
+    {
+        ReorderBufferChange *change = dlist_container(ReorderBufferChange, node, iter.cur);
+
+        dlist_delete(&change->node);
+
+        // Accumulate memory to be freed for batch update
+        mem_freed += ReorderBufferChangeSize(change);
+        ReorderBufferReturnChange(rb, change, false);
+    }
+
+    // Update memory counter in batch
+    ReorderBufferChangeMemoryUpdate(rb, NULL, txn, false, mem_freed);
+
+    // Mark transaction as streamed if appropriate
+    // Top-level transactions always marked, subtransactions only if they had changes
+    if ((!txn_prepared) && (rbtxn_is_toptxn(txn) || (txn->nentries_mem != 0)))
+        txn->txn_flags |= RBTXN_IS_STREAMED;
+
+    // For prepared transactions, also remove tuplecids
+    if (txn_prepared)
+    {
+        dlist_foreach_modify(iter, &txn->tuplecids)
+        {
+            ReorderBufferChange *change = dlist_container(ReorderBufferChange, node, iter.cur);
+            dlist_delete(&change->node);
+            ReorderBufferReturnChange(rb, change, true);
+        }
+    }
+
+    // Destroy the tuplecid hash table to prevent memory leaks
+    if (txn->tuplecid_hash != NULL)
+    {
+        hash_destroy(txn->tuplecid_hash);
+        txn->tuplecid_hash = NULL;
+    }
+
+    // Clean up serialized data if transaction was spilled to disk
+    if (rbtxn_is_serialized(txn))
+    {
+        ReorderBufferRestoreCleanup(rb, txn);
+        txn->txn_flags &= ~RBTXN_IS_SERIALIZED;
+        txn->txn_flags |= RBTXN_IS_SERIALIZED_CLEAR;
+    }
+
+    // Reset entry counters
+    txn->nentries_mem = 0;
+    txn->nentries = 0;
+}
+```

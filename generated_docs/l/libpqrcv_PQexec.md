@@ -43,3 +43,37 @@ As an optimization, the function skips try/catch error handling since all errors
 - Returns the last result when multiple results are available, discarding intermediate ones
 - Designed specifically for WAL receiver operations with ProcessWalRcvInterrupts() integration mindset
 - May return NULL instead of error results, unlike standard PQexec()
+
+## Simplified Source
+
+```c
+static PGresult *
+libpqrcv_PQexec(PGconn *streamConn, const char *query)
+{
+    PGresult *lastResult = NULL;
+
+    // Submit query asynchronously
+    if (!PQsendQuery(streamConn, query))
+        return NULL;
+
+    // Collect all results, keeping the last one
+    for (;;) {
+        PGresult *result = libpqrcv_PQgetResult(streamConn);
+        if (result == NULL)
+            break;  // Query complete or failure
+
+        // Keep latest result (like PQexec behavior)
+        PQclear(lastResult);
+        lastResult = result;
+
+        // Stop on COPY operations or connection failure
+        if (PQresultStatus(lastResult) == PGRES_COPY_IN ||
+            PQresultStatus(lastResult) == PGRES_COPY_OUT ||
+            PQresultStatus(lastResult) == PGRES_COPY_BOTH ||
+            PQstatus(streamConn) == CONNECTION_BAD)
+            break;
+    }
+
+    return lastResult;
+}
+```

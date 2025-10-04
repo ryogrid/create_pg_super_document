@@ -36,3 +36,17 @@ This function serves as a low-level communication primitive for WAL replication 
 - Error handling follows the "fail fast" principle - any communication failure immediately terminates the operation
 - The error message includes the actual libpq error details via PQerrorMessage for debugging purposes
 - Location: src/backend/replication/libpqwalreceiver/libpqwalreceiver.c:994-1009
+
+## Simplified Source
+
+```c
+static void
+libpqrcv_send(WalReceiverConn *conn, const char *buffer, int nbytes)
+{
+    // Send data and flush to ensure transmission
+    if (PQputCopyData(conn->streamConn, buffer, nbytes) <= 0 ||
+        PQflush(conn->streamConn))
+        ereport(ERROR, (errmsg("could not send data to WAL stream: %s",
+                               pchomp(PQerrorMessage(conn->streamConn)))));
+}
+```

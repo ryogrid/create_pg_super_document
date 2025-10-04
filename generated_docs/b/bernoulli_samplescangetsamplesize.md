@@ -41,3 +41,36 @@ This function performs sample size estimation for the Bernoulli tablesample meth
 - Converts percentage (0-100) to fraction (0.0-1.0) for internal calculations
 - The estimated tuple count is clamped to ensure it stays within reasonable bounds for the planner
 - This is a static function, only callable within the bernoulli.c module
+
+## Simplified Source
+
+```c
+static void bernoulli_samplescangetsamplesize(PlannerInfo *root,
+                                             RelOptInfo *baserel,
+                                             List *paramexprs,
+                                             BlockNumber *pages,
+                                             double *tuples) {
+    float4 samplefract;
+
+    // Extract and validate sampling percentage from parameters
+    Node *pctnode = (Node *) linitial(paramexprs);
+    pctnode = estimate_expression_value(root, pctnode);
+
+    if (IsA(pctnode, Const) && !((Const *) pctnode)->constisnull) {
+        samplefract = DatumGetFloat4(((Const *) pctnode)->constvalue);
+        if (samplefract >= 0 && samplefract <= 100 && !isnan(samplefract)) {
+            samplefract /= 100.0f;  // Convert percentage to fraction
+        } else {
+            samplefract = 0.1f;     // Default 10% if invalid
+        }
+    } else {
+        samplefract = 0.1f;         // Default 10% if can't evaluate
+    }
+
+    // Bernoulli sampling visits all pages (tuple-level sampling)
+    *pages = baserel->pages;
+
+    // Estimate output tuples based on sample fraction
+    *tuples = clamp_row_est(baserel->tuples * samplefract);
+}
+```

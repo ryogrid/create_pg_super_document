@@ -37,3 +37,44 @@ PQrequestCancel provides a simplified interface for canceling queries on an exis
 - Returns true on successful dispatch, false on failure
 - Error messages may be truncated if they exceed the connection's error buffer size
 - Location: src/interfaces/libpq/fe-cancel.c:662-703
+
+## Simplified Source
+
+```c
+int PQrequestCancel(PGconn *conn) {
+    int r;
+    PGcancel *cancel;
+
+    // Validate connection is open
+    if (!conn)
+        return false;
+
+    if (conn->sock == PGINVALID_SOCKET) {
+        strlcpy(conn->errorMessage.data,
+                "PQrequestCancel() -- connection is not open\n",
+                conn->errorMessage.maxlen);
+        conn->errorMessage.len = strlen(conn->errorMessage.data);
+        conn->errorReported = 0;
+        return false;
+    }
+
+    // Create cancel object from connection
+    cancel = PQgetCancel(conn);
+    if (cancel) {
+        // Send cancel request using cancel object
+        r = PQcancel(cancel, conn->errorMessage.data, conn->errorMessage.maxlen);
+        PQfreeCancel(cancel);
+    } else {
+        strlcpy(conn->errorMessage.data, "out of memory", conn->errorMessage.maxlen);
+        r = false;
+    }
+
+    // Update error message length on failure
+    if (!r) {
+        conn->errorMessage.len = strlen(conn->errorMessage.data);
+        conn->errorReported = 0;
+    }
+
+    return r;
+}
+```

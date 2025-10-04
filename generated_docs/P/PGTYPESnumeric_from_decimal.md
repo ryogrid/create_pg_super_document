@@ -39,3 +39,28 @@ This function serves as the reverse operation of `PGTYPESnumeric_to_decimal`, pr
 - Part of the ECPG compatibility layer for embedded SQL applications
 - Essential for Informix compatibility in the ECPG system
 - Located in src/interfaces/ecpg/pgtypeslib/numeric.c:1570-1588
+
+## Simplified Source
+
+```c
+int PGTYPESnumeric_from_decimal(decimal *src, numeric *dst) {
+    // Initialize destination numeric to zero
+    zero_var(dst);
+
+    // Copy all decimal properties to numeric
+    dst->weight = src->weight;
+    dst->rscale = src->rscale;
+    dst->dscale = src->dscale;
+    dst->sign = src->sign;
+
+    // Allocate memory for digit array
+    if (alloc_var(dst, src->ndigits) != 0)
+        return -1;
+
+    // Copy digit array
+    for (int i = 0; i < src->ndigits; i++)
+        dst->digits[i] = src->digits[i];
+
+    return 0;
+}
+```

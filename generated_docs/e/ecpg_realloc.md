@@ -43,3 +43,19 @@ The function handles all standard realloc() scenarios: expanding existing blocks
 - Primarily used for dynamic memory management in parameter processing and variable-length data handling
 - Less commonly used than ecpg_alloc() but critical for scenarios requiring memory block resizing
 - Part of ECPG's comprehensive memory management system ensuring robust handling of dynamic data structures
+
+## Simplified Source
+
+```c
+char *ecpg_realloc(void *ptr, long size, int lineno) {
+    char *new_ptr = (char *) realloc(ptr, size);
+
+    // Handle allocation failure
+    if (!new_ptr) {
+        ecpg_raise(lineno, ECPG_OUT_OF_MEMORY, ECPG_SQLSTATE_ECPG_OUT_OF_MEMORY, NULL);
+        return NULL;
+    }
+
+    return new_ptr;
+}
+```

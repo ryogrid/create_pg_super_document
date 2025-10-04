@@ -41,3 +41,33 @@ This function serves as a PostgreSQL SQL function wrapper for establishing a rep
 - Part of PostgreSQL's logical replication origin session management system
 - The session setup enables subsequent calls to origin tracking functions
 - Located in `src/backend/replication/logical/origin.c:1350-1371`
+
+## Simplified Source
+
+```c
+Datum
+pg_replication_origin_session_setup(PG_FUNCTION_ARGS)
+{
+    char *name;
+    RepOriginId origin;
+
+    // Check prerequisites (max_replication_slots > 0, not in recovery)
+    replorigin_check_prerequisites(true, false);
+
+    // Convert text argument to C string
+    name = text_to_cstring((text *) DatumGetPointer(PG_GETARG_DATUM(0)));
+
+    // Look up origin by name (missing_ok=false - error if not found)
+    origin = replorigin_by_name(name, false);
+
+    // Set up session for this origin (acquired_by=0)
+    replorigin_session_setup(origin, 0);
+
+    // Track current session's origin globally
+    replorigin_session_origin = origin;
+
+    pfree(name);
+
+    PG_RETURN_VOID();
+}
+```

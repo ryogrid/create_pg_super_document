@@ -44,3 +44,58 @@ When the XLH_DELETE_CONTAINS_OLD flag is set, the function extracts the old tupl
 - Includes assertion to validate that sufficient data exists in the record when extracting old tuple information
 - Sets clear_toast_afterwards flag to ensure proper cleanup of TOAST data after processing
 - Essential for logical replication delete processing, providing subscribers with necessary information to identify and remove the corresponding rows
+
+## Simplified Source
+
+```c
+static void DecodeDelete(LogicalDecodingContext *ctx, XLogRecordBuffer *buf) {
+    XLogReaderState *r = buf->record;
+    xl_heap_delete *xlrec;
+    ReorderBufferChange *change;
+    RelFileLocator target_locator;
+
+    xlrec = (xl_heap_delete *) XLogRecGetData(r);
+
+    // Check if this is for our target database
+    XLogRecGetBlockTag(r, 0, &target_locator, NULL, NULL);
+    if (target_locator.dbOid != ctx->slot->data.database)
+        return;
+
+    // Apply origin filtering
+    if (FilterByOrigin(ctx, XLogRecGetOrigin(r)))
+        return;
+
+    // Create reorder buffer change
+    change = ReorderBufferGetChange(ctx->reorder);
+
+    // Set action type based on delete flags
+    if (xlrec->flags & XLH_DELETE_IS_SUPER)
+        change->action = REORDER_BUFFER_CHANGE_INTERNAL_SPEC_ABORT;
+    else
+        change->action = REORDER_BUFFER_CHANGE_DELETE;
+
+    change->origin_id = XLogRecGetOrigin(r);
+
+    // Copy relation file locator
+    memcpy(&change->data.tp.rlocator, &target_locator, sizeof(RelFileLocator));
+
+    // Extract old tuple data if present
+    if (xlrec->flags & XLH_DELETE_CONTAINS_OLD) {
+        Size datalen = XLogRecGetDataLen(r) - SizeOfHeapDelete;
+        Size tuplelen = datalen - SizeOfHeapHeader;
+
+        Assert(XLogRecGetDataLen(r) > (SizeOfHeapDelete + SizeOfHeapHeader));
+
+        change->data.tp.oldtuple = ReorderBufferGetTupleBuf(ctx->reorder, tuplelen);
+
+        DecodeXLogTuple((char *) xlrec + SizeOfHeapDelete,
+                       datalen, change->data.tp.oldtuple);
+    }
+
+    change->data.tp.clear_toast_afterwards = true;
+
+    // Queue the change for processing
+    ReorderBufferQueueChange(ctx->reorder, XLogRecGetXid(r), buf->origptr,
+                            change, false);
+}
+```

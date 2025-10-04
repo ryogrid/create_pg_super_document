@@ -47,3 +47,107 @@ The function properly handles UTF-16 surrogate pairs for Unicode code points abo
 - The MAX_UNICODE_EQUIVALENT_STRING constant provides padding for Unicode-to-server encoding conversion
 - Memory management uses PostgreSQL's palloc/repalloc functions for automatic cleanup on error
 - Function is static and only used within the parser module for lexical analysis
+
+## Simplified Source
+
+```c
+static char *str_udeescape(const char *str, char escape, int position, core_yyscan_t yyscanner) {
+    const char *in = str;
+    char *new, *out;
+    size_t new_len = strlen(str) + MAX_UNICODE_EQUIVALENT_STRING + 1;
+    pg_wchar pair_first = 0;
+
+    new = palloc(new_len);
+    out = new;
+
+    while (*in) {
+        // Expand buffer if needed
+        if (out - new > new_len - (MAX_UNICODE_EQUIVALENT_STRING + 1)) {
+            new_len *= 2;
+            new = repalloc(new, new_len);
+            out = new + (out - new);
+        }
+
+        if (in[0] == escape) {
+            if (in[1] == escape) {
+                // Doubled escape character = literal escape
+                if (pair_first) goto invalid_pair;
+                *out++ = escape;
+                in += 2;
+            } else if (isxdigit(in[1]) && isxdigit(in[2]) && isxdigit(in[3]) && isxdigit(in[4])) {
+                // 4-digit Unicode escape: \XXXX
+                pg_wchar unicode = (hexval(in[1]) << 12) + (hexval(in[2]) << 8) +
+                                   (hexval(in[3]) << 4) + hexval(in[4]);
+                check_unicode_value(unicode);
+
+                // Handle UTF-16 surrogate pairs
+                if (pair_first) {
+                    if (is_utf16_surrogate_second(unicode)) {
+                        unicode = surrogate_pair_to_codepoint(pair_first, unicode);
+                        pair_first = 0;
+                    } else {
+                        goto invalid_pair;
+                    }
+                } else if (is_utf16_surrogate_second(unicode)) {
+                    goto invalid_pair;
+                }
+
+                if (is_utf16_surrogate_first(unicode)) {
+                    pair_first = unicode;
+                } else {
+                    pg_unicode_to_server(unicode, (unsigned char *) out);
+                    out += strlen(out);
+                }
+                in += 5;
+            } else if (in[1] == '+' && isxdigit(in[2]) && isxdigit(in[3]) &&
+                       isxdigit(in[4]) && isxdigit(in[5]) && isxdigit(in[6]) && isxdigit(in[7])) {
+                // 6-digit Unicode escape: \+XXXXXX
+                pg_wchar unicode = (hexval(in[2]) << 20) + (hexval(in[3]) << 16) +
+                                   (hexval(in[4]) << 12) + (hexval(in[5]) << 8) +
+                                   (hexval(in[6]) << 4) + hexval(in[7]);
+                check_unicode_value(unicode);
+
+                // Handle surrogate pairs (same logic as 4-digit)
+                if (pair_first) {
+                    if (is_utf16_surrogate_second(unicode)) {
+                        unicode = surrogate_pair_to_codepoint(pair_first, unicode);
+                        pair_first = 0;
+                    } else {
+                        goto invalid_pair;
+                    }
+                } else if (is_utf16_surrogate_second(unicode)) {
+                    goto invalid_pair;
+                }
+
+                if (is_utf16_surrogate_first(unicode)) {
+                    pair_first = unicode;
+                } else {
+                    pg_unicode_to_server(unicode, (unsigned char *) out);
+                    out += strlen(out);
+                }
+                in += 8;
+            } else {
+                ereport(ERROR,
+                        (errcode(ERRCODE_SYNTAX_ERROR),
+                         errmsg("invalid Unicode escape"),
+                         errhint("Unicode escapes must be \\XXXX or \\+XXXXXX.")));
+            }
+        } else {
+            // Regular character
+            if (pair_first) goto invalid_pair;
+            *out++ = *in++;
+        }
+    }
+
+    if (pair_first) goto invalid_pair;
+
+    *out = '\0';
+    return new;
+
+invalid_pair:
+    ereport(ERROR,
+            (errcode(ERRCODE_SYNTAX_ERROR),
+             errmsg("invalid Unicode surrogate pair")));
+    return NULL;
+}
+```

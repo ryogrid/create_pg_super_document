@@ -32,3 +32,13 @@ The function is used within PostgreSQL's logical replication protocol to determi
 - The NULL handling is crucial for backwards compatibility and represents "all columns included"
 - Used extensively in logical replication tuple and attribute serialization to support column-level filtering
 - Part of PostgreSQL's logical replication protocol implementation located in src/backend/replication/logical/proto.c
+
+## Simplified Source
+
+```c
+static bool column_in_column_list(int attnum, Bitmapset *columns) {
+    // NULL columns means all columns are included
+    // Otherwise check if the attribute is in the bitmap
+    return (columns == NULL || bms_is_member(attnum, columns));
+}
+```

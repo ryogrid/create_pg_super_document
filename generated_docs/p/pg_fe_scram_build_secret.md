@@ -46,3 +46,37 @@ The function handles password normalization gracefully - if SASLprep normalizati
 - Part of PostgreSQL's client-side authentication infrastructure in libpq
 - The returned secret format is suitable for storage in PostgreSQL's system catalogs
 - Error messages are internationalized using libpq_gettext
+
+## Simplified Source
+
+```c
+char *pg_fe_scram_build_secret(const char *password, int iterations, const char **errstr) {
+    char *prep_password;
+    pg_saslprep_rc rc;
+    char saltbuf[SCRAM_DEFAULT_SALT_LEN];
+    char *result;
+
+    // Normalize password with SASLprep (graceful failure handling)
+    rc = pg_saslprep(password, &prep_password);
+    if (rc == SASLPREP_OOM) {
+        *errstr = libpq_gettext("out of memory");
+        return NULL;
+    }
+    if (rc == SASLPREP_SUCCESS)
+        password = (const char *) prep_password;
+
+    // Generate cryptographically secure random salt
+    if (!pg_strong_random(saltbuf, SCRAM_DEFAULT_SALT_LEN)) {
+        *errstr = libpq_gettext("could not generate random salt");
+        free(prep_password);
+        return NULL;
+    }
+
+    // Build the actual SCRAM secret using SHA-256
+    result = scram_build_secret(PG_SHA256, SCRAM_SHA_256_KEY_LEN, saltbuf,
+                                SCRAM_DEFAULT_SALT_LEN, iterations, password, errstr);
+
+    free(prep_password);
+    return result;
+}
+```

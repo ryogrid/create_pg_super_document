@@ -37,3 +37,36 @@ This function serves as an error reporting callback during backup manifest parsi
 - Reports errors as internal errors using errmsg_internal rather than user-facing messages
 - The context parameter is currently unused but maintained for callback interface consistency
 - Part of the incremental backup error handling infrastructure
+
+## Simplified Source
+
+```c
+static void
+manifest_report_error(JsonManifestParseContext *context, const char *fmt, ...)
+{
+    StringInfoData errbuf;
+
+    // Initialize error message buffer
+    initStringInfo(&errbuf);
+
+    // Format error message with variable arguments
+    for (;;) {
+        va_list ap;
+        int needed;
+
+        va_start(ap, fmt);
+        needed = appendStringInfoVA(&errbuf, fmt, ap);
+        va_end(ap);
+
+        // If message fits, we're done
+        if (needed == 0)
+            break;
+
+        // Otherwise, enlarge buffer and retry
+        enlargeStringInfo(&errbuf, needed);
+    }
+
+    // Report the error and abort operation
+    ereport(ERROR, errmsg_internal("%s", errbuf.data));
+}
+```

@@ -43,3 +43,22 @@ The returned MinimalTuple is independent of the original slot and provides a mem
 - The caller assumes ownership of the returned MinimalTuple and is responsible for freeing it with pfree() when no longer needed
 - MinimalTuples created by this function are allocated in the current memory context
 - This function leverages the related processed symbol minimal_tuple_from_heap_tuple, which handles the HeapTuple to MinimalTuple conversion by removing HeapTuple-specific overhead
+
+## Simplified Source
+
+```c
+static MinimalTuple
+tts_buffer_heap_copy_minimal_tuple(TupleTableSlot *slot)
+{
+    BufferHeapTupleTableSlot *bslot = (BufferHeapTupleTableSlot *) slot;
+
+    Assert(!TTS_EMPTY(slot));
+
+    // Materialize if only virtual data exists
+    if (!bslot->base.tuple)
+        tts_buffer_heap_materialize(slot);
+
+    // Convert to minimal tuple format and return copy
+    return minimal_tuple_from_heap_tuple(bslot->base.tuple);
+}
+```

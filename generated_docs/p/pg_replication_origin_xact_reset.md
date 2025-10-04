@@ -35,3 +35,18 @@ Unlike pg_replication_origin_xact_setup, this function does not require a replic
 - This function is the counterpart to pg_replication_origin_xact_setup
 - Safe to call multiple times or when no transaction setup is active
 - Located in src/backend/replication/logical/origin.c:1444-1455
+
+## Simplified Source
+
+```c
+Datum pg_replication_origin_xact_reset(PG_FUNCTION_ARGS) {
+    // Check prerequisites: require slots and disallow during recovery
+    replorigin_check_prerequisites(true, false);
+
+    // Clear transaction origin info
+    replorigin_session_origin_lsn = InvalidXLogRecPtr;
+    replorigin_session_origin_timestamp = 0;
+
+    PG_RETURN_VOID();
+}
+```

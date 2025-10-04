@@ -40,3 +40,22 @@ The function uses libpq's standard parameter parsing mechanism to validate and c
 - Default behavior (when keepalives=NULL) is to enable keepalives
 - Uses libpq's standard error reporting through the connection object
 - The parsed value follows standard C semantics: any non-zero value means "enable"
+
+## Simplified Source
+
+```c
+static int useKeepalives(PGconn *conn) {
+    int val;
+
+    // Default to enabled if not specified
+    if (conn->keepalives == NULL)
+        return 1;
+
+    // Parse the parameter value
+    if (!pqParseIntParam(conn->keepalives, &val, conn, "keepalives"))
+        return -1;  // Parse error
+
+    // Return 1 for enabled (non-zero), 0 for disabled (zero)
+    return val != 0 ? 1 : 0;
+}
+```

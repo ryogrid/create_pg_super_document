@@ -40,3 +40,28 @@ The function ensures that only truly safe relative paths that remain within the 
 - Drive-relative paths are rejected because their actual target depends on the current directory state of the specified drive, which could change unpredictably
 - Returns true only for relative paths that are guaranteed to stay within the current working directory tree
 - Commonly used in file access functions to validate user-provided paths before allowing file operations
+
+## Simplified Source
+
+```c
+bool path_is_relative_and_below_cwd(const char *path) {
+    // Reject absolute paths
+    if (is_absolute_path(path))
+        return false;
+
+    // Reject paths with parent references (..)
+    if (path_contains_parent_reference(path))
+        return false;
+
+#ifdef WIN32
+    // On Windows, reject drive-relative paths like 'E:abc'
+    // These are ambiguous and potentially unsafe
+    if (isalpha((unsigned char) path[0]) && path[1] == ':' &&
+        !IS_DIR_SEP(path[2]))
+        return false;
+#endif
+
+    // Path is relative and safe
+    return true;
+}
+```

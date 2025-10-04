@@ -32,3 +32,15 @@ This function serves as the public API for registering extensible node types in 
 - Extensions typically call this function during module initialization
 - The registered methods become available system-wide once registration completes
 - Registration is permanent for the duration of the PostgreSQL session
+
+## Simplified Source
+
+```c
+void RegisterExtensibleNodeMethods(const ExtensibleNodeMethods *methods) {
+    // Register the extensible node methods in the global hash table
+    RegisterExtensibleNodeEntry(&extensible_node_methods,
+                               "Extensible Node Methods",
+                               methods->extnodename,
+                               methods);
+}
+```

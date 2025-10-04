@@ -32,3 +32,14 @@ This function follows the PostgreSQL function calling convention:
 - Located in src/backend/jit/jit.c:56-66
 - The function delegates the actual work to , which handles JIT provider loading and initialization
 - Returns a boolean value that can be used in SQL queries to conditionally enable JIT-dependent functionality
+
+## Simplified Source
+
+```c
+Datum
+pg_jit_available(PG_FUNCTION_ARGS)
+{
+    // Simply delegate to provider_init() and return the result
+    PG_RETURN_BOOL(provider_init());
+}
+```

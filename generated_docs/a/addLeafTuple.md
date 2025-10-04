@@ -48,3 +48,91 @@ The function operates within a critical section and handles WAL (Write-Ahead Log
 - Supports WAL logging when RelationNeedsWAL() returns true and not during index build
 - Uses spgxlogAddLeaf structure for WAL record information
 - Location: src/backend/access/spgist/spgdoinsert.c:203-332
+
+## Simplified Source
+
+```c
+static void addLeafTuple(Relation index, SpGistState *state, SpGistLeafTuple leafTuple,
+                        SPPageDesc *current, SPPageDesc *parent, bool isNulls, bool isNew)
+{
+    spgxlogAddLeaf xlrec;
+
+    // Initialize WAL record
+    xlrec.newPage = isNew;
+    xlrec.storesNulls = isNulls;
+
+    START_CRIT_SECTION();
+
+    if (current->offnum == InvalidOffsetNumber || SpGistBlockIsRoot(current->blkno))
+    {
+        // Create new chain - tuple is not part of existing chain
+        SGLT_SET_NEXTOFFSET(leafTuple, InvalidOffsetNumber);
+        current->offnum = SpGistPageAddNewItem(state, current->page,
+                                             (Item) leafTuple, leafTuple->size,
+                                             NULL, false);
+        xlrec.offnumLeaf = current->offnum;
+
+        // Update parent's downlink if parent exists
+        if (parent->buffer != InvalidBuffer)
+        {
+            xlrec.offnumParent = parent->offnum;
+            xlrec.nodeI = parent->node;
+            saveNodeLink(index, parent, current->blkno, current->offnum);
+        }
+    }
+    else
+    {
+        // Insert into existing chain
+        SpGistLeafTuple head = (SpGistLeafTuple) PageGetItem(current->page,
+                                                           PageGetItemId(current->page, current->offnum));
+
+        if (head->tupstate == SPGIST_LIVE)
+        {
+            // Insert as second element in chain
+            SGLT_SET_NEXTOFFSET(leafTuple, SGLT_GET_NEXTOFFSET(head));
+            OffsetNumber offnum = SpGistPageAddNewItem(state, current->page,
+                                                     (Item) leafTuple, leafTuple->size,
+                                                     NULL, false);
+
+            // Update head to point to new tuple
+            head = (SpGistLeafTuple) PageGetItem(current->page,
+                                               PageGetItemId(current->page, current->offnum));
+            SGLT_SET_NEXTOFFSET(head, offnum);
+            xlrec.offnumLeaf = offnum;
+            xlrec.offnumHeadLeaf = current->offnum;
+        }
+        else if (head->tupstate == SPGIST_DEAD)
+        {
+            // Replace dead tuple in-place
+            SGLT_SET_NEXTOFFSET(leafTuple, InvalidOffsetNumber);
+            PageIndexTupleDelete(current->page, current->offnum);
+            PageAddItem(current->page, (Item) leafTuple, leafTuple->size,
+                       current->offnum, false, false);
+            xlrec.offnumLeaf = current->offnum;
+            xlrec.offnumHeadLeaf = current->offnum;
+        }
+    }
+
+    MarkBufferDirty(current->buffer);
+
+    // WAL logging if needed
+    if (RelationNeedsWAL(index) && !state->isBuild)
+    {
+        XLogRecPtr recptr;
+        XLogBeginInsert();
+        XLogRegisterData((char *) &xlrec, sizeof(xlrec));
+        XLogRegisterData((char *) leafTuple, leafTuple->size);
+        XLogRegisterBuffer(0, current->buffer,
+                          xlrec.newPage ? REGBUF_STANDARD | REGBUF_WILL_INIT : REGBUF_STANDARD);
+        if (xlrec.offnumParent != InvalidOffsetNumber)
+            XLogRegisterBuffer(1, parent->buffer, REGBUF_STANDARD);
+
+        recptr = XLogInsert(RM_SPGIST_ID, XLOG_SPGIST_ADD_LEAF);
+        PageSetLSN(current->page, recptr);
+        if (xlrec.offnumParent != InvalidOffsetNumber)
+            PageSetLSN(parent->page, recptr);
+    }
+
+    END_CRIT_SECTION();
+}
+```

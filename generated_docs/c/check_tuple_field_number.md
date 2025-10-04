@@ -34,3 +34,31 @@ This function performs comprehensive range validation for both row and column in
 - Provides separate error messages for row and column range violations
 - Part of libpq's internal validation system for safe cell access in result matrices
 - Static function, not exposed in the public libpq API
+
+## Simplified Source
+
+```c
+static int check_tuple_field_number(const PGresult *res, int tup_num, int field_num) {
+    // Fail fast if no result object
+    if (!res)
+        return false;
+
+    // Validate tuple (row) number is within range
+    if (tup_num < 0 || tup_num >= res->ntups) {
+        pqInternalNotice(&res->noticeHooks,
+                         "row number %d is out of range 0..%d",
+                         tup_num, res->ntups - 1);
+        return false;
+    }
+
+    // Validate field (column) number is within range
+    if (field_num < 0 || field_num >= res->numAttributes) {
+        pqInternalNotice(&res->noticeHooks,
+                         "column number %d is out of range 0..%d",
+                         field_num, res->numAttributes - 1);
+        return false;
+    }
+
+    return true;
+}
+```

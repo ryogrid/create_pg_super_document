@@ -53,3 +53,46 @@ The function ensures NFA connectivity is maintained even when the complement set
 - Essential for implementing negated character classes in regular expressions
 - The calling sequence is noted to need reconciliation with cloneouts() function
 - Sets HASCANTMATCH flag when creating CANTMATCH arcs for later cleanup during NFA optimization
+
+## Simplified Source
+
+```c
+static void
+colorcomplement(struct nfa *nfa, struct colormap *cm, int type,
+                struct state *of, struct state *from, struct state *to)
+{
+    assert(of != from);
+
+    // Special case: RAINBOW arc matches everything, so complement is empty
+    if (findarc(of, PLAIN, RAINBOW) != NULL) {
+        newarc(nfa, CANTMATCH, 0, from, to);
+        nfa->flags |= HASCANTMATCH;
+        return;
+    }
+
+    // Mark all colors that appear in the reference state's output arcs
+    for (struct arc *a = of->outs; a != NULL; a = a->outchain) {
+        if (a->type == PLAIN) {
+            struct colordesc *cd = &cm->cd[a->co];
+            cd->flags |= COLMARK;
+        }
+    }
+
+    // Create arcs for all unmarked colors (the complement)
+    struct colordesc *cd = cm->cd;
+    struct colordesc *end = CDEND(cm);
+    color co = 0;
+
+    while (cd < end && !CISERR()) {
+        if (cd->flags & COLMARK) {
+            // Clear the temporary mark
+            cd->flags &= ~COLMARK;
+        } else if (!UNUSEDCOLOR(cd) && !(cd->flags & PSEUDO)) {
+            // Add arc for this unmarked color
+            newarc(nfa, type, co, from, to);
+        }
+        cd++;
+        co++;
+    }
+}
+```

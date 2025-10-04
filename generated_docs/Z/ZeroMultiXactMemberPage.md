@@ -42,3 +42,22 @@ The function assumes that the appropriate control lock (for MultiXactMemberCtl) 
 - Returns the slot number of the newly created page for caller use
 - Complements ZeroMultiXactOffsetPage in the dual-log structure of MultiXact storage
 - Critical for both system initialization and runtime extension of MultiXact member storage
+
+## Simplified Source
+
+```c
+static int
+ZeroMultiXactMemberPage(int64 pageno, bool writeXlog)
+{
+    int slotno;
+
+    // Create a zeroed page in the MultiXact member log
+    slotno = SimpleLruZeroPage(MultiXactMemberCtl, pageno);
+
+    // Write XLOG record if requested for crash recovery
+    if (writeXlog)
+        WriteMZeroPageXlogRec(pageno, XLOG_MULTIXACT_ZERO_MEM_PAGE);
+
+    return slotno;
+}
+```

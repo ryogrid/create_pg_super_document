@@ -42,3 +42,34 @@ When the function encounters an ordinary arc (color < ncolors), it increments th
 - The design handles the impedance mismatch between the internal NFA representation (which includes LACON arcs) and the external API (which presents only regular arcs)
 - The function efficiently combines counting and emission phases - arcs are stored only if there's space in the output array
 - The recursive traversal assumes LACON constraints are satisfied, simplifying the external API
+
+## Simplified Source
+
+```c
+static void traverse_lacons(struct cnfa *cnfa, int st,
+                           int *arcs_count,
+                           regex_arc_t *arcs, int arcs_len) {
+    struct carc *ca;
+
+    // Prevent stack overflow from potential LACON loops
+    check_stack_depth();
+
+    // Examine each arc from current state
+    for (ca = cnfa->states[st]; ca->co != COLORLESS; ca++) {
+        if (ca->co < cnfa->ncolors) {
+            // Regular arc - count and possibly store it
+            int ndx = (*arcs_count)++;
+
+            if (ndx < arcs_len) {
+                arcs[ndx].co = ca->co;
+                arcs[ndx].to = ca->to;
+            }
+        } else {
+            // LACON arc - recursively follow it
+            // Assert it doesn't lead to final state
+            Assert(ca->to != cnfa->post);
+            traverse_lacons(cnfa, ca->to, arcs_count, arcs, arcs_len);
+        }
+    }
+}
+```

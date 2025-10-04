@@ -38,3 +38,17 @@ The function calls RefreshXLogWriteResult() to ensure the returned value reflect
 - Exposed to SQL via pg_current_wal_lsn() function
 - Important for replication slot management and WAL availability calculations
 - File location: src/backend/access/transam/xlog.c:9467-9478
+
+## Simplified Source
+
+```c
+XLogRecPtr
+GetXLogWriteRecPtr(void)
+{
+    // Refresh to get latest write result from WAL writer process
+    RefreshXLogWriteResult(LogwrtResult);
+
+    // Return current write position
+    return LogwrtResult.Write;
+}
+```

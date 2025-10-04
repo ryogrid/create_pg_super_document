@@ -35,3 +35,60 @@ The function uses a comprehensive switch statement to handle all supported ECPG 
 - The `abort()` call in the default case ensures that any unhandled type enumeration values are caught during development/testing.
 - This function is located in `src/interfaces/ecpg/ecpglib/typename.c` at lines 17-72.
 - The return statement at the end (returning an empty string) is included only to satisfy the Microsoft C compiler, as indicated by the comment.
+
+## Simplified Source
+
+```c
+const char *ecpg_type_name(enum ECPGttype typ) {
+    switch (typ) {
+        case ECPGt_char:
+        case ECPGt_string:
+            return "char";
+        case ECPGt_unsigned_char:
+            return "unsigned char";
+        case ECPGt_short:
+            return "short";
+        case ECPGt_unsigned_short:
+            return "unsigned short";
+        case ECPGt_int:
+            return "int";
+        case ECPGt_unsigned_int:
+            return "unsigned int";
+        case ECPGt_long:
+            return "long";
+        case ECPGt_unsigned_long:
+            return "unsigned long";
+        case ECPGt_long_long:
+            return "long long";
+        case ECPGt_unsigned_long_long:
+            return "unsigned long long";
+        case ECPGt_float:
+            return "float";
+        case ECPGt_double:
+            return "double";
+        case ECPGt_bool:
+            return "bool";
+        case ECPGt_varchar:
+            return "varchar";
+        case ECPGt_bytea:
+            return "bytea";
+        case ECPGt_char_variable:
+            return "char";
+        case ECPGt_decimal:
+            return "decimal";
+        case ECPGt_numeric:
+            return "numeric";
+        case ECPGt_date:
+            return "date";
+        case ECPGt_timestamp:
+            return "timestamp";
+        case ECPGt_interval:
+            return "interval";
+        case ECPGt_const:
+            return "Const";
+        default:
+            abort();  // Programming error - unknown type
+    }
+    return "";  // Keep MSC compiler happy
+}
+```

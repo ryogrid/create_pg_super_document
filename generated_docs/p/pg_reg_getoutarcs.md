@@ -37,3 +37,26 @@ The function validates the input parameters and uses the internal  helper functi
 - The function handles invalid state numbers gracefully by returning early
 - LACON arcs are automatically satisfied and recursively traversed, making them invisible to the caller
 - The regex library ensures that LACON arcs never lead directly to the final state
+
+## Simplified Source
+
+```c
+void pg_reg_getoutarcs(const regex_t *regex, int st,
+                       regex_arc_t *arcs, int arcs_len)
+{
+    struct cnfa *cnfa;
+    int arcs_count;
+
+    // Validate regex structure
+    assert(regex != NULL && regex->re_magic == REMAGIC);
+    cnfa = &((struct guts *) regex->re_guts)->search;
+
+    // Check bounds and return early if invalid
+    if (st < 0 || st >= cnfa->nstates || arcs_len <= 0)
+        return;
+
+    // Traverse LACON arcs and collect reachable regular arcs
+    arcs_count = 0;
+    traverse_lacons(cnfa, st, &arcs_count, arcs, arcs_len);
+}
+```

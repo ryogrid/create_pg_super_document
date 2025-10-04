@@ -43,3 +43,27 @@ XLogRecGetBlockTag is a convenience wrapper around XLogRecGetBlockTagExtended th
 - Commonly used in WAL replay functions that expect specific block references to be present
 - Does not provide access to prefetch buffer information (use XLogRecGetBlockTagExtended for that)
 - Essential for WAL record processing in recovery and logical replication scenarios
+
+## Simplified Source
+
+```c
+void
+XLogRecGetBlockTag(XLogReaderState *record, uint8 block_id,
+                   RelFileLocator *rlocator, ForkNumber *forknum,
+                   BlockNumber *blknum)
+{
+    // Try to get block tag using extended function
+    if (!XLogRecGetBlockTagExtended(record, block_id, rlocator, forknum,
+                                    blknum, NULL))
+    {
+        // Block reference must exist - error if not found
+#ifndef FRONTEND
+        elog(ERROR, "could not locate backup block with ID %d in WAL record",
+             block_id);
+#else
+        pg_fatal("could not locate backup block with ID %d in WAL record",
+                 block_id);
+#endif
+    }
+}
+```

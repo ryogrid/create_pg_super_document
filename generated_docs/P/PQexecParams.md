@@ -51,3 +51,30 @@ The function internally uses PQexecStart to prepare the connection, PQsendQueryP
 - Using paramTypes as NULL allows PostgreSQL to infer parameter types automatically
 - Binary parameter formats require careful handling of endianness and type-specific encoding
 - This function blocks until the query completes, making it unsuitable for non-blocking applications
+
+## Simplified Source
+
+```c
+PGresult *
+PQexecParams(PGconn *conn,
+             const char *command,
+             int nParams,
+             const Oid *paramTypes,
+             const char *const *paramValues,
+             const int *paramLengths,
+             const int *paramFormats,
+             int resultFormat)
+{
+    // Prepare connection for query execution
+    if (!PQexecStart(conn))
+        return NULL;
+
+    // Send parameterized query using extended protocol
+    if (!PQsendQueryParams(conn, command, nParams, paramTypes,
+                          paramValues, paramLengths, paramFormats, resultFormat))
+        return NULL;
+
+    // Wait for and retrieve the complete result
+    return PQexecFinish(conn);
+}
+```

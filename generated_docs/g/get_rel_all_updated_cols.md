@@ -46,3 +46,33 @@ This function is essential for UPDATE planning in inheritance hierarchies and en
 - Handles generated columns by including any that depend on directly updated columns
 - Returns a Bitmapset representing column attribute numbers that will be modified
 - Essential for proper UPDATE planning in partitioned and inherited tables where column numbering may differ between relations
+
+## Simplified Source
+
+```c
+Bitmapset *get_rel_all_updated_cols(PlannerInfo *root, RelOptInfo *rel) {
+    Assert(root->parse->commandType == CMD_UPDATE);
+    Assert(IS_SIMPLE_REL(rel));
+
+    // Get the updated columns from the result relation's permission info
+    Index relid = root->parse->resultRelation;
+    RangeTblEntry *rte = planner_rt_fetch(relid, root);
+    RTEPermissionInfo *perminfo = getRTEPermissionInfo(root->parse->rteperminfos, rte);
+
+    Bitmapset *updatedCols = perminfo->updatedCols;
+
+    // If this isn't the result relation, translate column numbers for inheritance
+    if (rel->relid != relid) {
+        RelOptInfo *top_parent_rel = find_base_rel(root, relid);
+        Assert(IS_OTHER_REL(rel));
+
+        updatedCols = translate_col_privs_multilevel(root, rel, top_parent_rel, updatedCols);
+    }
+
+    // Include any generated columns that depend on the updated columns
+    Bitmapset *extraUpdatedCols = get_dependent_generated_columns(root, rel->relid, updatedCols);
+
+    // Return the union of directly updated and dependent generated columns
+    return bms_union(updatedCols, extraUpdatedCols);
+}
+```

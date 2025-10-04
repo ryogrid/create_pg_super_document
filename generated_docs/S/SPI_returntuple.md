@@ -36,3 +36,33 @@ The function performs several validation checks: it verifies that both the input
 - Automatically assigns a typmod for RECORD types if not already present
 - The returned HeapTupleHeader is allocated in the upper executor's memory context
 - This function is essential for proper memory management when returning complex types from stored procedures
+
+## Simplified Source
+
+```c
+HeapTupleHeader SPI_returntuple(HeapTuple tuple, TupleDesc tupdesc) {
+    // Validate input parameters
+    if (tuple == NULL || tupdesc == NULL) {
+        SPI_result = SPI_ERROR_ARGUMENT;
+        return NULL;
+    }
+
+    // Check SPI connection
+    if (_SPI_current == NULL) {
+        SPI_result = SPI_ERROR_UNCONNECTED;
+        return NULL;
+    }
+
+    // Assign typmod for RECORD types if needed
+    if (tupdesc->tdtypeid == RECORDOID && tupdesc->tdtypmod < 0) {
+        assign_record_type_typmod(tupdesc);
+    }
+
+    // Switch to saved context and copy tuple as datum
+    MemoryContext old_context = MemoryContextSwitchTo(_SPI_current->savedcxt);
+    HeapTupleHeader result = DatumGetHeapTupleHeader(heap_copy_tuple_as_datum(tuple, tupdesc));
+    MemoryContextSwitchTo(old_context);
+
+    return result;
+}
+```

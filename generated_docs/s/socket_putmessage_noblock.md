@@ -43,3 +43,25 @@ Returns:
 - This function provides a guarantee that messages will be buffered successfully, eliminating buffer overflow concerns
 - Suitable for situations where the caller cannot handle or recover from buffer full conditions
 - The automatic buffer expansion makes this function slightly more expensive than the regular putmessage variant
+
+## Simplified Source
+
+```c
+static void socket_putmessage_noblock(char msgtype, const char *s, size_t len) {
+    int res PG_USED_FOR_ASSERTS_ONLY;
+    int required;
+
+    // Calculate total space needed: current position + header (1+4) + body
+    required = PqSendPointer + 1 + 4 + len;
+
+    // Expand buffer if necessary to guarantee no blocking
+    if (required > PqSendBufferSize) {
+        PqSendBuffer = repalloc(PqSendBuffer, required);
+        PqSendBufferSize = required;
+    }
+
+    // Send message (guaranteed to succeed with adequate buffer space)
+    res = pq_putmessage(msgtype, s, len);
+    Assert(res == 0);
+}
+```

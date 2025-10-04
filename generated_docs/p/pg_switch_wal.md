@@ -40,3 +40,26 @@ This operation ensures that all current WAL data is flushed to the current file 
 - Forces immediate WAL file rotation regardless of current file size or activity level
 - Part of PostgreSQL's WAL management infrastructure located in src/backend/access/transam/xlogfuncs.c:176-200
 - Commonly used by backup tools and administrative scripts that need to control WAL file boundaries
+
+## Simplified Source
+
+```c
+Datum
+pg_switch_wal(PG_FUNCTION_ARGS)
+{
+    XLogRecPtr switchpoint;
+
+    // Prevent execution during recovery
+    if (RecoveryInProgress())
+        ereport(ERROR,
+                (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                 errmsg("recovery is in progress"),
+                 errhint("WAL control functions cannot be executed during recovery.")));
+
+    // Request WAL file switch
+    switchpoint = RequestXLogSwitch(false);
+
+    // Return the LSN where the switch occurred
+    PG_RETURN_LSN(switchpoint);
+}
+```

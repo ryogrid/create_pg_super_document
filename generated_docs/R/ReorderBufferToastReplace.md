@@ -44,3 +44,117 @@ This function performs the critical task of reconstructing large column values t
 - Critical for ensuring large column values are available during logical replication output
 - The function is static, used only within the reorder buffer implementation
 - Must be called after all TOAST chunks for a transaction have been collected
+
+## Simplified Source
+
+```c
+static void
+ReorderBufferToastReplace(ReorderBuffer *rb, ReorderBufferTXN *txn,
+						  Relation relation, ReorderBufferChange *change)
+{
+	// Early return if no toast tuples changed
+	if (txn->toast_hash == NULL)
+		return;
+
+	// Record old size for memory accounting
+	Size old_size = ReorderBufferChangeSize(change);
+	MemoryContext oldcontext = MemoryContextSwitchTo(rb->context);
+
+	HeapTuple newtup = change->data.tp.newtuple;
+	TupleDesc desc = RelationGetDescr(relation);
+
+	// Get TOAST relation descriptor
+	Relation toast_rel = RelationIdGetRelation(relation->rd_rel->reltoastrelid);
+	TupleDesc toast_desc = RelationGetDescr(toast_rel);
+
+	// Allocate arrays for tuple reconstruction
+	Datum *attrs = palloc0(sizeof(Datum) * desc->natts);
+	bool *isnull = palloc0(sizeof(bool) * desc->natts);
+	bool *free = palloc0(sizeof(bool) * desc->natts);
+
+	// Deform original tuple
+	heap_deform_tuple(newtup, desc, attrs, isnull);
+
+	// Process each attribute to replace TOAST pointers
+	for (int natt = 0; natt < desc->natts; natt++) {
+		Form_pg_attribute attr = TupleDescAttr(desc, natt);
+
+		// Skip non-varlena or null attributes
+		if (attr->attnum < 0 || attr->attisdropped ||
+			attr->attlen != -1 || isnull[natt])
+			continue;
+
+		struct varlena *varlena = (struct varlena *) DatumGetPointer(attrs[natt]);
+
+		// Skip non-external TOAST pointers
+		if (!VARATT_IS_EXTERNAL(varlena))
+			continue;
+
+		// Extract TOAST pointer and find corresponding entry
+		struct varatt_external toast_pointer;
+		VARATT_EXTERNAL_GET_POINTER(toast_pointer, varlena);
+
+		ReorderBufferToastEnt *ent = hash_search(txn->toast_hash,
+												 &toast_pointer.va_valueid, HASH_FIND, NULL);
+		if (ent == NULL)
+			continue;
+
+		// Reconstruct TOAST value from chunks
+		struct varlena *reconstructed = palloc0(toast_pointer.va_rawsize);
+		ent->reconstructed = reconstructed;
+
+		// Stitch chunks together
+		Size data_done = 0;
+		dlist_iter it;
+		dlist_foreach(it, &ent->chunks) {
+			ReorderBufferChange *cchange = dlist_container(ReorderBufferChange, node, it.cur);
+			HeapTuple ctup = cchange->data.tp.newtuple;
+			bool cisnull;
+			Pointer chunk = DatumGetPointer(fastgetattr(ctup, 3, toast_desc, &cisnull));
+
+			memcpy(VARDATA(reconstructed) + data_done, VARDATA(chunk),
+				   VARSIZE(chunk) - VARHDRSZ);
+			data_done += VARSIZE(chunk) - VARHDRSZ;
+		}
+
+		// Set proper size and compression flags
+		if (VARATT_EXTERNAL_IS_COMPRESSED(toast_pointer))
+			SET_VARSIZE_COMPRESSED(reconstructed, data_done + VARHDRSZ);
+		else
+			SET_VARSIZE(reconstructed, data_done + VARHDRSZ);
+
+		// Create indirect pointer to reconstructed data
+		struct varlena *new_datum = palloc0(INDIRECT_POINTER_SIZE);
+		struct varatt_indirect redirect_pointer;
+		redirect_pointer.pointer = reconstructed;
+
+		SET_VARTAG_EXTERNAL(new_datum, VARTAG_INDIRECT);
+		memcpy(VARDATA_EXTERNAL(new_datum), &redirect_pointer, sizeof(redirect_pointer));
+
+		attrs[natt] = PointerGetDatum(new_datum);
+		free[natt] = true;
+	}
+
+	// Rebuild tuple and copy back
+	HeapTuple tmphtup = heap_form_tuple(desc, attrs, isnull);
+	memcpy(newtup->t_data, tmphtup->t_data, tmphtup->t_len);
+	newtup->t_len = tmphtup->t_len;
+
+	// Cleanup resources
+	RelationClose(toast_rel);
+	pfree(tmphtup);
+	for (int natt = 0; natt < desc->natts; natt++) {
+		if (free[natt])
+			pfree(DatumGetPointer(attrs[natt]));
+	}
+	pfree(attrs);
+	pfree(free);
+	pfree(isnull);
+
+	MemoryContextSwitchTo(oldcontext);
+
+	// Update memory accounting
+	ReorderBufferChangeMemoryUpdate(rb, change, NULL, false, old_size);
+	ReorderBufferChangeMemoryUpdate(rb, change, NULL, true, ReorderBufferChangeSize(change));
+}
+```

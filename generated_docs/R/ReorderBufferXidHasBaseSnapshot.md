@@ -31,3 +31,28 @@ This function determines whether a given transaction has already been assigned a
 - Base snapshots are crucial for determining which tuples should be visible during logical replication replay
 - Used by snapshot building logic to coordinate snapshot distribution and transaction processing
 - Part of PostgreSQL's logical replication infrastructure for managing transaction visibility
+
+## Simplified Source
+
+```c
+bool
+ReorderBufferXidHasBaseSnapshot(ReorderBuffer *rb, TransactionId xid)
+{
+    ReorderBufferTXN *txn;
+
+    // Look up transaction without creating it if it doesn't exist
+    txn = ReorderBufferTXNByXid(rb, xid, false, NULL, InvalidXLogRecPtr, false);
+
+    // Transaction not known yet, so no snapshot
+    if (txn == NULL)
+        return false;
+
+    // For subtransactions, check the top-level transaction instead
+    if (rbtxn_is_known_subxact(txn))
+        txn = ReorderBufferTXNByXid(rb, txn->toplevel_xid, false,
+                                   NULL, InvalidXLogRecPtr, false);
+
+    // Return whether base snapshot has been set
+    return txn->base_snapshot != NULL;
+}
+```

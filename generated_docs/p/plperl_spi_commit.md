@@ -36,3 +36,31 @@ The function is designed to integrate seamlessly with Perl's exception handling 
 - This function enables explicit transaction control from PL/Perl, supporting procedural code that needs to commit work incrementally
 - Should be used carefully in conjunction with proper error handling in the calling Perl code
 - Part of the transaction control API that also includes plperl_spi_rollback
+
+## Simplified Source
+
+```c
+void
+plperl_spi_commit(void)
+{
+    MemoryContext oldcontext = CurrentMemoryContext;
+
+    check_spi_usage_allowed();
+
+    PG_TRY();
+    {
+        SPI_commit();
+    }
+    PG_CATCH();
+    {
+        // Handle commit errors and propagate to Perl
+        ErrorData *edata;
+        MemoryContextSwitchTo(oldcontext);
+        edata = CopyErrorData();
+        FlushErrorState();
+
+        croak_cstr(edata->message);
+    }
+    PG_END_TRY();
+}
+```

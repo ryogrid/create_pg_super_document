@@ -41,3 +41,36 @@ This function serves as a conversion utility that transforms a PostgreSQL compos
 - Properly manages tuple descriptor lifecycle with lookup and release
 - Part of the data conversion layer between PostgreSQL and Perl
 - Located at src/pl/plperl/plperl.c:2998-3025
+
+## Simplified Source
+
+```c
+static SV *
+plperl_hash_from_datum(Datum attr)
+{
+    HeapTupleHeader td;
+    Oid tupType;
+    int32 tupTypmod;
+    TupleDesc tupdesc;
+    HeapTupleData tmptup;
+    SV *sv;
+
+    // Extract tuple header from datum
+    td = DatumGetHeapTupleHeader(attr);
+
+    // Get row type information
+    tupType = HeapTupleHeaderGetTypeId(td);
+    tupTypmod = HeapTupleHeaderGetTypMod(td);
+    tupdesc = lookup_rowtype_tupdesc(tupType, tupTypmod);
+
+    // Create temporary tuple structure
+    tmptup.t_len = HeapTupleHeaderGetDatumLength(td);
+    tmptup.t_data = td;
+
+    // Convert tuple to Perl hash and clean up
+    sv = plperl_hash_from_tuple(&tmptup, tupdesc, true);
+    ReleaseTupleDesc(tupdesc);
+
+    return sv;
+}
+```

@@ -40,3 +40,42 @@ The function walks through the linked chain of tuples using SGLT_GET_NEXTOFFSET(
 - DEAD tuples are expected only as the first item in a chain and must have InvalidOffsetNumber as next
 - Uses assertions to validate tuple state consistency and offset bounds
 - Location: src/backend/access/spgist/spgdoinsert.c:333-386
+
+## Simplified Source
+
+```c
+static int checkSplitConditions(Relation index, SpGistState *state,
+                               SPPageDesc *current, int *nToSplit)
+{
+    int i, n = 0, totalSize = 0;
+
+    // Special case: root page forces split by returning large values
+    if (SpGistBlockIsRoot(current->blkno))
+    {
+        *nToSplit = BLCKSZ;
+        return BLCKSZ;
+    }
+
+    // Walk through the tuple chain starting at current offset
+    i = current->offnum;
+    while (i != InvalidOffsetNumber)
+    {
+        SpGistLeafTuple it = (SpGistLeafTuple) PageGetItem(current->page,
+                                                          PageGetItemId(current->page, i));
+
+        if (it->tupstate == SPGIST_LIVE)
+        {
+            // Count live tuples and add their storage size
+            n++;
+            totalSize += it->size + sizeof(ItemIdData);
+        }
+        // Skip DEAD tuples (don't count them as they won't be moved)
+
+        // Move to next tuple in chain
+        i = SGLT_GET_NEXTOFFSET(it);
+    }
+
+    *nToSplit = n;
+    return totalSize;
+}
+```

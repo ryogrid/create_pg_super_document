@@ -33,3 +33,13 @@ This function takes no parameters and operates on global state variables.
 - The saved baseline values are used to calculate incremental resource consumption during parallel operations
 - Essential for accurate instrumentation in parallel execution contexts where multiple processes contribute to overall resource usage
 - Part of PostgreSQLs parallel execution infrastructure that enables efficient multi-process query processing
+
+## Simplified Source
+
+```c
+void InstrStartParallelQuery(void) {
+    // Save current usage statistics for delta calculation
+    save_pgBufferUsage = pgBufferUsage;
+    save_pgWalUsage = pgWalUsage;
+}
+```

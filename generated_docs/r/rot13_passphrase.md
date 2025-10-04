@@ -36,3 +36,31 @@ This function applies the ROT13 cipher transformation to a given password string
 - Returns a newly allocated string that must be managed by the caller
 - Preserves the original password unchanged, creating a transformed copy
 - Part of PostgreSQL's authentication testing infrastructure
+
+## Simplified Source
+
+```c
+static char *rot13_passphrase(char *pw) {
+    // Allocate new string for transformed password
+    size_t size = strlen(pw) + 1;
+    char *new_pw = (char *) palloc(size);
+
+    // Copy original password to new buffer
+    strlcpy(new_pw, pw, size);
+
+    // Apply ROT13 transformation to each alphabetic character
+    for (char *p = new_pw; *p; p++) {
+        char c = *p;
+
+        // Shift letters a-m and A-M forward by 13
+        if ((c >= 'a' && c <= 'm') || (c >= 'A' && c <= 'M'))
+            *p = c + 13;
+        // Shift letters n-z and N-Z backward by 13
+        else if ((c >= 'n' && c <= 'z') || (c >= 'N' && c <= 'Z'))
+            *p = c - 13;
+        // Non-alphabetic characters remain unchanged
+    }
+
+    return new_pw;
+}
+```

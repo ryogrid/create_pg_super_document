@@ -44,3 +44,47 @@ The function performs several key operations:
 - Performs comprehensive error handling for file operations
 - Only works with server-side files, not client-side files
 - Requires appropriate file system permissions on the PostgreSQL server
+
+## Simplified Source
+
+```c
+static Oid lo_import_internal(text *filename, Oid lobjOid) {
+    int fd, nbytes;
+    char buf[BUFSIZE];
+    char fnamebuf[MAXPGPATH];
+    LargeObjectDesc *lobj;
+    Oid oid;
+
+    // Prevent execution in read-only transactions
+    PreventCommandIfReadOnly("lo_import()");
+
+    // Open source file for reading
+    text_to_cstring_buffer(filename, fnamebuf, sizeof(fnamebuf));
+    fd = OpenTransientFile(fnamebuf, O_RDONLY | PG_BINARY);
+    if (fd < 0)
+        ereport(ERROR, (errcode_for_file_access(),
+                errmsg("could not open server file \"%s\": %m", fnamebuf)));
+
+    // Create large object and open for writing
+    lo_cleanup_needed = true;
+    oid = inv_create(lobjOid);
+    lobj = inv_open(oid, INV_WRITE, CurrentMemoryContext);
+
+    // Copy data from file to large object
+    while ((nbytes = read(fd, buf, BUFSIZE)) > 0) {
+        inv_write(lobj, buf, nbytes);
+    }
+
+    if (nbytes < 0)
+        ereport(ERROR, (errcode_for_file_access(),
+                errmsg("could not read server file \"%s\": %m", fnamebuf)));
+
+    // Clean up resources
+    inv_close(lobj);
+    if (CloseTransientFile(fd) != 0)
+        ereport(ERROR, (errcode_for_file_access(),
+                errmsg("could not close file \"%s\": %m", fnamebuf)));
+
+    return oid;
+}
+```

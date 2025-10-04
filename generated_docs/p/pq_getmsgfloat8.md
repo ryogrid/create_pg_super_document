@@ -43,3 +43,20 @@ The `pq_getmsgfloat8` function reads an 8-byte double-precision floating-point v
 - Designed to work with the corresponding pq_sendfloat8 function
 - Ensures cross-platform compatibility for double-precision floating-point data transmission
 - More widely used than pq_getmsgfloat4 due to prevalence of double-precision arithmetic in geometric and mathematical operations
+
+## Simplified Source
+
+```c
+float8 pq_getmsgfloat8(StringInfo msg) {
+    union {
+        float8 f;  // Double-precision float representation
+        int64  i;  // 64-bit integer representation
+    } swap;
+
+    // Read 8 bytes as int64 (handles byte order conversion)
+    swap.i = pq_getmsgint64(msg);
+
+    // Return as float8 (same binary data, different interpretation)
+    return swap.f;
+}
+```

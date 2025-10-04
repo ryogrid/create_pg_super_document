@@ -34,3 +34,15 @@ After calling choose_popcount_functions(), it immediately delegates to the newly
 - The function pointer indirection adds minimal overhead while enabling significant performance gains
 - After initialization, this function is no longer called as the global pointer is redirected
 - Mirrors the functionality of pg_popcount32_choose but operates on 64-bit values
+
+## Simplified Source
+
+```c
+static int pg_popcount64_choose(uint64 word) {
+    // Initialize function selection mechanism
+    choose_popcount_functions();
+
+    // Delegate to selected implementation
+    return pg_popcount64(word);
+}
+```

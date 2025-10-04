@@ -53,3 +53,51 @@ The algorithm intentionally allows points with coordinates exactly equal to the 
 - Points exactly on the splitting boundary may be assigned to either child, which is acceptable for the consistency function
 - The function never triggers allTheSame logic due to its balanced partitioning approach
 - Located in src/backend/access/spgist/spgkdtreeproc.c:108-159
+
+## Simplified Source
+
+```c
+Datum spg_kd_picksplit(PG_FUNCTION_ARGS) {
+    spgPickSplitIn *in = (spgPickSplitIn *) PG_GETARG_POINTER(0);
+    spgPickSplitOut *out = (spgPickSplitOut *) PG_GETARG_POINTER(1);
+    int i, middle;
+    SortedPoint *sorted;
+    double coord;
+
+    // Create array of points with original indices
+    sorted = palloc(sizeof(*sorted) * in->nTuples);
+    for (i = 0; i < in->nTuples; i++) {
+        sorted[i].p = DatumGetPointP(in->datums[i]);
+        sorted[i].i = i;
+    }
+
+    // Sort by appropriate coordinate (X for odd levels, Y for even)
+    qsort(sorted, in->nTuples, sizeof(*sorted),
+          (in->level % 2) ? x_cmp : y_cmp);
+
+    // Find median and set splitting coordinate
+    middle = in->nTuples >> 1;
+    coord = (in->level % 2) ? sorted[middle].p->x : sorted[middle].p->y;
+
+    // Setup split result with coordinate as prefix
+    out->hasPrefix = true;
+    out->prefixDatum = Float8GetDatum(coord);
+    out->nNodes = 2;
+    out->nodeLabels = NULL;  // K-d trees don't need node labels
+
+    // Allocate output arrays
+    out->mapTuplesToNodes = palloc(sizeof(int) * in->nTuples);
+    out->leafTupleDatums = palloc(sizeof(Datum) * in->nTuples);
+
+    // Partition tuples: first half to node 0, second half to node 1
+    for (i = 0; i < in->nTuples; i++) {
+        Point *p = sorted[i].p;
+        int n = sorted[i].i;
+
+        out->mapTuplesToNodes[n] = (i < middle) ? 0 : 1;
+        out->leafTupleDatums[n] = PointPGetDatum(p);
+    }
+
+    PG_RETURN_VOID();
+}
+```

@@ -53,3 +53,67 @@ The function handles distance calculations for nearest-neighbor searches and can
 - Can reconstruct index tuples when the scan operation requires complete tuple information
 - Maintains arrays in the scan opaque structure for batch processing of results
 - Part of the SPGiST access method implementation for PostgreSQL's indexing system
+
+## Simplified Source
+
+```c
+static void
+storeGettuple(SpGistScanOpaque so, ItemPointer heapPtr,
+              Datum leafValue, bool isnull,
+              SpGistLeafTuple leafTuple, bool recheck,
+              bool recheckDistances, double *nonNullDistances)
+{
+    // Store basic tuple information
+    so->heapPtrs[so->nPtrs] = *heapPtr;
+    so->recheck[so->nPtrs] = recheck;
+    so->recheckDistances[so->nPtrs] = recheckDistances;
+
+    // Handle ORDER BY distance calculations
+    if (so->numberOfOrderBys > 0) {
+        if (isnull || so->numberOfNonNullOrderBys <= 0) {
+            so->distances[so->nPtrs] = NULL;
+        } else {
+            // Allocate and populate distance array
+            IndexOrderByDistance *distances =
+                palloc(sizeof(distances[0]) * so->numberOfOrderBys);
+
+            for (int i = 0; i < so->numberOfOrderBys; i++) {
+                int offset = so->nonNullOrderByOffsets[i];
+
+                if (offset >= 0) {
+                    // Copy non-NULL distance value
+                    distances[i].value = nonNullDistances[offset];
+                    distances[i].isnull = false;
+                } else {
+                    // Set NULL distance
+                    distances[i].value = 0.0;
+                    distances[i].isnull = true;
+                }
+            }
+
+            so->distances[so->nPtrs] = distances;
+        }
+    }
+
+    // Reconstruct index tuple if needed
+    if (so->want_itup) {
+        Datum leafDatums[INDEX_MAX_KEYS];
+        bool leafIsnulls[INDEX_MAX_KEYS];
+
+        // Handle INCLUDE attributes if present
+        if (so->state.leafTupDesc->natts > 1)
+            spgDeformLeafTuple(leafTuple, so->state.leafTupDesc,
+                              leafDatums, leafIsnulls, isnull);
+
+        // Set key column value
+        leafDatums[spgKeyColumn] = leafValue;
+        leafIsnulls[spgKeyColumn] = isnull;
+
+        // Form reconstructed tuple
+        so->reconTups[so->nPtrs] = heap_form_tuple(so->reconTupDesc,
+                                                  leafDatums, leafIsnulls);
+    }
+
+    so->nPtrs++;
+}
+```

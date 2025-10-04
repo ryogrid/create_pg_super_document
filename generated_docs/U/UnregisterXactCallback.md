@@ -36,3 +36,29 @@ This is the counterpart to RegisterXactCallback and is typically used by dynamic
 - Designed for use by dynamically loaded modules during cleanup or unloading
 - Safe to call even if the callback was not previously registered (no-op in that case)
 - Maintains the integrity of the linked list structure during removal
+
+## Simplified Source
+
+```c
+void UnregisterXactCallback(XactCallback callback, void *arg)
+{
+    XactCallbackItem *item, *prev = NULL;
+
+    // Search through callback list for matching entry
+    for (item = Xact_callbacks; item; prev = item, item = item->next)
+    {
+        if (item->callback == callback && item->arg == arg)
+        {
+            // Remove item from linked list
+            if (prev)
+                prev->next = item->next;  // Middle or end of list
+            else
+                Xact_callbacks = item->next;  // Head of list
+
+            // Free the memory and exit
+            pfree(item);
+            break;
+        }
+    }
+}
+```

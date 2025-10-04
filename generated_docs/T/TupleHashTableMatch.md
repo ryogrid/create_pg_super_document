@@ -36,3 +36,33 @@ This function serves as the equality comparison callback for PostgreSQL's tuple 
 - Returns the negation of ExecQualAndReset result (0 for match, non-zero for no match)
 - Part of PostgreSQL's simplehash.h-based hash table infrastructure
 - Critical for correctness of hash-based grouping and joining operations
+
+## Simplified Source
+
+```c
+static int TupleHashTableMatch(struct tuplehash_hash *tb,
+                              const MinimalTuple tuple1,
+                              const MinimalTuple tuple2) {
+    TupleTableSlot *slot1;
+    TupleTableSlot *slot2;
+    TupleHashTable hashtable = (TupleHashTable) tb->private_data;
+    ExprContext *econtext = hashtable->exprcontext;
+
+    // Verify calling convention assumptions
+    Assert(tuple1 != NULL);  // tuple1 is actual table entry
+    Assert(tuple2 == NULL);  // tuple2 is NULL (represents input slot)
+
+    // Set up comparison slots
+    slot1 = hashtable->tableslot;
+    ExecStoreMinimalTuple(tuple1, slot1, false);
+    slot2 = hashtable->inputslot;
+
+    // Configure expression context for cross-type comparisons
+    econtext->ecxt_innertuple = slot2;  // input slot as inner
+    econtext->ecxt_outertuple = slot1;  // table slot as outer
+
+    // Perform equality comparison and return result
+    // Return 0 for match, non-zero for no match
+    return !ExecQualAndReset(hashtable->cur_eq_func, econtext);
+}
+```

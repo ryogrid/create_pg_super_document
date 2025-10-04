@@ -41,3 +41,29 @@ This function takes no parameters (uses PG_FUNCTION_ARGS macro but doesn't extra
 - Demonstrates the robustness of PostgreSQL's resource management system in handling improperly cleaned resources
 - Returns void as it is primarily a testing function
 - Useful for verifying that resource owners properly handle leaked resources during transaction cleanup
+
+## Simplified Source
+
+```c
+// Simplified version of test_resowner_leak
+Datum
+test_resowner_leak(PG_FUNCTION_ARGS)
+{
+    ResourceOwner resowner;
+
+    // Create test resource owner
+    resowner = ResourceOwnerCreate(CurrentResourceOwner, "TestOwner");
+
+    // Remember a resource but deliberately don't forget it (create leak)
+    ResourceOwnerEnlarge(resowner);
+    ResourceOwnerRemember(resowner, CStringGetDatum("my string"), &string_desc);
+
+    // Release resources in all phases - should handle the leak automatically
+    ResourceOwnerRelease(resowner, RESOURCE_RELEASE_BEFORE_LOCKS, true, false);
+    ResourceOwnerRelease(resowner, RESOURCE_RELEASE_LOCKS, true, false);
+    ResourceOwnerRelease(resowner, RESOURCE_RELEASE_AFTER_LOCKS, true, false);
+
+    ResourceOwnerDelete(resowner);
+    PG_RETURN_VOID();
+}
+```

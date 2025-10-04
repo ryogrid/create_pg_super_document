@@ -34,3 +34,14 @@ The function converts the LLVMJitContext pointer to a Datum using PointerGetDatu
 - The jit_resowner_desc provides the cleanup callbacks needed when the resource owner is released
 - Essential for preventing memory leaks in JIT compilation contexts
 - Located in src/backend/jit/llvm/llvmjit.c:147-151
+
+## Simplified Source
+
+```c
+static inline void
+ResourceOwnerRememberJIT(ResourceOwner owner, LLVMJitContext *handle)
+{
+    // Register JIT context with resource owner for automatic cleanup
+    ResourceOwnerRemember(owner, PointerGetDatum(handle), &jit_resowner_desc);
+}
+```

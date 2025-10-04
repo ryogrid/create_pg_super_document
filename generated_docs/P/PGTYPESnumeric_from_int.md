@@ -33,3 +33,15 @@ This function serves as a simple wrapper that converts a signed integer to a num
 - Essential for applications that need to work with both integer and high-precision numeric data
 - Commonly used in financial applications where integer values need exact decimal representation
 - The conversion preserves the exact integer value without precision loss
+
+## Simplified Source
+
+```c
+int
+PGTYPESnumeric_from_int(signed int int_val, numeric *var)
+{
+    // Convert int to long and delegate to long conversion function
+    signed long int long_int = int_val;
+    return PGTYPESnumeric_from_long(long_int, var);
+}
+```

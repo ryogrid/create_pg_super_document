@@ -56,3 +56,41 @@ Like other internal subtransaction functions, it does not require CommitTransact
 - The function is safe to use during parallel operations for internal subtransactions
 - Unlike user-level ROLLBACK TO SAVEPOINT commands, this function always operates on the innermost subtransaction
 - Combines both abort and cleanup phases, ensuring complete subtransaction removal from the transaction stack
+
+## Simplified Source
+
+```c
+void RollbackAndReleaseCurrentSubTransaction(void)
+{
+    TransactionState s = CurrentTransactionState;
+
+    // Verify we're in a valid subtransaction state
+    switch (s->blockState)
+    {
+        case TBLOCK_SUBINPROGRESS:
+        case TBLOCK_SUBABORT:
+            break;  // Valid states
+
+        default:
+            // Invalid states - force fatal error
+            elog(FATAL, "RollbackAndReleaseCurrentSubTransaction: unexpected state %s",
+                 BlockStateAsString(s->blockState));
+            break;
+    }
+
+    // Abort the current subtransaction if it's still in progress
+    if (s->blockState == TBLOCK_SUBINPROGRESS)
+        AbortSubTransaction();
+
+    // Clean up and remove subtransaction from stack
+    CleanupSubTransaction();
+
+    // Verify parent transaction state after cleanup
+    s = CurrentTransactionState;  // Updated by transaction pop
+    Assert(s->blockState == TBLOCK_SUBINPROGRESS ||
+           s->blockState == TBLOCK_INPROGRESS ||
+           s->blockState == TBLOCK_IMPLICIT_INPROGRESS ||
+           s->blockState == TBLOCK_PARALLEL_INPROGRESS ||
+           s->blockState == TBLOCK_STARTED);
+}
+```

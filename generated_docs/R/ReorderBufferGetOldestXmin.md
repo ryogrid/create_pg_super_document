@@ -39,3 +39,23 @@ The returned value is used to determine transaction visibility boundaries and is
 - Essential for maintaining proper transaction visibility during logical replication
 - The Xmin value affects garbage collection decisions and snapshot validity
 - Works specifically with the txns_by_base_snapshot_lsn list, which is ordered by base snapshot LSN values
+
+## Simplified Source
+
+```c
+TransactionId ReorderBufferGetOldestXmin(ReorderBuffer *rb) {
+    // Validate LSN ordering in debug builds
+    AssertTXNLsnOrder(rb);
+
+    // Check if any transactions with base snapshots exist
+    if (dlist_is_empty(&rb->txns_by_base_snapshot_lsn))
+        return InvalidTransactionId;
+
+    // Get transaction with earliest base snapshot LSN
+    ReorderBufferTXN *txn = dlist_head_element(ReorderBufferTXN, base_snapshot_node,
+                                              &rb->txns_by_base_snapshot_lsn);
+
+    // Return the Xmin from its base snapshot
+    return txn->base_snapshot->xmin;
+}
+```

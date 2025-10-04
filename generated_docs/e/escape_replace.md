@@ -28,3 +28,35 @@ The escape_replace function implements a straightforward approach to escaping SQ
 
 ## Notes and Other Information
 This function is part of PostgreSQL's test infrastructure for validating different escape methods. It always returns true as it doesn't perform error checking, unlike other escape functions in the module. The function demonstrates the simplest possible approach to SQL string escaping, which is sufficient for many use cases but lacks the sophisticated encoding and context awareness of libpq's built-in escaping functions. It serves as a reference implementation for how non-core drivers typically handle string escaping when they don't have access to PostgreSQL's internal escaping mechanisms.
+
+## Simplified Source
+```c
+static bool
+escape_replace(PGconn *conn, PQExpBuffer target,
+               const char *unescaped, size_t unescaped_len,
+               PQExpBuffer escape_err)
+{
+    const char *s = unescaped;
+
+    /* Add opening quote */
+    appendPQExpBufferChar(target, '\'');
+
+    /* Process each character, doubling single quotes */
+    for (int i = 0; i < unescaped_len; i++)
+    {
+        char c = *s;
+
+        if (c == '\'')
+            appendPQExpBufferStr(target, "''");  /* Replace ' with '' */
+        else
+            appendPQExpBufferChar(target, c);
+
+        s++;
+    }
+
+    /* Add closing quote */
+    appendPQExpBufferChar(target, '\'');
+
+    return true;  /* Always succeeds */
+}
+```

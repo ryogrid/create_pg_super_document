@@ -50,3 +50,21 @@ The function uses Perl's croak() function to immediately terminate execution if 
 - Uses simple croak() rather than ereport() to avoid invoking PostgreSQL error handling infrastructure during unsafe states
 - Protects against code execution during function validation, which could be a security concern
 - The function compilation check prevents dereferencing NULL prodesc pointers
+
+## Simplified Source
+
+```c
+static void
+check_spi_usage_allowed(void)
+{
+    // Don't allow SPI during PL/Perl cleanup
+    if (plperl_ending) {
+        croak("SPI functions can not be used in END blocks");
+    }
+
+    // Don't allow SPI during function compilation
+    if (current_call_data == NULL || current_call_data->prodesc == NULL) {
+        croak("SPI functions can not be used during function compilation");
+    }
+}
+```

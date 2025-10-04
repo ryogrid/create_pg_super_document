@@ -38,3 +38,21 @@ The function is restricted to CommandIds greater than 1, as indicated by the com
 - This is essential for maintaining correct catalog visibility during complex transactions with multiple SQL commands
 - The change is queued with `false` as the last parameter, indicating this is not a top-level change
 - CommandIds are fundamental to PostgreSQL's MVCC system and transaction isolation
+
+## Simplified Source
+
+```c
+void ReorderBufferAddNewCommandId(ReorderBuffer *rb, TransactionId xid,
+                                 XLogRecPtr lsn, CommandId cid)
+{
+    // Allocate a new change structure
+    ReorderBufferChange *change = ReorderBufferGetChange(rb);
+
+    // Set up the change as an internal command ID change
+    change->data.command_id = cid;
+    change->action = REORDER_BUFFER_CHANGE_INTERNAL_COMMAND_ID;
+
+    // Queue the change to be processed at the appropriate LSN
+    ReorderBufferQueueChange(rb, xid, lsn, change, false);
+}
+```

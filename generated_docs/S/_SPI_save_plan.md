@@ -45,3 +45,58 @@ The function ensures atomicity by performing all potentially failing operations 
 - The atomic final phase prevents memory leaks if the operation fails partway through
 - Saved plans can be reused multiple times and shared across different SPI connections
 - Essential for implementing persistent prepared statements in PostgreSQL
+
+## Simplified Source
+
+```c
+static SPIPlanPtr _SPI_save_plan(SPIPlanPtr plan) {
+    // One-shot plans cannot be saved
+    Assert(!plan->oneshot);
+
+    // Create temporary memory context for copying
+    MemoryContext plancxt = AllocSetContextCreate(CurrentMemoryContext,
+                                                  "SPI Plan",
+                                                  ALLOCSET_SMALL_SIZES);
+    MemoryContext oldcxt = MemoryContextSwitchTo(plancxt);
+
+    // Create new plan structure
+    SPIPlanPtr newplan = (SPIPlanPtr) palloc0(sizeof(_SPI_plan));
+    newplan->magic = _SPI_PLAN_MAGIC;
+    newplan->plancxt = plancxt;
+    newplan->parse_mode = plan->parse_mode;
+    newplan->cursor_options = plan->cursor_options;
+    newplan->nargs = plan->nargs;
+
+    // Copy argument types array
+    if (plan->nargs > 0) {
+        newplan->argtypes = (Oid *) palloc(plan->nargs * sizeof(Oid));
+        memcpy(newplan->argtypes, plan->argtypes, plan->nargs * sizeof(Oid));
+    } else {
+        newplan->argtypes = NULL;
+    }
+
+    newplan->parserSetup = plan->parserSetup;
+    newplan->parserSetupArg = plan->parserSetupArg;
+
+    // Copy all cached plan sources
+    foreach(lc, plan->plancache_list) {
+        CachedPlanSource *plansource = (CachedPlanSource *) lfirst(lc);
+        CachedPlanSource *newsource = CopyCachedPlan(plansource);
+        newplan->plancache_list = lappend(newplan->plancache_list, newsource);
+    }
+
+    MemoryContextSwitchTo(oldcxt);
+
+    // Atomically mark as saved and reparent to cache context
+    newplan->saved = true;
+    MemoryContextSetParent(newplan->plancxt, CacheMemoryContext);
+
+    // Mark all plan sources as saved
+    foreach(lc, newplan->plancache_list) {
+        CachedPlanSource *plansource = (CachedPlanSource *) lfirst(lc);
+        SaveCachedPlan(plansource);
+    }
+
+    return newplan;
+}
+```

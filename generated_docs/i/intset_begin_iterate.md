@@ -45,3 +45,19 @@ The function prepares for a complete traversal that will visit buffered values, 
 - The iterator state includes both position tracking and value decompression buffers
 - Iteration will process values in strictly ascending order across the entire set
 - No return value - the function always succeeds in initializing the iterator state
+
+## Simplified Source
+
+```c
+void
+intset_begin_iterate(IntegerSet *intset)
+{
+    // Set up iterator state for sequential traversal
+    intset->iter_active = true;
+    intset->iter_node = intset->leftmost_leaf;
+    intset->iter_itemno = 0;
+    intset->iter_valueno = 0;
+    intset->iter_num_values = 0;
+    intset->iter_values = intset->iter_values_buf;
+}
+```

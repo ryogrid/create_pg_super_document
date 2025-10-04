@@ -57,3 +57,59 @@ The function includes important safety measures:
 - Implements protection against very large character ranges that could cause memory exhaustion
 - Part of PostgreSQL's locale-aware regex processing system
 - Uses PostgreSQL's character conversion functions for proper Unicode case handling
+
+## Simplified Source
+
+```c
+static struct cvec *
+range(struct vars *v, chr a, chr b, int cases)
+{
+    struct cvec *cv;
+    chr c, cc;
+
+    // Validate range order
+    if (a != b && !before(a, b)) {
+        ERR(REG_ERANGE);
+        return NULL;
+    }
+
+    // Simple case-sensitive range
+    if (!cases) {
+        cv = getcvec(v, 0, 1);
+        addrange(cv, a, b);
+        return cv;
+    }
+
+    // Case-independent range: allocate space for range + case variants
+    int nchrs = (b - a + 1 > 100000) ? 100000 : (b - a + 1);
+    cv = getcvec(v, nchrs, 1);
+    addrange(cv, a, b);
+
+    // Add case variants that fall outside original range
+    for (c = a; c <= b; c++) {
+        // Check lowercase variant
+        cc = pg_wc_tolower(c);
+        if (cc != c && (before(cc, a) || before(b, cc))) {
+            if (cv->nchrs >= cv->chrspace) {
+                ERR(REG_ETOOBIG);
+                return NULL;
+            }
+            addchr(cv, cc);
+        }
+
+        // Check uppercase variant
+        cc = pg_wc_toupper(c);
+        if (cc != c && (before(cc, a) || before(b, cc))) {
+            if (cv->nchrs >= cv->chrspace) {
+                ERR(REG_ETOOBIG);
+                return NULL;
+            }
+            addchr(cv, cc);
+        }
+
+        INTERRUPT(v->re);
+    }
+
+    return cv;
+}
+```

@@ -39,3 +39,39 @@ The function first checks if the current  array is pointing to the static  array
 - Initializes new entries to NULL for safety
 - Sets REG_ESPACE error and returns on allocation failure
 - Includes assertions to verify the wanted parameter and final state consistency
+
+## Simplified Source
+
+```c
+static void
+moresubs(struct vars *v, int wanted)
+{
+    struct subre **p;
+    size_t n;
+
+    // Calculate new size: 1.5x wanted + 1 for efficiency
+    n = (size_t) wanted * 3 / 2 + 1;
+
+    // Check if using static array or already allocated
+    if (v->subs == v->sub10) {
+        // First allocation: copy from static array
+        p = (struct subre **) MALLOC(n * sizeof(struct subre *));
+        if (p != NULL)
+            memcpy(VS(p), VS(v->subs), v->nsubs * sizeof(struct subre *));
+    } else {
+        // Reallocate existing dynamic array
+        p = (struct subre **) REALLOC(v->subs, n * sizeof(struct subre *));
+    }
+
+    // Handle allocation failure
+    if (p == NULL) {
+        ERR(REG_ESPACE);
+        return;
+    }
+
+    // Update array pointer and initialize new entries to NULL
+    v->subs = p;
+    for (p = &v->subs[v->nsubs]; v->nsubs < n; p++, v->nsubs++)
+        *p = NULL;
+}
+```

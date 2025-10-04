@@ -35,3 +35,31 @@ This function implements the recursive logic for transforming multi-dimensional 
 - Base case delegation to make_array_ref handles the actual element conversion
 - Returns blessed Perl array references that maintain the original dimensional structure
 - Memory management relies on Perl reference counting for the created structures
+
+## Simplified Source
+
+```c
+static SV *split_array(plperl_array_info *info, int first, int last, int nest)
+{
+    int i;
+    AV *result;
+
+    // Prevent stack overflow during recursion
+    check_stack_depth();
+
+    // Base case: create single-dimensional array reference
+    if (nest >= info->ndims - 1)
+        return make_array_ref(info, first, last);
+
+    // Recursive case: create nested array structure
+    result = newAV();
+    for (i = first; i < last; i += info->nelems[nest + 1])
+    {
+        // Recursively process sub-dimensions
+        SV *ref = split_array(info, i, i + info->nelems[nest + 1], nest + 1);
+        av_push(result, ref);
+    }
+
+    return newRV_noinc((SV *) result);
+}
+```

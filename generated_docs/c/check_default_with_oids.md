@@ -36,3 +36,18 @@ The function will reject any attempt to set the parameter to true, regardless of
 - Uses both error code and error message macros to provide comprehensive error reporting
 - Returns true to accept the new value (only when false), false to reject it (always when true)
 - The comment refers to the GUC definition for historical context about this feature's removal
+
+## Simplified Source
+
+```c
+bool check_default_with_oids(bool *newval, void **extra, GucSource source) {
+    if (*newval) {
+        // Reject any attempt to enable WITH OIDS tables
+        GUC_check_errcode(ERRCODE_FEATURE_NOT_SUPPORTED);
+        GUC_check_errmsg("tables declared WITH OIDS are not supported");
+        return false;
+    }
+
+    return true;  // Accept false values
+}
+```

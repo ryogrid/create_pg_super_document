@@ -33,3 +33,35 @@ GetForeignTable is a fundamental function in PostgreSQL's foreign data wrapper i
 
 ## Notes and Other Information
 The function uses the FOREIGNTABLEREL system cache for efficient lookup of foreign table metadata. The options are stored in a transformed format in the catalog and are untransformed using untransformRelOptions() to make them usable by foreign data wrappers. The ForeignTable structure returned contains essential information needed by FDWs to establish connections and query remote tables. The function is located in src/backend/foreign/foreign.c:254-291 and is crucial for foreign table operations.
+
+## Simplified Source
+
+```c
+ForeignTable *
+GetForeignTable(Oid relid)
+{
+    Form_pg_foreign_table tableform;
+    ForeignTable *ft;
+    HeapTuple tp;
+
+    // Look up foreign table in system catalog
+    tp = SearchSysCache1(FOREIGNTABLEREL, ObjectIdGetDatum(relid));
+    if (!HeapTupleIsValid(tp))
+        elog(ERROR, "cache lookup failed for foreign table %u", relid);
+
+    tableform = (Form_pg_foreign_table) GETSTRUCT(tp);
+
+    // Create ForeignTable structure
+    ft = (ForeignTable *) palloc(sizeof(ForeignTable));
+    ft->relid = relid;
+    ft->serverid = tableform->ftserver;
+
+    // Extract table options
+    Datum datum = SysCacheGetAttr(FOREIGNTABLEREL, tp,
+                                  Anum_pg_foreign_table_ftoptions, &isnull);
+    ft->options = isnull ? NIL : untransformRelOptions(datum);
+
+    ReleaseSysCache(tp);
+    return ft;
+}
+```

@@ -35,3 +35,22 @@ This function safely retrieves a named attribute from a Python object and conver
 - Part of the error information extraction system in PL/Python
 - Static function used internally for processing Python exception objects
 - Handles Unicode strings properly through PLyUnicode_AsString wrapper
+
+## Simplified Source
+
+```c
+static void get_string_attr(PyObject *obj, char *attrname, char **str) {
+    PyObject *val;
+
+    // Get the named attribute from the Python object
+    val = PyObject_GetAttrString(obj, attrname);
+
+    // Convert to C string if attribute exists and is not None
+    if (val != NULL && val != Py_None) {
+        *str = pstrdup(PLyUnicode_AsString(val));
+    }
+
+    // Clean up Python object reference
+    Py_XDECREF(val);
+}
+```

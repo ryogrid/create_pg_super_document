@@ -39,3 +39,30 @@ This function serves as a memory allocation callback for pagetable hash structur
 - Carefully manages DSA pagetable references to enable proper memory cleanup
 - Uses huge page and zero-initialization flags for optimal performance
 - Critical component for TID bitmap memory management in both regular and parallel contexts
+
+## Simplified Source
+
+```c
+static inline void *pagetable_allocate(pagetable_hash *pagetable, Size size) {
+    TIDBitmap *tbm = (TIDBitmap *) pagetable->private_data;
+    PTEntryArray *ptbase;
+
+    // Use regular memory context if DSA is not available
+    if (tbm->dsa == NULL)
+        return MemoryContextAllocExtended(pagetable->ctx, size,
+                                          MCXT_ALLOC_HUGE | MCXT_ALLOC_ZERO);
+
+    // DSA allocation path for shared memory
+    // Save old reference for cleanup in pagetable_free
+    tbm->dsapagetableold = tbm->dsapagetable;
+
+    // Allocate new DSA memory with PTEntryArray header + requested size
+    tbm->dsapagetable = dsa_allocate_extended(tbm->dsa,
+                                              sizeof(PTEntryArray) + size,
+                                              DSA_ALLOC_HUGE | DSA_ALLOC_ZERO);
+
+    // Get pointer to allocated memory and return entry data
+    ptbase = dsa_get_address(tbm->dsa, tbm->dsapagetable);
+    return ptbase->ptentry;
+}
+```

@@ -40,3 +40,49 @@ PQgetCancel extracts essential cancellation parameters from an active PostgreSQL
 - Thread-safe design allows cancellation from different threads than the one executing the query
 - Essential for implementing responsive user interfaces that can cancel long-running queries
 - The returned PGcancel object is independent of the original connection and remains valid even if the connection is closed
+
+## Simplified Source
+
+```c
+PGcancel *PQgetCancel(PGconn *conn) {
+    PGcancel *cancel;
+
+    // Validate connection
+    if (!conn || conn->sock == PGINVALID_SOCKET)
+        return NULL;
+
+    // Allocate cancel structure
+    cancel = malloc(sizeof(PGcancel));
+    if (cancel == NULL)
+        return NULL;
+
+    // Copy essential cancellation data
+    memcpy(&cancel->raddr, &conn->raddr, sizeof(SockAddr));
+    cancel->be_pid = conn->be_pid;
+    cancel->be_key = conn->be_key;
+
+    // Initialize TCP parameters to unset (-1)
+    cancel->pgtcp_user_timeout = -1;
+    cancel->keepalives = -1;
+    cancel->keepalives_idle = -1;
+    cancel->keepalives_interval = -1;
+    cancel->keepalives_count = -1;
+
+    // Parse TCP parameters from connection if available
+    if (conn->pgtcp_user_timeout != NULL) {
+        if (!pqParseIntParam(conn->pgtcp_user_timeout, &cancel->pgtcp_user_timeout, conn, "tcp_user_timeout"))
+            goto fail;
+    }
+    if (conn->keepalives != NULL) {
+        if (!pqParseIntParam(conn->keepalives, &cancel->keepalives, conn, "keepalives"))
+            goto fail;
+    }
+    // ... similar parsing for other keepalive parameters ...
+
+    return cancel;
+
+fail:
+    free(cancel);
+    return NULL;
+}
+```

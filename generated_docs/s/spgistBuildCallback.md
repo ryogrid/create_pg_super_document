@@ -33,3 +33,26 @@ This static function serves as a callback for table_index_build_scan() during SP
 
 ## Notes and Other Information
 The function includes retry logic to handle concurrent buffer access conflicts, even though no concurrent insertions should occur during index building. Each retry resets the temporary memory context to flush any partially built data structures.
+
+## Simplified Source
+
+```c
+static void spgistBuildCallback(Relation index, ItemPointer tid, Datum *values,
+                               bool *isnull, bool tupleIsAlive, void *state) {
+    SpGistBuildState *buildstate = (SpGistBuildState *) state;
+    MemoryContext oldCtx;
+
+    // Switch to temporary memory context for processing
+    oldCtx = MemoryContextSwitchTo(buildstate->tmpCtx);
+
+    // Retry insertion until successful (handles buffer lock conflicts)
+    while (!spgdoinsert(index, &buildstate->spgstate, tid, values, isnull)) {
+        MemoryContextReset(buildstate->tmpCtx);  // Reset temp context on retry
+    }
+
+    // Update tuple count and cleanup
+    buildstate->indtuples += 1;
+    MemoryContextSwitchTo(oldCtx);
+    MemoryContextReset(buildstate->tmpCtx);
+}
+```

@@ -39,3 +39,36 @@ This function performs a case-insensitive directory scan to locate a file matchi
 - The fname parameter doesn't need to be null-terminated since fnamelen specifies its length
 - Uses PostgreSQL's directory handling functions for consistent error handling and logging
 - Location: src/timezone/pgtz.c:151-195
+
+## Simplified Source
+
+```c
+static bool
+scan_directory_ci(const char *dirname, const char *fname, int fnamelen,
+                  char *canonname, int canonnamelen)
+{
+    bool found = false;
+    DIR *dirdesc;
+    struct dirent *direntry;
+
+    dirdesc = AllocateDir(dirname);
+
+    while ((direntry = ReadDirExtended(dirdesc, dirname, LOG)) != NULL) {
+        // Skip hidden files for security (prevent access outside timezone directory)
+        if (direntry->d_name[0] == '.')
+            continue;
+
+        // Check for case-insensitive filename match
+        if (strlen(direntry->d_name) == fnamelen &&
+            pg_strncasecmp(direntry->d_name, fname, fnamelen) == 0) {
+            // Found match: copy actual filename and exit
+            strlcpy(canonname, direntry->d_name, canonnamelen);
+            found = true;
+            break;
+        }
+    }
+
+    FreeDir(dirdesc);
+    return found;
+}
+```

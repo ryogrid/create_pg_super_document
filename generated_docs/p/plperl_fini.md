@@ -39,3 +39,35 @@ This function serves as the process exit cleanup handler for the PL/Perl extensi
 - Critical for preventing resource leaks and ensuring clean process termination
 - Located in src/pl/plperl/plperl.c at lines 509-552
 - Debug logging helps track cleanup progress and identify potential issues
+
+## Simplified Source
+
+```c
+static void
+plperl_fini(int code, Datum arg)
+{
+    // Disable SPI functions during cleanup for safety
+    plperl_ending = true;
+
+    // Only clean up on normal exit, skip on error exit
+    if (code != 0)
+        return;
+
+    // Destroy the held interpreter if it exists
+    plperl_destroy_interp(&plperl_held_interp);
+
+    // Iterate through all active interpreters and destroy them
+    HASH_SEQ_STATUS hash_seq;
+    plperl_interp_desc *interp_desc;
+
+    hash_seq_init(&hash_seq, plperl_interp_hash);
+    while ((interp_desc = hash_seq_search(&hash_seq)) != NULL)
+    {
+        if (interp_desc->interp)
+        {
+            activate_interpreter(interp_desc);
+            plperl_destroy_interp(&interp_desc->interp);
+        }
+    }
+}
+```

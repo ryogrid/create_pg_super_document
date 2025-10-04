@@ -43,3 +43,19 @@ This function performs essential prerequisite checks before allowing replication
 - Throws ERRCODE_READ_ONLY_SQL_TRANSACTION when attempting restricted operations during recovery
 - Serves as a centralized validation point for all SQL-callable replication origin functions
 - The function is called by virtually all public replication origin API functions to ensure consistent prerequisite checking
+
+## Simplified Source
+
+```c
+static void
+replorigin_check_prerequisites(bool check_slots, bool recoveryOK)
+{
+    // Check if replication slots are configured when required
+    if (check_slots && max_replication_slots == 0)
+        ereport(ERROR, "cannot query or manipulate replication origin when max_replication_slots is 0");
+
+    // Prevent operations during recovery unless explicitly allowed
+    if (!recoveryOK && RecoveryInProgress())
+        ereport(ERROR, "cannot manipulate replication origins during recovery");
+}
+```

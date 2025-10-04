@@ -35,3 +35,12 @@ This function serves as a wrapper around pg_encoding_mblen() specifically design
 - Part of libpq's multibyte character handling utilities
 - Originally located in fe-print.c before being moved to fe-misc.c
 - Used extensively in frontend utilities for proper text formatting and display
+
+## Simplified Source
+
+```c
+int PQmblen(const char *s, int encoding) {
+    // Get multibyte character length using libpq's encoding stance
+    return pg_encoding_mblen(encoding, s);
+}
+```

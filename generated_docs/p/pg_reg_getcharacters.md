@@ -51,3 +51,35 @@ Note that this function only examines the low character map, as there should not
 - Only characters in the "simple" range (CHR_MIN to MAX_SIMPLE_CHR) are examined; high characters are not processed
 - The function stops filling the buffer when chars_len characters have been written, potentially truncating results if the buffer is too small
 - Located in src/backend/regex/regexport.c:266-293
+
+## Simplified Source
+
+```c
+void pg_reg_getcharacters(const regex_t *regex, int co,
+                          pg_wchar *chars, int chars_len)
+{
+    struct colormap *cm;
+    chr c;
+
+    // Validate regex structure
+    assert(regex != NULL && regex->re_magic == REMAGIC);
+    cm = &((struct guts *) regex->re_guts)->cmap;
+
+    // Check bounds and reject pseudocolors
+    if (co <= 0 || co > cm->max || chars_len <= 0)
+        return;
+    if (cm->cd[co].flags & PSEUDO)
+        return;
+
+    // Scan low character map for matching characters
+    for (c = CHR_MIN; c <= MAX_SIMPLE_CHR; c++)
+    {
+        if (cm->locolormap[c - CHR_MIN] == co)
+        {
+            *chars++ = c;
+            if (--chars_len == 0)
+                break;
+        }
+    }
+}
+```

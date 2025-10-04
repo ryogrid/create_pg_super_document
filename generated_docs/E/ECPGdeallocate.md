@@ -39,3 +39,30 @@ struct connection *con;
 - In standard mode, attempting to deallocate a non-existent statement raises an ECPG_INVALID_STMT error
 - The function is thread-safe when used with properly isolated connection contexts
 - Part of the public ECPG API and widely used in embedded SQL applications
+
+## Simplified Source
+
+```c
+bool ECPGdeallocate(int lineno, int c, const char *connection_name, const char *name) {
+    struct connection *con;
+    struct prepared_statement *this, *prev;
+
+    // Get the database connection
+    con = ecpg_get_connection(connection_name);
+    if (!ecpg_init(con, connection_name, lineno))
+        return false;
+
+    // Find the prepared statement to deallocate
+    this = ecpg_find_prepared_statement(name, con, &prev);
+    if (this)
+        return deallocate_one(lineno, c, con, prev, this);
+
+    // Handle case when prepared statement is not found
+    if (INFORMIX_MODE(c))
+        return true;  // Silently ignore in Informix mode
+
+    // Raise error in standard mode
+    ecpg_raise(lineno, ECPG_INVALID_STMT, ECPG_SQLSTATE_INVALID_SQL_STATEMENT_NAME, name);
+    return false;
+}
+```

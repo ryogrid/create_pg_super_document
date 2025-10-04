@@ -51,3 +51,42 @@ ReorderBufferReplay is the primary orchestrator for transaction replay in Postgr
 - Essential for both regular commits and prepared transaction scenarios
 - Ensures proper cleanup of empty transactions to maintain restart_lsn computation accuracy
 - Part of the high-level transaction lifecycle management in PostgreSQL's logical replication system
+
+## Simplified Source
+
+```c
+static void ReorderBufferReplay(ReorderBufferTXN *txn, ReorderBuffer *rb, TransactionId xid,
+                               XLogRecPtr commit_lsn, XLogRecPtr end_lsn, TimestampTz commit_time,
+                               RepOriginId origin_id, XLogRecPtr origin_lsn)
+{
+    Snapshot snapshot_now;
+    CommandId command_id = FirstCommandId;
+
+    // Set transaction metadata
+    txn->final_lsn = commit_lsn;
+    txn->end_lsn = end_lsn;
+    txn->xact_time.commit_time = commit_time;
+    txn->origin_id = origin_id;
+    txn->origin_lsn = origin_lsn;
+
+    // Handle streamed transactions differently
+    if (rbtxn_is_streamed(txn)) {
+        ReorderBufferStreamCommit(rb, txn);
+        return;
+    }
+
+    // Skip empty transactions (no changes to database)
+    if (txn->base_snapshot == NULL) {
+        Assert(txn->ninvalidations == 0);
+
+        // Clean up non-prepared empty transactions
+        if (!rbtxn_prepared(txn))
+            ReorderBufferCleanupTXN(rb, txn);
+        return;
+    }
+
+    // Process transaction changes for non-streaming replay
+    snapshot_now = txn->base_snapshot;
+    ReorderBufferProcessTXN(rb, txn, commit_lsn, snapshot_now, command_id, false);
+}
+```

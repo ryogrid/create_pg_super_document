@@ -38,3 +38,21 @@ This mechanism allows PostgreSQL to report progress during long-running startup 
 - This function is typically used through the `ereport_startup_progress` macro, which automatically logs progress messages when timeouts expire
 - The timeout interval is controlled by the `log_startup_progress_interval` configuration parameter
 - The function is signal-safe as it only reads/writes sig_atomic_t variables and calls timestamp functions
+
+## Simplified Source
+
+```c
+bool has_startup_progress_timeout_expired(long *secs, int *usecs) {
+    // Check if timeout flag is set
+    if (!startup_progress_timer_expired)
+        return false;
+
+    // Calculate elapsed time since progress phase started
+    TimestampTz now = GetCurrentTimestamp();
+    TimestampDifference(startup_progress_phase_start_time, now, secs, usecs);
+
+    // Reset timeout flag and return true
+    startup_progress_timer_expired = false;
+    return true;
+}
+```

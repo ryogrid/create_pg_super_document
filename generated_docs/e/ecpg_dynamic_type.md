@@ -35,3 +35,36 @@ The function handles basic data types like integers, floating-point numbers, cha
 - The function returns 0 for unknown or unsupported types, which can be used by calling code to detect unmapped types.
 - This function is located in `src/interfaces/ecpg/ecpglib/typename.c` at lines 73-106.
 - The function is particularly important for SQLDA (SQL Descriptor Area) operations where type information must be provided dynamically.
+
+## Simplified Source
+
+```c
+int ecpg_dynamic_type(Oid type) {
+    switch (type) {
+        case BOOLOID:
+            return SQL3_BOOLEAN;
+        case INT2OID:
+            return SQL3_SMALLINT;
+        case INT4OID:
+            return SQL3_INTEGER;
+        case TEXTOID:
+            return SQL3_CHARACTER;
+        case FLOAT4OID:
+            return SQL3_REAL;
+        case FLOAT8OID:
+            return SQL3_DOUBLE_PRECISION;
+        case BPCHAROID:
+            return SQL3_CHARACTER;
+        case VARCHAROID:
+            return SQL3_CHARACTER_VARYING;
+        case DATEOID:
+        case TIMEOID:
+        case TIMESTAMPOID:
+            return SQL3_DATE_TIME_TIMESTAMP;
+        case NUMERICOID:
+            return SQL3_NUMERIC;
+        default:
+            return 0;  // Unknown type
+    }
+}
+```

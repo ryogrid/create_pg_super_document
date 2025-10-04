@@ -49,3 +49,39 @@ Key operations performed:
 - The cnfa (compiled NFA) field is zeroed for new lacons
 - Part of PostgreSQL's advanced regex features supporting complex lookaround assertions
 - Dynamic array management ensures efficient memory usage for varying numbers of lookaround constraints
+
+## Simplified Source
+
+```c
+static int newlacon(struct vars *v, struct state *begin, struct state *end, int latype) {
+    int n;
+    struct subre *newlacons;
+    struct subre *sub;
+
+    // Determine next lacon index (start from 1, skip 0)
+    if (v->nlacons == 0) {
+        n = 1;
+        newlacons = (struct subre *) MALLOC(2 * sizeof(struct subre));
+    } else {
+        n = v->nlacons;
+        newlacons = (struct subre *) REALLOC(v->lacons, (n + 1) * sizeof(struct subre));
+    }
+
+    // Handle allocation failure
+    if (newlacons == NULL) {
+        ERR(REG_ESPACE);
+        return 0;
+    }
+
+    // Update array and initialize new lacon
+    v->lacons = newlacons;
+    v->nlacons = n + 1;
+    sub = &v->lacons[n];
+    sub->begin = begin;
+    sub->end = end;
+    sub->latype = latype;
+    ZAPCNFA(sub->cnfa);
+
+    return n;
+}
+```

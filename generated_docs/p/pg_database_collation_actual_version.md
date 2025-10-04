@@ -49,3 +49,42 @@ This function is typically used for monitoring collation version changes that mi
 - Used in conjunction with stored collation versions in pg_database.datcollversion for detecting mismatches
 - Part of PostgreSQL's collation version tracking system for maintaining data integrity
 - Function follows PostgreSQL's function call convention using PG_FUNCTION_ARGS framework
+
+## Simplified Source
+
+```c
+Datum
+pg_database_collation_actual_version(PG_FUNCTION_ARGS)
+{
+    Oid dbid = PG_GETARG_OID(0);
+    HeapTuple tp;
+    char datlocprovider;
+    Datum datum;
+    char *version;
+
+    // Look up database record
+    tp = SearchSysCache1(DATABASEOID, ObjectIdGetDatum(dbid));
+    if (!HeapTupleIsValid(tp))
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                       errmsg("database with OID %u does not exist", dbid)));
+
+    // Get collation provider type
+    datlocprovider = ((Form_pg_database) GETSTRUCT(tp))->datlocprovider;
+
+    // Get appropriate locale field based on provider
+    if (datlocprovider == COLLPROVIDER_LIBC)
+        datum = SysCacheGetAttrNotNull(DATABASEOID, tp, Anum_pg_database_datcollate);
+    else
+        datum = SysCacheGetAttrNotNull(DATABASEOID, tp, Anum_pg_database_datlocale);
+
+    // Get actual version from collation provider
+    version = get_collation_actual_version(datlocprovider, TextDatumGetCString(datum));
+
+    ReleaseSysCache(tp);
+
+    if (version)
+        PG_RETURN_TEXT_P(cstring_to_text(version));
+    else
+        PG_RETURN_NULL();
+}
+```

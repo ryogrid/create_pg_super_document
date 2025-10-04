@@ -50,3 +50,41 @@ The function generates deterministic salt based on the username using the cluste
 - Error messages are kept generic to avoid information disclosure
 - The stored_key and server_key are intentionally zeroed since mock authentication will always fail
 - Uses deterministic salt generation to ensure consistent behavior across multiple authentication attempts with the same username
+
+## Simplified Source
+
+```c
+static void mock_scram_secret(const char *username, pg_cryptohash_type *hash_type,
+                              int *iterations, int *key_length, char **salt,
+                              uint8 *stored_key, uint8 *server_key) {
+    char *raw_salt;
+    char *encoded_salt;
+    int encoded_len;
+
+    // Use SCRAM-SHA-256 for mock authentication
+    *hash_type = PG_SHA256;
+    *key_length = SCRAM_SHA_256_KEY_LEN;
+
+    // Generate deterministic salt based on username
+    raw_salt = scram_mock_salt(username, *hash_type, *key_length);
+    if (raw_salt == NULL)
+        elog(ERROR, "could not encode salt");
+
+    // Base64 encode the salt
+    encoded_len = pg_b64_enc_len(SCRAM_DEFAULT_SALT_LEN);
+    encoded_salt = (char *) palloc(encoded_len + 1);
+    encoded_len = pg_b64_encode(raw_salt, SCRAM_DEFAULT_SALT_LEN,
+                                encoded_salt, encoded_len);
+
+    if (encoded_len < 0)
+        elog(ERROR, "could not encode salt");
+    encoded_salt[encoded_len] = '\0';
+
+    *salt = encoded_salt;
+    *iterations = SCRAM_SHA_256_DEFAULT_ITERATIONS;
+
+    // Zero out keys since mock authentication will fail
+    memset(stored_key, 0, SCRAM_MAX_KEY_LEN);
+    memset(server_key, 0, SCRAM_MAX_KEY_LEN);
+}
+```

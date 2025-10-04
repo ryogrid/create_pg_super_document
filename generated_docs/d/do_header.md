@@ -50,3 +50,78 @@ The function constructs borders by calculating total width needed, including fie
 - Standard format includes decorative borders above and below headers
 - Field separator characters are converted to '+' characters in border strings
 - Handles both left-aligned (text) and right-aligned (numeric) column headers
+
+## Simplified Source
+
+```c
+static char *do_header(FILE *fout, const PQprintOpt *po, const int nFields, int *fieldMax,
+                       const char **fieldNames, unsigned char *fieldNotNum,
+                       const int fs_len, const PGresult *res) {
+    char *border = NULL;
+
+    // Handle HTML3 format
+    if (po->html3) {
+        fputs("<tr>", fout);
+    } else {
+        // Calculate total width and allocate border string
+        int tot = 0;
+        for (int n = 0; n < nFields; n++)
+            tot += fieldMax[n] + fs_len + (po->standard ? 2 : 0);
+        if (po->standard) tot += fs_len * 2 + 2;
+
+        border = malloc(tot + 1);
+        if (!border) return NULL;
+
+        // Build border string with dashes and plus signs
+        char *p = border;
+        if (po->standard) {
+            for (char *fs = po->fieldSep; *fs++; *p++ = '+');
+        }
+        for (int j = 0; j < nFields; j++) {
+            for (int len = fieldMax[j] + (po->standard ? 2 : 0); len--; *p++ = '-');
+            if (po->standard || (j + 1) < nFields) {
+                for (char *fs = po->fieldSep; *fs++; *p++ = '+');
+            }
+        }
+        *p = '\0';
+
+        if (po->standard) fprintf(fout, "%s\n", border);
+    }
+
+    // Print field separator for standard format
+    if (po->standard) fputs(po->fieldSep, fout);
+
+    // Print column headers
+    for (int j = 0; j < nFields; j++) {
+        const char *s = PQfname(res, j);
+
+        if (po->html3) {
+            fprintf(fout, "<th align=\"%s\">%s</th>",
+                    fieldNotNum[j] ? "left" : "right", fieldNames[j]);
+        } else {
+            // Update field width if header is wider than data
+            int n = strlen(s);
+            if (n > fieldMax[j]) fieldMax[j] = n;
+
+            // Print aligned header
+            if (po->standard) {
+                fprintf(fout, fieldNotNum[j] ? " %-*s " : " %*s ", fieldMax[j], s);
+            } else {
+                fprintf(fout, fieldNotNum[j] ? "%-*s" : "%*s", fieldMax[j], s);
+            }
+
+            if (po->standard || (j + 1) < nFields)
+                fputs(po->fieldSep, fout);
+        }
+    }
+
+    // Close header row
+    if (po->html3) {
+        fputs("</tr>\n", fout);
+    } else {
+        fprintf(fout, "\n%s\n", border);
+    }
+
+    return border;
+}
+```

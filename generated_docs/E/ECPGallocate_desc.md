@@ -46,3 +46,51 @@ This function creates a new SQL descriptor structure, initializing all its field
 - This function is part of the ECPG (Embedded SQL in C) library for PostgreSQL
 - Thread-safe as evidenced by usage in thread-descriptor tests
 - The function is typically called by ECPG-generated code when processing ALLOCATE DESCRIPTOR SQL statements
+
+## Simplified Source
+
+```c
+bool ECPGallocate_desc(int line, const char *name) {
+    struct descriptor *new;
+    struct sqlca_t *sqlca = ECPGget_sqlca();
+
+    // Basic validation
+    if (sqlca == NULL) {
+        ecpg_raise(line, ECPG_OUT_OF_MEMORY, ECPG_SQLSTATE_ECPG_OUT_OF_MEMORY, NULL);
+        return false;
+    }
+
+    ecpg_init_sqlca(sqlca);
+
+    // Allocate new descriptor structure
+    new = (struct descriptor *)ecpg_alloc(sizeof(struct descriptor), line);
+    if (!new)
+        return false;
+
+    // Allocate memory for descriptor name
+    new->name = ecpg_alloc(strlen(name) + 1, line);
+    if (!new->name) {
+        ecpg_free(new);
+        return false;
+    }
+
+    // Initialize descriptor fields
+    new->next = get_descriptors();
+    new->count = -1;
+    new->items = NULL;
+
+    // Create empty PostgreSQL result
+    new->result = PQmakeEmptyPGresult(NULL, 0);
+    if (!new->result) {
+        ecpg_free(new->name);
+        ecpg_free(new);
+        ecpg_raise(line, ECPG_OUT_OF_MEMORY, ECPG_SQLSTATE_ECPG_OUT_OF_MEMORY, NULL);
+        return false;
+    }
+
+    // Set name and add to global descriptor list
+    strcpy(new->name, name);
+    set_descriptors(new);
+    return true;
+}
+```

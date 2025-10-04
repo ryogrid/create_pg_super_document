@@ -35,3 +35,26 @@ The function provides error handling by checking the validity of the interval co
 - Output string length is limited to MAXDATELEN + 1 characters
 - Part of the ECPG pgtypes library providing client-side PostgreSQL data type support
 - Complementary function to PGTYPESinterval_from_asc for bidirectional conversion
+
+## Simplified Source
+
+```c
+char *PGTYPESinterval_to_asc(interval *span) {
+    struct tm tt, *tm = &tt;
+    fsec_t fsec;
+    char buf[MAXDATELEN + 1];
+    int IntervalStyle = INTSTYLE_POSTGRES_VERBOSE;
+
+    // Convert interval to tm structure
+    if (interval2tm(*span, tm, &fsec) != 0) {
+        errno = PGTYPES_INTVL_BAD_INTERVAL;
+        return NULL;
+    }
+
+    // Format the interval into string representation
+    EncodeInterval(tm, fsec, IntervalStyle, buf);
+
+    // Return a dynamically allocated copy of the string
+    return pgtypes_strdup(buf);
+}
+```

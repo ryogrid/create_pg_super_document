@@ -62,3 +62,47 @@ This function is particularly useful for one-time query execution where plan reu
 - The cursorOptions parameter allows fine-grained control over cursor behavior (scrollable, holdable, etc.).
 - More convenient than SPI_prepare followed by SPI_cursor_open when plan reuse is not needed.
 - The function is fully self-contained, handling all aspects of query processing from parsing to cursor creation.
+
+## Simplified Source
+
+```c
+Portal SPI_cursor_open_with_args(const char *name, const char *src, int nargs,
+                                 Oid *argtypes, Datum *Values, const char *Nulls,
+                                 bool read_only, int cursorOptions) {
+    Portal result;
+    _SPI_plan plan;
+    ParamListInfo paramLI;
+
+    // Validate arguments
+    if (src == NULL || nargs < 0)
+        elog(ERROR, "SPI_cursor_open_with_args called with invalid arguments");
+    if (nargs > 0 && (argtypes == NULL || Values == NULL))
+        elog(ERROR, "SPI_cursor_open_with_args called with missing parameters");
+
+    // Begin SPI operation
+    SPI_result = _SPI_begin_call(true);
+    if (SPI_result < 0)
+        elog(ERROR, "SPI_cursor_open_with_args called while not connected");
+
+    // Initialize temporary plan structure
+    memset(&plan, 0, sizeof(_SPI_plan));
+    plan.magic = _SPI_PLAN_MAGIC;
+    plan.cursor_options = cursorOptions;
+    plan.nargs = nargs;
+    plan.argtypes = argtypes;
+
+    // Convert parameters to internal format
+    paramLI = _SPI_convert_params(nargs, argtypes, Values, Nulls);
+
+    // Parse and prepare the query
+    _SPI_prepare_plan(src, &plan);
+
+    // Create the cursor
+    result = SPI_cursor_open_internal(name, &plan, paramLI, read_only);
+
+    // Clean up
+    _SPI_end_call(true);
+
+    return result;
+}
+```

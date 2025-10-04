@@ -53,3 +53,89 @@ The function automatically detects the format by checking if the string starts w
 - Corner case: A trailing '\' at the end of input is simply discarded
 - The returned buffer length does not include a null terminator (this is binary data)
 - Uses defensive malloc(1) instead of malloc(0) to avoid unportable behavior with zero-length inputs
+
+## Simplified Source
+
+```c
+unsigned char *PQunescapeBytea(const unsigned char *strtext, size_t *retbuflen)
+{
+    size_t strtextlen, buflen;
+    unsigned char *buffer, *tmpbuf;
+    size_t i, j;
+
+    if (strtext == NULL)
+        return NULL;
+
+    strtextlen = strlen((const char *) strtext);
+
+    // Handle hex format (\x followed by hex digit pairs)
+    if (strtext[0] == '\\' && strtext[1] == 'x') {
+        const unsigned char *s;
+        unsigned char *p;
+
+        buflen = (strtextlen - 2) / 2;
+        buffer = (unsigned char *) malloc(buflen > 0 ? buflen : 1);
+        if (buffer == NULL)
+            return NULL;
+
+        // Parse hex pairs, skipping bad input
+        s = strtext + 2;
+        p = buffer;
+        while (*s) {
+            char v1, v2;
+            v1 = get_hex(*s++);
+            if (!*s || v1 == (char) -1)
+                continue;
+            v2 = get_hex(*s++);
+            if (v2 != (char) -1)
+                *p++ = (v1 << 4) | v2;
+        }
+        buflen = p - buffer;
+    }
+    // Handle traditional escape format
+    else {
+        buffer = (unsigned char *) malloc(strtextlen + 1);
+        if (buffer == NULL)
+            return NULL;
+
+        for (i = j = 0; i < strtextlen;) {
+            switch (strtext[i]) {
+                case '\\':
+                    i++;
+                    if (strtext[i] == '\\') {
+                        // Double backslash becomes single backslash
+                        buffer[j++] = strtext[i++];
+                    } else {
+                        // Check for octal escape sequence (\ooo)
+                        if ((ISFIRSTOCTDIGIT(strtext[i])) &&
+                            (ISOCTDIGIT(strtext[i + 1])) &&
+                            (ISOCTDIGIT(strtext[i + 2]))) {
+                            int byte;
+                            byte = OCTVAL(strtext[i++]);
+                            byte = (byte << 3) + OCTVAL(strtext[i++]);
+                            byte = (byte << 3) + OCTVAL(strtext[i++]);
+                            buffer[j++] = byte;
+                        }
+                        // Unrecognized escape - ignore backslash, process next char normally
+                    }
+                    break;
+                default:
+                    // Copy regular character
+                    buffer[j++] = strtext[i++];
+                    break;
+            }
+        }
+        buflen = j;
+    }
+
+    // Shrink buffer to actual size needed
+    tmpbuf = realloc(buffer, buflen + 1);
+    if (!tmpbuf) {
+        free(buffer);
+        return NULL;
+    }
+
+    *retbuflen = buflen;
+    return tmpbuf;
+}
+```

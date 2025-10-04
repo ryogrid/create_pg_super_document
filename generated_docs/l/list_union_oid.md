@@ -37,3 +37,28 @@ The function includes assertions to verify that both input lists contain only OI
 - Order of elements follows list1 first, then unique elements from list2
 - Time complexity is O(n*m) where n and m are the sizes of the input lists due to membership testing
 - OIDs are PostgreSQL's internal object identifiers used to reference database objects
+
+## Simplified Source
+
+```c
+List *
+list_union_oid(const List *list1, const List *list2)
+{
+    // Verify both are OID lists
+    Assert(IsOidList(list1));
+    Assert(IsOidList(list2));
+
+    // Start with copy of first list
+    List *result = list_copy(list1);
+
+    // Add unique OIDs from second list
+    const ListCell *cell;
+    foreach(cell, list2) {
+        if (!list_member_oid(result, lfirst_oid(cell)))
+            result = lappend_oid(result, lfirst_oid(cell));
+    }
+
+    check_list_invariants(result);
+    return result;
+}
+```

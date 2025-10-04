@@ -40,3 +40,38 @@ The function is significantly simpler than PAM authentication because the BSD au
 - Properly manages memory by freeing the password string after use
 - Relies on system administrator configuration of BSD authentication policies for actual authentication mechanisms
 - The function doesn't require complex conversation handling like PAM since BSD auth handles prompting internally
+
+## Simplified Source
+
+```c
+// Simplified version of CheckBSDAuth
+static int CheckBSDAuth(Port *port, char *user) {
+    char *passwd;
+    int retval;
+
+    // Step 1: Request password from client
+    sendAuthRequest(port, AUTH_REQ_PASSWORD, NULL, 0);
+
+    // Step 2: Receive password packet
+    passwd = recv_password_packet(port);
+    if (passwd == NULL) {
+        return STATUS_EOF;  // Client didn't provide password
+    }
+
+    // Step 3: Authenticate using BSD auth system
+    // Note: auth_userokay overwrites password with zeroes for security
+    retval = auth_userokay(user, NULL, "auth-postgresql", passwd);
+
+    // Step 4: Clean up password memory
+    pfree(passwd);
+
+    // Step 5: Check authentication result
+    if (!retval) {
+        return STATUS_ERROR;  // Authentication failed
+    }
+
+    // Step 6: Set authenticated identity on success
+    set_authn_id(port, user);
+    return STATUS_OK;
+}
+```

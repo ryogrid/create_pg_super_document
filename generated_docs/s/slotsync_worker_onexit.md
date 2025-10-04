@@ -47,3 +47,32 @@ The function ensures that the startup process can properly detect when slot sync
 - The cleanup logic mirrors WalSndErrorCleanup() for consistency with other replication components
 - Essential for proper coordination with the startup process during database promotion
 - Uses spinlock protection when modifying shared memory state to ensure thread safety
+
+## Simplified Source
+
+```c
+static void slotsync_worker_onexit(int code, Datum arg)
+{
+    // Release any active replication slots
+    if (MyReplicationSlot != NULL)
+        ReplicationSlotRelease();
+
+    // Clean up temporary slots to prevent resource leaks
+    ReplicationSlotCleanup(false);
+
+    // Update shared memory state with spinlock protection
+    SpinLockAcquire(&SlotSyncCtx->mutex);
+
+    // Clear worker PID to indicate process is terminating
+    SlotSyncCtx->pid = InvalidPid;
+
+    // Reset syncing flag if process errored out during sync
+    if (syncing_slots)
+    {
+        SlotSyncCtx->syncing = false;
+        syncing_slots = false;
+    }
+
+    SpinLockRelease(&SlotSyncCtx->mutex);
+}
+```

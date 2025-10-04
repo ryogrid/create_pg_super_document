@@ -41,6 +41,30 @@ The function accumulates the total popcount across all processed chunks and byte
 ## Notes and Other Information
 - Automatically adapts processing strategy based on platform word size and buffer alignment
 - Uses efficient word-based processing when possible, falling back to byte-wise processing when necessary
-- Returns  to accommodate large buffer popcount results
+- Returns uint64 to accommodate large buffer popcount results
 - Part of PostgreSQL's buffer-oriented bit manipulation utilities
 - The alignment check ensures optimal performance by using word-sized operations when memory layout permits
+
+## Simplified Source
+
+```c
+static uint64 pg_popcount_slow(const char *buf, int bytes) {
+    uint64 total_bits = 0;
+
+    // Process aligned 8-byte chunks when possible
+    if (buf == (const char *) TYPEALIGN(8, buf)) {
+        const uint64 *words = (const uint64 *) buf;
+        while (bytes >= 8) {
+            total_bits += pg_popcount64_slow(*words++);
+            bytes -= 8;
+        }
+        buf = (const char *) words;
+    }
+
+    // Process remaining bytes using lookup table
+    while (bytes--)
+        total_bits += pg_number_of_ones[(unsigned char) *buf++];
+
+    return total_bits;
+}
+```

@@ -30,3 +30,20 @@ This is essential for preventing SQL injection and ensuring that user input cont
 
 ## Notes and Other Information
 The returned string must be freed by the caller. The function allocates memory for the worst-case scenario where every character might need escaping. Uses the current database connection (pset.db) for context-aware escaping that considers the connection's encoding and other settings.
+
+## Simplified Source
+```c
+static char *
+escape_string(const char *text)
+{
+    size_t text_length = strlen(text);
+
+    /* Allocate space for worst case escaping */
+    char *result = pg_malloc(text_length * 2 + 1);
+
+    /* Escape the string using libpq */
+    PQescapeStringConn(pset.db, result, text, text_length, NULL);
+
+    return result;  /* Caller must free */
+}
+```

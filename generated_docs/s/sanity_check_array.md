@@ -39,3 +39,19 @@ The function uses PostgreSQL's error reporting mechanism to throw appropriate er
 - The dual check for nulls (ARR_HASNULL && array_contains_nulls) ensures both metadata and actual content are validated
 - Error codes used follow PostgreSQL standards: ERRCODE_NULL_VALUE_NOT_ALLOWED and ERRCODE_DATA_EXCEPTION
 - Essential for maintaining data integrity in tidstore test operations where invalid TIDs could cause system corruption
+
+## Simplified Source
+
+```c
+static void
+sanity_check_array(ArrayType *ta)
+{
+    // Check for null values in array
+    if (ARR_HASNULL(ta) && array_contains_nulls(ta))
+        ereport(ERROR, "array must not contain nulls");
+
+    // Ensure array is one-dimensional or empty
+    if (ARR_NDIM(ta) > 1)
+        ereport(ERROR, "argument must be empty or one-dimensional array");
+}
+```

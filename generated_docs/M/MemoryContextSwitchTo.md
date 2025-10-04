@@ -32,3 +32,16 @@ MemoryContextSwitchTo is a fundamental memory management utility in PostgreSQL t
 - Typically used in conjunction with memory allocation functions
 - Located in src/include/utils/palloc.h:124-151
 - Common usage pattern: save old context, switch to new context, perform operations, restore old context
+
+## Simplified Source
+
+```c
+static inline MemoryContext
+MemoryContextSwitchTo(MemoryContext context)
+{
+    MemoryContext old = CurrentMemoryContext;
+
+    CurrentMemoryContext = context;
+    return old;
+}
+```

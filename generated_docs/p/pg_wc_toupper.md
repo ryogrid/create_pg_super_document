@@ -48,3 +48,39 @@ For ASCII characters (0-127), the function forces C locale behavior in most stra
 - Handles character range limitations properly, falling through from wide character to single-byte handling when needed
 - For characters outside the supported range of the current strategy, returns the original character unchanged
 - The function ensures predictable case conversion behavior across different PostgreSQL installations
+
+## Simplified Source
+
+```c
+static pg_wchar
+pg_wc_toupper(pg_wchar c)
+{
+    switch (pg_regex_strategy) {
+        case PG_REGEX_LOCALE_C:
+            // ASCII characters use C locale behavior
+            if (c <= 127)
+                return pg_ascii_toupper((unsigned char) c);
+            return c;
+
+        case PG_REGEX_BUILTIN:
+            // Use Unicode uppercase conversion
+            return unicode_uppercase_simple(c);
+
+        case PG_REGEX_LOCALE_WIDE:
+        case PG_REGEX_LOCALE_1BYTE:
+            // Force C behavior for ASCII, locale-specific for others
+            if (c <= 127)
+                return pg_ascii_toupper((unsigned char) c);
+            if (c <= UCHAR_MAX)
+                return toupper((unsigned char) c);
+            return c;
+
+        case PG_REGEX_LOCALE_ICU:
+            // Use ICU conversion if available
+            return u_toupper(c);
+
+        default:
+            return c;
+    }
+}
+```

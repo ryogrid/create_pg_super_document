@@ -37,3 +37,25 @@ This function creates a new Python exception class using the Python C API and pr
 - Used to create both base exceptions (Error, Fatal, SPIError) and specific SPI exceptions
 - Essential for establishing the exception hierarchy that allows PL/Python code to catch database errors
 - The function is defensive about reference counting to prevent memory management issues
+
+## Simplified Source
+
+```c
+static PyObject *PLy_create_exception(char *name, PyObject *base, PyObject *dict,
+                                      const char *modname, PyObject *mod) {
+    PyObject *exc;
+
+    // Create new Python exception
+    exc = PyErr_NewException(name, base, dict);
+    if (exc == NULL)
+        PLy_elog(ERROR, NULL);
+
+    // Add to module (manually increment refcount)
+    Py_INCREF(exc);
+    PyModule_AddObject(mod, modname, exc);
+
+    // Extra refcount for permanent storage
+    Py_INCREF(exc);
+    return exc;
+}
+```

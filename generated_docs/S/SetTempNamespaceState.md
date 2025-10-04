@@ -38,3 +38,26 @@ This function assigns temporary namespace OIDs from a leader process to a parall
 - Deliberately leaves myTempNamespaceSubID as InvalidSubTransactionId to prevent workers from attempting to destroy the namespace
 - Invalidates search path caches to ensure proper reconstruction with the new namespace state
 - Part of PostgreSQL's parallel query execution infrastructure
+
+## Simplified Source
+
+```c
+void SetTempNamespaceState(Oid tempNamespaceId, Oid tempToastNamespaceId)
+{
+    // Verify worker hasn't created its own temporary namespaces
+    Assert(myTempNamespace == InvalidOid);
+    Assert(myTempToastNamespace == InvalidOid);
+    Assert(myTempNamespaceSubID == InvalidSubTransactionId);
+
+    // Assign the leader's namespace OIDs to this worker
+    myTempNamespace = tempNamespaceId;
+    myTempToastNamespace = tempToastNamespaceId;
+
+    // Leave myTempNamespaceSubID as InvalidSubTransactionId so worker
+    // won't try to destroy the namespace
+
+    // Invalidate search path cache to force rebuild with new namespaces
+    baseSearchPathValid = false;
+    searchPathCacheValid = false;
+}
+```

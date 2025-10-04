@@ -50,3 +50,32 @@ The function includes compile-time assertions to ensure that the SHA256 digest l
 - **Memory Management**: Uses static buffer to avoid memory allocation overhead during authentication
 - **Compile-time Safety**: Includes static assertions to ensure buffer sizes are adequate for the salt requirements
 - **Error Handling**: Returns NULL on cryptographic operation failure, allowing caller to handle errors appropriately
+
+## Simplified Source
+
+```c
+static char *
+scram_mock_salt(const char *username, pg_cryptohash_type hash_type, int key_length)
+{
+    pg_cryptohash_ctx *ctx;
+    static uint8 sha_digest[SCRAM_MAX_KEY_LEN];
+    char *mock_auth_nonce = GetMockAuthenticationNonce();
+
+    // Generate deterministic salt using SHA256 hash
+    // Combines username with cluster-level secret nonce
+    Assert(hash_type == PG_SHA256);
+
+    ctx = pg_cryptohash_create(hash_type);
+    if (pg_cryptohash_init(ctx) < 0 ||
+        pg_cryptohash_update(ctx, (uint8 *) username, strlen(username)) < 0 ||
+        pg_cryptohash_update(ctx, (uint8 *) mock_auth_nonce, MOCK_AUTH_NONCE_LEN) < 0 ||
+        pg_cryptohash_final(ctx, sha_digest, key_length) < 0)
+    {
+        pg_cryptohash_free(ctx);
+        return NULL;
+    }
+    pg_cryptohash_free(ctx);
+
+    return (char *) sha_digest;
+}
+```

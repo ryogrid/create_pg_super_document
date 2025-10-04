@@ -42,3 +42,41 @@ The function uses PostgreSQL's standard tokenization mechanism (`pg_strtok`) and
 - Companion to `_outBitmapset` in outfuncs.c for serialization
 - Part of PostgreSQL's broader node system used extensively in query planning and execution
 - The function builds the Bitmapset incrementally, starting with NULL and adding members one by one
+
+## Simplified Source
+
+```c
+static Bitmapset *
+_readBitmapset(void)
+{
+    Bitmapset *result = NULL;
+    READ_TEMP_LOCALS();
+
+    // Validate structure start: expect "("
+    token = pg_strtok(&length);
+    if (!token || length != 1 || token[0] != '(')
+        elog(ERROR, "incomplete Bitmapset structure");
+
+    // Expect "b" marker
+    token = pg_strtok(&length);
+    if (!token || length != 1 || token[0] != 'b')
+        elog(ERROR, "unrecognized token");
+
+    // Read integers until closing ")"
+    for (;;) {
+        token = pg_strtok(&length);
+        if (!token)
+            elog(ERROR, "unterminated Bitmapset structure");
+        if (length == 1 && token[0] == ')')
+            break;
+
+        // Parse integer and add to bitmapset
+        int val = (int) strtol(token, &endptr, 10);
+        if (endptr != token + length)
+            elog(ERROR, "unrecognized integer");
+        result = bms_add_member(result, val);
+    }
+
+    return result;
+}
+```

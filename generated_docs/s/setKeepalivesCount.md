@@ -35,3 +35,38 @@ The function ensures that negative values are normalized to 0, and only attempts
 - Returns 1 on success, 0 on failure
 - Part of the PostgreSQL libpq connection establishment and configuration process
 - Works in conjunction with other keepalive settings like keepalive interval and idle time to provide robust connection monitoring
+
+## Simplified Source
+
+```c
+static int setKeepalivesCount(PGconn *conn) {
+    int count;
+
+    // Skip if parameter not provided - use system default
+    if (conn->keepalives_count == NULL)
+        return 1;
+
+    // Parse and validate the count parameter
+    if (!pqParseIntParam(conn->keepalives_count, &count, conn, "keepalives_count"))
+        return 0;
+
+    // Normalize negative values to 0
+    if (count < 0)
+        count = 0;
+
+#ifdef TCP_KEEPCNT
+    // Configure TCP keepalive probe count on supported platforms
+    if (setsockopt(conn->sock, IPPROTO_TCP, TCP_KEEPCNT,
+                   (char *) &count, sizeof(count)) < 0) {
+        char sebuf[PG_STRERROR_R_BUFLEN];
+
+        libpq_append_conn_error(conn, "%s(%s) failed: %s",
+                                "setsockopt", "TCP_KEEPCNT",
+                                SOCK_STRERROR(SOCK_ERRNO, sebuf, sizeof(sebuf)));
+        return 0;
+    }
+#endif
+
+    return 1;
+}
+```

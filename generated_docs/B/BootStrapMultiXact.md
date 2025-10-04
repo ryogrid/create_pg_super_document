@@ -41,3 +41,36 @@ This bootstrap process is essential for the MultiXact system to function correct
 - The function assumes MultiXacts directories exist and shared memory is initialized
 - Uses exclusive locks to ensure atomic initialization of both offset and member logs
 - Critical for proper MultiXact subsystem functionality in PostgreSQL's MVCC implementation
+
+## Simplified Source
+
+```c
+void
+BootStrapMultiXact(void)
+{
+    int slotno;
+    LWLock *lock;
+
+    // Initialize the offsets log
+    lock = SimpleLruGetBankLock(MultiXactOffsetCtl, 0);
+    LWLockAcquire(lock, LW_EXCLUSIVE);
+
+    // Create and zero the first page of the offsets log
+    slotno = ZeroMultiXactOffsetPage(0, false);
+    SimpleLruWritePage(MultiXactOffsetCtl, slotno);
+    Assert(!MultiXactOffsetCtl->shared->page_dirty[slotno]);
+
+    LWLockRelease(lock);
+
+    // Initialize the members log
+    lock = SimpleLruGetBankLock(MultiXactMemberCtl, 0);
+    LWLockAcquire(lock, LW_EXCLUSIVE);
+
+    // Create and zero the first page of the members log
+    slotno = ZeroMultiXactMemberPage(0, false);
+    SimpleLruWritePage(MultiXactMemberCtl, slotno);
+    Assert(!MultiXactMemberCtl->shared->page_dirty[slotno]);
+
+    LWLockRelease(lock);
+}
+```

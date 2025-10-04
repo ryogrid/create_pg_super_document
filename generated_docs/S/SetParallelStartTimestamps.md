@@ -34,3 +34,18 @@ SetParallelStartTimestamps is specifically designed for parallel worker processe
 - Part of PostgreSQL's parallel query execution infrastructure
 - Located in src/backend/access/transam/xact.c:856-866
 - The timestamps ensure that all workers see a consistent view of time within the transaction
+
+## Simplified Source
+
+```c
+void
+SetParallelStartTimestamps(TimestampTz xact_ts, TimestampTz stmt_ts)
+{
+    // Ensure this is only called in parallel workers
+    Assert(IsParallelWorker());
+
+    // Inherit timestamps from parent transaction
+    xactStartTimestamp = xact_ts;
+    stmtStartTimestamp = stmt_ts;
+}
+```

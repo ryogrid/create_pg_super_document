@@ -54,3 +54,116 @@ This is a comprehensive function that manages the entire lifecycle of PL/Perl fu
 - Manages memory contexts to prevent leaks during compilation errors
 - Located at src/pl/plperl/plperl.c:2718-2997
 - Critical function in PL/Perl's function management infrastructure
+
+## Simplified Source
+
+```c
+static plperl_proc_desc *
+compile_plperl_function(Oid fn_oid, bool is_trigger, bool is_event_trigger)
+{
+    HeapTuple procTup;
+    Form_pg_proc procStruct;
+    plperl_proc_key proc_key;
+    plperl_proc_ptr *proc_ptr;
+    plperl_proc_desc *prodesc = NULL;
+    MemoryContext proc_cxt = NULL;
+    plperl_interp_desc *oldinterp = plperl_active_interp;
+
+    // Get function metadata from system catalog
+    procTup = SearchSysCache1(PROCOID, ObjectIdGetDatum(fn_oid));
+    if (!HeapTupleIsValid(procTup))
+        elog(ERROR, "cache lookup failed for function %u", fn_oid);
+    procStruct = (Form_pg_proc) GETSTRUCT(procTup);
+
+    // Try to find cached function (first plperl, then plperlu)
+    proc_key.proc_id = fn_oid;
+    proc_key.is_trigger = is_trigger;
+    proc_key.user_id = GetUserId();
+
+    proc_ptr = hash_search(plperl_proc_hash, &proc_key, HASH_FIND, NULL);
+    if (validate_plperl_function(proc_ptr, procTup)) {
+        ReleaseSysCache(procTup);
+        return proc_ptr->proc_ptr;
+    }
+
+    // Try plperlu cache
+    proc_key.user_id = InvalidOid;
+    proc_ptr = hash_search(plperl_proc_hash, &proc_key, HASH_FIND, NULL);
+    if (validate_plperl_function(proc_ptr, procTup)) {
+        ReleaseSysCache(procTup);
+        return proc_ptr->proc_ptr;
+    }
+
+    // Set up error handling for compilation
+    ErrorContextCallback plperl_error_context;
+    plperl_error_context.callback = plperl_compile_callback;
+    plperl_error_context.previous = error_context_stack;
+    plperl_error_context.arg = NameStr(procStruct->proname);
+    error_context_stack = &plperl_error_context;
+
+    PG_TRY();
+    {
+        // Create memory context for function data
+        proc_cxt = AllocSetContextCreate(TopMemoryContext,
+                                       "PL/Perl function",
+                                       ALLOCSET_SMALL_SIZES);
+
+        // Create and initialize function descriptor
+        MemoryContext oldcontext = MemoryContextSwitchTo(proc_cxt);
+        prodesc = (plperl_proc_desc *) palloc0(sizeof(plperl_proc_desc));
+        prodesc->proname = pstrdup(NameStr(procStruct->proname));
+        prodesc->fn_cxt = proc_cxt;
+        prodesc->fn_refcount = 0;
+        // ... set up basic metadata ...
+
+        // Process return type (for non-triggers)
+        if (!is_trigger && !is_event_trigger) {
+            // Validate return type and set up conversion functions
+            // ... return type processing ...
+        }
+
+        // Process argument types (for non-triggers)
+        if (!is_trigger && !is_event_trigger) {
+            // Validate argument types and set up conversion functions
+            // ... argument type processing ...
+        }
+
+        // Get function source code
+        Datum prosrcdatum = SysCacheGetAttrNotNull(PROCOID, procTup, Anum_pg_proc_prosrc);
+        char *proc_source = TextDatumGetCString(prosrcdatum);
+
+        // Compile in appropriate Perl interpreter
+        select_perl_context(prodesc->lanpltrusted);
+        prodesc->interp = plperl_active_interp;
+        plperl_create_sub(prodesc, proc_source, fn_oid);
+        activate_interpreter(oldinterp);
+
+        pfree(proc_source);
+
+        if (!prodesc->reference)
+            elog(ERROR, "could not create PL/Perl internal procedure");
+
+        // Add to hash table
+        proc_key.user_id = prodesc->lanpltrusted ? GetUserId() : InvalidOid;
+        proc_ptr = hash_search(plperl_proc_hash, &proc_key, HASH_ENTER, NULL);
+        proc_ptr->proc_ptr = prodesc;
+        increment_prodesc_refcount(prodesc);
+    }
+    PG_CATCH();
+    {
+        // Clean up on error
+        if (prodesc && prodesc->reference)
+            free_plperl_function(prodesc);
+        else if (proc_cxt)
+            MemoryContextDelete(proc_cxt);
+
+        activate_interpreter(oldinterp);
+        PG_RE_THROW();
+    }
+    PG_END_TRY();
+
+    error_context_stack = plperl_error_context.previous;
+    ReleaseSysCache(procTup);
+    return prodesc;
+}
+```

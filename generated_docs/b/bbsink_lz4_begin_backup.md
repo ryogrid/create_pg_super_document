@@ -34,3 +34,34 @@ The function ensures that the output buffer size accommodates the worst-case com
 - Carefully manages buffer sizes to meet LZ4 compression requirements
 - Rounds output buffer to BLCKSZ boundaries for PostgreSQL block alignment
 - Part of the sink operation callbacks, called through function pointer indirection
+
+## Simplified Source
+
+```c
+static void
+bbsink_lz4_begin_backup(bbsink *sink)
+{
+    bbsink_lz4 *mysink = (bbsink_lz4 *) sink;
+    size_t output_buffer_bound;
+    LZ4F_preferences_t *prefs = &mysink->prefs;
+
+    // Initialize LZ4 compression preferences
+    memset(prefs, 0, sizeof(LZ4F_preferences_t));
+    prefs->frameInfo.blockSizeID = LZ4F_max256KB;  // Use 256KB blocks
+    prefs->compressionLevel = mysink->compresslevel;
+
+    // Allocate input buffer for this sink
+    mysink->base.bbs_buffer = palloc(mysink->base.bbs_buffer_length);
+
+    // Calculate required output buffer size for compression
+    output_buffer_bound = LZ4F_compressBound(mysink->base.bbs_buffer_length,
+                                           &mysink->prefs);
+
+    // Round up to BLCKSZ boundary for PostgreSQL alignment
+    output_buffer_bound = output_buffer_bound + BLCKSZ -
+        (output_buffer_bound % BLCKSZ);
+
+    // Initialize next sink in chain with calculated buffer size
+    bbsink_begin_backup(sink->bbs_next, sink->bbs_state, output_buffer_bound);
+}
+```

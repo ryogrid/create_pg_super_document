@@ -44,3 +44,48 @@ Like ExtendMultiXactOffset, this function is called while holding MultiXactGenLo
 - Only initializes pages at their first entry for optimal performance
 - Uses SLRU bank locking for fine-grained concurrency control
 - Creates XLOG entries for crash recovery consistency
+
+## Simplified Source
+
+```c
+static void
+ExtendMultiXactMember(MultiXactOffset offset, int nmembers)
+{
+    // Process members that may span multiple pages
+    while (nmembers > 0) {
+        int flagsoff;
+        int flagsbit;
+        uint32 difference;
+
+        // Check if we're at the first entry of a new page
+        flagsoff = MXOffsetToFlagsOffset(offset);
+        flagsbit = MXOffsetToFlagsBitShift(offset);
+        if (flagsoff == 0 && flagsbit == 0) {
+            int64 pageno;
+            LWLock *lock;
+
+            pageno = MXOffsetToMemberPage(offset);
+            lock = SimpleLruGetBankLock(MultiXactMemberCtl, pageno);
+
+            LWLockAcquire(lock, LW_EXCLUSIVE);
+
+            // Zero the page and create XLOG entry
+            ZeroMultiXactMemberPage(pageno, true);
+
+            LWLockRelease(lock);
+        }
+
+        // Calculate remaining items on current page
+        if (offset + MAX_MEMBERS_IN_LAST_MEMBERS_PAGE < offset) {
+            // Handle wraparound case for last page of last segment
+            difference = MaxMultiXactOffset - offset + 1;
+        } else {
+            difference = MULTIXACT_MEMBERS_PER_PAGE - offset % MULTIXACT_MEMBERS_PER_PAGE;
+        }
+
+        // Advance to next page
+        nmembers -= difference;
+        offset += difference;
+    }
+}
+```

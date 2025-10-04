@@ -52,3 +52,62 @@ For transactional messages, the function uses the standard snapshot management t
 - The function validates that only XLOG_LOGICAL_MESSAGE records are processed
 - Messages contain a prefix and content, both of which are passed to the reorder buffer
 - Origin filtering prevents infinite loops in multi-master replication scenarios
+
+## Simplified Source
+
+```c
+void logicalmsg_decode(LogicalDecodingContext *ctx, XLogRecordBuffer *buf) {
+    SnapBuild *builder = ctx->snapshot_builder;
+    XLogReaderState *r = buf->record;
+    TransactionId xid = XLogRecGetXid(r);
+    uint8 info = XLogRecGetInfo(r) & ~XLR_INFO_MASK;
+    RepOriginId origin_id = XLogRecGetOrigin(r);
+    Snapshot snapshot = NULL;
+    xl_logical_message *message;
+
+    // Validate record type
+    if (info != XLOG_LOGICAL_MESSAGE)
+        elog(ERROR, "unexpected RM_LOGICALMSG_ID record type: %u", info);
+
+    // Process transaction ID
+    ReorderBufferProcessXid(ctx->reorder, XLogRecGetXid(r), buf->origptr);
+
+    // Check if we have a valid snapshot for decoding
+    if (SnapBuildCurrentState(builder) < SNAPBUILD_FULL_SNAPSHOT)
+        return;
+
+    message = (xl_logical_message *) XLogRecGetData(r);
+
+    // Filter by database and origin
+    if (message->dbId != ctx->slot->data.database || FilterByOrigin(ctx, origin_id))
+        return;
+
+    // Handle transactional vs non-transactional messages
+    if (message->transactional) {
+        if (!SnapBuildProcessChange(builder, xid, buf->origptr))
+            return;
+    } else {
+        if (SnapBuildCurrentState(builder) != SNAPBUILD_CONSISTENT ||
+            SnapBuildXactNeedsSkip(builder, buf->origptr))
+            return;
+    }
+
+    // Skip decoding in fast-forward mode but mark processing required
+    if (ctx->fast_forward) {
+        if (!message->transactional)
+            ctx->processing_required = true;
+        return;
+    }
+
+    // Get snapshot for non-transactional messages
+    if (!message->transactional)
+        snapshot = SnapBuildGetOrBuildSnapshot(builder);
+
+    // Queue the message in reorder buffer
+    ReorderBufferQueueMessage(ctx->reorder, xid, snapshot, buf->endptr,
+                              message->transactional,
+                              message->message,
+                              message->message_size,
+                              message->message + message->prefix_size);
+}
+```

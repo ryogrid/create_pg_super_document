@@ -55,3 +55,99 @@ The function serves as a critical validation phase that ensures the test specifi
 - Provides detailed error messages for various validation failures
 - Memory cleanup is performed by freeing the temporary allsteps array
 - The  field in steps is utilized to track which steps are referenced in permutations
+
+## Simplified Source
+
+```c
+static void check_testspec(TestSpec *testspec) {
+    // Collect all steps from all sessions
+    int nallsteps = 0;
+    for (int i = 0; i < testspec->nsessions; i++)
+        nallsteps += testspec->sessions[i]->nsteps;
+
+    Step **allsteps = pg_malloc(nallsteps * sizeof(Step *));
+    int k = 0;
+    for (int i = 0; i < testspec->nsessions; i++) {
+        for (int j = 0; j < testspec->sessions[i]->nsteps; j++)
+            allsteps[k++] = testspec->sessions[i]->steps[j];
+    }
+
+    // Sort steps by name for validation and lookup
+    qsort(allsteps, nallsteps, sizeof(Step *), step_qsort_cmp);
+
+    // Verify all step names are unique
+    for (int i = 1; i < nallsteps; i++) {
+        if (strcmp(allsteps[i - 1]->name, allsteps[i]->name) == 0) {
+            fprintf(stderr, "duplicate step name: %s\n", allsteps[i]->name);
+            exit(1);
+        }
+    }
+
+    // Set session index in each step
+    for (int i = 0; i < testspec->nsessions; i++) {
+        Session *session = testspec->sessions[i];
+        for (int j = 0; j < session->nsteps; j++)
+            session->steps[j]->session = i;
+    }
+
+    // Process manually-specified permutations
+    for (int i = 0; i < testspec->npermutations; i++) {
+        Permutation *perm = testspec->permutations[i];
+
+        // Link permutation steps to actual steps
+        for (int j = 0; j < perm->nsteps; j++) {
+            PermutationStep *pstep = perm->steps[j];
+            Step **found = bsearch(pstep->name, allsteps, nallsteps,
+                                 sizeof(Step *), step_bsearch_cmp);
+            if (found == NULL) {
+                fprintf(stderr, "undefined step \"%s\" specified in permutation\n",
+                        pstep->name);
+                exit(1);
+            }
+            pstep->step = *found;
+            pstep->step->used = true;
+        }
+
+        // Resolve blocker dependencies
+        for (int j = 0; j < perm->nsteps; j++) {
+            PermutationStep *pstep = perm->steps[j];
+            for (int k = 0; k < pstep->nblockers; k++) {
+                PermutationStepBlocker *blocker = pstep->blockers[k];
+                if (blocker->blocktype == PSB_ONCE) continue;
+
+                // Find blocker step in this permutation
+                blocker->step = NULL;
+                for (int n = 0; n < perm->nsteps; n++) {
+                    if (strcmp(perm->steps[n]->name, blocker->stepname) == 0) {
+                        blocker->step = perm->steps[n]->step;
+                        break;
+                    }
+                }
+
+                if (blocker->step == NULL) {
+                    fprintf(stderr, "undefined blocking step \"%s\" referenced\n",
+                            blocker->stepname);
+                    exit(1);
+                }
+
+                // Validate no self-session blocking
+                if (blocker->step->session == pstep->step->session) {
+                    fprintf(stderr, "step \"%s\" cannot block on its own session\n",
+                            pstep->name);
+                    exit(1);
+                }
+            }
+        }
+    }
+
+    // Warn about unused steps in manual permutations
+    if (testspec->permutations) {
+        for (int i = 0; i < nallsteps; i++) {
+            if (!allsteps[i]->used)
+                fprintf(stderr, "unused step name: %s\n", allsteps[i]->name);
+        }
+    }
+
+    free(allsteps);
+}
+```

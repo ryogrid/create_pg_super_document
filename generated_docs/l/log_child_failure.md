@@ -35,3 +35,29 @@ This function provides comprehensive error reporting for failed test processes i
 - Helps distinguish between test logic failures and system-level issues (crashes, signals)
 - Part of PostgreSQL's comprehensive test failure reporting system
 - Only called for non-zero exit statuses (successful tests don't trigger this function)
+
+## Simplified Source
+
+```c
+static void log_child_failure(int exitstatus) {
+    // Process exited normally with error code
+    if (WIFEXITED(exitstatus)) {
+        diag("(test process exited with exit code %d)",
+             WEXITSTATUS(exitstatus));
+    }
+    // Process was terminated by signal
+    else if (WIFSIGNALED(exitstatus)) {
+        #ifdef WIN32
+            diag("(test process was terminated by exception 0x%X)",
+                 WTERMSIG(exitstatus));
+        #else
+            diag("(test process was terminated by signal %d: %s)",
+                 WTERMSIG(exitstatus), pg_strsignal(WTERMSIG(exitstatus)));
+        #endif
+    }
+    // Unknown failure mode
+    else {
+        diag("(test process exited with unrecognized status %d)", exitstatus);
+    }
+}
+```

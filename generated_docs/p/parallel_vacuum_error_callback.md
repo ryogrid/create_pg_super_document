@@ -47,3 +47,33 @@ The error messages are designed to match those used in the sequential vacuum err
 - Only provides context for active vacuum operations (bulk delete and cleanup phases)
 - The ParallelVacuumState structure is updated with current index name and status before operations begin
 - Essential for debugging parallel vacuum issues by pinpointing exactly which index was being processed when an error occurred
+
+## Simplified Source
+
+```c
+static void
+parallel_vacuum_error_callback(void *arg)
+{
+    ParallelVacuumState *errinfo = arg;
+
+    switch (errinfo->status)
+    {
+        case PARALLEL_INDVAC_STATUS_NEED_BULKDELETE:
+            errcontext("while vacuuming index \"%s\" of relation \"%s.%s\"",
+                       errinfo->indname,
+                       errinfo->relnamespace,
+                       errinfo->relname);
+            break;
+        case PARALLEL_INDVAC_STATUS_NEED_CLEANUP:
+            errcontext("while cleaning up index \"%s\" of relation \"%s.%s\"",
+                       errinfo->indname,
+                       errinfo->relnamespace,
+                       errinfo->relname);
+            break;
+        case PARALLEL_INDVAC_STATUS_INITIAL:
+        case PARALLEL_INDVAC_STATUS_COMPLETED:
+        default:
+            return;
+    }
+}
+```

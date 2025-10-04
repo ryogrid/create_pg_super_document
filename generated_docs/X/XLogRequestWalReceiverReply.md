@@ -31,3 +31,15 @@ The function provides a clean interface for other parts of the recovery system t
 - The actual walreceiver reply sending is handled elsewhere in the recovery loop
 - Part of the streaming replication infrastructure that enables hot standby functionality
 - The flag set by this function is checked and processed by the main recovery loop
+
+## Simplified Source
+
+```c
+void XLogRequestWalReceiverReply(void) {
+    // Signal that walreceiver should send a reply to primary
+    doRequestWalReceiverReply = true;
+}
+```
+
+**Simplified Logic:**
+1. **Set Flag**: Simply sets a global flag to indicate that the walreceiver should send a reply message to the primary server during the next recovery loop iteration

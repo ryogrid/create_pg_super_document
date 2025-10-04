@@ -47,3 +47,41 @@ The scanning logic remains fundamentally the same: iterate through the hash chai
 - The outer tuple must be pre-loaded in econtext->ecxt_outertuple before calling
 - Maintains the same interface as ExecScanHashBucket for easy substitution in parallel contexts
 - Thread-safe iteration is critical for correctness in multi-worker environments
+
+## Simplified Source
+
+```c
+bool ExecParallelScanHashBucket(HashJoinState *hjstate, ExprContext *econtext)
+{
+    ExprState *hjclauses = hjstate->hashclauses;
+    HashJoinTable hashtable = hjstate->hj_HashTable;
+    HashJoinTuple hashTuple = hjstate->hj_CurTuple;
+    uint32 hashvalue = hjstate->hj_CurHashValue;
+
+    // Determine starting point using parallel-safe functions
+    if (hashTuple != NULL)
+        hashTuple = ExecParallelHashNextTuple(hashtable, hashTuple); // Continue from previous
+    else
+        hashTuple = ExecParallelHashFirstTuple(hashtable, hjstate->hj_CurBucketNo); // Start bucket
+
+    // Scan through hash chain looking for matches
+    while (hashTuple != NULL) {
+        if (hashTuple->hashvalue == hashvalue) {
+            // Store tuple in execution slot for evaluation
+            TupleTableSlot *inntuple = ExecStoreMinimalTuple(
+                HJTUPLE_MINTUPLE(hashTuple), hjstate->hj_HashTupleSlot, false);
+            econtext->ecxt_innertuple = inntuple;
+
+            // Test join conditions
+            if (ExecQualAndReset(hjclauses, econtext)) {
+                hjstate->hj_CurTuple = hashTuple;
+                return true; // Found match
+            }
+        }
+        // Use parallel-safe navigation
+        hashTuple = ExecParallelHashNextTuple(hashtable, hashTuple);
+    }
+
+    return false; // No match found
+}
+```

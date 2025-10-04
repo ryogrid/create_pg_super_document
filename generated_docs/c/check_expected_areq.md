@@ -54,3 +54,87 @@ The function implements multiple security checks: SSL certificate validation whe
 - Returns false and sets appropriate error messages when authentication requirements are not met
 - The function balances security with backward compatibility, particularly for partial SCRAM exchanges
 - Critical security function that helps prevent man-in-the-middle and authentication bypass attacks
+
+## Simplified Source
+
+```c
+static bool
+check_expected_areq(AuthRequest areq, PGconn *conn)
+{
+    bool result = true;
+    const char *reason = NULL;
+
+    // Check SSL certificate requirements
+    if (conn->sslcertmode[0] == 'r' && areq == AUTH_REQ_OK) {
+        if (!conn->ssl_cert_requested || !conn->ssl_cert_sent) {
+            // SSL certificate was required but not properly exchanged
+            libpq_append_conn_error(conn, "SSL certificate validation failed");
+            return false;
+        }
+    }
+
+    // Validate authentication method against user requirements
+    if (conn->require_auth) {
+        switch (areq) {
+            case AUTH_REQ_OK:
+                // Check if authentication was actually completed
+                if (!conn->auth_required || conn->client_finished_auth) {
+                    break; // Valid completion
+                }
+#ifdef ENABLE_GSS
+                if (auth_method_allowed(conn, AUTH_REQ_GSS) && conn->gssenc) {
+                    break; // GSS encryption provides implicit auth
+                }
+#endif
+                reason = "server did not complete authentication";
+                result = false;
+                break;
+
+            case AUTH_REQ_PASSWORD:
+            case AUTH_REQ_MD5:
+            case AUTH_REQ_GSS:
+            case AUTH_REQ_SASL:
+                // Check if this method is allowed
+                result = auth_method_allowed(conn, areq);
+                break;
+
+            default:
+                result = false;
+                break;
+        }
+    }
+
+    // Report authentication method failures
+    if (!result) {
+        if (!reason) {
+            reason = auth_method_description(areq);
+        }
+        libpq_append_conn_error(conn, "authentication requirement failed: %s", reason);
+        return false;
+    }
+
+    // Enforce channel binding requirements for SASL
+    if (conn->channel_binding[0] == 'r') {
+        switch (areq) {
+            case AUTH_REQ_SASL:
+            case AUTH_REQ_SASL_CONT:
+            case AUTH_REQ_SASL_FIN:
+                break; // SASL methods support channel binding
+
+            case AUTH_REQ_OK:
+                if (!conn->sasl || !conn->sasl->channel_bound(conn->sasl_state)) {
+                    libpq_append_conn_error(conn, "channel binding required but not completed");
+                    result = false;
+                }
+                break;
+
+            default:
+                libpq_append_conn_error(conn, "channel binding required but not supported");
+                result = false;
+                break;
+        }
+    }
+
+    return result;
+}
+```

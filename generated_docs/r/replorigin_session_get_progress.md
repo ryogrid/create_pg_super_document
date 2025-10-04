@@ -43,3 +43,26 @@ The optional flush parameter allows callers to ensure that all changes up to the
 - When flush=true, ensures WAL durability up to the local LSN before returning
 - Commonly used by replication workers to determine starting points for replication or to report progress
 - More efficient than general progress querying functions due to cached session state access
+
+## Simplified Source
+
+```c
+XLogRecPtr
+replorigin_session_get_progress(bool flush)
+{
+    XLogRecPtr remote_lsn;
+    XLogRecPtr local_lsn;
+
+    // Read LSN values under shared lock
+    LWLockAcquire(&session_replication_state->lock, LW_SHARED);
+    remote_lsn = session_replication_state->remote_lsn;
+    local_lsn = session_replication_state->local_lsn;
+    LWLockRelease(&session_replication_state->lock);
+
+    // Optionally flush WAL up to local LSN for durability
+    if (flush && local_lsn != InvalidXLogRecPtr)
+        XLogFlush(local_lsn);
+
+    return remote_lsn;
+}
+```

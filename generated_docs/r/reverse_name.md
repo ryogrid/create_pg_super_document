@@ -34,3 +34,27 @@ reverse_name is a PostgreSQL function that takes a C-string as input and returns
 - The algorithm first determines the actual string length (up to NAMEDATALEN), then reverses the characters by copying from end to beginning
 - Located in src/test/regress/regress.c, indicating it's primarily for testing purposes
 - Handles edge cases where strings may be exactly NAMEDATALEN characters long
+
+## Simplified Source
+
+```c
+Datum reverse_name(PG_FUNCTION_ARGS) {
+    // Get input string and allocate memory for reversed string
+    char *string = PG_GETARG_CSTRING(0);
+    char *new_string = palloc0(NAMEDATALEN);
+
+    // Find the actual length of the string (up to NAMEDATALEN)
+    int i;
+    for (i = 0; i < NAMEDATALEN && string[i]; ++i)
+        ;
+    if (i == NAMEDATALEN || !string[i])
+        --i;
+    int len = i;
+
+    // Copy characters in reverse order
+    for (; i >= 0; --i)
+        new_string[len - i] = string[i];
+
+    PG_RETURN_CSTRING(new_string);
+}
+```

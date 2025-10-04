@@ -43,3 +43,50 @@ The function processes both commit scenarios (XLOG_XACT_COMMIT and XLOG_XACT_COM
 - Both commit and abort paths use the same limit block logic since relations are removed in both cases
 - The parsing functions handle the complex task of extracting relation information from the packed WAL record format
 - Ensures that dropped relations don't cause issues in subsequent incremental backup operations
+
+## Simplified Source
+
+```c
+static void SummarizeXactRecord(XLogReaderState *xlogreader, BlockRefTable *brtab)
+{
+    uint8 info = XLogRecGetInfo(xlogreader) & ~XLR_INFO_MASK;
+    uint8 xact_info = info & XLOG_XACT_OPMASK;
+
+    if (xact_info == XLOG_XACT_COMMIT || xact_info == XLOG_XACT_COMMIT_PREPARED) {
+        // Handle transaction commit with relation removal
+        xl_xact_commit *xlrec = (xl_xact_commit *) XLogRecGetData(xlogreader);
+        xl_xact_parsed_commit parsed;
+
+        // Parse commit record to get list of removed relations
+        ParseCommitRecord(XLogRecGetInfo(xlogreader), xlrec, &parsed);
+
+        // Set limit block to 0 for all forks of removed relations
+        for (int i = 0; i < parsed.nrels; ++i) {
+            for (ForkNumber forknum = 0; forknum <= MAX_FORKNUM; ++forknum) {
+                if (forknum != FSM_FORKNUM) {
+                    BlockRefTableSetLimitBlock(brtab, &parsed.xlocators[i],
+                                             forknum, 0);
+                }
+            }
+        }
+    }
+    else if (xact_info == XLOG_XACT_ABORT || xact_info == XLOG_XACT_ABORT_PREPARED) {
+        // Handle transaction abort with relation removal
+        xl_xact_abort *xlrec = (xl_xact_abort *) XLogRecGetData(xlogreader);
+        xl_xact_parsed_abort parsed;
+
+        // Parse abort record to get list of removed relations
+        ParseAbortRecord(XLogRecGetInfo(xlogreader), xlrec, &parsed);
+
+        // Set limit block to 0 for all forks of removed relations
+        for (int i = 0; i < parsed.nrels; ++i) {
+            for (ForkNumber forknum = 0; forknum <= MAX_FORKNUM; ++forknum) {
+                if (forknum != FSM_FORKNUM) {
+                    BlockRefTableSetLimitBlock(brtab, &parsed.xlocators[i],
+                                             forknum, 0);
+                }
+            }
+        }
+    }
+}
+```

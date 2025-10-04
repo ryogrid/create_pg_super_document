@@ -33,3 +33,25 @@ This function performs a recursive traversal of the NFA starting from state s, c
 
 ## Notes and Other Information
 This is a simple but essential utility function that ensures proper cleanup after complex NFA traversal operations. It includes stack overflow protection like other recursive traversal functions in the regex engine. The function is designed to be safe to call multiple times on the same NFA portion, as it checks if tmp is already NULL before recursing. This cleanup is crucial for maintaining the integrity of the NFA data structure and preventing interference between different algorithmic phases of regex compilation.
+
+## Simplified Source
+```c
+static void cleartraverse(struct nfa *nfa, struct state *s) {
+    // Stack overflow protection
+    if (STACK_TOO_DEEP(nfa->v->re)) {
+        NERR(REG_ETOOBIG);
+        return;
+    }
+
+    // Skip if already cleared
+    if (s->tmp == NULL)
+        return;
+
+    // Clear current state's tmp pointer
+    s->tmp = NULL;
+
+    // Recursively clear all outgoing states
+    for (struct arc *a = s->outs; a != NULL; a = a->outchain)
+        cleartraverse(nfa, a->to);
+}
+```

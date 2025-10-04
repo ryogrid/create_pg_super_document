@@ -48,3 +48,98 @@ The function builds the `$_TD` hash containing trigger metadata and row data, ex
 - Manages Perl reference counting for proper memory cleanup
 - Uses error context callbacks for better error reporting with function names
 - Validates trigger return values and provides clear error messages for invalid returns
+
+## Simplified Source
+
+```c
+static Datum plperl_trigger_handler(PG_FUNCTION_ARGS) {
+    plperl_proc_desc *prodesc;
+    SV *perlret;
+    Datum retval = (Datum) 0;
+    SV *svTD;
+    HV *hvTD;
+    ErrorContextCallback pl_error_context;
+    TriggerData *tdata = (TriggerData *) fcinfo->context;
+    char *stroid;
+
+    // Connect to SPI and register trigger data for transition tables
+    if (SPI_connect() != SPI_OK_CONNECT)
+        elog(ERROR, "could not connect to SPI manager");
+    SPI_register_trigger_data(tdata);
+
+    // Compile trigger function and set up execution context
+    prodesc = compile_plperl_function(fcinfo->flinfo->fn_oid, true, false);
+    current_call_data->prodesc = prodesc;
+    increment_prodesc_refcount(prodesc);
+
+    // Set up error reporting context
+    pl_error_context.callback = plperl_exec_callback;
+    pl_error_context.previous = error_context_stack;
+    pl_error_context.arg = prodesc->proname;
+    error_context_stack = &pl_error_context;
+
+    activate_interpreter(prodesc->interp);
+
+    // Build $_TD hash with trigger data
+    svTD = plperl_trigger_build_args(fcinfo);
+    perlret = plperl_call_perl_trigger_func(prodesc, fcinfo, svTD);
+    hvTD = (HV *) SvRV(svTD);
+
+    // Process trigger return value
+    if (perlret == NULL || !SvOK(perlret)) {
+        // undef return: proceed with original operation
+        retval = (Datum) tdata->tg_trigtuple;
+    } else if (SvROK(perlret)) {
+        // Hash reference: modify the tuple
+        HV *hvNew = (HV *) SvRV(perlret);
+        HeapTuple trv;
+
+        if (SvTYPE(hvNew) != SVt_PVHV)
+            ereport(ERROR, (errcode(ERRCODE_DATATYPE_MISMATCH),
+                           errmsg("trigger \"'%s'\" for table \"'%s'\" failed: "
+                                  "function returned reference to %s instead of reference to hash",
+                                  prodesc->proname,
+                                  RelationGetRelationName(tdata->tg_relation),
+                                  sv_reftype(SvRV(perlret), 0))));
+
+        // Build modified tuple from Perl hash
+        trv = plperl_modify_tuple(hvTD, tdata, retval);
+        retval = (Datum) trv;
+    } else {
+        // String return: check for "SKIP"
+        stroid = sv2cstr(perlret);
+        if (strcmp(stroid, "SKIP") == 0)
+            retval = (Datum) NULL;  // Skip operation
+        else if (strcmp(stroid, "MODIFY") == 0) {
+            // Use modified data from $_TD hash
+            SV **svp = hv_fetch_string(hvTD, "new");
+            HV *hvNew;
+
+            if (!svp)
+                ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                               errmsg("$_TD->{new} does not exist")));
+            if (!SvOK(*svp) || !SvROK(*svp) || SvTYPE(SvRV(*svp)) != SVt_PVHV)
+                ereport(ERROR, (errcode(ERRCODE_DATATYPE_MISMATCH),
+                               errmsg("$_TD->{new} is not a hash reference")));
+
+            hvNew = (HV *) SvRV(*svp);
+            retval = (Datum) plperl_modify_tuple(hvTD, tdata, retval);
+        } else {
+            ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                           errmsg("result of PL/Perl trigger function must be undef, "
+                                  "\"'SKIP'\", \"'MODIFY'\", or reference to hash")));
+        }
+        pfree(stroid);
+    }
+
+    // Cleanup and return
+    error_context_stack = pl_error_context.previous;
+    SvREFCNT_dec_current(perlret);
+    SvREFCNT_dec_current(svTD);
+
+    if (SPI_finish() != SPI_OK_FINISH)
+        elog(ERROR, "SPI_finish() failed");
+
+    return retval;
+}
+```

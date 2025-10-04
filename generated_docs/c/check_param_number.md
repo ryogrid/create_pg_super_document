@@ -32,3 +32,23 @@ This function performs range validation for parameter numbers in PostgreSQL prep
 - Part of libpq's internal validation system for safe parameter metadata access
 - Static function, not exposed in the public libpq API
 - Works with PGresult structures that contain parameter information from prepared statements
+
+## Simplified Source
+
+```c
+static int check_param_number(const PGresult *res, int param_num) {
+    // Fail fast if no result object
+    if (!res)
+        return false;
+
+    // Validate parameter number is within range
+    if (param_num < 0 || param_num >= res->numParameters) {
+        pqInternalNotice(&res->noticeHooks,
+                         "parameter number %d is out of range 0..%d",
+                         param_num, res->numParameters - 1);
+        return false;
+    }
+
+    return true;
+}
+```

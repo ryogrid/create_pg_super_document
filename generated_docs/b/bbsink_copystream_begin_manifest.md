@@ -29,3 +29,16 @@ This function initiates the backup manifest transmission by sending a CopyData p
 - Part of the bbsink copystream implementation for PostgreSQL base backups
 - Sends only a type indicator byte 'm' to mark the start of manifest transmission
 - Located in src/backend/backup/basebackup_copy.c:260-272
+
+## Simplified Source
+
+```c
+static void bbsink_copystream_begin_manifest(bbsink *sink) {
+    StringInfoData buf;
+
+    // Send CopyData message with manifest indicator
+    pq_beginmessage(&buf, PqMsg_CopyData);
+    pq_sendbyte(&buf, 'm');  // 'm' = Manifest type
+    pq_endmessage(&buf);
+}
+```

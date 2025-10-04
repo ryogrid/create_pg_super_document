@@ -46,3 +46,36 @@ The function:
 - Handles both expected results (match/no match) and error conditions appropriately
 - Works with wide character data as required by Spencer's regex engine
 - Located in src/test/modules/test_regex/test_regex.c:202-249
+
+## Simplified Source
+
+```c
+static bool test_re_execute(regex_t *re, pg_wchar *data, int data_len,
+                           int start_search, rm_detail_t *details,
+                           int nmatch, regmatch_t *pmatch, int eflags) {
+    int regexec_result;
+    char errMsg[100];
+
+    // Initialize match locations to indicate no match
+    details->rm_extend.rm_so = -1;
+    details->rm_extend.rm_eo = -1;
+    for (int i = 0; i < nmatch; i++) {
+        pmatch[i].rm_so = -1;
+        pmatch[i].rm_eo = -1;
+    }
+
+    // Execute regex pattern
+    regexec_result = pg_regexec(re, data, data_len, start_search,
+                               details, nmatch, pmatch, eflags);
+
+    // Handle execution errors (not including "no match")
+    if (regexec_result != REG_OKAY && regexec_result != REG_NOMATCH) {
+        pg_regerror(regexec_result, re, errMsg, sizeof(errMsg));
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_REGULAR_EXPRESSION),
+                 errmsg("regular expression failed: %s", errMsg)));
+    }
+
+    return (regexec_result == REG_OKAY);
+}
+```

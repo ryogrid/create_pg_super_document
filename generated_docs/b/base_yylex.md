@@ -44,3 +44,110 @@ For Unicode tokens, it processes escape sequences using either a specified escap
 - The filter approach is more efficient than trying to recognize multi-word tokens directly in the scanner
 - Critical for maintaining PostgreSQL's grammar as LALR(1) while supporting complex SQL constructs
 - Unicode processing includes validation of escape characters and proper identifier truncation according to PostgreSQL rules
+
+## Simplified Source
+
+```c
+int base_yylex(YYSTYPE *lvalp, YYLTYPE *llocp, core_yyscan_t yyscanner) {
+    base_yy_extra_type *yyextra = pg_yyget_extra(yyscanner);
+    int cur_token, next_token, cur_token_length;
+    YYLTYPE cur_yylloc;
+
+    // Get current token (either cached lookahead or new from core lexer)
+    if (yyextra->have_lookahead) {
+        cur_token = yyextra->lookahead_token;
+        lvalp->core_yystype = yyextra->lookahead_yylval;
+        *llocp = yyextra->lookahead_yylloc;
+        yyextra->have_lookahead = false;
+    } else {
+        cur_token = core_yylex(&(lvalp->core_yystype), llocp, yyscanner);
+    }
+
+    // Check if token requires lookahead processing
+    switch (cur_token) {
+        case FORMAT: cur_token_length = 6; break;
+        case NOT: cur_token_length = 3; break;
+        case NULLS_P: cur_token_length = 5; break;
+        case WITH: cur_token_length = 4; break;
+        case WITHOUT: cur_token_length = 7; break;
+        case UIDENT:
+        case USCONST:
+            cur_token_length = strlen(yyextra->core_yy_extra.scanbuf + *llocp);
+            break;
+        default:
+            return cur_token;  // No lookahead needed
+    }
+
+    // Set up for lookahead processing
+    yyextra->lookahead_end = yyextra->core_yy_extra.scanbuf + *llocp + cur_token_length;
+    cur_yylloc = *llocp;
+
+    // Get next token for lookahead
+    next_token = core_yylex(&(yyextra->lookahead_yylval), llocp, yyscanner);
+    yyextra->lookahead_token = next_token;
+    yyextra->lookahead_yylloc = *llocp;
+    *llocp = cur_yylloc;
+
+    // Restore token state
+    yyextra->lookahead_hold_char = *(yyextra->lookahead_end);
+    *(yyextra->lookahead_end) = '\0';
+    yyextra->have_lookahead = true;
+
+    // Apply lookahead-based token replacement
+    switch (cur_token) {
+        case FORMAT:
+            if (next_token == JSON) cur_token = FORMAT_LA;
+            break;
+        case NOT:
+            if (next_token == BETWEEN || next_token == IN_P ||
+                next_token == LIKE || next_token == ILIKE || next_token == SIMILAR)
+                cur_token = NOT_LA;
+            break;
+        case NULLS_P:
+            if (next_token == FIRST_P || next_token == LAST_P)
+                cur_token = NULLS_LA;
+            break;
+        case WITH:
+            if (next_token == TIME || next_token == ORDINALITY)
+                cur_token = WITH_LA;
+            break;
+        case WITHOUT:
+            if (next_token == TIME) cur_token = WITHOUT_LA;
+            break;
+        case UIDENT:
+        case USCONST:
+            // Process Unicode escape sequences
+            if (next_token == UESCAPE) {
+                // Handle UESCAPE followed by string literal
+                cur_yylloc = *llocp;
+                *(yyextra->lookahead_end) = yyextra->lookahead_hold_char;
+                next_token = core_yylex(&(yyextra->lookahead_yylval), llocp, yyscanner);
+
+                if (next_token != SCONST)
+                    scanner_yyerror("UESCAPE must be followed by a simple string literal", yyscanner);
+
+                const char *escstr = yyextra->lookahead_yylval.str;
+                if (strlen(escstr) != 1 || !check_uescapechar(escstr[0]))
+                    scanner_yyerror("invalid Unicode escape character", yyscanner);
+
+                *llocp = cur_yylloc;
+                lvalp->core_yystype.str = str_udeescape(lvalp->core_yystype.str, escstr[0], *llocp, yyscanner);
+                yyextra->have_lookahead = false;
+            } else {
+                // Use default escape character
+                lvalp->core_yystype.str = str_udeescape(lvalp->core_yystype.str, '\\', *llocp, yyscanner);
+            }
+
+            // Convert to appropriate token type
+            if (cur_token == UIDENT) {
+                truncate_identifier(lvalp->core_yystype.str, strlen(lvalp->core_yystype.str), true);
+                cur_token = IDENT;
+            } else {
+                cur_token = SCONST;
+            }
+            break;
+    }
+
+    return cur_token;
+}
+```

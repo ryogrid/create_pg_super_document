@@ -39,3 +39,37 @@ This function provides a testing interface for writing data to SLRU (Simple Log-
 - The function marks pages as dirty to ensure they are written to disk
 - Includes assertions to verify internal consistency of page number mapping
 - Part of the SLRU testing infrastructure for validating write operations
+
+## Simplified Source
+
+```c
+Datum test_slru_page_write(PG_FUNCTION_ARGS)
+{
+    int64 pageno = PG_GETARG_INT64(0);
+    char *data = text_to_cstring(PG_GETARG_TEXT_PP(1));
+    int slotno;
+    LWLock *lock = SimpleLruGetBankLock(TestSlruCtl, pageno);
+
+    // Acquire exclusive lock for page
+    LWLockAcquire(lock, LW_EXCLUSIVE);
+
+    // Allocate and zero page in SLRU
+    slotno = SimpleLruZeroPage(TestSlruCtl, pageno);
+
+    // Verify page mapping consistency
+    Assert(TestSlruCtl->shared->page_number[slotno] == pageno);
+
+    // Mark page as dirty and valid for writing
+    TestSlruCtl->shared->page_dirty[slotno] = true;
+    TestSlruCtl->shared->page_status[slotno] = SLRU_PAGE_VALID;
+
+    // Copy data to page buffer (limited to page size)
+    strncpy(TestSlruCtl->shared->page_buffer[slotno], data, BLCKSZ - 1);
+
+    // Write page to disk and release lock
+    SimpleLruWritePage(TestSlruCtl, slotno);
+    LWLockRelease(lock);
+
+    PG_RETURN_VOID();
+}
+```

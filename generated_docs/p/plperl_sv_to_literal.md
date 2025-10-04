@@ -34,3 +34,37 @@ This function serves as a bridge between Perl and PostgreSQL type systems by con
 - Requires SPI (Server Programming Interface) usage to be allowed in the current context
 - The returned string is allocated in the current memory context and should be managed accordingly
 - Essential for PL/Perl ability to return properly formatted values to PostgreSQL
+
+## Simplified Source
+
+```c
+char *
+plperl_sv_to_literal(SV *sv, char *fqtypename)
+{
+    // Ensure SPI usage is allowed
+    check_spi_usage_allowed();
+
+    // Convert type name string to PostgreSQL type OID
+    Oid typid = DirectFunctionCall1(regtypein, CStringGetDatum(fqtypename));
+    if (!OidIsValid(typid)) {
+        ereport(ERROR, "lookup failed for type %s", fqtypename);
+    }
+
+    // Convert Perl SV to PostgreSQL Datum
+    bool isnull;
+    Datum datum = plperl_sv_to_datum(sv, typid, -1, NULL, NULL, InvalidOid, &isnull);
+
+    // Return NULL for SQL NULL values
+    if (isnull) {
+        return NULL;
+    }
+
+    // Get the output function for this type
+    Oid typoutput;
+    bool typisvarlena;
+    getTypeOutputInfo(typid, &typoutput, &typisvarlena);
+
+    // Convert datum to string using the type's output function
+    return OidOutputFunctionCall(typoutput, datum);
+}
+```

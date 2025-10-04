@@ -56,3 +56,63 @@ For most expression types, the function reads a predefined name field, but for g
 - Always reads left expression (lexpr), right expression (rexpr), and location information regardless of expression type
 - Part of PostgreSQL's expression tree deserialization system used for query plan caching and parallel execution
 - Error handling includes the actual unrecognized token in the error message for debugging
+
+## Simplified Source
+
+```c
+static A_Expr *
+_readA_Expr(void)
+{
+    READ_LOCALS(A_Expr);
+
+    token = pg_strtok(&length);
+
+    // Parse expression kind from token
+    if (length == 3 && strncmp(token, "ANY", 3) == 0) {
+        local_node->kind = AEXPR_OP_ANY;
+        READ_NODE_FIELD(name);
+    } else if (length == 3 && strncmp(token, "ALL", 3) == 0) {
+        local_node->kind = AEXPR_OP_ALL;
+        READ_NODE_FIELD(name);
+    } else if (length == 8 && strncmp(token, "DISTINCT", 8) == 0) {
+        local_node->kind = AEXPR_DISTINCT;
+        READ_NODE_FIELD(name);
+    } else if (length == 12 && strncmp(token, "NOT_DISTINCT", 12) == 0) {
+        local_node->kind = AEXPR_NOT_DISTINCT;
+        READ_NODE_FIELD(name);
+    } else if (length == 6 && strncmp(token, "NULLIF", 6) == 0) {
+        local_node->kind = AEXPR_NULLIF;
+        READ_NODE_FIELD(name);
+    } else if (length == 2 && strncmp(token, "IN", 2) == 0) {
+        local_node->kind = AEXPR_IN;
+        READ_NODE_FIELD(name);
+    } else if (length == 4 && strncmp(token, "LIKE", 4) == 0) {
+        local_node->kind = AEXPR_LIKE;
+        READ_NODE_FIELD(name);
+    } else if (length == 5 && strncmp(token, "ILIKE", 5) == 0) {
+        local_node->kind = AEXPR_ILIKE;
+        READ_NODE_FIELD(name);
+    } else if (length == 7 && strncmp(token, "SIMILAR", 7) == 0) {
+        local_node->kind = AEXPR_SIMILAR;
+        READ_NODE_FIELD(name);
+    } else if (length == 7 && strncmp(token, "BETWEEN", 7) == 0) {
+        local_node->kind = AEXPR_BETWEEN;
+        READ_NODE_FIELD(name);
+    } else if (length == 11 && strncmp(token, "NOT_BETWEEN", 11) == 0) {
+        local_node->kind = AEXPR_NOT_BETWEEN;
+        READ_NODE_FIELD(name);
+    } else if (length == 5 && strncmp(token, ":name", 5) == 0) {
+        local_node->kind = AEXPR_OP;
+        local_node->name = nodeRead(NULL, 0);
+    } else {
+        elog(ERROR, "unrecognized A_Expr kind: \"%.*s\"", length, token);
+    }
+
+    // Read left and right expressions
+    READ_NODE_FIELD(lexpr);
+    READ_NODE_FIELD(rexpr);
+    READ_LOCATION_FIELD(location);
+
+    READ_DONE();
+}
+```

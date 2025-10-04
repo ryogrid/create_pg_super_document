@@ -41,3 +41,73 @@ The function performs comprehensive setup including SPI connection establishment
 - Implements proper exception handling to ensure cleanup of Python state and memory contexts
 - The function always returns void (PG_RETURN_VOID) as inline blocks don't produce return values
 - Note in code mentions that SPI_finish() happens in plpy_exec.c, which is described as "dubious design"
+
+## Simplified Source
+
+```c
+Datum
+plpython3_inline_handler(PG_FUNCTION_ARGS)
+{
+    LOCAL_FCINFO(fake_fcinfo, 0);
+    InlineCodeBlock *codeblock = (InlineCodeBlock *) DatumGetPointer(PG_GETARG_DATUM(0));
+    FmgrInfo flinfo;
+    PLyProcedure proc;
+    PLyExecutionContext *exec_ctx;
+    ErrorContextCallback plerrcontext;
+
+    // Initialize PL/Python environment
+    PLy_initialize();
+
+    // Establish SPI connection (atomic or non-atomic based on codeblock)
+    if (SPI_connect_ext(codeblock->atomic ? 0 : SPI_OPT_NONATOMIC) != SPI_OK_CONNECT)
+        elog(ERROR, "SPI_connect failed");
+
+    // Set up fake function call info for inline execution
+    MemSet(fcinfo, 0, SizeForFunctionCallInfo(0));
+    MemSet(&flinfo, 0, sizeof(flinfo));
+    fake_fcinfo->flinfo = &flinfo;
+    flinfo.fn_oid = InvalidOid;
+    flinfo.fn_mcxt = CurrentMemoryContext;
+
+    // Initialize procedure structure for inline block
+    MemSet(&proc, 0, sizeof(PLyProcedure));
+    proc.mcxt = AllocSetContextCreate(TopMemoryContext,
+                                      "__plpython_inline_block",
+                                      ALLOCSET_DEFAULT_SIZES);
+    proc.pyname = MemoryContextStrdup(proc.mcxt, "__plpython_inline_block");
+    proc.langid = codeblock->langOid;
+    proc.result.typoid = VOIDOID;  // Inline blocks return void
+
+    // Push execution context onto stack
+    exec_ctx = PLy_push_execution_context(codeblock->atomic);
+
+    PG_TRY();
+    {
+        // Set up error callback for inline execution
+        plerrcontext.callback = plpython_inline_error_callback;
+        plerrcontext.arg = exec_ctx;
+        plerrcontext.previous = error_context_stack;
+        error_context_stack = &plerrcontext;
+
+        // Compile and execute the Python code
+        PLy_procedure_compile(&proc, codeblock->source_text);
+        exec_ctx->curr_proc = &proc;
+        PLy_exec_function(fake_fcinfo, &proc);
+    }
+    PG_CATCH();
+    {
+        // Cleanup on error
+        PLy_pop_execution_context();
+        PLy_procedure_delete(&proc);
+        PyErr_Clear();
+        PG_RE_THROW();
+    }
+    PG_END_TRY();
+
+    // Normal cleanup
+    PLy_pop_execution_context();
+    PLy_procedure_delete(&proc);
+
+    PG_RETURN_VOID();
+}
+```

@@ -30,3 +30,36 @@ This function implements partition deduplication logic for PostgreSQL publicatio
 
 ## Notes and Other Information
 This function modifies the input list in-place by removing elements during iteration using the foreach_delete_current macro, which is the safe way to delete list elements while iterating. The function is essential for preventing duplicate replication of partition data when both parent tables and their partitions are explicitly added to a publication. It ensures that the publication system maintains an optimal and non-redundant set of relations for replication purposes.
+
+## Simplified Source
+
+```c
+static void filter_partitions(List *table_infos) {
+    ListCell *lc;
+
+    foreach(lc, table_infos) {
+        bool skip = false;
+        List *ancestors = NIL;
+        ListCell *lc2;
+        published_rel *table_info = (published_rel *) lfirst(lc);
+
+        // Get ancestors if this is a partition
+        if (get_rel_relispartition(table_info->relid))
+            ancestors = get_partition_ancestors(table_info->relid);
+
+        // Check if any ancestor is already in the table list
+        foreach(lc2, ancestors) {
+            Oid ancestor = lfirst_oid(lc2);
+
+            if (is_ancestor_member_tableinfos(ancestor, table_infos)) {
+                skip = true;  // Parent table already included
+                break;
+            }
+        }
+
+        // Remove partition if parent is already included
+        if (skip)
+            table_infos = foreach_delete_current(table_infos, lc);
+    }
+}
+```

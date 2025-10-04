@@ -36,4 +36,25 @@ The comment notes that this function's concept of "deep" copying is more thoroug
 - The copied list and all its elements are completely independent from the original
 - Safe to call with NIL input
 - Primarily used within PostgreSQL's general object copying framework
-- The "deep" semantics here are deeper than those used by 
+- The "deep" semantics here are deeper than those used by list_free_deep()
+
+## Simplified Source
+
+```c
+List *
+list_copy_deep(const List *oldlist)
+{
+    // Handle null input
+    if (oldlist == NIL)
+        return NIL;
+
+    // Create new list with same type and length
+    List *newlist = new_list(oldlist->type, oldlist->length);
+
+    // Deep copy each element using copyObject
+    for (int i = 0; i < newlist->length; i++)
+        lfirst(&newlist->elements[i]) = copyObjectImpl(lfirst(&oldlist->elements[i]));
+
+    return newlist;
+}
+``` 

@@ -42,3 +42,33 @@ This function initializes the sampling parameters for the SYSTEM table sampling 
 - Always enables pagemode visibility checking since all tuples on selected pages are scanned
 - Initializes nextblock to 0 and last tuple offset to InvalidOffsetNumber to start scanning from the beginning
 - The seed parameter enables repeatable sampling results when the same seed is used
+
+## Simplified Source
+
+```c
+static void system_beginsamplescan(SampleScanState *node,
+                                  Datum *params,
+                                  int nparams,
+                                  uint32 seed) {
+    SystemSamplerData *sampler = (SystemSamplerData *) node->tsm_state;
+    double percent = DatumGetFloat4(params[0]);
+
+    // Validate sampling percentage
+    if (percent < 0 || percent > 100 || isnan(percent)) {
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_TABLESAMPLE_ARGUMENT),
+                 errmsg("sample percentage must be between 0 and 100")));
+    }
+
+    // Calculate probability cutoff for block selection
+    double dcutoff = rint(((double) PG_UINT32_MAX + 1) * percent / 100);
+    sampler->cutoff = (uint64) dcutoff;
+    sampler->seed = seed;
+    sampler->nextblock = 0;                    // Start from first block
+    sampler->lt = InvalidOffsetNumber;         // No previous tuple
+
+    // Configure scan optimizations
+    node->use_bulkread = (percent >= 1);       // Bulk read for larger samples
+    node->use_pagemode = true;                 // Always use page-mode
+}
+```

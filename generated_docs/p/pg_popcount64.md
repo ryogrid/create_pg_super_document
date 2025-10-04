@@ -33,3 +33,12 @@ The function is part of PostgreSQL's bit manipulation utilities and is used thro
 - The actual bit counting is performed by pg_popcount64_slow, which uses compiler intrinsics (__builtin_popcountl or __builtin_popcountll) when available, falling back to a lookup table approach otherwise
 - This function is part of PostgreSQL's portable bit manipulation library in src/port/pg_bitutils.c
 - The function is declared in src/include/port/pg_bitutils.h and is available across the entire PostgreSQL codebase
+
+## Simplified Source
+
+```c
+int pg_popcount64(uint64 word) {
+    // Delegate to slow/portable implementation
+    return pg_popcount64_slow(word);
+}
+```

@@ -36,3 +36,23 @@ The  function is a PostgreSQL C function designed for use in regression testing 
 - Uses setenv() with overwrite flag set to 1, meaning it will replace existing environment variables
 - Located in src/test/regress/regress.c, indicating it's part of PostgreSQL's test infrastructure
 - Any failure in setting the environment variable or permission check results in an ERROR being raised
+
+## Simplified Source
+
+```c
+Datum regress_setenv(PG_FUNCTION_ARGS) {
+    // Extract variable name and value from function arguments
+    char *envvar = text_to_cstring(PG_GETARG_TEXT_PP(0));
+    char *envval = text_to_cstring(PG_GETARG_TEXT_PP(1));
+
+    // Security check: only superusers can modify environment
+    if (!superuser())
+        elog(ERROR, "must be superuser to change environment variables");
+
+    // Set environment variable, error if system call fails
+    if (setenv(envvar, envval, 1) != 0)
+        elog(ERROR, "could not set environment variable: %m");
+
+    PG_RETURN_VOID();
+}
+```

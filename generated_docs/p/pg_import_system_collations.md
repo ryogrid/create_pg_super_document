@@ -45,3 +45,101 @@ This function discovers and imports collations from multiple sources depending o
 - Part of PostgreSQL's internationalization and locale support system
 - Warnings are issued if no usable system locales are found on the platform
 - Uses expansible arrays for managing large numbers of locale aliases efficiently
+
+## Simplified Source
+
+```c
+Datum
+pg_import_system_collations(PG_FUNCTION_ARGS)
+{
+    Oid nspid = PG_GETARG_OID(0);
+    int ncreated = 0;
+
+    // Security and validation checks
+    if (!superuser())
+        ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                       errmsg("must be superuser to import system collations")));
+
+    if (!SearchSysCacheExists1(NAMESPACEOID, ObjectIdGetDatum(nspid)))
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_SCHEMA),
+                       errmsg("schema with OID %u does not exist", nspid)));
+
+    // Import libc collations from "locale -a" output
+#ifdef READ_LOCALE_A_OUTPUT
+    {
+        FILE *locale_a_handle;
+        char localebuf[LOCALE_NAME_BUFLEN];
+        int nvalid = 0;
+        CollAliasData *aliases;
+        int naliases = 0, maxaliases = 100;
+
+        // Execute "locale -a" and read available locales
+        aliases = palloc(maxaliases * sizeof(CollAliasData));
+        locale_a_handle = OpenPipeStream("locale -a", "r");
+
+        if (locale_a_handle)
+        {
+            while (fgets(localebuf, sizeof(localebuf), locale_a_handle))
+            {
+                // Process each locale, create collation and collect aliases
+                int enc = create_collation_from_locale(localebuf, nspid, &nvalid, &ncreated);
+
+                // Generate normalized aliases like "en_US" from "en_US.utf8"
+                if (enc >= 0 && normalize_libc_locale_name(alias, localebuf))
+                {
+                    // Store alias for later processing
+                    aliases[naliases++] = {pstrdup(localebuf), pstrdup(alias), enc};
+                }
+            }
+            ClosePipeStream(locale_a_handle);
+
+            // Sort and create alias collations
+            qsort(aliases, naliases, sizeof(CollAliasData), cmpaliases);
+            for (int i = 0; i < naliases; i++)
+            {
+                Oid collid = CollationCreate(aliases[i].alias, nspid, GetUserId(),
+                                           COLLPROVIDER_LIBC, true, aliases[i].enc,
+                                           aliases[i].localename, aliases[i].localename,
+                                           NULL, NULL, get_collation_actual_version(...),
+                                           true, true);
+                if (OidIsValid(collid))
+                    ncreated++;
+            }
+        }
+    }
+#endif
+
+    // Import ICU collations
+#ifdef USE_ICU
+    {
+        // Enumerate ICU locales including root locale
+        for (int i = -1; i < uloc_countAvailable(); i++)
+        {
+            const char *name = (i == -1) ? "" : uloc_getAvailable(i);
+            char *langtag = icu_language_tag(name, ERROR);
+
+            if (pg_is_ascii(langtag))
+            {
+                Oid collid = CollationCreate(psprintf("%s-x-icu", langtag),
+                                           nspid, GetUserId(), COLLPROVIDER_ICU,
+                                           true, -1, NULL, NULL, langtag, NULL,
+                                           get_collation_actual_version(...),
+                                           true, true);
+                if (OidIsValid(collid))
+                    ncreated++;
+            }
+        }
+    }
+#endif
+
+    // Import Windows system locales
+#ifdef ENUM_SYSTEM_LOCALE
+    {
+        CollParam param = {nspid, &ncreated, &nvalid};
+        EnumSystemLocalesEx(win32_read_locale, LOCALE_ALL, (LPARAM) &param, NULL);
+    }
+#endif
+
+    PG_RETURN_INT32(ncreated);
+}
+```

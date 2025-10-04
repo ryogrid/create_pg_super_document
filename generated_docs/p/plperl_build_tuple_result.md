@@ -51,3 +51,52 @@ The function handles missing columns gracefully by leaving them as NULL, but thr
 - [Hash](../H/Hash.md) iteration is reset at the end to ensure consistent state
 - All unspecified columns in the hash are set to NULL in the resulting tuple
 - This function is essential for PL/Perl functions that return composite types or records
+
+## Simplified Source
+
+```c
+static HeapTuple
+plperl_build_tuple_result(HV *perlhash, TupleDesc td)
+{
+    // Allocate arrays for values and null indicators
+    Datum *values = palloc0(sizeof(Datum) * td->natts);
+    bool *nulls = palloc(sizeof(bool) * td->natts);
+    memset(nulls, true, sizeof(bool) * td->natts);  // Initialize all as NULL
+
+    // Iterate through each key-value pair in the Perl hash
+    hv_iterinit(perlhash);
+    HE *hash_entry;
+    while ((hash_entry = hv_iternext(perlhash))) {
+        SV *perl_value = HeVAL(hash_entry);
+        char *column_name = hek2cstr(hash_entry);
+
+        // Find the column number for this key
+        int attr_num = SPI_fnumber(td, column_name);
+
+        // Validate column exists and is not a system attribute
+        if (attr_num == SPI_ERROR_NOATTRIBUTE) {
+            ereport(ERROR, "Perl hash contains nonexistent column");
+        }
+        if (attr_num <= 0) {
+            ereport(ERROR, "cannot set system attribute");
+        }
+
+        // Convert Perl value to PostgreSQL Datum
+        Form_pg_attribute attr = TupleDescAttr(td, attr_num - 1);
+        values[attr_num - 1] = plperl_sv_to_datum(perl_value,
+                                                  attr->atttypid,
+                                                  attr->atttypmod,
+                                                  NULL, NULL, InvalidOid,
+                                                  &nulls[attr_num - 1]);
+
+        pfree(column_name);
+    }
+
+    // Create the tuple from values and cleanup
+    HeapTuple tuple = heap_form_tuple(td, values, nulls);
+    pfree(values);
+    pfree(nulls);
+
+    return tuple;
+}
+```

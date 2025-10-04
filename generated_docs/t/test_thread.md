@@ -45,3 +45,41 @@ The function follows this sequence:
 - The function returns NULL upon completion, following standard thread function conventions
 - The number of iterations is controlled by a global variable 'iterations'
 - Located in src/interfaces/ecpg/test/expected/thread-thread.c:132-207
+
+## Simplified Source
+
+```c
+void *test_thread(void *arg) {
+    long threadnum = (intptr_t) arg;
+    int l_i;
+    char l_connection[128];
+
+    // Build unique connection name for this thread
+    snprintf(l_connection, sizeof(l_connection), "thread_%03ld", threadnum);
+
+    // Connect to test database
+    ECPGconnect("ecpg1_regression", NULL, NULL, l_connection, 0);
+    if (sqlca.sqlcode != 0) {
+        printf("%s: ERROR: cannot connect to database!\n", l_connection);
+        return NULL;
+    }
+
+    // Begin transaction
+    ECPGtrans(l_connection, "begin");
+
+    // Insert test data for configured iterations
+    for (l_i = 1; l_i <= iterations; l_i++) {
+        ECPGdo("insert into test_thread (thread, iteration) values ($1, $2)",
+               l_connection, l_i);
+        if (sqlca.sqlcode != 0) {
+            printf("%s: ERROR: insert failed!\n", l_connection);
+        }
+    }
+
+    // Commit and disconnect
+    ECPGtrans(l_connection, "commit");
+    ECPGdisconnect(l_connection);
+
+    return NULL;
+}
+```

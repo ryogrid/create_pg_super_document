@@ -25,3 +25,14 @@ This function performs the reverse operation of DatumGetPolygonP, converting a P
 
 ## Notes and Other Information
 This function is essential for PostgreSQL's geometric indexing and query processing infrastructure, enabling seamless integration between polygon data types and the database's internal storage and retrieval mechanisms. It's defined in src/include/utils/geo_decls.h:257-260. The function is commonly used in geometric operations where polygon data needs to be returned as query results or passed between different layers of the system.
+
+## Simplified Source
+
+```c
+static inline Datum
+PolygonPGetDatum(const POLYGON *X)
+{
+    // Convert polygon pointer to Datum for PostgreSQL's type system
+    return PointerGetDatum(X);
+}
+```

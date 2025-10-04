@@ -38,3 +38,54 @@ This function creates a richly detailed Python exception by extracting informati
 - Falls back to PostgreSQL's elog(ERROR) if Python exception creation fails
 - Essential for bridging PostgreSQL's rich error system with Python's exception model
 - Sets multiple exception attributes: sqlstate, detail, hint, query, schema_name, table_name, column_name, datatype_name, constraint_name
+
+## Simplified Source
+
+```c
+void PLy_exception_set_with_details(PyObject *excclass, ErrorData *edata) {
+    PyObject *args = NULL;
+    PyObject *error = NULL;
+
+    // Create exception instance with error message
+    args = Py_BuildValue("(s)", edata->message);
+    if (!args)
+        goto failure;
+
+    error = PyObject_CallObject(excclass, args);
+    if (!error)
+        goto failure;
+
+    // Set all error detail attributes on the exception object
+    if (!set_string_attr(error, "sqlstate", unpack_sql_state(edata->sqlerrcode)))
+        goto failure;
+    if (!set_string_attr(error, "detail", edata->detail))
+        goto failure;
+    if (!set_string_attr(error, "hint", edata->hint))
+        goto failure;
+    if (!set_string_attr(error, "query", edata->internalquery))
+        goto failure;
+    if (!set_string_attr(error, "schema_name", edata->schema_name))
+        goto failure;
+    if (!set_string_attr(error, "table_name", edata->table_name))
+        goto failure;
+    if (!set_string_attr(error, "column_name", edata->column_name))
+        goto failure;
+    if (!set_string_attr(error, "datatype_name", edata->datatype_name))
+        goto failure;
+    if (!set_string_attr(error, "constraint_name", edata->constraint_name))
+        goto failure;
+
+    // Set the Python exception
+    PyErr_SetObject(excclass, error);
+
+    // Cleanup
+    Py_DECREF(args);
+    Py_DECREF(error);
+    return;
+
+failure:
+    Py_XDECREF(args);
+    Py_XDECREF(error);
+    elog(ERROR, "could not convert error to Python exception");
+}
+```

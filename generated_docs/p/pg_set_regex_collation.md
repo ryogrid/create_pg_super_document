@@ -44,3 +44,46 @@ The function also validates that the collation is deterministic, as nondetermini
 - Supports multiple regex strategies: PG_REGEX_LOCALE_C, PG_REGEX_LOCALE_ICU, PG_REGEX_BUILTIN, PG_REGEX_LOCALE_WIDE_L, PG_REGEX_LOCALE_WIDE, PG_REGEX_LOCALE_1BYTE_L, PG_REGEX_LOCALE_1BYTE
 - Validates collation determinism and reports specific errors for unsupported nondeterministic collations
 - Location: src/backend/regex/regc_pg_locale.c:234-293
+
+## Simplified Source
+
+```c
+void pg_set_regex_collation(Oid collation) {
+    // Validate collation is specified
+    if (!OidIsValid(collation)) {
+        ereport(ERROR, "could not determine which collation to use for regular expression");
+    }
+
+    // Handle C/POSIX collations - use C strategy
+    if (lc_ctype_is_c(collation)) {
+        pg_regex_strategy = PG_REGEX_LOCALE_C;
+        pg_regex_locale = 0;
+        pg_regex_collation = C_COLLATION_OID;
+        return;
+    }
+
+    // Get locale from collation and validate it's deterministic
+    pg_regex_locale = pg_newlocale_from_collation(collation);
+    if (!pg_locale_deterministic(pg_regex_locale)) {
+        ereport(ERROR, "nondeterministic collations are not supported for regular expressions");
+    }
+
+    // Choose strategy based on provider and encoding
+    if (pg_regex_locale && pg_regex_locale->provider == COLLPROVIDER_ICU) {
+        pg_regex_strategy = PG_REGEX_LOCALE_ICU;
+    } else if (GetDatabaseEncoding() == PG_UTF8) {
+        // UTF-8 database: use wide character strategies
+        if (pg_regex_locale) {
+            pg_regex_strategy = (pg_regex_locale->provider == COLLPROVIDER_BUILTIN)
+                               ? PG_REGEX_BUILTIN : PG_REGEX_LOCALE_WIDE_L;
+        } else {
+            pg_regex_strategy = PG_REGEX_LOCALE_WIDE;
+        }
+    } else {
+        // Single-byte encoding: use 1-byte strategies
+        pg_regex_strategy = pg_regex_locale ? PG_REGEX_LOCALE_1BYTE_L : PG_REGEX_LOCALE_1BYTE;
+    }
+
+    pg_regex_collation = collation;
+}
+```

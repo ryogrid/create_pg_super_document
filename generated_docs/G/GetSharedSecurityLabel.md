@@ -47,3 +47,42 @@ The function handles the case where no label exists by returning NULL, and prope
 - Handles both the case where no tuple is found and where a tuple exists but the label field is NULL
 - The returned string (if not NULL) should be freed by the caller when no longer needed
 - This function specifically handles shared objects; for regular database objects, a different mechanism is used
+
+## Simplified Source
+
+```c
+static char *GetSharedSecurityLabel(const ObjectAddress *object, const char *provider) {
+    Relation pg_shseclabel;
+    ScanKeyData keys[3];
+    SysScanDesc scan;
+    HeapTuple tuple;
+    char *seclabel = NULL;
+
+    // Set up scan keys for object ID, class ID, and provider name
+    ScanKeyInit(&keys[0], Anum_pg_shseclabel_objoid, BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(object->objectId));
+    ScanKeyInit(&keys[1], Anum_pg_shseclabel_classoid, BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(object->classId));
+    ScanKeyInit(&keys[2], Anum_pg_shseclabel_provider, BTEqualStrategyNumber, F_TEXTEQ,
+                CStringGetTextDatum(provider));
+
+    // Open catalog and perform indexed scan
+    pg_shseclabel = table_open(SharedSecLabelRelationId, AccessShareLock);
+    scan = systable_beginscan(pg_shseclabel, SharedSecLabelObjectIndexId,
+                              criticalSharedRelcachesBuilt, NULL, 3, keys);
+
+    // Get matching tuple and extract label if found
+    tuple = systable_getnext(scan);
+    if (HeapTupleIsValid(tuple)) {
+        Datum datum = heap_getattr(tuple, Anum_pg_shseclabel_label,
+                                   RelationGetDescr(pg_shseclabel), &isnull);
+        if (!isnull)
+            seclabel = TextDatumGetCString(datum);
+    }
+
+    // Clean up and return result
+    systable_endscan(scan);
+    table_close(pg_shseclabel, AccessShareLock);
+    return seclabel;
+}
+```

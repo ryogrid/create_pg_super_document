@@ -305,3 +305,16 @@ Text creation and manipulation
 - Returns NULL to indicate no cleanup data needs to be passed to amvacuumcleanup
 - Part of the dummy_index_am test module located in src/test/modules/
 - Follows the standard PostgreSQL index AM bulk delete interface but with no-op implementation
+
+## Simplified Source
+
+```c
+static IndexBulkDeleteResult *
+dibulkdelete(IndexVacuumInfo *info, IndexBulkDeleteResult *stats,
+             IndexBulkDeleteCallback callback, void *callback_state)
+{
+    // No-op implementation for dummy index AM
+    // Return NULL to indicate no cleanup data for amvacuumcleanup
+    return NULL;
+}
+```

@@ -31,3 +31,12 @@ This inline function provides a convenient wrapper to convert an ExpandedRecordH
 - The function provides read-write access, meaning the expanded record can be modified
 - Used primarily in function manager contexts to return expanded records as Datums
 - Located in src/include/utils/expandedrecord.h:143-148
+
+## Simplified Source
+
+```c
+static inline Datum ExpandedRecordGetDatum(const ExpandedRecordHeader *erh) {
+    // Convert expanded record header to read-write Datum
+    return EOHPGetRWDatum(&erh->hdr);
+}
+```

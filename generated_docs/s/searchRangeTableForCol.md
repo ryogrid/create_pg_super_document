@@ -40,3 +40,64 @@ The function supports both exact and approximate matching using fuzzy string mat
 - Skips JOIN range table entries to avoid unhelpful alias names in error messages
 - May return ambiguous results since it considers all range table entries regardless of SQL visibility rules
 - The function traverses the entire parse state hierarchy, examining parent parse states as well
+
+## Simplified Source
+
+```c
+static FuzzyAttrMatchState *
+searchRangeTableForCol(ParseState *pstate, const char *alias, const char *colname,
+                       int location)
+{
+    ParseState *orig_pstate = pstate;
+    FuzzyAttrMatchState *fuzzystate = palloc(sizeof(FuzzyAttrMatchState));
+
+    // Initialize fuzzy match state
+    fuzzystate->distance = MAX_FUZZY_DISTANCE + 1;
+    fuzzystate->rfirst = NULL;
+    fuzzystate->rsecond = NULL;
+    fuzzystate->rexact1 = NULL;
+    fuzzystate->rexact2 = NULL;
+
+    // Search through all parse states in hierarchy
+    while (pstate != NULL) {
+        ListCell *l;
+
+        foreach(l, pstate->p_rtable) {
+            RangeTblEntry *rte = (RangeTblEntry *) lfirst(l);
+            int fuzzy_rte_penalty = 0;
+            int attnum;
+
+            // Skip JOIN RTEs - they duplicate other RTEs
+            if (rte->rtekind == RTE_JOIN)
+                continue;
+
+            // Calculate fuzzy match penalty for alias if provided
+            if (alias != NULL)
+                fuzzy_rte_penalty = varstr_levenshtein_less_equal(
+                    alias, strlen(alias),
+                    rte->eref->aliasname, strlen(rte->eref->aliasname),
+                    1, 1, 1, MAX_FUZZY_DISTANCE + 1, true);
+
+            // Scan RTE for matching column
+            attnum = scanRTEForColumn(orig_pstate, rte, rte->eref,
+                                    colname, location,
+                                    fuzzy_rte_penalty, fuzzystate);
+
+            // Handle exact matches
+            if (attnum != InvalidAttrNumber && fuzzy_rte_penalty == 0) {
+                if (fuzzystate->rexact1 == NULL) {
+                    fuzzystate->rexact1 = rte;
+                    fuzzystate->exact1 = attnum;
+                } else {
+                    fuzzystate->rexact2 = rte;
+                    fuzzystate->exact2 = attnum;
+                }
+            }
+        }
+
+        pstate = pstate->parentParseState;
+    }
+
+    return fuzzystate;
+}
+```

@@ -39,3 +39,22 @@ The `PGTYPESnumeric_new` function serves as the primary constructor for creating
 - Proper error handling ensures no memory leaks occur during partial allocation failures
 - The returned numeric should be freed using appropriate cleanup functions when no longer needed
 - This function is widely used throughout the Informix compatibility layer and ECPG data handling routines
+
+## Simplified Source
+
+```c
+numeric *PGTYPESnumeric_new(void) {
+    // Allocate memory for numeric structure
+    numeric *var = (numeric *) pgtypes_alloc(sizeof(numeric));
+    if (!var)
+        return NULL;
+
+    // Initialize digit buffer with zero digits
+    if (alloc_var(var, 0) < 0) {
+        free(var);
+        return NULL;
+    }
+
+    return var;
+}
+```

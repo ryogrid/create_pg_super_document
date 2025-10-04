@@ -43,3 +43,46 @@ The `ecpg_do` function serves as the core execution engine for SQL statements in
 - The function ensures proper cleanup through ecpg_do_epilogue regardless of success or failure
 - Located in src/interfaces/ecpg/ecpglib/execute.c:2243-2276
 - This is an internal function primarily used by the public ECPGdo interface
+
+## Simplified Source
+
+```c
+bool
+ecpg_do(const int lineno, const int compat, const int force_indicator,
+        const char *connection_name, const bool questionmarks, const int st,
+        const char *query, va_list args)
+{
+    struct statement *stmt = NULL;
+
+    // Phase 1: Initialize statement structure and process variables
+    if (!ecpg_do_prologue(lineno, compat, force_indicator, connection_name,
+                          questionmarks, (enum ECPG_statement_type) st,
+                          query, args, &stmt))
+        goto fail;
+
+    // Phase 2: Build parameter arrays for execution
+    if (!ecpg_build_params(stmt))
+        goto fail;
+
+    // Phase 3: Start transaction if needed
+    if (!ecpg_autostart_transaction(stmt))
+        goto fail;
+
+    // Phase 4: Execute the SQL statement
+    if (!ecpg_execute(stmt))
+        goto fail;
+
+    // Phase 5: Process results and transfer to output variables
+    if (!ecpg_process_output(stmt, true))
+        goto fail;
+
+    // Success: clean up and return
+    ecpg_do_epilogue(stmt);
+    return true;
+
+fail:
+    // Failure: clean up and return false
+    ecpg_do_epilogue(stmt);
+    return false;
+}
+```

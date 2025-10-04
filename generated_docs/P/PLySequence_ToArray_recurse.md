@@ -55,3 +55,68 @@ Key operations include:
 - Uses PostgreSQL's exception handling macros to ensure Python reference counts are properly decremented
 - Recursive calls increment cur_depth to track current dimension being processed
 - The function is purely internal to the plpython conversion system
+
+## Simplified Source
+
+```c
+static void
+PLySequence_ToArray_recurse(PyObject *obj, ArrayBuildState **astatep,
+                           int *ndims, int *dims, int cur_depth,
+                           PLyObToDatum *elm, Oid elmbasetype)
+{
+    int len = PySequence_Length(obj);
+    if (len < 0)
+        PLy_elog(ERROR, "could not determine sequence length");
+
+    for (int i = 0; i < len; i++) {
+        PyObject *subobj = PySequence_GetItem(obj, i);
+
+        PG_TRY();
+        {
+            if (PyList_Check(subobj)) {
+                // Handle nested array
+                if (i == 0 && *ndims == cur_depth) {
+                    // Check for mixing scalars and arrays
+                    if (*astatep != NULL)
+                        ereport(ERROR, "mismatched array dimensions");
+
+                    // Check dimension limits
+                    if (cur_depth >= MAXDIM)
+                        ereport(ERROR, "too many array dimensions");
+
+                    // Add new dimension
+                    dims[*ndims] = PySequence_Length(subobj);
+                    (*ndims)++;
+                } else if (cur_depth >= *ndims ||
+                          PySequence_Length(subobj) != dims[cur_depth]) {
+                    ereport(ERROR, "mismatched array dimensions");
+                }
+
+                // Recurse into sub-array
+                PLySequence_ToArray_recurse(subobj, astatep, ndims, dims,
+                                          cur_depth + 1, elm, elmbasetype);
+            } else {
+                // Handle scalar element
+                if (*ndims != cur_depth)
+                    ereport(ERROR, "mismatched array dimensions");
+
+                // Convert Python object to PostgreSQL datum
+                bool isnull;
+                Datum dat = elm->func(elm, subobj, &isnull, true);
+
+                // Initialize array builder if needed
+                if (*astatep == NULL)
+                    *astatep = initArrayResult(elmbasetype, CurrentMemoryContext, true);
+
+                // Add element to array
+                accumArrayResult(*astatep, dat, isnull, elmbasetype, CurrentMemoryContext);
+            }
+        }
+        PG_FINALLY();
+        {
+            Py_XDECREF(subobj);
+        }
+        PG_END_TRY();
+    }
+}
+```

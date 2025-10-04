@@ -42,3 +42,22 @@ This is particularly useful for ECPG applications where memory needs to be autom
 - The allocated memory is zero-initialized (via calloc in ecpg_alloc)
 - Thread-safe: each thread maintains its own separate list of automatically allocated memory
 - Part of ECPG's automatic memory management system for embedded SQL applications
+
+## Simplified Source
+
+```c
+char *ecpg_auto_alloc(long size, int lineno) {
+    // Allocate memory normally
+    void *ptr = ecpg_alloc(size, lineno);
+    if (!ptr)
+        return NULL;
+
+    // Add to automatic cleanup list
+    if (!ecpg_add_mem(ptr, lineno)) {
+        ecpg_free(ptr);  // Clean up on failure
+        return NULL;
+    }
+
+    return ptr;
+}
+```

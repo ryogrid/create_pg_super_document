@@ -41,3 +41,39 @@ This function serves as the central redo operation handler for CLOG-related WAL 
 - Employs proper locking strategy with LRU bank locks to ensure thread safety during recovery
 - Validates that CLOG records don't use backup blocks (Assert statement)
 - Panics on unknown operation codes to ensure data integrity during recovery
+
+## Simplified Source
+
+```c
+void clog_redo(XLogReaderState *record)
+{
+    uint8 info = XLogRecGetInfo(record) & ~XLR_INFO_MASK;
+
+    // Process different types of CLOG WAL records
+    if (info == CLOG_ZEROPAGE)
+    {
+        // Zero out a CLOG page during recovery
+        int64 pageno;
+        memcpy(&pageno, XLogRecGetData(record), sizeof(pageno));
+
+        LWLock *lock = SimpleLruGetBankLock(XactCtl, pageno);
+        LWLockAcquire(lock, LW_EXCLUSIVE);
+
+        int slotno = ZeroCLOGPage(pageno, false);
+        SimpleLruWritePage(XactCtl, slotno);
+
+        LWLockRelease(lock);
+    }
+    else if (info == CLOG_TRUNCATE)
+    {
+        // Truncate old CLOG pages during recovery
+        xl_clog_truncate xlrec;
+        memcpy(&xlrec, XLogRecGetData(record), sizeof(xl_clog_truncate));
+
+        AdvanceOldestClogXid(xlrec.oldestXact);
+        SimpleLruTruncate(XactCtl, xlrec.pageno);
+    }
+    else
+        elog(PANIC, "clog_redo: unknown op code %u", info);
+}
+```

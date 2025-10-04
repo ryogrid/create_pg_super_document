@@ -37,3 +37,50 @@ The function intelligently displays the most appropriate host identifier, choosi
 - The function only prepares the error message prefix; actual error details are appended later
 - Handles display logic for cases where hostname differs from resolved IP address
 - Part of libpq's connection establishment error reporting mechanism
+
+## Simplified Source
+
+```c
+static void emitHostIdentityInfo(PGconn *conn, const char *host_addr)
+{
+    if (conn->raddr.addr.ss_family == AF_UNIX) {
+        // Unix domain socket connection
+        char service[NI_MAXHOST];
+
+        pg_getnameinfo_all(&conn->raddr.addr, conn->raddr.salen,
+                          NULL, 0, service, sizeof(service), NI_NUMERICSERV);
+
+        appendPQExpBuffer(&conn->errorMessage,
+                         libpq_gettext("connection to server on socket \"%s\" failed: "),
+                         service);
+    } else {
+        // TCP/IP connection
+        const char *displayed_host;
+        const char *displayed_port;
+
+        // Determine what host and port to display
+        if (conn->connhost[conn->whichhost].type == CHT_HOST_ADDRESS) {
+            displayed_host = conn->connhost[conn->whichhost].hostaddr;
+        } else {
+            displayed_host = conn->connhost[conn->whichhost].host;
+        }
+
+        displayed_port = conn->connhost[conn->whichhost].port;
+        if (displayed_port == NULL || displayed_port[0] == '\0') {
+            displayed_port = DEF_PGPORT_STR;
+        }
+
+        // Include resolved IP if different from hostname
+        if (conn->connhost[conn->whichhost].type != CHT_HOST_ADDRESS &&
+            host_addr[0] && strcmp(displayed_host, host_addr) != 0) {
+            appendPQExpBuffer(&conn->errorMessage,
+                             libpq_gettext("connection to server at \"%s\" (%s), port %s failed: "),
+                             displayed_host, host_addr, displayed_port);
+        } else {
+            appendPQExpBuffer(&conn->errorMessage,
+                             libpq_gettext("connection to server at \"%s\", port %s failed: "),
+                             displayed_host, displayed_port);
+        }
+    }
+}
+```

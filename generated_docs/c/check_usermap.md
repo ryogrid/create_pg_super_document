@@ -51,3 +51,50 @@ The function supports both case-sensitive and case-insensitive matching modes. I
 - Error messages are logged at LOG level to help administrators debug authentication issues
 - The function implements PostgreSQL's user name mapping feature, which is essential for environments where system usernames differ from database usernames
 - Regular expression and group membership features are handled by the check_ident_usermap helper function
+
+## Simplified Source
+
+```c
+int check_usermap(const char *usermap_name,
+                 const char *pg_user,
+                 const char *system_user,
+                 bool case_insensitive)
+{
+    bool found_entry = false, error = false;
+
+    // Handle implicit sameuser mapping (NULL or empty usermap name)
+    if (usermap_name == NULL || usermap_name[0] == '\0') {
+        // Direct comparison between pg_user and system_user
+        if (case_insensitive) {
+            if (pg_strcasecmp(pg_user, system_user) == 0)
+                return STATUS_OK;
+        } else {
+            if (strcmp(pg_user, system_user) == 0)
+                return STATUS_OK;
+        }
+
+        // Log mismatch for sameuser mode
+        ereport(LOG, (errmsg("provided user name (%s) and authenticated user name (%s) do not match",
+                             pg_user, system_user)));
+        return STATUS_ERROR;
+    }
+
+    // Handle explicit usermap lookup
+    ListCell *line_cell;
+    foreach(line_cell, parsed_ident_lines) {
+        check_ident_usermap(lfirst(line_cell), usermap_name,
+                           pg_user, system_user, case_insensitive,
+                           &found_entry, &error);
+        if (found_entry || error)
+            break;
+    }
+
+    // Log if no matching entry found in usermap
+    if (!found_entry && !error) {
+        ereport(LOG, (errmsg("no match in usermap \"%s\" for user \"%s\" authenticated as \"%s\"",
+                             usermap_name, pg_user, system_user)));
+    }
+
+    return found_entry ? STATUS_OK : STATUS_ERROR;
+}
+```

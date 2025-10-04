@@ -45,3 +45,47 @@ Slots that are dropped due to local invalidation will be recreated in the next s
 - Handles edge cases like parallel database drops and slot recreations
 - The function is safe to call concurrently due to proper locking mechanisms
 - Dropped slots will be automatically recreated if they reappear on the primary in subsequent sync cycles
+
+## Simplified Source
+
+```c
+static void
+drop_local_obsolete_slots(List *remote_slot_list)
+{
+	// Get list of all local synced slots
+	List *local_slots = get_local_synced_slots();
+
+	// Check each local slot to see if it should be dropped
+	foreach_ptr(ReplicationSlot, local_slot, local_slots) {
+		// Skip slots that are still required
+		if (!local_sync_slot_required(local_slot, remote_slot_list)) {
+			bool synced_slot;
+
+			// Lock database to prevent conflicts with concurrent drops
+			LockSharedObject(DatabaseRelationId, local_slot->data.database,
+							 0, AccessShareLock);
+
+			// Double-check that slot is still synced after locking
+			SpinLockAcquire(&local_slot->mutex);
+			synced_slot = local_slot->in_use && local_slot->data.synced;
+			SpinLockRelease(&local_slot->mutex);
+
+			// Drop the slot if it's still a synced slot
+			if (synced_slot) {
+				ReplicationSlotAcquire(NameStr(local_slot->data.name), true);
+				ReplicationSlotDropAcquired();
+			}
+
+			// Release database lock
+			UnlockSharedObject(DatabaseRelationId, local_slot->data.database,
+							   0, AccessShareLock);
+
+			// Log the dropped slot
+			ereport(LOG,
+					errmsg("dropped replication slot \"%s\" of database with OID %u",
+						   NameStr(local_slot->data.name),
+						   local_slot->data.database));
+		}
+	}
+}
+```

@@ -40,3 +40,15 @@ The function atomically subtracts the specified value from the memory location a
 - Used as building block for other atomic operations like sub-fetch
 - Part of PostgreSQL's portable atomic operations infrastructure providing consistent API across platforms
 - Located primarily in src/include/port/atomics/generic-gcc.h:297-303 for the GCC implementation
+
+## Simplified Source
+
+```c
+static inline uint64
+pg_atomic_fetch_sub_u64_impl(volatile pg_atomic_uint64 *ptr, int64 sub_)
+{
+    // Use GCC builtin for atomic fetch-and-subtract
+    // Atomically subtracts sub_ from *ptr and returns the previous value
+    return __sync_fetch_and_sub(&ptr->value, sub_);
+}
+```

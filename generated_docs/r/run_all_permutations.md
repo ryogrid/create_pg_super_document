@@ -47,3 +47,34 @@ The function is particularly useful for discovering race conditions and concurre
 - The actual permutation generation and execution logic is delegated to the recursive helper function
 - This approach provides exhaustive test coverage but can be computationally expensive for large test specifications
 - Essential for discovering subtle concurrency bugs that depend on specific execution orderings
+
+## Simplified Source
+
+```c
+static void run_all_permutations(TestSpec *testspec) {
+    // Count total steps across all sessions
+    int nsteps = 0;
+    for (int i = 0; i < testspec->nsessions; i++)
+        nsteps += testspec->sessions[i]->nsteps;
+
+    // Allocate workspace for permutation generation
+    PermutationStep *steps = pg_malloc0(sizeof(PermutationStep) * nsteps);
+    PermutationStep **stepptrs = pg_malloc(sizeof(PermutationStep *) * nsteps);
+    for (int i = 0; i < nsteps; i++)
+        stepptrs[i] = steps + i;
+
+    // Initialize "piles" - one per session, tracking how many steps picked
+    int *piles = pg_malloc(sizeof(int) * testspec->nsessions);
+    for (int i = 0; i < testspec->nsessions; i++)
+        piles[i] = 0;
+
+    // Generate all permutations recursively
+    // Concept: pick steps from session "piles" in different orders
+    run_all_permutations_recurse(testspec, piles, 0, stepptrs);
+
+    // Cleanup workspace
+    free(steps);
+    free(stepptrs);
+    free(piles);
+}
+```

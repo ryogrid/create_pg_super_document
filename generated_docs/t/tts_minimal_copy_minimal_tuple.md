@@ -29,3 +29,20 @@ This function extracts the MinimalTuple from a MinimalTupleTableSlot and creates
 - The copy is completely independent of the original slot's tuple
 - Used when the caller needs a persistent copy that won't be affected by changes to the slot
 - More efficient than converting to HeapTuple when minimal tuple format is sufficient
+
+## Simplified Source
+
+```c
+static MinimalTuple
+tts_minimal_copy_minimal_tuple(TupleTableSlot *slot)
+{
+    MinimalTupleTableSlot *mslot = (MinimalTupleTableSlot *) slot;
+
+    // Ensure the minimal tuple is materialized
+    if (!mslot->mintuple)
+        tts_minimal_materialize(slot);
+
+    // Create an independent copy of the minimal tuple
+    return heap_copy_minimal_tuple(mslot->mintuple);
+}
+```

@@ -37,3 +37,28 @@ SPI_copytuple creates a deep copy of a HeapTuple by copying it into the SPI proc
 - Memory context switching ensures the copy is placed in the correct long-term storage area
 - Commonly used in stored procedures and functions that need to accumulate or cache tuple data
 - The function validates both the input tuple and the SPI connection state before proceeding
+
+## Simplified Source
+
+```c
+HeapTuple SPI_copytuple(HeapTuple tuple) {
+    // Validate input parameters
+    if (tuple == NULL) {
+        SPI_result = SPI_ERROR_ARGUMENT;
+        return NULL;
+    }
+
+    // Check SPI connection
+    if (_SPI_current == NULL) {
+        SPI_result = SPI_ERROR_UNCONNECTED;
+        return NULL;
+    }
+
+    // Switch to saved memory context and copy tuple
+    MemoryContext old_context = MemoryContextSwitchTo(_SPI_current->savedcxt);
+    HeapTuple copied_tuple = heap_copytuple(tuple);
+    MemoryContextSwitchTo(old_context);
+
+    return copied_tuple;
+}
+```

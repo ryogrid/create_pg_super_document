@@ -38,3 +38,38 @@ The function uses the arc's outchain and outchainRev pointers to navigate throug
 - Part of PostgreSQL's regex engine debugging infrastructure
 - Helps visualize state transitions during NFA analysis and optimization
 - Essential for understanding the structure and flow of compiled regular expressions
+
+## Simplified Source
+
+```c
+static void
+dumparcs(struct state *s, FILE *f)
+{
+    int pos = 1;
+    struct arc *a;
+
+    // Find the oldest arc by traversing to end of chain
+    a = s->outs;
+    while (a->outchain != NULL)
+        a = a->outchain;
+
+    // Print arcs in reverse order (oldest first)
+    do {
+        dumparc(a, s, f);
+
+        // Format output: 5 arcs per line
+        if (pos == 5) {
+            fprintf(f, "\n");
+            pos = 1;
+        } else {
+            pos++;
+        }
+
+        a = a->outchainRev;
+    } while (a != NULL);
+
+    // Add final newline if needed
+    if (pos != 1)
+        fprintf(f, "\n");
+}
+```

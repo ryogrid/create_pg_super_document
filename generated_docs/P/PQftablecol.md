@@ -30,3 +30,19 @@ PQftablecol retrieves the column number within the source table that corresponds
 - Source column information is populated by the server when available and depends on the nature of the SQL query
 - This function is thread-safe as it only reads from the PGresult structure
 - Defined in src/interfaces/libpq/fe-exec.c:3697-3707
+
+## Simplified Source
+
+```c
+int PQftablecol(const PGresult *res, int field_num) {
+    // Validate field number is in range
+    if (!check_field_number(res, field_num))
+        return 0;
+
+    // Return source column number if attribute descriptors exist
+    if (res->attDescs)
+        return res->attDescs[field_num].columnid;
+    else
+        return 0;
+}
+```

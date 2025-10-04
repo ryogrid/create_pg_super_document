@@ -36,3 +36,30 @@ This cleanup step is essential for optimizing the final NFA before it is used fo
 - The function safely handles arc chain traversal by storing the next arc before potentially freeing the current one
 - Error checking ensures the function can terminate early if memory operations fail
 - This cleanup step is necessary before the NFA can be used for actual pattern matching
+
+## Simplified Source
+
+```c
+static void
+removecantmatch(struct nfa *nfa)
+{
+    struct state *s;
+
+    // Iterate through all states in the NFA
+    for (s = nfa->states; s != NULL; s = s->next) {
+        struct arc *a, *nexta;
+
+        // Check all outgoing arcs from this state
+        for (a = s->outs; a != NULL; a = nexta) {
+            nexta = a->outchain;  // Save next before potential deletion
+
+            // Remove CANTMATCH arcs as they're no longer needed
+            if (a->type == CANTMATCH) {
+                freearc(nfa, a);
+                if (NISERR())
+                    return;  // Exit on error
+            }
+        }
+    }
+}
+```

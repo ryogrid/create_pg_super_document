@@ -49,3 +49,50 @@ The function supports the same comprehensive range of numeric types as get_int_i
 - Provides automatic type conversion from various numeric types to integer
 - Essential component of ECPG's descriptor field value extraction mechanism
 - Validates source type is numeric before attempting conversion
+
+## Simplified Source
+
+```c
+static bool set_int_item(int lineno, int *target, const void *var, enum ECPGttype vartype) {
+    // Extract and convert numeric value to integer based on source type
+    switch (vartype) {
+        case ECPGt_short:
+            *target = *(const short *) var;
+            break;
+        case ECPGt_int:
+            *target = *(const int *) var;
+            break;
+        case ECPGt_long:
+            *target = *(const long *) var;
+            break;
+        case ECPGt_unsigned_short:
+            *target = *(const unsigned short *) var;
+            break;
+        case ECPGt_unsigned_int:
+            *target = *(const unsigned int *) var;
+            break;
+        case ECPGt_unsigned_long:
+            *target = *(const unsigned long *) var;
+            break;
+        case ECPGt_long_long:
+            *target = *(const long long int *) var;
+            break;
+        case ECPGt_unsigned_long_long:
+            *target = *(const unsigned long long int *) var;
+            break;
+        case ECPGt_float:
+            *target = *(const float *) var;
+            break;
+        case ECPGt_double:
+            *target = *(const double *) var;
+            break;
+        default:
+            // Error: source type is not numeric
+            ecpg_raise(lineno, ECPG_VAR_NOT_NUMERIC,
+                       ECPG_SQLSTATE_RESTRICTED_DATA_TYPE_ATTRIBUTE_VIOLATION, NULL);
+            return false;
+    }
+
+    return true;
+}
+```

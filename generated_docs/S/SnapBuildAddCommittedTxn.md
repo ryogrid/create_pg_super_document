@@ -38,3 +38,22 @@ Each transaction ID added to this list represents a transaction that has made ca
 - Called multiple times when processing transactions with subtransactions
 - Essential for tracking catalog state changes that affect snapshot visibility
 - Part of the logical decoding infrastructure that maintains consistency across concurrent transactions
+
+## Simplified Source
+
+```c
+static void SnapBuildAddCommittedTxn(SnapBuild *builder, TransactionId xid) {
+    Assert(TransactionIdIsValid(xid));
+
+    // Expand array if needed (double the size + 1)
+    if (builder->committed.xcnt == builder->committed.xcnt_space) {
+        builder->committed.xcnt_space = builder->committed.xcnt_space * 2 + 1;
+
+        builder->committed.xip = repalloc(builder->committed.xip,
+                                         builder->committed.xcnt_space * sizeof(TransactionId));
+    }
+
+    // Add committed transaction to the list
+    builder->committed.xip[builder->committed.xcnt++] = xid;
+}
+```

@@ -56,3 +56,59 @@ The two-phase parameter determines the commit path:
 - Two-phase commit support allows for prepared transaction completion
 - Statistics are updated after each transaction to track decoding progress
 - The function handles both committed and forgotten transactions appropriately
+
+## Simplified Source
+
+```c
+static void DecodeCommit(LogicalDecodingContext *ctx, XLogRecordBuffer *buf,
+                        xl_xact_parsed_commit *parsed, TransactionId xid,
+                        bool two_phase) {
+    XLogRecPtr origin_lsn = InvalidXLogRecPtr;
+    TimestampTz commit_time = parsed->xact_time;
+    RepOriginId origin_id = XLogRecGetOrigin(buf->record);
+    int i;
+
+    // Extract origin information if present
+    if (parsed->xinfo & XACT_XINFO_HAS_ORIGIN) {
+        origin_lsn = parsed->origin_lsn;
+        commit_time = parsed->origin_timestamp;
+    }
+
+    // Update snapshot builder with commit information
+    SnapBuildCommitTxn(ctx->snapshot_builder, buf->origptr, xid,
+                       parsed->nsubxacts, parsed->subxacts, parsed->xinfo);
+
+    // Check if we should skip this transaction
+    if (DecodeTXNNeedSkip(ctx, buf, parsed->dbId, origin_id)) {
+        // Forget all subtransactions
+        for (i = 0; i < parsed->nsubxacts; i++) {
+            ReorderBufferForget(ctx->reorder, parsed->subxacts[i], buf->origptr);
+        }
+        // Forget main transaction
+        ReorderBufferForget(ctx->reorder, xid, buf->origptr);
+        return;
+    }
+
+    // Commit all subtransactions
+    for (i = 0; i < parsed->nsubxacts; i++) {
+        ReorderBufferCommitChild(ctx->reorder, xid, parsed->subxacts[i],
+                                buf->origptr, buf->endptr);
+    }
+
+    // Process final commit based on type
+    if (two_phase) {
+        // Finish prepared transaction
+        ReorderBufferFinishPrepared(ctx->reorder, xid, buf->origptr, buf->endptr,
+                                   SnapBuildGetTwoPhaseAt(ctx->snapshot_builder),
+                                   commit_time, origin_id, origin_lsn,
+                                   parsed->twophase_gid, true);
+    } else {
+        // Regular commit
+        ReorderBufferCommit(ctx->reorder, xid, buf->origptr, buf->endptr,
+                           commit_time, origin_id, origin_lsn);
+    }
+
+    // Update decoding statistics
+    UpdateDecodingStats(ctx);
+}
+```

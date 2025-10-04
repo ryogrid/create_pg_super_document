@@ -62,3 +62,79 @@ The function performs the following test sequence:
 - Tests state management across multiple pipeline boundaries
 - Located in src/test/modules/libpq_pipeline/libpq_pipeline.c at lines 469-613
 - Essential for validating complex pipeline workflows and state transitions
+
+## Simplified Source
+
+```c
+static void test_multi_pipelines(PGconn *conn) {
+    PGresult *res = NULL;
+    const char *dummy_params[1] = {"1"};
+    Oid dummy_param_oids[1] = {INT4OID};
+
+    fprintf(stderr, "multi pipeline... ");
+
+    if (PQenterPipelineMode(conn) != 1)
+        pg_fatal("failed to enter pipeline mode: %s", PQerrorMessage(conn));
+
+    // Pipeline 1: Send query and sync
+    if (PQsendQueryParams(conn, "SELECT $1", 1, dummy_param_oids,
+                          dummy_params, NULL, NULL, 0) != 1)
+        pg_fatal("dispatching first SELECT failed: %s", PQerrorMessage(conn));
+    if (PQpipelineSync(conn) != 1)
+        pg_fatal("Pipeline sync failed: %s", PQerrorMessage(conn));
+
+    // Pipeline 2: Send query and sync (using PQsendPipelineSync)
+    if (PQsendQueryParams(conn, "SELECT $1", 1, dummy_param_oids,
+                          dummy_params, NULL, NULL, 0) != 1)
+        pg_fatal("dispatching second SELECT failed: %s", PQerrorMessage(conn));
+    if (PQsendPipelineSync(conn) != 1)
+        pg_fatal("Pipeline sync failed: %s", PQerrorMessage(conn));
+
+    // Pipeline 3: Send query and sync
+    if (PQsendQueryParams(conn, "SELECT $1", 1, dummy_param_oids,
+                          dummy_params, NULL, NULL, 0) != 1)
+        pg_fatal("dispatching third SELECT failed: %s", PQerrorMessage(conn));
+    if (PQpipelineSync(conn) != 1)
+        pg_fatal("pipeline sync failed: %s", PQerrorMessage(conn));
+
+    // Process results from all three pipelines
+    for (int pipeline = 1; pipeline <= 3; pipeline++) {
+        // Get query result
+        res = PQgetResult(conn);
+        if (res == NULL)
+            pg_fatal("PQgetResult returned null when there's a pipeline item: %s",
+                     PQerrorMessage(conn));
+        if (PQresultStatus(res) != PGRES_TUPLES_OK)
+            pg_fatal("Unexpected result code %s from pipeline %d",
+                     PQresStatus(PQresultStatus(res)), pipeline);
+        PQclear(res);
+
+        // Verify no extra results
+        if (PQgetResult(conn) != NULL)
+            pg_fatal("PQgetResult returned something extra after result");
+
+        // Cannot exit pipeline mode before sync
+        if (PQexitPipelineMode(conn) != 0)
+            pg_fatal("exiting pipeline mode before sync succeeded incorrectly");
+
+        // Get sync result
+        res = PQgetResult(conn);
+        if (res == NULL)
+            pg_fatal("PQgetResult returned null when sync result expected: %s",
+                     PQerrorMessage(conn));
+        if (PQresultStatus(res) != PGRES_PIPELINE_SYNC)
+            pg_fatal("Unexpected result code %s instead of sync result",
+                     PQresStatus(PQresultStatus(res)));
+        PQclear(res);
+    }
+
+    // Now we can exit pipeline mode
+    if (PQexitPipelineMode(conn) != 1)
+        pg_fatal("attempt to exit pipeline mode failed: %s", PQerrorMessage(conn));
+
+    if (PQpipelineStatus(conn) != PQ_PIPELINE_OFF)
+        pg_fatal("exiting pipeline mode didn't seem to work");
+
+    fprintf(stderr, "ok\n");
+}
+```

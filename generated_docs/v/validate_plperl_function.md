@@ -34,3 +34,32 @@ This function implements cache validation for compiled PL/Perl functions. It che
 - Implements proper reference counting to prevent memory leaks
 - Part of the PL/Perl function caching mechanism for performance optimization
 - Located at src/pl/plperl/plperl.c:2671-2699
+
+## Simplified Source
+
+```c
+static bool validate_plperl_function(plperl_proc_ptr *proc_ptr, HeapTuple procTup) {
+    if (proc_ptr && proc_ptr->proc_ptr) {
+        plperl_proc_desc *prodesc = proc_ptr->proc_ptr;
+        bool uptodate;
+
+        // Check if cached function is still valid by comparing
+        // transaction ID and tuple ID from when it was compiled
+        uptodate = (prodesc->fn_xmin == HeapTupleHeaderGetRawXmin(procTup->t_data) &&
+                    ItemPointerEquals(&prodesc->fn_tid, &procTup->t_self));
+
+        if (uptodate)
+            return true;
+
+        // Function has been modified (CREATE OR REPLACE FUNCTION)
+        // Unlink obsolete entry from hashtable
+        proc_ptr->proc_ptr = NULL;
+
+        // Release reference count (may delete the descriptor)
+        decrement_prodesc_refcount(prodesc);
+    }
+
+    // No cached function or it's obsolete - needs recompilation
+    return false;
+}
+```

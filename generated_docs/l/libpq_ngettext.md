@@ -35,3 +35,16 @@ The function follows the standard gettext pluralization mechanism, where the app
 - Always calls libpq_binddomain() to ensure proper initialization
 - Returns the appropriate singular or plural form based on the language's pluralization rules
 - Part of the standard gettext-based localization system used in PostgreSQL
+
+## Simplified Source
+
+```c
+char *libpq_ngettext(const char *msgid, const char *msgid_plural, unsigned long n)
+{
+    // Ensure text domain is bound for libpq
+    libpq_binddomain();
+
+    // Return appropriate singular/plural form based on count
+    return dngettext(PG_TEXTDOMAIN("libpq"), msgid, msgid_plural, n);
+}
+```

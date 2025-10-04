@@ -50,3 +50,66 @@ Error handling includes setting errno to PGTYPES_TS_BAD_TIMESTAMP when time conv
 - The function supports multiple platform-specific timezone implementations for maximum portability
 - Used primarily in ECPG for converting PostgreSQL timestamp values to C-compatible time structures
 - The negative sign applied to tm_gmtoff compensates for Sun/DEC timezone representation differences
+
+## Simplified Source
+
+```c
+static void
+abstime2tm(AbsoluteTime _time, int *tzp, struct tm *tm, char **tzn)
+{
+    time_t time = (time_t) _time;
+    struct tm *tx;
+
+    // Get time structure (local time if tzp given, UTC otherwise)
+    if (tzp != NULL)
+        tx = localtime(&time);
+    else
+        tx = gmtime(&time);
+
+    if (!tx) {
+        errno = PGTYPES_TS_BAD_TIMESTAMP;
+        return;
+    }
+
+    // Copy time fields, adjusting year and month to PostgreSQL conventions
+    tm->tm_year = tx->tm_year + 1900;
+    tm->tm_mon = tx->tm_mon + 1;
+    tm->tm_mday = tx->tm_mday;
+    tm->tm_hour = tx->tm_hour;
+    tm->tm_min = tx->tm_min;
+    tm->tm_sec = tx->tm_sec;
+    tm->tm_isdst = tx->tm_isdst;
+
+    // Handle timezone information based on platform capabilities
+    if (tzp != NULL) {
+#if defined(HAVE_STRUCT_TM_TM_ZONE)
+        // Use tm_zone fields directly
+        tm->tm_gmtoff = tx->tm_gmtoff;
+        tm->tm_zone = tx->tm_zone;
+        *tzp = -tm->tm_gmtoff;  // Negate for SQL99 compatibility
+
+        if (tzn != NULL) {
+            strlcpy(*tzn, tm->tm_zone, MAXTZLEN + 1);
+            if (strlen(tm->tm_zone) > MAXTZLEN)
+                tm->tm_isdst = -1;  // Signal error
+        }
+#elif defined(HAVE_INT_TIMEZONE)
+        // Use global timezone variables
+        *tzp = (tm->tm_isdst > 0) ? TIMEZONE_GLOBAL - SECS_PER_HOUR : TIMEZONE_GLOBAL;
+
+        if (tzn != NULL) {
+            strlcpy(*tzn, TZNAME_GLOBAL[tm->tm_isdst], MAXTZLEN + 1);
+            if (strlen(TZNAME_GLOBAL[tm->tm_isdst]) > MAXTZLEN)
+                tm->tm_isdst = -1;
+        }
+#else
+        // Fallback: default to UTC
+        *tzp = 0;
+        if (tzn != NULL)
+            *tzn = NULL;
+#endif
+    } else {
+        tm->tm_isdst = -1;
+    }
+}
+```

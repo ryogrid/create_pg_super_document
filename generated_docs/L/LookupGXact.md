@@ -43,3 +43,49 @@ The LSN comparison uses the prepare_end_lsn (where the prepare phase ends) becau
 - For on-disk transactions, it uses ReadTwoPhaseFile; for in-memory transactions, it uses XlogReadTwoPhaseData with the prepare_start_lsn
 - This function is crucial for maintaining consistency in distributed PostgreSQL environments with logical replication
 - The multi-criteria matching (GID + LSN + timestamp) prevents false positives when the same GID appears on different nodes
+
+## Simplified Source
+
+```c
+bool
+LookupGXact(const char *gid, XLogRecPtr prepare_end_lsn,
+            TimestampTz origin_prepare_timestamp)
+{
+    int i;
+    bool found = false;
+
+    // Search through all prepared transactions with shared lock
+    LWLockAcquire(TwoPhaseStateLock, LW_SHARED);
+
+    for (i = 0; i < TwoPhaseState->numPrepXacts; i++) {
+        GlobalTransaction gxact = TwoPhaseState->prepXacts[i];
+
+        // Check if GID matches and transaction is valid
+        if (gxact->valid && strcmp(gxact->gid, gid) == 0) {
+            char *buf;
+            TwoPhaseFileHeader *hdr;
+
+            // Read transaction header data (from disk or WAL)
+            if (gxact->ondisk)
+                buf = ReadTwoPhaseFile(gxact->xid, false);
+            else
+                XlogReadTwoPhaseData(gxact->prepare_start_lsn, &buf, NULL);
+
+            hdr = (TwoPhaseFileHeader *) buf;
+
+            // Verify LSN and timestamp match to ensure same transaction
+            if (hdr->origin_lsn == prepare_end_lsn &&
+                hdr->origin_timestamp == origin_prepare_timestamp) {
+                found = true;
+                pfree(buf);
+                break;
+            }
+
+            pfree(buf);
+        }
+    }
+
+    LWLockRelease(TwoPhaseStateLock);
+    return found;
+}
+```

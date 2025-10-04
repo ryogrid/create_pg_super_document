@@ -38,3 +38,15 @@ The implementation uses the same short-circuit evaluation pattern as float4_le: 
 - Implements consistent NaN handling semantics across the PostgreSQL system
 - Used in both pure double-precision comparisons and mixed-precision scenarios
 - Critical for proper functioning of spatial indexing and geometric computations
+
+## Simplified Source
+
+```c
+static inline bool
+float8_le(const float8 val1, const float8 val2)
+{
+    // Return true if val2 is NaN (NaN is considered greater than everything)
+    // Otherwise, ensure val1 is not NaN before doing normal comparison
+    return isnan(val2) || (!isnan(val1) && val1 <= val2);
+}
+```

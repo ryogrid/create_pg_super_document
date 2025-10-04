@@ -41,3 +41,39 @@ The partition map is distinct from the regular relation map because it is keyed 
 - The function safely handles the case where LogicalRepPartMap is NULL (not initialized)
 - Global invalidation (InvalidOid) marks all partition entries as invalid, forcing them to be rebuilt on next access
 - Part of the broader logical replication cache management system that ensures data consistency across DDL operations
+
+## Simplified Source
+
+```c
+static void
+logicalrep_partmap_invalidate_cb(Datum arg, Oid reloid)
+{
+    LogicalRepPartMapEntry *entry;
+
+    // Safety check - return if partition map not initialized
+    if (LogicalRepPartMap == NULL)
+        return;
+
+    if (reloid != InvalidOid) {
+        // Invalidate specific relation entry
+        HASH_SEQ_STATUS status;
+        hash_seq_init(&status, LogicalRepPartMap);
+
+        // Search for matching partition entry
+        while ((entry = (LogicalRepPartMapEntry *) hash_seq_search(&status)) != NULL) {
+            if (entry->relmapentry.localreloid == reloid) {
+                entry->relmapentry.localrelvalid = false;
+                hash_seq_term(&status);
+                break;
+            }
+        }
+    } else {
+        // Global invalidation - mark all entries invalid
+        HASH_SEQ_STATUS status;
+        hash_seq_init(&status, LogicalRepPartMap);
+
+        while ((entry = (LogicalRepPartMapEntry *) hash_seq_search(&status)) != NULL)
+            entry->relmapentry.localrelvalid = false;
+    }
+}
+```

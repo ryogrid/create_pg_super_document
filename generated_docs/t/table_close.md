@@ -37,3 +37,12 @@ The function provides symmetry with the table_open family of functions and maint
 - Should be called to properly close tables opened with any table_open variant
 - Does not perform additional table-specific validation like the opening functions
 - Essential for proper resource management and lock cleanup
+
+## Simplified Source
+
+```c
+void table_close(Relation relation, LOCKMODE lockmode) {
+    // Close the table and release specified lock
+    relation_close(relation, lockmode);
+}
+```

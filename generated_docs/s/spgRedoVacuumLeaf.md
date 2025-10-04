@@ -49,3 +49,65 @@ The function processes arrays of offset numbers for each operation type and appl
 - Uses spgPageIndexMultiDelete for batch tuple state changes to improve efficiency
 - Part of the SP-GiST index WAL recovery subsystem located in src/backend/access/spgist/spgxlog.c:751-833
 - Critical for maintaining space efficiency and preventing page fragmentation during recovery
+
+## Simplified Source
+
+```c
+static void spgRedoVacuumLeaf(XLogReaderState *record) {
+    // Extract WAL record data and setup
+    spgxlogVacuumLeaf *xldata = (spgxlogVacuumLeaf *) XLogRecGetData(record);
+    SpGistState state;
+    fillFakeState(&state, xldata->stateSrc);
+
+    // Parse offset arrays from record data
+    OffsetNumber *toDead = /* extracted from record data */;
+    OffsetNumber *toPlaceholder = /* extracted from record data */;
+    OffsetNumber *moveSrc = /* extracted from record data */;
+    OffsetNumber *moveDest = /* extracted from record data */;
+    OffsetNumber *chainSrc = /* extracted from record data */;
+    OffsetNumber *chainDest = /* extracted from record data */;
+
+    Buffer buffer;
+    if (XLogReadBufferForRedo(record, 0, &buffer) == BLK_NEEDS_REDO) {
+        Page page = BufferGetPage(buffer);
+
+        // Step 1: Mark specified tuples as DEAD (completely removed)
+        spgPageIndexMultiDelete(&state, page, toDead, xldata->nDead,
+                               SPGIST_DEAD, SPGIST_DEAD,
+                               InvalidBlockNumber, InvalidOffsetNumber);
+
+        // Step 2: Convert tuples to PLACEHOLDER status (preserving space)
+        spgPageIndexMultiDelete(&state, page, toPlaceholder, xldata->nPlaceholder,
+                               SPGIST_PLACEHOLDER, SPGIST_PLACEHOLDER,
+                               InvalidBlockNumber, InvalidOffsetNumber);
+
+        // Step 3: Compact page by swapping ItemId entries (tuple movement)
+        for (int i = 0; i < xldata->nMove; i++) {
+            ItemId idSrc = PageGetItemId(page, moveSrc[i]);
+            ItemId idDest = PageGetItemId(page, moveDest[i]);
+
+            // Swap the ItemId entries to move tuples
+            ItemIdData tmp = *idSrc;
+            *idSrc = *idDest;
+            *idDest = tmp;
+        }
+
+        // Step 4: Mark source locations of moved tuples as placeholders
+        spgPageIndexMultiDelete(&state, page, moveSrc, xldata->nMove,
+                               SPGIST_PLACEHOLDER, SPGIST_PLACEHOLDER,
+                               InvalidBlockNumber, InvalidOffsetNumber);
+
+        // Step 5: Update chain pointers for tuples with linked relationships
+        for (int i = 0; i < xldata->nChain; i++) {
+            SpGistLeafTuple leafTuple = (SpGistLeafTuple) PageGetItem(page,
+                                        PageGetItemId(page, chainSrc[i]));
+            // Update next offset pointer to maintain tuple chains
+            SGLT_SET_NEXTOFFSET(leafTuple, chainDest[i]);
+        }
+
+        PageSetLSN(page, record->EndRecPtr);
+        MarkBufferDirty(buffer);
+    }
+    UnlockReleaseBuffer(buffer);
+}
+```

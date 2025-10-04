@@ -30,3 +30,19 @@ This function is responsible for cleaning up resources associated with a Zstanda
 - This is a static function, part of the internal implementation of the Zstandard backup sink
 - The function ensures proper cleanup by setting the context pointer to NULL after freeing
 - Part of PostgreSQL's base backup infrastructure that supports multiple compression formats
+
+## Simplified Source
+```c
+static void bbsink_zstd_end_backup(bbsink *sink, XLogRecPtr endptr, TimeLineID endtli) {
+    bbsink_zstd *mysink = (bbsink_zstd *) sink;
+
+    // Clean up compression resources
+    if (mysink->cctx) {
+        ZSTD_freeCCtx(mysink->cctx);
+        mysink->cctx = NULL;
+    }
+
+    // Forward to next sink in chain
+    bbsink_forward_end_backup(sink, endptr, endtli);
+}
+```

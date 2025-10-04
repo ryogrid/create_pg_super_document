@@ -38,3 +38,35 @@ The cleanup process handles the case where files might not exist (ENOENT error i
 - The function iterates through all possible WAL segments between first and final LSN to ensure complete cleanup
 - Critical for preventing disk space leaks in the logical replication spill-to-disk mechanism
 - The function uses the current replication slot context (MyReplicationSlot) for file path generation
+
+## Simplified Source
+
+```c
+static void
+ReorderBufferRestoreCleanup(ReorderBuffer *rb, ReorderBufferTXN *txn)
+{
+    XLogSegNo first;
+    XLogSegNo cur;
+    XLogSegNo last;
+
+    Assert(txn->first_lsn != InvalidXLogRecPtr);
+    Assert(txn->final_lsn != InvalidXLogRecPtr);
+
+    // Calculate WAL segment range for the transaction
+    XLByteToSeg(txn->first_lsn, first, wal_segment_size);
+    XLByteToSeg(txn->final_lsn, last, wal_segment_size);
+
+    // Delete all spill files for this transaction across all segments
+    for (cur = first; cur <= last; cur++)
+    {
+        char path[MAXPGPATH];
+
+        ReorderBufferSerializedPath(path, MyReplicationSlot, txn->xid, cur);
+
+        if (unlink(path) != 0 && errno != ENOENT)
+            ereport(ERROR,
+                    (errcode_for_file_access(),
+                     errmsg("could not remove file \"%s\": %m", path)));
+    }
+}
+```

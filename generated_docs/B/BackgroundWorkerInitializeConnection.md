@@ -48,3 +48,31 @@ The function validates that the background worker was registered with the BGWORK
 - Validates that the process remains in initialization mode until explicitly transitioned to normal processing
 - The function will terminate the process with FATAL error if connection requirements weren't indicated during registration
 - Special bypass flags allow background workers to connect to databases or as roles that would normally be restricted
+
+## Simplified Source
+
+```c
+void BackgroundWorkerInitializeConnection(const char *dbname, const char *username, uint32 flags) {
+    BackgroundWorker *worker = MyBgworkerEntry;
+    bits32 init_flags = 0;
+
+    // Handle bypass flags for connection restrictions
+    if (flags & BGWORKER_BYPASS_ALLOWCONN)
+        init_flags |= INIT_PG_OVERRIDE_ALLOW_CONNS;
+    if (flags & BGWORKER_BYPASS_ROLELOGINCHECK)
+        init_flags |= INIT_PG_OVERRIDE_ROLE_LOGIN;
+
+    // Verify worker was registered for database connections
+    if (!(worker->bgw_flags & BGWORKER_BACKEND_DATABASE_CONNECTION))
+        ereport(FATAL, (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                       errmsg("database connection requirement not indicated during registration")));
+
+    // Initialize database connection
+    InitPostgres(dbname, InvalidOid, username, InvalidOid, init_flags, NULL);
+
+    // Transition from init mode to normal processing
+    if (!IsInitProcessingMode())
+        ereport(ERROR, (errmsg("invalid processing mode in background worker")));
+    SetProcessingMode(NormalProcessing);
+}
+```

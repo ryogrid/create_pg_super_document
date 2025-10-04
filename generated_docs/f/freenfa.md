@@ -33,3 +33,32 @@ The  function performs complete cleanup of an NFA structure by freeing all alloc
 - Sets nstates to -1 before freeing the main structure as a safety measure
 - Critical for preventing memory leaks in regex compilation error paths
 - Must be called for any NFA created by newnfa to avoid memory leaks
+
+## Simplified Source
+
+```c
+static void freenfa(struct nfa *nfa) {
+    struct statebatch *sb, *sbnext;
+    struct arcbatch *ab, *abnext;
+
+    // Free all state batches in the linked list
+    for (sb = nfa->lastsb; sb != NULL; sb = sbnext) {
+        sbnext = sb->next;
+        nfa->v->spaceused -= STATEBATCHSIZE(sb->nstates);  // Update memory usage
+        FREE(sb);
+    }
+    nfa->lastsb = NULL;
+
+    // Free all arc batches in the linked list
+    for (ab = nfa->lastab; ab != NULL; ab = abnext) {
+        abnext = ab->next;
+        nfa->v->spaceused -= ARCBATCHSIZE(ab->narcs);      // Update memory usage
+        FREE(ab);
+    }
+    nfa->lastab = NULL;
+
+    // Mark as invalid and free the main NFA structure
+    nfa->nstates = -1;
+    FREE(nfa);
+}
+```

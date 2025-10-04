@@ -47,3 +47,30 @@ The function ensures atomic operation by preventing concurrent slot synchronizat
 - The error callback ensures proper cleanup of slots, connections, and synchronization state
 - Part of the logical replication slot synchronization infrastructure introduced for failover support
 - Located in src/backend/replication/logical/slotsync.c:1720-1742
+
+## Simplified Source
+
+```c
+void SyncReplicationSlots(WalReceiverConn *wrconn)
+{
+    // Set up error cleanup to ensure proper resource management
+    PG_ENSURE_ERROR_CLEANUP(slotsync_failure_callback, PointerGetDatum(wrconn));
+    {
+        // Check for conflicts and set synchronization flags
+        check_and_set_sync_info(InvalidPid);
+
+        // Validate remote server connection and configuration
+        validate_remote_info(wrconn);
+
+        // Perform the actual slot synchronization
+        synchronize_slots(wrconn);
+
+        // Clean up any temporary slots created during sync
+        ReplicationSlotCleanup(true);
+
+        // Reset synchronization flag to indicate completion
+        reset_syncing_flag();
+    }
+    PG_END_ENSURE_ERROR_CLEANUP(slotsync_failure_callback, PointerGetDatum(wrconn));
+}
+```

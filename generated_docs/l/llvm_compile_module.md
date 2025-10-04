@@ -53,3 +53,50 @@ The function includes comprehensive timing instrumentation for performance analy
 - Debug output provides detailed timing breakdown for performance analysis
 - Bitcode files can be dumped both before and after optimization for debugging purposes
 - The function sets context->compiled = true and context->module = NULL after successful compilation
+
+## Simplified Source
+
+```c
+static void
+llvm_compile_module(LLVMJitContext *context)
+{
+    LLVMJitHandle *handle;
+    MemoryContext oldcontext;
+
+    // Select optimization level
+    compile_orc = (context->base.flags & PGJIT_OPT3) ? llvm_opt3_orc : llvm_opt0_orc;
+
+    // Perform inlining if requested
+    if (context->base.flags & PGJIT_INLINE) {
+        llvm_inline(context->module);
+    }
+
+    // Optimize the module
+    llvm_optimize_module(context, context->module);
+
+    // Create handle for compiled code
+    handle = MemoryContextAlloc(TopMemoryContext, sizeof(LLVMJitHandle));
+
+    // Emit code (version-specific logic)
+    if (LLVM_VERSION_MAJOR > 11) {
+        // Use new ORC API with lazy compilation
+        LLVMOrcThreadSafeModuleRef ts_module =
+            LLVMOrcCreateNewThreadSafeModule(context->module, llvm_ts_context);
+        handle->lljit = compile_orc;
+        LLVMOrcLLJITAddLLVMIRModuleWithRT(compile_orc, handle->resource_tracker, ts_module);
+    } else {
+        // Use legacy eager compilation
+        LLVMOrcAddEagerlyCompiledIR(compile_orc, &handle->orc_handle,
+                                   context->module, llvm_resolve_symbol, NULL);
+    }
+
+    // Update context state
+    context->module = NULL;
+    context->compiled = true;
+
+    // Track handle for cleanup
+    oldcontext = MemoryContextSwitchTo(TopMemoryContext);
+    context->handles = lappend(context->handles, handle);
+    MemoryContextSwitchTo(oldcontext);
+}
+```

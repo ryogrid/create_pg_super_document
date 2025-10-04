@@ -44,3 +44,73 @@ The function also registers a cleanup handler on first use to ensure proper reso
 - Automatically registers cleanup handler for proper resource management
 - Uses exclusive locking on ReplicationOriginLock during setup
 - Supports parallel apply worker scenarios through the acquired_by mechanism
+
+## Simplified Source
+
+```c
+void
+replorigin_session_setup(RepOriginId node, int acquired_by)
+{
+    static bool registered_cleanup;
+    int i;
+    int free_slot = -1;
+
+    // Register cleanup handler on first use
+    if (!registered_cleanup)
+    {
+        on_shmem_exit(ReplicationOriginExitCleanup, 0);
+        registered_cleanup = true;
+    }
+
+    // Ensure no session is already active
+    if (session_replication_state != NULL)
+        ereport(ERROR, "cannot setup replication origin when one is already setup");
+
+    // Search for existing slot or find free one
+    LWLockAcquire(ReplicationOriginLock, LW_EXCLUSIVE);
+
+    for (i = 0; i < max_replication_slots; i++)
+    {
+        ReplicationState *curstate = &replication_states[i];
+
+        // Track free slot for potential use
+        if (curstate->roident == InvalidRepOriginId && free_slot == -1)
+        {
+            free_slot = i;
+            continue;
+        }
+
+        // Check if this is our target origin
+        if (curstate->roident != node)
+            continue;
+
+        // Verify acquisition rules
+        if (curstate->acquired_by != 0 && acquired_by == 0)
+            ereport(ERROR, "replication origin with ID %d is already active", node);
+
+        session_replication_state = curstate;
+        break;
+    }
+
+    // Create new slot if needed
+    if (session_replication_state == NULL)
+    {
+        if (free_slot == -1)
+            ereport(ERROR, "could not find free replication state slot");
+
+        session_replication_state = &replication_states[free_slot];
+        session_replication_state->roident = node;
+    }
+
+    // Set acquisition ownership
+    if (acquired_by == 0)
+        session_replication_state->acquired_by = MyProcPid;
+    else if (session_replication_state->acquired_by != acquired_by)
+        elog(ERROR, "could not find replication state slot acquired by %d", acquired_by);
+
+    LWLockRelease(ReplicationOriginLock);
+
+    // Notify waiting processes
+    ConditionVariableBroadcast(&session_replication_state->origin_cv);
+}
+```

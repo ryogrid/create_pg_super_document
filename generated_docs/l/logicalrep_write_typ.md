@@ -41,3 +41,35 @@ The function is part of PostgreSQL's logical replication protocol implementation
 - Uses the system cache for efficient type lookup
 - Part of the logical replication protocol specification
 - The output format is consumed by logical replication subscribers to reconstruct type information
+
+## Simplified Source
+
+```c
+void logicalrep_write_typ(StringInfo out, TransactionId xid, Oid typoid) {
+    Oid basetypoid = getBaseType(typoid);
+    HeapTuple tup;
+    Form_pg_type typtup;
+
+    // Write type message identifier
+    pq_sendbyte(out, LOGICAL_REP_MSG_TYPE);
+
+    // Include transaction ID if we're streaming
+    if (TransactionIdIsValid(xid))
+        pq_sendint32(out, xid);
+
+    // Look up type information in system catalog
+    tup = SearchSysCache1(TYPEOID, ObjectIdGetDatum(basetypoid));
+    if (!HeapTupleIsValid(tup))
+        elog(ERROR, "cache lookup failed for type %u", basetypoid);
+    typtup = (Form_pg_type) GETSTRUCT(tup);
+
+    // Write type OID
+    pq_sendint32(out, typoid);
+
+    // Write qualified type name
+    logicalrep_write_namespace(out, typtup->typnamespace);
+    pq_sendstring(out, NameStr(typtup->typname));
+
+    ReleaseSysCache(tup);
+}
+```

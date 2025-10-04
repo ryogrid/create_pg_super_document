@@ -38,3 +38,34 @@ The function includes safety assertions to verify that no file is currently open
 - File handle stored in mysink->file for subsequent operations
 - Automatically forwards operation to next sink in chain for multi-destination backups
 - Part of the bbsink operation sequence: begin_archive → archive_contents → end_archive
+
+## Simplified Source
+
+```c
+// Simplified version of bbsink_server_begin_archive
+static void bbsink_server_begin_archive(bbsink *sink, const char *archive_name)
+{
+    bbsink_server *mysink = (bbsink_server *) sink;
+    char *filename;
+
+    // Verify clean state (no file open, position at zero)
+    Assert(mysink->file == 0);
+    Assert(mysink->filepos == 0);
+
+    // Build full file path
+    filename = psprintf("%s/%s", mysink->pathname, archive_name);
+
+    // Create new file exclusively (fail if exists)
+    mysink->file = PathNameOpenFile(filename,
+                                    O_CREAT | O_EXCL | O_WRONLY | PG_BINARY);
+    if (mysink->file <= 0)
+        ereport(ERROR,
+                (errcode_for_file_access(),
+                 errmsg("could not create file \"%s\": %m", filename)));
+
+    pfree(filename);
+
+    // Forward to next sink
+    bbsink_forward_begin_archive(sink, archive_name);
+}
+```

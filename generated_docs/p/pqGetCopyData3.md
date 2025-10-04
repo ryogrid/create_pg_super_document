@@ -40,3 +40,52 @@ The function operates in a loop, using getCopyDataMessage to handle protocol-lev
 - Supports both blocking and non-blocking operation modes
 - Implements proper memory management and error reporting
 - Critical component of PostgreSQL's COPY protocol implementation in libpq
+
+## Simplified Source
+
+```c
+int pqGetCopyData3(PGconn *conn, char **buffer, int async) {
+    int msgLength;
+
+    for (;;) {
+        // Get the next copy data message from network stream
+        msgLength = getCopyDataMessage(conn);
+
+        if (msgLength < 0)
+            return msgLength;  // End of copy or error
+
+        if (msgLength == 0) {
+            // No data available yet
+            if (async)
+                return 0;  // Don't block in async mode
+
+            // Wait for more data and retry
+            if (pqWait(true, false, conn) || pqReadData(conn) < 0)
+                return -2;  // Network error
+            continue;
+        }
+
+        // Process the message data (subtract 4-byte message header)
+        msgLength -= 4;
+        if (msgLength > 0) {
+            // Allocate buffer for the row data
+            *buffer = malloc(msgLength + 1);
+            if (*buffer == NULL) {
+                libpq_append_conn_error(conn, "out of memory");
+                return -2;
+            }
+
+            // Copy data from connection buffer to allocated buffer
+            memcpy(*buffer, &conn->inBuffer[conn->inCursor], msgLength);
+            (*buffer)[msgLength] = '\0';  // Null-terminate
+
+            // Mark message as consumed
+            conn->inStart = conn->inCursor + msgLength;
+            return msgLength;
+        }
+
+        // Empty message - drop it and try again
+        conn->inStart = conn->inCursor;
+    }
+}
+```

@@ -43,3 +43,35 @@ The function is designed to be called within critical sections, so it uses preal
 - Non-redirect tuples have invalid pointers and transaction IDs to indicate they don't point anywhere
 - The fixed size (SGDTSIZE) ensures compatibility with tuple replacement operations
 - Critical for maintaining index consistency during concurrent operations and crash recovery
+
+## Simplified Source
+
+```c
+SpGistDeadTuple
+spgFormDeadTuple(SpGistState *state, int tupstate,
+                 BlockNumber blkno, OffsetNumber offnum)
+{
+    SpGistDeadTuple tuple = (SpGistDeadTuple) state->deadTupleStorage;
+
+    // Set basic tuple properties
+    tuple->tupstate = tupstate;
+    tuple->size = SGDTSIZE;
+    SGLT_SET_NEXTOFFSET(tuple, InvalidOffsetNumber);
+
+    // Set pointer and transaction ID based on state
+    if (tupstate == SPGIST_REDIRECT)
+    {
+        // Redirect tuple: set target location and current transaction
+        ItemPointerSet(&tuple->pointer, blkno, offnum);
+        tuple->xid = state->redirectXid;
+    }
+    else
+    {
+        // Dead/placeholder tuple: no target location
+        ItemPointerSetInvalid(&tuple->pointer);
+        tuple->xid = InvalidTransactionId;
+    }
+
+    return tuple;
+}
+```

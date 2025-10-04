@@ -74,3 +74,93 @@ Key responsibilities include:
 - The function assumes indexes are sorted by OID to match the leader's order
 - Cost-based vacuum delay is shared among all workers to prevent overwhelming the system
 - Buffer and WAL usage tracking allows the leader to aggregate statistics from all workers
+
+## Simplified Source
+
+```c
+void
+parallel_vacuum_main(dsm_segment *seg, shm_toc *toc)
+{
+    ParallelVacuumState pvs;
+    Relation rel;
+    Relation *indrels;
+    PVIndStats *indstats;
+    PVShared *shared;
+    TidStore *dead_items;
+    BufferUsage *buffer_usage;
+    WalUsage *wal_usage;
+    int nindexes;
+    char *sharedquery;
+    ErrorContextCallback errcallback;
+
+    // Validate worker process status
+    Assert(MyProc->statusFlags == PROC_IN_VACUUM);
+    elog(DEBUG1, "starting parallel vacuum worker");
+
+    // Get shared structures from DSM
+    shared = (PVShared *) shm_toc_lookup(toc, PARALLEL_VACUUM_KEY_SHARED, false);
+    sharedquery = shm_toc_lookup(toc, PARALLEL_VACUUM_KEY_QUERY_TEXT, true);
+    debug_query_string = sharedquery;
+    pgstat_report_activity(STATE_RUNNING, debug_query_string);
+
+    // Open target table and indexes
+    rel = table_open(shared->relid, ShareUpdateExclusiveLock);
+    vac_open_indexes(rel, RowExclusiveLock, &nindexes, &indrels);
+    Assert(nindexes > 0);
+
+    // Configure worker memory
+    if (shared->maintenance_work_mem_worker > 0)
+        maintenance_work_mem = shared->maintenance_work_mem_worker;
+
+    // Get index statistics and dead items from shared memory
+    indstats = (PVIndStats *) shm_toc_lookup(toc, PARALLEL_VACUUM_KEY_INDEX_STATS, false);
+    dead_items = TidStoreAttach(shared->dead_items_dsa_handle, shared->dead_items_handle);
+
+    // Set up cost-based vacuum delay
+    VacuumUpdateCosts();
+    VacuumCostBalance = 0;
+    VacuumPageHit = 0;
+    VacuumPageMiss = 0;
+    VacuumPageDirty = 0;
+    VacuumCostBalanceLocal = 0;
+    VacuumSharedCostBalance = &(shared->cost_balance);
+    VacuumActiveNWorkers = &(shared->active_nworkers);
+
+    // Initialize parallel vacuum state
+    pvs.indrels = indrels;
+    pvs.nindexes = nindexes;
+    pvs.indstats = indstats;
+    pvs.shared = shared;
+    pvs.dead_items = dead_items;
+    pvs.relnamespace = get_namespace_name(RelationGetNamespace(rel));
+    pvs.relname = pstrdup(RelationGetRelationName(rel));
+    pvs.heaprel = rel;
+    pvs.indname = NULL;
+    pvs.status = PARALLEL_INDVAC_STATUS_INITIAL;
+    pvs.bstrategy = GetAccessStrategyWithSize(BAS_VACUUM,
+                                              shared->ring_nbuffers * (BLCKSZ / 1024));
+
+    // Set up error callback
+    errcallback.callback = parallel_vacuum_error_callback;
+    errcallback.arg = &pvs;
+    errcallback.previous = error_context_stack;
+    error_context_stack = &errcallback;
+
+    // Track buffer usage and process indexes
+    InstrStartParallelQuery();
+    parallel_vacuum_process_safe_indexes(&pvs);
+
+    // Report usage statistics
+    buffer_usage = shm_toc_lookup(toc, PARALLEL_VACUUM_KEY_BUFFER_USAGE, false);
+    wal_usage = shm_toc_lookup(toc, PARALLEL_VACUUM_KEY_WAL_USAGE, false);
+    InstrEndParallelQuery(&buffer_usage[ParallelWorkerNumber],
+                          &wal_usage[ParallelWorkerNumber]);
+
+    // Cleanup
+    TidStoreDetach(dead_items);
+    error_context_stack = errcallback.previous;
+    vac_close_indexes(nindexes, indrels, RowExclusiveLock);
+    table_close(rel, ShareUpdateExclusiveLock);
+    FreeAccessStrategy(pvs.bstrategy);
+}
+```

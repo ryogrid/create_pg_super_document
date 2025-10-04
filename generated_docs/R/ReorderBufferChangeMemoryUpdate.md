@@ -49,3 +49,56 @@ The function excludes tuple CID changes from memory accounting since these inter
 - Heap operations are performed to maintain the correct ordering after size updates
 - Includes assertions to verify memory accounting consistency
 - The function is static and intended for internal use within the reorder buffer implementation
+
+## Simplified Source
+
+```c
+static void ReorderBufferChangeMemoryUpdate(ReorderBuffer *rb,
+                                           ReorderBufferChange *change,
+                                           ReorderBufferTXN *txn,
+                                           bool addition, Size sz)
+{
+    ReorderBufferTXN *toptxn;
+
+    // Skip tuple CID changes as they're not evicted
+    if (change && change->action == REORDER_BUFFER_CHANGE_INTERNAL_TUPLECID)
+        return;
+
+    // No-op for zero size changes
+    if (sz == 0)
+        return;
+
+    // Use transaction from change if txn is NULL
+    if (txn == NULL)
+        txn = change->txn;
+
+    // Get top-level transaction for streaming support
+    toptxn = rbtxn_get_toptxn(txn);
+
+    if (addition)
+    {
+        // Add memory to counters
+        Size oldsize = txn->size;
+        txn->size += sz;
+        rb->size += sz;
+        toptxn->total_size += sz;
+
+        // Update max-heap for efficient eviction selection
+        if (oldsize != 0)
+            pairingheap_remove(rb->txn_heap, &txn->txn_node);
+        pairingheap_add(rb->txn_heap, &txn->txn_node);
+    }
+    else
+    {
+        // Remove memory from counters
+        txn->size -= sz;
+        rb->size -= sz;
+        toptxn->total_size -= sz;
+
+        // Update max-heap
+        pairingheap_remove(rb->txn_heap, &txn->txn_node);
+        if (txn->size != 0)
+            pairingheap_add(rb->txn_heap, &txn->txn_node);
+    }
+}
+```

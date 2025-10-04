@@ -43,3 +43,62 @@ The PGTYPESnumeric_sub function implements signed numeric subtraction by analyzi
 - [Result](../R/Result.md) scaling (rscale and dscale) is handled appropriately for all operation types
 - The function is designed to be a public interface, unlike the internal static functions it calls
 - Subtraction with different signs effectively becomes addition, while subtraction with same signs requires magnitude comparison
+
+## Simplified Source
+
+```c
+int PGTYPESnumeric_sub(numeric *var1, numeric *var2, numeric *result)
+{
+    // Handle all four sign combinations for subtraction (var1 - var2)
+    if (var1->sign == NUMERIC_POS) {
+        if (var2->sign == NUMERIC_NEG) {
+            // Positive - Negative = Positive + Positive = +(|var1| + |var2|)
+            if (add_abs(var1, var2, result) != 0)
+                return -1;
+            result->sign = NUMERIC_POS;
+        } else {
+            // Both positive: compare absolute values for subtraction
+            switch (cmp_abs(var1, var2)) {
+                case 0:  // Equal absolute values = 0
+                    zero_var(result);
+                    result->rscale = Max(var1->rscale, var2->rscale);
+                    result->dscale = Max(var1->dscale, var2->dscale);
+                    break;
+                case 1:  // |var1| > |var2|: result = +(|var1| - |var2|)
+                    if (sub_abs(var1, var2, result) != 0) return -1;
+                    result->sign = NUMERIC_POS;
+                    break;
+                case -1: // |var1| < |var2|: result = -(|var2| - |var1|)
+                    if (sub_abs(var2, var1, result) != 0) return -1;
+                    result->sign = NUMERIC_NEG;
+                    break;
+            }
+        }
+    } else { // var1 is negative
+        if (var2->sign == NUMERIC_NEG) {
+            // Both negative: compare absolute values
+            switch (cmp_abs(var1, var2)) {
+                case 0:  // Equal absolute values = 0
+                    zero_var(result);
+                    result->rscale = Max(var1->rscale, var2->rscale);
+                    result->dscale = Max(var1->dscale, var2->dscale);
+                    break;
+                case 1:  // |var1| > |var2|: result = -(|var1| - |var2|)
+                    if (sub_abs(var1, var2, result) != 0) return -1;
+                    result->sign = NUMERIC_NEG;
+                    break;
+                case -1: // |var1| < |var2|: result = +(|var2| - |var1|)
+                    if (sub_abs(var2, var1, result) != 0) return -1;
+                    result->sign = NUMERIC_POS;
+                    break;
+            }
+        } else {
+            // Negative - Positive = -(|var1| + |var2|)
+            if (add_abs(var1, var2, result) != 0)
+                return -1;
+            result->sign = NUMERIC_NEG;
+        }
+    }
+    return 0;
+}
+```

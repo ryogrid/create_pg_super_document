@@ -35,3 +35,17 @@ This function provides an exported routine for checking access privileges to Pos
 - Returns ACLCHECK_OK if the role has the required privileges, ACLCHECK_NO_PRIV otherwise
 - Primary caller is inv_open which opens large objects for reading/writing
 - Part of PostgreSQL's large object storage system access control
+
+## Simplified Source
+
+```c
+AclResult pg_largeobject_aclcheck_snapshot(Oid lobj_oid, Oid roleid,
+                                          AclMode mode, Snapshot snapshot) {
+    // Check if role has the requested privileges on the large object
+    if (pg_largeobject_aclmask_snapshot(lobj_oid, roleid, mode,
+                                       ACLMASK_ANY, snapshot) != 0)
+        return ACLCHECK_OK;
+    else
+        return ACLCHECK_NO_PRIV;
+}
+```

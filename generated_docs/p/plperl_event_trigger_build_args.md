@@ -33,3 +33,24 @@ This function prepares the argument structure passed to Perl event trigger funct
 - Uses dTHX macro for Perl thread context (required for multi-threaded Perl operations)
 - The returned hash contains the event name (e.g., 'ddl_command_start') and the SQL command tag (e.g., 'CREATE TABLE')
 - Part of the PL/Perl language extension's event trigger support system
+
+## Simplified Source
+
+```c
+static SV *plperl_event_trigger_build_args(FunctionCallInfo fcinfo)
+{
+    EventTriggerData *tdata;
+    HV *hv;
+
+    // Create new hash for event trigger arguments
+    hv = newHV();
+
+    tdata = (EventTriggerData *) fcinfo->context;
+
+    // Store event name and command tag
+    hv_store_string(hv, "event", cstr2sv(tdata->event));
+    hv_store_string(hv, "tag", cstr2sv(GetCommandTagName(tdata->tag)));
+
+    return newRV_noinc((SV *) hv);
+}
+```

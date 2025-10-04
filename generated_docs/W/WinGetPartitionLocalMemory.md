@@ -38,3 +38,20 @@ This function serves as a memory management utility for window functions that ne
 - Memory is automatically freed when partition processing ends
 - Intended for partition-local state; use fcinfo->fn_extra for query-wide state
 - Validates WindowObject before proceeding with allocation
+
+## Simplified Source
+
+```c
+void *
+WinGetPartitionLocalMemory(WindowObject winobj, Size sz)
+{
+    // Validate the window object
+    Assert(WindowObjectIsValid(winobj));
+
+    // Allocate and zero memory on first call within partition
+    if (winobj->localmem == NULL)
+        winobj->localmem = MemoryContextAllocZero(winobj->winstate->partcontext, sz);
+
+    return winobj->localmem;
+}
+```

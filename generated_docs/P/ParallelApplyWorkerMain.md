@@ -63,3 +63,80 @@ The function includes an assertion at the end that should never be reached, as p
 - Includes proper cleanup registration through before_shmem_exit callback
 - The final Assert(false) ensures developers are aware if the function unexpectedly returns
 - Part of PostgreSQL's parallel logical replication architecture for improved replication performance and scalability
+
+## Simplified Source
+
+```c
+void ParallelApplyWorkerMain(Datum main_arg) {
+    int worker_slot = DatumGetInt32(main_arg);
+
+    InitializingApplyWorker = true;
+
+    // Setup signal handlers
+    pqsignal(SIGHUP, SignalHandlerForConfigReload);
+    pqsignal(SIGINT, SignalHandlerForShutdownRequest);
+    pqsignal(SIGTERM, die);
+    BackgroundWorkerUnblockSignals();
+
+    // Attach to shared memory segment
+    dsm_handle handle;
+    memcpy(&handle, MyBgworkerEntry->bgw_extra, sizeof(dsm_handle));
+    dsm_segment *seg = dsm_attach(handle);
+
+    shm_toc *toc = shm_toc_attach(PG_LOGICAL_APPLY_SHM_MAGIC, dsm_segment_address(seg));
+
+    // Get shared data and setup message queues
+    ParallelApplyWorkerShared *shared = shm_toc_lookup(toc, PARALLEL_APPLY_KEY_SHARED, false);
+    MyParallelShared = shared;
+
+    // Setup work message queue (receive from leader)
+    shm_mq *mq = shm_toc_lookup(toc, PARALLEL_APPLY_KEY_MQ, false);
+    shm_mq_set_receiver(mq, MyProc);
+    shm_mq_handle *mqh = shm_mq_attach(mq, seg, NULL);
+
+    // Attach to logical replication worker slot
+    logicalrep_worker_attach(worker_slot);
+
+    // Register shutdown callback
+    before_shmem_exit(pa_shutdown, PointerGetDatum(seg));
+
+    // Update shared worker information
+    SpinLockAcquire(&MyParallelShared->mutex);
+    MyParallelShared->logicalrep_worker_generation = MyLogicalRepWorker->generation;
+    MyParallelShared->logicalrep_worker_slot_no = worker_slot;
+    SpinLockRelease(&MyParallelShared->mutex);
+
+    // Setup error message queue (send to leader)
+    mq = shm_toc_lookup(toc, PARALLEL_APPLY_KEY_ERROR_QUEUE, false);
+    shm_mq_set_sender(mq, MyProc);
+    shm_mq_handle *error_mqh = shm_mq_attach(mq, seg, NULL);
+
+    // Redirect error output to shared queue
+    pq_redirect_to_shm_mq(seg, error_mqh);
+    pq_set_parallel_leader(MyLogicalRepWorker->leader_pid, INVALID_PROC_NUMBER);
+
+    // Initialize replication worker
+    MyLogicalRepWorker->last_send_time = MyLogicalRepWorker->last_recv_time = MyLogicalRepWorker->reply_time = 0;
+    InitializeLogRepWorker();
+    InitializingApplyWorker = false;
+
+    // Setup replication origin tracking
+    StartTransactionCommand();
+    char originname[NAMEDATALEN];
+    ReplicationOriginNameForLogicalRep(MySubscription->oid, InvalidOid, originname, sizeof(originname));
+    RepOriginId originid = replorigin_by_name(originname, false);
+    replorigin_session_setup(originid, MyLogicalRepWorker->leader_pid);
+    replorigin_session_origin = originid;
+    CommitTransactionCommand();
+
+    // Register cache callback for subscription changes
+    CacheRegisterSyscacheCallback(SUBSCRIPTIONRELMAP, invalidate_syncing_table_states, (Datum) 0);
+    set_apply_error_context_origin(originname);
+
+    // Enter main processing loop
+    LogicalParallelApplyLoop(mqh);
+
+    // Should never reach here
+    Assert(false);
+}
+```

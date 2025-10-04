@@ -47,3 +47,92 @@ This function implements the PostgreSQL DO statement functionality for PL/Perl b
 - Properly manages Perl reference counting for temporary subroutines and return values
 - Returns void as inline code blocks don't return values to SQL level
 - Essential for PostgreSQL's DO statement functionality in PL/Perl
+
+## Simplified Source
+
+```c
+Datum plperl_inline_handler(PG_FUNCTION_ARGS)
+{
+    LOCAL_FCINFO(fake_fcinfo, 0);
+    InlineCodeBlock *codeblock = (InlineCodeBlock *) PG_GETARG_POINTER(0);
+    FmgrInfo flinfo;
+    plperl_proc_desc desc;
+    plperl_call_data *volatile save_call_data = current_call_data;
+    plperl_interp_desc *volatile oldinterp = plperl_active_interp;
+    plperl_call_data this_call_data;
+    ErrorContextCallback pl_error_context;
+
+    // Initialize current call status record
+    MemSet(&this_call_data, 0, sizeof(this_call_data));
+
+    // Set up error reporting callback
+    pl_error_context.callback = plperl_inline_callback;
+    pl_error_context.previous = error_context_stack;
+    pl_error_context.arg = NULL;
+    error_context_stack = &pl_error_context;
+
+    // Create fake function call info for inline code execution
+    MemSet(fake_fcinfo, 0, SizeForFunctionCallInfo(0));
+    MemSet(&flinfo, 0, sizeof(flinfo));
+    MemSet(&desc, 0, sizeof(desc));
+
+    fake_fcinfo->flinfo = &flinfo;
+    flinfo.fn_oid = InvalidOid;
+    flinfo.fn_mcxt = CurrentMemoryContext;
+
+    // Set up procedure descriptor for inline code
+    desc.proname = "inline_code_block";
+    desc.fn_readonly = false;
+    desc.lang_oid = codeblock->langOid;
+    desc.trftypes = NIL;
+    desc.lanpltrusted = codeblock->langIsTrusted;
+    desc.fn_retistuple = false;
+    desc.fn_retisset = false;
+    desc.fn_retisarray = false;
+    desc.result_oid = InvalidOid;
+    desc.nargs = 0;
+    desc.reference = NULL;
+
+    this_call_data.fcinfo = fake_fcinfo;
+    this_call_data.prodesc = &desc;
+
+    PG_TRY();
+    {
+        SV *perlret;
+
+        current_call_data = &this_call_data;
+
+        // Connect to SPI for database access
+        if (SPI_connect_ext(codeblock->atomic ? 0 : SPI_OPT_NONATOMIC) != SPI_OK_CONNECT)
+            elog(ERROR, "could not connect to SPI manager");
+
+        // Select appropriate Perl context (trusted/untrusted)
+        select_perl_context(desc.lanpltrusted);
+
+        // Create and execute the Perl subroutine
+        plperl_create_sub(&desc, codeblock->source_text, 0);
+
+        if (!desc.reference)
+            elog(ERROR, "could not create internal procedure for anonymous code block");
+
+        perlret = plperl_call_perl_func(&desc, fake_fcinfo);
+        SvREFCNT_dec_current(perlret);
+
+        if (SPI_finish() != SPI_OK_FINISH)
+            elog(ERROR, "SPI_finish() failed");
+    }
+    PG_FINALLY();
+    {
+        // Clean up resources
+        if (desc.reference)
+            SvREFCNT_dec_current(desc.reference);
+        current_call_data = save_call_data;
+        activate_interpreter(oldinterp);
+    }
+    PG_END_TRY();
+
+    error_context_stack = pl_error_context.previous;
+
+    PG_RETURN_VOID();
+}
+```

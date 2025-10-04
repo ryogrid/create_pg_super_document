@@ -60,3 +60,44 @@ This is particularly important for UPDATE operations where modifying a base colu
 - Used primarily in inheritance planning and UPDATE operations to ensure all dependent generated columns are properly handled
 - The dependency analysis is performed by parsing the stored expression text and extracting variable attribute numbers
 - Only stored generated columns are considered; virtual generated columns are not included in the analysis
+
+## Simplified Source
+
+```c
+Bitmapset *get_dependent_generated_columns(PlannerInfo *root, Index rti,
+                                           Bitmapset *target_cols) {
+    Bitmapset *dependentCols = NULL;
+    RangeTblEntry *rte = planner_rt_fetch(rti, root);
+
+    // Open the relation (assuming adequate lock already held)
+    Relation relation = table_open(rte->relid, NoLock);
+    TupleDesc tupdesc = RelationGetDescr(relation);
+    TupleConstr *constr = tupdesc->constr;
+
+    // Check if relation has stored generated columns
+    if (constr && constr->has_generated_stored) {
+        // Examine each default value definition
+        for (int i = 0; i < constr->num_defval; i++) {
+            AttrDefault *defval = &constr->defval[i];
+
+            // Skip if not a generated column
+            if (!TupleDescAttr(tupdesc, defval->adnum - 1)->attgenerated)
+                continue;
+
+            // Parse the generated column expression and find referenced attributes
+            Node *expr = stringToNode(defval->adbin);
+            Bitmapset *attrs_used = NULL;
+            pull_varattnos(expr, 1, &attrs_used);
+
+            // If this generated column depends on any target column, include it
+            if (bms_overlap(target_cols, attrs_used)) {
+                dependentCols = bms_add_member(dependentCols,
+                    defval->adnum - FirstLowInvalidHeapAttributeNumber);
+            }
+        }
+    }
+
+    table_close(relation, NoLock);
+    return dependentCols;
+}
+```

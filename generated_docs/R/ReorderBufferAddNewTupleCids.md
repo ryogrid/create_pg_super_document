@@ -36,3 +36,34 @@ This function records mappings between tuple identifiers (relfilelocator, tid) a
 - The function specifically handles internal tuple CID tracking for logical replication
 - The change is added to the transaction's tuplecids list using dlist_push_tail
 - Transaction's ntuplecids counter is incremented to track the number of CID mappings
+
+## Simplified Source
+
+```c
+void ReorderBufferAddNewTupleCids(ReorderBuffer *rb, TransactionId xid,
+                                 XLogRecPtr lsn, RelFileLocator locator,
+                                 ItemPointerData tid, CommandId cmin,
+                                 CommandId cmax, CommandId combocid)
+{
+    // Allocate a new change structure
+    ReorderBufferChange *change = ReorderBufferGetChange(rb);
+    ReorderBufferTXN *txn;
+
+    // Get or create the transaction
+    txn = ReorderBufferTXNByXid(rb, xid, true, NULL, lsn, true);
+
+    // Set up the tuple CID mapping
+    change->data.tuplecid.locator = locator;
+    change->data.tuplecid.tid = tid;
+    change->data.tuplecid.cmin = cmin;
+    change->data.tuplecid.cmax = cmax;
+    change->data.tuplecid.combocid = combocid;
+    change->lsn = lsn;
+    change->txn = txn;
+    change->action = REORDER_BUFFER_CHANGE_INTERNAL_TUPLECID;
+
+    // Add to transaction's separate CID list (not subject to memory eviction)
+    dlist_push_tail(&txn->tuplecids, &change->node);
+    txn->ntuplecids++;
+}
+```

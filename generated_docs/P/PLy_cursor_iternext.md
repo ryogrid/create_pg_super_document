@@ -42,3 +42,59 @@ The function performs comprehensive error checking, including validation that th
 - Uses PostgreSQL's subtransaction system for error recovery
 - Memory context and resource owner are carefully managed during execution
 - The function is registered in the PLy_CursorType structure as the tp_iternext method
+
+## Simplified Source
+
+```c
+static PyObject *PLy_cursor_iternext(PyObject *self) {
+    PLyCursorObject *cursor = (PLyCursorObject *) self;
+    PyObject *ret;
+    PLyExecutionContext *exec_ctx = PLy_current_execution_context();
+    volatile MemoryContext oldcontext = CurrentMemoryContext;
+    volatile ResourceOwner oldowner = CurrentResourceOwner;
+    Portal portal;
+
+    // Validate cursor state
+    if (cursor->closed) {
+        PLy_exception_set(PyExc_ValueError, "iterating a closed cursor");
+        return NULL;
+    }
+
+    portal = GetPortalByName(cursor->portalname);
+    if (!PortalIsValid(portal)) {
+        PLy_exception_set(PyExc_ValueError,
+                         "iterating a cursor in an aborted subtransaction");
+        return NULL;
+    }
+
+    PLy_spi_subtransaction_begin(oldcontext, oldowner);
+
+    PG_TRY();
+    {
+        // Fetch exactly one row
+        SPI_cursor_fetch(portal, true, 1);
+
+        if (SPI_processed == 0) {
+            // No more rows - raise StopIteration
+            PyErr_SetNone(PyExc_StopIteration);
+            ret = NULL;
+        } else {
+            // Convert row to Python object
+            PLy_input_setup_tuple(&cursor->result, SPI_tuptable->tupdesc, exec_ctx->curr_proc);
+            ret = PLy_input_from_tuple(&cursor->result, SPI_tuptable->vals[0],
+                                      SPI_tuptable->tupdesc, true);
+        }
+
+        SPI_freetuptable(SPI_tuptable);
+        PLy_spi_subtransaction_commit(oldcontext, oldowner);
+    }
+    PG_CATCH();
+    {
+        PLy_spi_subtransaction_abort(oldcontext, oldowner);
+        return NULL;
+    }
+    PG_END_TRY();
+
+    return ret;
+}
+```

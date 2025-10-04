@@ -33,3 +33,17 @@ The returned value is a null-terminated string representation of the field data.
 - For NULL database values, this function returns an empty string - use PQgetisnull() to distinguish between empty strings and NULL values
 - The returned pointer is valid only as long as the PGresult structure exists
 - This is one of the most commonly used functions in libpq client applications for data retrieval
+
+## Simplified Source
+
+```c
+char *PQgetvalue(const PGresult *res, int tup_num, int field_num)
+{
+    // Validate tuple and field numbers are in range
+    if (!check_tuple_field_number(res, tup_num, field_num))
+        return NULL;
+
+    // Return field value directly from result structure
+    return res->tuples[tup_num][field_num].value;
+}
+```

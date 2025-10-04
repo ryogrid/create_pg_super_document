@@ -40,3 +40,29 @@ When the internal buffer reaches its capacity (MAX_BUFFERED_VALUES), the functio
 - Automatically manages buffer flushing when the buffer capacity is reached
 - Updates the set's metadata including entry count and highest value
 - Part of PostgreSQL's compressed integer set implementation used for efficient storage of large sets of integers
+
+## Simplified Source
+
+```c
+void intset_add_member(IntegerSet *intset, uint64 x) {
+    // Ensure no iteration is active
+    if (intset->iter_active)
+        elog(ERROR, "cannot add new values to integer set while iteration is in progress");
+
+    // Enforce ascending order requirement
+    if (x <= intset->highest_value && intset->num_entries > 0)
+        elog(ERROR, "cannot add value to integer set out of order");
+
+    // Flush buffer if full
+    if (intset->num_buffered_values >= MAX_BUFFERED_VALUES) {
+        intset_flush_buffered_values(intset);
+        Assert(intset->num_buffered_values < MAX_BUFFERED_VALUES);
+    }
+
+    // Add value to buffer and update metadata
+    intset->buffered_values[intset->num_buffered_values] = x;
+    intset->num_buffered_values++;
+    intset->num_entries++;
+    intset->highest_value = x;
+}
+```

@@ -148,3 +148,65 @@ The function preserves existing states and arcs (except the target constraint) t
 - The function handles self-loops by asserting  (these should be eliminated earlier)
 - Leaves cleanup of useless states to the calling  function
 - Part of PostgreSQL's regex engine constraint elimination system
+
+## Simplified Source
+```c
+static int pull(struct nfa *nfa, struct arc *con, struct state **intermediates) {
+    struct state *from = con->from;
+    struct state *to = con->to;
+    struct arc *a, *nexta;
+    struct state *s;
+
+    // Can't pull back beyond start state or if unreachable
+    if (from->flag) return 0;
+    if (from->nins == 0) {
+        freearc(nfa, con);
+        return 1;
+    }
+
+    // Clone state if it has multiple outgoing arcs
+    if (from->nouts > 1) {
+        s = newstate(nfa);
+        if (NISERR()) return 0;
+        copyins(nfa, from, s);
+        cparc(nfa, con, s, to);
+        freearc(nfa, con);
+        from = s;
+        con = from->outs;
+    }
+
+    // Propagate constraint through incoming arcs
+    for (a = from->ins; a != NULL && !NISERR(); a = nexta) {
+        nexta = a->inchain;
+        switch (combine(nfa, con, a)) {
+            case INCOMPATIBLE:
+                freearc(nfa, a);
+                break;
+            case COMPATIBLE:
+                // Find or create intermediate state
+                for (s = *intermediates; s != NULL; s = s->tmp) {
+                    if (s->ins->from == a->from && s->outs->to == to)
+                        break;
+                }
+                if (s == NULL) {
+                    s = newstate(nfa);
+                    s->tmp = *intermediates;
+                    *intermediates = s;
+                }
+                cparc(nfa, con, a->from, s);
+                cparc(nfa, a, s, to);
+                freearc(nfa, a);
+                break;
+            case REPLACEARC:
+                newarc(nfa, a->type, con->co, a->from, to);
+                freearc(nfa, a);
+                break;
+        }
+    }
+
+    // Move remaining arcs and cleanup
+    moveins(nfa, from, to);
+    freearc(nfa, con);
+    return 1;
+}
+```

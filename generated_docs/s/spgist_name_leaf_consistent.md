@@ -51,3 +51,82 @@ All comparisons are performed using non-collation-aware string operations, and e
 - Performs byte-wise string comparison without collation awareness
 - Returns boolean result indicating whether leaf tuple matches all scan conditions
 - Part of test module demonstrating SP-GiST implementation for PostgreSQL name data type
+
+## Simplified Source
+
+```c
+Datum spgist_name_leaf_consistent(PG_FUNCTION_ARGS) {
+    spgLeafConsistentIn *in = (spgLeafConsistentIn *) PG_GETARG_POINTER(0);
+    spgLeafConsistentOut *out = (spgLeafConsistentOut *) PG_GETARG_POINTER(1);
+
+    // No recheck needed - exact comparisons
+    out->recheck = false;
+
+    text *leafValue = DatumGetTextPP(in->leafDatum);
+    text *reconstrValue = NULL;
+    if (DatumGetPointer(in->reconstructedValue))
+        reconstrValue = (text *) DatumGetPointer(in->reconstructedValue);
+
+    // Reconstruct complete name from parent prefix + leaf suffix
+    char *fullValue = palloc0(NAMEDATALEN);
+    int level = in->level;
+    int fullLen = level + VARSIZE_ANY_EXHDR(leafValue);
+
+    if (VARSIZE_ANY_EXHDR(leafValue) == 0 && level > 0) {
+        // Special case: empty leaf value, use only reconstructed part
+        memcpy(fullValue, VARDATA(reconstrValue), VARSIZE_ANY_EXHDR(reconstrValue));
+    } else {
+        // Copy reconstructed prefix and leaf suffix
+        if (level)
+            memcpy(fullValue, VARDATA(reconstrValue), level);
+        if (VARSIZE_ANY_EXHDR(leafValue) > 0)
+            memcpy(fullValue + level, VARDATA_ANY(leafValue), VARSIZE_ANY_EXHDR(leafValue));
+    }
+
+    out->leafValue = PointerGetDatum(fullValue);
+
+    // Test against all scan key conditions
+    bool result = true;
+    for (int j = 0; j < in->nkeys; j++) {
+        StrategyNumber strategy = in->scankeys[j].sk_strategy;
+        Name queryName = DatumGetName(in->scankeys[j].sk_argument);
+        char *queryStr = NameStr(*queryName);
+        int queryLen = strlen(queryStr);
+
+        // Compare full reconstructed value with query string
+        int comparison = memcmp(fullValue, queryStr, Min(queryLen, fullLen));
+
+        // Handle case where prefix matches but lengths differ
+        if (comparison == 0) {
+            if (queryLen > fullLen)
+                comparison = -1;
+            else if (queryLen < fullLen)
+                comparison = 1;
+        }
+
+        // Apply strategy-specific comparison
+        switch (strategy) {
+            case BTLessStrategyNumber:
+                result = (comparison < 0);
+                break;
+            case BTLessEqualStrategyNumber:
+                result = (comparison <= 0);
+                break;
+            case BTEqualStrategyNumber:
+                result = (comparison == 0);
+                break;
+            case BTGreaterEqualStrategyNumber:
+                result = (comparison >= 0);
+                break;
+            case BTGreaterStrategyNumber:
+                result = (comparison > 0);
+                break;
+        }
+
+        if (!result)
+            break; // Short circuit on first failure
+    }
+
+    PG_RETURN_BOOL(result);
+}
+```

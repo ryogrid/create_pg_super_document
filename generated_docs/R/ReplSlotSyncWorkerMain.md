@@ -49,3 +49,92 @@ This function serves as the main entry point for the slot synchronization worker
 - Validates that the server is not a cascading standby before proceeding
 - Uses walreceiver infrastructure for primary server communication
 - Critical component of PostgreSQL's logical replication failover capability
+
+## Simplified Source
+
+```c
+void ReplSlotSyncWorkerMain(char *startup_data, size_t startup_data_len)
+{
+    WalReceiverConn *wrconn = NULL;
+    char *dbname;
+    char *err;
+    sigjmp_buf local_sigjmp_buf;
+    StringInfoData app_name;
+
+    MyBackendType = B_SLOTSYNC_WORKER;
+
+    // Initialize process and backend
+    init_ps_display(NULL);
+    SetProcessingMode(InitProcessing);
+    InitProcess();
+    BaseInit();
+
+    // Set up exception handling
+    if (sigsetjmp(local_sigjmp_buf, 1) != 0)
+    {
+        error_context_stack = NULL;
+        HOLD_INTERRUPTS();
+        EmitErrorReport();
+        proc_exit(0);
+    }
+    PG_exception_stack = &local_sigjmp_buf;
+
+    // Set up signal handlers
+    pqsignal(SIGHUP, SignalHandlerForConfigReload);
+    pqsignal(SIGINT, SignalHandlerForShutdownRequest);
+    pqsignal(SIGTERM, die);
+    // ... other signal handlers
+
+    check_and_set_sync_info(MyProcPid);
+    ereport(LOG, errmsg("slot sync worker started"));
+
+    // Register cleanup callback
+    before_shmem_exit(slotsync_worker_onexit, (Datum) 0);
+
+    // Initialize timeouts and load required libraries
+    InitializeTimeouts();
+    load_file("libpqwalreceiver", false);
+    sigprocmask(SIG_SETMASK, &UnBlockSig, NULL);
+
+    // Set secure search path
+    SetConfigOption("search_path", "", PGC_SUSET, PGC_S_OVERRIDE);
+
+    // Connect to database
+    dbname = CheckAndGetDbnameFromConninfo();
+    InitPostgres(dbname, InvalidOid, NULL, InvalidOid, 0, NULL);
+    SetProcessingMode(NormalProcessing);
+
+    // Build application name
+    initStringInfo(&app_name);
+    if (cluster_name[0])
+        appendStringInfo(&app_name, "%s_%s", cluster_name, "slotsync worker");
+    else
+        appendStringInfoString(&app_name, "slotsync worker");
+
+    // Connect to primary server
+    wrconn = walrcv_connect(PrimaryConnInfo, false, false, false,
+                           app_name.data, &err);
+    pfree(app_name.data);
+
+    if (!wrconn)
+        ereport(ERROR,
+                errcode(ERRCODE_CONNECTION_FAILURE),
+                errmsg("could not connect to the primary server: %s", err));
+
+    // Register disconnect callback
+    before_shmem_exit(slotsync_worker_disconnect, PointerGetDatum(wrconn));
+
+    // Validate remote server configuration
+    validate_remote_info(wrconn);
+
+    // Main synchronization loop
+    for (;;)
+    {
+        bool some_slot_updated = false;
+
+        ProcessSlotSyncInterrupts(wrconn);
+        some_slot_updated = synchronize_slots(wrconn);
+        wait_for_slot_activity(some_slot_updated);
+    }
+}
+```

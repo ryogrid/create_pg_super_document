@@ -45,3 +45,19 @@ This design allows for controlled cleanup of parse tree sections while maintaini
 - Works in conjunction with freesubreandsiblings to handle different cleanup scenarios
 - Critical for preventing memory leaks during regex compilation error handling and normal cleanup
 - The vars parameter may be NULL, indicating the function should work without access to compilation state
+
+## Simplified Source
+
+```c
+static void freesubre(struct vars *v, struct subre *sr) {
+    if (sr == NULL)
+        return;
+
+    // Recursively free all child nodes and their siblings
+    if (sr->child != NULL)
+        freesubreandsiblings(v, sr->child);
+
+    // Free this node itself
+    freesrnode(v, sr);
+}
+```

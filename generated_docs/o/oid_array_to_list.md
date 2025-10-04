@@ -33,3 +33,24 @@ The function is commonly used in PostgreSQL's procedural language implementation
 - The function assumes the input datum represents a valid OID array
 - Commonly used in procedural language contexts (PL/Perl, PL/Python) for processing function parameter type arrays
 - The resulting List uses PostgreSQL's memory management and can be processed with standard List manipulation functions
+
+## Simplified Source
+
+```c
+List *oid_array_to_list(Datum datum) {
+    ArrayType *array = DatumGetArrayTypeP(datum);
+    Datum *values;
+    int nelems;
+    int i;
+    List *result = NIL;
+
+    // Extract OID values from the array
+    deconstruct_array_builtin(array, OIDOID, &values, NULL, &nelems);
+
+    // Build list by appending each OID
+    for (i = 0; i < nelems; i++)
+        result = lappend_oid(result, values[i]);
+
+    return result;
+}
+```

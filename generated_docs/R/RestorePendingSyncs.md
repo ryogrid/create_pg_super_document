@@ -30,3 +30,20 @@ The function intentionally does not restore the is_truncated field from the orig
 - The is_truncated field is intentionally not restored since it's only needed by smgrDoPendingSyncs() at transaction end
 - This ensures RelationNeedsWAL() and RelFileLocatorSkippingWAL() work correctly in parallel workers
 - The input is expected to be a null-terminated array where the terminating entry has relNumber == 0
+
+## Simplified Source
+
+```c
+void RestorePendingSyncs(char *startAddress) {
+    // Ensure we start with empty pending sync hash
+    Assert(pendingSyncHash == NULL);
+
+    // Iterate through the serialized RelFileLocator array
+    RelFileLocator *rlocator = (RelFileLocator *) startAddress;
+    while (rlocator->relNumber != 0) {
+        // Add each RelFileLocator to pending sync tracking
+        AddPendingSync(rlocator);
+        rlocator++;
+    }
+}
+```

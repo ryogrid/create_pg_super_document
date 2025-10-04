@@ -46,3 +46,38 @@ This is particularly useful for functions that need to build tuples from externa
 - The resulting AttInMetadata structure contains function pointers that are ready to use for string-to-datum conversion
 - This is commonly used in SRFs, foreign data wrappers, and other components that need to construct tuples from external text data
 - The AttInMetadata structure provides efficient access to type input functions without requiring repeated catalog lookups
+
+## Simplified Source
+
+```c
+AttInMetadata *
+TupleDescGetAttInMetadata(TupleDesc tupdesc)
+{
+    int natts = tupdesc->natts;
+    AttInMetadata *attinmeta;
+
+    // Allocate and initialize metadata structure
+    attinmeta = (AttInMetadata *) palloc(sizeof(AttInMetadata));
+    attinmeta->tupdesc = BlessTupleDesc(tupdesc);
+
+    // Allocate arrays for input function information
+    attinmeta->attinfuncs = (FmgrInfo *) palloc0(natts * sizeof(FmgrInfo));
+    attinmeta->attioparams = (Oid *) palloc0(natts * sizeof(Oid));
+    attinmeta->atttypmods = (int32 *) palloc0(natts * sizeof(int32));
+
+    // Gather input function info for each attribute
+    for (int i = 0; i < natts; i++) {
+        Form_pg_attribute att = TupleDescAttr(tupdesc, i);
+
+        // Skip dropped attributes
+        if (!att->attisdropped) {
+            Oid attinfuncid;
+            getTypeInputInfo(att->atttypid, &attinfuncid, &attinmeta->attioparams[i]);
+            fmgr_info(attinfuncid, &attinmeta->attinfuncs[i]);
+            attinmeta->atttypmods[i] = att->atttypmod;
+        }
+    }
+
+    return attinmeta;
+}
+```

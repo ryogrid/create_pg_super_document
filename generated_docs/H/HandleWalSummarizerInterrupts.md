@@ -50,3 +50,30 @@ The function handles graceful shutdown when either an explicit shutdown is reque
 - Processes configuration changes without restarting the process
 - Handles memory context logging for debugging purposes
 - Called frequently throughout the summarizer's main processing loops to ensure responsive handling of administrative commands
+
+## Simplified Source
+
+```c
+static void HandleWalSummarizerInterrupts(void)
+{
+    // Handle process signal barriers for system coordination
+    if (ProcSignalBarrierPending)
+        ProcessProcSignalBarrier();
+
+    // Handle configuration reload requests
+    if (ConfigReloadPending) {
+        ConfigReloadPending = false;
+        ProcessConfigFile(PGC_SIGHUP);
+    }
+
+    // Handle shutdown requests or disabled summarization
+    if (ShutdownRequestPending || !summarize_wal) {
+        ereport(DEBUG1, errmsg_internal("WAL summarizer shutting down"));
+        proc_exit(0);
+    }
+
+    // Handle memory context logging requests
+    if (LogMemoryContextPending)
+        ProcessLogMemoryContextInterrupt();
+}
+```

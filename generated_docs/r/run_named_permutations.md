@@ -33,3 +33,17 @@ The function iterates through the array of predefined permutations in the test s
 - More efficient than full permutation testing when only specific scenarios need validation
 - Part of the isolation testing framework for PostgreSQL concurrency testing
 - Complements the automatic permutation generation functionality
+
+## Simplified Source
+
+```c
+static void
+run_named_permutations(TestSpec *testspec)
+{
+    // Execute each predefined permutation in the test spec
+    for (int i = 0; i < testspec->npermutations; i++) {
+        Permutation *p = testspec->permutations[i];
+        run_permutation(testspec, p->nsteps, p->steps);
+    }
+}
+```

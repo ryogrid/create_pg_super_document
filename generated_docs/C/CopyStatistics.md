@@ -51,3 +51,55 @@ This operation is critical during certain DDL operations where a relation is reb
 - This is part of PostgreSQL's statistics management system that supports the query planner
 - The function is commonly used during operations that rebuild relations while preserving optimizer information
 - Proper cleanup ensures that heap tuples are freed to prevent memory leaks
+
+## Simplified Source
+
+```c
+void CopyStatistics(Oid fromrelid, Oid torelid) {
+    HeapTuple tup;
+    SysScanDesc scan;
+    ScanKeyData key[1];
+    Relation statrel;
+    CatalogIndexState indstate = NULL;
+
+    // Open pg_statistic catalog for modifications
+    statrel = table_open(StatisticRelationId, RowExclusiveLock);
+
+    // Set up scan to find all statistics for the source relation
+    ScanKeyInit(&key[0], Anum_pg_statistic_starelid,
+                BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(fromrelid));
+
+    scan = systable_beginscan(statrel, StatisticRelidAttnumInhIndexId,
+                              true, NULL, 1, key);
+
+    // Copy each statistics tuple to the destination relation
+    while (HeapTupleIsValid((tup = systable_getnext(scan)))) {
+        Form_pg_statistic statform;
+
+        // Create a modifiable copy of the tuple
+        tup = heap_copytuple(tup);
+        statform = (Form_pg_statistic) GETSTRUCT(tup);
+
+        // Update relation ID to point to destination relation
+        statform->starelid = torelid;
+
+        // Open indexes lazily when first tuple is found
+        if (indstate == NULL) {
+            indstate = CatalogOpenIndexes(statrel);
+        }
+
+        // Insert the modified tuple into the catalog
+        CatalogTupleInsertWithInfo(statrel, tup, indstate);
+
+        heap_freetuple(tup);
+    }
+
+    // Clean up
+    systable_endscan(scan);
+    if (indstate != NULL) {
+        CatalogCloseIndexes(indstate);
+    }
+    table_close(statrel, RowExclusiveLock);
+}
+```

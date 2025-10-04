@@ -41,3 +41,27 @@ The function uses internationalization support through  to provide localized err
 - Used primarily in error reporting scenarios when authentication methods are rejected or unexpected
 - The returned strings are static and should not be freed by the caller
 - Distinguishes between cleartext passwords (AUTH_REQ_PASSWORD) and hashed passwords (AUTH_REQ_MD5) in user messages
+
+## Simplified Source
+
+```c
+static const char *auth_method_description(AuthRequest areq) {
+    switch (areq) {
+        case AUTH_REQ_PASSWORD:
+            return libpq_gettext("server requested a cleartext password");
+        case AUTH_REQ_MD5:
+            return libpq_gettext("server requested a hashed password");
+        case AUTH_REQ_GSS:
+        case AUTH_REQ_GSS_CONT:
+            return libpq_gettext("server requested GSSAPI authentication");
+        case AUTH_REQ_SSPI:
+            return libpq_gettext("server requested SSPI authentication");
+        case AUTH_REQ_SASL:
+        case AUTH_REQ_SASL_CONT:
+        case AUTH_REQ_SASL_FIN:
+            return libpq_gettext("server requested SASL authentication");
+    }
+
+    return libpq_gettext("server requested an unknown authentication type");
+}
+```

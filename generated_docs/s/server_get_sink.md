@@ -30,3 +30,12 @@ The function is part of PostgreSQL's modular backup architecture where different
 - The function is typically assigned to the get_sink field of a BaseBackupTargetType structure
 - Located in src/backend/backup/basebackup_target.c at lines 203-212
 - Part of PostgreSQL's base backup infrastructure introduced for handling different backup destinations
+
+## Simplified Source
+
+```c
+static bbsink *server_get_sink(bbsink *next_sink, void *detail_arg) {
+    // Create server-side backup sink with provided configuration
+    return bbsink_server_new(next_sink, detail_arg);
+}
+```

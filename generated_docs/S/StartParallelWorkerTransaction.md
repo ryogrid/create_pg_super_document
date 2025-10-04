@@ -45,3 +45,35 @@ The function ensures that the parallel worker sees exactly the same transaction 
 - The parallel worker inherits the exact transaction visibility and isolation semantics of the main process
 - Critical for maintaining ACID properties and consistent read behavior across parallel operations
 - Works as the counterpart to SerializeTransactionState - they form a serialization/deserialization pair
+
+## Simplified Source
+
+```c
+void StartParallelWorkerTransaction(char *tstatespace)
+{
+    SerializedTransactionState *tstate;
+
+    // Verify clean initial state and start new transaction
+    Assert(CurrentTransactionState->blockState == TBLOCK_DEFAULT);
+    StartTransaction();
+
+    // Deserialize and restore transaction state
+    tstate = (SerializedTransactionState *) tstatespace;
+
+    // Restore transaction properties
+    XactIsoLevel = tstate->xactIsoLevel;
+    XactDeferrable = tstate->xactDeferrable;
+
+    // Restore transaction ID information
+    XactTopFullTransactionId = tstate->topFullTransactionId;
+    CurrentTransactionState->fullTransactionId = tstate->currentFullTransactionId;
+    currentCommandId = tstate->currentCommandId;
+
+    // Set up parallel transaction ID tracking
+    nParallelCurrentXids = tstate->nParallelCurrentXids;
+    ParallelCurrentXids = &tstate->parallelCurrentXids[0];
+
+    // Mark as parallel worker transaction
+    CurrentTransactionState->blockState = TBLOCK_PARALLEL_INPROGRESS;
+}
+```

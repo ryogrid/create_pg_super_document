@@ -37,3 +37,21 @@ This function constructs the filesystem path for spill files used by PostgreSQL'
 - The segment number is converted to LSN at offset 0 within that segment for consistent filename generation
 - Spill files are stored in the pg_replslot directory structure under the specific slot's subdirectory
 - This path generation is critical for the logical replication system's ability to handle large transactions that exceed memory limits
+
+## Simplified Source
+
+```c
+static void
+ReorderBufferSerializedPath(char *path, ReplicationSlot *slot, TransactionId xid,
+							XLogSegNo segno)
+{
+	// Convert segment number to LSN
+	XLogRecPtr recptr;
+	XLogSegNoOffsetToRecPtr(segno, 0, wal_segment_size, recptr);
+
+	// Generate spill file path: pg_replslot/{slot_name}/xid-{xid}-lsn-{lsn}.spill
+	snprintf(path, MAXPGPATH, "pg_replslot/%s/xid-%u-lsn-%X-%X.spill",
+			 NameStr(MyReplicationSlot->data.name),
+			 xid, LSN_FORMAT_ARGS(recptr));
+}
+```

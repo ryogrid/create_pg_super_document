@@ -34,3 +34,16 @@ The function uses a static buffer to store the formatted string representation o
 - The returned string remains valid until the next call to this function due to the static buffer
 - Part of PostgreSQL's configuration display system that allows users to query current connection parameters
 - On platforms without TCP_USER_TIMEOUT support, the underlying function returns 0
+
+## Simplified Source
+
+```c
+const char *show_tcp_user_timeout(void) {
+    // Get TCP user timeout value from current connection
+    static char nbuf[16];
+
+    // Format timeout value as string and return
+    snprintf(nbuf, sizeof(nbuf), "%d", pq_gettcpusertimeout(MyProcPort));
+    return nbuf;
+}
+```

@@ -37,3 +37,20 @@ ReorderBufferSaveTXNSnapshot is responsible for preserving transaction state (co
 - Essential for maintaining transaction consistency across streaming boundaries in logical replication
 - The saved state allows seamless continuation of transaction processing in subsequent streams
 - Part of PostgreSQL's streaming logical replication optimization infrastructure
+
+## Simplified Source
+
+```c
+static inline void ReorderBufferSaveTXNSnapshot(ReorderBuffer *rb, ReorderBufferTXN *txn,
+                                               Snapshot snapshot_now, CommandId command_id)
+{
+    // Save command ID for stream continuation
+    txn->command_id = command_id;
+
+    // Optimize snapshot handling: reuse if already copied, otherwise copy
+    if (snapshot_now->copied)
+        txn->snapshot_now = snapshot_now;
+    else
+        txn->snapshot_now = ReorderBufferCopySnap(rb, snapshot_now, txn, command_id);
+}
+```

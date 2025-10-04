@@ -36,3 +36,28 @@ The function is designed to work within PostgreSQL's array processing framework,
 
 ## Notes and Other Information
 This function represents the most general conversion path in PL/Python, falling back to string-based conversion when more specific type conversions are not available. The reliance on PostgreSQL's input functions ensures that all type-specific parsing rules and validations are properly applied. The simplicity of this approach makes it reliable but potentially less efficient than direct conversions for certain types.
+
+## Simplified Source
+
+```c
+static Datum
+PLyObject_ToScalar(PLyObToDatum *arg, PyObject *plrv,
+                   bool *isnull, bool inarray)
+{
+    // Handle Python None -> PostgreSQL NULL
+    if (plrv == Py_None) {
+        *isnull = true;
+        return (Datum) 0;
+    }
+    *isnull = false;
+
+    // Convert Python object to string representation
+    char *str = PLyObject_AsString(plrv);
+
+    // Use PostgreSQL's input function to parse string into target type
+    return InputFunctionCall(&arg->u.scalar.typfunc,
+                            str,
+                            arg->u.scalar.typioparam,
+                            arg->typmod);
+}
+```

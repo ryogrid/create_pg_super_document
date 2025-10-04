@@ -50,3 +50,28 @@ The function is crucial for maintaining replication consistency and performance 
 - Origin filtering supports complex replication topologies by allowing selective origin-based processing
 - Used consistently across all transaction-ending operations (commit, prepare, abort) to ensure uniform filtering behavior
 - Essential for maintaining logical replication performance by avoiding unnecessary decoding work
+
+## Simplified Source
+
+```c
+static bool DecodeTXNNeedSkip(LogicalDecodingContext *ctx, XLogRecordBuffer *buf,
+                              Oid txn_dbid, RepOriginId origin_id)
+{
+    // Check multiple skip conditions:
+    // 1. LSN-based: already processed or before consistent snapshot
+    // 2. Database: transaction from wrong database
+    // 3. Origin: filtered by replication origin
+    if (SnapBuildXactNeedsSkip(ctx->snapshot_builder, buf->origptr) ||
+        (txn_dbid != InvalidOid && txn_dbid != ctx->slot->data.database) ||
+        FilterByOrigin(ctx, origin_id))
+        return true;
+
+    // Skip in fast-forward mode, but mark processing would be required
+    if (ctx->fast_forward) {
+        ctx->processing_required = true;
+        return true;
+    }
+
+    return false;
+}
+```

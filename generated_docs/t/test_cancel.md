@@ -66,3 +66,78 @@ Each test involves sending a long-running cancellable query using a separate mon
 - Located in src/test/modules/libpq_pipeline/libpq_pipeline.c at lines 245-408
 - Part of the PostgreSQL test suite for validating cancellation functionality
 - Uses file descriptor-based polling with proper timeout handling (3 second timeout)
+
+## Simplified Source
+
+```c
+static void test_cancel(PGconn *conn) {
+    PGcancel *cancel;
+    PGcancelConn *cancelConn;
+    PGconn *monitorConn;
+    char errorbuf[256];
+
+    fprintf(stderr, "test cancellations... ");
+
+    // Set connection to non-blocking mode
+    if (PQsetnonblocking(conn, 1) != 0)
+        pg_fatal("failed to set nonblocking mode: %s", PQerrorMessage(conn));
+
+    // Create monitor connection to track query state
+    monitorConn = copy_connection(conn);
+
+    // Test 1: PQcancel with reusable cancel object
+    send_cancellable_query(conn, monitorConn);
+    cancel = PQgetCancel(conn);
+    if (!PQcancel(cancel, errorbuf, sizeof(errorbuf)))
+        pg_fatal("failed to run PQcancel: %s", errorbuf);
+    confirm_query_canceled(conn);
+
+    // Test 2: Reuse PGcancel object
+    send_cancellable_query(conn, monitorConn);
+    if (!PQcancel(cancel, errorbuf, sizeof(errorbuf)))
+        pg_fatal("failed to run PQcancel: %s", errorbuf);
+    confirm_query_canceled(conn);
+    PQfreeCancel(cancel);
+
+    // Test 3: PQrequestCancel
+    send_cancellable_query(conn, monitorConn);
+    if (!PQrequestCancel(conn))
+        pg_fatal("failed to run PQrequestCancel: %s", PQerrorMessage(conn));
+    confirm_query_canceled(conn);
+
+    // Test 4: PQcancelBlocking (synchronous)
+    send_cancellable_query(conn, monitorConn);
+    cancelConn = PQcancelCreate(conn);
+    if (!PQcancelBlocking(cancelConn))
+        pg_fatal("failed to run PQcancelBlocking: %s", PQcancelErrorMessage(cancelConn));
+    confirm_query_canceled(conn);
+    PQcancelFinish(cancelConn);
+
+    // Test 5: Asynchronous cancellation with polling
+    send_cancellable_query(conn, monitorConn);
+    cancelConn = PQcancelCreate(conn);
+    if (!PQcancelStart(cancelConn))
+        pg_fatal("bad cancel connection: %s", PQcancelErrorMessage(cancelConn));
+
+    // Poll until cancellation completes
+    while (PQcancelPoll(cancelConn) != PGRES_POLLING_OK) {
+        // Handle polling state with select() - details omitted for brevity
+    }
+    confirm_query_canceled(conn);
+
+    // Test 6: PQcancelReset for connection reuse
+    PQcancelReset(cancelConn);
+    send_cancellable_query(conn, monitorConn);
+
+    // Repeat polling cancellation to test reset functionality
+    if (!PQcancelStart(cancelConn))
+        pg_fatal("bad cancel connection: %s", PQcancelErrorMessage(cancelConn));
+    while (PQcancelPoll(cancelConn) != PGRES_POLLING_OK) {
+        // Handle polling state - details omitted
+    }
+    confirm_query_canceled(conn);
+
+    PQcancelFinish(cancelConn);
+    fprintf(stderr, "ok\n");
+}
+```

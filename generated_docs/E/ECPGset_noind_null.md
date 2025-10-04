@@ -38,3 +38,70 @@ ECPGset_noind_null initializes variables with type-specific NULL values when SQL
 - Timestamp and interval types filled with 0xff pattern
 - Essential for proper NULL value semantics in embedded SQL applications
 - Located in src/interfaces/ecpg/ecpglib/misc.c at lines 290-348
+
+## Simplified Source
+
+```c
+void ECPGset_noind_null(enum ECPGttype type, void *ptr) {
+    switch (type) {
+        // Character types: set to null terminator
+        case ECPGt_char:
+        case ECPGt_unsigned_char:
+        case ECPGt_string:
+            *((char *) ptr) = '\0';
+            break;
+
+        // Integer types: set to minimum values
+        case ECPGt_short:
+        case ECPGt_unsigned_short:
+            *((short int *) ptr) = SHRT_MIN;
+            break;
+        case ECPGt_int:
+        case ECPGt_unsigned_int:
+            *((int *) ptr) = INT_MIN;
+            break;
+        case ECPGt_long:
+        case ECPGt_unsigned_long:
+        case ECPGt_date:
+            *((long *) ptr) = LONG_MIN;
+            break;
+        case ECPGt_long_long:
+        case ECPGt_unsigned_long_long:
+            *((long long *) ptr) = LONG_LONG_MIN;
+            break;
+
+        // Floating point: fill with 0xff pattern
+        case ECPGt_float:
+            memset((char *) ptr, 0xff, sizeof(float));
+            break;
+        case ECPGt_double:
+            memset((char *) ptr, 0xff, sizeof(double));
+            break;
+
+        // Variable length types: set length to 0
+        case ECPGt_varchar:
+            *(((struct ECPGgeneric_varchar *) ptr)->arr) = 0x00;
+            ((struct ECPGgeneric_varchar *) ptr)->len = 0;
+            break;
+        case ECPGt_bytea:
+            ((struct ECPGgeneric_bytea *) ptr)->len = 0;
+            break;
+
+        // Numeric types: use special NULL marker
+        case ECPGt_decimal:
+        case ECPGt_numeric:
+            memset((char *) ptr, 0, sizeof(decimal));
+            ((decimal *) ptr)->sign = NUMERIC_NULL;
+            break;
+
+        // Time types: fill with 0xff pattern
+        case ECPGt_interval:
+        case ECPGt_timestamp:
+            memset((char *) ptr, 0xff, sizeof(interval));
+            break;
+
+        default:
+            break;
+    }
+}
+```

@@ -34,3 +34,22 @@ Unlike the previous WAL control functions, this function does not check for reco
 - The function is accessible via SQL as a system function
 - Located in `src/backend/access/transam/xlogfuncs.c:337-355`
 - The returned LSN represents data that has been both received from the primary and flushed to disk
+
+## Simplified Source
+
+```c
+Datum
+pg_last_wal_receive_lsn(PG_FUNCTION_ARGS)
+{
+    XLogRecPtr recptr;
+
+    // Get WAL receiver flush position (data received and synced to disk)
+    recptr = GetWalRcvFlushRecPtr(NULL, NULL);
+
+    // Return NULL if no WAL has been received
+    if (recptr == 0)
+        PG_RETURN_NULL();
+
+    PG_RETURN_LSN(recptr);
+}
+```

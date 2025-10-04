@@ -36,3 +36,15 @@ This function takes no parameters and returns:
 - The `reached_main` variable is set to true early in the main function initialization process
 - This workaround specifically addresses issues on Linux systems where `/proc/$pid/environ` access is affected by process title changes
 - The function provides a bridge between PostgreSQL's initialization process and the sanitizer library's configuration needs
+
+## Simplified Source
+```c
+const char *__ubsan_default_options(void) {
+    // Don't call libc before it's guaranteed to be initialized
+    if (!reached_main)
+        return "";
+
+    // Return UBSAN_OPTIONS environment variable value
+    return getenv("UBSAN_OPTIONS");
+}
+```

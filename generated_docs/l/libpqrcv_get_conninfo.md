@@ -47,3 +47,53 @@ The obfuscation is based on libpq's internal metadata about which connection par
 - Function requires an active connection (conn->streamConn must not be NULL)
 - Provides safe way to display connection details without exposing credentials
 - Useful for debugging replication connection issues while maintaining security
+
+## Simplified Source
+
+```c
+static char *libpqrcv_get_conninfo(WalReceiverConn *conn)
+{
+    PQconninfoOption *conn_opts;
+    PQconninfoOption *conn_opt;
+    PQExpBufferData buf;
+    char *retval;
+
+    Assert(conn->streamConn != NULL);
+
+    // Get connection options from active connection
+    initPQExpBuffer(&buf);
+    conn_opts = PQconninfo(conn->streamConn);
+
+    if (conn_opts == NULL)
+        ereport(ERROR, (errcode(ERRCODE_OUT_OF_MEMORY),
+                       errmsg("could not parse connection string: %s", _("out of memory"))));
+
+    // Build clean connection string with security obfuscation
+    for (conn_opt = conn_opts; conn_opt->keyword != NULL; conn_opt++)
+    {
+        bool obfuscate;
+
+        // Skip debug options and empty values
+        if (strchr(conn_opt->dispchar, 'D') ||
+            conn_opt->val == NULL ||
+            conn_opt->val[0] == '\0')
+            continue;
+
+        // Check if this option should be obfuscated (marked with '*')
+        obfuscate = strchr(conn_opt->dispchar, '*') != NULL;
+
+        // Append to output buffer
+        appendPQExpBuffer(&buf, "%s%s=%s",
+                          buf.len == 0 ? "" : " ",
+                          conn_opt->keyword,
+                          obfuscate ? "********" : conn_opt->val);
+    }
+
+    PQconninfoFree(conn_opts);
+
+    // Return final string or NULL on buffer error
+    retval = PQExpBufferDataBroken(buf) ? NULL : pstrdup(buf.data);
+    termPQExpBuffer(&buf);
+    return retval;
+}
+```

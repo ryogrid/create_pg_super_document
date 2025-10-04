@@ -32,3 +32,15 @@ This function serves as a bootstrap wrapper for the masked population count func
 - Only called once during the first invocation of masked popcount functionality
 - Part of PostgreSQL's runtime optimization strategy for bit manipulation operations
 - After the first call, subsequent calls bypass this function entirely and go directly to the optimized implementation
+
+## Simplified Source
+
+```c
+static uint64 pg_popcount_masked_choose(const char *buf, int bytes, bits8 mask) {
+    // Initialize function selection mechanism
+    choose_popcount_functions();
+
+    // Delegate to selected masked popcount implementation
+    return pg_popcount_masked(buf, bytes, mask);
+}
+```

@@ -43,3 +43,21 @@ pa_wait_for_xact_state implements a polling-based synchronization mechanism for 
 - Checks for interrupts on each iteration to handle cancellation requests
 - The comparison uses >= operator, meaning the function returns when the state equals or exceeds the target
 - Static function, indicating its an internal implementation detail of the parallel apply system
+
+## Simplified Source
+
+```c
+static void pa_wait_for_xact_state(ParallelApplyWorkerInfo *winfo, ParallelTransState xact_state) {
+    for (;;) {
+        // Check if worker has reached or exceeded target state
+        if (pa_get_xact_state(winfo->shared) >= xact_state)
+            break;
+
+        // Wait with timeout for state change
+        WaitLatch(MyLatch, WL_LATCH_SET | WL_TIMEOUT | WL_EXIT_ON_PM_DEATH, 10L, WAIT_EVENT_LOGICAL_PARALLEL_APPLY_STATE_CHANGE);
+
+        ResetLatch(MyLatch);
+        CHECK_FOR_INTERRUPTS();
+    }
+}
+```

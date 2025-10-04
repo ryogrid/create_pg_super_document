@@ -44,3 +44,16 @@ The function is particularly important for configuration parameters that represe
 - Part of PostgreSQL's configuration validation infrastructure
 - Ensures cross-platform path consistency
 - Critical for proper file system operations in various PostgreSQL components
+
+## Simplified Source
+
+```c
+bool check_canonical_path(char **newval, void **extra, GucSource source)
+{
+    // Canonicalize the path in-place if not NULL
+    if (*newval)
+        canonicalize_path(*newval);
+
+    return true;  // Path canonicalization never fails
+}
+```

@@ -43,3 +43,20 @@ Debug information is also logged when MDEBUG is enabled, showing the subexpressi
 - Part of PostgreSQL's POSIX-compliant regex implementation
 - The OFF macro handles the conversion from character pointers to integer offsets
 - Debug output includes the subexpression ID for troubleshooting complex patterns
+
+## Simplified Source
+
+```c
+static void subset(struct vars *v, struct subre *sub, chr *begin, chr *end) {
+    int n = sub->capno;
+
+    // Only process valid capture numbers
+    assert(n > 0);
+    if ((size_t) n >= v->nmatch)
+        return;
+
+    // Store match boundaries as offsets
+    v->pmatch[n].rm_so = OFF(begin);
+    v->pmatch[n].rm_eo = OFF(end);
+}
+```

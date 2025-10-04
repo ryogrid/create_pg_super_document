@@ -45,3 +45,50 @@ The implementation prioritizes efficiency by checking the static table first (fa
 - Ensures null termination of the result string and prevents buffer overflow
 - Uses MAKELANGID(LANG_ENGLISH, SUBLANG_DEFAULT) to request English error messages
 - Part of the Windows-specific implementation in PostgreSQL's libpq client library
+
+## Simplified Source
+
+```c
+const char *
+winsock_strerror(int err, char *strerrbuf, size_t buflen)
+{
+    unsigned long flags;
+    int offs, i;
+    int success = LookupWSErrorMessage(err, strerrbuf);
+
+    // Try loading DLLs if lookup table failed
+    for (i = 0; !success && i < DLLS_SIZE; i++) {
+        // Load DLL if not already loaded
+        if (!dlls[i].loaded) {
+            dlls[i].loaded = 1;
+            dlls[i].handle = (void *) LoadLibraryEx(dlls[i].dll_name, 0, LOAD_LIBRARY_AS_DATAFILE);
+        }
+
+        if (dlls[i].dll_name && !dlls[i].handle)
+            continue; // DLL didn't load
+
+        // Set flags for FormatMessage
+        flags = FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS
+                | (dlls[i].handle ? FORMAT_MESSAGE_FROM_HMODULE : 0);
+
+        // Try to get error message from this DLL
+        success = 0 != FormatMessage(flags, dlls[i].handle, err,
+                                   MAKELANGID(LANG_ENGLISH, SUBLANG_DEFAULT),
+                                   strerrbuf, buflen - 64, 0);
+    }
+
+    // Generate fallback message if all methods failed
+    if (!success) {
+        sprintf(strerrbuf, libpq_gettext("unrecognized socket error: 0x%08X/%d"), err, err);
+    } else {
+        // Append error code to successful message
+        strerrbuf[buflen - 1] = '\0';
+        offs = strlen(strerrbuf);
+        if (offs > (int) buflen - 64)
+            offs = buflen - 64;
+        sprintf(strerrbuf + offs, " (0x%08X/%d)", err, err);
+    }
+
+    return strerrbuf;
+}
+```

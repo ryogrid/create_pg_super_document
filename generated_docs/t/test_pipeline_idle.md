@@ -45,3 +45,87 @@ The function demonstrates that PostgreSQL enforces proper pipeline state managem
 - Ensures notice handling works correctly within pipeline contexts
 - Critical for verifying pipeline state machine robustness and error handling
 - Part of the libpq_pipeline test suite ensuring proper pipeline mode state management
+
+## Simplified Source
+
+```c
+static void test_pipeline_idle(PGconn *conn) {
+    PGresult *res;
+    int n_notices = 0;
+
+    fprintf(stderr, "\npipeline idle...\n");
+
+    PQsetNoticeProcessor(conn, notice_processor, &n_notices);
+
+    // Test 1: Cannot exit pipeline mode with pending operations
+    if (PQenterPipelineMode(conn) != 1)
+        pg_fatal("failed to enter pipeline mode: %s", PQerrorMessage(conn));
+
+    if (PQsendQueryParams(conn, "SELECT 1", 0, NULL, NULL, NULL, NULL, 0) != 1)
+        pg_fatal("failed to send query: %s", PQerrorMessage(conn));
+    PQsendFlushRequest(conn);
+
+    // Process first result
+    res = PQgetResult(conn);
+    if (res == NULL)
+        pg_fatal("PQgetResult returned null when there's a pipeline item: %s",
+                 PQerrorMessage(conn));
+    if (PQresultStatus(res) != PGRES_TUPLES_OK)
+        pg_fatal("unexpected result code %s from first pipeline item",
+                 PQresStatus(PQresultStatus(res)));
+    PQclear(res);
+    res = PQgetResult(conn);
+    if (res != NULL)
+        pg_fatal("did not receive terminating NULL");
+
+    // Send second query but don't flush/process yet
+    if (PQsendQueryParams(conn, "SELECT 2", 0, NULL, NULL, NULL, NULL, 0) != 1)
+        pg_fatal("failed to send query: %s", PQerrorMessage(conn));
+
+    // Attempt to exit pipeline mode should fail
+    if (PQexitPipelineMode(conn) == 1)
+        pg_fatal("exiting pipeline succeeded when it shouldn't");
+    if (strncmp(PQerrorMessage(conn), "cannot exit pipeline mode",
+                strlen("cannot exit pipeline mode")) != 0)
+        pg_fatal("did not get expected error; got: %s", PQerrorMessage(conn));
+
+    // Now flush and process second query
+    PQsendFlushRequest(conn);
+    res = PQgetResult(conn);
+    if (PQresultStatus(res) != PGRES_TUPLES_OK)
+        pg_fatal("unexpected result code %s from second pipeline item",
+                 PQresStatus(PQresultStatus(res)));
+    PQclear(res);
+    res = PQgetResult(conn);
+    if (res != NULL)
+        pg_fatal("did not receive terminating NULL");
+
+    // Now exit should succeed
+    if (PQexitPipelineMode(conn) != 1)
+        pg_fatal("exiting pipeline failed: %s", PQerrorMessage(conn));
+
+    if (n_notices > 0)
+        pg_fatal("got %d notice(s)", n_notices);
+    fprintf(stderr, "ok - 1\n");
+
+    // Test 2: Advisory lock with potential warning
+    if (PQenterPipelineMode(conn) != 1)
+        pg_fatal("entering pipeline mode failed: %s", PQerrorMessage(conn));
+
+    if (PQsendQueryParams(conn, "SELECT pg_catalog.pg_advisory_unlock(1,1)",
+                          0, NULL, NULL, NULL, NULL, 0) != 1)
+        pg_fatal("failed to send query: %s", PQerrorMessage(conn));
+    PQsendFlushRequest(conn);
+
+    res = PQgetResult(conn);
+    if (res == NULL)
+        pg_fatal("unexpected NULL result received");
+    if (PQresultStatus(res) != PGRES_TUPLES_OK)
+        pg_fatal("unexpected result code %s", PQresStatus(PQresultStatus(res)));
+
+    if (PQexitPipelineMode(conn) != 1)
+        pg_fatal("failed to exit pipeline mode: %s", PQerrorMessage(conn));
+
+    fprintf(stderr, "ok - 2\n");
+}
+```

@@ -49,3 +49,43 @@ Unlike SPI_prepare and SPI_prepare_cursor which have fixed parameter lists, this
 - plan.nargs and plan.argtypes are set to 0 and NULL respectively, indicating this function is typically used for parameter-free queries or queries with special parameter handling
 - The plan is copied to procedure context to persist beyond the current SPI call
 - Most flexible preparation function in the SPI interface, suitable for specialized parsing requirements
+
+## Simplified Source
+
+```c
+SPIPlanPtr SPI_prepare_extended(const char *src, const SPIPrepareOptions *options) {
+    _SPI_plan plan;
+    SPIPlanPtr result;
+
+    // Validate input parameters
+    if (src == NULL || options == NULL) {
+        SPI_result = SPI_ERROR_ARGUMENT;
+        return NULL;
+    }
+
+    // Begin SPI execution context
+    SPI_result = _SPI_begin_call(true);
+    if (SPI_result < 0)
+        return NULL;
+
+    // Initialize plan with extended options
+    memset(&plan, 0, sizeof(_SPI_plan));
+    plan.magic = _SPI_PLAN_MAGIC;
+    plan.parse_mode = options->parseMode;
+    plan.cursor_options = options->cursorOptions;
+    plan.nargs = 0;  // No direct parameter support
+    plan.argtypes = NULL;
+    plan.parserSetup = options->parserSetup;
+    plan.parserSetupArg = options->parserSetupArg;
+
+    // Prepare the plan with custom options
+    _SPI_prepare_plan(src, &plan);
+
+    // Create persistent plan in procedure context
+    result = _SPI_make_plan_non_temp(&plan);
+
+    // Clean up and return result
+    _SPI_end_call(true);
+    return result;
+}
+```

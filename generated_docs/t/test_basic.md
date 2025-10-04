@@ -50,3 +50,99 @@ The function supports both local and shared radix tree configurations and provid
 - Validates that iteration returns keys in sorted order regardless of insertion order
 - Performs comprehensive validation of radix tree consistency across all operations
 - Uses TestValueType for value storage, with values typically equal to their corresponding keys
+
+## Simplified Source
+
+```c
+static void test_basic(rt_node_class_test_elem *test_info, int shift, bool asc)
+{
+    MemoryContext radixtree_ctx;
+    rt_radix_tree *radixtree;
+    rt_iter *iter;
+    uint64 *keys;
+    int children = test_info->nkeys;
+
+    // Create memory context and radix tree
+    radixtree_ctx = AllocSetContextCreate(CurrentMemoryContext, "test_radix_tree", ALLOCSET_SMALL_SIZES);
+
+    #ifdef TEST_SHARED_RT
+        int tranche_id = LWLockNewTrancheId();
+        dsa_area *dsa = dsa_create(tranche_id);
+        LWLockRegisterTranche(tranche_id, "test_radix_tree");
+        radixtree = rt_create(radixtree_ctx, dsa, tranche_id);
+    #else
+        radixtree = rt_create(radixtree_ctx);
+    #endif
+
+    elog(NOTICE, "testing node %s with shift %d and %s keys",
+         test_info->class_name, shift, asc ? "ascending" : "descending");
+
+    // Generate test keys with specified ordering
+    keys = palloc(sizeof(uint64) * children);
+    for (int i = 0; i < children; i++) {
+        if (asc)
+            keys[i] = (uint64) i << shift;
+        else
+            keys[i] = (uint64) (children - 1 - i) << shift;
+    }
+
+    // Test 1: Insert keys (should return false for new insertions)
+    for (int i = 0; i < children; i++)
+        EXPECT_FALSE(rt_set(radixtree, keys[i], (TestValueType *) &keys[i]));
+
+    // Test 2: Lookup all keys
+    for (int i = 0; i < children; i++) {
+        TestValueType *value = rt_find(radixtree, keys[i]);
+        EXPECT_TRUE(value != NULL);
+        EXPECT_EQ_U64(*value, (TestValueType) keys[i]);
+    }
+
+    // Test 3: Update existing keys (should return true for existing)
+    for (int i = 0; i < children; i++) {
+        TestValueType update = keys[i] + 1;
+        EXPECT_TRUE(rt_set(radixtree, keys[i], (TestValueType *) &update));
+    }
+
+    // Test 4: Delete and re-insert keys
+    for (int i = 0; i < children; i++) {
+        EXPECT_TRUE(rt_delete(radixtree, keys[i]));
+        EXPECT_FALSE(rt_set(radixtree, keys[i], (TestValueType *) &keys[i]));
+    }
+
+    // Test 5: Verify lookups after re-insertion
+    for (int i = 0; i < children; i++) {
+        TestValueType *value = rt_find(radixtree, keys[i]);
+        EXPECT_TRUE(value != NULL);
+        EXPECT_EQ_U64(*value, (TestValueType) keys[i]);
+    }
+
+    // Test 6: Iteration (should return keys in sorted order)
+    iter = rt_begin_iterate(radixtree);
+    for (int i = 0; i < children; i++) {
+        uint64 expected = asc ? keys[i] : keys[children - 1 - i];
+        uint64 iterkey;
+        TestValueType *iterval = rt_iterate_next(iter, &iterkey);
+
+        EXPECT_TRUE(iterval != NULL);
+        EXPECT_EQ_U64(iterkey, expected);
+        EXPECT_EQ_U64(*iterval, expected);
+    }
+    rt_end_iterate(iter);
+
+    // Test 7: Delete all keys and verify empty state
+    for (int i = 0; i < children; i++)
+        EXPECT_TRUE(rt_delete(radixtree, keys[i]));
+
+    for (int i = 0; i < children; i++)
+        EXPECT_TRUE(rt_find(radixtree, keys[i]) == NULL);
+
+    // Cleanup
+    rt_stats(radixtree);
+    pfree(keys);
+    rt_free(radixtree);
+
+    #ifdef TEST_SHARED_RT
+        dsa_detach(dsa);
+    #endif
+}
+```

@@ -39,3 +39,22 @@ This function is part of the node deserialization machinery that allows PostgreS
 - Works in conjunction with `outToken` from outfuncs.c to ensure proper round-trip serialization/deserialization
 - The function assumes that the calling context has already validated the token and length parameters
 - Part of PostgreSQL's broader node system used for query plans, parse trees, and other internal data structures
+
+## Simplified Source
+
+```c
+static char *
+nullable_string(const char *token, int length)
+{
+    // Empty token represents NULL value
+    if (length == 0)
+        return NULL;
+
+    // Quoted empty string represents actual empty string
+    if (length == 2 && token[0] == '"' && token[1] == '"')
+        return pstrdup("");
+
+    // Regular string - remove protective backslashes
+    return debackslash(token, length);
+}
+```

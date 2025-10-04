@@ -36,3 +36,35 @@ The function operates within the memory context of the SPI tuple table to ensure
 - Returns true on successful tuple storage
 - Validates SPI connection state and tuple table initialization before processing
 - Each stored tuple is a heap tuple copy created from the slot data
+
+## Simplified Source
+
+```c
+bool spi_printtup(TupleTableSlot *slot, DestReceiver *self) {
+    // Validate SPI connection and tuple table
+    if (_SPI_current == NULL)
+        elog(ERROR, "spi_printtup called while not connected to SPI");
+
+    SPITupleTable *tuptable = _SPI_current->tuptable;
+    if (tuptable == NULL)
+        elog(ERROR, "improper call to spi_printtup");
+
+    // Switch to tuple table memory context
+    MemoryContext oldcxt = MemoryContextSwitchTo(tuptable->tuptabcxt);
+
+    // Expand array if needed (double the size)
+    if (tuptable->numvals >= tuptable->alloced) {
+        uint64 newalloced = tuptable->alloced * 2;
+        tuptable->vals = (HeapTuple *) repalloc_huge(tuptable->vals,
+                                                     newalloced * sizeof(HeapTuple));
+        tuptable->alloced = newalloced;
+    }
+
+    // Store the tuple and increment count
+    tuptable->vals[tuptable->numvals] = ExecCopySlotHeapTuple(slot);
+    (tuptable->numvals)++;
+
+    MemoryContextSwitchTo(oldcxt);
+    return true;
+}
+```

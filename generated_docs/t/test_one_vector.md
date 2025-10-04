@@ -44,3 +44,25 @@ This function serves as a test coordinator that prepares the database connection
 - Uses  macro to determine the number of escape functions to test
 - Error handling includes detailed error messages showing both the failed encoding and PostgreSQL error details
 - Essential for systematic testing of escape functions across different character encodings
+
+## Simplified Source
+```c
+static void
+test_one_vector(pe_test_config *tc, const pe_test_vector *tv)
+{
+    /* Set the client encoding for this test vector */
+    if (PQsetClientEncoding(tc->conn, tv->client_encoding))
+    {
+        fprintf(stderr, "failed to set encoding to %s:\n%s\n",
+                tv->client_encoding, PQerrorMessage(tc->conn));
+        exit(1);
+    }
+
+    /* Test this vector against all escape functions */
+    for (int escoff = 0; escoff < lengthof(pe_test_escape_funcs); escoff++)
+    {
+        const pe_test_escape_func *ef = &pe_test_escape_funcs[escoff];
+        test_one_vector_escape(tc, tv, ef);
+    }
+}
+```

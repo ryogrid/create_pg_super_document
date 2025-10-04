@@ -33,3 +33,13 @@ The function exists primarily for backward compatibility and to maintain a stabl
 - The comment suggests that `nodeRead()` is now the preferred method for general-purpose node deserialization, including Bitmapsets
 - Maintained for API compatibility with existing extensions
 - Part of the broader extensibility framework that allows third-party code to integrate with PostgreSQL's node system
+
+## Simplified Source
+
+```c
+Bitmapset *
+readBitmapset(void)
+{
+    return _readBitmapset();
+}
+```

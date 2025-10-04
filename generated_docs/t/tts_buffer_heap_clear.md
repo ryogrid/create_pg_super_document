@@ -34,3 +34,31 @@ tts_buffer_heap_clear is responsible for cleaning up and resetting a buffer-back
 - Part of the tuple table slot operations vtable pattern
 - Handles both memory management (via heap_freetuple) and buffer management (via ReleaseBuffer)
 - Resets the slot to a clean, empty state suitable for reuse
+
+## Simplified Source
+
+```c
+static void
+tts_buffer_heap_clear(TupleTableSlot *slot)
+{
+    BufferHeapTupleTableSlot *bslot = (BufferHeapTupleTableSlot *) slot;
+
+    // Free materialized tuple if we own it
+    if (TTS_SHOULDFREE(slot)) {
+        heap_freetuple(bslot->base.tuple);
+        slot->tts_flags &= ~TTS_FLAG_SHOULDFREE;
+    }
+
+    // Release buffer reference if present
+    if (BufferIsValid(bslot->buffer))
+        ReleaseBuffer(bslot->buffer);
+
+    // Reset slot to empty state
+    slot->tts_nvalid = 0;
+    slot->tts_flags |= TTS_FLAG_EMPTY;
+    ItemPointerSetInvalid(&slot->tts_tid);
+    bslot->base.tuple = NULL;
+    bslot->base.off = 0;
+    bslot->buffer = InvalidBuffer;
+}
+```

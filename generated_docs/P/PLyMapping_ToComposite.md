@@ -51,3 +51,64 @@ The conversion process involves:
 - Uses PostgreSQL's exception handling system to ensure proper Python reference cleanup
 - The volatile qualifier on the loop variable ensures proper behavior across exception boundaries
 - Memory allocation and cleanup is handled carefully to prevent leaks in error conditions
+
+## Simplified Source
+
+```c
+static Datum
+PLyMapping_ToComposite(PLyObToDatum *arg, TupleDesc desc, PyObject *mapping)
+{
+    Assert(PyMapping_Check(mapping));
+
+    // Allocate arrays for datum values and null flags
+    Datum *values = palloc(sizeof(Datum) * desc->natts);
+    bool *nulls = palloc(sizeof(bool) * desc->natts);
+
+    // Process each attribute in the tuple descriptor
+    for (volatile int i = 0; i < desc->natts; ++i) {
+        Form_pg_attribute attr = TupleDescAttr(desc, i);
+
+        // Handle dropped columns
+        if (attr->attisdropped) {
+            values[i] = (Datum) 0;
+            nulls[i] = true;
+            continue;
+        }
+
+        // Extract value from mapping using column name as key
+        char *key = NameStr(attr->attname);
+        PyObject *volatile value = NULL;
+        PLyObToDatum *att = &arg->u.tuple.atts[i];
+
+        PG_TRY();
+        {
+            value = PyMapping_GetItemString(mapping, key);
+            if (!value)
+                ereport(ERROR, "key \"%s\" not found in mapping", key);
+
+            // Convert Python value to PostgreSQL datum
+            values[i] = att->func(att, value, &nulls[i], false);
+
+            Py_XDECREF(value);
+            value = NULL;
+        }
+        PG_CATCH();
+        {
+            Py_XDECREF(value);
+            PG_RE_THROW();
+        }
+        PG_END_TRY();
+    }
+
+    // Build HeapTuple and convert to Datum
+    HeapTuple tuple = heap_form_tuple(desc, values, nulls);
+    Datum result = heap_copy_tuple_as_datum(tuple, desc);
+
+    // Clean up memory
+    heap_freetuple(tuple);
+    pfree(values);
+    pfree(nulls);
+
+    return result;
+}
+```

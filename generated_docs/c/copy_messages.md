@@ -44,3 +44,30 @@ The non-blocking I/O approach ensures that the worker can respond promptly to in
 - Function terminates gracefully when queue operations fail, typically due to coordinator shutdown or process termination
 - In production applications, this function would be replaced with domain-specific message processing logic
 - The simple copy operation demonstrates the message queue API usage pattern without adding complexity
+
+## Simplified Source
+
+```c
+static void
+copy_messages(shm_mq_handle *inqh, shm_mq_handle *outqh)
+{
+    Size len;
+    void *data;
+    shm_mq_result res;
+
+    for (;;) {
+        // Check for interrupts (shutdown signals, etc.)
+        CHECK_FOR_INTERRUPTS();
+
+        // Receive message from input queue
+        res = shm_mq_receive(inqh, &len, &data, false);
+        if (res != SHM_MQ_SUCCESS)
+            break;
+
+        // Forward message to output queue
+        res = shm_mq_send(outqh, len, data, false, true);
+        if (res != SHM_MQ_SUCCESS)
+            break;
+    }
+}
+```

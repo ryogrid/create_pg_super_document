@@ -51,3 +51,62 @@ Key behaviors include:
 - Handles both regular parallel workers and logical parallel apply workers differently
 - The force_flush parameter is always set to true when calling shm_mq_sendv for immediate notification
 - This is a static function, not directly callable from outside pqmq.c
+
+## Simplified Source
+```c
+static int mq_putmessage(char msgtype, const char *s, size_t len) {
+    shm_mq_iovec iov[2];
+    shm_mq_result result;
+
+    // Prevent recursive calls - detach queue if already busy
+    if (pq_mq_busy) {
+        if (pq_mq_handle != NULL)
+            shm_mq_detach(pq_mq_handle);
+        pq_mq_handle = NULL;
+        return EOF;
+    }
+
+    // Handle already detached queue gracefully
+    if (pq_mq_handle == NULL)
+        return 0;
+
+    pq_mq_busy = true;
+
+    // Setup vectored I/O: message type + data
+    iov[0].data = &msgtype;
+    iov[0].len = 1;
+    iov[1].data = s;
+    iov[1].len = len;
+
+    // Send message, wait if queue is full
+    for (;;) {
+        // Send with immediate flush for notification
+        result = shm_mq_sendv(pq_mq_handle, iov, 2, true, true);
+
+        // Signal receiver process about new message
+        if (pq_mq_parallel_leader_pid != 0) {
+            if (IsLogicalParallelApplyWorker())
+                SendProcSignal(pq_mq_parallel_leader_pid,
+                              PROCSIG_PARALLEL_APPLY_MESSAGE,
+                              pq_mq_parallel_leader_proc_number);
+            else
+                SendProcSignal(pq_mq_parallel_leader_pid,
+                              PROCSIG_PARALLEL_MESSAGE,
+                              pq_mq_parallel_leader_proc_number);
+        }
+
+        // Exit if sent successfully or queue detached
+        if (result != SHM_MQ_WOULD_BLOCK)
+            break;
+
+        // Wait for queue space, handle interrupts
+        WaitLatch(MyLatch, WL_LATCH_SET | WL_EXIT_ON_PM_DEATH, 0,
+                  WAIT_EVENT_MESSAGE_QUEUE_PUT_MESSAGE);
+        ResetLatch(MyLatch);
+        CHECK_FOR_INTERRUPTS();
+    }
+
+    pq_mq_busy = false;
+    return (result == SHM_MQ_SUCCESS) ? 0 : EOF;
+}
+```

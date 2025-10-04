@@ -32,3 +32,17 @@ This function performs comprehensive cleanup of a PLyProcedure structure by rele
 - The function assumes the procedure's memory context (proc->mcxt) is valid
 - This is part of the resource management pattern in PL/Python extension
 - Called during error handling and normal procedure lifecycle management
+
+## Simplified Source
+
+```c
+void PLy_procedure_delete(PLyProcedure *proc) {
+    // Release Python object references safely
+    Py_XDECREF(proc->code);
+    Py_XDECREF(proc->statics);
+    Py_XDECREF(proc->globals);
+
+    // Clean up associated memory context
+    MemoryContextDelete(proc->mcxt);
+}
+```

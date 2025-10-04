@@ -44,3 +44,23 @@ The function iterates through all outgoing arcs of the old state and creates cor
 - The active implementation is optimized for the common case where the destination state is empty
 - Part of the NFA state manipulation utilities for regex compilation
 - Located in src/backend/regex/regc_nfa.c:1167-1255
+
+## Simplified Source
+
+```c
+static void
+copyouts(struct nfa *nfa, struct state *oldState, struct state *newState)
+{
+    assert(oldState != newState);
+    assert(newState->nouts == 0);  // must be empty target state
+
+    // Simple copy operation - no deduplication needed
+    struct arc *a;
+    for (a = oldState->outs; a != NULL; a = a->outchain) {
+        createarc(nfa, a->type, a->co, newState, a->to);
+    }
+
+    // Note: Complex deduplication logic exists but is disabled
+    // via #ifdef NOT_USED since current usage only targets empty states
+}
+```

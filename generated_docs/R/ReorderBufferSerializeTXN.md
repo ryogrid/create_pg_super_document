@@ -48,3 +48,68 @@ Key behaviors include:
 - The RBTXN_IS_SERIALIZED flag is set to mark the transaction as spilled
 - Spill statistics (count, bytes, transactions) are maintained for monitoring
 - File descriptors are properly managed to avoid resource leaks
+
+## Simplified Source
+
+```c
+static void
+ReorderBufferSerializeTXN(ReorderBuffer *rb, ReorderBufferTXN *txn)
+{
+    dlist_iter subtxn_i;
+    dlist_mutable_iter change_i;
+    int fd = -1;
+    XLogSegNo curOpenSegNo = 0;
+    Size spilled = 0;
+    Size size = txn->size;
+
+    // Recursively serialize all child transactions first
+    dlist_foreach(subtxn_i, &txn->subtxns)
+    {
+        ReorderBufferTXN *subtxn = dlist_container(ReorderBufferTXN, node, subtxn_i.cur);
+        ReorderBufferSerializeTXN(rb, subtxn);
+    }
+
+    // Serialize each change in the transaction
+    dlist_foreach_modify(change_i, &txn->changes)
+    {
+        ReorderBufferChange *change = dlist_container(ReorderBufferChange, node, change_i.cur);
+
+        // Open new file if needed (per WAL segment)
+        if (fd == -1 || !XLByteInSeg(change->lsn, curOpenSegNo, wal_segment_size))
+        {
+            char path[MAXPGPATH];
+
+            if (fd != -1)
+                CloseTransientFile(fd);
+
+            XLByteToSeg(change->lsn, curOpenSegNo, wal_segment_size);
+            ReorderBufferSerializedPath(path, MyReplicationSlot, txn->xid, curOpenSegNo);
+
+            fd = OpenTransientFile(path, O_CREAT | O_WRONLY | O_APPEND | PG_BINARY);
+        }
+
+        // Serialize change to disk and remove from memory
+        ReorderBufferSerializeChange(rb, txn, fd, change);
+        dlist_delete(&change->node);
+        ReorderBufferReturnChange(rb, change, false);
+        spilled++;
+    }
+
+    // Update memory accounting and statistics
+    ReorderBufferChangeMemoryUpdate(rb, NULL, txn, false, size);
+    if (spilled)
+    {
+        rb->spillCount += 1;
+        rb->spillBytes += size;
+        rb->spillTxns += (rbtxn_is_serialized(txn) || rbtxn_is_serialized_clear(txn)) ? 0 : 1;
+        UpdateDecodingStats((LogicalDecodingContext *) rb->private_data);
+    }
+
+    // Mark transaction as serialized
+    txn->nentries_mem = 0;
+    txn->txn_flags |= RBTXN_IS_SERIALIZED;
+
+    if (fd != -1)
+        CloseTransientFile(fd);
+}
+```

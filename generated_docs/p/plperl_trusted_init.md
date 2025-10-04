@@ -46,3 +46,62 @@ The function ensures that Perl code runs in a sandboxed environment where potent
 - The DynaLoader namespace removal prevents loading of potentially unsafe dynamic extensions
 - Cache invalidation (++PL_sub_generation, hv_clear(PL_stashcache)) ensures that security restrictions are properly enforced
 - Any errors during initialization result in PostgreSQL ERROR reports with appropriate context information
+
+## Simplified Source
+
+```c
+static void
+plperl_trusted_init(void)
+{
+    dTHX;
+
+    // Use original require during setup
+    PL_ppaddr[OP_REQUIRE] = pp_require_orig;
+    PL_ppaddr[OP_DOFILE] = pp_require_orig;
+
+    // Execute trusted initialization code
+    eval_pv(PLC_TRUSTED, FALSE);
+    if (SvTRUE(ERRSV))
+        ereport(ERROR, (errcode(ERRCODE_EXTERNAL_ROUTINE_EXCEPTION),
+                       errmsg("%s", strip_trailing_ws(sv2cstr(ERRSV))),
+                       errcontext("while executing PLC_TRUSTED")));
+
+    // Force load utf8 module to prevent runtime errors
+    eval_pv("my $a=chr(0x100); return $a =~ /\\xa9/i", FALSE);
+
+    // Lock down the interpreter with security restrictions
+    PL_ppaddr[OP_REQUIRE] = pp_require_safe;
+    PL_ppaddr[OP_DOFILE] = pp_require_safe;
+    PL_op_mask = plperl_opmask;
+
+    // Remove DynaLoader to prevent extension loading
+    HV *stash = gv_stashpv("DynaLoader", GV_ADDWARN);
+    hv_iterinit(stash);
+    SV *sv;
+    char *key;
+    I32 klen;
+    while ((sv = hv_iternextsv(stash, &key, &klen)))
+    {
+        if (isGV_with_GP(sv) && GvCV(sv))
+        {
+            SvREFCNT_dec(GvCV(sv));
+            GvCV_set(sv, NULL);
+        }
+    }
+    hv_clear(stash);
+
+    // Invalidate caches to enforce security
+    ++PL_sub_generation;
+    hv_clear(PL_stashcache);
+
+    // Execute user initialization code if configured
+    if (plperl_on_plperl_init && *plperl_on_plperl_init)
+    {
+        eval_pv(plperl_on_plperl_init, FALSE);
+        if (SvTRUE(ERRSV))
+            ereport(ERROR, (errcode(ERRCODE_EXTERNAL_ROUTINE_EXCEPTION),
+                           errmsg("%s", strip_trailing_ws(sv2cstr(ERRSV))),
+                           errcontext("while executing plperl.on_plperl_init")));
+    }
+}
+```

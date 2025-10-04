@@ -52,3 +52,112 @@ The return value is a tuple with four elements:
 - Object names are only returned when they can serve as unique identifiers
 - The function uses the catalog system's metadata to determine object properties
 - Located in src/backend/catalog/objectaddress.c:4233-4349
+
+## Simplified Source
+
+```c
+Datum
+pg_identify_object(PG_FUNCTION_ARGS)
+{
+    Oid         classid = PG_GETARG_OID(0);
+    Oid         objid = PG_GETARG_OID(1);
+    int32       objsubid = PG_GETARG_INT32(2);
+    Oid         schema_oid = InvalidOid;
+    const char *objname = NULL;
+    char       *objidentity;
+    ObjectAddress address;
+    Datum       values[4];
+    bool        nulls[4];
+    TupleDesc   tupdesc;
+    HeapTuple   htup;
+
+    // Build object address
+    address.classId = classid;
+    address.objectId = objid;
+    address.objectSubId = objsubid;
+
+    if (get_call_result_type(fcinfo, NULL, &tupdesc) != TYPEFUNC_COMPOSITE)
+        elog(ERROR, "return type must be a row type");
+
+    // Extract schema and name info for supported object classes
+    if (is_objectclass_supported(address.classId))
+    {
+        HeapTuple  objtup;
+        Relation   catalog = table_open(address.classId, AccessShareLock);
+
+        objtup = get_catalog_object_by_oid(catalog,
+                                          get_object_attnum_oid(address.classId),
+                                          address.objectId);
+        if (objtup != NULL)
+        {
+            bool       isnull;
+            AttrNumber nspAttnum, nameAttnum;
+
+            // Get schema OID if object has namespace
+            nspAttnum = get_object_attnum_namespace(address.classId);
+            if (nspAttnum != InvalidAttrNumber)
+            {
+                schema_oid = heap_getattr(objtup, nspAttnum,
+                                         RelationGetDescr(catalog), &isnull);
+                if (isnull)
+                    elog(ERROR, "invalid null namespace in object %u/%u/%d",
+                         address.classId, address.objectId, address.objectSubId);
+            }
+
+            // Get object name if it provides unique identification
+            if (get_object_namensp_unique(address.classId))
+            {
+                nameAttnum = get_object_attnum_name(address.classId);
+                if (nameAttnum != InvalidAttrNumber)
+                {
+                    Datum nameDatum = heap_getattr(objtup, nameAttnum,
+                                                  RelationGetDescr(catalog), &isnull);
+                    if (isnull)
+                        elog(ERROR, "invalid null name in object %u/%u/%d",
+                             address.classId, address.objectId, address.objectSubId);
+                    objname = quote_identifier(NameStr(*(DatumGetName(nameDatum))));
+                }
+            }
+        }
+        table_close(catalog, AccessShareLock);
+    }
+
+    // Object type (never NULL)
+    values[0] = CStringGetTextDatum(getObjectTypeDescription(&address, true));
+    nulls[0] = false;
+
+    // Get object identity string
+    objidentity = getObjectIdentity(&address, true);
+
+    // Schema name
+    if (OidIsValid(schema_oid) && objidentity)
+    {
+        const char *schema = quote_identifier(get_namespace_name(schema_oid));
+        values[1] = CStringGetTextDatum(schema);
+        nulls[1] = false;
+    }
+    else
+        nulls[1] = true;
+
+    // Object name
+    if (objname && objidentity)
+    {
+        values[2] = CStringGetTextDatum(objname);
+        nulls[2] = false;
+    }
+    else
+        nulls[2] = true;
+
+    // Object identity
+    if (objidentity)
+    {
+        values[3] = CStringGetTextDatum(objidentity);
+        nulls[3] = false;
+    }
+    else
+        nulls[3] = true;
+
+    htup = heap_form_tuple(tupdesc, values, nulls);
+    PG_RETURN_DATUM(HeapTupleGetDatum(htup));
+}
+```

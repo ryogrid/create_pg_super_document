@@ -46,3 +46,21 @@ The function sets CheckXidAlive to monitor the specified transaction ID, allowin
 - Critical for maintaining data consistency in logical replication streaming scenarios
 - Related to DecodePrepare functionality for handling prepared transaction aborts
 - Part of PostgreSQL's logical replication subsystem's robust error handling mechanisms
+
+## Simplified Source
+
+```c
+static inline void
+SetupCheckXidLive(TransactionId xid)
+{
+    // Skip if already monitoring this transaction
+    if (TransactionIdEquals(CheckXidAlive, xid))
+        return;
+
+    // Set up monitoring for uncommitted transactions only
+    if (!TransactionIdDidCommit(xid))
+        CheckXidAlive = xid;
+    else
+        CheckXidAlive = InvalidTransactionId;
+}
+```

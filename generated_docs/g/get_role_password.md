@@ -37,3 +37,50 @@ This function retrieves a user's password from the PostgreSQL system catalog  an
 - Handles NULL values appropriately for optional fields like rolvaliduntil
 - Part of PostgreSQL's authentication infrastructure in the libpq backend
 - Memory for the returned password string is allocated and must be freed by the caller
+
+## Simplified Source
+
+```c
+char *get_role_password(const char *role, const char **logdetail)
+{
+    TimestampTz vuntil = 0;
+    HeapTuple roleTup;
+    Datum datum;
+    bool isnull;
+    char *shadow_pass;
+
+    // Look up role in pg_authid system catalog
+    roleTup = SearchSysCache1(AUTHNAME, PointerGetDatum(role));
+    if (!HeapTupleIsValid(roleTup))
+    {
+        *logdetail = psprintf("Role \"%s\" does not exist.", role);
+        return NULL;
+    }
+
+    // Extract password from role tuple
+    datum = SysCacheGetAttr(AUTHNAME, roleTup, Anum_pg_authid_rolpassword, &isnull);
+    if (isnull)
+    {
+        ReleaseSysCache(roleTup);
+        *logdetail = psprintf("User \"%s\" has no password assigned.", role);
+        return NULL;
+    }
+    shadow_pass = TextDatumGetCString(datum);
+
+    // Extract password expiration date
+    datum = SysCacheGetAttr(AUTHNAME, roleTup, Anum_pg_authid_rolvaliduntil, &isnull);
+    if (!isnull)
+        vuntil = DatumGetTimestampTz(datum);
+
+    ReleaseSysCache(roleTup);
+
+    // Check if password has expired
+    if (!isnull && vuntil < GetCurrentTimestamp())
+    {
+        *logdetail = psprintf("User \"%s\" has an expired password.", role);
+        return NULL;
+    }
+
+    return shadow_pass;
+}
+```

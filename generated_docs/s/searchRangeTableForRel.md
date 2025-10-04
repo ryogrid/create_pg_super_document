@@ -47,3 +47,59 @@ The function checks for matches in the following order:
 - Performs unlocked name lookup since it's only used for error reporting
 - Searches through parent ParseStates as well (via levelsup mechanism)
 - CTE matches take precedence over regular relation matches for unqualified names
+
+## Simplified Source
+
+```c
+static RangeTblEntry *
+searchRangeTableForRel(ParseState *pstate, RangeVar *relation)
+{
+    const char *refname = relation->relname;
+    Oid relId = InvalidOid;
+    CommonTableExpr *cte = NULL;
+    bool isenr = false;
+    Index ctelevelsup = 0;
+    Index levelsup;
+
+    // For unqualified names, check for CTE/ENR matches first
+    if (!relation->schemaname) {
+        cte = scanNameSpaceForCTE(pstate, refname, &ctelevelsup);
+        if (!cte)
+            isenr = scanNameSpaceForENR(pstate, refname);
+    }
+
+    // Look up relation ID if no CTE/ENR found
+    if (!cte && !isenr)
+        relId = RangeVarGetRelid(relation, NoLock, true);
+
+    // Search all RTEs in current and parent ParseStates
+    for (levelsup = 0; pstate != NULL; pstate = pstate->parentParseState, levelsup++) {
+        ListCell *l;
+
+        foreach(l, pstate->p_rtable) {
+            RangeTblEntry *rte = (RangeTblEntry *) lfirst(l);
+
+            // Check for relation match
+            if (rte->rtekind == RTE_RELATION && OidIsValid(relId) && rte->relid == relId)
+                return rte;
+
+            // Check for CTE match
+            if (rte->rtekind == RTE_CTE && cte != NULL &&
+                rte->ctelevelsup + levelsup == ctelevelsup &&
+                strcmp(rte->ctename, refname) == 0)
+                return rte;
+
+            // Check for ENR match
+            if (rte->rtekind == RTE_NAMEDTUPLESTORE && isenr &&
+                strcmp(rte->enrname, refname) == 0)
+                return rte;
+
+            // Check for alias match
+            if (strcmp(rte->eref->aliasname, refname) == 0)
+                return rte;
+        }
+    }
+
+    return NULL;
+}
+```

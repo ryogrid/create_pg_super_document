@@ -36,3 +36,23 @@ This transition is crucial because it changes how subsequent memory operations w
 - Critical for preventing memory leaks of unreachable subRE nodes
 - Part of PostgreSQL's sophisticated regex compilation memory management strategy
 - After this function, tree navigation relies solely on parent-child-sibling relationships
+
+## Simplified Source
+
+```c
+static void cleanst(struct vars *v) {
+    struct subre *t;
+    struct subre *next;
+
+    // Traverse treechain and free unmarked nodes
+    for (t = v->treechain; t != NULL; t = next) {
+        next = t->chain;  // Save next before potentially freeing
+        if (!(t->flags & INUSE))
+            FREE(t);
+    }
+
+    // Clear both lists to complete state transition
+    v->treechain = NULL;
+    v->treefree = NULL;
+}
+```

@@ -48,3 +48,31 @@ The function is designed primarily for setting up initial replication state and 
 - Intended for initial replication state setup, not for ongoing transaction replay
 - The function comments explicitly warn against using this for replay scenarios due to the InvalidXLogRecPtr local commit parameter
 - Located in src/backend/replication/logical/origin.c:1456-1490
+
+## Simplified Source
+
+```c
+Datum pg_replication_origin_advance(PG_FUNCTION_ARGS) {
+    text *name = PG_GETARG_TEXT_PP(0);
+    XLogRecPtr remote_commit = PG_GETARG_LSN(1);
+    RepOriginId node;
+
+    // Check prerequisites: require slots and disallow during recovery
+    replorigin_check_prerequisites(true, false);
+
+    // Lock replication origin catalog to prevent concurrent changes
+    LockRelationOid(ReplicationOriginRelationId, RowExclusiveLock);
+
+    // Look up origin by name
+    node = replorigin_by_name(text_to_cstring(name), false);
+
+    // Advance replication progress for setup scenarios
+    // Note: Uses InvalidXLogRecPtr for local commit - not suitable for replay
+    replorigin_advance(node, remote_commit, InvalidXLogRecPtr,
+                      true /* go backward */, true /* WAL log */);
+
+    UnlockRelationOid(ReplicationOriginRelationId, RowExclusiveLock);
+
+    PG_RETURN_VOID();
+}
+```

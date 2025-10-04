@@ -46,3 +46,31 @@ The function uses conditional compilation to handle different locale management 
 - Windows-specific handling ensures proper thread locale restoration
 - Essential component of ECPG's resource management system
 - Always paired with ecpg_do_prologue in the statement lifecycle
+
+## Simplified Source
+
+```c
+void
+ecpg_do_epilogue(struct statement *stmt)
+{
+    if (!stmt)
+        return;
+
+    // Restore original locale settings
+#ifdef HAVE_USELOCALE
+    if (stmt->oldlocale != (locale_t) 0)
+        uselocale(stmt->oldlocale);
+#else
+    if (stmt->oldlocale)
+        setlocale(LC_NUMERIC, stmt->oldlocale);
+#ifdef HAVE__CONFIGTHREADLOCALE
+    // Restore Windows thread locale configuration
+    if (stmt->oldthreadlocale != -1)
+        (void) _configthreadlocale(stmt->oldthreadlocale);
+#endif
+#endif
+
+    // Free all statement resources
+    free_statement(stmt);
+}
+```

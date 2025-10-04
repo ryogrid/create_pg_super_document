@@ -36,3 +36,19 @@ The function gracefully handles cases where GetShortPathName() fails (such as wh
 - Designed to create paths compatible with both cmd.exe and MSYS environments
 - Particularly useful for paths that may contain spaces, which can cause issues in shell environments
 - Safe to use on non-existent paths (will just return the original path if GetShortPathName fails)
+
+## Simplified Source
+
+```c
+void cleanup_path(char *path) {
+#ifdef WIN32
+    // Convert to short filename (8.3 format) to avoid spaces
+    // Fails gracefully if path doesn't exist or short names disabled
+    GetShortPathName(path, path, MAXPGPATH - 1);
+
+    // Replace backslashes with forward slashes for shell compatibility
+    debackslash_path(path, PG_SQL_ASCII);
+#endif
+    // No-op on non-Windows platforms
+}
+```

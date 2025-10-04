@@ -38,3 +38,42 @@ The function removes completed steps from the waiting array by shifting remainin
 - Maintains the waiting array in a compacted state by removing completed steps
 - Critical for ensuring deterministic behavior in isolation tests regardless of step execution order
 - Part of the isolation testing infrastructure used for testing PostgreSQL's transaction isolation levels
+
+## Simplified Source
+
+```c
+static int
+try_complete_steps(TestSpec *testspec, PermutationStep **waiting,
+                   int nwaiting, int flags)
+{
+    int old_nwaiting;
+    bool have_blocker;
+
+    do {
+        int w = 0;
+        any_new_notice = false;  // Reset notice flag
+        old_nwaiting = nwaiting;
+        have_blocker = false;
+
+        // Try to complete each waiting step
+        while (w < nwaiting) {
+            if (try_complete_step(testspec, waiting[w], flags)) {
+                // Step still blocked
+                if (waiting[w]->nblockers > 0)
+                    have_blocker = true;
+                w++;
+            } else {
+                // Step completed - remove from waiting array
+                if (w + 1 < nwaiting)
+                    memmove(&waiting[w], &waiting[w + 1],
+                           (nwaiting - (w + 1)) * sizeof(PermutationStep *));
+                nwaiting--;
+            }
+        }
+
+        // Retry if blockers exist and progress was made
+    } while (have_blocker && (nwaiting < old_nwaiting || any_new_notice));
+
+    return nwaiting;
+}
+```

@@ -44,3 +44,59 @@ For each color, the function scans through all simple characters (CHR_MIN to MAX
 - Pseudo colors are specially identified in the output as they represent abstract character classes
 - The function may be computationally expensive for large character sets as it scans all simple characters for each color
 - Color 0 is intentionally skipped as it represents a special default/background color
+
+## Simplified Source
+
+```c
+static void
+dumpcolors(struct colormap *cm, FILE *f)
+{
+    fprintf(f, "max %ld\n", (long) cm->max);
+
+    // Dump basic color information (skip color 0)
+    struct colordesc *end = CDEND(cm);
+    color co = 1;
+
+    for (struct colordesc *cd = cm->cd + 1; cd < end; cd++, co++) {
+        if (!UNUSEDCOLOR(cd)) {
+            // Print color header with ID and character count
+            if (cd->flags & PSEUDO) {
+                fprintf(f, "#%2ld(ps): ", (long) co);
+            } else {
+                fprintf(f, "#%2ld(%2d): ", (long) co, cd->nschrs + cd->nuchrs);
+            }
+
+            // Print all characters belonging to this color
+            for (chr c = CHR_MIN; c <= MAX_SIMPLE_CHR; c++) {
+                if (GETCOLOR(cm, c) == co) {
+                    dumpchr(c, f);
+                }
+            }
+            fprintf(f, "\n");
+        }
+    }
+
+    // Dump high colormap if it contains multi-byte mappings
+    if (cm->hiarrayrows > 1 || cm->hiarraycols > 1) {
+        fprintf(f, "other:\t");
+        for (int c = 0; c < cm->hiarraycols; c++) {
+            fprintf(f, "\t%ld", (long) cm->hicolormap[c]);
+        }
+        fprintf(f, "\n");
+
+        // Print character ranges and their color mappings
+        for (int r = 0; r < cm->numcmranges; r++) {
+            dumpchr(cm->cmranges[r].cmin, f);
+            fprintf(f, "..");
+            dumpchr(cm->cmranges[r].cmax, f);
+            fprintf(f, ":");
+
+            const color *rowptr = &cm->hicolormap[cm->cmranges[r].rownum * cm->hiarraycols];
+            for (int c = 0; c < cm->hiarraycols; c++) {
+                fprintf(f, "\t%ld", (long) rowptr[c]);
+            }
+            fprintf(f, "\n");
+        }
+    }
+}
+```

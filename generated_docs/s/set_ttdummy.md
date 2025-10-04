@@ -35,3 +35,29 @@ set_ttdummy is a PostgreSQL function that controls the global state of the tempo
 - Essential for testing scenarios where temporal functionality needs to be temporarily disabled
 - Located in src/test/regress/regress.c, indicating it's primarily for testing temporal database patterns
 - Demonstrates a common pattern for providing runtime control over complex trigger behavior
+
+## Simplified Source
+
+```c
+Datum set_ttdummy(PG_FUNCTION_ARGS) {
+    int32 on = PG_GETARG_INT32(0);
+
+    if (ttoff) {
+        // Currently OFF
+        if (on == 0)
+            PG_RETURN_INT32(0);  // Stay OFF, return previous state
+
+        // Turn ON
+        ttoff = false;
+        PG_RETURN_INT32(0);  // Return previous state (was OFF)
+    }
+
+    // Currently ON
+    if (on != 0)
+        PG_RETURN_INT32(1);  // Stay ON, return previous state
+
+    // Turn OFF
+    ttoff = true;
+    PG_RETURN_INT32(1);  // Return previous state (was ON)
+}
+```

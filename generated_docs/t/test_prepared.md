@@ -48,3 +48,138 @@ The test validates that pipeline mode correctly handles the full lifecycle of pr
 - Verifies that error conditions are properly reported for closed objects
 - Essential for validating prepared statement support in PostgreSQL's pipeline architecture
 - Part of the libpq_pipeline test suite ensuring robust prepared statement functionality
+
+## Simplified Source
+
+```c
+static void test_prepared(PGconn *conn) {
+    PGresult *res = NULL;
+    Oid param_oids[1] = {INT4OID};
+    Oid expected_oids[4];
+    Oid typ;
+
+    fprintf(stderr, "prepared... ");
+
+    if (PQenterPipelineMode(conn) != 1)
+        pg_fatal("failed to enter pipeline mode: %s", PQerrorMessage(conn));
+
+    // Test 1: Prepare and describe a statement
+    if (PQsendPrepare(conn, "select_one", "SELECT $1, '42', $1::numeric, "
+                      "interval '1 sec'", 1, param_oids) != 1)
+        pg_fatal("preparing query failed: %s", PQerrorMessage(conn));
+
+    expected_oids[0] = INT4OID;
+    expected_oids[1] = TEXTOID;
+    expected_oids[2] = NUMERICOID;
+    expected_oids[3] = INTERVALOID;
+
+    if (PQsendDescribePrepared(conn, "select_one") != 1)
+        pg_fatal("failed to send describePrepared: %s", PQerrorMessage(conn));
+    if (PQpipelineSync(conn) != 1)
+        pg_fatal("pipeline sync failed: %s", PQerrorMessage(conn));
+
+    // Process prepare result
+    res = PQgetResult(conn);
+    if (res == NULL)
+        pg_fatal("PQgetResult returned null");
+    if (PQresultStatus(res) != PGRES_COMMAND_OK)
+        pg_fatal("expected COMMAND_OK, got %s", PQresStatus(PQresultStatus(res)));
+    PQclear(res);
+    PQgetResult(conn); // consume NULL
+
+    // Process describe result
+    res = PQgetResult(conn);
+    if (PQresultStatus(res) != PGRES_COMMAND_OK)
+        pg_fatal("expected COMMAND_OK, got %s", PQresStatus(PQresultStatus(res)));
+    if (PQnfields(res) != 4)
+        pg_fatal("expected 4 columns, got %d", PQnfields(res));
+
+    // Verify column types
+    for (int i = 0; i < PQnfields(res); i++) {
+        typ = PQftype(res, i);
+        if (typ != expected_oids[i])
+            pg_fatal("field %d: expected type %u, got %u", i, expected_oids[i], typ);
+    }
+    PQclear(res);
+    PQgetResult(conn); // consume NULL
+
+    // Get sync result
+    res = PQgetResult(conn);
+    if (PQresultStatus(res) != PGRES_PIPELINE_SYNC)
+        pg_fatal("expected PGRES_PIPELINE_SYNC, got %s", PQresStatus(PQresultStatus(res)));
+
+    // Test 2: Close the prepared statement
+    fprintf(stderr, "closing statement..");
+    if (PQsendClosePrepared(conn, "select_one") != 1)
+        pg_fatal("PQsendClosePrepared failed: %s", PQerrorMessage(conn));
+    if (PQpipelineSync(conn) != 1)
+        pg_fatal("pipeline sync failed: %s", PQerrorMessage(conn));
+
+    // Process close result
+    res = PQgetResult(conn);
+    if (PQresultStatus(res) != PGRES_COMMAND_OK)
+        pg_fatal("expected COMMAND_OK, got %s", PQresStatus(PQresultStatus(res)));
+    PQclear(res);
+    PQgetResult(conn); // consume NULL
+
+    res = PQgetResult(conn);
+    if (PQresultStatus(res) != PGRES_PIPELINE_SYNC)
+        pg_fatal("expected PGRES_PIPELINE_SYNC, got %s", PQresStatus(PQresultStatus(res)));
+
+    if (PQexitPipelineMode(conn) != 1)
+        pg_fatal("could not exit pipeline mode: %s", PQerrorMessage(conn));
+
+    // Test 3: Verify statement is closed (should error)
+    res = PQdescribePrepared(conn, "select_one");
+    if (PQresultStatus(res) != PGRES_FATAL_ERROR)
+        pg_fatal("expected FATAL_ERROR, got %s", PQresStatus(PQresultStatus(res)));
+
+    // Test 4: Portal operations
+    fprintf(stderr, "creating portal... ");
+    PQexec(conn, "BEGIN");
+    PQexec(conn, "DECLARE cursor_one CURSOR FOR SELECT 1");
+    PQenterPipelineMode(conn);
+
+    if (PQsendDescribePortal(conn, "cursor_one") != 1)
+        pg_fatal("PQsendDescribePortal failed: %s", PQerrorMessage(conn));
+    if (PQpipelineSync(conn) != 1)
+        pg_fatal("pipeline sync failed: %s", PQerrorMessage(conn));
+
+    // Verify portal description
+    res = PQgetResult(conn);
+    if (PQresultStatus(res) != PGRES_COMMAND_OK)
+        pg_fatal("expected COMMAND_OK, got %s", PQresStatus(PQresultStatus(res)));
+
+    typ = PQftype(res, 0);
+    if (typ != INT4OID)
+        pg_fatal("portal: expected type %u, got %u", INT4OID, typ);
+    PQclear(res);
+    PQgetResult(conn); // consume NULL
+
+    res = PQgetResult(conn);
+    if (PQresultStatus(res) != PGRES_PIPELINE_SYNC)
+        pg_fatal("expected PGRES_PIPELINE_SYNC, got %s", PQresStatus(PQresultStatus(res)));
+
+    // Close portal
+    fprintf(stderr, "closing portal... ");
+    if (PQsendClosePortal(conn, "cursor_one") != 1)
+        pg_fatal("PQsendClosePortal failed: %s", PQerrorMessage(conn));
+    if (PQpipelineSync(conn) != 1)
+        pg_fatal("pipeline sync failed: %s", PQerrorMessage(conn));
+
+    // Process close results (simplified)
+    res = PQgetResult(conn);
+    if (PQresultStatus(res) != PGRES_COMMAND_OK)
+        pg_fatal("expected COMMAND_OK");
+    PQclear(res);
+    PQgetResult(conn); // consume NULL
+    res = PQgetResult(conn);
+    if (PQresultStatus(res) != PGRES_PIPELINE_SYNC)
+        pg_fatal("expected PGRES_PIPELINE_SYNC");
+
+    if (PQexitPipelineMode(conn) != 1)
+        pg_fatal("could not exit pipeline mode: %s", PQerrorMessage(conn));
+
+    fprintf(stderr, "ok\n");
+}
+```

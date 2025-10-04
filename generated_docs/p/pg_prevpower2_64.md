@@ -30,3 +30,12 @@ This function efficiently computes the previous (lower) power of 2 for 64-bit un
 - Commonly used in scenarios where you need to find the largest power-of-2 chunk size that fits within a given 64-bit limit
 - The function assumes num > 0; behavior with num = 0 is undefined
 - Handles the full 64-bit range, making it suitable for large memory calculations and hash table sizing
+
+## Simplified Source
+
+```c
+static inline uint64 pg_prevpower2_64(uint64 num) {
+    // Find position of leftmost bit and create power of 2 at that position
+    return ((uint64)1) << pg_leftmost_one_pos64(num);
+}
+```

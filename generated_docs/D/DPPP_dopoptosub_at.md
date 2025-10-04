@@ -42,3 +42,28 @@ This functionality is essential for implementing caller() and other introspectio
 - Critical for proper exception handling and call stack introspection in Perl XS code
 - The backward iteration (i--) reflects the stack growth direction in Perl's context management
 - Used primarily by caller_cx implementations to provide accurate caller information regardless of Perl version
+
+## Simplified Source
+
+```c
+static I32
+DPPP_dopoptosub_at(const PERL_CONTEXT *cxstk, I32 startingblock)
+{
+    I32 i;
+
+    // Search backwards through context stack for sub/eval/format contexts
+    for (i = startingblock; i >= 0; i--) {
+        const PERL_CONTEXT *cx = &cxstk[i];
+
+        switch (CxTYPE(cx)) {
+        case CXt_SUB:      // Subroutine context
+        case CXt_EVAL:     // Eval context
+        case CXt_FORMAT:   // Format context
+            return i;      // Found target context
+        default:
+            continue;      // Keep searching
+        }
+    }
+    return i; // Return final index if no match found
+}
+```

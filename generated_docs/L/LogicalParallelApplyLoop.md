@@ -44,3 +44,63 @@ When no messages are immediately available, the worker processes any spooled mes
 - Uses a dedicated ApplyMessageContext for memory management during message processing
 - Implements graceful error handling with apply_error_callback context
 - Part of PostgreSQL's parallel logical replication architecture for improved replication throughput
+
+## Simplified Source
+
+```c
+static void LogicalParallelApplyLoop(shm_mq_handle *mqh) {
+    // Initialize memory context for message processing
+    ApplyMessageContext = AllocSetContextCreate(ApplyContext, "ApplyMessageContext", ALLOCSET_DEFAULT_SIZES);
+
+    // Set up error callback
+    ErrorContextCallback errcallback;
+    errcallback.callback = apply_error_callback;
+    errcallback.previous = error_context_stack;
+    error_context_stack = &errcallback;
+
+    // Main processing loop
+    for (;;) {
+        void *data;
+        Size len;
+
+        ProcessParallelApplyInterrupts();
+        MemoryContextSwitchTo(ApplyMessageContext);
+
+        // Try to receive message from shared memory queue
+        shm_mq_result shmq_res = shm_mq_receive(mqh, &len, &data, true);
+
+        if (shmq_res == SHM_MQ_SUCCESS) {
+            // Process received message
+            StringInfoData s;
+            initReadOnlyStringInfo(&s, data, len);
+
+            // Verify message type (must be 'w' for work)
+            int c = pq_getmsgbyte(&s);
+            if (c != 'w')
+                elog(ERROR, "unexpected message \"%c\"", c);
+
+            // Skip statistics fields and dispatch message
+            s.cursor += SIZE_STATS_MESSAGE;
+            apply_dispatch(&s);
+
+        } else if (shmq_res == SHM_MQ_WOULD_BLOCK) {
+            // No immediate work - process spooled messages or wait
+            if (!pa_process_spooled_messages_if_required()) {
+                int rc = WaitLatch(MyLatch, WL_LATCH_SET | WL_TIMEOUT | WL_EXIT_ON_PM_DEATH, 1000L, WAIT_EVENT_LOGICAL_PARALLEL_APPLY_MAIN);
+                if (rc & WL_LATCH_SET)
+                    ResetLatch(MyLatch);
+            }
+        } else {
+            // Connection lost
+            ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                           errmsg("lost connection to the logical replication apply worker")));
+        }
+
+        // Clean up memory after processing
+        MemoryContextReset(ApplyMessageContext);
+    }
+
+    // Cleanup error context
+    error_context_stack = errcallback.previous;
+}
+```

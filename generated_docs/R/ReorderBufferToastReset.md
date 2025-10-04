@@ -49,3 +49,38 @@ This cleanup is essential to prevent memory leaks in long-running logical replic
 - Uses PostgreSQL's doubly-linked list (dlist) and hash table utilities for efficient memory management
 - Critical for preventing memory leaks in logical replication scenarios involving large column values
 - The function ensures complete cleanup by both freeing reconstructed data and returning ReorderBufferChange objects to the buffer pool
+
+## Simplified Source
+
+```c
+static void
+ReorderBufferToastReset(ReorderBuffer *rb, ReorderBufferTXN *txn)
+{
+	// Early return if no toast hash table exists
+	if (txn->toast_hash == NULL)
+		return;
+
+	// Iterate through all entries in the toast hash table
+	HASH_SEQ_STATUS hstat;
+	ReorderBufferToastEnt *ent;
+
+	hash_seq_init(&hstat, txn->toast_hash);
+	while ((ent = (ReorderBufferToastEnt *) hash_seq_search(&hstat)) != NULL) {
+		// Free reconstructed TOAST data
+		if (ent->reconstructed != NULL)
+			pfree(ent->reconstructed);
+
+		// Clean up chunk list and return changes to buffer
+		dlist_mutable_iter it;
+		dlist_foreach_modify(it, &ent->chunks) {
+			ReorderBufferChange *change = dlist_container(ReorderBufferChange, node, it.cur);
+			dlist_delete(&change->node);
+			ReorderBufferReturnChange(rb, change, true);
+		}
+	}
+
+	// Destroy hash table and clear pointer
+	hash_destroy(txn->toast_hash);
+	txn->toast_hash = NULL;
+}
+```

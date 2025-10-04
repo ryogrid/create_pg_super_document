@@ -9,8 +9,8 @@ PLy_function_restore_args restores previously saved argument values to a procedu
 ## Definition
 
 ```c
-struct */
-	pfree(savedargs);
+static void
+PLy_function_restore_args(PLyProcedure *proc, PLySavedArgs *savedargs)
 ```
 ## Detailed Description
 This function is the counterpart to PLy_function_save_args, responsible for restoring argument state that was previously saved. It handles the complete restoration process including:
@@ -24,8 +24,8 @@ This function is the counterpart to PLy_function_save_args, responsible for rest
 This function is essential for maintaining correct argument visibility when returning from recursive function calls or continuing set-returning function iterations where multiple calls may be interleaved.
 
 ## Parameters / Member Variables
-- : PLyProcedure structure containing the procedure metadata and global namespace to restore into
-- : PLySavedArgs structure containing the previously saved argument state to restore
+- `*proc`: PLyProcedure structure containing the procedure metadata and global namespace to restore into
+- `*savedargs`: PLySavedArgs structure containing the previously saved argument state to restore
 
 ## Dependencies
 - Functions called/Symbols referenced:
@@ -45,3 +45,39 @@ This function is essential for maintaining correct argument visibility when retu
 - Automatically cleans up the saved argument structure after restoration
 - Critical for correct behavior of recursive calls and interleaved set-returning functions
 - File location: src/pl/plpython/plpy_exec.c:544-583
+
+## Simplified Source
+
+```c
+static void
+PLy_function_restore_args(PLyProcedure *proc, PLySavedArgs *savedargs)
+{
+    // Restore named arguments to global namespace
+    if (proc->argnames) {
+        int i;
+
+        for (i = 0; i < savedargs->nargs; i++) {
+            if (proc->argnames[i] && savedargs->namedargs[i]) {
+                PyDict_SetItemString(proc->globals, proc->argnames[i],
+                                   savedargs->namedargs[i]);
+                Py_DECREF(savedargs->namedargs[i]);
+            }
+        }
+    }
+
+    // Restore the "args" list to global namespace
+    if (savedargs->args) {
+        PyDict_SetItemString(proc->globals, "args", savedargs->args);
+        Py_DECREF(savedargs->args);
+    }
+
+    // Restore the "TD" trigger data object
+    if (savedargs->td) {
+        PyDict_SetItemString(proc->globals, "TD", savedargs->td);
+        Py_DECREF(savedargs->td);
+    }
+
+    // Free the saved arguments structure
+    pfree(savedargs);
+}
+```

@@ -51,3 +51,118 @@ The function uses a restart mechanism for handling comments and maintains state 
 
 ## Notes and Other Information
 This function is central to the regex lexical analysis phase and must handle the complexity of different regex syntaxes. It includes special handling for word boundaries (`[[:<:]]` and `[[:>:]]`), non-greedy quantifiers (`*?`, `+?`, `??`), and advanced features like lookaround assertions. The function maintains careful state management to ensure proper context transitions, especially when entering and exiting bracket expressions and bound contexts. Error reporting is comprehensive, covering malformed brackets, braces, escapes, and other syntax violations.
+
+## Simplified Source
+
+```c
+static int
+next(struct vars *v)
+{
+    chr c;
+
+next_restart:
+    // Check for errors or special start conditions
+    if (ISERR()) return 0;
+
+    v->lasttype = v->nexttype;
+
+    // Handle REG_BOSONLY flag
+    if (v->nexttype == EMPTY && (v->cflags & REG_BOSONLY)) {
+        RETV(SBEGIN, 0);
+    }
+
+    // Skip whitespace in expanded mode
+    if (v->cflags & REG_EXPANDED) {
+        switch (v->lexcon) {
+            case L_ERE: case L_BRE: case L_EBND: case L_BBND:
+                skip(v);
+                break;
+        }
+    }
+
+    // Handle end of string based on context
+    if (ATEOS()) {
+        switch (v->lexcon) {
+            case L_ERE: case L_BRE: case L_Q:
+                RET(EOS);
+            case L_EBND: case L_BBND:
+                FAILW(REG_EBRACE);
+            case L_BRACK: case L_CEL: case L_ECL: case L_CCL:
+                FAILW(REG_EBRACK);
+        }
+    }
+
+    c = *v->now++;
+
+    // Handle different lexical contexts
+    switch (v->lexcon) {
+        case L_BRE:
+            return brenext(v, c);
+
+        case L_Q:  // Literal strings
+            RETV(PLAIN, c);
+
+        case L_EBND: case L_BBND:  // Bound contexts
+            if (c >= '0' && c <= '9') {
+                RETV(DIGIT, (chr) DIGITVAL(c));
+            } else if (c == ',') {
+                RET(',');
+            } else if (c == '}' && INCON(L_EBND)) {
+                INTOCON(L_ERE);
+                RETV('}', 1);
+            }
+            // Handle other bound cases...
+            break;
+
+        case L_BRACK:  // Bracket expressions
+            if (c == ']' && !LASTTYPE('[')) {
+                INTOCON((v->cflags & REG_EXTENDED) ? L_ERE : L_BRE);
+                RET(']');
+            } else if (c == '\\' && (v->cflags & REG_ADVF)) {
+                if (!lexescape(v)) return 0;
+                // Handle escape result...
+            } else if (c == '-') {
+                RETV(LASTTYPE('[') || NEXT1(']') ? PLAIN : RANGE, c);
+            }
+            // Handle other bracket cases...
+            break;
+    }
+
+    // Handle ERE/ARE context (main regex operators)
+    if (INCON(L_ERE)) {
+        switch (c) {
+            case '|': RET('|');
+            case '*':
+                if ((v->cflags & REG_ADVF) && NEXT1('?')) {
+                    v->now++; RETV('*', 0);  // Non-greedy
+                }
+                RETV('*', 1);
+            case '+': case '?':
+                // Similar non-greedy handling...
+                RETV(c, 1);
+            case '{':
+                if (ATEOS() || !iscdigit(*v->now)) {
+                    RETV(PLAIN, c);
+                } else {
+                    INTOCON(L_EBND);
+                    RET('{');
+                }
+            case '(':
+                // Handle advanced extensions (?:...), (?=...), etc.
+                RETV('(', 1);
+            case '[':
+                INTOCON(L_BRACK);
+                RETV('[', NEXT1('^') ? (v->now++, 0) : 1);
+            case '.': case '^': case '$':
+                RET(c);
+            case '\\':
+                if (ATEOS()) FAILW(REG_EESCAPE);
+                return lexescape(v);
+            default:
+                RETV(PLAIN, c);
+        }
+    }
+
+    return 1;
+}
+```

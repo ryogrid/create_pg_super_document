@@ -41,3 +41,42 @@ The `forget_invalid_pages_db` function performs a wholesale cleanup of invalid p
 - Memory allocated by relpathperm is properly freed to prevent memory leaks
 - Essential for maintaining system integrity when databases are dropped during WAL replay
 - More coarse-grained than forget_invalid_pages, operating at the database level rather than relation level
+
+## Simplified Source
+
+```c
+static void forget_invalid_pages_db(Oid dbid) {
+    HASH_SEQ_STATUS status;
+    xl_invalid_page *hentry;
+
+    // Nothing to do if invalid page table doesn't exist
+    if (invalid_page_tab == NULL)
+        return;
+
+    // Iterate through all entries in the hash table
+    hash_seq_init(&status, invalid_page_tab);
+    while ((hentry = (xl_invalid_page *) hash_seq_search(&status)) != NULL) {
+        // Check if this entry belongs to the target database
+        if (hentry->key.locator.dbOid == dbid) {
+            // Optional debug logging
+            if (message_level_is_interesting(DEBUG2)) {
+                char *path = relpathperm(hentry->key.locator, hentry->key.forkno);
+                elog(DEBUG2, "page %u of relation %s has been dropped",
+                     hentry->key.blkno, path);
+                pfree(path);
+            }
+
+            // Remove the entry from hash table
+            if (hash_search(invalid_page_tab, &hentry->key, HASH_REMOVE, NULL) == NULL)
+                elog(ERROR, "hash table corrupted");
+        }
+    }
+}
+```
+
+**Simplified Logic:**
+1. **Early Exit**: Returns immediately if the invalid page hash table doesn't exist
+2. **Sequential Scan**: Iterates through all entries in the invalid page hash table
+3. **Database Match**: Checks if each entry belongs to the target database by comparing OIDs
+4. **Optional Logging**: Logs dropped pages at DEBUG2 level when appropriate
+5. **Remove Entry**: Removes matching entries from the hash table with error checking

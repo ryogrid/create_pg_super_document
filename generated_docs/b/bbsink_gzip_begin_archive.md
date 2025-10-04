@@ -47,3 +47,33 @@ The function uses deflateInit2() instead of deflateInit() to explicitly request 
 - Memory allocation functions are customized for PostgreSQL's memory contexts
 - Raises ERROR if compression library initialization fails
 - Default parameters: Z_DEFLATED method, 8 memory level, Z_DEFAULT_STRATEGY
+
+## Simplified Source
+
+```c
+static void bbsink_gzip_begin_archive(bbsink *sink, const char *archive_name) {
+    bbsink_gzip *mysink = (bbsink_gzip *) sink;
+    char *gz_archive_name;
+    z_stream *zs = &mysink->zstream;
+
+    // Initialize compression stream
+    memset(zs, 0, sizeof(z_stream));
+    zs->zalloc = gzip_palloc;
+    zs->zfree = gzip_pfree;
+    zs->next_out = (uint8 *) sink->bbs_next->bbs_buffer;
+    zs->avail_out = sink->bbs_next->bbs_buffer_length;
+
+    // Initialize deflate with gzip headers (15+16 window bits for gzip format)
+    if (deflateInit2(zs, mysink->compresslevel, Z_DEFLATED, 15 + 16, 8,
+                     Z_DEFAULT_STRATEGY) != Z_OK)
+        ereport(ERROR,
+                errcode(ERRCODE_INTERNAL_ERROR),
+                errmsg("could not initialize compression library"));
+
+    // Add .gz extension and forward to next sink
+    gz_archive_name = psprintf("%s.gz", archive_name);
+    Assert(sink->bbs_next != NULL);
+    bbsink_begin_archive(sink->bbs_next, gz_archive_name);
+    pfree(gz_archive_name);
+}
+```

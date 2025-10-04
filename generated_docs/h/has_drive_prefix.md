@@ -35,3 +35,17 @@ This function is essential for path processing logic that needs to behave differ
 - On Unix-like systems, consistently returns false since drive concepts don't exist
 - Essential for cross-platform path handling in PostgreSQL utilities
 - Used by psql and other tools that need to handle file paths differently based on drive presence
+
+## Simplified Source
+
+```c
+bool has_drive_prefix(const char *path) {
+#ifdef WIN32
+    // Check if path contains drive prefix (C:, \\server\share, etc.)
+    return skip_drive(path) != path;
+#else
+    // Unix-like systems don't have drive prefixes
+    return false;
+#endif
+}
+```

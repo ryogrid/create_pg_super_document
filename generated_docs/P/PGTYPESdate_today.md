@@ -32,3 +32,19 @@ This function obtains the current system date using the GetCurrentDateTime utili
 - Essential for applications that need to work with "today's date" in embedded SQL contexts
 - Provides a standardized way to get the current date in PostgreSQL's internal format
 - Error handling ensures the output date is only modified on successful date retrieval
+
+## Simplified Source
+
+```c
+void PGTYPESdate_today(date *d) {
+    struct tm ts;
+
+    // Get current system date/time
+    GetCurrentDateTime(&ts);
+
+    // Convert to PostgreSQL date format if successful
+    if (errno == 0) {
+        *d = date2j(ts.tm_year, ts.tm_mon, ts.tm_mday) - date2j(2000, 1, 1);
+    }
+}
+```

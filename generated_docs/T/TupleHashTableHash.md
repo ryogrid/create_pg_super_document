@@ -35,3 +35,27 @@ This function is useful when callers need just the hash value for a tuple, such 
 - The computed hash value can be used independently of the hash table structure
 - Typically used when hash values are needed for purposes other than direct hash table operations
 - Part of the tuple hash table API that separates hash computation from lookup/insertion logic
+
+## Simplified Source
+
+```c
+uint32 TupleHashTableHash(TupleHashTable hashtable, TupleTableSlot *slot) {
+    MemoryContext oldContext;
+    uint32 hash;
+
+    // Set up hash table context for computation
+    hashtable->inputslot = slot;
+    hashtable->in_hash_funcs = hashtable->tab_hash_funcs;
+
+    // Switch to temporary context for hash function execution
+    oldContext = MemoryContextSwitchTo(hashtable->tempcxt);
+
+    // Compute the actual hash value
+    hash = TupleHashTableHash_internal(hashtable->hashtab, NULL);
+
+    // Restore original memory context
+    MemoryContextSwitchTo(oldContext);
+
+    return hash;
+}
+```

@@ -41,3 +41,12 @@ The function uses the system's UnBlockSig signal set, which contains the normal 
 - Part of PostgreSQL's signal management infrastructure for multi-process architecture
 - Should be called after completing any critical initialization that needs to be atomic
 - Widely used across different types of background workers including parallel workers, replication workers, and test modules
+
+## Simplified Source
+
+```c
+void BackgroundWorkerUnblockSignals(void) {
+    // Restore normal signal delivery by setting signal mask to UnBlockSig
+    sigprocmask(SIG_SETMASK, &UnBlockSig, NULL);
+}
+```

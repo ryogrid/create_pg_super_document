@@ -44,3 +44,40 @@ The function uses a zero-initialized allocation strategy to ensure that new slot
 - Sets global `lo_cleanup_needed` flag to ensure end-of-transaction cleanup occurs
 - Zero-initialization of new array elements ensures NULL pointers for unused slots
 - Thread-safe within the context of PostgreSQL's single-threaded backend model
+
+## Simplified Source
+
+```c
+static int newLOfd(void) {
+    int i, newsize;
+
+    // Initialize cleanup flag and filesystem context
+    lo_cleanup_needed = true;
+    if (fscxt == NULL)
+        fscxt = AllocSetContextCreate(TopMemoryContext, "Filesystem",
+                                      ALLOCSET_DEFAULT_SIZES);
+
+    // Look for a free slot in existing array
+    for (i = 0; i < cookies_size; i++) {
+        if (cookies[i] == NULL)
+            return i;
+    }
+
+    // No free slot found - expand the array
+    if (cookies_size <= 0) {
+        // Initial allocation: 64 elements
+        i = 0;
+        newsize = 64;
+        cookies = (LargeObjectDesc **)
+            MemoryContextAllocZero(fscxt, newsize * sizeof(LargeObjectDesc *));
+    } else {
+        // Double the array size
+        i = cookies_size;
+        newsize = cookies_size * 2;
+        cookies = repalloc0_array(cookies, LargeObjectDesc *, cookies_size, newsize);
+    }
+    cookies_size = newsize;
+
+    return i;
+}
+```

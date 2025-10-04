@@ -37,3 +37,21 @@ This is the counterpart to logicalrep_write_begin and is used by logical replica
 - Used by logical replication workers to process transaction boundaries from publishers
 - Located in src/backend/replication/logical/proto.c as part of the protocol decoding functions
 - Throws an ERROR if the final_lsn field is invalid, which will abort the current transaction
+
+## Simplified Source
+
+```c
+void logicalrep_read_begin(StringInfo in, LogicalRepBeginData *begin_data) {
+    // Read transaction metadata from input stream
+    begin_data->final_lsn = pq_getmsgint64(in);
+
+    // Validate that final_lsn is set
+    if (begin_data->final_lsn == InvalidXLogRecPtr) {
+        elog(ERROR, "final_lsn not set in begin message");
+    }
+
+    // Read remaining transaction fields
+    begin_data->committime = pq_getmsgint64(in);
+    begin_data->xid = pq_getmsgint(in, 4);
+}
+```

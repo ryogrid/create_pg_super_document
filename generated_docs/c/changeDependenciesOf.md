@@ -45,3 +45,54 @@ The function systematically scans the pg_depend catalog to find all records wher
 - Primarily used in concurrent index operations where a new index needs to assume all dependencies of an existing index
 - The function preserves the complete dependency relationship structure, only changing the identity of the depender object
 - Does not handle pinned object considerations like changeDependencyFor, as it deals with transferring existing relationships rather than creating/modifying individual dependencies
+
+## Simplified Source
+
+```c
+long
+changeDependenciesOf(Oid classId, Oid oldObjectId, Oid newObjectId)
+{
+    long        count = 0;
+    Relation    depRel;
+    ScanKeyData key[2];
+    SysScanDesc scan;
+    HeapTuple   tup;
+
+    // Open pg_depend catalog for modification
+    depRel = table_open(DependRelationId, RowExclusiveLock);
+
+    // Set up scan keys to find dependencies from old object
+    ScanKeyInit(&key[0],
+                Anum_pg_depend_classid,
+                BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(classId));
+    ScanKeyInit(&key[1],
+                Anum_pg_depend_objid,
+                BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(oldObjectId));
+
+    // Scan for all dependencies where old object is the depender
+    scan = systable_beginscan(depRel, DependDependerIndexId, true,
+                             NULL, 2, key);
+
+    while (HeapTupleIsValid((tup = systable_getnext(scan))))
+    {
+        Form_pg_depend depform;
+
+        // Make modifiable copy and update object ID
+        tup = heap_copytuple(tup);
+        depform = (Form_pg_depend) GETSTRUCT(tup);
+        depform->objid = newObjectId;
+
+        // Update the catalog record
+        CatalogTupleUpdate(depRel, &tup->t_self, tup);
+        heap_freetuple(tup);
+        count++;
+    }
+
+    systable_endscan(scan);
+    table_close(depRel, RowExclusiveLock);
+
+    return count;
+}
+```

@@ -30,3 +30,13 @@ StartupProcExit serves as an exit callback function for the startup process in P
 - The function only performs cleanup if standbyState is not STANDBY_DISABLED, indicating the server is in standby/recovery mode
 - This function is part of PostgreSQL's signal handling infrastructure for the startup process
 - The cleanup is critical for maintaining data consistency during startup process termination
+
+## Simplified Source
+
+```c
+static void StartupProcExit(int code, Datum arg) {
+    // Clean up recovery environment if in standby mode
+    if (standbyState != STANDBY_DISABLED)
+        ShutdownRecoveryTransactionEnvironment();
+}
+```

@@ -33,3 +33,42 @@ This function is the core execution engine for PL/Python procedures. It sets up 
 
 ## Notes and Other Information
 The function includes version-specific handling for different Python versions, using PyCodeObject casting for Python versions prior to 3.2.0. The subtransaction management ensures that any subtransactions opened during procedure execution (via plpy.subtransaction()) are properly handled - if the procedure completes normally, subtransactions can remain open for the calling code to manage, but if an error occurs, all subtransactions opened during this procedure call are aborted. The function follows PostgreSQL's exception handling patterns, making it safe to use within PostgreSQL's memory context and error handling system.
+
+## Simplified Source
+
+```c
+static PyObject *
+PLy_procedure_call(PLyProcedure *proc, const char *kargs, PyObject *vargs)
+{
+    PyObject *rv = NULL;
+    int save_subxact_level = list_length(explicit_subtransactions);
+
+    // Set up arguments in the procedure's global namespace
+    PyDict_SetItemString(proc->globals, kargs, vargs);
+
+    PG_TRY();
+    {
+        // Execute the compiled Python code
+#if PY_VERSION_HEX >= 0x03020000
+        rv = PyEval_EvalCode(proc->code, proc->globals, proc->globals);
+#else
+        rv = PyEval_EvalCode((PyCodeObject *) proc->code, proc->globals, proc->globals);
+#endif
+
+        // Verify subtransaction nesting is only increased, not decreased
+        Assert(list_length(explicit_subtransactions) >= save_subxact_level);
+    }
+    PG_FINALLY();
+    {
+        // Clean up any subtransactions opened during execution
+        PLy_abort_open_subtransactions(save_subxact_level);
+    }
+    PG_END_TRY();
+
+    // Propagate Python errors to PostgreSQL
+    if (rv == NULL)
+        PLy_elog(ERROR, NULL);
+
+    return rv;
+}
+```

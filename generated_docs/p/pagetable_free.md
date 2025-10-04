@@ -35,3 +35,23 @@ This function serves as a memory deallocation callback for pagetable hash struct
 - In DSA mode, frees the old allocation rather than the current pointer
 - Properly manages DSA pointer validity and invalidation
 - Critical for preventing memory leaks in both regular and parallel TID bitmap operations
+
+## Simplified Source
+
+```c
+static inline void
+pagetable_free(pagetable_hash *pagetable, void *pointer)
+{
+    TIDBitmap *tbm = (TIDBitmap *) pagetable->private_data;
+
+    // Free memory based on allocation strategy
+    if (tbm->dsa == NULL) {
+        // Regular memory: free the pointer directly
+        pfree(pointer);
+    } else if (DsaPointerIsValid(tbm->dsapagetableold)) {
+        // DSA memory: free old pagetable reference and reset
+        dsa_free(tbm->dsa, tbm->dsapagetableold);
+        tbm->dsapagetableold = InvalidDsaPointer;
+    }
+}
+```

@@ -37,3 +37,39 @@ The function is particularly useful in replication scenarios where the WAL recei
 - The function will raise an ERROR if the connection string has invalid syntax
 - Properly handles memory management for both successful parsing and error conditions
 - Located at src/backend/replication/libpqwalreceiver/libpqwalreceiver.c:502-550
+
+## Simplified Source
+
+```c
+static char *libpqrcv_get_dbname_from_conninfo(const char *connInfo)
+{
+    PQconninfoOption *opts;
+    char *dbname = NULL;
+    char *err = NULL;
+
+    // Parse connection string
+    opts = PQconninfoParse(connInfo, &err);
+    if (opts == NULL)
+    {
+        char *errcopy = err ? pstrdup(err) : "out of memory";
+        PQfreemem(err);
+        ereport(ERROR, (errcode(ERRCODE_SYNTAX_ERROR),
+                       errmsg("invalid connection string syntax: %s", errcopy)));
+    }
+
+    // Search for dbname parameter
+    for (PQconninfoOption *opt = opts; opt->keyword != NULL; ++opt)
+    {
+        // If multiple dbnames exist, last one wins
+        if (strcmp(opt->keyword, "dbname") == 0 && opt->val && *opt->val)
+        {
+            if (dbname)
+                pfree(dbname);
+            dbname = pstrdup(opt->val);
+        }
+    }
+
+    PQconninfoFree(opts);
+    return dbname;
+}
+```

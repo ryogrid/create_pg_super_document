@@ -39,3 +39,39 @@ This function is part of the debugging infrastructure (compiled only when  is de
 - Reports states with no outgoing arcs, which may indicate terminal states or structural issues
 - Calls  to ensure immediate output to the file stream
 - Part of PostgreSQL's regex engine debugging infrastructure for analyzing state machine structure
+
+## Simplified Source
+
+```c
+#ifdef REG_DEBUG
+static void
+dumpstate(struct state *s, FILE *f)
+{
+    struct arc *a;
+
+    // Output state number with markers
+    fprintf(f, "%d%s%c", s->no,
+            (s->tmp != NULL) ? "T" : "",           // Show 'T' if tmp is set
+            (s->flag) ? s->flag : '.');            // Show flag or '.'
+
+    // Validate state chain integrity
+    if (s->prev != NULL && s->prev->next != s)
+        fprintf(f, "\tstate chain bad\n");
+
+    // Show outgoing arcs or note if none exist
+    if (s->nouts == 0)
+        fprintf(f, "\tno out arcs\n");
+    else
+        dumparcs(s, f);
+
+    // Validate incoming arc chains for data structure consistency
+    for (a = s->ins; a != NULL; a = a->inchain) {
+        if (a->to != s)
+            fprintf(f, "\tlink from %d to %d on %d's in-chain\n",
+                    a->from->no, a->to->no, s->no);
+    }
+
+    fflush(f);
+}
+#endif
+```

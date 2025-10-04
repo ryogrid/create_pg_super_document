@@ -62,3 +62,121 @@ The merging logic handles complex inheritance scenarios, including special handl
 - Issues NOTICE message when successfully merging constraints
 - Validates against various constraint property conflicts including inheritance and validation status
 - Related to MergeConstraintsIntoExisting function (mentioned in comments)
+
+## Simplified Source
+
+```c
+static bool MergeWithExistingConstraint(Relation rel, const char *ccname, Node *expr,
+                                       bool allow_merge, bool is_local,
+                                       bool is_initially_valid, bool is_no_inherit) {
+    bool found = false;
+    Relation conDesc;
+    SysScanDesc conscan;
+    ScanKeyData skey[3];
+    HeapTuple tup;
+
+    // Search for existing constraint with same name and relation
+    conDesc = table_open(ConstraintRelationId, RowExclusiveLock);
+
+    ScanKeyInit(&skey[0], Anum_pg_constraint_conrelid,
+                BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(RelationGetRelid(rel)));
+    ScanKeyInit(&skey[1], Anum_pg_constraint_contypid,
+                BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(InvalidOid));
+    ScanKeyInit(&skey[2], Anum_pg_constraint_conname,
+                BTEqualStrategyNumber, F_NAMEEQ,
+                CStringGetDatum(ccname));
+
+    conscan = systable_beginscan(conDesc, ConstraintRelidTypidNameIndexId,
+                                 true, NULL, 3, skey);
+
+    // Check if constraint already exists
+    if (HeapTupleIsValid(tup = systable_getnext(conscan))) {
+        Form_pg_constraint con = (Form_pg_constraint) GETSTRUCT(tup);
+
+        // Verify it's a check constraint with identical expression
+        if (con->contype == CONSTRAINT_CHECK) {
+            Datum val;
+            bool isnull;
+
+            val = fastgetattr(tup, Anum_pg_constraint_conbin,
+                             conDesc->rd_att, &isnull);
+            if (isnull) {
+                elog(ERROR, "null conbin for rel %s",
+                     RelationGetRelationName(rel));
+            }
+            if (equal(expr, stringToNode(TextDatumGetCString(val)))) {
+                found = true;
+            }
+        }
+
+        // Allow merging if constraint is purely inherited and this is local
+        if (is_local && !con->conislocal && !rel->rd_rel->relispartition) {
+            allow_merge = true;
+        }
+
+        // Error if not found or merging not allowed
+        if (!found || !allow_merge) {
+            ereport(ERROR, (errcode(ERRCODE_DUPLICATE_OBJECT),
+                           errmsg("constraint \"%s\" for relation \"%s\" already exists",
+                                  ccname, RelationGetRelationName(rel))));
+        }
+
+        // Validate merge compatibility
+        if (con->connoinherit) {
+            ereport(ERROR, (errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+                           errmsg("constraint \"%s\" conflicts with non-inherited constraint on relation \"%s\"",
+                                  ccname, RelationGetRelationName(rel))));
+        }
+
+        if (con->coninhcount > 0 && is_no_inherit) {
+            ereport(ERROR, (errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+                           errmsg("constraint \"%s\" conflicts with inherited constraint on relation \"%s\"",
+                                  ccname, RelationGetRelationName(rel))));
+        }
+
+        if (is_initially_valid && !con->convalidated) {
+            ereport(ERROR, (errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+                           errmsg("constraint \"%s\" conflicts with NOT VALID constraint on relation \"%s\"",
+                                  ccname, RelationGetRelationName(rel))));
+        }
+
+        // Merge the constraints by updating inheritance metadata
+        ereport(NOTICE, (errmsg("merging constraint \"%s\" with inherited definition",
+                               ccname)));
+
+        tup = heap_copytuple(tup);
+        con = (Form_pg_constraint) GETSTRUCT(tup);
+
+        // Handle partition vs regular table inheritance differently
+        if (rel->rd_rel->relispartition) {
+            con->coninhcount = 1;
+            con->conislocal = false;
+        } else {
+            if (is_local) {
+                con->conislocal = true;
+            } else {
+                con->coninhcount++;
+            }
+
+            if (con->coninhcount < 0) {
+                ereport(ERROR, (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                               errmsg("too many inheritance parents")));
+            }
+        }
+
+        if (is_no_inherit) {
+            Assert(is_local);
+            con->connoinherit = true;
+        }
+
+        CatalogTupleUpdate(conDesc, &tup->t_self, tup);
+    }
+
+    systable_endscan(conscan);
+    table_close(conDesc, RowExclusiveLock);
+
+    return found;
+}
+```

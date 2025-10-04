@@ -31,3 +31,16 @@ The function ensures that memory is allocated in the appropriate context for SPI
 - Memory allocated by this function should be freed using SPI_pfree() when no longer needed
 - The allocated memory persists in the SPI upper execution context, not in the current transaction's memory context
 - Part of PostgreSQL's SPI memory management system, designed to provide controlled memory allocation for stored procedures and functions
+
+## Simplified Source
+
+```c
+void *SPI_palloc(Size size) {
+    // Ensure we're connected to SPI
+    if (_SPI_current == NULL)
+        elog(ERROR, "SPI_palloc called while not connected to SPI");
+
+    // Allocate memory in SPI's saved context
+    return MemoryContextAlloc(_SPI_current->savedcxt, size);
+}
+```

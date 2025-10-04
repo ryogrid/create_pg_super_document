@@ -46,3 +46,71 @@ The function sets up a dynamic shared memory segment with background workers, se
 - Uses PostgreSQL's dynamic shared memory (DSM) infrastructure
 - Part of PostgreSQL's regression test suite for shared memory message queues
 - The function signature follows PostgreSQL's version-1 calling convention for SQL-callable functions
+
+## Simplified Source
+
+```c
+Datum
+test_shm_mq(PG_FUNCTION_ARGS)
+{
+    // Extract parameters
+    int64 queue_size = PG_GETARG_INT64(0);
+    text *message = PG_GETARG_TEXT_PP(1);
+    char *message_contents = VARDATA_ANY(message);
+    int message_size = VARSIZE_ANY_EXHDR(message);
+    int32 loop_count = PG_GETARG_INT32(2);
+    int32 nworkers = PG_GETARG_INT32(3);
+
+    dsm_segment *seg;
+    shm_mq_handle *outqh;
+    shm_mq_handle *inqh;
+    shm_mq_result res;
+    Size len;
+    void *data;
+
+    // Validate parameters
+    if (loop_count < 0)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                errmsg("repeat count size must be an integer value greater than or equal to zero")));
+
+    if (nworkers <= 0)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                errmsg("number of workers must be an integer value greater than zero")));
+
+    // Set up shared memory segment and message queues
+    test_shm_mq_setup(queue_size, nworkers, &seg, &outqh, &inqh);
+
+    // Send initial message
+    res = shm_mq_send(outqh, message_size, message_contents, false, true);
+    if (res != SHM_MQ_SUCCESS)
+        ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                errmsg("could not send message")));
+
+    // Message passing loop
+    for (;;) {
+        // Receive message from queue
+        res = shm_mq_receive(inqh, &len, &data, false);
+        if (res != SHM_MQ_SUCCESS)
+            ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                    errmsg("could not receive message")));
+
+        // Check if this is the final iteration
+        if (--loop_count <= 0)
+            break;
+
+        // Send message back out to continue the ring
+        res = shm_mq_send(outqh, len, data, false, true);
+        if (res != SHM_MQ_SUCCESS)
+            ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                    errmsg("could not send message")));
+    }
+
+    // Verify final message matches original
+    verify_message(message_size, message_contents, len, data);
+
+    // Clean up
+    dsm_detach(seg);
+
+    PG_RETURN_VOID();
+}
+```

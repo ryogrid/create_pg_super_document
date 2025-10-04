@@ -47,3 +47,54 @@ The function ensures proper resource management by releasing tuple descriptors a
 
 ## Notes and Other Information
 The function implements an important optimization for RECORD types by caching tuple descriptors, since RECORD types cannot change between calls. For named composite types, it must always validate the descriptor to handle potential schema changes. The conversion routing based on Python object type (sequence vs mapping vs generic) provides flexible input handling while maintaining type safety.
+
+## Simplified Source
+
+```c
+static Datum PLyObject_ToComposite(PLyObToDatum *arg, PyObject *plrv,
+                                   bool *isnull, bool inarray) {
+    Datum rv;
+    TupleDesc desc;
+
+    // Handle NULL case
+    if (plrv == Py_None) {
+        *isnull = true;
+        return (Datum) 0;
+    }
+    *isnull = false;
+
+    // Handle string conversion case
+    if (PyUnicode_Check(plrv))
+        return PLyUnicode_ToComposite(arg, plrv, inarray);
+
+    // Get tuple descriptor - named types vs RECORD types
+    if (arg->typoid != RECORDOID) {
+        // Named composite type - check for schema changes
+        desc = lookup_rowtype_tupdesc(arg->typoid, arg->typmod);
+        if (arg->u.tuple.tupdescid != arg->u.tuple.typentry->tupDesc_identifier) {
+            PLy_output_setup_tuple(arg, desc, PLy_current_execution_context()->curr_proc);
+            arg->u.tuple.tupdescid = arg->u.tuple.typentry->tupDesc_identifier;
+        }
+    } else {
+        // RECORD type - use cached descriptor
+        desc = arg->u.tuple.recdesc;
+        if (desc == NULL) {
+            desc = lookup_rowtype_tupdesc(arg->typoid, arg->typmod);
+            arg->u.tuple.recdesc = desc;
+        } else {
+            PinTupleDesc(desc);
+        }
+    }
+
+    // Route conversion based on Python object type
+    if (PySequence_Check(plrv))
+        rv = PLySequence_ToComposite(arg, desc, plrv);
+    else if (PyMapping_Check(plrv))
+        rv = PLyMapping_ToComposite(arg, desc, plrv);
+    else
+        rv = PLyGenericObject_ToComposite(arg, desc, plrv, inarray);
+
+    ReleaseTupleDesc(desc);
+    return rv;
+}
+```

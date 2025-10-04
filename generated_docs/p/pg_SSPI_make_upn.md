@@ -56,3 +56,78 @@ The function includes comprehensive error handling for various failure scenarios
 - All errors are logged at LOG level with appropriate error codes
 - The function modifies the input buffers in-place, making it destructive to the original domain/account names
 - Essential for proper Kerberos realm resolution in complex Active Directory topologies
+
+## Simplified Source
+
+```c
+// Simplified version of pg_SSPI_make_upn
+static int pg_SSPI_make_upn(char *accountname, size_t accountnamesize,
+                           char *domainname, size_t domainnamesize,
+                           bool update_accountname) {
+    // Step 1: Build SAM-compatible name (DOMAIN\username)
+    char *samname = psprintf("%s\\%s", domainname, accountname);
+
+    // Step 2: Get required buffer size for UPN translation
+    ULONG upnamesize = 0;
+    BOOLEAN result = TranslateName(samname, NameSamCompatible, NameUserPrincipal,
+                                  NULL, &upnamesize);
+
+    if (!result && GetLastError() != ERROR_INSUFFICIENT_BUFFER) {
+        pfree(samname);
+        ereport(LOG, (errcode(ERRCODE_INVALID_ROLE_SPECIFICATION),
+                     errmsg("could not translate name")));
+        return STATUS_ERROR;
+    }
+
+    // Step 3: Allocate buffer and perform actual translation
+    char *upname = palloc(upnamesize);
+    result = TranslateName(samname, NameSamCompatible, NameUserPrincipal,
+                          upname, &upnamesize);
+    pfree(samname);
+
+    if (!result) {
+        pfree(upname);
+        ereport(LOG, (errcode(ERRCODE_INVALID_ROLE_SPECIFICATION),
+                     errmsg("could not translate name")));
+        return STATUS_ERROR;
+    }
+
+    // Step 4: Find '@' separator in UPN (username@realm.name)
+    char *realm_start = strchr(upname, '@');
+    if (!realm_start) {
+        pfree(upname);
+        ereport(LOG, (errcode(ERRCODE_INVALID_ROLE_SPECIFICATION),
+                     errmsg("could not translate name")));
+        return STATUS_ERROR;
+    }
+
+    // Step 5: Extract and validate realm name length
+    size_t realm_length = upnamesize - (realm_start - upname + 1);
+    if (realm_length > domainnamesize) {
+        pfree(upname);
+        ereport(LOG, (errcode(ERRCODE_INVALID_ROLE_SPECIFICATION),
+                     errmsg("realm name too long")));
+        return STATUS_ERROR;
+    }
+
+    // Step 6: Replace domain name with Kerberos realm
+    strcpy(domainname, realm_start + 1);
+
+    // Step 7: Optionally update account name with UPN username
+    if (update_accountname) {
+        size_t username_length = realm_start - upname + 1;
+        if (username_length > accountnamesize) {
+            pfree(upname);
+            ereport(LOG, (errcode(ERRCODE_INVALID_ROLE_SPECIFICATION),
+                         errmsg("translated account name too long")));
+            return STATUS_ERROR;
+        }
+
+        *realm_start = '\0';  // Null-terminate username part
+        strcpy(accountname, upname);
+    }
+
+    pfree(upname);
+    return STATUS_OK;
+}
+```

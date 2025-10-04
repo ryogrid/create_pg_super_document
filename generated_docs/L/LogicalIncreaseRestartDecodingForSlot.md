@@ -40,3 +40,61 @@ Three main scenarios are handled:
 - Includes extensive debug logging for troubleshooting replication issues
 - The candidate mechanism prevents scenarios where slow client acknowledgments could cause endless LSN update attempts
 - Only updates restart LSN when the new value is actually higher than the current one
+
+## Simplified Source
+
+```c
+void
+LogicalIncreaseRestartDecodingForSlot(XLogRecPtr current_lsn, XLogRecPtr restart_lsn)
+{
+    bool updated_lsn = false;
+    ReplicationSlot *slot;
+
+    slot = MyReplicationSlot;
+    Assert(slot != NULL);
+    Assert(restart_lsn != InvalidXLogRecPtr);
+    Assert(current_lsn != InvalidXLogRecPtr);
+
+    SpinLockAcquire(&slot->mutex);
+
+    // Don't move restart_lsn backwards
+    if (restart_lsn <= slot->data.restart_lsn) {
+        SpinLockRelease(&slot->mutex);
+        return;
+    }
+
+    // If current LSN is already confirmed, apply restart_lsn immediately
+    if (current_lsn <= slot->data.confirmed_flush) {
+        slot->candidate_restart_valid = current_lsn;
+        slot->candidate_restart_lsn = restart_lsn;
+        SpinLockRelease(&slot->mutex);
+        updated_lsn = true;
+    }
+    // Set new candidate if no pending candidate exists
+    else if (slot->candidate_restart_valid == InvalidXLogRecPtr) {
+        slot->candidate_restart_valid = current_lsn;
+        slot->candidate_restart_lsn = restart_lsn;
+        SpinLockRelease(&slot->mutex);
+
+        elog(DEBUG1, "got new restart lsn %X/%X at %X/%X",
+             LSN_FORMAT_ARGS(restart_lsn),
+             LSN_FORMAT_ARGS(current_lsn));
+    } else {
+        // Candidate already pending - log rejection for debugging
+        XLogRecPtr candidate_restart_lsn = slot->candidate_restart_lsn;
+        XLogRecPtr candidate_restart_valid = slot->candidate_restart_valid;
+        XLogRecPtr confirmed_flush = slot->data.confirmed_flush;
+        SpinLockRelease(&slot->mutex);
+
+        elog(DEBUG1, "failed to increase restart lsn: proposed %X/%X, after %X/%X, "
+                     "current candidate %X/%X, current after %X/%X, flushed up to %X/%X",
+             LSN_FORMAT_ARGS(restart_lsn), LSN_FORMAT_ARGS(current_lsn),
+             LSN_FORMAT_ARGS(candidate_restart_lsn), LSN_FORMAT_ARGS(candidate_restart_valid),
+             LSN_FORMAT_ARGS(confirmed_flush));
+    }
+
+    // Apply candidate immediately if already confirmed
+    if (updated_lsn)
+        LogicalConfirmReceivedLocation(slot->data.confirmed_flush);
+}
+```

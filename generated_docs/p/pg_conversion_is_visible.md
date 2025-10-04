@@ -35,3 +35,20 @@ The visibility check considers the current search path and ensures that the conv
 - Part of PostgreSQL's namespace and visibility system for schema-qualified object resolution
 - Encoding conversions are used for character set conversion between different encodings
 - Located in src/backend/catalog/namespace.c:4992-5005
+
+## Simplified Source
+
+```c
+Datum pg_conversion_is_visible(PG_FUNCTION_ARGS) {
+    Oid conversion_oid = PG_GETARG_OID(0);
+    bool is_missing = false;
+
+    // Check if conversion is visible in current search path
+    bool result = ConversionIsVisibleExt(conversion_oid, &is_missing);
+
+    // Return NULL if conversion doesn't exist, otherwise return visibility status
+    if (is_missing)
+        PG_RETURN_NULL();
+    PG_RETURN_BOOL(result);
+}
+```

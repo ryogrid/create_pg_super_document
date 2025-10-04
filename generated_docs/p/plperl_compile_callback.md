@@ -32,3 +32,15 @@ The function uses PostgreSQL's errcontext() mechanism to append context informat
 - The callback is typically registered before compilation begins and unregistered afterward
 - Function name formatting includes escaped quotes for proper display in error messages
 - Helps developers identify which function definition contains syntax or compilation errors
+
+## Simplified Source
+
+```c
+static void plperl_compile_callback(void *arg) {
+    char *procname = (char *) arg;
+
+    // Add function name to compilation error context if available
+    if (procname)
+        errcontext("compilation of PL/Perl function \"%s\"", procname);
+}
+```

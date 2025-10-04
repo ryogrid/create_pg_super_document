@@ -37,3 +37,29 @@ This function takes no parameters and returns:
 - Uses the PqCommBusy flag to prevent reentrant calls, which could cause issues with the communication state
 - The socket is temporarily set to non-blocking mode during the operation to avoid blocking the caller
 - This function is likely called from event loops or polling mechanisms where non-blocking I/O is preferred
+
+## Simplified Source
+
+```c
+static int socket_flush_if_writable(void) {
+    int res;
+
+    // Quick exit if no data to send
+    if (PqSendPointer == PqSendStart)
+        return 0;
+
+    // Prevent reentrancy
+    if (PqCommBusy)
+        return 0;
+
+    // Set non-blocking mode for opportunistic flush
+    socket_set_nonblocking(true);
+
+    // Attempt flush without blocking
+    PqCommBusy = true;
+    res = internal_flush();
+    PqCommBusy = false;
+
+    return res;
+}
+```

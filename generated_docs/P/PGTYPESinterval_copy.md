@@ -34,3 +34,17 @@ The copy operation is a direct field-by-field assignment, making it an efficient
 - Part of the ECPG pgtypes library providing client-side PostgreSQL data type support
 - More efficient than converting to string and back when duplicating intervals
 - The destination interval will be completely overwritten by the source values
+
+## Simplified Source
+
+```c
+int PGTYPESinterval_copy(interval *intvlsrc, interval *intvldest) {
+    // Copy time component (microseconds for days, hours, minutes, seconds)
+    intvldest->time = intvlsrc->time;
+
+    // Copy month component (years and months)
+    intvldest->month = intvlsrc->month;
+
+    return 0; // Always succeeds
+}
+```

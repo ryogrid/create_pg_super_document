@@ -40,3 +40,45 @@ This function provides a SQL-callable interface to retrieve both the commit time
 - Requires track_commit_timestamp to be enabled to return meaningful data
 - Particularly useful in logical replication environments where tracking the origin of transactions is important
 - The origin node ID helps identify which node in a replication cluster originally committed the transaction
+
+## Simplified Source
+
+```c
+Datum pg_xact_commit_timestamp_origin(PG_FUNCTION_ARGS)
+{
+    TransactionId xid = PG_GETARG_TRANSACTIONID(0);
+    RepOriginId nodeid;
+    TimestampTz ts;
+    Datum values[2];
+    bool nulls[2];
+    TupleDesc tupdesc;
+    HeapTuple htup;
+    bool found;
+
+    // Get commit timestamp and origin data for the transaction
+    found = TransactionIdGetCommitTsData(xid, &ts, &nodeid);
+
+    // Validate return type is composite
+    if (get_call_result_type(fcinfo, NULL, &tupdesc) != TYPEFUNC_COMPOSITE)
+        elog(ERROR, "return type must be a row type");
+
+    if (!found)
+    {
+        // No commit data found - return all NULLs
+        memset(nulls, true, sizeof(nulls));
+    }
+    else
+    {
+        // Populate return values with timestamp and origin
+        values[0] = TimestampTzGetDatum(ts);
+        nulls[0] = false;
+
+        values[1] = ObjectIdGetDatum((Oid) nodeid);
+        nulls[1] = false;
+    }
+
+    // Construct and return tuple
+    htup = heap_form_tuple(tupdesc, values, nulls);
+    PG_RETURN_DATUM(HeapTupleGetDatum(htup));
+}
+```

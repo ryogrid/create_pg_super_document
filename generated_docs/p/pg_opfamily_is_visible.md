@@ -34,3 +34,25 @@ The visibility check considers the current search path and ensures that the oper
 - The function uses the is_missing parameter of OpfamilyIsVisibleExt to distinguish between "not visible" and "doesn't exist"
 - Part of PostgreSQL's namespace and visibility system for schema-qualified object resolution
 - Located in src/backend/catalog/namespace.c:4964-4977
+
+## Simplified Source
+
+```c
+Datum pg_opfamily_is_visible(PG_FUNCTION_ARGS)
+{
+    // Extract the operator family OID from function arguments
+    Oid oid = PG_GETARG_OID(0);
+    bool result;
+    bool is_missing = false;
+
+    // Check if operator family is visible in current search path
+    result = OpfamilyIsVisibleExt(oid, &is_missing);
+
+    // Return NULL if operator family doesn't exist (avoids race conditions)
+    if (is_missing)
+        PG_RETURN_NULL();
+
+    // Return boolean result indicating visibility
+    PG_RETURN_BOOL(result);
+}
+```

@@ -45,3 +45,41 @@ The function ensures proper synchronization using different lock levels: shared 
 - Error message queue detachment is performed before terminating parallel workers to prevent duplicate error reporting
 - The function is typically called during worker process termination as part of the exit handler chain
 - Proper cleanup prevents resource leaks and ensures that parallel workers are terminated gracefully
+
+## Simplified Source
+
+```c
+static void logicalrep_worker_detach(void)
+{
+    // Phase 1: Stop parallel apply workers if this is a leader
+    if (am_leader_apply_worker())
+    {
+        List *workers;
+        ListCell *lc;
+
+        // Detach from error message queues to prevent duplicate logging
+        pa_detach_all_error_mq();
+
+        // Find and stop all parallel workers for this subscription
+        LWLockAcquire(LogicalRepWorkerLock, LW_SHARED);
+
+        workers = logicalrep_workers_find(MyLogicalRepWorker->subid, true);
+        foreach(lc, workers)
+        {
+            LogicalRepWorker *w = (LogicalRepWorker *) lfirst(lc);
+
+            if (isParallelApplyWorker(w))
+                logicalrep_worker_stop_internal(w, SIGTERM);
+        }
+
+        LWLockRelease(LogicalRepWorkerLock);
+    }
+
+    // Phase 2: Clean up current worker's shared memory state
+    LWLockAcquire(LogicalRepWorkerLock, LW_EXCLUSIVE);
+
+    logicalrep_worker_cleanup(MyLogicalRepWorker);
+
+    LWLockRelease(LogicalRepWorkerLock);
+}
+```

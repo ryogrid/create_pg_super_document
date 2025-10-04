@@ -46,3 +46,46 @@ The function employs an optimization where states proven not to be part of any c
 - Maximum recursion depth is bounded by the longest chain of constraint arcs in the NFA
 - Returns 1 if a loop was found and broken, 0 if no loop exists from the starting state
 - Tmp fields are guaranteed to be NULL on success return due to breakconstraintloop cleanup
+
+## Simplified Source
+
+```c
+static int
+findconstraintloop(struct nfa *nfa, struct state *s)
+{
+    struct arc *a;
+
+    // Stack overflow protection for deep recursion
+    if (STACK_TOO_DEEP(nfa->v->re)) {
+        NERR(REG_ETOOBIG);
+        return 1;
+    }
+
+    if (s->tmp != NULL) {
+        // Already proven uninteresting?
+        if (s->tmp == s)
+            return 0;
+
+        // Found a loop involving current state
+        breakconstraintloop(nfa, s);
+        return 1;
+    }
+
+    // Follow all constraint arcs to look for loops
+    for (a = s->outs; a != NULL; a = a->outchain) {
+        if (isconstraintarc(a)) {
+            struct state *sto = a->to;
+
+            assert(sto != s);  // Self-loops already eliminated
+            s->tmp = sto;      // Mark our path
+
+            if (findconstraintloop(nfa, sto))
+                return 1;
+        }
+    }
+
+    // No constraint loop found from this state
+    s->tmp = s;  // Mark as proven uninteresting
+    return 0;
+}
+```

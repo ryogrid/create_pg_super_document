@@ -44,3 +44,27 @@ The function ensures proper memory management by:
 - Part of the resource management system for SQL descriptors
 - Should only be called when the descriptor is no longer needed
 - Does not validate input parameters - assumes valid descriptor pointer
+
+## Simplified Source
+
+```c
+static void descriptor_free(struct descriptor *desc) {
+    struct descriptor_item *desc_item;
+
+    // Free all descriptor items in the linked list
+    for (desc_item = desc->items; desc_item;) {
+        struct descriptor_item *di;
+
+        // Free item data and move to next item
+        ecpg_free(desc_item->data);
+        di = desc_item;
+        desc_item = desc_item->next;
+        ecpg_free(di);
+    }
+
+    // Free descriptor components
+    ecpg_free(desc->name);
+    PQclear(desc->result);
+    ecpg_free(desc);
+}
+```

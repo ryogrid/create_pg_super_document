@@ -50,3 +50,58 @@ The function follows PostgreSQL's replication protocol strictly, verifying that 
 - Handles both normal termination and error scenarios like mid-stream copy abortion
 - Verifies that no unexpected results remain after command completion
 - Located at src/backend/replication/libpqwalreceiver/libpqwalreceiver.c:655-731
+
+## Simplified Source
+
+```c
+static void
+libpqrcv_endstreaming(WalReceiverConn *conn, TimeLineID *next_tli)
+{
+    PGresult *res;
+
+    // Send end-of-streaming message
+    if (PQputCopyEnd(conn->streamConn, NULL) <= 0 || PQflush(conn->streamConn))
+        ereport(ERROR, (errmsg("could not send end-of-streaming message to primary: %s",
+                               pchomp(PQerrorMessage(conn->streamConn)))));
+
+    *next_tli = 0;
+
+    // Get server response after ending copy mode
+    res = libpqrcv_PQgetResult(conn->streamConn);
+
+    if (PQresultStatus(res) == PGRES_TUPLES_OK) {
+        // Server sent timeline information
+        if (PQnfields(res) < 2 || PQntuples(res) != 1)
+            ereport(ERROR, (errmsg("unexpected result set after end-of-streaming")));
+
+        *next_tli = pg_strtoint32(PQgetvalue(res, 0, 0));
+        PQclear(res);
+
+        // Expect CommandComplete to follow
+        res = libpqrcv_PQgetResult(conn->streamConn);
+    }
+    else if (PQresultStatus(res) == PGRES_COPY_OUT) {
+        // Handle aborted copy case
+        PQclear(res);
+
+        if (PQendcopy(conn->streamConn))
+            ereport(ERROR, (errmsg("error while shutting down streaming COPY: %s",
+                                   pchomp(PQerrorMessage(conn->streamConn)))));
+
+        // Get CommandComplete
+        res = libpqrcv_PQgetResult(conn->streamConn);
+    }
+
+    // Verify we got CommandComplete
+    if (PQresultStatus(res) != PGRES_COMMAND_OK)
+        ereport(ERROR, (errmsg("error reading result of streaming command: %s",
+                               pchomp(PQerrorMessage(conn->streamConn)))));
+    PQclear(res);
+
+    // Ensure no additional unexpected results
+    res = libpqrcv_PQgetResult(conn->streamConn);
+    if (res != NULL)
+        ereport(ERROR, (errmsg("unexpected result after CommandComplete: %s",
+                               pchomp(PQerrorMessage(conn->streamConn)))));
+}
+```

@@ -41,3 +41,32 @@ The function supports optional error handling through the missing_ok parameter -
 - Returns true if origin found, false otherwise
 - When missing_ok is false, the function will ereport(ERROR) for non-existent origins
 - The roname output parameter is set to NULL when the origin is not found
+
+## Simplified Source
+
+```c
+bool
+replorigin_by_oid(RepOriginId roident, bool missing_ok, char **roname)
+{
+    Assert(OidIsValid((Oid) roident));
+    Assert(roident != InvalidRepOriginId);
+    Assert(roident != DoNotReplicateId);
+
+    // Search system cache for replication origin
+    HeapTuple tuple = SearchSysCache1(REPLORIGIDENT, ObjectIdGetDatum((Oid) roident));
+
+    if (HeapTupleIsValid(tuple)) {
+        // Extract name from catalog tuple
+        Form_pg_replication_origin ric = (Form_pg_replication_origin) GETSTRUCT(tuple);
+        *roname = text_to_cstring(&ric->roname);
+        ReleaseSysCache(tuple);
+        return true;
+    } else {
+        // Origin not found
+        *roname = NULL;
+        if (!missing_ok)
+            ereport(ERROR, "replication origin with ID %d does not exist", roident);
+        return false;
+    }
+}
+```

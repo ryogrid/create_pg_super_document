@@ -44,3 +44,97 @@ This function is the central WAL replay handler for database operations during P
 - Performs comprehensive cleanup during database drops including buffers, sync requests, and replication slots
 - Critical for maintaining database consistency across crashes and restarts
 - Part of PostgreSQL's resource manager framework for WAL replay
+
+## Simplified Source
+
+```c
+void
+dbase_redo(XLogReaderState *record)
+{
+    uint8 info = XLogRecGetInfo(record) & ~XLR_INFO_MASK;
+
+    Assert(!XLogRecHasAnyBlockRefs(record));
+
+    if (info == XLOG_DBASE_CREATE_FILE_COPY)
+    {
+        // Database creation by copying from template
+        xl_dbase_create_file_copy_rec *xlrec =
+            (xl_dbase_create_file_copy_rec *) XLogRecGetData(record);
+        char *src_path, *dst_path, *parent_path;
+        struct stat st;
+
+        src_path = GetDatabasePath(xlrec->src_db_id, xlrec->src_tablespace_id);
+        dst_path = GetDatabasePath(xlrec->db_id, xlrec->tablespace_id);
+
+        // Force-drop target directory if exists, then recreate
+        if (stat(dst_path, &st) == 0 && S_ISDIR(st.st_mode))
+            rmtree(dst_path, true);
+
+        // Ensure parent directory exists
+        parent_path = pstrdup(dst_path);
+        get_parent_directory(parent_path);
+        if (stat(parent_path, &st) < 0 && errno == ENOENT)
+            recovery_create_dbdir(parent_path, true);
+
+        // Create source directory if missing (recovery scenario)
+        if (stat(src_path, &st) < 0 && errno == ENOENT)
+            recovery_create_dbdir(src_path, false);
+
+        // Ensure source database is current
+        FlushDatabaseBuffers(xlrec->src_db_id);
+        WaitForProcSignalBarrier(EmitProcSignalBarrier(PROCSIGNAL_BARRIER_SMGRRELEASE));
+
+        // Copy database directory
+        copydir(src_path, dst_path, false);
+    }
+    else if (info == XLOG_DBASE_CREATE_WAL_LOG)
+    {
+        // Database creation via WAL logging (empty database)
+        xl_dbase_create_wal_log_rec *xlrec =
+            (xl_dbase_create_wal_log_rec *) XLogRecGetData(record);
+        char *dbpath, *parent_path;
+
+        dbpath = GetDatabasePath(xlrec->db_id, xlrec->tablespace_id);
+
+        // Ensure parent directory exists
+        parent_path = pstrdup(dbpath);
+        get_parent_directory(parent_path);
+        recovery_create_dbdir(parent_path, true);
+
+        // Create database directory with version file
+        CreateDirAndVersionFile(dbpath, xlrec->db_id, xlrec->tablespace_id, true);
+    }
+    else if (info == XLOG_DBASE_DROP)
+    {
+        // Database drop operation
+        xl_dbase_drop_rec *xlrec = (xl_dbase_drop_rec *) XLogRecGetData(record);
+
+        if (InHotStandby)
+        {
+            // Lock database to prevent reconnections during drop
+            LockSharedObjectForSession(DatabaseRelationId, xlrec->db_id, 0, AccessExclusiveLock);
+            ResolveRecoveryConflictWithDatabase(xlrec->db_id);
+        }
+
+        // Comprehensive cleanup
+        ReplicationSlotsDropDBSlots(xlrec->db_id);
+        DropDatabaseBuffers(xlrec->db_id);
+        ForgetDatabaseSyncRequests(xlrec->db_id);
+        XLogDropDatabase(xlrec->db_id);
+        WaitForProcSignalBarrier(EmitProcSignalBarrier(PROCSIGNAL_BARRIER_SMGRRELEASE));
+
+        // Remove physical database files from all tablespaces
+        for (int i = 0; i < xlrec->ntablespaces; i++)
+        {
+            char *dst_path = GetDatabasePath(xlrec->db_id, xlrec->tablespace_ids[i]);
+            rmtree(dst_path, true);
+            pfree(dst_path);
+        }
+
+        if (InHotStandby)
+            UnlockSharedObjectForSession(DatabaseRelationId, xlrec->db_id, 0, AccessExclusiveLock);
+    }
+    else
+        elog(PANIC, "dbase_redo: unknown op code %u", info);
+}
+```

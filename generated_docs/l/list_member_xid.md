@@ -40,3 +40,24 @@ This function is optimized for TransactionId comparison and should only be used 
 - Less commonly used compared to other list_member variants, primarily appearing in replication and transaction control contexts
 - Type-safe alternative to generic list membership functions when working with PostgreSQL transaction identifiers
 - Essential for tracking transaction states in parallel replication workers and logical decoding processes
+
+## Simplified Source
+
+```c
+bool
+list_member_xid(const List *list, TransactionId datum)
+{
+    // Verify this is an XID list
+    Assert(IsXidList(list));
+    check_list_invariants(list);
+
+    // Search through list for matching XID
+    const ListCell *cell;
+    foreach(cell, list) {
+        if (lfirst_xid(cell) == datum)
+            return true;
+    }
+
+    return false;
+}
+```

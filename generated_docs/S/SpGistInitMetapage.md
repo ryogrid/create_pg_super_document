@@ -40,3 +40,25 @@ The function sets up the lastUsedPages cache by initializing all cached page ent
 - Setting pd_lower correctly is essential to prevent metadata loss during WAL compression
 - This function is called during index creation and when building empty indexes
 - The SPGIST_CACHED_PAGES constant determines how many recently used pages are tracked in the cache
+
+## Simplified Source
+
+```c
+void SpGistInitMetapage(Page page) {
+    // Initialize page with metadata flags
+    SpGistInitPage(page, SPGIST_META);
+
+    // Set up metadata structure
+    SpGistMetaPageData *metadata = SpGistPageGetMeta(page);
+    memset(metadata, 0, sizeof(SpGistMetaPageData));
+    metadata->magicNumber = SPGIST_MAGIC_NUMBER;
+
+    // Initialize page cache to empty
+    for (int i = 0; i < SPGIST_CACHED_PAGES; i++)
+        metadata->lastUsedPages.cachedPage[i].blkno = InvalidBlockNumber;
+
+    // Set pd_lower to preserve metadata during WAL compression
+    ((PageHeader) page)->pd_lower =
+        ((char *) metadata + sizeof(SpGistMetaPageData)) - (char *) page;
+}
+```

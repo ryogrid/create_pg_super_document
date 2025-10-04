@@ -46,3 +46,90 @@ The function creates two types of resource descriptors with different release ph
 - Provides comprehensive logging of the resource release process for debugging and verification
 - Returns void as it is primarily a testing/demonstration function
 - The function exercises the complete resource owner lifecycle including creation, population, release, and cleanup
+
+## Simplified Source
+
+```c
+// Simplified version of test_resowner_priorities
+Datum
+test_resowner_priorities(PG_FUNCTION_ARGS)
+{
+    int32 nkinds = PG_GETARG_INT32(0);
+    int32 nresources = PG_GETARG_INT32(1);
+    ResourceOwner parent, child;
+    ResourceOwnerDesc *before_desc, *after_desc;
+
+    // Validate parameters
+    if (nkinds <= 0 || nresources <= 0)
+        elog(ERROR, "nkinds and nresources must be greater than zero");
+
+    // Create parent and child resource owners
+    parent = ResourceOwnerCreate(CurrentResourceOwner, "test parent");
+    child = ResourceOwnerCreate(parent, "test child");
+
+    // Set up resource descriptors for before-locks phase
+    before_desc = palloc(nkinds * sizeof(ResourceOwnerDesc));
+    for (int i = 0; i < nkinds; i++) {
+        before_desc[i].name = psprintf("test resource before locks %d", i);
+        before_desc[i].release_phase = RESOURCE_RELEASE_BEFORE_LOCKS;
+        before_desc[i].release_priority = RELEASE_PRIO_FIRST + i;
+        before_desc[i].ReleaseResource = ReleaseString;
+        before_desc[i].DebugPrint = PrintString;
+    }
+
+    // Set up resource descriptors for after-locks phase
+    after_desc = palloc(nkinds * sizeof(ResourceOwnerDesc));
+    for (int i = 0; i < nkinds; i++) {
+        after_desc[i].name = psprintf("test resource after locks %d", i);
+        after_desc[i].release_phase = RESOURCE_RELEASE_AFTER_LOCKS;
+        after_desc[i].release_priority = RELEASE_PRIO_FIRST + i;
+        after_desc[i].ReleaseResource = ReleaseString;
+        after_desc[i].DebugPrint = PrintString;
+    }
+
+    // Add resources to child and parent with different priorities
+    for (int i = 0; i < nresources; i++) {
+        ResourceOwnerDesc *kind = &before_desc[i % nkinds];
+        ResourceOwnerEnlarge(child);
+        ResourceOwnerRemember(child,
+                              CStringGetDatum(psprintf("child before locks priority %d", kind->release_priority)),
+                              kind);
+    }
+
+    for (int i = 0; i < nresources; i++) {
+        ResourceOwnerDesc *kind = &after_desc[i % nkinds];
+        ResourceOwnerEnlarge(child);
+        ResourceOwnerRemember(child,
+                              CStringGetDatum(psprintf("child after locks priority %d", kind->release_priority)),
+                              kind);
+    }
+
+    // Add similar resources to parent
+    for (int i = 0; i < nresources; i++) {
+        ResourceOwnerDesc *kind = &after_desc[i % nkinds];
+        ResourceOwnerEnlarge(parent);
+        ResourceOwnerRemember(parent,
+                              CStringGetDatum(psprintf("parent after locks priority %d", kind->release_priority)),
+                              kind);
+    }
+
+    for (int i = 0; i < nresources; i++) {
+        ResourceOwnerDesc *kind = &before_desc[i % nkinds];
+        ResourceOwnerEnlarge(parent);
+        ResourceOwnerRemember(parent,
+                              CStringGetDatum(psprintf("parent before locks priority %d", kind->release_priority)),
+                              kind);
+    }
+
+    // Release resources in proper order
+    elog(NOTICE, "releasing resources before locks");
+    ResourceOwnerRelease(parent, RESOURCE_RELEASE_BEFORE_LOCKS, false, false);
+    elog(NOTICE, "releasing locks");
+    ResourceOwnerRelease(parent, RESOURCE_RELEASE_LOCKS, false, false);
+    elog(NOTICE, "releasing resources after locks");
+    ResourceOwnerRelease(parent, RESOURCE_RELEASE_AFTER_LOCKS, false, false);
+
+    ResourceOwnerDelete(parent);
+    PG_RETURN_VOID();
+}
+```

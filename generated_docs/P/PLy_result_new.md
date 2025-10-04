@@ -43,3 +43,37 @@ The initialized PLyResultObject contains:
 - All fields are initialized to safe default values that indicate unset/unknown state
 - This is a factory function that should be used whenever a new result object is needed
 - The object is ready to be populated with actual query results after creation
+
+## Simplified Source
+
+```c
+PyObject *PLy_result_new(void)
+{
+    PLyResultObject *ob;
+
+    // Allocate new PLyResultObject
+    if ((ob = PyObject_New(PLyResultObject, &PLy_ResultType)) == NULL)
+        return NULL;
+
+    // Initialize status to None
+    Py_INCREF(Py_None);
+    ob->status = Py_None;
+
+    // Initialize row count to -1 (unknown)
+    ob->nrows = PyLong_FromLong(-1);
+
+    // Initialize empty rows list
+    ob->rows = PyList_New(0);
+
+    // Initialize tuple descriptor to NULL
+    ob->tupdesc = NULL;
+
+    // Check if rows list creation failed
+    if (!ob->rows) {
+        Py_DECREF(ob);
+        return NULL;
+    }
+
+    return (PyObject *) ob;
+}
+```

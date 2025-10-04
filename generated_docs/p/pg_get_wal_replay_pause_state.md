@@ -41,3 +41,34 @@ The function first validates that the database is in recovery mode, then uses Ge
 - The function includes an Assert to ensure a valid state string is always returned
 - Complements the other recovery pause control functions (pause, resume, is_paused)
 - Located in src/backend/access/transam/xlogfuncs.c:592-626
+
+## Simplified Source
+
+```c
+Datum
+pg_get_wal_replay_pause_state(PG_FUNCTION_ARGS)
+{
+    char *statestr = NULL;
+
+    // Must be in recovery mode to check pause state
+    if (!RecoveryInProgress())
+        ereport(ERROR, "recovery is not in progress");
+
+    // Map pause state to descriptive text
+    switch (GetRecoveryPauseState())
+    {
+        case RECOVERY_NOT_PAUSED:
+            statestr = "not paused";
+            break;
+        case RECOVERY_PAUSE_REQUESTED:
+            statestr = "pause requested";
+            break;
+        case RECOVERY_PAUSED:
+            statestr = "paused";
+            break;
+    }
+
+    Assert(statestr != NULL);
+    PG_RETURN_TEXT_P(cstring_to_text(statestr));
+}
+```

@@ -42,3 +42,28 @@ The function calculates any necessary padding based on the minimum field width, 
 - The character value is passed as int due to C's argument promotion rules for char types
 - Does not support precision specifiers since they are not meaningful for single characters
 - Simpler than other formatting functions since characters have fixed width and no sign considerations
+
+## Simplified Source
+
+```c
+static void
+fmtchar(int value, int leftjust, int minlen, PrintfTarget *target)
+{
+    int padlen;
+
+    // Calculate padding needed for minimum field width
+    padlen = compute_padlen(minlen, 1, leftjust);
+
+    // Output leading padding for right-justified
+    if (padlen > 0) {
+        dopr_outchmulti(' ', padlen, target);
+        padlen = 0;
+    }
+
+    // Output the character
+    dopr_outch(value, target);
+
+    // Output trailing padding for left-justified
+    trailing_pad(padlen, target);
+}
+```

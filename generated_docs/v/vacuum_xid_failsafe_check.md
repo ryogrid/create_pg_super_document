@@ -41,3 +41,42 @@ The function uses configurable thresholds (vacuum_failsafe_age and vacuum_multix
 - Part of PostgreSQL's multi-layered defense against transaction ID wraparound
 - When triggered, causes VACUUM to prioritize advancing frozen XIDs over other optimizations
 - Location: src/backend/commands/vacuum.c:1251-1312
+
+## Simplified Source
+
+```c
+bool
+vacuum_xid_failsafe_check(const struct VacuumCutoffs *cutoffs)
+{
+    TransactionId relfrozenxid = cutoffs->relfrozenxid;
+    MultiXactId relminmxid = cutoffs->relminmxid;
+    TransactionId xid_skip_limit;
+    MultiXactId multi_skip_limit;
+    int skip_index_vacuum;
+
+    // Check regular transaction ID age
+    skip_index_vacuum = Max(vacuum_failsafe_age, autovacuum_freeze_max_age * 1.05);
+    xid_skip_limit = ReadNextTransactionId() - skip_index_vacuum;
+    if (!TransactionIdIsNormal(xid_skip_limit))
+        xid_skip_limit = FirstNormalTransactionId;
+
+    if (TransactionIdPrecedes(relfrozenxid, xid_skip_limit)) {
+        // Table's relfrozenxid is too old
+        return true;
+    }
+
+    // Check multixact ID age
+    skip_index_vacuum = Max(vacuum_multixact_failsafe_age,
+                           autovacuum_multixact_freeze_max_age * 1.05);
+    multi_skip_limit = ReadNextMultiXactId() - skip_index_vacuum;
+    if (multi_skip_limit < FirstMultiXactId)
+        multi_skip_limit = FirstMultiXactId;
+
+    if (MultiXactIdPrecedes(relminmxid, multi_skip_limit)) {
+        // Table's relminmxid is too old
+        return true;
+    }
+
+    return false;
+}
+```

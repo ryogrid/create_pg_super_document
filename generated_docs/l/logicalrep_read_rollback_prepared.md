@@ -37,3 +37,32 @@ This function parses a ROLLBACK PREPARED message from the logical replication pr
 - The GID is copied into a pre-allocated buffer with size checking via strlcpy
 - Located in src/backend/replication/logical/proto.c:336-363
 - Used by logical replication workers to process rollback prepared messages during two-phase commit operations
+
+## Simplified Source
+
+```c
+void logicalrep_read_rollback_prepared(StringInfo in,
+                                      LogicalRepRollbackPreparedTxnData *rollback_data) {
+    // Read and validate flags (must be 0)
+    uint8 flags = pq_getmsgbyte(in);
+    if (flags != 0)
+        elog(ERROR, "unrecognized flags %u in rollback prepared message", flags);
+
+    // Read LSN fields with validation
+    rollback_data->prepare_end_lsn = pq_getmsgint64(in);
+    if (rollback_data->prepare_end_lsn == InvalidXLogRecPtr)
+        elog(ERROR, "prepare_end_lsn is not set in rollback prepared message");
+
+    rollback_data->rollback_end_lsn = pq_getmsgint64(in);
+    if (rollback_data->rollback_end_lsn == InvalidXLogRecPtr)
+        elog(ERROR, "rollback_end_lsn is not set in rollback prepared message");
+
+    // Read timestamps and transaction data
+    rollback_data->prepare_time = pq_getmsgint64(in);
+    rollback_data->rollback_time = pq_getmsgint64(in);
+    rollback_data->xid = pq_getmsgint(in, 4);
+
+    // Copy GID into pre-allocated buffer
+    strlcpy(rollback_data->gid, pq_getmsgstring(in), sizeof(rollback_data->gid));
+}
+```

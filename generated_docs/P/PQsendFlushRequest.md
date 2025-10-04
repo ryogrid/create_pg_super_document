@@ -46,3 +46,41 @@ Unlike pipeline sync operations, flush requests do not create synchronization bo
 - Does not add entries to the command queue like sync operations do
 - Particularly useful for forcing server output in interactive or streaming scenarios
 - The function is located at src/interfaces/libpq/fe-exec.c:3371-3410
+
+## Simplified Source
+
+```c
+int PQsendFlushRequest(PGconn *conn)
+{
+    if (!conn)
+        return 0;
+
+    // Verify connection is alive
+    if (conn->status != CONNECTION_OK)
+    {
+        libpq_append_conn_error(conn, "no connection to the server");
+        return 0;
+    }
+
+    // Check if another command is in progress (unless in pipeline mode)
+    if (conn->asyncStatus != PGASYNC_IDLE &&
+        conn->pipelineStatus == PQ_PIPELINE_OFF)
+    {
+        libpq_append_conn_error(conn, "another command is already in progress");
+        return 0;
+    }
+
+    // Construct and send Flush message
+    if (pqPutMsgStart(PqMsg_Flush, conn) < 0 ||
+        pqPutMsgEnd(conn) < 0)
+    {
+        return 0;
+    }
+
+    // Flush data using pipeline-aware flushing
+    if (pqPipelineFlush(conn) < 0)
+        return 0;
+
+    return 1;
+}
+```

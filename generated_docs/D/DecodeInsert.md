@@ -48,3 +48,60 @@ After validation, it extracts the tuple data from the WAL record, creates a reor
 - Handles TOAST relation inserts specially through the XLH_INSERT_ON_TOAST_RELATION flag
 - Sets clear_toast_afterwards flag to ensure proper cleanup of TOAST data after processing
 - Critical component of the heap decode pathway that enables logical replication of insert operations
+
+## Simplified Source
+
+```c
+static void DecodeInsert(LogicalDecodingContext *ctx, XLogRecordBuffer *buf) {
+    Size datalen;
+    char *tupledata;
+    Size tuplelen;
+    XLogReaderState *r = buf->record;
+    xl_heap_insert *xlrec;
+    ReorderBufferChange *change;
+    RelFileLocator target_locator;
+
+    xlrec = (xl_heap_insert *) XLogRecGetData(r);
+
+    // Skip records without new tuple data
+    if (!(xlrec->flags & XLH_INSERT_CONTAINS_NEW_TUPLE))
+        return;
+
+    // Check if this is for our target database
+    XLogRecGetBlockTag(r, 0, &target_locator, NULL, NULL);
+    if (target_locator.dbOid != ctx->slot->data.database)
+        return;
+
+    // Apply origin filtering
+    if (FilterByOrigin(ctx, XLogRecGetOrigin(r)))
+        return;
+
+    // Create reorder buffer change
+    change = ReorderBufferGetChange(ctx->reorder);
+
+    // Set action type based on insert flags
+    if (!(xlrec->flags & XLH_INSERT_IS_SPECULATIVE))
+        change->action = REORDER_BUFFER_CHANGE_INSERT;
+    else
+        change->action = REORDER_BUFFER_CHANGE_INTERNAL_SPEC_INSERT;
+
+    change->origin_id = XLogRecGetOrigin(r);
+
+    // Copy relation file locator
+    memcpy(&change->data.tp.rlocator, &target_locator, sizeof(RelFileLocator));
+
+    // Extract and decode tuple data
+    tupledata = XLogRecGetBlockData(r, 0, &datalen);
+    tuplelen = datalen - SizeOfHeapHeader;
+
+    change->data.tp.newtuple = ReorderBufferGetTupleBuf(ctx->reorder, tuplelen);
+    DecodeXLogTuple(tupledata, datalen, change->data.tp.newtuple);
+
+    change->data.tp.clear_toast_afterwards = true;
+
+    // Queue the change for processing
+    ReorderBufferQueueChange(ctx->reorder, XLogRecGetXid(r), buf->origptr,
+                            change,
+                            xlrec->flags & XLH_INSERT_ON_TOAST_RELATION);
+}
+```

@@ -43,3 +43,30 @@ The function opens the file in read-write mode with binary flags, performs the f
 - Wait events are reported during the sync operation to enable monitoring and performance analysis
 - Returns -1 on file open failure, or the result of pg_fsync on success
 - Located in src/backend/access/transam/slru.c at lines 1828-1849
+
+## Simplified Source
+
+```c
+int SlruSyncFileTag(SlruCtl ctl, const FileTag *ftag, char *path)
+{
+    // Build the file path using SLRU control and segment number
+    SlruFileName(ctl, path, ftag->segno);
+
+    // Open the file for read-write access
+    int fd = OpenTransientFile(path, O_RDWR | PG_BINARY);
+    if (fd < 0)
+        return -1;
+
+    // Perform the sync operation with wait event reporting
+    pgstat_report_wait_start(WAIT_EVENT_SLRU_FLUSH_SYNC);
+    int result = pg_fsync(fd);
+    pgstat_report_wait_end();
+
+    // Preserve errno across file close
+    int save_errno = errno;
+    CloseTransientFile(fd);
+    errno = save_errno;
+
+    return result;
+}
+```

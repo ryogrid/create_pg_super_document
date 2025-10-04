@@ -53,3 +53,48 @@ The round-robin approach with fallback searching ensures even distribution of re
 - Updates the nforgotten statistics counter for each successfully removed resource
 - Memory deallocation follows PostgreSQL conventions using pfree()
 - Will generate an ERROR if it cannot find any resource to forget during the search loop
+
+## Simplified Source
+
+```c
+// Simplified version of ForgetManyTestResources
+static void
+ForgetManyTestResources(ResourceOwner owner,
+                        ManyTestResourceKind *kinds, int nkinds,
+                        int nresources)
+{
+    int kind_idx = 0;
+    int ntotal = GetTotalResourceCount(kinds, nkinds);
+
+    // Validate sufficient resources exist
+    if (ntotal < nresources)
+        elog(PANIC, "cannot free %d resources, only %d remembered", nresources, ntotal);
+
+    // Forget resources in round-robin fashion
+    for (int i = 0; i < nresources; i++) {
+        bool found = false;
+
+        // Search across all kinds for available resources
+        for (int j = 0; j < nkinds; j++) {
+            kind_idx = (kind_idx + 1) % nkinds;
+            if (!dlist_is_empty(&kinds[kind_idx].current_resources)) {
+                // Get first resource from this kind
+                ManyTestResource *mres = dlist_head_element(ManyTestResource, node,
+                                                            &kinds[kind_idx].current_resources);
+
+                // Unregister and free resource
+                ResourceOwnerForget(owner, PointerGetDatum(mres), &kinds[kind_idx].desc);
+                kinds[kind_idx].nforgotten++;
+                dlist_delete(&mres->node);
+                pfree(mres);
+
+                found = true;
+                break;
+            }
+        }
+
+        if (!found)
+            elog(ERROR, "could not find a test resource to forget");
+    }
+}
+```

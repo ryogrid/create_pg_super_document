@@ -39,3 +39,13 @@ This function works in conjunction with the `compute_padlen` function's conventi
 - Part of PostgreSQL's portable snprintf implementation ensuring consistent formatting across platforms
 - Extremely simple function that serves as the counterpart to the more complex `leading_pad` function
 - Essential for implementing format specifiers like `%-10s` which left-justify content within a field width
+
+## Simplified Source
+
+```c
+static void trailing_pad(int padlen, PrintfTarget *target) {
+    // If padding is negative (left-justified), output trailing spaces
+    if (padlen < 0)
+        dopr_outchmulti(' ', -padlen, target);
+}
+```

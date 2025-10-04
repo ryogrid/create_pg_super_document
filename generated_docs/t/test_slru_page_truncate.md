@@ -36,3 +36,17 @@ The truncation operation is atomic and ensures that the SLRU remains in a consis
 - Returns void as the operation is performed for its side effects
 - Use with caution as it permanently removes data beyond the truncation point
 - More efficient than deleting individual pages when removing large ranges
+
+## Simplified Source
+
+```c
+Datum test_slru_page_truncate(PG_FUNCTION_ARGS) {
+    // Get the page number to truncate at
+    int64 pageno = PG_GETARG_INT64(0);
+
+    // Truncate the test SLRU at the specified page
+    SimpleLruTruncate(TestSlruCtl, pageno);
+
+    PG_RETURN_VOID();
+}
+```

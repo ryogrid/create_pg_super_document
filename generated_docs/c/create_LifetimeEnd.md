@@ -50,3 +50,39 @@ In the context of PostgreSQL's JIT compilation, this intrinsic is used to mark t
 - LLVM intrinsics are special functions that the LLVM optimizer has built-in knowledge about
 - The assertion ensures that LLVM recognizes this as a valid intrinsic, which is critical for proper optimization
 - This intrinsic is essential for enabling aggressive optimizations in function call scenarios
+
+## Simplified Source
+
+```c
+static LLVMValueRef create_LifetimeEnd(LLVMModuleRef mod) {
+    LLVMTypeRef sig;
+    LLVMValueRef fn;
+    LLVMTypeRef param_types[2];
+    LLVMContextRef lc;
+
+    const char *nm = "llvm.lifetime.end.p0i8";
+
+    // Check if function already exists in module
+    fn = LLVMGetNamedFunction(mod, nm);
+    if (fn)
+        return fn;
+
+    // Create new intrinsic function declaration
+    lc = LLVMGetModuleContext(mod);
+    param_types[0] = LLVMInt64TypeInContext(lc);  // size parameter
+    param_types[1] = l_ptr(LLVMInt8TypeInContext(lc));  // pointer parameter
+
+    // Create function signature: void (i64, i8*)
+    sig = LLVMFunctionType(LLVMVoidTypeInContext(lc), param_types,
+                          lengthof(param_types), false);
+    fn = LLVMAddFunction(mod, nm, sig);
+
+    // Set C calling convention for intrinsic
+    LLVMSetFunctionCallConv(fn, LLVMCCallConv);
+
+    // Verify LLVM recognizes this as a valid intrinsic
+    Assert(LLVMGetIntrinsicID(fn));
+
+    return fn;
+}
+```

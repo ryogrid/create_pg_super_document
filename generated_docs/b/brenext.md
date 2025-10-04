@@ -49,3 +49,87 @@ Key BRE-specific behaviors include:
 - Uses extensive macro-based error handling and token generation
 - Implements complex context-sensitivity required by BRE syntax rules
 - Records usage of non-standard regex features through NOTE() calls for compatibility warnings
+
+## Simplified Source
+
+```c
+static int
+brenext(struct vars *v, chr c)
+{
+    // Handle non-backslash characters first
+    switch (c) {
+        case '*':
+            // Context-dependent: literal at beginning, after '(', or after '^'
+            if (LASTTYPE(EMPTY) || LASTTYPE('(') || LASTTYPE('^')) {
+                RETV(PLAIN, c);
+            }
+            RETV('*', 1);
+
+        case '[':
+            // Check for special word boundary sequences [[:<:]] and [[:>:]]
+            if (HAVE(6) && *(v->now + 0) == '[' && *(v->now + 1) == ':' &&
+                (*(v->now + 2) == '<' || *(v->now + 2) == '>') &&
+                *(v->now + 3) == ':' && *(v->now + 4) == ']' && *(v->now + 5) == ']') {
+                c = *(v->now + 2);
+                v->now += 6;
+                NOTE(REG_UNONPOSIX);
+                RET((c == '<') ? '<' : '>');
+            }
+            // Regular bracket expression
+            INTOCON(L_BRACK);
+            RETV('[', NEXT1('^') ? (v->now++, 0) : 1);
+
+        case '.':
+            RET('.');
+
+        case '^':
+            // Context-dependent: anchor only at beginning or after '('
+            if (LASTTYPE(EMPTY) || LASTTYPE('(')) {
+                RET('^');
+            }
+            RETV(PLAIN, c);
+
+        case '$':
+            // Context-dependent: anchor only at end or before '\)'
+            if (v->cflags & REG_EXPANDED) skip(v);
+            if (ATEOS() || NEXT2('\\', ')')) {
+                RET('$');
+            }
+            RETV(PLAIN, c);
+
+        case '\\':
+            break;  // Handle below
+
+        default:
+            RETV(PLAIN, c);
+    }
+
+    // Handle backslash escape sequences
+    if (ATEOS()) FAILW(REG_EESCAPE);
+
+    c = *v->now++;
+    switch (c) {
+        case '{': INTOCON(L_BBND); RET('{');       // Begin bound
+        case '(': RETV('(', 1);                    // Open group
+        case ')': RETV(')', c);                    // Close group
+        case '<': NOTE(REG_UNONPOSIX); RET('<');   // Word boundary start
+        case '>': NOTE(REG_UNONPOSIX); RET('>');   // Word boundary end
+
+        case '1': case '2': case '3': case '4': case '5':
+        case '6': case '7': case '8': case '9':
+            // Backreferences
+            NOTE(REG_UBACKREF);
+            RETV(BACKREF, (chr) DIGITVAL(c));
+
+        default:
+            // Other escaped characters are literal
+            if (iscalnum(c)) {
+                NOTE(REG_UBSALNUM);
+                NOTE(REG_UUNSPEC);
+            }
+            RETV(PLAIN, c);
+    }
+
+    return 1;
+}
+```

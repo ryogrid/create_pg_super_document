@@ -35,3 +35,15 @@ This function ensures that manifest data transfers are subject to the same rate 
 - Works in conjunction with the throttle() function to implement the actual rate limiting logic
 - Handles specifically manifest contents data, as opposed to archive or other types of backup data
 - Mirror functionality to bbsink_throttle_archive_contents but for manifest data
+
+## Simplified Source
+
+```c
+static void bbsink_throttle_manifest_contents(bbsink *sink, size_t len) {
+    // Apply throttling based on data length
+    throttle((bbsink_throttle *) sink, len);
+
+    // Forward manifest contents to next sink in pipeline
+    bbsink_forward_manifest_contents(sink, len);
+}
+```

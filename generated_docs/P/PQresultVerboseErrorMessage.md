@@ -47,3 +47,35 @@ The function handles memory allocation failures gracefully by returning appropri
 - For non-error results, returns a constant error message
 - Uses PostgreSQL's internationalization system (libpq_gettext) for error messages
 - Part of the libpq client library interface
+
+## Simplified Source
+
+```c
+char *PQresultVerboseErrorMessage(const PGresult *res,
+                                  PGVerbosity verbosity,
+                                  PGContextVisibility show_context)
+{
+    PQExpBufferData workBuf;
+
+    // Validate result is an error result
+    if (!res ||
+        (res->resultStatus != PGRES_FATAL_ERROR &&
+         res->resultStatus != PGRES_NONFATAL_ERROR))
+        return strdup(libpq_gettext("PGresult is not an error result\n"));
+
+    // Initialize buffer for formatting error message
+    initPQExpBuffer(&workBuf);
+
+    // Build formatted error message with specified verbosity and context
+    pqBuildErrorMessage3(&workBuf, res, verbosity, show_context);
+
+    // Handle memory allocation failure
+    if (PQExpBufferDataBroken(workBuf))
+    {
+        termPQExpBuffer(&workBuf);
+        return strdup(libpq_gettext("out of memory\n"));
+    }
+
+    return workBuf.data;
+}
+```

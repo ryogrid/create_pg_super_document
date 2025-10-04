@@ -42,3 +42,46 @@ This function serves as the primary dispatcher for all PL/Perl function invocati
 - Returns appropriate Datum values for different call types (event triggers return 0)
 - Central routing point for all PL/Perl function invocations in PostgreSQL
 - Must be declared with PG_FUNCTION_INFO_V1 for PostgreSQL function interface
+
+## Simplified Source
+
+```c
+Datum plperl_call_handler(PG_FUNCTION_ARGS)
+{
+    Datum retval = (Datum) 0;
+    plperl_call_data *volatile save_call_data = current_call_data;
+    plperl_interp_desc *volatile oldinterp = plperl_active_interp;
+    plperl_call_data this_call_data;
+
+    // Initialize current call status record
+    MemSet(&this_call_data, 0, sizeof(this_call_data));
+    this_call_data.fcinfo = fcinfo;
+
+    PG_TRY();
+    {
+        current_call_data = &this_call_data;
+
+        // Dispatch to appropriate handler based on call type
+        if (CALLED_AS_TRIGGER(fcinfo))
+            retval = plperl_trigger_handler(fcinfo);
+        else if (CALLED_AS_EVENT_TRIGGER(fcinfo))
+        {
+            plperl_event_trigger_handler(fcinfo);
+            retval = (Datum) 0;
+        }
+        else
+            retval = plperl_func_handler(fcinfo);
+    }
+    PG_FINALLY();
+    {
+        // Restore previous state and clean up
+        current_call_data = save_call_data;
+        activate_interpreter(oldinterp);
+        if (this_call_data.prodesc)
+            decrement_prodesc_refcount(this_call_data.prodesc);
+    }
+    PG_END_TRY();
+
+    return retval;
+}
+```

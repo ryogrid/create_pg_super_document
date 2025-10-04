@@ -35,3 +35,26 @@ This function is responsible for the complete cleanup of a PL/Perl function desc
 - Deletes the entire memory context, which automatically frees all associated memory
 - Part of the reference counting mechanism for PL/Perl function lifecycle management
 - Located at src/pl/plperl/plperl.c:2700-2717
+
+## Simplified Source
+
+```c
+static void
+free_plperl_function(plperl_proc_desc *prodesc)
+{
+    Assert(prodesc->fn_refcount == 0);
+
+    // Free Perl code reference if it exists
+    if (prodesc->reference) {
+        plperl_interp_desc *oldinterp = plperl_active_interp;
+
+        // Switch to function's interpreter for safe cleanup
+        activate_interpreter(prodesc->interp);
+        SvREFCNT_dec_current(prodesc->reference);
+        activate_interpreter(oldinterp);
+    }
+
+    // Free all PostgreSQL memory for this function
+    MemoryContextDelete(prodesc->fn_cxt);
+}
+```

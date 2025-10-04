@@ -54,3 +54,59 @@ The replica identity handling is particularly important - it determines which co
 - Memory management includes proper cleanup of identity key bitmaps
 - Supports partial column replication through the columns bitmapset parameter
 - Critical for maintaining data consistency and enabling proper conflict resolution on subscribers
+
+## Simplified Source
+
+```c
+static void logicalrep_write_attrs(StringInfo out, Relation rel, Bitmapset *columns)
+{
+    TupleDesc desc = RelationGetDescr(rel);
+    uint16 nliveatts = 0;
+    Bitmapset *idattrs = NULL;
+    bool replidentfull;
+
+    // Count live attributes to include
+    for (int i = 0; i < desc->natts; i++)
+    {
+        Form_pg_attribute att = TupleDescAttr(desc, i);
+
+        if (att->attisdropped || att->attgenerated)
+            continue;
+        if (!column_in_column_list(att->attnum, columns))
+            continue;
+
+        nliveatts++;
+    }
+    pq_sendint16(out, nliveatts);
+
+    // Get replica identity information
+    replidentfull = (rel->rd_rel->relreplident == REPLICA_IDENTITY_FULL);
+    if (!replidentfull)
+        idattrs = RelationGetIdentityKeyBitmap(rel);
+
+    // Write each attribute's metadata
+    for (int i = 0; i < desc->natts; i++)
+    {
+        Form_pg_attribute att = TupleDescAttr(desc, i);
+        uint8 flags = 0;
+
+        if (att->attisdropped || att->attgenerated)
+            continue;
+        if (!column_in_column_list(att->attnum, columns))
+            continue;
+
+        // Mark replica identity columns
+        if (replidentfull ||
+            bms_is_member(att->attnum - FirstLowInvalidHeapAttributeNumber, idattrs))
+            flags |= LOGICALREP_IS_REPLICA_IDENTITY;
+
+        // Send attribute metadata
+        pq_sendbyte(out, flags);
+        pq_sendstring(out, NameStr(att->attname));
+        pq_sendint32(out, (int) att->atttypid);
+        pq_sendint32(out, att->atttypmod);
+    }
+
+    bms_free(idattrs);
+}
+```

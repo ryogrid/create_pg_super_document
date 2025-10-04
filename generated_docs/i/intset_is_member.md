@@ -51,3 +51,63 @@ This approach ensures optimal performance by checking the most likely locations 
 - Uses specialized binary search functions optimized for the specific data structures
 - The function can handle values both in the uncompressed buffer and in the compressed B-tree nodes
 - Particularly efficient for recently added values due to buffer-first search strategy
+
+## Simplified Source
+
+```c
+bool
+intset_is_member(IntegerSet *intset, uint64 x)
+{
+    intset_node *node;
+    intset_leaf_node *leaf;
+    int level;
+    int itemno;
+    leaf_item *item;
+
+    // First check if value is in buffered values
+    if (intset->num_buffered_values > 0 && x >= intset->buffered_values[0])
+    {
+        itemno = intset_binsrch_uint64(x,
+                                       intset->buffered_values,
+                                       intset->num_buffered_values,
+                                       false);
+        if (itemno >= intset->num_buffered_values)
+            return false;
+        else
+            return (intset->buffered_values[itemno] == x);
+    }
+
+    // Navigate B-tree from root to find correct leaf node
+    if (!intset->root)
+        return false;
+    node = intset->root;
+
+    for (level = intset->num_levels - 1; level > 0; level--)
+    {
+        intset_internal_node *n = (intset_internal_node *) node;
+
+        itemno = intset_binsrch_uint64(x, n->values, n->num_items, true);
+        if (itemno == 0)
+            return false;
+        node = n->downlinks[itemno - 1];
+    }
+
+    leaf = (intset_leaf_node *) node;
+
+    // Binary search leaf items to find containing item
+    itemno = intset_binsrch_leaf(x, leaf->items, leaf->num_items, true);
+    if (itemno == 0)
+        return false;
+    item = &leaf->items[itemno - 1];
+
+    // Check if it's the first value in the item
+    if (item->first == x)
+        return true;
+
+    // Check if it's in the compressed codeword
+    if (simple8b_contains(item->codeword, x, item->first))
+        return true;
+
+    return false;
+}
+```

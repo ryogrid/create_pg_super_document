@@ -55,3 +55,46 @@ The returned tuple contains seven fields representing all sequence parameters:
 - Proper error handling includes permission denied errors and cache lookup failures
 - Memory management follows PostgreSQL conventions with system cache tuple release
 - Located in src/backend/commands/sequence.c:1741-1784
+
+## Simplified Source
+
+```c
+Datum pg_sequence_parameters(PG_FUNCTION_ARGS) {
+    Oid relid = PG_GETARG_OID(0);
+    TupleDesc tupdesc;
+    Datum values[7];
+    bool isnull[7];
+    HeapTuple pgstuple;
+    Form_pg_sequence pgsform;
+
+    // Check permissions: user needs SELECT, UPDATE, or USAGE on sequence
+    if (pg_class_aclcheck(relid, GetUserId(), ACL_SELECT | ACL_UPDATE | ACL_USAGE) != ACLCHECK_OK)
+        ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                errmsg("permission denied for sequence %s", get_rel_name(relid))));
+
+    // Validate return type is composite
+    if (get_call_result_type(fcinfo, NULL, &tupdesc) != TYPEFUNC_COMPOSITE)
+        elog(ERROR, "return type must be a row type");
+
+    // Initialize null flags
+    memset(isnull, 0, sizeof(isnull));
+
+    // Look up sequence parameters from system catalog
+    pgstuple = SearchSysCache1(SEQRELID, ObjectIdGetDatum(relid));
+    if (!HeapTupleIsValid(pgstuple))
+        elog(ERROR, "cache lookup failed for sequence %u", relid);
+    pgsform = (Form_pg_sequence) GETSTRUCT(pgstuple);
+
+    // Build result tuple with sequence parameters
+    values[0] = Int64GetDatum(pgsform->seqstart);      // start_value
+    values[1] = Int64GetDatum(pgsform->seqmin);        // minimum_value
+    values[2] = Int64GetDatum(pgsform->seqmax);        // maximum_value
+    values[3] = Int64GetDatum(pgsform->seqincrement);  // increment
+    values[4] = BoolGetDatum(pgsform->seqcycle);       // cycle_option
+    values[5] = Int64GetDatum(pgsform->seqcache);      // cache_size
+    values[6] = ObjectIdGetDatum(pgsform->seqtypid);   // data_type
+
+    ReleaseSysCache(pgstuple);
+    return HeapTupleGetDatum(heap_form_tuple(tupdesc, values, isnull));
+}
+```

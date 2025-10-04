@@ -45,3 +45,31 @@ The test creates an empty IntegerSet and verifies that membership queries return
 - Tests boundary conditions by checking membership for edge values (0, 1, maximum uint64)
 - Ensures that empty set iteration terminates immediately without yielding values
 - Uses PostgreSQL's elog facility for test result reporting and error handling
+
+## Simplified Source
+
+```c
+static void test_empty(void)
+{
+    IntegerSet *intset;
+    uint64 x;
+
+    elog(NOTICE, "testing intset with empty set");
+
+    // Create empty integer set
+    intset = intset_create();
+
+    // Test membership queries should all return false
+    if (intset_is_member(intset, 0) != false)
+        elog(ERROR, "intset_is_member on empty set returned true");
+    if (intset_is_member(intset, 1) != false)
+        elog(ERROR, "intset_is_member on empty set returned true");
+    if (intset_is_member(intset, PG_UINT64_MAX) != false)
+        elog(ERROR, "intset_is_member on empty set returned true");
+
+    // Test iterator should yield no values
+    intset_begin_iterate(intset);
+    if (intset_iterate_next(intset, &x))
+        elog(ERROR, "intset_iterate_next on empty set returned a value (" UINT64_FORMAT ")", x);
+}
+```

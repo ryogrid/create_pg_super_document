@@ -74,3 +74,48 @@ The function is responsible for:
 - The function handles INCLUDE attributes by storing the complete leaf tuple when multiple attributes are present
 - All search items created are marked as leaf items (isLeaf = true)
 - The traversalValue is always set to NULL for leaf items since no further traversal is needed
+
+## Simplified Source
+
+```c
+static SpGistSearchItem *
+spgNewHeapItem(SpGistScanOpaque so, int level, SpGistLeafTuple leafTuple,
+               Datum leafValue, bool recheck, bool recheckDistances,
+               bool isnull, double *distances)
+{
+    // Allocate new search item for leaf tuple
+    SpGistSearchItem *item = spgAllocSearchItem(so, isnull, distances);
+
+    // Set basic properties
+    item->level = level;
+    item->heapPtr = leafTuple->heapPtr;
+    item->isLeaf = true;
+    item->recheck = recheck;
+    item->recheckDistances = recheckDistances;
+    item->traversalValue = NULL;
+
+    // Copy leaf value if needed (for index-only scans)
+    if (so->want_itup) {
+        if (isnull) {
+            item->value = (Datum) 0;
+        } else {
+            // Copy value to queue context
+            item->value = datumCopy(leafValue, so->state.attType.attbyval,
+                                    so->state.attType.attlen);
+        }
+
+        // Store complete tuple if INCLUDE attributes present
+        if (so->state.leafTupDesc->natts > 1) {
+            item->leafTuple = palloc(leafTuple->size);
+            memcpy(item->leafTuple, leafTuple, leafTuple->size);
+        } else {
+            item->leafTuple = NULL;
+        }
+    } else {
+        item->value = (Datum) 0;
+        item->leafTuple = NULL;
+    }
+
+    return item;
+}
+```

@@ -36,3 +36,17 @@ The message format follows the logical replication protocol specification, start
 - Used by logical replication output plugins to communicate transaction start to subscribers
 - The message format is standardized and must be compatible with logical replication subscribers
 - Located in src/backend/replication/logical/proto.c as part of the protocol encoding functions
+
+## Simplified Source
+
+```c
+void logicalrep_write_begin(StringInfo out, ReorderBufferTXN *txn) {
+    // Write BEGIN message type
+    pq_sendbyte(out, LOGICAL_REP_MSG_BEGIN);
+
+    // Write transaction metadata
+    pq_sendint64(out, txn->final_lsn);         // Final LSN
+    pq_sendint64(out, txn->xact_time.commit_time); // Commit timestamp
+    pq_sendint32(out, txn->xid);               // Transaction ID
+}
+```

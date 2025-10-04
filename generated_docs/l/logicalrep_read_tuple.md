@@ -48,3 +48,51 @@ For text and binary columns, it reads the length, allocates memory, copies the d
 - Critical for reconstructing tuple data on the subscriber side
 - Memory allocation uses palloc0 for colvalues to zero-initialize unused StringInfoData structures
 - Error handling for unrecognized column representation types
+
+## Simplified Source
+
+```c
+static void logicalrep_read_tuple(StringInfo in, LogicalRepTupleData *tuple)
+{
+    // Read number of attributes from stream
+    int natts = pq_getmsgint(in, 2);
+
+    // Allocate memory for column data
+    tuple->colvalues = (StringInfoData *) palloc0(natts * sizeof(StringInfoData));
+    tuple->colstatus = (char *) palloc(natts * sizeof(char));
+    tuple->ncols = natts;
+
+    // Process each column
+    for (int i = 0; i < natts; i++)
+    {
+        char kind = pq_getmsgbyte(in);
+        tuple->colstatus[i] = kind;
+        StringInfo value = &tuple->colvalues[i];
+
+        switch (kind)
+        {
+            case LOGICALREP_COLUMN_NULL:
+                // NULL value - no data to read
+                break;
+
+            case LOGICALREP_COLUMN_UNCHANGED:
+                // Unchanged column - no data to read
+                break;
+
+            case LOGICALREP_COLUMN_TEXT:
+            case LOGICALREP_COLUMN_BINARY:
+                // Read data length and content
+                int len = pq_getmsgint(in, 4);
+                char *buff = palloc(len + 1);
+                pq_copymsgbytes(in, buff, len);
+                buff[len] = '\0';  // Null-terminate
+
+                initStringInfoFromString(value, buff, len);
+                break;
+
+            default:
+                elog(ERROR, "unrecognized data representation type '%c'", kind);
+        }
+    }
+}
+```

@@ -35,3 +35,23 @@ Unlike tts_heap_get_heap_tuple which returns a pointer to the slot's internal tu
 - The caller is responsible for freeing the returned HeapTuple
 - Part of the heap-specific tuple table slot operations infrastructure
 - Used when tuple data needs to persist beyond the lifetime of the source slot
+
+## Simplified Source
+
+```c
+static HeapTuple
+tts_heap_copy_heap_tuple(TupleTableSlot *slot)
+{
+    HeapTupleTableSlot *hslot = (HeapTupleTableSlot *) slot;
+
+    // Ensure slot contains data
+    Assert(!TTS_EMPTY(slot));
+
+    // Materialize tuple if not already present
+    if (!hslot->tuple)
+        tts_heap_materialize(slot);
+
+    // Return independent copy of the tuple
+    return heap_copytuple(hslot->tuple);
+}
+```

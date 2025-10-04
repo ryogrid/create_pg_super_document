@@ -49,3 +49,26 @@ This function takes no parameters and operates on global bootstrap state:
 - Debug logging reports the number of columns being inserted and confirms successful insertion
 - Operates on the assumption that a relation is currently open (boot_reldesc is valid)
 - The function does not handle OID assignment explicitly - this is managed by the heap insertion routines
+
+## Simplified Source
+
+```c
+void InsertOneTuple(void) {
+    // Create tuple descriptor from current attribute definitions
+    TupleDesc tupDesc = CreateTupleDesc(numattr, attrtypes);
+
+    // Form heap tuple from values and null indicators
+    HeapTuple tuple = heap_form_tuple(tupDesc, values, Nulls);
+    pfree(tupDesc);  // Free descriptor, keep attrtypes
+
+    // Insert tuple into current bootstrap relation
+    simple_heap_insert(boot_reldesc, tuple);
+    heap_freetuple(tuple);
+
+    // Reset null markers for next tuple
+    for (int i = 0; i < numattr; i++)
+        Nulls[i] = false;
+
+    elog(DEBUG4, "row inserted");
+}
+```

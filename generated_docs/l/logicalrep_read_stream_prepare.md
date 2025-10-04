@@ -33,3 +33,12 @@ The function performs validation on the received data, ensuring that required fi
 - The prepare_data structure must be pre-allocated by the caller
 - Part of the logical replication protocol message parsing system
 - Located in src/backend/replication/logical/proto.c:376-384
+
+## Simplified Source
+
+```c
+void logicalrep_read_stream_prepare(StringInfo in, LogicalRepPreparedTxnData *prepare_data) {
+    // Delegate to common prepare reading logic
+    logicalrep_read_prepare_common(in, "stream prepare", prepare_data);
+}
+```

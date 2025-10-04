@@ -39,3 +39,12 @@ The function atomically performs a bitwise AND operation between the current val
 - Part of PostgreSQL's portable atomic operations infrastructure providing consistent API across platforms
 - Located primarily in src/include/port/atomics/generic-gcc.h:306-312 for the GCC implementation
 - Generic fallback ensures the operation works even on platforms without native bitwise atomic operations
+
+## Simplified Source
+
+```c
+static inline uint64 pg_atomic_fetch_and_u64_impl(volatile pg_atomic_uint64 *ptr, uint64 and_) {
+    // Atomic fetch-and-AND: return old value, update with bitwise AND
+    return __sync_fetch_and_and(&ptr->value, and_);
+}
+```

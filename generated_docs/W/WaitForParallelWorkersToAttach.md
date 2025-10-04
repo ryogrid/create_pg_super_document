@@ -43,3 +43,70 @@ The function is optional but recommended when the leader process needs to ensure
 - Uses WaitLatch with WL_LATCH_SET | WL_EXIT_ON_PM_DEATH for efficient waiting
 - Critical for ensuring parallel operation reliability but not always necessary
 - Early startup failures are uncommon, so leaders should do useful work before calling this function
+
+## Simplified Source
+
+```c
+void WaitForParallelWorkersToAttach(ParallelContext *pcxt)
+{
+    // Skip if no workers were launched
+    if (pcxt->nworkers_launched == 0)
+        return;
+
+    for (;;) {
+        // Process any pending parallel messages
+        CHECK_FOR_INTERRUPTS();
+
+        // Check each launched worker
+        for (int i = 0; i < pcxt->nworkers_launched; ++i) {
+            if (pcxt->known_attached_workers[i])
+                continue;
+
+            // Worker already exited cleanly
+            if (pcxt->worker[i].error_mqh == NULL) {
+                pcxt->known_attached_workers[i] = true;
+                ++pcxt->nknown_attached_workers;
+                continue;
+            }
+
+            // Check worker status
+            pid_t pid;
+            BgwHandleStatus status = GetBackgroundWorkerPid(pcxt->worker[i].bgwhandle, &pid);
+
+            if (status == BGWH_STARTED) {
+                // Check if worker attached to error queue
+                shm_mq *mq = shm_mq_get_queue(pcxt->worker[i].error_mqh);
+                if (shm_mq_get_sender(mq) != NULL) {
+                    pcxt->known_attached_workers[i] = true;
+                    ++pcxt->nknown_attached_workers;
+                }
+            }
+            else if (status == BGWH_STOPPED) {
+                // Worker stopped - check if it attached first
+                shm_mq *mq = shm_mq_get_queue(pcxt->worker[i].error_mqh);
+                if (shm_mq_get_sender(mq) == NULL) {
+                    ereport(ERROR,
+                            (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                             errmsg("parallel worker failed to initialize"),
+                             errhint("More details may be available in the server log.")));
+                }
+                pcxt->known_attached_workers[i] = true;
+                ++pcxt->nknown_attached_workers;
+            }
+            else {
+                // Worker not started yet - wait for notification
+                int rc = WaitLatch(MyLatch, WL_LATCH_SET | WL_EXIT_ON_PM_DEATH, -1,
+                                  WAIT_EVENT_BGWORKER_STARTUP);
+                if (rc & WL_LATCH_SET)
+                    ResetLatch(MyLatch);
+            }
+        }
+
+        // Check if all workers are attached
+        if (pcxt->nknown_attached_workers >= pcxt->nworkers_launched) {
+            Assert(pcxt->nknown_attached_workers == pcxt->nworkers_launched);
+            break;
+        }
+    }
+}
+```

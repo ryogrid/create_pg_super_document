@@ -31,3 +31,14 @@ The `get_pkginclude_path` function calculates the absolute path to PostgreSQL's 
 - PKGINCLUDEDIR typically points to a PostgreSQL-specific subdirectory within the include hierarchy (e.g., /usr/include/postgresql)
 - This is part of PostgreSQL's portable path resolution system that allows development tools to locate PostgreSQL-specific header files
 - Commonly used by tools like ecpg that need to distinguish between system headers and PostgreSQL-specific headers
+
+## Simplified Source
+
+```c
+void
+get_pkginclude_path(const char *my_exec_path, char *ret_path)
+{
+    // Calculate relative path from executable to package include directory
+    make_relative_path(ret_path, PKGINCLUDEDIR, PGBINDIR, my_exec_path);
+}
+```

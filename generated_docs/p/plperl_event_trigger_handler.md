@@ -39,3 +39,43 @@ This function serves as the main entry point for executing PL/Perl event trigger
 - Manages Perl interpreter lifecycle and memory management
 - Ensures SPI connection is properly established and cleaned up
 - Located at src/pl/plperl/plperl.c:2634-2670
+
+## Simplified Source
+
+```c
+static void plperl_event_trigger_handler(PG_FUNCTION_ARGS) {
+    plperl_proc_desc *prodesc;
+    SV *svTD;
+    ErrorContextCallback pl_error_context;
+
+    // Connect to SPI manager
+    if (SPI_connect() != SPI_OK_CONNECT)
+        elog(ERROR, "could not connect to SPI manager");
+
+    // Find or compile the event trigger function
+    prodesc = compile_plperl_function(fcinfo->flinfo->fn_oid, false, true);
+    current_call_data->prodesc = prodesc;
+    increment_prodesc_refcount(prodesc);
+
+    // Set up error reporting context
+    pl_error_context.callback = plperl_exec_callback;
+    pl_error_context.previous = error_context_stack;
+    pl_error_context.arg = prodesc->proname;
+    error_context_stack = &pl_error_context;
+
+    // Activate Perl interpreter
+    activate_interpreter(prodesc->interp);
+
+    // Build event trigger arguments and execute function
+    svTD = plperl_event_trigger_build_args(fcinfo);
+    plperl_call_perl_event_trigger_func(prodesc, fcinfo, svTD);
+
+    // Cleanup SPI connection
+    if (SPI_finish() != SPI_OK_FINISH)
+        elog(ERROR, "SPI_finish() failed");
+
+    // Restore error context and cleanup
+    error_context_stack = pl_error_context.previous;
+    SvREFCNT_dec_current(svTD);
+}
+```

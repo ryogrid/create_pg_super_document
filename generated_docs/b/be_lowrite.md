@@ -46,5 +46,23 @@ This function serves as the interface between PostgreSQL's SQL  function and the
 - The actual bytes written may be less than requested if storage constraints are encountered
 -  macro calculates the data size excluding the variable-length header
 -  macro gets a pointer to the actual data portion of the bytea
-- Located in 
+- Located in src/backend/libpq/be-fsstubs.c:375-397
+
+## Simplified Source
+
+```c
+Datum be_lowrite(PG_FUNCTION_ARGS) {
+    int32 fd = PG_GETARG_INT32(0);
+    bytea *wbuf = PG_GETARG_BYTEA_PP(1);
+
+    // Prevent write operations in read-only transactions
+    PreventCommandIfReadOnly("lowrite()");
+
+    // Calculate bytes to write and perform the write operation
+    int bytestowrite = VARSIZE_ANY_EXHDR(wbuf);
+    int totalwritten = lo_write(fd, VARDATA_ANY(wbuf), bytestowrite);
+
+    PG_RETURN_INT32(totalwritten);
+}
+``` 
 - Part of the Read/Write using bytea section of the large object implementation

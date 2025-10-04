@@ -36,3 +36,21 @@ The callback mechanism provides a way for extensions to hook into transaction li
 - Memory allocation uses TopMemoryContext to ensure callback registrations survive transaction boundaries
 - Creates a linked list structure with new registrations added at the head
 - The XactCallback type defines the function signature for callback functions
+
+## Simplified Source
+
+```c
+void RegisterXactCallback(XactCallback callback, void *arg)
+{
+    // Allocate callback item in persistent memory context
+    XactCallbackItem *item = MemoryContextAlloc(TopMemoryContext, sizeof(XactCallbackItem));
+
+    // Initialize callback item
+    item->callback = callback;
+    item->arg = arg;
+
+    // Add to head of callback list
+    item->next = Xact_callbacks;
+    Xact_callbacks = item;
+}
+```

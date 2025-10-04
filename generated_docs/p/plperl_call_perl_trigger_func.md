@@ -39,3 +39,68 @@ The function manages the Perl execution environment by temporarily setting the g
 - Return value controls trigger behavior (undef = proceed, "SKIP" = cancel operation, hash = modify row)
 - Error handling includes both return count validation and Perl exception checking
 - Follows standard Perl XS memory management with proper cleanup of temporary values
+
+## Simplified Source
+
+```c
+static SV *plperl_call_perl_trigger_func(plperl_proc_desc *desc, FunctionCallInfo fcinfo, SV *td) {
+    dTHX;
+    dSP;
+    SV *retval, *TDsv;
+    int i, count;
+    Trigger *tg_trigger = ((TriggerData *) fcinfo->context)->tg_trigger;
+
+    ENTER;
+    SAVETMPS;
+
+    // Set up global $_TD variable with trigger data
+    TDsv = get_sv("main::_TD", 0);
+    if (!TDsv)
+        ereport(ERROR, (errcode(ERRCODE_EXTERNAL_ROUTINE_EXCEPTION),
+                       errmsg("couldn't fetch $_TD")));
+
+    save_item(TDsv);            // Local $_TD scope
+    sv_setsv(TDsv, td);         // Set $_TD to trigger data hash
+
+    // Prepare Perl stack with trigger arguments
+    PUSHMARK(sp);
+    EXTEND(sp, tg_trigger->tgnargs);
+
+    // Push each trigger argument as a string
+    for (i = 0; i < tg_trigger->tgnargs; i++)
+        PUSHs(sv_2mortal(cstr2sv(tg_trigger->tgargs[i])));
+    PUTBACK;
+
+    // Call the Perl trigger function
+    count = call_sv(desc->reference, G_SCALAR | G_EVAL);
+    SPAGAIN;
+
+    // Validate return value
+    if (count != 1) {
+        PUTBACK;
+        FREETMPS;
+        LEAVE;
+        ereport(ERROR, (errcode(ERRCODE_EXTERNAL_ROUTINE_EXCEPTION),
+                       errmsg("didn't get a return item from trigger function")));
+    }
+
+    // Check for Perl errors
+    if (SvTRUE(ERRSV)) {
+        (void) POPs;
+        PUTBACK;
+        FREETMPS;
+        LEAVE;
+        ereport(ERROR, (errcode(ERRCODE_EXTERNAL_ROUTINE_EXCEPTION),
+                       errmsg("%s", strip_trailing_ws(sv2cstr(ERRSV)))));
+    }
+
+    // Extract return value (controls trigger behavior)
+    retval = newSVsv(POPs);
+
+    PUTBACK;
+    FREETMPS;
+    LEAVE;
+
+    return retval;
+}
+```

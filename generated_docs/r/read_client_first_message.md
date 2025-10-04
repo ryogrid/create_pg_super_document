@@ -50,3 +50,105 @@ The parser maintains strict protocol compliance and provides detailed error mess
 - Comprehensive error handling with specific error codes for different protocol violations
 - Sets up critical state information including client_nonce, client_username, cbind_flag, and client_first_message_bare
 - Handles optional extensions by skipping unknown attributes while rejecting mandatory ones
+
+## Simplified Source
+
+```c
+static void read_client_first_message(scram_state *state, const char *input) {
+    char *p = pstrdup(input);
+    char *channel_binding_type;
+
+    // Parse channel binding flag (n/y/p)
+    state->cbind_flag = *p;
+    switch (*p) {
+        case 'n':
+            // Client doesn't support channel binding
+            if (state->channel_binding_in_use)
+                ereport(ERROR, (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                               errmsg("malformed SCRAM message"),
+                               errdetail("SCRAM-SHA-256-PLUS selected but no channel binding data.")));
+            p++;
+            if (*p != ',')
+                ereport(ERROR, (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                               errmsg("malformed SCRAM message"),
+                               errdetail("Comma expected, but found character \"%s\".",
+                                        sanitize_char(*p))));
+            p++;
+            break;
+
+        case 'y':
+            // Client supports binding but thinks server doesn't
+            if (state->channel_binding_in_use)
+                ereport(ERROR, (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                               errmsg("malformed SCRAM message"),
+                               errdetail("SCRAM-SHA-256-PLUS selected but no channel binding data.")));
+
+#ifdef USE_SSL
+            if (state->port->ssl_in_use)
+                ereport(ERROR, (errcode(ERRCODE_INVALID_AUTHORIZATION_SPECIFICATION),
+                               errmsg("SCRAM channel binding negotiation error"),
+                               errdetail("Client supports channel binding but thinks server doesn't.")));
+#endif
+            p++;
+            if (*p != ',')
+                ereport(ERROR, (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                               errmsg("malformed SCRAM message"),
+                               errdetail("Comma expected, but found character \"%s\".",
+                                        sanitize_char(*p))));
+            p++;
+            break;
+
+        case 'p':
+            // Client requires channel binding
+            if (!state->channel_binding_in_use)
+                ereport(ERROR, (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                               errmsg("malformed SCRAM message"),
+                               errdetail("SCRAM-SHA-256 selected but message includes channel binding.")));
+
+            channel_binding_type = read_attr_value(&p, 'p');
+            if (strcmp(channel_binding_type, "tls-server-end-point") != 0)
+                ereport(ERROR, (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                               errmsg("unsupported SCRAM channel-binding type \"%s\"",
+                                      sanitize_str(channel_binding_type))));
+            break;
+
+        default:
+            ereport(ERROR, (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                           errmsg("malformed SCRAM message"),
+                           errdetail("Unexpected channel-binding flag \"%s\".",
+                                    sanitize_char(*p))));
+    }
+
+    // Check for unsupported authzid
+    if (*p == 'a')
+        ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                       errmsg("client uses authorization identity, but it is not supported")));
+    if (*p != ',')
+        ereport(ERROR, (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                       errmsg("malformed SCRAM message"),
+                       errdetail("Unexpected attribute \"%s\" in client-first-message.",
+                                sanitize_char(*p))));
+    p++;
+
+    // Save the bare message for later use
+    state->client_first_message_bare = pstrdup(p);
+
+    // Check for unsupported mandatory extensions
+    if (*p == 'm')
+        ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                       errmsg("client requires an unsupported SCRAM extension")));
+
+    // Extract username (though PostgreSQL ignores it)
+    state->client_username = read_attr_value(&p, 'n');
+
+    // Extract and validate client nonce
+    state->client_nonce = read_attr_value(&p, 'r');
+    if (!is_scram_printable(state->client_nonce))
+        ereport(ERROR, (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                       errmsg("non-printable characters in SCRAM nonce")));
+
+    // Skip any optional extensions
+    while (*p != '\0')
+        read_any_attr(&p, NULL);
+}
+```

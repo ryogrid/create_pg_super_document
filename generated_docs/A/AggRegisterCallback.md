@@ -45,3 +45,24 @@ The callback will NOT be called on error paths, so aggregate functions should no
 - Callbacks are not executed on error paths - only during normal processing
 - Safe for final functions to return data that will be freed by the registered callback
 - The callback mechanism ensures proper resource cleanup between groups and during query rescans
+
+## Simplified Source
+
+```c
+void AggRegisterCallback(FunctionCallInfo fcinfo,
+                        ExprContextCallbackFunction func,
+                        Datum arg) {
+    // Verify we're in an aggregate context
+    if (fcinfo->context && IsA(fcinfo->context, AggState)) {
+        AggState *aggstate = (AggState *) fcinfo->context;
+        ExprContext *cxt = aggstate->curaggcontext;
+
+        // Register cleanup callback with aggregate context
+        RegisterExprContextCallback(cxt, func, arg);
+        return;
+    }
+
+    // Error if not in proper aggregate context
+    elog(ERROR, "aggregate function cannot register a callback in this context");
+}
+```

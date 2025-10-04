@@ -70,3 +70,106 @@ The test demonstrates the distinction between pipeline-aborted state (recoverabl
 - The final validation ensures that exactly one row with value "3" exists in the test table
 - Shows how transaction errors affect the entire pipeline until properly resolved
 - Demonstrates the proper sequence for recovering from both pipeline and transaction errors
+
+## Simplified Source
+
+```c
+static void test_transaction(PGconn *conn) {
+    PGresult *res;
+    bool expect_null;
+    int num_syncs = 0;
+
+    // Setup test table
+    res = PQexec(conn, "DROP TABLE IF EXISTS pq_pipeline_tst;"
+                      "CREATE TABLE pq_pipeline_tst (id int)");
+    if (PQresultStatus(res) != PGRES_COMMAND_OK)
+        pg_fatal("failed to create test table");
+    PQclear(res);
+
+    // Enter pipeline mode and prepare ROLLBACK statement
+    if (PQenterPipelineMode(conn) != 1)
+        pg_fatal("failed to enter pipeline mode");
+    if (PQsendPrepare(conn, "rollback", "ROLLBACK", 0, NULL) != 1)
+        pg_fatal("could not send prepare on pipeline");
+
+    // Send commands that will trigger error and test pipeline-aborted state
+    if (PQsendQueryParams(conn, "BEGIN", 0, NULL, NULL, NULL, NULL, 0) != 1)
+        pg_fatal("failed to send query");
+    if (PQsendQueryParams(conn, "SELECT 0/0", 0, NULL, NULL, NULL, NULL, 0) != 1)
+        pg_fatal("failed to send query");
+
+    // Try ROLLBACK in pipeline-aborted state (will fail)
+    if (PQsendQueryPrepared(conn, "rollback", 0, NULL, NULL, NULL, 1) != 1)
+        pg_fatal("failed to execute prepared");
+
+    // Try INSERT in pipeline-aborted state (will fail)
+    if (PQsendQueryParams(conn, "INSERT INTO pq_pipeline_tst VALUES (1)",
+                         0, NULL, NULL, NULL, NULL, 0) != 1)
+        pg_fatal("failed to send query");
+    if (PQpipelineSync(conn) != 1)
+        pg_fatal("pipeline sync failed");
+    num_syncs++;
+
+    // Try INSERT in transaction-aborted state (will fail)
+    if (PQsendQueryParams(conn, "INSERT INTO pq_pipeline_tst VALUES (2)",
+                         0, NULL, NULL, NULL, NULL, 0) != 1)
+        pg_fatal("failed to send query");
+    if (PQpipelineSync(conn) != 1)
+        pg_fatal("pipeline sync failed");
+    num_syncs++;
+
+    // ROLLBACK using prepared stmt (works after sync)
+    if (PQsendQueryPrepared(conn, "rollback", 0, NULL, NULL, NULL, 1) != 1)
+        pg_fatal("failed to execute prepared");
+
+    // INSERT now works (outside transaction)
+    if (PQsendQueryParams(conn, "INSERT INTO pq_pipeline_tst VALUES (3)",
+                         0, NULL, NULL, NULL, NULL, 0) != 1)
+        pg_fatal("failed to send query");
+    if (PQpipelineSync(conn) != 1)
+        pg_fatal("pipeline sync failed");
+    num_syncs++;
+    if (PQpipelineSync(conn) != 1)
+        pg_fatal("pipeline sync failed");
+    num_syncs++;
+
+    // Process all results
+    expect_null = false;
+    for (int i = 0;; i++) {
+        ExecStatusType restype;
+
+        res = PQgetResult(conn);
+        if (res == NULL) {
+            if (!expect_null)
+                pg_fatal("did not expect NULL here");
+            expect_null = false;
+            continue;
+        }
+
+        restype = PQresultStatus(res);
+        if (restype == PGRES_PIPELINE_SYNC)
+            num_syncs--;
+        else
+            expect_null = true;
+
+        PQclear(res);
+        if (num_syncs <= 0)
+            break;
+    }
+
+    if (PQexitPipelineMode(conn) != 1)
+        pg_fatal("failed to end pipeline mode");
+
+    // Verify final result: should have one tuple with value "3"
+    res = PQexec(conn, "SELECT * FROM pq_pipeline_tst");
+    if (PQresultStatus(res) != PGRES_TUPLES_OK)
+        pg_fatal("failed to obtain result");
+    if (PQntuples(res) != 1)
+        pg_fatal("did not get 1 tuple");
+    if (strcmp(PQgetvalue(res, 0, 0), "3") != 0)
+        pg_fatal("did not get expected tuple");
+    PQclear(res);
+
+    fprintf(stderr, "ok\n");
+}
+```

@@ -32,3 +32,15 @@ The function uses PostgreSQL's errcontext() mechanism to append context informat
 - Essential for debugging and troubleshooting PL/Perl functions in production environments
 - The callback is typically registered before function execution and unregistered afterward
 - Function name formatting includes escaped quotes for proper display in error messages
+
+## Simplified Source
+
+```c
+static void plperl_exec_callback(void *arg) {
+    char *procname = (char *) arg;
+
+    // Add function name to error context if available
+    if (procname)
+        errcontext("PL/Perl function \"%s\"", procname);
+}
+```

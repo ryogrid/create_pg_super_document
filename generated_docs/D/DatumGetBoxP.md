@@ -31,3 +31,15 @@ This function serves as a type conversion utility within PostgreSQL's geometric 
 
 ## Notes and Other Information
 This function is part of PostgreSQL's geometric data type conversion infrastructure, primarily used by GiST (Generalized Search Tree) and SP-GiST (Space-Partitioned Generalized Search Tree) indexing methods for efficient spatial queries. It's defined in src/include/utils/geo_decls.h:234-238 and is extensively used throughout the geometric indexing subsystem.
+
+## Simplified Source
+
+```c
+static inline BOX *
+DatumGetBoxP(Datum X)
+{
+    // Convert generic Datum to BOX pointer
+    // Used to extract BOX data from PostgreSQL's internal format
+    return (BOX *) DatumGetPointer(X);
+}
+```

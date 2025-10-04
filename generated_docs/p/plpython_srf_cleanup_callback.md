@@ -33,3 +33,22 @@ This callback function is registered with PostgreSQL's memory context system to 
 - Part of PostgreSQL's memory management system integration with Python reference counting
 - Handles both Python object cleanup (iterator) and PostgreSQL memory cleanup (saved arguments)
 - Sets cleaned-up pointers to NULL to prevent double-free scenarios
+
+## Simplified Source
+
+```c
+static void
+plpython_srf_cleanup_callback(void *arg)
+{
+    PLySRFState *srfstate = (PLySRFState *) arg;
+
+    // Release Python iterator reference if we still have one
+    Py_XDECREF(srfstate->iter);
+    srfstate->iter = NULL;
+
+    // Drop any saved function arguments
+    if (srfstate->savedargs)
+        PLy_function_drop_args(srfstate->savedargs);
+    srfstate->savedargs = NULL;
+}
+```

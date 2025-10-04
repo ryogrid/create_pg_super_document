@@ -37,3 +37,19 @@ trigger_return_old is a PostgreSQL trigger function designed to return the origi
 - The returned tuple can be used by the trigger system to determine whether to proceed with the operation
 - Located in src/test/regress/regress.c, indicating it's primarily for testing trigger functionality
 - The function demonstrates proper trigger function structure and validation patterns
+
+## Simplified Source
+
+```c
+Datum trigger_return_old(PG_FUNCTION_ARGS) {
+    // Validate that this function was called as a trigger
+    if (!CALLED_AS_TRIGGER(fcinfo))
+        elog(ERROR, "trigger_return_old: not fired by trigger manager");
+
+    // Extract trigger data and return the old tuple
+    TriggerData *trigdata = (TriggerData *) fcinfo->context;
+    HeapTuple tuple = trigdata->tg_trigtuple;
+
+    return PointerGetDatum(tuple);
+}
+```

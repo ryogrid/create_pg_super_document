@@ -38,3 +38,52 @@ The function is exported for use by add-on transform modules, making it a public
 
 ## Notes and Other Information
 The function implements important safety measures including null byte detection and multibyte string validation. The special handling of float objects using repr() instead of str() prevents precision loss that could occur with standard string conversion. The exported nature of this function makes it available to transform modules, indicating its role as a fundamental conversion utility in the PL/Python infrastructure.
+
+## Simplified Source
+
+```c
+char *PLyObject_AsString(PyObject *plrv) {
+    PyObject *plrv_bo;
+    char *plrv_sc;
+    size_t plen, slen;
+
+    // Convert Python object to bytes based on type
+    if (PyUnicode_Check(plrv)) {
+        plrv_bo = PLyUnicode_Bytes(plrv);
+    } else if (PyFloat_Check(plrv)) {
+        // Use repr() for floats to avoid precision loss
+        PyObject *s = PyObject_Repr(plrv);
+        plrv_bo = PLyUnicode_Bytes(s);
+        Py_XDECREF(s);
+    } else {
+        // Use str() for all other types
+        PyObject *s = PyObject_Str(plrv);
+        plrv_bo = PLyUnicode_Bytes(s);
+        Py_XDECREF(s);
+    }
+
+    if (!plrv_bo)
+        PLy_elog(ERROR, "could not create string representation of Python object");
+
+    // Create C string and validate lengths
+    plrv_sc = pstrdup(PyBytes_AsString(plrv_bo));
+    plen = PyBytes_Size(plrv_bo);
+    slen = strlen(plrv_sc);
+
+    Py_XDECREF(plrv_bo);
+
+    // Check for embedded null bytes and length consistency
+    if (slen < plen)
+        ereport(ERROR, (errcode(ERRCODE_DATATYPE_MISMATCH),
+                errmsg("could not convert Python object into cstring: "
+                       "Python string representation appears to contain null bytes")));
+    else if (slen > plen)
+        elog(ERROR, "could not convert Python object into cstring: "
+                   "Python string longer than reported length");
+
+    // Validate multibyte encoding
+    pg_verifymbstr(plrv_sc, slen, false);
+
+    return plrv_sc;
+}
+```

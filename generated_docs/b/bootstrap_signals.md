@@ -40,3 +40,17 @@ This simplified signal handling serves both functional and documentation purpose
 - The simplified signal handling reflects the fact that bootstrap processes don't need complex shutdown or communication mechanisms
 - Located in src/backend/bootstrap/bootstrap.c:381-407
 - Part of the "misc functions" section of the bootstrap module
+
+## Simplified Source
+```c
+static void bootstrap_signals(void) {
+    Assert(!IsUnderPostmaster);
+
+    // Set all signals to default behavior ("curl up and die")
+    // Bootstrap processes don't need complex signal handling
+    pqsignal(SIGHUP, SIG_DFL);
+    pqsignal(SIGINT, SIG_DFL);
+    pqsignal(SIGTERM, SIG_DFL);
+    pqsignal(SIGQUIT, SIG_DFL);
+}
+```

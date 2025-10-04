@@ -71,3 +71,70 @@ This function systematically cleans up all resources associated with a transacti
 - Cleanup order is critical: resources must be freed before removing hash table entries
 - The function includes multiple assertions to verify data integrity during cleanup
 - Part of PostgreSQL's logical replication infrastructure for managing transaction ordering
+
+## Simplified Source
+
+```c
+static void
+ReorderBufferCleanupTXN(ReorderBuffer *rb, ReorderBufferTXN *txn)
+{
+    bool found;
+    dlist_mutable_iter iter;
+    Size mem_freed = 0;
+
+    // Clean up all subtransactions recursively
+    dlist_foreach_modify(iter, &txn->subtxns)
+    {
+        ReorderBufferTXN *subtxn = dlist_container(ReorderBufferTXN, node, iter.cur);
+        ReorderBufferCleanupTXN(rb, subtxn);
+    }
+
+    // Clean up all changes in the transaction
+    dlist_foreach_modify(iter, &txn->changes)
+    {
+        ReorderBufferChange *change = dlist_container(ReorderBufferChange, node, iter.cur);
+
+        // Accumulate memory to be freed for batch update
+        mem_freed += ReorderBufferChangeSize(change);
+        ReorderBufferReturnChange(rb, change, false);
+    }
+
+    // Update memory counter in batch for efficiency
+    ReorderBufferChangeMemoryUpdate(rb, NULL, txn, false, mem_freed);
+
+    // Clean up tuple CIDs used for catalog snapshot access
+    dlist_foreach_modify(iter, &txn->tuplecids)
+    {
+        ReorderBufferChange *change = dlist_container(ReorderBufferChange, node, iter.cur);
+        ReorderBufferReturnChange(rb, change, true);
+    }
+
+    // Clean up base snapshot if present
+    if (txn->base_snapshot != NULL)
+    {
+        SnapBuildSnapDecRefcount(txn->base_snapshot);
+        dlist_delete(&txn->base_snapshot_node);
+    }
+
+    // Clean up streaming snapshot if present
+    if (txn->snapshot_now != NULL)
+    {
+        ReorderBufferFreeSnap(rb, txn->snapshot_now);
+    }
+
+    // Remove transaction from various lists
+    dlist_delete(&txn->node);
+    if (rbtxn_has_catalog_changes(txn))
+        dclist_delete_from(&rb->catchange_txns, &txn->catchange_node);
+
+    // Remove from hash table lookup
+    hash_search(rb->by_txn, &txn->xid, HASH_REMOVE, &found);
+
+    // Clean up serialized data if transaction was spilled to disk
+    if (rbtxn_is_serialized(txn))
+        ReorderBufferRestoreCleanup(rb, txn);
+
+    // Finally deallocate the transaction structure
+    ReorderBufferReturnTXN(rb, txn);
+}
+```

@@ -45,3 +45,21 @@ The macro uses STMT_START/STMT_END wrappers to ensure it can be used safely in a
 - The macro handles UTF-8 encoding issues that can occur when passing string data between C and Perl
 - Essential for proper error propagation in Perl XS extensions and embedded Perl code
 - The dual-path approach (reference vs. scalar) allows for both simple string errors and complex error objects with additional metadata
+
+## Simplified Source
+
+```c
+#define croak_sv(sv) \
+    STMT_START { \
+        SV *_sv = (sv); \
+        if (SvROK(_sv)) { \
+            /* Handle reference-based error objects */ \
+            sv_setsv(ERRSV, _sv); \
+            croak(NULL); \
+        } else { \
+            /* Handle scalar string errors */ \
+            D_PPP_FIX_UTF8_ERRSV_FOR_SV(_sv); \
+            croak("%" SVf, SVfARG(_sv)); \
+        } \
+    } STMT_END
+```

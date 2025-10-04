@@ -36,3 +36,15 @@ The function is static, meaning it's only accessible within the parser.c compila
 - The function does not return a value - it either succeeds silently or raises an ERROR
 - Works in conjunction with the Unicode escape processing in str_udeescape function
 - Validates both 4-digit (\uXXXX) and 6-digit (\UXXXXXX) Unicode escape sequences
+
+## Simplified Source
+
+```c
+static void check_unicode_value(pg_wchar c) {
+    if (!is_valid_unicode_codepoint(c)) {
+        ereport(ERROR,
+                (errcode(ERRCODE_SYNTAX_ERROR),
+                 errmsg("invalid Unicode escape value")));
+    }
+}
+```

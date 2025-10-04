@@ -43,3 +43,50 @@ The `ecpg_register_prepared_stmt` function creates and registers a new prepared 
 - The function creates a deep copy of the statement command and name using ecpg_strdup
 - Sets the prepared flag to true in the prepared statement structure
 - Part of the ECPG library's prepared statement management system
+
+## Simplified Source
+
+```c
+bool ecpg_register_prepared_stmt(struct statement *stmt) {
+    struct statement *prep_stmt;
+    struct prepared_statement *this;
+    struct connection *con = stmt->connection;
+    struct prepared_statement *prev = NULL;
+    int lineno = stmt->lineno;
+
+    // Check if statement already exists and remove it
+    this = ecpg_find_prepared_statement(stmt->name, con, &prev);
+    if (this && !deallocate_one(lineno, ECPG_COMPAT_PGSQL, con, prev, this))
+        return false;
+
+    // Allocate new prepared statement structure
+    this = (struct prepared_statement *) ecpg_alloc(sizeof(struct prepared_statement), lineno);
+    if (!this)
+        return false;
+
+    // Allocate new statement structure
+    prep_stmt = (struct statement *) ecpg_alloc(sizeof(struct statement), lineno);
+    if (!prep_stmt) {
+        ecpg_free(this);
+        return false;
+    }
+    memset(prep_stmt, 0, sizeof(struct statement));
+
+    // Initialize statement structure
+    prep_stmt->lineno = lineno;
+    prep_stmt->connection = con;
+    prep_stmt->command = ecpg_strdup(stmt->command, lineno);
+    prep_stmt->inlist = prep_stmt->outlist = NULL;
+
+    // Initialize prepared statement structure
+    this->name = ecpg_strdup(stmt->name, lineno);
+    this->stmt = prep_stmt;
+    this->prepared = true;
+
+    // Add to connection's prepared statement list
+    this->next = con->prep_stmts;
+    con->prep_stmts = this;
+
+    return true;
+}
+```

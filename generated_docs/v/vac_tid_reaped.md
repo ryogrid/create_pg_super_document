@@ -39,3 +39,16 @@ The function is typically used during the bulk deletion phase of vacuum operatio
 - The use of TidStore provides an efficient way to check membership for potentially large sets of dead tuple identifiers
 - The function signature exactly matches the `IndexBulkDeleteCallback` typedef, enabling seamless integration with the index AM interface
 - This is a critical component in PostgreSQL's vacuum subsystem for maintaining consistency between heap and index during cleanup operations
+
+## Simplified Source
+
+```c
+static bool
+vac_tid_reaped(ItemPointer itemptr, void *state)
+{
+    TidStore *dead_items = (TidStore *) state;
+
+    // Check if this TID is in the dead items collection
+    return TidStoreIsMember(dead_items, itemptr);
+}
+```

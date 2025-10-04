@@ -35,3 +35,25 @@ This function counts the number of outgoing regular (non-LACON) arcs from a spec
 - This is part of the regex export API that provides access to NFA structure information
 - LACON arcs are treated as automatically satisfied and traversed transparently
 - The function provides a clean interface for analyzing NFA topology without exposing LACON complexity to external code
+
+## Simplified Source
+
+```c
+int pg_reg_getnumoutarcs(const regex_t *regex, int st) {
+    struct cnfa *cnfa;
+    int arcs_count;
+
+    // Validate inputs
+    assert(regex != NULL && regex->re_magic == REMAGIC);
+    cnfa = &((struct guts *) regex->re_guts)->search;
+
+    // Check state bounds
+    if (st < 0 || st >= cnfa->nstates)
+        return 0;
+
+    // Count arcs using traverse_lacons helper
+    arcs_count = 0;
+    traverse_lacons(cnfa, st, &arcs_count, NULL, 0);
+    return arcs_count;
+}
+```

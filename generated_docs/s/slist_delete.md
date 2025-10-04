@@ -33,3 +33,30 @@ The function includes assertion checking to ensure that the specified node is ac
 - **Precondition**: The node must actually exist in the specified list; attempting to delete a node not in the list will trigger an assertion failure in debug builds
 - **Memory Management**: This function only unlinks the node from the list; it does not free the node's memory - that responsibility lies with the caller
 - **Thread Safety**: This function is not thread-safe and requires external synchronization if used in multi-threaded contexts
+
+## Simplified Source
+
+```c
+void
+slist_delete(slist_head *head, const slist_node *node)
+{
+    slist_node *last = &head->head;
+    slist_node *cur;
+
+    // Traverse list to find the node to delete
+    while ((cur = last->next) != NULL) {
+        if (cur == node) {
+            // Found the node - unlink it from the list
+            last->next = cur->next;
+            break;
+        }
+        last = cur;
+    }
+
+    // Verify that the node was found (debug builds only)
+    Assert(cur != NULL);
+
+    // Validate list integrity after deletion
+    slist_check(head);
+}
+```

@@ -156,3 +156,19 @@ write_data_to_archive_lz4_doc.md: Direction flag - either AHEAD or BEHIND to spe
 - The function uses anchor characters ('$' and '^') to represent word boundaries
 - No special handling is needed for newline characters in this context
 - The function is used as part of word boundary assertion processing in regular expressions
+
+## Simplified Source
+
+```c
+static void nonword(struct vars *v, int dir, struct state *lp, struct state *rp) {
+    // Set anchor character based on direction
+    int anchor = (dir == AHEAD) ? '$' : '^';
+
+    // Create two arcs with anchor values (1 and 0)
+    newarc(v->nfa, anchor, 1, lp, rp);
+    newarc(v->nfa, anchor, 0, lp, rp);
+
+    // Handle non-word character matching using color complement
+    colorcomplement(v->nfa, v->cm, dir, v->wordchrs, lp, rp);
+}
+```

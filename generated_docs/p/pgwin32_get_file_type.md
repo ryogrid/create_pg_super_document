@@ -41,3 +41,34 @@ This wrapper is essential for PostgreSQL's Windows port as it ensures consistent
 - Error handling distinguishes between legitimate FILE_TYPE_UNKNOWN results and actual API failures by examining GetLastError()
 - Located in src/port/win32common.c:31-64, this function is part of the common Windows utilities used across PostgreSQL's Windows port
 - The function sets errno appropriately on error conditions, maintaining consistency with POSIX-style error reporting
+
+## Simplified Source
+
+```c
+DWORD
+pgwin32_get_file_type(HANDLE hFile)
+{
+    DWORD fileType = FILE_TYPE_UNKNOWN;
+    DWORD lastError;
+
+    errno = 0;
+
+    // Validate handle - reject invalid handles and special stdin/stdout/stderr case
+    if (hFile == INVALID_HANDLE_VALUE || hFile == (HANDLE) -2) {
+        errno = EINVAL;
+        return FILE_TYPE_UNKNOWN;
+    }
+
+    // Get file type from Windows API
+    fileType = GetFileType(hFile);
+    lastError = GetLastError();
+
+    // Distinguish between legitimate FILE_TYPE_UNKNOWN and API error
+    if (fileType == FILE_TYPE_UNKNOWN && lastError != NO_ERROR) {
+        _dosmaperr(lastError);  // map Windows error to errno
+        return FILE_TYPE_UNKNOWN;
+    }
+
+    return fileType;
+}
+```

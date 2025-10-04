@@ -34,3 +34,20 @@ The `XLogHaveInvalidPages` function provides a simple boolean check to determine
 - Typically used in conjunction with XLogCheckInvalidPages to verify that all tracked invalid pages have been properly resolved
 - Important for determining when a hot standby server can safely serve read queries
 - The function helps prevent premature completion of recovery when there are still unresolved page issues
+
+## Simplified Source
+
+```c
+bool XLogHaveInvalidPages(void) {
+    // Check if invalid page table exists and has entries
+    if (invalid_page_tab != NULL && hash_get_num_entries(invalid_page_tab) > 0)
+        return true;
+
+    return false;
+}
+```
+
+**Simplified Logic:**
+1. **Table Check**: Verifies the invalid page hash table exists
+2. **Entry Count**: Uses hash_get_num_entries to check if table contains any invalid page references
+3. **Return Status**: Returns true if there are unresolved invalid pages, false otherwise

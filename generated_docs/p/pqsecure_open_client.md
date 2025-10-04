@@ -34,3 +34,17 @@ pqsecure_open_client is an internal function that manages the SSL/TLS handshake 
 - This is an internal libpq function, not part of the public API
 - Critical component in the secure connection establishment workflow
 - Typically called during the connection state machine processing
+
+## Simplified Source
+
+```c
+PostgresPollingStatusType pqsecure_open_client(PGconn *conn) {
+    #ifdef USE_SSL
+        // Delegate to SSL implementation for handshake
+        return pgtls_open_client(conn);
+    #else
+        // Should not reach here if SSL not compiled in
+        return PGRES_POLLING_FAILED;
+    #endif
+}
+```

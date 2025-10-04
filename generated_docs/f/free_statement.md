@@ -31,3 +31,30 @@ The `free_statement` function performs comprehensive cleanup of an ECPG statemen
 - Part of ECPG's resource management system for prepared statements
 - Ensures complete cleanup of both input and output variable lists
 - Critical for preventing memory leaks in applications using ECPG prepared statements
+
+## Simplified Source
+
+```c
+static void
+free_statement(struct statement *stmt)
+{
+    if (stmt == NULL)
+        return;
+
+    // Free input and output variable lists
+    free_variable(stmt->inlist);
+    free_variable(stmt->outlist);
+
+    // Free statement strings
+    ecpg_free(stmt->command);
+    ecpg_free(stmt->name);
+
+    // Free saved locale if needed (platform-dependent)
+#ifndef HAVE_USELOCALE
+    ecpg_free(stmt->oldlocale);
+#endif
+
+    // Free the statement structure itself
+    ecpg_free(stmt);
+}
+```

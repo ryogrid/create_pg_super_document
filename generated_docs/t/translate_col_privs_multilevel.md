@@ -42,3 +42,32 @@ Note that like its underlying translate_col_privs function, this will expand who
 - Handles error case where relation is not properly configured as a child relation
 - Part of PostgreSQL's inheritance and partitioning privilege management system
 - Located in src/backend/optimizer/util/inherit.c at lines 760-798
+
+## Simplified Source
+
+```c
+static Bitmapset *translate_col_privs_multilevel(PlannerInfo *root, RelOptInfo *rel,
+                                                 RelOptInfo *parent_rel,
+                                                 Bitmapset *parent_cols) {
+    // Quick exit if no columns to translate
+    if (parent_cols == NULL)
+        return NULL;
+
+    // Handle multi-level inheritance: recursively translate from top parent down
+    if (rel->parent != parent_rel) {
+        if (rel->parent) {
+            parent_cols = translate_col_privs_multilevel(root, rel->parent,
+                                                        parent_rel, parent_cols);
+        } else {
+            elog(ERROR, "rel with relid %u is not a child rel", rel->relid);
+        }
+    }
+
+    // Translate column privileges for this specific parent-child relationship
+    Assert(root->append_rel_array != NULL);
+    AppendRelInfo *appinfo = root->append_rel_array[rel->relid];
+    Assert(appinfo != NULL);
+
+    return translate_col_privs(parent_cols, appinfo->translated_vars);
+}
+```

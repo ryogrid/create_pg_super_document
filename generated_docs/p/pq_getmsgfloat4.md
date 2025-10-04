@@ -37,3 +37,20 @@ The `pq_getmsgfloat4` function reads a 4-byte floating-point value from a messag
 - Designed to work with the corresponding pq_sendfloat4 function
 - Ensures cross-platform compatibility for floating-point data transmission
 - Limited usage compared to integer message functions, primarily for float4 data type operations
+
+## Simplified Source
+
+```c
+float4 pq_getmsgfloat4(StringInfo msg) {
+    union {
+        float4 f;  // Float representation
+        uint32 i;  // Integer representation
+    } swap;
+
+    // Read 4 bytes as integer (handles byte order conversion)
+    swap.i = pq_getmsgint(msg, 4);
+
+    // Return as float4 (same binary data, different interpretation)
+    return swap.f;
+}
+```

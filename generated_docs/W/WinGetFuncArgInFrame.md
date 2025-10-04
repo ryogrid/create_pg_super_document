@@ -64,3 +64,88 @@ The exclusion logic ensures that when counting frame positions, only in-frame ro
 - Essential for implementing frame-aware window functions like FIRST_VALUE, LAST_VALUE, and NTH_VALUE
 - Handles the complex interaction between window frames and exclusion options as defined in the SQL standard
 - Performance optimization through mark positioning assumes monotonically increasing relpos in successive calls
+
+## Simplified Source
+
+```c
+Datum
+WinGetFuncArgInFrame(WindowObject winobj, int argno, int relpos, int seektype,
+                    bool set_mark, bool *isnull, bool *isout)
+{
+    WindowAggState *winstate;
+    ExprContext *econtext;
+    TupleTableSlot *slot;
+    int64 abs_pos, mark_pos;
+
+    // Validate window object and get state
+    Assert(WindowObjectIsValid(winobj));
+    winstate = winobj->winstate;
+    econtext = winstate->ss.ps.ps_ExprContext;
+    slot = winstate->temp_slot_1;
+
+    // Calculate position based on seek type
+    switch (seektype)
+    {
+        case WINDOW_SEEK_CURRENT:
+            elog(ERROR, "WINDOW_SEEK_CURRENT is not supported for WinGetFuncArgInFrame");
+            break;
+
+        case WINDOW_SEEK_HEAD:
+            if (relpos < 0)
+                goto out_of_frame;
+            update_frameheadpos(winstate);
+            abs_pos = winstate->frameheadpos + relpos;
+            mark_pos = abs_pos;
+
+            // Apply exclusion clause adjustments (simplified)
+            switch (winstate->frameOptions & FRAMEOPTION_EXCLUSION)
+            {
+                case FRAMEOPTION_EXCLUDE_CURRENT_ROW:
+                    if (abs_pos >= winstate->currentpos &&
+                        winstate->currentpos >= winstate->frameheadpos)
+                        abs_pos++;
+                    break;
+                // Additional exclusion cases handled similarly...
+            }
+            break;
+
+        case WINDOW_SEEK_TAIL:
+            if (relpos > 0)
+                goto out_of_frame;
+            update_frametailpos(winstate);
+            abs_pos = winstate->frametailpos - 1 + relpos;
+            mark_pos = winstate->frameheadpos;  // Safe mark position
+
+            // Apply exclusion clause adjustments (simplified)
+            // Complex exclusion logic omitted for brevity
+            break;
+
+        default:
+            elog(ERROR, "unrecognized window seek type: %d", seektype);
+            break;
+    }
+
+    // Try to get the tuple and verify it's in frame
+    if (!window_gettupleslot(winobj, abs_pos, slot))
+        goto out_of_frame;
+
+    if (row_is_in_frame(winstate, abs_pos, slot) <= 0)
+        goto out_of_frame;
+
+    // Success: evaluate the argument expression
+    if (isout)
+        *isout = false;
+    if (set_mark)
+        WinSetMarkPosition(winobj, mark_pos);
+
+    econtext->ecxt_outertuple = slot;
+    return ExecEvalExpr((ExprState *) list_nth(winobj->argstates, argno),
+                       econtext, isnull);
+
+out_of_frame:
+    if (isout)
+        *isout = true;
+    *isnull = true;
+    return (Datum) 0;
+}
+```

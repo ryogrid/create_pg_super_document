@@ -39,3 +39,30 @@ The function enables keepalives and configures both the idle time (how long to w
 - Uses the tcp_keepalive structure to package all keepalive parameters together
 - Provides sensible defaults for invalid input parameters to ensure robust operation
 - Part of PostgreSQL's cross-platform socket management abstraction
+
+## Simplified Source
+
+```c
+int pqSetKeepalivesWin32(pgsocket sock, int idle, int interval) {
+    struct tcp_keepalive ka;
+    DWORD retsize;
+
+    // Set defaults for invalid values
+    if (idle <= 0)
+        idle = 2 * 60 * 60;  // 2 hours default
+    if (interval <= 0)
+        interval = 1;        // 1 second default
+
+    // Configure keepalive parameters (Windows expects milliseconds)
+    ka.onoff = 1;                            // Enable keepalives
+    ka.keepalivetime = idle * 1000;          // Time before first probe
+    ka.keepaliveinterval = interval * 1000;  // Time between probes
+
+    // Apply settings using Windows-specific WSA call
+    if (WSAIoctl(sock, SIO_KEEPALIVE_VALS, &ka, sizeof(ka),
+                 NULL, 0, &retsize, NULL, NULL) != 0)
+        return 0;  // Failed
+
+    return 1;  // Success
+}
+```

@@ -32,3 +32,29 @@ This function searches through the linked list of subtransaction callbacks (SubX
 - The function breaks after removing the first match, assuming unique callback/argument pairs
 - Memory management is handled automatically through pfree() call
 - No error is reported if the callback is not found in the list
+
+## Simplified Source
+
+```c
+void UnregisterSubXactCallback(SubXactCallback callback, void *arg)
+{
+    SubXactCallbackItem *item, *prev = NULL;
+
+    // Search through subtransaction callback list for matching entry
+    for (item = SubXact_callbacks; item; prev = item, item = item->next)
+    {
+        if (item->callback == callback && item->arg == arg)
+        {
+            // Remove item from linked list
+            if (prev)
+                prev->next = item->next;  // Middle or end of list
+            else
+                SubXact_callbacks = item->next;  // Head of list
+
+            // Free the memory and exit
+            pfree(item);
+            break;
+        }
+    }
+}
+```

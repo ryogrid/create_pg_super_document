@@ -43,3 +43,51 @@ The function computes the ServerSignature by first deriving the ServerKey from t
 - Part of the SCRAM authentication protocol implementation in PostgreSQL's client library
 - Critical for preventing authentication bypass and man-in-the-middle attacks
 - Requires proper cleanup of HMAC context on both success and failure paths
+
+## Simplified Source
+
+```c
+static bool verify_server_signature(fe_scram_state *state, bool *match, const char **errstr) {
+    uint8 expected_ServerSignature[SCRAM_MAX_KEY_LEN];
+    uint8 ServerKey[SCRAM_MAX_KEY_LEN];
+    pg_hmac_ctx *ctx;
+
+    // Create HMAC context
+    ctx = pg_hmac_create(state->hash_type);
+    if (ctx == NULL) {
+        *errstr = pg_hmac_error(NULL);
+        return false;
+    }
+
+    // Derive ServerKey from SaltedPassword
+    if (scram_ServerKey(state->SaltedPassword, state->hash_type,
+                        state->key_length, ServerKey, errstr) < 0) {
+        pg_hmac_free(ctx);
+        return false;
+    }
+
+    // Calculate expected ServerSignature using HMAC
+    // HMAC(ServerKey, client_first_bare + "," + server_first + "," + client_final_without_proof)
+    if (pg_hmac_init(ctx, ServerKey, state->key_length) < 0 ||
+        pg_hmac_update(ctx, (uint8 *) state->client_first_message_bare,
+                       strlen(state->client_first_message_bare)) < 0 ||
+        pg_hmac_update(ctx, (uint8 *) ",", 1) < 0 ||
+        pg_hmac_update(ctx, (uint8 *) state->server_first_message,
+                       strlen(state->server_first_message)) < 0 ||
+        pg_hmac_update(ctx, (uint8 *) ",", 1) < 0 ||
+        pg_hmac_update(ctx, (uint8 *) state->client_final_message_without_proof,
+                       strlen(state->client_final_message_without_proof)) < 0 ||
+        pg_hmac_final(ctx, expected_ServerSignature, state->key_length) < 0) {
+        *errstr = pg_hmac_error(ctx);
+        pg_hmac_free(ctx);
+        return false;
+    }
+
+    pg_hmac_free(ctx);
+
+    // Compare calculated signature with server's signature
+    *match = (memcmp(expected_ServerSignature, state->ServerSignature, state->key_length) == 0);
+
+    return true;
+}
+```

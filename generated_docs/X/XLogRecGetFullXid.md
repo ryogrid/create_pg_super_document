@@ -36,3 +36,20 @@ The function includes safety assertions to ensure it is only called during start
 - The assertion ensures the function is not misused in contexts where transaction state is unreliable
 - Essential component of PostgreSQL XID handling that prevents transaction ID confusion during recovery
 - The function bridges the gap between space-efficient WAL storage and complete transaction identification
+
+## Simplified Source
+
+```c
+FullTransactionId XLogRecGetFullXid(XLogReaderState *record) {
+    // Safety check: only safe during WAL replay
+    Assert(AmStartupProcess() || !IsUnderPostmaster);
+
+    // Reconstruct full 64-bit XID from current replay state and record's 32-bit XID
+    return FullTransactionIdFromAllowableAt(TransamVariables->nextXid,
+                                          XLogRecGetXid(record));
+}
+```
+
+**Simplified Logic:**
+1. **Safety Validation**: Ensures function is called only during WAL replay when transaction state is reliable
+2. **XID Reconstruction**: Combines the current replay state's epoch with the 32-bit XID from the WAL record to create the complete 64-bit transaction ID

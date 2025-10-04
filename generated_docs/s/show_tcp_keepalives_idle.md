@@ -29,6 +29,19 @@ The function is part of PostgreSQL's configuration parameter system and is calle
 
 ## Notes and Other Information
 - Uses a static 16-character buffer to store the formatted result
-- The actual keepalive logic is platform-dependent and handled by 
+- The actual keepalive logic is platform-dependent and handled by
 - Returns "0" when keepalives are not supported or not configured
 - Part of PostgreSQL's libpq communication subsystem for managing client connections
+
+## Simplified Source
+
+```c
+const char *show_tcp_keepalives_idle(void)
+{
+    static char nbuf[16];
+
+    // Get current keepalive idle timeout and format as string
+    snprintf(nbuf, sizeof(nbuf), "%d", pq_getkeepalivesidle(MyProcPort));
+    return nbuf;
+}
+```

@@ -50,3 +50,77 @@ This function takes no parameters.
 - Includes comprehensive error handling with PANIC-level messages for critical failures
 - The system identifier encoding allows determination of installation time from the database
 - Forces synchronous writes and fsync operations to ensure data durability during bootstrap
+
+## Simplified Source
+
+```c
+void
+BootStrapXLOG(void)
+{
+    CheckPoint checkpoint;
+    char *buffer;
+    XLogPageHeader page;
+    XLogRecord *record;
+    uint64 sysidentifier;
+    struct timeval tv;
+
+    // Enable WAL segment creation
+    SetInstallXLogFileSegmentActive();
+
+    // Generate unique system identifier using timestamp + PID
+    gettimeofday(&tv, NULL);
+    sysidentifier = ((uint64) tv.tv_sec) << 32;
+    sysidentifier |= ((uint64) tv.tv_usec) << 12;
+    sysidentifier |= getpid() & 0xFFF;
+
+    // Allocate and initialize WAL page buffer
+    buffer = (char *) palloc(XLOG_BLCKSZ + XLOG_BLCKSZ);
+    page = (XLogPageHeader) TYPEALIGN(XLOG_BLCKSZ, buffer);
+    memset(page, 0, XLOG_BLCKSZ);
+
+    // Setup initial checkpoint record with bootstrap values
+    checkpoint.redo = wal_segment_size + SizeOfXLogLongPHD;
+    checkpoint.ThisTimeLineID = BootstrapTimeLineID;
+    checkpoint.nextXid = FullTransactionIdFromEpochAndXid(0, FirstNormalTransactionId);
+    checkpoint.nextOid = FirstGenbkiObjectId;
+    checkpoint.time = (pg_time_t) time(NULL);
+    // ... other checkpoint fields initialized
+
+    // Update global transaction state
+    TransamVariables->nextXid = checkpoint.nextXid;
+    TransamVariables->nextOid = checkpoint.nextOid;
+
+    // Setup WAL page header with system info
+    page->xlp_magic = XLOG_PAGE_MAGIC;
+    page->xlp_info = XLP_LONG_HEADER;
+    page->xlp_tli = BootstrapTimeLineID;
+    ((XLogLongPageHeader) page)->xlp_sysid = sysidentifier;
+
+    // Insert checkpoint record into page
+    record = (XLogRecord *) ((char *) page + SizeOfXLogLongPHD);
+    record->xl_info = XLOG_CHECKPOINT_SHUTDOWN;
+    record->xl_rmid = RM_XLOG_ID;
+    // ... copy checkpoint data and calculate CRC
+
+    // Create and write first XLOG segment file
+    openLogFile = XLogFileInit(1, BootstrapTimeLineID);
+    write(openLogFile, page, XLOG_BLCKSZ);
+    pg_fsync(openLogFile);
+    close(openLogFile);
+
+    // Initialize control file with system metadata
+    InitControlFile(sysidentifier);
+    ControlFile->checkPoint = checkpoint.redo;
+    ControlFile->checkPointCopy = checkpoint;
+    WriteControlFile();
+
+    // Bootstrap related transaction subsystems
+    BootStrapCLOG();
+    BootStrapCommitTs();
+    BootStrapSUBTRANS();
+    BootStrapMultiXact();
+
+    pfree(buffer);
+    ReadControlFile();  // Force validation
+}
+```

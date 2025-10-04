@@ -39,3 +39,47 @@ If both conditions are met, the slot is persisted using  and marked as sync-read
 - Logs important status messages including sync-ready notifications and consistency warnings
 - Part of PostgreSQL's logical replication slot synchronization mechanism between primary and standby servers
 - The slot persistence only occurs after all safety validations pass, ensuring data integrity
+
+## Simplified Source
+
+```c
+static bool update_and_persist_local_synced_slot(RemoteSlot *remote_slot, Oid remote_dbid)
+{
+    ReplicationSlot *slot = MyReplicationSlot;
+    bool found_consistent_snapshot = false;
+    bool remote_slot_precedes = false;
+
+    // Update local slot with remote slot data
+    update_local_synced_slot(remote_slot, remote_dbid,
+                            &found_consistent_snapshot,
+                            &remote_slot_precedes);
+
+    // Check if remote server has caught up to local position
+    if (remote_slot_precedes)
+    {
+        // Remote slot hasn't caught up yet - keep slot for next cycle
+        return false;
+    }
+
+    // Check if slot can reach consistent point from restart_lsn
+    if (!found_consistent_snapshot)
+    {
+        ereport(LOG,
+                errmsg("could not synchronize replication slot \"%s\"",
+                       remote_slot->name),
+                errdetail("Synchronization could lead to data loss, because the "
+                         "standby could not build a consistent snapshot to decode "
+                         "WALs at LSN %X/%X.", LSN_FORMAT_ARGS(slot->data.restart_lsn)));
+        return false;
+    }
+
+    // All checks passed - persist the slot
+    ReplicationSlotPersist();
+
+    ereport(LOG,
+            errmsg("newly created replication slot \"%s\" is sync-ready now",
+                   remote_slot->name));
+
+    return true;
+}
+```

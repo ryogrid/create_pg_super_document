@@ -59,3 +59,118 @@ The function implements a worker that consolidates incremental values ('delta' t
 - Handles interrupts and configuration reloads during execution
 - Reports detailed logging when processing records
 - Location: src/test/modules/worker_spi/worker_spi.c:138-305
+
+## Simplified Source
+
+```c
+void
+worker_spi_main(Datum main_arg)
+{
+    int index = DatumGetInt32(main_arg);
+    worktable *table;
+    StringInfoData buf;
+    char name[20];
+    Oid dboid, roleoid;
+    char *p;
+    bits32 flags = 0;
+
+    // Initialize worker table structure
+    table = palloc(sizeof(worktable));
+    sprintf(name, "schema%d", index);
+    table->schema = pstrdup(name);
+    table->name = pstrdup("counted");
+
+    // Extract database and role OIDs from bgw_extra
+    p = MyBgworkerEntry->bgw_extra;
+    memcpy(&dboid, p, sizeof(Oid));
+    p += sizeof(Oid);
+    memcpy(&roleoid, p, sizeof(Oid));
+    p += sizeof(Oid);
+    memcpy(&flags, p, sizeof(bits32));
+
+    // Set up signal handlers
+    pqsignal(SIGHUP, SignalHandlerForConfigReload);
+    pqsignal(SIGTERM, die);
+    BackgroundWorkerUnblockSignals();
+
+    // Connect to database
+    if (OidIsValid(dboid))
+        BackgroundWorkerInitializeConnectionByOid(dboid, roleoid, flags);
+    else
+        BackgroundWorkerInitializeConnection(worker_spi_database, worker_spi_role, flags);
+
+    elog(LOG, "%s initialized with %s.%s",
+         MyBgworkerEntry->bgw_name, table->schema, table->name);
+
+    // Initialize schema and table
+    initialize_worker_spi(table);
+    table->schema = quote_identifier(table->schema);
+    table->name = quote_identifier(table->name);
+
+    // Build the main SQL query for delta processing
+    initStringInfo(&buf);
+    appendStringInfo(&buf,
+                    "WITH deleted AS (DELETE "
+                    "FROM %s.%s "
+                    "WHERE type = 'delta' RETURNING value), "
+                    "total AS (SELECT coalesce(sum(value), 0) as sum "
+                    "FROM deleted) "
+                    "UPDATE %s.%s "
+                    "SET value = %s.value + total.sum "
+                    "FROM total WHERE type = 'total' "
+                    "RETURNING %s.value",
+                    table->schema, table->name,
+                    table->schema, table->name,
+                    table->name, table->name);
+
+    // Main worker loop
+    for (;;) {
+        // Set up wait event and wait
+        if (worker_spi_wait_event_main == 0)
+            worker_spi_wait_event_main = WaitEventExtensionNew("WorkerSpiMain");
+
+        WaitLatch(MyLatch, WL_LATCH_SET | WL_TIMEOUT | WL_EXIT_ON_PM_DEATH,
+                  worker_spi_naptime * 1000L, worker_spi_wait_event_main);
+        ResetLatch(MyLatch);
+
+        CHECK_FOR_INTERRUPTS();
+
+        // Handle configuration reload
+        if (ConfigReloadPending) {
+            ConfigReloadPending = false;
+            ProcessConfigFile(PGC_SIGHUP);
+        }
+
+        // Execute the delta consolidation query
+        SetCurrentStatementStartTimestamp();
+        StartTransactionCommand();
+        SPI_connect();
+        PushActiveSnapshot(GetTransactionSnapshot());
+        debug_query_string = buf.data;
+        pgstat_report_activity(STATE_RUNNING, buf.data);
+
+        int ret = SPI_execute(buf.data, false, 0);
+        if (ret != SPI_OK_UPDATE_RETURNING)
+            elog(FATAL, "cannot select from table %s.%s: error code %d",
+                 table->schema, table->name, ret);
+
+        // Log the current total if updated
+        if (SPI_processed > 0) {
+            bool isnull;
+            int32 val = DatumGetInt32(SPI_getbinval(SPI_tuptable->vals[0],
+                                                   SPI_tuptable->tupdesc, 1, &isnull));
+            if (!isnull)
+                elog(LOG, "%s: count in %s.%s is now %d",
+                     MyBgworkerEntry->bgw_name, table->schema, table->name, val);
+        }
+
+        // Finish transaction
+        SPI_finish();
+        PopActiveSnapshot();
+        CommitTransactionCommand();
+        debug_query_string = NULL;
+        pgstat_report_stat(true);
+        pgstat_report_activity(STATE_IDLE, NULL);
+    }
+}
+```

@@ -41,3 +41,21 @@ This pattern allows logical decoding to efficiently reuse snapshots across multi
 - Uses reference counting to manage snapshot lifetime
 - The cached snapshot persists across multiple calls until the builder state changes
 - This function is typically used during the actual logical decoding process rather than during initial setup
+
+## Simplified Source
+
+```c
+Snapshot SnapBuildGetOrBuildSnapshot(SnapBuild *builder) {
+    // Ensure we're in consistent state for logical decoding
+    Assert(builder->state == SNAPBUILD_CONSISTENT);
+
+    // Build new snapshot if we don't have one cached
+    if (builder->snapshot == NULL) {
+        builder->snapshot = SnapBuildBuildSnapshot(builder);
+        // Increment reference count for memory management
+        SnapBuildSnapIncRefcount(builder->snapshot);
+    }
+
+    return builder->snapshot;
+}
+```

@@ -45,3 +45,67 @@ pg_prepared_xact is a Set-Returning Function (SRF) that implements the pg_prepar
 - Uses memory context switching for proper memory management across function calls
 - Part of PostgreSQL's two-phase commit monitoring infrastructure
 - No direct callers since it's registered as a system function accessible via SQL
+
+## Simplified Source
+
+```c
+Datum
+pg_prepared_xact(PG_FUNCTION_ARGS)
+{
+    FuncCallContext *funcctx;
+    Working_State *status;
+
+    if (SRF_IS_FIRSTCALL()) {
+        // Initialize function context for multiple calls
+        funcctx = SRF_FIRSTCALL_INIT();
+
+        // Switch to multi-call memory context
+        MemoryContext oldcontext = MemoryContextSwitchTo(funcctx->multi_call_memory_ctx);
+
+        // Build tuple descriptor with 5 columns: transaction, gid, prepared, ownerid, dbid
+        TupleDesc tupdesc = CreateTemplateTupleDesc(5);
+        TupleDescInitEntry(tupdesc, 1, "transaction", XIDOID, -1, 0);
+        TupleDescInitEntry(tupdesc, 2, "gid", TEXTOID, -1, 0);
+        TupleDescInitEntry(tupdesc, 3, "prepared", TIMESTAMPTZOID, -1, 0);
+        TupleDescInitEntry(tupdesc, 4, "ownerid", OIDOID, -1, 0);
+        TupleDescInitEntry(tupdesc, 5, "dbid", OIDOID, -1, 0);
+        funcctx->tuple_desc = BlessTupleDesc(tupdesc);
+
+        // Get list of all prepared transactions
+        status = palloc(sizeof(Working_State));
+        funcctx->user_fctx = status;
+        status->ngxacts = GetPreparedTransactionList(&status->array);
+        status->currIdx = 0;
+
+        MemoryContextSwitchTo(oldcontext);
+    }
+
+    // Set up for each call
+    funcctx = SRF_PERCALL_SETUP();
+    status = funcctx->user_fctx;
+
+    // Return one row for each valid prepared transaction
+    while (status->array != NULL && status->currIdx < status->ngxacts) {
+        GlobalTransaction gxact = &status->array[status->currIdx++];
+
+        if (!gxact->valid)
+            continue;
+
+        // Get process info and build result tuple
+        PGPROC *proc = GetPGProcByNumber(gxact->pgprocno);
+        Datum values[5] = {
+            TransactionIdGetDatum(proc->xid),
+            CStringGetTextDatum(gxact->gid),
+            TimestampTzGetDatum(gxact->prepared_at),
+            ObjectIdGetDatum(gxact->owner),
+            ObjectIdGetDatum(proc->databaseId)
+        };
+        bool nulls[5] = {0};
+
+        HeapTuple tuple = heap_form_tuple(funcctx->tuple_desc, values, nulls);
+        SRF_RETURN_NEXT(funcctx, HeapTupleGetDatum(tuple));
+    }
+
+    SRF_RETURN_DONE(funcctx);
+}
+```

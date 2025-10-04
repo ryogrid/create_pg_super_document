@@ -34,3 +34,15 @@ The function serves as a thin wrapper around nextval_internal(), directly passin
 - Returns INT64 (bigint) values to support the full range of sequence values
 - Part of the modern OID-based sequence interface alongside the legacy text-based approach
 - Currently appears to be available but not actively used in the analyzed codebase portions
+
+## Simplified Source
+
+```c
+Datum nextval_oid(PG_FUNCTION_ARGS) {
+    // Get sequence OID directly from argument
+    Oid relid = PG_GETARG_OID(0);
+
+    // Get next value from sequence
+    PG_RETURN_INT64(nextval_internal(relid, true));
+}
+```

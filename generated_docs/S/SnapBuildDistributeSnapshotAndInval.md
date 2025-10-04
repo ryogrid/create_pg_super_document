@@ -50,3 +50,39 @@ The invalidation message distribution ensures that cached catalog information is
 - Only distributes invalidations from the specific committing transaction to avoid duplicate processing
 - Critical for maintaining MVCC semantics and catalog consistency during logical replication
 - Part of the snapshot building infrastructure that enables consistent logical decoding
+
+## Simplified Source
+
+```c
+static void SnapBuildDistributeSnapshotAndInval(SnapBuild *builder, XLogRecPtr lsn, TransactionId xid) {
+    dlist_iter txn_i;
+    ReorderBufferTXN *txn;
+
+    // Iterate through all top-level transactions being decoded
+    dlist_foreach(txn_i, &builder->reorder->toplevel_by_lsn) {
+        txn = dlist_container(ReorderBufferTXN, node, txn_i.cur);
+
+        // Skip transactions without base snapshots or prepared transactions
+        if (!ReorderBufferXidHasBaseSnapshot(builder->reorder, txn->xid) ||
+            rbtxn_prepared(txn) || rbtxn_skip_prepared(txn))
+            continue;
+
+        // Give fresh snapshot to transaction
+        SnapBuildSnapIncRefcount(builder->snapshot);
+        ReorderBufferAddSnapshot(builder->reorder, txn->xid, lsn, builder->snapshot);
+
+        // Distribute invalidations from committed transaction to other in-progress ones
+        if (txn->xid != xid) {
+            uint32 ninvalidations;
+            SharedInvalidationMessage *msgs = NULL;
+
+            ninvalidations = ReorderBufferGetInvalidations(builder->reorder, xid, &msgs);
+            if (ninvalidations > 0) {
+                ReorderBufferAddDistributedInvalidations(builder->reorder,
+                                                        txn->xid, lsn,
+                                                        ninvalidations, msgs);
+            }
+        }
+    }
+}
+```

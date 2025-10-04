@@ -37,3 +37,18 @@ The function is designed to be called before performing actual data conversion t
 - Essential prerequisite for all PL/Perl to PostgreSQL type conversions
 - The FmgrInfo structure filled by this function is used by PostgreSQL function call infrastructure
 - typioparam may be used by complex types that require additional conversion context
+
+## Simplified Source
+
+```c
+static void
+_sv_to_datum_finfo(Oid typid, FmgrInfo *finfo, Oid *typioparam)
+{
+    // Get the input function OID for this PostgreSQL type
+    Oid typinput;
+    getTypeInputInfo(typid, &typinput, typioparam);
+
+    // Initialize function manager info for the input function
+    fmgr_info(typinput, finfo);
+}
+```

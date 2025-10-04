@@ -35,3 +35,16 @@ The function extracts the type's remote OID and qualified name (namespace + type
 - Memory for namespace and type names is allocated in the current memory context using pstrdup
 - Part of the logical replication message processing infrastructure
 - Essential for maintaining type consistency between publisher and subscriber databases
+
+## Simplified Source
+
+```c
+void logicalrep_read_typ(StringInfo in, LogicalRepTyp *ltyp) {
+    // Read remote type ID
+    ltyp->remoteid = pq_getmsgint(in, 4);
+
+    // Read qualified type name
+    ltyp->nspname = pstrdup(logicalrep_read_namespace(in));
+    ltyp->typname = pstrdup(pq_getmsgstring(in));
+}
+```

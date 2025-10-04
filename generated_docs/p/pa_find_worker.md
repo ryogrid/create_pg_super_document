@@ -33,3 +33,36 @@ This function provides a lookup mechanism to find the parallel apply worker assi
 - Returns ParallelApplyWorkerInfo pointer on success, NULL if no worker found
 - Part of the worker lookup infrastructure for PostgreSQL's logical replication parallel processing
 - Located in src/backend/replication/logical/applyparallelworker.c:518-555
+
+## Simplified Source
+
+```c
+ParallelApplyWorkerInfo *
+pa_find_worker(TransactionId xid)
+{
+    bool found;
+    ParallelApplyWorkerEntry *entry;
+
+    // Quick validation checks
+    if (!TransactionIdIsValid(xid))
+        return NULL;
+
+    if (!ParallelApplyTxnHash)
+        return NULL;
+
+    // Return cached worker if available
+    if (stream_apply_worker)
+        return stream_apply_worker;
+
+    // Search hash table for transaction-worker mapping
+    entry = hash_search(ParallelApplyTxnHash, &xid, HASH_FIND, &found);
+    if (found)
+    {
+        // Verify worker is still active
+        Assert(entry->winfo->in_use);
+        return entry->winfo;
+    }
+
+    return NULL;
+}
+```

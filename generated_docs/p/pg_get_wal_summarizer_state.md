@@ -48,4 +48,42 @@ This function takes no parameters ( is the standard PostgreSQL function interfac
 - The function is declared in the system catalog as returning a composite type with 4 attributes
 - Access to WAL summarizer state is protected by WALSummarizerLock to ensure consistent reads
 - The function handles the case where the summarizer process has not been initialized or has exited
-- Located in 
+- Located in src/backend/backup/walsummaryfuncs.c
+
+## Simplified Source
+```c
+Datum pg_get_wal_summarizer_state(PG_FUNCTION_ARGS) {
+    Datum values[NUM_STATE_ATTS];
+    bool nulls[NUM_STATE_ATTS];
+    TimeLineID summarized_tli;
+    XLogRecPtr summarized_lsn;
+    XLogRecPtr pending_lsn;
+    int summarizer_pid;
+    TupleDesc tupdesc;
+
+    // Get current WAL summarizer state from shared memory
+    GetWalSummarizerState(&summarized_tli, &summarized_lsn, &pending_lsn, &summarizer_pid);
+
+    // Validate return type is composite
+    if (get_call_result_type(fcinfo, NULL, &tupdesc) != TYPEFUNC_COMPOSITE) {
+        elog(ERROR, "return type must be a row type");
+    }
+
+    memset(nulls, 0, sizeof(nulls));
+
+    // Build result tuple
+    values[0] = Int64GetDatum((int64) summarized_tli);
+    values[1] = LSNGetDatum(summarized_lsn);
+    values[2] = LSNGetDatum(pending_lsn);
+
+    // Handle case where summarizer is not running
+    if (summarizer_pid < 0) {
+        nulls[3] = true;
+    } else {
+        values[3] = Int32GetDatum(summarizer_pid);
+    }
+
+    HeapTuple htup = heap_form_tuple(tupdesc, values, nulls);
+    PG_RETURN_DATUM(HeapTupleGetDatum(htup));
+}
+``` 

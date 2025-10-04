@@ -37,3 +37,12 @@ The function exists primarily to maintain API compatibility for existing code th
 - The function provides the exact same parameter validation and error handling as SPI_execute_plan
 - Part of PostgreSQLs commitment to maintaining backward compatibility across versions
 - Essentially a thin wrapper that adds no additional functionality beyond fixing one parameter value
+
+## Simplified Source
+
+```c
+int SPI_execp(SPIPlanPtr plan, Datum *Values, const char *Nulls, long tcount) {
+    // Legacy wrapper: execute plan in read-write mode (read_only=false)
+    return SPI_execute_plan(plan, Values, Nulls, false, tcount);
+}
+```

@@ -41,3 +41,30 @@ This internal function encapsulates the common logic for serializing PREPARE mes
 - Currently sends flags field as 0, potentially for future extensibility
 - Designed to reduce code duplication between prepare and stream prepare message writing
 - Located in src/backend/replication/logical/proto.c:166-197
+
+## Simplified Source
+
+```c
+static void logicalrep_write_prepare_common(StringInfo out, LogicalRepMsgType type,
+                                           ReorderBufferTXN *txn, XLogRecPtr prepare_lsn) {
+    // Send message type (PREPARE or STREAM_PREPARE)
+    pq_sendbyte(out, type);
+
+    // Validate transaction state (only in debug builds)
+    Assert(txn->gid != NULL);
+    Assert(rbtxn_prepared(txn));
+    Assert(TransactionIdIsValid(txn->xid));
+
+    // Send flags field (unused for now)
+    pq_sendbyte(out, 0);
+
+    // Send transaction metadata
+    pq_sendint64(out, prepare_lsn);                  // Prepare LSN
+    pq_sendint64(out, txn->end_lsn);                 // End LSN
+    pq_sendint64(out, txn->xact_time.prepare_time);  // Prepare timestamp
+    pq_sendint32(out, txn->xid);                     // Transaction ID
+
+    // Send global transaction identifier
+    pq_sendstring(out, txn->gid);
+}
+```

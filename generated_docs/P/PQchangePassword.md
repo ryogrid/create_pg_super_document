@@ -49,3 +49,45 @@ This approach ensures that cleartext passwords never appear in server logs, pg_s
 - Memory-safe: cleans up all intermediate allocations before returning
 - Thread-safe when used with separate connection objects per thread
 - Security feature: plaintext password never transmitted to server
+
+## Simplified Source
+
+```c
+PGresult *
+PQchangePassword(PGconn *conn, const char *user, const char *passwd)
+{
+    // Encrypt password using server's preferred method
+    char *encrypted_password = PQencryptPasswordConn(conn, passwd, user, NULL);
+    if (!encrypted_password) {
+        return NULL;
+    }
+
+    // Escape the encrypted password for SQL
+    char *fmtpw = PQescapeLiteral(conn, encrypted_password, strlen(encrypted_password));
+    PQfreemem(encrypted_password);
+    if (!fmtpw) {
+        return NULL;
+    }
+
+    // Escape the username for SQL
+    char *fmtuser = PQescapeIdentifier(conn, user, strlen(user));
+    if (!fmtuser) {
+        PQfreemem(fmtpw);
+        return NULL;
+    }
+
+    // Build and execute ALTER USER statement
+    PQExpBufferData buf;
+    initPQExpBuffer(&buf);
+    printfPQExpBuffer(&buf, "ALTER USER %s PASSWORD %s", fmtuser, fmtpw);
+
+    PGresult *res = PQexec(conn, buf.data);
+
+    // Clean up allocated memory
+    termPQExpBuffer(&buf);
+    PQfreemem(fmtuser);
+    PQfreemem(fmtpw);
+
+    return res;
+}
+```

@@ -39,3 +39,30 @@ This function converts a numeric value to its string representation. It creates 
 - Caller is responsible for freeing the returned string
 - Part of the ECPG pgtypes library for PostgreSQL embedded SQL
 - Located in src/interfaces/ecpg/pgtypeslib/numeric.c:343-373
+
+## Simplified Source
+
+```c
+char *PGTYPESnumeric_to_asc(numeric *num, int dscale) {
+    // Create working copy to avoid modifying original
+    numeric *numcopy = PGTYPESnumeric_new();
+    if (!numcopy)
+        return NULL;
+
+    // Copy the input numeric value
+    if (PGTYPESnumeric_copy(num, numcopy) < 0) {
+        PGTYPESnumeric_free(numcopy);
+        return NULL;
+    }
+
+    // Use original scale if dscale is negative
+    if (dscale < 0)
+        dscale = num->dscale;
+
+    // Convert to string and cleanup
+    char *result = get_str_from_var(numcopy, dscale);
+    PGTYPESnumeric_free(numcopy);
+
+    return result;
+}
+```

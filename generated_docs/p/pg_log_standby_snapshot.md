@@ -43,3 +43,29 @@ This function is particularly useful in replication scenarios where administrato
 - Essential for maintaining transaction consistency across primary-standby server configurations
 - Part of PostgreSQL's replication and recovery infrastructure located in src/backend/access/transam/xlogfuncs.c:201-231
 - Used primarily in streaming replication setups to ensure standby servers have accurate transaction visibility information
+
+## Simplified Source
+
+```c
+Datum
+pg_log_standby_snapshot(PG_FUNCTION_ARGS)
+{
+    XLogRecPtr recptr;
+
+    // Cannot run during recovery (on standby servers)
+    if (RecoveryInProgress())
+        ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                       errmsg("recovery is in progress")));
+
+    // Requires WAL level >= replica for standby snapshot logging
+    if (!XLogStandbyInfoActive())
+        ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                       errmsg("pg_log_standby_snapshot() can only be used if \"wal_level\" >= \"replica\"")));
+
+    // Log the standby snapshot to WAL
+    recptr = LogStandbySnapshot();
+
+    // Return WAL location where snapshot was logged
+    PG_RETURN_LSN(recptr);
+}
+```

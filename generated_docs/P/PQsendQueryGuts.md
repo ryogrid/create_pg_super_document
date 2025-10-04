@@ -60,3 +60,115 @@ The function is designed to work with both regular query execution and pipeline 
 - Pipeline mode optimization: only flushes data when past the size threshold
 - Error handling uses goto sendFailed pattern for cleanup
 - Memory allocation for query text copy uses strdup and gracefully handles allocation failure
+
+## Simplified Source
+
+```c
+static int PQsendQueryGuts(PGconn *conn, const char *command, const char *stmtName,
+                          int nParams, const Oid *paramTypes,
+                          const char *const *paramValues, const int *paramLengths,
+                          const int *paramFormats, int resultFormat) {
+    PGcmdQueueEntry *entry = pqAllocCmdQueueEntry(conn);
+    if (entry == NULL)
+        return 0;
+
+    // Send Parse message if command provided
+    if (command) {
+        if (pqPutMsgStart(PqMsg_Parse, conn) < 0 ||
+            pqPuts(stmtName, conn) < 0 ||
+            pqPuts(command, conn) < 0)
+            goto sendFailed;
+
+        // Send parameter types
+        if (nParams > 0 && paramTypes) {
+            if (pqPutInt(nParams, 2, conn) < 0)
+                goto sendFailed;
+            for (int i = 0; i < nParams; i++) {
+                if (pqPutInt(paramTypes[i], 4, conn) < 0)
+                    goto sendFailed;
+            }
+        } else {
+            if (pqPutInt(0, 2, conn) < 0)
+                goto sendFailed;
+        }
+        if (pqPutMsgEnd(conn) < 0)
+            goto sendFailed;
+    }
+
+    // Send Bind message
+    if (pqPutMsgStart(PqMsg_Bind, conn) < 0 ||
+        pqPuts("", conn) < 0 ||
+        pqPuts(stmtName, conn) < 0)
+        goto sendFailed;
+
+    // Send parameter formats and values
+    if (nParams > 0 && paramFormats) {
+        if (pqPutInt(nParams, 2, conn) < 0)
+            goto sendFailed;
+        for (int i = 0; i < nParams; i++) {
+            if (pqPutInt(paramFormats[i], 2, conn) < 0)
+                goto sendFailed;
+        }
+    } else {
+        if (pqPutInt(0, 2, conn) < 0)
+            goto sendFailed;
+    }
+
+    if (pqPutInt(nParams, 2, conn) < 0)
+        goto sendFailed;
+
+    // Send parameter values
+    for (int i = 0; i < nParams; i++) {
+        if (paramValues && paramValues[i]) {
+            int nbytes = (paramFormats && paramFormats[i] != 0) ?
+                        paramLengths[i] : strlen(paramValues[i]);
+            if (pqPutInt(nbytes, 4, conn) < 0 ||
+                pqPutnchar(paramValues[i], nbytes, conn) < 0)
+                goto sendFailed;
+        } else {
+            if (pqPutInt(-1, 4, conn) < 0)
+                goto sendFailed;
+        }
+    }
+
+    // Send result format, Describe, Execute messages
+    if (pqPutInt(1, 2, conn) < 0 ||
+        pqPutInt(resultFormat, 2, conn) < 0 ||
+        pqPutMsgEnd(conn) < 0)
+        goto sendFailed;
+
+    // Send Describe Portal, Execute, and optionally Sync
+    if (pqPutMsgStart(PqMsg_Describe, conn) < 0 ||
+        pqPutc('P', conn) < 0 ||
+        pqPuts("", conn) < 0 ||
+        pqPutMsgEnd(conn) < 0)
+        goto sendFailed;
+
+    if (pqPutMsgStart(PqMsg_Execute, conn) < 0 ||
+        pqPuts("", conn) < 0 ||
+        pqPutInt(0, 4, conn) < 0 ||
+        pqPutMsgEnd(conn) < 0)
+        goto sendFailed;
+
+    if (conn->pipelineStatus == PQ_PIPELINE_OFF) {
+        if (pqPutMsgStart(PqMsg_Sync, conn) < 0 ||
+            pqPutMsgEnd(conn) < 0)
+            goto sendFailed;
+    }
+
+    // Finalize and flush
+    entry->queryclass = PGQUERY_EXTENDED;
+    if (command)
+        entry->query = strdup(command);
+
+    if (pqPipelineFlush(conn) < 0)
+        goto sendFailed;
+
+    pqAppendCmdQueueEntry(conn, entry);
+    return 1;
+
+sendFailed:
+    pqRecycleCmdQueueEntry(conn, entry);
+    return 0;
+}
+```

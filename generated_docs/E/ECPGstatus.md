@@ -38,3 +38,24 @@ This function serves as a public API function (declared in ecpglib.h) that appli
 - Thread-safe through underlying thread-safe ECPG functions
 - Essential for robust error handling in ECPG applications
 - Can be used to verify connections before critical database operations
+
+## Simplified Source
+
+```c
+bool ECPGstatus(int lineno, const char *connection_name) {
+    // Get connection by name
+    struct connection *con = ecpg_get_connection(connection_name);
+
+    // Initialize and validate connection
+    if (!ecpg_init(con, connection_name, lineno))
+        return false;
+
+    // Check if actually connected
+    if (con->connection == NULL) {
+        ecpg_raise(lineno, ECPG_NOT_CONN, ECPG_SQLSTATE_ECPG_INTERNAL_ERROR, con->name);
+        return false;
+    }
+
+    return true;
+}
+```

@@ -48,3 +48,25 @@ The function handles the deserialization of complex query structures using strin
 - The returned QueryDesc contains everything needed for a worker to execute its portion of the parallel plan
 - Parameter list restoration handles both simple and complex parameter types that may be passed to the query
 - Part of the parallel query infrastructure that enables distributing query execution across multiple processes
+
+## Simplified Source
+
+```c
+static QueryDesc *ExecParallelGetQueryDesc(shm_toc *toc, DestReceiver *receiver, int instrument_options)
+{
+    // Retrieve query string from shared memory
+    char *queryString = shm_toc_lookup(toc, PARALLEL_KEY_QUERY_TEXT, false);
+
+    // Reconstruct the planned statement from serialized form
+    char *pstmtspace = shm_toc_lookup(toc, PARALLEL_KEY_PLANNEDSTMT, false);
+    PlannedStmt *pstmt = (PlannedStmt *) stringToNode(pstmtspace);
+
+    // Reconstruct parameter list
+    char *paramspace = shm_toc_lookup(toc, PARALLEL_KEY_PARAMLISTINFO, false);
+    ParamListInfo paramLI = RestoreParamList(&paramspace);
+
+    // Create and return complete QueryDesc for worker execution
+    return CreateQueryDesc(pstmt, queryString, GetActiveSnapshot(), InvalidSnapshot,
+                          receiver, paramLI, NULL, instrument_options);
+}
+```

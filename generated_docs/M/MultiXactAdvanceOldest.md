@@ -31,3 +31,17 @@ When the provided oldestMulti is indeed more recent than the current oldestMulti
 - Only advances the oldest MultiXactId forward, never backward
 - Uses SetMultiXactIdLimit to handle the actual update and any associated cleanup
 - Critical for maintaining MultiXact consistency and preventing wraparound issues during recovery
+
+## Simplified Source
+
+```c
+void
+MultiXactAdvanceOldest(MultiXactId oldestMulti, Oid oldestMultiDB)
+{
+    Assert(InRecovery);
+
+    // Only advance oldest MultiXactId forward, never backward
+    if (MultiXactIdPrecedes(MultiXactState->oldestMultiXactId, oldestMulti))
+        SetMultiXactIdLimit(oldestMulti, oldestMultiDB, false);
+}
+```

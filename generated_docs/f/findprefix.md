@@ -41,3 +41,113 @@ The algorithm handles various edge cases including patterns with multiple parall
 
 ## Notes and Other Information
 The function implements several sophisticated optimizations and handles corner cases in regex analysis. It uses a color-based character classification system where characters are grouped into equivalence classes for efficient processing. The algorithm can detect exact matches by checking if the final state only has EOS/EOL transitions leading to the "post" state. The function is designed to be conservative - it may miss some optimization opportunities but will never provide incorrect prefix information that could lead to false matches.
+
+## Simplified Source
+
+```c
+static int findprefix(struct cnfa *cnfa, struct colormap *cm,
+                      chr *string, size_t *slength)
+{
+    int st, nextst;
+    color thiscolor;
+    chr c;
+    struct carc *ca;
+
+    // Check that pattern is left-anchored (pre state has only BOS/BOL arcs)
+    st = cnfa->pre;
+    nextst = -1;
+    for (ca = cnfa->states[st]; ca->co != COLORLESS; ca++)
+    {
+        if (ca->co == cnfa->bos[0] || ca->co == cnfa->bos[1])
+        {
+            if (nextst == -1)
+                nextst = ca->to;
+            else if (nextst != ca->to)
+                return REG_NOMATCH;
+        }
+        else
+            return REG_NOMATCH;
+    }
+    if (nextst == -1)
+        return REG_NOMATCH;
+
+    // Traverse states collecting common prefix characters
+    do
+    {
+        st = nextst;
+        nextst = -1;
+        thiscolor = COLORLESS;
+
+        // Examine all outgoing arcs from current state
+        for (ca = cnfa->states[st]; ca->co != COLORLESS; ca++)
+        {
+            // Skip BOS/BOL arcs
+            if (ca->co == cnfa->bos[0] || ca->co == cnfa->bos[1])
+                continue;
+
+            // Stop at EOS/EOL, RAINBOW, or LACON arcs
+            if (ca->co == cnfa->eos[0] || ca->co == cnfa->eos[1] ||
+                ca->co == RAINBOW || ca->co >= cnfa->ncolors)
+            {
+                thiscolor = COLORLESS;
+                break;
+            }
+
+            // Track transition colors
+            if (thiscolor == COLORLESS)
+            {
+                thiscolor = ca->co;
+                nextst = ca->to;
+            }
+            else if (thiscolor == ca->co)
+            {
+                nextst = -1; // Multiple arcs with same color
+            }
+            else
+            {
+                thiscolor = COLORLESS; // Multiple different colors
+                break;
+            }
+        }
+
+        // Stop if no unique color or color isn't singleton
+        if (thiscolor == COLORLESS)
+            break;
+        if (cm->cd[thiscolor].nschrs != 1 || cm->cd[thiscolor].nuchrs != 0)
+            break;
+
+        // Add the singleton character to prefix
+        c = cm->cd[thiscolor].firstchr;
+        if (GETCOLOR(cm, c) != thiscolor)
+            break;
+        string[(*slength)++] = c;
+
+    } while (nextst != -1);
+
+    // Check if we have an exact match (only EOS/EOL to post state)
+    nextst = -1;
+    for (ca = cnfa->states[st]; ca->co != COLORLESS; ca++)
+    {
+        if (ca->co == cnfa->eos[0] || ca->co == cnfa->eos[1])
+        {
+            if (nextst == -1)
+                nextst = ca->to;
+            else if (nextst != ca->to)
+            {
+                nextst = -1;
+                break;
+            }
+        }
+        else
+        {
+            nextst = -1;
+            break;
+        }
+    }
+    if (nextst == cnfa->post)
+        return REG_EXACT;
+
+    // Return result based on prefix length
+    return (*slength > 0) ? REG_PREFIX : REG_NOMATCH;
+}
+```

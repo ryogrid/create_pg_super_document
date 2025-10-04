@@ -50,3 +50,31 @@ Like its name-based counterpart, the function performs validation checks to ensu
 - Validates that the process remains in initialization mode until explicitly transitioned to normal processing
 - Commonly used by parallel workers and logical replication workers where OIDs are readily available
 - The function will terminate the process with FATAL error if connection requirements weren't indicated during registration
+
+## Simplified Source
+
+```c
+void BackgroundWorkerInitializeConnectionByOid(Oid dboid, Oid useroid, uint32 flags) {
+    BackgroundWorker *worker = MyBgworkerEntry;
+    bits32 init_flags = 0;
+
+    // Handle bypass flags for connection restrictions
+    if (flags & BGWORKER_BYPASS_ALLOWCONN)
+        init_flags |= INIT_PG_OVERRIDE_ALLOW_CONNS;
+    if (flags & BGWORKER_BYPASS_ROLELOGINCHECK)
+        init_flags |= INIT_PG_OVERRIDE_ROLE_LOGIN;
+
+    // Verify worker was registered for database connections
+    if (!(worker->bgw_flags & BGWORKER_BACKEND_DATABASE_CONNECTION))
+        ereport(FATAL, (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                       errmsg("database connection requirement not indicated during registration")));
+
+    // Initialize database connection using OIDs
+    InitPostgres(NULL, dboid, NULL, useroid, init_flags, NULL);
+
+    // Transition from init mode to normal processing
+    if (!IsInitProcessingMode())
+        ereport(ERROR, (errmsg("invalid processing mode in background worker")));
+    SetProcessingMode(NormalProcessing);
+}
+```

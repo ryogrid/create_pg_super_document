@@ -38,3 +38,31 @@ This function performs a recursive traversal to duplicate a portion of an NFA be
 
 ## Notes and Other Information
 The function uses a clever design where the tmp pointer in state structures serves dual purposes: marking visited states during traversal and pointing to their duplicates. After duplication is complete, the tmp pointers are cleared by calling cleartraverse to maintain the integrity of the NFA structure.
+
+## Simplified Source
+
+```c
+static void
+dupnfa(struct nfa *nfa,
+       struct state *start,  // duplicate sub-NFA starting here
+       struct state *stop,   // and stopping here
+       struct state *from,   // connect duplicate from here
+       struct state *to)     // to here
+{
+    // Handle trivial case: start and stop are the same
+    if (start == stop) {
+        newarc(nfa, EMPTY, 0, from, to);
+        return;
+    }
+
+    // Set up for duplication
+    stop->tmp = to;
+
+    // Perform recursive duplication starting from 'start' state
+    duptraverse(nfa, start, from);
+
+    // Clean up temporary pointers used during duplication
+    stop->tmp = NULL;
+    cleartraverse(nfa, start);
+}
+```

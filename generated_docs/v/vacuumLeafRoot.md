@@ -51,3 +51,69 @@ This simplified approach is possible because:
 - Part of the SP-GiST vacuum subsystem, specifically handling the special case of root pages with leaf data
 - The function validates that only LIVE tuples exist on root pages, enforcing SP-GiST structural invariants
 - Performs operations within critical sections for crash safety
+
+## Simplified Source
+
+```c
+static void
+vacuumLeafRoot(spgBulkDeleteState *bds, Relation index, Buffer buffer)
+{
+    Page page = BufferGetPage(buffer);
+    spgxlogVacuumRoot xlrec;
+    OffsetNumber toDelete[MaxIndexTuplesPerPage];
+    OffsetNumber i, max = PageGetMaxOffsetNumber(page);
+
+    xlrec.nDelete = 0;
+
+    // Scan page and identify tuples to delete
+    for (i = FirstOffsetNumber; i <= max; i++)
+    {
+        SpGistLeafTuple lt = (SpGistLeafTuple) PageGetItem(page, PageGetItemId(page, i));
+
+        if (lt->tupstate == SPGIST_LIVE)
+        {
+            // Check if tuple should be deleted via callback
+            if (bds->callback(&lt->heapPtr, bds->callback_state))
+            {
+                bds->stats->tuples_removed += 1;
+                toDelete[xlrec.nDelete] = i;
+                xlrec.nDelete++;
+            }
+            else
+            {
+                bds->stats->num_index_tuples += 1;
+            }
+        }
+        else
+        {
+            // All tuples on root should be live
+            elog(ERROR, "unexpected SPGiST tuple state: %d", lt->tupstate);
+        }
+    }
+
+    if (xlrec.nDelete == 0)
+        return;  // Nothing to delete
+
+    // Perform deletion within critical section
+    START_CRIT_SECTION();
+
+    // Delete tuples (tuple numbers are in order)
+    PageIndexMultiDelete(page, toDelete, xlrec.nDelete);
+    MarkBufferDirty(buffer);
+
+    // WAL logging
+    if (RelationNeedsWAL(index))
+    {
+        XLogRecPtr recptr;
+        XLogBeginInsert();
+        STORE_STATE(&bds->spgstate, xlrec.stateSrc);
+        XLogRegisterData((char *) &xlrec, SizeOfSpgxlogVacuumRoot);
+        XLogRegisterData((char *) toDelete, sizeof(OffsetNumber) * xlrec.nDelete);
+        XLogRegisterBuffer(0, buffer, REGBUF_STANDARD);
+        recptr = XLogInsert(RM_SPGIST_ID, XLOG_SPGIST_VACUUM_ROOT);
+        PageSetLSN(page, recptr);
+    }
+
+    END_CRIT_SECTION();
+}
+```

@@ -33,3 +33,17 @@ This function serves as a shmem_request_hook callback in the test_slru module. I
 - Part of the hook chain mechanism for shared memory management in PostgreSQL extensions
 - The function reserves space for 16 SLRU buffers (NUM_TEST_BUFFERS) with no additional SLRU banks (second parameter is 0)
 - Essential for proper initialization of the test SLRU module's shared memory structures
+
+## Simplified Source
+
+```c
+static void test_slru_shmem_request(void) {
+    // Call any previous shared memory request hook to maintain chain
+    if (prev_shmem_request_hook) {
+        prev_shmem_request_hook();
+    }
+
+    // Reserve shared memory for the test SLRU with NUM_TEST_BUFFERS buffers
+    RequestAddinShmemSpace(SimpleLruShmemSize(NUM_TEST_BUFFERS, 0));
+}
+```

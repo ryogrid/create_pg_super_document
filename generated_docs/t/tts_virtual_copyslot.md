@@ -41,3 +41,31 @@ The materialization step is crucial because it ensures the destination slot does
 - The final materialization step is essential for data independence - without it, the destination would only hold pointers to the source data
 - After copying, the destination slot is fully independent and can outlive the source slot
 - The copying includes both the actual values and the null indicators for each attribute
+
+## Simplified Source
+
+```c
+static void tts_virtual_copyslot(TupleTableSlot *dstslot, TupleTableSlot *srcslot)
+{
+    TupleDesc srcdesc = srcslot->tts_tupleDescriptor;
+
+    // Clear destination slot
+    tts_virtual_clear(dstslot);
+
+    // Ensure all source attributes are available
+    slot_getallattrs(srcslot);
+
+    // Copy all attribute values and null indicators
+    for (int natt = 0; natt < srcdesc->natts; natt++) {
+        dstslot->tts_values[natt] = srcslot->tts_values[natt];
+        dstslot->tts_isnull[natt] = srcslot->tts_isnull[natt];
+    }
+
+    // Update destination slot metadata
+    dstslot->tts_nvalid = srcdesc->natts;
+    dstslot->tts_flags &= ~TTS_FLAG_EMPTY;
+
+    // Ensure destination owns independent copies of all data
+    tts_virtual_materialize(dstslot);
+}
+```

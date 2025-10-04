@@ -50,3 +50,69 @@ The function handles several types of heap operations:
 - Fast-forward mode skips actual decoding but maintains snapshot building for determining catalog_xmin
 - HOT (Heap-Only Tuple) updates are processed identically to regular updates for logical decoding purposes
 - Row-level locks are currently ignored as they don't affect logical replication output
+
+## Simplified Source
+
+```c
+void heap_decode(LogicalDecodingContext *ctx, XLogRecordBuffer *buf)
+{
+    uint8 info = XLogRecGetInfo(buf->record) & XLOG_HEAP_OPMASK;
+    TransactionId xid = XLogRecGetXid(buf->record);
+    SnapBuild *builder = ctx->snapshot_builder;
+
+    // Process transaction for reordering
+    ReorderBufferProcessXid(ctx->reorder, xid, buf->origptr);
+
+    // Wait for full snapshot before processing changes
+    if (SnapBuildCurrentState(builder) < SNAPBUILD_FULL_SNAPSHOT)
+        return;
+
+    switch (info) {
+        case XLOG_HEAP_INSERT:
+            // Decode row insertions
+            if (SnapBuildProcessChange(builder, xid, buf->origptr) && !ctx->fast_forward)
+                DecodeInsert(ctx, buf);
+            break;
+
+        case XLOG_HEAP_HOT_UPDATE:
+        case XLOG_HEAP_UPDATE:
+            // Decode row updates (HOT updates treated as regular updates)
+            if (SnapBuildProcessChange(builder, xid, buf->origptr) && !ctx->fast_forward)
+                DecodeUpdate(ctx, buf);
+            break;
+
+        case XLOG_HEAP_DELETE:
+            // Decode row deletions
+            if (SnapBuildProcessChange(builder, xid, buf->origptr) && !ctx->fast_forward)
+                DecodeDelete(ctx, buf);
+            break;
+
+        case XLOG_HEAP_TRUNCATE:
+            // Decode table truncations
+            if (SnapBuildProcessChange(builder, xid, buf->origptr) && !ctx->fast_forward)
+                DecodeTruncate(ctx, buf);
+            break;
+
+        case XLOG_HEAP_INPLACE:
+            // Mark catalog changes for in-place updates (visibility unchanged)
+            if (TransactionIdIsValid(xid)) {
+                SnapBuildProcessChange(builder, xid, buf->origptr);
+                ReorderBufferXidSetCatalogChanges(ctx->reorder, xid, buf->origptr);
+            }
+            break;
+
+        case XLOG_HEAP_CONFIRM:
+            // Decode speculative insertion confirmations
+            if (SnapBuildProcessChange(builder, xid, buf->origptr) && !ctx->fast_forward)
+                DecodeSpecConfirm(ctx, buf);
+            break;
+
+        case XLOG_HEAP_LOCK:
+            // Row-level locks ignored for logical decoding
+            break;
+
+        default:
+            elog(ERROR, "unexpected RM_HEAP_ID record type: %u", info);
+    }
+}
+```

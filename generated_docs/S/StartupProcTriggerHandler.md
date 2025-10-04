@@ -30,3 +30,17 @@ The function operates asynchronously - it simply sets a flag and wakes up the re
 - Part of PostgreSQL's promotion mechanism for converting standby servers to primary
 - Must be signal-safe and minimal in its operations to avoid race conditions
 - The actual promotion work is handled asynchronously by the main recovery process after being awakened
+
+## Simplified Source
+
+```c
+static void
+StartupProcTriggerHandler(SIGNAL_ARGS)
+{
+    // Set flag to trigger promotion from standby to primary
+    promote_signaled = true;
+
+    // Wake up recovery process to handle promotion
+    WakeupRecovery();
+}
+```

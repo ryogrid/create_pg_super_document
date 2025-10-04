@@ -27,3 +27,14 @@ dshash_memhash serves as a wrapper function around PostgreSQL's tag_hash functio
 
 ## Notes and Other Information
 This function is part of the dshash utility functions that provide standardized interfaces for common operations like comparison and hashing. The unused `arg` parameter maintains compatibility with the expected function signature for dshash hash functions, allowing for potential future extensions or use cases where additional context might be needed. The function returns a dshash_hash type value, which is used as the hash key for dynamic shared hash table operations. The tag_hash function it calls is PostgreSQL's standard hashing function optimized for performance and hash distribution quality.
+
+## Simplified Source
+
+```c
+dshash_hash
+dshash_memhash(const void *v, size_t size, void *arg)
+{
+    // Forward to PostgreSQL's standard tag_hash function
+    return tag_hash(v, size);
+}
+```

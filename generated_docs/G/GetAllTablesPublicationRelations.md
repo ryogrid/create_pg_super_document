@@ -49,3 +49,57 @@ The function performs two separate scans when `pubviaroot` is true: first for re
 - Properly manages AccessShareLock for safe concurrent catalog access
 - The pubviaroot parameter corresponds to the publish_via_partition_root publication option
 - Essential for determining the complete set of tables affected by FOR ALL TABLES publications
+
+## Simplified Source
+
+```c
+List *GetAllTablesPublicationRelations(bool pubviaroot) {
+    Relation classRel;
+    ScanKeyData key[1];
+    TableScanDesc scan;
+    HeapTuple tuple;
+    List *result = NIL;
+
+    classRel = table_open(RelationRelationId, AccessShareLock);
+
+    // First scan: regular tables
+    ScanKeyInit(&key[0], Anum_pg_class_relkind, BTEqualStrategyNumber,
+                F_CHAREQ, CharGetDatum(RELKIND_RELATION));
+
+    scan = table_beginscan_catalog(classRel, 1, key);
+
+    while ((tuple = heap_getnext(scan, ForwardScanDirection)) != NULL) {
+        Form_pg_class relForm = (Form_pg_class) GETSTRUCT(tuple);
+        Oid relid = relForm->oid;
+
+        // Include publishable tables, exclude partitions if pubviaroot is true
+        if (is_publishable_class(relid, relForm) &&
+            !(relForm->relispartition && pubviaroot))
+            result = lappend_oid(result, relid);
+    }
+
+    table_endscan(scan);
+
+    // Second scan: partitioned tables (only if pubviaroot is true)
+    if (pubviaroot) {
+        ScanKeyInit(&key[0], Anum_pg_class_relkind, BTEqualStrategyNumber,
+                    F_CHAREQ, CharGetDatum(RELKIND_PARTITIONED_TABLE));
+
+        scan = table_beginscan_catalog(classRel, 1, key);
+
+        while ((tuple = heap_getnext(scan, ForwardScanDirection)) != NULL) {
+            Form_pg_class relForm = (Form_pg_class) GETSTRUCT(tuple);
+            Oid relid = relForm->oid;
+
+            // Include publishable partitioned tables that aren't themselves partitions
+            if (is_publishable_class(relid, relForm) && !relForm->relispartition)
+                result = lappend_oid(result, relid);
+        }
+
+        table_endscan(scan);
+    }
+
+    table_close(classRel, AccessShareLock);
+    return result;
+}
+```

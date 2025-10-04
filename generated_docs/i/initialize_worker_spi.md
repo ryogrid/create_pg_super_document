@@ -54,3 +54,69 @@ This function is designed to be idempotent - it can be safely called multiple ti
 - The table structure supports both 'total' and 'delta' record types for incremental counting
 - Error handling includes FATAL level logging for various failure conditions
 - Location: src/test/modules/worker_spi/worker_spi.c:73-137
+
+## Simplified Source
+
+```c
+static void
+initialize_worker_spi(worktable *table)
+{
+    StringInfoData buf;
+
+    // Start transaction and connect to SPI
+    SetCurrentStatementStartTimestamp();
+    StartTransactionCommand();
+    SPI_connect();
+    PushActiveSnapshot(GetTransactionSnapshot());
+    pgstat_report_activity(STATE_RUNNING, "initializing worker_spi schema");
+
+    // Check if schema already exists
+    initStringInfo(&buf);
+    appendStringInfo(&buf, "select count(*) from pg_namespace where nspname = '%s'",
+                     table->schema);
+
+    debug_query_string = buf.data;
+    int ret = SPI_execute(buf.data, true, 0);
+    if (ret != SPI_OK_SELECT)
+        elog(FATAL, "SPI_execute failed: error code %d", ret);
+
+    if (SPI_processed != 1)
+        elog(FATAL, "not a singleton result");
+
+    // Get the count result
+    bool isnull;
+    int ntup = DatumGetInt64(SPI_getbinval(SPI_tuptable->vals[0],
+                                           SPI_tuptable->tupdesc, 1, &isnull));
+    if (isnull)
+        elog(FATAL, "null result");
+
+    // Create schema and table if they don't exist
+    if (ntup == 0) {
+        debug_query_string = NULL;
+        resetStringInfo(&buf);
+        appendStringInfo(&buf,
+                        "CREATE SCHEMA \"%s\" "
+                        "CREATE TABLE \"%s\" ("
+                        "type text CHECK (type IN ('total', 'delta')), "
+                        "value integer)"
+                        "CREATE UNIQUE INDEX \"%s_unique_total\" ON \"%s\" (type) "
+                        "WHERE type = 'total'",
+                        table->schema, table->name, table->name, table->name);
+
+        SetCurrentStatementStartTimestamp();
+        debug_query_string = buf.data;
+        ret = SPI_execute(buf.data, false, 0);
+
+        if (ret != SPI_OK_UTILITY)
+            elog(FATAL, "failed to create my schema");
+        debug_query_string = NULL;
+    }
+
+    // Clean up transaction
+    SPI_finish();
+    PopActiveSnapshot();
+    CommitTransactionCommand();
+    debug_query_string = NULL;
+    pgstat_report_activity(STATE_IDLE, NULL);
+}
+```

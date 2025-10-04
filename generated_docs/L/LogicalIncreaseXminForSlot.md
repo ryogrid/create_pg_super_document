@@ -50,3 +50,48 @@ Key responsibilities include:
 - Prevents endless waiting by only setting new candidates when no previous candidate is pending
 - Includes DEBUG1 logging to help track xmin advancement for debugging purposes
 - The function may trigger immediate confirmation via LogicalConfirmReceivedLocation if conditions are met
+
+## Simplified Source
+
+```c
+void
+LogicalIncreaseXminForSlot(XLogRecPtr current_lsn, TransactionId xmin)
+{
+    bool updated_xmin = false;
+    ReplicationSlot *slot;
+    bool got_new_xmin = false;
+
+    slot = MyReplicationSlot;
+    Assert(slot != NULL);
+
+    SpinLockAcquire(&slot->mutex);
+
+    // Don't allow xmin to go backwards
+    if (TransactionIdPrecedesOrEquals(xmin, slot->data.catalog_xmin)) {
+        // Keep existing xmin - no change needed
+    }
+    // If client already confirmed this LSN, apply xmin immediately
+    else if (current_lsn <= slot->data.confirmed_flush) {
+        slot->candidate_catalog_xmin = xmin;
+        slot->candidate_xmin_lsn = current_lsn;
+        updated_xmin = true;
+    }
+    // Set new candidate xmin if no pending candidate exists
+    else if (slot->candidate_xmin_lsn == InvalidXLogRecPtr) {
+        slot->candidate_catalog_xmin = xmin;
+        slot->candidate_xmin_lsn = current_lsn;
+        got_new_xmin = true;
+    }
+
+    SpinLockRelease(&slot->mutex);
+
+    // Log the new candidate xmin
+    if (got_new_xmin)
+        elog(DEBUG1, "got new catalog xmin %u at %X/%X", xmin,
+             LSN_FORMAT_ARGS(current_lsn));
+
+    // Apply candidate immediately if already confirmed
+    if (updated_xmin)
+        LogicalConfirmReceivedLocation(slot->data.confirmed_flush);
+}
+```

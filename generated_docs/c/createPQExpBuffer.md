@@ -43,3 +43,20 @@ This is one of two standard ways to create a PQExpBuffer (the other being  for p
 - The caller should check the return value for NULL before using the buffer
 - This function is part of the public libpq API for client applications
 - Prefer this function when you need a completely dynamic PQExpBuffer; use  when the PQExpBufferData structure is already allocated (e.g., as a struct member)
+
+## Simplified Source
+
+```c
+PQExpBuffer
+createPQExpBuffer(void)
+{
+    // Allocate memory for the buffer structure
+    PQExpBuffer buffer = malloc(sizeof(PQExpBufferData));
+
+    // Initialize the buffer if allocation succeeded
+    if (buffer != NULL)
+        initPQExpBuffer(buffer);
+
+    return buffer;  // Returns NULL if malloc failed
+}
+```

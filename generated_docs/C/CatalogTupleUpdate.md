@@ -51,3 +51,29 @@ The function performs constraint validation before the update and ensures all ca
 - All catalog indexes are updated using the TU_All flag to ensure consistency
 - Widely used throughout PostgreSQL DDL operations for modifying system catalog metadata
 - The function automatically handles the index state lifecycle, making it easy to use but potentially inefficient for bulk operations
+
+## Simplified Source
+
+```c
+void
+CatalogTupleUpdate(Relation heapRel, ItemPointer otid, HeapTuple tup)
+{
+    CatalogIndexState indstate;
+    TU_UpdateIndexes updateIndexes = TU_All;
+
+    // Check constraints on the new tuple
+    CatalogTupleCheckConstraints(heapRel, tup);
+
+    // Open all indexes for this catalog
+    indstate = CatalogOpenIndexes(heapRel);
+
+    // Update the heap tuple
+    simple_heap_update(heapRel, otid, tup, &updateIndexes);
+
+    // Update all associated indexes
+    CatalogIndexInsert(indstate, tup, updateIndexes);
+
+    // Clean up index state
+    CatalogCloseIndexes(indstate);
+}
+```

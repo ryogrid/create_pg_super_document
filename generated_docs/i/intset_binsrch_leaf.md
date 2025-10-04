@@ -68,3 +68,40 @@ This enables efficient navigation through B-tree leaf nodes to find the appropri
 - Essential for efficient navigation through compressed integer sequences in B-tree leaf nodes
 - Time complexity is O(log n) where n is the number of leaf items in the array
 - The returned position can be used to identify which compressed sequence might contain the target value
+
+## Simplified Source
+
+```c
+static int
+intset_binsrch_leaf(uint64 item, leaf_item *arr, int arr_elems, bool nextkey)
+{
+    int low, high, mid;
+
+    low = 0;
+    high = arr_elems;
+
+    while (high > low)
+    {
+        mid = low + (high - low) / 2;  // Overflow-safe midpoint
+
+        if (nextkey)
+        {
+            // Find position after equal key (or insertion point)
+            if (item >= arr[mid].first)
+                low = mid + 1;
+            else
+                high = mid;
+        }
+        else
+        {
+            // Find position of equal key (or insertion point)
+            if (item > arr[mid].first)
+                low = mid + 1;
+            else
+                high = mid;
+        }
+    }
+
+    return low;
+}
+```

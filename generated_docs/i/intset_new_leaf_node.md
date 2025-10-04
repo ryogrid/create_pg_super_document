@@ -32,3 +32,23 @@ The `intset_new_leaf_node` function creates a new leaf node for the IntegerSet's
 - The next pointer is initialized to NULL and will be used to maintain a linked list of leaf nodes
 - Memory usage tracking is automatically updated when the node is allocated
 - The node starts with zero items, ready for population with compressed integer data
+
+## Simplified Source
+
+```c
+static intset_leaf_node *intset_new_leaf_node(IntegerSet *intset) {
+    intset_leaf_node *n;
+
+    // Allocate in IntegerSet's memory context
+    n = (intset_leaf_node *) MemoryContextAlloc(intset->context,
+                                               sizeof(intset_leaf_node));
+    intset->mem_used += GetMemoryChunkSpace(n);
+
+    // Initialize leaf node at bottom level
+    n->level = 0;
+    n->num_items = 0;
+    n->next = NULL;      // for linked list of leaf nodes
+
+    return n;
+}
+```

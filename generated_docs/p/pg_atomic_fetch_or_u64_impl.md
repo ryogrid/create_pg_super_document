@@ -33,3 +33,12 @@ The function is marked as  for performance, allowing the compiler to inline the 
 - The  qualifier ensures that the compiler doesn't optimize away memory accesses
 - This implementation is used when more modern atomic intrinsics are not available
 - The function is thread-safe and provides memory ordering guarantees as defined by the underlying GCC builtin
+
+## Simplified Source
+
+```c
+static inline uint64 pg_atomic_fetch_or_u64_impl(volatile pg_atomic_uint64 *ptr, uint64 or_) {
+    // Atomic fetch-and-OR: return old value, update with bitwise OR
+    return __sync_fetch_and_or(&ptr->value, or_);
+}
+```

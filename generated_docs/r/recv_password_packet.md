@@ -55,3 +55,53 @@ One important security feature is that the actual password content is never logg
 - No character set conversion is performed since client encoding is not yet established
 - The returned password string must be freed by the caller using pfree()
 - Part of PostgreSQL's broader password authentication infrastructure supporting multiple external authentication systems
+
+## Simplified Source
+
+```c
+static char *
+recv_password_packet(Port *port)
+{
+    StringInfoData buf;
+    int mtype;
+
+    pq_startmsgread();
+
+    // Expect password message type 'p'
+    mtype = pq_getbyte();
+    if (mtype != PqMsg_PasswordMessage) {
+        // Handle client disconnection gracefully without logging
+        if (mtype != EOF) {
+            ereport(ERROR,
+                    (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                     errmsg("expected password response, got message type %d", mtype)));
+        }
+        return NULL;
+    }
+
+    // Read the password message
+    initStringInfo(&buf);
+    if (pq_getmessage(&buf, PG_MAX_AUTH_TOKEN_LENGTH)) {
+        pfree(buf.data);
+        return NULL;
+    }
+
+    // Validate message structure: length should match string length
+    if (strlen(buf.data) + 1 != buf.len) {
+        ereport(ERROR,
+                (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                 errmsg("invalid password packet size")));
+    }
+
+    // Reject empty passwords
+    if (buf.len == 1) {
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_PASSWORD),
+                 errmsg("empty password returned by client")));
+    }
+
+    elog(DEBUG5, "received password packet");
+
+    return buf.data;
+}
+```

@@ -41,3 +41,57 @@ This function is specifically designed for binary upgrade scenarios to restore m
 - Ensures missing value information is not lost during major version upgrades
 - Uses the attribute's type input function to properly parse the string representation
 - Maintains data integrity by validating attribute existence before proceeding
+
+## Simplified Source
+
+```c
+void SetAttrMissing(Oid relid, char *attname, char *value) {
+    Datum valuesAtt[Natts_pg_attribute] = {0};
+    bool nullsAtt[Natts_pg_attribute] = {0};
+    bool replacesAtt[Natts_pg_attribute] = {0};
+    Datum missingval;
+    Form_pg_attribute attStruct;
+    Relation attrrel, tablerel;
+    HeapTuple atttup, newtup;
+
+    // Lock the target table with exclusive access
+    tablerel = table_open(relid, AccessExclusiveLock);
+
+    // Only operate on plain tables, skip other relation types
+    if (tablerel->rd_rel->relkind != RELKIND_RELATION) {
+        table_close(tablerel, AccessExclusiveLock);
+        return;
+    }
+
+    // Open pg_attribute catalog and find the attribute by name
+    attrrel = table_open(AttributeRelationId, RowExclusiveLock);
+    atttup = SearchSysCacheAttName(relid, attname);
+    if (!HeapTupleIsValid(atttup)) {
+        elog(ERROR, "cache lookup failed for attribute %s of relation %u",
+             attname, relid);
+    }
+    attStruct = (Form_pg_attribute) GETSTRUCT(atttup);
+
+    // Parse the string value into proper array format
+    missingval = OidFunctionCall3(F_ARRAY_IN,
+                                  CStringGetDatum(value),
+                                  ObjectIdGetDatum(attStruct->atttypid),
+                                  Int32GetDatum(attStruct->atttypmod));
+
+    // Update the attribute: set atthasmissing=true and store the missing value
+    valuesAtt[Anum_pg_attribute_atthasmissing - 1] = BoolGetDatum(true);
+    replacesAtt[Anum_pg_attribute_atthasmissing - 1] = true;
+    valuesAtt[Anum_pg_attribute_attmissingval - 1] = missingval;
+    replacesAtt[Anum_pg_attribute_attmissingval - 1] = true;
+
+    // Create and store the updated tuple
+    newtup = heap_modify_tuple(atttup, RelationGetDescr(attrrel),
+                               valuesAtt, nullsAtt, replacesAtt);
+    CatalogTupleUpdate(attrrel, &newtup->t_self, newtup);
+
+    // Clean up
+    ReleaseSysCache(atttup);
+    table_close(attrrel, RowExclusiveLock);
+    table_close(tablerel, AccessExclusiveLock);
+}
+```

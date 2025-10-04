@@ -35,3 +35,27 @@ The function performs a comprehensive field-by-field comparison of two  structur
 - Part of the custom equality checking for nodes that have the  attribute
 - The comparison includes type information (consttype, consttypmod, constcollid), storage characteristics (constlen, constbyval), and the actual value
 - For non-NULL constants, delegates to  for the actual value comparison, taking into account whether the type is passed by value or reference
+
+## Simplified Source
+
+```c
+static bool _equalConst(const Const *a, const Const *b) {
+    // Compare all type and storage characteristics
+    COMPARE_SCALAR_FIELD(consttype);
+    COMPARE_SCALAR_FIELD(consttypmod);
+    COMPARE_SCALAR_FIELD(constcollid);
+    COMPARE_SCALAR_FIELD(constlen);
+    COMPARE_SCALAR_FIELD(constisnull);
+    COMPARE_SCALAR_FIELD(constbyval);
+    COMPARE_LOCATION_FIELD(location);
+
+    // All NULL constants of same type are considered equal
+    if (a->constisnull) {
+        return true;
+    }
+
+    // Compare actual values using datum comparison
+    return datumIsEqual(a->constvalue, b->constvalue,
+                       a->constbyval, a->constlen);
+}
+```

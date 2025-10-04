@@ -35,3 +35,32 @@ This function marks a transaction as having made catalog changes, which is cruci
 - Maintains a doubly-linked list of transactions with catalog changes for efficient processing
 - When subtransactions have catalog changes, the top-level transaction is also marked to optimize ReorderBufferBuildTupleCidHash operations
 - The catalog changes flag affects how transactions are processed during logical decoding and replication
+
+## Simplified Source
+
+```c
+void
+ReorderBufferXidSetCatalogChanges(ReorderBuffer *rb, TransactionId xid,
+                                 XLogRecPtr lsn)
+{
+    ReorderBufferTXN *txn;
+
+    txn = ReorderBufferTXNByXid(rb, xid, true, NULL, lsn, true);
+
+    // Mark transaction as having catalog changes if not already marked
+    if (!rbtxn_has_catalog_changes(txn)) {
+        txn->txn_flags |= RBTXN_HAS_CATALOG_CHANGES;
+        dclist_push_tail(&rb->catchange_txns, &txn->catchange_node);
+    }
+
+    // If this is a subtransaction, also mark the top-level transaction
+    if (rbtxn_is_subtxn(txn)) {
+        ReorderBufferTXN *toptxn = rbtxn_get_toptxn(txn);
+
+        if (!rbtxn_has_catalog_changes(toptxn)) {
+            toptxn->txn_flags |= RBTXN_HAS_CATALOG_CHANGES;
+            dclist_push_tail(&rb->catchange_txns, &toptxn->catchange_node);
+        }
+    }
+}
+```

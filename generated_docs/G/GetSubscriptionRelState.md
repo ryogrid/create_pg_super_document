@@ -40,3 +40,39 @@ The function handles cases where the subscription-relation mapping doesn't exist
 - Uses system cache for efficient lookup of subscription relation mappings
 - Critical for logical replication state management and synchronization processes
 - Located in src/backend/catalog/pg_subscription.c:366-415
+
+## Simplified Source
+
+```c
+char GetSubscriptionRelState(Oid subid, Oid relid, XLogRecPtr *sublsn) {
+    // Open subscription_rel catalog with shared lock for race protection
+    Relation rel = table_open(SubscriptionRelRelationId, AccessShareLock);
+
+    // Search for the subscription-relation mapping
+    HeapTuple tup = SearchSysCache2(SUBSCRIPTIONRELMAP,
+                                  ObjectIdGetDatum(relid),
+                                  ObjectIdGetDatum(subid));
+
+    if (!HeapTupleIsValid(tup)) {
+        // No mapping found - return unknown state
+        table_close(rel, AccessShareLock);
+        *sublsn = InvalidXLogRecPtr;
+        return SUBREL_STATE_UNKNOWN;
+    }
+
+    // Extract state from the tuple
+    char substate = ((Form_pg_subscription_rel) GETSTRUCT(tup))->srsubstate;
+
+    // Extract LSN, handle null values
+    bool isnull;
+    Datum d = SysCacheGetAttr(SUBSCRIPTIONRELMAP, tup,
+                             Anum_pg_subscription_rel_srsublsn, &isnull);
+    *sublsn = isnull ? InvalidXLogRecPtr : DatumGetLSN(d);
+
+    // Cleanup
+    ReleaseSysCache(tup);
+    table_close(rel, AccessShareLock);
+
+    return substate;
+}
+```

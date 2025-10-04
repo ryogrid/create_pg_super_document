@@ -40,3 +40,40 @@ The compression is streaming, meaning input data may be compressed across multip
 - Part of the sink operation callbacks, called through function pointer indirection
 - Error handling includes descriptive LZ4 error messages
 - Compressed data output location is calculated as offset from next sink's buffer start
+
+## Simplified Source
+
+```c
+static void
+bbsink_lz4_archive_contents(bbsink *sink, size_t avail_in)
+{
+    bbsink_lz4 *mysink = (bbsink_lz4 *) sink;
+    size_t compressedSize;
+    size_t avail_in_bound;
+
+    // Calculate required output buffer space for compression
+    avail_in_bound = LZ4F_compressBound(avail_in, &mysink->prefs);
+
+    // If output buffer doesn't have enough space, flush it
+    if ((mysink->base.bbs_next->bbs_buffer_length - mysink->bytes_written) <
+        avail_in_bound) {
+        bbsink_archive_contents(sink->bbs_next, mysink->bytes_written);
+        mysink->bytes_written = 0;
+    }
+
+    // Compress input data to output buffer
+    compressedSize = LZ4F_compressUpdate(mysink->ctx,
+                                        mysink->base.bbs_next->bbs_buffer + mysink->bytes_written,
+                                        mysink->base.bbs_next->bbs_buffer_length - mysink->bytes_written,
+                                        (uint8 *) mysink->base.bbs_buffer,
+                                        avail_in,
+                                        NULL);
+
+    if (LZ4F_isError(compressedSize))
+        elog(ERROR, "could not compress data: %s",
+             LZ4F_getErrorName(compressedSize));
+
+    // Update bytes written counter
+    mysink->bytes_written += compressedSize;
+}
+```

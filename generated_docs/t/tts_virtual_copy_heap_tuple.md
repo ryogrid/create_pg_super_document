@@ -39,3 +39,18 @@ This conversion is typically needed when data from a virtual slot needs to be wr
 - The returned HeapTuple is allocated in the current memory context and must be freed by the caller
 - The conversion process may involve data copying and reformatting depending on the attribute types
 - Virtual slots are optimized for in-memory operations while HeapTuples are optimized for storage
+
+## Simplified Source
+
+```c
+static HeapTuple tts_virtual_copy_heap_tuple(TupleTableSlot *slot)
+{
+    // Ensure slot contains valid data
+    Assert(!TTS_EMPTY(slot));
+
+    // Convert virtual slot to heap tuple format
+    return heap_form_tuple(slot->tts_tupleDescriptor,
+                          slot->tts_values,
+                          slot->tts_isnull);
+}
+```

@@ -54,3 +54,27 @@ The function includes strict state validation, ensuring it's only called when th
 - Primarily used by procedural languages for managing internal subtransactions
 - Unlike user-level savepoint operations, this function always commits the innermost subtransaction regardless of naming
 - Designed to work safely during parallel operations for internal subtransactions that don't assign new XIDs or command IDs
+
+## Simplified Source
+
+```c
+void ReleaseCurrentSubTransaction(void)
+{
+    TransactionState s = CurrentTransactionState;
+
+    // Verify we're in a subtransaction that can be committed
+    if (s->blockState != TBLOCK_SUBINPROGRESS)
+        elog(ERROR, "ReleaseCurrentSubTransaction: unexpected state %s",
+             BlockStateAsString(s->blockState));
+
+    Assert(s->state == TRANS_INPROGRESS);
+
+    // Switch to parent transaction context and commit subtransaction
+    MemoryContextSwitchTo(CurTransactionContext);
+    CommitSubTransaction();
+
+    // Verify parent transaction state after commit
+    s = CurrentTransactionState;  // Updated by transaction pop
+    Assert(s->state == TRANS_INPROGRESS);
+}
+```

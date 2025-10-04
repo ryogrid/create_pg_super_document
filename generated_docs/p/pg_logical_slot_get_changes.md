@@ -33,9 +33,19 @@ This function is typically used when applications want to consume logical replic
 - This is a public SQL function accessible through PostgreSQL SQL interface
 - Returns a set of rows with columns: (lsn pg_lsn, xid xid, data text)
 - The function confirms processed changes (confirm=true parameter to guts function)
-- Uses textual output format (binary=false parameter to guts function)  
+- Uses textual output format (binary=false parameter to guts function)
 - Advances the replication slot confirmed_flush_lsn position after processing
 - Changes returned by this function are consumed and will not be returned by subsequent calls
 - Requires appropriate permissions to access logical replication slots
 - Part of PostgreSQL logical replication SQL API alongside pg_logical_slot_peek_changes
 - Located in src/backend/replication/logical/logicalfuncs.c:331-339
+
+## Simplified Source
+
+```c
+Datum pg_logical_slot_get_changes(PG_FUNCTION_ARGS)
+{
+    // Call core implementation with confirm=true (advance slot) and binary=false (text output)
+    return pg_logical_slot_get_changes_guts(fcinfo, true, false);
+}
+```

@@ -48,3 +48,27 @@ The function implements a lazy evaluation pattern where the expensive operations
 - Uses llvm_enter_fatal_on_oom/llvm_leave_fatal_on_oom to handle potential out-of-memory conditions during LLVM operations
 - The Assert(func) ensures that function compilation succeeded before attempting to execute it
 - This pattern ensures that the overhead of function resolution and validation only occurs once per compiled expression
+
+## Simplified Source
+
+```c
+static Datum ExecRunCompiledExpr(ExprState *state, ExprContext *econtext, bool *isNull) {
+    CompiledExprState *cstate = state->evalfunc_private;
+    ExprStateEvalFunc func;
+
+    // Validate expression is still compatible
+    CheckExprStillValid(state, econtext);
+
+    // Get compiled function pointer (may trigger optimization)
+    llvm_enter_fatal_on_oom();
+    func = (ExprStateEvalFunc) llvm_get_function(cstate->context, cstate->funcname);
+    llvm_leave_fatal_on_oom();
+    Assert(func);
+
+    // Remove this wrapper for future calls - direct call optimization
+    state->evalfunc = func;
+
+    // Execute the compiled function
+    return func(state, econtext, isNull);
+}
+```

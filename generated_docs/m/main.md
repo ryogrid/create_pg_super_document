@@ -50,3 +50,80 @@ The function ensures that PostgreSQL is not running as root (with exceptions for
 - Platform-specific behavior includes Windows crash dump handler installation
 - Locale handling is carefully orchestrated to support both postmaster and backend processes
 - Root privilege checking can be bypassed for safe read-only operations like --describe-config and -C
+
+## Simplified Source
+```c
+int main(int argc, char *argv[]) {
+    bool do_check_root = true;
+
+    // Mark that main has been reached for crash reporting
+    reached_main = true;
+
+    // Install crash handler on Windows
+#if defined(WIN32)
+    pgwin32_install_crashdump_handler();
+#endif
+
+    // Get program name and perform platform-specific startup
+    progname = get_progname(argv[0]);
+    startup_hacks(progname);
+
+    // Preserve argv for process display and initialize core subsystems
+    argv = save_ps_display_args(argc, argv);
+    MyProcPid = getpid();
+    MemoryContextInit();
+
+    // Set up locale information for internationalization
+    set_pglocale_pgservice(argv[0], PG_TEXTDOMAIN("postgres"));
+    init_locale("LC_COLLATE", LC_COLLATE, "");
+    init_locale("LC_CTYPE", LC_CTYPE, "");
+    init_locale("LC_MESSAGES", LC_MESSAGES, "");
+
+    // Keep these locales fixed to "C" for consistency
+    init_locale("LC_MONETARY", LC_MONETARY, "C");
+    init_locale("LC_NUMERIC", LC_NUMERIC, "C");
+    init_locale("LC_TIME", LC_TIME, "C");
+    unsetenv("LC_ALL");
+
+    // Handle standard command-line options
+    if (argc > 1) {
+        if (strcmp(argv[1], "--help") == 0 || strcmp(argv[1], "-?") == 0) {
+            help(progname);
+            exit(0);
+        }
+        if (strcmp(argv[1], "--version") == 0 || strcmp(argv[1], "-V") == 0) {
+            fputs(PG_BACKEND_VERSIONSTR, stdout);
+            exit(0);
+        }
+
+        // Allow certain read-only operations to bypass root check
+        if (strcmp(argv[1], "--describe-config") == 0)
+            do_check_root = false;
+        else if (argc > 2 && strcmp(argv[1], "-C") == 0)
+            do_check_root = false;
+    }
+
+    // Ensure not running as root unless safe operation
+    if (do_check_root)
+        check_root(progname);
+
+    // Dispatch to appropriate subprogram based on arguments
+    if (argc > 1 && strcmp(argv[1], "--check") == 0)
+        BootstrapModeMain(argc, argv, true);
+    else if (argc > 1 && strcmp(argv[1], "--boot") == 0)
+        BootstrapModeMain(argc, argv, false);
+#ifdef EXEC_BACKEND
+    else if (argc > 1 && strncmp(argv[1], "--forkchild", 11) == 0)
+        SubPostmasterMain(argc, argv);
+#endif
+    else if (argc > 1 && strcmp(argv[1], "--describe-config") == 0)
+        GucInfoMain();
+    else if (argc > 1 && strcmp(argv[1], "--single") == 0)
+        PostgresSingleUserMain(argc, argv, strdup(get_user_name_or_exit(progname)));
+    else
+        PostmasterMain(argc, argv);
+
+    // Should never reach here - subprograms don't return
+    abort();
+}
+```

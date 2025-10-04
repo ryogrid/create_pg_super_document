@@ -42,3 +42,39 @@ The function modifies the padlen parameter to track how much padding has been co
 - Modifies the padlen parameter in-place to communicate remaining padding to caller
 - Part of PostgreSQL's portable snprintf implementation that provides consistent formatting across platforms
 - The function's logic ensures proper formatting for both positive and negative numbers with various padding requirements
+
+## Simplified Source
+
+```c
+static void leading_pad(int zpad, int signvalue, int *padlen, PrintfTarget *target) {
+    // Handle zero-padding: sign first, then zeros
+    if (*padlen > 0 && zpad) {
+        if (signvalue) {
+            dopr_outch(signvalue, target);    // Output sign character
+            --(*padlen);
+            signvalue = 0;                    // Sign has been output
+        }
+        if (*padlen > 0) {
+            dopr_outchmulti(zpad, *padlen, target);  // Output zero padding
+            *padlen = 0;
+        }
+    }
+
+    // Handle space-padding: spaces first, reserve room for sign
+    int maxpad = (signvalue != 0);           // Reserve 1 space for sign if needed
+    if (*padlen > maxpad) {
+        dopr_outchmulti(' ', *padlen - maxpad, target);  // Output spaces
+        *padlen = maxpad;                    // Keep remaining space for sign
+    }
+
+    // Output sign character if not already done
+    if (signvalue) {
+        dopr_outch(signvalue, target);
+        // Adjust padding length based on whether we had reserved space
+        if (*padlen > 0)
+            --(*padlen);                     // Normal case: consume reserved space
+        else if (*padlen < 0)
+            ++(*padlen);                     // Left-justified case
+    }
+}
+```

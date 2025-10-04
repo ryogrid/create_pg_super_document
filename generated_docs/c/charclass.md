@@ -52,3 +52,20 @@ This function is used both for atom-level character classes (like \w) and for el
 - Case-insensitive matching is supported through the REG_ICASE flag
 - The function may cause color splitting for NFA optimization
 - Character vectors (cvec) are cached for performance
+
+## Simplified Source
+
+```c
+static void charclass(struct vars *v, enum char_classes cls, struct state *lp, struct state *rp) {
+    struct cvec *cv;
+
+    // Get cached character vector for the specified character class
+    // Handle case-insensitive flag if present
+    NOTE(REG_ULOCALE);
+    cv = cclasscvec(v, cls, (v->cflags & REG_ICASE));
+    NOERR();
+
+    // Build NFA arcs from the character vector
+    subcolorcvec(v, cv, lp, rp);
+}
+```

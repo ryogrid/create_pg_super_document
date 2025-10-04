@@ -44,3 +44,28 @@ The priority validation ensures that the resource management system releases res
 - Debug logging is performed at DEBUG1 level to aid in testing and debugging
 - The function assumes proper resource management discipline - resources must be released in priority order
 - Memory management follows PostgreSQL conventions using pfree() for cleanup
+
+## Simplified Source
+
+```c
+// Simplified version of ReleaseManyTestResource
+static void
+ReleaseManyTestResource(Datum res)
+{
+    ManyTestResource *mres = (ManyTestResource *) DatumGetPointer(res);
+
+    // Log resource release for debugging
+    elog(DEBUG1, "releasing resource %p from %s", mres, mres->kind->desc.name);
+
+    // Validate proper release priority ordering
+    Assert(last_release_priority <= mres->kind->desc.release_priority);
+
+    // Remove from tracking list and update statistics
+    dlist_delete(&mres->node);
+    mres->kind->nreleased++;
+    last_release_priority = mres->kind->desc.release_priority;
+
+    // Free the resource memory
+    pfree(mres);
+}
+```

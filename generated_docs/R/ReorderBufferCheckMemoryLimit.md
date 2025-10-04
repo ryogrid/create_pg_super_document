@@ -54,3 +54,42 @@ The function includes extensive validation through assertions to ensure data con
 - Extensive use of assertions for debugging and data consistency verification
 - The  parameter provides testing and debugging capabilities
 - Memory limit is specified in KB, converted to bytes by multiplying by 1024L
+
+## Simplified Source
+
+```c
+static void
+ReorderBufferCheckMemoryLimit(ReorderBuffer *rb)
+{
+    ReorderBufferTXN *txn;
+
+    // Exit early if in buffered mode and memory limit not exceeded
+    if (debug_logical_replication_streaming == DEBUG_LOGICAL_REP_STREAMING_BUFFERED &&
+        rb->size < logical_decoding_work_mem * 1024L)
+        return;
+
+    // Keep evicting transactions until memory limit is met
+    while (rb->size >= logical_decoding_work_mem * 1024L ||
+           (debug_logical_replication_streaming == DEBUG_LOGICAL_REP_STREAMING_IMMEDIATE &&
+            rb->size > 0))
+    {
+        // Try streaming if available, otherwise serialize to disk
+        if (ReorderBufferCanStartStreaming(rb) &&
+            (txn = ReorderBufferLargestStreamableTopTXN(rb)) != NULL)
+        {
+            // Stream the largest streamable transaction
+            ReorderBufferStreamTXN(rb, txn);
+        }
+        else
+        {
+            // Serialize the largest transaction to disk
+            txn = ReorderBufferLargestTXN(rb);
+            ReorderBufferSerializeTXN(rb, txn);
+        }
+
+        // Verify transaction was properly evicted
+        Assert(txn->size == 0);
+        Assert(txn->nentries_mem == 0);
+    }
+}
+```

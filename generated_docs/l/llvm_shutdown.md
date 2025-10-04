@@ -44,3 +44,46 @@ The function ensures all LLVM resources are properly released to prevent memory 
 - Sets global ORC instance pointers to NULL after disposal to prevent use-after-free
 - Critical for preventing resource leaks in long-running PostgreSQL processes
 - The function signature matches the on_proc_exit callback requirements (int, Datum)
+
+## Simplified Source
+
+```c
+static void
+llvm_shutdown(int code, Datum arg)
+{
+    // Skip cleanup if in fatal-on-oom state to avoid reentrancy
+    if (llvm_in_fatal_on_oom()) {
+        return;
+    }
+
+    // Verify no contexts are still in use
+    if (llvm_jit_context_in_use_count != 0)
+        elog(PANIC, "LLVMJitContext in use count not 0 at exit (is %zu)",
+             llvm_jit_context_in_use_count);
+
+    // Clean up LLVM resources (version-specific)
+    if (LLVM_VERSION_MAJOR > 11) {
+        if (llvm_opt3_orc) {
+            LLVMOrcDisposeLLJIT(llvm_opt3_orc);
+            llvm_opt3_orc = NULL;
+        }
+        if (llvm_opt0_orc) {
+            LLVMOrcDisposeLLJIT(llvm_opt0_orc);
+            llvm_opt0_orc = NULL;
+        }
+        if (llvm_ts_context) {
+            LLVMOrcDisposeThreadSafeContext(llvm_ts_context);
+            llvm_ts_context = NULL;
+        }
+    } else {
+        if (llvm_opt3_orc) {
+            LLVMOrcDisposeInstance(llvm_opt3_orc);
+            llvm_opt3_orc = NULL;
+        }
+        if (llvm_opt0_orc) {
+            LLVMOrcDisposeInstance(llvm_opt0_orc);
+            llvm_opt0_orc = NULL;
+        }
+    }
+}
+```

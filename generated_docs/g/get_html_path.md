@@ -35,3 +35,12 @@ The function enables PostgreSQL utilities and applications to locate HTML docume
 - Used by configuration reporting tools to locate HTML documentation
 - Supports web-based documentation viewing in PostgreSQL administration tools
 - Essential for relocatable installations where documentation paths need dynamic resolution
+
+## Simplified Source
+
+```c
+void get_html_path(const char *my_exec_path, char *ret_path) {
+    // Calculate HTML documentation directory path relative to executable location
+    make_relative_path(ret_path, HTMLDIR, PGBINDIR, my_exec_path);
+}
+```

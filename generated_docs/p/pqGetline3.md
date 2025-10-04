@@ -40,3 +40,45 @@ The function handles the legacy line-oriented COPY protocol semantics, including
 - Provides blocking behavior - will not return until a complete line is available or error occurs
 - Validates connection state before attempting to read data
 - Part of the legacy line-oriented COPY interface, largely superseded by PQgetCopyData
+
+## Simplified Source
+
+```c
+int pqGetline3(PGconn *conn, char *s, int maxlen) {
+    int status;
+
+    // Validate connection state for text COPY OUT
+    if (conn->sock == PGINVALID_SOCKET ||
+        (conn->asyncStatus != PGASYNC_COPY_OUT &&
+         conn->asyncStatus != PGASYNC_COPY_BOTH) ||
+        conn->copy_is_binary) {
+        libpq_append_conn_error(conn, "PQgetline: not doing text COPY OUT");
+        *s = '\0';
+        return EOF;
+    }
+
+    // Keep trying to get a line until we succeed
+    while ((status = PQgetlineAsync(conn, s, maxlen - 1)) == 0) {
+        // Wait for more data from network
+        if (pqWait(true, false, conn) || pqReadData(conn) < 0) {
+            *s = '\0';
+            return EOF;  // Network error
+        }
+    }
+
+    if (status < 0) {
+        // End of copy - generate legacy terminator
+        strcpy(s, "\\\\.");
+        return 0;
+    }
+
+    // Process the line: strip newline and null-terminate
+    if (s[status - 1] == '\n') {
+        s[status - 1] = '\0';
+        return 0;  // Complete line
+    } else {
+        s[status] = '\0';
+        return 1;  // Buffer filled without newline
+    }
+}
+```

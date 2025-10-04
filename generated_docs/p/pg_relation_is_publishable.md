@@ -56,3 +56,25 @@ This design makes it suitable for use in administrative tools and interactive se
 - Function likely registered in pg_proc.dat for SQL accessibility
 - Part of PostgreSQL's administrative/introspection function suite
 - Location: src/backend/catalog/pg_publication.c:163-181
+
+## Simplified Source
+
+```c
+Datum pg_relation_is_publishable(PG_FUNCTION_ARGS) {
+    Oid relid = PG_GETARG_OID(0);
+    HeapTuple tuple;
+    bool result;
+
+    // Look up the relation in system catalog
+    tuple = SearchSysCache1(RELOID, ObjectIdGetDatum(relid));
+    if (!HeapTupleIsValid(tuple))
+        PG_RETURN_NULL();  // Relation doesn't exist - return NULL gracefully
+
+    // Check if relation is publishable
+    result = is_publishable_class(relid, (Form_pg_class) GETSTRUCT(tuple));
+
+    // Clean up cache and return result
+    ReleaseSysCache(tuple);
+    PG_RETURN_BOOL(result);
+}
+```

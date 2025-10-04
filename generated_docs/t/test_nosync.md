@@ -67,3 +67,73 @@ This test validates that pipelines work correctly without explicit synchronizati
 - Important for validating pipeline performance in high-throughput scenarios
 - Located in src/test/modules/libpq_pipeline/libpq_pipeline.c at lines 614-705
 - Demonstrates that explicit sync points are not always required for correct pipeline operation
+
+## Simplified Source
+
+```c
+static void test_nosync(PGconn *conn) {
+    int numqueries = 10;
+    int results = 0;
+    int sock = PQsocket(conn);
+
+    fprintf(stderr, "nosync... ");
+
+    if (sock < 0)
+        pg_fatal("invalid socket");
+
+    if (PQenterPipelineMode(conn) != 1)
+        pg_fatal("could not enter pipeline mode");
+
+    // Send multiple queries without sync points
+    for (int i = 0; i < numqueries; i++) {
+        if (PQsendQueryParams(conn, "SELECT repeat('xyzxz', 12)",
+                              0, NULL, NULL, NULL, NULL, 0) != 1)
+            pg_fatal("error sending select: %s", PQerrorMessage(conn));
+        PQflush(conn);
+
+        // Check for available input data and read if ready
+        fd_set input_mask;
+        struct timeval tv;
+        FD_ZERO(&input_mask);
+        FD_SET(sock, &input_mask);
+        tv.tv_sec = 0;
+        tv.tv_usec = 0;
+        if (select(sock + 1, &input_mask, NULL, NULL, &tv) < 0) {
+            fprintf(stderr, "select() failed: %m\n");
+            exit_nicely(conn);
+        }
+        if (FD_ISSET(sock, &input_mask) && PQconsumeInput(conn) != 1)
+            pg_fatal("failed to read from server: %s", PQerrorMessage(conn));
+    }
+
+    // Tell server to flush its output buffer
+    if (PQsendFlushRequest(conn) != 1)
+        pg_fatal("failed to send flush request");
+    PQflush(conn);
+
+    // Process all results
+    for (;;) {
+        PGresult *res = PQgetResult(conn);
+
+        if (res == NULL)
+            pg_fatal("got unexpected NULL result after %d results", results);
+
+        if (PQresultStatus(res) == PGRES_TUPLES_OK) {
+            // Expect NULL result after each TUPLES_OK
+            PGresult *res2 = PQgetResult(conn);
+            if (res2 != NULL)
+                pg_fatal("expected NULL, got %s", PQresStatus(PQresultStatus(res2)));
+            PQclear(res);
+            results++;
+
+            // Check if we're done
+            if (results == numqueries)
+                break;
+        } else {
+            pg_fatal("got unexpected %s\n", PQresStatus(PQresultStatus(res)));
+        }
+    }
+
+    fprintf(stderr, "ok\n");
+}
+```

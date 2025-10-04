@@ -40,3 +40,40 @@ This function is part of the ECPG compatibility layer for Informix, providing a 
 - Part of PostgreSQL's ECPG test suite, specifically for Informix compatibility testing
 - Error messages are output to both stderr and stdout for comprehensive logging
 - The ignore parameter allows certain expected error conditions to be bypassed during testing
+
+## Simplified Source
+
+```c
+static void sql_check(const char *fn, const char *caller, int ignore) {
+    char errorstring[255];
+
+    // Return early if SQLCODE matches the ignore value
+    if (SQLCODE == ignore)
+        return;
+
+    // Handle SQL errors
+    if (SQLCODE != 0) {
+        // Format and display error message
+        sprintf(errorstring, "**SQL error %ld doing '%s' in function '%s'. [%s]",
+                SQLCODE, caller, fn, sqlca.sqlerrm.sqlerrmc);
+        fprintf(stderr, "%s", errorstring);
+        printf("%s\n", errorstring);
+
+        // Attempt rollback
+        ECPGtrans(__LINE__, NULL, "rollback");
+
+        // Report rollback result
+        if (SQLCODE == 0) {
+            sprintf(errorstring, "Rollback successful.\n");
+        } else {
+            sprintf(errorstring, "Rollback failed with code %ld.\n", SQLCODE);
+        }
+
+        fprintf(stderr, "%s", errorstring);
+        printf("%s\n", errorstring);
+
+        // Exit on error
+        exit(1);
+    }
+}
+```

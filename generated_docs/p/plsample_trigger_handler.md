@@ -64,3 +64,106 @@ The function serves as an educational template demonstrating proper trigger hand
 - Supports all trigger timings: BEFORE, AFTER, and INSTEAD OF
 - Works with both row-level and statement-level triggers
 - Properly integrates with PostgreSQL's trigger infrastructure including SPI registration for trigger data access
+
+## Simplified Source
+
+```c
+static HeapTuple plsample_trigger_handler(PG_FUNCTION_ARGS) {
+    TriggerData *trigdata = (TriggerData *) fcinfo->context;
+    char *string;
+    volatile HeapTuple rettup;
+    HeapTuple pl_tuple;
+    Datum ret;
+    char *source;
+    bool isnull;
+    Form_pg_proc pl_struct;
+    char *proname;
+    int rc PG_USED_FOR_ASSERTS_ONLY;
+
+    // Validate trigger context and connect to SPI
+    if (!CALLED_AS_TRIGGER(fcinfo))
+        elog(ERROR, "not called by trigger manager");
+
+    if (SPI_connect() != SPI_OK_CONNECT)
+        elog(ERROR, "could not connect to SPI manager");
+
+    rc = SPI_register_trigger_data(trigdata);
+    Assert(rc >= 0);
+
+    // Fetch function's pg_proc entry and extract source
+    pl_tuple = SearchSysCache1(PROCOID, ObjectIdGetDatum(fcinfo->flinfo->fn_oid));
+    if (!HeapTupleIsValid(pl_tuple))
+        elog(ERROR, "cache lookup failed for function %u", fcinfo->flinfo->fn_oid);
+
+    pl_struct = (Form_pg_proc) GETSTRUCT(pl_tuple);
+    proname = pstrdup(NameStr(pl_struct->proname));
+    ret = SysCacheGetAttr(PROCOID, pl_tuple, Anum_pg_proc_prosrc, &isnull);
+    if (isnull)
+        elog(ERROR, "could not find source text of function \"%s\"", proname);
+    source = DatumGetCString(DirectFunctionCall1(textout, ret));
+    ereport(NOTICE, (errmsg("source text of function \"%s\": %s", proname, source)));
+
+    ReleaseSysCache(pl_tuple);
+
+    // Process trigger information within exception handling
+    PG_TRY();
+    {
+        ereport(NOTICE, (errmsg("trigger name: %s", trigdata->tg_trigger->tgname)));
+        string = SPI_getrelname(trigdata->tg_relation);
+        ereport(NOTICE, (errmsg("trigger relation: %s", string)));
+
+        string = SPI_getnspname(trigdata->tg_relation);
+        ereport(NOTICE, (errmsg("trigger relation schema: %s", string)));
+
+        // Analyze trigger event type
+        if (TRIGGER_FIRED_BY_INSERT(trigdata->tg_event)) {
+            ereport(NOTICE, (errmsg("triggered by INSERT")));
+            rettup = trigdata->tg_trigtuple;
+        } else if (TRIGGER_FIRED_BY_DELETE(trigdata->tg_event)) {
+            ereport(NOTICE, (errmsg("triggered by DELETE")));
+            rettup = trigdata->tg_trigtuple;
+        } else if (TRIGGER_FIRED_BY_UPDATE(trigdata->tg_event)) {
+            ereport(NOTICE, (errmsg("triggered by UPDATE")));
+            rettup = trigdata->tg_trigtuple;
+        } else if (TRIGGER_FIRED_BY_TRUNCATE(trigdata->tg_event)) {
+            ereport(NOTICE, (errmsg("triggered by TRUNCATE")));
+            rettup = trigdata->tg_trigtuple;
+        } else
+            elog(ERROR, "unrecognized event: %u", trigdata->tg_event);
+
+        // Analyze trigger timing
+        if (TRIGGER_FIRED_BEFORE(trigdata->tg_event))
+            ereport(NOTICE, (errmsg("triggered BEFORE")));
+        else if (TRIGGER_FIRED_AFTER(trigdata->tg_event))
+            ereport(NOTICE, (errmsg("triggered AFTER")));
+        else if (TRIGGER_FIRED_INSTEAD(trigdata->tg_event))
+            ereport(NOTICE, (errmsg("triggered INSTEAD OF")));
+        else
+            elog(ERROR, "unrecognized when: %u", trigdata->tg_event);
+
+        // Analyze trigger level
+        if (TRIGGER_FIRED_FOR_ROW(trigdata->tg_event))
+            ereport(NOTICE, (errmsg("triggered per row")));
+        else if (TRIGGER_FIRED_FOR_STATEMENT(trigdata->tg_event))
+            ereport(NOTICE, (errmsg("triggered per statement")));
+        else
+            elog(ERROR, "unrecognized level: %u", trigdata->tg_event);
+
+        // Display all trigger arguments
+        for (int i = 0; i < trigdata->tg_trigger->tgnargs; i++)
+            ereport(NOTICE, (errmsg("trigger arg[%i]: %s", i,
+                                   trigdata->tg_trigger->tgargs[i])));
+    }
+    PG_CATCH();
+    {
+        // Error cleanup would go here in real implementation
+        PG_RE_THROW();
+    }
+    PG_END_TRY();
+
+    if (SPI_finish() != SPI_OK_FINISH)
+        elog(ERROR, "SPI_finish() failed");
+
+    return rettup;
+}
+```

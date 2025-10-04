@@ -37,3 +37,17 @@ The message format includes a message type byte, the 64-bit LSN where the origin
 - The origin parameter should be a valid null-terminated string
 - Located in src/backend/replication/logical/proto.c:385-400
 - Uses PostgreSQL's binary protocol functions for message serialization
+
+## Simplified Source
+
+```c
+void logicalrep_write_origin(StringInfo out, const char *origin,
+                            XLogRecPtr origin_lsn) {
+    // Write origin message type
+    pq_sendbyte(out, LOGICAL_REP_MSG_ORIGIN);
+
+    // Send origin LSN and name
+    pq_sendint64(out, origin_lsn);
+    pq_sendstring(out, origin);
+}
+```

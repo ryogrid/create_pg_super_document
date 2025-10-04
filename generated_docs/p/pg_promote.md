@@ -52,3 +52,57 @@ If waiting is requested, the function polls the recovery status every 100ms for 
 - Returns false if promotion doesn't complete within the specified timeout
 - Essential function for PostgreSQL high-availability and failover scenarios
 - Defined in src/backend/access/transam/xlogfuncs.c:669-749
+
+## Simplified Source
+
+```c
+Datum
+pg_promote(PG_FUNCTION_ARGS)
+{
+    bool wait = PG_GETARG_BOOL(0);
+    int wait_seconds = PG_GETARG_INT32(1);
+    FILE *promote_file;
+
+    // Must be in recovery mode to promote
+    if (!RecoveryInProgress())
+        ereport(ERROR, "recovery is not in progress");
+
+    // Validate wait timeout
+    if (wait_seconds <= 0)
+        ereport(ERROR, "wait_seconds must be positive");
+
+    // Create promotion signal file
+    promote_file = AllocateFile(PROMOTE_SIGNAL_FILE, "w");
+    if (!promote_file)
+        ereport(ERROR, "could not create promote signal file");
+
+    if (FreeFile(promote_file))
+        ereport(ERROR, "could not write promote signal file");
+
+    // Signal postmaster to start promotion
+    if (kill(PostmasterPid, SIGUSR1) != 0) {
+        unlink(PROMOTE_SIGNAL_FILE);
+        ereport(ERROR, "failed to send signal to postmaster");
+    }
+
+    // Return immediately if not waiting
+    if (!wait)
+        PG_RETURN_BOOL(true);
+
+    // Poll for promotion completion up to wait_seconds
+    for (int i = 0; i < wait_seconds * 10; i++) {
+        if (!RecoveryInProgress())
+            PG_RETURN_BOOL(true);  // Promotion completed
+
+        // Wait 100ms before checking again
+        WaitLatch(MyLatch, WL_LATCH_SET | WL_TIMEOUT, 100,
+                  WAIT_EVENT_PROMOTE);
+        ResetLatch(MyLatch);
+    }
+
+    // Promotion didn't complete in time
+    ereport(WARNING, "promotion did not complete within %d seconds",
+            wait_seconds);
+    PG_RETURN_BOOL(false);
+}
+```

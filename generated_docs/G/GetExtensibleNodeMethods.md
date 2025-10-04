@@ -37,3 +37,13 @@ This function serves as the public API for looking up extensible node methods in
 - Critical for proper functioning of extensible nodes in query plans and other contexts
 - The missing_ok parameter allows callers to handle unregistered node types gracefully
 - Commonly called during node tree traversal and manipulation operations
+
+## Simplified Source
+
+```c
+const ExtensibleNodeMethods *GetExtensibleNodeMethods(const char *extnodename, bool missing_ok) {
+    // Lookup extensible node methods in the global hash table
+    return (const ExtensibleNodeMethods *)
+        GetExtensibleNodeEntry(extensible_node_methods, extnodename, missing_ok);
+}
+```

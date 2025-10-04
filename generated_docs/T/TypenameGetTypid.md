@@ -23,3 +23,15 @@ TypenameGetTypid is a simple wrapper function that provides backward binary comp
 
 ## Notes and Other Information
 This function exists primarily for maintaining binary compatibility with existing code. New code should generally use TypenameGetTypidExtended directly to have more control over error handling behavior. The function is defined in src/backend/catalog/namespace.c:995-1007.
+
+## Simplified Source
+
+```c
+Oid
+TypenameGetTypid(const char *typname)
+{
+    // Wrapper for binary compatibility - looks up type OID by name
+    // with error if not found (true parameter)
+    return TypenameGetTypidExtended(typname, true);
+}
+```

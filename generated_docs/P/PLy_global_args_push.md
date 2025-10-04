@@ -33,3 +33,26 @@ This function manages the argument stack for PLpython procedures to support recu
 - Critical for supporting recursive PLpython function calls without corrupting argument values
 - The function maintains a linked list stack structure using the 'next' field in PLySavedArgs
 - Once proc->argstack or proc->calldepth is modified, the function must complete without error to maintain consistency
+
+## Simplified Source
+
+```c
+static void
+PLy_global_args_push(PLyProcedure *proc)
+{
+    // Only save arguments if we're already inside an active call
+    if (proc->calldepth > 0) {
+        PLySavedArgs *node;
+
+        // Save current argument values
+        node = PLy_function_save_args(proc);
+
+        // Push saved arguments onto the stack
+        node->next = proc->argstack;
+        proc->argstack = node;
+    }
+
+    // Increment call depth counter
+    proc->calldepth++;
+}
+```

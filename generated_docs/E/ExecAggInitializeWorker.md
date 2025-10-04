@@ -35,3 +35,12 @@ The function uses the shared memory table of contents (TOC) to locate the approp
 - The plan_node_id is used as the key to locate the correct shared information in the TOC
 - This initialization is essential for workers to participate in parallel aggregate operations
 - The function assumes that the DSM segment and TOC have been properly set up by the leader process
+
+## Simplified Source
+
+```c
+void ExecAggInitializeWorker(AggState *node, ParallelWorkerContext *pwcxt) {
+    // Attach worker to shared aggregate statistics in DSM
+    node->shared_info = shm_toc_lookup(pwcxt->toc, node->ss.ps.plan->plan_node_id, true);
+}
+```

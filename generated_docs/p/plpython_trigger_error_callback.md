@@ -27,3 +27,17 @@ This function serves as an error context callback specifically for PL/Python tri
 
 ## Notes and Other Information
 This function is designed to be used as a callback in PostgreSQL's error context stack system. It is set up as the callback function in an ErrorContextCallback structure before potentially error-prone operations and is automatically invoked by PostgreSQL's error reporting system when an error occurs. The function follows the standard error callback pattern of checking for an active execution context before adding contextual information. The contextual message helps distinguish trigger row modification errors from other types of PL/Python errors, improving debugging and error diagnosis.
+
+## Simplified Source
+
+```c
+static void
+plpython_trigger_error_callback(void *arg)
+{
+    PLyExecutionContext *exec_ctx = PLy_current_execution_context();
+
+    // Add context information if we have an active procedure
+    if (exec_ctx->curr_proc)
+        errcontext("while modifying trigger row");
+}
+```

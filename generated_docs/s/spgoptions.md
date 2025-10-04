@@ -38,3 +38,20 @@ The fillfactor parameter determines the target percentage of each index page tha
 - The returned bytea structure contains the parsed and validated options that can be used by other SP-GiST functions
 - Future SP-GiST options can be added by extending the relopt_parse_elt table
 - The validate parameter allows the system to parse options without validation during certain operations like pg_dump
+
+## Simplified Source
+
+```c
+bytea *spgoptions(Datum reloptions, bool validate) {
+    // Define supported options for SP-GiST indexes
+    static const relopt_parse_elt tab[] = {
+        {"fillfactor", RELOPT_TYPE_INT, offsetof(SpGistOptions, fillfactor)},
+    };
+
+    // Parse and validate the relation options
+    return (bytea *) build_reloptions(reloptions, validate,
+                                      RELOPT_KIND_SPGIST,
+                                      sizeof(SpGistOptions),
+                                      tab, lengthof(tab));
+}
+```

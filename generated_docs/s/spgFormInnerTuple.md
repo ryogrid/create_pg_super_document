@@ -52,3 +52,63 @@ The function performs several important validations:
 - The minimum size constraint (SGDTSIZE) allows future replacement with dead tuples
 - Error checking prevents index corruption by validating size limits and header field ranges
 - The resulting tuple structure supports efficient page-based storage and retrieval operations
+
+## Simplified Source
+
+```c
+SpGistInnerTuple
+spgFormInnerTuple(SpGistState *state, bool hasPrefix, Datum prefix,
+                  int nNodes, SpGistNodeTuple *nodes)
+{
+    SpGistInnerTuple tup;
+    unsigned int size;
+    unsigned int prefixSize;
+    int i;
+    char *ptr;
+
+    // Calculate prefix size
+    if (hasPrefix)
+        prefixSize = SpGistGetInnerTypeSize(&state->attPrefixType, prefix);
+    else
+        prefixSize = 0;
+
+    // Calculate total size: header + prefix + all nodes
+    size = SGITHDRSZ + prefixSize;
+    for (i = 0; i < nNodes; i++)
+        size += IndexTupleSize(nodes[i]);
+
+    // Ensure minimum size for dead tuple replacement
+    if (size < SGDTSIZE)
+        size = SGDTSIZE;
+
+    // Validate size constraints
+    if (size > SPGIST_PAGE_CAPACITY - sizeof(ItemIdData))
+        ereport(ERROR, (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                errmsg("SP-GiST inner tuple size %zu exceeds maximum %zu",
+                       (Size) size, SPGIST_PAGE_CAPACITY - sizeof(ItemIdData))));
+
+    if (size > SGITMAXSIZE || prefixSize > SGITMAXPREFIXSIZE || nNodes > SGITMAXNNODES)
+        elog(ERROR, "SPGiST inner tuple header field is too small");
+
+    // Allocate and initialize tuple
+    tup = (SpGistInnerTuple) palloc0(size);
+    tup->nNodes = nNodes;
+    tup->prefixSize = prefixSize;
+    tup->size = size;
+
+    // Copy prefix data if present
+    if (hasPrefix)
+        memcpyInnerDatum(SGITDATAPTR(tup), &state->attPrefixType, prefix);
+
+    // Copy all node tuples
+    ptr = (char *) SGITNODEPTR(tup);
+    for (i = 0; i < nNodes; i++)
+    {
+        SpGistNodeTuple node = nodes[i];
+        memcpy(ptr, node, IndexTupleSize(node));
+        ptr += IndexTupleSize(node);
+    }
+
+    return tup;
+}
+```

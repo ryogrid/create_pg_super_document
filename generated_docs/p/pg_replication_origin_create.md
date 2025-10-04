@@ -46,3 +46,31 @@ The function enforces naming conventions to prevent conflicts with system-reserv
 - Memory management includes proper cleanup with pfree() of converted string
 - Returns the newly assigned replication origin ID which can be used in subsequent replication operations
 - Part of PostgreSQL's logical replication infrastructure for tracking replication progress from multiple sources
+
+## Simplified Source
+
+```c
+Datum
+pg_replication_origin_create(PG_FUNCTION_ARGS)
+{
+    char *name;
+    RepOriginId roident;
+
+    // Check prerequisites (not in recovery, proper configuration)
+    replorigin_check_prerequisites(false, false);
+
+    // Convert text argument to C string
+    name = text_to_cstring((text *) DatumGetPointer(PG_GETARG_DATUM(0)));
+
+    // Validate origin name is not reserved
+    if (IsReservedName(name) || IsReservedOriginName(name))
+        ereport(ERROR, "replication origin name \"%s\" is reserved", name);
+
+    // Create the replication origin
+    roident = replorigin_create(name);
+
+    pfree(name);
+
+    PG_RETURN_OID(roident);
+}
+```

@@ -43,3 +43,55 @@ For unhandled or unknown types, the function defaults to `ECPGt_char`, treating 
 - The function provides a safe fallback by returning `ECPGt_char` for any unrecognized types.
 - This function is located in `src/interfaces/ecpg/ecpglib/typename.c` at lines 107-144.
 - The function is essential for building SQLDA structures that describe result sets and parameter lists in dynamic SQL operations.
+
+## Simplified Source
+
+```c
+int sqlda_dynamic_type(Oid type, enum COMPAT_MODE compat) {
+    switch (type) {
+        // Character types - all map to ECPGt_char
+        case CHAROID:
+        case VARCHAROID:
+        case BPCHAROID:
+        case TEXTOID:
+            return ECPGt_char;
+
+        // Integer types
+        case INT2OID:
+            return ECPGt_short;
+        case INT4OID:
+            return ECPGt_int;
+        case INT8OID:
+#ifdef HAVE_LONG_LONG_INT_64
+            return ECPGt_long_long;
+#endif
+#ifdef HAVE_LONG_INT_64
+            return ECPGt_long;
+#endif
+            // Fall through to default if no 64-bit support
+
+        // Floating point types
+        case FLOAT8OID:
+            return ECPGt_double;
+        case FLOAT4OID:
+            return ECPGt_float;
+
+        // Numeric type - depends on compatibility mode
+        case NUMERICOID:
+            return INFORMIX_MODE(compat) ? ECPGt_decimal : ECPGt_numeric;
+
+        // Date/time types
+        case DATEOID:
+            return ECPGt_date;
+        case TIMESTAMPOID:
+        case TIMESTAMPTZOID:
+            return ECPGt_timestamp;
+        case INTERVALOID:
+            return ECPGt_interval;
+
+        // Unknown types default to character
+        default:
+            return ECPGt_char;
+    }
+}
+```

@@ -39,3 +39,34 @@ The function first performs an optimization check to see if the input relids set
 - Uses optimization to avoid unnecessary work when no relevant relation IDs are present
 - Essential for PostgreSQL's handling of complex partitioned table hierarchies and inheritance chains
 - Memory management includes proper cleanup of allocated AppendRelInfo arrays
+
+## Simplified Source
+
+```c
+Relids adjust_child_relids_multilevel(PlannerInfo *root, Relids relids,
+                                      RelOptInfo *childrel, RelOptInfo *parentrel) {
+    // Quick check: if relids don't overlap with parent, no changes needed
+    if (!bms_overlap(relids, parentrel->relids))
+        return relids;
+
+    // Handle multi-level inheritance: recursively process intermediate parents
+    if (childrel->parent != parentrel) {
+        if (childrel->parent) {
+            relids = adjust_child_relids_multilevel(root, relids,
+                                                   childrel->parent, parentrel);
+        } else {
+            elog(ERROR, "childrel is not a child of parentrel");
+        }
+    }
+
+    // Translate relids for this specific child-parent relationship
+    AppendRelInfo **appinfos;
+    int nappinfos;
+    appinfos = find_appinfos_by_relids(root, childrel->relids, &nappinfos);
+
+    relids = adjust_child_relids(relids, nappinfos, appinfos);
+
+    pfree(appinfos);
+    return relids;
+}
+```

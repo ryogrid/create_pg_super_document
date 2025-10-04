@@ -45,3 +45,65 @@ This structured format is particularly useful for programmatic manipulation of o
 - Returns empty arrays instead of NULL when object identity parts cannot be determined
 - The names and args arrays can be used to reconstruct object addresses programmatically
 - Located in src/backend/catalog/objectaddress.c:4350-4412
+
+## Simplified Source
+
+```c
+Datum
+pg_identify_object_as_address(PG_FUNCTION_ARGS)
+{
+    Oid         classid = PG_GETARG_OID(0);
+    Oid         objid = PG_GETARG_OID(1);
+    int32       objsubid = PG_GETARG_INT32(2);
+    ObjectAddress address;
+    char       *identity;
+    List       *names;
+    List       *args;
+    Datum       values[3];
+    bool        nulls[3];
+    TupleDesc   tupdesc;
+    HeapTuple   htup;
+
+    // Build object address
+    address.classId = classid;
+    address.objectId = objid;
+    address.objectSubId = objsubid;
+
+    if (get_call_result_type(fcinfo, NULL, &tupdesc) != TYPEFUNC_COMPOSITE)
+        elog(ERROR, "return type must be a row type");
+
+    // Object type (never NULL)
+    values[0] = CStringGetTextDatum(getObjectTypeDescription(&address, true));
+    nulls[0] = false;
+
+    // Get object identity parts
+    identity = getObjectIdentityParts(&address, &names, &args, true);
+    if (identity == NULL)
+    {
+        // Object not found - return empty arrays
+        nulls[1] = true;
+        nulls[2] = true;
+    }
+    else
+    {
+        pfree(identity);  // We only need the parts, not the string
+
+        // Object names array
+        if (names != NIL)
+            values[1] = PointerGetDatum(strlist_to_textarray(names));
+        else
+            values[1] = PointerGetDatum(construct_empty_array(TEXTOID));
+        nulls[1] = false;
+
+        // Object arguments array
+        if (args)
+            values[2] = PointerGetDatum(strlist_to_textarray(args));
+        else
+            values[2] = PointerGetDatum(construct_empty_array(TEXTOID));
+        nulls[2] = false;
+    }
+
+    htup = heap_form_tuple(tupdesc, values, nulls);
+    PG_RETURN_DATUM(HeapTupleGetDatum(htup));
+}
+```

@@ -57,3 +57,109 @@ The function returns  if parallel vacuum cannot be performed (e.g., no suitable 
 - Sets up atomic counters for cost balancing and worker coordination
 - Handles both conditional and unconditional parallel cleanup modes for indexes
 - Memory allocation uses palloc0 for zero-initialized structures
+
+## Simplified Source
+
+```c
+ParallelVacuumState *
+parallel_vacuum_init(Relation rel, Relation *indrels, int nindexes,
+                     int nrequested_workers, int vac_work_mem,
+                     int elevel, BufferAccessStrategy bstrategy)
+{
+    ParallelVacuumState *pvs;
+    ParallelContext *pcxt;
+    PVShared *shared;
+    TidStore *dead_items;
+    bool *will_parallel_vacuum;
+    int parallel_workers = 0;
+
+    // Validate inputs
+    Assert(nrequested_workers >= 0);
+    Assert(nindexes > 0);
+
+    // Determine which indexes can participate and how many workers needed
+    will_parallel_vacuum = (bool *) palloc0(sizeof(bool) * nindexes);
+    parallel_workers = parallel_vacuum_compute_workers(indrels, nindexes,
+                                                      nrequested_workers,
+                                                      will_parallel_vacuum);
+    if (parallel_workers <= 0) {
+        // No parallel workers available
+        pfree(will_parallel_vacuum);
+        return NULL;
+    }
+
+    // Create parallel vacuum state
+    pvs = (ParallelVacuumState *) palloc0(sizeof(ParallelVacuumState));
+    pvs->indrels = indrels;
+    pvs->nindexes = nindexes;
+    pvs->will_parallel_vacuum = will_parallel_vacuum;
+    pvs->bstrategy = bstrategy;
+    pvs->heaprel = rel;
+
+    // Enter parallel mode and create parallel context
+    EnterParallelMode();
+    pcxt = CreateParallelContext("postgres", "parallel_vacuum_main", parallel_workers);
+    pvs->pcxt = pcxt;
+
+    // Estimate and allocate shared memory segments
+    // - Index statistics, shared state, buffer/WAL usage, query text
+    Size est_indstats_len = mul_size(sizeof(PVIndStats), nindexes);
+    Size est_shared_len = sizeof(PVShared);
+
+    // Set up shared memory table of contents
+    shm_toc_estimate_chunk(&pcxt->estimator, est_indstats_len);
+    shm_toc_estimate_keys(&pcxt->estimator, 1);
+    // ... similar estimates for other shared data ...
+
+    InitializeParallelDSM(pcxt);
+
+    // Initialize index statistics in shared memory
+    PVIndStats *indstats = (PVIndStats *) shm_toc_allocate(pcxt->toc, est_indstats_len);
+    MemSet(indstats, 0, est_indstats_len);
+
+    // Count indexes supporting different parallel phases
+    for (int i = 0; i < nindexes; i++) {
+        if (!will_parallel_vacuum[i]) continue;
+
+        uint8 vacoptions = indrels[i]->rd_indam->amparallelvacuumoptions;
+        if (vacoptions & VACUUM_OPTION_PARALLEL_BULKDEL)
+            pvs->nindexes_parallel_bulkdel++;
+        if (vacoptions & VACUUM_OPTION_PARALLEL_CLEANUP)
+            pvs->nindexes_parallel_cleanup++;
+        if (vacoptions & VACUUM_OPTION_PARALLEL_COND_CLEANUP)
+            pvs->nindexes_parallel_condcleanup++;
+    }
+    pvs->indstats = indstats;
+
+    // Set up shared coordination state
+    shared = (PVShared *) shm_toc_allocate(pcxt->toc, est_shared_len);
+    MemSet(shared, 0, est_shared_len);
+    shared->relid = RelationGetRelid(rel);
+    shared->elevel = elevel;
+    shared->dead_items_info.max_bytes = vac_work_mem * 1024L;
+
+    // Create shared dead items storage
+    dead_items = TidStoreCreateShared(shared->dead_items_info.max_bytes,
+                                     LWTRANCHE_PARALLEL_VACUUM_DSA);
+    pvs->dead_items = dead_items;
+    shared->dead_items_handle = TidStoreGetHandle(dead_items);
+    shared->dead_items_dsa_handle = dsa_get_handle(TidStoreGetDSA(dead_items));
+
+    // Initialize atomic counters for coordination
+    pg_atomic_init_u32(&(shared->cost_balance), 0);
+    pg_atomic_init_u32(&(shared->active_nworkers), 0);
+    pg_atomic_init_u32(&(shared->idx), 0);
+
+    pvs->shared = shared;
+
+    // Set up buffer and WAL usage tracking for workers
+    BufferUsage *buffer_usage = shm_toc_allocate(pcxt->toc,
+                                                mul_size(sizeof(BufferUsage), pcxt->nworkers));
+    WalUsage *wal_usage = shm_toc_allocate(pcxt->toc,
+                                          mul_size(sizeof(WalUsage), pcxt->nworkers));
+    pvs->buffer_usage = buffer_usage;
+    pvs->wal_usage = wal_usage;
+
+    return pvs;
+}
+```

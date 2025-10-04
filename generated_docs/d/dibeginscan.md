@@ -32,3 +32,15 @@ As part of a test module, this function doesn't perform any actual indexing work
 - Located in src/test/modules/dummy_index_am/dummy_index_am.c:246-258
 - The function includes a comment indicating it's "pretending" to do work, emphasizing its test/placeholder nature
 - Part of PostgreSQL's extensible index access method framework testing infrastructure
+
+## Simplified Source
+
+```c
+static IndexScanDesc
+dibeginscan(Relation r, int nkeys, int norderbys)
+{
+    // Initialize index scan using standard PostgreSQL function
+    IndexScanDesc scan = RelationGetIndexScan(r, nkeys, norderbys);
+    return scan;
+}
+```

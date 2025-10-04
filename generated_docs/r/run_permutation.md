@@ -47,3 +47,87 @@ Key features include asynchronous step execution using PQsendQuery, sophisticate
 - Provides detailed error reporting and debugging information
 - Part of PostgreSQL's comprehensive isolation testing infrastructure
 - Handles both successful completion and error scenarios gracefully
+
+## Simplified Source
+
+```c
+static void
+run_permutation(TestSpec *testspec, int nsteps, PermutationStep **steps)
+{
+    PermutationStep **waiting = pg_malloc(sizeof(PermutationStep *) * testspec->nsessions);
+    int nwaiting = 0;
+
+    printf("\nstarting permutation:");
+    for (int i = 0; i < nsteps; i++)
+        printf(" %s", steps[i]->name);
+    printf("\n");
+
+    // Execute setup SQL
+    for (int i = 0; i < testspec->nsetupsqls; i++) {
+        PGresult *res = PQexec(conns[0].conn, testspec->setupsqls[i]);
+        if (PQresultStatus(res) == PGRES_TUPLES_OK)
+            printResultSet(res);
+        else if (PQresultStatus(res) != PGRES_COMMAND_OK) {
+            fprintf(stderr, "setup failed: %s", PQerrorMessage(conns[0].conn));
+            exit(1);
+        }
+        PQclear(res);
+    }
+
+    // Execute per-session setup
+    for (int i = 0; i < testspec->nsessions; i++) {
+        if (testspec->sessions[i]->setupsql) {
+            // Execute session setup SQL (similar error handling)
+        }
+    }
+
+    // Execute the test steps
+    for (int i = 0; i < nsteps; i++) {
+        PermutationStep *pstep = steps[i];
+        Step *step = pstep->step;
+        IsoConnInfo *iconn = &conns[1 + step->session];
+
+        // Wait for any active step in this session to complete
+        if (iconn->active_step != NULL) {
+            // Wait with timeout handling
+            while (iconn->active_step != NULL) {
+                if (!try_complete_step(testspec, iconn->active_step, STEP_RETRY)) {
+                    // Remove from waiting array
+                    nwaiting = try_complete_steps(testspec, waiting, nwaiting,
+                                                STEP_NONBLOCK | STEP_RETRY);
+                }
+                // Handle timeout scenarios
+            }
+        }
+
+        // Send query for this step
+        if (!PQsendQuery(iconn->conn, step->sql)) {
+            fprintf(stdout, "failed to send query for step %s: %s\n",
+                   step->name, PQerrorMessage(iconn->conn));
+            exit(1);
+        }
+
+        iconn->active_step = pstep;
+
+        // Try to complete step and manage waiting list
+        bool mustwait = try_complete_step(testspec, pstep, STEP_NONBLOCK);
+        nwaiting = try_complete_steps(testspec, waiting, nwaiting,
+                                    STEP_NONBLOCK | STEP_RETRY);
+
+        if (mustwait)
+            waiting[nwaiting++] = pstep;
+    }
+
+    // Wait for any remaining steps to complete
+    nwaiting = try_complete_steps(testspec, waiting, nwaiting, STEP_RETRY);
+    if (nwaiting != 0) {
+        fprintf(stderr, "failed to complete permutation due to mutually-blocking steps\n");
+        exit(1);
+    }
+
+    // Execute teardown (per-session and global)
+    // ... teardown code similar to setup ...
+
+    free(waiting);
+}
+```

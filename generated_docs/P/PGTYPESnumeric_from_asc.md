@@ -36,3 +36,27 @@ This function parses a string containing a numeric value and creates a PostgreSQ
 - Part of the ECPG pgtypes library for PostgreSQL embedded SQL
 - The endptr parameter follows the same convention as standard C library functions like strtol()
 - Located in src/interfaces/ecpg/pgtypeslib/numeric.c:321-342
+
+## Simplified Source
+
+```c
+numeric *PGTYPESnumeric_from_asc(char *str, char **endptr) {
+    // Allocate memory for numeric structure
+    numeric *value = (numeric *) pgtypes_alloc(sizeof(numeric));
+    if (!value)
+        return NULL;
+
+    // Set up end pointer handling
+    char *realptr;
+    char **ptr = (endptr != NULL) ? endptr : &realptr;
+
+    // Parse string into numeric value
+    int ret = set_var_from_str(str, ptr, value);
+    if (ret) {
+        PGTYPESnumeric_free(value);
+        return NULL;
+    }
+
+    return value;
+}
+```

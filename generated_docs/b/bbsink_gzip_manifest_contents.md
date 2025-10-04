@@ -33,3 +33,15 @@ This function serves as an implementation of the `manifest_contents` callback in
 - Manifest contents are intentionally not compressed, unlike archive contents
 - The function performs a simple buffer copy followed by delegation to the next sink in the chain
 - Part of the backup sink chain pattern used in PostgreSQL's streaming base backup functionality
+
+## Simplified Source
+
+```c
+static void bbsink_gzip_manifest_contents(bbsink *sink, size_t len) {
+    // Copy manifest data to next sink buffer (no compression)
+    memcpy(sink->bbs_next->bbs_buffer, sink->bbs_buffer, len);
+
+    // Forward to next sink
+    bbsink_manifest_contents(sink->bbs_next, len);
+}
+```

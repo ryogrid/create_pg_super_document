@@ -40,3 +40,14 @@ The function simply delegates to PQstatus() on the underlying connection structu
 - Can be called safely at any time after PQcancelCreate()
 - Useful for debugging and monitoring cancellation progress in applications
 - The const qualifier indicates this function does not modify the cancel connection
+
+## Simplified Source
+
+```c
+ConnStatusType
+PQcancelStatus(const PGcancelConn *cancelConn)
+{
+    // Simply return the status of the underlying connection
+    return PQstatus(&cancelConn->conn);
+}
+```

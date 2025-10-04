@@ -33,3 +33,25 @@ The function requires the slot to be materialized (contain an actual HeapTuple) 
 - Requires a materialized slot - will error if the slot doesn't contain a physical HeapTuple
 - Used primarily for optimization decisions in tuple deforming operations where knowing transaction ownership can affect processing strategies
 - Part of the heap-specific tuple table slot operations infrastructure
+
+## Simplified Source
+
+```c
+static bool
+tts_heap_is_current_xact_tuple(TupleTableSlot *slot)
+{
+    HeapTupleTableSlot *hslot = (HeapTupleTableSlot *) slot;
+
+    // Ensure slot is not empty
+    Assert(!TTS_EMPTY(slot));
+
+    // Check if tuple is materialized - need physical tuple for transaction info
+    if (!hslot->tuple)
+        ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                errmsg("don't have a storage tuple in this context")));
+
+    // Extract transaction ID from tuple header and check if it's current
+    TransactionId xmin = HeapTupleHeaderGetRawXmin(hslot->tuple->t_data);
+    return TransactionIdIsCurrentTransactionId(xmin);
+}
+```

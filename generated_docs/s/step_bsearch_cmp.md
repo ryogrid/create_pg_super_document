@@ -35,3 +35,17 @@ This function enables efficient lookup of steps by name in the isolation tester,
 - The function expects parameter 'a' to be a string and parameter 'b' to be a Step**
 - Enables O(log n) step lookup performance instead of O(n) linear search
 - Part of the isolation testing framework's step resolution infrastructure
+
+## Simplified Source
+
+```c
+static int
+step_bsearch_cmp(const void *a, const void *b)
+{
+    // Compare search key (step name) against step in sorted array
+    char *stepname = (char *) a;
+    Step *step = *((Step **) b);
+
+    return strcmp(stepname, step->name);
+}
+```

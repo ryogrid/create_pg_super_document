@@ -44,3 +44,68 @@ The function maintains state through private data that tracks the timeline ID, r
 - Page read tracking is maintained via `pages_read_since_last_sleep` for performance optimization
 - Returns the number of valid bytes read or -1 when end of WAL is reached on historic timelines
 - Uses XLOG_BLCKSZ as the standard block size for WAL page operations
+
+## Simplified Source
+
+```c
+static int summarizer_read_local_xlog_page(XLogReaderState *state,
+                                          XLogRecPtr targetPagePtr, int reqLen,
+                                          XLogRecPtr targetRecPtr, char *cur_page)
+{
+    int count;
+    WALReadError errinfo;
+    SummarizerReadLocalXLogPrivate *private_data =
+        (SummarizerReadLocalXLogPrivate *) state->private_data;
+
+    HandleWalSummarizerInterrupts();
+
+    while (1) {
+        if (targetPagePtr + XLOG_BLCKSZ <= private_data->read_upto) {
+            // Full block available
+            count = XLOG_BLCKSZ;
+            break;
+        }
+        else if (targetPagePtr + reqLen > private_data->read_upto) {
+            // Insufficient data available
+            if (private_data->historic) {
+                // Historic timeline - no more data will arrive
+                private_data->end_of_wal = true;
+                return -1;
+            }
+            else {
+                // Current timeline - wait for more data
+                HandleWalSummarizerInterrupts();
+                summarizer_wait_for_wal();
+
+                // Check if timeline changed or more data arrived
+                XLogRecPtr latest_lsn = GetLatestLSN(&latest_tli);
+                if (private_data->tli == latest_tli) {
+                    // Still current timeline, update read limit
+                    private_data->read_upto = latest_lsn;
+                }
+                else {
+                    // Timeline became historic, find switch point
+                    List *tles = readTimeLineHistory(latest_tli);
+                    XLogRecPtr switchpoint = tliSwitchPoint(private_data->tli, tles, NULL);
+
+                    private_data->historic = true;
+                    private_data->read_upto = switchpoint;
+                }
+            }
+        }
+        else {
+            // Partial block available
+            count = private_data->read_upto - targetPagePtr;
+            break;
+        }
+    }
+
+    // Read the WAL page
+    if (!WALRead(state, cur_page, targetPagePtr, count, private_data->tli, &errinfo)) {
+        WALReadRaiseError(&errinfo);
+    }
+
+    ++pages_read_since_last_sleep;
+    return count;
+}
+```

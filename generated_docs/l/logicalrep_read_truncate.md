@@ -36,3 +36,28 @@ This function is the counterpart to logicalrep_write_truncate, responsible for p
 - Returns a List of Oid values representing the relations to be truncated
 - Complementary function to logicalrep_write_truncate for protocol communication
 - Used by logical replication workers to process incoming truncate operations
+
+## Simplified Source
+
+```c
+List *logicalrep_read_truncate(StringInfo in, bool *cascade, bool *restart_seqs) {
+    int i;
+    int nrelids;
+    List *relids = NIL;
+    uint8 flags;
+
+    // Read number of relations
+    nrelids = pq_getmsgint(in, 4);
+
+    // Read and decode truncate flags
+    flags = pq_getmsgint(in, 1);
+    *cascade = (flags & TRUNCATE_CASCADE) > 0;
+    *restart_seqs = (flags & TRUNCATE_RESTART_SEQS) > 0;
+
+    // Read all relation OIDs and build list
+    for (i = 0; i < nrelids; i++)
+        relids = lappend_oid(relids, pq_getmsgint(in, 4));
+
+    return relids;
+}
+```

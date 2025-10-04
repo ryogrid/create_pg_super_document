@@ -54,3 +54,14 @@ LC_ALL=: The desired locale string to set (e.g., "en_US.UTF-8", "C", or empty st
 - The "C" locale serves as a universal fallback that should always be available on POSIX-compliant systems
 - Fatal errors from this function will prevent PostgreSQL from starting up, emphasizing the critical importance of locale configuration
 - The function uses pg_perm_setlocale rather than standard setlocale() to ensure the setting persists across potential forks and environmental changes
+
+## Simplified Source
+```c
+static void init_locale(const char *categoryname, int category, const char *locale) {
+    // Try to set the requested locale, fallback to "C" if it fails
+    if (pg_perm_setlocale(category, locale) == NULL &&
+        pg_perm_setlocale(category, "C") == NULL)
+        elog(FATAL, "could not adopt \"%s\" locale nor C locale for %s",
+             locale, categoryname);
+}
+```

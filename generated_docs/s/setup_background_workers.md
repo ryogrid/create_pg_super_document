@@ -46,3 +46,47 @@ Each worker is configured to execute the `test_shm_mq_main` function from the `t
 - Returns a `worker_state` structure containing handles to all successfully registered workers
 - Provides helpful error messages suggesting to increase `max_worker_processes` when registration fails
 - The function maintains proper error state by incrementing `wstate->nworkers` only after successful registration
+
+## Simplified Source
+
+```c
+static worker_state *
+setup_background_workers(int nworkers, dsm_segment *seg)
+{
+    // Switch to transaction context for persistent allocation
+    MemoryContext oldcontext = MemoryContextSwitchTo(CurTransactionContext);
+
+    // Allocate worker state structure
+    worker_state *wstate = MemoryContextAlloc(TopTransactionContext,
+                                             offsetof(worker_state, handle) +
+                                             sizeof(BackgroundWorkerHandle *) * nworkers);
+    wstate->nworkers = 0;
+
+    // Register cleanup callback for early termination scenarios
+    on_dsm_detach(seg, cleanup_background_workers, PointerGetDatum(wstate));
+
+    // Configure worker template
+    BackgroundWorker worker;
+    memset(&worker, 0, sizeof(worker));
+    worker.bgw_flags = BGWORKER_SHMEM_ACCESS;
+    worker.bgw_start_time = BgWorkerStart_ConsistentState;
+    worker.bgw_restart_time = BGW_NEVER_RESTART;
+    sprintf(worker.bgw_library_name, "test_shm_mq");
+    sprintf(worker.bgw_function_name, "test_shm_mq_main");
+    snprintf(worker.bgw_type, BGW_MAXLEN, "test_shm_mq");
+    worker.bgw_main_arg = UInt32GetDatum(dsm_segment_handle(seg));
+    worker.bgw_notify_pid = MyProcPid;
+
+    // Register all workers
+    for (int i = 0; i < nworkers; ++i) {
+        if (!RegisterDynamicBackgroundWorker(&worker, &wstate->handle[i]))
+            ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_RESOURCES),
+                           errmsg("could not register background process"),
+                           errhint("You may need to increase \"max_worker_processes\".")));
+        ++wstate->nworkers;
+    }
+
+    MemoryContextSwitchTo(oldcontext);
+    return wstate;
+}
+```

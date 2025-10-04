@@ -56,3 +56,179 @@ The function also handles the special "DEFAULT" keyword by recursively parsing t
 - The canonical output format is always "Style, Order" (e.g., "ISO, YMD")
 - The extra data structure contains a 2-element integer array: [dateStyle, dateOrder]
 - Error messages are provided through GUC_check_errdetail for user feedback
+
+## Simplified Source
+
+```c
+bool
+check_datestyle(char **newval, void **extra, GucSource source)
+{
+    int newDateStyle = DateStyle;
+    int newDateOrder = DateOrder;
+    bool have_style = false;
+    bool have_order = false;
+    bool ok = true;
+    char *rawstring;
+    int *myextra;
+    char *result;
+    List *elemlist;
+    ListCell *l;
+
+    // Parse comma-separated configuration values
+    rawstring = pstrdup(*newval);
+    if (!SplitIdentifierString(rawstring, ',', &elemlist))
+    {
+        GUC_check_errdetail("List syntax is invalid.");
+        pfree(rawstring);
+        list_free(elemlist);
+        return false;
+    }
+
+    // Process each configuration token
+    foreach(l, elemlist)
+    {
+        char *tok = (char *) lfirst(l);
+
+        // Check date styles
+        if (pg_strcasecmp(tok, "ISO") == 0)
+        {
+            if (have_style && newDateStyle != USE_ISO_DATES)
+                ok = false;  // conflicting styles
+            newDateStyle = USE_ISO_DATES;
+            have_style = true;
+        }
+        else if (pg_strcasecmp(tok, "SQL") == 0)
+        {
+            if (have_style && newDateStyle != USE_SQL_DATES)
+                ok = false;
+            newDateStyle = USE_SQL_DATES;
+            have_style = true;
+        }
+        else if (pg_strncasecmp(tok, "POSTGRES", 8) == 0)
+        {
+            if (have_style && newDateStyle != USE_POSTGRES_DATES)
+                ok = false;
+            newDateStyle = USE_POSTGRES_DATES;
+            have_style = true;
+        }
+        else if (pg_strcasecmp(tok, "GERMAN") == 0)
+        {
+            if (have_style && newDateStyle != USE_GERMAN_DATES)
+                ok = false;
+            newDateStyle = USE_GERMAN_DATES;
+            have_style = true;
+            // GERMAN also sets DMY unless overridden
+            if (!have_order)
+                newDateOrder = DATEORDER_DMY;
+        }
+        // Check date orders
+        else if (pg_strcasecmp(tok, "YMD") == 0)
+        {
+            if (have_order && newDateOrder != DATEORDER_YMD)
+                ok = false;
+            newDateOrder = DATEORDER_YMD;
+            have_order = true;
+        }
+        else if (pg_strcasecmp(tok, "DMY") == 0 || pg_strncasecmp(tok, "EURO", 4) == 0)
+        {
+            if (have_order && newDateOrder != DATEORDER_DMY)
+                ok = false;
+            newDateOrder = DATEORDER_DMY;
+            have_order = true;
+        }
+        else if (pg_strcasecmp(tok, "MDY") == 0 || pg_strcasecmp(tok, "US") == 0 ||
+                 pg_strncasecmp(tok, "NONEURO", 7) == 0)
+        {
+            if (have_order && newDateOrder != DATEORDER_MDY)
+                ok = false;
+            newDateOrder = DATEORDER_MDY;
+            have_order = true;
+        }
+        else if (pg_strcasecmp(tok, "DEFAULT") == 0)
+        {
+            // Recursively parse default configuration
+            char *subval = guc_strdup(LOG, GetConfigOptionResetString("datestyle"));
+            void *subextra = NULL;
+
+            if (!subval || !check_datestyle(&subval, &subextra, source))
+            {
+                if (subval) guc_free(subval);
+                ok = false;
+                break;
+            }
+
+            myextra = (int *) subextra;
+            if (!have_style)
+                newDateStyle = myextra[0];
+            if (!have_order)
+                newDateOrder = myextra[1];
+            guc_free(subval);
+            guc_free(subextra);
+        }
+        else
+        {
+            GUC_check_errdetail("Unrecognized key word: \"%s\".", tok);
+            pfree(rawstring);
+            list_free(elemlist);
+            return false;
+        }
+    }
+
+    pfree(rawstring);
+    list_free(elemlist);
+
+    if (!ok)
+    {
+        GUC_check_errdetail("Conflicting \"datestyle\" specifications.");
+        return false;
+    }
+
+    // Create canonical string representation
+    result = (char *) guc_malloc(LOG, 32);
+    if (!result)
+        return false;
+
+    // Format style and order strings
+    switch (newDateStyle)
+    {
+        case USE_ISO_DATES:
+            strcpy(result, "ISO");
+            break;
+        case USE_SQL_DATES:
+            strcpy(result, "SQL");
+            break;
+        case USE_GERMAN_DATES:
+            strcpy(result, "German");
+            break;
+        default:
+            strcpy(result, "Postgres");
+            break;
+    }
+
+    switch (newDateOrder)
+    {
+        case DATEORDER_YMD:
+            strcat(result, ", YMD");
+            break;
+        case DATEORDER_DMY:
+            strcat(result, ", DMY");
+            break;
+        default:
+            strcat(result, ", MDY");
+            break;
+    }
+
+    guc_free(*newval);
+    *newval = result;
+
+    // Set up extra data for assignment function
+    myextra = (int *) guc_malloc(LOG, 2 * sizeof(int));
+    if (!myextra)
+        return false;
+    myextra[0] = newDateStyle;
+    myextra[1] = newDateOrder;
+    *extra = (void *) myextra;
+
+    return true;
+}
+```

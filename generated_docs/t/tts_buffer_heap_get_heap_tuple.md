@@ -36,3 +36,22 @@ After this function returns, the caller can be confident that the slot contains 
 - This is a static function implementing part of the BufferHeapTupleTableSlot virtual method table in src/backend/executor/execTuples.c
 - The returned HeapTuple may point into a buffer or may be a materialized copy, depending on the slot's current state
 - Callers should not assume ownership of the returned HeapTuple - it remains owned by the slot
+
+## Simplified Source
+
+```c
+static HeapTuple
+tts_buffer_heap_get_heap_tuple(TupleTableSlot *slot)
+{
+    BufferHeapTupleTableSlot *bslot = (BufferHeapTupleTableSlot *) slot;
+
+    Assert(!TTS_EMPTY(slot));
+
+    // Materialize if only virtual data exists
+    if (!bslot->base.tuple)
+        tts_buffer_heap_materialize(slot);
+
+    // Return the heap tuple (owned by slot)
+    return bslot->base.tuple;
+}
+```

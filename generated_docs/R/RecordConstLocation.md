@@ -35,3 +35,27 @@ RecordConstLocation maintains a record of where constants appear in the original
 - Used in conjunction with constant value jumbling to maintain source location mapping
 - Part of the infrastructure that enables pg_stat_statements to show parameterized queries
 - Buffer starts with initial size of 32 locations and grows as needed
+
+## Simplified Source
+
+```c
+static void
+RecordConstLocation(JumbleState *jstate, int location)
+{
+    // Skip unknown/undefined locations
+    if (location < 0)
+        return;
+
+    // Expand buffer if needed (double the size)
+    if (jstate->clocations_count >= jstate->clocations_buf_size) {
+        jstate->clocations_buf_size *= 2;
+        jstate->clocations = repalloc(jstate->clocations,
+                                    jstate->clocations_buf_size * sizeof(LocationLen));
+    }
+
+    // Record the location and initialize length
+    jstate->clocations[jstate->clocations_count].location = location;
+    jstate->clocations[jstate->clocations_count].length = -1;  // For third-party modules
+    jstate->clocations_count++;
+}
+```

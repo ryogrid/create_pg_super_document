@@ -41,3 +41,26 @@ After setting the LSN metadata, the function calls ReorderBufferAssignChild to e
 - No further changes should be added to the subtransaction after this function is called
 - The function handles both the metadata finalization and parent-child relationship establishment
 - This is part of PostgreSQLs logical replication infrastructure for managing transaction hierarchies during WAL decoding
+
+## Simplified Source
+
+```c
+void ReorderBufferCommitChild(ReorderBuffer *rb, TransactionId xid,
+                             TransactionId subxid, XLogRecPtr commit_lsn,
+                             XLogRecPtr end_lsn) {
+    // Retrieve the subtransaction by its XID
+    ReorderBufferTXN *subtxn = ReorderBufferTXNByXid(rb, subxid, false, NULL,
+                                                     InvalidXLogRecPtr, false);
+
+    // Early exit if subtransaction had no changes
+    if (!subtxn)
+        return;
+
+    // Set final LSN metadata for the subtransaction
+    subtxn->final_lsn = commit_lsn;
+    subtxn->end_lsn = end_lsn;
+
+    // Associate subtransaction with its parent transaction
+    ReorderBufferAssignChild(rb, xid, subxid, InvalidXLogRecPtr);
+}
+```

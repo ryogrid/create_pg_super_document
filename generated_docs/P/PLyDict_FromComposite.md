@@ -39,3 +39,37 @@ This function takes a PostgreSQL composite type value stored as a Datum and conv
 
 ## Notes and Other Information
 This function serves as a bridge between PostgreSQL's internal composite type representation and Python dictionaries. It handles the complex task of extracting type metadata from the composite value's header and setting up the necessary conversion infrastructure. The function properly manages PostgreSQL's reference-counted tuple descriptors by calling ReleaseTupleDesc. The actual field-by-field conversion is delegated to PLyDict_FromTuple, which handles the details of extracting individual attribute values and converting them to appropriate Python objects.
+
+## Simplified Source
+
+```c
+static PyObject *
+PLyDict_FromComposite(PLyDatumToOb *arg, Datum d)
+{
+    PyObject *dict;
+    HeapTupleHeader td;
+    Oid tupType;
+    int32 tupTypmod;
+    TupleDesc tupdesc;
+    HeapTupleData tmptup;
+
+    // Extract tuple header and type info
+    td = DatumGetHeapTupleHeader(d);
+    tupType = HeapTupleHeaderGetTypeId(td);
+    tupTypmod = HeapTupleHeaderGetTypMod(td);
+    tupdesc = lookup_rowtype_tupdesc(tupType, tupTypmod);
+
+    // Set up conversion functions for tuple attributes
+    PLy_input_setup_tuple(arg, tupdesc, PLy_current_execution_context()->curr_proc);
+
+    // Build temporary HeapTuple structure
+    tmptup.t_len = HeapTupleHeaderGetDatumLength(td);
+    tmptup.t_data = td;
+
+    // Convert tuple to Python dictionary
+    dict = PLyDict_FromTuple(arg, &tmptup, tupdesc, true);
+
+    ReleaseTupleDesc(tupdesc);
+    return dict;
+}
+```

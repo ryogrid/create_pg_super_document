@@ -33,3 +33,15 @@ This function provides a simple testing interface for performing bulk write oper
 - No locking is required as SimpleLruWriteAll handles its own synchronization
 - Useful for testing scenarios that require ensuring all data is persisted to disk
 - Part of the SLRU testing infrastructure for validating bulk write operations
+
+## Simplified Source
+
+```c
+Datum test_slru_page_writeall(PG_FUNCTION_ARGS)
+{
+    // Write all dirty pages in SLRU cache to disk with flush
+    SimpleLruWriteAll(TestSlruCtl, true);
+
+    PG_RETURN_VOID();
+}
+```

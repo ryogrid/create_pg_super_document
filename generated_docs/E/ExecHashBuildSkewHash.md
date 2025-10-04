@@ -42,3 +42,118 @@ The function retrieves statistics from the system catalog (pg_statistic) to iden
 - Critical that skew buckets are created in decreasing MCV frequency order for proper removal during memory pressure
 - Skew optimization is abandoned if MCV frequency sum is below SKEW_MIN_OUTER_FRACTION threshold
 - Handles hash collisions between different MCVs by allowing bucket sharing
+
+## Simplified Source
+
+```c
+static void
+ExecHashBuildSkewHash(HashJoinTable hashtable, Hash *node, int mcvsToUse)
+{
+    HeapTupleData *statsTuple;
+    AttStatsSlot sslot;
+
+    // Early exits: no skew table identified or insufficient memory
+    if (!OidIsValid(node->skewTable) || mcvsToUse <= 0)
+        return;
+
+    // Find MCV statistics for the outer relation's join key
+    statsTuple = SearchSysCache3(STATRELATTINH,
+                                ObjectIdGetDatum(node->skewTable),
+                                Int16GetDatum(node->skewColumn),
+                                BoolGetDatum(node->skewInherit));
+    if (!HeapTupleIsValid(statsTuple))
+        return;
+
+    // Extract MCV values and frequencies from statistics
+    if (get_attstatsslot(&sslot, statsTuple,
+                        STATISTIC_KIND_MCV, InvalidOid,
+                        ATTSTATSSLOT_VALUES | ATTSTATSSLOT_NUMBERS))
+    {
+        double frac = 0;
+        int nbuckets;
+        FmgrInfo *hashfunctions;
+        int i;
+
+        // Limit MCVs to available values
+        if (mcvsToUse > sslot.nvalues)
+            mcvsToUse = sslot.nvalues;
+
+        // Calculate total frequency of MCVs to use
+        for (i = 0; i < mcvsToUse; i++)
+            frac += sslot.numbers[i];
+
+        // Skip optimization if frequency too low
+        if (frac < SKEW_MIN_OUTER_FRACTION)
+        {
+            free_attstatsslot(&sslot);
+            ReleaseSysCache(statsTuple);
+            return;
+        }
+
+        // Set up skew hashtable with power-of-2 size plus extra bits
+        nbuckets = pg_nextpower2_32(mcvsToUse + 1) << 2;
+
+        hashtable->skewEnabled = true;
+        hashtable->skewBucketLen = nbuckets;
+
+        // Allocate bucket arrays in batch context
+        hashtable->skewBucket = (HashSkewBucket **)
+            MemoryContextAllocZero(hashtable->batchCxt,
+                                  nbuckets * sizeof(HashSkewBucket *));
+        hashtable->skewBucketNums = (int *)
+            MemoryContextAllocZero(hashtable->batchCxt,
+                                  mcvsToUse * sizeof(int));
+
+        // Update memory usage tracking
+        hashtable->spaceUsed += nbuckets * sizeof(HashSkewBucket *) +
+                               mcvsToUse * sizeof(int);
+        hashtable->spaceUsedSkew += nbuckets * sizeof(HashSkewBucket *) +
+                                   mcvsToUse * sizeof(int);
+        if (hashtable->spaceUsed > hashtable->spacePeak)
+            hashtable->spacePeak = hashtable->spaceUsed;
+
+        // Create skew buckets for each MCV (in decreasing frequency order)
+        hashfunctions = hashtable->outer_hashfunctions;
+
+        for (i = 0; i < mcvsToUse; i++)
+        {
+            uint32 hashvalue;
+            int bucket;
+
+            // Compute hash value for this MCV
+            hashvalue = DatumGetUInt32(FunctionCall1Coll(&hashfunctions[0],
+                                                        hashtable->collations[0],
+                                                        sslot.values[i]));
+
+            // Find empty bucket using linear probing
+            bucket = hashvalue & (nbuckets - 1);
+            while (hashtable->skewBucket[bucket] != NULL &&
+                   hashtable->skewBucket[bucket]->hashvalue != hashvalue)
+                bucket = (bucket + 1) & (nbuckets - 1);
+
+            // Skip if bucket already exists for this hash value
+            if (hashtable->skewBucket[bucket] != NULL)
+                continue;
+
+            // Create new skew bucket
+            hashtable->skewBucket[bucket] = (HashSkewBucket *)
+                MemoryContextAlloc(hashtable->batchCxt,
+                                  sizeof(HashSkewBucket));
+            hashtable->skewBucket[bucket]->hashvalue = hashvalue;
+            hashtable->skewBucket[bucket]->tuples = NULL;
+            hashtable->skewBucketNums[hashtable->nSkewBuckets] = bucket;
+            hashtable->nSkewBuckets++;
+
+            // Update memory usage
+            hashtable->spaceUsed += SKEW_BUCKET_OVERHEAD;
+            hashtable->spaceUsedSkew += SKEW_BUCKET_OVERHEAD;
+            if (hashtable->spaceUsed > hashtable->spacePeak)
+                hashtable->spacePeak = hashtable->spaceUsed;
+        }
+
+        free_attstatsslot(&sslot);
+    }
+
+    ReleaseSysCache(statsTuple);
+}
+```

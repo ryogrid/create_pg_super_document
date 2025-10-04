@@ -30,3 +30,12 @@ The  function serves as an error callback mechanism specifically designed for PL
 - The  parameter follows the standard PostgreSQL callback pattern but is unused in this implementation
 - Located in src/pl/plperl/plperl.c at lines 4167-4180
 - Part of the PL/Perl procedural language extension for PostgreSQL
+
+## Simplified Source
+
+```c
+static void plperl_inline_callback(void *arg) {
+    // Provide error context for anonymous code blocks
+    errcontext("PL/Perl anonymous code block");
+}
+```

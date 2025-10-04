@@ -44,3 +44,33 @@ The compilation process includes:
 - Provides detailed error messages when pattern compilation fails
 - Uses PostgreSQL's memory management functions for proper cleanup
 - Located in src/test/modules/test_regex/test_regex.c:161-201
+
+## Simplified Source
+
+```c
+static void test_re_compile(text *text_re, int cflags, Oid collation, regex_t *result_re) {
+    int text_re_len = VARSIZE_ANY_EXHDR(text_re);
+    char *text_re_val = VARDATA_ANY(text_re);
+    pg_wchar *pattern;
+    int pattern_len;
+    int regcomp_result;
+    char errMsg[100];
+
+    // Convert pattern string to wide characters for regex engine
+    pattern = (pg_wchar *) palloc((text_re_len + 1) * sizeof(pg_wchar));
+    pattern_len = pg_mb2wchar_with_len(text_re_val, pattern, text_re_len);
+
+    // Compile the regex pattern
+    regcomp_result = pg_regcomp(result_re, pattern, pattern_len, cflags, collation);
+
+    pfree(pattern);
+
+    // Handle compilation errors
+    if (regcomp_result != REG_OKAY) {
+        pg_regerror(regcomp_result, result_re, errMsg, sizeof(errMsg));
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_REGULAR_EXPRESSION),
+                 errmsg("invalid regular expression: %s", errMsg)));
+    }
+}
+```

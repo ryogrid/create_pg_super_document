@@ -41,3 +41,16 @@ The function guards against race conditions where worker statistics or other imp
 - Critical for preventing loss of error messages and statistics during worker shutdown
 - The signal sent to the leader is `PROCSIG_PARALLEL_MESSAGE` which prompts error queue processing
 - Explicit DSM detachment is required due to potential issues with automatic cleanup ordering
+
+## Simplified Source
+
+```c
+static void ParallelWorkerShutdown(int code, Datum arg)
+{
+    // Signal leader to read error queue one more time
+    SendProcSignal(ParallelLeaderPid, PROCSIG_PARALLEL_MESSAGE, ParallelLeaderProcNumber);
+
+    // Explicitly detach from DSM segment to allow cleanup hooks to run
+    dsm_detach((dsm_segment *) DatumGetPointer(arg));
+}
+```

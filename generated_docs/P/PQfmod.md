@@ -30,3 +30,20 @@ PQfmod extracts the type modifier (atttypmod) for a given field from a PostgreSQ
 - Type modifier values are type-specific and their interpretation depends on the underlying PostgreSQL data type
 - Part of the libpq client interface for PostgreSQL database connectivity
 - The function relies on the res->attDescs array being properly initialized with attribute descriptor information
+
+## Simplified Source
+
+```c
+int PQfmod(const PGresult *res, int field_num)
+{
+    // Validate field number is in range
+    if (!check_field_number(res, field_num))
+        return 0;
+
+    // Return type modifier if attribute descriptors available
+    if (res->attDescs)
+        return res->attDescs[field_num].atttypmod;
+    else
+        return 0;
+}
+```

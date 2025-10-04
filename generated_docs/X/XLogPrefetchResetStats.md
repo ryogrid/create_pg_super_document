@@ -39,3 +39,22 @@ All operations use atomic writes to ensure consistency in a multi-process enviro
 - All counters are reset simultaneously to maintain consistency
 - Called from PostgreSQL's statistics reset infrastructure via pg_stat_reset_shared
 - Located in src/backend/access/transam/xlogprefetcher.c:303-314
+
+## Simplified Source
+
+```c
+void
+XLogPrefetchResetStats(void)
+{
+    // Record when stats were reset
+    pg_atomic_write_u64(&SharedStats->reset_time, GetCurrentTimestamp());
+
+    // Reset all prefetch counters to zero
+    pg_atomic_write_u64(&SharedStats->prefetch, 0);
+    pg_atomic_write_u64(&SharedStats->hit, 0);
+    pg_atomic_write_u64(&SharedStats->skip_init, 0);
+    pg_atomic_write_u64(&SharedStats->skip_new, 0);
+    pg_atomic_write_u64(&SharedStats->skip_fpw, 0);
+    pg_atomic_write_u64(&SharedStats->skip_rep, 0);
+}
+```

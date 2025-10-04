@@ -40,3 +40,80 @@ The function handles runtime partition pruning by identifying valid subplans on 
 - Returns false when no more subplans are available for execution
 - Critical for load balancing in parallel query execution
 - Part of PostgreSQL's parallel query execution infrastructure introduced for improved performance on multi-core systems
+
+## Simplified Source
+
+```c
+static bool choose_next_subplan_for_worker(AppendState *node) {
+    ParallelAppendState *pstate = node->as_pstate;
+
+    // Only support forward scans in parallel execution
+    Assert(ScanDirectionIsForward(node->ps.state->es_direction));
+    Assert(node->as_nplans > 0);
+
+    // Acquire exclusive lock for thread-safe coordination
+    LWLockAcquire(&pstate->pa_lock, LW_EXCLUSIVE);
+
+    // Mark current subplan as finished if valid
+    if (node->as_whichplan != INVALID_SUBPLAN_INDEX) {
+        node->as_pstate->pa_finished[node->as_whichplan] = true;
+    }
+    // Initialize valid subplans on first call (handles runtime pruning)
+    else if (!node->as_valid_subplans_identified) {
+        node->as_valid_subplans = ExecFindMatchingSubPlans(node->as_prune_state, false);
+        node->as_valid_subplans_identified = true;
+        mark_invalid_subplans_as_finished(node);
+    }
+
+    // Check if all plans are completed
+    if (pstate->pa_next_plan == INVALID_SUBPLAN_INDEX) {
+        LWLockRelease(&pstate->pa_lock);
+        return false;
+    }
+
+    // Find next available subplan using round-robin strategy
+    node->as_whichplan = pstate->pa_next_plan;
+    while (pstate->pa_finished[pstate->pa_next_plan]) {
+        int nextplan = bms_next_member(node->as_valid_subplans, pstate->pa_next_plan);
+
+        if (nextplan >= 0) {
+            pstate->pa_next_plan = nextplan;
+        }
+        // Loop back to partial plans when non-partial plans exhausted
+        else if (node->as_whichplan > node->as_first_partial_plan) {
+            nextplan = bms_next_member(node->as_valid_subplans,
+                                       node->as_first_partial_plan - 1);
+            pstate->pa_next_plan = nextplan < 0 ? node->as_whichplan : nextplan;
+        }
+        else {
+            pstate->pa_next_plan = node->as_whichplan;
+        }
+
+        // No more plans available
+        if (pstate->pa_next_plan == node->as_whichplan) {
+            pstate->pa_next_plan = INVALID_SUBPLAN_INDEX;
+            LWLockRelease(&pstate->pa_lock);
+            return false;
+        }
+    }
+
+    // Select chosen plan and advance to next
+    node->as_whichplan = pstate->pa_next_plan;
+    pstate->pa_next_plan = bms_next_member(node->as_valid_subplans, pstate->pa_next_plan);
+
+    // Handle wrap-around to partial plans
+    if (pstate->pa_next_plan < 0) {
+        int nextplan = bms_next_member(node->as_valid_subplans,
+                                       node->as_first_partial_plan - 1);
+        pstate->pa_next_plan = nextplan >= 0 ? nextplan : INVALID_SUBPLAN_INDEX;
+    }
+
+    // Non-partial plans are immediately marked finished (not shared)
+    if (node->as_whichplan < node->as_first_partial_plan) {
+        node->as_pstate->pa_finished[node->as_whichplan] = true;
+    }
+
+    LWLockRelease(&pstate->pa_lock);
+    return true;
+}
+```

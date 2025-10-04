@@ -49,3 +49,65 @@ The function returns 1 on success (which occurs unless the destination is the po
 - When the destination state has multiple input arcs, the function clones the state to avoid affecting other inarcs
 - Intermediate states are reused when possible to avoid creating duplicate states for the same predecessor-successor combinations
 - Part of the regex constraint optimization system in PostgreSQL's regex engine located in src/backend/regex/regc_nfa.c:1891-1986
+
+## Simplified Source
+```c
+static int push(struct nfa *nfa, struct arc *con, struct state **intermediates) {
+    struct state *from = con->from;
+    struct state *to = con->to;
+    struct arc *a, *nexta;
+    struct state *s;
+
+    // Can't push beyond post state or if destination is dead end
+    if (to->flag) return 0;
+    if (to->nouts == 0) {
+        freearc(nfa, con);
+        return 1;
+    }
+
+    // Clone state if it has multiple incoming arcs
+    if (to->nins > 1) {
+        s = newstate(nfa);
+        if (NISERR()) return 0;
+        copyouts(nfa, to, s);
+        cparc(nfa, con, from, s);
+        freearc(nfa, con);
+        to = s;
+        con = to->ins;
+    }
+
+    // Propagate constraint through outgoing arcs
+    for (a = to->outs; a != NULL && !NISERR(); a = nexta) {
+        nexta = a->outchain;
+        switch (combine(nfa, con, a)) {
+            case INCOMPATIBLE:
+                freearc(nfa, a);
+                break;
+            case COMPATIBLE:
+                // Find or create intermediate state
+                for (s = *intermediates; s != NULL; s = s->tmp) {
+                    if (s->ins->from == from && s->outs->to == a->to)
+                        break;
+                }
+                if (s == NULL) {
+                    s = newstate(nfa);
+                    s->tmp = *intermediates;
+                    *intermediates = s;
+                }
+                cparc(nfa, con, s, a->to);
+                cparc(nfa, a, from, s);
+                freearc(nfa, a);
+                break;
+            case REPLACEARC:
+                newarc(nfa, a->type, con->co, from, a->to);
+                freearc(nfa, a);
+                break;
+        }
+    }
+
+    // Move remaining arcs and cleanup
+    moveouts(nfa, to, from);
+    freearc(nfa, con);
+    return 1;
+}
+```

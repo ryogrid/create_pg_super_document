@@ -43,3 +43,26 @@ The function performs a simple lookup operation:
 - The returned message list should not be modified by the caller
 - This function is typically used in conjunction with snapshot building and distribution mechanisms
 - The function uses the 'false' parameter for ReorderBufferTXNByXid, indicating it should not create the transaction if it doesn't exist
+
+## Simplified Source
+
+```c
+uint32
+ReorderBufferGetInvalidations(ReorderBuffer *rb, TransactionId xid,
+							  SharedInvalidationMessage **msgs)
+{
+	// Look up transaction in reorder buffer (don't create if not found)
+	ReorderBufferTXN *txn = ReorderBufferTXNByXid(rb, xid, false, NULL,
+												   InvalidXLogRecPtr, false);
+
+	// Return 0 if transaction not found
+	if (txn == NULL)
+		return 0;
+
+	// Set output parameter to transaction's invalidation list
+	*msgs = txn->invalidations;
+
+	// Return count of invalidation messages
+	return txn->ninvalidations;
+}
+```

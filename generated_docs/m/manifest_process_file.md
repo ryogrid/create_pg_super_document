@@ -39,3 +39,28 @@ This function is a callback that gets invoked during backup manifest parsing for
 - The function currently ignores checksum information, focusing only on file existence and size tracking
 - Uses hash table storage for efficient file lookup during backup processing
 - Memory allocation uses the manifest_files hash table's memory context for proper cleanup
+
+## Simplified Source
+
+```c
+static void
+manifest_process_file(JsonManifestParseContext *context,
+                     const char *pathname, size_t size,
+                     pg_checksum_type checksum_type,
+                     int checksum_length,
+                     uint8 *checksum_payload)
+{
+    IncrementalBackupInfo *ib = context->private_data;
+    backup_file_entry *entry;
+    bool found;
+
+    // Insert file entry into hash table
+    entry = backup_file_insert(ib->manifest_files, pathname, &found);
+
+    // Store path and size if this is a new entry
+    if (!found) {
+        entry->path = MemoryContextStrdup(ib->manifest_files->ctx, pathname);
+        entry->size = size;
+    }
+}
+```

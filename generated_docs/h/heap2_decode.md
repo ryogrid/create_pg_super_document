@@ -63,3 +63,52 @@ Physical maintenance operations (pruning, visibility changes, locking) are ignor
 - Requires a full snapshot (SNAPBUILD_FULL_SNAPSHOT) before processing most operations
 - Works closely with the snapshot builder to maintain transaction visibility consistency
 - Performance-optimized to avoid unnecessary work during fast-forward operations while still maintaining required state
+
+## Simplified Source
+
+```c
+void heap2_decode(LogicalDecodingContext *ctx, XLogRecordBuffer *buf)
+{
+    uint8 info = XLogRecGetInfo(buf->record) & XLOG_HEAP_OPMASK;
+    TransactionId xid = XLogRecGetXid(buf->record);
+    SnapBuild *builder = ctx->snapshot_builder;
+
+    // Process transaction for reordering
+    ReorderBufferProcessXid(ctx->reorder, xid, buf->origptr);
+
+    // Wait for full snapshot before processing changes
+    if (SnapBuildCurrentState(builder) < SNAPBUILD_FULL_SNAPSHOT)
+        return;
+
+    switch (info) {
+        case XLOG_HEAP2_MULTI_INSERT:
+            // Decode multi-insert operations if snapshot allows and not fast-forwarding
+            if (SnapBuildProcessChange(builder, xid, buf->origptr) && !ctx->fast_forward)
+                DecodeMultiInsert(ctx, buf);
+            break;
+
+        case XLOG_HEAP2_NEW_CID:
+            // Process command ID changes for transaction visibility
+            if (!ctx->fast_forward) {
+                xl_heap_new_cid *xlrec = (xl_heap_new_cid *) XLogRecGetData(buf->record);
+                SnapBuildProcessNewCid(builder, xid, buf->origptr, xlrec);
+            }
+            break;
+
+        case XLOG_HEAP2_REWRITE:
+            // Table rewrites handled during crash/archive recovery, not here
+            break;
+
+        case XLOG_HEAP2_PRUNE_ON_ACCESS:
+        case XLOG_HEAP2_PRUNE_VACUUM_SCAN:
+        case XLOG_HEAP2_PRUNE_VACUUM_CLEANUP:
+        case XLOG_HEAP2_VISIBLE:
+        case XLOG_HEAP2_LOCK_UPDATED:
+            // Physical maintenance operations ignored for logical decoding
+            break;
+
+        default:
+            elog(ERROR, "unexpected RM_HEAP2_ID record type: %u", info);
+    }
+}
+```

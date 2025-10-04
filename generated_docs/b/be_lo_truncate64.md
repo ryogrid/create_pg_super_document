@@ -42,3 +42,20 @@ This is the 64-bit version of the truncate function, essential for handling larg
 - Essential for handling very large objects in modern applications
 - Truncation cannot extend a large object - only reduce its size
 - The 64-bit length parameter allows for objects up to several exabytes in theory
+
+## Simplified Source
+
+```c
+Datum be_lo_truncate64(PG_FUNCTION_ARGS) {
+    int32 fd = PG_GETARG_INT32(0);
+    int64 len = PG_GETARG_INT64(1);
+
+    // Prevent truncation in read-only transactions
+    PreventCommandIfReadOnly("lo_truncate64()");
+
+    // Delegate to internal truncation function with 64-bit length
+    lo_truncate_internal(fd, len);
+
+    PG_RETURN_INT32(0);
+}
+```

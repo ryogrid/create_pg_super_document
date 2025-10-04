@@ -47,3 +47,20 @@ The function performs bounds checking using check_tuple_field_number() before ex
 - Used extensively throughout PostgreSQL tools (pg_dump, psql, pg_rewind, etc.)
 - Invalid field references are treated as NULL for defensive programming
 - The NULL_LEN constant (-1) is used internally to mark NULL database values
+
+## Simplified Source
+
+```c
+int PQgetisnull(const PGresult *res, int tup_num, int field_num)
+{
+    // Validate tuple and field numbers, return 1 (NULL) if invalid
+    if (!check_tuple_field_number(res, tup_num, field_num))
+        return 1;
+
+    // Check if field length indicates NULL value
+    if (res->tuples[tup_num][field_num].len == NULL_LEN)
+        return 1;
+    else
+        return 0;
+}
+```

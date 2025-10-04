@@ -35,3 +35,41 @@ When  is false, the function simply returns the original string unchanged, as th
 - Memory management is handled through ECPG's allocation functions (ecpg_alloc/ecpg_free)
 - The original input string is freed when quoting is performed
 - Buffer allocation accounts for worst-case escaping (2x original length plus quotes and null terminator)
+
+## Simplified Source
+
+```c
+static char *
+quote_postgres(char *arg, bool quote, int lineno)
+{
+    // If no quoting requested, return original string
+    if (!quote)
+        return arg;
+
+    // Allocate buffer for escaped string with quotes
+    size_t length = strlen(arg);
+    size_t buffer_len = 2 * length + 1;
+    char *res = ecpg_alloc(buffer_len + 3, lineno);
+    if (!res)
+        return res;
+
+    // Escape string using PostgreSQL's escape function
+    size_t escaped_len = PQescapeString(res + 1, arg, buffer_len);
+
+    if (length == escaped_len) {
+        // No escaping needed - use standard quotes
+        res[0] = res[escaped_len + 1] = '\'';
+        res[escaped_len + 2] = '\0';
+    } else {
+        // Escaping occurred - use E'' syntax for compatibility
+        memmove(res + 2, res + 1, escaped_len);
+        res[0] = ESCAPE_STRING_SYNTAX;  // 'E'
+        res[1] = res[escaped_len + 2] = '\'';
+        res[escaped_len + 3] = '\0';
+    }
+
+    // Free original string and return escaped version
+    ecpg_free(arg);
+    return res;
+}
+```

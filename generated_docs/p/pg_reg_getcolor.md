@@ -37,3 +37,47 @@ The function is optimized for the common case where no character classes are def
 - The function handles both single-column (simple) and multi-column (character class aware) color maps
 - Row 0 is used as the default when no matching character range is found
 - Critical for Unicode support and locale-aware regular expression matching
+
+## Simplified Source
+
+```c
+color pg_reg_getcolor(struct colormap *cm, chr c)
+{
+    int rownum, colnum, low, high;
+
+    // Only for characters above simple character range
+    assert(c > MAX_SIMPLE_CHR);
+
+    // Find row using binary search on character ranges
+    rownum = 0;  // Default to row 0 if no match
+    low = 0;
+    high = cm->numcmranges;
+
+    while (low < high) {
+        int middle = low + (high - low) / 2;
+        const colormaprange *cmr = &cm->cmranges[middle];
+
+        if (c < cmr->cmin) {
+            high = middle;
+        }
+        else if (c > cmr->cmax) {
+            low = middle + 1;
+        }
+        else {
+            rownum = cmr->rownum;  // Found matching range
+            break;
+        }
+    }
+
+    // Find column based on locale-dependent character classification
+    if (cm->hiarraycols > 1) {
+        // Multi-column colormap with character classes
+        colnum = cclass_column_index(cm, c);
+        return cm->hicolormap[rownum * cm->hiarraycols + colnum];
+    }
+    else {
+        // Single-column colormap (fast path)
+        return cm->hicolormap[rownum];
+    }
+}
+```

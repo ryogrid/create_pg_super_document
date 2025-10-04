@@ -44,3 +44,16 @@ This callback is particularly useful during function validation where parse erro
 - When transposition is not possible (non-syntax errors), falls back to adding function name context
 - Essential for providing good user experience when SQL function definitions contain errors
 - Part of the error handling infrastructure that makes SQL function development more user-friendly
+
+## Simplified Source
+```c
+static void sql_function_parse_error_callback(void *arg) {
+    parse_error_callback_arg *callback_arg = (parse_error_callback_arg *) arg;
+
+    // Try to transpose syntax errors to CREATE FUNCTION context
+    if (!function_parse_error_transpose(callback_arg->prosrc)) {
+        // For non-syntax errors, add function name context
+        errcontext("SQL function \"%s\"", callback_arg->proname);
+    }
+}
+```

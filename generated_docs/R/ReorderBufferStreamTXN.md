@@ -49,3 +49,76 @@ The function implements sophisticated logic to handle both initial streaming (sn
 - [Snapshot](../S/Snapshot.md) handling is more complex than regular commit processing due to in-progress state
 - Ensures all changes and memory are properly cleaned up after streaming
 - Critical for handling large transactions that would otherwise cause memory issues
+
+## Simplified Source
+
+```c
+static void
+ReorderBufferStreamTXN(ReorderBuffer *rb, ReorderBufferTXN *txn)
+{
+    Snapshot snapshot_now;
+    CommandId command_id;
+    Size stream_bytes;
+    bool txn_is_streamed;
+
+    Assert(rbtxn_is_toptxn(txn));
+
+    // Handle snapshot management for streaming
+    if (txn->snapshot_now == NULL)
+    {
+        // First time streaming - build snapshot from subtransactions
+        dlist_iter subxact_i;
+
+        Assert(!rbtxn_is_streamed(txn));
+        Assert(txn->command_id == InvalidCommandId);
+
+        // Transfer snapshots from all subtransactions
+        dlist_foreach(subxact_i, &txn->subtxns)
+        {
+            ReorderBufferTXN *subtxn = dlist_container(ReorderBufferTXN, node, subxact_i.cur);
+            ReorderBufferTransferSnapToParent(txn, subtxn);
+        }
+
+        // Create initial snapshot if transaction has changes
+        if (txn->base_snapshot == NULL)
+        {
+            Assert(txn->ninvalidations == 0);
+            return;
+        }
+
+        command_id = FirstCommandId;
+        snapshot_now = ReorderBufferCopySnap(rb, txn->base_snapshot, txn, command_id);
+    }
+    else
+    {
+        // Continuation streaming - reuse existing snapshot
+        Assert(rbtxn_is_streamed(txn));
+
+        command_id = txn->command_id;
+        snapshot_now = ReorderBufferCopySnap(rb, txn->snapshot_now, txn, command_id);
+
+        // Free previous snapshot
+        Assert(txn->snapshot_now->copied);
+        ReorderBufferFreeSnap(rb, txn->snapshot_now);
+        txn->snapshot_now = NULL;
+    }
+
+    // Process and stream the transaction changes
+    txn_is_streamed = rbtxn_is_streamed(txn);
+    stream_bytes = txn->total_size;
+
+    ReorderBufferProcessTXN(rb, txn, InvalidXLogRecPtr, snapshot_now, command_id, true);
+
+    // Update streaming statistics
+    rb->streamCount += 1;
+    rb->streamBytes += stream_bytes;
+    rb->streamTxns += (txn_is_streamed) ? 0 : 1;
+
+    UpdateDecodingStats((LogicalDecodingContext *) rb->private_data);
+
+    // Verify cleanup completed
+    Assert(dlist_is_empty(&txn->changes));
+    Assert(txn->nentries == 0);
+    Assert(txn->nentries_mem == 0);
+}
+```

@@ -37,3 +37,27 @@ The function packages essential transaction metadata including the transaction I
 - Contains an assertion to ensure the transaction ID is valid before sending
 - The flags field is reserved for future use and currently set to 0
 - Located in src/backend/replication/logical/proto.c:1112-1136
+
+## Simplified Source
+
+```c
+void logicalrep_write_stream_commit(StringInfo out, ReorderBufferTXN *txn, XLogRecPtr commit_lsn)
+{
+    uint8 flags = 0;  // Reserved for future use
+
+    // Send message type
+    pq_sendbyte(out, LOGICAL_REP_MSG_STREAM_COMMIT);
+
+    // Validate and send transaction ID
+    Assert(TransactionIdIsValid(txn->xid));
+    pq_sendint32(out, txn->xid);
+
+    // Send flags field (unused for now)
+    pq_sendbyte(out, flags);
+
+    // Send LSN and timestamp information
+    pq_sendint64(out, commit_lsn);
+    pq_sendint64(out, txn->end_lsn);
+    pq_sendint64(out, txn->xact_time.commit_time);
+}
+```

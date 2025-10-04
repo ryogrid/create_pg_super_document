@@ -52,3 +52,42 @@ This design pattern follows modern PostgreSQL practices of using option structur
 - Recommended for new code that needs comprehensive control over cursor creation and parsing.
 - The structured options approach makes the function more maintainable and self-documenting than parameter-heavy alternatives.
 - Combines the convenience of SPI_cursor_open_with_args with the flexibility of ParamListInfo-based parameter passing.
+
+## Simplified Source
+
+```c
+Portal SPI_cursor_parse_open(const char *name, const char *src,
+                            const SPIParseOpenOptions *options) {
+    Portal result;
+    _SPI_plan plan;
+
+    // Validate arguments
+    if (src == NULL || options == NULL)
+        elog(ERROR, "SPI_cursor_parse_open called with invalid arguments");
+
+    // Begin SPI operation
+    SPI_result = _SPI_begin_call(true);
+    if (SPI_result < 0)
+        elog(ERROR, "SPI_cursor_parse_open called while not connected");
+
+    // Initialize plan with options
+    memset(&plan, 0, sizeof(_SPI_plan));
+    plan.magic = _SPI_PLAN_MAGIC;
+    plan.cursor_options = options->cursorOptions;
+    if (options->params) {
+        plan.parserSetup = options->params->parserSetup;
+        plan.parserSetupArg = options->params->parserSetupArg;
+    }
+
+    // Parse and prepare the query
+    _SPI_prepare_plan(src, &plan);
+
+    // Create the cursor
+    result = SPI_cursor_open_internal(name, &plan, options->params, options->read_only);
+
+    // Clean up
+    _SPI_end_call(true);
+
+    return result;
+}
+```

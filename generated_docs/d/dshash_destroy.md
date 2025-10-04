@@ -38,3 +38,42 @@ The caller must ensure that no other backend will attempt to access the hash tab
 - The caller must not call dshash_detach after calling dshash_destroy
 - Other backends must still call dshash_detach to clean up their local memory
 - This is a complete teardown operation that cannot be undone
+
+## Simplified Source
+
+```c
+void
+dshash_destroy(dshash_table *hash_table)
+{
+    size_t num_buckets;
+    size_t i;
+
+    // Validate hash table magic number
+    Assert(hash_table->control->magic == DSHASH_MAGIC);
+    ensure_valid_bucket_pointers(hash_table);
+
+    // Free all entries in all buckets
+    num_buckets = NUM_BUCKETS(hash_table->size_log2);
+    for (i = 0; i < num_buckets; ++i)
+    {
+        dsa_pointer current_item = hash_table->buckets[i];
+
+        // Walk the linked list of items in this bucket
+        while (DsaPointerIsValid(current_item))
+        {
+            dshash_table_item *item = dsa_get_address(hash_table->area, current_item);
+            dsa_pointer next_item = item->next;
+            dsa_free(hash_table->area, current_item);
+            current_item = next_item;
+        }
+    }
+
+    // Corrupt magic number to catch use-after-free errors
+    hash_table->control->magic = 0;
+
+    // Free control structures and local memory
+    dsa_free(hash_table->area, hash_table->control->buckets);
+    dsa_free(hash_table->area, hash_table->control->handle);
+    pfree(hash_table);
+}
+```

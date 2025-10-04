@@ -41,3 +41,65 @@ The function performs a switch statement on the change action type and adds the 
 - For message changes, it includes the prefix string and message content sizes
 - For snapshot changes, it includes the transaction ID arrays (xcnt and subxcnt)
 - The function is essential for proper memory accounting in logical replication operations
+
+## Simplified Source
+
+```c
+static Size
+ReorderBufferChangeSize(ReorderBufferChange *change)
+{
+    Size sz = sizeof(ReorderBufferChange);
+
+    switch (change->action)
+    {
+        case REORDER_BUFFER_CHANGE_INSERT:
+        case REORDER_BUFFER_CHANGE_UPDATE:
+        case REORDER_BUFFER_CHANGE_DELETE:
+        case REORDER_BUFFER_CHANGE_INTERNAL_SPEC_INSERT:
+            {
+                // Account for tuple data sizes
+                HeapTuple oldtup = change->data.tp.oldtuple;
+                HeapTuple newtup = change->data.tp.newtuple;
+
+                if (oldtup)
+                    sz += sizeof(HeapTupleData) + oldtup->t_len;
+                if (newtup)
+                    sz += sizeof(HeapTupleData) + newtup->t_len;
+                break;
+            }
+        case REORDER_BUFFER_CHANGE_MESSAGE:
+            {
+                // Account for message prefix and content
+                Size prefix_size = strlen(change->data.msg.prefix) + 1;
+                sz += prefix_size + change->data.msg.message_size + sizeof(Size) + sizeof(Size);
+                break;
+            }
+        case REORDER_BUFFER_CHANGE_INVALIDATION:
+            {
+                // Account for invalidation messages
+                sz += sizeof(SharedInvalidationMessage) * change->data.inval.ninvalidations;
+                break;
+            }
+        case REORDER_BUFFER_CHANGE_INTERNAL_SNAPSHOT:
+            {
+                // Account for snapshot transaction arrays
+                Snapshot snap = change->data.snapshot;
+                sz += sizeof(SnapshotData) +
+                      sizeof(TransactionId) * snap->xcnt +
+                      sizeof(TransactionId) * snap->subxcnt;
+                break;
+            }
+        case REORDER_BUFFER_CHANGE_TRUNCATE:
+            {
+                // Account for relation OID array
+                sz += sizeof(Oid) * change->data.truncate.nrelids;
+                break;
+            }
+        default:
+            // Other change types have no additional data
+            break;
+    }
+
+    return sz;
+}
+```

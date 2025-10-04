@@ -43,3 +43,52 @@ This function is particularly important for PostgreSQL's Windows port as it help
 - Uses  for fatal errors, making it suitable for startup-time security checks where failure should terminate the process
 - Critical for PostgreSQL's security model on Windows platforms
 - The PowerUsers group check provides compatibility with legacy Windows systems where this group had administrative-like privileges
+
+## Simplified Source
+
+```c
+int
+pgwin32_is_admin(void)
+{
+    PSID AdministratorsSid;
+    PSID PowerUsersSid;
+    SID_IDENTIFIER_AUTHORITY NtAuthority = {SECURITY_NT_AUTHORITY};
+    BOOL IsAdministrators;
+    BOOL IsPowerUsers;
+
+    // Create SID for Administrators group
+    if (!AllocateAndInitializeSid(&NtAuthority, 2,
+                                  SECURITY_BUILTIN_DOMAIN_RID,
+                                  DOMAIN_ALIAS_RID_ADMINS, 0, 0, 0, 0, 0,
+                                  0, &AdministratorsSid)) {
+        log_error(_("could not get SID for Administrators group: error code %lu\n"),
+                  GetLastError());
+        exit(1);
+    }
+
+    // Create SID for PowerUsers group
+    if (!AllocateAndInitializeSid(&NtAuthority, 2,
+                                  SECURITY_BUILTIN_DOMAIN_RID,
+                                  DOMAIN_ALIAS_RID_POWER_USERS, 0, 0, 0, 0, 0,
+                                  0, &PowerUsersSid)) {
+        log_error(_("could not get SID for PowerUsers group: error code %lu\n"),
+                  GetLastError());
+        exit(1);
+    }
+
+    // Check token membership in both groups
+    if (!CheckTokenMembership(NULL, AdministratorsSid, &IsAdministrators) ||
+        !CheckTokenMembership(NULL, PowerUsersSid, &IsPowerUsers)) {
+        log_error(_("could not check access token membership: error code %lu\n"),
+                  GetLastError());
+        exit(1);
+    }
+
+    // Clean up SIDs
+    FreeSid(AdministratorsSid);
+    FreeSid(PowerUsersSid);
+
+    // Return 1 if user is in either administrative group
+    return (IsAdministrators || IsPowerUsers) ? 1 : 0;
+}
+```

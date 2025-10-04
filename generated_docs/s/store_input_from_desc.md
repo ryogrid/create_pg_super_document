@@ -35,3 +35,50 @@ This function serves as an adapter between SQL descriptor items and the ECPG par
 - The function properly sets up variable structures with all required fields for ecpg_store_input
 - Memory allocation failures are properly handled and propagated to caller
 - Critical component in SQL descriptor-based parameter processing within ECPG
+
+## Simplified Source
+
+```c
+static bool
+store_input_from_desc(struct statement *stmt, struct descriptor_item *desc_item,
+                      char **tobeinserted)
+{
+    // Binary data: direct memory copy
+    if (desc_item->is_binary)
+    {
+        *tobeinserted = ecpg_alloc(desc_item->data_len, stmt->lineno);
+        if (!*tobeinserted) return false;
+        memcpy(*tobeinserted, desc_item->data, desc_item->data_len);
+        return true;
+    }
+
+    // Text data: setup variable structure for conversion
+    struct variable var;
+    var.type = ECPGt_char;
+    var.varcharsize = strlen(desc_item->data);
+    var.value = desc_item->data;
+    var.pointer = &(desc_item->data);
+    var.arrsize = 1;
+    var.offset = 0;
+
+    // Setup indicator information
+    if (!desc_item->indicator)
+    {
+        var.ind_type = ECPGt_NO_INDICATOR;
+        var.ind_value = var.ind_pointer = NULL;
+        var.ind_varcharsize = var.ind_arrsize = var.ind_offset = 0;
+    }
+    else
+    {
+        var.ind_type = ECPGt_int;
+        var.ind_value = &(desc_item->indicator);
+        var.ind_pointer = &(var.ind_value);
+        var.ind_varcharsize = var.ind_arrsize = 1;
+        var.ind_offset = 0;
+    }
+
+    // Convert through standard input processing
+    return ecpg_store_input(stmt->lineno, stmt->force_indicator, &var,
+                           tobeinserted, false);
+}
+```

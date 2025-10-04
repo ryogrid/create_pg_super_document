@@ -41,3 +41,28 @@ This information is crucial for understanding how PostgreSQL tracks which comman
 - Provides detailed visibility into the internal state of tuple command ID mappings
 - The logged information includes both spatial (database/tablespace/relation/block/offset) and temporal (cmin/cmax) aspects of tuple tracking
 - Currently has no active callers in the codebase, suggesting it may be used conditionally or during development
+
+## Simplified Source
+
+```c
+static void
+DisplayMapping(HTAB *tuplecid_data)
+{
+	// Iterate through all entries in the tuple command ID hash table
+	HASH_SEQ_STATUS hstat;
+	ReorderBufferTupleCidEnt *ent;
+
+	hash_seq_init(&hstat, tuplecid_data);
+	while ((ent = (ReorderBufferTupleCidEnt *) hash_seq_search(&hstat)) != NULL) {
+		// Log detailed mapping information for debugging
+		elog(DEBUG3, "mapping: node: %u/%u/%u tid: %u/%u cmin: %u, cmax: %u",
+			 ent->key.rlocator.dbOid,        // Database OID
+			 ent->key.rlocator.spcOid,       // Tablespace OID
+			 ent->key.rlocator.relNumber,    // Relation number
+			 ItemPointerGetBlockNumber(&ent->key.tid),  // Block number
+			 ItemPointerGetOffsetNumber(&ent->key.tid), // Offset number
+			 ent->cmin,                      // Command ID minimum
+			 ent->cmax);                     // Command ID maximum
+	}
+}
+```

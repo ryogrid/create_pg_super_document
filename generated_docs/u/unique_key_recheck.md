@@ -65,3 +65,95 @@ The function performs several key operations:
 - Creates an executor state only when needed (for expression evaluation or exclusion constraints)
 - The function returns NULL on successful completion
 - Located in src/backend/commands/constraint.c:39-206
+
+## Simplified Source
+
+```c
+Datum
+unique_key_recheck(PG_FUNCTION_ARGS)
+{
+    TriggerData *trigdata = (TriggerData *) fcinfo->context;
+    ItemPointerData checktid;
+    ItemPointerData tmptid;
+    Relation indexRel;
+    IndexInfo *indexInfo;
+    EState *estate;
+    TupleTableSlot *slot;
+    Datum values[INDEX_MAX_KEYS];
+    bool isnull[INDEX_MAX_KEYS];
+
+    // Validate trigger context
+    if (!CALLED_AS_TRIGGER(fcinfo) ||
+        !TRIGGER_FIRED_AFTER(trigdata->tg_event) ||
+        !TRIGGER_FIRED_FOR_ROW(trigdata->tg_event))
+        ereport(ERROR, (errcode(ERRCODE_E_R_I_E_TRIGGER_PROTOCOL_VIOLATED),
+                       errmsg("function must be fired AFTER ROW")));
+
+    // Get tuple ID from INSERT or UPDATE
+    if (TRIGGER_FIRED_BY_INSERT(trigdata->tg_event))
+        checktid = trigdata->tg_trigslot->tts_tid;
+    else if (TRIGGER_FIRED_BY_UPDATE(trigdata->tg_event))
+        checktid = trigdata->tg_newslot->tts_tid;
+    else
+        ereport(ERROR, (errcode(ERRCODE_E_R_I_E_TRIGGER_PROTOCOL_VIOLATED),
+                       errmsg("function must be fired for INSERT or UPDATE")));
+
+    slot = table_slot_create(trigdata->tg_relation, NULL);
+
+    // Check if row is still live (skip if deleted in same transaction)
+    tmptid = checktid;
+    {
+        IndexFetchTableData *scan = table_index_fetch_begin(trigdata->tg_relation);
+        bool call_again = false;
+
+        if (!table_index_fetch_tuple(scan, &tmptid, SnapshotSelf, slot, &call_again, NULL))
+        {
+            // Row is dead, skip check
+            ExecDropSingleTupleTableSlot(slot);
+            table_index_fetch_end(scan);
+            return PointerGetDatum(NULL);
+        }
+        table_index_fetch_end(scan);
+    }
+
+    // Open constraint index and build index info
+    indexRel = index_open(trigdata->tg_trigger->tgconstrindid, RowExclusiveLock);
+    indexInfo = BuildIndexInfo(indexRel);
+
+    // Create executor state if needed for expressions or exclusion constraints
+    if (indexInfo->ii_Expressions != NIL || indexInfo->ii_ExclusionOps != NULL)
+    {
+        estate = CreateExecutorState();
+        ExprContext *econtext = GetPerTupleExprContext(estate);
+        econtext->ecxt_scantuple = slot;
+    }
+    else
+        estate = NULL;
+
+    // Form index values from tuple
+    FormIndexDatum(indexInfo, slot, estate, values, isnull);
+
+    // Perform appropriate constraint check
+    if (indexInfo->ii_ExclusionOps == NULL)
+    {
+        // Uniqueness constraint check
+        index_insert(indexRel, values, isnull, &checktid,
+                     trigdata->tg_relation, UNIQUE_CHECK_EXISTING, false, indexInfo);
+        index_insert_cleanup(indexRel, indexInfo);
+    }
+    else
+    {
+        // Exclusion constraint check
+        check_exclusion_constraint(trigdata->tg_relation, indexRel, indexInfo,
+                                   &tmptid, values, isnull, estate, false);
+    }
+
+    // Cleanup
+    if (estate != NULL)
+        FreeExecutorState(estate);
+    ExecDropSingleTupleTableSlot(slot);
+    index_close(indexRel, RowExclusiveLock);
+
+    return PointerGetDatum(NULL);
+}
+```

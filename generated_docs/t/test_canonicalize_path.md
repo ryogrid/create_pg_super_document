@@ -35,3 +35,18 @@ The  function is a wrapper function designed for PostgreSQL's regression test su
 - [Path](../P/Path.md) canonicalization typically involves resolving relative path components, removing redundant separators, and standardizing path format
 - The function follows PostgreSQL's V1 calling convention for user-defined functions
 - Provides a SQL-accessible interface to test internal path manipulation functionality
+
+## Simplified Source
+
+```c
+Datum test_canonicalize_path(PG_FUNCTION_ARGS) {
+    // Convert input text to C-string
+    char *path = text_to_cstring(PG_GETARG_TEXT_PP(0));
+
+    // Apply path canonicalization (modifies path in-place)
+    canonicalize_path(path);
+
+    // Convert result back to PostgreSQL text and return
+    PG_RETURN_TEXT_P(cstring_to_text(path));
+}
+```

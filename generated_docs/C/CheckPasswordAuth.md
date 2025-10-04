@@ -35,3 +35,44 @@ CheckPasswordAuth is a core authentication function that implements the plaintex
 - Part of the password-based authentication mechanisms in PostgreSQL
 - Uses secure password verification through plain_crypt_verify function
 - Sets authentication identity only after successful password verification
+
+## Simplified Source
+
+```c
+static int
+CheckPasswordAuth(Port *port, const char **logdetail)
+{
+    char *passwd;
+    int result;
+    char *shadow_pass;
+
+    // Request plaintext password from client
+    sendAuthRequest(port, AUTH_REQ_PASSWORD, NULL, 0);
+
+    // Receive password from client
+    passwd = recv_password_packet(port);
+    if (passwd == NULL)
+        return STATUS_EOF;
+
+    // Get stored password hash for user
+    shadow_pass = get_role_password(port->user_name, logdetail);
+
+    // Verify password if we have stored hash
+    if (shadow_pass) {
+        result = plain_crypt_verify(port->user_name, shadow_pass, passwd, logdetail);
+    } else {
+        result = STATUS_ERROR;
+    }
+
+    // Clean up sensitive memory
+    if (shadow_pass)
+        pfree(shadow_pass);
+    pfree(passwd);
+
+    // Set authenticated identity on success
+    if (result == STATUS_OK)
+        set_authn_id(port, port->user_name);
+
+    return result;
+}
+```

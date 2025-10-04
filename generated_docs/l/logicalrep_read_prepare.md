@@ -29,3 +29,12 @@ This function serves as a wrapper around  to parse a PREPARE message from the lo
 - It delegates the actual parsing work to  which is shared with stream prepare message handling
 - The function is used by logical replication workers to process prepare messages during two-phase commit operations
 - Located in src/backend/replication/logical/proto.c:239-247
+
+## Simplified Source
+
+```c
+void logicalrep_read_prepare(StringInfo in, LogicalRepPreparedTxnData *prepare_data) {
+    // Delegate to common prepare reading function with "prepare" message type
+    logicalrep_read_prepare_common(in, "prepare", prepare_data);
+}
+```

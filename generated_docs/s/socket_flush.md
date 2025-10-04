@@ -38,3 +38,26 @@ This function is typically called when it's necessary to ensure all buffered dat
 - Returns 0 on success, EOF on flush errors
 - Critical for maintaining protocol integrity by ensuring complete data transmission
 - Part of PostgreSQL's layered communication architecture for safe buffer management
+
+## Simplified Source
+
+```c
+static int socket_flush(void) {
+    int res;
+
+    // Prevent reentrancy - return immediately if already flushing
+    if (PqCommBusy)
+        return 0;
+
+    // Set busy flag and ensure blocking mode for reliable flush
+    PqCommBusy = true;
+    socket_set_nonblocking(false);
+
+    // Perform the actual flush
+    res = internal_flush();
+
+    // Reset busy flag
+    PqCommBusy = false;
+    return res;
+}
+```

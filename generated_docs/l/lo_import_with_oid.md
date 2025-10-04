@@ -42,3 +42,13 @@ The internal implementation attempts to create a large object with the requested
 - For automatic OID assignment, use  instead
 - The operation is transactional - if it fails partway through, the transaction is aborted
 - Useful for large object backup/restore operations where OID preservation is required
+
+## Simplified Source
+
+```c
+Oid lo_import_with_oid(PGconn *conn, const char *filename, Oid lobjId)
+{
+    // Simple wrapper - delegate to internal function with specified OID
+    return lo_import_internal(conn, filename, lobjId);
+}
+```

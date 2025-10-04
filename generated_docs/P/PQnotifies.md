@@ -39,3 +39,33 @@ Important: This function does not read new data from the socket - applications s
 - Part of PostgreSQL's asynchronous notification system (LISTEN/NOTIFY)
 - The returned structure's 'next' pointer is set to NULL to hide internal queue state from applications
 - Used primarily for handling PostgreSQL NOTIFY messages sent via the NOTIFY SQL command
+
+## Simplified Source
+
+```c
+PGnotify *
+PQnotifies(PGconn *conn)
+{
+    PGnotify *event;
+
+    if (!conn)
+        return NULL;
+
+    // Parse any available input data to extract NOTIFY messages
+    parseInput(conn);
+
+    // Get the first notification from the queue
+    event = conn->notifyHead;
+    if (event) {
+        // Remove from queue and update pointers
+        conn->notifyHead = event->next;
+        if (!conn->notifyHead)
+            conn->notifyTail = NULL;
+
+        // Hide internal queue structure from application
+        event->next = NULL;
+    }
+
+    return event;
+}
+```

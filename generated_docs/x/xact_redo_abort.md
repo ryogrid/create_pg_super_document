@@ -38,3 +38,49 @@ This function performs the recovery replay of transaction abort operations durin
 
 ## Notes and Other Information
 The function is similar to xact_redo_commit but simpler since aborts don't require invalidation message processing or complex timing considerations. A key difference is that abort records can represent subtransaction aborts (topxid != xid), unlike commits where topxid == xid always. The function includes the same WAL-first rule protection for file drops as the commit replay function. Unlike commits, aborts don't use async protocols during hot standby recovery since there are no consistency concerns with hint bits for aborted transactions.
+
+## Simplified Source
+
+```c
+static void
+xact_redo_abort(xl_xact_parsed_abort *parsed, TransactionId xid,
+                XLogRecPtr lsn, RepOriginId origin_id)
+{
+    TransactionId max_xid;
+
+    // Find the highest transaction ID in the abort record
+    max_xid = TransactionIdLatest(xid, parsed->nsubxacts, parsed->subxacts);
+    AdvanceNextFullTransactionIdPastXid(max_xid);
+
+    if (standbyState == STANDBY_DISABLED) {
+        // Simple case: mark transaction and subtransactions as aborted
+        TransactionIdAbortTree(xid, parsed->nsubxacts, parsed->subxacts);
+    } else {
+        // Hot standby case: handle known assigned transactions
+        RecordKnownAssignedTransactionIds(max_xid);
+        TransactionIdAbortTree(xid, parsed->nsubxacts, parsed->subxacts);
+        ExpireTreeKnownAssignedTransactionIds(xid, parsed->nsubxacts, parsed->subxacts, max_xid);
+
+        // Release locks if present
+        if (parsed->xinfo & XACT_XINFO_HAS_AE_LOCKS)
+            StandbyReleaseLockTree(xid, parsed->nsubxacts, parsed->subxacts);
+    }
+
+    // Handle replication origin if present
+    if (parsed->xinfo & XACT_XINFO_HAS_ORIGIN) {
+        replorigin_advance(origin_id, parsed->origin_lsn, lsn, false, false);
+    }
+
+    // Drop relation files if any
+    if (parsed->nrels > 0) {
+        XLogFlush(lsn);  // WAL-first rule
+        DropRelationFiles(parsed->xlocators, parsed->nrels, true);
+    }
+
+    // Drop statistics if any
+    if (parsed->nstats > 0) {
+        XLogFlush(lsn);  // WAL-first rule
+        pgstat_execute_transactional_drops(parsed->nstats, parsed->stats, true);
+    }
+}
+```

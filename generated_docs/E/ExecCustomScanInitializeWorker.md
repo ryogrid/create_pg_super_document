@@ -35,3 +35,23 @@ ExecCustomScanInitializeWorker is responsible for initializing a custom scan nod
 - The coordinate pointer provides the worker access to shared state for coordination with other workers
 - The shm_toc_lookup call uses 'false' for the missing_ok parameter, meaning it will error if the coordination data is not found
 - This function is called once per worker process during parallel query startup
+
+## Simplified Source
+
+```c
+void ExecCustomScanInitializeWorker(CustomScanState *node,
+                                   ParallelWorkerContext *pwcxt) {
+    const CustomExecMethods *methods = node->methods;
+
+    // Only initialize if custom scan provider supports parallel workers
+    if (methods->InitializeWorkerCustomScan) {
+        int plan_node_id = node->ss.ps.plan->plan_node_id;
+
+        // Look up shared coordination data from leader
+        void *coordinate = shm_toc_lookup(pwcxt->toc, plan_node_id, false);
+
+        // Call provider-specific worker initialization
+        methods->InitializeWorkerCustomScan(node, pwcxt->toc, coordinate);
+    }
+}
+```

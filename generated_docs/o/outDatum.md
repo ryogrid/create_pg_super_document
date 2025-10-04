@@ -37,3 +37,37 @@ The output format is consistent:  where length is the total size in bytes, follo
 
 ## Notes and Other Information
 This function is part of PostgreSQL's node output system and is primarily used for debugging and plan visualization. The raw byte representation allows developers to inspect the actual memory contents of PostgreSQL data values, which is particularly useful when debugging type-related issues or understanding how different data types are stored internally. The function handles null pointers gracefully by outputting "0 [ ]" for invalid pointers in pass-by-reference types.
+
+## Simplified Source
+
+```c
+void
+outDatum(StringInfo str, Datum value, int typlen, bool typbyval)
+{
+    Size length = datumGetSize(value, typbyval, typlen);
+
+    if (typbyval)
+    {
+        // Pass-by-value: print bytes from Datum itself
+        char *s = (char *) (&value);
+        appendStringInfo(str, "%u [ ", (unsigned int) length);
+        for (Size i = 0; i < sizeof(Datum); i++)
+            appendStringInfo(str, "%d ", (int) (s[i]));
+        appendStringInfoChar(str, ']');
+    }
+    else
+    {
+        // Pass-by-reference: print bytes from pointed-to data
+        char *s = (char *) DatumGetPointer(value);
+        if (!PointerIsValid(s))
+            appendStringInfoString(str, "0 [ ]");
+        else
+        {
+            appendStringInfo(str, "%u [ ", (unsigned int) length);
+            for (Size i = 0; i < length; i++)
+                appendStringInfo(str, "%d ", (int) (s[i]));
+            appendStringInfoChar(str, ']');
+        }
+    }
+}
+```

@@ -50,3 +50,46 @@ This function is particularly important for padding operations where many spaces
 - Essential for efficient implementation of field width padding, zero padding, and precision formatting
 - Handles buffer boundaries correctly, ensuring no buffer overruns occur
 - When buffer space is insufficient, processes output in chunks that fit the available buffer space
+
+## Simplified Source
+
+```c
+static void
+dopr_outchmulti(int c, int slen, PrintfTarget *target)
+{
+    // Fast path for single character
+    if (slen == 1) {
+        dopr_outch(c, target);
+        return;
+    }
+
+    // Output multiple characters efficiently
+    while (slen > 0) {
+        int avail;
+
+        // Calculate available buffer space
+        if (target->bufend != NULL)
+            avail = target->bufend - target->bufptr;
+        else
+            avail = slen;
+
+        // Handle full buffer
+        if (avail <= 0) {
+            if (target->stream == NULL) {
+                // No stream - count lost characters
+                target->nchars += slen;
+                return;
+            }
+            // Flush buffer and continue
+            flushbuffer(target);
+            continue;
+        }
+
+        // Fill buffer with character in chunks
+        avail = Min(avail, slen);
+        memset(target->bufptr, c, avail);
+        target->bufptr += avail;
+        slen -= avail;
+    }
+}
+```

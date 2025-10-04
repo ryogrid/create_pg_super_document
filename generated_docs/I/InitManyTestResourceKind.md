@@ -44,3 +44,29 @@ The resource descriptor is populated with callback functions that will be invoke
 - The current_resources list is properly initialized as an empty doubly-linked list
 - The initialized structure becomes ready for use with RememberManyTestResources and ForgetManyTestResources
 - Resource release phase and priority determine cleanup ordering in PostgreSQL's resource management system
+
+## Simplified Source
+
+```c
+// Simplified version of InitManyTestResourceKind
+static void
+InitManyTestResourceKind(ManyTestResourceKind *kind, char *name,
+                         ResourceReleasePhase phase, uint32 priority)
+{
+    // Set up resource descriptor
+    kind->desc.name = name;
+    kind->desc.release_phase = phase;
+    kind->desc.release_priority = priority;
+    kind->desc.ReleaseResource = ReleaseManyTestResource;
+    kind->desc.DebugPrint = PrintManyTest;
+
+    // Initialize statistics counters
+    kind->nremembered = 0;
+    kind->nforgotten = 0;
+    kind->nreleased = 0;
+    kind->nleaked = 0;
+
+    // Initialize resource tracking list
+    dlist_init(&kind->current_resources);
+}
+```

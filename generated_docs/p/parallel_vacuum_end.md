@@ -42,3 +42,38 @@ The function must run in the leader process (not a parallel worker) and carefull
 - Critical ordering: statistics must be copied before destroying parallel context due to write restrictions in parallel mode
 - The  array is populated with statistics only for indexes that were actually updated during parallel processing
 - All dynamically allocated memory from the parallel vacuum state is properly freed to prevent memory leaks
+
+## Simplified Source
+
+```c
+void
+parallel_vacuum_end(ParallelVacuumState *pvs, IndexBulkDeleteResult **istats)
+{
+    Assert(!IsParallelWorker());
+
+    // Copy updated statistics from shared memory to local memory
+    // Must do this before destroying parallel context due to write restrictions
+    for (int i = 0; i < pvs->nindexes; i++) {
+        PVIndStats *indstats = &(pvs->indstats[i]);
+
+        if (indstats->istat_updated) {
+            // Copy statistics to output array
+            istats[i] = (IndexBulkDeleteResult *) palloc0(sizeof(IndexBulkDeleteResult));
+            memcpy(istats[i], &indstats->istat, sizeof(IndexBulkDeleteResult));
+        } else {
+            istats[i] = NULL;
+        }
+    }
+
+    // Clean up shared resources
+    TidStoreDestroy(pvs->dead_items);
+
+    // Tear down parallel context and exit parallel mode
+    DestroyParallelContext(pvs->pcxt);
+    ExitParallelMode();
+
+    // Free local memory
+    pfree(pvs->will_parallel_vacuum);
+    pfree(pvs);
+}
+```

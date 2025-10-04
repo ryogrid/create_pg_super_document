@@ -74,3 +74,75 @@ The function handles several critical aspects of parallel execution including: s
 - Ensures proper cleanup of all resources including query descriptors and receivers
 - Critical component that enables PostgreSQL to distribute query execution across multiple worker processes
 - Buffer and WAL usage tracking starts after executor initialization to match leader behavior
+
+## Simplified Source
+
+```c
+void ParallelQueryMain(dsm_segment *seg, shm_toc *toc)
+{
+    // Get fixed execution state from shared memory
+    FixedParallelExecutorState *fpes = shm_toc_lookup(toc, PARALLEL_KEY_EXECUTOR_FIXED, false);
+
+    // Set up tuple destination and instrumentation
+    DestReceiver *receiver = ExecParallelGetReceiver(seg, toc);
+    SharedExecutorInstrumentation *instrumentation =
+        shm_toc_lookup(toc, PARALLEL_KEY_INSTRUMENTATION, true);
+    int instrument_options = instrumentation ? instrumentation->instrument_options : 0;
+
+    // Create QueryDesc with all necessary execution context
+    QueryDesc *queryDesc = ExecParallelGetQueryDesc(toc, receiver, instrument_options);
+
+    // Set up debug information and activity reporting
+    debug_query_string = queryDesc->sourceText;
+    pgstat_report_activity(STATE_RUNNING, debug_query_string);
+
+    // Attach to dynamic shared memory area
+    void *area_space = shm_toc_lookup(toc, PARALLEL_KEY_DSA, false);
+    dsa_area *area = dsa_attach_in_place(area_space, seg);
+
+    // Initialize executor with parallel worker context
+    queryDesc->plannedstmt->jitFlags = fpes->jit_flags;
+    ExecutorStart(queryDesc, fpes->eflags);
+    queryDesc->planstate->state->es_query_dsa = area;
+
+    // Restore parameter execution state if present
+    if (DsaPointerIsValid(fpes->param_exec)) {
+        char *paramexec_space = dsa_get_address(area, fpes->param_exec);
+        RestoreParamExecParams(paramexec_space, queryDesc->estate);
+    }
+
+    // Initialize worker-specific state and set tuple bounds
+    ParallelWorkerContext pwcxt = {.toc = toc, .seg = seg};
+    ExecParallelInitializeWorker(queryDesc->planstate, &pwcxt);
+    ExecSetTupleBound(fpes->tuples_needed, queryDesc->planstate);
+
+    // Start performance tracking and execute the query
+    InstrStartParallelQuery();
+    ExecutorRun(queryDesc, ForwardScanDirection,
+                fpes->tuples_needed < 0 ? 0 : fpes->tuples_needed, true);
+    ExecutorFinish(queryDesc);
+
+    // Report buffer and WAL usage statistics
+    BufferUsage *buffer_usage = shm_toc_lookup(toc, PARALLEL_KEY_BUFFER_USAGE, false);
+    WalUsage *wal_usage = shm_toc_lookup(toc, PARALLEL_KEY_WAL_USAGE, false);
+    InstrEndParallelQuery(&buffer_usage[ParallelWorkerNumber], &wal_usage[ParallelWorkerNumber]);
+
+    // Report execution instrumentation if enabled
+    if (instrumentation != NULL)
+        ExecParallelReportInstrumentation(queryDesc->planstate, instrumentation);
+
+    // Report JIT instrumentation if present
+    SharedJitInstrumentation *jit_instrumentation =
+        shm_toc_lookup(toc, PARALLEL_KEY_JIT_INSTRUMENTATION, true);
+    if (queryDesc->estate->es_jit && jit_instrumentation != NULL) {
+        jit_instrumentation->jit_instr[ParallelWorkerNumber] =
+            queryDesc->estate->es_jit->instr;
+    }
+
+    // Clean up resources
+    ExecutorEnd(queryDesc);
+    dsa_detach(area);
+    FreeQueryDesc(queryDesc);
+    receiver->rDestroy(receiver);
+}
+```

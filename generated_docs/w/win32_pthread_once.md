@@ -31,3 +31,22 @@ The implementation uses a global mutex  to synchronize access and employs double
 
 ## Notes and Other Information
 This function is part of the Windows pthread compatibility layer in ECPG. It's only compiled on Windows systems where native pthread_once is not available. The double-checked locking pattern provides good performance characteristics while maintaining thread safety. The use of volatile keyword on the once parameter ensures proper memory visibility across threads.
+
+## Simplified Source
+
+```c
+void win32_pthread_once(volatile pthread_once_t *once, void (*fn) (void)) {
+    // Double-checked locking pattern for thread-safe one-time execution
+    if (!*once) {
+        pthread_mutex_lock(&win32_pthread_once_lock);
+
+        // Check again after acquiring lock
+        if (!*once) {
+            fn();           // Execute initialization function
+            *once = true;   // Mark as completed
+        }
+
+        pthread_mutex_unlock(&win32_pthread_once_lock);
+    }
+}
+```

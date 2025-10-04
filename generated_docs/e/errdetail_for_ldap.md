@@ -41,3 +41,26 @@ This diagnostic information can include server-specific error messages, addition
 - Integrates with PostgreSQL's error reporting framework to provide consistent error formatting
 - Called as part of error handling paths in LDAP authentication functions to enrich error information
 - Diagnostic messages are server-dependent and may vary between different LDAP implementations
+
+## Simplified Source
+
+```c
+static int
+errdetail_for_ldap(LDAP *ldap)
+{
+    char   *message;
+    int     rc;
+
+    // Retrieve diagnostic message from LDAP connection
+    rc = ldap_get_option(ldap, LDAP_OPT_DIAGNOSTIC_MESSAGE, &message);
+
+    if (rc == LDAP_SUCCESS && message != NULL)
+    {
+        // Add LDAP diagnostic information to PostgreSQL error detail
+        errdetail("LDAP diagnostics: %s", message);
+        ldap_memfree(message);
+    }
+
+    return 0;
+}
+```

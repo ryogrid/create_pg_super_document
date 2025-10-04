@@ -52,3 +52,65 @@ The function uses a recursive approach to handle cascading splits that may occur
 - Critical for maintaining the performance characteristics of the B-tree structure
 - Updates the rightmost_nodes tracking array to optimize future insertions
 - The child_key parameter represents the minimum value that can be found in the child subtree
+
+## Simplified Source
+
+```c
+static void
+intset_update_upper(IntegerSet *intset, int level, intset_node *child,
+                    uint64 child_key)
+{
+    intset_internal_node *parent;
+
+    // Create new root node if we're expanding tree height
+    if (level >= intset->num_levels)
+    {
+        intset_node *oldroot = intset->root;
+        uint64 downlink_key;
+
+        // Safety check for maximum tree depth
+        if (intset->num_levels == MAX_TREE_LEVELS)
+            elog(ERROR, "could not expand integer set, maximum number of levels reached");
+        intset->num_levels++;
+
+        // Get first value from old root for downlink key
+        if (intset->root->level == 0)
+            downlink_key = ((intset_leaf_node *) oldroot)->items[0].first;
+        else
+            downlink_key = ((intset_internal_node *) oldroot)->values[0];
+
+        // Create new root and link old root as first child
+        parent = intset_new_internal_node(intset);
+        parent->level = level;
+        parent->values[0] = downlink_key;
+        parent->downlinks[0] = oldroot;
+        parent->num_items = 1;
+
+        intset->root = (intset_node *) parent;
+        intset->rightmost_nodes[level] = (intset_node *) parent;
+    }
+
+    // Insert downlink into parent node
+    parent = (intset_internal_node *) intset->rightmost_nodes[level];
+
+    if (parent->num_items < MAX_INTERNAL_ITEMS)
+    {
+        // Simple case: parent has space for new downlink
+        parent->values[parent->num_items] = child_key;
+        parent->downlinks[parent->num_items] = child;
+        parent->num_items++;
+    }
+    else
+    {
+        // Parent is full: create new parent node and recurse upward
+        parent = intset_new_internal_node(intset);
+        parent->level = level;
+        parent->values[0] = child_key;
+        parent->downlinks[0] = child;
+        parent->num_items = 1;
+
+        intset->rightmost_nodes[level] = (intset_node *) parent;
+        intset_update_upper(intset, level + 1, (intset_node *) parent, child_key);
+    }
+}
+```

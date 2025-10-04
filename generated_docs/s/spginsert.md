@@ -42,3 +42,40 @@ This function handles the insertion of individual tuples into an SP-GiST index d
 
 ## Notes and Other Information
 Always returns false since SP-GiST does not support unique constraints. The retry mechanism ensures eventual success even under high concurrency. Memory context management prevents memory leaks during repeated retry attempts.
+
+## Simplified Source
+
+```c
+bool spginsert(Relation index, Datum *values, bool *isnull,
+               ItemPointer ht_ctid, Relation heapRel,
+               IndexUniqueCheck checkUnique,
+               bool indexUnchanged,
+               IndexInfo *indexInfo) {
+    SpGistState spgstate;
+    MemoryContext oldCtx;
+    MemoryContext insertCtx;
+
+    // Create temporary memory context for insertion
+    insertCtx = AllocSetContextCreate(CurrentMemoryContext,
+                                     "SP-GiST insert temporary context",
+                                     ALLOCSET_DEFAULT_SIZES);
+    oldCtx = MemoryContextSwitchTo(insertCtx);
+
+    // Initialize SP-GiST state
+    initSpGistState(&spgstate, index);
+
+    // Retry insertion until successful (handling concurrent conflicts)
+    while (!spgdoinsert(index, &spgstate, ht_ctid, values, isnull)) {
+        MemoryContextReset(insertCtx);      // Reset context on retry
+        initSpGistState(&spgstate, index);  // Reinitialize state
+    }
+
+    // Update metapage and cleanup
+    SpGistUpdateMetaPage(index);
+    MemoryContextSwitchTo(oldCtx);
+    MemoryContextDelete(insertCtx);
+
+    // SP-GiST doesn't support unique constraints
+    return false;
+}
+```

@@ -35,4 +35,27 @@ This function serves as a PostgreSQL SQL function wrapper for dropping replicati
 - Uses  and  when calling the internal drop function
 - Automatically handles memory management for the converted origin name string
 - Part of PostgreSQL's logical replication origin management system
-- Located in 
+- Located in
+
+## Simplified Source
+
+```c
+Datum
+pg_replication_origin_drop(PG_FUNCTION_ARGS)
+{
+    char *name;
+
+    // Check prerequisites (not in recovery, proper configuration)
+    replorigin_check_prerequisites(false, false);
+
+    // Convert text argument to C string
+    name = text_to_cstring((text *) DatumGetPointer(PG_GETARG_DATUM(0)));
+
+    // Drop the replication origin by name
+    replorigin_drop_by_name(name, false, true);
+
+    pfree(name);
+
+    PG_RETURN_VOID();
+}
+```

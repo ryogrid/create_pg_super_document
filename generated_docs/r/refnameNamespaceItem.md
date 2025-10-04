@@ -40,3 +40,56 @@ This function performs namespace resolution for relation references in SQL queri
 - Returns NULL if no matching namespace item is found
 - Can report ambiguity errors if multiple items match an unqualified name at the same nesting level
 - Part of PostgreSQL's parser namespace resolution system
+
+## Simplified Source
+
+```c
+ParseNamespaceItem *
+refnameNamespaceItem(ParseState *pstate,
+                     const char *schemaname,
+                     const char *refname,
+                     int location,
+                     int *sublevels_up)
+{
+    Oid relId = InvalidOid;
+
+    // Initialize sublevel tracking
+    if (sublevels_up)
+        *sublevels_up = 0;
+
+    // Handle qualified names: convert schema.relation to OID
+    if (schemaname != NULL)
+    {
+        Oid namespaceId = LookupNamespaceNoError(schemaname);
+        if (!OidIsValid(namespaceId))
+            return NULL;
+        relId = get_relname_relid(refname, namespaceId);
+        if (!OidIsValid(relId))
+            return NULL;
+    }
+
+    // Search through parsing state stack
+    while (pstate != NULL)
+    {
+        ParseNamespaceItem *result;
+
+        // Search by OID for qualified names, by name for unqualified
+        if (OidIsValid(relId))
+            result = scanNameSpaceForRelid(pstate, relId, location);
+        else
+            result = scanNameSpaceForRefname(pstate, refname, location);
+
+        if (result)
+            return result;
+
+        // Move to parent parsing state if requested
+        if (sublevels_up)
+            (*sublevels_up)++;
+        else
+            break;
+
+        pstate = pstate->parentParseState;
+    }
+    return NULL;
+}
+```

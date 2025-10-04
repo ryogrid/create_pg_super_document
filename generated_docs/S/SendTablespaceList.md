@@ -41,3 +41,52 @@ This function creates and sends a three-column result set containing information
 - Size values of -1 are treated as NULL (unknown size)
 - Uses the standard PostgreSQL tuple output mechanism for sending structured data
 - Essential for communicating tablespace layout information during base backup initialization
+
+## Simplified Source
+
+```c
+static void SendTablespaceList(List *tablespaces) {
+    DestReceiver *dest;
+    TupOutputState *tstate;
+    TupleDesc tupdesc;
+    ListCell *lc;
+
+    // Create destination for result output
+    dest = CreateDestReceiver(DestRemoteSimple);
+
+    // Create tuple descriptor with spcoid, spclocation, size columns
+    tupdesc = CreateTemplateTupleDesc(3);
+    TupleDescInitBuiltinEntry(tupdesc, 1, "spcoid", OIDOID, -1, 0);
+    TupleDescInitBuiltinEntry(tupdesc, 2, "spclocation", TEXTOID, -1, 0);
+    TupleDescInitBuiltinEntry(tupdesc, 3, "size", INT8OID, -1, 0);
+
+    // Begin tuple output
+    tstate = begin_tup_output_tupdesc(dest, tupdesc, &TTSOpsVirtual);
+
+    // Send each tablespace as a data row
+    foreach(lc, tablespaces) {
+        tablespaceinfo *ti = lfirst(lc);
+        Datum values[3];
+        bool nulls[3] = {0};
+
+        // Handle missing path (NULL case)
+        if (ti->path == NULL) {
+            nulls[0] = true;
+            nulls[1] = true;
+        } else {
+            values[0] = ObjectIdGetDatum(ti->oid);
+            values[1] = CStringGetTextDatum(ti->path);
+        }
+
+        // Convert size from bytes to KB, handle unknown size
+        if (ti->size >= 0)
+            values[2] = Int64GetDatum(ti->size / 1024);
+        else
+            nulls[2] = true;
+
+        do_tup_output(tstate, values, nulls);
+    }
+
+    end_tup_output(tstate);
+}
+```

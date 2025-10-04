@@ -46,3 +46,46 @@ The function also handles the special case of scalar functions, where it creates
 - Records SELECT privilege requirements for accessed columns
 - Uses RECORDOID and COERCE_IMPLICIT_CAST for RowExpr type information
 - Located in src/backend/parser/parse_expr.c:2620-2691
+
+## Simplified Source
+
+```c
+static Node *
+transformWholeRowRef(ParseState *pstate, ParseNamespaceItem *nsitem,
+                     int sublevels_up, int location)
+{
+    // Check if this is a normal relation or JOIN USING alias
+    if (nsitem->p_names == nsitem->p_rte->eref)
+    {
+        // Normal relation: create whole-row Var
+        Var *result = makeWholeRowVar(nsitem->p_rte, nsitem->p_rtindex,
+                                      sublevels_up, true);
+
+        result->location = location;
+        markNullableIfNeeded(pstate, result);
+        markVarForSelectPriv(pstate, result);
+
+        return (Node *) result;
+    }
+    else
+    {
+        // JOIN USING alias: expand to RowExpr with subset of columns
+        RowExpr *rowexpr;
+        List *fields;
+
+        expandRTE(nsitem->p_rte, nsitem->p_rtindex,
+                  sublevels_up, location, false,
+                  NULL, &fields);
+
+        rowexpr = makeNode(RowExpr);
+        rowexpr->args = list_truncate(fields,
+                                      list_length(nsitem->p_names->colnames));
+        rowexpr->row_typeid = RECORDOID;
+        rowexpr->row_format = COERCE_IMPLICIT_CAST;
+        rowexpr->colnames = copyObject(nsitem->p_names->colnames);
+        rowexpr->location = location;
+
+        return (Node *) rowexpr;
+    }
+}
+```

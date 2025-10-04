@@ -47,3 +47,62 @@ For MD5 authentication, the function performs double MD5 hashing: first hashing 
 - The password message is NULL-terminated when sent to the server (strlen + 1)
 - Returns STATUS_ERROR for unsupported authentication request types
 - Properly cleans up allocated memory in all code paths, including error conditions
+
+## Simplified Source
+
+```c
+static int pg_password_sendauth(PGconn *conn, const char *password, AuthRequest areq) {
+    int ret;
+    char *crypt_pwd = NULL;
+    const char *pwd_to_send;
+    char md5Salt[4];
+
+    // Handle different authentication types
+    switch (areq) {
+        case AUTH_REQ_MD5:
+            {
+                // Read salt from server
+                if (pqGetnchar(md5Salt, 4, conn))
+                    return STATUS_ERROR;
+
+                // Allocate space for two MD5 hashes
+                crypt_pwd = malloc(2 * (MD5_PASSWD_LEN + 1));
+                if (!crypt_pwd) {
+                    libpq_append_conn_error(conn, "out of memory");
+                    return STATUS_ERROR;
+                }
+
+                char *crypt_pwd2 = crypt_pwd + MD5_PASSWD_LEN + 1;
+                const char *errstr = NULL;
+
+                // Double MD5 hashing: md5(md5(password + username) + salt)
+                if (!pg_md5_encrypt(password, conn->pguser, strlen(conn->pguser),
+                                    crypt_pwd2, &errstr)) {
+                    libpq_append_conn_error(conn, "could not encrypt password: %s", errstr);
+                    free(crypt_pwd);
+                    return STATUS_ERROR;
+                }
+                if (!pg_md5_encrypt(crypt_pwd2 + strlen("md5"), md5Salt, 4,
+                                    crypt_pwd, &errstr)) {
+                    libpq_append_conn_error(conn, "could not encrypt password: %s", errstr);
+                    free(crypt_pwd);
+                    return STATUS_ERROR;
+                }
+
+                pwd_to_send = crypt_pwd;
+                break;
+            }
+        case AUTH_REQ_PASSWORD:
+            pwd_to_send = password;
+            break;
+        default:
+            return STATUS_ERROR;
+    }
+
+    // Send password message to server
+    ret = pqPacketSend(conn, PqMsg_PasswordMessage,
+                       pwd_to_send, strlen(pwd_to_send) + 1);
+    free(crypt_pwd);
+    return ret;
+}
+```

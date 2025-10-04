@@ -36,3 +36,16 @@ pqPutc is part of the message construction infrastructure in libpq and is used i
 - The character is buffered and not immediately sent to the network
 - Error conditions are typically related to buffer space allocation failures
 - Thread-safety depends on the connection's locking mechanisms
+
+## Simplified Source
+
+```c
+int pqPutc(char c, PGconn *conn)
+{
+    // Simple wrapper - delegate to general byte writing function
+    if (pqPutMsgBytes(&c, 1, conn))
+        return EOF;
+
+    return 0;
+}
+```

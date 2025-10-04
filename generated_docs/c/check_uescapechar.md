@@ -40,3 +40,16 @@ Any other character is considered valid and returns `true`.
 - The function is used during lexical analysis when processing Unicode string literals and identifiers with UESCAPE clauses
 - The validation rules ensure that Unicode escape sequences can be unambiguously parsed without conflicts with other SQL syntax elements
 - The function is critical for preventing malformed Unicode escape sequences that could lead to parsing errors or security issues
+
+## Simplified Source
+
+```c
+static bool check_uescapechar(unsigned char escape) {
+    // Invalid characters: hex digits, +, ', ", whitespace
+    if (isxdigit(escape) || escape == '+' || escape == '\'' ||
+        escape == '"' || scanner_isspace(escape)) {
+        return false;
+    }
+    return true;
+}
+```

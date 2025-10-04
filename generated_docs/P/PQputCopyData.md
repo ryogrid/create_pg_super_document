@@ -52,3 +52,45 @@ The function performs several key operations:
 - The connection must be in PGASYNC_COPY_IN or PGASYNC_COPY_BOTH state before calling
 - Processes pending messages during execution to prevent input buffer expansion
 - Used primarily in COPY FROM STDIN operations and replication contexts
+
+## Simplified Source
+
+```c
+int
+PQputCopyData(PGconn *conn, const char *buffer, int nbytes)
+{
+    if (!conn)
+        return -1;
+
+    // Verify we're in a COPY operation
+    if (conn->asyncStatus != PGASYNC_COPY_IN &&
+        conn->asyncStatus != PGASYNC_COPY_BOTH) {
+        libpq_append_conn_error(conn, "no COPY in progress");
+        return -1;
+    }
+
+    // Process pending messages to prevent buffer overflow
+    parseInput(conn);
+
+    if (nbytes > 0) {
+        // Check if we have enough buffer space (assume 5 bytes overhead)
+        if ((conn->outBufSize - conn->outCount - 5) < nbytes) {
+            // Try to flush existing data first
+            if (pqFlush(conn) < 0)
+                return -1;
+
+            // Ensure buffer space is available
+            if (pqCheckOutBufferSpace(conn->outCount + 5 + (size_t) nbytes, conn))
+                return pqIsnonblocking(conn) ? 0 : -1;
+        }
+
+        // Send copy data message
+        if (pqPutMsgStart(PqMsg_CopyData, conn) < 0 ||
+            pqPutnchar(buffer, nbytes, conn) < 0 ||
+            pqPutMsgEnd(conn) < 0)
+            return -1;
+    }
+
+    return 1;
+}
+```

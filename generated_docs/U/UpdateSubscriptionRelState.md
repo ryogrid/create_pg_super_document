@@ -35,3 +35,12 @@ The function delegates all actual work to UpdateSubscriptionRelStateEx, maintain
 - Automatically manages locking by delegating to UpdateSubscriptionRelStateEx with already_locked=false
 - Commonly used in logical replication table synchronization processes
 - Located in src/backend/catalog/pg_subscription.c:354-365
+
+## Simplified Source
+
+```c
+void UpdateSubscriptionRelState(Oid subid, Oid relid, char state, XLogRecPtr sublsn) {
+    // Simple wrapper that delegates to the extended version with default locking
+    UpdateSubscriptionRelStateEx(subid, relid, state, sublsn, false);
+}
+```

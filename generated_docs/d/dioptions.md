@@ -38,3 +38,17 @@ This function demonstrates how index access methods can define and parse custom 
 - Part of the dummy_index_am test module framework
 - The validation parameter controls whether option values are checked for validity
 - Demonstrates proper integration with PostgreSQL's relation option system
+
+## Simplified Source
+
+```c
+static bytea *
+dioptions(Datum reloptions, bool validate)
+{
+    // Parse relation options using PostgreSQL's standard infrastructure
+    return (bytea *) build_reloptions(reloptions, validate,
+                                      di_relopt_kind,
+                                      sizeof(DummyIndexOptions),
+                                      di_relopt_tab, lengthof(di_relopt_tab));
+}
+```

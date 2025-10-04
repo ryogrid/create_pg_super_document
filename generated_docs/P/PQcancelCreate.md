@@ -47,3 +47,66 @@ The function is designed to work with PostgreSQL's secure query cancellation mec
 - Memory allocation failures during host information copying result in an out-of-memory error state
 - The cancelRequest flag is set to true to indicate this connection is specifically for cancellation purposes
 - Connection status is set to CONNECTION_ALLOCATED on success, CONNECTION_BAD on critical errors
+
+## Simplified Source
+
+```c
+PGcancelConn *
+PQcancelCreate(PGconn *conn)
+{
+    PGconn *cancelConn = pqMakeEmptyPGconn();
+    if (!cancelConn) {
+        return NULL;
+    }
+
+    // Validate input connection
+    if (!conn || conn->sock == PGINVALID_SOCKET) {
+        libpq_append_conn_error(cancelConn, "invalid or closed connection");
+        return (PGcancelConn *) cancelConn;
+    }
+
+    // Set up as cancel connection and copy connection settings
+    cancelConn->cancelRequest = true;
+    if (!pqCopyPGconn(conn, cancelConn) || !pqConnectOptions2(cancelConn)) {
+        return (PGcancelConn *) cancelConn;
+    }
+
+    // Copy cancellation tokens from original connection
+    cancelConn->be_pid = conn->be_pid;
+    cancelConn->be_key = conn->be_key;
+
+    // Set up single-host connection to exact server address
+    pqReleaseConnHosts(cancelConn);
+    cancelConn->nconnhost = 1;
+    cancelConn->naddr = 1;
+
+    // Allocate and copy host information
+    cancelConn->connhost = calloc(1, sizeof(pg_conn_host));
+    cancelConn->addr = calloc(1, sizeof(AddrInfo));
+    if (!cancelConn->connhost || !cancelConn->addr) {
+        goto oom_error;
+    }
+
+    // Copy host details from original connection
+    pg_conn_host originalHost = conn->connhost[conn->whichhost];
+    if (originalHost.host) {
+        cancelConn->connhost[0].host = strdup(originalHost.host);
+    }
+    if (originalHost.port) {
+        cancelConn->connhost[0].port = strdup(originalHost.port);
+    }
+    // Copy other host fields as needed...
+
+    // Copy address information
+    cancelConn->addr[0].addr = conn->raddr;
+    cancelConn->addr[0].family = conn->raddr.addr.ss_family;
+
+    cancelConn->status = CONNECTION_ALLOCATED;
+    return (PGcancelConn *) cancelConn;
+
+oom_error:
+    cancelConn->status = CONNECTION_BAD;
+    libpq_append_conn_error(cancelConn, "out of memory");
+    return (PGcancelConn *) cancelConn;
+}
+```

@@ -37,3 +37,35 @@ The serialization check is particularly important because when a leader apply wo
 - Implements a worker pool management strategy to balance resource usage
 - Special handling for workers that have serialized changes due to message queue issues
 - Part of the parallel apply worker infrastructure for logical replication
+
+## Simplified Source
+
+```c
+static void
+pa_free_worker(ParallelApplyWorkerInfo *winfo)
+{
+    Assert(!am_parallel_apply_worker());
+    Assert(winfo->in_use);
+    Assert(pa_get_xact_state(winfo->shared) == PARALLEL_TRANS_FINISHED);
+
+    // Remove worker from transaction hash table
+    if (!hash_search(ParallelApplyTxnHash, &winfo->shared->xid, HASH_REMOVE, NULL))
+        elog(ERROR, "hash table corrupted");
+
+    // Decide whether to stop worker or reuse it
+    // Stop if: serialized changes OR too many workers in pool
+    if (winfo->serialize_changes ||
+        list_length(ParallelApplyWorkerPool) >
+        (max_parallel_apply_workers_per_subscription / 2))
+    {
+        // Stop and completely free the worker
+        logicalrep_pa_worker_stop(winfo);
+        pa_free_worker_info(winfo);
+        return;
+    }
+
+    // Mark as available for reuse
+    winfo->in_use = false;
+    winfo->serialize_changes = false;
+}
+```

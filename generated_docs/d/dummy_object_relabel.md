@@ -37,3 +37,34 @@ The function validates incoming security labels against a set of allowed values:
 - Demonstrates typical patterns for security label validation and privilege enforcement
 - The function is registered as a callback during module initialization
 - Returns void but may raise ERRORs for invalid labels or insufficient privileges
+
+## Simplified Source
+
+```c
+static void
+dummy_object_relabel(const ObjectAddress *object, const char *seclabel)
+{
+    // Allow NULL or basic classification levels
+    if (seclabel == NULL ||
+        strcmp(seclabel, "unclassified") == 0 ||
+        strcmp(seclabel, "classified") == 0)
+        return;
+
+    // Handle restricted classification levels
+    if (strcmp(seclabel, "secret") == 0 ||
+        strcmp(seclabel, "top secret") == 0) {
+
+        // Require superuser privileges for restricted labels
+        if (!superuser())
+            ereport(ERROR,
+                    (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                     errmsg("only superuser can set '%s' label", seclabel)));
+        return;
+    }
+
+    // Reject invalid security labels
+    ereport(ERROR,
+            (errcode(ERRCODE_INVALID_NAME),
+             errmsg("'%s' is not a valid security label", seclabel)));
+}
+```

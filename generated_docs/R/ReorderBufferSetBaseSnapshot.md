@@ -41,3 +41,32 @@ Once the base snapshot is established, the transaction is added to the reorder b
 - The transaction is added to rb->txns_by_base_snapshot_lsn list to maintain LSN ordering
 - [AssertTXNLsnOrder](../A/AssertTXNLsnOrder.md) is called to verify the ordering invariants are maintained
 - The base snapshot LSN is stored alongside the snapshot for future reference
+
+## Simplified Source
+
+```c
+void ReorderBufferSetBaseSnapshot(ReorderBuffer *rb, TransactionId xid,
+                                 XLogRecPtr lsn, Snapshot snap)
+{
+    ReorderBufferTXN *txn;
+    bool is_new;
+
+    // Get the transaction, creating if necessary
+    txn = ReorderBufferTXNByXid(rb, xid, true, &is_new, lsn, true);
+
+    // If this is a subtransaction, delegate to the top-level transaction
+    if (rbtxn_is_known_subxact(txn))
+        txn = ReorderBufferTXNByXid(rb, txn->toplevel_xid, false,
+                                   NULL, InvalidXLogRecPtr, false);
+
+    // Set the base snapshot and LSN
+    txn->base_snapshot = snap;
+    txn->base_snapshot_lsn = lsn;
+
+    // Add to the ordered list by base snapshot LSN
+    dlist_push_tail(&rb->txns_by_base_snapshot_lsn, &txn->base_snapshot_node);
+
+    // Verify LSN ordering is maintained
+    AssertTXNLsnOrder(rb);
+}
+```

@@ -52,3 +52,65 @@ The function performs comprehensive validation of the queue size parameter, esti
 - The header structure includes spinlock-protected counters for tracking worker attachment and readiness states
 - Message queue 0 is designated for output (main process sends to workers), and the last queue is for input (workers send to main process)
 - The function ensures proper sender/receiver role assignment using `MyProc` for the main process
+
+## Simplified Source
+
+```c
+static void
+setup_dynamic_shared_memory(int64 queue_size, int nworkers,
+                            dsm_segment **segp, test_shm_mq_header **hdrp,
+                            shm_mq **outp, shm_mq **inp)
+{
+    // Validate queue size parameters
+    if (queue_size < 0 || ((uint64) queue_size) < shm_mq_minimum_size)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("queue size must be at least %zu bytes",
+                              shm_mq_minimum_size)));
+    if (queue_size != ((Size) queue_size))
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("queue size overflows size_t")));
+
+    // Estimate shared memory requirements using TOC estimator
+    shm_toc_estimator e;
+    shm_toc_initialize_estimator(&e);
+    shm_toc_estimate_chunk(&e, sizeof(test_shm_mq_header));
+    for (int i = 0; i <= nworkers; ++i)
+        shm_toc_estimate_chunk(&e, (Size) queue_size);
+    shm_toc_estimate_keys(&e, 2 + nworkers);
+    Size segsize = shm_toc_estimate(&e);
+
+    // Create shared memory segment and table of contents
+    dsm_segment *seg = dsm_create(segsize, 0);
+    shm_toc *toc = shm_toc_create(PG_TEST_SHM_MQ_MAGIC, dsm_segment_address(seg), segsize);
+
+    // Set up header with worker tracking counters
+    test_shm_mq_header *hdr = shm_toc_allocate(toc, sizeof(test_shm_mq_header));
+    SpinLockInit(&hdr->mutex);
+    hdr->workers_total = nworkers;
+    hdr->workers_attached = 0;
+    hdr->workers_ready = 0;
+    shm_toc_insert(toc, 0, hdr);
+
+    // Create message queues: nworkers + 1 total
+    for (int i = 0; i <= nworkers; ++i) {
+        shm_mq *mq = shm_mq_create(shm_toc_allocate(toc, (Size) queue_size),
+                                   (Size) queue_size);
+        shm_toc_insert(toc, i + 1, mq);
+
+        if (i == 0) {
+            // First queue: main process sends to workers
+            shm_mq_set_sender(mq, MyProc);
+            *outp = mq;
+        }
+        if (i == nworkers) {
+            // Last queue: main process receives from workers
+            shm_mq_set_receiver(mq, MyProc);
+            *inp = mq;
+        }
+    }
+
+    // Return results
+    *segp = seg;
+    *hdrp = hdr;
+}
+```

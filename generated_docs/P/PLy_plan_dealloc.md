@@ -33,3 +33,26 @@ This function serves as the tp_dealloc callback for the PLy_PlanType Python type
 - The function is static and only called internally by the Python interpreter
 - Proper cleanup is critical since PostgreSQL resources are not automatically managed by Python's garbage collection
 - Sets freed pointers to NULL to prevent double-free errors
+
+## Simplified Source
+
+```c
+static void PLy_plan_dealloc(PyObject *arg) {
+    PLyPlanObject *ob = (PLyPlanObject *) arg;
+
+    // Free PostgreSQL prepared plan
+    if (ob->plan) {
+        SPI_freeplan(ob->plan);
+        ob->plan = NULL;
+    }
+
+    // Free memory context
+    if (ob->mcxt) {
+        MemoryContextDelete(ob->mcxt);
+        ob->mcxt = NULL;
+    }
+
+    // Delegate to Python's standard object deallocation
+    arg->ob_type->tp_free(arg);
+}
+```

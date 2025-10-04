@@ -38,3 +38,19 @@ This is the simpler alternative to the non-blocking approach using PQcancelStart
 - For applications requiring non-blocking behavior, use PQcancelStart() and PQcancelPoll() instead
 - The cancelConn parameter must be a valid PGcancelConn created by PQcancelCreate()
 - Any errors during the cancellation process will be stored in the cancelConn structure and can be retrieved using appropriate error functions
+
+## Simplified Source
+
+```c
+int
+PQcancelBlocking(PGcancelConn *cancelConn)
+{
+    // Start the cancellation process
+    if (!PQcancelStart(cancelConn)) {
+        return 0;
+    }
+
+    // Block until cancellation completes
+    return pqConnectDBComplete(&cancelConn->conn);
+}
+```

@@ -42,3 +42,40 @@ This function searches for a descriptor with the specified name in the global de
 - This function is part of the ECPG (Embedded SQL in C) library for PostgreSQL
 - Thread-safe as evidenced by usage in thread-descriptor tests
 - The function is typically called by ECPG-generated code when processing DEALLOCATE DESCRIPTOR SQL statements
+
+## Simplified Source
+
+```c
+bool ECPGdeallocate_desc(int line, const char *name) {
+    struct descriptor *desc;
+    struct descriptor *prev;
+    struct sqlca_t *sqlca = ECPGget_sqlca();
+
+    // Basic validation
+    if (sqlca == NULL) {
+        ecpg_raise(line, ECPG_OUT_OF_MEMORY, ECPG_SQLSTATE_ECPG_OUT_OF_MEMORY, NULL);
+        return false;
+    }
+
+    ecpg_init_sqlca(sqlca);
+
+    // Search for descriptor in global list
+    for (desc = get_descriptors(), prev = NULL; desc; prev = desc, desc = desc->next) {
+        if (strcmp(name, desc->name) == 0) {
+            // Remove descriptor from linked list
+            if (prev)
+                prev->next = desc->next;
+            else
+                set_descriptors(desc->next);
+
+            // Free the descriptor
+            descriptor_free(desc);
+            return true;
+        }
+    }
+
+    // Descriptor not found
+    ecpg_raise(line, ECPG_UNKNOWN_DESCRIPTOR, ECPG_SQLSTATE_INVALID_SQL_DESCRIPTOR_NAME, name);
+    return false;
+}
+```

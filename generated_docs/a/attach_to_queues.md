@@ -53,3 +53,25 @@ The function configures the shared memory message queues so that data flows thro
 - The queue numbering scheme ensures proper pipeline ordering and prevents deadlocks
 - Both input and output queue handles are required for the worker to participate in the message passing pipeline
 - The function assumes that the appropriate number of queues have been pre-allocated and registered in the TOC by the coordinator process
+
+## Simplified Source
+
+```c
+static void
+attach_to_queues(dsm_segment *seg, shm_toc *toc, int myworkernumber,
+                 shm_mq_handle **inqhp, shm_mq_handle **outqhp)
+{
+    shm_mq *inq;
+    shm_mq *outq;
+
+    // Set up input queue (worker reads from queue #myworkernumber)
+    inq = shm_toc_lookup(toc, myworkernumber, false);
+    shm_mq_set_receiver(inq, MyProc);
+    *inqhp = shm_mq_attach(inq, seg, NULL);
+
+    // Set up output queue (worker writes to queue #myworkernumber+1)
+    outq = shm_toc_lookup(toc, myworkernumber + 1, false);
+    shm_mq_set_sender(outq, MyProc);
+    *outqhp = shm_mq_attach(outq, seg, NULL);
+}
+```

@@ -42,3 +42,18 @@ The function is essential for preventing memory leaks and ensuring that LLVM JIT
 - Ensures proper cleanup ordering by releasing JIT contexts before locks
 - The resource owner system provides automatic cleanup even when normal control flow is interrupted
 - Sets context->resowner to NULL to prevent dangling pointer issues
+
+## Simplified Source
+
+```c
+static void ResOwnerReleaseJitContext(Datum res) {
+    // Extract JIT context from Datum
+    LLVMJitContext *context = (LLVMJitContext *) DatumGetPointer(res);
+
+    // Clear resource owner reference to prevent dangling pointers
+    context->resowner = NULL;
+
+    // Release the JIT context resources
+    jit_release_context(&context->base);
+}
+```

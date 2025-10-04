@@ -39,3 +39,25 @@ The function follows the logical replication wire protocol format where INSERT m
 - This is part of the logical replication protocol decoder that processes streaming changes
 - The relation ID returned helps identify which table the INSERT operation targets
 - Located in src/backend/replication/logical/proto.c:436-457
+
+## Simplified Source
+
+```c
+LogicalRepRelId logicalrep_read_insert(StringInfo in, LogicalRepTupleData *newtup) {
+    LogicalRepRelId relid;
+    char action;
+
+    // Read relation ID
+    relid = pq_getmsgint(in, 4);
+
+    // Validate action is 'N' (new tuple)
+    action = pq_getmsgbyte(in);
+    if (action != 'N')
+        elog(ERROR, "expected new tuple but got %d", action);
+
+    // Read the tuple data
+    logicalrep_read_tuple(in, newtup);
+
+    return relid;
+}
+```

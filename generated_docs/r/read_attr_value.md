@@ -42,3 +42,47 @@ The function modifies the input string by null-terminating the extracted value a
 - Part of PostgreSQL's SCRAM authentication protocol implementation
 - Returns a pointer to the extracted value string within the original input buffer
 - Generates protocol violation errors with detailed context for debugging
+
+## Simplified Source
+
+```c
+static char *
+read_attr_value(char **input, char attr)
+{
+    char *begin = *input;
+    char *end;
+
+    // Validate expected attribute character
+    if (*begin != attr)
+        ereport(ERROR,
+                (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                 errmsg("malformed SCRAM message"),
+                 errdetail("Expected attribute \"%c\" but found \"%s\".",
+                           attr, sanitize_char(*begin))));
+    begin++;
+
+    // Validate equals sign separator
+    if (*begin != '=')
+        ereport(ERROR,
+                (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                 errmsg("malformed SCRAM message"),
+                 errdetail("Expected character \"=\" for attribute \"%c\".", attr)));
+    begin++;
+
+    // Find end of value (comma or end of string)
+    end = begin;
+    while (*end && *end != ',')
+        end++;
+
+    // Null-terminate value and advance input pointer
+    if (*end)
+    {
+        *end = '\0';
+        *input = end + 1;
+    }
+    else
+        *input = end;
+
+    return begin;
+}
+```

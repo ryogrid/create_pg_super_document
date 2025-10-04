@@ -43,3 +43,27 @@ This function is essential for dynamic attribute access in stored procedures and
 - Case-sensitive name matching using namestrcmp()
 - Commonly used in procedural languages for dynamic column access
 - Essential for generic trigger functions that work with any table structure
+
+## Simplified Source
+
+```c
+int SPI_fnumber(TupleDesc tupdesc, const char *fname) {
+    // Search through regular attributes
+    for (int i = 0; i < tupdesc->natts; i++) {
+        Form_pg_attribute attr = TupleDescAttr(tupdesc, i);
+
+        if (namestrcmp(&attr->attname, fname) == 0 && !attr->attisdropped) {
+            return i + 1;  // Return 1-based attribute number
+        }
+    }
+
+    // Check system attributes if not found in regular attributes
+    const FormData_pg_attribute *sys_attr = SystemAttributeByName(fname);
+    if (sys_attr != NULL) {
+        return sys_attr->attnum;  // Return system attribute number (negative)
+    }
+
+    // Attribute not found
+    return SPI_ERROR_NOATTRIBUTE;
+}
+```

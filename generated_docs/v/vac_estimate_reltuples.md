@@ -43,3 +43,42 @@ For the normal case, it calculates the old tuple density (tuples per page), appl
 - May return -1 in cases where the old estimate was -1 (unknown)
 - Used to update pg_class.reltuples after vacuum operations
 - Location: src/backend/commands/vacuum.c:1313-1408
+
+## Simplified Source
+
+```c
+double
+vac_estimate_reltuples(Relation relation,
+                       BlockNumber total_pages,
+                       BlockNumber scanned_pages,
+                       double scanned_tuples)
+{
+    BlockNumber old_rel_pages = relation->rd_rel->relpages;
+    double old_rel_tuples = relation->rd_rel->reltuples;
+    double old_density;
+    double unscanned_pages;
+    double total_tuples;
+
+    // Full scan: use actual count
+    if (scanned_pages >= total_pages)
+        return scanned_tuples;
+
+    // Handle small scans on unchanged tables to prevent estimation drift
+    if (old_rel_pages == total_pages &&
+        scanned_pages < (double) total_pages * 0.02)
+        return old_rel_tuples;
+    if (scanned_pages <= 1)
+        return old_rel_tuples;
+
+    // No old density data: scale up proportionally
+    if (old_rel_tuples < 0 || old_rel_pages == 0)
+        return floor((scanned_tuples / scanned_pages) * total_pages + 0.5);
+
+    // Normal case: use old density for unscanned pages + actual scanned count
+    old_density = old_rel_tuples / old_rel_pages;
+    unscanned_pages = (double) total_pages - (double) scanned_pages;
+    total_tuples = old_density * unscanned_pages + scanned_tuples;
+
+    return floor(total_tuples + 0.5);
+}
+```

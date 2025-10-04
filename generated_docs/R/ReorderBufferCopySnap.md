@@ -64,3 +64,56 @@ The resulting snapshot maintains all the properties of the original while incorp
 - The snapshot lifetime is managed by the reorder buffer's memory context
 - Essential for maintaining MVCC consistency during logical decoding operations
 - Part of PostgreSQL's logical replication infrastructure for catalog access during transaction replay
+
+## Simplified Source
+
+```c
+static Snapshot
+ReorderBufferCopySnap(ReorderBuffer *rb, Snapshot orig_snap,
+                      ReorderBufferTXN *txn, CommandId cid)
+{
+    Snapshot snap;
+    dlist_iter iter;
+    int i = 0;
+    Size size;
+
+    // Calculate memory needed for snapshot + transaction ID arrays
+    size = sizeof(SnapshotData) +
+           sizeof(TransactionId) * orig_snap->xcnt +
+           sizeof(TransactionId) * (txn->nsubtxns + 1);
+
+    // Allocate and copy base snapshot data
+    snap = MemoryContextAllocZero(rb->context, size);
+    memcpy(snap, orig_snap, sizeof(SnapshotData));
+
+    // Set up copied snapshot properties
+    snap->copied = true;
+    snap->active_count = 1;        // Mark as active to prevent deallocation
+    snap->regd_count = 0;
+
+    // Set up transaction ID arrays
+    snap->xip = (TransactionId *) (snap + 1);
+    memcpy(snap->xip, orig_snap->xip, sizeof(TransactionId) * snap->xcnt);
+
+    // Set up subtransaction array for cmin/cmax checking
+    snap->subxip = snap->xip + snap->xcnt;
+    snap->subxip[i++] = txn->xid;  // Include toplevel transaction
+    snap->subxcnt = 1;
+
+    // Add all subtransactions to the array
+    dlist_foreach(iter, &txn->subtxns)
+    {
+        ReorderBufferTXN *sub_txn = dlist_container(ReorderBufferTXN, node, iter.cur);
+        snap->subxip[i++] = sub_txn->xid;
+        snap->subxcnt++;
+    }
+
+    // Sort subtransaction array for efficient binary search
+    qsort(snap->subxip, snap->subxcnt, sizeof(TransactionId), xidComparator);
+
+    // Set the current command ID for visibility checks
+    snap->curcid = cid;
+
+    return snap;
+}
+```

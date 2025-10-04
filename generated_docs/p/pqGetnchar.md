@@ -38,3 +38,20 @@ The function uses memcpy for efficient data transfer and advances the connection
 - Commonly used in authentication routines and protocol parsing where exact byte counts are required
 - The caller is responsible for ensuring the destination buffer has sufficient space
 - Advances the connection's input cursor position after successful read
+
+## Simplified Source
+
+```c
+int pqGetnchar(char *s, size_t len, PGconn *conn) {
+    // Check if enough data is available
+    if (len > (size_t) (conn->inEnd - conn->inCursor))
+        return EOF;
+
+    // Copy exact number of bytes (no null termination)
+    memcpy(s, conn->inBuffer + conn->inCursor, len);
+
+    // Advance cursor
+    conn->inCursor += len;
+    return 0;
+}
+```

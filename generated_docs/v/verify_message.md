@@ -41,3 +41,27 @@ If any discrepancy is found, the function reports a detailed error indicating th
 - Used in both basic and pipelined shared memory queue tests
 - No return value - either succeeds silently or reports an error and aborts
 - Critical for ensuring reliability of PostgreSQL's shared memory message queue infrastructure
+
+## Simplified Source
+
+```c
+static void
+verify_message(Size origlen, char *origdata, Size newlen, char *newdata)
+{
+    Size i;
+
+    // Check if message lengths match
+    if (origlen != newlen)
+        ereport(ERROR,
+                (errmsg("message corrupted"),
+                 errdetail("The original message was %zu bytes but the final message is %zu bytes.",
+                          origlen, newlen)));
+
+    // Compare message content byte by byte
+    for (i = 0; i < origlen; ++i)
+        if (origdata[i] != newdata[i])
+            ereport(ERROR,
+                    (errmsg("message corrupted"),
+                     errdetail("The new and original messages differ at byte %zu of %zu.", i, origlen)));
+}
+```

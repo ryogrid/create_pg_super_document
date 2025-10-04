@@ -46,3 +46,49 @@ This design allows bootstrap to work with a minimal set of built-in types initia
 - Uses NAMEDATALEN for safe string comparison to avoid buffer overflows
 - The two-phase approach optimizes bootstrap performance by avoiding catalog access for common types
 - Recursion is used carefully to avoid infinite loops when types are missing from pg_type
+
+## Simplified Source
+
+```c
+static Oid gettype(char *type) {
+    if (Typ != NIL) {
+        // Search cached pg_type data
+        ListCell *lc;
+        foreach(lc, Typ) {
+            struct typmap *app = lfirst(lc);
+            if (strncmp(NameStr(app->am_typ.typname), type, NAMEDATALEN) == 0) {
+                Ap = app;  // Set global pointer
+                return app->am_oid;
+            }
+        }
+
+        // Type not found - refresh cache and search again for composite types
+        list_free_deep(Typ);
+        Typ = NIL;
+        populate_typ_list();
+
+        // Repeat search after refresh (avoid recursion)
+        foreach(lc, Typ) {
+            struct typmap *app = lfirst(lc);
+            if (strncmp(NameStr(app->am_typ.typname), type, NAMEDATALEN) == 0) {
+                Ap = app;
+                return app->am_oid;
+            }
+        }
+    } else {
+        // Search hardcoded TypInfo array
+        for (int i = 0; i < n_types; i++) {
+            if (strncmp(type, TypInfo[i].name, NAMEDATALEN) == 0)
+                return i;  // Return array index
+        }
+
+        // Not in TypInfo - populate Typ list and retry
+        elog(DEBUG4, "external type: %s", type);
+        populate_typ_list();
+        return gettype(type);  // Recursive call with Typ populated
+    }
+
+    elog(ERROR, "unrecognized type \"%s\"", type);
+    return 0;  // Never reached
+}
+```

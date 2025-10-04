@@ -49,3 +49,44 @@ The design accommodates the specific needs of logical replication where full row
 - BRIN and GIN indexes are excluded because they don't implement the required amgettuple interface
 - Contains assertion code to verify the access method implements amgettuple when USE_ASSERT_CHECKING is enabled
 - Designed to keep index scans similar to primary key/replica identity scans while supporting the broader requirements of REPLICA IDENTITY FULL
+
+## Simplified Source
+
+```c
+bool
+IsIndexUsableForReplicaIdentityFull(IndexInfo *indexInfo, AttrMap *attrmap)
+{
+    AttrNumber keycol;
+
+    // Index must have valid equality strategy (btree or hash)
+    if (get_equal_strategy_number_for_am(indexInfo->ii_Am) == InvalidStrategy)
+        return false;
+
+    // Index must not be partial
+    if (indexInfo->ii_Predicate != NIL)
+        return false;
+
+    Assert(indexInfo->ii_NumIndexAttrs >= 1);
+
+    // Leftmost column must be a simple column reference (not expression)
+    keycol = indexInfo->ii_IndexAttrNumbers[0];
+    if (!AttributeNumberIsValid(keycol))
+        return false;
+
+    // Leftmost column must map to a remote relation attribute
+    if (attrmap->maplen <= AttrNumberGetAttrOffset(keycol) ||
+        attrmap->attnums[AttrNumberGetAttrOffset(keycol)] < 0)
+        return false;
+
+#ifdef USE_ASSERT_CHECKING
+    {
+        IndexAmRoutine *amroutine;
+        // Verify access method implements amgettuple
+        amroutine = GetIndexAmRoutineByAmId(indexInfo->ii_Am, false);
+        Assert(amroutine->amgettuple != NULL);
+    }
+#endif
+
+    return true;
+}
+```

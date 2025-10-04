@@ -53,3 +53,51 @@ The function includes proper cleanup of match data using zaptreesubs() when back
 - Critical for handling complex regex patterns with multiple consecutive elements
 - The algorithm is designed to be greedy initially, then backtrack as needed
 - Part of PostgreSQL's sophisticated regex matching engine that handles both simple and complex patterns
+
+## Simplified Source
+
+```c
+static int ccondissect(struct vars *v, struct subre *t, chr *begin, chr *end) {
+    struct subre *left = t->child;
+    struct subre *right = left->sibling;
+    struct dfa *d, *d2;
+    chr *mid;
+    int er;
+
+    // Get DFAs for left and right subexpressions
+    d = getsubdfa(v, left);
+    d2 = getsubdfa(v, right);
+
+    // Find initial midpoint using longest match for left side
+    mid = longest(v, d, begin, end, NULL);
+    if (mid == NULL)
+        return REG_NOMATCH;
+
+    // Try different midpoints until we find one that works
+    for (;;) {
+        // Test if right side can match from midpoint to end
+        if (longest(v, d2, mid, end, NULL) == end) {
+            // Try to dissect both left and right parts
+            er = cdissect(v, left, begin, mid);
+            if (er == REG_OKAY) {
+                er = cdissect(v, right, mid, end);
+                if (er == REG_OKAY)
+                    return REG_OKAY;  // Success!
+
+                // Reset left's matches on failure
+                zaptreesubs(v, left);
+            }
+            if (er != REG_NOMATCH)
+                return er;
+        }
+
+        // Find shorter match for left side
+        if (mid == begin)
+            return REG_NOMATCH;  // No more possibilities
+
+        mid = longest(v, d, begin, mid - 1, NULL);
+        if (mid == NULL)
+            return REG_NOMATCH;
+    }
+}
+```

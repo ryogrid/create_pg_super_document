@@ -42,3 +42,40 @@ The function allocates memory for attribute arrays and populates the LogicalRepR
 - Attribute mode information is read from the stream but currently ignored by the implementation
 - The replica identity bitmap efficiently tracks which attributes are part of the table's replica identity
 - Part of PostgreSQL's logical replication subsystem for streaming table schema information
+
+## Simplified Source
+
+```c
+static void logicalrep_read_attrs(StringInfo in, LogicalRepRelation *rel)
+{
+    // Read number of attributes
+    int natts = pq_getmsgint(in, 2);
+
+    // Allocate arrays for attribute metadata
+    char **attnames = palloc(natts * sizeof(char *));
+    Oid *atttyps = palloc(natts * sizeof(Oid));
+    Bitmapset *attkeys = NULL;
+
+    // Read each attribute's metadata
+    for (int i = 0; i < natts; i++)
+    {
+        // Check if attribute is part of replica identity
+        uint8 flags = pq_getmsgbyte(in);
+        if (flags & LOGICALREP_IS_REPLICA_IDENTITY)
+            attkeys = bms_add_member(attkeys, i);
+
+        // Read attribute name and type
+        attnames[i] = pstrdup(pq_getmsgstring(in));
+        atttyps[i] = (Oid) pq_getmsgint(in, 4);
+
+        // Skip attribute mode (not currently used)
+        (void) pq_getmsgint(in, 4);
+    }
+
+    // Store results in relation structure
+    rel->attnames = attnames;
+    rel->atttyps = atttyps;
+    rel->attkeys = attkeys;
+    rel->natts = natts;
+}
+```

@@ -64,3 +64,81 @@ The function uses the provided SASL mechanism implementation (mech) to handle me
 - **Debug Support**: Provides DEBUG4-level logging for SASL message exchange debugging
 - **Memory Management**: Properly manages StringInfo buffers and mechanism-allocated output throughout the exchange
 - **Initial vs Subsequent Messages**: Handles the special format of SASLInitialResponse (mechanism selection + optional payload) differently from subsequent SASLResponse messages
+
+## Simplified Source
+
+```c
+int CheckSASLAuth(const pg_be_sasl_mech *mech, Port *port, char *shadow_pass,
+                  const char **logdetail)
+{
+    StringInfoData sasl_mechs, buf;
+    void *opaq = NULL;
+    char *output = NULL;
+    int outputlen = 0;
+    bool initial = true;
+    int result;
+
+    // Send list of supported SASL mechanisms to client
+    initStringInfo(&sasl_mechs);
+    mech->get_mechanisms(port, &sasl_mechs);
+    appendStringInfoChar(&sasl_mechs, '\0');
+    sendAuthRequest(port, AUTH_REQ_SASL, sasl_mechs.data, sasl_mechs.len);
+    pfree(sasl_mechs.data);
+
+    // SASL message exchange loop
+    do {
+        // Read message from client
+        pq_startmsgread();
+        int mtype = pq_getbyte();
+
+        if (mtype != PqMsg_SASLResponse) {
+            if (mtype == EOF)
+                return STATUS_EOF;
+            ereport(ERROR, (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                          errmsg("expected SASL response, got message type %d", mtype)));
+        }
+
+        // Get SASL message payload
+        initStringInfo(&buf);
+        if (pq_getmessage(&buf, PG_MAX_SASL_MESSAGE_LENGTH)) {
+            pfree(buf.data);
+            return STATUS_ERROR;
+        }
+
+        const char *input;
+        int inputlen;
+
+        if (initial) {
+            // First message: mechanism selection + optional initial response
+            const char *selected_mech = pq_getmsgrawstring(&buf);
+            opaq = mech->init(port, selected_mech, shadow_pass);
+
+            inputlen = pq_getmsgint(&buf, 4);
+            input = (inputlen == -1) ? NULL : pq_getmsgbytes(&buf, inputlen);
+            initial = false;
+        } else {
+            // Subsequent messages: just SASL payload
+            inputlen = buf.len;
+            input = pq_getmsgbytes(&buf, buf.len);
+        }
+        pq_getmsgend(&buf);
+
+        // Process message through mechanism
+        result = mech->exchange(opaq, input, inputlen, &output, &outputlen, logdetail);
+        pfree(buf.data);
+
+        // Send response to client if needed
+        if (output) {
+            if (result == PG_SASL_EXCHANGE_FAILURE)
+                elog(ERROR, "output message found after SASL exchange failure");
+
+            int auth_type = (result == PG_SASL_EXCHANGE_SUCCESS) ?
+                           AUTH_REQ_SASL_FIN : AUTH_REQ_SASL_CONT;
+            sendAuthRequest(port, auth_type, output, outputlen);
+            pfree(output);
+        }
+    } while (result == PG_SASL_EXCHANGE_CONTINUE);
+
+    return (result == PG_SASL_EXCHANGE_SUCCESS) ? STATUS_OK : STATUS_ERROR;
+}
+```

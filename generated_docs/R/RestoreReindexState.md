@@ -46,3 +46,29 @@ The function performs the following operations:
 - Located in src/backend/catalog/index.c at lines 4210-4229
 - Works in conjunction with EstimateReindexStateSpace() and SerializeReindexState()
 - Critical for maintaining consistency between leader and worker processes during parallel reindex operations
+
+## Simplified Source
+
+```c
+void
+RestoreReindexState(const void *reindexstate)
+{
+    const SerializedReindexState *sistate = (const SerializedReindexState *) reindexstate;
+    int c = 0;
+    MemoryContext oldcontext;
+
+    // Restore global reindex state variables
+    currentlyReindexedHeap = sistate->currentlyReindexedHeap;
+    currentlyReindexedIndex = sistate->currentlyReindexedIndex;
+
+    // Rebuild pending reindexed indexes list in TopMemoryContext
+    oldcontext = MemoryContextSwitchTo(TopMemoryContext);
+    for (c = 0; c < sistate->numPendingReindexedIndexes; ++c)
+        pendingReindexedIndexes = lappend_oid(pendingReindexedIndexes,
+                                              sistate->pendingReindexedIndexes[c]);
+    MemoryContextSwitchTo(oldcontext);
+
+    // Set worker's own transaction nesting level
+    reindexingNestLevel = GetCurrentTransactionNestLevel();
+}
+```

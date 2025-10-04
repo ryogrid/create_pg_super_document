@@ -42,3 +42,25 @@ The function uses an up-to-date snapshot internally, which may see objects as al
 - Part of the family of visibility functions for different object types
 - The function signature in SQL is: pg_function_is_visible(function oid) → boolean
 - Critical for function resolution when multiple functions with the same name exist in different schemas
+
+## Simplified Source
+
+```c
+Datum pg_function_is_visible(PG_FUNCTION_ARGS)
+{
+    // Extract the function OID from function arguments
+    Oid oid = PG_GETARG_OID(0);
+    bool result;
+    bool is_missing = false;
+
+    // Check if function is visible in current search path
+    result = FunctionIsVisibleExt(oid, &is_missing);
+
+    // Return NULL if function doesn't exist (avoids race conditions)
+    if (is_missing)
+        PG_RETURN_NULL();
+
+    // Return boolean result indicating visibility
+    PG_RETURN_BOOL(result);
+}
+```

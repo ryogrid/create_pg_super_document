@@ -37,3 +37,22 @@ The function performs lazy initialization - it only sets the global variables  a
 - The function uses PostgreSQL's memory management () to ensure proper cleanup
 - The target triple and data layout are extracted from a pre-compiled module to guarantee ABI compatibility
 - This is part of PostgreSQL's LLVM JIT compilation infrastructure introduced for query optimization
+
+## Simplified Source
+
+```c
+static void
+llvm_set_target(void)
+{
+    // Verify types module is loaded
+    if (!llvm_types_module)
+        elog(ERROR, "failed to extract target information, llvmjit_types.c not loaded");
+
+    // Extract target triple and data layout from types module
+    if (llvm_triple == NULL)
+        llvm_triple = pstrdup(LLVMGetTarget(llvm_types_module));
+
+    if (llvm_layout == NULL)
+        llvm_layout = pstrdup(LLVMGetDataLayoutStr(llvm_types_module));
+}
+```

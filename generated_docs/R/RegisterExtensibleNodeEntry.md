@@ -45,3 +45,35 @@ This function serves as the core mechanism for registering extensible nodes in P
 - Throws ERROR if duplicate node type registration is attempted
 - [Hash](../H/Hash.md) table is created lazily on first registration attempt
 - Initial hash table capacity is set to 100 entries
+
+## Simplified Source
+
+```c
+static void RegisterExtensibleNodeEntry(HTAB **p_htable, const char *htable_label,
+                                       const char *extnodename,
+                                       const void *extnodemethods) {
+    ExtensibleNodeEntry *entry;
+    bool found;
+
+    // Create hash table if it doesn't exist yet
+    if (*p_htable == NULL) {
+        HASHCTL ctl;
+        ctl.keysize = EXTNODENAME_MAX_LEN;
+        ctl.entrysize = sizeof(ExtensibleNodeEntry);
+        *p_htable = hash_create(htable_label, 100, &ctl, HASH_ELEM | HASH_STRINGS);
+    }
+
+    // Validate node name length
+    if (strlen(extnodename) >= EXTNODENAME_MAX_LEN)
+        elog(ERROR, "extensible node name is too long");
+
+    // Add entry to hash table, checking for duplicates
+    entry = (ExtensibleNodeEntry *) hash_search(*p_htable, extnodename, HASH_ENTER, &found);
+    if (found)
+        ereport(ERROR, (errcode(ERRCODE_DUPLICATE_OBJECT),
+                       errmsg("extensible node type \"%s\" already exists", extnodename)));
+
+    // Store the method callbacks
+    entry->extnodemethods = extnodemethods;
+}
+```

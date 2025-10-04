@@ -40,3 +40,64 @@ The function operates in several phases:
 - The function automatically handles the transition between different storage phases (decoded buffer, B-tree nodes, unbuffered values)
 - Uses Simple8b compression for efficient storage of integer sequences in B-tree leaf nodes
 - The iteration state is tracked through multiple fields in the IntegerSet structure (, , , etc.)
+
+## Simplified Source
+
+```c
+bool
+intset_iterate_next(IntegerSet *intset, uint64 *next)
+{
+    for (;;)
+    {
+        // Return next value from current decoded buffer
+        if (intset->iter_valueno < intset->iter_num_values)
+        {
+            *next = intset->iter_values[intset->iter_valueno++];
+            return true;
+        }
+
+        // Decode next item in current leaf node
+        if (intset->iter_node &&
+            intset->iter_itemno < intset->iter_node->num_items)
+        {
+            leaf_item *item;
+            int num_decoded;
+
+            item = &intset->iter_node->items[intset->iter_itemno++];
+
+            // Decode Simple8b compressed values
+            intset->iter_values_buf[0] = item->first;
+            num_decoded = simple8b_decode(item->codeword,
+                                          &intset->iter_values_buf[1],
+                                          item->first);
+            intset->iter_num_values = num_decoded + 1;
+            intset->iter_valueno = 0;
+            continue;
+        }
+
+        // Move to next leaf node
+        if (intset->iter_node)
+        {
+            intset->iter_node = intset->iter_node->next;
+            intset->iter_itemno = 0;
+            continue;
+        }
+
+        // Switch to buffered values if haven't processed them yet
+        if (intset->iter_values == (const uint64 *) intset->iter_values_buf)
+        {
+            intset->iter_values = intset->buffered_values;
+            intset->iter_num_values = intset->num_buffered_values;
+            intset->iter_valueno = 0;
+            continue;
+        }
+
+        break;
+    }
+
+    // No more values - end iteration
+    intset->iter_active = false;
+    *next = 0;
+    return false;
+}
+```

@@ -41,3 +41,25 @@ The function uses an up-to-date snapshot internally, which may see objects as al
 - Extensively used throughout PostgreSQL tools for filtering visible relations
 - Part of the family of visibility functions (pg_type_is_visible, pg_function_is_visible, etc.)
 - The function signature in SQL is: pg_table_is_visible(table oid) → boolean
+
+## Simplified Source
+
+```c
+Datum pg_table_is_visible(PG_FUNCTION_ARGS)
+{
+    // Extract the relation OID from function arguments
+    Oid oid = PG_GETARG_OID(0);
+    bool result;
+    bool is_missing = false;
+
+    // Check if relation is visible in current search path
+    result = RelationIsVisibleExt(oid, &is_missing);
+
+    // Return NULL if object doesn't exist (avoids race conditions)
+    if (is_missing)
+        PG_RETURN_NULL();
+
+    // Return boolean result indicating visibility
+    PG_RETURN_BOOL(result);
+}
+```

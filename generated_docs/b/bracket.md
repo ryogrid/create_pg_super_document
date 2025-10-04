@@ -39,6 +39,44 @@ The  function processes non-complemented bracket expressions (like  or ) in regu
 
 ## Notes and Other Information
 - Uses deferred processing for complemented character classes to maintain proper color bookkeeping
-- Maintains a boolean array  to track which complemented character classes were encountered
-- Calls  only when complemented elements are present, as WHITE arcs can only result from complemented elements
+- Maintains a boolean array to track which complemented character classes were encountered
+- Calls only when complemented elements are present, as WHITE arcs can only result from complemented elements
 - Located in src/backend/regex/regcomp.c:1673-1728
+
+## Simplified Source
+
+```c
+static void bracket(struct vars *v, struct state *lp, struct state *rp) {
+    bool have_cclassc[NUM_CCLASSES];
+    bool any_cclassc;
+    int i;
+
+    // Initialize tracking array for complemented character classes
+    memset(have_cclassc, false, sizeof(have_cclassc));
+
+    // Parse bracket expression contents
+    assert(SEE('['));
+    NEXT();
+    while (!SEE(']') && !SEE(EOS))
+        brackpart(v, lp, rp, have_cclassc);
+    assert(SEE(']') || ISERR());
+
+    // Close any open subcolors from positive elements
+    okcolors(v->nfa, v->cm);
+    NOERR();
+
+    // Process any complemented character classes
+    any_cclassc = false;
+    for (i = 0; i < NUM_CCLASSES; i++) {
+        if (have_cclassc[i]) {
+            charclasscomplement(v, (enum char_classes) i, lp, rp);
+            NOERR();
+            any_cclassc = true;
+        }
+    }
+
+    // Optimize bracket if complemented elements were present
+    if (any_cclassc)
+        optimizebracket(v, lp, rp);
+}
+```

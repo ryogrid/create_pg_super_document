@@ -33,3 +33,19 @@ The function provides the decoding counterpart to logicalrep_write_namespace, en
 - Implements the receiving side of the pg_catalog namespace optimization for reduced message size
 - Part of PostgreSQL's logical replication subsystem for efficiently receiving schema information
 - The function assumes the input message is well-formed and does not perform extensive error checking
+
+## Simplified Source
+
+```c
+static const char *logicalrep_read_namespace(StringInfo in)
+{
+    // Read namespace string from message
+    const char *nspname = pq_getmsgstring(in);
+
+    // Handle pg_catalog optimization: empty string means pg_catalog
+    if (nspname[0] == '\0')
+        nspname = "pg_catalog";
+
+    return nspname;
+}
+```

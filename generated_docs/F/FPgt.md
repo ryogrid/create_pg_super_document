@@ -36,3 +36,15 @@ FPgt implements a fuzzy greater-than comparison for double-precision floating-po
 
 ## Notes and Other Information
 This function is widely used throughout PostgreSQL's geometric operations, particularly in spatial indexing (GiST and SP-GiST) and geometric comparisons. The epsilon-adjusted comparison (A > B + EPSILON) means that A must be meaningfully greater than B, not just different due to floating-point precision errors. This ensures stable and consistent ordering behavior that is crucial for geometric algorithms and spatial data structures. The function is the logical complement of FPlt, providing the opposite comparison direction with the same epsilon-based tolerance.
+
+## Simplified Source
+
+```c
+static inline bool
+FPgt(double A, double B)
+{
+    // A is greater than B only if A exceeds B + tolerance
+    // This prevents tiny floating-point differences from affecting ordering
+    return A > B + EPSILON;
+}
+```

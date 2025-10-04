@@ -36,3 +36,15 @@ This function serves as a PostgreSQL SQL function wrapper for checking replicati
 - Part of PostgreSQL's logical replication origin session management system
 - The returned status reflects whether `pg_replication_origin_session_setup()` has been called without a corresponding `pg_replication_origin_session_reset()`
 - Located in `src/backend/replication/logical/origin.c:1389-1404`
+
+## Simplified Source
+
+```c
+Datum pg_replication_origin_session_is_setup(PG_FUNCTION_ARGS) {
+    // Check if replication prerequisites are met
+    replorigin_check_prerequisites(false, false);
+
+    // Return true if session has an active replication origin
+    PG_RETURN_BOOL(replorigin_session_origin != InvalidRepOriginId);
+}
+```

@@ -42,3 +42,27 @@ This operation is typically performed between vacuum phases when the dead items 
 - Updates both the DSA handle and TidStore handle to ensure all parallel workers can access the new storage
 - The reset operation is atomic from the perspective of the parallel vacuum coordination system
 - Critical for preventing memory exhaustion during large vacuum operations that process tables in multiple passes
+
+## Simplified Source
+
+```c
+void
+parallel_vacuum_reset_dead_items(ParallelVacuumState *pvs)
+{
+    VacDeadItemsInfo *dead_items_info = &(pvs->shared->dead_items_info);
+
+    // Free current tidstore and return DSA segments to OS
+    TidStoreDestroy(pvs->dead_items);
+
+    // Recreate tidstore with same memory limit
+    pvs->dead_items = TidStoreCreateShared(dead_items_info->max_bytes,
+                                          LWTRANCHE_PARALLEL_VACUUM_DSA);
+
+    // Update shared handles to point to new storage
+    pvs->shared->dead_items_dsa_handle = dsa_get_handle(TidStoreGetDSA(pvs->dead_items));
+    pvs->shared->dead_items_handle = TidStoreGetHandle(pvs->dead_items);
+
+    // Reset item counter
+    dead_items_info->num_items = 0;
+}
+```

@@ -48,3 +48,35 @@ The function is designed to support logical replication scenarios where a full r
 - Properly closes each index after evaluation to prevent resource leaks
 - The selection logic is delegated to IsIndexUsableForReplicaIdentityFull for modularity
 - Part of the broader logical replication index selection mechanism for ensuring efficient row identification
+
+## Simplified Source
+
+```c
+static Oid
+FindUsableIndexForReplicaIdentityFull(Relation localrel, AttrMap *attrmap)
+{
+    List *idxlist = RelationGetIndexList(localrel);
+
+    // Check each index on the relation
+    foreach_oid(idxoid, idxlist) {
+        bool isUsableIdx;
+        Relation idxRel;
+        IndexInfo *idxInfo;
+
+        // Open index and get its information
+        idxRel = index_open(idxoid, AccessShareLock);
+        idxInfo = BuildIndexInfo(idxRel);
+
+        // Test if this index is suitable for replica identity
+        isUsableIdx = IsIndexUsableForReplicaIdentityFull(idxInfo, attrmap);
+
+        index_close(idxRel, AccessShareLock);
+
+        // Return first usable index found
+        if (isUsableIdx)
+            return idxoid;
+    }
+
+    return InvalidOid;  // No suitable index found
+}
+```

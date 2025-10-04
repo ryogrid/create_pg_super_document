@@ -35,3 +35,15 @@ This cleanup is critical for preventing access to freed or invalid shared memory
 - Changes whereToSendOutput to DestNone to stop message routing
 - Essential for proper resource cleanup in parallel processing scenarios
 - Does not perform explicit error handling as it's a cleanup function
+
+## Simplified Source
+
+```c
+static void pq_cleanup_redirect_to_shm_mq(dsm_segment *seg, Datum arg) {
+    // Clear the message queue handle to prevent further use
+    pq_mq_handle = NULL;
+
+    // Disable output routing since the queue is no longer available
+    whereToSendOutput = DestNone;
+}
+```

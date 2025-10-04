@@ -35,3 +35,20 @@ This function is part of PostgreSQL's two-phase commit protocol handling for mul
 - The function works with dummy process numbers that represent prepared transactions
 - Part of the broader two-phase commit infrastructure in PostgreSQL
 - Located in src/backend/access/transam/multixact.c:1912-1926
+
+## Simplified Source
+
+```c
+void
+multixact_twophase_postcommit(TransactionId xid, uint16 info,
+                             void *recdata, uint32 len)
+{
+    ProcNumber dummyProcNumber = TwoPhaseGetDummyProcNumber(xid, true);
+
+    // Validate recovery data size
+    Assert(len == sizeof(MultiXactId));
+
+    // Clear the oldest member tracking for this committed transaction
+    OldestMemberMXactId[dummyProcNumber] = InvalidMultiXactId;
+}
+```

@@ -35,3 +35,38 @@ The function is specifically designed for signed integer data types and provides
 
 ## Notes and Other Information
 This function is a performance optimization specifically for signed integer data types that can be safely converted to int64. It avoids the overhead of function pointer calls while providing the same NULL handling and sort direction semantics as the general ApplySortComparator. The use of DatumGetInt64() ensures proper sign extension and handling of signed values across different platforms and architectures.
+
+## Simplified Source
+
+```c
+static inline int ApplySignedSortComparator(Datum datum1, bool isNull1,
+                                            Datum datum2, bool isNull2,
+                                            SortSupport ssup) {
+    int compare;
+
+    // Handle NULL value comparisons first
+    if (isNull1) {
+        if (isNull2)
+            compare = 0;                    // NULL == NULL
+        else if (ssup->ssup_nulls_first)
+            compare = -1;                   // NULL < NOT_NULL
+        else
+            compare = 1;                    // NULL > NOT_NULL
+    } else if (isNull2) {
+        if (ssup->ssup_nulls_first)
+            compare = 1;                    // NOT_NULL > NULL
+        else
+            compare = -1;                   // NOT_NULL < NULL
+    } else {
+        // Convert to signed int64 and compare directly for performance
+        compare = DatumGetInt64(datum1) < DatumGetInt64(datum2) ? -1 :
+                  DatumGetInt64(datum1) > DatumGetInt64(datum2) ? 1 : 0;
+
+        // Apply reverse sort order if configured
+        if (ssup->ssup_reverse)
+            INVERT_COMPARE_RESULT(compare);
+    }
+
+    return compare;
+}
+```

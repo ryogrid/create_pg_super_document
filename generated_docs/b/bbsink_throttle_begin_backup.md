@@ -33,3 +33,17 @@ This function marks the transition point where 'real data' transfer begins, as o
 - The timestamp recorded here () becomes the baseline for measuring transfer rates
 - Header data transmitted before this point is not included in throttling calculations
 - The function ensures proper initialization of the throttling mechanism's timing system
+
+## Simplified Source
+
+```c
+static void bbsink_throttle_begin_backup(bbsink *sink) {
+    bbsink_throttle *mysink = (bbsink_throttle *) sink;
+
+    // Forward the begin backup call to next sink in chain
+    bbsink_forward_begin_backup(sink);
+
+    // Record current time as baseline for throttling calculations
+    mysink->throttled_last = GetCurrentTimestamp();
+}
+```

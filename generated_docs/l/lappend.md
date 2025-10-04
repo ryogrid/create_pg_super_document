@@ -34,3 +34,26 @@ When the input list is NIL, the function creates a new list with a single elemen
 - Only works with pointer lists (T_List), not integer or OID lists
 - Part of PostgreSQL's custom linked list implementation optimized for memory management
 - The function maintains list invariants and includes debugging checks
+
+## Simplified Source
+
+```c
+List *
+lappend(List *list, void *datum)
+{
+    // Verify this is a pointer list
+    Assert(IsPointerList(list));
+
+    // Handle empty list case - create new list
+    if (list == NIL)
+        list = new_list(T_List, 1);
+    else
+        // Add new cell to existing list
+        new_tail_cell(list);
+
+    // Set the data and validate
+    llast(list) = datum;
+    check_list_invariants(list);
+    return list;
+}
+```

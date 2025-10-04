@@ -36,3 +36,44 @@ The function is primarily used in error reporting contexts where PostgreSQL need
 - Uses PostgreSQL's palloc-based memory management (pstrdup/pnstrdup)
 - Handles files that may or may not end with a newline character
 - Part of the PL/Python error handling subsystem
+
+## Simplified Source
+
+```c
+static char *get_source_line(const char *src, int lineno) {
+    const char *s = NULL;
+    const char *next = src;
+    int current = 0;
+
+    // Validate line number
+    if (lineno <= 0)
+        return NULL;
+
+    // Find the target line by counting newlines
+    while (current < lineno) {
+        s = next;
+        next = strchr(s + 1, '\n');
+        current++;
+        if (next == NULL)
+            break;
+    }
+
+    // Check if we found the requested line
+    if (current != lineno)
+        return NULL;
+
+    // Skip leading whitespace
+    while (*s && isspace((unsigned char) *s))
+        s++;
+
+    // Return the line content
+    if (next == NULL)
+        return pstrdup(s);  // Last line without newline
+
+    // Sanity check for all-whitespace lines
+    if (next < s)
+        return NULL;
+
+    return pnstrdup(s, next - s);  // Line with newline
+}
+```

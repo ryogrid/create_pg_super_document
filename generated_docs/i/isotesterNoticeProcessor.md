@@ -36,3 +36,20 @@ The notice tracking is particularly important for coordinating test step executi
 - Notice counting supports PSB_NUM_NOTICES blocker conditions for complex test scenarios
 - Global  flag triggers retry logic in step completion functions
 - Part of the broader isolation testing framework for ensuring deterministic test execution
+
+## Simplified Source
+
+```c
+static void
+isotesterNoticeProcessor(void *arg, const char *message)
+{
+    IsoConnInfo *myconn = (IsoConnInfo *) arg;
+
+    // Print notice with session name prefix
+    printf("%s: %s", myconn->sessionname, message);
+
+    // Track notices for step coordination
+    myconn->total_notices++;
+    any_new_notice = true;
+}
+```

@@ -35,3 +35,39 @@ This function implements the core block selection algorithm for the SYSTEM table
 - The hash comparison (hash < cutoff) implements the probabilistic sampling decision
 - Resets nextblock to 0 when reaching the end of relation for safety, though this should rarely matter in practice
 - The deterministic nature of the hash function ensures repeatable sampling when the same seed is used
+
+## Simplified Source
+
+```c
+static BlockNumber system_nextsampleblock(SampleScanState *node, BlockNumber nblocks) {
+    SystemSamplerData *sampler = (SystemSamplerData *) node->tsm_state;
+    BlockNumber nextblock = sampler->nextblock;
+    uint32 hashinput[2];
+
+    // Set up hash input: block number will change, seed stays constant
+    hashinput[1] = sampler->seed;
+
+    // Test each block until finding one to sample
+    for (; nextblock < nblocks; nextblock++) {
+        // Generate hash for this block
+        hashinput[0] = nextblock;
+        uint32 hash = DatumGetUInt32(hash_any((const unsigned char *) hashinput,
+                                             sizeof(hashinput)));
+
+        // Include block if hash falls below cutoff threshold
+        if (hash < sampler->cutoff) {
+            break;
+        }
+    }
+
+    if (nextblock < nblocks) {
+        // Found a block to sample - advance for next call
+        sampler->nextblock = nextblock + 1;
+        return nextblock;
+    }
+
+    // No more blocks to sample
+    sampler->nextblock = 0;  // Reset for safety
+    return InvalidBlockNumber;
+}
+```

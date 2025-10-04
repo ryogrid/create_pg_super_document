@@ -45,3 +45,27 @@ The cleaning process ensures that the application_name is safe for use in log fi
 - Important for monitoring tools that parse PostgreSQL logs and system views
 - Ensures consistent behavior across different client libraries and connection methods
 - Applied to application names from both configuration files and runtime SET commands
+
+## Simplified Source
+
+```c
+bool check_application_name(char **newval, void **extra, GucSource source) {
+    // Clean ASCII characters from the application name
+    char *clean = pg_clean_ascii(*newval, MCXT_ALLOC_NO_OOM);
+    if (!clean)
+        return false;
+
+    // Duplicate the cleaned string using GUC memory management
+    char *ret = guc_strdup(WARNING, clean);
+    if (!ret) {
+        pfree(clean);
+        return false;
+    }
+
+    // Replace the original string with the cleaned version
+    guc_free(*newval);
+    pfree(clean);
+    *newval = ret;
+    return true;
+}
+```

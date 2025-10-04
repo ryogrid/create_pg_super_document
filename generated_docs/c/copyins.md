@@ -53,3 +53,23 @@ The function asserts that newState->nins == 0 to enforce that it should only be 
 - More efficient than moveins() when deduplication is not needed
 - The original arcs in oldState remain unchanged (copy operation, not move)
 - The ifdef'd code paths mirror the logic in moveins() but use createarc() instead of changearctarget()
+
+## Simplified Source
+
+```c
+static void
+copyins(struct nfa *nfa, struct state *oldState, struct state *newState)
+{
+    assert(oldState != newState);
+    assert(newState->nins == 0);  // must be empty target state
+
+    // Simple copy operation - no deduplication needed
+    struct arc *a;
+    for (a = oldState->ins; a != NULL; a = a->inchain) {
+        createarc(nfa, a->type, a->co, a->from, newState);
+    }
+
+    // Note: Complex deduplication logic exists but is disabled
+    // via #ifdef NOT_USED since current usage only targets empty states
+}
+```

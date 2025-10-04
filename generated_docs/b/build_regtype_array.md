@@ -43,3 +43,26 @@ The function handles empty arrays gracefully by returning a zero-element array r
 - Primarily used in system view functions to present type information in a user-friendly format
 - Memory allocation uses palloc_array for proper PostgreSQL memory context handling
 - The function assumes all input OIDs are valid PostgreSQL type identifiers
+
+## Simplified Source
+
+```c
+static Datum
+build_regtype_array(Oid *param_types, int num_params)
+{
+    Datum *tmp_ary;
+    ArrayType *result;
+    int i;
+
+    // Allocate temporary datum array
+    tmp_ary = palloc_array(Datum, num_params);
+
+    // Convert each OID to datum
+    for (i = 0; i < num_params; i++)
+        tmp_ary[i] = ObjectIdGetDatum(param_types[i]);
+
+    // Build PostgreSQL regtype array
+    result = construct_array_builtin(tmp_ary, num_params, REGTYPEOID);
+    return PointerGetDatum(result);
+}
+```

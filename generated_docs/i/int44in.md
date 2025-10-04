@@ -34,3 +34,23 @@ The  function is a custom input function for a test data type that represents an
 - Missing values in the input string are automatically filled with zeros
 - The function follows PostgreSQL's V1 calling convention for user-defined functions
 - Part of a custom data type implementation for testing purposes
+
+## Simplified Source
+
+```c
+Datum int44in(PG_FUNCTION_ARGS) {
+    // Get input string and allocate array for 4 integers
+    char *input_string = PG_GETARG_CSTRING(0);
+    int32 *result = (int32 *) palloc(4 * sizeof(int32));
+
+    // Parse up to 4 comma-separated integers from input string
+    int i = sscanf(input_string, "%d, %d, %d, %d",
+                   &result[0], &result[1], &result[2], &result[3]);
+
+    // Fill remaining positions with zeros if fewer than 4 values parsed
+    while (i < 4)
+        result[i++] = 0;
+
+    PG_RETURN_POINTER(result);
+}
+```

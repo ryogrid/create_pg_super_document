@@ -46,3 +46,112 @@ The function performs extensive validation including checking that the prepared 
 - The function integrates with PostgreSQL's resource management system
 - Error messages are propagated to Perl using croak_cstr for proper exception handling
 - Supports read-only execution mode based on function properties
+
+## Simplified Source
+
+```c
+HV *
+plperl_spi_exec_prepared(char *query, HV *attr, int argc, SV **argv)
+{
+    HV *ret_hv;
+    SV **sv;
+    int i, limit, spi_rv;
+    char *nulls;
+    Datum *argvalues;
+    plperl_query_desc *qdesc;
+    plperl_query_entry *hash_entry;
+    MemoryContext oldcontext = CurrentMemoryContext;
+    ResourceOwner oldowner = CurrentResourceOwner;
+
+    check_spi_usage_allowed();
+
+    // Execute in subtransaction for error handling
+    BeginInternalSubTransaction(NULL);
+    MemoryContextSwitchTo(oldcontext);
+
+    PG_TRY();
+    {
+        dTHX;
+
+        // Find the prepared query
+        hash_entry = hash_search(plperl_active_interp->query_hash, query, HASH_FIND, NULL);
+        if (hash_entry == NULL)
+            elog(ERROR, "spi_exec_prepared: Invalid prepared query passed");
+
+        qdesc = hash_entry->query_data;
+        if (qdesc == NULL)
+            elog(ERROR, "spi_exec_prepared: plperl query_hash value vanished");
+
+        if (qdesc->nargs != argc)
+            elog(ERROR, "spi_exec_prepared: expected %d argument(s), %d passed",
+                 qdesc->nargs, argc);
+
+        // Parse execution attributes
+        limit = 0;
+        if (attr != NULL)
+        {
+            sv = hv_fetch_string(attr, "limit");
+            if (sv && *sv && SvIOK(*sv))
+                limit = SvIV(*sv);
+        }
+
+        // Convert Perl arguments to PostgreSQL Datums
+        if (argc > 0)
+        {
+            nulls = (char *) palloc(argc);
+            argvalues = (Datum *) palloc(argc * sizeof(Datum));
+        }
+        else
+        {
+            nulls = NULL;
+            argvalues = NULL;
+        }
+
+        for (i = 0; i < argc; i++)
+        {
+            bool isnull;
+            argvalues[i] = plperl_sv_to_datum(argv[i],
+                                            qdesc->argtypes[i],
+                                            -1, NULL,
+                                            &qdesc->arginfuncs[i],
+                                            qdesc->argtypioparams[i],
+                                            &isnull);
+            nulls[i] = isnull ? 'n' : ' ';
+        }
+
+        // Execute the prepared plan
+        spi_rv = SPI_execute_plan(qdesc->plan, argvalues, nulls,
+                                current_call_data->prodesc->fn_readonly, limit);
+        ret_hv = plperl_spi_execute_fetch_result(SPI_tuptable, SPI_processed, spi_rv);
+
+        if (argc > 0)
+        {
+            pfree(argvalues);
+            pfree(nulls);
+        }
+
+        // Commit subtransaction
+        ReleaseCurrentSubTransaction();
+        MemoryContextSwitchTo(oldcontext);
+        CurrentResourceOwner = oldowner;
+    }
+    PG_CATCH();
+    {
+        // Handle errors: rollback and propagate to Perl
+        ErrorData *edata;
+        MemoryContextSwitchTo(oldcontext);
+        edata = CopyErrorData();
+        FlushErrorState();
+
+        RollbackAndReleaseCurrentSubTransaction();
+        MemoryContextSwitchTo(oldcontext);
+        CurrentResourceOwner = oldowner;
+
+        croak_cstr(edata->message);
+        return NULL;
+    }
+    PG_END_TRY();
+
+    return ret_hv;
+}
+```

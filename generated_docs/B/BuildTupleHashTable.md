@@ -50,3 +50,32 @@ This function serves as a simplified interface to BuildTupleHashTableExt for bac
 - Provided for backward compatibility with existing code that expects the simpler interface
 - New code should prefer BuildTupleHashTableExt for better memory management control
 - The function signature is identical to BuildTupleHashTableExt except for the missing metacxt parameter
+
+## Simplified Source
+
+```c
+TupleHashTable BuildTupleHashTable(PlanState *parent,
+                                  TupleDesc inputDesc,
+                                  int numCols, AttrNumber *keyColIdx,
+                                  const Oid *eqfuncoids,
+                                  FmgrInfo *hashfunctions,
+                                  Oid *collations,
+                                  long nbuckets, Size additionalsize,
+                                  MemoryContext tablecxt,
+                                  MemoryContext tempcxt,
+                                  bool use_variable_hash_iv) {
+    // Backwards-compatibility wrapper - delegates to extended version
+    // Uses same memory context for both metadata and table data
+    return BuildTupleHashTableExt(parent,
+                                 inputDesc,
+                                 numCols, keyColIdx,
+                                 eqfuncoids,
+                                 hashfunctions,
+                                 collations,
+                                 nbuckets, additionalsize,
+                                 tablecxt,    // metacxt parameter
+                                 tablecxt,    // tablecxt parameter
+                                 tempcxt,
+                                 use_variable_hash_iv);
+}
+```

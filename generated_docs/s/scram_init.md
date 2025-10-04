@@ -50,3 +50,74 @@ When a valid secret cannot be obtained, the function creates a mock secret to pr
 - Sets the 'doomed' flag when authentication should fail (invalid secrets, mock auth)
 - Logs detailed error information for debugging while avoiding information leakage
 - The returned state must be freed by the caller after authentication completes
+
+## Simplified Source
+
+```c
+static void *
+scram_init(Port *port, const char *selected_mech, const char *shadow_pass)
+{
+    scram_state *state;
+    bool got_secret;
+
+    // Allocate and initialize SCRAM state
+    state = (scram_state *) palloc0(sizeof(scram_state));
+    state->port = port;
+    state->state = SCRAM_AUTH_INIT;
+
+    // Validate selected SASL mechanism
+#ifdef USE_SSL
+    if (strcmp(selected_mech, SCRAM_SHA_256_PLUS_NAME) == 0 && port->ssl_in_use)
+        state->channel_binding_in_use = true;
+    else
+#endif
+    if (strcmp(selected_mech, SCRAM_SHA_256_NAME) == 0)
+        state->channel_binding_in_use = false;
+    else
+        ereport(ERROR, (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                errmsg("client selected an invalid SASL authentication mechanism")));
+
+    // Parse the stored password secret
+    if (shadow_pass)
+    {
+        int password_type = get_password_type(shadow_pass);
+
+        if (password_type == PASSWORD_TYPE_SCRAM_SHA_256)
+        {
+            // Parse SCRAM secret components
+            if (parse_scram_secret(shadow_pass, &state->iterations,
+                                   &state->hash_type, &state->key_length,
+                                   &state->salt,
+                                   state->StoredKey, state->ServerKey))
+                got_secret = true;
+            else
+            {
+                ereport(LOG, (errmsg("invalid SCRAM secret for user \"%s\"",
+                                     state->port->user_name)));
+                got_secret = false;
+            }
+        }
+        else
+        {
+            // User doesn't have SCRAM secret
+            state->logdetail = psprintf(_("User \"%s\" does not have a valid SCRAM secret."),
+                                        state->port->user_name);
+            got_secret = false;
+        }
+    }
+    else
+        got_secret = false;
+
+    // Use mock secret if real one unavailable (timing attack protection)
+    if (!got_secret)
+    {
+        mock_scram_secret(state->port->user_name, &state->hash_type,
+                          &state->iterations, &state->key_length,
+                          &state->salt,
+                          state->StoredKey, state->ServerKey);
+        state->doomed = true;
+    }
+
+    return state;
+}
+```

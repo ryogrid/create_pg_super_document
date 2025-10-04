@@ -37,3 +37,29 @@ This timing information is essential for preventing rapid restart loops when wor
 - Proper lock management ensures thread safety when accessing the shared hash table
 - The return value of 0 for missing entries allows callers to distinguish between 'never started' and actual timestamp values
 - Part of PostgreSQL's logical replication worker lifecycle management system
+
+## Simplified Source
+
+```c
+static TimestampTz ApplyLauncherGetWorkerStartTime(Oid subid)
+{
+    LauncherLastStartTimesEntry *entry;
+    TimestampTz ret;
+
+    // Ensure shared hash table is accessible
+    logicalrep_launcher_attach_dshmem();
+
+    // Look for existing entry for this subscription
+    entry = dshash_find(last_start_times, &subid, false);
+    if (entry == NULL)
+        return 0;  // No previous start time recorded
+
+    // Extract the start time
+    ret = entry->last_start_time;
+
+    // Release the hash table entry lock
+    dshash_release_lock(last_start_times, entry);
+
+    return ret;
+}
+```

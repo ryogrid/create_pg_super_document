@@ -38,3 +38,15 @@ This chooser function enables PostgreSQL to adaptively select between different 
 - After initialization, this function is no longer called as the global pointer is redirected
 - The bulk processing nature makes CPU optimization particularly impactful for performance
 - May benefit significantly from AVX-512 VPOPCNT instructions on supported hardware
+
+## Simplified Source
+
+```c
+static uint64 pg_popcount_choose(const char *buf, int bytes) {
+    // Initialize function selection mechanism
+    choose_popcount_functions();
+
+    // Delegate to selected bulk popcount implementation
+    return pg_popcount_optimized(buf, bytes);
+}
+```

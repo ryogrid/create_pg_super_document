@@ -54,3 +54,35 @@ This function is essential for the regex compilation pipeline, transforming high
 - The converttosearch parameter allows selective application of search optimization
 - Memory management is handled through freenfa() cleanup
 - Error state is managed through the vars structure and checked at each major step
+
+## Simplified Source
+
+```c
+static long nfanode(struct vars *v, struct subre *t, int converttosearch, FILE *f) {
+    struct nfa *nfa;
+    long ret = 0;
+
+    // Create new NFA from parent context
+    nfa = newnfa(v, v->cm, v->nfa);
+    if (ISERR()) return ret;
+
+    // Copy structure from subre to new NFA
+    dupnfa(nfa, t->begin, t->end, nfa->init, nfa->final);
+    nfa->flags = v->nfa->flags;
+
+    // Apply optimizations step by step
+    if (!ISERR()) specialcolors(nfa);
+    if (!ISERR()) ret = optimize(nfa, f);
+
+    // Optional search conversion
+    if (converttosearch && !ISERR())
+        makesearch(v, nfa);
+
+    // Compact into final form
+    if (!ISERR())
+        compact(nfa, &t->cnfa);
+
+    freenfa(nfa);
+    return ret;
+}
+```

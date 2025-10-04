@@ -36,3 +36,20 @@ The function uses a static buffer to store the result, so consecutive calls will
 - Used primarily in SCRAM protocol error messages to safely display potentially malicious input
 - Returns a pointer to the static buffer, so the result must be used immediately or copied
 - Part of defensive programming practices to prevent error message injection attacks
+
+## Simplified Source
+
+```c
+static char *sanitize_char(char c) {
+    static char buf[5];
+
+    // If printable ASCII character, show in quotes
+    if (c >= 0x21 && c <= 0x7E)
+        snprintf(buf, sizeof(buf), "'%c'", c);
+    else
+        // Otherwise show as hex value
+        snprintf(buf, sizeof(buf), "0x%02x", (unsigned char) c);
+
+    return buf;
+}
+```

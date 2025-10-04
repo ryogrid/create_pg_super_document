@@ -33,3 +33,13 @@ This function determines the day of the week for a given Julian date by converti
 - The +1 adjustment in the formula accounts for the specific alignment needed with the weekday numbering system
 - Commonly used by date formatting functions to display day names
 - Essential for calendar-based operations and date formatting in embedded SQL applications
+
+## Simplified Source
+
+```c
+int PGTYPESdate_dayofweek(date dDate) {
+    // Convert to absolute Julian day and calculate day of week
+    // Returns: Sunday=0, Monday=1, ..., Saturday=6
+    return (int)(dDate + date2j(2000, 1, 1) + 1) % 7;
+}
+```

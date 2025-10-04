@@ -47,3 +47,63 @@ The function performs validation to ensure the subscription-relation mapping exi
 - Only modifies the state and LSN fields, preserving other tuple attributes
 - Error handling includes ERROR level logging for non-existent subscription-relation pairs
 - Located in src/backend/catalog/pg_subscription.c:290-353
+
+## Simplified Source
+
+```c
+void UpdateSubscriptionRelStateEx(Oid subid, Oid relid, char state,
+                                XLogRecPtr sublsn, bool already_locked) {
+    Relation rel;
+    HeapTuple tup;
+    bool nulls[Natts_pg_subscription_rel];
+    Datum values[Natts_pg_subscription_rel];
+    bool replaces[Natts_pg_subscription_rel];
+
+    // Handle locking based on caller's context
+    if (already_locked) {
+        // Assert that required locks are already held (debug builds only)
+        #ifdef USE_ASSERT_CHECKING
+        LOCKTAG tag;
+        Assert(CheckRelationOidLockedByMe(SubscriptionRelRelationId,
+                                        RowExclusiveLock, true));
+        SET_LOCKTAG_OBJECT(tag, InvalidOid, SubscriptionRelationId, subid, 0);
+        Assert(LockHeldByMe(&tag, AccessShareLock, true));
+        #endif
+        rel = table_open(SubscriptionRelRelationId, NoLock);
+    } else {
+        // Acquire necessary locks
+        LockSharedObject(SubscriptionRelationId, subid, 0, AccessShareLock);
+        rel = table_open(SubscriptionRelRelationId, RowExclusiveLock);
+    }
+
+    // Find existing subscription-relation mapping
+    tup = SearchSysCacheCopy2(SUBSCRIPTIONRELMAP,
+                            ObjectIdGetDatum(relid),
+                            ObjectIdGetDatum(subid));
+    if (!HeapTupleIsValid(tup))
+        elog(ERROR, "subscription table %u in subscription %u does not exist",
+             relid, subid);
+
+    // Prepare tuple modification arrays
+    memset(values, 0, sizeof(values));
+    memset(nulls, false, sizeof(nulls));
+    memset(replaces, false, sizeof(replaces));
+
+    // Update state field
+    replaces[Anum_pg_subscription_rel_srsubstate - 1] = true;
+    values[Anum_pg_subscription_rel_srsubstate - 1] = CharGetDatum(state);
+
+    // Update LSN field (handle NULL case)
+    replaces[Anum_pg_subscription_rel_srsublsn - 1] = true;
+    if (sublsn != InvalidXLogRecPtr)
+        values[Anum_pg_subscription_rel_srsublsn - 1] = LSNGetDatum(sublsn);
+    else
+        nulls[Anum_pg_subscription_rel_srsublsn - 1] = true;
+
+    // Apply modifications and update catalog
+    tup = heap_modify_tuple(tup, RelationGetDescr(rel), values, nulls, replaces);
+    CatalogTupleUpdate(rel, &tup->t_self, tup);
+
+    table_close(rel, NoLock);
+}
+```

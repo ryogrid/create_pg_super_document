@@ -39,3 +39,18 @@ The conversion process organizes the virtual slot's separate value and null arra
 - The returned MinimalTuple is allocated in the current memory context and must be freed by the caller
 - Related to the provided summary of `heap_form_minimal_tuple`, this function leverages that symbol to create compact tuple representations without header information present in full HeapTuples
 - MinimalTuples are particularly valuable in memory-constrained operations and temporary data structures
+
+## Simplified Source
+
+```c
+static MinimalTuple tts_virtual_copy_minimal_tuple(TupleTableSlot *slot)
+{
+    // Ensure slot contains valid data
+    Assert(!TTS_EMPTY(slot));
+
+    // Convert virtual slot to minimal tuple format
+    return heap_form_minimal_tuple(slot->tts_tupleDescriptor,
+                                  slot->tts_values,
+                                  slot->tts_isnull);
+}
+```

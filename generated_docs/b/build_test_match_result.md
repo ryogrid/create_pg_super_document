@@ -55,3 +55,68 @@ For string extraction, the function supports both wide character conversion (usi
 - When REG_EXPECT flag is set in indices mode, additional "details" information is appended to the result array
 - The function constructs a one-dimensional PostgreSQL array with text elements using hardcoded assumptions about the text type
 - Memory management relies on the caller's memory context for array construction
+
+## Simplified Source
+
+```c
+// Simplified version of build_test_match_result
+static ArrayType *
+build_test_match_result(test_regex_ctx *matchctx)
+{
+    char *buf = matchctx->conv_buf;
+    Datum *elems = matchctx->elems;
+    bool *nulls = matchctx->nulls;
+    bool indices = matchctx->re_flags.indices;
+    char bufstr[80];
+    int loc = matchctx->next_match * matchctx->npatterns * 2;
+
+    // Extract matching substrings or indices from original string
+    for (int i = 0; i < matchctx->npatterns; i++) {
+        int so = matchctx->match_locs[loc++];  // start offset
+        int eo = matchctx->match_locs[loc++];  // end offset
+
+        if (indices) {
+            // Return indices as "start end" string
+            snprintf(bufstr, sizeof(bufstr), "%d %d",
+                     so, so < 0 ? eo : eo - 1);
+            elems[i] = PointerGetDatum(cstring_to_text(bufstr));
+            nulls[i] = false;
+        } else if (so < 0 || eo < 0) {
+            // No match for this pattern
+            elems[i] = (Datum) 0;
+            nulls[i] = true;
+        } else {
+            // Extract actual substring
+            if (buf) {
+                // Convert wide chars to multibyte
+                int len = pg_wchar2mb_with_len(matchctx->wide_str + so, buf, eo - so);
+                elems[i] = PointerGetDatum(cstring_to_text_with_len(buf, len));
+            } else {
+                // Direct substring extraction
+                elems[i] = DirectFunctionCall3(text_substr,
+                                               PointerGetDatum(matchctx->orig_str),
+                                               Int32GetDatum(so + 1),
+                                               Int32GetDatum(eo - so));
+            }
+            nulls[i] = false;
+        }
+    }
+
+    // Add details for EXPECT mode if needed
+    if (indices && (matchctx->re_flags.cflags & REG_EXPECT)) {
+        int so = matchctx->details.rm_extend.rm_so;
+        int eo = matchctx->details.rm_extend.rm_eo;
+        snprintf(bufstr, sizeof(bufstr), "%d %d",
+                 so, so < 0 ? eo : eo - 1);
+        elems[i] = PointerGetDatum(cstring_to_text(bufstr));
+        nulls[i] = false;
+        i++;
+    }
+
+    // Create and return PostgreSQL array
+    int dims[1] = {i};
+    int lbs[1] = {1};
+    return construct_md_array(elems, nulls, 1, dims, lbs,
+                              TEXTOID, -1, false, TYPALIGN_INT);
+}
+```

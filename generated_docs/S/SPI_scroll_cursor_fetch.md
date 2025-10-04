@@ -38,3 +38,13 @@ Like other SPI cursor functions, it wraps _SPI_cursor_operation and uses the Des
 - FETCH_FIRST and FETCH_LAST ignore the count parameter
 - The DestSPI receiver handles memory management automatically
 - Provides the foundation for implementing full SQL cursor functionality in procedural languages
+
+## Simplified Source
+
+```c
+void SPI_scroll_cursor_fetch(Portal portal, FetchDirection direction, long count) {
+    // Execute cursor operation with specified direction and count
+    _SPI_cursor_operation(portal, direction, count, CreateDestReceiver(DestSPI));
+    // DestSPI receiver handles cleanup automatically
+}
+```

@@ -33,3 +33,22 @@ The function leverages the existing ExecCopySlotHeapTuple and ExecStoreHeapTuple
 - The destination slot will be configured with shouldfree=true, making it responsible for tuple cleanup
 - Part of the heap-specific tuple table slot operations infrastructure
 - Handles cross-slot-type copying by relying on the polymorphic ExecCopySlotHeapTuple function
+
+## Simplified Source
+
+```c
+static void
+tts_heap_copyslot(TupleTableSlot *dstslot, TupleTableSlot *srcslot)
+{
+    // Switch to destination slot's memory context for tuple allocation
+    MemoryContext oldcontext = MemoryContextSwitchTo(dstslot->tts_mcxt);
+
+    // Extract heap tuple from source slot (handles any slot type)
+    HeapTuple tuple = ExecCopySlotHeapTuple(srcslot);
+
+    MemoryContextSwitchTo(oldcontext);
+
+    // Store the copied tuple in destination slot with ownership transfer
+    ExecStoreHeapTuple(tuple, dstslot, true);
+}
+```

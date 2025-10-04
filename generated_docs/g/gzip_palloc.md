@@ -34,3 +34,14 @@ This function serves as an adapter between PostgreSQL's memory management system
 - Memory allocated through this function should be freed using the corresponding gzip_pfree() wrapper
 - Essential for enabling PostgreSQL to use its own memory context system with zlib operations
 - Ensures proper memory tracking and cleanup within PostgreSQL's memory management framework
+
+## Simplified Source
+
+```c
+static void *
+gzip_palloc(void *opaque, unsigned items, unsigned size)
+{
+    // Simple wrapper: multiply items by size and allocate memory
+    return palloc(items * size);
+}
+```

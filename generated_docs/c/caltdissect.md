@@ -52,3 +52,34 @@ The function succeeds as soon as any alternative matches successfully, implement
 - The function implements left-to-right preference: earlier alternatives are tried first
 - Returns REG_NOMATCH only if all alternatives fail to match
 - Includes debug tracing to monitor which alternatives are tested and which succeed
+
+## Simplified Source
+
+```c
+static int caltdissect(struct vars *v, struct subre *t, chr *begin, chr *end) {
+    struct dfa *d;
+    int er;
+
+    // Start with first alternative
+    t = t->child;
+
+    // Try each alternative until one succeeds
+    while (t != NULL) {
+        // Get DFA for this alternative
+        d = getsubdfa(v, t);
+
+        // Check if this alternative can match the entire substring
+        if (longest(v, d, begin, end, NULL) == end) {
+            // Try to dissect this alternative
+            er = cdissect(v, t, begin, end);
+            if (er != REG_NOMATCH)
+                return er;  // Success or error
+        }
+
+        // Try next alternative
+        t = t->sibling;
+    }
+
+    return REG_NOMATCH;  // No alternative matched
+}
+```

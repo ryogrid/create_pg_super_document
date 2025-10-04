@@ -37,3 +37,14 @@ The function works by calling the internal  function, which first checks if the 
 - Located in 
 - This function is useful for security checks and namespace isolation in multi-session environments
 - Part of PostgreSQL's temporary object management system
+
+## Simplified Source
+
+```c
+Datum pg_is_other_temp_schema(PG_FUNCTION_ARGS) {
+    Oid namespace_oid = PG_GETARG_OID(0);
+
+    // Check if namespace belongs to another backend's temporary schema
+    PG_RETURN_BOOL(isOtherTempNamespace(namespace_oid));
+}
+```

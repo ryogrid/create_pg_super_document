@@ -46,3 +46,68 @@ The function generates uniquely named dump files using the process ID and system
 - Runs in crash context so memory allocation and PostgreSQL function usage must be avoided
 - Always returns EXCEPTION_CONTINUE_SEARCH to allow normal Windows exception processing
 - Uses different dump types depending on dbghelp.dll version (checks for EnumDirTree function to detect version 5.2+)
+
+## Simplified Source
+
+```c
+static LONG WINAPI crashDumpHandler(struct _EXCEPTION_POINTERS *pExceptionInfo) {
+    // Check if crashdumps directory exists
+    DWORD attribs = GetFileAttributesA("crashdumps");
+    if (attribs == INVALID_FILE_ATTRIBUTES || !(attribs & FILE_ATTRIBUTE_DIRECTORY))
+        return EXCEPTION_CONTINUE_SEARCH;
+
+    // Load debugging library
+    HMODULE hDll = LoadLibrary("dbghelp.dll");
+    if (hDll == NULL) {
+        write_stderr("could not load dbghelp.dll, cannot write crash dump\n");
+        return EXCEPTION_CONTINUE_SEARCH;
+    }
+
+    MINIDUMPWRITEDUMP pDump = (MINIDUMPWRITEDUMP) GetProcAddress(hDll, "MiniDumpWriteDump");
+    if (pDump == NULL) {
+        write_stderr("could not load required functions in dbghelp.dll, cannot write crash dump\n");
+        return EXCEPTION_CONTINUE_SEARCH;
+    }
+
+    // Setup dump parameters
+    HANDLE selfProcHandle = GetCurrentProcess();
+    DWORD selfPid = GetProcessId(selfProcHandle);
+    DWORD systemTicks = GetTickCount();
+
+    struct _MINIDUMP_EXCEPTION_INFORMATION ExInfo;
+    ExInfo.ThreadId = GetCurrentThreadId();
+    ExInfo.ExceptionPointers = pExceptionInfo;
+    ExInfo.ClientPointers = FALSE;
+
+    // Configure dump type based on dbghelp version
+    MINIDUMP_TYPE dumpType = MiniDumpNormal | MiniDumpWithHandleData | MiniDumpWithDataSegs;
+    if (GetProcAddress(hDll, "EnumDirTree") != NULL) {
+        // Version 5.2 or newer
+        dumpType |= MiniDumpWithIndirectlyReferencedMemory | MiniDumpWithPrivateReadWriteMemory;
+    }
+
+    // Create dump file
+    char dumpPath[_MAX_PATH];
+    snprintf(dumpPath, _MAX_PATH, "crashdumps\\postgres-pid%0i-%0i.mdmp",
+             (int) selfPid, (int) systemTicks);
+    dumpPath[_MAX_PATH - 1] = '\0';
+
+    HANDLE dumpFile = CreateFile(dumpPath, GENERIC_WRITE, FILE_SHARE_WRITE,
+                                 NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+    if (dumpFile == INVALID_HANDLE_VALUE) {
+        write_stderr("could not open crash dump file \"%s\" for writing: error code %lu\n",
+                     dumpPath, GetLastError());
+        return EXCEPTION_CONTINUE_SEARCH;
+    }
+
+    // Write the dump
+    if ((*pDump)(selfProcHandle, selfPid, dumpFile, dumpType, &ExInfo, NULL, NULL))
+        write_stderr("wrote crash dump to file \"%s\"\n", dumpPath);
+    else
+        write_stderr("could not write crash dump to file \"%s\": error code %lu\n",
+                     dumpPath, GetLastError());
+
+    CloseHandle(dumpFile);
+    return EXCEPTION_CONTINUE_SEARCH;
+}
+```

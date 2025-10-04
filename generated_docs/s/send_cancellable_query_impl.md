@@ -47,3 +47,28 @@ This two-step synchronization ensures that subsequent cancellation requests will
 - The long sleep duration ensures sufficient time for cancellation testing without timeout issues
 - Critical for validating libpq's query cancellation functionality in pipeline mode
 - Accessed via macro that automatically provides line number for error context
+
+## Simplified Source
+
+```c
+static void send_cancellable_query_impl(int line, PGconn *conn, PGconn *monitorConn) {
+    const char *timeout;
+    const Oid paramTypes[1] = {INT4OID};
+
+    // Wait for connection to be idle
+    wait_for_connection_state(line, monitorConn, PQbackendPID(conn), "idle", NULL);
+
+    // Get sleep timeout from environment (default 180s)
+    timeout = getenv("PG_TEST_TIMEOUT_DEFAULT");
+    if (timeout == NULL)
+        timeout = "180";
+
+    // Send pg_sleep query asynchronously
+    if (PQsendQueryParams(conn, "SELECT pg_sleep($1)", 1, paramTypes,
+                          &timeout, NULL, NULL, 0) != 1)
+        pg_fatal_impl(line, "failed to send query: %s", PQerrorMessage(conn));
+
+    // Wait for sleep to become active for reliable cancellation
+    wait_for_connection_state(line, monitorConn, PQbackendPID(conn), NULL, "PgSleep");
+}
+```

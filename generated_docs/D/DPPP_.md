@@ -39,3 +39,11 @@ The macro is extensively used throughout ppport.h to create namespaced versions 
 - Works in conjunction with conditional compilation directives to provide appropriate implementations based on Perl version
 - Essential for preventing symbol collision when multiple versions of Perl APIs might be available
 - Part of a sophisticated macro system that includes DPPP_CAT2 for token concatenation and DPPP_NAMESPACE for consistent prefixing
+
+## Simplified Source
+
+```c
+#define DPPP_(name) DPPP_CAT2(DPPP_NAMESPACE, name)
+```
+
+This simple macro concatenates the DPPP namespace prefix with a given symbol name to create namespaced identifiers. For example, `DPPP_(my_function)` becomes `DPPP_NAMESPACE##my_function`, helping prevent naming conflicts in the Perl compatibility layer.

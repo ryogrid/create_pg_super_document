@@ -31,3 +31,16 @@ The function includes pointer alignment verification and provides full barrier s
 - Suitable for correctness-critical code where memory ordering matters
 - Part of PostgreSQL's portable atomic operations abstraction layer
 - Should be used in conjunction with other barrier-semantic atomic operations for consistency
+
+## Simplified Source
+
+```c
+static inline uint32 pg_atomic_read_membarrier_u32(volatile pg_atomic_uint32 *ptr)
+{
+    // Verify pointer is properly aligned for 32-bit access
+    AssertPointerAlignment(ptr, 4);
+
+    // Delegate to platform-specific implementation with barrier semantics
+    return pg_atomic_read_membarrier_u32_impl(ptr);
+}
+```

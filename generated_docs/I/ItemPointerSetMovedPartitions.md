@@ -32,3 +32,14 @@ This function marks an ItemPointer with special values to indicate that the tupl
 - Implemented as a static inline function for performance efficiency
 - Essential for PostgreSQL's partition-wise UPDATE operations where tuples can move between partitions
 - The magic values set by this function can be detected later using ItemPointerIndicatesMovedPartitions
+
+## Simplified Source
+
+```c
+static inline void
+ItemPointerSetMovedPartitions(ItemPointerData *pointer)
+{
+    // Set special values indicating tuple moved to different partition
+    ItemPointerSet(pointer, MovedPartitionsBlockNumber, MovedPartitionsOffsetNumber);
+}
+```

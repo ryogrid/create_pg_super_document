@@ -41,3 +41,29 @@ These restrictions ensure that the deferrable property is set at the appropriate
 - Returns  for valid deferrable setting changes,  for invalid ones
 - Simpler validation logic compared to other transaction-related check functions since it doesn't need to handle recovery mode or idempotent changes
 - Error codes used are ERRCODE_ACTIVE_SQL_TRANSACTION for both restriction types
+
+## Simplified Source
+
+```c
+bool
+check_transaction_deferrable(bool *newval, void **extra, GucSource source)
+{
+    // Prevent changes in subtransactions
+    if (IsSubTransaction())
+    {
+        GUC_check_errcode(ERRCODE_ACTIVE_SQL_TRANSACTION);
+        GUC_check_errmsg("SET TRANSACTION [NOT] DEFERRABLE cannot be called within a subtransaction");
+        return false;
+    }
+
+    // Prevent changes after first snapshot
+    if (FirstSnapshotSet)
+    {
+        GUC_check_errcode(ERRCODE_ACTIVE_SQL_TRANSACTION);
+        GUC_check_errmsg("SET TRANSACTION [NOT] DEFERRABLE must be called before any query");
+        return false;
+    }
+
+    return true;
+}
+```

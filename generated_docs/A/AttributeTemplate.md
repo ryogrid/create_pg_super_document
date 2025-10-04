@@ -34,3 +34,15 @@ AttributeTemplate serves as a template function in PostgreSQL's LLVM JIT compila
 - The function includes a self-referential assertion to verify its type signature
 - It serves as one of several template functions in llvmjit_types.c that provide examples of different function signatures for the JIT compiler
 - The comment above the function explains that it helps determine compatibility for inlining by providing a reference for copying function attributes
+
+## Simplified Source
+
+```c
+Datum AttributeTemplate(PG_FUNCTION_ARGS) {
+    // Type assertion for JIT template compatibility
+    AssertVariableIsOfType(&AttributeTemplate, PGFunction);
+
+    // Return NULL - this is purely a template function
+    PG_RETURN_NULL();
+}
+```

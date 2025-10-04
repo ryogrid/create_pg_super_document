@@ -40,4 +40,36 @@ This separation allows the continuation function to handle both initial and subs
 - Prevents duplicate authentication attempts by checking for existing GSS context
 - Sets  to indicate this is the initial authentication round
 - Returns STATUS_OK on successful setup, STATUS_ERROR on validation failures
-- The actual GSS token exchange is handled by delegating to 
+- The actual GSS token exchange is handled by delegating to
+
+## Simplified Source
+
+```c
+static int pg_GSS_startup(PGconn *conn, int payloadlen) {
+    int ret;
+    char *host = conn->connhost[conn->whichhost].host;
+
+    // Validate hostname is provided (required for GSS service principal)
+    if (!(host && host[0] != '\0')) {
+        libpq_append_conn_error(conn, "host name must be specified");
+        return STATUS_ERROR;
+    }
+
+    // Prevent duplicate GSS authentication attempts
+    if (conn->gctx) {
+        libpq_append_conn_error(conn, "duplicate GSS authentication request");
+        return STATUS_ERROR;
+    }
+
+    // Load GSS service principal name (e.g., "postgres/hostname@REALM")
+    ret = pg_GSS_load_servicename(conn);
+    if (ret != STATUS_OK)
+        return ret;
+
+    // Initialize empty GSS context for first authentication round
+    conn->gctx = GSS_C_NO_CONTEXT;
+
+    // Delegate to continuation function to handle token exchange
+    return pg_GSS_continue(conn, payloadlen);
+}
+``` 

@@ -47,3 +47,62 @@ This function converts a Julian date to a formatted string representation by par
 - The output buffer must be large enough to contain the formatted result
 - Essential for displaying dates in user-friendly formats in embedded SQL applications
 - Format string is copied to output buffer first, then patterns are replaced in-place
+
+## Simplified Source
+
+```c
+int PGTYPESdate_fmt_asc(date dDate, const char *fmtstring, char *outbuf) {
+    // Format mapping table for date patterns
+    static struct {
+        char *format;
+        int component;
+    } mapping[] = {
+        {"ddd", PGTYPES_FMTDATE_DOW_LITERAL_SHORT},
+        {"dd", PGTYPES_FMTDATE_DAY_DIGITS_LZ},
+        {"mmm", PGTYPES_FMTDATE_MONTH_LITERAL_SHORT},
+        {"mm", PGTYPES_FMTDATE_MONTH_DIGITS_LZ},
+        {"yyyy", PGTYPES_FMTDATE_YEAR_DIGITS_LONG},
+        {"yy", PGTYPES_FMTDATE_YEAR_DIGITS_SHORT},
+        {NULL, 0}
+    };
+
+    struct tm tm;
+    char *start_pattern;
+
+    // Copy format string to output buffer
+    strcpy(outbuf, fmtstring);
+
+    // Convert date to calendar components
+    j2date(dDate + date2j(2000, 1, 1), &tm.tm_year, &tm.tm_mon, &tm.tm_mday);
+    int dow = PGTYPESdate_dayofweek(dDate);
+
+    // Process each format pattern
+    for (int i = 0; mapping[i].format != NULL; i++) {
+        while ((start_pattern = strstr(outbuf, mapping[i].format)) != NULL) {
+            // Replace pattern with formatted value
+            switch (mapping[i].component) {
+                case PGTYPES_FMTDATE_DOW_LITERAL_SHORT:
+                    memcpy(start_pattern, pgtypes_date_weekdays_short[dow], strlen(pgtypes_date_weekdays_short[dow]));
+                    break;
+                case PGTYPES_FMTDATE_DAY_DIGITS_LZ:
+                    snprintf(start_pattern, 3, "%02u", tm.tm_mday);
+                    break;
+                case PGTYPES_FMTDATE_MONTH_LITERAL_SHORT:
+                    memcpy(start_pattern, months[tm.tm_mon - 1], strlen(months[tm.tm_mon - 1]));
+                    break;
+                case PGTYPES_FMTDATE_MONTH_DIGITS_LZ:
+                    snprintf(start_pattern, 3, "%02u", tm.tm_mon);
+                    break;
+                case PGTYPES_FMTDATE_YEAR_DIGITS_LONG:
+                    snprintf(start_pattern, 5, "%04u", tm.tm_year);
+                    break;
+                case PGTYPES_FMTDATE_YEAR_DIGITS_SHORT:
+                    snprintf(start_pattern, 3, "%02u", tm.tm_year % 100);
+                    break;
+            }
+        }
+    }
+
+    return 0;
+}
+```

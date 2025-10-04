@@ -47,3 +47,30 @@ The retry loop is necessary because `appendPQExpBufferVA` may need to enlarge th
 - Extensively used throughout PostgreSQL client tools for SQL query construction and formatting
 - Part of the libpq expandable string buffer interface
 - The function is void - errors are indicated through the buffer's broken state
+
+## Simplified Source
+
+```c
+void
+printfPQExpBuffer(PQExpBuffer str, const char *fmt, ...)
+{
+    int save_errno = errno;
+    va_list args;
+    bool done;
+
+    // Clear the buffer first
+    resetPQExpBuffer(str);
+
+    // Exit early if buffer is already broken
+    if (PQExpBufferBroken(str))
+        return;
+
+    // Format the text, retrying if buffer needs enlargement
+    do {
+        errno = save_errno;
+        va_start(args, fmt);
+        done = appendPQExpBufferVA(str, fmt, args);
+        va_end(args);
+    } while (!done);
+}
+```

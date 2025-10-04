@@ -41,3 +41,23 @@ This function performs the critical final step in many SP-GiST tree modification
 - Critical for maintaining SP-GiST tree integrity after node splits, moves, or additions
 - Marking the buffer dirty is essential for proper WAL logging and crash recovery
 - Located in src/backend/access/spgist/spgdoinsert.c:186-202
+
+## Simplified Source
+
+```c
+static void saveNodeLink(Relation index, SPPageDesc *parent,
+                        BlockNumber blkno, OffsetNumber offnum)
+{
+    SpGistInnerTuple innerTuple;
+
+    // Get the inner tuple from the parent page
+    innerTuple = (SpGistInnerTuple) PageGetItem(parent->page,
+                                               PageGetItemId(parent->page, parent->offnum));
+
+    // Update the node's downlink to new location
+    spgUpdateNodeLink(innerTuple, parent->node, blkno, offnum);
+
+    // Mark buffer dirty for WAL logging
+    MarkBufferDirty(parent->buffer);
+}
+```

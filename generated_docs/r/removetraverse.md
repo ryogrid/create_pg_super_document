@@ -36,3 +36,56 @@ This function recursively traverses the NFA starting from state s, identifying a
 
 ## Notes and Other Information
 The function processes different types of arcs differently: PLAIN, EMPTY, and CANTMATCH arcs are left unchanged, while constraint arcs (AHEAD, BEHIND, '^', '$', LACON) are replaced with empty transitions. This is part of the regex compilation process where constraint handling is simplified by converting constraints to empty transitions. The function includes stack overflow protection and comprehensive error handling throughout the traversal process.
+
+## Simplified Source
+
+```c
+static void
+removetraverse(struct nfa *nfa, struct state *s)
+{
+    // Guard against stack overflow in recursive calls
+    if (STACK_TOO_DEEP(nfa->v->re)) {
+        NERR(REG_ETOOBIG);
+        return;
+    }
+
+    // Skip if already processed
+    if (s->tmp != NULL) return;
+
+    s->tmp = s;  // mark as being processed
+
+    // Process all outgoing arcs
+    for (struct arc *a = s->outs; a != NULL && !NISERR(); ) {
+        struct arc *next_arc = a->outchain;  // save next before possible freearc
+
+        // Recursively process destination state
+        removetraverse(nfa, a->to);
+        if (NISERR()) break;
+
+        // Handle different arc types
+        switch (a->type) {
+            case PLAIN:
+            case EMPTY:
+            case CANTMATCH:
+                // Keep these arcs unchanged
+                break;
+
+            case AHEAD:
+            case BEHIND:
+            case '^':
+            case '$':
+            case LACON:
+                // Replace constraint arcs with empty transitions
+                newarc(nfa, EMPTY, 0, s, a->to);
+                freearc(nfa, a);
+                break;
+
+            default:
+                NERR(REG_ASSERT);
+                break;
+        }
+
+        a = next_arc;
+    }
+}
+```

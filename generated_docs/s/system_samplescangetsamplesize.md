@@ -43,3 +43,36 @@ This function is responsible for calculating how many pages and tuples the SYSTE
 - Converts percentage values to fractions (divides by 100)
 - The estimates are used by PostgreSQL's query planner for cost calculations and optimization decisions
 - Results are clamped using clamp_row_est to ensure they fall within valid ranges for the planner
+
+## Simplified Source
+
+```c
+static void system_samplescangetsamplesize(PlannerInfo *root,
+                                          RelOptInfo *baserel,
+                                          List *paramexprs,
+                                          BlockNumber *pages,
+                                          double *tuples) {
+    float4 samplefract;
+
+    // Extract and validate sampling percentage from parameters
+    Node *pctnode = (Node *) linitial(paramexprs);
+    pctnode = estimate_expression_value(root, pctnode);
+
+    if (IsA(pctnode, Const) && !((Const *) pctnode)->constisnull) {
+        samplefract = DatumGetFloat4(((Const *) pctnode)->constvalue);
+        if (samplefract >= 0 && samplefract <= 100 && !isnan(samplefract)) {
+            samplefract /= 100.0f;  // Convert percentage to fraction
+        } else {
+            samplefract = 0.1f;     // Default 10% if invalid
+        }
+    } else {
+        samplefract = 0.1f;         // Default 10% if can't evaluate
+    }
+
+    // SYSTEM sampling visits a sample of pages (block-level sampling)
+    *pages = clamp_row_est(baserel->pages * samplefract);
+
+    // Estimate tuples based on sampled pages
+    *tuples = clamp_row_est(baserel->tuples * samplefract);
+}
+```

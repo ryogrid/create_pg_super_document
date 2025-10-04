@@ -42,3 +42,38 @@ The function first ensures the target list is initialized, then searches for an 
 - Allows updating existing target types if the same name is registered multiple times
 - Part of PostgreSQL's pluggable backup target system introduced for flexible backup destinations
 - The function is safe to call multiple times with the same name, updating the handlers each time
+
+## Simplified Source
+
+```c
+void BaseBackupAddTarget(char *name,
+                        void *(*check_detail)(char *, char *),
+                        bbsink *(*get_sink)(bbsink *, void *)) {
+    BaseBackupTargetType *newtype;
+    MemoryContext oldcontext;
+    ListCell *lc;
+
+    // Initialize target list if needed
+    if (BaseBackupTargetTypeList == NIL)
+        initialize_target_list();
+
+    // Check if target already exists - update if found
+    foreach(lc, BaseBackupTargetTypeList) {
+        BaseBackupTargetType *ttype = lfirst(lc);
+        if (strcmp(ttype->name, name) == 0) {
+            ttype->check_detail = check_detail;
+            ttype->get_sink = get_sink;
+            return;
+        }
+    }
+
+    // Create new target type in persistent memory context
+    oldcontext = MemoryContextSwitchTo(TopMemoryContext);
+    newtype = palloc(sizeof(BaseBackupTargetType));
+    newtype->name = pstrdup(name);
+    newtype->check_detail = check_detail;
+    newtype->get_sink = get_sink;
+    BaseBackupTargetTypeList = lappend(BaseBackupTargetTypeList, newtype);
+    MemoryContextSwitchTo(oldcontext);
+}
+```

@@ -51,3 +51,49 @@ The function handles eight different types of SP-GiST operations:
 - Will panic the system if an unknown operation code is encountered, ensuring data consistency
 - Located in src/backend/access/spgist/spgxlog.c:935-975
 - Part of the SP-GiST access method's WAL replay infrastructure
+
+## Simplified Source
+
+```c
+void spg_redo(XLogReaderState *record) {
+    // Extract operation type from WAL record
+    uint8 info = XLogRecGetInfo(record) & ~XLR_INFO_MASK;
+
+    // Switch to SP-GiST operation memory context for cleanup
+    MemoryContext oldCxt = MemoryContextSwitchTo(opCtx);
+
+    // Dispatch to appropriate redo function based on operation type
+    switch (info) {
+        case XLOG_SPGIST_ADD_LEAF:
+            spgRedoAddLeaf(record);
+            break;
+        case XLOG_SPGIST_MOVE_LEAFS:
+            spgRedoMoveLeafs(record);
+            break;
+        case XLOG_SPGIST_ADD_NODE:
+            spgRedoAddNode(record);
+            break;
+        case XLOG_SPGIST_SPLIT_TUPLE:
+            spgRedoSplitTuple(record);
+            break;
+        case XLOG_SPGIST_PICKSPLIT:
+            spgRedoPickSplit(record);
+            break;
+        case XLOG_SPGIST_VACUUM_LEAF:
+            spgRedoVacuumLeaf(record);
+            break;
+        case XLOG_SPGIST_VACUUM_ROOT:
+            spgRedoVacuumRoot(record);
+            break;
+        case XLOG_SPGIST_VACUUM_REDIRECT:
+            spgRedoVacuumRedirect(record);
+            break;
+        default:
+            elog(PANIC, "spg_redo: unknown op code %u", info);
+    }
+
+    // Restore previous memory context and reset operation context
+    MemoryContextSwitchTo(oldCxt);
+    MemoryContextReset(opCtx);
+}
+```

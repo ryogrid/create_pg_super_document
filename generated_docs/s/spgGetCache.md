@@ -54,3 +54,79 @@ The function performs several key operations during cache initialization:
 - For partitioned indexes, skips metapage reading since they don't have physical storage
 - The function implements lazy initialization - cache is created only when first needed
 - Type descriptors are cached for efficient access during index operations
+
+## Simplified Source
+
+```c
+SpGistCache *spgGetCache(Relation index) {
+    SpGistCache *cache;
+
+    // Return existing cache if available
+    if (index->rd_amcache != NULL) {
+        return (SpGistCache *) index->rd_amcache;
+    }
+
+    // Create new cache
+    cache = MemoryContextAllocZero(index->rd_indexcxt, sizeof(SpGistCache));
+
+    // Validate index structure (SP-GiST requires exactly one key column)
+    Assert(IndexRelationGetNumberOfKeyAttributes(index) == 1);
+
+    // Get nominal input data type for polymorphic opclasses
+    Oid atttype = GetIndexInputType(index, spgKeyColumn + 1);
+
+    // Call opclass config function
+    spgConfigIn in;
+    in.attType = atttype;
+    FmgrInfo *procinfo = index_getprocinfo(index, 1, SPGIST_CONFIG_PROC);
+    FunctionCall2Coll(procinfo,
+                      index->rd_indcollation[spgKeyColumn],
+                      PointerGetDatum(&in),
+                      PointerGetDatum(&cache->config));
+
+    // Set leaf type (use config value or derive from index column)
+    if (!OidIsValid(cache->config.leafType)) {
+        cache->config.leafType =
+            TupleDescAttr(RelationGetDescr(index), spgKeyColumn)->atttypid;
+
+        // Handle binary-coercible types
+        if (cache->config.leafType != atttype &&
+            IsBinaryCoercible(cache->config.leafType, atttype))
+            cache->config.leafType = atttype;
+    }
+
+    // Fill type descriptors
+    fillTypeDesc(&cache->attType, atttype);
+
+    if (cache->config.leafType != atttype) {
+        // Verify compress method exists when types differ
+        if (!OidIsValid(index_getprocid(index, 1, SPGIST_COMPRESS_PROC)))
+            ereport(ERROR,
+                    (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                     errmsg("compress method must be defined when leaf type is different from input type")));
+        fillTypeDesc(&cache->attLeafType, cache->config.leafType);
+    } else {
+        cache->attLeafType = cache->attType;
+    }
+
+    fillTypeDesc(&cache->attPrefixType, cache->config.prefixType);
+    fillTypeDesc(&cache->attLabelType, cache->config.labelType);
+
+    // Read metapage for real indexes (not partitioned)
+    if (index->rd_rel->relkind != RELKIND_PARTITIONED_INDEX) {
+        Buffer metabuffer = ReadBuffer(index, SPGIST_METAPAGE_BLKNO);
+        LockBuffer(metabuffer, BUFFER_LOCK_SHARE);
+        SpGistMetaPageData *metadata = SpGistPageGetMeta(BufferGetPage(metabuffer));
+
+        if (metadata->magicNumber != SPGIST_MAGIC_NUMBER)
+            elog(ERROR, "index \"%s\" is not an SP-GiST index",
+                 RelationGetRelationName(index));
+
+        cache->lastUsedPages = metadata->lastUsedPages;
+        UnlockReleaseBuffer(metabuffer);
+    }
+
+    index->rd_amcache = (void *) cache;
+    return cache;
+}
+```

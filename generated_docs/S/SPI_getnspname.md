@@ -37,3 +37,12 @@ The function combines RelationGetNamespace (to get the namespace OID) with get_n
 - The function delegates namespace name resolution to get_namespace_name, which handles cache lookups
 - No error handling - assumes valid Relation input and existing namespace
 - Does not set any global SPI_result status
+
+## Simplified Source
+
+```c
+char *SPI_getnspname(Relation rel) {
+    // Get namespace name directly from relation
+    return get_namespace_name(RelationGetNamespace(rel));
+}
+```

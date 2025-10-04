@@ -45,3 +45,27 @@ The function handles several important scenarios:
 - Any failure in SetClientEncoding is logged but not treated as fatal, since the check hook should have prevented invalid assignments
 - Located in src/backend/commands/variable.c alongside other encoding-related functions
 - The function assumes that if check_client_encoding succeeded, SetClientEncoding should also succeed
+
+## Simplified Source
+
+```c
+void assign_client_encoding(const char *newval, void *extra)
+{
+    int encoding = *((int *) extra);
+
+    // Special handling for parallel workers
+    if (IsParallelWorker()) {
+        if (InitializingParallelWorker)
+            return;  // Accept encoding during initialization
+
+        // Reject changes during parallel operations
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_TRANSACTION_STATE),
+                 errmsg("cannot change \"client_encoding\" during a parallel operation")));
+    }
+
+    // Apply the encoding change
+    if (SetClientEncoding(encoding) < 0)
+        elog(LOG, "SetClientEncoding(%d) failed", encoding);
+}
+```

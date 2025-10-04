@@ -34,3 +34,14 @@ This function works in conjunction with `gzip_palloc` to provide complete memory
 - Forms a memory management pair with `gzip_palloc` for complete zlib integration
 - The function simply delegates the deallocation operation to PostgreSQL's pfree
 - Part of the memory management interface between PostgreSQL and the zlib library
+
+## Simplified Source
+
+```c
+static void
+gzip_pfree(void *opaque, void *address)
+{
+    // Simple wrapper: ignore opaque parameter and free memory
+    pfree(address);
+}
+```

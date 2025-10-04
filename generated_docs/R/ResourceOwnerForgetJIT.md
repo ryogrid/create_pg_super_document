@@ -32,3 +32,14 @@ The function converts the LLVMJitContext pointer to a Datum using PointerGetDatu
 - Must be called when manually releasing JIT contexts to prevent double-free errors
 - Part of PostgreSQL's resource management infrastructure for preventing resource leaks
 - Located in src/backend/jit/llvm/llvmjit.c:152-163
+
+## Simplified Source
+
+```c
+static inline void
+ResourceOwnerForgetJIT(ResourceOwner owner, LLVMJitContext *handle)
+{
+    // Remove JIT context from resource owner tracking
+    ResourceOwnerForget(owner, PointerGetDatum(handle), &jit_resowner_desc);
+}
+```

@@ -33,3 +33,15 @@ After calling choose_popcount_functions(), it immediately delegates to the newly
 - Used only during the first invocation of 32-bit popcount operations
 - The function pointer indirection adds minimal overhead while enabling significant performance gains
 - After initialization, this function is no longer called as the global pointer is redirected
+
+## Simplified Source
+
+```c
+static int pg_popcount32_choose(uint32 word) {
+    // Trigger runtime CPU feature detection and function pointer selection
+    choose_popcount_functions();
+
+    // Delegate to the newly selected optimal implementation
+    return pg_popcount32(word);
+}
+```

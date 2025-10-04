@@ -45,3 +45,33 @@ This function encodes a custom MESSAGE operation into the logical replication pr
 - Transaction ID is conditionally sent only when valid (for streaming transactions)
 - LSN provides ordering and replication position information
 - Custom messages can be used for application-specific replication needs beyond standard DML operations
+
+## Simplified Source
+
+```c
+void logicalrep_write_message(StringInfo out, TransactionId xid, XLogRecPtr lsn,
+                             bool transactional, const char *prefix, Size sz,
+                             const char *message) {
+    uint8 flags = 0;
+
+    // Write message type
+    pq_sendbyte(out, LOGICAL_REP_MSG_MESSAGE);
+
+    // Set transactional flag if needed
+    if (transactional)
+        flags |= MESSAGE_TRANSACTIONAL;
+
+    // Include transaction ID if we're streaming
+    if (TransactionIdIsValid(xid))
+        pq_sendint32(out, xid);
+
+    // Write message metadata
+    pq_sendint8(out, flags);
+    pq_sendint64(out, lsn);
+    pq_sendstring(out, prefix);
+
+    // Write message content with size
+    pq_sendint32(out, sz);
+    pq_sendbytes(out, message, sz);
+}
+```

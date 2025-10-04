@@ -58,3 +58,36 @@ This function is highly specialized and is only used in the specific context of 
 - This operation is part of the broader process of converting table metadata to view metadata, which involves multiple catalog changes
 - The RowExclusiveLock ensures that no concurrent modifications can occur to the pg_attribute catalog during the deletion process
 - Unlike DeleteAttributeTuples which removes all attributes, this function is surgical in removing only system attributes while preserving user-defined column metadata
+
+## Simplified Source
+
+```c
+void DeleteSystemAttributeTuples(Oid relid) {
+    Relation attrel;
+    SysScanDesc scan;
+    ScanKeyData key[2];
+    HeapTuple atttup;
+
+    // Open pg_attribute catalog for modification
+    attrel = table_open(AttributeRelationId, RowExclusiveLock);
+
+    // Set up scan to find system attributes (attnum <= 0) for this relation
+    ScanKeyInit(&key[0], Anum_pg_attribute_attrelid,
+                BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(relid));
+    ScanKeyInit(&key[1], Anum_pg_attribute_attnum,
+                BTLessEqualStrategyNumber, F_INT2LE, Int16GetDatum(0));
+
+    // Begin indexed scan to find system attributes
+    scan = systable_beginscan(attrel, AttributeRelidNumIndexId, true,
+                              NULL, 2, key);
+
+    // Delete all system attribute tuples found
+    while ((atttup = systable_getnext(scan)) != NULL) {
+        CatalogTupleDelete(attrel, &atttup->t_self);
+    }
+
+    // Clean up
+    systable_endscan(scan);
+    table_close(attrel, RowExclusiveLock);
+}
+```

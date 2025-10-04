@@ -58,3 +58,27 @@ The function also provides debug output when REG_DEBUG is enabled.
 - The function includes extensive debug support via REG_DEBUG compilation flag
 - Critical for preparing NFAs for execution by PostgreSQL's regex engine
 - Handles complex constraint elimination that would otherwise cause infinite loops in the executor
+
+## Simplified Source
+```c
+static long optimize(struct nfa *nfa, FILE *f) {
+    // Remove CANTMATCH arcs if present
+    if (nfa->flags & HASCANTMATCH) {
+        removecantmatch(nfa);
+        nfa->flags &= ~HASCANTMATCH;
+    }
+
+    // Initial cleanup
+    cleanup(nfa);
+
+    // Core optimization steps:
+    fixempties(nfa, f);           // Remove EMPTY arcs
+    fixconstraintloops(nfa, f);   // Remove constraint loops
+    pullback(nfa, f);             // Pull constraints backward
+    pushfwd(nfa, f);              // Push constraints forward
+
+    // Final cleanup and analysis
+    cleanup(nfa);
+    return analyze(nfa);
+}
+```

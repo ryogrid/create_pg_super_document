@@ -35,3 +35,26 @@ ReorderBufferCommit is a wrapper function that handles the commit of a logical r
 
 ## Notes and Other Information
 This function is part of the logical replication subsystem and is called during WAL replay when a commit record is encountered. It serves as a simple dispatch mechanism that locates the transaction and hands off the actual work to ReorderBufferReplay, which handles both regular commits and prepare operations.
+
+## Simplified Source
+
+```c
+void ReorderBufferCommit(ReorderBuffer *rb, TransactionId xid,
+                        XLogRecPtr commit_lsn, XLogRecPtr end_lsn,
+                        TimestampTz commit_time,
+                        RepOriginId origin_id, XLogRecPtr origin_lsn)
+{
+    ReorderBufferTXN *txn;
+
+    // Look up transaction by XID
+    txn = ReorderBufferTXNByXid(rb, xid, false, NULL, InvalidXLogRecPtr, false);
+
+    // Skip unknown transactions
+    if (txn == NULL)
+        return;
+
+    // Delegate to replay function for actual processing
+    ReorderBufferReplay(txn, rb, xid, commit_lsn, end_lsn, commit_time,
+                       origin_id, origin_lsn);
+}
+```

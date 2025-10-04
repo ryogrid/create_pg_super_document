@@ -37,3 +37,20 @@ The function leverages the internal  function to perform the actual visibility c
 - Located in 
 - The function uses the "Ext" variant of the visibility checker to handle missing objects gracefully
 - Similar in structure and purpose to  but operates on text search templates instead of dictionaries
+
+## Simplified Source
+
+```c
+Datum pg_ts_template_is_visible(PG_FUNCTION_ARGS) {
+    Oid template_oid = PG_GETARG_OID(0);
+    bool is_missing = false;
+
+    // Check if text search template is visible in current search path
+    bool result = TSTemplateIsVisibleExt(template_oid, &is_missing);
+
+    // Return NULL if template doesn't exist, otherwise return visibility status
+    if (is_missing)
+        PG_RETURN_NULL();
+    PG_RETURN_BOOL(result);
+}
+```

@@ -53,3 +53,109 @@ The function includes comprehensive multibyte character validation to prevent se
 - Uses optimized fast path when no special characters need escaping
 - Always returns a properly quoted and NUL-terminated string
 - Clears connection error state before processing when no commands are queued
+
+## Simplified Source
+
+```c
+static char *PQescapeInternal(PGconn *conn, const char *str, size_t len, bool as_ident) {
+    size_t input_len = strnlen(str, len);
+    char quote_char = as_ident ? '"' : '\'';
+    int num_quotes = 0;
+    int num_backslashes = 0;
+    bool validated_mb = false;
+
+    // Validate connection
+    if (!conn)
+        return NULL;
+
+    // Clear error state if no pending commands
+    if (conn->cmd_queue_head == NULL)
+        pqClearConnErrorState(conn);
+
+    // Scan string to count special characters and validate encoding
+    const char *s = str;
+    for (size_t remaining = input_len; remaining > 0; remaining--, s++) {
+        if (*s == quote_char)
+            ++num_quotes;
+        else if (*s == '\\')
+            ++num_backslashes;
+        else if (IS_HIGHBIT_SET(*s)) {
+            // Handle multibyte characters
+            int charlen = pg_encoding_mblen_or_incomplete(conn->client_encoding, s, remaining);
+
+            if (charlen > remaining) {
+                libpq_append_conn_error(conn, "incomplete multibyte character");
+                return NULL;
+            }
+
+            // Validate multibyte characters once
+            if (!validated_mb) {
+                if (pg_encoding_verifymbstr(conn->client_encoding, s, remaining) != remaining) {
+                    libpq_append_conn_error(conn, "invalid multibyte character");
+                    return NULL;
+                }
+                validated_mb = true;
+            }
+
+            s += charlen - 1;
+            remaining -= charlen - 1;
+        }
+    }
+
+    // Calculate buffer size and allocate
+    size_t result_size = input_len + num_quotes + 3; // quotes + NUL
+    if (!as_ident && num_backslashes > 0)
+        result_size += num_backslashes + 2; // for E'...' syntax
+
+    char *result = malloc(result_size);
+    if (!result) {
+        libpq_append_conn_error(conn, "out of memory");
+        return NULL;
+    }
+
+    char *rp = result;
+
+    // Add escape string prefix for literals with backslashes
+    if (!as_ident && num_backslashes > 0) {
+        *rp++ = ' ';
+        *rp++ = 'E';
+    }
+
+    // Opening quote
+    *rp++ = quote_char;
+
+    // Copy content with escaping
+    if (num_quotes == 0 && (num_backslashes == 0 || as_ident)) {
+        // Fast path: direct copy
+        memcpy(rp, str, input_len);
+        rp += input_len;
+    } else {
+        // Slow path: character-by-character with escaping
+        s = str;
+        for (size_t remaining = input_len; remaining > 0; remaining--, s++) {
+            if (*s == quote_char || (!as_ident && *s == '\\')) {
+                // Double the special character
+                *rp++ = *s;
+                *rp++ = *s;
+            } else if (!IS_HIGHBIT_SET(*s)) {
+                *rp++ = *s;
+            } else {
+                // Copy multibyte character
+                int mblen = pg_encoding_mblen(conn->client_encoding, s);
+                for (int i = 0; i < mblen; i++) {
+                    *rp++ = *s++;
+                    remaining--;
+                }
+                s--; // Adjust for loop increment
+                remaining++;
+            }
+        }
+    }
+
+    // Closing quote and terminator
+    *rp++ = quote_char;
+    *rp = '\0';
+
+    return result;
+}
+```

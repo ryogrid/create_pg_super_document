@@ -52,3 +52,30 @@ The function validates the connection state and parameters before delegating to 
 - The prepared statement must exist on the server before calling this function
 - More efficient than PQsendQueryParams for repeated execution since parsing overhead is eliminated
 - Parameter type information is not needed since it was established during statement preparation
+
+## Simplified Source
+
+```c
+int PQsendQueryPrepared(PGconn *conn, const char *stmtName, int nParams,
+                       const char *const *paramValues, const int *paramLengths,
+                       const int *paramFormats, int resultFormat) {
+    // Validate connection state
+    if (!PQsendQueryStart(conn, true))
+        return 0;
+
+    // Validate statement name and parameter count
+    if (!stmtName) {
+        libpq_append_conn_error(conn, "statement name is a null pointer");
+        return 0;
+    }
+    if (nParams < 0 || nParams > PQ_QUERY_PARAM_MAX_LIMIT) {
+        libpq_append_conn_error(conn, "number of parameters must be between 0 and %d",
+                               PQ_QUERY_PARAM_MAX_LIMIT);
+        return 0;
+    }
+
+    // Execute prepared statement
+    return PQsendQueryGuts(conn, NULL, stmtName, nParams, NULL,
+                          paramValues, paramLengths, paramFormats, resultFormat);
+}
+```

@@ -43,3 +43,19 @@ The function relies entirely on the validation performed by `check_session_autho
 - Located in src/backend/commands/variable.c alongside the corresponding check hook
 - Works in conjunction with the broader PostgreSQL role and authentication system
 - The role_auth_extra structure is shared between session_authorization and role parameter hooks
+
+## Simplified Source
+
+```c
+void assign_session_authorization(const char *newval, void *extra)
+{
+    role_auth_extra *myextra = (role_auth_extra *) extra;
+
+    // Handle NULL (boot_val default)
+    if (!myextra)
+        return;
+
+    // Apply the session authorization change
+    SetSessionAuthorization(myextra->roleid, myextra->is_superuser);
+}
+```

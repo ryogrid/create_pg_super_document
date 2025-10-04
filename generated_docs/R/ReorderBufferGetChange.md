@@ -43,3 +43,18 @@ ReorderBufferGetChange creates a fresh ReorderBufferChange instance by allocatin
 - Memory is automatically freed when the reorder buffer's context is deleted
 - Changes allocated by this function are typically added to transaction change lists
 - The function is simple but critical for logical decoding performance due to frequent allocation of change records
+
+## Simplified Source
+
+```c
+ReorderBufferChange *ReorderBufferGetChange(ReorderBuffer *rb) {
+    // Allocate change structure from specialized memory context
+    ReorderBufferChange *change = (ReorderBufferChange *)
+        MemoryContextAlloc(rb->change_context, sizeof(ReorderBufferChange));
+
+    // Initialize all fields to zero for clean state
+    memset(change, 0, sizeof(ReorderBufferChange));
+
+    return change;
+}
+```

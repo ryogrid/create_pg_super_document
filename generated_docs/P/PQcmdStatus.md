@@ -32,3 +32,17 @@ PQcmdStatus returns a pointer to the command status string stored in a PGresult 
 - [Command](../C/Command.md) status strings follow PostgreSQL's standard format for different SQL command types
 - Part of the libpq client interface for PostgreSQL database connectivity
 - Commonly used for logging, debugging, and determining the success/impact of SQL operations
+
+## Simplified Source
+
+```c
+char *PQcmdStatus(PGresult *res)
+{
+    // Return NULL for invalid result pointer
+    if (!res)
+        return NULL;
+
+    // Return command status string directly
+    return res->cmdStatus;
+}
+```

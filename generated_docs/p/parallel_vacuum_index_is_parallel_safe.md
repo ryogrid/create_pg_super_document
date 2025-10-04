@@ -45,3 +45,30 @@ The conditional cleanup logic prevents unnecessary worker invocation when parall
 - Conditional cleanup support allows access methods to optimize when parallel cleanup is beneficial
 - The num_index_scans parameter prevents redundant parallel cleanup operations on indexes that have already been processed
 - Access method developers can use different vacuum option flags to control parallel vacuum behavior
+
+## Simplified Source
+
+```c
+static bool
+parallel_vacuum_index_is_parallel_safe(Relation indrel, int num_index_scans,
+                                       bool vacuum)
+{
+    uint8 vacoptions = indrel->rd_indam->amparallelvacuumoptions;
+
+    // For bulk deletion, check if parallel bulk-delete is supported
+    if (vacuum)
+        return ((vacoptions & VACUUM_OPTION_PARALLEL_BULKDEL) != 0);
+
+    // For cleanup operations, check parallel cleanup support
+    if (((vacoptions & VACUUM_OPTION_PARALLEL_CLEANUP) == 0) &&
+        ((vacoptions & VACUUM_OPTION_PARALLEL_COND_CLEANUP) == 0))
+        return false;
+
+    // Skip conditional cleanup if index already processed
+    if (num_index_scans > 0 &&
+        ((vacoptions & VACUUM_OPTION_PARALLEL_COND_CLEANUP) != 0))
+        return false;
+
+    return true;
+}
+```

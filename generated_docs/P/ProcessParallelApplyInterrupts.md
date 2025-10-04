@@ -39,3 +39,30 @@ When a shutdown is requested, the function logs an informational message indicat
 - The function provides graceful shutdown handling by logging completion messages before exiting
 - Configuration reloads are handled dynamically without requiring worker restart
 - Part of PostgreSQL's logical replication parallel processing infrastructure introduced to improve replication performance
+
+## Simplified Source
+
+```c
+static void
+ProcessParallelApplyInterrupts(void)
+{
+    // Handle standard PostgreSQL interrupts
+    CHECK_FOR_INTERRUPTS();
+
+    // Handle shutdown request
+    if (ShutdownRequestPending)
+    {
+        ereport(LOG,
+                (errmsg("logical replication parallel apply worker for subscription \"%s\" has finished",
+                        MySubscription->name)));
+        proc_exit(0);
+    }
+
+    // Handle configuration reload request
+    if (ConfigReloadPending)
+    {
+        ConfigReloadPending = false;
+        ProcessConfigFile(PGC_SIGHUP);
+    }
+}
+```

@@ -51,3 +51,77 @@ PQcancel implements the original PostgreSQL query cancellation mechanism. It est
 - Error messages are built using safe string operations without sprintf
 - Part of the legacy cancellation API, with newer encrypted alternatives available
 - Location: src/interfaces/libpq/fe-cancel.c:464-661
+
+## Simplified Source
+
+```c
+int PQcancel(PGcancel *cancel, char *errbuf, int errbufsize) {
+    int save_errno = SOCK_ERRNO;
+    pgsocket tmpsock = PGINVALID_SOCKET;
+    struct {
+        uint32 packetlen;
+        CancelRequestPacket cp;
+    } crp;
+
+    // Validate cancel object
+    if (!cancel) {
+        strlcpy(errbuf, "PQcancel() -- no cancel object supplied", errbufsize);
+        SOCK_ERRNO_SET(save_errno);
+        return false;
+    }
+
+    // Create temporary socket
+    if ((tmpsock = socket(cancel->raddr.addr.ss_family, SOCK_STREAM, 0)) == PGINVALID_SOCKET) {
+        strlcpy(errbuf, "PQcancel() -- socket() failed", errbufsize);
+        goto cancel_errReturn;
+    }
+
+    // Set socket keepalive options (if enabled)
+    if (cancel->raddr.addr.ss_family != AF_UNIX && cancel->keepalives != 0) {
+        // Configure keepalive settings for timeout prevention
+        // Platform-specific socket option configuration...
+    }
+
+    // Connect to server with retry on interruption
+retry_connect:
+    if (connect(tmpsock, (struct sockaddr *) &cancel->raddr.addr, cancel->raddr.salen) < 0) {
+        if (SOCK_ERRNO == EINTR)
+            goto retry_connect;
+        strlcpy(errbuf, "PQcancel() -- connect() failed", errbufsize);
+        goto cancel_errReturn;
+    }
+
+    // Build and send cancel request packet
+    crp.packetlen = pg_hton32((uint32) sizeof(crp));
+    crp.cp.cancelRequestCode = (MsgType) pg_hton32(CANCEL_REQUEST_CODE);
+    crp.cp.backendPID = pg_hton32(cancel->be_pid);
+    crp.cp.cancelAuthCode = pg_hton32(cancel->be_key);
+
+retry_send:
+    if (send(tmpsock, (char *) &crp, sizeof(crp), 0) != (int) sizeof(crp)) {
+        if (SOCK_ERRNO == EINTR)
+            goto retry_send;
+        strlcpy(errbuf, "PQcancel() -- send() failed", errbufsize);
+        goto cancel_errReturn;
+    }
+
+    // Wait for server to close connection (confirmation)
+retry_recv:
+    if (recv(tmpsock, (char *) &crp, 1, 0) < 0) {
+        if (SOCK_ERRNO == EINTR)
+            goto retry_recv;
+    }
+
+    // Success cleanup
+    closesocket(tmpsock);
+    SOCK_ERRNO_SET(save_errno);
+    return true;
+
+cancel_errReturn:
+    // Error cleanup and errno formatting
+    if (tmpsock != PGINVALID_SOCKET)
+        closesocket(tmpsock);
+    SOCK_ERRNO_SET(save_errno);
+    return false;
+}
+```

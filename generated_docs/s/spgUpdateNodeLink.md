@@ -40,3 +40,28 @@ This function modifies the item pointer (t_tid) of the nodeN'th entry in an SP-G
 - This is a low-level function primarily used during WAL replay and tree restructuring operations
 - The function assumes the inner tuple structure is valid and the nodeN parameter is within reasonable bounds
 - Located in src/backend/access/spgist/spgdoinsert.c:52-79
+
+## Simplified Source
+
+```c
+void spgUpdateNodeLink(SpGistInnerTuple tup, int nodeN,
+                       BlockNumber blkno, OffsetNumber offset)
+{
+    int i;
+    SpGistNodeTuple node;
+
+    // Iterate through nodes in the inner tuple
+    SGITITERATE(tup, i, node)
+    {
+        if (i == nodeN)
+        {
+            // Update the downlink to point to new location
+            ItemPointerSet(&node->t_tid, blkno, offset);
+            return;
+        }
+    }
+
+    // Error if node not found
+    elog(ERROR, "failed to find requested node %d in SPGiST inner tuple", nodeN);
+}
+```

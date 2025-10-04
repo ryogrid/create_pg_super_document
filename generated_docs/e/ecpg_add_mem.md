@@ -44,3 +44,21 @@ This mechanism allows ECPG to automatically free tracked memory when threads ter
 - Thread-safe: each thread maintains its own separate tracking list
 - Part of ECPG's automatic memory management system for embedded SQL applications
 - Can be used to add existing memory pointers to automatic cleanup, not just newly allocated ones
+
+## Simplified Source
+
+```c
+bool ecpg_add_mem(void *ptr, int lineno) {
+    // Allocate tracking structure
+    struct auto_mem *am = (struct auto_mem *) ecpg_alloc(sizeof(struct auto_mem), lineno);
+    if (!am)
+        return false;
+
+    // Add to front of linked list
+    am->pointer = ptr;
+    am->next = get_auto_allocs();
+    set_auto_allocs(am);
+
+    return true;
+}
+```

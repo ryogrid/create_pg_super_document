@@ -40,3 +40,58 @@ The function first examines the certificate's signature algorithm using either X
 - Uses EVP_MAX_MD_SIZE buffer size to accommodate various hash algorithms including SHA-512
 - Implements security requirements from RFC 5929 section 4.1 regarding weak signature algorithms
 - The conn->peer field must be set (contains the X509 certificate) before calling this function
+
+## Simplified Source
+```c
+char *pgtls_get_peer_certificate_hash(PGconn *conn, size_t *len) {
+    X509 *peer_cert;
+    const EVP_MD *algo_type;
+    unsigned char hash[EVP_MAX_MD_SIZE];
+    unsigned int hash_size;
+    int algo_nid;
+    char *cert_hash;
+
+    *len = 0;
+
+    // Check if peer certificate exists
+    if (!conn->peer)
+        return NULL;
+
+    peer_cert = conn->peer;
+
+    // Get certificate signature algorithm (OpenSSL version-dependent)
+#if HAVE_X509_GET_SIGNATURE_INFO
+    if (!X509_get_signature_info(peer_cert, &algo_nid, NULL, NULL, NULL))
+#else
+    if (!OBJ_find_sigid_algs(X509_get_signature_nid(peer_cert), &algo_nid, NULL))
+#endif
+        return NULL; // Error getting signature algorithm
+
+    // Select hash algorithm per RFC 5929: SHA-256 for weak algorithms, otherwise same as signature
+    switch (algo_nid) {
+        case NID_md5:
+        case NID_sha1:
+            algo_type = EVP_sha256(); // Use SHA-256 for weak algorithms
+            break;
+        default:
+            algo_type = EVP_get_digestbynid(algo_nid); // Use same as signature
+            if (algo_type == NULL)
+                return NULL;
+            break;
+    }
+
+    // Generate certificate hash
+    if (!X509_digest(peer_cert, algo_type, hash, &hash_size))
+        return NULL;
+
+    // Allocate and copy hash result
+    cert_hash = malloc(hash_size);
+    if (cert_hash == NULL)
+        return NULL;
+
+    memcpy(cert_hash, hash, hash_size);
+    *len = hash_size;
+
+    return cert_hash;
+}
+```

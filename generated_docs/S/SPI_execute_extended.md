@@ -38,3 +38,44 @@ The function creates a temporary execution plan, executes it with the provided o
 - Uses RAW_PARSE_DEFAULT parsing mode for standard SQL parsing
 - All execution happens within a proper SPI call context established by _SPI_begin_call/_SPI_end_call
 - The function is part of the PostgreSQL 9.5+ SPI interface enhancements that provide more granular control over query execution
+
+## Simplified Source
+
+```c
+int SPI_execute_extended(const char *src, const SPIExecuteOptions *options) {
+    int res;
+    _SPI_plan plan;
+
+    // Validate parameters
+    if (src == NULL || options == NULL)
+        return SPI_ERROR_ARGUMENT;
+
+    // Begin SPI execution context
+    res = _SPI_begin_call(true);
+    if (res < 0)
+        return res;
+
+    // Initialize oneshot plan with default settings
+    memset(&plan, 0, sizeof(_SPI_plan));
+    plan.magic = _SPI_PLAN_MAGIC;
+    plan.parse_mode = RAW_PARSE_DEFAULT;
+    plan.cursor_options = CURSOR_OPT_PARALLEL_OK;
+
+    // Set up custom parser if provided
+    if (options->params) {
+        plan.parserSetup = options->params->parserSetup;
+        plan.parserSetupArg = options->params->parserSetupArg;
+    }
+
+    // Parse and plan the query
+    _SPI_prepare_oneshot_plan(src, &plan);
+
+    // Execute the plan with provided options
+    res = _SPI_execute_plan(&plan, options,
+                           InvalidSnapshot, InvalidSnapshot, true);
+
+    // Clean up execution context
+    _SPI_end_call(true);
+    return res;
+}
+```

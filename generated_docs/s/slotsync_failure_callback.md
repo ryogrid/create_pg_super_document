@@ -43,3 +43,26 @@ This cleanup is particularly important because the startup process during promot
 - Ensures proper coordination with startup process during promotion scenarios
 - The cleanup logic mirrors similar patterns used in WalSndErrorCleanup()
 - Located in src/backend/replication/logical/slotsync.c:1684-1718
+
+## Simplified Source
+
+```c
+static void slotsync_failure_callback(int code, Datum arg)
+{
+    WalReceiverConn *wrconn = (WalReceiverConn *) DatumGetPointer(arg);
+
+    // Release any active replication slots
+    if (MyReplicationSlot != NULL)
+        ReplicationSlotRelease();
+
+    // Clean up synced temporary slots
+    ReplicationSlotCleanup(true);
+
+    // Reset synchronization flag if it was set
+    if (syncing_slots)
+        reset_syncing_flag();
+
+    // Disconnect WAL receiver connection
+    walrcv_disconnect(wrconn);
+}
+```

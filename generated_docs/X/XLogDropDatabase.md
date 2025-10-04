@@ -37,3 +37,18 @@ After closing storage manager relations, the function removes all invalid page r
 - Part of the WAL replay infrastructure that ensures proper cleanup when databases are dropped
 - The function acknowledges in its comments that the approach could be more targeted, but the complexity is not justified for this rare operation
 - Ensures that no stale storage manager references or invalid page records remain after a database is dropped during recovery
+
+## Simplified Source
+
+```c
+void
+XLogDropDatabase(Oid dbid)
+{
+    // Close all storage manager relations (heavy-handed but acceptable
+    // since DROP DATABASE is rare)
+    smgrdestroyall();
+
+    // Remove invalid page tracking for the dropped database
+    forget_invalid_pages_db(dbid);
+}
+```

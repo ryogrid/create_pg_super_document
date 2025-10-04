@@ -34,3 +34,30 @@ This function performs string manipulation to replace placeholders in SQL comman
 - Allocates a new command string and frees the old one, updating the statement structure
 - Critical for parameter substitution in prepared SQL statements within ECPG
 - Memory management includes cleanup of both input parameters and intermediate allocations
+
+## Simplified Source
+
+```c
+static bool
+insert_tobeinserted(int position, int ph_len, struct statement *stmt, char *tobeinserted)
+{
+    // Allocate new command string with space for replacement
+    char *newcopy = ecpg_alloc(strlen(stmt->command) + strlen(tobeinserted) + 1, stmt->lineno);
+    if (!newcopy) {
+        ecpg_free(tobeinserted);
+        return false;
+    }
+
+    // Build new command: [before placeholder] + [replacement] + [after placeholder]
+    strcpy(newcopy, stmt->command);                    // Copy part before placeholder
+    strcpy(newcopy + position - 1, tobeinserted);     // Insert replacement at position
+    strcat(newcopy, stmt->command + position + ph_len - 1);  // Append part after placeholder
+
+    // Replace old command with new one
+    ecpg_free(stmt->command);
+    stmt->command = newcopy;
+
+    ecpg_free(tobeinserted);
+    return true;
+}
+```

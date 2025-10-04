@@ -53,3 +53,43 @@ This initialization ensures that JIT-compiled code can properly interface with P
 - The bitcode file must exist and be readable, otherwise the function will error out
 - This function is called during LLVM context initialization and recreation
 - The loaded types are used throughout the JIT compilation process to ensure type safety and proper memory layout
+
+## Simplified Source
+
+```c
+static void
+llvm_create_types(void)
+{
+    char path[MAXPGPATH];
+    LLVMMemoryBufferRef buf;
+    char *msg;
+
+    // Build path to types bitcode file
+    snprintf(path, MAXPGPATH, "%s/%s", pkglib_path, "llvmjit_types.bc");
+
+    // Load bitcode file into memory
+    if (LLVMCreateMemoryBufferWithContentsOfFile(path, &buf, &msg)) {
+        elog(ERROR, "LLVMCreateMemoryBufferWithContentsOfFile(%s) failed: %s", path, msg);
+    }
+
+    // Parse bitcode into LLVM module
+    if (LLVMParseBitcodeInContext2(llvm_context, buf, &llvm_types_module)) {
+        elog(ERROR, "LLVMParseBitcodeInContext2 of %s failed", path);
+    }
+    LLVMDisposeMemoryBuffer(buf);
+
+    // Load PostgreSQL type definitions
+    TypeSizeT = llvm_pg_var_type("TypeSizeT");
+    TypeParamBool = load_return_type(llvm_types_module, "FunctionReturningBool");
+    TypeStorageBool = llvm_pg_var_type("TypeStorageBool");
+    StructExprContext = llvm_pg_var_type("StructExprContext");
+    StructExprState = llvm_pg_var_type("StructExprState");
+    StructTupleTableSlot = llvm_pg_var_type("StructTupleTableSlot");
+    // ... additional type definitions
+
+    // Load function templates
+    AttributeTemplate = LLVMGetNamedFunction(llvm_types_module, "AttributeTemplate");
+    ExecEvalSubroutineTemplate = LLVMGetNamedFunction(llvm_types_module, "ExecEvalSubroutineTemplate");
+    ExecEvalBoolSubroutineTemplate = LLVMGetNamedFunction(llvm_types_module, "ExecEvalBoolSubroutineTemplate");
+}
+```

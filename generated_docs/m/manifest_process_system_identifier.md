@@ -31,3 +31,23 @@ This function performs a critical security and consistency check during incremen
 - Part of PostgreSQL's comprehensive backup integrity checking system
 - Prevents cross-cluster backup operations which could lead to serious data consistency issues
 - The system identifier is a 64-bit value that uniquely identifies each PostgreSQL database cluster
+
+## Simplified Source
+
+```c
+static void
+manifest_process_system_identifier(JsonManifestParseContext *context,
+                                  uint64 manifest_system_identifier)
+{
+    // Get current system's identifier
+    uint64 system_identifier = GetSystemIdentifier();
+
+    // Check if manifest matches current system
+    if (manifest_system_identifier != system_identifier) {
+        context->error_cb(context,
+                         "system identifier mismatch: manifest=%llu, current=%llu",
+                         (unsigned long long) manifest_system_identifier,
+                         (unsigned long long) system_identifier);
+    }
+}
+```

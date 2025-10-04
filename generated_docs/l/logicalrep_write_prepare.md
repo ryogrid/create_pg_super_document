@@ -33,3 +33,12 @@ This function is a simple wrapper around logicalrep_write_prepare_common that sp
 - Complements logicalrep_write_begin_prepare by marking the end of the prepare phase
 - The prepare_lsn parameter allows specifying the exact LSN where preparation occurred
 - Located in src/backend/replication/logical/proto.c:198-209
+
+## Simplified Source
+
+```c
+void logicalrep_write_prepare(StringInfo out, ReorderBufferTXN *txn, XLogRecPtr prepare_lsn) {
+    // Delegate to common prepare writing function with PREPARE message type
+    logicalrep_write_prepare_common(out, LOGICAL_REP_MSG_PREPARE, txn, prepare_lsn);
+}
+```

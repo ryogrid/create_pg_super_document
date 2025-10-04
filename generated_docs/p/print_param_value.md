@@ -36,3 +36,36 @@ This function is responsible for logging parameter values in a human-readable fo
 - For binary data, it allocates memory for hex encoding and ensures proper cleanup
 - The function gracefully handles memory allocation failures by logging an error message
 - All log output is directed through ecpg_log with a specific format identifying the parameter number and line number
+
+## Simplified Source
+
+```c
+static void
+print_param_value(char *value, int len, int is_binary, int lineno, int nth)
+{
+    char *value_s;
+    bool malloced = false;
+
+    if (value == NULL) {
+        value_s = "null";
+    } else if (!is_binary) {
+        value_s = value;
+    } else {
+        // Convert binary data to hex for logging
+        value_s = ecpg_alloc(ecpg_hex_enc_len(len) + 1, lineno);
+        if (value_s != NULL) {
+            ecpg_hex_encode(value, len, value_s);
+            value_s[ecpg_hex_enc_len(len)] = '\0';
+            malloced = true;
+        } else {
+            value_s = "no memory for logging of parameter";
+        }
+    }
+
+    ecpg_log("ecpg_free_params on line %d: parameter %d = %s\n",
+             lineno, nth, value_s);
+
+    if (malloced)
+        ecpg_free(value_s);
+}
+```

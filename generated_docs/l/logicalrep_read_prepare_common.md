@@ -41,3 +41,35 @@ This internal function encapsulates the common logic for deserializing PREPARE m
 - Uses strlcpy to safely copy the GID string into a pre-allocated buffer
 - Message type parameter allows reuse while providing context-specific error messages
 - Located in src/backend/replication/logical/proto.c:210-238
+
+## Simplified Source
+
+```c
+static void logicalrep_read_prepare_common(StringInfo in, char *msgtype,
+                                          LogicalRepPreparedTxnData *prepare_data) {
+    // Read and validate flags field
+    uint8 flags = pq_getmsgbyte(in);
+    if (flags != 0)
+        elog(ERROR, "unrecognized flags %u in %s message", flags, msgtype);
+
+    // Read and validate LSNs
+    prepare_data->prepare_lsn = pq_getmsgint64(in);
+    if (prepare_data->prepare_lsn == InvalidXLogRecPtr)
+        elog(ERROR, "prepare_lsn is not set in %s message", msgtype);
+
+    prepare_data->end_lsn = pq_getmsgint64(in);
+    if (prepare_data->end_lsn == InvalidXLogRecPtr)
+        elog(ERROR, "end_lsn is not set in %s message", msgtype);
+
+    // Read transaction metadata
+    prepare_data->prepare_time = pq_getmsgint64(in);  // Prepare timestamp
+    prepare_data->xid = pq_getmsgint(in, 4);          // Transaction ID
+
+    // Validate transaction ID
+    if (prepare_data->xid == InvalidTransactionId)
+        elog(ERROR, "invalid two-phase transaction ID in %s message", msgtype);
+
+    // Read and copy global transaction identifier
+    strlcpy(prepare_data->gid, pq_getmsgstring(in), sizeof(prepare_data->gid));
+}
+```

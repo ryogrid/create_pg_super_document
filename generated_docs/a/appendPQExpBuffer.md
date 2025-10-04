@@ -42,3 +42,27 @@ The retry loop ensures that if the buffer needs to be enlarged during the format
 - Part of the core libpq expandable string buffer interface
 - The function is void - errors are communicated through the buffer's broken state
 - More commonly used indirectly through other buffer manipulation functions
+
+## Simplified Source
+
+```c
+void
+appendPQExpBuffer(PQExpBuffer str, const char *fmt, ...)
+{
+    int save_errno = errno;
+    va_list args;
+    bool done;
+
+    // Exit early if buffer is already broken
+    if (PQExpBufferBroken(str))
+        return;
+
+    // Format and append, retrying if buffer needs enlargement
+    do {
+        errno = save_errno;
+        va_start(args, fmt);
+        done = appendPQExpBufferVA(str, fmt, args);
+        va_end(args);
+    } while (!done);
+}
+```

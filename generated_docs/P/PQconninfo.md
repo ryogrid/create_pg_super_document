@@ -49,3 +49,55 @@ This is particularly useful for debugging connection issues, logging actual conn
 - The function creates a complete snapshot of the current connection parameters
 - Used by PostgreSQL tools like psql for connection introspection and by replication components
 - Important for applications that need to clone or inspect existing connections
+
+## Simplified Source
+
+```c
+// Simplified version of PQconninfo
+PQconninfoOption *PQconninfo(PGconn *conn) {
+    PQExpBufferData errorBuf;
+    PQconninfoOption *connOptions;
+
+    // Step 1: Validate connection
+    if (conn == NULL) {
+        return NULL;
+    }
+
+    // Step 2: Initialize error buffer (not used for errors, but required by callees)
+    initPQExpBuffer(&errorBuf);
+    if (PQExpBufferDataBroken(errorBuf)) {
+        return NULL;  // Out of memory
+    }
+
+    // Step 3: Initialize connection options array
+    connOptions = conninfo_init(&errorBuf);
+
+    if (connOptions != NULL) {
+        // Step 4: Extract all connection parameters from the connection object
+        const internalPQconninfoOption *option;
+
+        for (option = PQconninfoOptions; option->keyword; option++) {
+            char **connmember;
+
+            // Skip options that don't have connection object offsets
+            if (option->connofs < 0) {
+                continue;
+            }
+
+            // Get pointer to the connection member for this option
+            connmember = (char **) ((char *) conn + option->connofs);
+
+            // If the connection has a value for this option, store it
+            if (*connmember) {
+                conninfo_storeval(connOptions, option->keyword, *connmember,
+                                 &errorBuf, true, false);
+            }
+        }
+    }
+
+    // Step 5: Clean up error buffer
+    termPQExpBuffer(&errorBuf);
+
+    return connOptions;
+}
+```

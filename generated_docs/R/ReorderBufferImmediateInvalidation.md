@@ -48,3 +48,31 @@ This design is advantageous because it avoids the need to set up the full state 
 - Does not require full catalog access setup, making it more lightweight
 - The ReorderBuffer parameter is accepted but not actively used in the current implementation
 - Critical for maintaining catalog cache consistency across different invalidation scenarios
+
+## Simplified Source
+
+```c
+void ReorderBufferImmediateInvalidation(ReorderBuffer *rb, uint32 ninvalidations,
+                                       SharedInvalidationMessage *invalidations)
+{
+    bool use_subtxn = IsTransactionOrTransactionBlock();
+    int i;
+
+    // Begin subtransaction if we're already in a transaction context
+    if (use_subtxn)
+        BeginInternalSubTransaction("replay");
+
+    // Abort current transaction to force invalidations outside valid transaction state
+    // This allows cache entries to be marked invalid without catalog access
+    if (use_subtxn)
+        AbortCurrentTransaction();
+
+    // Process each invalidation message
+    for (i = 0; i < ninvalidations; i++)
+        LocalExecuteInvalidationMessage(&invalidations[i]);
+
+    // Clean up the subtransaction
+    if (use_subtxn)
+        RollbackAndReleaseCurrentSubTransaction();
+}
+```

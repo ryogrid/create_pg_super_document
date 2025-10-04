@@ -46,3 +46,45 @@ The function uses the libpq protocol to send the command and expects exactly one
 - Error handling includes specific protocol violation errors for malformed responses
 - Memory allocation for both filename and content is done using PostgreSQL's memory management functions
 - The function expects exactly 1 tuple with 2 fields, otherwise it raises a protocol violation error
+
+## Simplified Source
+
+```c
+static void
+libpqrcv_readtimelinehistoryfile(WalReceiverConn *conn, TimeLineID tli,
+                                 char **filename, char **content, int *len)
+{
+    PGresult *res;
+    char cmd[64];
+
+    Assert(!conn->logical);
+
+    // Request timeline history file from primary
+    snprintf(cmd, sizeof(cmd), "TIMELINE_HISTORY %u", tli);
+    res = libpqrcv_PQexec(conn->streamConn, cmd);
+
+    // Validate response
+    if (PQresultStatus(res) != PGRES_TUPLES_OK) {
+        PQclear(res);
+        ereport(ERROR, (errmsg("could not receive timeline history file from the primary server: %s",
+                               pchomp(PQerrorMessage(conn->streamConn)))));
+    }
+
+    if (PQnfields(res) != 2 || PQntuples(res) != 1) {
+        int ntuples = PQntuples(res);
+        int nfields = PQnfields(res);
+        PQclear(res);
+        ereport(ERROR, (errmsg("invalid response from primary server"),
+                        errdetail("Expected 1 tuple with 2 fields, got %d tuples with %d fields.",
+                                  ntuples, nfields)));
+    }
+
+    // Extract filename and content
+    *filename = pstrdup(PQgetvalue(res, 0, 0));
+    *len = PQgetlength(res, 0, 1);
+    *content = palloc(*len);
+    memcpy(*content, PQgetvalue(res, 0, 1), *len);
+
+    PQclear(res);
+}
+```

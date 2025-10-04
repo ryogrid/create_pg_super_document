@@ -38,3 +38,42 @@ The function performs several safety checks: it verifies that nextval() has been
 - Will error if the tracked sequence has been dropped since the last nextval() call
 - More convenient than currval() when working with a single sequence or when the specific sequence OID is not readily available
 - Part of PostgreSQL's sequence management system in src/backend/commands/sequence.c:897
+
+## Simplified Source
+
+```c
+Datum lastval(PG_FUNCTION_ARGS) {
+    Relation seqrel;
+    int64 result;
+
+    // Check if any sequence has been used in this session
+    if (last_used_seq == NULL)
+        ereport(ERROR,
+                (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                 errmsg("lastval is not yet defined in this session")));
+
+    // Verify the sequence still exists (might have been dropped)
+    if (!SearchSysCacheExists1(RELOID, ObjectIdGetDatum(last_used_seq->relid)))
+        ereport(ERROR,
+                (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                 errmsg("lastval is not yet defined in this session")));
+
+    // Open and lock the last used sequence
+    seqrel = lock_and_open_sequence(last_used_seq);
+    Assert(last_used_seq->last_valid);
+
+    // Check permissions (SELECT or USAGE required)
+    if (pg_class_aclcheck(last_used_seq->relid, GetUserId(),
+                          ACL_SELECT | ACL_USAGE) != ACLCHECK_OK)
+        ereport(ERROR,
+                (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                 errmsg("permission denied for sequence %s",
+                        RelationGetRelationName(seqrel))));
+
+    // Return the last value from the most recently used sequence
+    result = last_used_seq->last;
+    sequence_close(seqrel, NoLock);
+
+    PG_RETURN_INT64(result);
+}
+```

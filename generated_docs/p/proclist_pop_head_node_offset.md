@@ -34,3 +34,26 @@ This function combines list removal and process retrieval operations by removing
 - Returns a valid PGPROC pointer to the process that was at the head of the list
 - The returned process is no longer part of the list after this operation
 - Commonly used in process scheduling and queue management scenarios
+
+## Simplified Source
+
+```c
+static inline PGPROC *proclist_pop_head_node_offset(proclist_head *list, size_t node_offset) {
+    // Ensure list has at least one element
+    Assert(!proclist_is_empty(list));
+
+    // Get the process at the head
+    PGPROC *proc = GetPGProcByNumber(list->head);
+
+    // Remove it from the list
+    proclist_delete_offset(list, list->head, node_offset);
+
+    return proc;
+}
+```
+
+**Simplified Logic:**
+1. **Safety Check**: Verifies the list is not empty before attempting to pop
+2. **Retrieve Process**: Gets the PGPROC structure for the head process
+3. **Remove from List**: Deletes the head process from the list using offset-based deletion
+4. **Return Process**: Returns pointer to the retrieved process

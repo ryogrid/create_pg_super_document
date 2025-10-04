@@ -45,3 +45,101 @@ The function handles special PostgreSQL-specific exception types (PLy_exc_spi_er
 - Processes complete traceback chains by walking tb_next attributes
 - Memory management includes cleanup of StringInfo buffers and temporary strings
 - Function is located in src/pl/plpython/plpy_elog.c:44-172
+
+## Simplified Source
+
+```c
+void PLy_elog_impl(int elevel, const char *fmt, ...) {
+    char *exception_msg = NULL;
+    char *traceback_msg = NULL;
+    StringInfoData formatted_msg;
+    PyObject *exc, *val, *tb;
+
+    // Initialize message buffer if format string provided
+    if (fmt)
+        initStringInfo(&formatted_msg);
+
+    // Get current Python exception
+    PyErr_Fetch(&exc, &val, &tb);
+
+    PG_TRY(); {
+        // Initialize error fields
+        const char *primary_msg = NULL;
+        int sql_errcode = 0;
+        char *detail = NULL, *hint = NULL, *query = NULL;
+        int position = 0;
+        char *schema_name = NULL, *table_name = NULL, *column_name = NULL;
+        char *datatype_name = NULL, *constraint_name = NULL;
+
+        // Extract error data from specific exception types
+        if (exc != NULL) {
+            PyErr_NormalizeException(&exc, &val, &tb);
+
+            if (PyErr_GivenExceptionMatches(val, PLy_exc_spi_error))
+                PLy_get_spi_error_data(val, &sql_errcode, &detail, &hint, &query, &position,
+                                     &schema_name, &table_name, &column_name,
+                                     &datatype_name, &constraint_name);
+            else if (PyErr_GivenExceptionMatches(val, PLy_exc_error))
+                PLy_get_error_data(val, &sql_errcode, &detail, &hint,
+                                 &schema_name, &table_name, &column_name,
+                                 &datatype_name, &constraint_name);
+            else if (PyErr_GivenExceptionMatches(val, PLy_exc_fatal))
+                elevel = FATAL;
+        }
+
+        // Get traceback information
+        PLy_traceback(exc, val, tb, &exception_msg, &traceback_msg, &tb_depth);
+
+        // Format primary message
+        if (fmt) {
+            // Format the provided message string
+            va_list ap;
+            va_start(ap, fmt);
+            appendStringInfoVA(&formatted_msg, dgettext(TEXTDOMAIN, fmt), ap);
+            va_end(ap);
+            primary_msg = formatted_msg.data;
+
+            // Python exception becomes detail if present
+            if (exception_msg)
+                detail = exception_msg;
+        } else {
+            // Python exception becomes primary message
+            if (exception_msg)
+                primary_msg = exception_msg;
+        }
+
+        // Report the error with all collected information
+        ereport(elevel,
+                (errcode(sql_errcode ? sql_errcode : ERRCODE_EXTERNAL_ROUTINE_EXCEPTION),
+                 errmsg_internal("%s", primary_msg ? primary_msg : "no exception data"),
+                 detail ? errdetail_internal("%s", detail) : 0,
+                 (tb_depth > 0 && traceback_msg) ? errcontext("%s", traceback_msg) : 0,
+                 hint ? errhint("%s", hint) : 0,
+                 query ? internalerrquery(query) : 0,
+                 position ? internalerrposition(position) : 0,
+                 schema_name ? err_generic_string(PG_DIAG_SCHEMA_NAME, schema_name) : 0,
+                 table_name ? err_generic_string(PG_DIAG_TABLE_NAME, table_name) : 0,
+                 column_name ? err_generic_string(PG_DIAG_COLUMN_NAME, column_name) : 0,
+                 datatype_name ? err_generic_string(PG_DIAG_DATATYPE_NAME, datatype_name) : 0,
+                 constraint_name ? err_generic_string(PG_DIAG_CONSTRAINT_NAME, constraint_name) : 0));
+    }
+    PG_FINALLY(); {
+        // Cleanup Python objects and allocated memory
+        Py_XDECREF(exc);
+        Py_XDECREF(val);
+
+        // Release traceback chain
+        while (tb != NULL && tb != Py_None) {
+            PyObject *tb_prev = tb;
+            tb = PyObject_GetAttrString(tb, "tb_next");
+            Py_DECREF(tb_prev);
+        }
+
+        // Free string buffers
+        if (fmt) pfree(formatted_msg.data);
+        if (exception_msg) pfree(exception_msg);
+        if (traceback_msg) pfree(traceback_msg);
+    }
+    PG_END_TRY();
+}
+```

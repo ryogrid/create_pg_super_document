@@ -31,4 +31,15 @@ The function follows the standard PostgreSQL notice processor callback signature
 - It contrasts with , which is used for user-defined connections to display notice messages with session name prefixes
 - The function is specifically applied to the control connection (index 0) while other connections use the regular notice processor
 - This design choice helps maintain clean test output by suppressing administrative notices from the control connection while preserving important notices from test session connections
-- The function signature conforms to the PostgreSQL  typedef for compatibility with 
+- The function signature conforms to the PostgreSQL  typedef for compatibility with
+
+## Simplified Source
+
+```c
+static void
+blackholeNoticeProcessor(void *arg, const char *message)
+{
+    // Intentionally suppress all notice messages
+    // (no action taken)
+}
+``` 

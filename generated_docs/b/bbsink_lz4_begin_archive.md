@@ -41,3 +41,40 @@ The function handles LZ4 compression initialization using the LZ4F (frame) API, 
 - Maintains bytes_written counter for proper buffer management
 - Part of the sink operation callbacks, called through function pointer indirection
 - Error handling includes descriptive LZ4 error messages
+
+## Simplified Source
+
+```c
+static void
+bbsink_lz4_begin_archive(bbsink *sink, const char *archive_name)
+{
+    bbsink_lz4 *mysink = (bbsink_lz4 *) sink;
+    char *lz4_archive_name;
+    LZ4F_errorCode_t ctxError;
+    size_t headerSize;
+
+    // Create LZ4 compression context
+    ctxError = LZ4F_createCompressionContext(&mysink->ctx, LZ4F_VERSION);
+    if (LZ4F_isError(ctxError))
+        elog(ERROR, "could not create lz4 compression context: %s",
+             LZ4F_getErrorName(ctxError));
+
+    // Write LZ4 frame header to output buffer
+    headerSize = LZ4F_compressBegin(mysink->ctx,
+                                   mysink->base.bbs_next->bbs_buffer,
+                                   mysink->base.bbs_next->bbs_buffer_length,
+                                   &mysink->prefs);
+
+    if (LZ4F_isError(headerSize))
+        elog(ERROR, "could not write lz4 header: %s",
+             LZ4F_getErrorName(headerSize));
+
+    // Track bytes written for buffer management
+    mysink->bytes_written += headerSize;
+
+    // Create archive name with .lz4 extension and pass to next sink
+    lz4_archive_name = psprintf("%s.lz4", archive_name);
+    bbsink_begin_archive(sink->bbs_next, lz4_archive_name);
+    pfree(lz4_archive_name);
+}
+```

@@ -39,3 +39,28 @@ After successful synchronization, the function closes the file and resets the si
 - Part of the bbsink operation sequence: begin_archive → archive_contents → end_archive
 - Forwards operation to next sink in chain for multi-destination backups
 - Ensures data persistence before considering the archive file complete
+
+## Simplified Source
+
+```c
+// Simplified version of bbsink_server_end_archive
+static void bbsink_server_end_archive(bbsink *sink)
+{
+    bbsink_server *mysink = (bbsink_server *) sink;
+
+    // Sync file to disk (conservative error handling, no PANIC)
+    if (FileSync(mysink->file, WAIT_EVENT_BASEBACKUP_SYNC) < 0)
+        ereport(ERROR,
+                (errcode_for_file_access(),
+                 errmsg("could not fsync file \"%s\": %m",
+                        FilePathName(mysink->file))));
+
+    // Close file and reset state
+    FileClose(mysink->file);
+    mysink->file = 0;
+    mysink->filepos = 0;
+
+    // Forward to next sink
+    bbsink_forward_end_archive(sink);
+}
+```

@@ -38,3 +38,23 @@ The function first attempts to convert the string from the server encoding to th
 - Part of PostgreSQL's client-server communication infrastructure
 - Particularly useful for sending textual status messages and notifications that need proper encoding
 - Optimizes the common case where no encoding conversion is needed by avoiding unnecessary memory allocation
+
+## Simplified Source
+
+```c
+void pq_puttextmessage(char msgtype, const char *str) {
+    int slen = strlen(str);
+
+    // Try to convert from server encoding to client encoding
+    char *p = pg_server_to_client(str, slen);
+
+    if (p != str) {
+        // Conversion occurred - send converted string
+        pq_putmessage(msgtype, p, strlen(p) + 1);
+        pfree(p);  // Free converted string
+    } else {
+        // No conversion needed - send original string
+        pq_putmessage(msgtype, str, slen + 1);
+    }
+}
+```

@@ -58,3 +58,148 @@ Key features:
 - Supports both finite timeouts (converted to milliseconds) and infinite waits
 - Returns number of ready sockets on success, 0 on timeout, -1 on error/interruption
 - Part of PostgreSQL's Windows socket abstraction layer that provides POSIX-like semantics on Windows
+
+## Simplified Source
+
+```c
+int pgwin32_select(int nfds, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, const struct timeval *timeout)
+{
+    WSAEVENT events[FD_SETSIZE * 2];
+    SOCKET sockets[FD_SETSIZE * 2];
+    int numevents = 0;
+    int nummatches = 0;
+    DWORD timeoutval = WSA_INFINITE;
+    FD_SET outreadfds, outwritefds;
+
+    Assert(exceptfds == NULL);
+
+    // Check for pending signals first
+    if (pgwin32_poll_signals())
+        return -1;
+
+    FD_ZERO(&outreadfds);
+    FD_ZERO(&outwritefds);
+
+    // Windows workaround: Test write readiness with dummy send
+    if (writefds != NULL) {
+        for (int i = 0; i < writefds->fd_count; i++) {
+            char c;
+            WSABUF buf = {0, &c};
+            DWORD sent;
+
+            if (WSASend(writefds->fd_array[i], &buf, 1, &sent, 0, NULL, NULL) == 0 ||
+                WSAGetLastError() != WSAEWOULDBLOCK) {
+                FD_SET(writefds->fd_array[i], &outwritefds);
+            }
+        }
+
+        // Return immediately if any sockets are write-ready
+        if (outwritefds.fd_count > 0) {
+            memcpy(writefds, &outwritefds, sizeof(fd_set));
+            if (readfds) FD_ZERO(readfds);
+            return outwritefds.fd_count;
+        }
+    }
+
+    // Convert timeout to milliseconds
+    if (timeout != NULL) {
+        timeoutval = timeout->tv_sec * 1000 + timeout->tv_usec / 1000;
+    }
+
+    // Create events for read sockets
+    if (readfds != NULL) {
+        for (int i = 0; i < readfds->fd_count; i++) {
+            events[numevents] = WSACreateEvent();
+            sockets[numevents] = readfds->fd_array[i];
+            numevents++;
+        }
+    }
+
+    // Create events for write sockets (avoiding duplicates)
+    if (writefds != NULL) {
+        for (int i = 0; i < writefds->fd_count; i++) {
+            if (!readfds || !FD_ISSET(writefds->fd_array[i], readfds)) {
+                events[numevents] = WSACreateEvent();
+                sockets[numevents] = writefds->fd_array[i];
+                numevents++;
+            }
+        }
+    }
+
+    // Associate sockets with events
+    for (int i = 0; i < numevents; i++) {
+        int flags = 0;
+        if (readfds && FD_ISSET(sockets[i], readfds))
+            flags |= FD_READ | FD_ACCEPT | FD_CLOSE;
+        if (writefds && FD_ISSET(sockets[i], writefds))
+            flags |= FD_WRITE | FD_CLOSE;
+
+        if (WSAEventSelect(sockets[i], events[i], flags) != 0) {
+            // Cleanup on error
+            for (int j = 0; j < numevents; j++) {
+                WSAEventSelect(sockets[j], NULL, 0);
+                WSACloseEvent(events[j]);
+            }
+            TranslateSocketError();
+            return -1;
+        }
+    }
+
+    // Wait for events (including signal event)
+    events[numevents] = pgwin32_signal_event;
+    int result = WaitForMultipleObjectsEx(numevents + 1, events, FALSE, timeoutval, TRUE);
+
+    // Process results if not timeout/signal
+    if (result != WAIT_TIMEOUT && result != WAIT_IO_COMPLETION &&
+        result != (WAIT_OBJECT_0 + numevents)) {
+
+        // Check all sockets for activity
+        for (int i = 0; i < numevents; i++) {
+            WSANETWORKEVENTS resEvents;
+            ZeroMemory(&resEvents, sizeof(resEvents));
+            WSAEnumNetworkEvents(sockets[i], events[i], &resEvents);
+
+            // Check read activity
+            if (readfds && FD_ISSET(sockets[i], readfds) &&
+                (resEvents.lNetworkEvents & (FD_READ | FD_ACCEPT | FD_CLOSE))) {
+                FD_SET(sockets[i], &outreadfds);
+                nummatches++;
+            }
+
+            // Check write activity
+            if (writefds && FD_ISSET(sockets[i], writefds) &&
+                (resEvents.lNetworkEvents & (FD_WRITE | FD_CLOSE))) {
+                FD_SET(sockets[i], &outwritefds);
+                nummatches++;
+            }
+        }
+    }
+
+    // Cleanup events
+    for (int i = 0; i < numevents; i++) {
+        WSAEventSelect(sockets[i], NULL, 0);
+        WSACloseEvent(events[i]);
+    }
+
+    // Handle timeout
+    if (result == WSA_WAIT_TIMEOUT) {
+        if (readfds) FD_ZERO(readfds);
+        if (writefds) FD_ZERO(writefds);
+        return 0;
+    }
+
+    // Handle signals
+    if (result == WAIT_OBJECT_0 + numevents || result == WAIT_IO_COMPLETION) {
+        pgwin32_dispatch_queued_signals();
+        errno = EINTR;
+        if (readfds) FD_ZERO(readfds);
+        if (writefds) FD_ZERO(writefds);
+        return -1;
+    }
+
+    // Return results
+    if (readfds) memcpy(readfds, &outreadfds, sizeof(fd_set));
+    if (writefds) memcpy(writefds, &outwritefds, sizeof(fd_set));
+    return nummatches;
+}
+```

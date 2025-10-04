@@ -33,3 +33,19 @@ The copy operation transfers all coordinate data from the original box (includin
 - Simple but essential utility for memory management in spatial indexing operations
 - Performs a shallow copy of the BOX contents using structure assignment (*result = *orig)
 - Memory allocation uses PostgreSQL's palloc which integrates with the database's memory context system
+
+## Simplified Source
+
+```c
+BOX *
+box_copy(BOX *orig)
+{
+    // Allocate memory for new BOX structure
+    BOX *result = palloc(sizeof(BOX));
+
+    // Copy all fields from original to new structure
+    *result = *orig;
+
+    return result;
+}
+```

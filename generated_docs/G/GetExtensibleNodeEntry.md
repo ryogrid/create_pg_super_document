@@ -40,3 +40,25 @@ This function serves as the core lookup mechanism for extensible node entries in
 - Error message specifically mentions 'ExtensibleNodeMethods' in the error text
 - Uses ERRCODE_UNDEFINED_OBJECT for missing node type errors
 - The function is generic and works with any hash table containing ExtensibleNodeEntry structures
+
+## Simplified Source
+
+```c
+static const void *GetExtensibleNodeEntry(HTAB *htable, const char *extnodename, bool missing_ok) {
+    ExtensibleNodeEntry *entry = NULL;
+
+    // Search for the entry in the hash table
+    if (htable != NULL)
+        entry = (ExtensibleNodeEntry *) hash_search(htable, extnodename, HASH_FIND, NULL);
+
+    // Handle missing entries based on missing_ok flag
+    if (!entry) {
+        if (missing_ok)
+            return NULL;
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                       errmsg("ExtensibleNodeMethods \"%s\" was not registered", extnodename)));
+    }
+
+    return entry->extnodemethods;
+}
+```

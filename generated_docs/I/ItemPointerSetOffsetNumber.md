@@ -37,3 +37,14 @@ The function provides direct access to the ip_posid field of the ItemPointerData
 - Essential for maintaining references during page-level maintenance operations
 - Provides atomic offset updates without affecting block positioning
 - Frequently used in WAL replay scenarios for position adjustments
+
+## Simplified Source
+
+```c
+static inline void
+ItemPointerSetOffsetNumber(ItemPointerData *pointer, OffsetNumber offsetNumber)
+{
+    Assert(PointerIsValid(pointer));
+    pointer->ip_posid = offsetNumber;
+}
+```

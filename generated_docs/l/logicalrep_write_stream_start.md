@@ -38,3 +38,20 @@ Streaming mode allows PostgreSQL to send large transactions in smaller chunks, r
 - The message format includes: message type byte, transaction ID (4 bytes), and first segment flag (1 byte)
 - Streaming allows large transactions to be processed incrementally, reducing memory pressure on both publisher and subscriber
 - The first_segment flag enables proper transaction state management on the receiving side
+
+## Simplified Source
+
+```c
+void logicalrep_write_stream_start(StringInfo out, TransactionId xid, bool first_segment)
+{
+    // Send message type
+    pq_sendbyte(out, LOGICAL_REP_MSG_STREAM_START);
+
+    // Validate and send transaction ID
+    Assert(TransactionIdIsValid(xid));
+    pq_sendint32(out, xid);
+
+    // Send first segment flag
+    pq_sendbyte(out, first_segment ? 1 : 0);
+}
+```

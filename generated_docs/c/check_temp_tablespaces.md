@@ -48,3 +48,87 @@ The function behaves differently based on the GUC source - for test scenarios (P
 - Converts explicit database default tablespace references to InvalidOid for consistency
 - Different error handling based on GUC source: hard errors for interactive use, notices for tests
 - Memory allocated for the extra structure uses guc_malloc with LOG level
+
+## Simplified Source
+
+```c
+bool check_temp_tablespaces(char **newval, void **extra, GucSource source)
+{
+    char *rawname;
+    List *namelist;
+
+    // Parse comma-separated tablespace names
+    rawname = pstrdup(*newval);
+    if (!SplitIdentifierString(rawname, ',', &namelist)) {
+        GUC_check_errdetail("List syntax is invalid.");
+        pfree(rawname);
+        list_free(namelist);
+        return false;
+    }
+
+    // If in transaction and connected to database, validate tablespaces
+    if (IsTransactionState() && MyDatabaseId != InvalidOid) {
+        temp_tablespaces_extra *myextra;
+        Oid *tblSpcs;
+        int numSpcs = 0;
+        ListCell *l;
+
+        // Allocate temporary workspace for validation
+        tblSpcs = (Oid *) palloc(list_length(namelist) * sizeof(Oid));
+
+        // Validate each tablespace name
+        foreach(l, namelist) {
+            char *curname = (char *) lfirst(l);
+            Oid curoid;
+
+            // Empty string means database default
+            if (curname[0] == '\0') {
+                tblSpcs[numSpcs++] = InvalidOid;
+                continue;
+            }
+
+            // Check if tablespace exists
+            curoid = get_tablespace_oid(curname, source <= PGC_S_TEST);
+            if (curoid == InvalidOid) {
+                if (source == PGC_S_TEST)
+                    ereport(NOTICE, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                        errmsg("tablespace \"%s\" does not exist", curname)));
+                continue;
+            }
+
+            // Database default tablespace is allowed
+            if (curoid == MyDatabaseTableSpace) {
+                tblSpcs[numSpcs++] = InvalidOid;
+                continue;
+            }
+
+            // Check CREATE permission on tablespace
+            AclResult aclresult = object_aclcheck(TableSpaceRelationId, curoid,
+                                                GetUserId(), ACL_CREATE);
+            if (aclresult != ACLCHECK_OK) {
+                if (source >= PGC_S_INTERACTIVE)
+                    aclcheck_error(aclresult, OBJECT_TABLESPACE, curname);
+                continue;
+            }
+
+            tblSpcs[numSpcs++] = curoid;
+        }
+
+        // Create extra data structure for assign function
+        myextra = guc_malloc(LOG, offsetof(temp_tablespaces_extra, tblSpcs) +
+                           numSpcs * sizeof(Oid));
+        if (!myextra)
+            return false;
+
+        myextra->numSpcs = numSpcs;
+        memcpy(myextra->tblSpcs, tblSpcs, numSpcs * sizeof(Oid));
+        *extra = (void *) myextra;
+
+        pfree(tblSpcs);
+    }
+
+    pfree(rawname);
+    list_free(namelist);
+    return true;
+}
+```

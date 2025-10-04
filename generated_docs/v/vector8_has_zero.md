@@ -36,3 +36,17 @@ This function is commonly used in string processing and data validation operatio
 - The function carefully avoids circular dependencies when SIMD is not available by using vector8_has_le instead of vector8_has
 - Returns true if any byte in the vector equals zero, false otherwise
 - Part of PostgreSQL's SIMD abstraction layer for cross-platform vectorized operations
+
+## Simplified Source
+
+```c
+static inline bool vector8_has_zero(const Vector8 v) {
+#if defined(USE_NO_SIMD)
+    // Use has_le to avoid circular dependency with vector8_has
+    return vector8_has_le(v, 0);
+#else
+    // SIMD available: use the general vector8_has function
+    return vector8_has(v, 0);
+#endif
+}
+```

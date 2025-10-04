@@ -9,14 +9,14 @@ Frees a PLySavedArgs struct and all its Python object references without restori
 ## Definition
 
 ```c
-struct */
-	pfree(savedargs);
+static void
+PLy_function_drop_args(PLySavedArgs *savedargs)
 ```
 ## Detailed Description
 This function is responsible for cleaning up a PLySavedArgs structure by properly decrementing reference counts for all Python objects it contains and then freeing the structure itself. It is used when saved arguments need to be discarded rather than restored, typically during error cleanup or when exiting from set-returning functions. The function ensures proper Python memory management by calling Py_XDECREF on all stored Python objects before deallocating the C structure.
 
 ## Parameters / Member Variables
-- : Pointer to PLySavedArgs structure to be freed, containing saved function arguments and trigger data
+- `*savedargs`: Pointer to PLySavedArgs structure to be freed, containing saved function arguments and trigger data
 
 ## Dependencies
 - Functions called/Symbols referenced:
@@ -33,3 +33,25 @@ This function is responsible for cleaning up a PLySavedArgs structure by properl
 - Part of the PLpython memory management system for handling nested function calls and set-returning functions
 - The function handles both named arguments array and special Python objects ('args' and 'TD' for trigger data)
 - Critical for preventing memory leaks when Python function execution is terminated abnormally
+
+## Simplified Source
+
+```c
+static void
+PLy_function_drop_args(PLySavedArgs *savedargs)
+{
+    int i;
+
+    // Drop references for all named arguments
+    for (i = 0; i < savedargs->nargs; i++) {
+        Py_XDECREF(savedargs->namedargs[i]);
+    }
+
+    // Drop references to "args" list and "TD" trigger data
+    Py_XDECREF(savedargs->args);
+    Py_XDECREF(savedargs->td);
+
+    // Free the saved arguments structure
+    pfree(savedargs);
+}
+```

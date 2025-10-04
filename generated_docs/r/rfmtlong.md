@@ -68,3 +68,91 @@ The formatting process involves:
 - Format specifiers include: '<', '()', '+', '-', '*', '&', '#', '$', ',', '.'
 - Sets errno to ENOMEM on memory allocation failures
 - Assumes output buffer is sufficiently sized for the formatted result
+
+## Simplified Source
+
+```c
+int rfmtlong(long lng_val, const char *fmt, char *outbuf) {
+    size_t fmt_len = strlen(fmt);
+    char *temp;
+    int i, j, k, dotpos;
+    int leftalign = 0, blank = 0, sign = 0, signdone = 0;
+    char tmp[2] = " ";
+    char fmtchar;
+
+    // Allocate temporary buffer for formatting
+    temp = malloc(fmt_len + 1);
+    if (!temp) {
+        errno = ENOMEM;
+        return -1;
+    }
+
+    // Initialize value structure with digit information
+    if (initValue(lng_val) == -1) {
+        free(temp);
+        errno = ENOMEM;
+        return -1;
+    }
+
+    // Check for left alignment and bracket formatting
+    if (strchr(fmt, '<')) leftalign = 1;
+
+    // Get rightmost decimal position in format
+    dotpos = getRightMostDot(fmt);
+
+    // Process format string from right to left
+    temp[0] = '\0';
+    k = value.digits - 1;
+    for (i = fmt_len - 1, j = 0; i >= 0; i--, j++) {
+        // Handle positioning in value string
+        if (k < 0) {
+            blank = 1;
+            if (k == -1) sign = 1;
+        }
+
+        // Handle decimal point area
+        if (dotpos >= 0 && dotpos <= i) {
+            tmp[0] = (dotpos < i) ?
+                     ((fmt[i] == ')' && value.sign == '-') ? ')' : '0') : '.';
+            strcat(temp, tmp);
+            continue;
+        }
+
+        // Process format character
+        fmtchar = (blank && fmt[i] == ',') ? fmt[i] : fmt[i];
+
+        switch (fmtchar) {
+            case '*': tmp[0] = blank ? '*' : value.val_string[k]; break;
+            case '&': tmp[0] = blank ? '0' : value.val_string[k]; break;
+            case '#': tmp[0] = blank ? ' ' : value.val_string[k]; break;
+            case '-':
+                if (sign && value.sign == '-' && !signdone) {
+                    tmp[0] = '-'; signdone = 1;
+                } else tmp[0] = blank ? ' ' : value.val_string[k];
+                break;
+            case '+':
+                if (sign && !signdone) {
+                    tmp[0] = value.sign; signdone = 1;
+                } else tmp[0] = blank ? ' ' : value.val_string[k];
+                break;
+            default: tmp[0] = fmt[i];
+        }
+
+        strcat(temp, tmp);
+        k--;
+    }
+
+    // Reverse temp string into output buffer
+    size_t temp_len = strlen(temp);
+    outbuf[0] = '\0';
+    for (i = temp_len - 1; i >= 0; i--) {
+        tmp[0] = temp[i];
+        strcat(outbuf, tmp);
+    }
+
+    // Cleanup
+    free(temp);
+    free(value.val_string);
+    return 0;
+}
+```

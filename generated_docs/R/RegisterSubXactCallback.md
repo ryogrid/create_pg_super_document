@@ -38,3 +38,21 @@ The callback registration creates a linked list of SubXactCallbackItem structure
 - SubXactCallback type includes subtransaction ID parameters for tracking nested transaction relationships
 - Callback signature includes both current and parent subtransaction IDs for context
 - Supports events: SUBXACT_EVENT_START_SUB, SUBXACT_EVENT_COMMIT_SUB, SUBXACT_EVENT_ABORT_SUB, SUBXACT_EVENT_PRE_COMMIT_SUB
+
+## Simplified Source
+
+```c
+void RegisterSubXactCallback(SubXactCallback callback, void *arg)
+{
+    // Allocate callback item in persistent memory context
+    SubXactCallbackItem *item = MemoryContextAlloc(TopMemoryContext, sizeof(SubXactCallbackItem));
+
+    // Initialize callback item
+    item->callback = callback;
+    item->arg = arg;
+
+    // Add to head of subtransaction callback list
+    item->next = SubXact_callbacks;
+    SubXact_callbacks = item;
+}
+```

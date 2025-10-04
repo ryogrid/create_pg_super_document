@@ -45,3 +45,28 @@ The function includes an assertion to ensure it's called while holding the appro
 - All identity and state information is reset to ensure no stale data remains in the worker slot
 - The function is commonly used in error handling paths and normal worker termination scenarios
 - After calling this function, the worker slot becomes available for allocation to new workers
+
+## Simplified Source
+
+```c
+static void logicalrep_worker_cleanup(LogicalRepWorker *worker)
+{
+    // Ensure we have exclusive lock (required for worker modifications)
+    Assert(LWLockHeldByMeInMode(LogicalRepWorkerLock, LW_EXCLUSIVE));
+
+    // Reset worker state to defaults
+    worker->type = WORKERTYPE_UNKNOWN;
+    worker->in_use = false;
+    worker->proc = NULL;
+
+    // Clear all identity information
+    worker->dbid = InvalidOid;
+    worker->userid = InvalidOid;
+    worker->subid = InvalidOid;
+    worker->relid = InvalidOid;
+
+    // Clear parallel worker information
+    worker->leader_pid = InvalidPid;
+    worker->parallel_apply = false;
+}
+```

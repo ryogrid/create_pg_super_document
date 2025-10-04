@@ -35,3 +35,18 @@ The function assumes that  does not modify its input expression, then proceeds t
 - The expression planning step is essential for accurate volatility detection
 - The function returns a boolean indicating whether volatile functions are present
 - Used in parallel processing contexts where volatility affects execution safety
+
+## Simplified Source
+
+```c
+bool contain_volatile_functions_after_planning(Expr *expr) {
+    // Run expression through planner to expand defaults and inline functions
+    // This ensures accurate volatility detection by:
+    // 1. Inserting function default arguments (e.g., "default random()")
+    // 2. Inlining functions to get precise volatility for specific input types
+    expr = expression_planner(expr);
+
+    // Check the planned expression for volatile functions
+    return contain_volatile_functions((Node *) expr);
+}
+```

@@ -37,3 +37,31 @@ The function enables explicit transaction control from PL/Perl code, complementi
 - Useful for implementing error recovery patterns and conditional transaction logic
 - Should be used carefully as it discards all work done in the current transaction
 - Rollback operations typically succeed, but errors can occur in edge cases involving resource cleanup
+
+## Simplified Source
+
+```c
+void
+plperl_spi_rollback(void)
+{
+    MemoryContext oldcontext = CurrentMemoryContext;
+
+    check_spi_usage_allowed();
+
+    PG_TRY();
+    {
+        SPI_rollback();
+    }
+    PG_CATCH();
+    {
+        // Handle rollback errors and propagate to Perl
+        ErrorData *edata;
+        MemoryContextSwitchTo(oldcontext);
+        edata = CopyErrorData();
+        FlushErrorState();
+
+        croak_cstr(edata->message);
+    }
+    PG_END_TRY();
+}
+```

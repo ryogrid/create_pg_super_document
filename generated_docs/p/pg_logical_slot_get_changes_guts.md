@@ -56,3 +56,117 @@ The function supports both text and binary output modes, handles various limits 
 - Maintains replication slot state and advances confirmed_flush position when requested
 - Includes system cache invalidation for proper catalog visibility during decoding
 - Located in src/backend/replication/logical/logicalfuncs.c:99-330
+
+## Simplified Source
+
+```c
+static Datum pg_logical_slot_get_changes_guts(FunctionCallInfo fcinfo, bool confirm, bool binary)
+{
+    Name name;
+    XLogRecPtr upto_lsn;
+    int32 upto_nchanges;
+    ReturnSetInfo *rsinfo = (ReturnSetInfo *) fcinfo->resultinfo;
+    XLogRecPtr end_of_wal;
+    LogicalDecodingContext *ctx;
+    ResourceOwner old_resowner = CurrentResourceOwner;
+    List *options = NIL;
+    DecodingOutputState *p;
+
+    // Validate permissions and requirements
+    CheckSlotPermissions();
+    CheckLogicalDecodingRequirements();
+
+    // Extract function arguments
+    name = PG_GETARG_NAME(0);
+    upto_lsn = PG_ARGISNULL(1) ? InvalidXLogRecPtr : PG_GETARG_LSN(1);
+    upto_nchanges = PG_ARGISNULL(2) ? InvalidXLogRecPtr : PG_GETARG_INT32(2);
+
+    // Process options array (simplified error handling)
+    ArrayType *arr = PG_GETARG_ARRAYTYPE_P(3);
+    // ... options processing logic ...
+
+    // Initialize output state
+    p = palloc0(sizeof(DecodingOutputState));
+    p->binary_output = binary;
+
+    InitMaterializedSRF(fcinfo, 0);
+    p->tupstore = rsinfo->setResult;
+    p->tupdesc = rsinfo->setDesc;
+
+    // Determine end of WAL
+    end_of_wal = RecoveryInProgress() ? GetXLogReplayRecPtr(NULL) : GetFlushRecPtr(NULL);
+
+    // Acquire replication slot
+    ReplicationSlotAcquire(NameStr(*name), true);
+
+    PG_TRY();
+    {
+        // Create decoding context
+        ctx = CreateDecodingContext(InvalidXLogRecPtr, options, false,
+                                    XL_ROUTINE(.page_read = read_local_xlog_page,
+                                               .segment_open = wal_segment_open,
+                                               .segment_close = wal_segment_close),
+                                    LogicalOutputPrepareWrite,
+                                    LogicalOutputWrite, NULL);
+
+        // Validate output plugin compatibility
+        if (!binary && ctx->options.output_type != OUTPUT_PLUGIN_TEXTUAL_OUTPUT)
+            ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                           errmsg("output plugin produces binary output, but function expects textual data")));
+
+        // Wait for standby confirmation
+        XLogRecPtr wait_for_wal_lsn = XLogRecPtrIsInvalid(upto_lsn) ? end_of_wal : Min(upto_lsn, end_of_wal);
+        WaitForStandbyConfirmation(wait_for_wal_lsn);
+
+        ctx->output_writer_private = p;
+
+        // Start reading from slot's restart_lsn
+        XLogBeginRead(ctx->reader, MyReplicationSlot->data.restart_lsn);
+        InvalidateSystemCaches();
+
+        // Main decoding loop
+        while (ctx->reader->EndRecPtr < end_of_wal)
+        {
+            XLogRecord *record;
+            char *errm = NULL;
+
+            record = XLogReadRecord(ctx->reader, &errm);
+            if (errm)
+                elog(ERROR, "could not find record for logical decoding: %s", errm);
+
+            if (record != NULL)
+                LogicalDecodingProcessRecord(ctx, ctx->reader);
+
+            // Check limits
+            if (upto_lsn != InvalidXLogRecPtr && upto_lsn <= ctx->reader->EndRecPtr)
+                break;
+            if (upto_nchanges != 0 && upto_nchanges <= p->returned_rows)
+                break;
+
+            CHECK_FOR_INTERRUPTS();
+        }
+
+        CurrentResourceOwner = old_resowner;
+
+        // Confirm processed position if requested
+        if (ctx->reader->EndRecPtr != InvalidXLogRecPtr && confirm)
+        {
+            LogicalConfirmReceivedLocation(ctx->reader->EndRecPtr);
+            ReplicationSlotMarkDirty();
+        }
+
+        // Cleanup
+        FreeDecodingContext(ctx);
+        ReplicationSlotRelease();
+        InvalidateSystemCaches();
+    }
+    PG_CATCH();
+    {
+        InvalidateSystemCaches();
+        PG_RE_THROW();
+    }
+    PG_END_TRY();
+
+    return (Datum) 0;
+}
+```

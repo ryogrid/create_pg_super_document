@@ -37,3 +37,21 @@ On first invocation (when conn->ssl is NULL), it calls initialize_SSL() to set u
 - The function is stateful and can be called multiple times for the same connection to progress through the handshake
 - Error messages from initialization failures are stored in conn->errorMessage by initialize_SSL()
 - Location: src/interfaces/libpq/fe-secure-openssl.c:118-137
+
+## Simplified Source
+```c
+PostgresPollingStatusType pgtls_open_client(PGconn *conn) {
+    // First time through - initialize SSL object
+    if (conn->ssl == NULL) {
+        // Create SSL object and load certificates/keys
+        if (initialize_SSL(conn) != 0) {
+            // initialize_SSL already set error message
+            pgtls_close(conn);
+            return PGRES_POLLING_FAILED;
+        }
+    }
+
+    // Begin or continue the SSL handshake
+    return open_client_SSL(conn);
+}
+```

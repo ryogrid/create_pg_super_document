@@ -46,3 +46,54 @@ The function handles edge cases like empty arrays by constructing zero-dimension
 - Memory management uses CurrentMemoryContext for proper cleanup
 - Supports arrays up to MAXDIM dimensions
 - Throws errors for non-array target types with descriptive messages including type names
+
+## Simplified Source
+
+```c
+static Datum
+plperl_array_to_datum(SV *src, Oid typid, int32 typmod)
+{
+    // Extract the Perl array from the reference
+    AV *perl_array = (AV *) SvRV(src);
+    ArrayBuildState *astate = NULL;
+
+    // Validate that target type is an array and get element type
+    Oid elemtypid = get_element_type(typid);
+    if (!elemtypid) {
+        ereport(ERROR, "cannot convert Perl array to non-array type");
+    }
+
+    // Setup conversion function info for element type
+    FmgrInfo finfo;
+    Oid typioparam;
+    _sv_to_datum_finfo(elemtypid, &finfo, &typioparam);
+
+    // Initialize dimension tracking
+    int dims[MAXDIM];
+    int lbs[MAXDIM];  // lower bounds
+    int ndims = 1;
+
+    memset(dims, 0, sizeof(dims));
+    dims[0] = av_len(perl_array) + 1;  // First dimension size
+
+    // Process the array recursively
+    array_to_datum_internal(perl_array, &astate,
+                            &ndims, dims, 1,
+                            elemtypid, typmod,
+                            &finfo, typioparam);
+
+    // Handle empty array case
+    if (astate == NULL) {
+        return PointerGetDatum(construct_empty_array(elemtypid));
+    }
+
+    // Set standard PostgreSQL lower bounds (1-based indexing)
+    for (int i = 0; i < ndims; i++) {
+        lbs[i] = 1;
+    }
+
+    // Create the final multidimensional array
+    return makeMdArrayResult(astate, ndims, dims, lbs,
+                             CurrentMemoryContext, true);
+}
+```

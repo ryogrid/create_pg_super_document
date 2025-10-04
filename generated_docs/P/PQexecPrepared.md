@@ -48,3 +48,29 @@ Like other synchronous libpq execution functions, it uses PQexecStart for connec
 - The returned PGresult must be freed using PQclear() when no longer needed
 - Binary parameter formats require careful handling of endianness and type-specific encoding
 - Using an empty stmtName executes the unnamed prepared statement
+
+## Simplified Source
+
+```c
+PGresult *
+PQexecPrepared(PGconn *conn,
+               const char *stmtName,
+               int nParams,
+               const char *const *paramValues,
+               const int *paramLengths,
+               const int *paramFormats,
+               int resultFormat)
+{
+    // Prepare connection for query execution
+    if (!PQexecStart(conn))
+        return NULL;
+
+    // Execute the prepared statement with parameters
+    if (!PQsendQueryPrepared(conn, stmtName, nParams, paramValues,
+                            paramLengths, paramFormats, resultFormat))
+        return NULL;
+
+    // Wait for and retrieve the complete result
+    return PQexecFinish(conn);
+}
+```

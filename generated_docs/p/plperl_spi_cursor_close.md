@@ -42,3 +42,23 @@ Unlike the automatic closure that occurs in plperl_spi_fetchrow when no more row
 - Closing a cursor that has already been automatically closed is harmless
 - No error handling beyond SPI usage validation - [cursor](../c/cursor.md) not found is silently ignored
 - Complementary to the automatic cleanup performed in plperl_spi_fetchrow
+
+## Simplified Source
+
+```c
+void
+plperl_spi_cursor_close(char *cursor)
+{
+    Portal p;
+
+    check_spi_usage_allowed();
+
+    // Find and close the cursor if it exists
+    p = SPI_cursor_find(cursor);
+    if (p)
+    {
+        UnpinPortal(p);
+        SPI_cursor_close(p);
+    }
+}
+```

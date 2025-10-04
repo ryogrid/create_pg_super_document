@@ -40,3 +40,41 @@ The function includes comprehensive error handling with a custom error context c
 - Not documented in main SPI documentation to limit its usage to internal purposes
 - Exported specifically for PL/pgSQL optimization needs
 - The returned plan is the generic plan (plansource->gplan), not a custom plan
+
+## Simplified Source
+
+```c
+CachedPlan *SPI_plan_get_cached_plan(SPIPlanPtr plan) {
+    Assert(plan->magic == _SPI_PLAN_MAGIC);
+
+    // Reject one-shot plans
+    if (plan->oneshot)
+        return NULL;
+
+    // Must have exactly one CachedPlanSource
+    if (list_length(plan->plancache_list) != 1)
+        return NULL;
+
+    CachedPlanSource *plansource = (CachedPlanSource *) linitial(plan->plancache_list);
+
+    // Setup error context for better error messages
+    SPICallbackArg spicallbackarg;
+    ErrorContextCallback spierrcontext;
+    spicallbackarg.query = plansource->query_string;
+    spicallbackarg.mode = plan->parse_mode;
+    spierrcontext.callback = _SPI_error_callback;
+    spierrcontext.arg = &spicallbackarg;
+    spierrcontext.previous = error_context_stack;
+    error_context_stack = &spierrcontext;
+
+    // Get the generic plan with proper resource management
+    CachedPlan *cplan = GetCachedPlan(plansource, NULL,
+                                      plan->saved ? CurrentResourceOwner : NULL,
+                                      _SPI_current->queryEnv);
+
+    // Restore error context
+    error_context_stack = spierrcontext.previous;
+
+    return cplan;
+}
+```

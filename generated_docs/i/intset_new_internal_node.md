@@ -31,3 +31,22 @@ The `intset_new_internal_node` function creates a new internal node for the Inte
 - The level field is initialized to 0 but must be set by the caller to the appropriate tree level
 - Memory usage tracking is automatically updated when the node is allocated
 - The node starts with zero items, ready for population by the caller
+
+## Simplified Source
+
+```c
+static intset_internal_node *intset_new_internal_node(IntegerSet *intset) {
+    intset_internal_node *n;
+
+    // Allocate in IntegerSet's memory context
+    n = (intset_internal_node *) MemoryContextAlloc(intset->context,
+                                                    sizeof(intset_internal_node));
+    intset->mem_used += GetMemoryChunkSpace(n);
+
+    // Initialize node
+    n->level = 0;        // caller must set to appropriate level
+    n->num_items = 0;
+
+    return n;
+}
+```

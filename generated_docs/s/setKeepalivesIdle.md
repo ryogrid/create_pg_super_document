@@ -46,3 +46,37 @@ The keepalive idle timer is a critical component of TCP's dead connection detect
 - Negative values are automatically converted to 0 for safety
 - If keepalives_idle parameter is NULL, the function succeeds without action (using system defaults)
 - Works in conjunction with other keepalive functions like `setKeepalivesInterval`
+
+## Simplified Source
+
+```c
+static int setKeepalivesIdle(PGconn *conn) {
+    int idle;
+
+    // Skip if parameter not provided
+    if (conn->keepalives_idle == NULL)
+        return 1;
+
+    // Parse the idle time parameter
+    if (!pqParseIntParam(conn->keepalives_idle, &idle, conn, "keepalives_idle"))
+        return 0;
+
+    // Ensure non-negative value
+    if (idle < 0)
+        idle = 0;
+
+#ifdef PG_TCP_KEEPALIVE_IDLE
+    // Set the TCP keepalive idle timer
+    if (setsockopt(conn->sock, IPPROTO_TCP, PG_TCP_KEEPALIVE_IDLE,
+                   (char *) &idle, sizeof(idle)) < 0) {
+        char sebuf[PG_STRERROR_R_BUFLEN];
+        libpq_append_conn_error(conn, "%s(%s) failed: %s",
+                                "setsockopt", PG_TCP_KEEPALIVE_IDLE_STR,
+                                SOCK_STRERROR(SOCK_ERRNO, sebuf, sizeof(sebuf)));
+        return 0;
+    }
+#endif
+
+    return 1;
+}
+```

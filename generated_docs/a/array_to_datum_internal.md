@@ -50,3 +50,71 @@ The function creates the ArrayBuildState only when it encounters the first scala
 - Uses efficient lazy initialization of ArrayBuildState to avoid unnecessary work
 - Handles both regular Perl arrays and PostgreSQL::InServer::ARRAY objects through get_perl_array_ref
 - Memory allocation occurs in CurrentMemoryContext for proper cleanup
+
+## Simplified Source
+
+```c
+static void
+array_to_datum_internal(AV *av, ArrayBuildState **astatep,
+                        int *ndims, int *dims, int cur_depth,
+                        Oid elemtypid, int32 typmod,
+                        FmgrInfo *finfo, Oid typioparam)
+{
+    int array_length = av_len(av) + 1;
+
+    // Process each element in the array
+    for (int i = 0; i < array_length; i++) {
+        SV **element_ptr = av_fetch(av, i, FALSE);
+        SV *sub_array = element_ptr ? get_perl_array_ref(*element_ptr) : NULL;
+
+        if (sub_array) {
+            // This element is a sub-array - handle multidimensional case
+            AV *nested_array = (AV *) SvRV(sub_array);
+
+            // Set dimension size at first element, validate consistency thereafter
+            if (i == 0 && *ndims == cur_depth) {
+                // Check for mixed scalars and arrays
+                if (*astatep != NULL) {
+                    ereport(ERROR, "arrays must have matching dimensions");
+                }
+                // Check dimension limit
+                if (cur_depth + 1 > MAXDIM) {
+                    ereport(ERROR, "too many array dimensions");
+                }
+                // Record this dimension size
+                dims[*ndims] = av_len(nested_array) + 1;
+                (*ndims)++;
+            } else {
+                // Validate dimension consistency
+                if (cur_depth >= *ndims || av_len(nested_array) + 1 != dims[cur_depth]) {
+                    ereport(ERROR, "arrays must have matching dimensions");
+                }
+            }
+
+            // Recursively process the sub-array
+            array_to_datum_internal(nested_array, astatep,
+                                    ndims, dims, cur_depth + 1,
+                                    elemtypid, typmod, finfo, typioparam);
+        } else {
+            // This element is a scalar value
+            if (*ndims != cur_depth) {
+                ereport(ERROR, "arrays must have matching dimensions");
+            }
+
+            // Convert Perl scalar to PostgreSQL datum
+            bool is_null;
+            Datum datum = plperl_sv_to_datum(element_ptr ? *element_ptr : NULL,
+                                             elemtypid, typmod, NULL,
+                                             finfo, typioparam, &is_null);
+
+            // Initialize array builder on first scalar element
+            if (*astatep == NULL) {
+                *astatep = initArrayResult(elemtypid, CurrentMemoryContext, true);
+            }
+
+            // Add element to the array being built
+            accumArrayResult(*astatep, datum, is_null, elemtypid, CurrentMemoryContext);
+        }
+    }
+}
+```

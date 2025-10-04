@@ -45,3 +45,45 @@ The function performs comprehensive validation including:
 - Any encoding/decoding mismatches or size overflows are reported as ERRORs
 - The function provides detailed NOTICE messages to track test progress and results
 - Located in src/test/modules/test_ginpostinglist/test_ginpostinglist.c:41-87
+
+## Simplified Source
+
+```c
+static void
+test_itemptr_pair(BlockNumber blk, OffsetNumber off, int maxsize)
+{
+    ItemPointerData orig_itemptrs[2];
+    ItemPointer decoded_itemptrs;
+    GinPostingList *pl;
+    int nwritten, ndecoded;
+
+    // Set up test data: first TID is (0,1), second from parameters
+    elog(NOTICE, "testing with (%u, %d), (%u, %d), max %d bytes",
+         0, 1, blk, off, maxsize);
+    ItemPointerSet(&orig_itemptrs[0], 0, 1);
+    ItemPointerSet(&orig_itemptrs[1], blk, off);
+
+    // Encode the TID pair into compressed posting list
+    pl = ginCompressPostingList(orig_itemptrs, 2, maxsize, &nwritten);
+    elog(NOTICE, "encoded %d item pointers to %zu bytes",
+         nwritten, SizeOfGinPostingList(pl));
+
+    // Check for size overflow
+    if (SizeOfGinPostingList(pl) > maxsize)
+        elog(ERROR, "overflow: result was %zu bytes, max %d",
+             SizeOfGinPostingList(pl), maxsize);
+
+    // Decode back and verify round-trip integrity
+    decoded_itemptrs = ginPostingListDecode(pl, &ndecoded);
+    if (nwritten != ndecoded)
+        elog(NOTICE, "encoded %d itemptrs, %d came back", nwritten, ndecoded);
+
+    // Validate first TID matches original
+    if (!ItemPointerEquals(&orig_itemptrs[0], &decoded_itemptrs[0]))
+        elog(ERROR, "mismatch on first itemptr");
+
+    // Validate second TID if present
+    if (ndecoded == 2 && !ItemPointerEquals(&orig_itemptrs[1], &decoded_itemptrs[1]))
+        elog(ERROR, "mismatch on second itemptr");
+}
+```

@@ -55,3 +55,88 @@ The function carefully handles the unaligned leaf tuple data by copying it to a 
 - Uses two-phase approach: first update leaf page, then update parent page (safe during WAL replay)
 - Supports both null-storing and regular leaf pages via SPGIST_NULLS flag
 - Error checking ensures tuple addition succeeds or aborts with elog(ERROR)
+
+## Simplified Source
+
+```c
+static void
+spgRedoAddLeaf(XLogReaderState *record)
+{
+    XLogRecPtr lsn = record->EndRecPtr;
+    char *ptr = XLogRecGetData(record);
+    spgxlogAddLeaf *xldata = (spgxlogAddLeaf *) ptr;
+    char *leafTuple;
+    SpGistLeafTupleData leafTupleHdr;
+    Buffer buffer;
+    Page page;
+    XLogRedoAction action;
+
+    // Extract leaf tuple data (unaligned)
+    ptr += sizeof(spgxlogAddLeaf);
+    leafTuple = ptr;
+    memcpy(&leafTupleHdr, leafTuple, sizeof(SpGistLeafTupleData));
+
+    // Initialize or read the leaf page
+    if (xldata->newPage) {
+        buffer = XLogInitBufferForRedo(record, 0);
+        SpGistInitBuffer(buffer, SPGIST_LEAF | (xldata->storesNulls ? SPGIST_NULLS : 0));
+        action = BLK_NEEDS_REDO;
+    }
+    else {
+        action = XLogReadBufferForRedo(record, 0, &buffer);
+    }
+
+    if (action == BLK_NEEDS_REDO) {
+        page = BufferGetPage(buffer);
+
+        // Insert the new tuple
+        if (xldata->offnumLeaf != xldata->offnumHeadLeaf) {
+            // Normal case: add new tuple via addOrReplaceTuple
+            addOrReplaceTuple(page, (Item) leafTuple, leafTupleHdr.size, xldata->offnumLeaf);
+
+            // Update chain link in head tuple if needed
+            if (xldata->offnumHeadLeaf != InvalidOffsetNumber) {
+                SpGistLeafTuple head = (SpGistLeafTuple) PageGetItem(page,
+                    PageGetItemId(page, xldata->offnumHeadLeaf));
+                Assert(SGLT_GET_NEXTOFFSET(head) == SGLT_GET_NEXTOFFSET(&leafTupleHdr));
+                SGLT_SET_NEXTOFFSET(head, xldata->offnumLeaf);
+            }
+        }
+        else {
+            // Special case: replacing a DEAD tuple
+            PageIndexTupleDelete(page, xldata->offnumLeaf);
+            if (PageAddItem(page, (Item) leafTuple, leafTupleHdr.size,
+                           xldata->offnumLeaf, false, false) != xldata->offnumLeaf)
+                elog(ERROR, "failed to add item of size %u to SPGiST index page",
+                     leafTupleHdr.size);
+        }
+
+        PageSetLSN(page, lsn);
+        MarkBufferDirty(buffer);
+    }
+    if (BufferIsValid(buffer))
+        UnlockReleaseBuffer(buffer);
+
+    // Update parent downlink if necessary
+    if (xldata->offnumParent != InvalidOffsetNumber) {
+        if (XLogReadBufferForRedo(record, 1, &buffer) == BLK_NEEDS_REDO) {
+            SpGistInnerTuple tuple;
+            BlockNumber blknoLeaf;
+
+            XLogRecGetBlockTag(record, 0, NULL, NULL, &blknoLeaf);
+            page = BufferGetPage(buffer);
+
+            tuple = (SpGistInnerTuple) PageGetItem(page,
+                PageGetItemId(page, xldata->offnumParent));
+
+            // Update the parent's downlink to point to new leaf location
+            spgUpdateNodeLink(tuple, xldata->nodeI, blknoLeaf, xldata->offnumLeaf);
+
+            PageSetLSN(page, lsn);
+            MarkBufferDirty(buffer);
+        }
+        if (BufferIsValid(buffer))
+            UnlockReleaseBuffer(buffer);
+    }
+}
+```

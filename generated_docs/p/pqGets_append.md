@@ -33,3 +33,12 @@ The function handles memory management gracefully - if the buffer cannot be expa
 - Part of the libpq client library's internal string handling utilities
 - The function maintains the connection's input cursor position after reading
 - Memory allocation failures are handled gracefully by discarding excess data rather than failing
+
+## Simplified Source
+
+```c
+int pqGets_append(PQExpBuffer buf, PGconn *conn) {
+    // Append string from connection to buffer (preserve existing contents)
+    return pqGets_internal(buf, conn, false);
+}
+```

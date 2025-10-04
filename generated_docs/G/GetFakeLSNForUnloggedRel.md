@@ -35,3 +35,16 @@ This mechanism is particularly useful for operations that need to track page mod
 - The fake LSNs are only meaningful within the context of a single database session/cluster lifecycle
 - Commonly used by index access methods for unlogged tables that need sequence numbers for internal operations
 - Located in src/backend/access/transam/xlog.c:4559-4575
+
+## Simplified Source
+
+```c
+XLogRecPtr
+GetFakeLSNForUnloggedRel(void)
+{
+    // Atomically increment and return the previous value
+    // This provides monotonically increasing LSN-like values
+    // for unlogged relations without writing WAL records
+    return pg_atomic_fetch_add_u64(&XLogCtl->unloggedLSN, 1);
+}
+```

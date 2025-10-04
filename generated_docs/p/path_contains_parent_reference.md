@@ -37,3 +37,19 @@ The function also handles Windows drive/network path specifiers by using  to mov
 - Commonly used in security contexts to validate that relative paths don't escape intended directory boundaries
 - The optimization of only checking the beginning of the path relies on the canonicalization guarantee that all '..' references in the middle of paths have been resolved
 - Windows drive specifiers (like 'C:') are correctly handled and don't affect the parent reference detection
+
+## Simplified Source
+
+```c
+bool path_contains_parent_reference(const char *path) {
+    // Skip Windows drive/network specifier (doesn't affect conclusion)
+    path = skip_drive(path);
+
+    // Check if path starts with ".." followed by end-of-string or path separator
+    if (path[0] == '.' && path[1] == '.' &&
+        (path[2] == '\0' || path[2] == '/'))
+        return true;
+
+    return false;
+}
+```

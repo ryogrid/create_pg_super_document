@@ -36,3 +36,31 @@ The function allocates memory for new pending items and initializes them with th
 - Memory allocation uses palloc, which will throw an error if allocation fails
 - The append-only nature of the list ensures scan consistency during vacuum operations
 - The function is part of the SP-GiST (Space-Partitioned Generalized Search Tree) vacuum implementation
+
+## Simplified Source
+
+```c
+static void
+spgAddPendingTID(spgBulkDeleteState *bds, ItemPointer tid)
+{
+    spgVacPendingItem *pitem;
+    spgVacPendingItem **listLink;
+
+    // Search for existing entry to avoid duplicates
+    listLink = &bds->pendingList;
+    while (*listLink != NULL)
+    {
+        pitem = *listLink;
+        if (ItemPointerEquals(tid, &pitem->tid))
+            return;  // Already in list
+        listLink = &pitem->next;
+    }
+
+    // Not found - append new entry to end of list
+    pitem = (spgVacPendingItem *) palloc(sizeof(spgVacPendingItem));
+    pitem->tid = *tid;
+    pitem->done = false;
+    pitem->next = NULL;
+    *listLink = pitem;
+}
+```

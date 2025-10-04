@@ -40,3 +40,18 @@ This layered approach ensures that not only does the CPU have the necessary inst
 - Part of PostgreSQL's adaptive optimization system that selects the best available SIMD implementation at runtime
 - The function enables significant performance improvements for bit manipulation operations when AVX-512 is fully supported
 - Failure of any single prerequisite check will cause the entire function to return false, falling back to less optimized implementations
+
+## Simplified Source
+
+```c
+bool pg_popcount_avx512_available(void)
+{
+    // Check all three requirements for AVX-512 popcount support:
+    // 1. OS supports XSAVE for extended state management
+    // 2. OS has enabled 512-bit ZMM registers
+    // 3. CPU supports required AVX-512 instructions
+    return xsave_available() &&
+           zmm_regs_available() &&
+           avx512_popcnt_available();
+}
+```

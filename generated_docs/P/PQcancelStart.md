@@ -42,3 +42,27 @@ If all validation passes, it delegates to pqConnectDBStart() to begin the actual
 - The connection status will be changed from CONNECTION_ALLOCATED to an appropriate state during processing
 - Only one cancellation request can be active per PGcancelConn at a time
 - Attempting to start cancellation on an already active cancelConn will result in an error
+
+## Simplified Source
+
+```c
+int
+PQcancelStart(PGcancelConn *cancelConn)
+{
+    // Validate cancel connection
+    if (!cancelConn || cancelConn->conn.status == CONNECTION_BAD) {
+        return 0;
+    }
+
+    // Check that connection is ready for cancellation
+    if (cancelConn->conn.status != CONNECTION_ALLOCATED) {
+        libpq_append_conn_error(&cancelConn->conn,
+                                "cancel request already in progress");
+        cancelConn->conn.status = CONNECTION_BAD;
+        return 0;
+    }
+
+    // Start the connection process for cancellation
+    return pqConnectDBStart(&cancelConn->conn);
+}
+```

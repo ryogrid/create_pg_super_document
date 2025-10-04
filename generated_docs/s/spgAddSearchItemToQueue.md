@@ -36,3 +36,14 @@ The function is designed to be called in queue context, meaning it operates on i
 - Essential component of the search queue management in SP-GiST scans
 - The queue ordering is determined by the pairingheap_SpGistSearchItem_cmp comparison function
 - Called exclusively in contexts where items are ready for queue insertion
+
+## Simplified Source
+
+```c
+static void
+spgAddSearchItemToQueue(SpGistScanOpaque so, SpGistSearchItem *item)
+{
+    // Add item to priority queue for ordered processing
+    pairingheap_add(so->scanQueue, &item->phNode);
+}
+```

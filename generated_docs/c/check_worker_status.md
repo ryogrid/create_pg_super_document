@@ -40,3 +40,26 @@ The function uses  to query each worker's status and immediately returns  if any
 - Used specifically for testing shared memory message queue functionality between background workers
 - The function provides fail-fast behavior - it returns immediately upon detecting the first failed worker rather than checking all workers
 - Located in src/test/modules/test_shm_mq/setup.c:306-323
+
+## Simplified Source
+
+```c
+static bool
+check_worker_status(worker_state *wstate)
+{
+    // Check status of each background worker
+    for (int n = 0; n < wstate->nworkers; ++n) {
+        BgwHandleStatus status;
+        pid_t pid;
+
+        status = GetBackgroundWorkerPid(wstate->handle[n], &pid);
+
+        // Return false if worker stopped or postmaster died
+        if (status == BGWH_STOPPED || status == BGWH_POSTMASTER_DIED)
+            return false;
+    }
+
+    // All workers still running
+    return true;
+}
+```

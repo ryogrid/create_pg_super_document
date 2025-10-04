@@ -39,3 +39,25 @@ This function is optimized for integer operations and provides better performanc
 - Maintains list invariants through check_list_invariants()
 - Part of PostgreSQL's type-safe list API for efficient integer collection management
 - Commonly used for maintaining unique sets of column indices, attribute numbers, and object identifiers
+
+## Simplified Source
+
+```c
+List *
+list_concat_unique_int(List *list1, const List *list2)
+{
+    // Verify both are integer lists
+    Assert(IsIntegerList(list1));
+    Assert(IsIntegerList(list2));
+
+    // Add unique integers from list2 to list1
+    ListCell *cell;
+    foreach(cell, list2) {
+        if (!list_member_int(list1, lfirst_int(cell)))
+            list1 = lappend_int(list1, lfirst_int(cell));
+    }
+
+    check_list_invariants(list1);
+    return list1;
+}
+```

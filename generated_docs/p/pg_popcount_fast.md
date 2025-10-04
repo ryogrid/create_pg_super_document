@@ -34,3 +34,27 @@ This function provides a fast implementation for counting the total number of 1-
 - Part of PostgreSQL's dynamic function selection mechanism for bit manipulation
 - Returns uint64 to accommodate large bit counts from substantial buffers
 - Static function used internally within the popcount optimization framework
+
+## Simplified Source
+
+```c
+static uint64 pg_popcount_fast(const char *buf, int bytes) {
+    uint64 total_bits = 0;
+
+    // Process aligned chunks efficiently
+    if (buf == (const char *) TYPEALIGN(8, buf)) {
+        const uint64 *words = (const uint64 *) buf;
+        while (bytes >= 8) {
+            total_bits += pg_popcount64_fast(*words++);
+            bytes -= 8;
+        }
+        buf = (const char *) words;
+    }
+
+    // Process remaining bytes using lookup table
+    while (bytes--)
+        total_bits += pg_number_of_ones[(unsigned char) *buf++];
+
+    return total_bits;
+}
+```

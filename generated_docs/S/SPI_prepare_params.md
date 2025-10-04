@@ -42,3 +42,44 @@ SPI_prepare_params is an extended version of the basic SPI_prepare function that
 - The plan is copied to the procedure context to ensure it persists beyond the current memory context
 - Cursor options specified here will be applied when the plan is executed
 - The function initializes a plan structure with no arguments (nargs = 0, argtypes = NULL)
+
+## Simplified Source
+
+```c
+SPIPlanPtr SPI_prepare_params(const char *src, ParserSetupHook parserSetup,
+                              void *parserSetupArg, int cursorOptions) {
+    _SPI_plan plan;
+    SPIPlanPtr result;
+
+    // Validate input source
+    if (src == NULL) {
+        SPI_result = SPI_ERROR_ARGUMENT;
+        return NULL;
+    }
+
+    // Begin SPI execution context
+    SPI_result = _SPI_begin_call(true);
+    if (SPI_result < 0)
+        return NULL;
+
+    // Initialize plan with custom parser and cursor options
+    memset(&plan, 0, sizeof(_SPI_plan));
+    plan.magic = _SPI_PLAN_MAGIC;
+    plan.parse_mode = RAW_PARSE_DEFAULT;
+    plan.cursor_options = cursorOptions;
+    plan.nargs = 0;  // No argument types specified
+    plan.argtypes = NULL;
+    plan.parserSetup = parserSetup;
+    plan.parserSetupArg = parserSetupArg;
+
+    // Prepare the plan with specified options
+    _SPI_prepare_plan(src, &plan);
+
+    // Create persistent plan in procedure context
+    result = _SPI_make_plan_non_temp(&plan);
+
+    // Clean up and return result
+    _SPI_end_call(true);
+    return result;
+}
+```

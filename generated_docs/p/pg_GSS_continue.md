@@ -43,8 +43,77 @@ The function supports both initial calls (no input token) and subsequent calls (
 
 ## Notes and Other Information
 - This is a static function internal to the libpq authentication module
-- Handles memory management carefully with proper cleanup on error paths  
+- Handles memory management carefully with proper cleanup on error paths
 - Supports credential delegation when enabled via connection parameters
 - Sets  and  flags upon successful completion
 - Uses mutual authentication flag (GSS_C_MUTUAL_FLAG) for enhanced security
 - Returns STATUS_OK on success, STATUS_ERROR on failure
+
+## Simplified Source
+
+```c
+static int pg_GSS_continue(PGconn *conn, int payloadlen) {
+    OM_uint32 maj_stat, min_stat, lmin_s, gss_flags = GSS_C_MUTUAL_FLAG;
+    gss_buffer_desc ginbuf;
+    gss_buffer_desc goutbuf;
+
+    // Read input token from server (if continuing authentication)
+    if (conn->gctx != GSS_C_NO_CONTEXT) {
+        ginbuf.length = payloadlen;
+        ginbuf.value = malloc(payloadlen);
+        if (!ginbuf.value) {
+            libpq_append_conn_error(conn, "out of memory allocating GSSAPI buffer (%d)", payloadlen);
+            return STATUS_ERROR;
+        }
+        if (pqGetnchar(ginbuf.value, payloadlen, conn)) {
+            free(ginbuf.value);
+            return STATUS_ERROR;
+        }
+    } else {
+        ginbuf.length = 0;
+        ginbuf.value = NULL;
+    }
+
+    // Check credentials and set delegation flag if enabled
+    if (!pg_GSS_have_cred_cache(&conn->gcred))
+        conn->gcred = GSS_C_NO_CREDENTIAL;
+    if (conn->gssdelegation && conn->gssdelegation[0] == '1')
+        gss_flags |= GSS_C_DELEG_FLAG;
+
+    // Perform GSS authentication step
+    maj_stat = gss_init_sec_context(&min_stat, conn->gcred, &conn->gctx,
+                                    conn->gtarg_nam, GSS_C_NO_OID, gss_flags,
+                                    0, GSS_C_NO_CHANNEL_BINDINGS,
+                                    (ginbuf.value == NULL) ? GSS_C_NO_BUFFER : &ginbuf,
+                                    NULL, &goutbuf, NULL, NULL);
+
+    free(ginbuf.value);
+
+    // Send response token to server if generated
+    if (goutbuf.length != 0) {
+        if (pqPacketSend(conn, PqMsg_GSSResponse, goutbuf.value, goutbuf.length) != STATUS_OK) {
+            gss_release_buffer(&lmin_s, &goutbuf);
+            return STATUS_ERROR;
+        }
+    }
+    gss_release_buffer(&lmin_s, &goutbuf);
+
+    // Handle authentication completion or errors
+    if (maj_stat != GSS_S_COMPLETE && maj_stat != GSS_S_CONTINUE_NEEDED) {
+        pg_GSS_error(libpq_gettext("GSSAPI continuation error"), conn, maj_stat, min_stat);
+        // Cleanup on error
+        gss_release_name(&lmin_s, &conn->gtarg_nam);
+        if (conn->gctx)
+            gss_delete_sec_context(&lmin_s, &conn->gctx, GSS_C_NO_BUFFER);
+        return STATUS_ERROR;
+    }
+
+    if (maj_stat == GSS_S_COMPLETE) {
+        conn->client_finished_auth = true;
+        gss_release_name(&lmin_s, &conn->gtarg_nam);
+        conn->gssapi_used = true;
+    }
+
+    return STATUS_OK;
+}
+```

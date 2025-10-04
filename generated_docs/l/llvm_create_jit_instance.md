@@ -55,3 +55,52 @@ The function transfers ownership of the target machine to the LLJIT instance, wh
 - Essential for creating the execution environment where JIT-compiled PostgreSQL expressions run
 - Part of the lazy compilation infrastructure - code is compiled on-demand when first needed
 - Symbol generators enable JIT-compiled code to call back into PostgreSQL functions and access global symbols
+
+## Simplified Source
+
+```c
+static LLVMOrcLLJITRef llvm_create_jit_instance(LLVMTargetMachineRef tm) {
+    LLVMOrcLLJITRef lljit;
+    LLVMOrcJITTargetMachineBuilderRef tm_builder;
+    LLVMOrcLLJITBuilderRef lljit_builder;
+    LLVMErrorRef error;
+    LLVMOrcDefinitionGeneratorRef main_gen;
+    LLVMOrcDefinitionGeneratorRef ref_gen;
+
+    // Create and configure LLJIT builder with target machine
+    lljit_builder = LLVMOrcCreateLLJITBuilder();
+    tm_builder = LLVMOrcJITTargetMachineBuilderCreateFromTargetMachine(tm);
+    LLVMOrcLLJITBuilderSetJITTargetMachineBuilder(lljit_builder, tm_builder);
+
+    // Set custom object linking layer for debugging/profiling support
+    LLVMOrcLLJITBuilderSetObjectLinkingLayerCreator(lljit_builder,
+                                                    llvm_create_object_layer, NULL);
+
+    // Create the LLJIT instance
+    error = LLVMOrcCreateLLJIT(&lljit, lljit_builder);
+    if (error)
+        elog(ERROR, "failed to create lljit instance: %s", llvm_error_message(error));
+
+    // Set up error reporting for JIT operations
+    LLVMOrcExecutionSessionSetErrorReporter(LLVMOrcLLJITGetExecutionSession(lljit),
+                                            llvm_log_jit_error, NULL);
+
+    // Add symbol resolution for PostgreSQL binary and loaded libraries
+    error = LLVMOrcCreateDynamicLibrarySearchGeneratorForProcess(&main_gen,
+                                                                 LLVMOrcLLJITGetGlobalPrefix(lljit),
+                                                                 0, NULL);
+    if (error)
+        elog(ERROR, "failed to create generator: %s", llvm_error_message(error));
+    LLVMOrcJITDylibAddGenerator(LLVMOrcLLJITGetMainJITDylib(lljit), main_gen);
+
+    // Add custom symbol resolution for PostgreSQL-specific functions
+#if LLVM_VERSION_MAJOR > 14
+    ref_gen = LLVMOrcCreateCustomCAPIDefinitionGenerator(llvm_resolve_symbols, NULL, NULL);
+#else
+    ref_gen = LLVMOrcCreateCustomCAPIDefinitionGenerator(llvm_resolve_symbols, NULL);
+#endif
+    LLVMOrcJITDylibAddGenerator(LLVMOrcLLJITGetMainJITDylib(lljit), ref_gen);
+
+    return lljit;
+}
+```

@@ -31,3 +31,12 @@ The function allows SPI clients to resize memory blocks without needing to worry
 - If the pointer is NULL, behaves like a standard allocation
 - If size is 0, the behavior depends on the underlying repalloc implementation
 - Part of PostgreSQL's SPI memory management system, complementing SPI_palloc and SPI_pfree
+
+## Simplified Source
+
+```c
+void *SPI_repalloc(void *pointer, Size size) {
+    // Delegate to standard repalloc - no context tracking needed
+    return repalloc(pointer, size);
+}
+```

@@ -44,5 +44,96 @@ The implementation deviates from strict RFC compliance in one key area: when con
 - Handles both IPv4 and IPv6 address validation
 - Manages memory allocation for extracted certificate names
 - Uses OpenSSL APIs for certificate parsing and SAN extraction
-- Located in 
+- Located in
 - Prior libpq versions did not consider iPAddress SANs, so this implementation may break certificates with different IPs in CN vs SANs
+
+## Simplified Source
+```c
+int pgtls_verify_peer_name_matches_certificate_guts(PGconn *conn,
+                                                   int *names_examined,
+                                                   char **first_name) {
+    STACK_OF(GENERAL_NAME) *peer_san;
+    int rc = 0;
+    char *host = conn->connhost[conn->whichhost].host;
+    int host_type;
+    bool check_cn = true;
+
+    // Determine if host is IP address or DNS name
+    if (is_ip_address(host))
+        host_type = GEN_IPADD;
+    else
+        host_type = GEN_DNS;
+
+    // Get Subject Alternative Names from certificate
+    peer_san = X509_get_ext_d2i(conn->peer, NID_subject_alt_name, NULL, NULL);
+
+    if (peer_san) {
+        int san_len = sk_GENERAL_NAME_num(peer_san);
+
+        // Check each SAN entry
+        for (int i = 0; i < san_len; i++) {
+            const GENERAL_NAME *name = sk_GENERAL_NAME_value(peer_san, i);
+            char *alt_name = NULL;
+
+            // If SAN type matches host type, don't fallback to CN
+            if (name->type == host_type)
+                check_cn = false;
+
+            // Verify DNS names
+            if (name->type == GEN_DNS) {
+                (*names_examined)++;
+                rc = openssl_verify_peer_name_matches_certificate_name(conn,
+                                                                      name->d.dNSName,
+                                                                      &alt_name);
+            }
+            // Verify IP addresses
+            else if (name->type == GEN_IPADD) {
+                (*names_examined)++;
+                rc = openssl_verify_peer_name_matches_certificate_ip(conn,
+                                                                    name->d.iPAddress,
+                                                                    &alt_name);
+            }
+
+            // Store first name found for error reporting
+            if (alt_name) {
+                if (!*first_name)
+                    *first_name = alt_name;
+                else
+                    free(alt_name);
+            }
+
+            // Stop on match or error
+            if (rc != 0) {
+                check_cn = false;
+                break;
+            }
+        }
+        sk_GENERAL_NAME_pop_free(peer_san, GENERAL_NAME_free);
+    }
+
+    // Fallback to Common Name if no matching SAN found
+    if (check_cn) {
+        X509_NAME *subject_name = X509_get_subject_name(conn->peer);
+        if (subject_name != NULL) {
+            int cn_index = X509_NAME_get_index_by_NID(subject_name, NID_commonName, -1);
+            if (cn_index >= 0) {
+                char *common_name = NULL;
+                (*names_examined)++;
+
+                rc = openssl_verify_peer_name_matches_certificate_name(conn,
+                    X509_NAME_ENTRY_get_data(X509_NAME_get_entry(subject_name, cn_index)),
+                    &common_name);
+
+                if (common_name) {
+                    if (!*first_name)
+                        *first_name = common_name;
+                    else
+                        free(common_name);
+                }
+            }
+        }
+    }
+
+    return rc;
+}
+```

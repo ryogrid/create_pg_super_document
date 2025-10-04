@@ -40,3 +40,50 @@ This mechanism optimizes performance by avoiding redundant preparation of identi
 - The function tracks statement usage through an execution counter for performance monitoring
 - Returns  on success,  on failure (preparation or caching errors)
 - Part of the ECPG library's automatic statement management system, providing transparent optimization for embedded SQL applications
+
+## Simplified Source
+
+```c
+bool ecpg_auto_prepare(int lineno, const char *connection_name, const int compat,
+                       char **name, const char *query) {
+    int entNo;
+
+    // Search for statement in cache
+    entNo = SearchStmtCache(query);
+
+    if (entNo) {
+        // Statement found in cache - reuse existing preparation
+        char *stmtID = stmtCacheEntries[entNo].stmtID;
+        struct connection *con = ecpg_get_connection(connection_name);
+        struct prepared_statement *prep = ecpg_find_prepared_statement(stmtID, con, NULL);
+
+        // Prepare statement if not already prepared on this connection
+        if (!prep && !prepare_common(lineno, con, stmtID, query))
+            return false;
+
+        *name = ecpg_strdup(stmtID, lineno);
+    } else {
+        // Statement not in cache - create new entry
+        char stmtID[STMTID_SIZE];
+
+        // Generate unique statement ID
+        sprintf(stmtID, "ecpg%d", nextStmtID++);
+
+        // Prepare the statement
+        if (!ECPGprepare(lineno, connection_name, 0, stmtID, query))
+            return false;
+
+        // Add to cache for future use
+        entNo = AddStmtToCache(lineno, stmtID, connection_name, compat, query);
+        if (entNo < 0)
+            return false;
+
+        *name = ecpg_strdup(stmtID, lineno);
+    }
+
+    // Track usage statistics
+    stmtCacheEntries[entNo].execs++;
+
+    return true;
+}
+```

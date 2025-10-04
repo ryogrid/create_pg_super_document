@@ -36,3 +36,22 @@ The function sends a Close message ('C') with portal type ('P') to the PostgreSQ
 - This is the synchronous counterpart to PQsendClosePortal
 - Portals are typically created implicitly by DECLARE CURSOR statements rather than directly through libpq
 - The portal name must match exactly with a portal that exists on the server
+
+## Simplified Source
+
+```c
+PGresult *
+PQclosePortal(PGconn *conn, const char *portal)
+{
+    // Prepare connection for query execution
+    if (!PQexecStart(conn))
+        return NULL;
+
+    // Send Close message for portal ('P' type)
+    if (!PQsendTypedCommand(conn, PqMsg_Close, 'P', portal))
+        return NULL;
+
+    // Wait for and retrieve the close result
+    return PQexecFinish(conn);
+}
+```

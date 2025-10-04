@@ -30,3 +30,19 @@ This function is a specialized accessor for MinimalTupleTableSlot that ensures t
 - The function assumes the input slot is actually a MinimalTupleTableSlot
 - Uses lazy materialization pattern for performance optimization
 - Returns the minimal tuple directly without copying, so caller should not modify it
+
+## Simplified Source
+
+```c
+static MinimalTuple
+tts_minimal_get_minimal_tuple(TupleTableSlot *slot)
+{
+    MinimalTupleTableSlot *mslot = (MinimalTupleTableSlot *) slot;
+
+    // Materialize minimal tuple if not already present
+    if (!mslot->mintuple)
+        tts_minimal_materialize(slot);
+
+    return mslot->mintuple;
+}
+```

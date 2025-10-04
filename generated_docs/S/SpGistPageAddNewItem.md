@@ -51,3 +51,75 @@ The function includes sophisticated error handling with PANIC conditions when sp
 - Maintains accurate placeholder count in page opaque data for subsequent operations
 - Critical for SP-GiST's space management strategy, helping to minimize page fragmentation
 - Error handling varies based on errorOK parameter, supporting both strict and lenient insertion modes
+
+## Simplified Source
+
+```c
+OffsetNumber
+SpGistPageAddNewItem(SpGistState *state, Page page, Item item, Size size,
+                     OffsetNumber *startOffset, bool errorOK)
+{
+    SpGistPageOpaque opaque = SpGistPageGetOpaque(page);
+    OffsetNumber i, maxoff, offnum;
+
+    // Try to replace a placeholder if space allows
+    if (opaque->nPlaceholder > 0 &&
+        PageGetExactFreeSpace(page) + SGDTSIZE >= MAXALIGN(size))
+    {
+        maxoff = PageGetMaxOffsetNumber(page);
+        offnum = InvalidOffsetNumber;
+
+        // Search for placeholder starting from hint
+        for (;;)
+        {
+            i = (startOffset && *startOffset != InvalidOffsetNumber) ?
+                *startOffset : FirstOffsetNumber;
+
+            for (; i <= maxoff; i++)
+            {
+                SpGistDeadTuple it = (SpGistDeadTuple) PageGetItem(page, PageGetItemId(page, i));
+                if (it->tupstate == SPGIST_PLACEHOLDER)
+                {
+                    offnum = i;
+                    break;
+                }
+            }
+
+            // Found placeholder or exhausted search
+            if (offnum != InvalidOffsetNumber ||
+                !startOffset || *startOffset == InvalidOffsetNumber)
+                break;
+
+            // Reset hint and try from beginning
+            *startOffset = InvalidOffsetNumber;
+        }
+
+        if (offnum != InvalidOffsetNumber)
+        {
+            // Replace placeholder with new item
+            PageIndexTupleDelete(page, offnum);
+            offnum = PageAddItem(page, item, size, offnum, false, false);
+
+            if (offnum != InvalidOffsetNumber)
+            {
+                Assert(opaque->nPlaceholder > 0);
+                opaque->nPlaceholder--;
+                if (startOffset)
+                    *startOffset = offnum + 1;
+            }
+            else
+                elog(PANIC, "failed to add item of size %zu to SPGiST index page", size);
+
+            return offnum;
+        }
+    }
+
+    // No placeholder replacement possible - add to free space
+    offnum = PageAddItem(page, item, size, InvalidOffsetNumber, false, false);
+
+    if (offnum == InvalidOffsetNumber && !errorOK)
+        elog(ERROR, "failed to add item of size %zu to SPGiST index page", size);
+
+    return offnum;
+}
+```

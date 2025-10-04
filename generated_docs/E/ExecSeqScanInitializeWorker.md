@@ -36,3 +36,18 @@ This function is called by parallel worker processes to set up their local seque
 - The shared memory lookup uses the plan node ID as a key to find the correct parallel scan descriptor
 - Each worker gets its own scan descriptor but shares the underlying parallel scan state
 - Located in src/backend/executor/nodeSeqscan.c at lines 294-302
+
+## Simplified Source
+```c
+void ExecSeqScanInitializeWorker(SeqScanState *node, ParallelWorkerContext *pwcxt) {
+    // Look up the parallel scan descriptor from shared memory
+    // using the plan node ID as the key
+    ParallelTableScanDesc pscan = shm_toc_lookup(pwcxt->toc,
+                                                 node->ss.ps.plan->plan_node_id,
+                                                 false);
+
+    // Initialize this worker's scan descriptor for parallel scanning
+    node->ss.ss_currentScanDesc = table_beginscan_parallel(node->ss.ss_currentRelation,
+                                                           pscan);
+}
+```

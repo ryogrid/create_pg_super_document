@@ -33,3 +33,17 @@ This callback function is registered with PostgreSQL's error handling system to 
 - Part of PLpython's integration with PostgreSQL's comprehensive error reporting system
 - Helps distinguish between errors in function execution vs. errors in return value processing
 - The context message helps users debug issues with return value conversion or formatting
+
+## Simplified Source
+
+```c
+static void
+plpython_return_error_callback(void *arg)
+{
+    PLyExecutionContext *exec_ctx = PLy_current_execution_context();
+
+    // Add error context for functions (not procedures) during return value creation
+    if (exec_ctx->curr_proc && !exec_ctx->curr_proc->is_procedure)
+        errcontext("while creating return value");
+}
+```

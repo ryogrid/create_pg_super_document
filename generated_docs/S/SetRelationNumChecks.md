@@ -46,3 +46,37 @@ The relcache invalidation is crucial because it forces other backends to rebuild
 - Properly manages memory by freeing the copied heap tuple after use
 - Uses system cache lookups for efficient access to pg_class tuples
 - Critical for maintaining accurate metadata about relation constraints across the cluster
+
+## Simplified Source
+
+```c
+static void SetRelationNumChecks(Relation rel, int numchecks) {
+    Relation relrel;
+    HeapTuple reltup;
+    Form_pg_class relStruct;
+
+    // Open pg_class catalog for updates
+    relrel = table_open(RelationRelationId, RowExclusiveLock);
+    reltup = SearchSysCacheCopy1(RELOID,
+                                ObjectIdGetDatum(RelationGetRelid(rel)));
+    if (!HeapTupleIsValid(reltup)) {
+        elog(ERROR, "cache lookup failed for relation %u",
+             RelationGetRelid(rel));
+    }
+    relStruct = (Form_pg_class) GETSTRUCT(reltup);
+
+    // Update constraint count if it has changed
+    if (relStruct->relchecks != numchecks) {
+        relStruct->relchecks = numchecks;
+        CatalogTupleUpdate(relrel, &reltup->t_self, reltup);
+    } else {
+        // Force relcache invalidation even if count unchanged
+        // to ensure SI messages are sent to other backends
+        CacheInvalidateRelcache(rel);
+    }
+
+    // Clean up
+    heap_freetuple(reltup);
+    table_close(relrel, RowExclusiveLock);
+}
+```

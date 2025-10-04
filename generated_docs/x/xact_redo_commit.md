@@ -44,3 +44,80 @@ This function performs the recovery replay of transaction commit operations duri
 
 ## Notes and Other Information
 The function's execution order is critical, as noted in the comment that it was much shorter before version 9.0. During hot standby recovery, it uses async commit protocol to ensure consistency with hint bits and maintains proper ordering of clog updates before ProcArray updates. The function includes special handling for forced sync commits and apply feedback for synchronous replication scenarios. File drops and statistics operations are protected by XLogFlush calls to maintain WAL-first rule compliance.
+
+## Simplified Source
+
+```c
+static void xact_redo_commit(xl_xact_parsed_commit *parsed,
+                           TransactionId xid,
+                           XLogRecPtr lsn,
+                           RepOriginId origin_id)
+{
+    TransactionId max_xid;
+    TimestampTz commit_time;
+
+    Assert(TransactionIdIsValid(xid));
+
+    // Find highest XID and advance next transaction ID
+    max_xid = TransactionIdLatest(xid, parsed->nsubxacts, parsed->subxacts);
+    AdvanceNextFullTransactionIdPastXid(max_xid);
+
+    // Set commit timestamp based on origin information
+    if (parsed->xinfo & XACT_XINFO_HAS_ORIGIN)
+        commit_time = parsed->origin_timestamp;
+    else
+        commit_time = parsed->xact_time;
+
+    // Record commit timestamp for transaction tree
+    TransactionTreeSetCommitTsData(xid, parsed->nsubxacts, parsed->subxacts,
+                                   commit_time, origin_id);
+
+    if (standbyState == STANDBY_DISABLED)
+    {
+        // Normal recovery: mark transaction committed
+        TransactionIdCommitTree(xid, parsed->nsubxacts, parsed->subxacts);
+    }
+    else
+    {
+        // Hot standby recovery: more complex processing
+        RecordKnownAssignedTransactionIds(max_xid);
+        TransactionIdAsyncCommitTree(xid, parsed->nsubxacts, parsed->subxacts, lsn);
+        ExpireTreeKnownAssignedTransactionIds(xid, parsed->nsubxacts, parsed->subxacts, max_xid);
+
+        // Process cache invalidations
+        ProcessCommittedInvalidationMessages(parsed->msgs, parsed->nmsgs,
+                                           XactCompletionRelcacheInitFileInval(parsed->xinfo),
+                                           parsed->dbId, parsed->tsId);
+
+        // Release locks if present
+        if (parsed->xinfo & XACT_XINFO_HAS_AE_LOCKS)
+            StandbyReleaseLockTree(xid, parsed->nsubxacts, parsed->subxacts);
+    }
+
+    // Handle replication origin advancement
+    if (parsed->xinfo & XACT_XINFO_HAS_ORIGIN)
+        replorigin_advance(origin_id, parsed->origin_lsn, lsn, false, false);
+
+    // Drop relation files if specified
+    if (parsed->nrels > 0)
+    {
+        XLogFlush(lsn);  // Ensure WAL-first rule
+        DropRelationFiles(parsed->xlocators, parsed->nrels, true);
+    }
+
+    // Execute transactional statistics drops
+    if (parsed->nstats > 0)
+    {
+        XLogFlush(lsn);  // Ensure WAL-first rule
+        pgstat_execute_transactional_drops(parsed->nstats, parsed->stats, true);
+    }
+
+    // Handle forced sync commit requests
+    if (XactCompletionForceSyncCommit(parsed->xinfo))
+        XLogFlush(lsn);
+
+    // Request apply feedback for synchronous replication
+    if (XactCompletionApplyFeedback(parsed->xinfo))
+        XLogRequestWalReceiverReply();
+}
+```

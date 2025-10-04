@@ -34,3 +34,29 @@ PQoidValue serves as a more robust and type-safe version of PQoidStatus by parsi
 - The returned Oid type is more suitable for PostgreSQL internal operations than string representations
 - Part of the libpq client interface for PostgreSQL database connectivity
 - Preferred over PQoidStatus when OID values need to be used in further PostgreSQL operations
+
+## Simplified Source
+
+```c
+Oid PQoidValue(const PGresult *res)
+{
+    char *endptr = NULL;
+    unsigned long result;
+
+    // Validate result and check for INSERT command format
+    if (!res ||
+        strncmp(res->cmdStatus, "INSERT ", 7) != 0 ||
+        res->cmdStatus[7] < '0' ||
+        res->cmdStatus[7] > '9')
+        return InvalidOid;
+
+    // Parse OID from command status string
+    result = strtoul(res->cmdStatus + 7, &endptr, 10);
+
+    // Validate successful parsing
+    if (!endptr || (*endptr != ' ' && *endptr != '\0'))
+        return InvalidOid;
+    else
+        return (Oid) result;
+}
+```

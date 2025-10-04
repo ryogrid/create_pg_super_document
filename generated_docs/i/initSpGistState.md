@@ -32,3 +32,34 @@ The function retrieves cached static information about the index through spgGetC
 
 ## Notes and Other Information
 The function sets the redirectXid field based on transaction context: it uses the current transaction ID if available, or InvalidTransactionId for operations like VACUUM or REINDEX CONCURRENTLY where forcing XID assignment would be inappropriate. The isBuild flag is initially set to false and can be overridden by spgbuild when constructing new indexes. The function allocates SGDTSIZE bytes for dead tuple storage workspace that will be used during index maintenance operations.
+
+## Simplified Source
+
+```c
+void initSpGistState(SpGistState *state, Relation index) {
+    SpGistCache *cache;
+
+    state->index = index;
+
+    // Get cached configuration and type information
+    cache = spgGetCache(index);
+    state->config = cache->config;
+    state->attType = cache->attType;
+    state->attLeafType = cache->attLeafType;
+    state->attPrefixType = cache->attPrefixType;
+    state->attLabelType = cache->attLabelType;
+
+    // Set up tuple descriptor for leaf tuples
+    state->leafTupDesc = getSpGistTupleDesc(state->index, &state->attLeafType);
+
+    // Allocate workspace for dead tuple construction
+    state->deadTupleStorage = palloc0(SGDTSIZE);
+
+    // Set transaction ID for redirection tuples
+    // Use current XID if available, else InvalidTransactionId for VACUUM/REINDEX
+    state->redirectXid = GetTopTransactionIdIfAny();
+
+    // Default to non-build mode (spgbuild will override if needed)
+    state->isBuild = false;
+}
+```

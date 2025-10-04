@@ -76,3 +76,50 @@ For a short summary of all commands, run 'snap help --all'.: Snapshot for non-tr
 - The rb->message callback is responsible for the actual message processing/delivery
 - Message data is copied to ensure it remains valid for later processing in transactional cases
 - Both prefix and message content are preserved exactly as provided in the WAL record
+
+## Simplified Source
+
+```c
+void ReorderBufferQueueMessage(ReorderBuffer *rb, TransactionId xid,
+                              Snapshot snap, XLogRecPtr lsn,
+                              bool transactional, const char *prefix,
+                              Size message_size, const char *message) {
+    if (transactional) {
+        // Transactional messages: queue for processing during commit
+        MemoryContext oldcontext = MemoryContextSwitchTo(rb->context);
+
+        // Create and populate change structure
+        ReorderBufferChange *change = ReorderBufferGetChange(rb);
+        change->action = REORDER_BUFFER_CHANGE_MESSAGE;
+        change->data.msg.prefix = pstrdup(prefix);
+        change->data.msg.message_size = message_size;
+        change->data.msg.message = palloc(message_size);
+        memcpy(change->data.msg.message, message, message_size);
+
+        // Queue the change in the transaction
+        ReorderBufferQueueChange(rb, xid, lsn, change, false);
+
+        MemoryContextSwitchTo(oldcontext);
+    } else {
+        // Non-transactional messages: process immediately
+        ReorderBufferTXN *txn = NULL;
+
+        if (xid != InvalidTransactionId)
+            txn = ReorderBufferTXNByXid(rb, xid, true, NULL, lsn, true);
+
+        // Setup snapshot and process message with error handling
+        SetupHistoricSnapshot(snap, NULL);
+        PG_TRY();
+        {
+            rb->message(rb, txn, lsn, false, prefix, message_size, message);
+            TeardownHistoricSnapshot(false);
+        }
+        PG_CATCH();
+        {
+            TeardownHistoricSnapshot(true);
+            PG_RE_THROW();
+        }
+        PG_END_TRY();
+    }
+}
+```

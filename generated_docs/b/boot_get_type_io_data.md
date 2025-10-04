@@ -48,3 +48,62 @@ The function is designed to support array_in and array_out operations during ear
 - The typioparam logic matches getTypeIOParam() for consistency
 - Essential for enabling array operations before the full type system is ready
 - Falls back gracefully between cached pg_type data and hard-coded TypInfo array
+
+## Simplified Source
+
+```c
+void boot_get_type_io_data(Oid typid, int16 *typlen, bool *typbyval,
+                          char *typalign, char *typdelim, Oid *typioparam,
+                          Oid *typinput, Oid *typoutput) {
+    if (Typ != NIL) {
+        // Search cached pg_type data
+        struct typmap *ap = NULL;
+        ListCell *lc;
+        foreach(lc, Typ) {
+            ap = lfirst(lc);
+            if (ap->am_oid == typid)
+                break;
+        }
+
+        if (!ap || ap->am_oid != typid)
+            elog(ERROR, "type OID %u not found in Typ list", typid);
+
+        // Extract type information from pg_type entry
+        *typlen = ap->am_typ.typlen;
+        *typbyval = ap->am_typ.typbyval;
+        *typalign = ap->am_typ.typalign;
+        *typdelim = ap->am_typ.typdelim;
+        *typinput = ap->am_typ.typinput;
+        *typoutput = ap->am_typ.typoutput;
+
+        // Set I/O parameter (element type for arrays, self for others)
+        if (OidIsValid(ap->am_typ.typelem))
+            *typioparam = ap->am_typ.typelem;
+        else
+            *typioparam = typid;
+    } else {
+        // Use hardcoded TypInfo array
+        int typeindex;
+        for (typeindex = 0; typeindex < n_types; typeindex++) {
+            if (TypInfo[typeindex].oid == typid)
+                break;
+        }
+        if (typeindex >= n_types)
+            elog(ERROR, "type OID %u not found in TypInfo", typid);
+
+        // Extract type information from TypInfo entry
+        *typlen = TypInfo[typeindex].len;
+        *typbyval = TypInfo[typeindex].byval;
+        *typalign = TypInfo[typeindex].align;
+        *typdelim = ',';  // Assume comma delimiter for all bootstrap types
+        *typinput = TypInfo[typeindex].inproc;
+        *typoutput = TypInfo[typeindex].outproc;
+
+        // Set I/O parameter (element type for arrays, self for others)
+        if (OidIsValid(TypInfo[typeindex].elem))
+            *typioparam = TypInfo[typeindex].elem;
+        else
+            *typioparam = typid;
+    }
+}
+```

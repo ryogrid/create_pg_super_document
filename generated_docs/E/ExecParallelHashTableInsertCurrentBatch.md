@@ -42,3 +42,40 @@ The function performs a straightforward insertion: allocates shared memory for t
 - Typically used during batch reloading operations where tuple placement is predetermined
 - Does not increment tuple counts or handle batch switching like the general insertion function
 - Memory management follows the same pattern as other insertion functions with conditional tuple freeing
+
+## Simplified Source
+
+```c
+void ExecParallelHashTableInsertCurrentBatch(HashJoinTable hashtable,
+                                             TupleTableSlot *slot,
+                                             uint32 hashvalue)
+{
+    // Extract minimal tuple from slot
+    bool shouldFree;
+    MinimalTuple tuple = ExecFetchSlotMinimalTuple(slot, &shouldFree);
+
+    // Determine bucket and verify correct batch
+    int bucketno, batchno;
+    ExecHashGetBucketAndBatch(hashtable, hashvalue, &bucketno, &batchno);
+    Assert(batchno == hashtable->curbatch);
+
+    // Allocate shared memory for hash tuple
+    dsa_pointer shared;
+    HashJoinTuple hashTuple = ExecParallelHashTupleAlloc(hashtable,
+                                                         HJTUPLE_OVERHEAD + tuple->t_len,
+                                                         &shared);
+
+    // Initialize hash tuple
+    hashTuple->hashvalue = hashvalue;
+    memcpy(HJTUPLE_MINTUPLE(hashTuple), tuple, tuple->t_len);
+    HeapTupleHeaderClearMatch(HJTUPLE_MINTUPLE(hashTuple));
+
+    // Add to bucket chain
+    ExecParallelHashPushTuple(&hashtable->buckets.shared[bucketno],
+                              hashTuple, shared);
+
+    // Clean up if needed
+    if (shouldFree)
+        heap_free_minimal_tuple(tuple);
+}
+```

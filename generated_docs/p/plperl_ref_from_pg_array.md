@@ -42,3 +42,75 @@ This function transforms PostgreSQL array data into Perl data structures that ca
 - Currently does not cache type information lookups, which could impact performance
 - Supports multi-dimensional arrays through recursive splitting via split_array function
 - Memory allocation uses PostgreSQL memory context for intermediate data structures
+
+## Simplified Source
+
+```c
+static SV *
+plperl_ref_from_pg_array(Datum arg, Oid typid)
+{
+    // Extract array data from the datum
+    ArrayType *pg_array = DatumGetArrayTypeP(arg);
+    Oid elementtype = ARR_ELEMTYPE(pg_array);
+
+    // Setup array processing information
+    plperl_array_info *info = palloc0(sizeof(plperl_array_info));
+
+    // Get element type information for conversion
+    int16 typlen;
+    bool typbyval;
+    char typalign, typdelim;
+    Oid typioparam, typoutputfunc;
+    get_type_io_data(elementtype, IOFunc_output,
+                     &typlen, &typbyval, &typalign,
+                     &typdelim, &typioparam, &typoutputfunc);
+
+    // Check for custom transform function for element type
+    Oid transform_funcid = get_transform_fromsql(elementtype,
+                                                current_call_data->prodesc->lang_oid,
+                                                current_call_data->prodesc->trftypes);
+
+    // Setup conversion function (transform or output)
+    if (OidIsValid(transform_funcid)) {
+        fmgr_info(transform_funcid, &info->transform_proc);
+    } else {
+        fmgr_info(typoutputfunc, &info->proc);
+    }
+
+    info->elem_is_rowtype = type_is_rowtype(elementtype);
+
+    // Get array dimension information
+    info->ndims = ARR_NDIM(pg_array);
+    int *dims = ARR_DIMS(pg_array);
+
+    SV *perl_array;
+
+    if (info->ndims == 0) {
+        // Empty array case
+        perl_array = newRV_noinc((SV *) newAV());
+    } else {
+        // Deconstruct PostgreSQL array into individual elements
+        int nitems;
+        deconstruct_array(pg_array, elementtype, typlen, typbyval,
+                          typalign, &info->elements, &info->nulls, &nitems);
+
+        // Calculate element counts for each dimension
+        info->nelems = palloc(sizeof(int) * info->ndims);
+        info->nelems[0] = nitems;
+        for (int i = 1; i < info->ndims; i++) {
+            info->nelems[i] = info->nelems[i - 1] / dims[i - 1];
+        }
+
+        // Build the multidimensional Perl array structure
+        perl_array = split_array(info, 0, nitems, 0);
+    }
+
+    // Create blessed object with array data and type information
+    HV *blessed_hash = newHV();
+    hv_store(blessed_hash, "array", 5, perl_array, 0);
+    hv_store(blessed_hash, "typeoid", 7, newSVuv(typid), 0);
+
+    return sv_bless(newRV_noinc((SV *) blessed_hash),
+                    gv_stashpv("PostgreSQL::InServer::ARRAY", 0));
+}
+```

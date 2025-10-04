@@ -43,3 +43,32 @@ The function uses a lazy initialization pattern - it's called only on the first 
 - Function pointers are globally reassigned, affecting all subsequent popcount calls
 - AVX-512 support is conditionally compiled and represents the highest optimization tier
 - Part of PostgreSQL's adaptive optimization strategy to maximize performance across different hardware configurations
+
+## Simplified Source
+
+```c
+static inline void choose_popcount_functions(void) {
+    // Choose implementation based on CPU popcount instruction support
+    if (pg_popcount_available()) {
+        // Use fast assembly implementations
+        pg_popcount32 = pg_popcount32_fast;
+        pg_popcount64 = pg_popcount64_fast;
+        pg_popcount_optimized = pg_popcount_fast;
+        pg_popcount_masked_optimized = pg_popcount_masked_fast;
+    } else {
+        // Use portable C implementations
+        pg_popcount32 = pg_popcount32_slow;
+        pg_popcount64 = pg_popcount64_slow;
+        pg_popcount_optimized = pg_popcount_slow;
+        pg_popcount_masked_optimized = pg_popcount_masked_slow;
+    }
+
+#ifdef USE_AVX512_POPCNT_WITH_RUNTIME_CHECK
+    // Further optimize with AVX-512 if available
+    if (pg_popcount_avx512_available()) {
+        pg_popcount_optimized = pg_popcount_avx512;
+        pg_popcount_masked_optimized = pg_popcount_masked_avx512;
+    }
+#endif
+}
+```

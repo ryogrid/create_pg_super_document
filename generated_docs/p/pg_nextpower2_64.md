@@ -30,3 +30,19 @@ This function efficiently computes the next power of 2 for 64-bit unsigned integ
 - For non-power-of-2 inputs, shifts 1 left by (leftmost bit position + 1) to get the next power of 2
 - Commonly used in hash table implementations and memory allocation routines where power-of-2 sizes are preferred
 - The upper bound restriction prevents integer overflow in the result
+
+## Simplified Source
+
+```c
+static inline uint64 pg_nextpower2_64(uint64 num) {
+    Assert(num > 0 && num <= PG_UINT64_MAX / 2 + 1);
+
+    // Check if already a power of 2
+    if ((num & (num - 1)) == 0) {
+        return num;
+    }
+
+    // Find next higher power of 2
+    return ((uint64)1) << (pg_leftmost_one_pos64(num) + 1);
+}
+```

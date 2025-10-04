@@ -40,3 +40,28 @@ The function allocates memory for the encrypted password string and returns it t
 - Not connection-dependent, can be used without active database connection
 - MD5 is considered cryptographically weak; modern applications should use stronger methods
 - Thread-safe assuming underlying pg_md5_encrypt is thread-safe
+
+## Simplified Source
+
+```c
+char *
+PQencryptPassword(const char *passwd, const char *user)
+{
+    char *crypt_pwd;
+    const char *errstr = NULL;
+
+    // Allocate memory for MD5 encrypted password
+    crypt_pwd = malloc(MD5_PASSWD_LEN + 1);
+    if (!crypt_pwd) {
+        return NULL;
+    }
+
+    // Encrypt password using MD5 with username as salt
+    if (!pg_md5_encrypt(passwd, user, strlen(user), crypt_pwd, &errstr)) {
+        free(crypt_pwd);
+        return NULL;
+    }
+
+    return crypt_pwd;
+}
+```

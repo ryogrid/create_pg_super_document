@@ -45,3 +45,40 @@ For regular attributes, it uses TupleDescAttr to access the attribute type OID. 
 - Supports both regular attributes (fnumber > 0) and system attributes (fnumber < 0)
 - Sets global SPI_result to 0 on success
 - Uses system cache for efficient type name lookup with proper cache release
+
+## Simplified Source
+
+```c
+char *SPI_gettype(TupleDesc tupdesc, int fnumber) {
+    SPI_result = 0;
+
+    // Validate attribute number range
+    if (fnumber > tupdesc->natts || fnumber == 0 ||
+        fnumber <= FirstLowInvalidHeapAttributeNumber) {
+        SPI_result = SPI_ERROR_NOATTRIBUTE;
+        return NULL;
+    }
+
+    // Get type OID from attribute
+    Oid type_oid;
+    if (fnumber > 0) {
+        type_oid = TupleDescAttr(tupdesc, fnumber - 1)->atttypid;  // Regular attribute
+    } else {
+        type_oid = (SystemAttributeDefinition(fnumber))->atttypid;  // System attribute
+    }
+
+    // Look up type name in system catalog
+    HeapTuple type_tuple = SearchSysCache1(TYPEOID, ObjectIdGetDatum(type_oid));
+
+    if (!HeapTupleIsValid(type_tuple)) {
+        SPI_result = SPI_ERROR_TYPUNKNOWN;
+        return NULL;
+    }
+
+    // Extract and duplicate type name
+    char *type_name = pstrdup(NameStr(((Form_pg_type) GETSTRUCT(type_tuple))->typname));
+    ReleaseSysCache(type_tuple);
+
+    return type_name;
+}
+```

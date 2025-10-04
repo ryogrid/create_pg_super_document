@@ -37,3 +37,36 @@ For compactness, the equivalence class and restriction info arrays are summarize
 
 ## Notes and Other Information
 This function is part of PostgreSQL's query optimization infrastructure and provides visibility into how foreign key constraints are analyzed and utilized during query planning. The compact representation of equivalence classes and restriction info arrays (showing counts rather than full contents) reflects the practical need to balance information completeness with output readability. ForeignKeyOptInfo nodes are typically created during query planning when the optimizer analyzes foreign key relationships to enable optimizations like join elimination and constraint propagation. The function is essential for debugging foreign key-related optimization decisions in complex queries involving multiple tables with referential integrity constraints.
+
+## Simplified Source
+
+```c
+static void _outForeignKeyOptInfo(StringInfo str, const ForeignKeyOptInfo *node) {
+    WRITE_NODE_TYPE("FOREIGNKEYOPTINFO");
+
+    // Output basic foreign key information
+    WRITE_UINT_FIELD(con_relid);      // Referencing table OID
+    WRITE_UINT_FIELD(ref_relid);      // Referenced table OID
+    WRITE_INT_FIELD(nkeys);           // Number of key columns
+
+    // Output column mappings and operators
+    WRITE_ATTRNUMBER_ARRAY(conkey, node->nkeys);    // Referencing columns
+    WRITE_ATTRNUMBER_ARRAY(confkey, node->nkeys);   // Referenced columns
+    WRITE_OID_ARRAY(conpfeqop, node->nkeys);        // Equality operators
+
+    // Output optimization statistics
+    WRITE_INT_FIELD(nmatched_ec);     // Matched equivalence classes
+    WRITE_INT_FIELD(nconst_ec);       // Constant equivalence classes
+    WRITE_INT_FIELD(nmatched_rcols);  // Matched result columns
+    WRITE_INT_FIELD(nmatched_ri);     // Matched restriction infos
+
+    // Output compact equivalence class and restriction info counts
+    appendStringInfoString(str, " :eclass");
+    for (int i = 0; i < node->nkeys; i++)
+        appendStringInfo(str, " %d", (node->eclass[i] != NULL));
+
+    appendStringInfoString(str, " :rinfos");
+    for (int i = 0; i < node->nkeys; i++)
+        appendStringInfo(str, " %d", list_length(node->rinfos[i]));
+}
+```

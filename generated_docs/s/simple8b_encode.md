@@ -44,3 +44,79 @@ The algorithm requires that codewords be "full" - if a delta is too large for th
 - The codeword format uses 4 bits for the selector (bits 60-63) and the remaining 60 bits for encoded deltas
 - Deltas are shifted into the codeword in reverse order to facilitate correct decoding order
 - Essential component of IntegerSet's space-efficient storage mechanism
+
+## Simplified Source
+
+```c
+static uint64
+simple8b_encode(const uint64 *ints, int *num_encoded, uint64 base)
+{
+    int selector;
+    int nints;
+    int bits;
+    uint64 diff;
+    uint64 last_val;
+    uint64 codeword;
+    int i;
+
+    // Select the encoding mode by checking if deltas fit
+    selector = 0;
+    nints = simple8b_modes[0].num_ints;
+    bits = simple8b_modes[0].bits_per_int;
+    diff = ints[0] - base - 1;
+    last_val = ints[0];
+    i = 0;
+
+    for (;;)
+    {
+        if (diff >= (UINT64CONST(1) << bits))
+        {
+            // Delta too large, step up to next mode
+            selector++;
+            nints = simple8b_modes[selector].num_ints;
+            bits = simple8b_modes[selector].bits_per_int;
+
+            if (i >= nints)  // Already have enough deltas for this mode
+                break;
+        }
+        else
+        {
+            // Accept this delta
+            i++;
+            if (i >= nints)  // Codeword is full
+                break;
+
+            // Check next delta
+            diff = ints[i] - last_val - 1;
+            last_val = ints[i];
+        }
+    }
+
+    // Handle case where first delta is too large
+    if (nints == 0)
+    {
+        *num_encoded = 0;
+        return EMPTY_CODEWORD;
+    }
+
+    // Encode deltas into codeword (in reverse order)
+    codeword = 0;
+    if (bits > 0)
+    {
+        for (i = nints - 1; i > 0; i--)
+        {
+            diff = ints[i] - ints[i - 1] - 1;
+            codeword |= diff;
+            codeword <<= bits;
+        }
+        diff = ints[0] - base - 1;
+        codeword |= diff;
+    }
+
+    // Add selector to top 4 bits
+    codeword |= (uint64) selector << 60;
+
+    *num_encoded = nints;
+    return codeword;
+}
+```

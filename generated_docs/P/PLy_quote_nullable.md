@@ -37,3 +37,30 @@ This function is exposed to Python as `plpy.quote_nullable()` and is particularl
 - Returns properly quoted string when input is a valid string
 - Essential for handling optional/nullable values in dynamic SQL construction
 - Part of the PL/Python extension's public API for safe SQL construction with NULL handling
+
+## Simplified Source
+
+```c
+static PyObject *PLy_quote_nullable(PyObject *self, PyObject *args) {
+    const char *str;
+    char *quoted;
+    PyObject *ret;
+
+    // Parse single nullable string argument from Python
+    if (!PyArg_ParseTuple(args, "z:quote_nullable", &str))
+        return NULL;
+
+    // Handle NULL/None case by returning "NULL" string
+    if (str == NULL)
+        return PLyUnicode_FromString("NULL");
+
+    // Quote the string using PostgreSQL's core function
+    quoted = quote_literal_cstr(str);
+
+    // Convert back to Python string and clean up
+    ret = PLyUnicode_FromString(quoted);
+    pfree(quoted);
+
+    return ret;
+}
+```

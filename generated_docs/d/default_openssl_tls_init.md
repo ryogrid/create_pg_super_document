@@ -44,3 +44,26 @@ This design ensures that PostgreSQL servers can handle SSL certificate passphras
 - The logic carefully distinguishes between server startup (where interactive prompts might be acceptable) and runtime reloads (where they must be avoided)
 - Located in src/backend/libpq/be-secure-openssl.c at lines 1747-1768
 - Part of PostgreSQL's SSL/TLS security infrastructure for handling encrypted private keys
+
+## Simplified Source
+
+```c
+static void default_openssl_tls_init(SSL_CTX *context, bool isServerStart)
+{
+    if (isServerStart)
+    {
+        // Server startup: Use external password callback if configured
+        if (ssl_passphrase_command[0])
+            SSL_CTX_set_default_passwd_cb(context, ssl_external_passwd_cb);
+    }
+    else
+    {
+        // Configuration reload: Choose appropriate callback
+        if (ssl_passphrase_command[0] && ssl_passphrase_command_supports_reload)
+            SSL_CTX_set_default_passwd_cb(context, ssl_external_passwd_cb);
+        else
+            // Prevent interactive prompts in running server
+            SSL_CTX_set_default_passwd_cb(context, dummy_ssl_passwd_cb);
+    }
+}
+```

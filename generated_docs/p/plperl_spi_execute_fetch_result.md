@@ -51,3 +51,56 @@ The function handles large result sets by checking for overflow conditions and u
 - Returns a structured hash that matches expectations of PL/Perl developers
 - Handles both successful queries with data and status-only results (DDL, DML without RETURNING)
 - The "rows" field is only populated for successful SELECT-like operations
+
+## Simplified Source
+
+```c
+static HV *
+plperl_spi_execute_fetch_result(SPITupleTable *tuptable, uint64 processed, int status)
+{
+    dTHX;
+    HV *result;
+
+    check_spi_usage_allowed();
+
+    // Create result hash
+    result = newHV();
+
+    // Store status string
+    hv_store_string(result, "status", cstr2sv(SPI_result_code_string(status)));
+
+    // Store processed count with appropriate numeric type
+    hv_store_string(result, "processed",
+                   (processed > (uint64) UV_MAX) ?
+                   newSVnv((NV) processed) :
+                   newSVuv((UV) processed));
+
+    // Add rows if we have result data
+    if (status > 0 && tuptable) {
+        AV *rows;
+        SV *row;
+        uint64 i;
+
+        // Check for overflow in array size
+        if (processed > (uint64) AV_SIZE_MAX)
+            ereport(ERROR,
+                   (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                    errmsg("query result has too many rows to fit in a Perl array")));
+
+        // Create array and convert each tuple to hash
+        rows = newAV();
+        av_extend(rows, processed);
+        for (i = 0; i < processed; i++) {
+            row = plperl_hash_from_tuple(tuptable->vals[i], tuptable->tupdesc, true);
+            av_push(rows, row);
+        }
+
+        hv_store_string(result, "rows", newRV_noinc((SV *) rows));
+    }
+
+    // Clean up memory
+    SPI_freetuptable(tuptable);
+
+    return result;
+}
+```

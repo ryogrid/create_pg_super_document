@@ -43,3 +43,20 @@ This function provides a convenient interface for setting Python exceptions with
 - Widely used throughout PL/Python for consistent error reporting
 - Follows the standard Python C API pattern for exception setting
 - Part of PL/Python's error handling infrastructure
+
+## Simplified Source
+
+```c
+void PLy_exception_set(PyObject *exc, const char *fmt, ...) {
+    char buf[1024];
+    va_list ap;
+
+    // Format the message with variable arguments and internationalization
+    va_start(ap, fmt);
+    vsnprintf(buf, sizeof(buf), dgettext(TEXTDOMAIN, fmt), ap);
+    va_end(ap);
+
+    // Set the Python exception with the formatted message
+    PyErr_SetString(exc, buf);
+}
+```

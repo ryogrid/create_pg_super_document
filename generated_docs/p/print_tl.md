@@ -35,3 +35,31 @@ Each target entry is printed on a separate line with tab-separated fields showin
 - [Sort](../S/Sort.md)/group references are displayed in parentheses when present, with proper spacing alignment when absent
 - Output formatting uses tabs and newlines for structured, readable display
 - Located in src/backend/nodes/print.c as part of PostgreSQL's node printing utilities
+
+## Simplified Source
+
+```c
+void print_tl(const List *tlist, const List *rtable) {
+    const ListCell *tl;
+
+    printf("(\n");
+    foreach(tl, tlist) {
+        TargetEntry *tle = (TargetEntry *) lfirst(tl);
+
+        // Print result number and name
+        printf("\t%d %s\t", tle->resno,
+               tle->resname ? tle->resname : "<null>");
+
+        // Print sort/group reference if present
+        if (tle->ressortgroupref != 0)
+            printf("(%u):\t", tle->ressortgroupref);
+        else
+            printf("    :\t");
+
+        // Print the expression itself
+        print_expr((Node *) tle->expr, rtable);
+        printf("\n");
+    }
+    printf(")\n");
+}
+```

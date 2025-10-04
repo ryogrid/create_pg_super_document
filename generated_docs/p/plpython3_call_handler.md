@@ -54,3 +54,73 @@ This function serves as the primary execution handler for PL/Python procedures a
 - Part of PostgreSQL's procedural language execution infrastructure
 - Manages execution context stack to support nested PL/Python calls
 - Includes detailed error context setup for better debugging and error reporting
+
+## Simplified Source
+
+```c
+Datum
+plpython3_call_handler(PG_FUNCTION_ARGS)
+{
+    bool nonatomic;
+    Datum retval;
+    PLyExecutionContext *exec_ctx;
+    ErrorContextCallback plerrcontext;
+
+    // Initialize PL/Python environment
+    PLy_initialize();
+
+    // Determine if running in non-atomic context
+    nonatomic = fcinfo->context &&
+                IsA(fcinfo->context, CallContext) &&
+                !castNode(CallContext, fcinfo->context)->atomic;
+
+    // Establish SPI connection
+    if (SPI_connect_ext(nonatomic ? SPI_OPT_NONATOMIC : 0) != SPI_OK_CONNECT)
+        elog(ERROR, "SPI_connect failed");
+
+    // Push execution context onto stack
+    exec_ctx = PLy_push_execution_context(!nonatomic);
+
+    PG_TRY();
+    {
+        Oid funcoid = fcinfo->flinfo->fn_oid;
+        PLyProcedure *proc;
+
+        // Set up error callback for better error reporting
+        plerrcontext.callback = plpython_error_callback;
+        plerrcontext.arg = exec_ctx;
+        plerrcontext.previous = error_context_stack;
+        error_context_stack = &plerrcontext;
+
+        if (CALLED_AS_TRIGGER(fcinfo)) {
+            // Handle trigger execution
+            Relation tgrel = ((TriggerData *) fcinfo->context)->tg_relation;
+            HeapTuple trv;
+
+            proc = PLy_procedure_get(funcoid, RelationGetRelid(tgrel), true);
+            exec_ctx->curr_proc = proc;
+            trv = PLy_exec_trigger(fcinfo, proc);
+            retval = PointerGetDatum(trv);
+        }
+        else {
+            // Handle regular function execution
+            proc = PLy_procedure_get(funcoid, InvalidOid, false);
+            exec_ctx->curr_proc = proc;
+            retval = PLy_exec_function(fcinfo, proc);
+        }
+    }
+    PG_CATCH();
+    {
+        // Cleanup on error
+        PLy_pop_execution_context();
+        PyErr_Clear();
+        PG_RE_THROW();
+    }
+    PG_END_TRY();
+
+    // Normal cleanup
+    PLy_pop_execution_context();
+
+    return retval;
+}
+```

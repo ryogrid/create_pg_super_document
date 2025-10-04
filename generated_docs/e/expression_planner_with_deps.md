@@ -45,3 +45,46 @@ This function is designed for scenarios where expressions need to be cached and 
 - Used when expressions need to be cached beyond current query duration
 - The dependency information enables proper cache invalidation when referenced objects change
 - Similar core transformation logic to  but with comprehensive dependency tracking
+
+## Simplified Source
+
+```c
+Expr *
+expression_planner_with_deps(Expr *expr,
+                            List **relationOids,
+                            List **invalItems)
+{
+    Node *result;
+    PlannerGlobal glob;
+    PlannerInfo root;
+
+    // Initialize dummy planner state for dependency tracking
+    MemSet(&glob, 0, sizeof(glob));
+    glob.type = T_PlannerGlobal;
+    glob.relationOids = NIL;
+    glob.invalItems = NIL;
+
+    MemSet(&root, 0, sizeof(root));
+    root.type = T_PlannerInfo;
+    root.glob = &glob;
+
+    // Perform expression transformations with dependency tracking
+    // - Convert named-argument function calls
+    // - Insert default arguments
+    // - Simplify constant subexpressions
+    // - Collect dependency information
+    result = eval_const_expressions(&root, (Node *) expr);
+
+    // Fill in missing operator function IDs
+    fix_opfuncids(result);
+
+    // Extract any additional dependencies from the final expression
+    extract_query_dependencies_walker(result, &root);
+
+    // Return dependency information
+    *relationOids = glob.relationOids;
+    *invalItems = glob.invalItems;
+
+    return (Expr *) result;
+}
+```

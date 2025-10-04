@@ -54,3 +54,95 @@ The function uses the subtransaction pattern (pltcl_subtrans_begin/commit/abort)
 - [Plan](../P/Plan.md) identifiers are stored in the interpreter's query hash table
 - Located in src/pl/tcl/pltcl.c:2547-2674
 - Memory leaks can occur if functions are recompiled (noted as FIXME in source)
+
+## Simplified Source
+
+```c
+static int pltcl_SPI_prepare(ClientData cdata, Tcl_Interp *interp,
+                            int objc, Tcl_Obj *const objv[]) {
+    MemoryContext plan_cxt = NULL;
+    Tcl_Size nargs;
+    Tcl_Obj **argsObj;
+    pltcl_query_desc *qdesc;
+    int i;
+    Tcl_HashEntry *hashent;
+    int hashnew;
+    Tcl_HashTable *query_hash;
+    MemoryContext oldcontext = CurrentMemoryContext;
+    ResourceOwner oldowner = CurrentResourceOwner;
+
+    // Check syntax: expect "command query argtypes"
+    if (objc != 3) {
+        Tcl_WrongNumArgs(interp, 1, objv, "query argtypes");
+        return TCL_ERROR;
+    }
+
+    // Parse argument type list
+    if (Tcl_ListObjGetElements(interp, objv[2], &nargs, &argsObj) != TCL_OK) {
+        return TCL_ERROR;
+    }
+
+    // Create memory context and query descriptor
+    plan_cxt = AllocSetContextCreate(TopMemoryContext,
+                                    "PL/Tcl spi_prepare query",
+                                    ALLOCSET_SMALL_SIZES);
+    MemoryContextSwitchTo(plan_cxt);
+    qdesc = (pltcl_query_desc *) palloc0(sizeof(pltcl_query_desc));
+    snprintf(qdesc->qname, sizeof(qdesc->qname), "%p", qdesc);
+    qdesc->nargs = nargs;
+    qdesc->argtypes = (Oid *) palloc(nargs * sizeof(Oid));
+    qdesc->arginfuncs = (FmgrInfo *) palloc(nargs * sizeof(FmgrInfo));
+    qdesc->argtypioparams = (Oid *) palloc(nargs * sizeof(Oid));
+    MemoryContextSwitchTo(oldcontext);
+
+    // Execute prepare in subtransaction for error safety
+    pltcl_subtrans_begin(oldcontext, oldowner);
+
+    PG_TRY();
+    {
+        // Resolve parameter types and input functions
+        for (i = 0; i < nargs; i++) {
+            Oid typId, typInput, typIOParam;
+            int32 typmod;
+
+            parseTypeString(Tcl_GetString(argsObj[i]), &typId, &typmod, NULL);
+            getTypeInputInfo(typId, &typInput, &typIOParam);
+
+            qdesc->argtypes[i] = typId;
+            fmgr_info_cxt(typInput, &(qdesc->arginfuncs[i]), plan_cxt);
+            qdesc->argtypioparams[i] = typIOParam;
+        }
+
+        // Prepare and keep the plan
+        UTF_BEGIN;
+        qdesc->plan = SPI_prepare(UTF_U2E(Tcl_GetString(objv[1])),
+                                 nargs, qdesc->argtypes);
+        UTF_END;
+
+        if (qdesc->plan == NULL) {
+            elog(ERROR, "SPI_prepare() failed");
+        }
+
+        if (SPI_keepplan(qdesc->plan)) {
+            elog(ERROR, "SPI_keepplan() failed");
+        }
+
+        pltcl_subtrans_commit(oldcontext, oldowner);
+    }
+    PG_CATCH();
+    {
+        pltcl_subtrans_abort(interp, oldcontext, oldowner);
+        MemoryContextDelete(plan_cxt);
+        return TCL_ERROR;
+    }
+    PG_END_TRY();
+
+    // Store plan in hash table and return plan name
+    query_hash = &pltcl_current_call_state->prodesc->interp_desc->query_hash;
+    hashent = Tcl_CreateHashEntry(query_hash, qdesc->qname, &hashnew);
+    Tcl_SetHashValue(hashent, (ClientData) qdesc);
+
+    Tcl_SetObjResult(interp, Tcl_NewStringObj(qdesc->qname, -1));
+    return TCL_OK;
+}
+```

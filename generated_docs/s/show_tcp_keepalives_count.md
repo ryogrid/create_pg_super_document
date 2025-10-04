@@ -34,3 +34,16 @@ The function is part of PostgreSQL's configuration parameter system and is calle
 - Part of PostgreSQL's libpq communication subsystem for managing client connections
 - Works in conjunction with tcp_keepalives_idle and tcp_keepalives_interval to provide complete TCP keepalive functionality
 - Only supported on platforms that provide the TCP_KEEPCNT socket option
+
+## Simplified Source
+
+```c
+const char *show_tcp_keepalives_count(void)
+{
+    static char nbuf[16];
+
+    // Get current keepalive count and format as string
+    snprintf(nbuf, sizeof(nbuf), "%d", pq_getkeepalivescount(MyProcPort));
+    return nbuf;
+}
+```

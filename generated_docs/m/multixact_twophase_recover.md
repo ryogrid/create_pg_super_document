@@ -39,3 +39,22 @@ This function is part of the two-phase commit recovery mechanism and is responsi
 - Registered as a recovery callback with the two-phase commit resource manager
 - Part of PostgreSQL's crash recovery and two-phase commit infrastructure
 - Located in src/backend/access/transam/multixact.c:1891-1911
+
+## Simplified Source
+
+```c
+void
+multixact_twophase_recover(TransactionId xid, uint16 info,
+                          void *recdata, uint32 len)
+{
+    ProcNumber dummyProcNumber = TwoPhaseGetDummyProcNumber(xid, false);
+    MultiXactId oldestMember;
+
+    // Extract the oldest member XID from recovery data
+    Assert(len == sizeof(MultiXactId));
+    oldestMember = *((MultiXactId *) recdata);
+
+    // Restore the oldest member tracking for this prepared transaction
+    OldestMemberMXactId[dummyProcNumber] = oldestMember;
+}
+```

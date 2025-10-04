@@ -35,3 +35,24 @@ This function implements the getsysattr callback for heap tuple table slots with
 - The actual system attribute extraction logic is implemented in heap_getsysattr
 - Critical for queries that need access to tuple metadata beyond user-defined columns
 - Part of PostgreSQL's system catalog and MVCC (Multi-Version Concurrency Control) infrastructure
+
+## Simplified Source
+
+```c
+static Datum
+tts_heap_getsysattr(TupleTableSlot *slot, int attnum, bool *isnull)
+{
+    HeapTupleTableSlot *hslot = (HeapTupleTableSlot *) slot;
+
+    // Ensure slot is not empty
+    Assert(!TTS_EMPTY(slot));
+
+    // Check if tuple is materialized - system columns require physical tuple
+    if (!hslot->tuple)
+        ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                errmsg("cannot retrieve a system column in this context")));
+
+    // Delegate to heap-specific system attribute retrieval
+    return heap_getsysattr(hslot->tuple, attnum, slot->tts_tupleDescriptor, isnull);
+}
+```

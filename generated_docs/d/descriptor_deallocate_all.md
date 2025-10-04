@@ -32,3 +32,16 @@ This internal function iterates through a linked list of descriptors, deallocati
 - Used for cleanup operations, particularly during library termination or when deallocating entire descriptor collections
 - Part of the internal implementation of the ECPG descriptor management system
 - The function ensures no memory leaks by completely deallocating all nodes in the provided list
+
+## Simplified Source
+
+```c
+static void descriptor_deallocate_all(struct descriptor *list) {
+    // Traverse and free all descriptors in the list
+    while (list) {
+        struct descriptor *next = list->next;
+        descriptor_free(list);
+        list = next;
+    }
+}
+```

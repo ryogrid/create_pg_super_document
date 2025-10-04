@@ -36,3 +36,26 @@ This function is called when an archive transmission is complete, but does not e
 - Sends a 'p' type byte followed by the total bytes processed (state->bytes_done)
 - Critical for final progress reporting when this is the last archive in the backup
 - Uses pq_flush_if_writable to ensure the progress message reaches the client promptly
+
+## Simplified Source
+
+```c
+static void
+bbsink_copystream_end_archive(bbsink *sink)
+{
+    bbsink_copystream *mysink = (bbsink_copystream *) sink;
+    bbsink_state *state = mysink->base.bbs_state;
+    StringInfoData buf;
+
+    // Update progress tracking state
+    mysink->bytes_done_at_last_time_check = state->bytes_done;
+    mysink->last_progress_report_time = GetCurrentTimestamp();
+
+    // Force a final progress report to ensure accurate completion status
+    pq_beginmessage(&buf, PqMsg_CopyData);
+    pq_sendbyte(&buf, 'p');  // 'p' = Progress report
+    pq_sendint64(&buf, state->bytes_done);
+    pq_endmessage(&buf);
+    pq_flush_if_writable();
+}
+```

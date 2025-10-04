@@ -58,3 +58,81 @@ The function ensures proper locking, advances internal counters, and maintains c
 - Advances transaction ID limits to ensure consistency
 - Panics on unknown operation codes for safety
 - Located in src/backend/access/transam/multixact.c:3386-3501
+
+## Simplified Source
+
+```c
+void multixact_redo(XLogReaderState *record)
+{
+    uint8 info = XLogRecGetInfo(record) & ~XLR_INFO_MASK;
+
+    // No backup blocks used in multixact records
+    Assert(!XLogRecHasAnyBlockRefs(record));
+
+    if (info == XLOG_MULTIXACT_ZERO_OFF_PAGE) {
+        // Zero out multixact offset page
+        int64 pageno;
+        memcpy(&pageno, XLogRecGetData(record), sizeof(pageno));
+
+        LWLock *lock = SimpleLruGetBankLock(MultiXactOffsetCtl, pageno);
+        LWLockAcquire(lock, LW_EXCLUSIVE);
+
+        int slotno = ZeroMultiXactOffsetPage(pageno, false);
+        SimpleLruWritePage(MultiXactOffsetCtl, slotno);
+
+        LWLockRelease(lock);
+    }
+    else if (info == XLOG_MULTIXACT_ZERO_MEM_PAGE) {
+        // Zero out multixact member page
+        int64 pageno;
+        memcpy(&pageno, XLogRecGetData(record), sizeof(pageno));
+
+        LWLock *lock = SimpleLruGetBankLock(MultiXactMemberCtl, pageno);
+        LWLockAcquire(lock, LW_EXCLUSIVE);
+
+        int slotno = ZeroMultiXactMemberPage(pageno, false);
+        SimpleLruWritePage(MultiXactMemberCtl, slotno);
+
+        LWLockRelease(lock);
+    }
+    else if (info == XLOG_MULTIXACT_CREATE_ID) {
+        // Recreate multixact during recovery
+        xl_multixact_create *xlrec = (xl_multixact_create *) XLogRecGetData(record);
+
+        // Store data back into SLRU files
+        RecordNewMultiXact(xlrec->mid, xlrec->moff, xlrec->nmembers, xlrec->members);
+
+        // Advance next multixact counters
+        MultiXactAdvanceNextMXact(xlrec->mid + 1, xlrec->moff + xlrec->nmembers);
+
+        // Find maximum XID and advance transaction counter
+        TransactionId max_xid = XLogRecGetXid(record);
+        for (int i = 0; i < xlrec->nmembers; i++) {
+            if (TransactionIdPrecedes(max_xid, xlrec->members[i].xid))
+                max_xid = xlrec->members[i].xid;
+        }
+        AdvanceNextFullTransactionIdPastXid(max_xid);
+    }
+    else if (info == XLOG_MULTIXACT_TRUNCATE_ID) {
+        // Truncate multixact data during recovery
+        xl_multixact_truncate xlrec;
+        memcpy(&xlrec, XLogRecGetData(record), SizeOfMultiXactTruncate);
+
+        LWLockAcquire(MultiXactTruncationLock, LW_EXCLUSIVE);
+
+        // Update horizon values and perform truncation
+        SetMultiXactIdLimit(xlrec.endTruncOff, xlrec.oldestMultiDB, false);
+        PerformMembersTruncation(xlrec.startTruncMemb, xlrec.endTruncMemb);
+
+        // Set up page number for truncation
+        int64 pageno = MultiXactIdToOffsetPage(xlrec.endTruncOff);
+        pg_atomic_write_u64(&MultiXactOffsetCtl->shared->latest_page_number, pageno);
+        PerformOffsetsTruncation(xlrec.startTruncOff, xlrec.endTruncOff);
+
+        LWLockRelease(MultiXactTruncationLock);
+    }
+    else {
+        elog(PANIC, "multixact_redo: unknown op code %u", info);
+    }
+}
+```

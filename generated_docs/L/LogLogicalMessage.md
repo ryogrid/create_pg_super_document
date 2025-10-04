@@ -46,3 +46,40 @@ This function creates and logs a logical message record in the write-ahead log (
 - Non-transactional messages with flush=true are immediately written to disk for durability
 - The function sets XLOG_INCLUDE_ORIGIN flag to allow origin filtering in logical replication
 - Returns the LSN (Log Sequence Number) of the inserted WAL record
+
+## Simplified Source
+
+```c
+XLogRecPtr LogLogicalMessage(const char *prefix, const char *message,
+                             size_t size, bool transactional, bool flush) {
+    xl_logical_message xlrec;
+
+    // For transactional messages, ensure we have a transaction ID
+    if (transactional) {
+        Assert(IsTransactionState());
+        GetCurrentTransactionId();
+    }
+
+    // Setup the log record structure
+    xlrec.dbId = MyDatabaseId;
+    xlrec.transactional = transactional;
+    xlrec.prefix_size = strlen(prefix) + 1;  // +1 for null terminator
+    xlrec.message_size = size;
+
+    // Construct and insert the XLog record
+    XLogBeginInsert();
+    XLogRegisterData((char *) &xlrec, SizeOfLogicalMessage);
+    XLogRegisterData(unconstify(char *, prefix), xlrec.prefix_size);
+    XLogRegisterData(unconstify(char *, message), size);
+
+    XLogSetRecordFlags(XLOG_INCLUDE_ORIGIN);  // Allow origin filtering
+    XLogRecPtr lsn = XLogInsert(RM_LOGICALMSG_ID, XLOG_LOGICAL_MESSAGE);
+
+    // For non-transactional messages with flush=true, ensure disk write
+    if (!transactional && flush) {
+        XLogFlush(lsn);
+    }
+
+    return lsn;
+}
+```

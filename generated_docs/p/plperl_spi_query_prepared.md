@@ -46,3 +46,104 @@ The function follows similar validation and parameter conversion logic as plperl
 - Memory management includes proper cleanup of parameter arrays after portal creation
 - Error handling propagates PostgreSQL errors to Perl as exceptions
 - The portal remains open across transaction boundaries until explicitly closed
+
+## Simplified Source
+
+```c
+SV *
+plperl_spi_query_prepared(char *query, int argc, SV **argv)
+{
+    int i;
+    char *nulls;
+    Datum *argvalues;
+    plperl_query_desc *qdesc;
+    plperl_query_entry *hash_entry;
+    SV *cursor;
+    Portal portal = NULL;
+    MemoryContext oldcontext = CurrentMemoryContext;
+    ResourceOwner oldowner = CurrentResourceOwner;
+
+    check_spi_usage_allowed();
+
+    // Execute in subtransaction for error handling
+    BeginInternalSubTransaction(NULL);
+    MemoryContextSwitchTo(oldcontext);
+
+    PG_TRY();
+    {
+        // Find the prepared query
+        hash_entry = hash_search(plperl_active_interp->query_hash, query, HASH_FIND, NULL);
+        if (hash_entry == NULL)
+            elog(ERROR, "spi_query_prepared: Invalid prepared query passed");
+
+        qdesc = hash_entry->query_data;
+        if (qdesc == NULL)
+            elog(ERROR, "spi_query_prepared: plperl query_hash value vanished");
+
+        if (qdesc->nargs != argc)
+            elog(ERROR, "spi_query_prepared: expected %d argument(s), %d passed",
+                 qdesc->nargs, argc);
+
+        // Convert Perl arguments to PostgreSQL Datums
+        if (argc > 0)
+        {
+            nulls = (char *) palloc(argc);
+            argvalues = (Datum *) palloc(argc * sizeof(Datum));
+        }
+        else
+        {
+            nulls = NULL;
+            argvalues = NULL;
+        }
+
+        for (i = 0; i < argc; i++)
+        {
+            bool isnull;
+            argvalues[i] = plperl_sv_to_datum(argv[i],
+                                            qdesc->argtypes[i],
+                                            -1, NULL,
+                                            &qdesc->arginfuncs[i],
+                                            qdesc->argtypioparams[i],
+                                            &isnull);
+            nulls[i] = isnull ? 'n' : ' ';
+        }
+
+        // Open cursor with prepared plan
+        portal = SPI_cursor_open(NULL, qdesc->plan, argvalues, nulls,
+                               current_call_data->prodesc->fn_readonly);
+        if (argc > 0)
+        {
+            pfree(argvalues);
+            pfree(nulls);
+        }
+        if (portal == NULL)
+            elog(ERROR, "SPI_cursor_open() failed:%s", SPI_result_code_string(SPI_result));
+
+        cursor = cstr2sv(portal->name);
+        PinPortal(portal);
+
+        // Commit subtransaction
+        ReleaseCurrentSubTransaction();
+        MemoryContextSwitchTo(oldcontext);
+        CurrentResourceOwner = oldowner;
+    }
+    PG_CATCH();
+    {
+        // Handle errors: rollback and propagate to Perl
+        ErrorData *edata;
+        MemoryContextSwitchTo(oldcontext);
+        edata = CopyErrorData();
+        FlushErrorState();
+
+        RollbackAndReleaseCurrentSubTransaction();
+        MemoryContextSwitchTo(oldcontext);
+        CurrentResourceOwner = oldowner;
+
+        croak_cstr(edata->message);
+        return NULL;
+    }
+    PG_END_TRY();
+
+    return cursor;
+}
+```

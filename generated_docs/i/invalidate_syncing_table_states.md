@@ -40,3 +40,13 @@ This mechanism ensures that apply workers and parallel apply workers maintain co
 - Essential for proper coordination between multiple logical replication workers
 - The invalidation triggers a full rebuild of table state information in `FetchTableStates()`
 - Works in conjunction with the `SyncingTablesState` enum values to track cache validity
+
+## Simplified Source
+
+```c
+void invalidate_syncing_table_states(Datum arg, int cacheid, uint32 hashvalue)
+{
+    // Mark table states cache as invalid when syscache changes
+    table_states_validity = SYNC_TABLE_STATE_NEEDS_REBUILD;
+}
+```

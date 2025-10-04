@@ -50,3 +50,48 @@ The function uses the SecLabelObjectIndexId index for efficient lookups and hand
 - The returned string (if not NULL) should be freed by the caller when no longer needed
 - This is the public interface function for security label retrieval, as indicated by its inclusion in the header file
 - The objectSubId parameter allows for security labels on sub-objects like table columns, which is not applicable to shared objects
+
+## Simplified Source
+
+```c
+char *GetSecurityLabel(const ObjectAddress *object, const char *provider) {
+    // Shared objects have their own security label catalog
+    if (IsSharedRelation(object->classId))
+        return GetSharedSecurityLabel(object, provider);
+
+    // Handle unshared objects using pg_seclabel catalog
+    Relation pg_seclabel;
+    ScanKeyData keys[4];
+    SysScanDesc scan;
+    HeapTuple tuple;
+    char *seclabel = NULL;
+
+    // Set up scan keys for object ID, class ID, sub-object ID, and provider
+    ScanKeyInit(&keys[0], Anum_pg_seclabel_objoid, BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(object->objectId));
+    ScanKeyInit(&keys[1], Anum_pg_seclabel_classoid, BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(object->classId));
+    ScanKeyInit(&keys[2], Anum_pg_seclabel_objsubid, BTEqualStrategyNumber, F_INT4EQ,
+                Int32GetDatum(object->objectSubId));
+    ScanKeyInit(&keys[3], Anum_pg_seclabel_provider, BTEqualStrategyNumber, F_TEXTEQ,
+                CStringGetTextDatum(provider));
+
+    // Open catalog and perform indexed scan
+    pg_seclabel = table_open(SecLabelRelationId, AccessShareLock);
+    scan = systable_beginscan(pg_seclabel, SecLabelObjectIndexId, true, NULL, 4, keys);
+
+    // Get matching tuple and extract label if found
+    tuple = systable_getnext(scan);
+    if (HeapTupleIsValid(tuple)) {
+        Datum datum = heap_getattr(tuple, Anum_pg_seclabel_label,
+                                   RelationGetDescr(pg_seclabel), &isnull);
+        if (!isnull)
+            seclabel = TextDatumGetCString(datum);
+    }
+
+    // Clean up and return result
+    systable_endscan(scan);
+    table_close(pg_seclabel, AccessShareLock);
+    return seclabel;
+}
+```

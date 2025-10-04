@@ -43,3 +43,44 @@ The function carefully manages the SPI global state by resetting result variable
 - Performs consistency checks only when destination is DestSPI
 - Uses _SPI_begin_call/end_call pair to properly manage SPI call stack
 - The nfetched assignment is deliberately separated from PortalRunFetch call due to potential SPI stack movement
+
+## Simplified Source
+
+```c
+static void _SPI_cursor_operation(Portal portal, FetchDirection direction, long count,
+                                  DestReceiver *dest) {
+    // Validate portal
+    if (!PortalIsValid(portal))
+        elog(ERROR, "invalid portal in SPI cursor operation");
+
+    // Setup SPI call context
+    if (_SPI_begin_call(true) < 0)
+        elog(ERROR, "SPI cursor operation called while not connected");
+
+    // Reset SPI result state
+    SPI_processed = 0;
+    SPI_tuptable = NULL;
+    _SPI_current->processed = 0;
+    _SPI_current->tuptable = NULL;
+
+    // Execute cursor operation
+    uint64 nfetched = PortalRunFetch(portal, direction, count, dest);
+
+    // Update processed count (pointer may have changed during portal run)
+    _SPI_current->processed = nfetched;
+
+    // Consistency check for SPI destinations
+    if (dest->mydest == DestSPI && _SPI_checktuples())
+        elog(ERROR, "consistency check on SPI tuple count failed");
+
+    // Transfer results to caller
+    SPI_processed = _SPI_current->processed;
+    SPI_tuptable = _SPI_current->tuptable;
+
+    // Transfer ownership to caller
+    _SPI_current->tuptable = NULL;
+
+    // Cleanup SPI call context
+    _SPI_end_call(true);
+}
+```

@@ -33,3 +33,13 @@ The function inherits all the validation and behavior characteristics from Buffe
 - Used when code needs to perform page-level operations on buffer contents
 - The Page type typically provides access to page header information and page structure
 - Like BufferGetBlock(), this gives direct access to buffer memory that can be read or modified
+
+## Simplified Source
+
+```c
+static inline Page BufferGetPage(Buffer buffer)
+{
+    // Simply cast buffer block to Page type for semantic clarity
+    return (Page) BufferGetBlock(buffer);
+}
+```

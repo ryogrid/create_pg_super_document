@@ -38,3 +38,46 @@ The algorithm stops early when it finds the target value or determines it cannot
 - The zero-bit case handles scenarios where all values in a range can be encoded implicitly without storing actual bits
 - Used as part of PostgreSQL's IntegerSet data structure for efficient storage and querying of large sets of integers
 - The Simple-8b encoding scheme is particularly effective for storing sequences of integers with small gaps between values
+
+## Simplified Source
+
+```c
+static bool
+simple8b_contains(uint64 codeword, uint64 key, uint64 base)
+{
+    int selector = (codeword >> 60);  // Extract 4-bit mode selector
+    int nints = simple8b_modes[selector].num_ints;
+    int bits = simple8b_modes[selector].bits_per_int;
+
+    if (codeword == EMPTY_CODEWORD)
+        return false;
+
+    if (bits == 0)
+    {
+        // Special case: 0-bit encoding (consecutive values)
+        return (key - base) <= nints;
+    }
+    else
+    {
+        uint64 mask = (UINT64CONST(1) << bits) - 1;
+        uint64 curr_value;
+
+        curr_value = base;
+        for (int i = 0; i < nints; i++)
+        {
+            uint64 diff = codeword & mask;  // Extract delta value
+
+            curr_value += 1 + diff;  // Reconstruct original value
+
+            if (curr_value >= key)
+            {
+                return (curr_value == key);  // Found match or passed target
+            }
+
+            codeword >>= bits;  // Move to next delta
+        }
+    }
+
+    return false;
+}
+```

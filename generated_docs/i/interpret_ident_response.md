@@ -54,3 +54,70 @@ The function is defensive in its parsing, validating each step and handling malf
 - The operating system field in the response is ignored - only the username portion is extracted
 - Used as part of PostgreSQL's ident authentication method, which relies on the trustworthiness of the client's Ident server
 - Parsing is intentionally strict to avoid accepting malformed or potentially malicious responses
+
+## Simplified Source
+
+```c
+// Simplified version of interpret_ident_response
+static bool interpret_ident_response(const char *ident_response, char *ident_user) {
+    const char *cursor = ident_response;
+
+    // Step 1: Validate basic format - must end with \r\n
+    int len = strlen(ident_response);
+    if (len < 2 || ident_response[len - 2] != '\r') {
+        return false;
+    }
+
+    // Step 2: Skip port field (everything before first ':')
+    while (*cursor != ':' && *cursor != '\r') {
+        cursor++;
+    }
+    if (*cursor != ':') {
+        return false;
+    }
+
+    // Step 3: Extract response type field
+    cursor++;  // Skip ':'
+    while (pg_isblank(*cursor)) cursor++;  // Skip whitespace
+
+    char response_type[80];
+    int i = 0;
+    while (*cursor != ':' && *cursor != '\r' && !pg_isblank(*cursor) &&
+           i < sizeof(response_type) - 1) {
+        response_type[i++] = *cursor++;
+    }
+    response_type[i] = '\0';
+
+    while (pg_isblank(*cursor)) cursor++;  // Skip whitespace
+
+    // Step 4: Verify response type is "USERID"
+    if (strcmp(response_type, "USERID") != 0) {
+        return false;
+    }
+
+    // Step 5: Skip operating system field
+    if (*cursor != ':') {
+        return false;
+    }
+    cursor++;  // Skip ':'
+
+    while (*cursor != ':' && *cursor != '\r') {
+        cursor++;  // Skip OS field
+    }
+    if (*cursor != ':') {
+        return false;
+    }
+
+    // Step 6: Extract username field
+    cursor++;  // Skip ':'
+    while (pg_isblank(*cursor)) cursor++;  // Skip whitespace
+
+    i = 0;
+    while (*cursor != '\r' && i < IDENT_USERNAME_MAX) {
+        ident_user[i++] = *cursor++;
+    }
+    ident_user[i] = '\0';
+
+    return true;
+}
+```

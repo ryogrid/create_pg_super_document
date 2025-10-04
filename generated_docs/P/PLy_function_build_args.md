@@ -43,3 +43,63 @@ The function ensures that all arguments are properly converted and available to 
 - Ensures proper cleanup of partially constructed argument lists on error
 - Named arguments (if present) are stored in the procedure's global dictionary for Python function access
 - File location: src/pl/plpython/plpy_exec.c:435-497
+
+## Simplified Source
+
+```c
+static PyObject *
+PLy_function_build_args(FunctionCallInfo fcinfo, PLyProcedure *proc)
+{
+    PyObject *arg = NULL;
+    PyObject *args;
+    int i;
+
+    // Create Python list to hold arguments
+    args = PyList_New(proc->nargs);
+    if (!args)
+        return NULL;
+
+    PG_TRY();
+    {
+        // Convert each PostgreSQL argument to Python object
+        for (i = 0; i < proc->nargs; i++) {
+            PLyDatumToOb *arginfo = &proc->args[i];
+
+            // Handle NULL arguments
+            if (fcinfo->args[i].isnull) {
+                arg = NULL;
+            } else {
+                // Convert PostgreSQL Datum to Python object
+                arg = PLy_input_convert(arginfo, fcinfo->args[i].value);
+            }
+
+            // Convert NULL to Python None
+            if (arg == NULL) {
+                Py_INCREF(Py_None);
+                arg = Py_None;
+            }
+
+            // Add argument to list
+            if (PyList_SetItem(args, i, arg) == -1)
+                PLy_elog(ERROR, "PyList_SetItem() failed, while setting up arguments");
+
+            // Set named argument in global namespace if available
+            if (proc->argnames && proc->argnames[i] &&
+                PyDict_SetItemString(proc->globals, proc->argnames[i], arg) == -1)
+                PLy_elog(ERROR, "PyDict_SetItemString() failed, while setting up arguments");
+
+            arg = NULL; // Reset for next iteration
+        }
+    }
+    PG_CATCH();
+    {
+        // Cleanup on error
+        Py_XDECREF(arg);
+        Py_XDECREF(args);
+        PG_RE_THROW();
+    }
+    PG_END_TRY();
+
+    return args;
+}
+```

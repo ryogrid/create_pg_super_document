@@ -35,3 +35,41 @@ This function serves as the base case for array conversion, handling the actual 
 - Creates a proper Perl array reference with reference counting
 - Does not perform bounds checking - relies on caller to provide valid indices
 - Part of the recursive array conversion system used by plperl_ref_from_pg_array
+
+## Simplified Source
+
+```c
+static SV *make_array_ref(plperl_array_info *info, int first, int last)
+{
+    int i;
+    AV *result = newAV();
+
+    for (i = first; i < last; i++)
+    {
+        if (info->nulls[i])
+        {
+            // Handle NULL values with undefined scalar
+            av_push(result, newSV(0));
+        }
+        else
+        {
+            Datum itemvalue = info->elements[i];
+
+            if (info->transform_proc.fn_oid)
+                // Use custom transform function if available
+                av_push(result, (SV *) DatumGetPointer(FunctionCall1(&info->transform_proc, itemvalue)));
+            else if (info->elem_is_rowtype)
+                // Convert composite types to hash references
+                av_push(result, plperl_hash_from_datum(itemvalue));
+            else
+            {
+                // Standard string conversion for basic types
+                char *val = OutputFunctionCall(&info->proc, itemvalue);
+                av_push(result, cstr2sv(val));
+            }
+        }
+    }
+
+    return newRV_noinc((SV *) result);
+}
+```

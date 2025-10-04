@@ -33,3 +33,24 @@ ReorderBufferGetTupleBuf allocates memory for a HeapTuple structure along with i
 
 ## Notes and Other Information
 The function performs a single memory allocation that includes both the HeapTuple structure and the tuple data buffer. The t_data pointer is set to point immediately after the HeapTuple structure in the allocated memory block. This efficient allocation strategy minimizes memory fragmentation and improves performance in logical replication scenarios where many tuples are processed.
+
+## Simplified Source
+
+```c
+HeapTuple ReorderBufferGetTupleBuf(ReorderBuffer *rb, Size tuple_len) {
+    HeapTuple tuple;
+    Size alloc_len;
+
+    // Calculate total allocation size: tuple data + header
+    alloc_len = tuple_len + SizeofHeapTupleHeader;
+
+    // Allocate memory for both HeapTuple struct and tuple data
+    tuple = (HeapTuple) MemoryContextAlloc(rb->tup_context,
+                                          HEAPTUPLESIZE + alloc_len);
+
+    // Set data pointer to memory immediately after HeapTuple struct
+    tuple->t_data = (HeapTupleHeader) ((char *) tuple + HEAPTUPLESIZE);
+
+    return tuple;
+}
+```

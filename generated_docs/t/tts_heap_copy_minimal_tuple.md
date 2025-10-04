@@ -30,3 +30,20 @@ This function is a specialized tuple table slot operation that extracts and conv
 - The function ensures the slot is materialized before attempting to copy the minimal tuple
 - Part of the tuple table slot abstraction layer in PostgreSQL's executor
 - Located in src/backend/executor/execTuples.c:475-485
+
+## Simplified Source
+
+```c
+static MinimalTuple
+tts_heap_copy_minimal_tuple(TupleTableSlot *slot)
+{
+    HeapTupleTableSlot *hslot = (HeapTupleTableSlot *) slot;
+
+    // Ensure tuple is materialized before conversion
+    if (!hslot->tuple)
+        tts_heap_materialize(slot);
+
+    // Convert heap tuple to compact minimal tuple format
+    return minimal_tuple_from_heap_tuple(hslot->tuple);
+}
+```

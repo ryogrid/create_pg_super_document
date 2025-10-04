@@ -43,3 +43,20 @@ This conversion is essential because LLVM and PostgreSQL have different memory m
 - The returned string is allocated in PostgreSQL's current memory context
 - Used throughout the JIT infrastructure for consistent error message handling
 - Critical for converting LLVM errors into PostgreSQL-compatible format for logging and error reporting
+
+## Simplified Source
+
+```c
+static char *llvm_error_message(LLVMErrorRef error) {
+    // Get error message from LLVM
+    char *orig = LLVMGetErrorMessage(error);
+
+    // Create PostgreSQL-managed copy
+    char *msg = pstrdup(orig);
+
+    // Clean up LLVM-allocated string
+    LLVMDisposeErrorMessage(orig);
+
+    return msg;
+}
+```

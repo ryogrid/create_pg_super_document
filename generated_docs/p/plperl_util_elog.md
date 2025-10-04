@@ -36,3 +36,40 @@ The function uses PostgreSQL's PG_TRY/PG_CATCH exception handling mechanism to e
 - The volatile qualifier on cmsg ensures proper handling during exception unwinding
 - Error data is copied before being passed to Perl to maintain proper memory management
 - The function assumes elog() cannot have internal failures severe enough to require transaction abort
+
+## Simplified Source
+
+```c
+void
+plperl_util_elog(int level, SV *msg)
+{
+    MemoryContext oldcontext = CurrentMemoryContext;
+    char *volatile cmsg = NULL;
+
+    // Note: No SPI usage check - logging is considered safe in most contexts
+
+    PG_TRY();
+    {
+        // Convert Perl scalar to C string and log
+        cmsg = sv2cstr(msg);
+        elog(level, "%s", cmsg);
+        pfree(cmsg);
+    }
+    PG_CATCH();
+    {
+        // Handle errors: reset state and propagate to Perl
+        ErrorData *edata;
+        MemoryContextSwitchTo(oldcontext);
+        edata = CopyErrorData();
+        FlushErrorState();
+
+        // Clean up allocated string if needed
+        if (cmsg)
+            pfree(cmsg);
+
+        // Convert PostgreSQL error to Perl exception
+        croak_cstr(edata->message);
+    }
+    PG_END_TRY();
+}
+```

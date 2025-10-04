@@ -39,3 +39,42 @@ The creation process involves:
 - The ACL (access control list) is initially set to null
 - Uses RowExclusiveLock to ensure exclusive access during creation
 - Located in src/backend/catalog/pg_largeobject.c:37-82
+
+## Simplified Source
+```c
+Oid LargeObjectCreate(Oid loid) {
+    Relation pg_lo_meta;
+    HeapTuple ntup;
+    Oid loid_new;
+    Datum values[Natts_pg_largeobject_metadata];
+    bool nulls[Natts_pg_largeobject_metadata];
+
+    // Open large object metadata catalog
+    pg_lo_meta = table_open(LargeObjectMetadataRelationId, RowExclusiveLock);
+
+    // Initialize values and nulls arrays
+    memset(values, 0, sizeof(values));
+    memset(nulls, false, sizeof(nulls));
+
+    // Use provided OID or generate a new one
+    if (OidIsValid(loid))
+        loid_new = loid;
+    else
+        loid_new = GetNewOidWithIndex(pg_lo_meta,
+                                      LargeObjectMetadataOidIndexId,
+                                      Anum_pg_largeobject_metadata_oid);
+
+    // Set up metadata values
+    values[Anum_pg_largeobject_metadata_oid - 1] = ObjectIdGetDatum(loid_new);
+    values[Anum_pg_largeobject_metadata_lomowner - 1] = ObjectIdGetDatum(GetUserId());
+    nulls[Anum_pg_largeobject_metadata_lomacl - 1] = true;  // ACL initially null
+
+    // Create and insert tuple
+    ntup = heap_form_tuple(RelationGetDescr(pg_lo_meta), values, nulls);
+    CatalogTupleInsert(pg_lo_meta, ntup);
+
+    heap_freetuple(ntup);
+    table_close(pg_lo_meta, RowExclusiveLock);
+    return loid_new;
+}
+```

@@ -38,3 +38,30 @@ This function serves as a PostgreSQL SQL function wrapper for retrieving replica
 - Part of PostgreSQL's logical replication origin management system
 - Provides a safe way to check for origin existence and get its identifier from SQL
 - Located in `src/backend/replication/logical/origin.c:1329-1349`
+
+## Simplified Source
+
+```c
+Datum
+pg_replication_origin_oid(PG_FUNCTION_ARGS)
+{
+    char *name;
+    RepOriginId roident;
+
+    // Check prerequisites (not in recovery, proper configuration)
+    replorigin_check_prerequisites(false, false);
+
+    // Convert text argument to C string
+    name = text_to_cstring((text *) DatumGetPointer(PG_GETARG_DATUM(0)));
+
+    // Look up origin by name (missing_ok=true)
+    roident = replorigin_by_name(name, true);
+
+    pfree(name);
+
+    // Return OID if found, NULL otherwise
+    if (OidIsValid(roident))
+        PG_RETURN_OID(roident);
+    PG_RETURN_NULL();
+}
+```

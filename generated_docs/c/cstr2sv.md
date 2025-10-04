@@ -48,3 +48,27 @@ This function is the counterpart to sv2cstr(), enabling bidirectional conversion
 - Essential for passing PostgreSQL data to Perl functions
 - Part of the PL/Perl procedural language implementation
 - The returned SV is managed by Perl's garbage collector
+
+## Simplified Source
+
+```c
+static inline SV *cstr2sv(const char *str) {
+    SV *sv;
+
+    // For SQL_ASCII, create SV directly without conversion
+    if (GetDatabaseEncoding() == PG_SQL_ASCII)
+        return newSVpv(str, 0);
+
+    // Convert database encoding to UTF-8
+    char *utf8_str = utf_e2u(str);
+
+    // Create Perl SV and mark it as UTF-8
+    sv = newSVpv(utf8_str, 0);
+    SvUTF8_on(sv);
+
+    // Clean up converted string
+    pfree(utf8_str);
+
+    return sv;
+}
+```

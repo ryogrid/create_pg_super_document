@@ -55,3 +55,71 @@ This transformation is essential for regex engines that need to find patterns an
 - Uses a clever linked list technique with the  field to track states needing splitting
 - Maintains MATCHALL semantics but updates maximum match length to infinity for unanchored patterns
 - The transformation is essential for implementing proper regex search behavior in text
+
+## Simplified Source
+
+```c
+static void
+makesearch(struct vars *v, struct nfa *nfa)
+{
+    struct arc *a, *b;
+    struct state *pre = nfa->pre;
+    struct state *s, *s2, *slist;
+
+    // Check if pattern is anchored (only has BOS arcs)
+    for (a = pre->outs; a != NULL; a = a->outchain) {
+        if (a->co != nfa->bos[0] && a->co != nfa->bos[1])
+            break;
+    }
+
+    // For unanchored patterns, add implicit .*? prefix
+    if (a != NULL) {
+        // Add .* loop on pre-state for any character
+        rainbow(nfa, v->cm, PLAIN, COLORLESS, pre, pre);
+
+        // Add BOS loops for ^ and \A anchors
+        newarc(nfa, PLAIN, nfa->bos[0], pre, pre);
+        newarc(nfa, PLAIN, nfa->bos[1], pre, pre);
+
+        // Update MATCHALL flag for infinite max length
+        if (nfa->flags & MATCHALL)
+            nfa->maxmatchall = DUPINF;
+    }
+
+    // Build list of states reachable from pre AND elsewhere (conflicts)
+    slist = NULL;
+    for (a = pre->outs; a != NULL; a = a->outchain) {
+        s = a->to;
+        // Check if state has non-pre incoming arcs
+        for (b = s->ins; b != NULL; b = b->inchain) {
+            if (b->from != pre)
+                break;
+        }
+        // Add conflicted states to split list
+        if (b != NULL && s->tmp == NULL) {
+            s->tmp = (slist != NULL) ? slist : s;
+            slist = s;
+        }
+    }
+
+    // Split conflicted states to resolve ambiguity
+    for (s = slist; s != NULL; s = s2) {
+        s2 = newstate(nfa);
+        NOERR();
+        copyouts(nfa, s, s2);  // Copy outgoing arcs to new state
+        NOERR();
+
+        // Redirect non-pre incoming arcs to new state
+        for (a = s->ins; a != NULL; a = b) {
+            b = a->inchain;
+            if (a->from != pre) {
+                cparc(nfa, a, a->from, s2);
+                freearc(nfa, a);
+            }
+        }
+
+        s2 = (s->tmp != s) ? s->tmp : NULL;
+        s->tmp = NULL;  // Clean up tmp field
+    }
+}
+```

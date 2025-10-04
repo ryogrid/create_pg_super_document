@@ -33,3 +33,20 @@ This dual-mode approach ensures that the startup process can be terminated quick
 - Part of PostgreSQL's process management and shutdown coordination system
 - The WakeupRecovery() call ensures the main loop processes the shutdown request promptly
 - Must be signal-safe and minimal to avoid race conditions during shutdown procedures
+
+## Simplified Source
+
+```c
+static void
+StartupProcShutdownHandler(SIGNAL_ARGS)
+{
+    // If currently executing restore command, exit immediately
+    if (in_restore_command)
+        proc_exit(1);
+    else {
+        // Otherwise, request graceful shutdown
+        shutdown_requested = true;
+        WakeupRecovery();
+    }
+}
+```

@@ -34,3 +34,17 @@ The function performs a simple but important task: it copies the manifest data f
 - Uses a simple memcpy approach to transfer data between sink buffers before forwarding to the next sink
 - Part of a chain-of-responsibility pattern where each sink in the chain processes data and forwards it to the next sink
 - The function is declared as static, making it internal to the basebackup_lz4.c module
+
+## Simplified Source
+
+```c
+// Simplified version of bbsink_lz4_manifest_contents
+static void bbsink_lz4_manifest_contents(bbsink *sink, size_t len)
+{
+    // Copy manifest data to next sink's buffer (manifest is not compressed)
+    memcpy(sink->bbs_next->bbs_buffer, sink->bbs_buffer, len);
+
+    // Forward to next sink in chain
+    bbsink_manifest_contents(sink->bbs_next, len);
+}
+```

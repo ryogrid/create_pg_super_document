@@ -41,3 +41,17 @@ The function maintains the same interface as the standard XLogReaderRoutine page
 - Currently appears to be unused in the main codebase, suggesting it may be provided as a utility for extensions or future use
 - Return value follows XLogReaderRoutine page_read callback conventions
 - Can be used as a drop-in replacement for read_local_xlog_page when non-blocking behavior is required
+
+## Simplified Source
+
+```c
+int
+read_local_xlog_page_no_wait(XLogReaderState *state, XLogRecPtr targetPagePtr,
+                            int reqLen, XLogRecPtr targetRecPtr, char *cur_page)
+{
+    // Non-blocking wrapper - returns immediately if WAL not available
+    // Uses the same underlying implementation as read_local_xlog_page but with wait=false
+    return read_local_xlog_page_guts(state, targetPagePtr, reqLen,
+                                    targetRecPtr, cur_page, false);
+}
+```

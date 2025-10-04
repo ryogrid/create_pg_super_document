@@ -49,3 +49,35 @@ Key operations:
 - The function assumes the caller has pre-allocated the HeapTuple and its t_data buffer with sufficient space
 - Critical for maintaining tuple structure integrity when converting from compact WAL format to full heap tuple representation
 - Used across all major heap operation decoders, making it a central utility for logical replication tuple reconstruction
+
+## Simplified Source
+
+```c
+static void DecodeXLogTuple(char *data, Size len, HeapTuple tuple)
+{
+    xl_heap_header xlhdr;
+    int datalen = len - SizeOfHeapHeader;
+    HeapTupleHeader header;
+
+    // Set up tuple structure with calculated length
+    tuple->t_len = datalen + SizeofHeapTupleHeader;
+    header = tuple->t_data;
+
+    // Mark as non-disk tuple for logical replication
+    ItemPointerSetInvalid(&tuple->t_self);
+    tuple->t_tableOid = InvalidOid;
+
+    // Copy WAL header to aligned storage (WAL data may be unaligned)
+    memcpy(&xlhdr, data, SizeOfHeapHeader);
+
+    // Initialize tuple header and copy tuple data
+    memset(header, 0, SizeofHeapTupleHeader);
+    memcpy(((char *) tuple->t_data) + SizeofHeapTupleHeader,
+           data + SizeOfHeapHeader, datalen);
+
+    // Transfer metadata from WAL to tuple header
+    header->t_infomask = xlhdr.t_infomask;
+    header->t_infomask2 = xlhdr.t_infomask2;
+    header->t_hoff = xlhdr.t_hoff;
+}
+```

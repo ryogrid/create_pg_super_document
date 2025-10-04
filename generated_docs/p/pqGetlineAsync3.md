@@ -35,3 +35,45 @@ The function validates the connection state to ensure it's in an appropriate COP
 - Does not change  unlike pqGetCopyData3, allowing PQendcopy to work without blocking
 - Part of the libpq protocol 3 implementation for PostgreSQL client-server communication
 - Designed for non-blocking I/O operations in asynchronous applications
+
+## Simplified Source
+
+```c
+int pqGetlineAsync3(PGconn *conn, char *buffer, int bufsize) {
+    int msgLength;
+    int avail;
+
+    // Verify we're in COPY mode
+    if (conn->asyncStatus != PGASYNC_COPY_OUT &&
+        conn->asyncStatus != PGASYNC_COPY_BOTH)
+        return -1;  // Not doing a copy
+
+    // Get the next copy data message (non-blocking)
+    msgLength = getCopyDataMessage(conn);
+    if (msgLength < 0)
+        return -1;  // End of copy or error
+    if (msgLength == 0)
+        return 0;   // No data available yet
+
+    // Calculate available data (account for already-returned data)
+    conn->inCursor += conn->copy_already_done;
+    avail = msgLength - 4 - conn->copy_already_done;  // Subtract message header
+
+    if (avail <= bufsize) {
+        // Copy entire remaining message
+        memcpy(buffer, &conn->inBuffer[conn->inCursor], avail);
+
+        // Mark message as fully consumed
+        conn->inStart = conn->inCursor + avail;
+        conn->copy_already_done = 0;  // Reset for next message
+        return avail;
+    } else {
+        // Return partial message (buffer too small)
+        memcpy(buffer, &conn->inBuffer[conn->inCursor], bufsize);
+
+        // Track how much we've returned so far
+        conn->copy_already_done += bufsize;
+        return bufsize;
+    }
+}
+```

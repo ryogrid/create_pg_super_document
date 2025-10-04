@@ -37,3 +37,43 @@ The `cfind` function handles regex pattern matching when complications are prese
 - Performs proper cleanup of DFA resources regardless of success or failure
 - Returns the result from cfindloop after handling extended match information
 - The function is static and part of the regex execution engine for complex cases
+
+## Simplified Source
+
+```c
+static int cfind(struct vars *v, struct cnfa *cnfa, struct colormap *cm) {
+    chr *cold;
+    int ret;
+
+    // Create search DFA
+    struct dfa *s = newdfa(v, &v->g->search, cm, &v->dfa1);
+    if (s == NULL)
+        return v->err;
+
+    // Create main matching DFA
+    struct dfa *d = newdfa(v, cnfa, cm, &v->dfa2);
+    if (d == NULL) {
+        freedfa(s);
+        return v->err;
+    }
+
+    // Delegate to cfindloop for complex pattern matching
+    ret = cfindloop(v, cnfa, cm, d, s, &cold);
+
+    // Clean up DFA resources
+    freedfa(d);
+    freedfa(s);
+    NOERR();
+
+    // Handle REG_EXPECT flag for extended match information
+    if (v->g->cflags & REG_EXPECT) {
+        if (cold != NULL)
+            v->details->rm_extend.rm_so = OFF(cold);
+        else
+            v->details->rm_extend.rm_so = OFF(v->stop);
+        v->details->rm_extend.rm_eo = OFF(v->stop);
+    }
+
+    return ret;
+}
+```

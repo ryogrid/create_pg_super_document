@@ -53,3 +53,63 @@ The operation ensures that redirect cleanup during recovery maintains the same c
 - Ensures proper ordering with PageIndexMultiDelete for batch deletions
 - Part of the SP-GiST index WAL recovery subsystem located in src/backend/access/spgist/spgxlog.c:860-934
 - Critical for maintaining SP-GiST index consistency and preventing redirect tuple accumulation
+
+## Simplified Source
+
+```c
+static void spgRedoVacuumRedirect(XLogReaderState *record) {
+    // Extract WAL record data
+    spgxlogVacuumRedirect *xldata = (spgxlogVacuumRedirect *) XLogRecGetData(record);
+    OffsetNumber *itemToPlaceholder = xldata->offsets;
+
+    // Handle Hot Standby conflicts if running in standby mode
+    if (InHotStandby) {
+        RelFileLocator locator;
+        XLogRecGetBlockTag(record, 0, &locator, NULL, NULL);
+        ResolveRecoveryConflictWithSnapshot(xldata->snapshotConflictHorizon,
+                                           xldata->isCatalogRel, locator);
+    }
+
+    Buffer buffer;
+    if (XLogReadBufferForRedo(record, 0, &buffer) == BLK_NEEDS_REDO) {
+        Page page = BufferGetPage(buffer);
+        SpGistPageOpaque opaque = SpGistPageGetOpaque(page);
+
+        // Step 1: Convert redirect tuples to plain placeholders
+        for (int i = 0; i < xldata->nToPlaceholder; i++) {
+            SpGistDeadTuple deadTuple = (SpGistDeadTuple) PageGetItem(page,
+                                        PageGetItemId(page, itemToPlaceholder[i]));
+
+            // Change state from REDIRECT to PLACEHOLDER
+            deadTuple->tupstate = SPGIST_PLACEHOLDER;
+            ItemPointerSetInvalid(&deadTuple->pointer);
+        }
+
+        // Step 2: Update page opaque counters
+        opaque->nRedirection -= xldata->nToPlaceholder;
+        opaque->nPlaceholder += xldata->nToPlaceholder;
+
+        // Step 3: Remove trailing placeholder tuples for space reclamation
+        if (xldata->firstPlaceholder != InvalidOffsetNumber) {
+            int maxOffset = PageGetMaxOffsetNumber(page);
+            int numToDelete = maxOffset - xldata->firstPlaceholder + 1;
+
+            // Build array of offsets to delete (trailing placeholders)
+            OffsetNumber *toDelete = palloc(sizeof(OffsetNumber) * maxOffset);
+            for (int i = xldata->firstPlaceholder; i <= maxOffset; i++) {
+                toDelete[i - xldata->firstPlaceholder] = i;
+            }
+
+            // Update placeholder count and delete trailing tuples
+            opaque->nPlaceholder -= numToDelete;
+            PageIndexMultiDelete(page, toDelete, numToDelete);
+
+            pfree(toDelete);
+        }
+
+        PageSetLSN(page, record->EndRecPtr);
+        MarkBufferDirty(buffer);
+    }
+    UnlockReleaseBuffer(buffer);
+}
+```

@@ -31,3 +31,16 @@ The `injection_points_run` function provides a direct mechanism to execute injec
 - The INJECTION_POINT macro handles the actual execution of registered callbacks
 - Simple interface that makes injection point testing accessible from standard SQL test scripts
 - Part of the injection_points extension module and commonly used in PostgreSQL's regression testing
+
+## Simplified Source
+
+```c
+Datum injection_points_run(PG_FUNCTION_ARGS) {
+    char *name = text_to_cstring(PG_GETARG_TEXT_PP(0));
+
+    // Execute the named injection point
+    INJECTION_POINT(name);
+
+    PG_RETURN_VOID();
+}
+```

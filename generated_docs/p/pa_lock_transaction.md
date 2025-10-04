@@ -33,3 +33,15 @@ This function is a critical component of PostgreSQL's logical replication parall
 - This design allows the leader to communicate and wait using transaction locks before local transaction IDs are available
 - Part of the broader parallel apply locking mechanism described in the file header comments
 - Works in conjunction with MyLogicalRepWorker->subid to identify the subscription context
+
+## Simplified Source
+
+```c
+void pa_lock_transaction(TransactionId xid, LOCKMODE lockmode)
+{
+    // Acquire transaction lock for parallel apply coordination
+    // Uses subscription ID and remote transaction ID for lock identification
+    LockApplyTransactionForSession(MyLogicalRepWorker->subid, xid,
+                                   PARALLEL_APPLY_LOCK_XACT, lockmode);
+}
+```

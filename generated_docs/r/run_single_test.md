@@ -49,3 +49,55 @@ The function works by:
 - Times test execution in milliseconds for performance tracking
 - Distinguishes between process failures and result mismatches
 - Part of PostgreSQL's comprehensive regression test infrastructure
+
+## Simplified Source
+
+```c
+static void run_single_test(const char *test, test_start_function startfunc,
+                            postprocess_result_function postfunc) {
+    PID_TYPE pid;
+    instr_time starttime, stoptime;
+    int exit_status;
+    _stringlist *resultfiles = NULL;
+    _stringlist *expectfiles = NULL;
+    _stringlist *tags = NULL;
+    bool differ = false;
+
+    // Start test and record start time
+    pid = startfunc(test, &resultfiles, &expectfiles, &tags);
+    INSTR_TIME_SET_CURRENT(starttime);
+
+    // Wait for test completion and record end time
+    wait_for_tests(&pid, &exit_status, &stoptime, NULL, 1);
+
+    // Compare result files with expected files
+    for (_stringlist *rl = resultfiles, *el = expectfiles, *tl = tags;
+         rl != NULL;
+         rl = rl->next, el = el->next, tl = tl ? tl->next : NULL) {
+
+        // Optional post-processing
+        if (postfunc)
+            postfunc(rl->str);
+
+        // Check for differences
+        bool newdiff = results_differ(test, rl->str, el->str);
+        if (newdiff && tl)
+            diag("tag: %s", tl->str);
+        differ |= newdiff;
+    }
+
+    // Calculate elapsed time
+    INSTR_TIME_SUBTRACT(stoptime, starttime);
+    double elapsed = INSTR_TIME_GET_MILLISEC(stoptime);
+
+    // Report test results
+    if (exit_status != 0) {
+        test_status_failed(test, elapsed, false);
+        log_child_failure(exit_status);
+    } else if (differ) {
+        test_status_failed(test, elapsed, false);
+    } else {
+        test_status_ok(test, elapsed, false);
+    }
+}
+```

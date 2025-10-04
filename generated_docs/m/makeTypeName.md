@@ -32,3 +32,14 @@ This function is commonly used in the PostgreSQL parser when processing SQL stat
 - This function provides a simplified interface for the common case of unqualified type names
 - The resulting TypeName node contains a single-element list with the provided type name
 - Declared in src/include/nodes/makefuncs.h at line 72
+
+## Simplified Source
+
+```c
+TypeName *
+makeTypeName(char *typnam)
+{
+    // Convert single type name to TypeName node via name list
+    return makeTypeNameFromNameList(list_make1(makeString(typnam)));
+}
+```

@@ -34,3 +34,14 @@ This is a static helper function used in logical replication that prepares the o
 - The function signature suggests it was designed to handle more complex preparation logic, but current implementation is minimal
 - The unused parameters (lsn, xid, last_write) indicate potential for future enhancement or backward compatibility considerations
 - Located in src/backend/replication/logical/logicalfuncs.c:52-61
+
+## Simplified Source
+
+```c
+static void LogicalOutputPrepareWrite(LogicalDecodingContext *ctx, XLogRecPtr lsn,
+                                      TransactionId xid, bool last_write)
+{
+    // Reset output buffer for new logical replication data
+    resetStringInfo(ctx->out);
+}
+```

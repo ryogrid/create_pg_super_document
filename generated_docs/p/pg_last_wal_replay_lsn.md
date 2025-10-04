@@ -34,3 +34,22 @@ The replay location indicates the progress of WAL record replay during recovery 
 - The function is accessible via SQL as a system function
 - Located in `src/backend/access/transam/xlogfuncs.c:356-372`
 - The returned LSN represents the last successfully replayed WAL record, defining the consistency point for read-only queries
+
+## Simplified Source
+
+```c
+Datum
+pg_last_wal_replay_lsn(PG_FUNCTION_ARGS)
+{
+    XLogRecPtr recptr;
+
+    // Get WAL replay position (last replayed record)
+    recptr = GetXLogReplayRecPtr(NULL);
+
+    // Return NULL if no WAL has been replayed
+    if (recptr == 0)
+        PG_RETURN_NULL();
+
+    PG_RETURN_LSN(recptr);
+}
+```

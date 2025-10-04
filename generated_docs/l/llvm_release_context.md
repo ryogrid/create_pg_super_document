@@ -38,3 +38,43 @@ The function decrements the global usage counter and handles both the LLVM-speci
 - Manages a global context usage counter ()
 - Includes memory leak prevention through symbol string pool cleanup in newer LLVM versions
 - Integrates with PostgreSQL's resource owner system for proper resource tracking
+
+## Simplified Source
+
+```c
+static void
+llvm_release_context(JitContext *context)
+{
+    LLVMJitContext *llvm_context = (LLVMJitContext *) context;
+
+    // Update usage counter
+    llvm_jit_context_in_use_count--;
+
+    // Skip cleanup during process exit to avoid reentrancy issues
+    if (proc_exit_inprogress)
+        return;
+
+    llvm_enter_fatal_on_oom();
+
+    // Dispose of LLVM module
+    if (llvm_context->module) {
+        LLVMDisposeModule(llvm_context->module);
+        llvm_context->module = NULL;
+    }
+
+    // Clean up JIT handles (version-specific logic simplified)
+    foreach(lc, llvm_context->handles) {
+        LLVMJitHandle *handle = (LLVMJitHandle *) lfirst(lc);
+        // Release handle resources based on LLVM version
+        pfree(handle);
+    }
+    list_free(llvm_context->handles);
+    llvm_context->handles = NIL;
+
+    llvm_leave_fatal_on_oom();
+
+    // Remove from resource owner tracking
+    if (llvm_context->resowner)
+        ResourceOwnerForgetJIT(llvm_context->resowner, llvm_context);
+}
+```

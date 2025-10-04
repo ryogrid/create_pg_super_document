@@ -30,3 +30,14 @@ This function processes backup manifest contents for the Zstandard backup sink. 
 - Manifest contents are intentionally not compressed to maintain their accessibility
 - The function performs a simple pass-through operation while maintaining the sink chain pattern
 - Part of PostgreSQL's backup manifest system which provides metadata about backup contents
+
+## Simplified Source
+```c
+static void bbsink_zstd_manifest_contents(bbsink *sink, size_t len) {
+    // Copy manifest data to next sink (manifests are not compressed)
+    memcpy(sink->bbs_next->bbs_buffer, sink->bbs_buffer, len);
+
+    // Forward to next sink in chain
+    bbsink_manifest_contents(sink->bbs_next, len);
+}
+```

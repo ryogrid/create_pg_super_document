@@ -39,3 +39,25 @@ This function serves as a semantic callback for the JSON parser testing framewor
 - Applies JSON escaping to field names to ensure valid JSON output
 - Sets `elem_is_first` to false after processing to affect subsequent element formatting
 - The `isnull` parameter is provided but not used in the current implementation
+
+## Simplified Source
+
+```c
+static JsonParseErrorType do_object_field_start(void *state, char *fname, bool isnull) {
+    DoState *_state = (DoState *) state;
+
+    // Add comma separator for non-first elements
+    if (!_state->elem_is_first)
+        printf(",\n");
+
+    // Escape and output field name with colon
+    resetStringInfo(_state->buf);
+    escape_json(_state->buf, fname);
+    printf("%s: ", _state->buf->data);
+
+    // Mark that first element has been processed
+    _state->elem_is_first = false;
+
+    return JSON_SUCCESS;
+}
+```

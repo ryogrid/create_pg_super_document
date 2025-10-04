@@ -38,8 +38,28 @@ This function is typically called when a slot needs to be reused for a different
   - Various slot clearing operations throughout the executor
 
 ## Notes and Other Information
-- The function uses  hint for the memory freeing path, suggesting that most virtual slots don't have materialized data to free
-- Virtual slots can be materialized (have a  buffer) when their contents need to persist beyond the slot's original memory context
+- The function uses unlikely hint for the memory freeing path, suggesting that most virtual slots don't have materialized data to free
+- Virtual slots can be materialized (have a data buffer) when their contents need to persist beyond the slot's original memory context
 - The clearing process preserves the slot's tuple descriptor, allowing the slot to be reused
 - This is a key part of PostgreSQL's memory management strategy for tuple slots
 - The function ensures proper cleanup of resources while maintaining the slot in a reusable state
+
+## Simplified Source
+
+```c
+static void tts_virtual_clear(TupleTableSlot *slot)
+{
+    // Free materialized data if slot owns allocated memory
+    if (unlikely(TTS_SHOULDFREE(slot))) {
+        VirtualTupleTableSlot *vslot = (VirtualTupleTableSlot *) slot;
+        pfree(vslot->data);
+        vslot->data = NULL;
+        slot->tts_flags &= ~TTS_FLAG_SHOULDFREE;
+    }
+
+    // Reset slot to empty state
+    slot->tts_nvalid = 0;
+    slot->tts_flags |= TTS_FLAG_EMPTY;
+    ItemPointerSetInvalid(&slot->tts_tid);
+}
+```

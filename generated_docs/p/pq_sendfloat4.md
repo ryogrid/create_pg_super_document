@@ -40,3 +40,19 @@ The implementation uses a union to perform a type-punning operation, treating th
 - Part of PostgreSQL's type-specific serialization system for binary protocol communication
 - Localizes knowledge of external binary representation, making the codebase more maintainable
 - Essential for binary format output of floating-point columns in query results
+
+## Simplified Source
+
+```c
+void pq_sendfloat4(StringInfo buf, float4 f) {
+    // Use union to reinterpret float4 bits as uint32
+    union {
+        float4 f;
+        uint32 i;
+    } swap;
+
+    // Copy float value and send as 32-bit integer
+    swap.f = f;
+    pq_sendint32(buf, swap.i);
+}
+```

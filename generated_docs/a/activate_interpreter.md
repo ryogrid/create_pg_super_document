@@ -42,3 +42,28 @@ The function determines the trust level of the interpreter based on whether the 
 - Critical for proper isolation between different user contexts in multi-user environments
 - Uses Perl's native context switching mechanism for thread-safe interpreter management
 - Function is called frequently during PL/Perl execution, so performance optimization is important
+
+## Simplified Source
+
+```c
+static void
+activate_interpreter(plperl_interp_desc *interp_desc)
+{
+    // Skip if NULL or already active (optimization)
+    if (interp_desc && plperl_active_interp != interp_desc)
+    {
+        // Validate interpreter exists
+        Assert(interp_desc->interp);
+
+        // Switch Perl context to this interpreter
+        PERL_SET_CONTEXT(interp_desc->interp);
+
+        // Configure require mechanism based on trust level
+        // (trusted interpreters have valid user_id, untrusted use InvalidOid)
+        set_interp_require(OidIsValid(interp_desc->user_id));
+
+        // Update global active interpreter pointer
+        plperl_active_interp = interp_desc;
+    }
+}
+```

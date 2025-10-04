@@ -38,3 +38,38 @@ This function performs the core zstd compression work by processing input data t
 - Resets output buffer to next sink's buffer after flushing compressed data
 - Function is static and called through the bbsink operations table
 - Error handling reports specific zstd compression errors with descriptive messages
+
+## Simplified Source
+
+```c
+static void bbsink_zstd_archive_contents(bbsink *sink, size_t len) {
+    bbsink_zstd *mysink = (bbsink_zstd *) sink;
+    ZSTD_inBuffer inBuf = {mysink->base.bbs_buffer, len, 0};
+
+    // Process all input data through compression
+    while (inBuf.pos < inBuf.size) {
+        size_t yet_to_flush;
+        size_t max_needed = ZSTD_compressBound(inBuf.size - inBuf.pos);
+
+        // Check if output buffer has enough space for compression
+        if (mysink->zstd_outBuf.size - mysink->zstd_outBuf.pos < max_needed) {
+            // Flush current compressed data to next sink
+            bbsink_archive_contents(mysink->base.bbs_next,
+                                   mysink->zstd_outBuf.pos);
+
+            // Reset output buffer
+            mysink->zstd_outBuf.dst = mysink->base.bbs_next->bbs_buffer;
+            mysink->zstd_outBuf.size = mysink->base.bbs_next->bbs_buffer_length;
+            mysink->zstd_outBuf.pos = 0;
+        }
+
+        // Compress input data to output buffer
+        yet_to_flush = ZSTD_compressStream2(mysink->cctx, &mysink->zstd_outBuf,
+                                           &inBuf, ZSTD_e_continue);
+
+        if (ZSTD_isError(yet_to_flush))
+            elog(ERROR, "could not compress data: %s",
+                 ZSTD_getErrorName(yet_to_flush));
+    }
+}
+```

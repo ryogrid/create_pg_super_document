@@ -50,3 +50,45 @@ Upon successful validation, if caching is enabled, an empty cache entry is creat
 - Error messages are set via GUC_check_errdetail when validation fails
 - Memory management includes proper cleanup of temporary allocations (rawname, namelist)
 - The cache is role-specific, allowing different users to have different cached search paths
+
+## Simplified Source
+
+```c
+bool check_search_path(char **newval, void **extra, GucSource source)
+{
+    const char *searchPath = *newval;
+    bool use_cache = (SearchPathCacheContext != NULL);
+
+    // Try cache lookup first if available
+    if (use_cache) {
+        spcache_init();
+        Oid roleid = GetUserId();
+
+        if (spcache_lookup(searchPath, roleid) != NULL)
+            return true;  // Previously validated
+    }
+
+    // Validate syntax by parsing the identifier list
+    char *rawname = pstrdup(searchPath);  // Make modifiable copy
+    List *namelist;
+
+    // Parse comma-separated schema names
+    if (!SplitIdentifierString(rawname, ',', &namelist)) {
+        // Syntax error in identifier list
+        GUC_check_errdetail("List syntax is invalid.");
+        pfree(rawname);
+        list_free(namelist);
+        return false;
+    }
+
+    // Clean up temporary allocations
+    pfree(rawname);
+    list_free(namelist);
+
+    // Create cache entry for future lookups
+    if (use_cache)
+        spcache_insert(searchPath, GetUserId());
+
+    return true;  // Syntactically valid
+}
+```

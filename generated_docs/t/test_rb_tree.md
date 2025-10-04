@@ -48,3 +48,25 @@ The function provides comprehensive coverage of all major Red-Black Tree operati
 - Provides bounds checking to prevent excessive memory allocation that could cause system issues
 - The function is designed to be self-contained and provides comprehensive validation of the entire Red-Black Tree API
 - All sub-tests use the same size parameter for consistency across the test suite
+
+## Simplified Source
+
+```c
+Datum test_rb_tree(PG_FUNCTION_ARGS) {
+    int size = PG_GETARG_INT32(0);
+
+    // Validate input parameter bounds
+    if (size <= 0 || size > MaxAllocSize / sizeof(int))
+        elog(ERROR, "invalid size for test_rb_tree: %d", size);
+
+    // Execute comprehensive test suite
+    testleftright(size);        // Test left-to-right traversal
+    testrightleft(size);        // Test right-to-left traversal
+    testfind(size);             // Test basic search functionality
+    testfindltgt(size);         // Test range search operations
+    testleftmost(size);         // Test leftmost node retrieval
+    testdelete(size, Max(size / 10, 1));  // Test deletion (10% of elements)
+
+    PG_RETURN_VOID();
+}
+```

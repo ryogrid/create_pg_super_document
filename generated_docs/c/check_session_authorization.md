@@ -59,3 +59,69 @@ The function handles security carefully by checking the original authenticated u
 - The original authenticated user's privileges are checked, not the current session user's privileges
 - Located in src/backend/commands/variable.c alongside other authorization-related functions
 - Memory allocated for role_auth_extra is automatically freed by the GUC system
+
+## Simplified Source
+
+```c
+bool check_session_authorization(char **newval, void **extra, GucSource source)
+{
+    HeapTuple roleTup;
+    Form_pg_authid roleform;
+    Oid roleid;
+    bool is_superuser;
+    role_auth_extra *myextra;
+
+    // Handle NULL (default value)
+    if (*newval == NULL)
+        return true;
+
+    // Special handling for parallel workers
+    if (InitializingParallelWorker) {
+        roleid = GetSessionUserId();
+        is_superuser = GetSessionUserIsSuperuser();
+    } else {
+        // Require transaction state for catalog lookups
+        if (!IsTransactionState())
+            return false;
+
+        // Look up the role
+        roleTup = SearchSysCache1(AUTHNAME, PointerGetDatum(*newval));
+        if (!HeapTupleIsValid(roleTup)) {
+            if (source == PGC_S_TEST) {
+                ereport(NOTICE, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                               errmsg("role \"%s\" does not exist", *newval)));
+                return true;
+            }
+            GUC_check_errmsg("role \"%s\" does not exist", *newval);
+            return false;
+        }
+
+        roleform = (Form_pg_authid) GETSTRUCT(roleTup);
+        roleid = roleform->oid;
+        is_superuser = roleform->rolsuper;
+        ReleaseSysCache(roleTup);
+
+        // Check permissions (only superusers can change to different user)
+        if (roleid != GetAuthenticatedUserId() && !superuser_arg(GetAuthenticatedUserId())) {
+            if (source == PGC_S_TEST) {
+                ereport(NOTICE, (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                               errmsg("permission will be denied to set session authorization \"%s\"", *newval)));
+                return true;
+            }
+            GUC_check_errcode(ERRCODE_INSUFFICIENT_PRIVILEGE);
+            GUC_check_errmsg("permission denied to set session authorization \"%s\"", *newval);
+            return false;
+        }
+    }
+
+    // Store role info for assign hook
+    myextra = (role_auth_extra *) guc_malloc(LOG, sizeof(role_auth_extra));
+    if (!myextra)
+        return false;
+    myextra->roleid = roleid;
+    myextra->is_superuser = is_superuser;
+    *extra = (void *) myextra;
+
+    return true;
+}
+```

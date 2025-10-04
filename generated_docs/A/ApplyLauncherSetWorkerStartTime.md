@@ -37,3 +37,25 @@ This timing information is crucial for preventing excessive worker restarts and 
 - Proper lock management is implemented with `dshash_release_lock()` to prevent deadlocks
 - The `found` parameter from `dshash_find_or_insert()` is not used, indicating the function doesn't care whether the entry existed previously
 - Part of the worker restart throttling mechanism in PostgreSQL's logical replication system
+
+## Simplified Source
+
+```c
+static void ApplyLauncherSetWorkerStartTime(Oid subid, TimestampTz start_time)
+{
+    LauncherLastStartTimesEntry *entry;
+    bool found;
+
+    // Ensure shared hash table is initialized
+    logicalrep_launcher_attach_dshmem();
+
+    // Find existing entry or create new one for this subscription
+    entry = dshash_find_or_insert(last_start_times, &subid, &found);
+
+    // Record the worker start time
+    entry->last_start_time = start_time;
+
+    // Release the hash table entry lock
+    dshash_release_lock(last_start_times, entry);
+}
+```

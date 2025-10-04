@@ -36,3 +36,19 @@ The function performs a linear search through the state's outgoing arc chain (`o
 - Used primarily during NFA construction and optimization phases
 - Part of PostgreSQL's internal regular expression engine implementation
 - The search is performed in the order arcs appear in the outgoing arc chain
+
+## Simplified Source
+
+```c
+static struct arc *findarc(struct state *s, int type, color co) {
+    // Search through all outgoing arcs of the state
+    for (struct arc *a = s->outs; a != NULL; a = a->outchain) {
+        // Return first arc that matches both type and color
+        if (a->type == type && a->co == co)
+            return a;
+    }
+
+    // No matching arc found
+    return NULL;
+}
+```

@@ -54,3 +54,33 @@ If the spidata attribute is not present (e.g., when someone manually raises an S
 - Proper Python object cleanup with Py_XDECREF
 - Provides comprehensive database context for error reporting
 - Function is located in src/pl/plpython/plpy_elog.c:381-416
+
+## Simplified Source
+
+```c
+static void PLy_get_spi_error_data(PyObject *exc, int *sqlerrcode, char **detail,
+                                  char **hint, char **query, int *position,
+                                  char **schema_name, char **table_name,
+                                  char **column_name, char **datatype_name,
+                                  char **constraint_name) {
+    PyObject *spidata;
+
+    // Try to get structured error data from the exception
+    spidata = PyObject_GetAttrString(exc, "spidata");
+
+    if (spidata != NULL) {
+        // Parse the complete error information from spidata tuple
+        // Format: "izzzizzzzz" = int, str, str, str, int, str, str, str, str, str
+        PyArg_ParseTuple(spidata, "izzzizzzzz",
+                        sqlerrcode, detail, hint, query, position,
+                        schema_name, table_name, column_name,
+                        datatype_name, constraint_name);
+    } else {
+        // Fallback: if no spidata, extract just the SQL error code
+        // This can happen when SPIError is manually raised from Python
+        PLy_get_sqlerrcode(exc, sqlerrcode);
+    }
+
+    Py_XDECREF(spidata);
+}
+```

@@ -47,3 +47,28 @@ The function clears any existing connection error state before processing if the
 - The output buffer must be at least 2*length + 1 bytes to accommodate worst-case escaping
 - Always produces a NUL-terminated output string
 - Provides connection-specific error reporting through the connection's error message facilities
+
+## Simplified Source
+
+```c
+size_t PQescapeStringConn(PGconn *conn,
+                         char *to, const char *from, size_t length,
+                         int *error) {
+    // Validate connection
+    if (!conn) {
+        *to = '\0';
+        if (error)
+            *error = 1;
+        return 0;
+    }
+
+    // Clear error state if no pending commands
+    if (conn->cmd_queue_head == NULL)
+        pqClearConnErrorState(conn);
+
+    // Delegate to internal escaping function with connection settings
+    return PQescapeStringInternal(conn, to, from, length, error,
+                                 conn->client_encoding,
+                                 conn->std_strings);
+}
+```

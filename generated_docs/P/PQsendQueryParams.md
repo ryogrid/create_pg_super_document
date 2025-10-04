@@ -52,3 +52,31 @@ The function validates the connection state and parameter constraints before del
 - Compatible with pipeline mode operations unlike simple query protocol functions
 - Widely used in PostgreSQL client applications and utilities for secure parameter binding
 - The function performs input validation before delegating to the lower-level PQsendQueryGuts implementation
+
+## Simplified Source
+
+```c
+int PQsendQueryParams(PGconn *conn, const char *command, int nParams,
+                     const Oid *paramTypes, const char *const *paramValues,
+                     const int *paramLengths, const int *paramFormats,
+                     int resultFormat) {
+    // Validate connection state
+    if (!PQsendQueryStart(conn, true))
+        return 0;
+
+    // Validate command and parameter count
+    if (!command) {
+        libpq_append_conn_error(conn, "command string is a null pointer");
+        return 0;
+    }
+    if (nParams < 0 || nParams > PQ_QUERY_PARAM_MAX_LIMIT) {
+        libpq_append_conn_error(conn, "number of parameters must be between 0 and %d",
+                               PQ_QUERY_PARAM_MAX_LIMIT);
+        return 0;
+    }
+
+    // Execute using extended query protocol
+    return PQsendQueryGuts(conn, command, "", nParams, paramTypes,
+                          paramValues, paramLengths, paramFormats, resultFormat);
+}
+```

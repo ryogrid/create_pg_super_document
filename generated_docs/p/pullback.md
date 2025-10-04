@@ -49,3 +49,51 @@ The function ensures that constraint arcs are either eliminated entirely or move
 - Successfully pulled '^' constraints are converted to PLAIN arcs using  colors
 - Critical for ensuring the final NFA contains only arc types the executor can process
 - Handles cleanup of temporary intermediate states created during the pulling process
+
+## Simplified Source
+```c
+static void pullback(struct nfa *nfa, FILE *f) {
+    struct state *s, *nexts;
+    struct arc *a, *nexta;
+    struct state *intermediates;
+    int progress;
+
+    // Pull constraints backward until no more progress
+    do {
+        progress = 0;
+        for (s = nfa->states; s != NULL && !NISERR(); s = nexts) {
+            nexts = s->next;
+            intermediates = NULL;
+
+            // Check each outgoing arc for constraints to pull
+            for (a = s->outs; a != NULL && !NISERR(); a = nexta) {
+                nexta = a->outchain;
+                if (a->type == '^' || a->type == BEHIND) {
+                    if (pull(nfa, a, &intermediates))
+                        progress = 1;
+                }
+            }
+
+            // Clean up intermediate states
+            while (intermediates != NULL) {
+                struct state *ns = intermediates->tmp;
+                intermediates->tmp = NULL;
+                intermediates = ns;
+            }
+
+            // Remove useless states
+            if ((s->nins == 0 || s->nouts == 0) && !s->flag)
+                dropstate(nfa, s);
+        }
+    } while (progress && !NISERR());
+
+    // Convert remaining '^' constraints at start to PLAIN arcs
+    for (a = nfa->pre->outs; a != NULL; a = nexta) {
+        nexta = a->outchain;
+        if (a->type == '^') {
+            newarc(nfa, PLAIN, nfa->bos[a->co], a->from, a->to);
+            freearc(nfa, a);
+        }
+    }
+}
+```

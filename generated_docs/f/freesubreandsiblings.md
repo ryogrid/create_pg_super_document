@@ -36,3 +36,15 @@ The function operates iteratively rather than recursively to avoid potential sta
 - The function safely handles NULL input pointers
 - Used primarily during error recovery and normal cleanup of regex compilation
 - The sibling traversal pattern prevents memory leaks when disposing of complex subRE trees
+
+## Simplified Source
+
+```c
+static void freesubreandsiblings(struct vars *v, struct subre *sr) {
+    while (sr != NULL) {
+        struct subre *next = sr->sibling;  // Save next pointer before freeing
+        freesubre(v, sr);                  // Free current node and its subtree
+        sr = next;                         // Move to next sibling
+    }
+}
+```

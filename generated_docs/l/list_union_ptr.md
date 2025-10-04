@@ -46,3 +46,28 @@ The performance characteristics are similar to list_union() (O(n*m) complexity),
 - Useful when working with lists of objects where pointer identity is sufficient for uniqueness
 - The same memory management and performance considerations as list_union() apply
 - Less commonly used than list_union() - specialized for pointer identity use cases
+
+## Simplified Source
+
+```c
+List *
+list_union_ptr(const List *list1, const List *list2)
+{
+    // Verify both are pointer lists
+    Assert(IsPointerList(list1));
+    Assert(IsPointerList(list2));
+
+    // Start with copy of first list
+    List *result = list_copy(list1);
+
+    // Add unique elements from second list
+    const ListCell *cell;
+    foreach(cell, list2) {
+        if (!list_member_ptr(result, lfirst(cell)))
+            result = lappend(result, lfirst(cell));
+    }
+
+    check_list_invariants(result);
+    return result;
+}
+```

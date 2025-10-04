@@ -32,3 +32,36 @@ This function serves as a cleanup mechanism for PL/Python subtransaction managem
 
 ## Notes and Other Information
 This function is typically called in PG_FINALLY blocks to ensure cleanup occurs regardless of how the procedure execution terminates (normal completion, error, or exception). The function issues WARNING messages for each forcibly aborted subtransaction to help developers identify problems with their subtransaction management code. The save_subxact_level parameter allows the function to preserve outer subtransactions that were already open before the current procedure call, only aborting those that were started during the current execution. The cleanup includes restoring PostgreSQL's memory context and resource owner state to maintain proper resource management.
+
+## Simplified Source
+
+```c
+static void
+PLy_abort_open_subtransactions(int save_subxact_level)
+{
+    Assert(save_subxact_level >= 0);
+
+    // Abort all subtransactions beyond the save point level
+    while (list_length(explicit_subtransactions) > save_subxact_level) {
+        PLySubtransactionData *subtransactiondata;
+
+        Assert(explicit_subtransactions != NIL);
+
+        // Warn about the forced abort
+        ereport(WARNING,
+                (errmsg("forcibly aborting a subtransaction that has not been exited")));
+
+        // Rollback and release the current subtransaction
+        RollbackAndReleaseCurrentSubTransaction();
+
+        // Remove from tracking list and clean up
+        subtransactiondata = (PLySubtransactionData *) linitial(explicit_subtransactions);
+        explicit_subtransactions = list_delete_first(explicit_subtransactions);
+
+        // Restore previous context and resource owner
+        MemoryContextSwitchTo(subtransactiondata->oldcontext);
+        CurrentResourceOwner = subtransactiondata->oldowner;
+        pfree(subtransactiondata);
+    }
+}
+```

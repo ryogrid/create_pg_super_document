@@ -35,3 +35,26 @@ This function prepares the zstd compression sink to begin compressing a new arch
 - Resets buffer position to 0 for new compression operation
 - Function is static and called through the bbsink operations table
 - Compression parameters (level, workers, etc.) persist across archive boundaries due to session-only reset
+
+## Simplified Source
+
+```c
+static void bbsink_zstd_begin_archive(bbsink *sink, const char *archive_name) {
+    bbsink_zstd *mysink = (bbsink_zstd *) sink;
+    char *zstd_archive_name;
+
+    // Reset compression context for new archive (preserves parameters)
+    ZSTD_CCtx_reset(mysink->cctx, ZSTD_reset_session_only);
+
+    // Setup output buffer pointing to next sink's buffer
+    mysink->zstd_outBuf.dst = mysink->base.bbs_next->bbs_buffer;
+    mysink->zstd_outBuf.size = mysink->base.bbs_next->bbs_buffer_length;
+    mysink->zstd_outBuf.pos = 0;
+
+    // Add .zst extension to archive name and pass to next sink
+    zstd_archive_name = psprintf("%s.zst", archive_name);
+    Assert(sink->bbs_next != NULL);
+    bbsink_begin_archive(sink->bbs_next, zstd_archive_name);
+    pfree(zstd_archive_name);
+}
+```

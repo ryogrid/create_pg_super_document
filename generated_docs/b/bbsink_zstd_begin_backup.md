@@ -40,3 +40,54 @@ This function initializes the zstd compression context for a basebackup sink. It
 - Calculates output buffer bound using ZSTD_compressBound and rounds up to BLCKSZ alignment
 - Error handling includes specific error codes for parameter validation failures
 - Function is static and called through the bbsink operations table
+
+## Simplified Source
+
+```c
+static void bbsink_zstd_begin_backup(bbsink *sink) {
+    bbsink_zstd *mysink = (bbsink_zstd *) sink;
+    size_t output_buffer_bound;
+    size_t ret;
+    pg_compress_specification *compress = mysink->compress;
+
+    // Create zstd compression context
+    mysink->cctx = ZSTD_createCCtx();
+    if (!mysink->cctx)
+        elog(ERROR, "could not create zstd compression context");
+
+    // Set compression level
+    ret = ZSTD_CCtx_setParameter(mysink->cctx, ZSTD_c_compressionLevel,
+                                 compress->level);
+    if (ZSTD_isError(ret))
+        elog(ERROR, "could not set zstd compression level to %d: %s",
+             compress->level, ZSTD_getErrorName(ret));
+
+    // Set worker count if specified
+    if ((compress->options & PG_COMPRESSION_OPTION_WORKERS) != 0) {
+        ret = ZSTD_CCtx_setParameter(mysink->cctx, ZSTD_c_nbWorkers,
+                                     compress->workers);
+        if (ZSTD_isError(ret))
+            ereport(ERROR, /* error details omitted for brevity */);
+    }
+
+    // Enable long-distance matching if specified
+    if ((compress->options & PG_COMPRESSION_OPTION_LONG_DISTANCE) != 0) {
+        ret = ZSTD_CCtx_setParameter(mysink->cctx,
+                                     ZSTD_c_enableLongDistanceMatching,
+                                     compress->long_distance);
+        if (ZSTD_isError(ret))
+            ereport(ERROR, /* error details omitted for brevity */);
+    }
+
+    // Allocate buffer for compression
+    mysink->base.bbs_buffer = palloc(mysink->base.bbs_buffer_length);
+
+    // Calculate output buffer size and round up to BLCKSZ alignment
+    output_buffer_bound = ZSTD_compressBound(mysink->base.bbs_buffer_length);
+    output_buffer_bound = output_buffer_bound + BLCKSZ -
+        (output_buffer_bound % BLCKSZ);
+
+    // Initialize next sink with calculated buffer size
+    bbsink_begin_backup(sink->bbs_next, sink->bbs_state, output_buffer_bound);
+}
+```

@@ -42,3 +42,25 @@ The function combines basic streaming capability (checked via ReorderBufferCanSt
 - Used in memory management decisions (stream vs spill to disk)
 - Critical for maintaining logical replication consistency
 - The SNAPBUILD_CONSISTENT state requirement ensures catalog visibility is stable
+
+## Simplified Source
+
+```c
+static inline bool
+ReorderBufferCanStartStreaming(ReorderBuffer *rb)
+{
+    LogicalDecodingContext *ctx = rb->private_data;
+    SnapBuild *builder = ctx->snapshot_builder;
+
+    // Can't start streaming unless consistent state is reached
+    if (SnapBuildCurrentState(builder) < SNAPBUILD_CONSISTENT)
+        return false;
+
+    // Can start streaming if enabled and not restarting a transaction
+    if (ReorderBufferCanStream(rb) &&
+        !SnapBuildXactNeedsSkip(builder, ctx->reader->ReadRecPtr))
+        return true;
+
+    return false;
+}
+```

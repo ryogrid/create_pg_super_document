@@ -33,3 +33,12 @@ This function represents a testing/validation mode rather than a full operationa
 - The actual shared memory and semaphore creation is handled by CreateSharedMemoryAndSemaphores() before this function is called
 - This mode is typically used for configuration validation and testing purposes
 - Located in src/backend/bootstrap/bootstrap.c:181-198
+
+## Simplified Source
+```c
+static void CheckerModeMain(void) {
+    // Shared memory and semaphores already created by CreateSharedMemoryAndSemaphores()
+    // Nothing more to do - just exit successfully
+    proc_exit(0);
+}
+```

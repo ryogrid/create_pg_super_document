@@ -41,3 +41,33 @@ The ds_state enum implements a finite state machine for parsing parameter lists 
 
 ## Notes and Other Information
 This enum is defined locally within the deserialize_deflist function in src/backend/commands/tsearchcmds.c:1631-1641. The state machine handles escape sequences, quote doubling for literal quotes, and comma/whitespace separation between parameters. The parsing supports both legacy unquoted formats and modern quoted formats for backward compatibility with older PostgreSQL versions.
+
+## Simplified Source
+
+```c
+// State machine enum for parsing parameter lists
+typedef enum {
+    CS_WAITKEY,        // Waiting for parameter key
+    CS_INKEY,          // Reading unquoted key
+    CS_INQKEY,         // Reading quoted key
+    CS_WAITEQ,         // Waiting for '=' separator
+    CS_WAITVALUE,      // Waiting for parameter value
+    CS_INSQVALUE,      // Reading single-quoted value
+    CS_INDQVALUE,      // Reading double-quoted value
+    CS_INWVALUE        // Reading unquoted value
+} ds_state;
+
+// Usage example in parser loop:
+ds_state state = CS_WAITKEY;
+for (; ptr < endptr; ptr++) {
+    switch (state) {
+        case CS_WAITKEY:
+            // Handle start of new parameter
+            break;
+        case CS_INKEY:
+            // Process unquoted key characters
+            break;
+        // ... other state handlers
+    }
+}
+```

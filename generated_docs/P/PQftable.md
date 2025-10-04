@@ -30,3 +30,19 @@ PQftable retrieves the OID (Object Identifier) of the table that contains the sp
 - Table OID information is populated by the server when available and depends on the nature of the SQL query
 - This function is thread-safe as it only reads from the PGresult structure
 - Defined in src/interfaces/libpq/fe-exec.c:3686-3696
+
+## Simplified Source
+
+```c
+Oid PQftable(const PGresult *res, int field_num) {
+    // Validate field number is in range
+    if (!check_field_number(res, field_num))
+        return InvalidOid;
+
+    // Return table OID if attribute descriptors exist
+    if (res->attDescs)
+        return res->attDescs[field_num].tableid;
+    else
+        return InvalidOid;
+}
+```

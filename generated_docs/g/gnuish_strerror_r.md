@@ -38,3 +38,31 @@ This function serves as a compatibility layer that normalizes the different stre
 - Uses strlcpy for safe string copying in the fallback case
 - Returns NULL on failure, letting the caller handle error conditions
 - Located in src/port/strerror.c:85-112
+
+## Simplified Source
+
+```c
+static char *gnuish_strerror_r(int errnum, char *buf, size_t buflen) {
+#ifdef HAVE_STRERROR_R
+    #ifdef STRERROR_R_INT
+        // POSIX API: returns int (0 on success)
+        if (strerror_r(errnum, buf, buflen) == 0)
+            return buf;
+        return NULL;  // Let caller deal with failure
+    #else
+        // GNU API: returns char* directly
+        return strerror_r(errnum, buf, buflen);
+    #endif
+#else
+    // Fallback: use plain strerror (may not be thread-safe)
+    char *sbuf = strerror(errnum);
+
+    if (sbuf == NULL)
+        return NULL;
+
+    // Copy to caller's buffer to minimize thread-safety issues
+    strlcpy(buf, sbuf, buflen);
+    return buf;
+#endif
+}
+```

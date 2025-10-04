@@ -42,3 +42,40 @@ When creating a modified copy, the function updates all type-dependent attribute
 - Resets compression and collation fields to invalid values when creating copies
 - Resets cache offsets for INCLUDE columns when type length changes
 - Essential for proper tuple handling in leaf storage and index-only scan operations
+
+## Simplified Source
+
+```c
+TupleDesc getSpGistTupleDesc(Relation index, SpGistTypeDesc *keyType) {
+    TupleDesc outTupDesc;
+    Form_pg_attribute att;
+
+    // Check if existing descriptor matches required key type
+    if (keyType->type == TupleDescAttr(RelationGetDescr(index), spgKeyColumn)->atttypid) {
+        // Can use existing descriptor as-is
+        outTupDesc = RelationGetDescr(index);
+    } else {
+        // Need to create modified copy with correct key type
+        outTupDesc = CreateTupleDescCopy(RelationGetDescr(index));
+        att = TupleDescAttr(outTupDesc, spgKeyColumn);
+
+        // Update type-dependent fields for key column
+        att->atttypid = keyType->type;
+        att->atttypmod = -1;
+        att->attlen = keyType->attlen;
+        att->attbyval = keyType->attbyval;
+        att->attalign = keyType->attalign;
+        att->attstorage = keyType->attstorage;
+
+        // Reset compression/collation to invalid values
+        att->attcompression = InvalidCompressionMethod;
+        att->attcollation = InvalidOid;
+
+        // Reset cache offsets for INCLUDE columns if type length changed
+        for (int i = spgFirstIncludeColumn; i < outTupDesc->natts; i++)
+            TupleDescAttr(outTupDesc, i)->attcacheoff = -1;
+    }
+
+    return outTupDesc;
+}
+```

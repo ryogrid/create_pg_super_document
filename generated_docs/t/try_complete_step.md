@@ -44,3 +44,121 @@ The function processes different types of query results (tuples, errors, notific
 - Manages connection state by clearing active_step when step completes
 - Critical for preventing test hangs in buildfarm environments while maintaining test determinism
 - Uses microsecond precision timing for accurate timeout handling
+
+## Simplified Source
+
+```c
+static bool
+try_complete_step(TestSpec *testspec, PermutationStep *pstep, int flags)
+{
+    Step *step = pstep->step;
+    IsoConnInfo *iconn = &conns[1 + step->session];
+    PGconn *conn = iconn->conn;
+    struct timeval start_time;
+    bool canceled = false;
+
+    // Handle PSB_ONCE blockers on first call
+    if (!(flags & STEP_RETRY)) {
+        for (int i = 0; i < pstep->nblockers; i++) {
+            if (pstep->blockers[i]->blocktype == PSB_ONCE) {
+                printf("step %s: %s <waiting ...>\n", step->name, step->sql);
+                return true;
+            }
+        }
+    }
+
+    gettimeofday(&start_time, NULL);
+
+    // Wait for query to complete or detect lock waits
+    while (PQisBusy(conn)) {
+        fd_set read_set;
+        struct timeval timeout = {0, 10000}; // 10ms timeout
+
+        int ret = select(PQsocket(conn) + 1, &read_set, NULL, NULL, &timeout);
+
+        if (ret == 0) { // Timeout - check for lock wait
+            if (flags & STEP_NONBLOCK) {
+                // Query database to see if step is waiting for lock
+                PGresult *res = PQexecPrepared(conns[0].conn, PREP_WAITING, 1,
+                                             &conns[step->session + 1].backend_pid_str,
+                                             NULL, NULL, 0);
+                bool waiting = (PQgetvalue(res, 0, 0)[0] == 't');
+                PQclear(res);
+
+                if (waiting) {
+                    if (!(flags & STEP_RETRY))
+                        printf("step %s: %s <waiting ...>\n", step->name, step->sql);
+                    return true;
+                }
+            }
+
+            // Handle timeouts and cancellation
+            struct timeval current_time;
+            gettimeofday(&current_time, NULL);
+            int64 elapsed = (current_time.tv_sec - start_time.tv_sec) * USECS_PER_SEC +
+                           (current_time.tv_usec - start_time.tv_usec);
+
+            if (elapsed > max_step_wait && !canceled) {
+                // Try to cancel the query
+                PGcancelConn *cancel_conn = PQcancelCreate(conn);
+                if (PQcancelBlocking(cancel_conn)) {
+                    printf("isolationtester: canceling step %s\n", step->name);
+                    canceled = true;
+                }
+                PQcancelFinish(cancel_conn);
+            }
+
+            if (elapsed > 2 * max_step_wait) {
+                fprintf(stderr, "step %s timed out\n", step->name);
+                exit(1);
+            }
+        } else if (ret > 0) {
+            // Data available - consume input
+            if (!PQconsumeInput(conn)) {
+                fprintf(stderr, "PQconsumeInput failed\n");
+                exit(1);
+            }
+        }
+    }
+
+    // Check for blocker conditions
+    if (step_has_blocker(pstep)) {
+        if (!(flags & STEP_RETRY))
+            printf("step %s: %s <waiting ...>\n", step->name, step->sql);
+        return true;
+    }
+
+    // Process query results
+    if (flags & STEP_RETRY)
+        printf("step %s: <... completed>\n", step->name);
+    else
+        printf("step %s: %s\n", step->name, step->sql);
+
+    // Handle all result sets
+    PGresult *res;
+    while ((res = PQgetResult(conn))) {
+        switch (PQresultStatus(res)) {
+            case PGRES_TUPLES_OK:
+                printResultSet(res);
+                break;
+            case PGRES_FATAL_ERROR:
+                // Print error message
+                printf("ERROR: %s\n", PQresultErrorMessage(res));
+                break;
+            // Handle other result types...
+        }
+        PQclear(res);
+    }
+
+    // Process NOTIFY messages
+    PQconsumeInput(conn);
+    PGnotify *notify;
+    while ((notify = PQnotifies(conn)) != NULL) {
+        printf("NOTIFY \"%s\" from session\n", notify->relname);
+        PQfreemem(notify);
+    }
+
+    iconn->active_step = NULL;
+    return false; // Step completed
+}
+```

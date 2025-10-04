@@ -33,3 +33,21 @@ PQping is a utility function that determines whether a PostgreSQL server is runn
 - Ideal for monitoring and health check scenarios where you only need to verify server availability
 - More lightweight than establishing a full connection when you only need to test connectivity
 - The function handles connection cleanup internally, so callers do not need to manage connection resources
+
+## Simplified Source
+
+```c
+PGPing PQping(const char *conninfo)
+{
+    // Start connection with provided connection string
+    PGconn *conn = PQconnectStart(conninfo);
+
+    // Test server connectivity and get ping status
+    PGPing ret = internal_ping(conn);
+
+    // Clean up connection resources
+    PQfinish(conn);
+
+    return ret;
+}
+```

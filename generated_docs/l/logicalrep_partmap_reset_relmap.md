@@ -38,3 +38,33 @@ The function uses hash table iteration to find matching entries based on the rem
 - Memory cleanup is properly handled through logicalrep_relmap_free_entry before zeroing the entry
 - This is part of the logical replication subsystem that maintains partition mapping between publisher and subscriber
 - The reset operation is designed to be efficient by deferring relation information updates to the actual partition open operation
+
+## Simplified Source
+
+```c
+void
+logicalrep_partmap_reset_relmap(LogicalRepRelation *remoterel)
+{
+    HASH_SEQ_STATUS status;
+    LogicalRepPartMapEntry *part_entry;
+    LogicalRepRelMapEntry *entry;
+
+    // Early return if partition map not initialized
+    if (LogicalRepPartMap == NULL)
+        return;
+
+    // Iterate through all partition map entries
+    hash_seq_init(&status, LogicalRepPartMap);
+    while ((part_entry = (LogicalRepPartMapEntry *) hash_seq_search(&status)) != NULL) {
+        entry = &part_entry->relmapentry;
+
+        // Skip entries that don't match the remote relation
+        if (entry->remoterel.remoteid != remoterel->remoteid)
+            continue;
+
+        // Clean up and reset matching entry
+        logicalrep_relmap_free_entry(entry);
+        memset(entry, 0, sizeof(LogicalRepRelMapEntry));
+    }
+}
+```

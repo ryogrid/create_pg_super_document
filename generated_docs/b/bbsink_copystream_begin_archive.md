@@ -35,3 +35,25 @@ This function creates and sends a CopyData message that signals the start of a n
 - Uses an empty string for the tablespace path if ti->path is NULL (typically for the main tablespace)
 - This message format allows clients to reconstruct the proper directory structure for the backup
 - The function accesses the current tablespace using state->tablespace_num as an index into the tablespaces list
+
+## Simplified Source
+
+```c
+static void
+bbsink_copystream_begin_archive(bbsink *sink, const char *archive_name)
+{
+    bbsink_state *state = sink->bbs_state;
+    tablespaceinfo *ti;
+    StringInfoData buf;
+
+    // Get current tablespace info from the backup state
+    ti = list_nth(state->tablespaces, state->tablespace_num);
+
+    // Send CopyData message announcing new archive
+    pq_beginmessage(&buf, PqMsg_CopyData);
+    pq_sendbyte(&buf, 'n');  // 'n' = New archive
+    pq_sendstring(&buf, archive_name);
+    pq_sendstring(&buf, ti->path == NULL ? "" : ti->path);  // tablespace path
+    pq_endmessage(&buf);
+}
+```

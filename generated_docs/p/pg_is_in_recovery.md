@@ -38,3 +38,14 @@ The function directly wraps the internal RecoveryInProgress() function, making t
 - Commonly used in monitoring and high-availability setups
 - Returns false on a fully operational primary server
 - Defined in src/backend/access/transam/xlogfuncs.c:642-650
+
+## Simplified Source
+
+```c
+Datum
+pg_is_in_recovery(PG_FUNCTION_ARGS)
+{
+    // Return current recovery mode state
+    PG_RETURN_BOOL(RecoveryInProgress());
+}
+```

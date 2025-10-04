@@ -35,3 +35,12 @@ PQescapeLiteral is a wrapper function that calls PQescapeInternal with the  para
 - Handles multibyte character validation to prevent encoding-based SQL injection attacks
 - Automatically adds escape string syntax (E'...') when backslashes are present in literals
 - Used extensively throughout PostgreSQL client tools and applications for safe SQL query construction
+
+## Simplified Source
+
+```c
+char *PQescapeLiteral(PGconn *conn, const char *str, size_t len) {
+    // Delegate to internal escaping function for SQL literals
+    return PQescapeInternal(conn, str, len, false);
+}
+```

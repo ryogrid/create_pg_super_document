@@ -36,3 +36,15 @@ This function performs complete cleanup of a numeric type structure by first fre
 - Part of the ECPG pgtypes library for PostgreSQL embedded SQL
 - Should not be called on static or stack-allocated numeric structures
 - Located in src/interfaces/ecpg/pgtypeslib/numeric.c:385-391
+
+## Simplified Source
+
+```c
+void PGTYPESnumeric_free(numeric *var) {
+    // Free internal digit buffer
+    digitbuf_free(var->buf);
+
+    // Free the numeric structure itself
+    free(var);
+}
+```

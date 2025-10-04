@@ -46,3 +46,35 @@ If any of these security conditions are violated, the function immediately termi
 - Process termination (exit(1)) is immediate and non-recoverable when security violations are detected
 - Platform-specific implementation uses conditional compilation (#ifndef WIN32, #else) to handle differences between Unix/Linux and Windows privilege models
 - This security measure is fundamental to PostgreSQL's security architecture and cannot be disabled through configuration options
+
+## Simplified Source
+```c
+static void check_root(const char *progname) {
+#ifndef WIN32
+    // Check if running as root (effective UID 0)
+    if (geteuid() == 0) {
+        write_stderr("\"root\" execution of the PostgreSQL server is not permitted.\n"
+                     "The server must be started under an unprivileged user ID to prevent\n"
+                     "possible system security compromise. See the documentation for\n"
+                     "more information on how to properly start the server.\n");
+        exit(1);
+    }
+
+    // Check for setuid execution - real and effective UIDs must match
+    if (getuid() != geteuid()) {
+        write_stderr("%s: real and effective user IDs must match\n", progname);
+        exit(1);
+    }
+#else
+    // Windows: Check if running with administrator privileges
+    if (pgwin32_is_admin()) {
+        write_stderr("Execution of PostgreSQL by a user with administrative permissions is not\n"
+                     "permitted.\n"
+                     "The server must be started under an unprivileged user ID to prevent\n"
+                     "possible system security compromises. See the documentation for\n"
+                     "more information on how to properly start the server.\n");
+        exit(1);
+    }
+#endif
+}
+```

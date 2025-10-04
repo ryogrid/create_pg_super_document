@@ -45,3 +45,67 @@ This function performs validation of PL/Perl functions when they are created or 
 - Uses PostgreSQL's system cache to look up function metadata efficiently
 - Essential for preventing runtime errors by catching type mismatches at function definition time
 - Returns void as validators don't produce meaningful return values
+
+## Simplified Source
+
+```c
+Datum plperl_validator(PG_FUNCTION_ARGS)
+{
+    Oid funcoid = PG_GETARG_OID(0);
+    HeapTuple tuple;
+    Form_pg_proc proc;
+    char functyptype;
+    int numargs;
+    Oid *argtypes;
+    char **argnames;
+    char *argmodes;
+    bool is_trigger = false;
+    bool is_event_trigger = false;
+    int i;
+
+    // Check validator access permissions
+    if (!CheckFunctionValidatorAccess(fcinfo->flinfo->fn_oid, funcoid))
+        PG_RETURN_VOID();
+
+    // Look up function in pg_proc catalog
+    tuple = SearchSysCache1(PROCOID, ObjectIdGetDatum(funcoid));
+    if (!HeapTupleIsValid(tuple))
+        elog(ERROR, "cache lookup failed for function %u", funcoid);
+
+    proc = (Form_pg_proc) GETSTRUCT(tuple);
+    functyptype = get_typtype(proc->prorettype);
+
+    // Validate return type - disallow unsupported pseudotypes
+    if (functyptype == TYPTYPE_PSEUDO)
+    {
+        if (proc->prorettype == TRIGGEROID)
+            is_trigger = true;
+        else if (proc->prorettype == EVENT_TRIGGEROID)
+            is_event_trigger = true;
+        else if (proc->prorettype != RECORDOID && proc->prorettype != VOIDOID)
+            ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                           errmsg("PL/Perl functions cannot return type %s",
+                                  format_type_be(proc->prorettype))));
+    }
+
+    // Validate argument types - disallow unsupported pseudotypes
+    numargs = get_func_arg_info(tuple, &argtypes, &argnames, &argmodes);
+    for (i = 0; i < numargs; i++)
+    {
+        if (get_typtype(argtypes[i]) == TYPTYPE_PSEUDO && argtypes[i] != RECORDOID)
+            ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                           errmsg("PL/Perl functions cannot accept type %s",
+                                  format_type_be(argtypes[i]))));
+    }
+
+    ReleaseSysCache(tuple);
+
+    // Optionally compile function body for syntax validation
+    if (check_function_bodies)
+    {
+        (void) compile_plperl_function(funcoid, is_trigger, is_event_trigger);
+    }
+
+    PG_RETURN_VOID();
+}
+```

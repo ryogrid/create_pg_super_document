@@ -37,3 +37,12 @@ The key difference from SPI_commit is that transaction characteristics are saved
 - Implements SQL standard COMMIT AND CHAIN semantics
 - Errors during commit are handled by aborting the failed transaction and starting a new one with preserved characteristics
 - Less commonly used than SPI_commit, primarily for cases where transaction properties need to be maintained across boundaries
+
+## Simplified Source
+
+```c
+void SPI_commit_and_chain(void) {
+    // Commit current transaction and start new one with preserved characteristics
+    _SPI_commit(true);  // true = chain transaction
+}
+```

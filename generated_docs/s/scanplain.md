@@ -33,3 +33,28 @@ The `scanplain` function is a utility that scans through plain character sequenc
 - Returns pointer to position just after the plain content, before the closing delimiter
 - Used for extracting content from collating elements, equivalence classes, and character classes
 - Located in src/backend/regex/regcomp.c:1886-1910
+
+## Simplified Source
+
+```c
+static const chr *scanplain(struct vars *v) {
+    const chr *endp;
+
+    // Must start with a bracket expression delimiter
+    assert(SEE(COLLEL) || SEE(ECLASS) || SEE(CCLASS));
+    NEXT();
+
+    // Scan through all plain content
+    endp = v->now;
+    while (SEE(PLAIN)) {
+        endp = v->now;
+        NEXT();
+    }
+
+    // Should end with closing delimiter
+    assert(SEE(END) || ISERR());
+    NEXT();
+
+    return endp;
+}
+```

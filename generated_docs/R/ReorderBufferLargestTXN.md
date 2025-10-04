@@ -41,3 +41,23 @@ This function is typically called when the reorder buffer needs to free up memor
 - Part of the memory pressure management subsystem for logical replication
 - The returned transaction is a candidate for serialization to disk to free up memory
 - Includes defensive assertions to catch potential data corruption or inconsistent state
+
+## Simplified Source
+
+```c
+static ReorderBufferTXN *
+ReorderBufferLargestTXN(ReorderBuffer *rb)
+{
+    ReorderBufferTXN *largest;
+
+    // Get the largest transaction from the max-heap
+    largest = pairingheap_container(ReorderBufferTXN, txn_node,
+                                    pairingheap_first(rb->txn_heap));
+
+    Assert(largest);
+    Assert(largest->size > 0);
+    Assert(largest->size <= rb->size);
+
+    return largest;
+}
+```

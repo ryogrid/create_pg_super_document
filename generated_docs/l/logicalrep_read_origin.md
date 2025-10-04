@@ -37,3 +37,15 @@ This function is crucial for maintaining replication origin information in logic
 - Part of PostgreSQL's replication origin tracking system
 - Counterpart to logicalrep_write_origin for message deserialization
 - Located in src/backend/replication/logical/proto.c:401-413
+
+## Simplified Source
+
+```c
+char *logicalrep_read_origin(StringInfo in, XLogRecPtr *origin_lsn) {
+    // Read origin LSN
+    *origin_lsn = pq_getmsgint64(in);
+
+    // Read and return origin name (caller must free)
+    return pstrdup(pq_getmsgstring(in));
+}
+```

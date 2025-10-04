@@ -39,3 +39,30 @@ This function serves as a validation hook for PostgreSQL's default_tablespace co
 - Critical for maintaining referential integrity of the default_tablespace setting
 - Prevents runtime errors that could occur if default_tablespace referenced a non-existent tablespace
 - Used during configuration loading, SET commands, and configuration validation
+
+## Simplified Source
+
+```c
+bool check_default_tablespace(char **newval, void **extra, GucSource source) {
+    // Skip validation if not in transaction state or not connected to database
+    // Must accept the value on faith in these contexts
+    if (IsTransactionState() && MyDatabaseId != InvalidOid) {
+
+        // Check if tablespace name is non-empty and doesn't exist
+        if (**newval != '\0' && !OidIsValid(get_tablespace_oid(*newval, true))) {
+
+            // For test scenarios, issue NOTICE instead of hard error
+            if (source == PGC_S_TEST) {
+                ereport(NOTICE, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                        errmsg("tablespace \"%s\" does not exist", *newval)));
+            } else {
+                // For normal operations, fail validation with detailed error
+                GUC_check_errdetail("Tablespace \"%s\" does not exist.", *newval);
+                return false;
+            }
+        }
+    }
+
+    return true;  // Accept value (empty string or valid tablespace)
+}
+```

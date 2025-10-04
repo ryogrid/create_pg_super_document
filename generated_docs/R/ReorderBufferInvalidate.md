@@ -37,3 +37,27 @@ The function only processes invalidations if the transaction has a base snapshot
 - Requires a base snapshot to process invalidations (otherwise asserts ninvalidations == 0)
 - Part of the prepared transaction handling workflow where transactions may be skipped but catalog effects must be preserved
 - The LSN parameter is accepted but not actively used in the current implementation
+
+## Simplified Source
+
+```c
+void ReorderBufferInvalidate(ReorderBuffer *rb, TransactionId xid, XLogRecPtr lsn)
+{
+    ReorderBufferTXN *txn;
+
+    // Find the transaction by XID
+    txn = ReorderBufferTXNByXid(rb, xid, false, NULL, InvalidXLogRecPtr, false);
+
+    // Nothing to invalidate if transaction doesn't exist
+    if (txn == NULL)
+        return;
+
+    // Process cache invalidations if transaction has base snapshot and invalidations
+    // This ensures catalog consistency even for skipped transactions
+    if (txn->base_snapshot != NULL && txn->ninvalidations > 0)
+        ReorderBufferImmediateInvalidation(rb, txn->ninvalidations, txn->invalidations);
+
+    // Note: Unlike ReorderBufferForget(), this does NOT clean up the transaction
+    // The transaction structure remains intact for potential future processing
+}
+```

@@ -48,3 +48,26 @@ This function is essential for debugging heap algorithms, verifying heap propert
 - Not used in production PostgreSQL code paths; intended for development and debugging
 - Provides complete heap visualization for troubleshooting and verification
 - The function abstracts away the complexity of tree traversal from users who just want to inspect heap contents
+
+## Simplified Source
+
+```c
+char *pairingheap_dump(pairingheap *heap,
+                      void (*dumpfunc) (pairingheap_node *node, StringInfo buf, void *opaque),
+                      void *opaque)
+{
+    // Handle empty heap case
+    if (!heap->ph_root) {
+        return pstrdup("(empty)");
+    }
+
+    // Create string buffer for output
+    StringInfoData buf;
+    initStringInfo(&buf);
+
+    // Recursively dump the entire heap starting from root
+    pairingheap_dump_recurse(&buf, heap->ph_root, dumpfunc, opaque, 0, NULL);
+
+    return buf.data;
+}
+```

@@ -30,3 +30,13 @@ This function serves as the specific entry point for validating PL/PerlU (untrus
 - The actual validation logic is shared between PL/Perl and PL/PerlU in the main validator function
 - Located in src/pl/plperl/plperl.c:2083-2094
 - Always returns void as validator results are ignored by the system
+
+## Simplified Source
+
+```c
+Datum plperlu_validator(PG_FUNCTION_ARGS) {
+    // Delegate validation to main plperl validator with our fcinfo
+    // This ensures the correct PL/PerlU language OID is used
+    return plperl_validator(fcinfo);
+}
+```

@@ -28,3 +28,15 @@ This function provides a simple hash function wrapper specifically designed for 
 - The function performs a cast from char* to unsigned char* to ensure consistent hash computation regardless of char signedness
 - Used as part of PostgreSQL's hash table infrastructure for managing file mappings during incremental backups
 - The function leverages the existing hash_bytes infrastructure, which provides robust hash distribution for hash table operations
+
+## Simplified Source
+
+```c
+static uint32
+hash_string_pointer(const char *s)
+{
+    // Cast to unsigned char and hash the string bytes
+    unsigned char *ss = (unsigned char *) s;
+    return hash_bytes(ss, strlen(s));
+}
+```

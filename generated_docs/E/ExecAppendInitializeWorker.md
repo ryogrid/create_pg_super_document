@@ -33,3 +33,15 @@ The function is called during the initialization phase of each worker process in
 - The `shm_toc_lookup` call uses `false` for the `noError` parameter, meaning it will raise an error if the shared state is not found
 - Workers must call this function before attempting to execute any subplans to ensure proper coordination with other parallel processes
 - The shared state retrieved includes synchronization primitives and work distribution information set up by the leader process
+
+## Simplified Source
+
+```c
+void ExecAppendInitializeWorker(AppendState *node, ParallelWorkerContext *pwcxt) {
+    // Connect to shared parallel append state from leader
+    node->as_pstate = shm_toc_lookup(pwcxt->toc, node->ps.plan->plan_node_id, false);
+
+    // Configure worker to use worker-specific subplan selection
+    node->choose_next_subplan = choose_next_subplan_for_worker;
+}
+```

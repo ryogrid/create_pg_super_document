@@ -48,3 +48,51 @@ The function showcases various option patterns:
 - The di_relopt_tab array is populated with metadata for each option to facilitate option processing
 - Located in src/test/modules/dummy_index_am/dummy_index_am.c:76-138
 - Serves as a comprehensive example for developers implementing custom relation options
+
+## Simplified Source
+
+```c
+static void
+create_reloptions_table(void)
+{
+    // Create relation option kind for dummy index AM
+    di_relopt_kind = add_reloption_kind();
+
+    // Add integer option: option_int (default 10, range -10 to 100)
+    add_int_reloption(di_relopt_kind, "option_int", "Integer option for dummy_index_am",
+                      10, -10, 100, AccessExclusiveLock);
+    di_relopt_tab[0] = (relopt_parse_elt) {"option_int", RELOPT_TYPE_INT,
+                                           offsetof(DummyIndexOptions, option_int)};
+
+    // Add real option: option_real (default 3.1415, range -10 to 100)
+    add_real_reloption(di_relopt_kind, "option_real", "Real option for dummy_index_am",
+                       3.1415, -10, 100, AccessExclusiveLock);
+    di_relopt_tab[1] = (relopt_parse_elt) {"option_real", RELOPT_TYPE_REAL,
+                                           offsetof(DummyIndexOptions, option_real)};
+
+    // Add boolean option: option_bool (default true)
+    add_bool_reloption(di_relopt_kind, "option_bool", "Boolean option for dummy_index_am",
+                       true, AccessExclusiveLock);
+    di_relopt_tab[2] = (relopt_parse_elt) {"option_bool", RELOPT_TYPE_BOOL,
+                                           offsetof(DummyIndexOptions, option_bool)};
+
+    // Add enum option: option_enum (values "one", "two", default "one")
+    add_enum_reloption(di_relopt_kind, "option_enum", "Enum option for dummy_index_am",
+                       dummyAmEnumValues, DUMMY_AM_ENUM_ONE,
+                       "Valid values are \"one\" and \"two\".", AccessExclusiveLock);
+    di_relopt_tab[3] = (relopt_parse_elt) {"option_enum", RELOPT_TYPE_ENUM,
+                                           offsetof(DummyIndexOptions, option_enum)};
+
+    // Add string options with and without defaults
+    add_string_reloption(di_relopt_kind, "option_string_val",
+                         "String option for dummy_index_am with non-NULL default",
+                         "DefaultValue", &validate_string_option, AccessExclusiveLock);
+    di_relopt_tab[4] = (relopt_parse_elt) {"option_string_val", RELOPT_TYPE_STRING,
+                                           offsetof(DummyIndexOptions, option_string_val_offset)};
+
+    add_string_reloption(di_relopt_kind, "option_string_null", NULL,
+                         NULL, &validate_string_option, AccessExclusiveLock);
+    di_relopt_tab[5] = (relopt_parse_elt) {"option_string_null", RELOPT_TYPE_STRING,
+                                           offsetof(DummyIndexOptions, option_string_null_offset)};
+}
+```

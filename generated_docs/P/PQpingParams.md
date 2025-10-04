@@ -39,3 +39,23 @@ The function internally uses PQconnectStartParams to initiate a connection attem
 - Commonly used in health check scripts and monitoring tools
 - Part of the libpq public API for server availability testing
 - The connection attempt may involve network timeouts and authentication, so it should be used with appropriate timeout considerations
+
+## Simplified Source
+
+```c
+PGPing PQpingParams(const char *const *keywords,
+                   const char *const *values,
+                   int expand_dbname)
+{
+    // Start connection with provided parameters
+    PGconn *conn = PQconnectStartParams(keywords, values, expand_dbname);
+
+    // Test server connectivity and get status
+    PGPing ret = internal_ping(conn);
+
+    // Clean up connection resources
+    PQfinish(conn);
+
+    return ret;
+}
+```

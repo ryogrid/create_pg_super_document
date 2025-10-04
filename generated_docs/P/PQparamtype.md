@@ -36,3 +36,20 @@ If the parameter number is invalid, the result pointer is NULL, or no parameter 
 - Essential for applications that need to perform type-specific parameter binding or validation
 - Part of the prepared statement introspection API alongside PQnparams()
 - The paramDescs field must be populated (typically by PQdescribePrepared) for this function to return valid type information
+
+## Simplified Source
+
+```c
+Oid PQparamtype(const PGresult *res, int param_num)
+{
+    // Validate parameter number is in range
+    if (!check_param_number(res, param_num))
+        return InvalidOid;
+
+    // Return parameter type OID if descriptors available
+    if (res->paramDescs)
+        return res->paramDescs[param_num].typid;
+    else
+        return InvalidOid;
+}
+```

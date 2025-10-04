@@ -41,3 +41,20 @@ For NULL database values, the function returns 0. The length information is stor
 - The length represents actual bytes stored, not string length
 - NULL_LEN (-1) is used internally to mark NULL database values, but the function returns 0 for such cases
 - Commonly used in conjunction with PQgetvalue() when precise data handling is required
+
+## Simplified Source
+
+```c
+int PQgetlength(const PGresult *res, int tup_num, int field_num)
+{
+    // Validate tuple and field numbers are in range
+    if (!check_tuple_field_number(res, tup_num, field_num))
+        return 0;
+
+    // Return actual field length, or 0 for NULL values
+    if (res->tuples[tup_num][field_num].len != NULL_LEN)
+        return res->tuples[tup_num][field_num].len;
+    else
+        return 0;
+}
+```

@@ -35,3 +35,23 @@ The function first validates that both indices are non-negative, then checks if 
 - This is a read-only operation that does not modify the input multibitmapset
 - Used for membership testing in PostgreSQL's query optimizer algorithms
 - The function includes a comment suggesting that returning false for negative indexes might be better than throwing an error
+
+## Simplified Source
+
+```c
+bool
+mbms_is_member(int listidx, int bitidx, const List *a)
+{
+    // Validate indices are non-negative
+    if (listidx < 0 || bitidx < 0)
+        elog(ERROR, "negative multibitmapset member index not allowed");
+
+    // Check if list index is in bounds
+    if (listidx >= list_length(a))
+        return false;
+
+    // Get the specific bitmapset and check bit membership
+    const Bitmapset *bms = list_nth_node(Bitmapset, a, listidx);
+    return bms_is_member(bitidx, bms);
+}
+```

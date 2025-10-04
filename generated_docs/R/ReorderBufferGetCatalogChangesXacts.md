@@ -35,3 +35,35 @@ This function creates and returns a dynamically allocated array containing the t
 - Used primarily during snapshot serialization to maintain catalog change information across restarts
 - The function includes assertions to verify data consistency
 - Essential component of PostgreSQL's logical replication infrastructure for handling catalog modifications
+
+## Simplified Source
+
+```c
+TransactionId *
+ReorderBufferGetCatalogChangesXacts(ReorderBuffer *rb)
+{
+    dlist_iter iter;
+    TransactionId *xids = NULL;
+    size_t xcnt = 0;
+
+    // Quick return if no catalog changes
+    if (dclist_count(&rb->catchange_txns) == 0)
+        return NULL;
+
+    // Allocate array for transaction IDs
+    xids = palloc(sizeof(TransactionId) * dclist_count(&rb->catchange_txns));
+
+    // Extract transaction IDs from catalog changes list
+    dclist_foreach(iter, &rb->catchange_txns) {
+        ReorderBufferTXN *txn = dclist_container(ReorderBufferTXN,
+                                                catchange_node,
+                                                iter.cur);
+        xids[xcnt++] = txn->xid;
+    }
+
+    // Sort transaction IDs for consistent ordering
+    qsort(xids, xcnt, sizeof(TransactionId), xidComparator);
+
+    return xids;
+}
+```

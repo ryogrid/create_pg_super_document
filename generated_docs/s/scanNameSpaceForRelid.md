@@ -33,3 +33,47 @@ This static function searches through the p_namespace list to find a namespace i
 - Reports ERRCODE_AMBIGUOUS_ALIAS when multiple relation items match the same OID
 - Part of the qualified name resolution path in PostgreSQL's parser
 - The comment "yes, the test for alias == NULL should be there..." indicates this behavior is intentional per SQL semantics
+
+## Simplified Source
+
+```c
+static ParseNamespaceItem *
+scanNameSpaceForRelid(ParseState *pstate, Oid relid, int location)
+{
+    ParseNamespaceItem *result = NULL;
+    ListCell *l;
+
+    // Scan through all namespace items
+    foreach(l, pstate->p_namespace)
+    {
+        ParseNamespaceItem *nsitem = (ParseNamespaceItem *) lfirst(l);
+        RangeTblEntry *rte = nsitem->p_rte;
+
+        // Skip columns-only items
+        if (!nsitem->p_rel_visible)
+            continue;
+
+        // Skip lateral-only items if not in lateral context
+        if (nsitem->p_lateral_only && !pstate->p_lateral_active)
+            continue;
+
+        // Match relation OID for non-aliased relations only
+        if (rte->rtekind == RTE_RELATION &&
+            rte->relid == relid &&
+            rte->alias == NULL)  // Qualified refs can't refer to aliased relations
+        {
+            // Error if ambiguous (multiple matches)
+            if (result)
+                ereport(ERROR,
+                        (errcode(ERRCODE_AMBIGUOUS_ALIAS),
+                         errmsg("table reference %u is ambiguous",
+                                relid),
+                         parser_errposition(pstate, location)));
+
+            check_lateral_ref_ok(pstate, nsitem, location);
+            result = nsitem;
+        }
+    }
+    return result;
+}
+```

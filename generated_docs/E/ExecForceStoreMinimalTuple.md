@@ -50,3 +50,36 @@ This approach allows minimal tuples to be stored in any slot type while maintain
 - Primarily used in hash join operations where tuples may be stored and retrieved from different slot types
 - More expensive than ExecStoreMinimalTuple when the slot type is guaranteed to be minimal, but provides universal compatibility
 - The conversion leverages the fact that minimal tuples are essentially heap tuples with a reduced header, allowing efficient format translation
+
+## Simplified Source
+
+```c
+void
+ExecForceStoreMinimalTuple(MinimalTuple mtup, TupleTableSlot *slot, bool shouldFree)
+{
+    if (TTS_IS_MINIMALTUPLE(slot)) {
+        // Direct storage for minimal tuple slots
+        tts_minimal_store_tuple(slot, mtup, shouldFree);
+    } else {
+        // Convert minimal tuple to heap tuple format
+        HeapTupleData htup;
+
+        ExecClearTuple(slot);
+
+        // Create heap tuple header by adjusting minimal tuple pointer
+        htup.t_len = mtup->t_len + MINIMAL_TUPLE_OFFSET;
+        htup.t_data = (HeapTupleHeader) ((char *) mtup - MINIMAL_TUPLE_OFFSET);
+
+        // Extract values into slot and store as virtual tuple
+        heap_deform_tuple(&htup, slot->tts_tupleDescriptor,
+                         slot->tts_values, slot->tts_isnull);
+        ExecStoreVirtualTuple(slot);
+
+        // Free original minimal tuple if requested
+        if (shouldFree) {
+            ExecMaterializeSlot(slot);
+            pfree(mtup);
+        }
+    }
+}
+```

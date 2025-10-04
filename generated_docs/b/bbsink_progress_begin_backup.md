@@ -33,3 +33,35 @@ This static function is responsible for updating progress information when the b
 - If the total backup size is not yet determined (bytes_total_is_valid is false), it reports -1 which translates to NULL in progress reporting
 - The function follows the sink pattern by forwarding the operation to the next sink in the chain
 - Part of the progress tracking infrastructure that provides real-time feedback during PostgreSQL base backup operations
+
+## Simplified Source
+
+```c
+// Simplified version of bbsink_progress_begin_backup
+static void bbsink_progress_begin_backup(bbsink *sink)
+{
+    // Set up progress reporting parameters
+    const int index[] = {
+        PROGRESS_BASEBACKUP_PHASE,
+        PROGRESS_BASEBACKUP_BACKUP_TOTAL,
+        PROGRESS_BASEBACKUP_TBLSPC_TOTAL
+    };
+    int64 val[3];
+
+    // Report streaming backup phase
+    val[0] = PROGRESS_BASEBACKUP_PHASE_STREAM_BACKUP;
+
+    // Report total backup size if known, otherwise -1
+    val[1] = sink->bbs_state->bytes_total_is_valid ?
+             sink->bbs_state->bytes_total : -1;
+
+    // Report number of tablespaces
+    val[2] = list_length(sink->bbs_state->tablespaces);
+
+    // Update progress parameters
+    pgstat_progress_update_multi_param(3, index, val);
+
+    // Forward to next sink
+    bbsink_forward_begin_backup(sink);
+}
+```

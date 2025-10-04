@@ -40,3 +40,57 @@ The function performs several validation steps before delegating the core analys
 
 ## Notes and Other Information
 The function includes important caveats about its analysis limitations. It may report a prefix where some strings matching that prefix don't actually satisfy the full regex, but it guarantees that any string satisfying the regex will match the reported prefix. This conservative approach ensures correctness while still providing valuable optimization opportunities for the query planner.
+
+## Simplified Source
+
+```c
+int pg_regprefix(regex_t *re, chr **string, size_t *slength)
+{
+    struct guts *g;
+    struct cnfa *cnfa;
+    int st;
+
+    // Validate parameters
+    if (string == NULL || slength == NULL)
+        return REG_INVARG;
+    *string = NULL;
+    *slength = 0;
+    if (re == NULL || re->re_magic != REMAGIC)
+        return REG_INVARG;
+    if (re->re_csize != sizeof(chr))
+        return REG_MIXED;
+
+    // Set up locale-dependent support
+    pg_set_regex_collation(re->re_collation);
+
+    // Get regex internals
+    g = (struct guts *) re->re_guts;
+    if (g->info & REG_UIMPOSSIBLE)
+        return REG_NOMATCH;
+
+    // Use search NFA from topmost regex tree node
+    cnfa = &g->tree->cnfa;
+
+    // Skip matchall NFAs (no fixed prefix possible)
+    if (cnfa->flags & MATCHALL)
+        return REG_NOMATCH;
+
+    // Allocate output buffer (at most nstates characters needed)
+    *string = (chr *) MALLOC(cnfa->nstates * sizeof(chr));
+    if (*string == NULL)
+        return REG_ESPACE;
+
+    // Find the prefix using helper function
+    st = findprefix(cnfa, &g->cmap, *string, slength);
+
+    // Clean up on failure
+    if (st != REG_PREFIX && st != REG_EXACT)
+    {
+        FREE(*string);
+        *string = NULL;
+        *slength = 0;
+    }
+
+    return st;
+}
+```

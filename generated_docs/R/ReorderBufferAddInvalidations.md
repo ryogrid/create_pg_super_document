@@ -35,3 +35,33 @@ This function processes invalidation messages from transaction commit records an
 - The function serves dual purposes: accumulation for bulk execution and queuing for replay
 - Essential for maintaining cache consistency during logical replication
 - Handles both committed transaction invalidations and in-progress transaction requirements
+
+## Simplified Source
+
+```c
+void
+ReorderBufferAddInvalidations(ReorderBuffer *rb, TransactionId xid,
+                             XLogRecPtr lsn, Size nmsgs,
+                             SharedInvalidationMessage *msgs)
+{
+    ReorderBufferTXN *txn;
+    MemoryContext oldcontext;
+
+    // Get transaction and switch to reorder buffer memory context
+    txn = ReorderBufferTXNByXid(rb, xid, true, NULL, lsn, true);
+    oldcontext = MemoryContextSwitchTo(rb->context);
+
+    // Work with top-level transaction for proper invalidation grouping
+    txn = rbtxn_get_toptxn(txn);
+
+    // Accumulate invalidations in transaction for batch execution
+    ReorderBufferAccumulateInvalidations(&txn->invalidations,
+                                        &txn->ninvalidations,
+                                        msgs, nmsgs);
+
+    // Queue invalidations as individual changes for replay
+    ReorderBufferQueueInvalidations(rb, xid, lsn, nmsgs, msgs);
+
+    MemoryContextSwitchTo(oldcontext);
+}
+```

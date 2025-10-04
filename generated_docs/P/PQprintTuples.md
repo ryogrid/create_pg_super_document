@@ -53,3 +53,61 @@ The function uses a format string approach to control output formatting and calc
 - Format string is dynamically constructed based on colWidth parameter
 - Memory for borders is properly freed before function exit
 - Skips output entirely if the result set has no fields
+
+## Simplified Source
+
+```c
+void PQprintTuples(const PGresult *res, FILE *fout,
+                   int PrintAttNames, int TerseOutput, int colWidth) {
+    int nFields = PQnfields(res);
+    int nTups = PQntuples(res);
+    char formatString[80];
+    char *tborder = NULL;
+
+    // Set up format string for output
+    if (colWidth > 0)
+        sprintf(formatString, "%%s %%-%ds", colWidth);
+    else
+        sprintf(formatString, "%%s %%s");
+
+    if (nFields > 0) {
+        // Create border for non-terse output
+        if (!TerseOutput) {
+            int width = nFields * 14;
+            tborder = malloc(width + 1);
+            if (!tborder) return;
+
+            for (int i = 0; i < width; i++) tborder[i] = '-';
+            tborder[width] = '\0';
+            fprintf(fout, "%s\n", tborder);
+        }
+
+        // Print column headers if requested
+        if (PrintAttNames) {
+            for (int i = 0; i < nFields; i++) {
+                fprintf(fout, formatString,
+                        TerseOutput ? "" : "|", PQfname(res, i));
+            }
+            if (TerseOutput)
+                fprintf(fout, "\n");
+            else
+                fprintf(fout, "|\n%s\n", tborder);
+        }
+
+        // Print data rows
+        for (int i = 0; i < nTups; i++) {
+            for (int j = 0; j < nFields; j++) {
+                const char *pval = PQgetvalue(res, i, j);
+                fprintf(fout, formatString,
+                        TerseOutput ? "" : "|", pval ? pval : "");
+            }
+            if (TerseOutput)
+                fprintf(fout, "\n");
+            else
+                fprintf(fout, "|\n%s\n", tborder);
+        }
+    }
+
+    free(tborder);
+}
+```

@@ -43,3 +43,39 @@ This test complements testleftright by validating the reverse traversal directio
 - Initializes lastKey to size (one beyond maximum value) to properly validate decreasing order
 - Performs completeness validation by ensuring final key is 0 and count equals size
 - Essential for comprehensive red-black tree traversal validation alongside testleftright
+
+## Simplified Source
+
+```c
+static void testrightleft(int size) {
+    RBTree *tree = create_int_rbtree();
+    IntRBTreeNode *node;
+    RBTreeIterator iter;
+    int lastKey = size;  // Start above max value for decreasing validation
+    int count = 0;
+
+    // Test empty tree - should produce no elements
+    rbt_begin_iterate(tree, RightLeftWalk, &iter);
+    if (rbt_iterate(&iter) != NULL)
+        elog(ERROR, "right-left walk over empty tree produced an element");
+
+    // Populate tree with consecutive numbers 0..size-1
+    rbt_populate(tree, size, 1);
+
+    // Traverse tree and verify elements are in decreasing order
+    rbt_begin_iterate(tree, RightLeftWalk, &iter);
+    while ((node = (IntRBTreeNode *) rbt_iterate(&iter)) != NULL) {
+        // Ensure strict decreasing order
+        if (node->key >= lastKey)
+            elog(ERROR, "right-left walk gives elements not in sorted order");
+        lastKey = node->key;
+        count++;
+    }
+
+    // Verify completeness: reached beginning and visited all elements
+    if (lastKey != 0)
+        elog(ERROR, "right-left walk did not reach end");
+    if (count != size)
+        elog(ERROR, "right-left walk missed some elements");
+}
+```

@@ -41,3 +41,47 @@ For two-phase transactions, it calls ReorderBufferFinishPrepared with a false co
 - Ensures all subtransactions are properly aborted before handling the main transaction
 - Critical for maintaining transaction consistency during logical replication failures and rollbacks
 - Updates decoding statistics after processing the abort to track replication progress
+
+## Simplified Source
+
+```c
+static void DecodeAbort(LogicalDecodingContext *ctx, XLogRecordBuffer *buf,
+                       xl_xact_parsed_abort *parsed, TransactionId xid,
+                       bool two_phase) {
+    int i;
+    XLogRecPtr origin_lsn = InvalidXLogRecPtr;
+    TimestampTz abort_time = parsed->xact_time;
+    RepOriginId origin_id = XLogRecGetOrigin(buf->record);
+    bool skip_xact;
+
+    // Extract origin information if present
+    if (parsed->xinfo & XACT_XINFO_HAS_ORIGIN) {
+        origin_lsn = parsed->origin_lsn;
+        abort_time = parsed->origin_timestamp;
+    }
+
+    // Check if transaction should be skipped
+    skip_xact = DecodeTXNNeedSkip(ctx, buf, parsed->dbId, origin_id);
+
+    // Handle two-phase abort vs regular abort
+    if (two_phase && !skip_xact) {
+        // Rollback prepared transaction
+        ReorderBufferFinishPrepared(ctx->reorder, xid, buf->origptr, buf->endptr,
+                                   InvalidXLogRecPtr,
+                                   abort_time, origin_id, origin_lsn,
+                                   parsed->twophase_gid, false);
+    } else {
+        // Abort all subtransactions
+        for (i = 0; i < parsed->nsubxacts; i++) {
+            ReorderBufferAbort(ctx->reorder, parsed->subxacts[i],
+                              buf->record->EndRecPtr, abort_time);
+        }
+
+        // Abort main transaction
+        ReorderBufferAbort(ctx->reorder, xid, buf->record->EndRecPtr, abort_time);
+    }
+
+    // Update decoding statistics
+    UpdateDecodingStats(ctx);
+}
+```

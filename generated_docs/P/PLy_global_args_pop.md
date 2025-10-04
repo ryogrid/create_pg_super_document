@@ -35,3 +35,33 @@ This function is the counterpart to PLy_global_args_push(), responsible for rest
 - When exiting the outermost call level (calldepth becomes 0), no argument restoration is needed
 - Previously used to clean up named arguments from globals dict, but this optimization was removed as unnecessary
 - Critical for maintaining proper argument isolation between recursive function calls
+
+## Simplified Source
+
+```c
+static void
+PLy_global_args_pop(PLyProcedure *proc)
+{
+    Assert(proc->calldepth > 0);
+
+    // If we're nested deeper than level 1, restore previous arguments
+    if (proc->calldepth > 1) {
+        PLySavedArgs *ptr = proc->argstack;
+
+        // Pop from the argument stack
+        Assert(ptr != NULL);
+        proc->argstack = ptr->next;
+        proc->calldepth--;
+
+        // Restore the previous argument values and free the saved state
+        PLy_function_restore_args(proc, ptr);
+    } else {
+        // Exiting outermost call level - just decrement depth
+        Assert(proc->argstack == NULL);
+        proc->calldepth--;
+
+        // Note: No need to clean up named arguments from globals dict
+        // as they'll be overwritten on next function call
+    }
+}
+```

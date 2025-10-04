@@ -31,3 +31,12 @@ The primary responsibility of this function is to ensure that the PostgreSQL sta
 - The function follows the standard GUC assign hook signature pattern used throughout PostgreSQL
 - The  parameter is commonly used by applications to identify themselves in monitoring tools and system views
 - Changes to  are immediately reflected in  due to this hook mechanism
+
+## Simplified Source
+
+```c
+void assign_application_name(const char *newval, void *extra) {
+    // Update the pg_stat_activity view with the new application name
+    pgstat_report_appname(newval);
+}
+```

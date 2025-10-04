@@ -61,3 +61,97 @@ The function also performs comprehensive error checking for regex compilation er
 - The function handles both simple string matching and complex regex-based transformations
 - Critical component of PostgreSQL's external authentication integration
 - Regex substitution allows dynamic username mapping based on system username patterns (e.g., domain\user -> user)
+
+## Simplified Source
+
+```c
+static void check_ident_usermap(IdentLine *identLine, const char *usermap_name,
+                               const char *pg_user, const char *system_user,
+                               bool case_insensitive, bool *found_p, bool *error_p) {
+    Oid roleid;
+
+    *found_p = false;
+    *error_p = false;
+
+    // Check if this line matches the requested usermap
+    if (strcmp(identLine->usermap, usermap_name) != 0)
+        return;
+
+    // Get PostgreSQL role OID (no error if role doesn't exist)
+    roleid = get_role_oid(pg_user, true);
+
+    if (token_has_regexp(identLine->system_user)) {
+        // Handle regular expression matching with substitution
+        int r;
+        regmatch_t matches[2];
+        AuthToken *expanded_pg_user_token;
+        bool created_temporary_token = false;
+
+        // Execute regex against system username
+        r = regexec_auth_token(system_user, identLine->system_user, 2, matches);
+        if (r) {
+            if (r != REG_NOMATCH) {
+                // Report regex execution error
+                char errstr[100];
+                pg_regerror(r, identLine->system_user->regex, errstr, sizeof(errstr));
+                ereport(LOG, (errcode(ERRCODE_INVALID_REGULAR_EXPRESSION),
+                             errmsg("regular expression match failed: %s", errstr)));
+                *error_p = true;
+            }
+            return;
+        }
+
+        // Handle \1 substitution in PostgreSQL username
+        char *ofs = strstr(identLine->pg_user->string, "\\1");
+        if (!token_is_member_check(identLine->pg_user) &&
+            !token_has_regexp(identLine->pg_user) &&
+            ofs != NULL) {
+
+            // Validate that we have a captured group for substitution
+            if (matches[1].rm_so < 0) {
+                ereport(LOG, (errcode(ERRCODE_INVALID_REGULAR_EXPRESSION),
+                             errmsg("regular expression has no subexpressions for backreference")));
+                *error_p = true;
+                return;
+            }
+
+            // Build expanded username with substitution
+            char *expanded_pg_user = palloc0(strlen(identLine->pg_user->string) - 2 +
+                                           (matches[1].rm_eo - matches[1].rm_so) + 1);
+            int offset = ofs - identLine->pg_user->string;
+
+            // Copy parts: before \1, captured group, after \1
+            memcpy(expanded_pg_user, identLine->pg_user->string, offset);
+            memcpy(expanded_pg_user + offset,
+                   system_user + matches[1].rm_so,
+                   matches[1].rm_eo - matches[1].rm_so);
+            strcat(expanded_pg_user, ofs + 2);
+
+            // Create token for the expanded username
+            expanded_pg_user_token = make_auth_token(expanded_pg_user, true);
+            created_temporary_token = true;
+            pfree(expanded_pg_user);
+        } else {
+            expanded_pg_user_token = identLine->pg_user;
+        }
+
+        // Check if PostgreSQL user matches
+        *found_p = check_role(pg_user, roleid, list_make1(expanded_pg_user_token), case_insensitive);
+
+        if (created_temporary_token)
+            free_auth_token(expanded_pg_user_token);
+    } else {
+        // Handle literal string matching
+        if (case_insensitive) {
+            if (!token_matches_insensitive(identLine->system_user, system_user))
+                return;
+        } else {
+            if (!token_matches(identLine->system_user, system_user))
+                return;
+        }
+
+        // Check if PostgreSQL user matches
+        *found_p = check_role(pg_user, roleid, list_make1(identLine->pg_user), case_insensitive);
+    }
+}
+```

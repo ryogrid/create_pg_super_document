@@ -39,3 +39,15 @@ This is a comprehensive cleanup function that removes all SLRU data, typically u
 - Returns void as the operation is performed for its side effects
 - Use with extreme caution as it removes all SLRU data permanently
 - Ideal for test cleanup and resetting SLRU to empty state
+
+## Simplified Source
+
+```c
+Datum test_slru_delete_all(PG_FUNCTION_ARGS) {
+    // Scan the SLRU directory and delete all segments
+    // The callback internally calls SlruScanDirCbDeleteAll() for deletion
+    SlruScanDirectory(TestSlruCtl, test_slru_scan_cb, NULL);
+
+    PG_RETURN_VOID();
+}
+```

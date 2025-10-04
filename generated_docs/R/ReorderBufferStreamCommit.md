@@ -44,3 +44,32 @@ The function ensures proper handling of both single-phase and two-phase commit p
 - The function supports PostgreSQL's two-phase commit protocol in streamed replication scenarios
 - Stream prepare messages are sent even if concurrent abort is detected, following the same pattern as DecodePrepare
 - Complete transaction cleanup only occurs for non-prepared transactions; prepared transactions are truncated but preserved for the final commit phase
+
+## Simplified Source
+
+```c
+static void
+ReorderBufferStreamCommit(ReorderBuffer *rb, ReorderBufferTXN *txn)
+{
+    // Stream any remaining parts of the transaction
+    ReorderBufferStreamTXN(rb, txn);
+
+    if (rbtxn_prepared(txn))
+    {
+        // Two-phase commit: send stream prepare message
+        rb->stream_prepare(rb, txn, txn->final_lsn);
+
+        // Truncate transaction but preserve structure for final commit
+        ReorderBufferTruncateTXN(rb, txn, true);
+
+        // Reset transaction liveness check
+        CheckXidAlive = InvalidTransactionId;
+    }
+    else
+    {
+        // Regular commit: send stream commit and cleanup completely
+        rb->stream_commit(rb, txn, txn->final_lsn);
+        ReorderBufferCleanupTXN(rb, txn);
+    }
+}
+```

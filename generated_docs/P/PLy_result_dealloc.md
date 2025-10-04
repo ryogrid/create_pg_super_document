@@ -35,3 +35,26 @@ This function serves as the destructor for PLyResultObject instances in the Pyth
 - The function is registered in the PLy_ResultType definition and called automatically by Python
 - Critical for preventing memory leaks in the PL/Python extension
 - Must not be called directly by user code - it's managed by Python's reference counting system
+
+## Simplified Source
+
+```c
+static void PLy_result_dealloc(PyObject *arg)
+{
+    PLyResultObject *ob = (PLyResultObject *) arg;
+
+    // Safely release Python objects (handles NULL pointers)
+    Py_XDECREF(ob->nrows);
+    Py_XDECREF(ob->rows);
+    Py_XDECREF(ob->status);
+
+    // Release PostgreSQL tuple descriptor if present
+    if (ob->tupdesc) {
+        FreeTupleDesc(ob->tupdesc);
+        ob->tupdesc = NULL;
+    }
+
+    // Free the object itself using type's free function
+    arg->ob_type->tp_free(arg);
+}
+```

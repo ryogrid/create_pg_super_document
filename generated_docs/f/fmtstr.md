@@ -47,3 +47,36 @@ The function first determines the actual length of the string to be printed, res
 - Padding is performed with space characters
 - Function assumes input string is properly null-terminated
 - Works in conjunction with other formatting functions to provide complete printf functionality
+
+## Simplified Source
+
+```c
+static void
+fmtstr(const char *value, int leftjust, int minlen, int maxwidth,
+       int pointflag, PrintfTarget *target)
+{
+    int vallen, padlen;
+
+    // Determine string length, respecting precision limit
+    if (pointflag) {
+        vallen = strnlen(value, maxwidth);
+    } else {
+        vallen = strlen(value);
+    }
+
+    // Calculate padding needed for minimum field width
+    padlen = compute_padlen(minlen, vallen, leftjust);
+
+    // Output leading padding for right-justified strings
+    if (padlen > 0) {
+        dopr_outchmulti(' ', padlen, target);
+        padlen = 0;  // Consumed
+    }
+
+    // Output the string content
+    dostr(value, vallen, target);
+
+    // Output trailing padding for left-justified strings
+    trailing_pad(padlen, target);
+}
+```

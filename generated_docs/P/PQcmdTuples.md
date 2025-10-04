@@ -35,3 +35,54 @@ PQcmdTuples parses the command status string from a PGresult to extract the coun
 - The returned pointer points directly into the command status string, no separate allocation
 - Comment in code suggests this should return an int rather than a string for better type safety
 - Part of the libpq client interface for PostgreSQL database connectivity
+
+## Simplified Source
+
+```c
+char *PQcmdTuples(PGresult *res)
+{
+    char *p, *c;
+
+    if (!res)
+        return "";
+
+    // Parse different command types to find tuple count
+    if (strncmp(res->cmdStatus, "INSERT ", 7) == 0) {
+        p = res->cmdStatus + 7;
+        // Skip OID and space for INSERT
+        while (*p && *p != ' ')
+            p++;
+        if (*p == 0)
+            goto interpret_error;
+        p++;
+    }
+    else if (strncmp(res->cmdStatus, "SELECT ", 7) == 0 ||
+             strncmp(res->cmdStatus, "DELETE ", 7) == 0 ||
+             strncmp(res->cmdStatus, "UPDATE ", 7) == 0)
+        p = res->cmdStatus + 7;
+    else if (strncmp(res->cmdStatus, "FETCH ", 6) == 0 ||
+             strncmp(res->cmdStatus, "MERGE ", 6) == 0)
+        p = res->cmdStatus + 6;
+    else if (strncmp(res->cmdStatus, "MOVE ", 5) == 0 ||
+             strncmp(res->cmdStatus, "COPY ", 5) == 0)
+        p = res->cmdStatus + 5;
+    else
+        return "";
+
+    // Validate that we have a valid integer
+    for (c = p; *c; c++) {
+        if (!isdigit((unsigned char) *c))
+            goto interpret_error;
+    }
+    if (c == p)
+        goto interpret_error;
+
+    return p;
+
+interpret_error:
+    pqInternalNotice(&res->noticeHooks,
+                     "could not interpret result from server: %s",
+                     res->cmdStatus);
+    return "";
+}
+```

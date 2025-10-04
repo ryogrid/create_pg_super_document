@@ -50,3 +50,27 @@ The output is formatted as a single table row with fixed-width columns, making i
 - Uses the  function to provide consistent boolean formatting
 - Handles non-printable characters gracefully by substituting spaces
 - Part of PostgreSQL's locale testing infrastructure to verify character classification behavior across different locales
+
+## Simplified Source
+
+```c
+void
+describe_char(int c)
+{
+    // Prepare printable versions of character and case variants
+    unsigned char cp = c, up = toupper(c), lo = tolower(c);
+
+    // Replace non-printable characters with spaces
+    if (!isprint(cp)) cp = ' ';
+    if (!isprint(up)) up = ' ';
+    if (!isprint(lo)) lo = ' ';
+
+    // Print character analysis: number, char, 12 ctype flags, lowercase, uppercase
+    printf("chr#%-4d%2c%6s%6s%6s%6s%6s%6s%6s%6s%6s%6s%6s%4c%4c\\n",
+           c, cp,
+           flag(isalnum(c)), flag(isalpha(c)), flag(iscntrl(c)), flag(isdigit(c)),
+           flag(islower(c)), flag(isgraph(c)), flag(isprint(c)), flag(ispunct(c)),
+           flag(isspace(c)), flag(isupper(c)), flag(isxdigit(c)),
+           lo, up);
+}
+```

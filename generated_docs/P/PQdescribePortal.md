@@ -35,3 +35,22 @@ This function is primarily useful with portals created by SQL DECLARE CURSOR com
 - The caller is responsible for freeing the returned PGresult via PQclear()
 - Uses the PostgreSQL protocol Describe message with type 'P' for portals
 - Returns NULL if the connection is not in a valid state for sending queries
+
+## Simplified Source
+
+```c
+PGresult *
+PQdescribePortal(PGconn *conn, const char *portal)
+{
+    // Prepare connection for query execution
+    if (!PQexecStart(conn))
+        return NULL;
+
+    // Send Describe message for portal ('P' type)
+    if (!PQsendTypedCommand(conn, PqMsg_Describe, 'P', portal))
+        return NULL;
+
+    // Wait for and retrieve the describe result
+    return PQexecFinish(conn);
+}
+```

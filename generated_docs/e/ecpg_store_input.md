@@ -60,3 +60,99 @@ The function performs comprehensive type-specific processing, with special handl
 - [Complex](../C/Complex.md) types like numeric and dates use PostgreSQL's type library functions for accurate conversion
 - Special handling for string types includes proper null termination and quoting
 - Returns false on any error condition, with detailed error reporting through ECPG's error system
+
+## Simplified Source
+
+```c
+bool
+ecpg_store_input(const int lineno, const bool force_indicator, const struct variable *var,
+                 char **tobeinserted_p, bool quote)
+{
+    char *mallocedval = NULL;
+    char *newcopy = NULL;
+
+    *tobeinserted_p = "";
+
+    // Check for NULL value via indicator variable
+    if (is_null_via_indicator(var, force_indicator)) {
+        *tobeinserted_p = NULL;
+        return true;
+    }
+
+    // Handle non-NULL values based on type
+    int asize = var->arrsize ? var->arrsize : 1;
+
+    switch (var->type) {
+        case ECPGt_short:
+        case ECPGt_int:
+        case ECPGt_long:
+        case ECPGt_long_long:
+        case ECPGt_unsigned_short:
+        case ECPGt_unsigned_int:
+        case ECPGt_unsigned_long:
+        case ECPGt_unsigned_long_long:
+            // Format integer types (with array support)
+            mallocedval = format_integer_type(var, asize, lineno);
+            break;
+
+        case ECPGt_float:
+        case ECPGt_double:
+            // Format floating-point types with special value handling
+            mallocedval = format_float_type(var, asize, lineno);
+            break;
+
+        case ECPGt_bool:
+            // Format boolean as 't'/'f' with array support
+            mallocedval = format_bool_type(var, asize, lineno);
+            break;
+
+        case ECPGt_char:
+        case ECPGt_unsigned_char:
+        case ECPGt_string:
+            // Handle string types with proper quoting
+            newcopy = prepare_string_data(var, lineno);
+            mallocedval = quote_postgres(newcopy, quote, lineno);
+            break;
+
+        case ECPGt_varchar:
+            // Handle PostgreSQL varchar type
+            mallocedval = format_varchar_type(var, quote, lineno);
+            break;
+
+        case ECPGt_bytea:
+            // Handle binary data
+            mallocedval = format_bytea_type(var, lineno);
+            break;
+
+        case ECPGt_decimal:
+        case ECPGt_numeric:
+            // Handle PostgreSQL numeric types
+            mallocedval = format_numeric_type(var, asize, lineno);
+            break;
+
+        case ECPGt_date:
+        case ECPGt_timestamp:
+        case ECPGt_interval:
+            // Handle date/time types
+            mallocedval = format_datetime_type(var, asize, quote, lineno);
+            break;
+
+        case ECPGt_descriptor:
+        case ECPGt_sqlda:
+            // No action needed for descriptor types
+            break;
+
+        default:
+            // Unsupported type
+            ecpg_raise(lineno, ECPG_UNSUPPORTED, ECPG_SQLSTATE_ECPG_INTERNAL_ERROR,
+                       ecpg_type_name(var->type));
+            return false;
+    }
+
+    if (mallocedval) {
+        *tobeinserted_p = mallocedval;
+    }
+
+    return true;
+}
+```

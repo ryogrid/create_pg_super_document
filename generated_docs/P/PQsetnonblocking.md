@@ -42,3 +42,35 @@ Note that this function only affects non-blocking API operations; it does not pr
 - The function performs a flush operation which may block regardless of the target mode
 - Primarily used with pipelining and asynchronous query processing
 - Does not affect PQexec() behavior - use non-blocking API functions for true non-blocking operation
+
+## Simplified Source
+
+```c
+int PQsetnonblocking(PGconn *conn, int arg)
+{
+    bool barg;
+
+    // Validate connection
+    if (!conn || conn->status == CONNECTION_BAD)
+        return -1;
+
+    barg = (arg ? true : false);
+
+    // Early exit if already in requested state
+    if (barg == conn->nonblocking)
+        return 0;
+
+    // Clear error state unless actively pipelining
+    if (conn->cmd_queue_head == NULL)
+        pqClearConnErrorState(conn);
+
+    // Flush send queue to ensure proper behavior consistency
+    if (pqFlush(conn))
+        return -1;
+
+    // Set the new blocking mode
+    conn->nonblocking = barg;
+
+    return 0;
+}
+```

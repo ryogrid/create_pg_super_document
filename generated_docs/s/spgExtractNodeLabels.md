@@ -39,3 +39,40 @@ The function iterates through all nodes using the  macro and validates the consi
 - Critical for SP-GiST operations that need to examine or compare node labels
 - Error conditions result in elog(ERROR) calls, which abort the current operation
 - The uniformity requirement for null states simplifies label processing logic throughout the SP-GiST codebase
+
+## Simplified Source
+
+```c
+Datum *
+spgExtractNodeLabels(SpGistState *state, SpGistInnerTuple innerTuple)
+{
+    Datum *nodeLabels;
+    int i;
+    SpGistNodeTuple node;
+
+    // Check first node to determine if all labels are null
+    node = SGITNODEPTR(innerTuple);
+    if (IndexTupleHasNulls(node))
+    {
+        // All labels must be null - verify consistency
+        SGITITERATE(innerTuple, i, node)
+        {
+            if (!IndexTupleHasNulls(node))
+                elog(ERROR, "some but not all node labels are null in SPGiST inner tuple");
+        }
+        return NULL;  // All null labels
+    }
+    else
+    {
+        // Extract non-null labels
+        nodeLabels = (Datum *) palloc(sizeof(Datum) * innerTuple->nNodes);
+        SGITITERATE(innerTuple, i, node)
+        {
+            if (IndexTupleHasNulls(node))
+                elog(ERROR, "some but not all node labels are null in SPGiST inner tuple");
+            nodeLabels[i] = SGNTDATUM(node, state);
+        }
+        return nodeLabels;
+    }
+}
+```

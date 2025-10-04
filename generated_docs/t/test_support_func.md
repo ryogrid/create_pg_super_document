@@ -46,3 +46,60 @@ The function demonstrates how support functions can provide the query planner wi
 - Support functions are crucial for query optimization in PostgreSQL, allowing custom functions to provide planner hints
 - The implementation shows proper handling of different request types and safe type checking using IsA macro
 - Cost estimation uses cpu_operator_cost as a baseline, which is a PostgreSQL configuration parameter
+
+## Simplified Source
+
+```c
+Datum test_support_func(PG_FUNCTION_ARGS) {
+    Node *rawreq = (Node *) PG_GETARG_POINTER(0);
+    Node *ret = NULL;
+
+    // Handle selectivity estimation requests
+    if (IsA(rawreq, SupportRequestSelectivity)) {
+        SupportRequestSelectivity *req = (SupportRequestSelectivity *) rawreq;
+        Selectivity s1;
+
+        // Calculate selectivity for join or restriction cases
+        if (req->is_join)
+            s1 = join_selectivity(req->root, Int4EqualOperator, req->args,
+                                 req->inputcollid, req->jointype, req->sjinfo);
+        else
+            s1 = restriction_selectivity(req->root, Int4EqualOperator, req->args,
+                                        req->inputcollid, req->varRelid);
+
+        req->selectivity = s1;
+        ret = (Node *) req;
+    }
+
+    // Handle cost estimation requests
+    if (IsA(rawreq, SupportRequestCost)) {
+        SupportRequestCost *req = (SupportRequestCost *) rawreq;
+        req->startup = 0;
+        req->per_tuple = 2 * cpu_operator_cost;
+        ret = (Node *) req;
+    }
+
+    // Handle row count estimation requests
+    if (IsA(rawreq, SupportRequestRows)) {
+        SupportRequestRows *req = (SupportRequestRows *) rawreq;
+
+        // Extract constant arguments from generate_series function
+        if (req->node && IsA(req->node, FuncExpr)) {
+            List *args = ((FuncExpr *) req->node)->args;
+            Node *arg1 = linitial(args);
+            Node *arg2 = lsecond(args);
+
+            // Calculate row count from start and end values
+            if (IsA(arg1, Const) && !((Const *) arg1)->constisnull &&
+                IsA(arg2, Const) && !((Const *) arg2)->constisnull) {
+                int32 val1 = DatumGetInt32(((Const *) arg1)->constvalue);
+                int32 val2 = DatumGetInt32(((Const *) arg2)->constvalue);
+                req->rows = val2 - val1 + 1;
+                ret = (Node *) req;
+            }
+        }
+    }
+
+    PG_RETURN_POINTER(ret);
+}
+```

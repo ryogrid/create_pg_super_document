@@ -51,3 +51,48 @@ The function performs several key operations:
 - Only one backup can run per session - attempting multiple concurrent backups will raise an error
 - The function returns the starting LSN (Log Sequence Number) of the backup
 - Part of PostgreSQL's online backup infrastructure located in src/backend/access/transam/xlogfuncs.c:56-100
+
+## Simplified Source
+
+```c
+Datum
+pg_backup_start(PG_FUNCTION_ARGS)
+{
+    text *backupid = PG_GETARG_TEXT_PP(0);
+    bool fast = PG_GETARG_BOOL(1);
+    char *backupidstr;
+    SessionBackupState status = get_backup_status();
+    MemoryContext oldcontext;
+
+    backupidstr = text_to_cstring(backupid);
+
+    // Check if backup is already running
+    if (status == SESSION_BACKUP_RUNNING)
+        ereport(ERROR,
+                (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                 errmsg("a backup is already in progress in this session")));
+
+    // Create or reset backup memory context
+    if (backupcontext == NULL) {
+        backupcontext = AllocSetContextCreate(TopMemoryContext,
+                                              "on-line backup context",
+                                              ALLOCSET_START_SMALL_SIZES);
+    } else {
+        backup_state = NULL;
+        tablespace_map = NULL;
+        MemoryContextReset(backupcontext);
+    }
+
+    // Allocate backup state structures in backup context
+    oldcontext = MemoryContextSwitchTo(backupcontext);
+    backup_state = (BackupState *) palloc0(sizeof(BackupState));
+    tablespace_map = makeStringInfo();
+    MemoryContextSwitchTo(oldcontext);
+
+    // Register cleanup handler and start backup
+    register_persistent_abort_backup_handler();
+    do_pg_backup_start(backupidstr, fast, NULL, backup_state, tablespace_map);
+
+    PG_RETURN_LSN(backup_state->startpoint);
+}
+```

@@ -45,3 +45,62 @@ The function iterates through all states in the NFA, calling  for each one to pr
 - Includes statistics about total states and arcs for performance analysis
 - Calls  to ensure output is immediately written to the file stream
 - Part of PostgreSQL's regex engine debugging infrastructure
+
+## Simplified Source
+
+```c
+static void
+dumpnfa(struct nfa *nfa, FILE *f)
+{
+#ifdef REG_DEBUG
+    struct state *s;
+    int nstates = 0, narcs = 0;
+
+    // Output NFA metadata and flags
+    fprintf(f, "pre %d, post %d", nfa->pre->no, nfa->post->no);
+
+    // Show boundary conditions if present
+    if (nfa->bos[0] != COLORLESS)
+        fprintf(f, ", bos [%ld]", (long) nfa->bos[0]);
+    if (nfa->bos[1] != COLORLESS)
+        fprintf(f, ", bol [%ld]", (long) nfa->bos[1]);
+    if (nfa->eos[0] != COLORLESS)
+        fprintf(f, ", eos [%ld]", (long) nfa->eos[0]);
+    if (nfa->eos[1] != COLORLESS)
+        fprintf(f, ", eol [%ld]", (long) nfa->eos[1]);
+
+    // Show special flags
+    if (nfa->flags & HASLACONS)
+        fprintf(f, ", haslacons");
+    if (nfa->flags & HASCANTMATCH)
+        fprintf(f, ", hascantmatch");
+
+    // Show match-all pattern limits if applicable
+    if (nfa->flags & MATCHALL) {
+        fprintf(f, ", minmatchall %d", nfa->minmatchall);
+        if (nfa->maxmatchall == DUPINF)
+            fprintf(f, ", maxmatchall inf");
+        else
+            fprintf(f, ", maxmatchall %d", nfa->maxmatchall);
+    }
+
+    fprintf(f, "\n");
+
+    // Dump all states and count them
+    for (s = nfa->states; s != NULL; s = s->next) {
+        dumpstate(s, f);
+        nstates++;
+        narcs += s->nouts;
+    }
+
+    // Output summary statistics
+    fprintf(f, "total of %d states, %d arcs\n", nstates, narcs);
+
+    // Show color information for top-level NFAs
+    if (nfa->parent == NULL)
+        dumpcolors(nfa->cm, f);
+
+    fflush(f);
+#endif
+}
+```

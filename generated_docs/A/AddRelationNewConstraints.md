@@ -62,3 +62,134 @@ The function is designed to handle both user-initiated constraint additions and 
 - The function updates the relation's check constraint count even if no changes were made to ensure SI update messages are sent
 - Returns a list of CookedConstraint nodes showing the processed constraint information
 - Domain type column defaults are always stored to override any domain defaults
+
+## Simplified Source
+
+```c
+List *AddRelationNewConstraints(Relation rel, List *newColDefaults,
+                                List *newConstraints, bool allow_merge,
+                                bool is_local, bool is_internal,
+                                const char *queryString) {
+    List *cookedConstraints = NIL;
+    TupleDesc tupleDesc = RelationGetDescr(rel);
+    TupleConstr *oldconstr = tupleDesc->constr;
+    int numoldchecks = oldconstr ? oldconstr->num_check : 0;
+    int numchecks = numoldchecks;
+    List *checknames = NIL;
+    ParseState *pstate;
+    ParseNamespaceItem *nsitem;
+
+    // Set up ParseState for expression transformation
+    pstate = make_parsestate(NULL);
+    pstate->p_sourcetext = queryString;
+    nsitem = addRangeTableEntryForRelation(pstate, rel, AccessShareLock,
+                                           NULL, false, true);
+    addNSItemToQuery(pstate, nsitem, true, true, true);
+
+    // Process column default expressions
+    foreach_ptr(RawColumnDefault, colDef, newColDefaults) {
+        Form_pg_attribute atp = TupleDescAttr(rel->rd_att, colDef->attnum - 1);
+        Node *expr = cookDefault(pstate, colDef->raw_default,
+                                atp->atttypid, atp->atttypmod,
+                                NameStr(atp->attname), atp->attgenerated);
+
+        // Skip NULL defaults unless they are generation expressions
+        if (expr == NULL || (!colDef->generated && IsA(expr, Const) &&
+                            castNode(Const, expr)->constisnull)) {
+            continue;
+        }
+
+        // Store the default and create cooked constraint
+        Oid defOid = StoreAttrDefault(rel, colDef->attnum, expr,
+                                      is_internal, false);
+        CookedConstraint *cooked = palloc(sizeof(CookedConstraint));
+        cooked->contype = CONSTR_DEFAULT;
+        cooked->conoid = defOid;
+        cooked->name = NULL;
+        cooked->attnum = colDef->attnum;
+        cooked->expr = expr;
+        cooked->skip_validation = false;
+        cooked->is_local = is_local;
+        cooked->inhcount = is_local ? 0 : 1;
+        cooked->is_no_inherit = false;
+        cookedConstraints = lappend(cookedConstraints, cooked);
+    }
+
+    // Process check constraints
+    foreach_node(Constraint, cdef, newConstraints) {
+        if (cdef->contype != CONSTR_CHECK) {
+            continue;
+        }
+
+        // Transform constraint expression
+        Node *expr;
+        if (cdef->raw_expr != NULL) {
+            expr = cookConstraint(pstate, cdef->raw_expr,
+                                 RelationGetRelationName(rel));
+        } else {
+            expr = stringToNode(cdef->cooked_expr);
+        }
+
+        // Handle constraint naming
+        char *ccname;
+        if (cdef->conname != NULL) {
+            ccname = cdef->conname;
+            // Check for name conflicts
+            foreach_ptr(char, chkname, checknames) {
+                if (strcmp(chkname, ccname) == 0) {
+                    ereport(ERROR, (errcode(ERRCODE_DUPLICATE_OBJECT),
+                                   errmsg("check constraint \"%s\" already exists",
+                                          ccname)));
+                }
+            }
+
+            // Try to merge with existing constraint if allowed
+            if (MergeWithExistingConstraint(rel, ccname, expr, allow_merge,
+                                           is_local, cdef->initially_valid,
+                                           cdef->is_no_inherit)) {
+                continue;
+            }
+        } else {
+            // Generate constraint name based on referenced columns
+            List *vars = pull_var_clause(expr, 0);
+            vars = list_union(NIL, vars);
+
+            char *colname = NULL;
+            if (list_length(vars) == 1) {
+                colname = get_attname(RelationGetRelid(rel),
+                                     ((Var *) linitial(vars))->varattno, true);
+            }
+
+            ccname = ChooseConstraintName(RelationGetRelationName(rel),
+                                         colname, "check",
+                                         RelationGetNamespace(rel), checknames);
+        }
+
+        checknames = lappend(checknames, ccname);
+
+        // Store the constraint
+        Oid constrOid = StoreRelCheck(rel, ccname, expr, cdef->initially_valid,
+                                      is_local, is_local ? 0 : 1,
+                                      cdef->is_no_inherit, is_internal);
+        numchecks++;
+
+        // Create cooked constraint
+        CookedConstraint *cooked = palloc(sizeof(CookedConstraint));
+        cooked->contype = CONSTR_CHECK;
+        cooked->conoid = constrOid;
+        cooked->name = ccname;
+        cooked->attnum = 0;
+        cooked->expr = expr;
+        cooked->skip_validation = cdef->skip_validation;
+        cooked->is_local = is_local;
+        cooked->inhcount = is_local ? 0 : 1;
+        cooked->is_no_inherit = cdef->is_no_inherit;
+        cookedConstraints = lappend(cookedConstraints, cooked);
+    }
+
+    // Update constraint count in pg_class
+    SetRelationNumChecks(rel, numchecks);
+
+    return cookedConstraints;
+}
+```

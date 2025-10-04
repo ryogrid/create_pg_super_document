@@ -48,3 +48,51 @@ Based on these boundaries, it determines the appropriate availability status.
 - Used primarily for monitoring replication slot health and WAL retention
 - Critical for determining if replication streams can continue or need to be reestablished
 - The function provides early warning when WAL segments are at risk of being removed
+
+## Simplified Source
+
+```c
+WALAvailability
+GetWALAvailability(XLogRecPtr targetLSN)
+{
+    XLogRecPtr currpos;
+    XLogSegNo currSeg, targetSeg, oldestSeg, oldestSegMaxWalSize, oldestSlotSeg;
+    uint64 keepSegs;
+    XLogRecPtr slotsMinReqLSN;
+
+    // Check if target LSN is valid
+    if (XLogRecPtrIsInvalid(targetLSN))
+        return WALAVAIL_INVALID_LSN;
+
+    // Get current WAL position and calculate oldest segment kept by slots
+    currpos = GetXLogWriteRecPtr();
+    slotsMinReqLSN = XLogGetReplicationSlotMinimumLSN();
+    XLByteToSeg(currpos, oldestSlotSeg, wal_segment_size);
+    KeepLogSeg(currpos, slotsMinReqLSN, &oldestSlotSeg);
+
+    // Find oldest extant segment on disk
+    oldestSeg = XLogGetLastRemovedSegno() + 1;
+
+    // Calculate oldest segment retained by max_wal_size policy
+    XLByteToSeg(currpos, currSeg, wal_segment_size);
+    keepSegs = ConvertToXSegs(max_wal_size_mb, wal_segment_size) + 1;
+    oldestSegMaxWalSize = (currSeg > keepSegs) ? currSeg - keepSegs : 1;
+
+    // Convert target LSN to segment number
+    XLByteToSeg(targetLSN, targetSeg, wal_segment_size);
+
+    // Determine availability status based on segment boundaries
+    if (targetSeg >= oldestSlotSeg) {
+        // Target is still retained by slots
+        if (targetSeg >= oldestSegMaxWalSize)
+            return WALAVAIL_RESERVED;    // Within max_wal_size
+        else
+            return WALAVAIL_EXTENDED;    // Beyond max_wal_size but kept by slots
+    }
+
+    if (targetSeg >= oldestSeg)
+        return WALAVAIL_UNRESERVED;      // Not retained but not yet removed
+
+    return WALAVAIL_REMOVED;             // Already removed from disk
+}
+```

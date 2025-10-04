@@ -47,3 +47,27 @@ This function is critical for efficient disk-based tuple access patterns where t
 - Critical for scan operations, index lookups, and sampling that work directly with disk buffers
 - Returns the passed-in slot pointer for convenience
 - Part of PostgreSQL's buffer-aware tuple slot system for optimal memory usage
+
+## Simplified Source
+
+```c
+TupleTableSlot *
+ExecStoreBufferHeapTuple(HeapTuple tuple, TupleTableSlot *slot, Buffer buffer)
+{
+    // Validate inputs
+    Assert(tuple != NULL);
+    Assert(slot != NULL);
+    Assert(slot->tts_tupleDescriptor != NULL);
+    Assert(BufferIsValid(buffer));
+
+    // Ensure correct slot type
+    if (unlikely(!TTS_IS_BUFFERTUPLE(slot)))
+        elog(ERROR, "trying to store an on-disk heap tuple into wrong type of slot");
+
+    // Store tuple in buffer slot without transferring pin
+    tts_buffer_heap_store_tuple(slot, tuple, buffer, false);
+    slot->tts_tableOid = tuple->t_tableOid;
+
+    return slot;
+}
+```

@@ -41,3 +41,22 @@ The memory context switching ensures that the copied minimal tuple is allocated 
 - This operation is commonly used when tuples need to be copied between different execution contexts
 - The copy is a deep copy - the destination slot becomes independent of the source slot after the operation
 - The function is part of the slot operations vtable for minimal tuple slots, allowing polymorphic slot copying operations
+
+## Simplified Source
+
+```c
+static void
+tts_minimal_copyslot(TupleTableSlot *dstslot, TupleTableSlot *srcslot)
+{
+    // Switch to destination slot's memory context for tuple allocation
+    MemoryContext oldcontext = MemoryContextSwitchTo(dstslot->tts_mcxt);
+
+    // Extract minimal tuple from source slot (handles any slot type)
+    MinimalTuple mintuple = ExecCopySlotMinimalTuple(srcslot);
+
+    MemoryContextSwitchTo(oldcontext);
+
+    // Store the copied minimal tuple in destination slot with ownership transfer
+    ExecStoreMinimalTuple(mintuple, dstslot, true);
+}
+```

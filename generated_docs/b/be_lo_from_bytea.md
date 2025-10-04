@@ -44,3 +44,27 @@ The  function creates a new large object in PostgreSQL and populates it with the
 - Efficiently handles bytea data using PostgreSQL's TOAST-aware macros
 - Part of PostgreSQL's large object filesystem stub interface
 - Located in src/backend/libpq/be-fsstubs.c:827-849
+
+## Simplified Source
+
+```c
+Datum be_lo_from_bytea(PG_FUNCTION_ARGS) {
+    Oid loOid = PG_GETARG_OID(0);
+    bytea *str = PG_GETARG_BYTEA_PP(1);
+
+    // Prevent operation in read-only transactions
+    PreventCommandIfReadOnly("lo_from_bytea()");
+
+    // Set cleanup flag and create large object
+    lo_cleanup_needed = true;
+    loOid = inv_create(loOid);
+
+    // Open, write data, and close large object
+    LargeObjectDesc *loDesc = inv_open(loOid, INV_WRITE, CurrentMemoryContext);
+    int written = inv_write(loDesc, VARDATA_ANY(str), VARSIZE_ANY_EXHDR(str));
+    Assert(written == VARSIZE_ANY_EXHDR(str));
+    inv_close(loDesc);
+
+    PG_RETURN_OID(loOid);
+}
+```

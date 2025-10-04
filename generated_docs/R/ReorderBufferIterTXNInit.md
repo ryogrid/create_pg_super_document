@@ -51,3 +51,102 @@ The iterator state is returned through the iter_state parameter rather than as a
 - The heap is populated in unordered fashion first, then assembled for efficiency
 - Part of PostgreSQLs logical replication infrastructure for ordered change processing
 - Exception-safe design ensures iterator state is available for cleanup even if initialization fails
+
+## Simplified Source
+
+```c
+static void
+ReorderBufferIterTXNInit(ReorderBuffer *rb, ReorderBufferTXN *txn,
+                         ReorderBufferIterTXNState *volatile *iter_state)
+{
+    Size nr_txns = 0;
+    ReorderBufferIterTXNState *state;
+    dlist_iter cur_txn_i;
+    int32 off;
+
+    *iter_state = NULL;
+
+    // Count transactions that contain changes
+    if (txn->nentries > 0)
+        nr_txns++;
+
+    dlist_foreach(cur_txn_i, &txn->subtxns)
+    {
+        ReorderBufferTXN *cur_txn = dlist_container(ReorderBufferTXN, node, cur_txn_i.cur);
+        if (cur_txn->nentries > 0)
+            nr_txns++;
+    }
+
+    // Allocate iterator state with space for all transaction entries
+    state = (ReorderBufferIterTXNState *)
+        MemoryContextAllocZero(rb->context,
+                               sizeof(ReorderBufferIterTXNState) +
+                               sizeof(ReorderBufferIterTXNEntry) * nr_txns);
+
+    state->nr_txns = nr_txns;
+    dlist_init(&state->old_change);
+
+    // Initialize file descriptors for all entries
+    for (off = 0; off < state->nr_txns; off++)
+    {
+        state->entries[off].file.vfd = -1;
+        state->entries[off].segno = 0;
+    }
+
+    // Create binary heap for k-way merge
+    state->heap = binaryheap_allocate(state->nr_txns, ReorderBufferIterCompare, state);
+    *iter_state = state;
+
+    off = 0;
+
+    // Add toplevel transaction to heap if it has changes
+    if (txn->nentries > 0)
+    {
+        ReorderBufferChange *cur_change;
+
+        // Handle serialized transactions by restoring changes
+        if (rbtxn_is_serialized(txn))
+        {
+            ReorderBufferSerializeTXN(rb, txn);
+            ReorderBufferRestoreChanges(rb, txn, &state->entries[off].file,
+                                        &state->entries[off].segno);
+        }
+
+        cur_change = dlist_head_element(ReorderBufferChange, node, &txn->changes);
+        state->entries[off].lsn = cur_change->lsn;
+        state->entries[off].change = cur_change;
+        state->entries[off].txn = txn;
+
+        binaryheap_add_unordered(state->heap, Int32GetDatum(off++));
+    }
+
+    // Add subtransactions to heap if they have changes
+    dlist_foreach(cur_txn_i, &txn->subtxns)
+    {
+        ReorderBufferTXN *cur_txn = dlist_container(ReorderBufferTXN, node, cur_txn_i.cur);
+
+        if (cur_txn->nentries > 0)
+        {
+            ReorderBufferChange *cur_change;
+
+            // Handle serialized subtransactions
+            if (rbtxn_is_serialized(cur_txn))
+            {
+                ReorderBufferSerializeTXN(rb, cur_txn);
+                ReorderBufferRestoreChanges(rb, cur_txn, &state->entries[off].file,
+                                            &state->entries[off].segno);
+            }
+
+            cur_change = dlist_head_element(ReorderBufferChange, node, &cur_txn->changes);
+            state->entries[off].lsn = cur_change->lsn;
+            state->entries[off].change = cur_change;
+            state->entries[off].txn = cur_txn;
+
+            binaryheap_add_unordered(state->heap, Int32GetDatum(off++));
+        }
+    }
+
+    // Build the heap for efficient traversal
+    binaryheap_build(state->heap);
+}
+```

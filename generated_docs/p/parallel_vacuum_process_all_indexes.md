@@ -52,3 +52,101 @@ The function manages complex coordination including cost-based vacuum delay shar
 - Includes comprehensive error checking to ensure all indexes are completed
 - Reinitializes parallel context for multiple index scans to reuse worker processes
 - Accumulates buffer and WAL usage statistics from all workers for performance monitoring
+
+## Simplified Source
+
+```c
+static void
+parallel_vacuum_process_all_indexes(ParallelVacuumState *pvs, int num_index_scans,
+                                   bool vacuum)
+{
+    int nworkers;
+    PVIndVacStatus new_status;
+
+    Assert(!IsParallelWorker());
+
+    // Determine operation type and worker count needed
+    if (vacuum) {
+        new_status = PARALLEL_INDVAC_STATUS_NEED_BULKDELETE;
+        nworkers = pvs->nindexes_parallel_bulkdel;
+    } else {
+        new_status = PARALLEL_INDVAC_STATUS_NEED_CLEANUP;
+        nworkers = pvs->nindexes_parallel_cleanup;
+
+        // Add conditional cleanup indexes on first scan only
+        if (num_index_scans == 0)
+            nworkers += pvs->nindexes_parallel_condcleanup;
+    }
+
+    // Leader participates, so reduce worker count
+    nworkers--;
+    nworkers = Min(nworkers, pvs->pcxt->nworkers);
+
+    // Set up index status for this processing phase
+    for (int i = 0; i < pvs->nindexes; i++) {
+        PVIndStats *indstats = &(pvs->indstats[i]);
+        indstats->status = new_status;
+        indstats->parallel_workers_can_process =
+            (pvs->will_parallel_vacuum[i] &&
+             parallel_vacuum_index_is_parallel_safe(pvs->indrels[i],
+                                                   num_index_scans, vacuum));
+    }
+
+    // Reset progress counter
+    pg_atomic_write_u32(&(pvs->shared->idx), 0);
+
+    // Launch parallel workers if needed
+    if (nworkers > 0) {
+        // Reinitialize for subsequent scans
+        if (num_index_scans > 0)
+            ReinitializeParallelDSM(pvs->pcxt);
+
+        // Set up cost-based vacuum delay sharing
+        pg_atomic_write_u32(&(pvs->shared->cost_balance), VacuumCostBalance);
+        pg_atomic_write_u32(&(pvs->shared->active_nworkers), 0);
+
+        ReinitializeParallelWorkers(pvs->pcxt, nworkers);
+        LaunchParallelWorkers(pvs->pcxt);
+
+        // Enable shared cost balance for leader if workers launched
+        if (pvs->pcxt->nworkers_launched > 0) {
+            VacuumCostBalance = 0;
+            VacuumCostBalanceLocal = 0;
+            VacuumSharedCostBalance = &(pvs->shared->cost_balance);
+            VacuumActiveNWorkers = &(pvs->shared->active_nworkers);
+        }
+    }
+
+    // Process unsafe indexes on leader first
+    parallel_vacuum_process_unsafe_indexes(pvs);
+
+    // Leader joins workers to process safe indexes
+    parallel_vacuum_process_safe_indexes(pvs);
+
+    // Wait for all workers and collect statistics
+    if (nworkers > 0) {
+        WaitForParallelWorkersToFinish(pvs->pcxt);
+
+        for (int i = 0; i < pvs->pcxt->nworkers_launched; i++)
+            InstrAccumParallelQuery(&pvs->buffer_usage[i], &pvs->wal_usage[i]);
+    }
+
+    // Verify all indexes completed and reset status
+    for (int i = 0; i < pvs->nindexes; i++) {
+        PVIndStats *indstats = &(pvs->indstats[i]);
+
+        if (indstats->status != PARALLEL_INDVAC_STATUS_COMPLETED)
+            elog(ERROR, "parallel index vacuum on index \"%s\" is not completed",
+                 RelationGetRelationName(pvs->indrels[i]));
+
+        indstats->status = PARALLEL_INDVAC_STATUS_INITIAL;
+    }
+
+    // Restore cost balance and disable sharing
+    if (VacuumSharedCostBalance) {
+        VacuumCostBalance = pg_atomic_read_u32(VacuumSharedCostBalance);
+        VacuumSharedCostBalance = NULL;
+        VacuumActiveNWorkers = NULL;
+    }
+}
+```

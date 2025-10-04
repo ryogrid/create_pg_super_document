@@ -40,3 +40,32 @@ The function uses the standard PostgreSQL SRF framework with  for initialization
 - The function is read-only and does not modify the listen state
 - Results are guaranteed to be consistent within a transaction due to the immutable nature of the listen channels list during transaction execution
 - Location: src/backend/commands/async.c:790-822
+
+## Simplified Source
+
+```c
+Datum
+pg_listening_channels(PG_FUNCTION_ARGS)
+{
+    FuncCallContext *funcctx;
+
+    // Initialize on first call
+    if (SRF_IS_FIRSTCALL())
+    {
+        funcctx = SRF_FIRSTCALL_INIT();
+    }
+
+    // Setup for each call
+    funcctx = SRF_PERCALL_SETUP();
+
+    // Return next channel name if available
+    if (funcctx->call_cntr < list_length(listenChannels))
+    {
+        char *channel = (char *) list_nth(listenChannels, funcctx->call_cntr);
+        SRF_RETURN_NEXT(funcctx, CStringGetTextDatum(channel));
+    }
+
+    // No more channels to return
+    SRF_RETURN_DONE(funcctx);
+}
+```

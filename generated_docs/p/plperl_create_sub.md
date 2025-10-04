@@ -44,3 +44,59 @@ This function compiles Perl source code into an executable subroutine using Post
 - Located in src/pl/plperl/plperl.c:2095-2167
 - The compiled subroutine reference is stored in prodesc->reference for later execution
 - Reports syntax errors with appropriate error codes if compilation fails
+
+## Simplified Source
+
+```c
+static void plperl_create_sub(plperl_proc_desc *prodesc, const char *s, Oid fn_oid) {
+    // Create unique subroutine name: {proname}__{fn_oid}
+    char subname[NAMEDATALEN + 40];
+    sprintf(subname, "%s__%u", prodesc->proname, fn_oid);
+
+    // Set up pragma hash (add 'strict' if enabled)
+    HV *pragma_hv = newHV();
+    if (plperl_use_strict)
+        hv_store_string(pragma_hv, "strict", (SV *) newAV());
+
+    // Prepare Perl stack and call mkfunc to compile the code
+    ENTER;
+    SAVETMPS;
+    PUSHMARK(SP);
+    EXTEND(SP, 4);
+    PUSHs(sv_2mortal(cstr2sv(subname)));        // subroutine name
+    PUSHs(sv_2mortal(newRV_noinc((SV *) pragma_hv))); // pragmas
+    PUSHs(&PL_sv_no);                           // prolog = false
+    PUSHs(sv_2mortal(cstr2sv(s)));              // source code
+    PUTBACK;
+
+    // Call PostgreSQL::InServer::mkfunc to compile
+    int count = call_pv("PostgreSQL::InServer::mkfunc", G_SCALAR | G_EVAL | G_KEEPERR);
+    SPAGAIN;
+
+    // Extract compiled subroutine reference
+    SV *subref = NULL;
+    if (count == 1) {
+        SV *sub_rv = (SV *) POPs;
+        if (sub_rv && SvROK(sub_rv) && SvTYPE(SvRV(sub_rv)) == SVt_PVCV) {
+            subref = newRV_inc(SvRV(sub_rv));
+        }
+    }
+
+    PUTBACK;
+    FREETMPS;
+    LEAVE;
+
+    // Check for compilation errors
+    if (SvTRUE(ERRSV))
+        ereport(ERROR, (errcode(ERRCODE_SYNTAX_ERROR),
+                       errmsg("%s", strip_trailing_ws(sv2cstr(ERRSV)))));
+
+    if (!subref)
+        ereport(ERROR, (errcode(ERRCODE_SYNTAX_ERROR),
+                       errmsg("didn't get a CODE reference from compiling function \"%s\"",
+                              prodesc->proname)));
+
+    // Store compiled subroutine reference for later execution
+    prodesc->reference = subref;
+}
+```

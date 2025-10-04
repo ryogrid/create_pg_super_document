@@ -38,3 +38,14 @@ The commit operation is wrapped in a PG_TRY/PG_CATCH block to handle errors grac
 - Transaction characteristics are not preserved across the commit boundary (use SPI_commit_and_chain for that)
 - Errors during commit are handled by aborting the failed transaction and starting a new one
 - The function is primarily used by procedural language implementations to provide transaction control to user code
+
+## Simplified Source
+
+```c
+void
+SPI_commit(void)
+{
+    // Call internal commit function without chaining
+    _SPI_commit(false);
+}
+```

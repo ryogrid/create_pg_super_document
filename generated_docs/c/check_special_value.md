@@ -38,3 +38,32 @@ When a match is found, the function sets the appropriate IEEE 754 floating-point
 - The function follows the standard C library convention of setting an end pointer to indicate parsing progress
 - Uses PostgreSQL's portable string comparison functions rather than standard C library functions for consistency
 - Part of the broader ECPG infrastructure that allows embedding SQL statements in C programs
+
+## Simplified Source
+
+```c
+static bool check_special_value(char *ptr, double *retval, char **endptr) {
+    // Check for "NaN" (case-insensitive)
+    if (pg_strncasecmp(ptr, "NaN", 3) == 0) {
+        *retval = get_float8_nan();
+        *endptr = ptr + 3;
+        return true;
+    }
+
+    // Check for "Infinity" (case-insensitive)
+    if (pg_strncasecmp(ptr, "Infinity", 8) == 0) {
+        *retval = get_float8_infinity();
+        *endptr = ptr + 8;
+        return true;
+    }
+
+    // Check for "-Infinity" (case-insensitive)
+    if (pg_strncasecmp(ptr, "-Infinity", 9) == 0) {
+        *retval = -get_float8_infinity();
+        *endptr = ptr + 9;
+        return true;
+    }
+
+    return false;  // No special value found
+}
+```

@@ -38,3 +38,17 @@ The actual seed setting is performed by calling the  function through PostgreSQL
 - The flag reset to 0 ensures idempotency - the seed is set at most once per GUC change
 - This design prevents transaction rollbacks from re-executing the seed assignment
 - Returns void as assign hook functions don't return values
+
+## Simplified Source
+
+```c
+void assign_random_seed(double newval, void *extra)
+{
+    // Check if we should actually set the seed (flag from check hook)
+    if (*((int *) extra))
+        DirectFunctionCall1(setseed, Float8GetDatum(newval));
+
+    // Reset flag to prevent re-execution
+    *((int *) extra) = 0;
+}
+```

@@ -35,3 +35,27 @@ This function serializes a COMMIT PREPARED message into the logical replication 
 - The message format includes flags (currently always 0), commit LSN, end LSN, commit timestamp, transaction ID, and GID
 - Located in src/backend/replication/logical/proto.c:248-277
 - Used by logical replication output plugins like pgoutput to send commit prepared notifications to subscribers
+
+## Simplified Source
+
+```c
+void logicalrep_write_commit_prepared(StringInfo out, ReorderBufferTXN *txn, XLogRecPtr commit_lsn) {
+    // Send COMMIT PREPARED message type
+    pq_sendbyte(out, LOGICAL_REP_MSG_COMMIT_PREPARED);
+
+    // Validate transaction state (only in debug builds)
+    Assert(txn->gid != NULL);
+
+    // Send flags field (unused for now)
+    pq_sendbyte(out, 0);
+
+    // Send transaction completion data
+    pq_sendint64(out, commit_lsn);                   // Commit LSN
+    pq_sendint64(out, txn->end_lsn);                 // End LSN
+    pq_sendint64(out, txn->xact_time.commit_time);   // Commit timestamp
+    pq_sendint32(out, txn->xid);                     // Transaction ID
+
+    // Send global transaction identifier
+    pq_sendstring(out, txn->gid);
+}
+```

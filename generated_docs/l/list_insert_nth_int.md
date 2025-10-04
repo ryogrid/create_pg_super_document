@@ -40,3 +40,25 @@ Like its generic counterpart, this function has O(n) time complexity proportiona
 - Time complexity is O(k) where k is the number of elements after insertion point
 - Returns the modified list (same list object, not a new copy)
 - Part of PostgreSQL's type-safe list API that prevents mixing different data types in lists
+
+## Simplified Source
+
+```c
+List *
+list_insert_nth_int(List *list, int pos, int datum)
+{
+    // Handle empty list case
+    if (list == NIL) {
+        Assert(pos == 0);
+        return list_make1_int(datum);
+    }
+
+    // Verify this is an integer list
+    Assert(IsIntegerList(list));
+
+    // Insert new cell and set integer value
+    lfirst_int(insert_new_cell(list, pos)) = datum;
+    check_list_invariants(list);
+    return list;
+}
+```

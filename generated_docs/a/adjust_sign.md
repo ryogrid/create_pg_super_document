@@ -35,3 +35,19 @@ This function is part of the formatting logic that handles the display of positi
 - When forcesign is true for non-negative numbers, sets signvalue to '+' but still returns false
 - Part of PostgreSQL's portable snprintf implementation that provides consistent formatting across platforms
 - The function handles the logic for format specifiers like %+d which forces display of the '+' sign for positive numbers
+
+## Simplified Source
+
+```c
+static int
+adjust_sign(int is_negative, int forcesign, int *signvalue)
+{
+    if (is_negative) {
+        *signvalue = '-';
+        return true;
+    } else if (forcesign) {
+        *signvalue = '+';
+    }
+    return false;
+}
+```

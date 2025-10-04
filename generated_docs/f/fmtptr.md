@@ -37,3 +37,25 @@ The function uses a temporary buffer to hold the formatted pointer string, which
 - Uses a fixed 64-byte buffer which should be sufficient for any reasonable pointer representation
 - The %p format specifier typically outputs pointers in hexadecimal format with a '0x' prefix, but exact format is implementation-defined
 - Function is simpler than other formatting functions because it doesn't handle width, precision, or alignment - %p format doesn't support these modifiers
+
+## Simplified Source
+
+```c
+static void
+fmtptr(const void *value, PrintfTarget *target)
+{
+    char convert[64];
+    int vallen;
+
+    // Use standard library snprintf for platform-specific pointer formatting
+    vallen = snprintf(convert, sizeof(convert), "%p", value);
+
+    if (vallen < 0) {
+        // Handle snprintf error
+        target->failed = true;
+    } else {
+        // Output the formatted pointer string
+        dostr(convert, vallen, target);
+    }
+}
+```

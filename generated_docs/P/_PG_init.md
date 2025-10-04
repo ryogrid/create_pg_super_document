@@ -37,3 +37,18 @@ The function includes a safety check to prevent the module from being loaded mul
 - If the module is already loaded (WalReceiverFunctions is not NULL), it will throw an ERROR
 - The libpqwalreceiver module is specifically designed to provide libpq-based implementations for WAL streaming replication
 - This separation allows the main PostgreSQL server to remain independent of libpq while still supporting replication features
+
+## Simplified Source
+
+```c
+void
+_PG_init(void)
+{
+    // Prevent double loading of the module
+    if (WalReceiverFunctions != NULL)
+        elog(ERROR, "libpqwalreceiver already loaded");
+
+    // Register the libpq WAL receiver function table
+    WalReceiverFunctions = &PQWalReceiverFunctions;
+}
+```

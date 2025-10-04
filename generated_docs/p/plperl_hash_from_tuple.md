@@ -55,3 +55,78 @@ The function pre-allocates the hash size for efficiency and includes stack depth
 - Efficiently pre-grows the hash using hv_ksplit for better performance
 - Handles type transforms for custom data type conversions between PostgreSQL and Perl
 - Returns a new Perl reference that doesn't increment the reference count of the underlying hash
+
+## Simplified Source
+
+```c
+static SV *
+plperl_hash_from_tuple(HeapTuple tuple, TupleDesc tupdesc, bool include_generated)
+{
+    dTHX;
+    HV *hv;
+    int i;
+
+    // Prevent stack overflow during recursion
+    check_stack_depth();
+
+    // Create and pre-size the hash
+    hv = newHV();
+    hv_ksplit(hv, tupdesc->natts);
+
+    // Process each attribute in the tuple
+    for (i = 0; i < tupdesc->natts; i++) {
+        Datum attr;
+        bool isnull;
+        char *attname;
+        Form_pg_attribute att = TupleDescAttr(tupdesc, i);
+
+        // Skip dropped or unwanted generated columns
+        if (att->attisdropped)
+            continue;
+        if (att->attgenerated && !include_generated)
+            continue;
+
+        attname = NameStr(att->attname);
+        attr = heap_getattr(tuple, i + 1, tupdesc, &isnull);
+
+        if (isnull) {
+            // Store NULL as Perl undef
+            hv_store_string(hv, attname, newSV(0));
+            continue;
+        }
+
+        if (type_is_rowtype(att->atttypid)) {
+            // Recursively convert nested row types
+            SV *sv = plperl_hash_from_datum(attr);
+            hv_store_string(hv, attname, sv);
+        } else {
+            SV *sv;
+            Oid funcid;
+
+            if (OidIsValid(get_base_element_type(att->atttypid))) {
+                // Convert arrays to Perl array refs
+                sv = plperl_ref_from_pg_array(attr, att->atttypid);
+            } else if ((funcid = get_transform_fromsql(att->atttypid,
+                                                     current_call_data->prodesc->lang_oid,
+                                                     current_call_data->prodesc->trftypes))) {
+                // Use custom transform function
+                sv = (SV *) DatumGetPointer(OidFunctionCall1(funcid, attr));
+            } else {
+                // Convert to string using output function
+                Oid typoutput;
+                bool typisvarlena;
+                char *outputstr;
+
+                getTypeOutputInfo(att->atttypid, &typoutput, &typisvarlena);
+                outputstr = OidOutputFunctionCall(typoutput, attr);
+                sv = cstr2sv(outputstr);
+                pfree(outputstr);
+            }
+
+            hv_store_string(hv, attname, sv);
+        }
+    }
+
+    return newRV_noinc((SV *) hv);
+}
+```

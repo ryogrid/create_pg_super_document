@@ -38,3 +38,31 @@ The function ensures proper cleanup by clearing all pointers and flags, preventi
 - Clears all structural pointers to prevent dangling references
 - The reuse mechanism reduces memory fragmentation during complex regex compilation
 - Part of PostgreSQL's regex engine memory management infrastructure
+
+## Simplified Source
+
+```c
+static void freesrnode(struct vars *v, struct subre *sr) {
+    if (sr == NULL)
+        return;
+
+    // Free associated CNFA structure
+    if (!NULLCNFA(sr->cnfa))
+        freecnfa(&sr->cnfa);
+
+    // Clear all flags and pointers
+    sr->flags = 0;
+    sr->child = sr->sibling = NULL;
+    sr->begin = sr->end = NULL;
+
+    // Either reuse node or completely free it
+    if (v != NULL && v->treechain != NULL) {
+        // Still parsing - add to reuse pool
+        sr->child = v->treefree;
+        v->treefree = sr;
+    } else {
+        // Done parsing - free completely
+        FREE(sr);
+    }
+}
+```

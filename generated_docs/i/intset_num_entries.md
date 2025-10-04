@@ -30,3 +30,11 @@ The `intset_num_entries` function provides a simple accessor to retrieve the tot
 - The count is automatically maintained by other IntegerSet functions during add operations
 - Returns `uint64` to support very large sets of integers
 - Does not require flushing buffered values or tree traversal to determine the count
+
+## Simplified Source
+
+```c
+uint64 intset_num_entries(IntegerSet *intset) {
+    return intset->num_entries;
+}
+```

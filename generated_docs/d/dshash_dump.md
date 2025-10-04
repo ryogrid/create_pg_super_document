@@ -56,3 +56,52 @@ This debugging capability is essential for performance analysis, understanding h
 - This is primarily a development and debugging tool, not intended for production use
 - The function validates the hash table magic number to ensure data structure integrity
 - Bucket traversal follows the linked list chain structure of each bucket
+
+## Simplified Source
+
+```c
+void dshash_dump(dshash_table *hash_table) {
+    // Validate hash table and ensure no locks held
+    Assert(hash_table->control->magic == DSHASH_MAGIC);
+    ASSERT_NO_PARTITION_LOCKS_HELD_BY_ME(hash_table);
+
+    // Acquire shared locks on all partitions for consistent snapshot
+    for (int i = 0; i < DSHASH_NUM_PARTITIONS; ++i) {
+        LWLockAcquire(PARTITION_LOCK(hash_table, i), LW_SHARED);
+    }
+
+    ensure_valid_bucket_pointers(hash_table);
+
+    // Print overall hash table size
+    fprintf(stderr, "hash table size = %zu\n", (size_t) 1 << hash_table->size_log2);
+
+    // Iterate through each partition and its buckets
+    for (int i = 0; i < DSHASH_NUM_PARTITIONS; ++i) {
+        dshash_partition *partition = &hash_table->control->partitions[i];
+        size_t begin = BUCKET_INDEX_FOR_PARTITION(i, hash_table->size_log2);
+        size_t end = BUCKET_INDEX_FOR_PARTITION(i + 1, hash_table->size_log2);
+
+        fprintf(stderr, "  partition %zu\n", i);
+        fprintf(stderr, "    active buckets (key count = %zu)\n", partition->count);
+
+        // Count items in each bucket chain
+        for (size_t j = begin; j < end; ++j) {
+            size_t count = 0;
+            dsa_pointer bucket = hash_table->buckets[j];
+
+            // Traverse linked list of items in bucket
+            while (DsaPointerIsValid(bucket)) {
+                dshash_table_item *item = dsa_get_address(hash_table->area, bucket);
+                bucket = item->next;
+                ++count;
+            }
+            fprintf(stderr, "      bucket %zu (key count = %zu)\n", j, count);
+        }
+    }
+
+    // Release all partition locks
+    for (int i = 0; i < DSHASH_NUM_PARTITIONS; ++i) {
+        LWLockRelease(PARTITION_LOCK(hash_table, i));
+    }
+}
+```

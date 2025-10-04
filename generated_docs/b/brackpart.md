@@ -46,3 +46,92 @@ The `brackpart` function processes individual components within bracket expressi
 - Handles both case-sensitive and case-insensitive matching via REG_ICASE flag
 - Contains extensive error checking for malformed bracket expressions
 - Located in src/backend/regex/regcomp.c:1763-1885
+
+## Simplified Source
+
+```c
+static void brackpart(struct vars *v, struct state *lp, struct state *rp, bool *have_cclassc) {
+    chr startc, endc;
+    struct cvec *cv;
+    enum char_classes cls;
+    const chr *startp, *endp;
+
+    // Parse different bracket element types
+    switch (v->nexttype) {
+        case RANGE:
+            ERR(REG_ERANGE);
+            return;
+        case PLAIN:
+            startc = v->nextvalue;
+            NEXT();
+            // Handle single character (not a range)
+            if (!SEE(RANGE)) {
+                onechr(v, startc, lp, rp);
+                return;
+            }
+            break;
+        case COLLEL:
+            startp = v->now;
+            endp = scanplain(v);
+            INSIST(startp < endp, REG_ECOLLATE);
+            startc = element(v, startp, endp);
+            break;
+        case ECLASS:
+            startp = v->now;
+            endp = scanplain(v);
+            INSIST(startp < endp, REG_ECOLLATE);
+            startc = element(v, startp, endp);
+            cv = eclass(v, startc, (v->cflags & REG_ICASE));
+            subcolorcvec(v, cv, lp, rp);
+            return;
+        case CCLASS:
+            startp = v->now;
+            endp = scanplain(v);
+            INSIST(startp < endp, REG_ECTYPE);
+            cls = lookupcclass(v, startp, endp);
+            charclass(v, cls, lp, rp);
+            return;
+        case CCLASSS:
+            charclass(v, (enum char_classes) v->nextvalue, lp, rp);
+            NEXT();
+            return;
+        case CCLASSC:
+            // Defer complemented character class processing
+            have_cclassc[v->nextvalue] = true;
+            NEXT();
+            return;
+        default:
+            ERR(REG_ASSERT);
+            return;
+    }
+
+    // Handle ranges if present
+    if (SEE(RANGE)) {
+        NEXT();
+        switch (v->nexttype) {
+            case PLAIN:
+            case RANGE:
+                endc = v->nextvalue;
+                NEXT();
+                break;
+            case COLLEL:
+                startp = v->now;
+                endp = scanplain(v);
+                INSIST(startp < endp, REG_ECOLLATE);
+                endc = element(v, startp, endp);
+                break;
+            default:
+                ERR(REG_ERANGE);
+                return;
+        }
+    } else {
+        endc = startc;
+    }
+
+    // Create range and add to NFA
+    if (startc != endc)
+        NOTE(REG_UUNPORT);
+    cv = range(v, startc, endc, (v->cflags & REG_ICASE));
+    subcolorcvec(v, cv, lp, rp);
+}
+```

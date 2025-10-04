@@ -56,3 +56,92 @@ The function returns an 8-column result set for each available version:
 - The function uses PostgreSQL's extension version graph analysis to determine installation paths
 - Non-installable versions inherit certain parameters (name, schema, comment) from their installation root while getting version-specific parameters (superuser, trusted, relocatable, requires) from their own control files
 - The requires field is converted to a PostgreSQL array datum using convert_requires_to_datum
+
+## Simplified Source
+
+```c
+static void
+get_available_versions_for_extension(ExtensionControlFile *pcontrol,
+                                     Tuplestorestate *tupstore,
+                                     TupleDesc tupdesc)
+{
+    List *evi_list;
+    ListCell *lc;
+
+    // Extract the version update graph from script directory
+    evi_list = get_ext_ver_list(pcontrol);
+
+    // Process each installable version
+    foreach(lc, evi_list)
+    {
+        ExtensionVersionInfo *evi = (ExtensionVersionInfo *) lfirst(lc);
+        ExtensionControlFile *control;
+        Datum values[8];
+        bool nulls[8];
+
+        if (!evi->installable)
+            continue;
+
+        // Read version-specific control file
+        control = read_extension_aux_control_file(pcontrol, evi->name);
+
+        memset(values, 0, sizeof(values));
+        memset(nulls, 0, sizeof(nulls));
+
+        // Fill result row: name, version, superuser, trusted, relocatable
+        values[0] = DirectFunctionCall1(namein, CStringGetDatum(control->name));
+        values[1] = CStringGetTextDatum(evi->name);
+        values[2] = BoolGetDatum(control->superuser);
+        values[3] = BoolGetDatum(control->trusted);
+        values[4] = BoolGetDatum(control->relocatable);
+
+        // Handle nullable fields: schema, requires, comment
+        if (control->schema == NULL)
+            nulls[5] = true;
+        else
+            values[5] = DirectFunctionCall1(namein, CStringGetDatum(control->schema));
+
+        if (control->requires == NIL)
+            nulls[6] = true;
+        else
+            values[6] = convert_requires_to_datum(control->requires);
+
+        if (control->comment == NULL)
+            nulls[7] = true;
+        else
+            values[7] = CStringGetTextDatum(control->comment);
+
+        tuplestore_putvalues(tupstore, tupdesc, values, nulls);
+
+        // Process non-installable versions reachable from this version
+        foreach(lc2, evi_list)
+        {
+            ExtensionVersionInfo *evi2 = (ExtensionVersionInfo *) lfirst(lc2);
+
+            if (evi2->installable)
+                continue;
+
+            if (find_install_path(evi_list, evi2, &best_path) == evi)
+            {
+                // Add row for this reachable version with updated parameters
+                control = read_extension_aux_control_file(pcontrol, evi2->name);
+                values[1] = CStringGetTextDatum(evi2->name);
+                values[2] = BoolGetDatum(control->superuser);
+                values[3] = BoolGetDatum(control->trusted);
+                values[4] = BoolGetDatum(control->relocatable);
+
+                // Update requires field
+                if (control->requires == NIL)
+                    nulls[6] = true;
+                else
+                {
+                    values[6] = convert_requires_to_datum(control->requires);
+                    nulls[6] = false;
+                }
+
+                tuplestore_putvalues(tupstore, tupdesc, values, nulls);
+            }
+        }
+    }
+}
+```

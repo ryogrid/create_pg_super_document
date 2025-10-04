@@ -35,3 +35,22 @@ The function returns a PGresult that indicates whether the close operation was s
 - Explicitly releases server resources associated with the prepared statement
 - Should be called when a prepared statement is no longer needed to free server resources
 - The server automatically closes prepared statements when the connection is terminated
+
+## Simplified Source
+
+```c
+PGresult *
+PQclosePrepared(PGconn *conn, const char *stmt)
+{
+    // Prepare connection for query execution
+    if (!PQexecStart(conn))
+        return NULL;
+
+    // Send Close message for prepared statement ('S' type)
+    if (!PQsendTypedCommand(conn, PqMsg_Close, 'S', stmt))
+        return NULL;
+
+    // Wait for and retrieve the close result
+    return PQexecFinish(conn);
+}
+```

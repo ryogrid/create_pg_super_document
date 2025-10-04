@@ -50,3 +50,37 @@ Key behaviors:
 - Returns 0 on success, -1 on error (with errno set to EINVAL for invalid 'how' parameter)
 - Provides POSIX-compatible signal masking semantics on Windows platforms
 - The signal mask is stored in the global variable pg_signal_mask
+
+## Simplified Source
+
+```c
+int pqsigprocmask(int how, const sigset_t *set, sigset_t *oset) {
+    // Save current mask if requested
+    if (oset)
+        *oset = pg_signal_mask;
+
+    if (!set)
+        return 0;
+
+    // Modify signal mask based on operation type
+    switch (how) {
+        case SIG_BLOCK:
+            pg_signal_mask |= *set;     // Add signals to mask
+            break;
+        case SIG_UNBLOCK:
+            pg_signal_mask &= ~*set;    // Remove signals from mask
+            break;
+        case SIG_SETMASK:
+            pg_signal_mask = *set;      // Replace entire mask
+            break;
+        default:
+            errno = EINVAL;
+            return -1;
+    }
+
+    // Dispatch any signals that are now unblocked
+    pgwin32_dispatch_queued_signals();
+
+    return 0;
+}
+```

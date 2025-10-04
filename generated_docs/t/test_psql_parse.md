@@ -54,3 +54,59 @@ This function validates that the psql parser interprets the provided input buffe
 - Uses PostgreSQL's internal psql scanner to perform the parsing validation
 - Provides detailed diagnostic output showing scan results, prompt status, and query buffer contents for each parsing iteration
 - The test is specifically designed to catch cases where malicious input could be interpreted as multiple SQL statements
+
+## Simplified Source
+```c
+static void
+test_psql_parse(pe_test_config *tc, PQExpBuffer testname,
+                PQExpBuffer input_buf, PQExpBuffer details)
+{
+    PsqlScanState scan_state;
+    PsqlScanResult scan_result;
+    PQExpBuffer query_buf;
+    promptStatus_t prompt_status = PROMPT_READY;
+    int matches = 0;
+
+    query_buf = createPQExpBuffer();
+    scan_state = psql_scan_create(&test_scan_callbacks);
+
+    /* Setup scanner with standard conforming strings */
+    psql_scan_setup(scan_state, input_buf->data, input_buf->len,
+                    PQclientEncoding(tc->conn), 1);
+
+    /* Scan input and count statements */
+    do
+    {
+        resetPQExpBuffer(query_buf);
+        scan_result = psql_scan(scan_state, query_buf, &prompt_status);
+
+        /* Log scan details for debugging */
+        appendPQExpBuffer(details,
+                         "#\t\t %d: scan_result: %s prompt: %u, query_buf: ",
+                         matches, scan_res_s(scan_result), prompt_status);
+        escapify(details, query_buf->data, query_buf->len);
+        appendPQExpBuffer(details, "\n");
+
+        matches++;
+    }
+    while (scan_result != PSCAN_INCOMPLETE && scan_result != PSCAN_EOL);
+
+    /* Cleanup */
+    psql_scan_destroy(scan_state);
+    destroyPQExpBuffer(query_buf);
+
+    /* Test passes if exactly one statement and proper end state */
+    bool test_fails = matches > 1 || scan_result != PSCAN_EOL;
+
+    const char *resdesc;
+    if (matches > 1)
+        resdesc = "more than one match";
+    else if (scan_result != PSCAN_EOL)
+        resdesc = "unexpected end state";
+    else
+        resdesc = "ok";
+
+    report_result(tc, !test_fails, testname->data, details->data,
+                  "psql parse", resdesc);
+}
+```

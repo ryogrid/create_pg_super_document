@@ -37,3 +37,22 @@ This is a blocking operation that combines the functionality of sending the desc
 - Returns NULL if the connection is not in a valid state for sending queries
 - The resulting PGresult contains metadata about both input parameters and output columns of the prepared statement
 - Uses the PostgreSQL protocol Describe message with type 'S' for prepared statements
+
+## Simplified Source
+
+```c
+PGresult *
+PQdescribePrepared(PGconn *conn, const char *stmt)
+{
+    // Prepare connection for query execution
+    if (!PQexecStart(conn))
+        return NULL;
+
+    // Send Describe message for prepared statement ('S' type)
+    if (!PQsendTypedCommand(conn, PqMsg_Describe, 'S', stmt))
+        return NULL;
+
+    // Wait for and retrieve the describe result
+    return PQexecFinish(conn);
+}
+```

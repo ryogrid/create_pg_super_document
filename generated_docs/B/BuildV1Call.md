@@ -62,3 +62,55 @@ The function is designed to seamlessly integrate PostgreSQL's C function calling
 - The lifetime-end annotations are crucial for enabling LLVM optimizations, particularly function inlining
 - Properly handles the PostgreSQL function null flag protocol by initializing isnull to false and returning the final state
 - The function signature uses AttributeTemplate to ensure consistent calling conventions
+
+## Simplified Source
+
+```c
+static LLVMValueRef BuildV1Call(LLVMJitContext *context, LLVMBuilderRef b,
+                                LLVMModuleRef mod, FunctionCallInfo fcinfo,
+                                LLVMValueRef *v_fcinfo_isnull) {
+    LLVMContextRef lc;
+    LLVMValueRef v_fn;
+    LLVMValueRef v_fcinfo_isnullp;
+    LLVMValueRef v_retval;
+    LLVMValueRef v_fcinfo;
+
+    lc = LLVMGetModuleContext(mod);
+
+    // Get function reference for the PostgreSQL function
+    v_fn = llvm_function_reference(context, b, mod, fcinfo);
+
+    // Set up FunctionCallInfo structure pointer
+    v_fcinfo = l_ptr_const(fcinfo, l_ptr(StructFunctionCallInfoData));
+
+    // Get pointer to isnull field and initialize to false
+    v_fcinfo_isnullp = l_struct_gep(b, StructFunctionCallInfoData, v_fcinfo,
+                                    FIELDNO_FUNCTIONCALLINFODATA_ISNULL, "v_fcinfo_isnull");
+    LLVMBuildStore(b, l_sbool_const(0), v_fcinfo_isnullp);
+
+    // Call the PostgreSQL function
+    v_retval = l_call(b, LLVMGetFunctionType(AttributeTemplate), v_fn, &v_fcinfo, 1, "funccall");
+
+    // Return null flag if requested
+    if (v_fcinfo_isnull)
+        *v_fcinfo_isnull = l_load(b, TypeStorageBool, v_fcinfo_isnullp, "");
+
+    // Add lifetime-end annotations for optimization
+    {
+        LLVMValueRef v_lifetime = create_LifetimeEnd(mod);
+        LLVMValueRef params[2];
+
+        // Mark function arguments as no longer needed
+        params[0] = l_int64_const(lc, sizeof(NullableDatum) * fcinfo->nargs);
+        params[1] = l_ptr_const(fcinfo->args, l_ptr(LLVMInt8TypeInContext(lc)));
+        l_call(b, LLVMGetFunctionType(v_lifetime), v_lifetime, params, lengthof(params), "");
+
+        // Mark isnull field as no longer needed
+        params[0] = l_int64_const(lc, sizeof(fcinfo->isnull));
+        params[1] = l_ptr_const(&fcinfo->isnull, l_ptr(LLVMInt8TypeInContext(lc)));
+        l_call(b, LLVMGetFunctionType(v_lifetime), v_lifetime, params, lengthof(params), "");
+    }
+
+    return v_retval;
+}
+```

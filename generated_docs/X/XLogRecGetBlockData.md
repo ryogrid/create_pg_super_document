@@ -38,3 +38,35 @@ The function returns NULL in two scenarios: when the block ID is invalid (exceed
 - This function is widely used across PostgreSQL access methods for WAL replay operations
 - It is a key component in the WAL decoding infrastructure, enabling various subsystems to access block-specific data during recovery and logical replication
 - The function handles both cases where block data exists and where only full-page images are stored
+
+## Simplified Source
+
+```c
+char *
+XLogRecGetBlockData(XLogReaderState *record, uint8 block_id, Size *len)
+{
+    DecodedBkpBlock *bkpb;
+
+    // Validate block ID and ensure block is in use
+    if (block_id > record->record->max_block_id ||
+        !record->record->blocks[block_id].in_use)
+        return NULL;
+
+    bkpb = &record->record->blocks[block_id];
+
+    // Check if block has associated data
+    if (!bkpb->has_data)
+    {
+        if (len)
+            *len = 0;
+        return NULL;
+    }
+    else
+    {
+        // Return data pointer and length
+        if (len)
+            *len = bkpb->data_len;
+        return bkpb->data;
+    }
+}
+```

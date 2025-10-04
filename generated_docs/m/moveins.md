@@ -61,3 +61,69 @@ The function includes optimization logic via BULK_ARC_OP_USE_SORT() to determine
 - Duplicate detection is crucial for maintaining NFA correctness
 - The function handles three distinct code paths to balance performance with correctness
 - After completion, oldState->nins should be 0 and oldState->ins should be NULL
+
+## Simplified Source
+
+```c
+static void
+moveins(struct nfa *nfa, struct state *oldState, struct state *newState)
+{
+    assert(oldState != newState);
+
+    if (newState->nins == 0) {
+        // Simple case: no duplicates to check
+        struct arc *a;
+        while ((a = oldState->ins) != NULL) {
+            createarc(nfa, a->type, a->co, a->from, newState);
+            freearc(nfa, a);
+        }
+    }
+    else if (!BULK_ARC_OP_USE_SORT(oldState->nins, newState->nins)) {
+        // Few arcs: process individually with duplicate checking
+        struct arc *a;
+        while ((a = oldState->ins) != NULL) {
+            cparc(nfa, a, a->from, newState);
+            freearc(nfa, a);
+        }
+    }
+    else {
+        // Many arcs: use efficient sort-merge approach
+        INTERRUPT(nfa->v->re);
+
+        sortins(nfa, oldState);
+        sortins(nfa, newState);
+        if (NISERR()) return;
+
+        struct arc *oa = oldState->ins;
+        struct arc *na = newState->ins;
+
+        // Merge sorted arc lists, eliminating duplicates
+        while (oa != NULL && na != NULL) {
+            struct arc *a = oa;
+            switch (sortins_cmp(&oa, &na)) {
+                case -1:  // unique arc, move it
+                    oa = oa->inchain;
+                    changearctarget(a, newState);
+                    break;
+                case 0:   // duplicate, skip it
+                    oa = oa->inchain;
+                    na = na->inchain;
+                    freearc(nfa, a);
+                    break;
+                case +1:  // advance newState list
+                    na = na->inchain;
+                    break;
+            }
+        }
+
+        // Move remaining unique arcs
+        while (oa != NULL) {
+            struct arc *a = oa;
+            oa = oa->inchain;
+            changearctarget(a, newState);
+        }
+    }
+
+    assert(oldState->nins == 0 && oldState->ins == NULL);
+}
+```

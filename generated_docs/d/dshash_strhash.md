@@ -29,3 +29,17 @@ dshash_strhash serves as a wrapper function around PostgreSQL's string_hash func
 
 ## Notes and Other Information
 This function is part of the dshash utility functions that provide standardized interfaces for common operations like comparison and hashing. The function includes an important safety check through an Assert statement that verifies the input string is properly null-terminated and its length is less than the specified size parameter, helping prevent buffer overflows and ensuring data integrity. The unused `arg` parameter maintains compatibility with the expected function signature for dshash hash functions. The function returns a dshash_hash type value, which is used as the hash key for dynamic shared hash table operations. The string_hash function it calls is PostgreSQL's optimized string hashing algorithm designed for good hash distribution and performance with string data.
+
+## Simplified Source
+
+```c
+dshash_hash
+dshash_strhash(const void *v, size_t size, void *arg)
+{
+    // Validate string is null-terminated and fits in size
+    Assert(strlen((const char *) v) < size);
+
+    // Forward to PostgreSQL's string_hash function
+    return string_hash((const char *) v, size);
+}
+```

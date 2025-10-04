@@ -45,3 +45,106 @@ The function processes each field in the SQLDA, calculates proper memory offsets
 - [String](../S/String.md) data longer than 32768 bytes gets special handling with sqlilongdata pointer
 - Uses proper memory alignment to ensure data can be accessed efficiently on different architectures
 - Part of the ECPG embedded SQL interface for PostgreSQL client applications
+
+## Simplified Source
+
+```c
+void ecpg_set_compat_sqlda(int lineno, struct sqlda_compat **_sqlda,
+                          const PGresult *res, int row, enum COMPAT_MODE compat) {
+    struct sqlda_compat *sqlda = (*_sqlda);
+    long offset, next_offset;
+
+    if (row < 0)
+        return;
+
+    // Start offset after empty structure
+    offset = sqlda_compat_empty_size(res);
+
+    // Set data pointers and convert values for each field
+    for (int i = 0; i < sqlda->sqld; i++) {
+        bool set_data = true;
+        bool isnull = PQgetisnull(res, row, i);
+
+        // Set up data pointer and length based on field type
+        switch (sqlda->sqlvar[i].sqltype) {
+            case ECPGt_short:
+            case ECPGt_unsigned_short:
+                ecpg_sqlda_align_add_size(offset, sizeof(short), sizeof(short),
+                                        &offset, &next_offset);
+                sqlda->sqlvar[i].sqldata = (char *) sqlda + offset;
+                sqlda->sqlvar[i].sqllen = sizeof(short);
+                break;
+
+            case ECPGt_int:
+            case ECPGt_unsigned_int:
+                ecpg_sqlda_align_add_size(offset, sizeof(int), sizeof(int),
+                                        &offset, &next_offset);
+                sqlda->sqlvar[i].sqldata = (char *) sqlda + offset;
+                sqlda->sqlvar[i].sqllen = sizeof(int);
+                break;
+
+            // ... similar handling for other numeric types ...
+
+            case ECPGt_numeric: {
+                // Special handling for variable-length numeric type
+                set_data = false;
+                ecpg_sqlda_align_add_size(offset, sizeof(NumericDigit *), sizeof(numeric),
+                                        &offset, &next_offset);
+                sqlda->sqlvar[i].sqldata = (char *) sqlda + offset;
+                sqlda->sqlvar[i].sqllen = sizeof(numeric);
+
+                if (!isnull) {
+                    char *val = PQgetvalue(res, row, i);
+                    numeric *num = PGTYPESnumeric_from_asc(val, NULL);
+                    if (num) {
+                        memcpy(sqlda->sqlvar[i].sqldata, num, sizeof(numeric));
+
+                        // Copy digit buffer if present
+                        if (num->buf) {
+                            long digits_size = num->digits - num->buf + num->ndigits;
+                            ecpg_sqlda_align_add_size(next_offset, sizeof(int), digits_size,
+                                                    &offset, &next_offset);
+                            memcpy((char *) sqlda + offset, num->buf, digits_size);
+
+                            // Update pointers in the copied numeric struct
+                            ((numeric *) sqlda->sqlvar[i].sqldata)->buf =
+                                (NumericDigit *) sqlda + offset;
+                            ((numeric *) sqlda->sqlvar[i].sqldata)->digits =
+                                (NumericDigit *) sqlda + offset + (num->digits - num->buf);
+                        }
+                        PGTYPESnumeric_free(num);
+                    }
+                }
+                break;
+            }
+
+            case ECPGt_string:
+            default: {
+                int datalen = strlen(PQgetvalue(res, row, i)) + 1;
+                ecpg_sqlda_align_add_size(offset, sizeof(int), datalen,
+                                        &offset, &next_offset);
+                sqlda->sqlvar[i].sqldata = (char *) sqlda + offset;
+                sqlda->sqlvar[i].sqllen = datalen;
+                if (datalen > 32768)
+                    sqlda->sqlvar[i].sqlilongdata = sqlda->sqlvar[i].sqldata;
+                break;
+            }
+        }
+
+        // Set up NULL indicator
+        sqlda->sqlvar[i].sqlind = isnull ? &value_is_null : &value_is_not_null;
+        sqlda->sqlvar[i].sqlitype = ECPGt_short;
+        sqlda->sqlvar[i].sqlilen = sizeof(short);
+
+        // Convert and store the actual data value
+        if (!isnull && set_data) {
+            ecpg_get_data(res, row, i, lineno,
+                         sqlda->sqlvar[i].sqltype, ECPGt_NO_INDICATOR,
+                         sqlda->sqlvar[i].sqldata, NULL, 0, 0, 0,
+                         ECPG_ARRAY_NONE, compat, false);
+        }
+
+        offset = next_offset;
+    }
+}
+```

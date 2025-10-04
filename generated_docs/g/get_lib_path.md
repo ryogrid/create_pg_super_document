@@ -32,3 +32,12 @@ The `get_lib_path` function calculates the absolute path to PostgreSQL's library
 - This is part of PostgreSQL's portable path resolution system that allows the software to locate required libraries correctly
 - Used by PostgreSQL to dynamically load extensions, procedural languages, and other modules at runtime
 - Essential for proper module loading in both development and production environments
+
+## Simplified Source
+
+```c
+void get_lib_path(const char *my_exec_path, char *ret_path) {
+    // Calculate library directory path relative to executable location
+    make_relative_path(ret_path, LIBDIR, PGBINDIR, my_exec_path);
+}
+```

@@ -34,3 +34,21 @@ This function serializes a BEGIN PREPARE message for logical replication, which 
 - Part of the logical replication protocol for two-phase commit support
 - The message format includes final_lsn, end_lsn, prepare_time, xid, and gid fields
 - Located in src/backend/replication/logical/proto.c:127-144
+
+## Simplified Source
+
+```c
+void logicalrep_write_begin_prepare(StringInfo out, ReorderBufferTXN *txn) {
+    // Send BEGIN PREPARE message type
+    pq_sendbyte(out, LOGICAL_REP_MSG_BEGIN_PREPARE);
+
+    // Send transaction metadata
+    pq_sendint64(out, txn->final_lsn);             // Final LSN
+    pq_sendint64(out, txn->end_lsn);               // End LSN
+    pq_sendint64(out, txn->xact_time.prepare_time); // Prepare timestamp
+    pq_sendint32(out, txn->xid);                   // Transaction ID
+
+    // Send global transaction identifier
+    pq_sendstring(out, txn->gid);
+}
+```

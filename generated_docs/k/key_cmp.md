@@ -30,3 +30,12 @@ This function provides a comparison interface for uint64 values that conforms to
 - Returns int values: negative (<0), zero (==0), or positive (>0) based on comparison result
 - Assumes both input pointers point to valid uint64 values
 - Used primarily in test scenarios where keys need to be sorted for validation purposes
+
+## Simplified Source
+
+```c
+static int key_cmp(const void *a, const void *b)
+{
+    return pg_cmp_u64(*(const uint64 *) a, *(const uint64 *) b);
+}
+```

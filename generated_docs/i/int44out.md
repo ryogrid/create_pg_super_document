@@ -33,4 +33,20 @@ The  function is a custom output function for a test data type that represents a
 - The function allocates 64 bytes (16 * 4) for the output string, providing ample space for the formatted result
 - Output format uses comma separation without spaces between values
 - The function follows PostgreSQL's V1 calling convention for user-defined functions
-- Part of a custom data type implementation for testing purposes, paired with  function
+- Part of a custom data type implementation for testing purposes, paired with int44in function
+
+## Simplified Source
+
+```c
+Datum int44out(PG_FUNCTION_ARGS) {
+    // Get input array and allocate string buffer
+    int32 *an_array = (int32 *) PG_GETARG_POINTER(0);
+    char *result = (char *) palloc(16 * 4);
+
+    // Format the four integers as comma-separated string
+    snprintf(result, 16 * 4, "%d,%d,%d,%d",
+             an_array[0], an_array[1], an_array[2], an_array[3]);
+
+    PG_RETURN_CSTRING(result);
+}
+```

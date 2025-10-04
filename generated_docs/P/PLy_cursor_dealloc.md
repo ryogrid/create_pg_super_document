@@ -40,3 +40,31 @@ The function follows Python's object deallocation protocol by calling the type's
 - Memory context deletion automatically frees all allocations made within that context during cursor lifetime
 - Sets cursor->mcxt to NULL after deletion to prevent double-free scenarios
 - Part of Python's automatic memory management system for PL/Python cursor objects
+
+## Simplified Source
+
+```c
+static void PLy_cursor_dealloc(PyObject *arg) {
+    PLyCursorObject *cursor = (PLyCursorObject *) arg;
+    Portal portal;
+
+    // Close cursor if still open
+    if (!cursor->closed) {
+        portal = GetPortalByName(cursor->portalname);
+        if (PortalIsValid(portal)) {
+            UnpinPortal(portal);
+            SPI_cursor_close(portal);
+        }
+        cursor->closed = true;
+    }
+
+    // Clean up memory context
+    if (cursor->mcxt) {
+        MemoryContextDelete(cursor->mcxt);
+        cursor->mcxt = NULL;
+    }
+
+    // Free Python object
+    arg->ob_type->tp_free(arg);
+}
+```

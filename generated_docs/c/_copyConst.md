@@ -35,3 +35,36 @@ For pass-by-value types or null constants, it simply copies the datum value dire
 - The function has custom logic to handle PostgreSQL's dual nature of pass-by-value vs pass-by-reference data types
 - It's part of PostgreSQL's generic node copying infrastructure, used when duplicating parse trees
 - The function is careful to avoid copying data when the constant is null to prevent accessing invalid memory
+
+## Simplified Source
+
+```c
+static Const *_copyConst(const Const *from) {
+    // Create new Const node
+    Const *newnode = makeNode(Const);
+
+    // Copy basic type information
+    COPY_SCALAR_FIELD(consttype);
+    COPY_SCALAR_FIELD(consttypmod);
+    COPY_SCALAR_FIELD(constcollid);
+    COPY_SCALAR_FIELD(constlen);
+
+    // Handle the actual value based on storage type
+    if (from->constbyval || from->constisnull) {
+        // Simple copy for pass-by-value or null values
+        newnode->constvalue = from->constvalue;
+    } else {
+        // Deep copy for pass-by-reference values
+        newnode->constvalue = datumCopy(from->constvalue,
+                                       from->constbyval,
+                                       from->constlen);
+    }
+
+    // Copy remaining fields
+    COPY_SCALAR_FIELD(constisnull);
+    COPY_SCALAR_FIELD(constbyval);
+    COPY_LOCATION_FIELD(location);
+
+    return newnode;
+}
+```

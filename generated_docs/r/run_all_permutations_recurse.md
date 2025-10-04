@@ -40,3 +40,37 @@ When all sessions have exhausted their steps (all piles are empty), it executes 
 - PermutationSteps created here have no blocker conditions (automatically generated)
 - Critical for comprehensive isolation testing in PostgreSQL
 - Part of the isolation tester framework located in src/test/isolation/
+
+## Simplified Source
+
+```c
+static void
+run_all_permutations_recurse(TestSpec *testspec, int *piles,
+                             int nsteps, PermutationStep **steps)
+{
+    bool found = false;
+
+    // Try each session to see if it has remaining steps
+    for (int i = 0; i < testspec->nsessions; i++) {
+        if (piles[i] < testspec->sessions[i]->nsteps) {
+            // Pick next step from this session
+            Step *newstep = testspec->sessions[i]->steps[piles[i]];
+
+            // Add step to current permutation
+            steps[nsteps]->name = newstep->name;
+            steps[nsteps]->step = newstep;
+
+            // Move to next step in this pile and recurse
+            piles[i]++;
+            run_all_permutations_recurse(testspec, piles, nsteps + 1, steps);
+            piles[i]--; // Backtrack
+
+            found = true;
+        }
+    }
+
+    // If no sessions have remaining steps, execute this permutation
+    if (!found)
+        run_permutation(testspec, nsteps, steps);
+}
+```

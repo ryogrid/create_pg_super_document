@@ -45,3 +45,96 @@ The `cfindloop` function implements the heart of the complex regex matching algo
 - Returns REG_OKAY on successful match, REG_NOMATCH if no match found
 - Sets final match positions in v->pmatch[0] when successful
 - The function represents the most complex part of the regex matching engine
+
+## Simplified Source
+
+```c
+static int cfindloop(struct vars *v, struct cnfa *cnfa, struct colormap *cm,
+                     struct dfa *d, struct dfa *s, chr **coldp) {
+    chr *begin, *end, *cold = NULL;
+    chr *open, *close, *estart, *estop;
+    int er;
+    int shorter = v->g->tree->flags & SHORTER;
+    int hitend;
+
+    close = v->search_start;
+
+    // Main search loop - find match ranges and test each position
+    do {
+        // Phase 1: Use search DFA to find potential match range
+        close = shortest(v, s, close, close, v->stop, &cold, (int *) NULL);
+        if (ISERR()) {
+            *coldp = cold;
+            return v->err;
+        }
+
+        if (close == NULL)
+            break; // No more potential matches
+
+        open = cold;
+        cold = NULL;
+
+        // Phase 2: Test each position in the potential range
+        for (begin = open; begin <= close; begin++) {
+            estart = begin;
+            estop = v->stop;
+
+            // Inner loop: try different match lengths at this position
+            for (;;) {
+                // Find potential match end using main DFA
+                if (shorter)
+                    end = shortest(v, d, begin, estart, estop, (chr **) NULL, &hitend);
+                else
+                    end = longest(v, d, begin, estop, &hitend);
+
+                if (ISERR()) {
+                    *coldp = cold;
+                    return v->err;
+                }
+
+                if (hitend && cold == NULL)
+                    cold = begin;
+
+                if (end == NULL)
+                    break; // No match at this position
+
+                // Phase 3: Verify match satisfies all constraints
+                er = cdissect(v, v->g->tree, begin, end);
+
+                if (er == REG_OKAY) {
+                    // Found valid match
+                    if (v->nmatch > 0) {
+                        v->pmatch[0].rm_so = OFF(begin);
+                        v->pmatch[0].rm_eo = OFF(end);
+                    }
+                    *coldp = cold;
+                    return REG_OKAY;
+                }
+
+                if (er != REG_NOMATCH) {
+                    ERR(er);
+                    *coldp = cold;
+                    return er;
+                }
+
+                // Try next match length at same position
+                if (shorter) {
+                    if (end == estop)
+                        break;
+                    estart = end + 1;
+                } else {
+                    if (end == begin)
+                        break;
+                    estop = end - 1;
+                }
+            }
+        }
+
+        // Move to next potential match range
+        close++;
+    } while (close < v->stop);
+
+    *coldp = cold;
+    return REG_NOMATCH;
+}
+```

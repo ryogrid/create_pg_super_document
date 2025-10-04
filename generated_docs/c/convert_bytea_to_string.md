@@ -34,9 +34,31 @@ The function handles memory allocation with proper error checking and uses ECPG'
   - : Used in parameter building for SQL statement execution (line 1476)
 
 ## Notes and Other Information
-- Output format is PostgreSQL's standard bytea hex literal: 
+- Output format is PostgreSQL's standard bytea hex literal:
 - Memory allocation includes space for prefix (), hex digits, closing quote, and null terminator
 - Returns NULL on memory allocation failure, allowing caller to handle errors appropriately
 - Uses ECPG's centralized memory management for consistent error handling and cleanup
 - The function is static and only used within the execute.c module for internal data conversion
 - Integrates with ECPG's line number tracking system for enhanced debugging capabilities
+
+## Simplified Source
+
+```c
+static char *
+convert_bytea_to_string(char *from_data, int from_len, int lineno)
+{
+    // Calculate required buffer size: '\x' + hex_data + quotes + null terminator
+    int to_len = ecpg_hex_enc_len(from_len) + 4 + 1;
+
+    char *to_data = ecpg_alloc(to_len, lineno);
+    if (!to_data)
+        return NULL;
+
+    // Build PostgreSQL bytea hex format: '\x...'
+    strcpy(to_data, "'\\x");
+    ecpg_hex_encode(from_data, from_len, to_data + 3);
+    strcpy(to_data + 3 + ecpg_hex_enc_len(from_len), "'");
+
+    return to_data;
+}
+```

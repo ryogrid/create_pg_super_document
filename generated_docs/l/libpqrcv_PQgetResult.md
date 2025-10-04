@@ -41,3 +41,37 @@ The function integrates with PostgreSQL's interrupt handling system by calling P
 - The function does not break down sleep into smaller increments since interrupts are handled properly
 - Essential for maintaining responsiveness during long-running replication operations
 - Integrates with WAIT_EVENT_LIBPQWALRECEIVER_RECEIVE wait event for monitoring
+
+## Simplified Source
+
+```c
+static PGresult *
+libpqrcv_PQgetResult(PGconn *streamConn)
+{
+    // Wait until connection is ready for result retrieval
+    while (PQisBusy(streamConn)) {
+        int rc;
+
+        // Wait for socket readiness or latch signal
+        rc = WaitLatchOrSocket(MyLatch,
+                               WL_EXIT_ON_PM_DEATH | WL_SOCKET_READABLE | WL_LATCH_SET,
+                               PQsocket(streamConn),
+                               0,
+                               WAIT_EVENT_LIBPQWALRECEIVER_RECEIVE);
+
+        // Handle interrupts
+        if (rc & WL_LATCH_SET) {
+            ResetLatch(MyLatch);
+            ProcessWalRcvInterrupts();
+        }
+
+        // Consume available socket data
+        if (PQconsumeInput(streamConn) == 0) {
+            return NULL;  // Connection trouble
+        }
+    }
+
+    // Retrieve the result
+    return PQgetResult(streamConn);
+}
+```

@@ -46,3 +46,30 @@ The function handles all standard fopen() mode combinations:
 - Uses pgwin32_open() internally, which provides the robust Windows file handling with retry logic and error handling
 - This function is typically accessed through a macro that redirects standard fopen() calls to pgwin32_fopen()
 - Properly handles both the creation flags (O_CREAT, O_TRUNC) and access modes (O_RDONLY, O_WRONLY, O_RDWR) based on the mode string
+
+## Simplified Source
+
+```c
+FILE *pgwin32_fopen(const char *fileName, const char *mode) {
+    int openmode = 0;
+
+    // Parse mode string to set appropriate flags
+    if (strstr(mode, "r+")) openmode |= O_RDWR;
+    else if (strchr(mode, 'r')) openmode |= O_RDONLY;
+
+    if (strstr(mode, "w+")) openmode |= O_RDWR | O_CREAT | O_TRUNC;
+    else if (strchr(mode, 'w')) openmode |= O_WRONLY | O_CREAT | O_TRUNC;
+
+    if (strchr(mode, 'a')) openmode |= O_WRONLY | O_CREAT | O_APPEND;
+
+    // Handle binary/text mode flags
+    if (strchr(mode, 'b')) openmode |= O_BINARY;
+    if (strchr(mode, 't')) openmode |= O_TEXT;
+
+    // Open file and convert to FILE*
+    int fd = pgwin32_open(fileName, openmode);
+    if (fd == -1) return NULL;
+
+    return _fdopen(fd, mode);
+}
+```

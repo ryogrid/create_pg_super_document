@@ -50,3 +50,34 @@ The DELETE message format includes:
 - Transaction ID is only written if valid (used in streaming replication scenarios)
 - The function is part of PostgreSQL's logical replication protocol encoder
 - Located in src/backend/replication/logical/proto.c:533-563
+
+## Simplified Source
+
+```c
+void logicalrep_write_delete(StringInfo out, TransactionId xid, Relation rel,
+                            TupleTableSlot *oldslot, bool binary, Bitmapset *columns) {
+    // Validate replica identity is properly configured
+    Assert(rel->rd_rel->relreplident == REPLICA_IDENTITY_DEFAULT ||
+           rel->rd_rel->relreplident == REPLICA_IDENTITY_FULL ||
+           rel->rd_rel->relreplident == REPLICA_IDENTITY_INDEX);
+
+    // Write DELETE message type
+    pq_sendbyte(out, LOGICAL_REP_MSG_DELETE);
+
+    // Include transaction ID if we're streaming
+    if (TransactionIdIsValid(xid))
+        pq_sendint32(out, xid);
+
+    // Write relation identifier
+    pq_sendint32(out, RelationGetRelid(rel));
+
+    // Determine tuple data type based on replica identity
+    if (rel->rd_rel->relreplident == REPLICA_IDENTITY_FULL)
+        pq_sendbyte(out, 'O');  // Full old tuple
+    else
+        pq_sendbyte(out, 'K');  // Key columns only
+
+    // Write the actual tuple data
+    logicalrep_write_tuple(out, rel, oldslot, binary, columns);
+}
+```

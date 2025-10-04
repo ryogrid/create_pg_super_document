@@ -44,3 +44,25 @@ Operator classes are critical components of PostgreSQL's indexing system, defini
 - Critical for operator class resolution during index creation and maintenance
 - Operator classes are tied to specific index access methods (B-tree, Hash, GiST, GIN, SP-GiST, BRIN)
 - Visibility determination is important when multiple operator classes for the same data type exist in different schemas
+
+## Simplified Source
+
+```c
+Datum pg_opclass_is_visible(PG_FUNCTION_ARGS)
+{
+    // Extract the operator class OID from function arguments
+    Oid oid = PG_GETARG_OID(0);
+    bool result;
+    bool is_missing = false;
+
+    // Check if operator class is visible in current search path
+    result = OpclassIsVisibleExt(oid, &is_missing);
+
+    // Return NULL if operator class doesn't exist (avoids race conditions)
+    if (is_missing)
+        PG_RETURN_NULL();
+
+    // Return boolean result indicating visibility
+    PG_RETURN_BOOL(result);
+}
+```

@@ -48,3 +48,37 @@ This design allows extension authors to implement their own serialization logic 
 - Allocates nodes with variable sizes as specified by the extension's method structure
 - Critical for supporting custom nodes in parallel query execution and plan caching scenarios
 - Extensions must register their ExtensibleNodeMethods during initialization for this to work
+
+## Simplified Source
+
+```c
+static ExtensibleNode *
+_readExtensibleNode(void)
+{
+    const ExtensibleNodeMethods *methods;
+    ExtensibleNode *local_node;
+    const char *extnodename;
+
+    READ_TEMP_LOCALS();
+
+    // Skip :extnodename token, get extension name
+    token = pg_strtok(&length);
+    token = pg_strtok(&length);
+
+    extnodename = nullable_string(token, length);
+    if (!extnodename)
+        elog(ERROR, "extnodename has to be supplied");
+
+    // Get methods for this extension type
+    methods = GetExtensibleNodeMethods(extnodename, false);
+
+    // Allocate node with extension-specified size
+    local_node = (ExtensibleNode *) newNode(methods->node_size, T_ExtensibleNode);
+    local_node->extnodename = extnodename;
+
+    // Let extension deserialize its private fields
+    methods->nodeRead(local_node);
+
+    READ_DONE();
+}
+```

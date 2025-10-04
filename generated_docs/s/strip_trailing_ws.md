@@ -44,3 +44,20 @@ The function works by:
 - The isspace() function handles various whitespace characters (space, tab, newline, etc.)
 - This function is essential for proper error message formatting in PL/Perl since Perl frequently adds trailing newlines to error messages
 - The function safely handles empty strings and strings with no trailing whitespace
+
+## Simplified Source
+
+```c
+static char *
+strip_trailing_ws(const char *msg)
+{
+    char *res = pstrdup(msg);
+    int len = strlen(res);
+
+    // Remove trailing whitespace characters
+    while (len > 0 && isspace((unsigned char) res[len - 1]))
+        res[--len] = '\0';
+
+    return res;
+}
+```

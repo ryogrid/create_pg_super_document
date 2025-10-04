@@ -36,3 +36,30 @@ SPI_saveplan creates a persistent copy of an existing SPI execution plan by copy
 - Uses _SPI_begin_call with false parameter to avoid changing the current memory context
 - The saved plan is allocated in a persistent memory context suitable for long-term storage
 - Commonly used when building plan caches or when multiple contexts need access to the same plan
+
+## Simplified Source
+
+```c
+SPIPlanPtr SPI_saveplan(SPIPlanPtr plan) {
+    SPIPlanPtr newplan;
+
+    // Validate input plan
+    if (plan == NULL || plan->magic != _SPI_PLAN_MAGIC) {
+        SPI_result = SPI_ERROR_ARGUMENT;
+        return NULL;
+    }
+
+    // Begin SPI call without changing context
+    SPI_result = _SPI_begin_call(false);
+    if (SPI_result < 0)
+        return NULL;
+
+    // Create a persistent copy of the plan
+    newplan = _SPI_save_plan(plan);
+
+    // End SPI call without changing context
+    SPI_result = _SPI_end_call(false);
+
+    return newplan;
+}
+```

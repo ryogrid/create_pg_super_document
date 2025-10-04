@@ -96,3 +96,44 @@ This is an enumeration constant with no parameters or member variables.
 - The error message includes the actual malformed qualified name for better user feedback
 - This is part of PostgreSQL's comprehensive error handling for SQL name resolution
 - The constant represents a design decision to limit qualified name depth for clarity and implementation simplicity
+
+## Simplified Source
+
+```c
+// Error condition enumeration for column reference resolution
+enum {
+    CRSERR_NO_RTE,      // No range table entry found
+    CRSERR_WRONG_DB,    // Wrong database reference
+    CRSERR_TOO_MANY     // Too many dotted name components (>4)
+} crserr = CRSERR_NO_RTE;
+
+// Usage in ExpandColumnRefStar function:
+switch (numnames) {
+    case 2:
+        // Handle schema.table.* format
+        break;
+    case 3:
+        // Handle database.schema.table.* format
+        break;
+    case 4:
+        // Handle catalog.database.schema.table.* format
+        break;
+    default:
+        // More than 4 components - set error condition
+        crserr = CRSERR_TOO_MANY;
+        break;
+}
+
+// Later error handling:
+if (nsitem == NULL) {
+    switch (crserr) {
+        case CRSERR_TOO_MANY:
+            ereport(ERROR,
+                    (errcode(ERRCODE_SYNTAX_ERROR),
+                     errmsg("improper qualified name (too many dotted names): %s",
+                            NameListToString(cref->fields)),
+                     parser_errposition(pstate, cref->location)));
+            break;
+    }
+}
+```

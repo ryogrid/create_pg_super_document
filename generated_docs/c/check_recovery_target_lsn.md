@@ -32,3 +32,32 @@ This function serves as a validation hook for the  PostgreSQL configuration para
 - Empty strings are accepted, allowing the recovery target to be unset
 - The function follows the standard GUC check hook pattern, returning true for valid values and false for invalid ones
 - The allocated extra data must be freed by the corresponding assign hook or show hook
+
+## Simplified Source
+
+```c
+bool check_recovery_target_lsn(char **newval, void **extra, GucSource source) {
+    // Allow empty string (unsets recovery target)
+    if (strcmp(*newval, "") != 0) {
+        XLogRecPtr lsn;
+        bool have_error = false;
+
+        // Parse LSN string to XLogRecPtr
+        lsn = pg_lsn_in_internal(*newval, &have_error);
+        if (have_error)
+            return false;
+
+        // Store parsed LSN for assign hook
+        XLogRecPtr *myextra = (XLogRecPtr *) guc_malloc(ERROR, sizeof(XLogRecPtr));
+        *myextra = lsn;
+        *extra = (void *) myextra;
+    }
+    return true;
+}
+```
+
+**Simplified Logic:**
+1. **Empty Check**: Allows empty strings to unset the recovery target LSN
+2. **LSN Parsing**: Uses internal LSN parser to validate the format and convert to XLogRecPtr
+3. **Error Handling**: Returns false if LSN parsing fails
+4. **Store Result**: Allocates memory to store the parsed LSN for the assign hook

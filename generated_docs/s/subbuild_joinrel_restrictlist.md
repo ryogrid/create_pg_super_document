@@ -45,3 +45,43 @@ The function carefully eliminates duplicates using pointer equality comparison, 
 - Duplicate elimination is crucial since the same RestrictInfo nodes may appear in multiple joininfo lists
 - The function operates at lines 1352-1417 in src/backend/optimizer/util/relnode.c
 - Clauses that still reference outside relations remain as join clauses and are ignored by this function
+
+## Simplified Source
+
+```c
+static List *
+subbuild_joinrel_restrictlist(PlannerInfo *root,
+                              RelOptInfo *joinrel,
+                              RelOptInfo *input_rel,
+                              Relids both_input_relids,
+                              List *new_restrictlist)
+{
+    ListCell *l;
+
+    // Examine each joininfo clause from the input relation
+    foreach(l, input_rel->joininfo)
+    {
+        RestrictInfo *rinfo = (RestrictInfo *) lfirst(l);
+
+        // Check if clause should become a restriction clause for this joinrel
+        if (bms_is_subset(rinfo->required_relids, joinrel->relids))
+        {
+            // Handle special clone clause validation
+            if (rinfo->has_clone || rinfo->is_clone)
+            {
+                // Verify clone clause can be safely evaluated at this join level
+                if (!bms_is_subset(rinfo->required_relids, both_input_relids))
+                    continue;
+                if (bms_overlap(rinfo->incompatible_relids, both_input_relids))
+                    continue;
+            }
+
+            // Add clause to restriction list, avoiding duplicates
+            new_restrictlist = list_append_unique_ptr(new_restrictlist, rinfo);
+        }
+        // Clauses that reference outside relations remain as join clauses (ignored)
+    }
+
+    return new_restrictlist;
+}
+```

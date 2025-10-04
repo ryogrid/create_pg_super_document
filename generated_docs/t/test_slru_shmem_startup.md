@@ -47,3 +47,34 @@ This function serves as a shmem_startup_hook callback in the test_slru module, r
 - Note: There appears to be a bug in line 239 where test_tranche_id is used instead of test_buffer_tranche_id for the second LWLockRegisterTranche call
 - The function specifically tests long segment names functionality by setting long_segment_names to true
 - Essential for proper initialization of the test SLRU module's shared memory structures and file system components
+
+## Simplified Source
+
+```c
+static void test_slru_shmem_startup(void) {
+    // Test focus is on long segment names
+    const bool long_segment_names = true;
+    const char slru_dir_name[] = "pg_test_slru";
+
+    // Call any previous startup hook to maintain chain
+    if (prev_shmem_startup_hook) {
+        prev_shmem_startup_hook();
+    }
+
+    // Create the SLRU directory if it doesn't exist
+    MakePGDirectory(slru_dir_name);
+
+    // Setup LWLock tranches for synchronization
+    int test_tranche_id = LWLockNewTrancheId();
+    LWLockRegisterTranche(test_tranche_id, "test_slru_tranche");
+
+    int test_buffer_tranche_id = LWLockNewTrancheId();
+    LWLockRegisterTranche(test_tranche_id, "test_buffer_tranche");
+
+    // Initialize the test SLRU control structure
+    TestSlruCtl->PagePrecedes = test_slru_page_precedes_logically;
+    SimpleLruInit(TestSlruCtl, "TestSLRU", NUM_TEST_BUFFERS, 0,
+                  slru_dir_name, test_buffer_tranche_id, test_tranche_id,
+                  SYNC_HANDLER_NONE, long_segment_names);
+}
+```

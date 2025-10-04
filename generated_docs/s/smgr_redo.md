@@ -54,3 +54,87 @@ The function ensures crash consistency by carefully ordering operations and main
 - Forcibly recreates relations during replay to handle out-of-order WAL processing
 - The function panics on unknown operation codes to ensure data integrity
 - Plays a crucial role in maintaining storage consistency across system failures and recovery scenarios
+
+## Simplified Source
+
+```c
+void smgr_redo(XLogReaderState *record) {
+    XLogRecPtr lsn = record->EndRecPtr;
+    uint8 info = XLogRecGetInfo(record) & ~XLR_INFO_MASK;
+
+    // Assert that backup blocks are not used in smgr records
+    Assert(!XLogRecHasAnyBlockRefs(record));
+
+    if (info == XLOG_SMGR_CREATE) {
+        // Handle relation creation during recovery
+        xl_smgr_create *xlrec = (xl_smgr_create *) XLogRecGetData(record);
+        SMgrRelation reln = smgropen(xlrec->rlocator, INVALID_PROC_NUMBER);
+        smgrcreate(reln, xlrec->forkNum, true);
+    }
+    else if (info == XLOG_SMGR_TRUNCATE) {
+        // Handle relation truncation during recovery
+        xl_smgr_truncate *xlrec = (xl_smgr_truncate *) XLogRecGetData(record);
+        SMgrRelation reln = smgropen(xlrec->rlocator, INVALID_PROC_NUMBER);
+
+        // Forcibly create relation if it doesn't exist
+        smgrcreate(reln, MAIN_FORKNUM, true);
+
+        // Ensure WAL-first rule: flush WAL before truncation
+        XLogFlush(lsn);
+
+        // Prepare truncation for different forks
+        ForkNumber forks[MAX_FORKNUM];
+        BlockNumber blocks[MAX_FORKNUM], old_blocks[MAX_FORKNUM];
+        int nforks = 0;
+        bool need_fsm_vacuum = false;
+
+        // Prepare main fork truncation
+        if (xlrec->flags & SMGR_TRUNCATE_HEAP) {
+            forks[nforks] = MAIN_FORKNUM;
+            old_blocks[nforks] = smgrnblocks(reln, MAIN_FORKNUM);
+            blocks[nforks] = xlrec->blkno;
+            nforks++;
+            XLogTruncateRelation(xlrec->rlocator, MAIN_FORKNUM, xlrec->blkno);
+        }
+
+        // Prepare FSM and VM fork truncation if needed
+        Relation rel = CreateFakeRelcacheEntry(xlrec->rlocator);
+
+        if ((xlrec->flags & SMGR_TRUNCATE_FSM) && smgrexists(reln, FSM_FORKNUM)) {
+            blocks[nforks] = FreeSpaceMapPrepareTruncateRel(rel, xlrec->blkno);
+            if (BlockNumberIsValid(blocks[nforks])) {
+                forks[nforks] = FSM_FORKNUM;
+                old_blocks[nforks] = smgrnblocks(reln, FSM_FORKNUM);
+                nforks++;
+                need_fsm_vacuum = true;
+            }
+        }
+
+        if ((xlrec->flags & SMGR_TRUNCATE_VM) && smgrexists(reln, VISIBILITYMAP_FORKNUM)) {
+            blocks[nforks] = visibilitymap_prepare_truncate(rel, xlrec->blkno);
+            if (BlockNumberIsValid(blocks[nforks])) {
+                forks[nforks] = VISIBILITYMAP_FORKNUM;
+                old_blocks[nforks] = smgrnblocks(reln, VISIBILITYMAP_FORKNUM);
+                nforks++;
+            }
+        }
+
+        // Perform the actual truncation atomically
+        if (nforks > 0) {
+            START_CRIT_SECTION();
+            smgrtruncate2(reln, forks, nforks, old_blocks, blocks);
+            END_CRIT_SECTION();
+        }
+
+        // Update FSM after truncation if needed
+        if (need_fsm_vacuum) {
+            FreeSpaceMapVacuumRange(rel, xlrec->blkno, InvalidBlockNumber);
+        }
+
+        FreeFakeRelcacheEntry(rel);
+    }
+    else {
+        elog(PANIC, "smgr_redo: unknown op code %u", info);
+    }
+}
+```

@@ -34,3 +34,20 @@ PQfsize retrieves the size in bytes of the PostgreSQL data type for the specifie
 - For variable-length types, use PQgetlength() to get the actual length of specific values
 - Essential for binary format processing and memory management in client applications
 - Defined in src/interfaces/libpq/fe-exec.c:3730-3740
+
+## Simplified Source
+
+```c
+int PQfsize(const PGresult *res, int field_num)
+{
+    // Validate field number is in range
+    if (!check_field_number(res, field_num))
+        return 0;
+
+    // Return type length if attribute descriptors available
+    if (res->attDescs)
+        return res->attDescs[field_num].typlen;
+    else
+        return 0;
+}
+```

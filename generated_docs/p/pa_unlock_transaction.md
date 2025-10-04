@@ -36,3 +36,15 @@ This function is the counterpart to pa_lock_transaction in PostgreSQL's logical 
 - Essential for preventing deadlocks and ensuring proper resource cleanup in parallel apply operations
 - Works with MyLogicalRepWorker->subid to maintain subscription context consistency
 - Part of the critical path for transaction completion in parallel logical replication
+
+## Simplified Source
+
+```c
+void pa_unlock_transaction(TransactionId xid, LOCKMODE lockmode)
+{
+    // Release transaction lock previously acquired for parallel apply coordination
+    // Must use same subscription ID, transaction ID, and lock mode as when acquiring
+    UnlockApplyTransactionForSession(MyLogicalRepWorker->subid, xid,
+                                     PARALLEL_APPLY_LOCK_XACT, lockmode);
+}
+```

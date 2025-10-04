@@ -48,3 +48,140 @@ The function handles special cases like built-in exceptions, PL/Python function 
 - Returns NULL values when no exception is present
 - Handles both built-in and custom exception modules appropriately
 - Function is located in src/pl/plpython/plpy_elog.c:173-356
+
+## Simplified Source
+
+```c
+static void PLy_traceback(PyObject *e, PyObject *v, PyObject *tb,
+                         char *volatile *xmsg, char *volatile *tbmsg, int *tb_depth) {
+    PyObject *volatile e_type_o = NULL;
+    PyObject *volatile e_module_o = NULL;
+    PyObject *volatile vob = NULL;
+    StringInfoData tbstr;
+
+    // Handle null exception case
+    if (e == NULL) {
+        *xmsg = NULL;
+        *tbmsg = NULL;
+        *tb_depth = 0;
+        return;
+    }
+
+    // Format exception message
+    PG_TRY(); {
+        char *e_type_s = NULL;
+        char *e_module_s = NULL;
+        const char *vstr;
+        StringInfoData xstr;
+
+        // Get exception type and module names
+        e_type_o = PyObject_GetAttrString(e, "__name__");
+        e_module_o = PyObject_GetAttrString(e, "__module__");
+        if (e_type_o)
+            e_type_s = PLyUnicode_AsString(e_type_o);
+        if (e_module_o)
+            e_module_s = PLyUnicode_AsString(e_module_o);
+
+        // Get exception value string
+        if (v && ((vob = PyObject_Str(v)) != NULL))
+            vstr = PLyUnicode_AsString(vob);
+        else
+            vstr = "unknown";
+
+        // Build exception message (mimics traceback.format_exception_only)
+        initStringInfo(&xstr);
+        if (!e_type_s || !e_module_s) {
+            appendStringInfoString(&xstr, "unrecognized exception");
+        } else if (strcmp(e_module_s, "builtins") == 0 ||
+                   strcmp(e_module_s, "__main__") == 0 ||
+                   strcmp(e_module_s, "exceptions") == 0) {
+            appendStringInfoString(&xstr, e_type_s);
+        } else {
+            appendStringInfo(&xstr, "%s.%s", e_module_s, e_type_s);
+        }
+        appendStringInfo(&xstr, ": %s", vstr);
+
+        *xmsg = xstr.data;
+    }
+    PG_FINALLY(); {
+        Py_XDECREF(e_type_o);
+        Py_XDECREF(e_module_o);
+        Py_XDECREF(vob);
+    }
+    PG_END_TRY();
+
+    // Format traceback
+    *tb_depth = 0;
+    initStringInfo(&tbstr);
+    appendStringInfoString(&tbstr, "Traceback (most recent call last):");
+
+    // Walk through traceback frames
+    while (tb != NULL && tb != Py_None) {
+        PyObject *volatile frame = NULL;
+        PyObject *volatile code = NULL;
+        PyObject *volatile name = NULL;
+        PyObject *volatile lineno = NULL;
+        PyObject *volatile filename = NULL;
+
+        PG_TRY(); {
+            // Extract frame information
+            lineno = PyObject_GetAttrString(tb, "tb_lineno");
+            frame = PyObject_GetAttrString(tb, "tb_frame");
+            code = PyObject_GetAttrString(frame, "f_code");
+            name = PyObject_GetAttrString(code, "co_name");
+            filename = PyObject_GetAttrString(code, "co_filename");
+
+            // Skip first frame, format subsequent frames
+            if (*tb_depth > 0) {
+                PLyExecutionContext *exec_ctx = PLy_current_execution_context();
+                char *proname;
+                char *fname;
+                char *plain_filename;
+                long plain_lineno;
+
+                // Format function name (special case for second frame)
+                if (*tb_depth == 1)
+                    fname = "<module>";
+                else
+                    fname = PLyUnicode_AsString(name);
+
+                proname = PLy_procedure_name(exec_ctx->curr_proc);
+                plain_filename = PLyUnicode_AsString(filename);
+                plain_lineno = PyLong_AsLong(lineno);
+
+                // Add frame info to traceback
+                if (proname == NULL)
+                    appendStringInfo(&tbstr, "\n  PL/Python anonymous code block, line %ld, in %s",
+                                   plain_lineno - 1, fname);
+                else
+                    appendStringInfo(&tbstr, "\n  PL/Python function \"%s\", line %ld, in %s",
+                                   proname, plain_lineno - 1, fname);
+
+                // Add source line if available and from <string> (compiled function)
+                if (exec_ctx->curr_proc && plain_filename != NULL &&
+                    strcmp(plain_filename, "<string>") == 0) {
+                    char *line = get_source_line(exec_ctx->curr_proc->src, plain_lineno);
+                    if (line) {
+                        appendStringInfo(&tbstr, "\n    %s", line);
+                        pfree(line);
+                    }
+                }
+            }
+        }
+        PG_FINALLY(); {
+            Py_XDECREF(frame);
+            Py_XDECREF(code);
+            Py_XDECREF(name);
+            Py_XDECREF(lineno);
+            Py_XDECREF(filename);
+        }
+        PG_END_TRY();
+
+        // Move to next frame
+        tb = PyObject_GetAttrString(tb, "tb_next");
+        (*tb_depth)++;
+    }
+
+    *tbmsg = tbstr.data;
+}
+```

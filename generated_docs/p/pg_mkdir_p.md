@@ -46,3 +46,80 @@ The function follows POSIX 1003.2 semantics by temporarily modifying the user's 
 - **Thread Safety**: The function temporarily modifies the process umask, which could affect other threads in multi-threaded environments
 - **Path Requirements**: Assumes the input path uses forward slashes as separators and is in canonical form
 - **Existing Directory Behavior**: Unlike standard mkdir, this function succeeds if the target directory already exists
+
+## Simplified Source
+
+```c
+int pg_mkdir_p(char *path, int omode)
+{
+    struct stat sb;
+    mode_t numask, oumask;
+    int last, retval;
+    char *p;
+
+    retval = 0;
+    p = path;
+
+    // Handle Windows path prefixes (network drives, local drives)
+#ifdef WIN32
+    if (strlen(p) >= 2) {
+        if (p[0] == '/' && p[1] == '/') {
+            // Network drive: //server/share
+            p = strstr(p + 2, "/");
+            if (p == NULL) {
+                errno = EINVAL;
+                return -1;
+            }
+        }
+        else if (p[1] == ':' && isalpha(p[0])) {
+            // Local drive: C:
+            p += 2;
+        }
+    }
+#endif
+
+    // Save and modify umask for parent directory creation
+    oumask = umask(0);
+    numask = oumask & ~(S_IWUSR | S_IXUSR);  // Ensure user write/execute
+    umask(numask);
+
+    // Skip leading slash
+    if (p[0] == '/')
+        ++p;
+
+    // Process each path component
+    for (last = 0; !last; ++p) {
+        if (p[0] == '\0')
+            last = 1;
+        else if (p[0] != '/')
+            continue;
+
+        *p = '\0';  // Temporarily terminate path at this component
+
+        if (!last && p[1] == '\0')
+            last = 1;
+
+        if (last)
+            umask(oumask);  // Restore original umask for final directory
+
+        // Check if directory already exists
+        if (stat(path, &sb) == 0) {
+            if (!S_ISDIR(sb.st_mode)) {
+                errno = last ? EEXIST : ENOTDIR;
+                retval = -1;
+                break;
+            }
+        }
+        else if (mkdir(path, last ? omode : S_IRWXU | S_IRWXG | S_IRWXO) < 0) {
+            retval = -1;
+            break;
+        }
+
+        if (!last)
+            *p = '/';  // Restore path separator
+    }
+
+    umask(oumask);  // Ensure umask is restored
+    return retval;
+}
+```

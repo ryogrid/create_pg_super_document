@@ -32,3 +32,15 @@ This function is part of PostgreSQL's two-phase commit protocol handling for mul
 - Part of the broader two-phase commit infrastructure in PostgreSQL
 - Located in src/backend/access/transam/multixact.c:1927-1938
 - Demonstrates the design principle that prepared transactions require the same cleanup regardless of final outcome
+
+## Simplified Source
+
+```c
+void
+multixact_twophase_postabort(TransactionId xid, uint16 info,
+                            void *recdata, uint32 len)
+{
+    // Abort cleanup is identical to commit cleanup for multixact operations
+    multixact_twophase_postcommit(xid, info, recdata, len);
+}
+```

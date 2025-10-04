@@ -36,3 +36,28 @@ The function performs proper Python reference counting, incrementing the referen
 - It's primarily used when creating detailed Python exceptions from PostgreSQL ErrorData structures
 - The function returns false if the PLyUnicode_FromString conversion fails or if PyObject_SetAttrString fails
 - This function is crucial for providing detailed error information to Python code when PostgreSQL errors occur
+
+## Simplified Source
+
+```c
+static bool set_string_attr(PyObject *obj, char *attrname, char *str) {
+    int result;
+    PyObject *val;
+
+    // Convert C string to Python object (or use None for NULL)
+    if (str != NULL) {
+        val = PLyUnicode_FromString(str);
+        if (!val)
+            return false;
+    } else {
+        val = Py_None;
+        Py_INCREF(Py_None);
+    }
+
+    // Set the attribute on the Python object
+    result = PyObject_SetAttrString(obj, attrname, val);
+    Py_DECREF(val);
+
+    return result != -1;  // Return success/failure
+}
+```

@@ -45,3 +45,48 @@ This ensures that the gzip stream is properly terminated and all compressed data
 - Handles any final compressed data that may have been buffered internally by zlib
 - The loop terminates when bytes_written remains 0, indicating deflate() has no more output
 - Ensures complete data delivery before archive processing concludes
+
+## Simplified Source
+
+```c
+static void bbsink_gzip_end_archive(bbsink *sink) {
+    bbsink_gzip *mysink = (bbsink_gzip *) sink;
+    z_stream *zs = &mysink->zstream;
+
+    // No more input data available
+    zs->next_in = (uint8 *) mysink->base.bbs_buffer;
+    zs->avail_in = 0;
+
+    // Flush remaining compressed data
+    while (1) {
+        int res;
+
+        // Set output buffer position
+        Assert(mysink->bytes_written < mysink->base.bbs_next->bbs_buffer_length);
+        zs->next_out = (uint8 *)
+            mysink->base.bbs_next->bbs_buffer + mysink->bytes_written;
+        zs->avail_out =
+            mysink->base.bbs_next->bbs_buffer_length - mysink->bytes_written;
+
+        // Finish compression stream
+        res = deflate(zs, Z_FINISH);
+        if (res == Z_STREAM_ERROR)
+            elog(ERROR, "could not compress data: %s", zs->msg);
+
+        // Update bytes written
+        mysink->bytes_written =
+            mysink->base.bbs_next->bbs_buffer_length - zs->avail_out;
+
+        // No more output - compression complete
+        if (mysink->bytes_written == 0)
+            break;
+
+        // Send final compressed data
+        bbsink_archive_contents(sink->bbs_next, mysink->bytes_written);
+        mysink->bytes_written = 0;
+    }
+
+    // Notify sink chain that archive has ended
+    bbsink_forward_end_archive(sink);
+}
+```

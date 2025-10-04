@@ -39,3 +39,21 @@ The function ensures list integrity by calling check_list_invariants before retu
 - The function assumes the caller has properly initialized the ListCell values with appropriate data for the specified NodeTag type
 - Direct calls to this function are discouraged in favor of using the type-safe macros like list_make3, list_make3_int, etc.
 - The list capacity is fixed at creation time to exactly 3 elements, making this efficient for small, known-size lists
+
+## Simplified Source
+
+```c
+List *list_make3_impl(NodeTag t, ListCell datum1, ListCell datum2, ListCell datum3) {
+    // Create new list with capacity for 3 elements
+    List *list = new_list(t, 3);
+
+    // Store the three elements in order
+    list->elements[0] = datum1;
+    list->elements[1] = datum2;
+    list->elements[2] = datum3;
+
+    // Validate the list structure
+    check_list_invariants(list);
+    return list;
+}
+```

@@ -51,3 +51,118 @@ The function constructs proper LDAP URIs from the configuration, sets the LDAP p
 - Returns STATUS_OK on successful connection establishment, STATUS_ERROR on any failure
 - Performs DNS domain extraction from LDAP base DN for automatic server discovery (format: ou=blah,dc=foo,dc=bar becomes foo.bar)
 - The ldaps scheme is only supported on platforms with appropriate SSL/TLS LDAP library support
+
+## Simplified Source
+
+```c
+// Simplified version of InitializeLDAPConnection
+static int InitializeLDAPConnection(Port *port, LDAP **ldap) {
+    const char *scheme = port->hba->ldapscheme ? port->hba->ldapscheme : "ldap";
+    int ldapversion = LDAP_VERSION3;
+    int r;
+
+#ifdef WIN32
+    // Step 1: Windows-specific LDAP initialization
+    if (strcmp(scheme, "ldaps") == 0) {
+        *ldap = ldap_sslinit(port->hba->ldapserver, port->hba->ldapport, 1);
+    } else {
+        *ldap = ldap_init(port->hba->ldapserver, port->hba->ldapport);
+    }
+
+    if (!*ldap) {
+        ereport(LOG, (errmsg("could not initialize LDAP: error code %d",
+                            (int) LdapGetLastError())));
+        return STATUS_ERROR;
+    }
+#else
+    // Step 2: Unix/Linux LDAP initialization
+#ifdef HAVE_LDAP_INITIALIZE
+    // Build URI list for OpenLDAP
+    StringInfoData uris;
+    initStringInfo(&uris);
+
+    char *hostlist = NULL;
+    char *p;
+
+    // Auto-discover LDAP servers via DNS SRV if no server specified
+    if (!port->hba->ldapserver || port->hba->ldapserver[0] == '\0') {
+        char *domain;
+        if (ldap_dn2domain(port->hba->ldapbasedn, &domain) ||
+            ldap_domain2hostlist(domain, &hostlist)) {
+            ereport(LOG, (errmsg("LDAP authentication could not find DNS SRV records"),
+                         errhint("Set an LDAP server name explicitly.")));
+            ldap_memfree(domain);
+            return STATUS_ERROR;
+        }
+        ldap_memfree(domain);
+        p = hostlist;
+    } else {
+        p = port->hba->ldapserver;
+    }
+
+    // Build space-separated URI list
+    do {
+        size_t size = strcspn(p, " ");
+        if (uris.len > 0) appendStringInfoChar(&uris, ' ');
+
+        appendStringInfo(&uris, "%s://%.*s", scheme, (int)size, p);
+        if (!hostlist) {  // Add port for explicit servers
+            appendStringInfo(&uris, ":%d", port->hba->ldapport);
+        }
+
+        p += size;
+        while (*p == ' ') ++p;
+    } while (*p);
+
+    if (hostlist) ldap_memfree(hostlist);
+
+    // Initialize LDAP connection with URI
+    r = ldap_initialize(ldap, uris.data);
+    pfree(uris.data);
+
+    if (r != LDAP_SUCCESS) {
+        ereport(LOG, (errmsg("could not initialize LDAP: %s", ldap_err2string(r))));
+        return STATUS_ERROR;
+    }
+#else
+    // Fallback for systems without ldap_initialize
+    if (strcmp(scheme, "ldaps") == 0) {
+        ereport(LOG, (errmsg("ldaps not supported with this LDAP library")));
+        return STATUS_ERROR;
+    }
+
+    *ldap = ldap_init(port->hba->ldapserver, port->hba->ldapport);
+    if (!*ldap) {
+        ereport(LOG, (errmsg("could not initialize LDAP: %m")));
+        return STATUS_ERROR;
+    }
+#endif
+#endif
+
+    // Step 3: Set LDAP protocol version
+    r = ldap_set_option(*ldap, LDAP_OPT_PROTOCOL_VERSION, &ldapversion);
+    if (r != LDAP_SUCCESS) {
+        ereport(LOG, (errmsg("could not set LDAP protocol version: %s",
+                            ldap_err2string(r))));
+        ldap_unbind(*ldap);
+        return STATUS_ERROR;
+    }
+
+    // Step 4: Start TLS if requested
+    if (port->hba->ldaptls) {
+#ifndef WIN32
+        r = ldap_start_tls_s(*ldap, NULL, NULL);
+#else
+        r = ldap_start_tls_s(*ldap, NULL, NULL, NULL, NULL);
+#endif
+        if (r != LDAP_SUCCESS) {
+            ereport(LOG, (errmsg("could not start LDAP TLS session: %s",
+                                ldap_err2string(r))));
+            ldap_unbind(*ldap);
+            return STATUS_ERROR;
+        }
+    }
+
+    return STATUS_OK;
+}
+```

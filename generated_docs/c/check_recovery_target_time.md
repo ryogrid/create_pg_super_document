@@ -40,3 +40,50 @@ This function serves as a validation hook for the `recovery_target_time` Postgre
 - Supports standard PostgreSQL timestamp formats including ISO 8601 and PostgreSQL-specific formats
 - Empty strings are accepted, allowing the recovery target time to be unset
 - The validation ensures timestamps are within PostgreSQL's supported range
+
+## Simplified Source
+
+```c
+bool check_recovery_target_time(char **newval, void **extra, GucSource source) {
+    if (strcmp(*newval, "") != 0) {
+        // Reject special relative time values
+        if (strcmp(*newval, "now") == 0 || strcmp(*newval, "today") == 0 ||
+            strcmp(*newval, "tomorrow") == 0 || strcmp(*newval, "yesterday") == 0) {
+            return false;
+        }
+
+        // Parse timestamp string for syntax validation
+        char *str = *newval;
+        fsec_t fsec;
+        struct pg_tm tt, *tm = &tt;
+        int tz, dtype, nf, dterr;
+        char *field[MAXDATEFIELDS];
+        int ftype[MAXDATEFIELDS];
+        char workbuf[MAXDATELEN + MAXDATEFIELDS];
+        DateTimeErrorExtra dtextra;
+        TimestampTz timestamp;
+
+        // Parse and decode datetime string
+        dterr = ParseDateTime(str, workbuf, sizeof(workbuf), field, ftype, MAXDATEFIELDS, &nf);
+        if (dterr == 0)
+            dterr = DecodeDateTime(field, ftype, nf, &dtype, tm, &fsec, &tz, &dtextra);
+
+        if (dterr != 0 || dtype != DTK_DATE)
+            return false;
+
+        // Validate timestamp range
+        if (tm2timestamp(tm, fsec, &tz, &timestamp) != 0) {
+            GUC_check_errdetail("timestamp out of range: \"%s\"", str);
+            return false;
+        }
+    }
+    return true;
+}
+```
+
+**Simplified Logic:**
+1. **Empty Check**: Allows empty strings to unset recovery target time
+2. **Reject Special Values**: Blocks relative time keywords like "now", "today" for deterministic recovery
+3. **Parse Timestamp**: Uses PostgreSQL's datetime parsing to validate syntax
+4. **Range Validation**: Ensures timestamp is within PostgreSQL's supported range
+5. **Defer Storage**: Unlike other hooks, doesn't store parsed value due to timezone dependencies

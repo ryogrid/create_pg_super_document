@@ -36,3 +36,12 @@ The function is crucial for PostgreSQL's internationalization (i18n) support, en
 - The function assumes ret_path buffer is sufficiently large (MAXPGPATH)
 - Part of the path resolution system that enables relocatable PostgreSQL installations
 - Called during locale initialization to set up message domains for gettext
+
+## Simplified Source
+
+```c
+void get_locale_path(const char *my_exec_path, char *ret_path) {
+    // Calculate locale directory path relative to executable location
+    make_relative_path(ret_path, LOCALEDIR, PGBINDIR, my_exec_path);
+}
+```

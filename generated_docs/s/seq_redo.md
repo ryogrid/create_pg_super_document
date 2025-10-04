@@ -53,3 +53,54 @@ A key design feature is the use of a local page buffer to avoid transiently corr
 - Memory management includes proper allocation and deallocation of the local workspace
 - The sequence magic number (SEQ_MAGIC) is used to validate sequence page integrity
 - Located in src/backend/commands/sequence.c:1834-1886
+
+## Simplified Source
+
+```c
+void seq_redo(XLogReaderState *record) {
+    XLogRecPtr lsn = record->EndRecPtr;
+    uint8 info = XLogRecGetInfo(record) & ~XLR_INFO_MASK;
+    Buffer buffer;
+    Page page;
+    Page localpage;
+    char *item;
+    Size itemsz;
+    xl_seq_rec *xlrec = (xl_seq_rec *) XLogRecGetData(record);
+    sequence_magic *sm;
+
+    // Validate WAL record type
+    if (info != XLOG_SEQ_LOG)
+        elog(PANIC, "seq_redo: unknown op code %u", info);
+
+    // Initialize buffer for redo operation
+    buffer = XLogInitBufferForRedo(record, 0);
+    page = (Page) BufferGetPage(buffer);
+
+    // Build new page in local workspace to avoid transient corruption
+    // during hot-standby operations where other backends might read concurrently
+    localpage = (Page) palloc(BufferGetPageSize(buffer));
+
+    // Initialize new sequence page with magic number
+    PageInit(localpage, BufferGetPageSize(buffer), sizeof(sequence_magic));
+    sm = (sequence_magic *) PageGetSpecialPointer(localpage);
+    sm->magic = SEQ_MAGIC;
+
+    // Extract sequence data from WAL record
+    item = (char *) xlrec + sizeof(xl_seq_rec);
+    itemsz = XLogRecGetDataLen(record) - sizeof(xl_seq_rec);
+
+    // Add sequence data item to the new page
+    if (PageAddItem(localpage, (Item) item, itemsz,
+                    FirstOffsetNumber, false, false) == InvalidOffsetNumber)
+        elog(PANIC, "seq_redo: failed to add item to page");
+
+    // Set LSN and copy to shared buffer
+    PageSetLSN(localpage, lsn);
+    memcpy(page, localpage, BufferGetPageSize(buffer));
+
+    // Mark buffer dirty and release
+    MarkBufferDirty(buffer);
+    UnlockReleaseBuffer(buffer);
+    pfree(localpage);
+}
+```

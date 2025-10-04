@@ -52,3 +52,135 @@ This function implements the SQL DESCRIBE statement functionality for ECPG. It r
 - This function is part of the ECPG (Embedded SQL in C) library for PostgreSQL
 - Thread-safe when used with different connections and prepared statements
 - The function is typically called by ECPG-generated code when processing DESCRIBE SQL statements
+
+## Simplified Source
+
+```c
+bool ECPGdescribe(int line, int compat, bool input, const char *connection_name, const char *stmt_name, ...) {
+    bool ret = false;
+    struct connection *con;
+    struct prepared_statement *prep;
+    PGresult *res;
+    va_list args;
+
+    // DESCRIBE INPUT is not supported
+    if (input) {
+        ecpg_raise(line, ECPG_UNSUPPORTED, ECPG_SQLSTATE_ECPG_INTERNAL_ERROR, "DESCRIBE INPUT");
+        return ret;
+    }
+
+    // Get connection and validate
+    con = ecpg_get_connection(connection_name);
+    if (!con) {
+        ecpg_raise(line, ECPG_NO_CONN, ECPG_SQLSTATE_CONNECTION_DOES_NOT_EXIST,
+                   connection_name ? connection_name : ecpg_gettext("NULL"));
+        return ret;
+    }
+
+    // Find prepared statement
+    prep = ecpg_find_prepared_statement(stmt_name, con, NULL);
+    if (!prep) {
+        ecpg_raise(line, ECPG_INVALID_STMT, ECPG_SQLSTATE_INVALID_SQL_STATEMENT_NAME, stmt_name);
+        return ret;
+    }
+
+    va_start(args, stmt_name);
+
+    // Process variable arguments for output targets
+    for (;;) {
+        enum ECPGttype type;
+        void *ptr;
+
+        type = va_arg(args, enum ECPGttype);
+        if (type == ECPGt_EORT)
+            break;
+
+        // Extract target pointer and skip unused parameters
+        ptr = va_arg(args, void *);
+        (void)va_arg(args, long); // skip varcharsize
+        (void)va_arg(args, long); // skip arrsize
+        (void)va_arg(args, long); // skip offset
+
+        // Skip indicator parameters
+        (void)va_arg(args, enum ECPGttype); // ind_type
+        (void)va_arg(args, void *);         // ind_pointer
+        (void)va_arg(args, long);           // ind_varcharsize
+        (void)va_arg(args, long);           // ind_arrsize
+        (void)va_arg(args, long);           // ind_offset
+
+        switch (type) {
+            case ECPGt_descriptor:
+                {
+                    char *name = ptr;
+                    struct descriptor *desc = ecpg_find_desc(line, name);
+
+                    if (desc == NULL)
+                        break;
+
+                    // Get prepared statement metadata
+                    res = PQdescribePrepared(con->connection, stmt_name);
+                    if (!ecpg_check_PQresult(res, line, con->connection, compat))
+                        break;
+
+                    // Replace descriptor result
+                    PQclear(desc->result);
+                    desc->result = res;
+                    ret = true;
+                    break;
+                }
+
+            case ECPGt_sqlda:
+                {
+                    // Get prepared statement metadata
+                    res = PQdescribePrepared(con->connection, stmt_name);
+                    if (!ecpg_check_PQresult(res, line, con->connection, compat))
+                        break;
+
+                    if (INFORMIX_MODE(compat)) {
+                        // Handle Informix-compatible SQLDA
+                        struct sqlda_compat **_sqlda = ptr;
+                        struct sqlda_compat *sqlda = ecpg_build_compat_sqlda(line, res, -1, compat);
+
+                        if (sqlda) {
+                            // Free old SQLDA chain
+                            struct sqlda_compat *sqlda_old = *_sqlda;
+                            while (sqlda_old) {
+                                struct sqlda_compat *sqlda_old1 = sqlda_old->desc_next;
+                                free(sqlda_old);
+                                sqlda_old = sqlda_old1;
+                            }
+                            *_sqlda = sqlda;
+                            ret = true;
+                        }
+                    } else {
+                        // Handle native PostgreSQL SQLDA
+                        struct sqlda_struct **_sqlda = ptr;
+                        struct sqlda_struct *sqlda = ecpg_build_native_sqlda(line, res, -1, compat);
+
+                        if (sqlda) {
+                            // Free old SQLDA chain
+                            struct sqlda_struct *sqlda_old = *_sqlda;
+                            while (sqlda_old) {
+                                struct sqlda_struct *sqlda_old1 = sqlda_old->desc_next;
+                                free(sqlda_old);
+                                sqlda_old = sqlda_old1;
+                            }
+                            *_sqlda = sqlda;
+                            ret = true;
+                        }
+                    }
+
+                    PQclear(res);
+                    break;
+                }
+
+            default:
+                // Ignore other types
+                break;
+        }
+    }
+
+    va_end(args);
+    return ret;
+}
+```

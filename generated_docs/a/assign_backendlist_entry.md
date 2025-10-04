@@ -45,3 +45,46 @@ The function is designed to handle failures gracefully without changing worker s
 - Assigns random cancel keys even though background workers may not need them for security
 - Child slot assignment is critical for process tracking and cleanup
 - Failure cases include connection limits, cancel key generation failure, and out-of-memory conditions
+
+## Simplified Source
+
+```c
+static bool assign_backendlist_entry(RegisteredBgWorker *rw) {
+    Backend *bn;
+
+    // Check if database can accept another connection
+    if (canAcceptConnections(BACKEND_TYPE_BGWORKER) != CAC_OK) {
+        ereport(LOG, (errcode(ERRCODE_CONFIGURATION_LIMIT_EXCEEDED),
+                     errmsg("no slot available for new background worker process")));
+        return false;
+    }
+
+    // Generate random cancel key for security
+    if (!RandomCancelKey(&MyCancelKey)) {
+        ereport(LOG, (errcode(ERRCODE_INTERNAL_ERROR),
+                     errmsg("could not generate random cancel key")));
+        return false;
+    }
+
+    // Allocate Backend structure with no-OOM handling
+    bn = palloc_extended(sizeof(Backend), MCXT_ALLOC_NO_OOM);
+    if (bn == NULL) {
+        ereport(LOG, (errcode(ERRCODE_OUT_OF_MEMORY),
+                     errmsg("out of memory")));
+        return false;
+    }
+
+    // Initialize Backend structure
+    bn->cancel_key = MyCancelKey;
+    bn->child_slot = MyPMChildSlot = AssignPostmasterChildSlot();
+    bn->bkend_type = BACKEND_TYPE_BGWORKER;
+    bn->dead_end = false;
+    bn->bgworker_notify = false;
+
+    // Link Backend to RegisteredBgWorker
+    rw->rw_backend = bn;
+    rw->rw_child_slot = bn->child_slot;
+
+    return true;
+}
+```

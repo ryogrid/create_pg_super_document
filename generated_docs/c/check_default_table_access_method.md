@@ -40,3 +40,38 @@ The function implements context-aware validation - when running outside of a tra
 - The function ensures the access method name does not exceed NAMEDATALEN characters (typically 64 bytes)
 - Returns true if the value is valid, false otherwise
 - Part of PostgreSQL's pluggable table access method infrastructure
+
+## Simplified Source
+
+```c
+bool check_default_table_access_method(char **newval, void **extra, GucSource source) {
+    // Basic validation: not empty and not too long
+    if (**newval == '\0') {
+        GUC_check_errdetail("\"default_table_access_method\" cannot be empty.");
+        return false;
+    }
+
+    if (strlen(*newval) >= NAMEDATALEN) {
+        GUC_check_errdetail("\"default_table_access_method\" is too long.");
+        return false;
+    }
+
+    // Check if access method exists (only when in transaction and connected to DB)
+    if (IsTransactionState() && MyDatabaseId != InvalidOid) {
+        if (!OidIsValid(get_table_am_oid(*newval, true))) {
+            if (source == PGC_S_TEST) {
+                // Test mode: just issue notice
+                ereport(NOTICE,
+                       (errcode(ERRCODE_UNDEFINED_OBJECT),
+                        errmsg("table access method \"%s\" does not exist", *newval)));
+            } else {
+                // Normal mode: return error
+                GUC_check_errdetail("Table access method \"%s\" does not exist.", *newval);
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+```

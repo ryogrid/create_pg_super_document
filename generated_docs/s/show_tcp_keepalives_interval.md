@@ -33,3 +33,16 @@ The function is part of PostgreSQL's configuration parameter system and is calle
 - The interval value controls the time between successive keepalive probes (as opposed to the idle timeout before the first probe)
 - Part of PostgreSQL's libpq communication subsystem for managing client connections
 - Follows the same pattern as other TCP keepalive show hooks
+
+## Simplified Source
+
+```c
+const char *show_tcp_keepalives_interval(void)
+{
+    static char nbuf[16];
+
+    // Get current keepalive interval and format as string
+    snprintf(nbuf, sizeof(nbuf), "%d", pq_getkeepalivesinterval(MyProcPort));
+    return nbuf;
+}
+```

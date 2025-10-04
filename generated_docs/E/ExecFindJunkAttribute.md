@@ -34,3 +34,12 @@ The function provides a clean abstraction layer, allowing callers to work with J
 - This is a thin wrapper that maintains the abstraction of the JunkFilter interface
 - The function only searches for junk attributes (those with resjunk=true in the target list)
 - Part of the PostgreSQL executor's system for managing internal-only attributes during query processing
+
+## Simplified Source
+
+```c
+AttrNumber ExecFindJunkAttribute(JunkFilter *junkfilter, const char *attrName) {
+    // Simple wrapper that delegates to the actual search function
+    return ExecFindJunkAttributeInTlist(junkfilter->jf_targetList, attrName);
+}
+```

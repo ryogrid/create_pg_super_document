@@ -37,3 +37,19 @@ This is the counterpart to logicalrep_write_commit and is used by logical replic
 - Located in src/backend/replication/logical/proto.c as part of the protocol decoding functions
 - Throws an ERROR if unrecognized flags are present, ensuring protocol compatibility
 - The flags field is currently unused but reserved for future protocol extensions
+
+## Simplified Source
+
+```c
+void logicalrep_read_commit(StringInfo in, LogicalRepCommitData *commit_data) {
+    // Read and validate flags field
+    uint8 flags = pq_getmsgbyte(in);
+    if (flags != 0)
+        elog(ERROR, "unrecognized flags %u in commit message", flags);
+
+    // Read transaction completion data
+    commit_data->commit_lsn = pq_getmsgint64(in);  // Commit LSN
+    commit_data->end_lsn = pq_getmsgint64(in);     // Transaction end LSN
+    commit_data->committime = pq_getmsgint64(in);  // Commit timestamp
+}
+```

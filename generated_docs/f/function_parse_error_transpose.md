@@ -37,3 +37,44 @@ The function works by leveraging the ActivePortal to access the original query t
 - Used primarily for SQL-language functions but can be used by any function validator
 - The function implements a "hack" by accessing the original query text from ActivePortal
 - Quietly gives up in unusual situations like logical replication workers where ActivePortal may not be available
+
+## Simplified Source
+```c
+bool function_parse_error_transpose(const char *prosrc) {
+    int origerrposition;
+    int newerrposition;
+
+    // Check if we have a syntax error with cursor position
+    origerrposition = geterrposition();
+    if (origerrposition <= 0) {
+        origerrposition = getinternalerrposition();
+        if (origerrposition <= 0)
+            return false;
+    }
+
+    // Try to get original query text from active portal
+    if (ActivePortal && ActivePortal->status == PORTAL_ACTIVE) {
+        const char *queryText = ActivePortal->sourceText;
+
+        // Try to locate the function source in original text
+        newerrposition = match_prosrc_to_query(prosrc, queryText, origerrposition);
+    } else {
+        // Give up if no ActivePortal (e.g., logical replication workers)
+        newerrposition = -1;
+    }
+
+    if (newerrposition > 0) {
+        // Success: fix error position to reference original query
+        errposition(newerrposition);
+        internalerrposition(0);
+        internalerrquery(NULL);
+    } else {
+        // Failure: convert to internal position with function text
+        errposition(0);
+        internalerrposition(origerrposition);
+        internalerrquery(prosrc);
+    }
+
+    return true;
+}
+```

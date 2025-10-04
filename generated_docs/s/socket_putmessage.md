@@ -43,3 +43,38 @@ Returns:
 - Message format follows PostgreSQL's frontend/backend protocol specification
 - Messages sent by this function are suppressed in COPY OUT mode as indicated in the comment
 - Part of the message-level I/O routines in PostgreSQL's communication layer
+
+## Simplified Source
+
+```c
+static int socket_putmessage(char msgtype, const char *s, size_t len) {
+    uint32 n32;
+
+    Assert(msgtype != 0);
+
+    // Prevent message interleaving
+    if (PqCommBusy)
+        return 0;
+    PqCommBusy = true;
+
+    // Send message type (1 byte)
+    if (internal_putbytes(&msgtype, 1))
+        goto fail;
+
+    // Send message length (4 bytes, includes length field itself)
+    n32 = pg_hton32((uint32) (len + 4));
+    if (internal_putbytes((char *) &n32, 4))
+        goto fail;
+
+    // Send message body
+    if (internal_putbytes(s, len))
+        goto fail;
+
+    PqCommBusy = false;
+    return 0;
+
+fail:
+    PqCommBusy = false;
+    return EOF;
+}
+```

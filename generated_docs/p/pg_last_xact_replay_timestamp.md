@@ -35,3 +35,22 @@ The function internally calls GetLatestXTime() to retrieve the timestamp of the 
 - Returns NULL on servers that haven't undergone WAL replay
 - The timestamp represents transaction commit/abort time, not the time when replay occurred
 - Defined in src/backend/access/transam/xlogfuncs.c:627-641
+
+## Simplified Source
+
+```c
+Datum
+pg_last_xact_replay_timestamp(PG_FUNCTION_ARGS)
+{
+    TimestampTz xtime;
+
+    // Get timestamp of latest replayed commit/abort
+    xtime = GetLatestXTime();
+
+    // Return NULL if no replay has occurred
+    if (xtime == 0)
+        PG_RETURN_NULL();
+
+    PG_RETURN_TIMESTAMPTZ(xtime);
+}
+```

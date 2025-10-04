@@ -33,3 +33,24 @@ This function implements the bitmap scan interface for SP-GiST indexes. It initi
 - Always scans the whole index rather than stopping at page boundaries
 - The collected bitmap can be used by higher-level code for efficient heap access
 - Located at src/backend/access/spgist/spgscan.c:942-958
+
+## Simplified Source
+
+```c
+int64
+spggetbitmap(IndexScanDesc scan, TIDBitmap *tbm)
+{
+    SpGistScanOpaque so = (SpGistScanOpaque) scan->opaque;
+
+    // Configure scan for bitmap collection
+    so->want_itup = false;  // Don't need index tuples for bitmap scan
+    so->tbm = tbm;          // Set target bitmap
+    so->ntids = 0;          // Initialize tuple count
+
+    // Walk entire index tree and collect matching TIDs
+    spgWalk(scan->indexRelation, so, true, storeBitmap);
+
+    // Return total number of matching tuples
+    return so->ntids;
+}
+```

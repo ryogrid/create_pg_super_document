@@ -36,3 +36,25 @@ The function performs validation by checking that the flags field contains only 
 - Used to reconstruct transaction commit information on the subscriber side
 - Corresponds to the data written by logicalrep_write_stream_commit on the publisher side
 - Located in src/backend/replication/logical/proto.c:1137-1165
+
+## Simplified Source
+
+```c
+TransactionId logicalrep_read_stream_commit(StringInfo in, LogicalRepCommitData *commit_data)
+{
+    // Read transaction ID
+    TransactionId xid = pq_getmsgint(in, 4);
+
+    // Read and validate flags field
+    uint8 flags = pq_getmsgbyte(in);
+    if (flags != 0)
+        elog(ERROR, "unrecognized flags %u in commit message", flags);
+
+    // Read LSN and timestamp information
+    commit_data->commit_lsn = pq_getmsgint64(in);
+    commit_data->end_lsn = pq_getmsgint64(in);
+    commit_data->committime = pq_getmsgint64(in);
+
+    return xid;
+}
+```

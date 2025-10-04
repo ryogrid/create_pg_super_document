@@ -51,3 +51,40 @@ This function constructs a ForeignPath node specifically for foreign table scan 
 - [Path](../P/Path.md) is marked as not parallel-aware but respects the relation's parallel safety settings
 - Essential for PostgreSQL's extensibility through the FDW interface
 - The fdw_private field allows FDWs to store implementation-specific optimization data
+
+## Simplified Source
+
+```c
+ForeignPath *create_foreignscan_path(PlannerInfo *root, RelOptInfo *rel,
+                                     PathTarget *target,
+                                     double rows, Cost startup_cost, Cost total_cost,
+                                     List *pathkeys, Relids required_outer,
+                                     Path *fdw_outerpath, List *fdw_restrictinfo,
+                                     List *fdw_private) {
+    // Create new ForeignPath node - used only by FDW implementations
+    ForeignPath *pathnode = makeNode(ForeignPath);
+    Assert(IS_SIMPLE_REL(rel));
+
+    // Initialize standard path fields
+    pathnode->path.pathtype = T_ForeignScan;
+    pathnode->path.parent = rel;
+    pathnode->path.pathtarget = target ? target : rel->reltarget;
+    pathnode->path.param_info = get_baserel_parampathinfo(root, rel, required_outer);
+    pathnode->path.parallel_aware = false;
+    pathnode->path.parallel_safe = rel->consider_parallel;
+    pathnode->path.parallel_workers = 0;
+
+    // Set FDW-provided cost and row estimates
+    pathnode->path.rows = rows;
+    pathnode->path.startup_cost = startup_cost;
+    pathnode->path.total_cost = total_cost;
+    pathnode->path.pathkeys = pathkeys;
+
+    // Store FDW-specific information
+    pathnode->fdw_outerpath = fdw_outerpath;
+    pathnode->fdw_restrictinfo = fdw_restrictinfo;
+    pathnode->fdw_private = fdw_private;
+
+    return pathnode;
+}
+```

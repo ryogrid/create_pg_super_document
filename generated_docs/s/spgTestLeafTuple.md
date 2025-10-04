@@ -42,3 +42,48 @@ This function is responsible for processing leaf tuples during SP-GiST index sca
 - Handles tuple state transitions and validates chain integrity
 - All tuples on root pages are expected to be live
 - Located at src/backend/access/spgist/spgscan.c:763-816
+
+## Simplified Source
+
+```c
+static OffsetNumber
+spgTestLeafTuple(SpGistScanOpaque so,
+                 SpGistSearchItem *item,
+                 Page page, OffsetNumber offset,
+                 bool isnull, bool isroot,
+                 bool *reportedSome,
+                 storeRes_func storeRes)
+{
+    // Get the leaf tuple from the page
+    SpGistLeafTuple leafTuple = (SpGistLeafTuple)
+        PageGetItem(page, PageGetItemId(page, offset));
+
+    if (leafTuple->tupstate != SPGIST_LIVE) {
+        if (!isroot) {  // All root tuples should be live
+            if (leafTuple->tupstate == SPGIST_REDIRECT) {
+                // Follow redirection to new location
+                item->heapPtr = ((SpGistDeadTuple) leafTuple)->pointer;
+                return SpGistRedirectOffsetNumber;
+            }
+
+            if (leafTuple->tupstate == SPGIST_DEAD) {
+                // Dead tuple ends the chain
+                return SpGistBreakOffsetNumber;
+            }
+        }
+
+        // Unexpected tuple state
+        elog(ERROR, "unexpected SPGiST tuple state: %d", leafTuple->tupstate);
+        return SpGistErrorOffsetNumber;
+    }
+
+    // Process live tuple - validate heap pointer
+    Assert(ItemPointerIsValid(&leafTuple->heapPtr));
+
+    // Test leaf tuple against scan conditions
+    spgLeafTest(so, item, leafTuple, isnull, reportedSome, storeRes);
+
+    // Return next offset in chain
+    return SGLT_GET_NEXTOFFSET(leafTuple);
+}
+```

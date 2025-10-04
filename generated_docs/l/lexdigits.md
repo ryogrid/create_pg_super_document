@@ -46,3 +46,51 @@ This function is primarily used for parsing:
 
 ## Notes and Other Information
 The function does not perform overflow checking, so callers must validate the result if the maxlen parameter could cause overflow. The function automatically backtracks when it encounters invalid digits or reaches the maximum length. For hexadecimal parsing, both uppercase and lowercase letters are accepted. The function uses unsigned arithmetic (uchr) internally to avoid undefined behavior on overflow, then casts the result back to chr. Invalid digits cause the parser to back up and terminate parsing, which allows for proper handling of partial numeric sequences.
+
+## Simplified Source
+
+```c
+static chr
+lexdigits(struct vars *v, int base, int minlen, int maxlen)
+{
+    uchr n = 0;
+    int len = 0;
+    const uchr ub = (uchr) base;
+
+    // Parse digits up to maxlen characters
+    while (len < maxlen && !ATEOS()) {
+        chr c = *v->now++;
+        int d = -1;
+
+        // Convert character to digit value
+        if (c >= '0' && c <= '9') {
+            d = DIGITVAL(c);
+        } else if (c >= 'a' && c <= 'f') {
+            d = c - 'a' + 10;
+        } else if (c >= 'A' && c <= 'F') {
+            d = c - 'A' + 10;
+        } else {
+            // Not a valid digit character
+            v->now--;
+            break;
+        }
+
+        // Check if digit is valid for this base
+        if (d >= base) {
+            v->now--;
+            break;
+        }
+
+        // Accumulate the digit value
+        n = n * ub + (uchr) d;
+        len++;
+    }
+
+    // Check minimum length requirement
+    if (len < minlen) {
+        ERR(REG_EESCAPE);
+    }
+
+    return (chr) n;
+}
+```

@@ -43,3 +43,30 @@ The marking mechanism uses the tmp field of state structures to track which stat
 - Uses the tmp field of state structures for marking purposes
 - Critical for NFA optimization and cleanup operations in the regex engine
 - The recursive nature makes it suitable for traversing complex NFA graphs efficiently
+
+## Simplified Source
+
+```c
+static void
+markreachable(struct nfa *nfa, struct state *s, struct state *okay, struct state *mark)
+{
+    struct arc *a;
+
+    // Stack overflow protection for deep recursion
+    if (STACK_TOO_DEEP(nfa->v->re)) {
+        NERR(REG_ETOOBIG);
+        return;
+    }
+
+    // Only process states with the 'okay' mark
+    if (s->tmp != okay)
+        return;
+
+    // Mark this state with the new mark value
+    s->tmp = mark;
+
+    // Recursively mark all reachable states through outgoing arcs
+    for (a = s->outs; a != NULL; a = a->outchain)
+        markreachable(nfa, a->to, okay, mark);
+}
+```

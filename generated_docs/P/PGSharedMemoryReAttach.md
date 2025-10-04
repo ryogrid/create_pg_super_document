@@ -46,3 +46,45 @@ This function takes no parameters but relies on global variables:
 - Special handling for Cygwin systems due to cygipc behavior with exec()
 - Fatal errors are raised if re-attachment fails or returns unexpected memory addresses
 - The function is critical for maintaining shared memory consistency across process boundaries in EXEC_BACKEND environments
+
+## Simplified Source
+
+```c
+void PGSharedMemoryReAttach(void) {
+    IpcMemoryId shmid;
+    PGShmemHeader *hdr;
+    IpcMemoryState state;
+    void *origUsedShmemSegAddr = UsedShmemSegAddr;
+
+    Assert(UsedShmemSegAddr != NULL);
+    Assert(IsUnderPostmaster);
+
+#ifdef __CYGWIN__
+    // Cygwin-specific: explicit detach before reattach
+    PGSharedMemoryDetach();
+    UsedShmemSegAddr = origUsedShmemSegAddr;
+#endif
+
+    // Get shared memory segment
+    elog(DEBUG3, "attaching to %p", UsedShmemSegAddr);
+    shmid = shmget(UsedShmemSegID, sizeof(PGShmemHeader), 0);
+
+    if (shmid < 0)
+        state = SHMSTATE_FOREIGN;
+    else
+        state = PGSharedMemoryAttach(shmid, UsedShmemSegAddr, &hdr);
+
+    // Verify successful attachment
+    if (state != SHMSTATE_ATTACHED)
+        elog(FATAL, "could not reattach to shared memory (key=%d, addr=%p): %m",
+             (int) UsedShmemSegID, UsedShmemSegAddr);
+
+    if (hdr != origUsedShmemSegAddr)
+        elog(FATAL, "reattaching to shared memory returned unexpected address (got %p, expected %p)",
+             hdr, origUsedShmemSegAddr);
+
+    // Setup dynamic shared memory control
+    dsm_set_control_handle(hdr->dsm_control);
+    UsedShmemSegAddr = hdr;
+}
+```

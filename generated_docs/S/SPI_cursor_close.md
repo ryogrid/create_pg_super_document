@@ -40,3 +40,16 @@ The function is essential for proper resource management in SPI applications, as
 - Essential for preventing resource leaks in long-running SPI applications
 - Used extensively by procedural language implementations (PL/Perl, PL/Python) to manage cursor lifecycles
 - The second parameter to PortalDrop is set to false, indicating normal cleanup rather than error cleanup
+
+## Simplified Source
+
+```c
+void SPI_cursor_close(Portal portal) {
+    // Validate portal before closing
+    if (!PortalIsValid(portal))
+        elog(ERROR, "invalid portal in SPI cursor operation");
+
+    // Close and deallocate the portal
+    PortalDrop(portal, false);
+}
+```

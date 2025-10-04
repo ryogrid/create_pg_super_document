@@ -36,3 +36,20 @@ When this function returns true, PostgreSQL can provide helpful hints like "To r
 - Particularly useful for resolving column name ambiguity in multi-table queries
 - Helps users understand when and why table qualification is necessary
 - Works in conjunction with PostgreSQL's namespace resolution rules to provide accurate guidance
+
+## Simplified Source
+
+```c
+static bool
+rte_visible_if_qualified(ParseState *pstate, RangeTblEntry *rte)
+{
+    ParseNamespaceItem *nsitem = findNSItemForRTE(pstate, rte);
+
+    if (nsitem) {
+        // Return true if relation is visible but columns need qualification
+        return nsitem->p_rel_visible && !nsitem->p_cols_visible;
+    }
+
+    return false;
+}
+```

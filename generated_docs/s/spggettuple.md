@@ -153,3 +153,63 @@ write_data_to_archive_lz4_doc.md: Scan direction (only ForwardScanDirection is s
 - Part of the SPGiST access method implementation
 - The function maintains scan state between calls to support incremental tuple retrieval
 - Coordinates with the SPGiST tree walking algorithm through spgWalk and storeGettuple
+
+## Simplified Source
+
+```c
+bool
+spggettuple(IndexScanDesc scan, ScanDirection dir)
+{
+    SpGistScanOpaque so = (SpGistScanOpaque) scan->opaque;
+
+    // Only forward scans are supported
+    if (dir != ForwardScanDirection)
+        elog(ERROR, "SP-GiST only supports forward scan direction");
+
+    // Configure scan parameters
+    so->want_itup = scan->xs_want_itup;
+
+    for (;;) {
+        // Return buffered tuples if available
+        if (so->iPtr < so->nPtrs) {
+            scan->xs_heaptid = so->heapPtrs[so->iPtr];
+            scan->xs_recheck = so->recheck[so->iPtr];
+            scan->xs_hitup = so->reconTups[so->iPtr];
+
+            // Handle ORDER BY distances
+            if (so->numberOfOrderBys > 0)
+                index_store_float8_orderby_distances(scan, so->orderByTypes,
+                                                    so->distances[so->iPtr],
+                                                    so->recheckDistances[so->iPtr]);
+            so->iPtr++;
+            return true;
+        }
+
+        // Clean up previous results
+        if (so->numberOfOrderBys > 0) {
+            // Free distance arrays to prevent memory leaks
+            for (int i = 0; i < so->nPtrs; i++)
+                if (so->distances[i])
+                    pfree(so->distances[i]);
+        }
+
+        if (so->want_itup) {
+            // Free reconstructed tuples to prevent memory leaks
+            for (int i = 0; i < so->nPtrs; i++)
+                pfree(so->reconTups[i]);
+        }
+
+        // Reset buffer pointers
+        so->iPtr = so->nPtrs = 0;
+
+        // Walk tree to find more tuples
+        spgWalk(scan->indexRelation, so, false, storeGettuple);
+
+        // Check if scan is complete
+        if (so->nPtrs == 0)
+            break;  // No more tuples found
+    }
+
+    return false;  // Scan complete
+}
+```

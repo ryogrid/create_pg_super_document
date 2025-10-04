@@ -34,3 +34,35 @@ This static function handles progress tracking for incoming archive content data
 - Particularly important when WAL is included in backups, as this can significantly affect size estimates
 - Uses variable parameter count (nparam) to conditionally update either one or two progress parameters
 - Part of the real-time progress reporting infrastructure for PostgreSQL base backup operations
+
+## Simplified Source
+
+```c
+// Simplified version of bbsink_progress_archive_contents
+static void bbsink_progress_archive_contents(bbsink *sink, size_t len)
+{
+    bbsink_state *state = sink->bbs_state;
+    const int index[] = {
+        PROGRESS_BASEBACKUP_BACKUP_STREAMED,
+        PROGRESS_BASEBACKUP_BACKUP_TOTAL
+    };
+    int64 val[2];
+    int nparam = 0;
+
+    // Update bytes processed counter
+    state->bytes_done += len;
+
+    // Forward to next sink
+    bbsink_forward_archive_contents(sink, len);
+
+    // Set bytes done for progress reporting
+    val[nparam++] = state->bytes_done;
+
+    // Adjust total if we've exceeded the estimate (prevents >100% progress)
+    if (state->bytes_total_is_valid && state->bytes_done > state->bytes_total)
+        val[nparam++] = state->bytes_done;
+
+    // Update progress reporting
+    pgstat_progress_update_multi_param(nparam, index, val);
+}
+```

@@ -48,3 +48,37 @@ Key characteristics:
 - Works in conjunction with speculative insertion and potential speculative deletion (kill) operations
 - The target_locator identifies which relation the confirmed insertion belongs to
 - This is an internal change type that may not be directly visible to all output plugins
+
+## Simplified Source
+
+```c
+static void DecodeSpecConfirm(LogicalDecodingContext *ctx, XLogRecordBuffer *buf) {
+    XLogReaderState *r = buf->record;
+    ReorderBufferChange *change;
+    RelFileLocator target_locator;
+
+    // Check if this is for our target database
+    XLogRecGetBlockTag(r, 0, &target_locator, NULL, NULL);
+    if (target_locator.dbOid != ctx->slot->data.database)
+        return;
+
+    // Apply origin filtering
+    if (FilterByOrigin(ctx, XLogRecGetOrigin(r)))
+        return;
+
+    // Create confirmation change
+    change = ReorderBufferGetChange(ctx->reorder);
+    change->action = REORDER_BUFFER_CHANGE_INTERNAL_SPEC_CONFIRM;
+    change->origin_id = XLogRecGetOrigin(r);
+
+    // Copy relation file locator
+    memcpy(&change->data.tp.rlocator, &target_locator, sizeof(RelFileLocator));
+
+    // Set toast clearing flag (confirmation finalizes the operation)
+    change->data.tp.clear_toast_afterwards = true;
+
+    // Queue the confirmation change
+    ReorderBufferQueueChange(ctx->reorder, XLogRecGetXid(r), buf->origptr,
+                            change, false);
+}
+```

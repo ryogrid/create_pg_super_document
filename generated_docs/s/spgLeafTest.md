@@ -44,3 +44,76 @@ The function carefully manages memory contexts, using temporary context for the 
 - The function handles both immediate result reporting (non-ordered) and queue-based processing (ordered)
 - Distance calculations and recheck flags are properly propagated from the leaf_consistent function
 - The reconstructedValue from the traversal path is passed to leaf_consistent for proper evaluation
+
+## Simplified Source
+
+```c
+static bool
+spgLeafTest(SpGistScanOpaque so, SpGistSearchItem *item,
+            SpGistLeafTuple leafTuple, bool isnull,
+            bool *reportedSome, storeRes_func storeRes)
+{
+    Datum leafValue;
+    double *distances;
+    bool result, recheck, recheckDistances;
+
+    if (isnull) {
+        // Handle NULL values - they match if we're searching for nulls
+        leafValue = (Datum) 0;
+        distances = NULL;
+        recheck = false;
+        recheckDistances = false;
+        result = true;
+    } else {
+        // Test leaf tuple using opclass-specific leaf_consistent function
+        spgLeafConsistentIn in;
+        spgLeafConsistentOut out;
+
+        // Switch to temp context for function call
+        MemoryContext oldCxt = MemoryContextSwitchTo(so->tempCxt);
+
+        // Setup input parameters for leaf_consistent
+        in.scankeys = so->keyData;
+        in.nkeys = so->numberOfKeys;
+        in.orderbys = so->orderByData;
+        in.norderbys = so->numberOfNonNullOrderBys;
+        in.reconstructedValue = item->value;
+        in.traversalValue = item->traversalValue;
+        in.level = item->level;
+        in.returnData = so->want_itup;
+        in.leafDatum = SGLTDATUM(leafTuple, &so->state);
+
+        // Call leaf_consistent function
+        result = DatumGetBool(FunctionCall2Coll(&so->leafConsistentFn,
+                                               so->indexCollation,
+                                               PointerGetDatum(&in),
+                                               PointerGetDatum(&out)));
+        recheck = out.recheck;
+        recheckDistances = out.recheckDistances;
+        leafValue = out.leafValue;
+        distances = out.distances;
+
+        MemoryContextSwitchTo(oldCxt);
+    }
+
+    if (result) {
+        if (so->numberOfNonNullOrderBys > 0) {
+            // Ordered scan: add to priority queue
+            MemoryContext oldCxt = MemoryContextSwitchTo(so->traversalCxt);
+            SpGistSearchItem *heapItem = spgNewHeapItem(so, item->level,
+                                                       leafTuple, leafValue,
+                                                       recheck, recheckDistances,
+                                                       isnull, distances);
+            spgAddSearchItemToQueue(so, heapItem);
+            MemoryContextSwitchTo(oldCxt);
+        } else {
+            // Non-ordered scan: report immediately
+            storeRes(so, &leafTuple->heapPtr, leafValue, isnull,
+                    leafTuple, recheck, false, NULL);
+            *reportedSome = true;
+        }
+    }
+
+    return result;
+}
+```

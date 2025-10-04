@@ -46,3 +46,28 @@ This pattern is a security best practice to prevent search path attacks where ma
 - Setting an empty search path forces the use of fully-qualified object names (e.g., )
 - This security practice is recommended for applications that execute SQL in environments where untrusted users might have schema creation privileges
 - The function demonstrates proper libpq resource management by calling  to free result objects
+
+## Simplified Source
+
+```c
+static void
+check_prepare_conn(PGconn *conn, const char *dbName)
+{
+    PGresult *res;
+
+    // Verify connection was successful
+    if (PQstatus(conn) != CONNECTION_OK) {
+        fprintf(stderr, "%s", PQerrorMessage(conn));
+        exit(1);
+    }
+
+    // Set secure search path to prevent hijacking attacks
+    res = PQexec(conn, "SELECT pg_catalog.set_config('search_path', '', false)");
+    if (PQresultStatus(res) != PGRES_TUPLES_OK) {
+        fprintf(stderr, "SET failed: %s", PQerrorMessage(conn));
+        PQclear(res);
+        exit(1);
+    }
+    PQclear(res);
+}
+```

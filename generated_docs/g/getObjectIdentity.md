@@ -36,3 +36,13 @@ The function is designed for machine consumption rather than user display, so th
 - Schema qualification is applied automatically when needed for unambiguous identification
 - Returns NULL when the object is not found and missing_ok is true
 - Part of PostgreSQL's object address and identification infrastructure used throughout the system
+
+## Simplified Source
+
+```c
+char *
+getObjectIdentity(const ObjectAddress *object, bool missing_ok)
+{
+    return getObjectIdentityParts(object, NULL, NULL, missing_ok);
+}
+```

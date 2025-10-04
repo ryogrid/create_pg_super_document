@@ -43,3 +43,31 @@ This comprehensive error checking ensures data integrity for WAL summary files, 
 - Partial writes trigger a helpful hint to check free disk space, which is a common cause of write failures
 - This callback pattern allows the block reference table writer to be decoupled from specific file I/O implementations
 - The strict validation of complete writes ensures WAL summary file integrity, which is essential for reliable incremental backups
+
+## Simplified Source
+```c
+int WriteWalSummary(void *wal_summary_io, void *data, int length) {
+    WalSummaryIO *io = wal_summary_io;
+
+    // Write data to file at current position
+    int nbytes = FileWrite(io->file, data, length, io->filepos, WAIT_EVENT_WAL_SUMMARY_WRITE);
+
+    // Check for write errors
+    if (nbytes < 0) {
+        ereport(ERROR, (errcode_for_file_access(),
+                errmsg("could not write file \"%s\": %m", FilePathName(io->file))));
+    }
+
+    // Ensure complete write (partial writes are errors)
+    if (nbytes != length) {
+        ereport(ERROR, (errcode_for_file_access(),
+                errmsg("could not write file \"%s\": wrote only %d of %d bytes at offset %u",
+                       FilePathName(io->file), nbytes, length, (unsigned) io->filepos),
+                errhint("Check free disk space.")));
+    }
+
+    // Update file position
+    io->filepos += nbytes;
+    return nbytes;
+}
+```

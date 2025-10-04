@@ -38,3 +38,43 @@ This function provides a thread-safe way to query the current state of the WAL s
 - Normalizes invalid PID values (≤0) to -1 for consistent API
 - The function provides a snapshot view - values may become stale immediately after return
 - Location: src/backend/postmaster/walsummarizer.c:447-504
+
+## Simplified Source
+
+```c
+void GetWalSummarizerState(TimeLineID *summarized_tli, XLogRecPtr *summarized_lsn,
+                          XLogRecPtr *pending_lsn, int *summarizer_pid)
+{
+    LWLockAcquire(WALSummarizerLock, LW_SHARED);
+
+    if (!WalSummarizerCtl->initialized) {
+        // Return default values when not initialized
+        *summarized_tli = 0;
+        *summarized_lsn = InvalidXLogRecPtr;
+        *pending_lsn = InvalidXLogRecPtr;
+        *summarizer_pid = -1;
+    } else {
+        int summarizer_pgprocno = WalSummarizerCtl->summarizer_pgprocno;
+
+        // Get basic summarization state
+        *summarized_tli = WalSummarizerCtl->summarized_tli;
+        *summarized_lsn = WalSummarizerCtl->summarized_lsn;
+
+        if (summarizer_pgprocno == INVALID_PROC_NUMBER) {
+            // Summarizer has exited - pending equals summarized
+            *pending_lsn = WalSummarizerCtl->summarized_lsn;
+            *summarizer_pid = -1;
+        } else {
+            // Summarizer is running
+            *pending_lsn = WalSummarizerCtl->pending_lsn;
+
+            // Get process ID, normalizing invalid values to -1
+            *summarizer_pid = GetPGProcByNumber(summarizer_pgprocno)->pid;
+            if (*summarizer_pid <= 0)
+                *summarizer_pid = -1;
+        }
+    }
+
+    LWLockRelease(WALSummarizerLock);
+}
+```

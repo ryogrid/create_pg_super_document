@@ -46,3 +46,52 @@ When an invalid option is encountered, the function not only reports an error bu
 - Returns true if all options are valid, false (via error) if any invalid option is found
 - The error reporting includes helpful hints when valid alternatives exist
 - Located in src/backend/foreign/foreign.c:625-680
+
+## Simplified Source
+
+```c
+Datum
+postgresql_fdw_validator(PG_FUNCTION_ARGS)
+{
+    List *options_list = untransformRelOptions(PG_GETARG_DATUM(0));
+    Oid catalog = PG_GETARG_OID(1);
+    ListCell *cell;
+
+    // Validate each option in the list
+    foreach(cell, options_list)
+    {
+        DefElem *def = lfirst(cell);
+
+        // Check if this is a valid connection option for this context
+        if (!is_conninfo_option(def->defname, catalog))
+        {
+            const struct ConnectionOption *opt;
+            ClosestMatchState match_state;
+            bool has_valid_options = false;
+
+            // Find closest matching valid option for helpful error message
+            initClosestMatch(&match_state, def->defname, 4);
+            for (opt = libpq_conninfo_options; opt->optname; opt++) {
+                if (catalog == opt->optcontext) {
+                    has_valid_options = true;
+                    updateClosestMatch(&match_state, opt->optname);
+                }
+            }
+
+            // Report error with suggestion if available
+            const char *closest_match = getClosestMatch(&match_state);
+            ereport(ERROR,
+                    (errcode(ERRCODE_SYNTAX_ERROR),
+                     errmsg("invalid option \"%s\"", def->defname),
+                     has_valid_options ? closest_match ?
+                     errhint("Perhaps you meant the option \"%s\".",
+                             closest_match) : 0 :
+                     errhint("There are no valid options in this context.")));
+
+            PG_RETURN_BOOL(false);
+        }
+    }
+
+    PG_RETURN_BOOL(true);
+}
+```

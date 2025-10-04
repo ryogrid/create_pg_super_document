@@ -50,3 +50,44 @@ The function returns the symbol's address as a 64-bit value that LLVM can use to
 - Main binary symbols are resolved using LLVM's built-in symbol search capabilities
 - The function logs a warning but doesn't fail hard when a symbol cannot be resolved, allowing LLVM to handle the error appropriately
 - Memory allocated by  is properly freed after use
+
+## Simplified Source
+
+```c
+static uint64_t llvm_resolve_symbol(const char *symname, void *ctx) {
+    uintptr_t addr;
+    char *funcname;
+    char *modname;
+
+    // Handle macOS symbol prefix (remove underscore)
+#if defined(__darwin__)
+    if (symname[0] != '_')
+        elog(ERROR, "expected prefixed symbol name, but got \"%s\"", symname);
+    symname++;  // Skip the underscore prefix
+#endif
+
+    // Split symbol name into module and function parts
+    llvm_split_symbol_name(symname, &modname, &funcname);
+    Assert(funcname);
+
+    // Resolve address based on whether it's an external module or main binary
+    if (modname) {
+        // External module function - use PostgreSQL's loader
+        addr = (uintptr_t) load_external_function(modname, funcname, true, NULL);
+    } else {
+        // Main binary symbol - use LLVM's built-in search
+        addr = (uintptr_t) LLVMSearchForAddressOfSymbol(symname);
+    }
+
+    // Clean up allocated memory
+    pfree(funcname);
+    if (modname)
+        pfree(modname);
+
+    // Warn if resolution failed
+    if (!addr)
+        elog(WARNING, "failed to resolve name %s", symname);
+
+    return (uint64_t) addr;
+}
+```

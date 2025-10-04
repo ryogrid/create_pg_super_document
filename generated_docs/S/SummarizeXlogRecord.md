@@ -46,3 +46,47 @@ The function also implements important boundary logic for checkpoint records (XL
 - Critical for ensuring that incremental backups remain safe and consistent across different WAL level configurations
 - The function's return value and fast-forward flag work together to control the main summarization loop behavior
 - Essential safety mechanism preventing incremental backup corruption when WAL level is insufficient
+
+## Simplified Source
+
+```c
+static bool SummarizeXlogRecord(XLogReaderState *xlogreader, bool *new_fast_forward)
+{
+    uint8 info = XLogRecGetInfo(xlogreader) & ~XLR_INFO_MASK;
+    int record_wal_level;
+
+    // Extract WAL level from different record types
+    if (info == XLOG_CHECKPOINT_REDO) {
+        // Simple wal_level payload
+        memcpy(&record_wal_level, XLogRecGetData(xlogreader), sizeof(int));
+    }
+    else if (info == XLOG_CHECKPOINT_SHUTDOWN) {
+        // Extract from checkpoint structure
+        CheckPoint rec_ckpt;
+        memcpy(&rec_ckpt, XLogRecGetData(xlogreader), sizeof(CheckPoint));
+        record_wal_level = rec_ckpt.wal_level;
+    }
+    else if (info == XLOG_PARAMETER_CHANGE) {
+        // Extract from parameter change record
+        xl_parameter_change xlrec;
+        memcpy(&xlrec, XLogRecGetData(xlogreader), sizeof(xl_parameter_change));
+        record_wal_level = xlrec.wal_level;
+    }
+    else if (info == XLOG_END_OF_RECOVERY) {
+        // Extract from end-of-recovery record
+        xl_end_of_recovery xlrec;
+        memcpy(&xlrec, XLogRecGetData(xlogreader), sizeof(xl_end_of_recovery));
+        record_wal_level = xlrec.wal_level;
+    }
+    else {
+        // No special handling needed
+        return false;
+    }
+
+    // Set fast-forward mode if WAL level is minimal (unsafe for incremental backups)
+    *new_fast_forward = (record_wal_level == WAL_LEVEL_MINIMAL);
+
+    // Stop summarization at checkpoint boundaries and level changes
+    return true;
+}
+```

@@ -40,3 +40,33 @@ The function creates the temporary file with exclusive creation flags to prevent
 - Part of the bbsink manifest sequence: begin_manifest → manifest_contents → end_manifest
 - The final manifest file serves as a completion indicator for the entire backup
 - Automatically forwards operation to next sink in chain for multi-destination backups
+
+## Simplified Source
+
+```c
+// Simplified version of bbsink_server_begin_manifest
+static void bbsink_server_begin_manifest(bbsink *sink)
+{
+    bbsink_server *mysink = (bbsink_server *) sink;
+    char *tmp_filename;
+
+    // Verify no file is currently open
+    Assert(mysink->file == 0);
+
+    // Create temporary manifest filename
+    tmp_filename = psprintf("%s/backup_manifest.tmp", mysink->pathname);
+
+    // Create temporary manifest file exclusively
+    mysink->file = PathNameOpenFile(tmp_filename,
+                                    O_CREAT | O_EXCL | O_WRONLY | PG_BINARY);
+    if (mysink->file <= 0)
+        ereport(ERROR,
+                (errcode_for_file_access(),
+                 errmsg("could not create file \"%s\": %m", tmp_filename)));
+
+    pfree(tmp_filename);
+
+    // Forward to next sink
+    bbsink_forward_begin_manifest(sink);
+}
+```

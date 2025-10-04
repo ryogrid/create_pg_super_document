@@ -46,3 +46,64 @@ These hint flags are used by the trigger execution system to quickly determine w
 - Transition table flags are only set for statement-level triggers that actually use transition tables
 - The hint flags significantly improve trigger execution performance by avoiding unnecessary trigger scanning during DML operations
 - Each trigger type has a corresponding boolean flag in the TriggerDesc structure for O(1) lookup during execution
+
+## Simplified Source
+
+```c
+static void SetTriggerFlags(TriggerDesc *trigdesc, Trigger *trigger)
+{
+    int16 tgtype = trigger->tgtype;
+
+    // Set flags for INSERT triggers
+    trigdesc->trig_insert_before_row |=
+        TRIGGER_TYPE_MATCHES(tgtype, TRIGGER_TYPE_ROW, TRIGGER_TYPE_BEFORE, TRIGGER_TYPE_INSERT);
+    trigdesc->trig_insert_after_row |=
+        TRIGGER_TYPE_MATCHES(tgtype, TRIGGER_TYPE_ROW, TRIGGER_TYPE_AFTER, TRIGGER_TYPE_INSERT);
+    trigdesc->trig_insert_instead_row |=
+        TRIGGER_TYPE_MATCHES(tgtype, TRIGGER_TYPE_ROW, TRIGGER_TYPE_INSTEAD, TRIGGER_TYPE_INSERT);
+    trigdesc->trig_insert_before_statement |=
+        TRIGGER_TYPE_MATCHES(tgtype, TRIGGER_TYPE_STATEMENT, TRIGGER_TYPE_BEFORE, TRIGGER_TYPE_INSERT);
+    trigdesc->trig_insert_after_statement |=
+        TRIGGER_TYPE_MATCHES(tgtype, TRIGGER_TYPE_STATEMENT, TRIGGER_TYPE_AFTER, TRIGGER_TYPE_INSERT);
+
+    // Set flags for UPDATE triggers
+    trigdesc->trig_update_before_row |=
+        TRIGGER_TYPE_MATCHES(tgtype, TRIGGER_TYPE_ROW, TRIGGER_TYPE_BEFORE, TRIGGER_TYPE_UPDATE);
+    trigdesc->trig_update_after_row |=
+        TRIGGER_TYPE_MATCHES(tgtype, TRIGGER_TYPE_ROW, TRIGGER_TYPE_AFTER, TRIGGER_TYPE_UPDATE);
+    trigdesc->trig_update_instead_row |=
+        TRIGGER_TYPE_MATCHES(tgtype, TRIGGER_TYPE_ROW, TRIGGER_TYPE_INSTEAD, TRIGGER_TYPE_UPDATE);
+    trigdesc->trig_update_before_statement |=
+        TRIGGER_TYPE_MATCHES(tgtype, TRIGGER_TYPE_STATEMENT, TRIGGER_TYPE_BEFORE, TRIGGER_TYPE_UPDATE);
+    trigdesc->trig_update_after_statement |=
+        TRIGGER_TYPE_MATCHES(tgtype, TRIGGER_TYPE_STATEMENT, TRIGGER_TYPE_AFTER, TRIGGER_TYPE_UPDATE);
+
+    // Set flags for DELETE triggers
+    trigdesc->trig_delete_before_row |=
+        TRIGGER_TYPE_MATCHES(tgtype, TRIGGER_TYPE_ROW, TRIGGER_TYPE_BEFORE, TRIGGER_TYPE_DELETE);
+    trigdesc->trig_delete_after_row |=
+        TRIGGER_TYPE_MATCHES(tgtype, TRIGGER_TYPE_ROW, TRIGGER_TYPE_AFTER, TRIGGER_TYPE_DELETE);
+    trigdesc->trig_delete_instead_row |=
+        TRIGGER_TYPE_MATCHES(tgtype, TRIGGER_TYPE_ROW, TRIGGER_TYPE_INSTEAD, TRIGGER_TYPE_DELETE);
+    trigdesc->trig_delete_before_statement |=
+        TRIGGER_TYPE_MATCHES(tgtype, TRIGGER_TYPE_STATEMENT, TRIGGER_TYPE_BEFORE, TRIGGER_TYPE_DELETE);
+    trigdesc->trig_delete_after_statement |=
+        TRIGGER_TYPE_MATCHES(tgtype, TRIGGER_TYPE_STATEMENT, TRIGGER_TYPE_AFTER, TRIGGER_TYPE_DELETE);
+
+    // Set flags for TRUNCATE triggers (statement-level only)
+    trigdesc->trig_truncate_before_statement |=
+        TRIGGER_TYPE_MATCHES(tgtype, TRIGGER_TYPE_STATEMENT, TRIGGER_TYPE_BEFORE, TRIGGER_TYPE_TRUNCATE);
+    trigdesc->trig_truncate_after_statement |=
+        TRIGGER_TYPE_MATCHES(tgtype, TRIGGER_TYPE_STATEMENT, TRIGGER_TYPE_AFTER, TRIGGER_TYPE_TRUNCATE);
+
+    // Set flags for transition table usage
+    trigdesc->trig_insert_new_table |=
+        (TRIGGER_FOR_INSERT(tgtype) && TRIGGER_USES_TRANSITION_TABLE(trigger->tgnewtable));
+    trigdesc->trig_update_old_table |=
+        (TRIGGER_FOR_UPDATE(tgtype) && TRIGGER_USES_TRANSITION_TABLE(trigger->tgoldtable));
+    trigdesc->trig_update_new_table |=
+        (TRIGGER_FOR_UPDATE(tgtype) && TRIGGER_USES_TRANSITION_TABLE(trigger->tgnewtable));
+    trigdesc->trig_delete_old_table |=
+        (TRIGGER_FOR_DELETE(tgtype) && TRIGGER_USES_TRANSITION_TABLE(trigger->tgoldtable));
+}
+```

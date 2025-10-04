@@ -58,3 +58,110 @@ Key responsibilities include ensuring no relation reference leaks, handling rela
 - Supports both regular tables and partitioned tables through the same interface
 - The attribute mapping built by this function is essential for translating between local and remote tuple formats
 - [Relation](../R/Relation.md) state management integrates with the subscription system to track synchronization progress
+
+## Simplified Source
+
+```c
+LogicalRepRelMapEntry *
+logicalrep_rel_open(LogicalRepRelId remoteid, LOCKMODE lockmode)
+{
+    LogicalRepRelMapEntry *entry;
+    bool found;
+    LogicalRepRelation *remoterel;
+
+    // Initialize relation map if needed
+    if (LogicalRepRelMap == NULL)
+        logicalrep_relmap_init();
+
+    // Find existing entry or error if not found
+    entry = hash_search(LogicalRepRelMap, &remoteid, HASH_FIND, &found);
+    if (!found)
+        elog(ERROR, "no relation map entry for remote relation ID %u", remoteid);
+
+    remoterel = &entry->remoterel;
+
+    // Prevent relation reference leaks
+    if (entry->localrel)
+        elog(ERROR, "remote relation ID %u is already open", remoteid);
+
+    // Try to open by OID if entry is valid (fast path)
+    if (entry->localrelvalid) {
+        entry->localrel = try_table_open(entry->localreloid, lockmode);
+        if (!entry->localrel) {
+            entry->localrelvalid = false;  // Table renamed/dropped
+        } else if (!entry->localrelvalid) {
+            // Invalidated during open, close and retry
+            table_close(entry->localrel, lockmode);
+            entry->localrel = NULL;
+        }
+    }
+
+    // Rebuild relation mapping if invalid (slow path)
+    if (!entry->localrelvalid) {
+        Oid relid;
+        TupleDesc desc;
+        int i;
+        Bitmapset *missingatts;
+
+        // Clean up old attribute map
+        if (entry->attrmap) {
+            free_attrmap(entry->attrmap);
+            entry->attrmap = NULL;
+        }
+
+        // Open relation by name
+        relid = RangeVarGetRelid(makeRangeVar(remoterel->nspname,
+                                            remoterel->relname, -1),
+                               lockmode, true);
+        if (!OidIsValid(relid))
+            ereport(ERROR, "logical replication target relation does not exist");
+
+        entry->localrel = table_open(relid, NoLock);
+        entry->localreloid = relid;
+
+        // Validate relation kind
+        CheckSubscriptionRelkind(entry->localrel->rd_rel->relkind,
+                               remoterel->nspname, remoterel->relname);
+
+        // Build attribute mapping between local and remote
+        desc = RelationGetDescr(entry->localrel);
+        entry->attrmap = make_attrmap(desc->natts);
+
+        missingatts = bms_add_range(NULL, 0, remoterel->natts - 1);
+        for (i = 0; i < desc->natts; i++) {
+            Form_pg_attribute attr = TupleDescAttr(desc, i);
+            int attnum;
+
+            if (attr->attisdropped || attr->attgenerated) {
+                entry->attrmap->attnums[i] = -1;
+                continue;
+            }
+
+            // Map local attribute to remote attribute by name
+            attnum = logicalrep_rel_att_by_name(remoterel, NameStr(attr->attname));
+            entry->attrmap->attnums[i] = attnum;
+            if (attnum >= 0)
+                missingatts = bms_del_member(missingatts, attnum);
+        }
+
+        // Report any missing attributes
+        logicalrep_report_missing_attrs(remoterel, missingatts);
+        bms_free(missingatts);
+
+        // Check if relation supports UPDATE/DELETE operations
+        logicalrep_rel_mark_updatable(entry);
+
+        // Find appropriate index for replication
+        entry->localindexoid = FindLogicalRepLocalIndex(entry->localrel,
+                                                      remoterel, entry->attrmap);
+        entry->localrelvalid = true;
+    }
+
+    // Update subscription relation state if needed
+    if (entry->state != SUBREL_STATE_READY)
+        entry->state = GetSubscriptionRelState(MySubscription->oid,
+                                             entry->localreloid, &entry->statelsn);
+
+    return entry;
+}
+```

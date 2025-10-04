@@ -9,7 +9,7 @@ Retrieves the header information (field count) from an SQL descriptor in ECPG, p
 ## Definition
 
 ```c
-struct sqlca_t *sqlca = ECPGget_sqlca();
+bool ECPGget_desc_header(int lineno, const char *desc_name, int *count)
 ```
 ## Detailed Description
 This function is part of the ECPG (Embedded SQL in C for PostgreSQL) library's dynamic descriptor interface. It retrieves header information from a named SQL descriptor, specifically returning the number of fields/columns available in the descriptor's associated result set. The function handles proper SQLCA initialization, error management, and logging as part of ECPG's comprehensive embedded SQL implementation.
@@ -17,9 +17,9 @@ This function is part of the ECPG (Embedded SQL in C for PostgreSQL) library's d
 The function locates the specified descriptor, validates its existence, and extracts the field count using PostgreSQL's libpq PQnfields() function. It also updates the SQLCA structure to indicate successful execution.
 
 ## Parameters / Member Variables
-- : Source code line number for error reporting and debugging purposes
-- : Name of the SQL descriptor to query for header information  
-- : Pointer to integer where the number of fields/columns will be stored
+- `lineno`: Source code line number for error reporting and debugging purposes
+- `desc_name`: Name of the SQL descriptor to query for header information
+- `count`: Pointer to integer where the number of fields/columns will be stored
 
 ## Dependencies
 - Functions called/Symbols referenced:
@@ -44,3 +44,33 @@ The function locates the specified descriptor, validates its existence, and extr
 - Provides debug logging showing the number of attributes found
 - Essential component of ECPG's SQL3-compliant dynamic descriptor management
 - Used extensively in ECPG test cases for descriptor validation
+
+## Simplified Source
+
+```c
+bool ECPGget_desc_header(int lineno, const char *desc_name, int *count) {
+    // Get SQLCA context for error handling
+    struct sqlca_t *sqlca = ECPGget_sqlca();
+    if (!sqlca) {
+        ecpg_raise(lineno, ECPG_OUT_OF_MEMORY, ECPG_SQLSTATE_ECPG_OUT_OF_MEMORY, NULL);
+        return false;
+    }
+
+    // Initialize SQLCA for this operation
+    ecpg_init_sqlca(sqlca);
+
+    // Find the descriptor by name and get its result set
+    PGresult *ECPGresult = ecpg_result_by_descriptor(lineno, desc_name);
+    if (!ECPGresult)
+        return false;
+
+    // Get the number of fields/columns in the result set
+    *count = PQnfields(ECPGresult);
+
+    // Set SQLCA to indicate successful operation
+    sqlca->sqlerrd[2] = 1;
+
+    ecpg_log("ECPGget_desc_header: found %d attributes\n", *count);
+    return true;
+}
+```

@@ -50,3 +50,54 @@ The dependency management ensures proper catalog behavior during DROP operations
 - Invalid support function numbers trigger an ERROR with ERRCODE_INVALID_OBJECT_DEFINITION
 - SP-GiST operator classes generally do not share operator families, simplifying dependency management
 - The dependency structure affects what happens when objects are dropped from the system
+
+## Simplified Source
+
+```c
+void
+spgadjustmembers(Oid opfamilyoid, Oid opclassoid, List *operators, List *functions)
+{
+    ListCell *lc;
+
+    // Configure operator dependencies
+    // All operators get soft dependencies on the operator family
+    foreach(lc, operators) {
+        OpFamilyMember *op = (OpFamilyMember *) lfirst(lc);
+
+        op->ref_is_hard = false;      // Soft dependency
+        op->ref_is_family = true;     // Points to family
+        op->refobjid = opfamilyoid;   // Target is operator family
+    }
+
+    // Configure support function dependencies
+    foreach(lc, functions) {
+        OpFamilyMember *op = (OpFamilyMember *) lfirst(lc);
+
+        switch (op->number) {
+            case SPGIST_CONFIG_PROC:
+            case SPGIST_CHOOSE_PROC:
+            case SPGIST_PICKSPLIT_PROC:
+            case SPGIST_INNER_CONSISTENT_PROC:
+            case SPGIST_LEAF_CONSISTENT_PROC:
+                // Required support functions get hard dependencies
+                op->ref_is_hard = true;
+                break;
+
+            case SPGIST_COMPRESS_PROC:
+            case SPGIST_OPTIONS_PROC:
+                // Optional functions get soft family dependencies
+                op->ref_is_hard = false;
+                op->ref_is_family = true;
+                op->refobjid = opfamilyoid;
+                break;
+
+            default:
+                ereport(ERROR,
+                        (errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+                         errmsg("support function number %d is invalid for access method %s",
+                               op->number, "spgist")));
+                break;
+        }
+    }
+}
+```

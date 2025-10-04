@@ -31,3 +31,20 @@ This function performs essential initialization for the isolation testing framew
 - Sets "isolation_regression" as the default database name for tests
 - Validates that the executable path length doesn't exceed MAXPGPATH
 - Part of PostgreSQL's isolation testing framework initialization sequence
+
+## Simplified Source
+
+```c
+static void isolation_init(int argc, char **argv) {
+    // Save argv[0] for later binary lookup (can't do find_other_exec now due to timing)
+    size_t len = strlcpy(saved_argv0, argv[0], MAXPGPATH);
+    if (len >= MAXPGPATH) {
+        fprintf(stderr, "path for isolationtester executable is longer than %d bytes\n",
+                (int) (MAXPGPATH - 1));
+        exit(2);
+    }
+
+    // Set default regression database name
+    add_stringlist_item(&dblist, "isolation_regression");
+}
+```

@@ -44,3 +44,32 @@ The function uses a retry loop to handle cases where the error message buffer ne
 - The retry loop ensures that buffer expansion is handled transparently if the initial buffer space is insufficient
 - This is an internal libpq utility function primarily used for consistent error message formatting across the library
 - Located in  at lines 1380-1401
+
+## Simplified Source
+
+```c
+void libpq_append_conn_error(PGconn *conn, const char *fmt, ...)
+{
+    int save_errno = errno;
+    bool done;
+    va_list args;
+
+    // Validate format string doesn't end with newline
+    Assert(fmt[strlen(fmt) - 1] != '\n');
+
+    // Early return if error buffer is broken
+    if (PQExpBufferBroken(&conn->errorMessage))
+        return;
+
+    // Format and append translated message with retry loop
+    do {
+        errno = save_errno;
+        va_start(args, fmt);
+        done = appendPQExpBufferVA(&conn->errorMessage, libpq_gettext(fmt), args);
+        va_end(args);
+    } while (!done);
+
+    // Append trailing newline
+    appendPQExpBufferChar(&conn->errorMessage, '\n');
+}
+```

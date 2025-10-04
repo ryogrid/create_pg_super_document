@@ -42,3 +42,54 @@ The function also performs safety checks to ensure system columns are not used i
 - Critical for logical replication safety as it prevents UPDATE/DELETE operations on relations with incompatible replica identities
 - System columns in replica identity indexes are explicitly prohibited and cause immediate errors
 - Falls back to primary key when no explicit replica identity is defined on the local relation
+
+## Simplified Source
+
+```c
+static void logicalrep_rel_mark_updatable(LogicalRepRelMapEntry *entry) {
+    Bitmapset *idkey;
+    LogicalRepRelation *remoterel = &entry->remoterel;
+    int i;
+
+    // Start by assuming relation is updatable
+    entry->updatable = true;
+
+    // Get replica identity key, fallback to primary key
+    idkey = RelationGetIndexAttrBitmap(entry->localrel,
+                                       INDEX_ATTR_BITMAP_IDENTITY_KEY);
+    if (idkey == NULL) {
+        idkey = RelationGetIndexAttrBitmap(entry->localrel,
+                                           INDEX_ATTR_BITMAP_PRIMARY_KEY);
+
+        // If no replica identity and no PK, remote must have REPLICA IDENTITY FULL
+        if (idkey == NULL && remoterel->replident != REPLICA_IDENTITY_FULL) {
+            entry->updatable = false;
+            return;
+        }
+    }
+
+    // Check each column in local replica identity
+    i = -1;
+    while ((i = bms_next_member(idkey, i)) >= 0) {
+        int attnum = i + FirstLowInvalidHeapAttributeNumber;
+
+        // System columns not allowed in replica identity
+        if (!AttrNumberIsForUserDefinedAttr(attnum)) {
+            ereport(ERROR,
+                    (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                     errmsg("logical replication target relation \"%s.%s\" uses "
+                            "system columns in REPLICA IDENTITY index",
+                            remoterel->nspname, remoterel->relname)));
+        }
+
+        attnum = AttrNumberGetAttrOffset(attnum);
+
+        // Check if local attribute maps to remote replica identity
+        if (entry->attrmap->attnums[attnum] < 0 ||
+            !bms_is_member(entry->attrmap->attnums[attnum], remoterel->attkeys)) {
+            entry->updatable = false;
+            break;
+        }
+    }
+}
+```

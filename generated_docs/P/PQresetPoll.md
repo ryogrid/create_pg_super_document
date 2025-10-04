@@ -40,3 +40,34 @@ When the reset completes successfully (PGRES_POLLING_OK), the function notifies 
 - Triggers PGEVT_CONNRESET events to all registered event procedures upon successful reset
 - This is part of libpq's public API for non-blocking database operations
 - The function preserves and reuses the original connection parameters during reset
+
+## Simplified Source
+
+```c
+PostgresPollingStatusType
+PQresetPoll(PGconn *conn)
+{
+    if (conn)
+    {
+        // Continue polling the connection reset process
+        PostgresPollingStatusType status = PQconnectPoll(conn);
+
+        if (status == PGRES_POLLING_OK)
+        {
+            // Notify event procedures of successful reset
+            int i;
+            for (i = 0; i < conn->nEvents; i++)
+            {
+                PGEventConnReset evt;
+                evt.conn = conn;
+                (void) conn->events[i].proc(PGEVT_CONNRESET, &evt,
+                                            conn->events[i].passThrough);
+            }
+        }
+
+        return status;
+    }
+
+    return PGRES_POLLING_FAILED;
+}
+```

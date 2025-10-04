@@ -46,3 +46,48 @@ The function ensures complete cleanup of all memory allocated by RelationBuildTr
 - Essential for preventing memory leaks in trigger descriptor management
 - Typically called in cleanup scenarios after trigger descriptors are no longer needed
 - Works as the counterpart to RelationBuildTriggers and CopyTriggerDesc for complete memory lifecycle management
+
+## Simplified Source
+
+```c
+void FreeTriggerDesc(TriggerDesc *trigdesc)
+{
+    Trigger *trigger;
+    int i;
+
+    if (trigdesc == NULL)
+        return;
+
+    // Free each trigger's allocated memory
+    trigger = trigdesc->triggers;
+    for (i = 0; i < trigdesc->numtriggers; i++) {
+        // Free trigger name
+        pfree(trigger->tgname);
+
+        // Free attribute array if present
+        if (trigger->tgnattr > 0)
+            pfree(trigger->tgattr);
+
+        // Free argument strings and array if present
+        if (trigger->tgnargs > 0) {
+            while (--(trigger->tgnargs) >= 0)
+                pfree(trigger->tgargs[trigger->tgnargs]);
+            pfree(trigger->tgargs);
+        }
+
+        // Free optional fields
+        if (trigger->tgqual)
+            pfree(trigger->tgqual);
+        if (trigger->tgoldtable)
+            pfree(trigger->tgoldtable);
+        if (trigger->tgnewtable)
+            pfree(trigger->tgnewtable);
+
+        trigger++;
+    }
+
+    // Free trigger array and descriptor structure
+    pfree(trigdesc->triggers);
+    pfree(trigdesc);
+}
+```

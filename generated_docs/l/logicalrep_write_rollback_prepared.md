@@ -37,3 +37,28 @@ This function serializes a ROLLBACK PREPARED message into the logical replicatio
 - Located in src/backend/replication/logical/proto.c:304-335
 - Used by logical replication output plugins like pgoutput to send rollback prepared notifications to subscribers
 - Sends both the original prepare timestamp and the current rollback timestamp for complete transaction lifecycle tracking
+
+## Simplified Source
+
+```c
+void logicalrep_write_rollback_prepared(StringInfo out, ReorderBufferTXN *txn,
+                                       XLogRecPtr prepare_end_lsn,
+                                       TimestampTz prepare_time) {
+    uint8 flags = 0;
+
+    // Write rollback prepared message type
+    pq_sendbyte(out, LOGICAL_REP_MSG_ROLLBACK_PREPARED);
+
+    // Transaction must have valid GID for two-phase commit
+    Assert(txn->gid != NULL);
+
+    // Send flags and transaction data
+    pq_sendbyte(out, flags);
+    pq_sendint64(out, prepare_end_lsn);
+    pq_sendint64(out, txn->end_lsn);
+    pq_sendint64(out, prepare_time);
+    pq_sendint64(out, txn->xact_time.commit_time);
+    pq_sendint32(out, txn->xid);
+    pq_sendstring(out, txn->gid);
+}
+```

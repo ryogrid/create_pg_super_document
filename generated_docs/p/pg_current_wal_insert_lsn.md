@@ -30,7 +30,27 @@ The function ensures that it cannot be executed during recovery mode, as WAL con
 
 ## Notes and Other Information
 - This function is mostly for debugging purposes as noted in the source code comments
-- The function will raise an error if called during recovery, with error code 
+- The function will raise an error if called during recovery, with error code
 - Returns the LSN in the standard PostgreSQL LSN format (e.g., '0/1667D48')
 - The function is accessible via SQL as a system function
-- Located in 
+- Located in
+
+## Simplified Source
+
+```c
+Datum
+pg_current_wal_insert_lsn(PG_FUNCTION_ARGS)
+{
+    XLogRecPtr current_recptr;
+
+    // Cannot run during recovery
+    if (RecoveryInProgress())
+        ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                       errmsg("recovery is in progress")));
+
+    // Get current WAL insert position (for debugging)
+    current_recptr = GetXLogInsertRecPtr();
+
+    PG_RETURN_LSN(current_recptr);
+}
+``` 

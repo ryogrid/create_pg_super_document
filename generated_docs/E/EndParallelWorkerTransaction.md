@@ -40,3 +40,19 @@ The function ensures that parallel workers properly finalize their transaction s
 - Uses the same CommitTransaction path as regular transactions, ensuring consistent commit processing
 - Critical for proper parallel worker cleanup and resource management
 - The state validation ensures that the function is only called in the appropriate context
+
+## Simplified Source
+
+```c
+void EndParallelWorkerTransaction(void)
+{
+    // Verify we're in a parallel worker transaction
+    Assert(CurrentTransactionState->blockState == TBLOCK_PARALLEL_INPROGRESS);
+
+    // Commit the transaction
+    CommitTransaction();
+
+    // Reset to default state for cleanup
+    CurrentTransactionState->blockState = TBLOCK_DEFAULT;
+}
+```

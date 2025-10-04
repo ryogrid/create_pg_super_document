@@ -34,3 +34,23 @@ The function is primarily intended for debugging purposes and provides insight i
 - The flush location is typically behind or equal to the insert location, as flushing to disk happens after insertion into WAL buffers
 - The function is accessible via SQL as a system function
 - Located in `src/backend/access/transam/xlogfuncs.c:315-336`
+
+## Simplified Source
+
+```c
+Datum
+pg_current_wal_flush_lsn(PG_FUNCTION_ARGS)
+{
+    XLogRecPtr current_recptr;
+
+    // Cannot run during recovery
+    if (RecoveryInProgress())
+        ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                       errmsg("recovery is in progress")));
+
+    // Get current WAL flush position (for debugging)
+    current_recptr = GetFlushRecPtr(NULL);
+
+    PG_RETURN_LSN(current_recptr);
+}
+```

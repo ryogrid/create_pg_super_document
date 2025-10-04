@@ -41,3 +41,42 @@ This dual approach ensures both the precision of successful searches and the cor
 - The step=2 parameter to rbt_populate creates the even integer sequence 0, 2, 4, ..., 2*(size-1)
 - Critical for validating the fundamental search operation that underlies most tree-based data structure usage
 - Ensures that search failures are correctly reported rather than returning incorrect matches
+
+## Simplified Source
+
+```c
+static void testfind(int size) {
+    RBTree *tree = create_int_rbtree();
+    int i;
+
+    // Insert even integers: 0, 2, 4, 6, ..., 2*(size-1)
+    rbt_populate(tree, size, 2);
+
+    // Test: all inserted elements should be found
+    for (i = 0; i < size; i++) {
+        IntRBTreeNode node;
+        IntRBTreeNode *resultNode;
+
+        node.key = 2 * i;  // Search for even numbers
+        resultNode = (IntRBTreeNode *) rbt_find(tree, (RBTNode *) &node);
+
+        if (resultNode == NULL)
+            elog(ERROR, "inserted element was not found");
+        if (node.key != resultNode->key)
+            elog(ERROR, "find operation in rbtree gave wrong result");
+    }
+
+    // Test: non-inserted elements (odd numbers) should not be found
+    // Test range: -1, 1, 3, 5, ..., 2*size+1
+    for (i = -1; i <= 2 * size; i += 2) {
+        IntRBTreeNode node;
+        IntRBTreeNode *resultNode;
+
+        node.key = i;  // Search for odd numbers
+        resultNode = (IntRBTreeNode *) rbt_find(tree, (RBTNode *) &node);
+
+        if (resultNode != NULL)
+            elog(ERROR, "not-inserted element was found");
+    }
+}
+```

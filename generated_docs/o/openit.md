@@ -38,3 +38,20 @@ This function is part of the ECPG test suite for verifying Informix-style cursor
 - Error handling follows Informix conventions by checking sqlca.sqlcode and calling dosqlprint on errors
 - Part of the expected output for ECPG compatibility testing, not production database code
 - Demonstrates ECPG's ability to handle complex cursor operations with parameter binding
+
+## Simplified Source
+
+```c
+static void openit(void) {
+    // Declare cursor for selecting records from test table
+    // Cursor selects all columns where i <= parameter value
+    ECPGdo(__LINE__, 1, 1, NULL, 0, ECPGst_normal,
+           "declare c cursor for select * from test where i <= $1",
+           ECPGt_int, &(*(int *)(ECPGget_var(0))), (long)1, (long)1, sizeof(int),
+           ECPGt_NO_INDICATOR, NULL, 0L, 0L, 0L, ECPGt_EOIT, ECPGt_EORT);
+
+    // Check for SQL errors and print if any
+    if (sqlca.sqlcode < 0)
+        dosqlprint();
+}
+```

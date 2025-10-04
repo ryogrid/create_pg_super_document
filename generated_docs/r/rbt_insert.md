@@ -53,3 +53,57 @@ The data parameter represents the value to insert, but only the extra data beyon
 - Returns a pointer to either the newly created node or the existing node that was updated
 - Critical for maintaining Red-Black Tree properties while providing efficient insertion
 - Uses the tree's configured comparator, combiner, and allocator functions for flexibility
+
+## Simplified Source
+
+```c
+RBTNode *rbt_insert(RBTree *rbt, const RBTNode *data, bool *isNew)
+{
+    RBTNode *current, *parent, *x;
+    int cmp = 0;
+
+    // Search for insertion point or existing node
+    current = rbt->root;
+    parent = NULL;
+
+    while (current != RBTNIL) {
+        cmp = rbt->comparator(data, current, rbt->arg);
+
+        if (cmp == 0) {
+            // Found existing node - merge data using combiner
+            rbt->combiner(current, data, rbt->arg);
+            *isNew = false;
+            return current;
+        }
+
+        parent = current;
+        current = (cmp < 0) ? current->left : current->right;
+    }
+
+    // Create new node for insertion
+    *isNew = true;
+    x = rbt->allocfunc(rbt->arg);
+
+    // Initialize new node as red leaf
+    x->color = RBTRED;
+    x->left = RBTNIL;
+    x->right = RBTNIL;
+    x->parent = parent;
+    rbt_copy_data(rbt, x, data);
+
+    // Insert node at appropriate position
+    if (parent) {
+        if (cmp < 0)
+            parent->left = x;
+        else
+            parent->right = x;
+    } else {
+        rbt->root = x;
+    }
+
+    // Restore red-black tree properties
+    rbt_insert_fixup(rbt, x);
+
+    return x;
+}
+```

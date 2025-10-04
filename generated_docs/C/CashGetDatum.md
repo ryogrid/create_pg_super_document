@@ -31,3 +31,12 @@ CashGetDatum performs the conversion from Cash type to Datum type by delegating 
 - This is a header-only inline function defined in src/include/utils/cash.h
 - Critical for PostgreSQL's monetary data type system integration
 - Enables Cash values to participate in the standard PostgreSQL function calling conventions
+
+## Simplified Source
+
+```c
+static inline Datum CashGetDatum(Cash X) {
+    // Convert Cash (which is int64) to Datum
+    return Int64GetDatum(X);
+}
+```

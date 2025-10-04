@@ -42,3 +42,73 @@ The verification process includes: (1) checking that all inserted TIDs are prese
 - Raises detailed ERROR messages with specific TID information when mismatches are detected
 - Essential component of the PostgreSQL TidStore testing framework, ensuring reliability of the storage mechanism
 - Returns void as verification is the primary purpose rather than data retrieval
+
+## Simplified Source
+
+```c
+Datum
+check_set_block_offsets(PG_FUNCTION_ARGS)
+{
+    int num_iter_tids = 0;
+    int num_lookup_tids = 0;
+    BlockNumber prevblkno = 0;
+
+    check_tidstore_available();
+
+    // Verify all inserted TIDs are present in tidstore
+    for (int i = 0; i < items.num_tids; i++)
+        if (!TidStoreIsMember(tidstore, &items.insert_tids[i]))
+            elog(ERROR, "missing TID with block %u, offset %u",
+                 ItemPointerGetBlockNumber(&items.insert_tids[i]),
+                 ItemPointerGetOffsetNumber(&items.insert_tids[i]));
+
+    // Build lookup array by scanning all possible offsets for each block
+    for (int i = 0; i < items.num_tids; i++) {
+        BlockNumber blkno = ItemPointerGetBlockNumber(&items.insert_tids[i]);
+        if (i > 0 && blkno == prevblkno) continue;
+
+        for (OffsetNumber offset = FirstOffsetNumber; offset < MaxOffsetNumber; offset++) {
+            ItemPointerData tid;
+            ItemPointerSet(&tid, blkno, offset);
+
+            TidStoreLockShare(tidstore);
+            if (TidStoreIsMember(tidstore, &tid))
+                ItemPointerSet(&items.lookup_tids[num_lookup_tids++], blkno, offset);
+            TidStoreUnlock(tidstore);
+        }
+        prevblkno = blkno;
+    }
+
+    // Collect all TIDs through iteration
+    TidStoreLockShare(tidstore);
+    TidStoreIter *iter = TidStoreBeginIterate(tidstore);
+    TidStoreIterResult *iter_result;
+    while ((iter_result = TidStoreIterateNext(iter)) != NULL) {
+        for (int i = 0; i < iter_result->num_offsets; i++)
+            ItemPointerSet(&(items.iter_tids[num_iter_tids++]),
+                          iter_result->blkno, iter_result->offsets[i]);
+    }
+    TidStoreEndIterate(iter);
+    TidStoreUnlock(tidstore);
+
+    // Verify all three methods found same number of TIDs
+    if (num_lookup_tids != items.num_tids)
+        elog(ERROR, "should have %d TIDs, have %d", items.num_tids, num_lookup_tids);
+    if (num_iter_tids != items.num_tids)
+        elog(ERROR, "should have %d TIDs, have %d", items.num_tids, num_iter_tids);
+
+    // Sort and compare all arrays for consistency
+    qsort(items.insert_tids, items.num_tids, sizeof(ItemPointerData), itemptr_cmp);
+    qsort(items.lookup_tids, items.num_tids, sizeof(ItemPointerData), itemptr_cmp);
+    for (int i = 0; i < items.num_tids; i++) {
+        // Check iteration results match
+        if (itemptr_cmp(&items.insert_tids[i], &items.iter_tids[i]) != 0)
+            elog(ERROR, "TID iter array doesn't match verification array");
+        // Check lookup results match
+        if (itemptr_cmp(&items.insert_tids[i], &items.lookup_tids[i]) != 0)
+            elog(ERROR, "TID lookup array doesn't match verification array");
+    }
+
+    PG_RETURN_VOID();
+}
+```

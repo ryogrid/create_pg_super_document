@@ -40,3 +40,34 @@ The function operates in multiple phases: first clearing capture numbers and fla
 - Preserves backref target nodes to maintain regex semantics
 - Part of PostgreSQL's regex compilation optimization pipeline
 - The optimization can significantly reduce memory usage and execution time for patterns that don't need submatch data
+
+## Simplified Source
+
+```c
+static void removecaptures(struct vars *v, struct subre *t) {
+    struct subre *t2;
+
+    // If not a backref target, clear capture info
+    if (!(t->flags & BRUSE)) {
+        t->capno = 0;
+        t->flags &= ~CAP;
+    }
+
+    // Recursively process children
+    for (t2 = t->child; t2 != NULL; t2 = t2->sibling) {
+        removecaptures(v, t2);
+        // Propagate child CAP flag upward
+        if (t2->flags & CAP)
+            t->flags |= CAP;
+    }
+
+    // If no captures or backrefs, simplify to DFA node
+    if ((t->flags & (CAP | BACKR)) == 0) {
+        if (t->child)
+            freesubreandsiblings(v, t->child);
+        t->child = NULL;
+        t->op = '=';                    // Convert to simple DFA
+        t->flags &= ~MIXED;
+    }
+}
+```

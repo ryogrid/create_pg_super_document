@@ -42,3 +42,32 @@ The function handles cleanup of:
 - Serialized files are only cleaned up if the worker actually serialized changes
 - Part of the resource management infrastructure for parallel apply workers
 - Essential for preventing resource leaks in the logical replication subsystem
+
+## Simplified Source
+
+```c
+static void
+pa_free_worker_info(ParallelApplyWorkerInfo *winfo)
+{
+    Assert(winfo);
+
+    // Detach from message queues
+    if (winfo->mq_handle)
+        shm_mq_detach(winfo->mq_handle);
+
+    if (winfo->error_mq_handle)
+        shm_mq_detach(winfo->error_mq_handle);
+
+    // Clean up serialized transaction files if any
+    if (winfo->serialize_changes)
+        stream_cleanup_files(MyLogicalRepWorker->subid, winfo->shared->xid);
+
+    // Detach from dynamic shared memory
+    if (winfo->dsm_seg)
+        dsm_detach(winfo->dsm_seg);
+
+    // Remove from worker pool and free memory
+    ParallelApplyWorkerPool = list_delete_ptr(ParallelApplyWorkerPool, winfo);
+    pfree(winfo);
+}
+```

@@ -36,3 +36,31 @@ The function handles two key keepalive parameters: idle time (how long to wait b
 - Provides a clean separation between parameter parsing/validation and actual socket configuration
 - Handles both cases where keepalive parameters are explicitly set or left to system defaults
 - Error messages include specific Windows API function names and error codes for debugging
+
+## Simplified Source
+
+```c
+static int prepKeepalivesWin32(PGconn *conn) {
+    int idle = -1;
+    int interval = -1;
+
+    // Parse idle time parameter if provided
+    if (conn->keepalives_idle &&
+        !pqParseIntParam(conn->keepalives_idle, &idle, conn, "keepalives_idle"))
+        return 0;
+
+    // Parse interval parameter if provided
+    if (conn->keepalives_interval &&
+        !pqParseIntParam(conn->keepalives_interval, &interval, conn, "keepalives_interval"))
+        return 0;
+
+    // Apply keepalive settings to the socket
+    if (!pqSetKeepalivesWin32(conn->sock, idle, interval)) {
+        libpq_append_conn_error(conn, "WSAIoctl(SIO_KEEPALIVE_VALS) failed: error code %d",
+                                WSAGetLastError());
+        return 0;
+    }
+
+    return 1;
+}
+```

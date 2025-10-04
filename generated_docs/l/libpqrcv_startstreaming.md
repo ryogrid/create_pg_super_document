@@ -52,3 +52,84 @@ The function performs version-specific feature checking, ensuring that advanced 
 - Handles both slot-based and slotless replication scenarios
 - Properly escapes publication names to prevent SQL injection in logical replication
 - Located at src/backend/replication/libpqwalreceiver/libpqwalreceiver.c:551-654
+
+## Simplified Source
+
+```c
+static bool
+libpqrcv_startstreaming(WalReceiverConn *conn, const WalRcvStreamOptions *options)
+{
+    StringInfoData cmd;
+    PGresult *res;
+
+    // Validate connection type matches options
+    Assert(options->logical == conn->logical);
+    Assert(options->slotname || !options->logical);
+
+    initStringInfo(&cmd);
+
+    // Build START_REPLICATION command
+    appendStringInfoString(&cmd, "START_REPLICATION");
+    if (options->slotname != NULL)
+        appendStringInfo(&cmd, " SLOT \"%s\"", options->slotname);
+
+    if (options->logical)
+        appendStringInfoString(&cmd, " LOGICAL");
+
+    appendStringInfo(&cmd, " %X/%X", LSN_FORMAT_ARGS(options->startpoint));
+
+    // Add replication-specific options
+    if (options->logical) {
+        // Logical replication: protocol version, streaming, two-phase, etc.
+        appendStringInfoString(&cmd, " (");
+        appendStringInfo(&cmd, "proto_version '%u'", options->proto.logical.proto_version);
+
+        if (options->proto.logical.streaming_str)
+            appendStringInfo(&cmd, ", streaming '%s'", options->proto.logical.streaming_str);
+
+        // Version-specific features
+        if (options->proto.logical.twophase && PQserverVersion(conn->streamConn) >= 150000)
+            appendStringInfoString(&cmd, ", two_phase 'on'");
+
+        if (options->proto.logical.origin && PQserverVersion(conn->streamConn) >= 160000)
+            appendStringInfo(&cmd, ", origin '%s'", options->proto.logical.origin);
+
+        // Handle publication names with proper escaping
+        char *pubnames_str = stringlist_to_identifierstr(conn->streamConn, options->proto.logical.publication_names);
+        if (!pubnames_str)
+            ereport(ERROR, (errmsg("could not start WAL streaming: %s", pchomp(PQerrorMessage(conn->streamConn)))));
+
+        char *pubnames_literal = PQescapeLiteral(conn->streamConn, pubnames_str, strlen(pubnames_str));
+        if (!pubnames_literal)
+            ereport(ERROR, (errmsg("could not start WAL streaming: %s", pchomp(PQerrorMessage(conn->streamConn)))));
+
+        appendStringInfo(&cmd, ", publication_names %s", pubnames_literal);
+        PQfreemem(pubnames_literal);
+        pfree(pubnames_str);
+
+        if (options->proto.logical.binary && PQserverVersion(conn->streamConn) >= 140000)
+            appendStringInfoString(&cmd, ", binary 'true'");
+
+        appendStringInfoChar(&cmd, ')');
+    } else {
+        // Physical replication: timeline only
+        appendStringInfo(&cmd, " TIMELINE %u", options->proto.physical.startpointTLI);
+    }
+
+    // Execute streaming command
+    res = libpqrcv_PQexec(conn->streamConn, cmd.data);
+    pfree(cmd.data);
+
+    // Handle result
+    if (PQresultStatus(res) == PGRES_COMMAND_OK) {
+        PQclear(res);
+        return false;  // No WAL available at requested point
+    } else if (PQresultStatus(res) != PGRES_COPY_BOTH) {
+        PQclear(res);
+        ereport(ERROR, (errmsg("could not start WAL streaming: %s", pchomp(PQerrorMessage(conn->streamConn)))));
+    }
+
+    PQclear(res);
+    return true;  // Successfully started streaming
+}
+```

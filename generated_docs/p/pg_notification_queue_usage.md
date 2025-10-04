@@ -34,3 +34,23 @@ This function provides a way for SQL queries to monitor the utilization of Postg
 - Queue tail advancement before measurement prevents reporting inflated usage due to unprocessed notifications
 - Returns a double-precision floating-point value representing queue utilization
 - Useful for monitoring and alerting on notification queue capacity
+
+## Simplified Source
+
+```c
+Datum
+pg_notification_queue_usage(PG_FUNCTION_ARGS)
+{
+    double usage;
+
+    // Clean up queue tail for accurate measurement
+    asyncQueueAdvanceTail();
+
+    // Get current queue usage under lock
+    LWLockAcquire(NotifyQueueLock, LW_SHARED);
+    usage = asyncQueueUsage();
+    LWLockRelease(NotifyQueueLock);
+
+    PG_RETURN_FLOAT8(usage);
+}
+```

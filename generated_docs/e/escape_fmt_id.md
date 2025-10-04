@@ -40,3 +40,20 @@ This function formats an unescaped string as a properly quoted PostgreSQL identi
 - Uses the  utility function which handles the actual identifier quoting logic
 - The  call ensures proper character encoding handling for the identifier formatting
 - Self-references in the test context suggest this function is used recursively in test scenarios
+
+## Simplified Source
+```c
+static bool
+escape_fmt_id(PGconn *conn, PQExpBuffer target,
+              const char *unescaped, size_t unescaped_len,
+              PQExpBuffer escape_err)
+{
+    /* Set encoding context for proper identifier formatting */
+    setFmtEncoding(PQclientEncoding(conn));
+
+    /* Format and append the escaped identifier */
+    appendPQExpBufferStr(target, fmtId(unescaped));
+
+    return true;  /* Always succeeds */
+}
+```

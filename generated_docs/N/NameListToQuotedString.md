@@ -39,3 +39,30 @@ The function assumes all elements in the input list are String nodes and does no
 - The function assumes all list elements are String nodes and may fail if other node types are present
 - Memory for the returned string is allocated in the current memory context
 - The output format follows PostgreSQL's standard qualified name syntax with proper identifier quoting
+
+## Simplified Source
+
+```c
+char *
+NameListToQuotedString(const List *names)
+{
+    StringInfoData string;
+    ListCell *l;
+
+    // Initialize output string buffer
+    initStringInfo(&string);
+
+    // Process each name component in the list
+    foreach(l, names)
+    {
+        // Add dot separator between components (except first)
+        if (l != list_head(names))
+            appendStringInfoChar(&string, '.');
+
+        // Quote identifier and append to string
+        appendStringInfoString(&string, quote_identifier(strVal(lfirst(l))));
+    }
+
+    return string.data;
+}
+```

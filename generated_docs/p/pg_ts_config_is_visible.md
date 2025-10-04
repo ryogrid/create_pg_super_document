@@ -37,3 +37,20 @@ The function leverages the internal  function to perform the actual visibility c
 - Located in 
 - The function uses the "Ext" variant of the visibility checker to handle missing objects gracefully
 - Similar in structure and purpose to  and  but operates on text search configurations
+
+## Simplified Source
+
+```c
+Datum pg_ts_config_is_visible(PG_FUNCTION_ARGS) {
+    Oid config_oid = PG_GETARG_OID(0);
+    bool is_missing = false;
+
+    // Check if text search configuration is visible in current search path
+    bool result = TSConfigIsVisibleExt(config_oid, &is_missing);
+
+    // Return NULL if configuration doesn't exist, otherwise return visibility status
+    if (is_missing)
+        PG_RETURN_NULL();
+    PG_RETURN_BOOL(result);
+}
+```

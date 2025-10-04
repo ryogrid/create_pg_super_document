@@ -46,3 +46,32 @@ The function uses a planstate_tree_walker to recursively process all nodes in th
 - Statistics are stored per-worker to allow the leader to understand individual worker performance
 - Part of the broader parallel query instrumentation framework that enables EXPLAIN ANALYZE to work with parallel queries
 - The recursive nature via planstate_tree_walker ensures all nodes in the execution tree are processed
+
+## Simplified Source
+
+```c
+static bool ExecParallelReportInstrumentation(PlanState *planstate,
+                                             SharedExecutorInstrumentation *instrumentation)
+{
+    // Finalize timing measurements for this node
+    InstrEndLoop(planstate->instrument);
+
+    // Find slot for this plan node in shared instrumentation array
+    int plan_node_id = planstate->plan->plan_node_id;
+    int i;
+    for (i = 0; i < instrumentation->num_plan_nodes; ++i) {
+        if (instrumentation->plan_node_id[i] == plan_node_id)
+            break;
+    }
+    if (i >= instrumentation->num_plan_nodes)
+        elog(ERROR, "plan node %d not found", plan_node_id);
+
+    // Aggregate this worker's statistics into shared memory
+    Instrumentation *instrument = GetInstrumentationArray(instrumentation);
+    instrument += i * instrumentation->num_workers;
+    InstrAggNode(&instrument[ParallelWorkerNumber], planstate->instrument);
+
+    // Recursively process child nodes
+    return planstate_tree_walker(planstate, ExecParallelReportInstrumentation, instrumentation);
+}
+```

@@ -49,3 +49,69 @@ The function includes optimization paths for different scenarios and performs in
 - Includes interrupt checking to allow cancellation during long operations
 - Part of the NFA manipulation utilities for regex compilation
 - Located in src/backend/regex/regc_nfa.c:1066-1166
+
+## Simplified Source
+
+```c
+static void
+moveouts(struct nfa *nfa, struct state *oldState, struct state *newState)
+{
+    assert(oldState != newState);
+
+    if (newState->nouts == 0) {
+        // Simple case: no duplicates to check
+        struct arc *a;
+        while ((a = oldState->outs) != NULL) {
+            createarc(nfa, a->type, a->co, newState, a->to);
+            freearc(nfa, a);
+        }
+    }
+    else if (!BULK_ARC_OP_USE_SORT(oldState->nouts, newState->nouts)) {
+        // Few arcs: process individually with duplicate checking
+        struct arc *a;
+        while ((a = oldState->outs) != NULL) {
+            cparc(nfa, a, newState, a->to);
+            freearc(nfa, a);
+        }
+    }
+    else {
+        // Many arcs: use efficient sort-merge approach
+        INTERRUPT(nfa->v->re);
+
+        sortouts(nfa, oldState);
+        sortouts(nfa, newState);
+        if (NISERR()) return;
+
+        struct arc *oa = oldState->outs;
+        struct arc *na = newState->outs;
+
+        // Merge sorted arc lists, eliminating duplicates
+        while (oa != NULL && na != NULL) {
+            struct arc *a = oa;
+            switch (sortouts_cmp(&oa, &na)) {
+                case -1:  // unique arc, move it
+                    oa = oa->outchain;
+                    changearcsource(a, newState);
+                    break;
+                case 0:   // duplicate, skip it
+                    oa = oa->outchain;
+                    na = na->outchain;
+                    freearc(nfa, a);
+                    break;
+                case +1:  // advance newState list
+                    na = na->outchain;
+                    break;
+            }
+        }
+
+        // Move remaining unique arcs
+        while (oa != NULL) {
+            struct arc *a = oa;
+            oa = oa->outchain;
+            changearcsource(a, newState);
+        }
+    }
+
+    assert(oldState->nouts == 0 && oldState->outs == NULL);
+}
+```

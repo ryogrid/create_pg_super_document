@@ -36,3 +36,38 @@ This function recursively traverses the NFA starting from state s, creating dupl
 
 ## Notes and Other Information
 The function implements stack overflow protection using STACK_TOO_DEEP macro since it's recursive and could potentially exhaust the call stack on deeply nested NFA structures. It carefully manages error states using NISERR checks throughout the traversal. The tmp pointer serves as both a visited marker and a reference to the duplicate state, which is a clever space-efficient design pattern used throughout the NFA duplication process.
+
+## Simplified Source
+
+```c
+static void
+duptraverse(struct nfa *nfa, struct state *s, struct state *stmp)
+{
+    // Guard against stack overflow in recursive calls
+    if (STACK_TOO_DEEP(nfa->v->re)) {
+        NERR(REG_ETOOBIG);
+        return;
+    }
+
+    // Skip if already processed
+    if (s->tmp != NULL) return;
+
+    // Create duplicate state or use provided one
+    s->tmp = (stmp == NULL) ? newstate(nfa) : stmp;
+    if (s->tmp == NULL) {
+        assert(NISERR());
+        return;
+    }
+
+    // Duplicate all outgoing arcs
+    for (struct arc *a = s->outs; a != NULL && !NISERR(); a = a->outchain) {
+        // Recursively duplicate destination state
+        duptraverse(nfa, a->to, NULL);
+        if (NISERR()) break;
+
+        // Copy arc to connect duplicate states
+        assert(a->to->tmp != NULL);
+        cparc(nfa, a, s->tmp, a->to->tmp);
+    }
+}
+```

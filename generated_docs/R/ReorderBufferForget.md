@@ -39,3 +39,30 @@ The function should only be called at the moment a transaction commit has been r
 - Processes cache invalidations even for uninteresting transactions if they have a base snapshot
 - Different from ReorderBufferAbort() due to the committed nature of these transactions
 - Ensures catalog cache consistency by processing invalidation messages from catalog-modifying transactions
+
+## Simplified Source
+
+```c
+void ReorderBufferForget(ReorderBuffer *rb, TransactionId xid, XLogRecPtr lsn)
+{
+    ReorderBufferTXN *txn;
+
+    // Find the transaction by XID
+    txn = ReorderBufferTXNByXid(rb, xid, false, NULL, InvalidXLogRecPtr, false);
+
+    // Nothing to forget if transaction doesn't exist
+    if (txn == NULL)
+        return;
+
+    // Record the final LSN
+    txn->final_lsn = lsn;
+
+    // Process catalog invalidations if transaction has base snapshot and invalidations
+    // This is crucial even for uninteresting transactions that modified catalog
+    if (txn->base_snapshot != NULL && txn->ninvalidations > 0)
+        ReorderBufferImmediateInvalidation(rb, txn->ninvalidations, txn->invalidations);
+
+    // Clean up transaction data
+    ReorderBufferCleanupTXN(rb, txn);
+}
+```

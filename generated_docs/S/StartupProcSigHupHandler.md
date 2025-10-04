@@ -31,3 +31,17 @@ The handler follows PostgreSQL's standard pattern for signal handling - it perfo
 - Must be signal-safe and minimal to avoid race conditions and reentrancy issues
 - Part of PostgreSQL's dynamic configuration management system during recovery operations
 - The actual configuration file parsing and application happens asynchronously in the main process loop
+
+## Simplified Source
+
+```c
+static void
+StartupProcSigHupHandler(SIGNAL_ARGS)
+{
+    // Set flag to reload configuration at next convenient time
+    got_SIGHUP = true;
+
+    // Wake up recovery process to handle config reload
+    WakeupRecovery();
+}
+```

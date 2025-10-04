@@ -67,3 +67,18 @@ The function performs a simple hash table lookup and returns immediately if no u
 - The uncommitted_enum_values hash table is managed globally and persists for the duration of a transaction
 - Used to prevent unsafe operations on enum values that haven't been committed yet, ensuring transaction isolation
 - Critical for maintaining consistency when enum values are created and used within the same transaction
+
+## Simplified Source
+```c
+bool EnumUncommitted(Oid enum_id) {
+    bool found;
+
+    // No uncommitted values table exists
+    if (uncommitted_enum_values == NULL)
+        return false;
+
+    // Check if enum value is in the uncommitted table
+    hash_search(uncommitted_enum_values, &enum_id, HASH_FIND, &found);
+    return found;
+}
+```

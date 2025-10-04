@@ -45,3 +45,33 @@ This is essential for maintaining consistency in logical replication by ensuring
 - Creates and manages snapshot reference counts to ensure proper memory management
 - Critical for logical replication consistency by filtering out incomplete transaction information
 - Part of the logical decoding infrastructure that enables features like logical replication slots
+
+## Simplified Source
+
+```c
+bool SnapBuildProcessChange(SnapBuild *builder, TransactionId xid, XLogRecPtr lsn) {
+    // Can't handle data without a snapshot - too early
+    if (builder->state < SNAPBUILD_FULL_SNAPSHOT)
+        return false;
+
+    // Skip transactions that started before we had enough info to decode
+    if (builder->state < SNAPBUILD_CONSISTENT &&
+        TransactionIdPrecedes(xid, builder->next_phase_at))
+        return false;
+
+    // Ensure transaction has a base snapshot for decoding
+    if (!ReorderBufferXidHasBaseSnapshot(builder->reorder, xid)) {
+        // Create snapshot if needed
+        if (builder->snapshot == NULL) {
+            builder->snapshot = SnapBuildBuildSnapshot(builder);
+            SnapBuildSnapIncRefcount(builder->snapshot);
+        }
+
+        // Give snapshot to transaction
+        SnapBuildSnapIncRefcount(builder->snapshot);
+        ReorderBufferSetBaseSnapshot(builder->reorder, xid, lsn, builder->snapshot);
+    }
+
+    return true;  // Change can be decoded
+}
+```

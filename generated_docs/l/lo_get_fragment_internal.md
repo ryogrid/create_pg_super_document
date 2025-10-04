@@ -61,3 +61,45 @@ The function handles edge cases like reading beyond the object end, zero-length 
 - Enforces PostgreSQL's maximum allocation size limit to prevent excessive memory usage
 - Returns a properly formatted bytea with VARHDRSZ header for PostgreSQL's variable-length data types
 - Opens and closes the large object within the same function call, ensuring resource cleanup even on errors
+
+## Simplified Source
+
+```c
+static bytea *lo_get_fragment_internal(Oid loOid, int64 offset, int32 nbytes) {
+    LargeObjectDesc *loDesc;
+    int64 loSize, result_length;
+    int total_read;
+    bytea *result = NULL;
+
+    // Open large object and determine its size
+    lo_cleanup_needed = true;
+    loDesc = inv_open(loOid, INV_READ, CurrentMemoryContext);
+    loSize = inv_seek(loDesc, 0, SEEK_END);
+
+    // Calculate actual read length considering bounds
+    if (loSize > offset) {
+        if (nbytes >= 0 && nbytes <= loSize - offset)
+            result_length = nbytes;      // Request within bounds
+        else
+            result_length = loSize - offset;  // Adjust to end of LO
+    } else {
+        result_length = 0;              // Request outside LO
+    }
+
+    // Check size limits and allocate result buffer
+    if (result_length > MaxAllocSize - VARHDRSZ)
+        ereport(ERROR, (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                errmsg("large object read request is too large")));
+
+    result = (bytea *) palloc(VARHDRSZ + result_length);
+
+    // Read data from large object
+    inv_seek(loDesc, offset, SEEK_SET);
+    total_read = inv_read(loDesc, VARDATA(result), result_length);
+    Assert(total_read == result_length);
+    SET_VARSIZE(result, result_length + VARHDRSZ);
+
+    inv_close(loDesc);
+    return result;
+}
+```

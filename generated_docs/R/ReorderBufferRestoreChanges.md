@@ -45,3 +45,93 @@ The function works within memory limits (max_changes_in_memory) and processes ch
 - Error handling includes comprehensive file I/O error reporting
 - The function respects the max_changes_in_memory limit to prevent excessive memory usage
 - Changes are read in their serialized ReorderBufferDiskChange format and then converted back to in-memory format
+
+## Simplified Source
+
+```c
+static Size
+ReorderBufferRestoreChanges(ReorderBuffer *rb, ReorderBufferTXN *txn,
+                            TXNEntryFile *file, XLogSegNo *segno)
+{
+    Size restored = 0;
+    XLogSegNo last_segno;
+    dlist_mutable_iter cleanup_iter;
+    File *fd = &file->vfd;
+
+    Assert(txn->first_lsn != InvalidXLogRecPtr);
+    Assert(txn->final_lsn != InvalidXLogRecPtr);
+
+    // Free current entries to make room for restored ones
+    dlist_foreach_modify(cleanup_iter, &txn->changes)
+    {
+        ReorderBufferChange *cleanup = dlist_container(ReorderBufferChange, node, cleanup_iter.cur);
+        dlist_delete(&cleanup->node);
+        ReorderBufferReturnChange(rb, cleanup, true);
+    }
+    txn->nentries_mem = 0;
+
+    XLByteToSeg(txn->final_lsn, last_segno, wal_segment_size);
+
+    // Read changes from disk until memory limit or end of segments
+    while (restored < max_changes_in_memory && *segno <= last_segno)
+    {
+        ReorderBufferDiskChange *ondisk;
+        int readBytes;
+
+        CHECK_FOR_INTERRUPTS();
+
+        // Open new segment file if needed
+        if (*fd == -1)
+        {
+            char path[MAXPGPATH];
+
+            if (*segno == 0)
+                XLByteToSeg(txn->first_lsn, *segno, wal_segment_size);
+
+            ReorderBufferSerializedPath(path, MyReplicationSlot, txn->xid, *segno);
+            *fd = PathNameOpenFile(path, O_RDONLY | PG_BINARY);
+            file->curOffset = 0;
+
+            if (*fd < 0 && errno == ENOENT)
+            {
+                *fd = -1;
+                (*segno)++;
+                continue;
+            }
+        }
+
+        // Read change header
+        ReorderBufferSerializeReserve(rb, sizeof(ReorderBufferDiskChange));
+        readBytes = FileRead(file->vfd, rb->outbuf, sizeof(ReorderBufferDiskChange),
+                             file->curOffset, WAIT_EVENT_REORDER_BUFFER_READ);
+
+        if (readBytes == 0)
+        {
+            // End of file - move to next segment
+            FileClose(*fd);
+            *fd = -1;
+            (*segno)++;
+            continue;
+        }
+
+        file->curOffset += readBytes;
+        ondisk = (ReorderBufferDiskChange *) rb->outbuf;
+
+        // Read the full change data
+        ReorderBufferSerializeReserve(rb, sizeof(ReorderBufferDiskChange) + ondisk->size);
+        ondisk = (ReorderBufferDiskChange *) rb->outbuf;
+
+        readBytes = FileRead(file->vfd, rb->outbuf + sizeof(ReorderBufferDiskChange),
+                             ondisk->size - sizeof(ReorderBufferDiskChange),
+                             file->curOffset, WAIT_EVENT_REORDER_BUFFER_READ);
+
+        file->curOffset += readBytes;
+
+        // Restore the change to in-memory format
+        ReorderBufferRestoreChange(rb, txn, rb->outbuf);
+        restored++;
+    }
+
+    return restored;
+}
+```

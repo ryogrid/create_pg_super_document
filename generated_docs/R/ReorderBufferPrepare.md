@@ -30,3 +30,34 @@ ReorderBufferPrepare handles the prepare phase of a two-phase commit transaction
 
 ## Notes and Other Information
 This function is a key component of two-phase commit support in PostgreSQL logical replication. It relies on prepare information being previously stored by ReorderBufferRememberPrepareInfo and uses pstrdup to create a persistent copy of the GID. The special handling for concurrent_abort cases ensures that downstream subscribers receive prepare messages even for transactions that will ultimately be rolled back, enabling proper cleanup of prepared transactions.
+
+## Simplified Source
+
+```c
+void ReorderBufferPrepare(ReorderBuffer *rb, TransactionId xid, char *gid)
+{
+    ReorderBufferTXN *txn;
+
+    // Look up transaction by XID
+    txn = ReorderBufferTXNByXid(rb, xid, false, NULL, InvalidXLogRecPtr, false);
+
+    // Skip unknown transactions
+    if (txn == NULL)
+        return;
+
+    // Mark transaction as prepared and store GID
+    txn->txn_flags |= RBTXN_PREPARE;
+    txn->gid = pstrdup(gid);
+
+    // Verify prepare info was previously set
+    Assert(txn->final_lsn != InvalidXLogRecPtr);
+
+    // Replay transaction changes using stored prepare info
+    ReorderBufferReplay(txn, rb, xid, txn->final_lsn, txn->end_lsn,
+                       txn->xact_time.prepare_time, txn->origin_id, txn->origin_lsn);
+
+    // Send prepare message for concurrently aborted non-streamed transactions
+    if (txn->concurrent_abort && !rbtxn_is_streamed(txn))
+        rb->prepare(rb, txn, txn->final_lsn);
+}
+```

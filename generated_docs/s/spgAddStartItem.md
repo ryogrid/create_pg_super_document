@@ -38,3 +38,31 @@ The function establishes the foundation for the search by creating an inner node
 - Essential for establishing the starting conditions for both regular and NULL-inclusive searches
 - The created item becomes the first element in the search queue, driving subsequent tree traversal
 - All traversal-specific fields are initialized to NULL/false for safety
+
+## Simplified Source
+
+```c
+static void
+spgAddStartItem(SpGistScanOpaque so, bool isnull)
+{
+    // Create and initialize new search item
+    SpGistSearchItem *startEntry = spgAllocSearchItem(so, isnull, so->zeroDistances);
+
+    // Set block pointer (root or NULL partition)
+    ItemPointerSet(&startEntry->heapPtr,
+                   isnull ? SPGIST_NULL_BLKNO : SPGIST_ROOT_BLKNO,
+                   FirstOffsetNumber);
+
+    // Initialize fields for tree entry point
+    startEntry->isLeaf = false;
+    startEntry->level = 0;
+    startEntry->value = (Datum) 0;
+    startEntry->leafTuple = NULL;
+    startEntry->traversalValue = NULL;
+    startEntry->recheck = false;
+    startEntry->recheckDistances = false;
+
+    // Add to search queue
+    spgAddSearchItemToQueue(so, startEntry);
+}
+```

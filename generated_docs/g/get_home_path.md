@@ -34,3 +34,27 @@ The function is designed to provide a consistent interface for obtaining a user-
 - On Windows, creates a PostgreSQL-specific subdirectory in the application data folder
 - The function uses  on Windows instead of more modern APIs to avoid linking dependencies that would consume desktop heap memory
 - The ret_path buffer must be at least MAXPGPATH bytes in size to accommodate the full path
+
+## Simplified Source
+
+```c
+bool get_home_path(char *ret_path) {
+#ifndef WIN32
+    // Unix/Linux: Check HOME environment variable first
+    const char *home = getenv("HOME");
+    if (home == NULL || home[0] == '\0')
+        return pg_get_user_home_dir(geteuid(), ret_path, MAXPGPATH);
+
+    strlcpy(ret_path, home, MAXPGPATH);
+    return true;
+#else
+    // Windows: Use APPDATA directory with PostgreSQL subdirectory
+    char *tmppath = getenv("APPDATA");
+    if (!tmppath)
+        return false;
+
+    snprintf(ret_path, MAXPGPATH, "%s/postgresql", tmppath);
+    return true;
+#endif
+}
+```

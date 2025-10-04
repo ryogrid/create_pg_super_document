@@ -30,3 +30,13 @@ The function is particularly important because recovery mode might have complete
 - The function simply returns a boolean flag from the current transaction state
 - This check is essential for maintaining consistency in transaction behavior across recovery state transitions
 - Used to ensure that certain operations are handled appropriately based on whether they were initiated during recovery
+
+## Simplified Source
+
+```c
+bool
+TransactionStartedDuringRecovery(void)
+{
+    return CurrentTransactionState->startedInRecovery;
+}
+```

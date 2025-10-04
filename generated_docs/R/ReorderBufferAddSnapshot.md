@@ -35,3 +35,21 @@ The function allocates a new ReorderBufferChange structure, sets it up as an int
 - This function is crucial for maintaining correct catalog visibility during logical decoding when catalog changes occur
 - The snapshot will only be used for processing rows that come after the specified LSN
 - The change is queued with `false` as the last parameter to ReorderBufferQueueChange, indicating this is not a top-level change
+
+## Simplified Source
+
+```c
+void ReorderBufferAddSnapshot(ReorderBuffer *rb, TransactionId xid,
+                             XLogRecPtr lsn, Snapshot snap)
+{
+    // Allocate a new change structure
+    ReorderBufferChange *change = ReorderBufferGetChange(rb);
+
+    // Set up the change as an internal snapshot change
+    change->data.snapshot = snap;
+    change->action = REORDER_BUFFER_CHANGE_INTERNAL_SNAPSHOT;
+
+    // Queue the change to be processed at the appropriate LSN
+    ReorderBufferQueueChange(rb, xid, lsn, change, false);
+}
+```

@@ -45,3 +45,39 @@ This function computes the total space needed for a leaf tuple in an SP-GiST ind
 - The compatibility logic for single-attribute tuples maintains backward compatibility with PostgreSQL versions prior to v14
 - The minimum size constraint (SGDTSIZE) is a safety measure to enable tuple replacement operations
 - The calculation follows heap tuple conventions for data layout, making SP-GiST leaf tuples similar to regular heap tuples in their data organization
+
+## Simplified Source
+
+```c
+Size SpGistGetLeafTupleSize(TupleDesc tupleDescriptor,
+                           const Datum *datums, const bool *isnulls) {
+    Size size, data_size;
+    bool needs_null_mask = false;
+    int natts = tupleDescriptor->natts;
+
+    // Determine if we need a null bitmap
+    // For compatibility: single attributes (natts == 1) never use null mask
+    if (natts > 1) {
+        for (int i = 0; i < natts; i++) {
+            if (isnulls[i]) {
+                needs_null_mask = true;
+                break;
+            }
+        }
+    }
+
+    // Calculate data storage size (same as heap tuples)
+    data_size = heap_compute_data_size(tupleDescriptor, datums, isnulls);
+
+    // Calculate total size: header + data, properly aligned
+    size = SGLTHDRSZ(needs_null_mask);
+    size += data_size;
+    size = MAXALIGN(size);
+
+    // Ensure minimum size for dead tuple replacement
+    if (size < SGDTSIZE)
+        size = SGDTSIZE;
+
+    return size;
+}
+```

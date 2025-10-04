@@ -38,3 +38,50 @@ The most critical case handled is XLOG_DBASE_CREATE_FILE_COPY, which can create 
 - Critical for preventing incremental backup corruption in scenarios involving database recreation
 - For XLOG_DBASE_DROP, iterates through all affected tablespaces to mark them appropriately
 - This special handling ensures that incremental backups remain consistent even when databases are dropped and recreated between backup operations
+
+## Simplified Source
+
+```c
+static void SummarizeDbaseRecord(XLogReaderState *xlogreader, BlockRefTable *brtab)
+{
+    uint8 info = XLogRecGetInfo(xlogreader) & ~XLR_INFO_MASK;
+
+    // Handle database creation via file copy
+    if (info == XLOG_DBASE_CREATE_FILE_COPY) {
+        xl_dbase_create_file_copy_rec *xlrec =
+            (xl_dbase_create_file_copy_rec *) XLogRecGetData(xlogreader);
+
+        // Mark entire database/tablespace combination for full backup
+        RelFileLocator rlocator;
+        rlocator.spcOid = xlrec->tablespace_id;
+        rlocator.dbOid = xlrec->db_id;
+        rlocator.relNumber = 0;  // Special marker for entire DB/TS combination
+        BlockRefTableSetLimitBlock(brtab, &rlocator, MAIN_FORKNUM, 0);
+    }
+    // Handle database creation via WAL logging
+    else if (info == XLOG_DBASE_CREATE_WAL_LOG) {
+        xl_dbase_create_wal_log_rec *xlrec =
+            (xl_dbase_create_wal_log_rec *) XLogRecGetData(xlogreader);
+
+        RelFileLocator rlocator;
+        rlocator.spcOid = xlrec->tablespace_id;
+        rlocator.dbOid = xlrec->db_id;
+        rlocator.relNumber = 0;
+        BlockRefTableSetLimitBlock(brtab, &rlocator, MAIN_FORKNUM, 0);
+    }
+    // Handle database drop
+    else if (info == XLOG_DBASE_DROP) {
+        xl_dbase_drop_rec *xlrec = (xl_dbase_drop_rec *) XLogRecGetData(xlogreader);
+
+        RelFileLocator rlocator;
+        rlocator.dbOid = xlrec->db_id;
+        rlocator.relNumber = 0;
+
+        // Mark all affected tablespaces for this database
+        for (int i = 0; i < xlrec->ntablespaces; ++i) {
+            rlocator.spcOid = xlrec->tablespace_ids[i];
+            BlockRefTableSetLimitBlock(brtab, &rlocator, MAIN_FORKNUM, 0);
+        }
+    }
+}
+```

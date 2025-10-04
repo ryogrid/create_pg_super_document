@@ -48,3 +48,37 @@ This functionality is particularly valuable for backup and recovery strategies, 
 - Created restore points can be used with recovery_target_name in postgresql.conf for point-in-time recovery
 - Part of PostgreSQL's backup and recovery infrastructure located in src/backend/access/transam/xlogfuncs.c:232-272
 - Extremely useful for creating named recovery targets in complex backup and disaster recovery strategies
+
+## Simplified Source
+
+```c
+Datum
+pg_create_restore_point(PG_FUNCTION_ARGS)
+{
+    text *restore_name = PG_GETARG_TEXT_PP(0);
+    char *restore_name_str;
+    XLogRecPtr restorepoint;
+
+    // Cannot run during recovery (on standby servers)
+    if (RecoveryInProgress())
+        ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                       errmsg("recovery is in progress")));
+
+    // Requires WAL level >= replica for restore points
+    if (!XLogIsNeeded())
+        ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                       errmsg("WAL level not sufficient for creating a restore point")));
+
+    // Convert text parameter to C string and validate length
+    restore_name_str = text_to_cstring(restore_name);
+    if (strlen(restore_name_str) >= MAXFNAMELEN)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("value too long for restore point (maximum %d characters)", MAXFNAMELEN - 1)));
+
+    // Create the named restore point in WAL
+    restorepoint = XLogRestorePoint(restore_name_str);
+
+    // Return WAL location where restore point was logged
+    PG_RETURN_LSN(restorepoint);
+}
+```

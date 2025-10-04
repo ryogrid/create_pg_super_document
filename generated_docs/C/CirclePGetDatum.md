@@ -35,3 +35,14 @@ The function is essential for returning CIRCLE values from PostgreSQL functions 
 - Used primarily in function return operations and GiST indexing contexts
 - The CIRCLE struct being converted contains a center point (Point) and radius (float8)
 - Essential for the fmgr (function manager) interface when returning CIRCLE values from C functions
+
+## Simplified Source
+
+```c
+static inline Datum
+CirclePGetDatum(const CIRCLE *X)
+{
+    // Convert circle pointer to Datum for PostgreSQL's type system
+    return PointerGetDatum(X);
+}
+```

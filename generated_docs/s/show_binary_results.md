@@ -48,3 +48,47 @@ The function demonstrates best practices for handling binary query results, incl
 - The function assumes the result set contains exactly three fields named 'i', 't', and 'b'
 - Uses octal escape sequences to safely display binary data that might contain non-printable characters
 - Serves as a reference implementation for applications that need to handle binary-format results efficiently
+
+## Simplified Source
+
+```c
+static void
+show_binary_results(PGresult *res)
+{
+    int i, j;
+    int i_fnum, t_fnum, b_fnum;
+
+    // Get field numbers by name to avoid order dependencies
+    i_fnum = PQfnumber(res, "i");
+    t_fnum = PQfnumber(res, "t");
+    b_fnum = PQfnumber(res, "b");
+
+    // Process each tuple/row
+    for (i = 0; i < PQntuples(res); i++) {
+        char *iptr, *tptr, *bptr;
+        int blen, ival;
+
+        // Get field values
+        iptr = PQgetvalue(res, i, i_fnum);
+        tptr = PQgetvalue(res, i, t_fnum);
+        bptr = PQgetvalue(res, i, b_fnum);
+
+        // Convert integer from network byte order
+        ival = ntohl(*((uint32_t *) iptr));
+
+        // Get binary field length (may contain nulls)
+        blen = PQgetlength(res, i, b_fnum);
+
+        // Display the results
+        printf("tuple %d: got\n", i);
+        printf(" i = (%d bytes) %d\n", PQgetlength(res, i, i_fnum), ival);
+        printf(" t = (%d bytes) '%s'\n", PQgetlength(res, i, t_fnum), tptr);
+        printf(" b = (%d bytes) ", blen);
+
+        // Print binary data as octal escapes
+        for (j = 0; j < blen; j++)
+            printf("\\%03o", bptr[j]);
+        printf("\n\n");
+    }
+}
+```

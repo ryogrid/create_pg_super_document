@@ -56,3 +56,51 @@ The function uses InvalidSnapshot for both snapshot parameters and fires trigger
 - Validates that argument arrays are provided when nargs > 0
 - The created plan is temporary and not reusable - use SPI_prepare for reusable plans
 - Uses InvalidSnapshot for both regular and crosscheck snapshots, resulting in default snapshot behavior
+
+## Simplified Source
+
+```c
+int SPI_execute_with_args(const char *src, int nargs, Oid *argtypes,
+                          Datum *Values, const char *Nulls,
+                          bool read_only, long tcount) {
+    int res;
+    _SPI_plan plan;
+    ParamListInfo paramLI;
+    SPIExecuteOptions options;
+
+    // Validate input arguments
+    if (src == NULL || nargs < 0 || tcount < 0)
+        return SPI_ERROR_ARGUMENT;
+    if (nargs > 0 && (argtypes == NULL || Values == NULL))
+        return SPI_ERROR_PARAM;
+
+    // Begin SPI execution context
+    res = _SPI_begin_call(true);
+    if (res < 0)
+        return res;
+
+    // Initialize temporary plan structure
+    memset(&plan, 0, sizeof(_SPI_plan));
+    plan.magic = _SPI_PLAN_MAGIC;
+    plan.parse_mode = RAW_PARSE_DEFAULT;
+    plan.cursor_options = CURSOR_OPT_PARALLEL_OK;
+    plan.nargs = nargs;
+    plan.argtypes = argtypes;
+
+    // Convert parameters and prepare one-shot plan
+    paramLI = _SPI_convert_params(nargs, argtypes, Values, Nulls);
+    _SPI_prepare_oneshot_plan(src, &plan);
+
+    // Set up execution options and execute plan
+    memset(&options, 0, sizeof(options));
+    options.params = paramLI;
+    options.read_only = read_only;
+    options.tcount = tcount;
+
+    res = _SPI_execute_plan(&plan, &options, InvalidSnapshot, InvalidSnapshot, true);
+
+    // Clean up and return result
+    _SPI_end_call(true);
+    return res;
+}
+```

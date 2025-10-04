@@ -48,3 +48,77 @@ The function includes sophisticated memory management, deferring cleanup of chan
 - Handles both the common case of in-memory changes and the complex case of disk-based serialized changes
 - Essential component of PostgreSQLs logical replication change ordering mechanism
 - Memory management ensures proper cleanup while avoiding premature deallocation during record reuse
+
+## Simplified Source
+
+```c
+static ReorderBufferChange *
+ReorderBufferIterTXNNext(ReorderBuffer *rb, ReorderBufferIterTXNState *state)
+{
+    ReorderBufferChange *change;
+    ReorderBufferIterTXNEntry *entry;
+    int32 off;
+
+    // No more changes available
+    if (state->heap->bh_size == 0)
+        return NULL;
+
+    // Get the transaction entry with the lowest LSN
+    off = DatumGetInt32(binaryheap_first(state->heap));
+    entry = &state->entries[off];
+
+    // Clean up change from previous iteration
+    if (!dlist_is_empty(&state->old_change))
+    {
+        change = dlist_container(ReorderBufferChange, node,
+                                 dlist_pop_head_node(&state->old_change));
+        ReorderBufferReturnChange(rb, change, true);
+    }
+
+    change = entry->change;
+
+    // Check if there are more in-memory changes in this transaction
+    if (dlist_has_next(&entry->txn->changes, &entry->change->node))
+    {
+        dlist_node *next = dlist_next_node(&entry->txn->changes, &change->node);
+        ReorderBufferChange *next_change = dlist_container(ReorderBufferChange, node, next);
+
+        // Update heap entry with next change from same transaction
+        state->entries[off].lsn = next_change->lsn;
+        state->entries[off].change = next_change;
+        binaryheap_replace_first(state->heap, Int32GetDatum(off));
+
+        return change;
+    }
+
+    // Try to load more changes from disk if available
+    if (entry->txn->nentries != entry->txn->nentries_mem)
+    {
+        // Move current change to cleanup list to avoid reuse issues
+        dlist_delete(&change->node);
+        dlist_push_tail(&state->old_change, &change->node);
+
+        // Update total bytes processed
+        rb->totalBytes += entry->txn->size;
+
+        // Attempt to restore changes from disk
+        if (ReorderBufferRestoreChanges(rb, entry->txn, &entry->file,
+                                        &state->entries[off].segno))
+        {
+            // Successfully restored - update heap with first restored change
+            ReorderBufferChange *next_change =
+                dlist_head_element(ReorderBufferChange, node, &entry->txn->changes);
+
+            state->entries[off].lsn = next_change->lsn;
+            state->entries[off].change = next_change;
+            binaryheap_replace_first(state->heap, Int32GetDatum(off));
+
+            return change;
+        }
+    }
+
+    // No more changes for this transaction - remove from heap
+    binaryheap_remove_first(state->heap);
+    return change;
+}
+```

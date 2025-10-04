@@ -35,3 +35,13 @@ The function is designed to be part of PostgreSQL's runtime-optimizable bit mani
 - This function is particularly useful for operations on large bitmap structures, vacuum operations, and other PostgreSQL internals that need to count bits across substantial data blocks
 - The function is part of PostgreSQL's portable bit manipulation library in src/port/pg_bitutils.c
 - Returns a 64-bit result to accommodate potentially large bit counts from substantial buffer sizes
+
+## Simplified Source
+
+```c
+uint64 pg_popcount_optimized(const char *buf, int bytes)
+{
+    // Direct delegation to the actual implementation
+    return pg_popcount_slow(buf, bytes);
+}
+```

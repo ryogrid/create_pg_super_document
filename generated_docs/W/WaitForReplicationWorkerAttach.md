@@ -46,3 +46,59 @@ To avoid indefinite blocking, the function uses WaitLatch with a timeout, checki
 - Performs generation-based validation to ensure cleanup operations target the correct worker instance
 - Essential for preventing shared memory leaks when workers fail during startup
 - The function is critical for the launcher's ability to detect and clean up failed worker launches promptly
+
+## Simplified Source
+
+```c
+static bool WaitForReplicationWorkerAttach(LogicalRepWorker *worker,
+                                           uint16 generation,
+                                           BackgroundWorkerHandle *handle)
+{
+    bool result = false;
+    bool dropped_latch = false;
+
+    for (;;) {
+        BgwHandleStatus status;
+        pid_t pid;
+        int rc;
+
+        CHECK_FOR_INTERRUPTS();
+
+        // Check if worker has attached or died
+        LWLockAcquire(LogicalRepWorkerLock, LW_SHARED);
+        if (!worker->in_use || worker->proc) {
+            result = worker->in_use;  // true if attached, false if died
+            LWLockRelease(LogicalRepWorkerLock);
+            break;
+        }
+        LWLockRelease(LogicalRepWorkerLock);
+
+        // Check if background worker process has died
+        status = GetBackgroundWorkerPid(handle, &pid);
+        if (status == BGWH_STOPPED) {
+            // Clean up failed worker
+            LWLockAcquire(LogicalRepWorkerLock, LW_EXCLUSIVE);
+            if (generation == worker->generation)
+                logicalrep_worker_cleanup(worker);
+            LWLockRelease(LogicalRepWorkerLock);
+            break;  // result remains false
+        }
+
+        // Wait with 10ms timeout for worker attach
+        rc = WaitLatch(MyLatch, WL_LATCH_SET | WL_TIMEOUT | WL_EXIT_ON_PM_DEATH,
+                       10L, WAIT_EVENT_BGWORKER_STARTUP);
+
+        if (rc & WL_LATCH_SET) {
+            ResetLatch(MyLatch);
+            CHECK_FOR_INTERRUPTS();
+            dropped_latch = true;
+        }
+    }
+
+    // Restore latch if we cleared it during waiting
+    if (dropped_latch)
+        SetLatch(MyLatch);
+
+    return result;
+}
+```

@@ -29,3 +29,23 @@ This function initializes a parallel worker process that will participate in a f
 - The coordination memory must have been previously set up by ExecForeignScanInitializeDSM in the leader process
 - Part of PostgreSQL's parallel query execution framework for worker process setup
 - Located in src/backend/executor/nodeForeignscan.c:418-440
+
+## Simplified Source
+
+```c
+void ExecForeignScanInitializeWorker(ForeignScanState *node,
+                                    ParallelWorkerContext *pwcxt) {
+    FdwRoutine *fdwroutine = node->fdwroutine;
+
+    // Only initialize if FDW supports parallel workers
+    if (fdwroutine->InitializeWorkerForeignScan) {
+        int plan_node_id = node->ss.ps.plan->plan_node_id;
+
+        // Look up shared coordination data from leader
+        void *coordinate = shm_toc_lookup(pwcxt->toc, plan_node_id, false);
+
+        // Call FDW-specific worker initialization
+        fdwroutine->InitializeWorkerForeignScan(node, pwcxt->toc, coordinate);
+    }
+}
+```

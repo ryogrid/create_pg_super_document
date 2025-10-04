@@ -49,6 +49,88 @@ The function handles both initial calls (no existing context) and continuation c
 - Supports zero-length final tokens when negotiation completes but no data needs transmission
 - Validates that SSPI returns exactly one output buffer (expected for Kerberos/NTLM)
 - Sets  when authentication completes successfully
-- Memory cleanup for SSPI context is handled by 
+- Memory cleanup for SSPI context is handled by
 - Returns STATUS_OK on success, STATUS_ERROR on failure
 - Uses  packet type for compatibility with server expectations
+
+## Simplified Source
+
+```c
+static int pg_SSPI_continue(PGconn *conn, int payloadlen) {
+    SECURITY_STATUS r;
+    CtxtHandle newContext;
+    ULONG contextAttr;
+    SecBufferDesc inbuf;
+    SecBufferDesc outbuf;
+    SecBuffer OutBuffers[1];
+    SecBuffer InBuffers[1];
+    char *inputbuf = NULL;
+
+    // Read input token from server (if continuing authentication)
+    if (conn->sspictx != NULL) {
+        inputbuf = malloc(payloadlen);
+        if (!inputbuf) {
+            libpq_append_conn_error(conn, "out of memory allocating SSPI buffer (%d)", payloadlen);
+            return STATUS_ERROR;
+        }
+        if (pqGetnchar(inputbuf, payloadlen, conn)) {
+            free(inputbuf);
+            return STATUS_ERROR;
+        }
+
+        // Setup input SecBuffer structure
+        inbuf.ulVersion = SECBUFFER_VERSION;
+        inbuf.cBuffers = 1;
+        inbuf.pBuffers = InBuffers;
+        InBuffers[0].pvBuffer = inputbuf;
+        InBuffers[0].cbBuffer = payloadlen;
+        InBuffers[0].BufferType = SECBUFFER_TOKEN;
+    }
+
+    // Setup output SecBuffer structure
+    OutBuffers[0].pvBuffer = NULL;
+    OutBuffers[0].BufferType = SECBUFFER_TOKEN;
+    OutBuffers[0].cbBuffer = 0;
+    outbuf.cBuffers = 1;
+    outbuf.pBuffers = OutBuffers;
+    outbuf.ulVersion = SECBUFFER_VERSION;
+
+    // Perform SSPI authentication step
+    r = InitializeSecurityContext(conn->sspicred, conn->sspictx, conn->sspitarget,
+                                  ISC_REQ_ALLOCATE_MEMORY, 0, SECURITY_NETWORK_DREP,
+                                  (conn->sspictx == NULL) ? NULL : &inbuf, 0,
+                                  &newContext, &outbuf, &contextAttr, NULL);
+
+    free(inputbuf);
+
+    if (r != SEC_E_OK && r != SEC_I_CONTINUE_NEEDED) {
+        pg_SSPI_error(conn, libpq_gettext("SSPI continuation error"), r);
+        return STATUS_ERROR;
+    }
+
+    // Save context handle on first call
+    if (conn->sspictx == NULL) {
+        conn->sspictx = malloc(sizeof(CtxtHandle));
+        if (conn->sspictx == NULL) {
+            libpq_append_conn_error(conn, "out of memory");
+            return STATUS_ERROR;
+        }
+        memcpy(conn->sspictx, &newContext, sizeof(CtxtHandle));
+    }
+
+    // Send response token to server if generated
+    if (outbuf.cBuffers > 0 && outbuf.pBuffers[0].cbBuffer > 0) {
+        if (pqPacketSend(conn, PqMsg_GSSResponse,
+                         outbuf.pBuffers[0].pvBuffer, outbuf.pBuffers[0].cbBuffer)) {
+            FreeContextBuffer(outbuf.pBuffers[0].pvBuffer);
+            return STATUS_ERROR;
+        }
+        FreeContextBuffer(outbuf.pBuffers[0].pvBuffer);
+    }
+
+    if (r == SEC_E_OK)
+        conn->client_finished_auth = true;
+
+    return STATUS_OK;
+}
+```

@@ -48,3 +48,59 @@ Special handling includes:
 - The function performs strict format validation with detailed error messages including the problematic token and expected length
 - Handles architecture-dependent Datum sizes correctly by using sizeof(Datum)
 - Part of the broader node serialization/deserialization infrastructure essential for prepared statements and plan caching
+
+## Simplified Source
+
+```c
+Datum
+readDatum(bool typbyval)
+{
+    Size length, i;
+    int tokenLength;
+    const char *token;
+    Datum res;
+    char *s;
+
+    // Read length of value
+    token = pg_strtok(&tokenLength);
+    length = atoui(token);
+
+    // Expect opening '['
+    token = pg_strtok(&tokenLength);
+    if (token == NULL || token[0] != '[')
+        elog(ERROR, "expected \"[\" to start datum, but got \"%s\"",
+             token ? token : "[NULL]");
+
+    if (typbyval) {
+        // By-value type: store directly in Datum
+        if (length > (Size) sizeof(Datum))
+            elog(ERROR, "byval datum but length = %zu", length);
+
+        res = (Datum) 0;
+        s = (char *) (&res);
+        for (i = 0; i < (Size) sizeof(Datum); i++) {
+            token = pg_strtok(&tokenLength);
+            s[i] = (char) atoi(token);
+        }
+    } else if (length <= 0) {
+        // Zero-length by-reference data
+        res = (Datum) NULL;
+    } else {
+        // By-reference type: allocate memory and store pointer
+        s = (char *) palloc(length);
+        for (i = 0; i < length; i++) {
+            token = pg_strtok(&tokenLength);
+            s[i] = (char) atoi(token);
+        }
+        res = PointerGetDatum(s);
+    }
+
+    // Expect closing ']'
+    token = pg_strtok(&tokenLength);
+    if (token == NULL || token[0] != ']')
+        elog(ERROR, "expected \"]\" to end datum, but got \"%s\"",
+             token ? token : "[NULL]");
+
+    return res;
+}
+```

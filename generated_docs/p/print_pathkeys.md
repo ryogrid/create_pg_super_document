@@ -37,3 +37,41 @@ The output format uses parentheses to group related items, with comma separation
 - The function handles the case where equivalence classes have been merged by following the ec_merged chain to find the canonical representative
 - Output is sent directly to stdout via printf statements
 - Located in src/backend/nodes/print.c, part of PostgreSQL's node printing utilities
+
+## Simplified Source
+
+```c
+void print_pathkeys(const List *pathkeys, const List *rtable) {
+    const ListCell *i;
+
+    printf("(");
+    foreach(i, pathkeys) {
+        PathKey *pathkey = (PathKey *) lfirst(i);
+        EquivalenceClass *eclass = pathkey->pk_eclass;
+
+        // Follow merged equivalence classes to canonical representative
+        while (eclass->ec_merged)
+            eclass = eclass->ec_merged;
+
+        // Print all members of this equivalence class
+        printf("(");
+        ListCell *k;
+        bool first = true;
+        foreach(k, eclass->ec_members) {
+            EquivalenceMember *mem = (EquivalenceMember *) lfirst(k);
+
+            if (first)
+                first = false;
+            else
+                printf(", ");
+
+            print_expr((Node *) mem->em_expr, rtable);
+        }
+        printf(")");
+
+        if (lnext(pathkeys, i))
+            printf(", ");
+    }
+    printf(")\n");
+}
+```

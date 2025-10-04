@@ -37,3 +37,18 @@ This function is useful for monitoring scripts, administrative tools, or applica
 - Complements the pg_wal_replay_pause() and pg_wal_replay_resume() functions
 - The function checks against RECOVERY_NOT_PAUSED constant, meaning any other pause state returns true
 - Located in src/backend/access/transam/xlogfuncs.c:571-591
+
+## Simplified Source
+
+```c
+Datum
+pg_is_wal_replay_paused(PG_FUNCTION_ARGS)
+{
+    // Must be in recovery mode to check pause state
+    if (!RecoveryInProgress())
+        ereport(ERROR, "recovery is not in progress");
+
+    // Return true if paused, false if not paused
+    PG_RETURN_BOOL(GetRecoveryPauseState() != RECOVERY_NOT_PAUSED);
+}
+```

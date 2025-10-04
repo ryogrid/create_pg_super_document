@@ -31,3 +31,28 @@ This function iterates through the logical replication worker pool to count how 
 - Only counts registered workers, not necessarily those that are currently running
 - Part of PostgreSQL's logical replication infrastructure for managing table synchronization processes
 - Returns an integer count of matching workers
+
+## Simplified Source
+
+```c
+int logicalrep_sync_worker_count(Oid subid)
+{
+    int i;
+    int res = 0;
+
+    // Ensure caller holds the required lock
+    Assert(LWLockHeldByMe(LogicalRepWorkerLock));
+
+    // Iterate through all worker slots
+    for (i = 0; i < max_logical_replication_workers; i++)
+    {
+        LogicalRepWorker *w = &LogicalRepCtx->workers[i];
+
+        // Count table sync workers for this subscription
+        if (isTablesyncWorker(w) && w->subid == subid)
+            res++;
+    }
+
+    return res;
+}
+```

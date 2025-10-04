@@ -35,3 +35,20 @@ This function implements the backend support for PostgreSQL's lo_create() large 
 - Part of PostgreSQL's large object API for creating binary data containers with specific identifiers
 - If the requested OID is already in use, inv_create will assign a different OID and return it
 - The created large object starts empty and can be written to using other lo_* functions
+
+## Simplified Source
+
+```c
+Datum be_lo_create(PG_FUNCTION_ARGS) {
+    Oid lobjId = PG_GETARG_OID(0);
+
+    // Prevent execution in read-only transactions
+    PreventCommandIfReadOnly("lo_create()");
+
+    // Mark cleanup needed and create large object
+    lo_cleanup_needed = true;
+    lobjId = inv_create(lobjId);
+
+    PG_RETURN_OID(lobjId);
+}
+```

@@ -37,3 +37,86 @@ The message format follows the SCRAM specification with a GS2 header for channel
 - Stores both the full message and a "bare" version for later cryptographic operations
 - Returns dynamically allocated memory that must be freed by the caller
 - Critical security component - proper nonce generation is essential for SCRAM security
+
+## Simplified Source
+
+```c
+static char *
+build_client_first_message(fe_scram_state *state)
+{
+    PGconn *conn = state->conn;
+    char raw_nonce[SCRAM_RAW_NONCE_LEN + 1];
+    char *result;
+    int channel_info_len;
+    int encoded_len;
+    PQExpBufferData buf;
+
+    // Generate cryptographically secure random nonce
+    if (!pg_strong_random(raw_nonce, SCRAM_RAW_NONCE_LEN))
+    {
+        libpq_append_conn_error(conn, "could not generate nonce");
+        return NULL;
+    }
+
+    // Base64-encode the nonce for ASCII transmission
+    encoded_len = pg_b64_enc_len(SCRAM_RAW_NONCE_LEN);
+    state->client_nonce = malloc(encoded_len + 1);
+    if (state->client_nonce == NULL)
+    {
+        libpq_append_conn_error(conn, "out of memory");
+        return NULL;
+    }
+
+    encoded_len = pg_b64_encode(raw_nonce, SCRAM_RAW_NONCE_LEN,
+                                state->client_nonce, encoded_len);
+    if (encoded_len < 0)
+    {
+        libpq_append_conn_error(conn, "could not encode nonce");
+        return NULL;
+    }
+    state->client_nonce[encoded_len] = '\0';
+
+    // Build the SCRAM message with GS2 header
+    initPQExpBuffer(&buf);
+
+    // Channel binding header based on mechanism and SSL status
+    if (strcmp(state->sasl_mechanism, SCRAM_SHA_256_PLUS_NAME) == 0)
+    {
+        Assert(conn->ssl_in_use);
+        appendPQExpBufferStr(&buf, "p=tls-server-end-point");
+    }
+#ifdef USE_SSL
+    else if (conn->channel_binding[0] != 'd' && conn->ssl_in_use)
+        appendPQExpBufferChar(&buf, 'y'); // Client supports but server doesn't
+#endif
+    else
+        appendPQExpBufferChar(&buf, 'n'); // No channel binding
+
+    if (PQExpBufferDataBroken(buf))
+        goto oom_error;
+
+    channel_info_len = buf.len;
+
+    // Add username (empty) and nonce: ",,n=,r=<nonce>"
+    appendPQExpBuffer(&buf, ",,n=,r=%s", state->client_nonce);
+    if (PQExpBufferDataBroken(buf))
+        goto oom_error;
+
+    // Save bare message (without channel binding) for crypto calculations
+    state->client_first_message_bare = strdup(buf.data + channel_info_len + 2);
+    if (!state->client_first_message_bare)
+        goto oom_error;
+
+    result = strdup(buf.data);
+    if (result == NULL)
+        goto oom_error;
+
+    termPQExpBuffer(&buf);
+    return result;
+
+oom_error:
+    termPQExpBuffer(&buf);
+    libpq_append_conn_error(conn, "out of memory");
+    return NULL;
+}
+```

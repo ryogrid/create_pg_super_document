@@ -43,3 +43,90 @@ The function uses Perl's XS API extensively, managing the Perl stack for argumen
 - Uses G_SCALAR | G_EVAL flags when calling Perl subroutine to ensure scalar context and error handling
 - Performs comprehensive error checking including return count validation and Perl error (ERRSV) handling
 - Memory management follows Perl conventions with proper mortal SV handling and cleanup
+
+## Simplified Source
+
+```c
+static SV *plperl_call_perl_func(plperl_proc_desc *desc, FunctionCallInfo fcinfo) {
+    dTHX;
+    dSP;
+    SV *retval;
+    int i, count;
+    Oid *argtypes = NULL;
+    int nargs = 0;
+
+    ENTER;
+    SAVETMPS;
+    PUSHMARK(SP);
+    EXTEND(sp, desc->nargs);
+
+    // Get function signature for argument type information
+    if (fcinfo->flinfo->fn_oid)
+        get_func_signature(fcinfo->flinfo->fn_oid, &argtypes, &nargs);
+
+    // Convert PostgreSQL arguments to Perl values
+    for (i = 0; i < desc->nargs; i++) {
+        if (fcinfo->args[i].isnull) {
+            // NULL values become Perl undef
+            PUSHs(&PL_sv_undef);
+        } else if (desc->arg_is_rowtype[i]) {
+            // Row types become Perl hash references
+            SV *sv = plperl_hash_from_datum(fcinfo->args[i].value);
+            PUSHs(sv_2mortal(sv));
+        } else {
+            // Handle scalar types with various conversion methods
+            SV *sv;
+            Oid funcid;
+
+            if (OidIsValid(desc->arg_arraytype[i])) {
+                // Convert arrays using specialized function
+                sv = plperl_ref_from_pg_array(fcinfo->args[i].value, desc->arg_arraytype[i]);
+            } else if ((funcid = get_transform_fromsql(argtypes[i],
+                                                      current_call_data->prodesc->lang_oid,
+                                                      current_call_data->prodesc->trftypes))) {
+                // Use transform function if available
+                sv = (SV *) DatumGetPointer(OidFunctionCall1(funcid, fcinfo->args[i].value));
+            } else {
+                // Default: convert to string and then to Perl scalar
+                char *tmp = OutputFunctionCall(&(desc->arg_out_func[i]), fcinfo->args[i].value);
+                sv = cstr2sv(tmp);
+                pfree(tmp);
+            }
+            PUSHs(sv_2mortal(sv));
+        }
+    }
+    PUTBACK;
+
+    // Call the Perl subroutine
+    count = call_sv(desc->reference, G_SCALAR | G_EVAL);
+    SPAGAIN;
+
+    // Validate return value
+    if (count != 1) {
+        PUTBACK;
+        FREETMPS;
+        LEAVE;
+        ereport(ERROR, (errcode(ERRCODE_EXTERNAL_ROUTINE_EXCEPTION),
+                       errmsg("didn't get a return item from function")));
+    }
+
+    // Check for Perl errors
+    if (SvTRUE(ERRSV)) {
+        (void) POPs;
+        PUTBACK;
+        FREETMPS;
+        LEAVE;
+        ereport(ERROR, (errcode(ERRCODE_EXTERNAL_ROUTINE_EXCEPTION),
+                       errmsg("%s", strip_trailing_ws(sv2cstr(ERRSV)))));
+    }
+
+    // Extract and copy return value
+    retval = newSVsv(POPs);
+
+    PUTBACK;
+    FREETMPS;
+    LEAVE;
+
+    return retval;
+}
+```

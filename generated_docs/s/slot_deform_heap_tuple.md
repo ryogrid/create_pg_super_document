@@ -53,3 +53,65 @@ The function carefully handles NULL values, variable-length attributes (varlena)
 - The function is designed to work with different slot types through polymorphism
 - Critical for query execution performance as it's called frequently during tuple processing
 - State is preserved between calls via tts_nvalid and the offset pointer to enable incremental processing
+
+## Simplified Source
+
+```c
+static pg_attribute_always_inline void
+slot_deform_heap_tuple(TupleTableSlot *slot, HeapTuple tuple, uint32 *offp, int natts)
+{
+    TupleDesc tupleDesc = slot->tts_tupleDescriptor;
+    Datum *values = slot->tts_values;
+    bool *isnull = slot->tts_isnull;
+    HeapTupleHeader tup = tuple->t_data;
+    bool hasnulls = HeapTupleHasNulls(tuple);
+    char *tp = (char *) tup + tup->t_hoff;
+    bits8 *bp = tup->t_bits;
+
+    // Limit to actual number of attributes in tuple
+    natts = Min(HeapTupleHeaderGetNatts(tuple->t_data), natts);
+
+    // Initialize or restore state from previous call
+    int attnum = slot->tts_nvalid;
+    uint32 off = (attnum == 0) ? 0 : *offp;
+    bool slow = (attnum == 0) ? false : TTS_SLOW(slot);
+
+    // Extract each attribute
+    for (; attnum < natts; attnum++) {
+        Form_pg_attribute thisatt = TupleDescAttr(tupleDesc, attnum);
+
+        // Handle NULL attributes
+        if (hasnulls && att_isnull(attnum, bp)) {
+            values[attnum] = (Datum) 0;
+            isnull[attnum] = true;
+            slow = true;
+            continue;
+        }
+
+        isnull[attnum] = false;
+
+        // Calculate attribute offset with alignment
+        if (!slow && thisatt->attcacheoff >= 0) {
+            off = thisatt->attcacheoff;
+        } else {
+            off = att_align_nominal(off, thisatt->attalign);
+            if (!slow) thisatt->attcacheoff = off;
+        }
+
+        // Extract attribute value
+        values[attnum] = fetchatt(thisatt, tp + off);
+        off = att_addlength_pointer(off, thisatt->attlen, tp + off);
+
+        if (thisatt->attlen <= 0)
+            slow = true;
+    }
+
+    // Save state for next call
+    slot->tts_nvalid = attnum;
+    *offp = off;
+    if (slow)
+        slot->tts_flags |= TTS_FLAG_SLOW;
+    else
+        slot->tts_flags &= ~TTS_FLAG_SLOW;
+}
+```

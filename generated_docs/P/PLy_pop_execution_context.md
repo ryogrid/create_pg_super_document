@@ -32,3 +32,23 @@ PLy_pop_execution_context pops the top execution context from the global PL/Pyth
 - Must be called to balance each PLy_push_execution_context call to maintain stack integrity
 - Used in both normal completion and error cleanup paths to ensure proper resource management
 - The function maintains the global PLy_execution_contexts stack by updating the head pointer
+
+## Simplified Source
+
+```c
+static void PLy_pop_execution_context(void) {
+    PLyExecutionContext *context = PLy_execution_contexts;
+
+    // Ensure context exists before popping
+    if (context == NULL)
+        elog(ERROR, "no Python function is currently executing");
+
+    // Remove from stack
+    PLy_execution_contexts = context->next;
+
+    // Clean up memory resources
+    if (context->scratch_ctx)
+        MemoryContextDelete(context->scratch_ctx);
+    pfree(context);
+}
+```

@@ -41,3 +41,15 @@ This function is essentially a wrapper around PQescapeStringInternal with NULL c
 - Always produces a NUL-terminated output string
 - Cannot provide connection-specific error reporting or encoding validation
 - Mainly provided for backward compatibility and simple use cases where connection information is not available
+
+## Simplified Source
+
+```c
+size_t PQescapeString(char *to, const char *from, size_t length) {
+    // Delegate to internal escaping function with static default settings
+    // No connection or error reporting available
+    return PQescapeStringInternal(NULL, to, from, length, NULL,
+                                 static_client_encoding,
+                                 static_std_strings);
+}
+```

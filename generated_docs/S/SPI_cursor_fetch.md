@@ -40,3 +40,16 @@ The function handles both forward and backward cursor navigation, converting the
 - For backward fetches, the cursor must have been opened with scroll capability
 - The DestSPI receiver automatically handles memory management and does not require explicit cleanup
 - Count parameter behavior: positive values fetch exactly that many rows (or fewer if end of cursor is reached), while 0 typically means fetch all remaining rows
+
+## Simplified Source
+
+```c
+void SPI_cursor_fetch(Portal portal, bool forward, long count) {
+    // Perform cursor operation with appropriate direction
+    _SPI_cursor_operation(portal,
+                         forward ? FETCH_FORWARD : FETCH_BACKWARD,
+                         count,
+                         CreateDestReceiver(DestSPI));
+    // DestSPI receiver handles result storage in SPI globals
+}
+```

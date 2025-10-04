@@ -32,3 +32,39 @@ CleanQuerytext takes a potentially multi-statement SQL source string and confine
 - Uses scanner_isspace() instead of standard libc isspace() to maintain consistency with PostgreSQL's lexer
 - Handles edge cases like unknown locations (-1) and zero/negative lengths gracefully
 - Part of PostgreSQL's query jumbling infrastructure for query normalization
+
+## Simplified Source
+
+```c
+const char *
+CleanQuerytext(const char *query, int *location, int *len)
+{
+    int query_location = *location;
+    int query_len = *len;
+
+    // Apply starting offset if known, otherwise use full string
+    if (query_location >= 0) {
+        query += query_location;
+        if (query_len <= 0)
+            query_len = strlen(query);
+    } else {
+        // Unknown location - use entire string
+        query_location = 0;
+        query_len = strlen(query);
+    }
+
+    // Trim leading whitespace
+    while (query_len > 0 && scanner_isspace(query[0])) {
+        query++, query_location++, query_len--;
+    }
+
+    // Trim trailing whitespace
+    while (query_len > 0 && scanner_isspace(query[query_len - 1])) {
+        query_len--;
+    }
+
+    *location = query_location;
+    *len = query_len;
+    return query;
+}
+```

@@ -36,3 +36,21 @@ The print function is a debugging utility that converts a PostgreSQL Node struct
 - Part of PostgreSQL's node system infrastructure
 - Automatically handles memory management for temporary strings
 - Ensures output is immediately visible by flushing stdout
+
+## Simplified Source
+
+```c
+void print(const void *obj) {
+    // Convert node to string representation with location info
+    char *s = nodeToStringWithLocations(obj);
+
+    // Format for better readability
+    char *f = format_node_dump(s);
+    pfree(s);
+
+    // Output and ensure visibility
+    printf("%s\n", f);
+    fflush(stdout);
+    pfree(f);
+}
+```

@@ -46,3 +46,29 @@ The context will be automatically cleaned up when the CurrentResourceOwner is de
 - Must be called within a fatal section for safety
 - Returns a pointer to the newly created LLVMJitContext structure
 - Located in src/backend/jit/llvm/llvmjit.c:236-264
+
+## Simplified Source
+
+```c
+LLVMJitContext *
+llvm_create_context(int jitFlags)
+{
+    LLVMJitContext *context;
+
+    // Ensure LLVM session is initialized
+    llvm_session_initialize();
+    llvm_recreate_llvm_context();
+
+    // Allocate context structure in persistent memory
+    ResourceOwnerEnlarge(CurrentResourceOwner);
+    context = MemoryContextAllocZero(TopMemoryContext, sizeof(LLVMJitContext));
+    context->base.flags = jitFlags;
+
+    // Register for automatic cleanup
+    context->resowner = CurrentResourceOwner;
+    ResourceOwnerRememberJIT(CurrentResourceOwner, context);
+
+    llvm_jit_context_in_use_count++;
+    return context;
+}
+```

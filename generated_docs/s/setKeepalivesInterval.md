@@ -47,3 +47,38 @@ This works together with the keepalive idle timer to provide comprehensive dead 
 - If keepalives_interval parameter is NULL, the function succeeds without action (using system defaults)
 - Works in conjunction with `setKeepalivesIdle` to provide complete keepalive timing control
 - The interval applies to subsequent probes after the initial idle period expires
+
+## Simplified Source
+
+```c
+static int setKeepalivesInterval(PGconn *conn) {
+    int interval;
+
+    // Skip if parameter not provided - use system default
+    if (conn->keepalives_interval == NULL)
+        return 1;
+
+    // Parse and validate the interval parameter
+    if (!pqParseIntParam(conn->keepalives_interval, &interval, conn, "keepalives_interval"))
+        return 0;
+
+    // Normalize negative values to 0 (immediate successive probes)
+    if (interval < 0)
+        interval = 0;
+
+#ifdef TCP_KEEPINTVL
+    // Configure TCP keepalive probe interval on supported platforms
+    if (setsockopt(conn->sock, IPPROTO_TCP, TCP_KEEPINTVL,
+                   (char *) &interval, sizeof(interval)) < 0) {
+        char sebuf[PG_STRERROR_R_BUFLEN];
+
+        libpq_append_conn_error(conn, "%s(%s) failed: %s",
+                                "setsockopt", "TCP_KEEPINTVL",
+                                SOCK_STRERROR(SOCK_ERRNO, sebuf, sizeof(sebuf)));
+        return 0;
+    }
+#endif
+
+    return 1;
+}
+```

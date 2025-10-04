@@ -51,3 +51,26 @@ The function ensures proper error location reporting and UTF-8 handling across d
 - Ensures error location information is preserved in older Perl versions
 - Part of the PL/Perl procedural language implementation
 - The function is designed to be a drop-in replacement for croak() when dealing with database-encoded strings
+
+## Simplified Source
+
+```c
+static inline void croak_cstr(const char *str) {
+#ifdef croak_sv
+    // Modern Perl: convert to SV and use croak_sv
+    croak_sv(sv_2mortal(cstr2sv(str)));
+#else
+    // Older Perl: manual error handling with UTF-8 conversion
+    SV *errsv = get_sv("@", GV_ADD);
+    char *utf8_str = utf_e2u(str);
+
+    // Create error message with location info
+    SV *ssv = mess("%s", utf8_str);
+    SvUTF8_on(ssv);
+
+    pfree(utf8_str);
+    sv_setsv(errsv, ssv);
+    croak(NULL);
+#endif
+}
+```

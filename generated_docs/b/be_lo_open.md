@@ -38,3 +38,39 @@ The  function is a PostgreSQL backend function that opens a large object (LO) fo
 - Creates filesystem context (fscxt) if this is the first LO opened in the transaction
 - Returns a PostgreSQL Datum containing the file descriptor as INT32
 - Includes debug logging when FSDB is defined
+
+## Simplified Source
+
+```c
+Datum
+be_lo_open(PG_FUNCTION_ARGS)
+{
+    Oid         lobjId = PG_GETARG_OID(0);
+    int32       mode = PG_GETARG_INT32(1);
+    LargeObjectDesc *lobjDesc;
+    int         fd;
+
+    // Check write permission in read-only transactions
+    if (mode & INV_WRITE)
+        PreventCommandIfReadOnly("lo_open(INV_WRITE)");
+
+    // Allocate a new file descriptor
+    // This also creates 'fscxt' if this is the first LO opened in transaction
+    fd = newLOfd();
+
+    // Open the large object
+    lobjDesc = inv_open(lobjId, mode, fscxt);
+    lobjDesc->subid = GetCurrentSubTransactionId();
+
+    // Register snapshot in TopTransaction's resource owner for proper lifecycle
+    if (lobjDesc->snapshot)
+        lobjDesc->snapshot = RegisterSnapshotOnOwner(lobjDesc->snapshot,
+                                                     TopTransactionResourceOwner);
+
+    // Associate descriptor with file descriptor
+    Assert(cookies[fd] == NULL);
+    cookies[fd] = lobjDesc;
+
+    PG_RETURN_INT32(fd);
+}
+```

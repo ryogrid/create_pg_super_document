@@ -47,3 +47,31 @@ The hash table is configured to use partition OIDs as keys and stores LogicalRep
 - Registers an invalidation callback to handle relation cache changes that might affect partition mappings
 - Part of the logical replication subsystem's caching mechanism for efficient partition handling
 - The memory context name "LogicalRepPartMapContext" helps with debugging and memory analysis
+
+## Simplified Source
+
+```c
+static void
+logicalrep_partmap_init(void)
+{
+    HASHCTL ctl;
+
+    // Create memory context if not already created
+    if (!LogicalRepPartMapContext)
+        LogicalRepPartMapContext = AllocSetContextCreate(CacheMemoryContext,
+                                                        "LogicalRepPartMapContext",
+                                                        ALLOCSET_DEFAULT_SIZES);
+
+    // Configure hash table parameters
+    ctl.keysize = sizeof(Oid);     // partition OID as key
+    ctl.entrysize = sizeof(LogicalRepPartMapEntry);
+    ctl.hcxt = LogicalRepPartMapContext;
+
+    // Create the partition map hash table
+    LogicalRepPartMap = hash_create("logicalrep partition map cache", 64, &ctl,
+                                   HASH_ELEM | HASH_BLOBS | HASH_CONTEXT);
+
+    // Register callback for relation cache invalidation
+    CacheRegisterRelcacheCallback(logicalrep_partmap_invalidate_cb, (Datum) 0);
+}
+```

@@ -40,3 +40,47 @@ This function handles the distribution of invalidation messages from committed t
 - Operates under the top-level transaction context for proper invalidation grouping
 - Essential for maintaining cache consistency across concurrent transactions in logical replication
 - Memory context switching ensures proper memory management within the reorder buffer context
+
+## Simplified Source
+
+```c
+void
+ReorderBufferAddDistributedInvalidations(ReorderBuffer *rb, TransactionId xid,
+                                        XLogRecPtr lsn, Size nmsgs,
+                                        SharedInvalidationMessage *msgs)
+{
+    ReorderBufferTXN *txn;
+    MemoryContext oldcontext;
+
+    // Get transaction and switch to reorder buffer memory context
+    txn = ReorderBufferTXNByXid(rb, xid, true, NULL, lsn, true);
+    oldcontext = MemoryContextSwitchTo(rb->context);
+
+    // Work with top-level transaction for proper invalidation grouping
+    txn = rbtxn_get_toptxn(txn);
+
+    if (!rbtxn_distr_inval_overflowed(txn)) {
+        // Check if adding messages would exceed limit
+        if (txn->ninvalidations_distributed + nmsgs >= MAX_DISTR_INVAL_MSG_PER_TXN) {
+            // Mark as overflowed and free accumulated messages
+            txn->txn_flags |= RBTXN_DISTR_INVAL_OVERFLOWED;
+            if (txn->invalidations_distributed) {
+                pfree(txn->invalidations_distributed);
+                txn->invalidations_distributed = NULL;
+                txn->ninvalidations_distributed = 0;
+            }
+        }
+        else {
+            // Accumulate distributed invalidations normally
+            ReorderBufferAccumulateInvalidations(&txn->invalidations_distributed,
+                                                &txn->ninvalidations_distributed,
+                                                msgs, nmsgs);
+        }
+    }
+
+    // Queue invalidations as individual changes for replay
+    ReorderBufferQueueInvalidations(rb, xid, lsn, nmsgs, msgs);
+
+    MemoryContextSwitchTo(oldcontext);
+}
+```

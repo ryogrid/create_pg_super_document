@@ -37,3 +37,43 @@ If no suitable page is found through FSM recycling, the function falls back to e
 
 ## Notes and Other Information
 The function includes important concurrency control: it uses ConditionalLockBuffer to avoid blocking when another process might already be recycling the same page. Fixed system pages are explicitly excluded from recycling to maintain index structural integrity. The caller is responsible for initializing the returned buffer page content using SpGistInitBuffer before use.
+
+## Simplified Source
+
+```c
+Buffer SpGistNewBuffer(Relation index) {
+    Buffer buffer;
+
+    // Try to recycle pages from Free Space Map
+    for (;;) {
+        BlockNumber blkno = GetFreeIndexPage(index);
+        if (blkno == InvalidBlockNumber)
+            break; // No free pages available
+
+        // Skip fixed system pages
+        if (SpGistBlockIsFixed(blkno))
+            continue;
+
+        buffer = ReadBuffer(index, blkno);
+
+        // Try to lock buffer (avoid blocking on concurrent recycling)
+        if (ConditionalLockBuffer(buffer)) {
+            Page page = BufferGetPage(buffer);
+
+            // Check if page is suitable for reuse
+            if (PageIsNew(page) || SpGistPageIsDeleted(page) || PageIsEmpty(page))
+                return buffer; // Success - page can be reused
+
+            LockBuffer(buffer, BUFFER_LOCK_UNLOCK);
+        }
+
+        // Page not suitable, try next one
+        ReleaseBuffer(buffer);
+    }
+
+    // No recyclable pages found - extend index file
+    buffer = ExtendBufferedRel(BMR_REL(index), MAIN_FORKNUM, NULL, EB_LOCK_FIRST);
+
+    return buffer;
+}
+```

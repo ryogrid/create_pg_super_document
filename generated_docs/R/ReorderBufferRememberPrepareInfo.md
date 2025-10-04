@@ -34,3 +34,31 @@ ReorderBufferRememberPrepareInfo stores essential prepare-time information in th
 
 ## Notes and Other Information
 This function is essential for two-phase commit support in logical replication. The stored prepare information is later retrieved and used by ReorderBufferFinishPrepared when processing COMMIT PREPARED or ROLLBACK PREPARED records. The function updates the transaction structure fields including final_lsn, end_lsn, prepare_time, origin_id, and origin_lsn to preserve the prepare-time state.
+
+## Simplified Source
+
+```c
+bool ReorderBufferRememberPrepareInfo(ReorderBuffer *rb, TransactionId xid,
+                                     XLogRecPtr prepare_lsn, XLogRecPtr end_lsn,
+                                     TimestampTz prepare_time,
+                                     RepOriginId origin_id, XLogRecPtr origin_lsn)
+{
+    ReorderBufferTXN *txn;
+
+    // Look up transaction by XID
+    txn = ReorderBufferTXNByXid(rb, xid, false, NULL, InvalidXLogRecPtr, false);
+
+    // Skip unknown transactions
+    if (txn == NULL)
+        return false;
+
+    // Store prepare information for later use by commit/rollback prepared
+    txn->final_lsn = prepare_lsn;
+    txn->end_lsn = end_lsn;
+    txn->xact_time.prepare_time = prepare_time;
+    txn->origin_id = origin_id;
+    txn->origin_lsn = origin_lsn;
+
+    return true;
+}
+```

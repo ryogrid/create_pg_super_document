@@ -36,3 +36,12 @@ The function is typically called during PostgreSQL startup to ensure crash dump 
 - Part of PostgreSQL's Windows port infrastructure for improved debugging support
 - Works in conjunction with the crashDumpHandler to provide comprehensive crash dump generation
 - Should only be called once during process initialization
+
+## Simplified Source
+
+```c
+void pgwin32_install_crashdump_handler(void) {
+    // Install custom crash dump handler for Windows
+    SetUnhandledExceptionFilter(crashDumpHandler);
+}
+```

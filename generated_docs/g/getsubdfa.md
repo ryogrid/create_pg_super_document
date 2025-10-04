@@ -38,3 +38,31 @@ The `getsubdfa` function manages DFA creation and caching for subre (subexpressi
 - Special handling for backref nodes (op == 'b') includes setting backno, backmin, and backmax fields
 - Returns NULL on allocation failure
 - The function is static and only used within regexec.c
+
+## Simplified Source
+
+```c
+static struct dfa *getsubdfa(struct vars *v, struct subre *t) {
+    // Check if DFA already exists in cache
+    struct dfa *d = v->subdfas[t->id];
+
+    if (d == NULL) {
+        // Create new DFA from compiled NFA
+        d = newdfa(v, &t->cnfa, &v->g->cmap, DOMALLOC);
+        if (d == NULL)
+            return NULL;
+
+        // Special setup for backref nodes
+        if (t->op == 'b') {
+            d->backno = t->backno;
+            d->backmin = t->min;
+            d->backmax = t->max;
+        }
+
+        // Cache the DFA for future use
+        v->subdfas[t->id] = d;
+    }
+
+    return d;
+}
+```

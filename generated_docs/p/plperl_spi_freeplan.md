@@ -35,3 +35,34 @@ The function follows a careful cleanup order to ensure that if SPI_freeplan fail
 - No sub-transaction is needed since this is a cleanup operation that should not fail
 - Essential for preventing memory leaks in long-running PL/Perl functions that prepare many statements
 - Should be called when prepared statements are no longer needed to free up resources
+
+## Simplified Source
+
+```c
+void
+plperl_spi_freeplan(char *query)
+{
+    SPIPlanPtr plan;
+    plperl_query_desc *qdesc;
+    plperl_query_entry *hash_entry;
+
+    check_spi_usage_allowed();
+
+    // Find the prepared query
+    hash_entry = hash_search(plperl_active_interp->query_hash, query, HASH_FIND, NULL);
+    if (hash_entry == NULL)
+        elog(ERROR, "spi_freeplan: Invalid prepared query passed");
+
+    qdesc = hash_entry->query_data;
+    if (qdesc == NULL)
+        elog(ERROR, "spi_freeplan: plperl query_hash value vanished");
+    plan = qdesc->plan;
+
+    // Clean up PL/Perl resources before calling SPI_freeplan
+    hash_search(plperl_active_interp->query_hash, query, HASH_REMOVE, NULL);
+    MemoryContextDelete(qdesc->plan_cxt);
+
+    // Free the PostgreSQL plan
+    SPI_freeplan(plan);
+}
+```

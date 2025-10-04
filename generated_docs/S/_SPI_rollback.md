@@ -50,3 +50,61 @@ The entire operation is wrapped in a PG_TRY/PG_CATCH block to handle errors duri
 - Error handling ensures that even if rollback fails, a new transaction is established
 - Memory context switching ensures proper cleanup during error conditions
 - The internal_xact flag protects the SPI stack entry during transaction state changes
+
+## Simplified Source
+
+```c
+static void _SPI_rollback(bool chain) {
+    MemoryContext oldcontext = CurrentMemoryContext;
+    SavedTransactionCharacteristics savetc;
+
+    // Validate SPI context allows transaction termination
+    if (_SPI_current->atomic)
+        ereport(ERROR, "invalid transaction termination");
+
+    // Ensure no subtransaction is active
+    if (IsSubTransaction())
+        ereport(ERROR, "cannot roll back while a subtransaction is active");
+
+    // Save transaction characteristics if chaining
+    if (chain)
+        SaveTransactionCharacteristics(&savetc);
+
+    PG_TRY(); {
+        // Protect SPI stack entry
+        _SPI_current->internal_xact = true;
+
+        // Hold portals and release snapshots before transaction change
+        HoldPinnedPortals();
+        ForgetPortalSnapshots();
+
+        // Abort current transaction and start new one
+        AbortCurrentTransaction();
+        StartTransactionCommand();
+
+        // Restore characteristics if chaining
+        if (chain)
+            RestoreTransactionCharacteristics(&savetc);
+
+        MemoryContextSwitchTo(oldcontext);
+        _SPI_current->internal_xact = false;
+    }
+    PG_CATCH(); {
+        // Handle rollback errors: save error, retry abort, restart transaction
+        ErrorData *edata;
+        MemoryContextSwitchTo(oldcontext);
+        edata = CopyErrorData();
+        FlushErrorState();
+
+        AbortCurrentTransaction();
+        StartTransactionCommand();
+        if (chain)
+            RestoreTransactionCharacteristics(&savetc);
+
+        MemoryContextSwitchTo(oldcontext);
+        _SPI_current->internal_xact = false;
+        ReThrowError(edata);
+    }
+    PG_END_TRY();
+}
+```

@@ -31,3 +31,21 @@ FreeSubscription performs comprehensive cleanup of a Subscription structure by d
 - Part of PostgreSQL's logical replication subscription management system
 - Should be called whenever a Subscription structure allocated by GetSubscription() is no longer needed
 - Follows PostgreSQL's memory management patterns using pfree() for all deallocations
+
+## Simplified Source
+
+```c
+void FreeSubscription(Subscription *sub) {
+    // Free string fields
+    pfree(sub->name);
+    pfree(sub->conninfo);
+    if (sub->slotname)         // slotname is optional
+        pfree(sub->slotname);
+
+    // Free publications list and nested strings
+    list_free_deep(sub->publications);
+
+    // Free the structure itself
+    pfree(sub);
+}
+```

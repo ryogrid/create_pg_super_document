@@ -45,3 +45,25 @@ This function serves as the foundation for all character output in the printf sy
 - When no stream is available and buffer is full, gracefully handles overflow by counting lost characters
 - Buffer pointer is post-incremented after writing, maintaining correct position for subsequent writes
 - Essential building block used by higher-level formatting functions and multi-character output routines
+
+## Simplified Source
+
+```c
+static void
+dopr_outch(int c, PrintfTarget *target)
+{
+    // Check if buffer is full
+    if (target->bufend != NULL && target->bufptr >= target->bufend) {
+        if (target->stream == NULL) {
+            // No stream - just count the lost character
+            target->nchars++;
+            return;
+        }
+        // Flush buffer to stream to make space
+        flushbuffer(target);
+    }
+
+    // Write character and advance pointer
+    *(target->bufptr++) = c;
+}
+```

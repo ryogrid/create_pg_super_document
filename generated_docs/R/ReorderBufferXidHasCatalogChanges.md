@@ -29,3 +29,21 @@ This function checks whether a given transaction has been marked as containing c
 - Used by snapshot building logic to determine transaction handling
 - Part of the logical replication infrastructure for managing catalog-modifying transactions
 - The function uses InvalidXLogRecPtr and false parameters when calling ReorderBufferTXNByXid, indicating it's only querying existing transactions without creating new entries
+
+## Simplified Source
+
+```c
+bool
+ReorderBufferXidHasCatalogChanges(ReorderBuffer *rb, TransactionId xid)
+{
+    ReorderBufferTXN *txn;
+
+    // Look up transaction without creating it if it doesn't exist
+    txn = ReorderBufferTXNByXid(rb, xid, false, NULL, InvalidXLogRecPtr, false);
+    if (txn == NULL)
+        return false;
+
+    // Return whether transaction has catalog changes flag set
+    return rbtxn_has_catalog_changes(txn);
+}
+```

@@ -28,3 +28,43 @@ This function searches the PostgreSQL dependency system to find all foreign key 
 
 ## Notes and Other Information
 The function uses the DependReferenceIndexId for efficient scanning of the pg_depend catalog, searching specifically for normal dependencies (as opposed to internal dependencies). This is crucial for foreign key constraint management since foreign keys establish normal dependency relationships with the indexes they reference. The function accumulates all matching constraint OIDs into a list, which allows callers to understand the full scope of foreign key dependencies before performing operations that might affect the index. This is essential for maintaining referential integrity in PostgreSQL's constraint system.
+
+## Simplified Source
+```c
+List *get_index_ref_constraints(Oid indexId) {
+    List *result = NIL;
+    Relation depRel;
+    ScanKeyData key[3];
+    SysScanDesc scan;
+    HeapTuple tup;
+
+    // Open dependency relation for reading
+    depRel = table_open(DependRelationId, AccessShareLock);
+
+    // Set up scan keys to find dependencies on this index
+    ScanKeyInit(&key[0], Anum_pg_depend_refclassid, BTEqualStrategyNumber,
+                F_OIDEQ, ObjectIdGetDatum(RelationRelationId));
+    ScanKeyInit(&key[1], Anum_pg_depend_refobjid, BTEqualStrategyNumber,
+                F_OIDEQ, ObjectIdGetDatum(indexId));
+    ScanKeyInit(&key[2], Anum_pg_depend_refobjsubid, BTEqualStrategyNumber,
+                F_INT4EQ, Int32GetDatum(0));
+
+    // Scan for dependency records
+    scan = systable_beginscan(depRel, DependReferenceIndexId, true, NULL, 3, key);
+
+    while (HeapTupleIsValid(tup = systable_getnext(scan))) {
+        Form_pg_depend deprec = (Form_pg_depend) GETSTRUCT(tup);
+
+        // Look for normal dependencies from constraints
+        if (deprec->classid == ConstraintRelationId &&
+            deprec->objsubid == 0 &&
+            deprec->deptype == DEPENDENCY_NORMAL) {
+            result = lappend_oid(result, deprec->objid);
+        }
+    }
+
+    systable_endscan(scan);
+    table_close(depRel, AccessShareLock);
+    return result;
+}
+```

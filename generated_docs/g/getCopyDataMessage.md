@@ -43,3 +43,70 @@ The function operates in a loop, examining each incoming message and taking appr
 - Includes protocol debugging support via pqTraceOutputMessage
 - Critical for maintaining protocol integrity during long-running COPY operations
 - Implements robust error handling including sync loss recovery
+
+## Simplified Source
+
+```c
+static int getCopyDataMessage(PGconn *conn) {
+    char id;
+    int msgLength;
+    int avail;
+
+    for (;;) {
+        // Read message header (type and length)
+        conn->inCursor = conn->inStart;
+        if (pqGetc(&id, conn)) return 0;
+        if (pqGetInt(&msgLength, 4, conn)) return 0;
+
+        // Validate message length
+        if (msgLength < 4) {
+            handleSyncLoss(conn, id, msgLength);
+            return -2;
+        }
+
+        // Check if complete message is available
+        avail = conn->inEnd - conn->inCursor;
+        if (avail < msgLength - 4) {
+            // Enlarge buffer if needed for complete message
+            if (pqCheckInBufferSpace(conn->inCursor + (size_t) msgLength - 4, conn)) {
+                handleSyncLoss(conn, id, msgLength);
+                return -2;
+            }
+            return 0;  // Wait for more data
+        }
+
+        // Process message based on type
+        switch (id) {
+            case PqMsg_NotificationResponse:
+                if (getNotify(conn)) return 0;
+                break;
+            case PqMsg_NoticeResponse:
+                if (pqGetErrorNotice3(conn, false)) return 0;
+                break;
+            case PqMsg_ParameterStatus:
+                if (getParameterStatus(conn)) return 0;
+                break;
+            case PqMsg_CopyData:
+                return msgLength;  // Return length of CopyData message
+            case PqMsg_CopyDone:
+                // Handle COPY mode transitions
+                if (conn->asyncStatus == PGASYNC_COPY_BOTH)
+                    conn->asyncStatus = PGASYNC_COPY_IN;
+                else
+                    conn->asyncStatus = PGASYNC_BUSY;
+                return -1;  // End of copy
+            default:
+                // Any other message terminates copy mode
+                conn->asyncStatus = PGASYNC_BUSY;
+                return -1;
+        }
+
+        // Trace message if debugging enabled
+        if (conn->Pfdebug)
+            pqTraceOutputMessage(conn, conn->inBuffer + conn->inStart, false);
+
+        // Move to next message
+        conn->inStart = conn->inCursor;
+    }
+}
+```

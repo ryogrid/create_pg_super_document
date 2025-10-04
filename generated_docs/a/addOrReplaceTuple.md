@@ -51,3 +51,32 @@ The function includes safety checks to ensure data integrity, such as verifying 
 - The function maintains the placeholder count in the page's opaque data structure
 - Used extensively during SP-GiST index recovery operations to reconstruct the proper page state
 - The PageAddItem call uses strict parameters (false, false) indicating no overwrite and no special handling
+
+## Simplified Source
+
+```c
+static void
+addOrReplaceTuple(Page page, Item tuple, int size, OffsetNumber offset)
+{
+    // Check if we're replacing an existing tuple
+    if (offset <= PageGetMaxOffsetNumber(page)) {
+        SpGistDeadTuple dt = (SpGistDeadTuple) PageGetItem(page, PageGetItemId(page, offset));
+
+        // Verify the existing tuple is a placeholder
+        if (dt->tupstate != SPGIST_PLACEHOLDER)
+            elog(ERROR, "SPGiST tuple to be replaced is not a placeholder");
+
+        // Update placeholder count and remove old tuple
+        Assert(SpGistPageGetOpaque(page)->nPlaceholder > 0);
+        SpGistPageGetOpaque(page)->nPlaceholder--;
+        PageIndexTupleDelete(page, offset);
+    }
+
+    // Verify offset is valid for insertion
+    Assert(offset <= PageGetMaxOffsetNumber(page) + 1);
+
+    // Add the new tuple at the specified offset
+    if (PageAddItem(page, tuple, size, offset, false, false) != offset)
+        elog(ERROR, "failed to add item of size %u to SPGiST index page", size);
+}
+```

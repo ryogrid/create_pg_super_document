@@ -36,3 +36,27 @@ The function includes safety checks to handle cases where location information i
 - Provides graceful fallback when location or source text information is unavailable
 - Designed specifically for use within  error reporting calls
 - Location: src/backend/parser/parse_node.c:106-139
+
+## Simplified Source
+
+```c
+int
+parser_errposition(ParseState *pstate, int location)
+{
+    int pos;
+
+    // Return no-op if location not provided
+    if (location < 0)
+        return 0;
+
+    // Return no-op if source text unavailable
+    if (pstate == NULL || pstate->p_sourcetext == NULL)
+        return 0;
+
+    // Convert byte offset to character position (1-based)
+    pos = pg_mbstrlen_with_len(pstate->p_sourcetext, location) + 1;
+
+    // Pass to error reporting mechanism
+    return errposition(pos);
+}
+```

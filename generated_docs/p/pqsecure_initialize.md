@@ -36,3 +36,18 @@ pqsecure_initialize is an internal function that serves as a wrapper for SSL con
 - Used primarily during connection establishment phase
 - The function handles both SSL and crypto initialization in a single call
 - Failure in this function typically results in CONNECTION_FAILED status
+
+## Simplified Source
+
+```c
+int pqsecure_initialize(PGconn *conn, bool do_ssl, bool do_crypto) {
+    int r = 0;
+
+    // Initialize SSL/TLS if support is compiled in
+    #ifdef USE_SSL
+        r = pgtls_init(conn, do_ssl, do_crypto);
+    #endif
+
+    return r;
+}
+```

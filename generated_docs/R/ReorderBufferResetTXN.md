@@ -46,3 +46,33 @@ ReorderBufferResetTXN handles the complex scenario where a streaming transaction
 - Includes assertion to verify all changes are properly deallocated after reset
 - Critical for robust handling of subtransaction aborts in complex streaming scenarios
 - Part of PostgreSQL's advanced streaming logical replication error recovery mechanisms
+
+## Simplified Source
+
+```c
+static void ReorderBufferResetTXN(ReorderBuffer *rb, ReorderBufferTXN *txn,
+                                 Snapshot snapshot_now, CommandId command_id,
+                                 XLogRecPtr last_lsn, ReorderBufferChange *specinsert)
+{
+    // Clean up streamed changes
+    ReorderBufferTruncateTXN(rb, txn, rbtxn_prepared(txn));
+
+    // Reset toast reconstruction resources
+    ReorderBufferToastReset(rb, txn);
+
+    // Return special insert change if provided
+    if (specinsert != NULL) {
+        ReorderBufferReturnChange(rb, specinsert, true);
+        specinsert = NULL;
+    }
+
+    // For streaming transactions: stop stream and save state for continuation
+    if (rbtxn_is_streamed(txn)) {
+        rb->stream_stop(rb, txn, last_lsn);
+        ReorderBufferSaveTXNSnapshot(rb, txn, snapshot_now, command_id);
+    }
+
+    // Verify complete cleanup
+    Assert(txn->size == 0);
+}
+```

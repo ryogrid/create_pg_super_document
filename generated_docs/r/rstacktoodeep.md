@@ -38,3 +38,12 @@ The function is designed to be called at strategic points during regex compilati
 - Part of PostgreSQL's defensive programming approach to resource limits
 - Typically causes compilation to fail with REG_ETOOBIG error when triggered
 - Strategic placement in recursive compilation paths provides safety net
+
+## Simplified Source
+
+```c
+static int rstacktoodeep(void) {
+    // Check if stack usage is dangerously high
+    return stack_is_too_deep();
+}
+```

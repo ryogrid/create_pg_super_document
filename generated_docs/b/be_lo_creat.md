@@ -33,3 +33,24 @@ This function implements the backend support for PostgreSQL's lo_creat() large o
 - Protected against execution in read-only transactions
 - Part of PostgreSQL's large object API for creating binary data containers
 - The created large object starts empty and can be written to using other lo_* functions
+
+## Simplified Source
+
+```c
+Datum
+be_lo_creat(PG_FUNCTION_ARGS)
+{
+    Oid     lobjId;
+
+    // Prevent execution in read-only transactions
+    PreventCommandIfReadOnly("lo_creat()");
+
+    // Mark that cleanup will be needed for this transaction
+    lo_cleanup_needed = true;
+
+    // Create new large object with auto-generated OID
+    lobjId = inv_create(InvalidOid);
+
+    PG_RETURN_OID(lobjId);
+}
+```

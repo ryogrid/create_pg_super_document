@@ -41,3 +41,32 @@ The function includes optimizations to avoid creating hash tables when no uncomm
 - Creates hash tables only when needed (when valid OIDs are present)
 - Uses InvalidOid as terminators to separate enum types from enum values
 - The restored hash tables will be cleaned up automatically at transaction end
+
+## Simplified Source
+```c
+void RestoreUncommittedEnums(void *space) {
+    Oid *serialized = (Oid *) space;
+
+    Assert(!uncommitted_enum_types);
+    Assert(!uncommitted_enum_values);
+
+    // Restore uncommitted enum types if any exist
+    if (OidIsValid(*serialized)) {
+        init_uncommitted_enum_types();
+        do {
+            hash_search(uncommitted_enum_types, serialized++, HASH_ENTER, NULL);
+        } while (OidIsValid(*serialized));
+    }
+
+    // Move past the InvalidOid terminator
+    serialized++;
+
+    // Restore uncommitted enum values if any exist
+    if (OidIsValid(*serialized)) {
+        init_uncommitted_enum_values();
+        do {
+            hash_search(uncommitted_enum_values, serialized++, HASH_ENTER, NULL);
+        } while (OidIsValid(*serialized));
+    }
+}
+```

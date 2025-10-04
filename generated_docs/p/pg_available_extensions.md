@@ -48,3 +48,64 @@ This function uses the PostgreSQL function call convention and doesn't take expl
 - Only primary control files are processed; auxiliary control files (with "--" in the name) are skipped
 - The function uses PostgreSQL's tuplestore mechanism to build and return the result set
 - Error handling is minimal - most errors are passed through from the underlying directory and file operations
+
+## Simplified Source
+
+```c
+Datum pg_available_extensions(PG_FUNCTION_ARGS) {
+    ReturnSetInfo *rsinfo = (ReturnSetInfo *) fcinfo->resultinfo;
+
+    // Initialize result set
+    InitMaterializedSRF(fcinfo, 0);
+
+    // Open extension control directory
+    char *location = get_extension_control_directory();
+    DIR *dir = AllocateDir(location);
+
+    // Handle missing directory gracefully
+    if (dir == NULL && errno == ENOENT) {
+        return (Datum) 0; // Return empty set
+    }
+
+    // Process each control file in directory
+    struct dirent *de;
+    while ((de = ReadDir(dir, location)) != NULL) {
+        if (!is_extension_control_filename(de->d_name))
+            continue;
+
+        // Extract extension name from filename
+        char *extname = pstrdup(de->d_name);
+        *strrchr(extname, '.') = '\0';
+
+        // Skip auxiliary control files
+        if (strstr(extname, "--"))
+            continue;
+
+        // Read extension metadata
+        ExtensionControlFile *control = read_extension_control_file(extname);
+
+        // Build result row: name, default_version, comment
+        Datum values[3];
+        bool nulls[3];
+        memset(values, 0, sizeof(values));
+        memset(nulls, 0, sizeof(nulls));
+
+        values[0] = DirectFunctionCall1(namein, CStringGetDatum(control->name));
+
+        if (control->default_version == NULL)
+            nulls[1] = true;
+        else
+            values[1] = CStringGetTextDatum(control->default_version);
+
+        if (control->comment == NULL)
+            nulls[2] = true;
+        else
+            values[2] = CStringGetTextDatum(control->comment);
+
+        tuplestore_putvalues(rsinfo->setResult, rsinfo->setDesc, values, nulls);
+    }
+
+    FreeDir(dir);
+    return (Datum) 0;
+}
+```

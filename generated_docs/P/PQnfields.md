@@ -40,3 +40,16 @@ The function handles NULL input gracefully by returning 0, making it safe to use
 - Critical for dynamic result processing where column count is unknown at compile time
 - Used extensively throughout PostgreSQL client tools and applications
 - Often called before column iteration loops to determine bounds
+
+## Simplified Source
+
+```c
+int PQnfields(const PGresult *res) {
+    // Return 0 if no result object
+    if (!res)
+        return 0;
+
+    // Return the number of columns in the result set
+    return res->numAttributes;
+}
+```

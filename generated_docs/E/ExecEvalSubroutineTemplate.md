@@ -35,3 +35,16 @@ ExecEvalSubroutineTemplate serves as a template function in PostgreSQL's LLVM JI
 - It serves as a template for generating JIT-compiled expression evaluation functions that need to conform to this specific signature
 - The function only contains a type assertion and no actual logic, emphasizing its role as a template rather than a functional component
 - Part of a family of template functions in llvmjit_types.c that provide examples of different function signatures for the JIT compiler
+
+## Simplified Source
+
+```c
+void ExecEvalSubroutineTemplate(ExprState *state,
+                               struct ExprEvalStep *op,
+                               ExprContext *econtext) {
+    // Type assertion for JIT template compatibility
+    AssertVariableIsOfType(&ExecEvalSubroutineTemplate, ExecEvalSubroutine);
+
+    // No implementation - this is a template function
+}
+```

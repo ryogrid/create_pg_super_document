@@ -48,3 +48,25 @@ This function assumes that the CLOG directory structure has already been created
 - The function assumes that the CLOG directory (pg_xact) already exists
 - After this function completes, the CLOG subsystem is ready to track transaction commit/abort status
 - This is a prerequisite for normal database operation as MVCC depends on transaction status information stored in CLOG
+
+## Simplified Source
+
+```c
+void BootStrapCLOG(void) {
+    int slotno;
+    LWLock *lock = SimpleLruGetBankLock(XactCtl, 0);
+
+    // Acquire exclusive lock for CLOG initialization
+    LWLockAcquire(lock, LW_EXCLUSIVE);
+
+    // Create and zero the first CLOG page
+    slotno = ZeroCLOGPage(0, false);
+
+    // Write the page to disk for durability
+    SimpleLruWritePage(XactCtl, slotno);
+    Assert(!XactCtl->shared->page_dirty[slotno]);
+
+    // Release the lock
+    LWLockRelease(lock);
+}
+```

@@ -45,3 +45,32 @@ The function only takes action when the new method differs from the current one,
 - Wait event reporting allows monitoring of potentially slow fsync operations during method changes
 - The comparison of sync bits from old and new methods determines whether file closure/reopening is necessary
 - The function is registered as a GUC assign hook, making it part of PostgreSQL's configuration management system
+
+## Simplified Source
+
+```c
+void
+assign_wal_sync_method(int new_wal_sync_method, void *extra)
+{
+    // Only act if the sync method is actually changing
+    if (wal_sync_method != new_wal_sync_method) {
+        // Ensure data integrity before changing sync method
+        if (openLogFile >= 0) {
+            // Force fsync on current log file to prevent unsynced blocks
+            pgstat_report_wait_start(WAIT_EVENT_WAL_SYNC_METHOD_ASSIGN);
+            if (pg_fsync(openLogFile) != 0) {
+                char xlogfname[MAXFNAMELEN];
+                XLogFileName(xlogfname, openLogTLI, openLogSegNo, wal_segment_size);
+                ereport(PANIC,
+                        (errcode_for_file_access(),
+                         errmsg("could not fsync file \"%s\": %m", xlogfname)));
+            }
+            pgstat_report_wait_end();
+
+            // Close and reopen file if sync flags changed
+            if (get_sync_bit(wal_sync_method) != get_sync_bit(new_wal_sync_method))
+                XLogFileClose();
+        }
+    }
+}
+```

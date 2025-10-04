@@ -39,3 +39,22 @@ This function is designed to be "char-centric" as noted in the comments, meaning
 - The printable character range excludes space (0x20) but includes characters from 0x21 to 0x7E
 - Simple and focused design makes it reliable for debugging purposes across different character encodings
 - The chr type is used instead of standard char to accommodate potentially wider character representations in the regex engine
+
+## Simplified Source
+
+```c
+static void
+dumpchr(chr c, FILE *f)
+{
+    if (c == '\\') {
+        // Escape backslash characters for clarity
+        fprintf(f, "\\\\");
+    } else if (c > ' ' && c <= '~') {
+        // Print printable ASCII characters directly
+        putc((char) c, f);
+    } else {
+        // Use Unicode escape notation for non-printable characters
+        fprintf(f, "\\u%04lx", (long) c);
+    }
+}
+```

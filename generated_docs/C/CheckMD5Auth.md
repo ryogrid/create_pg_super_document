@@ -37,3 +37,41 @@ CheckMD5Auth performs MD5-based challenge-response authentication by generating 
 - Part of the challenge-response authentication mechanisms, more secure than plaintext passwords
 - Always cleans up received password data from memory
 - Relies on CheckPWChallengeAuth for higher-level authentication logic and identity setting
+
+## Simplified Source
+
+```c
+static int
+CheckMD5Auth(Port *port, char *shadow_pass, const char **logdetail)
+{
+    char md5Salt[4];
+    char *passwd;
+    int result;
+
+    // Generate cryptographically secure random salt
+    if (!pg_strong_random(md5Salt, 4)) {
+        ereport(LOG, (errmsg("could not generate random MD5 salt")));
+        return STATUS_ERROR;
+    }
+
+    // Send MD5 challenge with salt to client
+    sendAuthRequest(port, AUTH_REQ_MD5, md5Salt, 4);
+
+    // Receive MD5 hashed response from client
+    passwd = recv_password_packet(port);
+    if (passwd == NULL)
+        return STATUS_EOF;
+
+    // Verify client's MD5 response against stored hash
+    if (shadow_pass) {
+        result = md5_crypt_verify(port->user_name, shadow_pass, passwd,
+                                  md5Salt, 4, logdetail);
+    } else {
+        result = STATUS_ERROR;
+    }
+
+    pfree(passwd);
+
+    return result;
+}
+```

@@ -48,3 +48,105 @@ The function performs several key operations:
 - Supports domain types over composite types with proper validation
 - The tuple store is created in the query's per-query memory context for persistence
 - Memory management includes automatic cleanup of temporary allocations after each call
+
+## Simplified Source
+
+```c
+static void
+plperl_return_next_internal(SV *sv)
+{
+    plperl_proc_desc *prodesc;
+    FunctionCallInfo fcinfo;
+    ReturnSetInfo *rsi;
+    MemoryContext old_cxt;
+
+    if (!sv)
+        return;
+
+    prodesc = current_call_data->prodesc;
+    fcinfo = current_call_data->fcinfo;
+    rsi = (ReturnSetInfo *) fcinfo->resultinfo;
+
+    // Verify this is a SETOF function
+    if (!prodesc->fn_retisset)
+        ereport(ERROR, (errcode(ERRCODE_SYNTAX_ERROR),
+                       errmsg("cannot use return_next in a non-SETOF function")));
+
+    // Initialize tuple store and descriptor on first call
+    if (!current_call_data->ret_tdesc) {
+        TupleDesc tupdesc;
+
+        if (prodesc->fn_retistuple) {
+            // Handle composite return types
+            TypeFuncClass funcclass;
+            Oid typid;
+
+            funcclass = get_call_result_type(fcinfo, &typid, &tupdesc);
+            if (funcclass != TYPEFUNC_COMPOSITE && funcclass != TYPEFUNC_COMPOSITE_DOMAIN)
+                ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                               errmsg("function returning record called in context "
+                                     "that cannot accept type record")));
+
+            if (funcclass == TYPEFUNC_COMPOSITE_DOMAIN)
+                current_call_data->cdomain_oid = typid;
+        } else {
+            // Handle scalar return types
+            tupdesc = rsi->expectedDesc;
+            if (tupdesc == NULL || tupdesc->natts != 1)
+                elog(ERROR, "expected single-column result descriptor for non-composite SETOF result");
+        }
+
+        // Create persistent tuple store
+        old_cxt = MemoryContextSwitchTo(rsi->econtext->ecxt_per_query_memory);
+        current_call_data->ret_tdesc = CreateTupleDescCopy(tupdesc);
+        current_call_data->tuple_store = tuplestore_begin_heap(
+            rsi->allowedModes & SFRM_Materialize_Random, false, work_mem);
+        MemoryContextSwitchTo(old_cxt);
+    }
+
+    // Create temporary context for this call's allocations
+    if (!current_call_data->tmp_cxt) {
+        current_call_data->tmp_cxt = AllocSetContextCreate(CurrentMemoryContext,
+                                                          "PL/Perl return_next temporary cxt",
+                                                          ALLOCSET_DEFAULT_SIZES);
+    }
+
+    old_cxt = MemoryContextSwitchTo(current_call_data->tmp_cxt);
+
+    if (prodesc->fn_retistuple) {
+        // Handle composite return values
+        HeapTuple tuple;
+
+        if (!(SvOK(sv) && SvROK(sv) && SvTYPE(SvRV(sv)) == SVt_PVHV))
+            ereport(ERROR, (errcode(ERRCODE_DATATYPE_MISMATCH),
+                           errmsg("SETOF-composite-returning PL/Perl function "
+                                 "must call return_next with reference to hash")));
+
+        tuple = plperl_build_tuple_result((HV *) SvRV(sv), current_call_data->ret_tdesc);
+
+        // Validate domain constraints if needed
+        if (OidIsValid(current_call_data->cdomain_oid))
+            domain_check(HeapTupleGetDatum(tuple), false,
+                        current_call_data->cdomain_oid,
+                        &current_call_data->cdomain_info,
+                        rsi->econtext->ecxt_per_query_memory);
+
+        tuplestore_puttuple(current_call_data->tuple_store, tuple);
+    } else if (prodesc->result_oid) {
+        // Handle scalar return values
+        Datum ret[1];
+        bool isNull[1];
+
+        ret[0] = plperl_sv_to_datum(sv, prodesc->result_oid, -1, fcinfo,
+                                   &prodesc->result_in_func,
+                                   prodesc->result_typioparam, &isNull[0]);
+
+        tuplestore_putvalues(current_call_data->tuple_store,
+                            current_call_data->ret_tdesc, ret, isNull);
+    }
+
+    // Clean up temporary allocations
+    MemoryContextSwitchTo(old_cxt);
+    MemoryContextReset(current_call_data->tmp_cxt);
+}
+```

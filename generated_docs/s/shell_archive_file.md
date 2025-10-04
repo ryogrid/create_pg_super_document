@@ -55,3 +55,64 @@ The function distinguishes between different types of failures: signal terminati
 - Wait events are reported to PostgreSQL's statistics system for monitoring archive command duration
 - The `state` parameter is currently unused but maintained for interface consistency
 - Returns true on successful archiving, false on failure
+
+## Simplified Source
+
+```c
+static bool
+shell_archive_file(ArchiveModuleState *state, const char *file, const char *path)
+{
+    char *xlogarchcmd;
+    char *nativePath = NULL;
+    int rc;
+
+    // Convert path to native format if provided
+    if (path) {
+        nativePath = pstrdup(path);
+        make_native_path(nativePath);
+    }
+
+    // Build command by substituting %f and %p placeholders
+    xlogarchcmd = replace_percent_placeholders(XLogArchiveCommand,
+                                              "archive_command", "fp",
+                                              file, nativePath);
+
+    ereport(DEBUG3, (errmsg_internal("executing archive command \"%s\"", xlogarchcmd)));
+
+    // Execute the archive command and track wait time
+    fflush(NULL);
+    pgstat_report_wait_start(WAIT_EVENT_ARCHIVE_COMMAND);
+    rc = system(xlogarchcmd);
+    pgstat_report_wait_end();
+
+    // Handle command failure with detailed error reporting
+    if (rc != 0) {
+        int lev = wait_result_is_any_signal(rc, true) ? FATAL : LOG;
+
+        if (WIFEXITED(rc)) {
+            ereport(lev, (errmsg("archive command failed with exit code %d", WEXITSTATUS(rc)),
+                         errdetail("The failed archive command was: %s", xlogarchcmd)));
+        } else if (WIFSIGNALED(rc)) {
+            // Platform-specific signal reporting
+#if defined(WIN32)
+            ereport(lev, (errmsg("archive command was terminated by exception 0x%X", WTERMSIG(rc)),
+                         errdetail("The failed archive command was: %s", xlogarchcmd)));
+#else
+            ereport(lev, (errmsg("archive command was terminated by signal %d: %s",
+                                WTERMSIG(rc), pg_strsignal(WTERMSIG(rc))),
+                         errdetail("The failed archive command was: %s", xlogarchcmd)));
+#endif
+        } else {
+            ereport(lev, (errmsg("archive command exited with unrecognized status %d", rc),
+                         errdetail("The failed archive command was: %s", xlogarchcmd)));
+        }
+
+        pfree(xlogarchcmd);
+        return false;
+    }
+
+    pfree(xlogarchcmd);
+    elog(DEBUG1, "archived write-ahead log file \"%s\"", file);
+    return true;
+}
+```

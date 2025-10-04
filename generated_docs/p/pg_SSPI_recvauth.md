@@ -60,3 +60,110 @@ The function handles various error conditions gracefully, ensuring proper cleanu
 - Performs case-insensitive domain/realm comparison for SSPI authentication
 - The function returns STATUS_OK on success or STATUS_ERROR on failure
 - Includes extensive debug logging at DEBUG4 level for troubleshooting authentication issues
+
+## Simplified Source
+
+```c
+// Simplified version of pg_SSPI_recvauth
+static int pg_SSPI_recvauth(Port *port) {
+    CredHandle sspicred;
+    CtxtHandle *sspictx = NULL;
+    char accountname[MAXPGPATH];
+    char domainname[MAXPGPATH];
+
+    // Step 1: Acquire server credentials for "negotiate" protocol
+    if (AcquireCredentialsHandle(NULL, "negotiate", SECPKG_CRED_INBOUND,
+                                NULL, NULL, NULL, NULL, &sspicred, NULL) != SEC_E_OK) {
+        pg_SSPI_error(ERROR, "could not acquire SSPI credentials", r);
+    }
+
+    // Step 2: Exchange authentication tokens with client
+    SECURITY_STATUS r;
+    do {
+        // Read SSPI token from client
+        StringInfoData buf;
+        if (pq_getbyte() != PqMsg_GSSResponse || pq_getmessage(&buf, PG_MAX_AUTH_TOKEN_LENGTH)) {
+            // Cleanup and return error
+            if (sspictx) {
+                DeleteSecurityContext(sspictx);
+                free(sspictx);
+            }
+            FreeCredentialsHandle(&sspicred);
+            return STATUS_ERROR;
+        }
+
+        // Process token with SSPI
+        SecBufferDesc inbuf, outbuf;
+        // ... buffer setup ...
+
+        r = AcceptSecurityContext(&sspicred, sspictx, &inbuf,
+                                  ASC_REQ_ALLOCATE_MEMORY, SECURITY_NETWORK_DREP,
+                                  &newctx, &outbuf, &contextattr, NULL);
+
+        // Send response token if needed
+        if (outbuf.cBuffers > 0 && outbuf.pBuffers[0].cbBuffer > 0) {
+            sendAuthRequest(port, AUTH_REQ_GSS_CONT,
+                           outbuf.pBuffers[0].pvBuffer, outbuf.pBuffers[0].cbBuffer);
+            FreeContextBuffer(outbuf.pBuffers[0].pvBuffer);
+        }
+
+        // Update context for next iteration
+        if (!sspictx) sspictx = malloc(sizeof(CtxtHandle));
+        memcpy(sspictx, &newctx, sizeof(CtxtHandle));
+
+    } while (r == SEC_I_CONTINUE_NEEDED);
+
+    FreeCredentialsHandle(&sspicred);
+
+    // Step 3: Extract user identity from completed authentication
+    HANDLE token;
+    QuerySecurityContextToken(sspictx, &token);
+    DeleteSecurityContext(sspictx);
+    free(sspictx);
+
+    // Get user information from token
+    TOKEN_USER *tokenuser;
+    DWORD retlen;
+    GetTokenInformation(token, TokenUser, NULL, 0, &retlen);
+    tokenuser = malloc(retlen);
+    GetTokenInformation(token, TokenUser, tokenuser, retlen, &retlen);
+    CloseHandle(token);
+
+    // Convert SID to account name and domain
+    DWORD accountnamesize = sizeof(accountname);
+    DWORD domainnamesize = sizeof(domainname);
+    LookupAccountSid(NULL, tokenuser->User.Sid, accountname, &accountnamesize,
+                     domainname, &domainnamesize, NULL);
+    free(tokenuser);
+
+    // Step 4: Format authenticated identity
+    char *authn_id;
+    if (port->hba->compat_realm) {
+        authn_id = psprintf("%s\\%s", domainname, accountname);  // SAM format
+    } else {
+        // Convert to UPN format if needed
+        pg_SSPI_make_upn(accountname, sizeof(accountname),
+                         domainname, sizeof(domainname), port->hba->upn_username);
+        authn_id = psprintf("%s@%s", accountname, domainname);  // Kerberos format
+    }
+    set_authn_id(port, authn_id);
+    pfree(authn_id);
+
+    // Step 5: Validate domain/realm if configured
+    if (port->hba->krb_realm && strlen(port->hba->krb_realm)) {
+        if (pg_strcasecmp(port->hba->krb_realm, domainname) != 0) {
+            return STATUS_ERROR;
+        }
+    }
+
+    // Step 6: Check user mapping
+    if (port->hba->include_realm) {
+        char *namebuf = psprintf("%s@%s", accountname, domainname);
+        int retval = check_usermap(port->hba->usermap, port->user_name, namebuf, true);
+        pfree(namebuf);
+        return retval;
+    } else {
+        return check_usermap(port->hba->usermap, port->user_name, accountname, true);
+    }
+}
+```

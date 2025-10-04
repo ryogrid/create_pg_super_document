@@ -57,3 +57,48 @@ Shell types (types that are declared but not fully defined) are explicitly rejec
 - Used extensively by procedural languages for type resolution
 - Commonly used in input validation functions and type registration functions
 - The soft error handling makes it suitable for user-facing functions that need to validate type names
+
+## Simplified Source
+
+```c
+bool
+parseTypeString(const char *str, Oid *typeid_p, int32 *typmod_p, Node *escontext)
+{
+    TypeName *typeName;
+    Type tup;
+
+    // Parse the type string into a TypeName node
+    typeName = typeStringToTypeName(str, escontext);
+    if (typeName == NULL)
+        return false;
+
+    // Look up the type in the system catalog
+    tup = LookupTypeName(NULL, typeName, typmod_p,
+                         (escontext && IsA(escontext, ErrorSaveContext)));
+
+    if (tup == NULL) {
+        // Type not found
+        ereturn(escontext, false,
+                (errcode(ERRCODE_UNDEFINED_OBJECT),
+                 errmsg("type \"%s\" does not exist",
+                        TypeNameToString(typeName))));
+    } else {
+        Form_pg_type typ = (Form_pg_type) GETSTRUCT(tup);
+
+        // Check if type is fully defined (not just a shell)
+        if (!typ->typisdefined) {
+            ReleaseSysCache(tup);
+            ereturn(escontext, false,
+                    (errcode(ERRCODE_UNDEFINED_OBJECT),
+                     errmsg("type \"%s\" is only a shell",
+                            TypeNameToString(typeName))));
+        }
+
+        // Return the type OID
+        *typeid_p = typ->oid;
+        ReleaseSysCache(tup);
+    }
+
+    return true;
+}
+```

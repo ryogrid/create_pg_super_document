@@ -52,3 +52,121 @@ The function includes robust error handling and security measures, including pas
 - Returns NULL on failure with error message in `err` parameter
 - May call ereport(ERROR) for password-related security violations instead of returning NULL
 - Supports both database connections and replication protocol connections
+
+## Simplified Source
+
+```c
+static WalReceiverConn *
+libpqrcv_connect(const char *conninfo, bool replication, bool logical,
+                 bool must_use_password, const char *appname, char **err)
+{
+    WalReceiverConn *conn;
+    PostgresPollingStatusType status;
+    const char *keys[6];
+    const char *vals[6];
+    int i = 0;
+
+    // Re-validate connection string with current security context
+    libpqrcv_check_conninfo(conninfo, must_use_password);
+
+    // Build connection parameters
+    keys[i] = "dbname";
+    vals[i] = conninfo;
+
+    Assert(replication || !logical);
+
+    if (replication)
+    {
+        keys[++i] = "replication";
+        vals[i] = logical ? "database" : "true";
+
+        if (logical)
+        {
+            // Set encoding and GUC parameters for logical replication
+            keys[++i] = "client_encoding";
+            vals[i] = GetDatabaseEncodingName();
+            keys[++i] = "options";
+            vals[i] = "-c datestyle=ISO -c intervalstyle=postgres -c extra_float_digits=3";
+        }
+        else
+        {
+            // Physical replication uses "replication" database name
+            keys[++i] = "dbname";
+            vals[i] = "replication";
+        }
+    }
+
+    keys[++i] = "fallback_application_name";
+    vals[i] = appname;
+    keys[++i] = NULL;
+    vals[i] = NULL;
+
+    // Start asynchronous connection
+    conn = palloc0(sizeof(WalReceiverConn));
+    conn->streamConn = PQconnectStartParams(keys, vals, true);
+    if (PQstatus(conn->streamConn) == CONNECTION_BAD)
+        goto bad_connection_errmsg;
+
+    // Poll until connection completes
+    status = PGRES_POLLING_WRITING;
+    do
+    {
+        int io_flag = (status == PGRES_POLLING_READING) ? WL_SOCKET_READABLE : WL_SOCKET_WRITEABLE;
+
+#ifdef WIN32
+        if (PQstatus(conn->streamConn) == CONNECTION_STARTED)
+            io_flag = WL_SOCKET_CONNECTED;
+#endif
+
+        int rc = WaitLatchOrSocket(MyLatch, WL_EXIT_ON_PM_DEATH | WL_LATCH_SET | io_flag,
+                                   PQsocket(conn->streamConn), 0, WAIT_EVENT_LIBPQWALRECEIVER_CONNECT);
+
+        // Handle interrupts
+        if (rc & WL_LATCH_SET)
+        {
+            ResetLatch(MyLatch);
+            ProcessWalRcvInterrupts();
+        }
+
+        // Advance connection state machine
+        if (rc & io_flag)
+            status = PQconnectPoll(conn->streamConn);
+    } while (status != PGRES_POLLING_OK && status != PGRES_POLLING_FAILED);
+
+    if (PQstatus(conn->streamConn) != CONNECTION_OK)
+        goto bad_connection_errmsg;
+
+    // Enforce password requirement for security
+    if (must_use_password && !PQconnectionUsedPassword(conn->streamConn))
+    {
+        PQfinish(conn->streamConn);
+        pfree(conn);
+        ereport(ERROR, (errcode(ERRCODE_S_R_E_PROHIBITED_SQL_STATEMENT_ATTEMPTED),
+                       errmsg("password is required"),
+                       errdetail("Non-superuser cannot connect if the server does not request a password.")));
+    }
+
+    // Set secure search path for SQL query execution
+    if (!replication || logical)
+    {
+        PGresult *res = libpqrcv_PQexec(conn->streamConn, ALWAYS_SECURE_SEARCH_PATH_SQL);
+        if (PQresultStatus(res) != PGRES_TUPLES_OK)
+        {
+            PQclear(res);
+            *err = psprintf(_("could not clear search path: %s"), pchomp(PQerrorMessage(conn->streamConn)));
+            goto bad_connection;
+        }
+        PQclear(res);
+    }
+
+    conn->logical = logical;
+    return conn;
+
+bad_connection_errmsg:
+    *err = pchomp(PQerrorMessage(conn->streamConn));
+bad_connection:
+    PQfinish(conn->streamConn);
+    pfree(conn);
+    return NULL;
+}
+```

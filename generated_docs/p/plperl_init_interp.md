@@ -58,3 +58,45 @@ The function is designed to create interpreters that can later be specialized as
 - Critical for security - prepares the foundation for later trust-level-specific hardening
 - Returns fully constructed but not yet specialized (trusted/untrusted) Perl interpreter
 - Error handling includes context information for debugging Perl initialization failures
+
+## Simplified Source
+
+```c
+static PerlInterpreter *
+plperl_init_interp(void)
+{
+    PerlInterpreter *plperl;
+    static char *embedding[3 + 2] = {"", "-e", PLC_PERLBOOT};
+    int nargs = 3;
+
+    // Windows locale preservation (save current locale settings)
+    #ifdef WIN32
+    char *save_collate, *save_ctype, *save_monetary, *save_numeric, *save_time;
+    char *loc;
+
+    loc = setlocale(LC_COLLATE, NULL);
+    save_collate = loc ? pstrdup(loc) : NULL;
+    // ... similar for other locale categories
+    #endif
+
+    // Create and initialize new Perl interpreter
+    plperl = perl_alloc();
+    perl_construct(plperl);
+    PERL_SET_CONTEXT(plperl);
+
+    // Parse and run the bootstrap code
+    perl_parse(plperl, plperl_init_shared_libs, nargs, embedding, NULL);
+    perl_run(plperl);
+
+    // Restore signal handler (Perl messes with SIGFPE)
+    pqsignal(SIGFPE, FloatExceptionHandler);
+
+    // Restore locale settings on Windows
+    #ifdef WIN32
+    if (save_collate) setlocale(LC_COLLATE, save_collate);
+    // ... restore other locale categories
+    #endif
+
+    return plperl;
+}
+```

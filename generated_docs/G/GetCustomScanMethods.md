@@ -36,3 +36,13 @@ The returned CustomScanMethods structure contains callback functions that define
 - Custom scan providers must register their methods using the extensible node registration mechanism before this function can retrieve them
 - The function is part of PostgreSQL's custom scan infrastructure, which allows extensions to implement specialized scan operations beyond the built-in scan types
 - The missing_ok parameter provides flexibility for callers that need to handle optional custom scan providers gracefully
+
+## Simplified Source
+
+```c
+const CustomScanMethods *GetCustomScanMethods(const char *CustomName, bool missing_ok) {
+    // Lookup custom scan methods in the global hash table
+    return (const CustomScanMethods *)
+        GetExtensibleNodeEntry(custom_scan_methods, CustomName, missing_ok);
+}
+```

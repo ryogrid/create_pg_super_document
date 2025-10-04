@@ -40,3 +40,37 @@ This filtering mechanism is essential in multi-master replication scenarios wher
 - The origin_id parameter corresponds to replication origins configured in the system
 - Error context management ensures meaningful error messages if the plugin's filter callback fails
 - Part of PostgreSQL's logical replication origin tracking and filtering infrastructure
+
+## Simplified Source
+
+```c
+bool
+filter_by_origin_cb_wrapper(LogicalDecodingContext *ctx, RepOriginId origin_id)
+{
+    Assert(!ctx->fast_forward);
+
+    // Set up error context for meaningful error reporting
+    LogicalErrorCallbackState state;
+    ErrorContextCallback errcallback;
+
+    state.ctx = ctx;
+    state.callback_name = "filter_by_origin";
+    state.report_location = InvalidXLogRecPtr;
+    errcallback.callback = output_plugin_error_callback;
+    errcallback.arg = (void *) &state;
+    errcallback.previous = error_context_stack;
+    error_context_stack = &errcallback;
+
+    // Configure output state for filtering operation
+    ctx->accept_writes = false;
+    ctx->end_xact = false;
+
+    // Call the actual plugin filter callback
+    bool ret = ctx->callbacks.filter_by_origin_cb(ctx, origin_id);
+
+    // Restore error context
+    error_context_stack = errcallback.previous;
+
+    return ret;
+}
+```

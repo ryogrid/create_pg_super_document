@@ -45,3 +45,29 @@ This design allows for multiple bulk delete passes within a single VACUUM operat
 - Returns allocated statistics structure that must be freed by caller
 - Part of the SP-GiST access method's integration with PostgreSQL's vacuum system
 - The callback mechanism allows VACUUM to determine which tuples should be deleted based on heap tuple visibility
+
+## Simplified Source
+
+```c
+IndexBulkDeleteResult *
+spgbulkdelete(IndexVacuumInfo *info, IndexBulkDeleteResult *stats,
+              IndexBulkDeleteCallback callback, void *callback_state)
+{
+    spgBulkDeleteState bds;
+
+    // Allocate stats structure if first time, otherwise reuse existing
+    if (stats == NULL)
+        stats = (IndexBulkDeleteResult *) palloc0(sizeof(IndexBulkDeleteResult));
+
+    // Initialize bulk delete state
+    bds.info = info;
+    bds.stats = stats;
+    bds.callback = callback;
+    bds.callback_state = callback_state;
+
+    // Perform the actual vacuum scan
+    spgvacuumscan(&bds);
+
+    return stats;
+}
+```

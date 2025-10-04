@@ -47,3 +47,45 @@ The function determines the oldest available WAL segment by first checking the l
 - Currently focuses on the current timeline for WAL segment searches
 - The retry mechanism handles race conditions with concurrent WAL removal
 - Essential for preventing WAL segments from being removed before slot synchronization completes
+
+## Simplified Source
+
+```c
+static void reserve_wal_for_local_slot(XLogRecPtr restart_lsn)
+{
+    XLogSegNo oldest_segno, segno;
+    ReplicationSlot *slot = MyReplicationSlot;
+
+    // Retry loop to handle race conditions with WAL removal
+    while (true)
+    {
+        // Set the restart LSN for this slot
+        SpinLockAcquire(&slot->mutex);
+        slot->data.restart_lsn = restart_lsn;
+        SpinLockRelease(&slot->mutex);
+
+        // Update system-wide WAL retention requirements
+        ReplicationSlotsComputeRequiredLSN();
+
+        // Calculate which segment we need
+        XLByteToSeg(slot->data.restart_lsn, segno, wal_segment_size);
+
+        // Find oldest available WAL segment
+        oldest_segno = XLogGetLastRemovedSegno() + 1;
+        if (oldest_segno == 1)
+        {
+            // No segments removed yet, search timeline directory
+            TimeLineID cur_timeline;
+            GetWalRcvFlushRecPtr(NULL, &cur_timeline);
+            oldest_segno = XLogGetOldestSegno(cur_timeline);
+        }
+
+        // Check if required WAL is still available
+        if (segno >= oldest_segno)
+            break;  // Success - WAL is available
+
+        // Retry with oldest available segment
+        XLogSegNoOffsetToRecPtr(oldest_segno, 0, wal_segment_size, restart_lsn);
+    }
+}
+```

@@ -31,3 +31,12 @@ This function performs the inverse operation of PGTYPESdate_julmdy by converting
 - Uses January 1, 2000 as the reference point for Julian date calculations
 - The calculated Julian date is relative to PostgreSQL's epoch, not absolute Julian day numbers
 - Essential for converting user-friendly date formats to PostgreSQL's internal representation
+
+## Simplified Source
+
+```c
+void PGTYPESdate_mdyjul(int *mdy, date *jdate) {
+    // Convert month/day/year to Julian date relative to 2000-01-01
+    *jdate = (date)(date2j(mdy[2], mdy[0], mdy[1]) - date2j(2000, 1, 1));
+}
+```

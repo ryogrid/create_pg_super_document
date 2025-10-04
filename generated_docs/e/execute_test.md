@@ -47,3 +47,98 @@ Each test case follows a similar pattern: reset the environment, prepare SQL sta
 - The final part of the function demonstrates descriptor usage for dynamic SQL analysis, showing count, length, and data extraction
 - All SQL operations are performed through ECPG interface functions rather than direct database calls
 - The function is located in src/interfaces/ecpg/test/expected/sql-declare.c:216-580
+
+## Simplified Source
+
+```c
+void execute_test(void) {
+    int i, count, length;
+    char *selectString = "SELECT f1,f2,f3 FROM source";
+
+    // Test case 1: Default connection with prepared statements and cursors
+    reset();
+    ECPGprepare(__LINE__, NULL, 0, "stmt_1", selectString);
+    ECPGdo(__LINE__, 0, 1, NULL, 0, ECPGst_normal, "declare cur_1 cursor for $1",
+           ECPGt_char_variable,(ECPGprepared_statement(NULL, "stmt_1", __LINE__)));
+
+    // Fetch all rows using cursor
+    i = 0;
+    while (1) {
+        ECPGdo(__LINE__, 0, 1, NULL, 0, ECPGst_normal, "fetch cur_1", ECPGt_EOIT,
+               ECPGt_int,&(f1[i]), ECPGt_int,&(f2[i]), ECPGt_char,(f3[i]));
+        if (sqlca.sqlcode == ECPG_NOT_FOUND) break;
+        i++;
+    }
+    ECPGdo(__LINE__, 0, 1, NULL, 0, ECPGst_normal, "close cur_1", ECPGt_EOIT, ECPGt_EORT);
+    ECPGdeallocate(__LINE__, 0, NULL, "stmt_1");
+    printResult("testcase1", 2);
+
+    // Test case 2: Non-default connection (con1)
+    reset();
+    ECPGprepare(__LINE__, "con1", 0, "stmt_2", selectString);
+    ECPGdo(__LINE__, 0, 1, "con1", 0, ECPGst_normal, "declare cur_2 cursor for $1",
+           ECPGt_char_variable,(ECPGprepared_statement("con1", "stmt_2", __LINE__)));
+
+    // Similar fetch loop for con1
+    i = 0;
+    while (1) {
+        ECPGdo(__LINE__, 0, 1, "con1", 0, ECPGst_normal, "fetch cur_2", ECPGt_EOIT,
+               ECPGt_int,&(f1[i]), ECPGt_int,&(f2[i]), ECPGt_char,(f3[i]));
+        if (sqlca.sqlcode == ECPG_NOT_FOUND) break;
+        i++;
+    }
+    ECPGdo(__LINE__, 0, 1, "con1", 0, ECPGst_normal, "close cur_2", ECPGt_EOIT, ECPGt_EORT);
+    ECPGdeallocate(__LINE__, 0, "con1", "stmt_2");
+    printResult("testcase2", 2);
+
+    // Test case 3: Direct execution without cursors
+    reset();
+    ECPGprepare(__LINE__, NULL, 0, "stmt_3", selectString);
+    ECPGdo(__LINE__, 0, 1, NULL, 0, ECPGst_execute, "stmt_3", ECPGt_EOIT,
+           ECPGt_int,(f1), ECPGt_int,(f2), ECPGt_char,(f3));
+    ECPGdeallocate(__LINE__, 0, NULL, "stmt_3");
+    printResult("testcase3", 2);
+
+    // Test case 4: Explicit connection (con2)
+    reset();
+    ECPGprepare(__LINE__, "con2", 0, "stmt_4", selectString);
+    ECPGdo(__LINE__, 0, 1, "con2", 0, ECPGst_normal, "declare cur_4 cursor for $1",
+           ECPGt_char_variable,(ECPGprepared_statement("con2", "stmt_4", __LINE__)));
+
+    // Fetch and cleanup for con2
+    i = 0;
+    while (1) {
+        ECPGdo(__LINE__, 0, 1, "con2", 0, ECPGst_normal, "fetch cur_4", ECPGt_EOIT,
+               ECPGt_int,&(f1[i]), ECPGt_int,&(f2[i]), ECPGt_char,(f3[i]));
+        if (sqlca.sqlcode == ECPG_NOT_FOUND) break;
+        i++;
+    }
+    ECPGdo(__LINE__, 0, 1, "con2", 0, ECPGst_normal, "close cur_4", ECPGt_EOIT, ECPGt_EORT);
+    ECPGdeallocate(__LINE__, 0, "con2", "stmt_4");
+    printResult("testcase4", 2);
+
+    // Descriptor test: demonstrate dynamic SQL analysis
+    ECPGprepare(__LINE__, "con1", 0, "stmt_desc", selectString);
+    ECPGdo(__LINE__, 0, 1, "con1", 0, ECPGst_normal, "declare cur_desc cursor for $1",
+           ECPGt_char_variable,(ECPGprepared_statement("con1", "stmt_desc", __LINE__)));
+
+    // Use descriptor to analyze statement structure
+    ECPGallocate_desc(__LINE__, "desc_for_describe");
+    ECPGdescribe(__LINE__, 0, 0, "con1", "stmt_desc", ECPGt_descriptor, "desc_for_describe");
+    ECPGget_desc_header(__LINE__, "desc_for_describe", &(count));
+    ECPGget_desc(__LINE__, "desc_for_describe", 3, ECPGd_length, ECPGt_int, &(length));
+    ECPGdeallocate_desc(__LINE__, "desc_for_describe");
+
+    // Fetch using descriptor and cleanup
+    ECPGallocate_desc(__LINE__, "desc_for_fetch");
+    ECPGdo(__LINE__, 0, 1, "con1", 0, ECPGst_normal, "fetch cur_desc", ECPGt_EOIT,
+           ECPGt_descriptor, "desc_for_fetch");
+    ECPGget_desc(__LINE__, "desc_for_fetch", 3, ECPGd_data, ECPGt_char, (f3[0]));
+    ECPGdeallocate_desc(__LINE__, "desc_for_fetch");
+    ECPGdo(__LINE__, 0, 1, "con1", 0, ECPGst_normal, "close cur_desc", ECPGt_EOIT, ECPGt_EORT);
+    ECPGdeallocate(__LINE__, 0, "con1", "stmt_desc");
+
+    printf("****descriptor results****\n");
+    printf("count: %d, length: %d, data: %s\n", count, length, f3[0]);
+}
+```

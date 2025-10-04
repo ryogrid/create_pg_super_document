@@ -60,3 +60,111 @@ The function includes special handling for zero-length matches and zero repetiti
 - Handles edge cases including zero-length strings, zero repetitions, and minimum repetition requirements
 - Prefers to match at least once even when zero matches are allowed, to ensure capturing groups are set
 - The algorithm is designed to handle complex nested patterns with multiple possible valid divisions
+
+## Simplified Source
+
+```c
+static int citerdissect(struct vars *v, struct subre *t, chr *begin, chr *end) {
+    struct dfa *d;
+    chr **endpts;
+    chr *limit;
+    int min_matches, nverified, k, i, er;
+    size_t max_matches;
+
+    // Set up minimum matches (prefer at least 1 even if 0 allowed)
+    min_matches = (t->min <= 0) ? 1 : t->min;
+
+    // Calculate workspace size
+    max_matches = end - begin;
+    if (max_matches > t->max && t->max != DUPINF)
+        max_matches = t->max;
+    if (max_matches < min_matches)
+        max_matches = min_matches;
+
+    // Allocate endpoint tracking array
+    endpts = (chr **) MALLOC((max_matches + 1) * sizeof(chr *));
+    if (endpts == NULL) return REG_ESPACE;
+    endpts[0] = begin;
+
+    d = getsubdfa(v, t->child);
+    if (ISERR()) {
+        FREE(endpts);
+        return v->err;
+    }
+
+    // Find valid sub-match divisions and verify them
+    nverified = 0;
+    k = 1;
+    limit = end;
+
+    while (k > 0) {
+        // Find endpoint for k'th sub-match
+        endpts[k] = longest(v, d, endpts[k - 1], limit, NULL);
+        if (endpts[k] == NULL) {
+            k--; // Backtrack
+            goto backtrack;
+        }
+
+        if (nverified >= k) nverified = k - 1;
+
+        if (endpts[k] != end) {
+            // Need more iterations if allowed
+            if (k >= max_matches ||
+                (endpts[k] == endpts[k - 1] &&
+                 (k >= min_matches || min_matches - k < end - endpts[k]))) {
+                goto backtrack;
+            }
+            k++;
+            limit = end;
+            continue;
+        }
+
+        // Verify if we have enough matches
+        if (k < min_matches) goto backtrack;
+
+        // Verify each sub-match
+        for (i = nverified + 1; i <= k; i++) {
+            zaptreesubs(v, t->child);
+            er = cdissect(v, t->child, endpts[i - 1], endpts[i]);
+            if (er == REG_OKAY) {
+                nverified = i;
+                continue;
+            }
+            if (er != REG_NOMATCH) {
+                FREE(endpts);
+                return er;
+            }
+            break;
+        }
+
+        if (i > k) {
+            // All verified successfully
+            FREE(endpts);
+            return REG_OKAY;
+        }
+
+        k = i; // Failed at position i
+
+backtrack:
+        // Try shorter versions of k'th sub-match
+        while (k > 0) {
+            chr *prev_end = endpts[k - 1];
+            if (endpts[k] > prev_end) {
+                limit = endpts[k] - 1;
+                if (limit > prev_end ||
+                    (k < min_matches && min_matches - k >= end - prev_end))
+                    break;
+            }
+            k--;
+        }
+    }
+
+    FREE(endpts);
+
+    // Try zero matches if allowed
+    if (t->min == 0 && begin == end)
+        return REG_OKAY;
+
+    return REG_NOMATCH;
+}
+```

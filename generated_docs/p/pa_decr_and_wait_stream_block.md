@@ -37,3 +37,30 @@ This function is a critical synchronization mechanism in PostgreSQL's logical re
 - The function accesses MyParallelShared->pending_stream_count and MyParallelShared->xid
 - Uses AccessShareLock mode for the stream locking mechanism
 - Part of the stream processing flow control in parallel logical replication workers
+
+## Simplified Source
+
+```c
+void pa_decr_and_wait_stream_block(void)
+{
+    // Ensure we're in a parallel apply worker context
+    Assert(am_parallel_apply_worker());
+
+    // Check if no pending stream chunks available
+    if (pg_atomic_read_u32(&MyParallelShared->pending_stream_count) == 0) {
+        // Allow spooled messages to continue processing
+        if (pa_has_spooled_message_pending())
+            return;
+
+        // Error if no valid reason for zero pending count
+        elog(ERROR, "invalid pending streaming chunk 0");
+    }
+
+    // Atomically decrement pending stream count
+    if (pg_atomic_sub_fetch_u32(&MyParallelShared->pending_stream_count, 1) == 0) {
+        // Wait for more stream data by locking/unlocking stream
+        pa_lock_stream(MyParallelShared->xid, AccessShareLock);
+        pa_unlock_stream(MyParallelShared->xid, AccessShareLock);
+    }
+}
+```

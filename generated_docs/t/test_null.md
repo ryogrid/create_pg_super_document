@@ -34,3 +34,12 @@ This function is part of the Informix compatibility layer testing, specifically 
 - The function is called extensively from the main test function (20 times) to test various data types and scenarios
 - Part of PostgreSQL's Informix compatibility layer, which provides functions and behavior compatible with IBM Informix database system
 - The output format "null: %d\n" suggests the function is used for regression testing where output is compared against expected results
+
+## Simplified Source
+
+```c
+static void test_null(int type, char *ptr) {
+    // Test null-checking functionality using risnull()
+    printf("null: %d\n", risnull(type, ptr));
+}
+```

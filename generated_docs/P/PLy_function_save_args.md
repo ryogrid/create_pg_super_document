@@ -43,3 +43,45 @@ The saved argument state can later be restored using PLy_function_restore_args t
 - Reference counting ensures saved Python objects remain valid
 - Returns a PLySavedArgs structure that can be passed to PLy_function_restore_args
 - File location: src/pl/plpython/plpy_exec.c:498-543
+
+## Simplified Source
+
+```c
+static PLySavedArgs *
+PLy_function_save_args(PLyProcedure *proc)
+{
+    PLySavedArgs *result;
+
+    // Allocate saved args structure in procedure's memory context
+    result = (PLySavedArgs *)
+        MemoryContextAllocZero(proc->mcxt,
+                               offsetof(PLySavedArgs, namedargs) +
+                               proc->nargs * sizeof(PyObject *));
+    result->nargs = proc->nargs;
+
+    // Save the "args" list from global namespace
+    result->args = PyDict_GetItemString(proc->globals, "args");
+    Py_XINCREF(result->args);
+
+    // For trigger procedures, also save "TD" object
+    if (proc->is_trigger) {
+        result->td = PyDict_GetItemString(proc->globals, "TD");
+        Py_XINCREF(result->td);
+    }
+
+    // Save all named arguments from global namespace
+    if (proc->argnames) {
+        int i;
+
+        for (i = 0; i < result->nargs; i++) {
+            if (proc->argnames[i]) {
+                result->namedargs[i] = PyDict_GetItemString(proc->globals,
+                                                          proc->argnames[i]);
+                Py_XINCREF(result->namedargs[i]);
+            }
+        }
+    }
+
+    return result;
+}
+```

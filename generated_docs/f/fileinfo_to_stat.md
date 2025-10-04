@@ -53,3 +53,40 @@ Error handling is provided through _dosmaperr() which maps Windows error codes t
 - Combines Windows 64-bit file sizes from separate high/low 32-bit components
 - Part of PostgreSQL's Windows compatibility layer for file system operations
 - Requires Windows XP or Windows Server 2003 minimum (but this covers all supported platforms)
+
+## Simplified Source
+
+```c
+static int fileinfo_to_stat(HANDLE hFile, struct stat *buf) {
+    BY_HANDLE_FILE_INFORMATION fiData;
+
+    // Initialize buffer and get file information
+    memset(buf, 0, sizeof(*buf));
+
+    if (!GetFileInformationByHandle(hFile, &fiData)) {
+        _dosmaperr(GetLastError());
+        return -1;
+    }
+
+    // Convert timestamps using helper function
+    if (fiData.ftLastWriteTime.dwLowDateTime || fiData.ftLastWriteTime.dwHighDateTime)
+        buf->st_mtime = filetime_to_time(&fiData.ftLastWriteTime);
+
+    if (fiData.ftLastAccessTime.dwLowDateTime || fiData.ftLastAccessTime.dwHighDateTime)
+        buf->st_atime = filetime_to_time(&fiData.ftLastAccessTime);
+    else
+        buf->st_atime = buf->st_mtime;
+
+    if (fiData.ftCreationTime.dwLowDateTime || fiData.ftCreationTime.dwHighDateTime)
+        buf->st_ctime = filetime_to_time(&fiData.ftCreationTime);
+    else
+        buf->st_ctime = buf->st_mtime;
+
+    // Convert file attributes and size
+    buf->st_mode = fileattr_to_unixmode(fiData.dwFileAttributes);
+    buf->st_nlink = fiData.nNumberOfLinks;
+    buf->st_size = ((((uint64) fiData.nFileSizeHigh) << 32) | fiData.nFileSizeLow);
+
+    return 0;
+}
+```

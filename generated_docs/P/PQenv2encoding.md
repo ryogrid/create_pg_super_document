@@ -31,3 +31,24 @@ This function takes no parameters.
 - PG_SQL_ASCII is used as the fallback encoding when PGCLIENTENCODING is unset or invalid
 - This function is part of libpq's client encoding detection mechanism
 - The returned encoding ID can be used with other PostgreSQL encoding functions
+
+## Simplified Source
+
+```c
+int PQenv2encoding(void)
+{
+    // Get PGCLIENTENCODING environment variable
+    char *str = getenv("PGCLIENTENCODING");
+    int encoding = PG_SQL_ASCII;  // Default encoding
+
+    // If variable exists and is non-empty, convert to encoding ID
+    if (str && *str != '\0') {
+        encoding = pg_char_to_encoding(str);
+        // Use default if conversion failed
+        if (encoding < 0)
+            encoding = PG_SQL_ASCII;
+    }
+
+    return encoding;
+}
+```

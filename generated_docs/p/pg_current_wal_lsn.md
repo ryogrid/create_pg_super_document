@@ -43,3 +43,23 @@ This function is commonly used by monitoring tools, backup scripts, and replicat
 - Part of PostgreSQL's WAL monitoring infrastructure located in src/backend/access/transam/xlogfuncs.c:273-293
 - Commonly used by backup tools, monitoring systems, and replication management scripts to track WAL write progress
 - Distinguished from sync positions - this represents write completion, not durability guarantee
+
+## Simplified Source
+
+```c
+Datum
+pg_current_wal_lsn(PG_FUNCTION_ARGS)
+{
+    XLogRecPtr current_recptr;
+
+    // Cannot run during recovery
+    if (RecoveryInProgress())
+        ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                       errmsg("recovery is in progress")));
+
+    // Get current WAL write position
+    current_recptr = GetXLogWriteRecPtr();
+
+    PG_RETURN_LSN(current_recptr);
+}
+```

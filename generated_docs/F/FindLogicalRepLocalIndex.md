@@ -44,3 +44,30 @@ The function is critical for logical replication performance, as having an appro
 - For REPLICA_IDENTITY_FULL relations, it assumes all columns are available for index scanning
 - Avoids using the full planner for performance reasons, implementing a simpler index selection algorithm
 - Critical for logical replication performance optimization on subscriber nodes
+
+## Simplified Source
+
+```c
+static Oid
+FindLogicalRepLocalIndex(Relation localrel, LogicalRepRelation *remoterel, AttrMap *attrMap)
+{
+    Oid idxoid;
+
+    // Skip partitioned tables - use leaf partition indexes instead
+    if (localrel->rd_rel->relkind == RELKIND_PARTITIONED_TABLE)
+        return InvalidOid;
+
+    // First priority: use primary key or replica identity index
+    idxoid = GetRelationIdentityOrPK(localrel);
+    if (OidIsValid(idxoid))
+        return idxoid;
+
+    // Second priority: for full replica identity, find any suitable index
+    if (remoterel->replident == REPLICA_IDENTITY_FULL) {
+        return FindUsableIndexForReplicaIdentityFull(localrel, attrMap);
+    }
+
+    // No suitable index found
+    return InvalidOid;
+}
+```

@@ -44,3 +44,23 @@ The function systematically extracts string attributes from the Python exception
 - Provides database object context for comprehensive error reporting
 - Simpler than PLy_get_spi_error_data due to fewer error attributes
 - Function is located in src/pl/plpython/plpy_elog.c:417-434
+
+## Simplified Source
+
+```c
+static void PLy_get_error_data(PyObject *exc, int *sqlerrcode, char **detail, char **hint,
+                              char **schema_name, char **table_name, char **column_name,
+                              char **datatype_name, char **constraint_name) {
+    // Extract SQL error code
+    PLy_get_sqlerrcode(exc, sqlerrcode);
+
+    // Extract all string attributes from the Error exception
+    get_string_attr(exc, "detail", detail);
+    get_string_attr(exc, "hint", hint);
+    get_string_attr(exc, "schema_name", schema_name);
+    get_string_attr(exc, "table_name", table_name);
+    get_string_attr(exc, "column_name", column_name);
+    get_string_attr(exc, "datatype_name", datatype_name);
+    get_string_attr(exc, "constraint_name", constraint_name);
+}
+```

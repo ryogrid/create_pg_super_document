@@ -50,3 +50,89 @@ This function is the main tree traversal engine for SP-GiST index scans. It proc
 - Handles tuple state transitions including redirects and dead tuples
 - Includes interrupt checking to prevent infinite loops
 - Located at src/backend/access/spgist/spgscan.c:817-930
+
+## Simplified Source
+
+```c
+static void
+spgWalk(Relation index, SpGistScanOpaque so, bool scanWholeIndex,
+        storeRes_func storeRes)
+{
+    Buffer buffer = InvalidBuffer;
+    bool reportedSome = false;
+
+    while (scanWholeIndex || !reportedSome) {
+        // Get next item from search queue
+        SpGistSearchItem *item = spgGetNextQueueItem(so);
+        if (item == NULL)
+            break;  // Queue exhausted
+
+redirect:
+        CHECK_FOR_INTERRUPTS();
+
+        if (item->isLeaf) {
+            // Handle leaf items (heap tuples) for ordered scans
+            storeRes(so, &item->heapPtr, item->value, item->isNull,
+                    item->leafTuple, item->recheck,
+                    item->recheckDistances, item->distances);
+            reportedSome = true;
+        } else {
+            // Handle tree nodes - read page if needed
+            BlockNumber blkno = ItemPointerGetBlockNumber(&item->heapPtr);
+            OffsetNumber offset = ItemPointerGetOffsetNumber(&item->heapPtr);
+
+            // Manage page buffer efficiently
+            if (buffer == InvalidBuffer || blkno != BufferGetBlockNumber(buffer)) {
+                if (buffer != InvalidBuffer)
+                    UnlockReleaseBuffer(buffer);
+                buffer = ReadBuffer(index, blkno);
+                LockBuffer(buffer, BUFFER_LOCK_SHARE);
+            }
+
+            Page page = BufferGetPage(buffer);
+            bool isnull = SpGistPageStoresNulls(page);
+
+            if (SpGistPageIsLeaf(page)) {
+                // Process leaf page
+                OffsetNumber max = PageGetMaxOffsetNumber(page);
+
+                if (SpGistBlockIsRoot(blkno)) {
+                    // Root leaf page: examine all tuples
+                    for (offset = FirstOffsetNumber; offset <= max; offset++)
+                        spgTestLeafTuple(so, item, page, offset,
+                                       isnull, true, &reportedSome, storeRes);
+                } else {
+                    // Regular leaf page: follow tuple chain
+                    while (offset != InvalidOffsetNumber) {
+                        offset = spgTestLeafTuple(so, item, page, offset,
+                                                isnull, false, &reportedSome, storeRes);
+                        if (offset == SpGistRedirectOffsetNumber)
+                            goto redirect;
+                    }
+                }
+            } else {
+                // Process inner page
+                SpGistInnerTuple innerTuple = (SpGistInnerTuple)
+                    PageGetItem(page, PageGetItemId(page, offset));
+
+                if (innerTuple->tupstate == SPGIST_REDIRECT) {
+                    // Follow redirect
+                    item->heapPtr = ((SpGistDeadTuple) innerTuple)->pointer;
+                    goto redirect;
+                }
+
+                // Test inner tuple and generate child search items
+                spgInnerTest(so, item, innerTuple, isnull);
+            }
+        }
+
+        // Clean up current item and temp context
+        spgFreeSearchItem(so, item);
+        MemoryContextReset(so->tempCxt);
+    }
+
+    // Release buffer if held
+    if (buffer != InvalidBuffer)
+        UnlockReleaseBuffer(buffer);
+}
+```

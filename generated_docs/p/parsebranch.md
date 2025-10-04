@@ -97,3 +97,48 @@ The parser implements intelligent state management for concatenation by using in
 - Empty branches result in direct empty arcs between left and right states
 - The '=' operation is initially tentative and may be modified by  based on branch complexity
 - State management ensures proper concatenation semantics while maintaining efficient NFA structure
+
+## Simplified Source
+
+```c
+static struct subre *
+parsebranch(struct vars *v, int stopper, int type,
+            struct state *left, struct state *right, int partial)
+{
+    struct state *lp;           // Current left position
+    int seencontent;            // Track if branch has content
+    struct subre *t;
+
+    lp = left;
+    seencontent = 0;
+
+    // Create tentative branch node
+    t = subre(v, '=', 0, left, right);
+    NOERRN();
+
+    // Parse atoms until branch terminator
+    while (!SEE('|') && !SEE(stopper) && !SEE(EOS)) {
+
+        if (seencontent) {
+            // Handle concatenation: create intermediate state
+            lp = newstate(v->nfa);
+            NOERRN();
+            moveins(v->nfa, right, lp);  // Move transitions
+        }
+        seencontent = 1;
+
+        // Parse next quantified atom (may consume rest of branch)
+        t = parseqatom(v, stopper, type, lp, right, t);
+        NOERRN();
+    }
+
+    // Handle empty branch case
+    if (!seencontent) {
+        if (!partial)
+            NOTE(REG_UUNSPEC);  // Warn about empty branch
+        EMPTYARC(left, right);  // Create direct empty transition
+    }
+
+    return t;
+}
+```

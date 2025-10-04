@@ -39,3 +39,61 @@ Event triggers are primarily used for auditing, logging, or enforcing policies o
 - The return value is captured but discarded (with compiler warning suppression)
 - Error handling follows standard Perl XS patterns with proper exception propagation
 - Designed for DDL event monitoring and auditing rather than data modification control
+
+## Simplified Source
+
+```c
+static void plperl_call_perl_event_trigger_func(plperl_proc_desc *desc, FunctionCallInfo fcinfo, SV *td) {
+    dTHX;
+    dSP;
+    SV *retval, *TDsv;
+    int count;
+
+    ENTER;
+    SAVETMPS;
+
+    // Set up global $_TD variable with event trigger data
+    TDsv = get_sv("main::_TD", 0);
+    if (!TDsv)
+        ereport(ERROR, (errcode(ERRCODE_EXTERNAL_ROUTINE_EXCEPTION),
+                       errmsg("couldn't fetch $_TD")));
+
+    save_item(TDsv);            // Local $_TD scope
+    sv_setsv(TDsv, td);         // Set $_TD to event data hash
+
+    // Prepare Perl stack (no arguments for event triggers)
+    PUSHMARK(sp);
+    PUTBACK;
+
+    // Call the Perl event trigger function
+    count = call_sv(desc->reference, G_SCALAR | G_EVAL);
+    SPAGAIN;
+
+    // Validate return value
+    if (count != 1) {
+        PUTBACK;
+        FREETMPS;
+        LEAVE;
+        ereport(ERROR, (errcode(ERRCODE_EXTERNAL_ROUTINE_EXCEPTION),
+                       errmsg("didn't get a return item from trigger function")));
+    }
+
+    // Check for Perl errors
+    if (SvTRUE(ERRSV)) {
+        (void) POPs;
+        PUTBACK;
+        FREETMPS;
+        LEAVE;
+        ereport(ERROR, (errcode(ERRCODE_EXTERNAL_ROUTINE_EXCEPTION),
+                       errmsg("%s", strip_trailing_ws(sv2cstr(ERRSV)))));
+    }
+
+    // Extract return value (discarded for event triggers)
+    retval = newSVsv(POPs);
+    (void) retval;              // Silence compiler warning
+
+    PUTBACK;
+    FREETMPS;
+    LEAVE;
+}
+```

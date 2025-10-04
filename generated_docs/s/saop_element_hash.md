@@ -36,3 +36,27 @@ The function retrieves the hash function information from the hash table's priva
 - Part of PostgreSQL's optimized scalar array operation infrastructure that uses hash tables for efficient element lookups
 - The function assumes the input key is not NULL (NULL handling is done at a higher level)
 - Returns a 32-bit hash value suitable for use in hash table bucket selection
+
+## Simplified Source
+
+```c
+static uint32
+saop_element_hash(struct saophash_hash *tb, Datum key)
+{
+    // Get hash table structure containing function info
+    ScalarArrayOpExprHashTable *elements_tab =
+        (ScalarArrayOpExprHashTable *) tb->private_data;
+    FunctionCallInfo fcinfo = &elements_tab->hash_fcinfo_data;
+    Datum hash;
+
+    // Set up function call arguments
+    fcinfo->args[0].value = key;
+    fcinfo->args[0].isnull = false;
+
+    // Call the element type's hash function
+    hash = elements_tab->hash_finfo.fn_addr(fcinfo);
+
+    // Convert result to 32-bit hash value
+    return DatumGetUInt32(hash);
+}
+```

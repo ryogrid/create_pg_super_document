@@ -50,3 +50,26 @@ This approach provides more readable output compared to raw enum values, making 
 
 ## Notes and Other Information
 This function is part of PostgreSQL's node serialization system and demonstrates the "do-it-yourself enum representation" approach mentioned in the code comments. Rather than relying on automatic enum serialization, it explicitly maps enum values to meaningful string representations. The function handles the three fundamental boolean operations supported by PostgreSQL's boolean expression system. Like other _out functions, it's marked static and accessed through the node output dispatch mechanism, making it a crucial component for query plan visualization and debugging tools.
+
+## Simplified Source
+
+```c
+static void _outBoolExpr(StringInfo str, const BoolExpr *node) {
+    // Write node type identifier
+    WRITE_NODE_TYPE("BOOLEXPR");
+
+    // Convert boolean operator enum to readable string
+    char *opstr;
+    switch (node->boolop) {
+        case AND_EXPR: opstr = "and"; break;
+        case OR_EXPR:  opstr = "or";  break;
+        case NOT_EXPR: opstr = "not"; break;
+    }
+
+    // Output operator and node fields
+    appendStringInfoString(str, " :boolop ");
+    outToken(str, opstr);
+    WRITE_NODE_FIELD(args);
+    WRITE_LOCATION_FIELD(location);
+}
+```

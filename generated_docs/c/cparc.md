@@ -46,3 +46,12 @@ The function name "cparc" likely stands for "copy arc". It's a simple but freque
 - Widely used throughout the NFA manipulation and optimization code
 - Part of PostgreSQL's internal regular expression engine implementation
 - The function delegates all the actual work to `newarc`, simply providing a more convenient interface for copying arc properties
+
+## Simplified Source
+
+```c
+static void cparc(struct nfa *nfa, struct arc *oa, struct state *from, struct state *to) {
+    // Copy arc by creating new arc with same type and color as old arc
+    newarc(nfa, oa->type, oa->co, from, to);
+}
+```

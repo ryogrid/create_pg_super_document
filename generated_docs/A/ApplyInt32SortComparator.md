@@ -35,3 +35,38 @@ This comparator is specifically optimized for 32-bit integer data types, providi
 
 ## Notes and Other Information
 This function is a performance optimization specifically for 32-bit signed integer data types such as int4. It provides the same NULL handling and sort direction semantics as the general ApplySortComparator but avoids function pointer overhead. The use of DatumGetInt32() ensures proper conversion from the Datum representation to a 32-bit signed integer value for comparison. This comparator is typically used in tuplesort operations where the data type is known to be a 32-bit integer.
+
+## Simplified Source
+
+```c
+static inline int ApplyInt32SortComparator(Datum datum1, bool isNull1,
+                                           Datum datum2, bool isNull2,
+                                           SortSupport ssup) {
+    int compare;
+
+    // Handle NULL value comparisons first
+    if (isNull1) {
+        if (isNull2)
+            compare = 0;                    // NULL == NULL
+        else if (ssup->ssup_nulls_first)
+            compare = -1;                   // NULL < NOT_NULL
+        else
+            compare = 1;                    // NULL > NOT_NULL
+    } else if (isNull2) {
+        if (ssup->ssup_nulls_first)
+            compare = 1;                    // NOT_NULL > NULL
+        else
+            compare = -1;                   // NOT_NULL < NULL
+    } else {
+        // Convert to signed int32 and compare directly for performance
+        compare = DatumGetInt32(datum1) < DatumGetInt32(datum2) ? -1 :
+                  DatumGetInt32(datum1) > DatumGetInt32(datum2) ? 1 : 0;
+
+        // Apply reverse sort order if configured
+        if (ssup->ssup_reverse)
+            INVERT_COMPARE_RESULT(compare);
+    }
+
+    return compare;
+}
+```

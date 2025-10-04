@@ -37,3 +37,23 @@ The k-way merge approach assumes that changes within individual transactions are
 - The comparison assumes LSN values are stored in the entries array of the iterator state
 - Returns 1 if a < b, 0 if a == b, and -1 if a > b (reverse of typical comparison)
 - Essential component of PostgreSQLs logical replication change ordering mechanism
+
+## Simplified Source
+
+```c
+static int ReorderBufferIterCompare(Datum a, Datum b, void *arg) {
+    // Get iterator state containing LSN entries
+    ReorderBufferIterTXNState *state = (ReorderBufferIterTXNState *) arg;
+
+    // Extract LSN positions for both transactions
+    XLogRecPtr pos_a = state->entries[DatumGetInt32(a)].lsn;
+    XLogRecPtr pos_b = state->entries[DatumGetInt32(b)].lsn;
+
+    // Reverse comparison for min-heap: smaller LSN has higher priority
+    if (pos_a < pos_b)
+        return 1;
+    else if (pos_a == pos_b)
+        return 0;
+    return -1;
+}
+```

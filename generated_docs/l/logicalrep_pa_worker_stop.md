@@ -41,3 +41,40 @@ The function first extracts worker identification information (slot number and g
 - Performs critical message queue cleanup to prevent leader worker communication issues
 - Validates slot numbers against max_logical_replication_workers limit
 - Thread-safe through proper use of spinlocks and LWLocks
+
+## Simplified Source
+
+```c
+void logicalrep_pa_worker_stop(ParallelApplyWorkerInfo *winfo)
+{
+    int slot_no;
+    uint16 generation;
+    LogicalRepWorker *worker;
+
+    // Get worker identification from shared info
+    SpinLockAcquire(&winfo->shared->mutex);
+    generation = winfo->shared->logicalrep_worker_generation;
+    slot_no = winfo->shared->logicalrep_worker_slot_no;
+    SpinLockRelease(&winfo->shared->mutex);
+
+    Assert(slot_no >= 0 && slot_no < max_logical_replication_workers);
+
+    // Detach from error message queue to prevent leader communication issues
+    if (winfo->error_mq_handle) {
+        shm_mq_detach(winfo->error_mq_handle);
+        winfo->error_mq_handle = NULL;
+    }
+
+    // Access worker and stop if generation matches and worker is alive
+    LWLockAcquire(LogicalRepWorkerLock, LW_SHARED);
+
+    worker = &LogicalRepCtx->workers[slot_no];
+    Assert(isParallelApplyWorker(worker));
+
+    // Only stop if generation matches and worker process exists
+    if (worker->generation == generation && worker->proc)
+        logicalrep_worker_stop_internal(worker, SIGINT);
+
+    LWLockRelease(LogicalRepWorkerLock);
+}
+```

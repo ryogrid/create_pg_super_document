@@ -53,3 +53,47 @@ The function ensures proper transaction processing by calling ReorderBufferProce
 - Online checkpoints are handled differently from shutdown/recovery checkpoints - they don't require immediate serialization as RUNNING_XACTS records provide restart points
 - Many XLOG record types are simply ignored during logical decoding as they don't affect logical replication streams
 - Error handling includes assertions and explicit error reporting for parameter validation issues
+
+## Simplified Source
+
+```c
+void xlog_decode(LogicalDecodingContext *ctx, XLogRecordBuffer *buf)
+{
+    SnapBuild *builder = ctx->snapshot_builder;
+    uint8 info = XLogRecGetInfo(buf->record) & ~XLR_INFO_MASK;
+
+    // Process transaction for reordering
+    ReorderBufferProcessXid(ctx->reorder, XLogRecGetXid(buf->record), buf->origptr);
+
+    switch (info) {
+        case XLOG_CHECKPOINT_SHUTDOWN:
+        case XLOG_END_OF_RECOVERY:
+            // Create serialization point for consistent restart
+            SnapBuildSerializationPoint(builder, buf->origptr);
+            break;
+
+        case XLOG_CHECKPOINT_ONLINE:
+            // Online checkpoints handled via RUNNING_XACTS records
+            break;
+
+        case XLOG_PARAMETER_CHANGE:
+            // Validate WAL level is sufficient for logical decoding
+            xl_parameter_change *xlrec = (xl_parameter_change *) XLogRecGetData(buf->record);
+            if (xlrec->wal_level < WAL_LEVEL_LOGICAL) {
+                Assert(RecoveryInProgress());
+                ereport(ERROR, "logical decoding requires wal_level >= logical on primary");
+            }
+            break;
+
+        case XLOG_NOOP:
+        case XLOG_NEXTOID:
+        case XLOG_SWITCH:
+        // ... other administrative record types
+            // These records don't affect logical replication
+            break;
+
+        default:
+            elog(ERROR, "unexpected RM_XLOG_ID record type: %u", info);
+    }
+}
+```

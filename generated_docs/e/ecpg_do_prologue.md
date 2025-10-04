@@ -63,3 +63,211 @@ The function processes complex variable argument lists containing type informati
 - Critical foundation function that must succeed before any statement execution
 - Handles both simple and complex prepared statement scenarios
 - Essential component of ECPG's statement execution pipeline
+
+## Simplified Source
+
+```c
+bool
+ecpg_do_prologue(int lineno, const int compat, const int force_indicator,
+                 const char *connection_name, const bool questionmarks,
+                 enum ECPG_statement_type statement_type, const char *query,
+                 va_list args, struct statement **stmt_out)
+{
+    struct statement *stmt = NULL;
+    struct connection *con;
+    enum ECPGttype type;
+    struct variable **list;
+    char *prepname;
+    bool is_prepared_name_set;
+
+    *stmt_out = NULL;
+
+    // Validate query
+    if (!query)
+    {
+        ecpg_raise(lineno, ECPG_EMPTY, ECPG_SQLSTATE_ECPG_INTERNAL_ERROR, NULL);
+        return false;
+    }
+
+    // Initialize threading and get connection
+    ecpg_pthreads_init();
+    con = ecpg_get_connection(connection_name);
+
+    if (!ecpg_init(con, connection_name, lineno))
+        return false;
+
+    // Allocate statement structure
+    stmt = (struct statement *) ecpg_alloc(sizeof(struct statement), lineno);
+    if (!stmt) return false;
+
+    // Set C locale for numeric communication with database
+#ifdef HAVE_USELOCALE
+    stmt->oldlocale = uselocale(ecpg_clocale);
+    if (stmt->oldlocale == (locale_t) 0)
+    {
+        ecpg_do_epilogue(stmt);
+        return false;
+    }
+#else
+    stmt->oldlocale = ecpg_strdup(setlocale(LC_NUMERIC, NULL), lineno);
+    if (!stmt->oldlocale)
+    {
+        ecpg_do_epilogue(stmt);
+        return false;
+    }
+    setlocale(LC_NUMERIC, "C");
+#endif
+
+    // Handle prepared statements
+    if (statement_type == ECPGst_prepnormal)
+    {
+        if (!ecpg_auto_prepare(lineno, connection_name, compat, &prepname, query))
+        {
+            ecpg_do_epilogue(stmt);
+            return false;
+        }
+        stmt->command = prepname;
+        statement_type = ECPGst_execute;
+    }
+    else
+        stmt->command = ecpg_strdup(query, lineno);
+
+    stmt->name = NULL;
+
+    // Handle EXECUTE statements
+    if (statement_type == ECPGst_execute)
+    {
+        char *command = ecpg_prepared(stmt->command, con);
+        if (command)
+        {
+            stmt->name = stmt->command;
+            stmt->command = ecpg_strdup(command, lineno);
+        }
+        else
+        {
+            ecpg_raise(lineno, ECPG_INVALID_STMT,
+                      ECPG_SQLSTATE_INVALID_SQL_STATEMENT_NAME, stmt->command);
+            ecpg_do_epilogue(stmt);
+            return false;
+        }
+    }
+
+    // Initialize statement fields
+    stmt->connection = con;
+    stmt->lineno = lineno;
+    stmt->compat = compat;
+    stmt->force_indicator = force_indicator;
+    stmt->questionmarks = questionmarks;
+    stmt->statement_type = statement_type;
+
+    // Process variable arguments to create input/output lists
+    is_prepared_name_set = false;
+    list = &(stmt->inlist);
+    type = va_arg(args, enum ECPGttype);
+
+    while (type != ECPGt_EORT)
+    {
+        if (type == ECPGt_EOIT)
+            list = &(stmt->outlist);  // Switch to output variables
+        else
+        {
+            // Create variable structure
+            struct variable *var = (struct variable *) ecpg_alloc(sizeof(struct variable), lineno);
+            if (!var)
+            {
+                ecpg_do_epilogue(stmt);
+                return false;
+            }
+
+            // Extract variable information from arguments
+            var->type = type;
+            var->pointer = va_arg(args, char *);
+            var->varcharsize = va_arg(args, long);
+            var->arrsize = va_arg(args, long);
+            var->offset = va_arg(args, long);
+
+            // Set value pointer based on array/pointer characteristics
+            if (var->arrsize == 0 ||
+                (var->varcharsize == 0 && ((var->type != ECPGt_char && var->type != ECPGt_unsigned_char) || (var->arrsize <= 1))))
+                var->value = *((char **) (var->pointer));
+            else
+                var->value = var->pointer;
+
+            // Handle negative sizes (unbounded arrays)
+            if (var->arrsize < 0) var->arrsize = 0;
+            if (var->varcharsize < 0) var->varcharsize = 0;
+
+            var->next = NULL;
+
+            // Extract indicator variable information
+            var->ind_type = va_arg(args, enum ECPGttype);
+            var->ind_pointer = va_arg(args, char *);
+            var->ind_varcharsize = va_arg(args, long);
+            var->ind_arrsize = va_arg(args, long);
+            var->ind_offset = va_arg(args, long);
+
+            // Set indicator value pointer
+            if (var->ind_type != ECPGt_NO_INDICATOR &&
+                (var->ind_arrsize == 0 || var->ind_varcharsize == 0))
+                var->ind_value = *((char **) (var->ind_pointer));
+            else
+                var->ind_value = var->ind_pointer;
+
+            // Handle negative indicator sizes
+            if (var->ind_arrsize < 0) var->ind_arrsize = 0;
+            if (var->ind_varcharsize < 0) var->ind_varcharsize = 0;
+
+            // Validate variable
+            if (!var->pointer)
+            {
+                ecpg_raise(lineno, ECPG_INVALID_STMT,
+                          ECPG_SQLSTATE_INVALID_SQL_STATEMENT_NAME, NULL);
+                ecpg_free(var);
+                ecpg_do_epilogue(stmt);
+                return false;
+            }
+
+            // Add to appropriate list
+            struct variable *ptr;
+            for (ptr = *list; ptr && ptr->next; ptr = ptr->next);
+            if (!ptr)
+                *list = var;
+            else
+                ptr->next = var;
+
+            // Set prepared statement name if needed
+            if (!is_prepared_name_set && stmt->statement_type == ECPGst_prepare)
+            {
+                stmt->name = ecpg_strdup(var->value, lineno);
+                is_prepared_name_set = true;
+            }
+        }
+
+        type = va_arg(args, enum ECPGttype);
+    }
+
+    // Validate connection
+    if (!con || !con->connection)
+    {
+        ecpg_raise(lineno, ECPG_NOT_CONN, ECPG_SQLSTATE_ECPG_INTERNAL_ERROR,
+                  (con) ? con->name : ecpg_gettext("<empty>"));
+        ecpg_do_epilogue(stmt);
+        return false;
+    }
+
+    // Validate prepared statement name
+    if (!is_prepared_name_set && stmt->statement_type == ECPGst_prepare)
+    {
+        ecpg_raise(lineno, ECPG_TOO_FEW_ARGUMENTS, ECPG_SQLSTATE_ECPG_INTERNAL_ERROR,
+                  (con) ? con->name : ecpg_gettext("<empty>"));
+        ecpg_do_epilogue(stmt);
+        return false;
+    }
+
+    // Initialize automatic memory management
+    ecpg_clear_auto_mem();
+
+    *stmt_out = stmt;
+    return true;
+}
+```

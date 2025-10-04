@@ -47,3 +47,42 @@ The synchronization logic is critical for test reliability - it prevents the mai
 - The function will exit on postmaster death (`WL_EXIT_ON_PM_DEATH`) to prevent orphaned processes
 - Uses `ResetLatch` to prevent spinning in subsequent wait cycles
 - The volatile qualifier on the header parameter ensures proper memory ordering for shared memory access
+
+## Simplified Source
+
+```c
+static void
+wait_for_workers_to_become_ready(worker_state *wstate,
+                                  volatile test_shm_mq_header *hdr)
+{
+    for (;;) {
+        // Check if all workers are ready
+        SpinLockAcquire(&hdr->mutex);
+        int workers_ready = hdr->workers_ready;
+        SpinLockRelease(&hdr->mutex);
+
+        if (workers_ready >= wstate->nworkers) {
+            // Success: all workers ready
+            break;
+        }
+
+        // Check if any workers have died
+        if (!check_worker_status(wstate)) {
+            ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_RESOURCES),
+                           errmsg("one or more background workers failed to start")));
+        }
+
+        // Set up wait event for monitoring (first time only)
+        if (we_bgworker_startup == 0)
+            we_bgworker_startup = WaitEventExtensionNew("TestShmMqBgWorkerStartup");
+
+        // Wait for signal or postmaster death
+        (void) WaitLatch(MyLatch, WL_LATCH_SET | WL_EXIT_ON_PM_DEATH, 0,
+                        we_bgworker_startup);
+
+        // Reset latch and check for interrupts
+        ResetLatch(MyLatch);
+        CHECK_FOR_INTERRUPTS();
+    }
+}
+```

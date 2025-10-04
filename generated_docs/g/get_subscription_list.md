@@ -42,3 +42,51 @@ The function uses a heap scan over the pg_subscription table and creates Subscri
 - Memory context switching is used within the scan loop to allocate results in the caller's context while preventing leaks from heap operations
 - Only fills subscription fields relevant to worker start/stop operations, leaving other fields uninitialized for efficiency
 - Operates under AccessShareLock on the pg_subscription relation to allow concurrent reads
+
+## Simplified Source
+
+```c
+static List *get_subscription_list(void)
+{
+    List *res = NIL;
+    Relation rel;
+    TableScanDesc scan;
+    HeapTuple tup;
+    MemoryContext resultcxt = CurrentMemoryContext;
+
+    // Start transaction and get snapshot for consistent catalog reads
+    StartTransactionCommand();
+    (void) GetTransactionSnapshot();
+
+    // Scan pg_subscription catalog
+    rel = table_open(SubscriptionRelationId, AccessShareLock);
+    scan = table_beginscan_catalog(rel, 0, NULL);
+
+    while (HeapTupleIsValid(tup = heap_getnext(scan, ForwardScanDirection))) {
+        Form_pg_subscription subform = (Form_pg_subscription) GETSTRUCT(tup);
+        Subscription *sub;
+        MemoryContext oldcxt;
+
+        // Allocate result in caller's context to persist beyond transaction
+        oldcxt = MemoryContextSwitchTo(resultcxt);
+
+        // Extract essential subscription info for worker management
+        sub = (Subscription *) palloc0(sizeof(Subscription));
+        sub->oid = subform->oid;
+        sub->dbid = subform->subdbid;
+        sub->owner = subform->subowner;
+        sub->enabled = subform->subenabled;
+        sub->name = pstrdup(NameStr(subform->subname));
+
+        res = lappend(res, sub);
+        MemoryContextSwitchTo(oldcxt);
+    }
+
+    // Clean up scan and transaction
+    table_endscan(scan);
+    table_close(rel, AccessShareLock);
+    CommitTransactionCommand();
+
+    return res;
+}
+```

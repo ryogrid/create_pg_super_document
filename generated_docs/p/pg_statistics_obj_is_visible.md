@@ -35,3 +35,20 @@ The visibility check considers the current search path and ensures that the stat
 - Part of PostgreSQL's namespace and visibility system for schema-qualified object resolution
 - Extended statistics objects (CREATE STATISTICS) are used to collect multi-column statistics for improved query planning
 - Located in src/backend/catalog/namespace.c:5006-5019
+
+## Simplified Source
+
+```c
+Datum pg_statistics_obj_is_visible(PG_FUNCTION_ARGS) {
+    Oid stats_obj_oid = PG_GETARG_OID(0);
+    bool is_missing = false;
+
+    // Check if statistics object is visible in current search path
+    bool result = StatisticsObjIsVisibleExt(stats_obj_oid, &is_missing);
+
+    // Return NULL if statistics object doesn't exist, otherwise return visibility status
+    if (is_missing)
+        PG_RETURN_NULL();
+    PG_RETURN_BOOL(result);
+}
+```

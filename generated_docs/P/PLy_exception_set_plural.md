@@ -37,3 +37,23 @@ This function extends the functionality of PLy_exception_set by providing proper
 - Critical for providing grammatically correct error messages in multiple languages
 - Less commonly used than PLy_exception_set, but essential for count-dependent error messages
 - Part of PostgreSQL's comprehensive internationalization support in PL/Python
+
+## Simplified Source
+
+```c
+void PLy_exception_set_plural(PyObject *exc, const char *fmt_singular, const char *fmt_plural,
+                             unsigned long n, ...) {
+    char buf[1024];
+    va_list ap;
+
+    // Format message with plural form selection and variable arguments
+    va_start(ap, n);
+    vsnprintf(buf, sizeof(buf),
+              dngettext(TEXTDOMAIN, fmt_singular, fmt_plural, n),
+              ap);
+    va_end(ap);
+
+    // Set the Python exception with the formatted message
+    PyErr_SetString(exc, buf);
+}
+```

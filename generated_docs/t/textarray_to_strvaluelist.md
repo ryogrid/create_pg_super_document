@@ -36,3 +36,34 @@ The function performs element-by-element conversion, extracting each TEXT datum 
 - Part of the SQL interface for PostgreSQL's object address resolution system
 - Error message specifically mentions "name or argument lists" to provide context about the restriction
 - Memory for the returned list and string values is allocated in the current memory context
+
+## Simplified Source
+
+```c
+static List *
+textarray_to_strvaluelist(ArrayType *arr)
+{
+    Datum   *elems;
+    bool    *nulls;
+    int     nelems;
+    List    *list = NIL;
+    int     i;
+
+    // Extract array elements into individual datums
+    deconstruct_array_builtin(arr, TEXTOID, &elems, &nulls, &nelems);
+
+    // Convert each element to a string Value
+    for (i = 0; i < nelems; i++)
+    {
+        // Reject null values in name/argument lists
+        if (nulls[i])
+            ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                           errmsg("name or argument lists may not contain nulls")));
+
+        // Convert TEXT datum to string and add to list
+        list = lappend(list, makeString(TextDatumGetCString(elems[i])));
+    }
+
+    return list;
+}
+```

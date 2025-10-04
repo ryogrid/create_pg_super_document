@@ -47,3 +47,39 @@ The function validates the action sequence and sets the has_oldtuple flag to ind
 - Always expects a new tuple ('N' action) as the final component of an UPDATE message
 - Part of the logical replication protocol decoder for processing streaming changes
 - Located in src/backend/replication/logical/proto.c:492-532
+
+## Simplified Source
+
+```c
+LogicalRepRelId logicalrep_read_update(StringInfo in, bool *has_oldtuple,
+                                      LogicalRepTupleData *oldtup,
+                                      LogicalRepTupleData *newtup) {
+    LogicalRepRelId relid;
+    char action;
+
+    // Read relation ID
+    relid = pq_getmsgint(in, 4);
+
+    // Check first action byte
+    action = pq_getmsgbyte(in);
+    if (action != 'K' && action != 'O' && action != 'N')
+        elog(ERROR, "expected action 'N', 'O' or 'K', got %c", action);
+
+    // Process old tuple if present
+    if (action == 'K' || action == 'O') {
+        logicalrep_read_tuple(in, oldtup);
+        *has_oldtuple = true;
+        action = pq_getmsgbyte(in);  // Read next action
+    } else {
+        *has_oldtuple = false;
+    }
+
+    // Validate and read new tuple
+    if (action != 'N')
+        elog(ERROR, "expected action 'N', got %c", action);
+
+    logicalrep_read_tuple(in, newtup);
+
+    return relid;
+}
+```

@@ -53,3 +53,82 @@ The function ensures proper isolation between different users' Perl code while o
 - Includes error handling for interpreter initialization failures
 - Database access is only enabled after initialization to avoid security issues during setup
 - The function is critical for PL/Perl's security model and performance optimization
+
+## Simplified Source
+
+```c
+static void
+select_perl_context(bool trusted)
+{
+    Oid user_id;
+    plperl_interp_desc *interp_desc;
+    bool found;
+    PerlInterpreter *interp = NULL;
+
+    // Determine user ID based on trust level
+    user_id = trusted ? GetUserId() : InvalidOid;
+
+    // Find or create interpreter hash entry for this user
+    interp_desc = hash_search(plperl_interp_hash, &user_id, HASH_ENTER, &found);
+    if (!found)
+    {
+        // Initialize new hash entry
+        interp_desc->interp = NULL;
+        interp_desc->query_hash = NULL;
+    }
+
+    // Create query hash table if needed
+    if (interp_desc->query_hash == NULL)
+    {
+        HASHCTL hash_ctl;
+        hash_ctl.keysize = NAMEDATALEN;
+        hash_ctl.entrysize = sizeof(plperl_query_entry);
+        interp_desc->query_hash = hash_create("PL/Perl queries", 32, &hash_ctl, HASH_ELEM | HASH_STRINGS);
+    }
+
+    // Quick exit if interpreter already exists
+    if (interp_desc->interp)
+    {
+        activate_interpreter(interp_desc);
+        return;
+    }
+
+    // Use held interpreter or create new one
+    if (plperl_held_interp != NULL)
+    {
+        // Use the held interpreter for first actual use
+        interp = plperl_held_interp;
+        plperl_held_interp = NULL;
+
+        // Initialize based on trust level
+        if (trusted)
+            plperl_trusted_init();
+        else
+            plperl_untrusted_init();
+
+        // Register cleanup handler
+        on_proc_exit(plperl_fini, 0);
+    }
+    else
+    {
+        // Create new interpreter (if MULTIPLICITY supported)
+        plperl_active_interp = NULL;
+        interp = plperl_init_interp();
+
+        if (trusted)
+            plperl_trusted_init();
+        else
+            plperl_untrusted_init();
+    }
+
+    set_interp_require(trusted);
+
+    // Enable database access via SPI
+    newXS("PostgreSQL::InServer::SPI::bootstrap", boot_PostgreSQL__InServer__SPI, __FILE__);
+    eval_pv("PostgreSQL::InServer::SPI::bootstrap()", FALSE);
+
+    // Mark interpreter as ready and active
+    interp_desc->interp = interp;
+    plperl_active_interp = interp_desc;
+}
+```

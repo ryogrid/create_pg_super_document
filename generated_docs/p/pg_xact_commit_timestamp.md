@@ -35,3 +35,23 @@ This function provides a SQL-callable interface to retrieve the commit timestamp
 - Part of PostgreSQL's system for tracking transaction commit timestamps
 - Requires track_commit_timestamp to be enabled to return meaningful data for transactions
 - The returned timestamp represents when the transaction was committed, not when it started
+
+## Simplified Source
+
+```c
+Datum pg_xact_commit_timestamp(PG_FUNCTION_ARGS)
+{
+    TransactionId xid = PG_GETARG_TRANSACTIONID(0);
+    TimestampTz ts;
+    bool found;
+
+    // Get commit timestamp data for the transaction
+    found = TransactionIdGetCommitTsData(xid, &ts, NULL);
+
+    // Return NULL if no commit timestamp found
+    if (!found)
+        PG_RETURN_NULL();
+
+    PG_RETURN_TIMESTAMPTZ(ts);
+}
+```

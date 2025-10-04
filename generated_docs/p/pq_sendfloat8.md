@@ -43,3 +43,19 @@ Similar to pq_sendfloat4, this function uses a union to perform type-punning, tr
 - Part of PostgreSQL's comprehensive type serialization system for binary protocol communication
 - Localizes knowledge of external binary representation, improving code maintainability
 - Critical for binary format output of double-precision numeric data and geometric types
+
+## Simplified Source
+
+```c
+void pq_sendfloat8(StringInfo buf, float8 f) {
+    // Use union to reinterpret float8 bits as int64
+    union {
+        float8 f;
+        int64 i;
+    } swap;
+
+    // Copy float value and send as 64-bit integer
+    swap.f = f;
+    pq_sendint64(buf, swap.i);
+}
+```

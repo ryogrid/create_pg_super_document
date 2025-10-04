@@ -38,3 +38,34 @@ The binary search algorithm divides the search space in half at each step, provi
 - Sets *i to insertion point even on failed searches, making it useful for both lookup and insertion operations
 - Uses bit shifting (>> 1) for efficient division by 2 in middle calculation
 - Essential for SP-GiST node traversal where character labels guide the search path
+
+## Simplified Source
+
+```c
+static bool
+searchChar(Datum *nodeLabels, int nNodes, int16 c, int *i)
+{
+    int StopLow = 0;
+    int StopHigh = nNodes;
+
+    // Binary search loop
+    while (StopLow < StopHigh) {
+        int StopMiddle = (StopLow + StopHigh) >> 1;  // Efficient division by 2
+        int16 middle = DatumGetInt16(nodeLabels[StopMiddle]);
+
+        if (c < middle) {
+            StopHigh = StopMiddle;      // Search left half
+        } else if (c > middle) {
+            StopLow = StopMiddle + 1;   // Search right half
+        } else {
+            // Found exact match
+            *i = StopMiddle;
+            return true;
+        }
+    }
+
+    // Not found - return insertion position
+    *i = StopHigh;
+    return false;
+}
+```

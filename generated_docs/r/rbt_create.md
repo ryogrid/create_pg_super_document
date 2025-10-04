@@ -45,3 +45,36 @@ This function creates a new Red-Black Tree instance by allocating memory for the
 - Tree destruction is typically handled by resetting or deleting the memory context
 - All tree contents are allocated and managed by the caller, not by the tree implementation itself
 - The function validates that node_size is larger than the base RBTNode structure size
+
+## Simplified Source
+
+```c
+RBTree *rbt_create(Size node_size,
+                   rbt_comparator comparator,
+                   rbt_combiner combiner,
+                   rbt_allocfunc allocfunc,
+                   rbt_freefunc freefunc,
+                   void *arg)
+{
+    // Allocate memory for the tree structure
+    RBTree *tree = (RBTree *) palloc(sizeof(RBTree));
+
+    // Validate node size is larger than base structure
+    Assert(node_size > sizeof(RBTNode));
+
+    // Initialize tree with empty state
+    tree->root = RBTNIL;
+    tree->node_size = node_size;
+
+    // Set up function pointers for node operations
+    tree->comparator = comparator;
+    tree->combiner = combiner;
+    tree->allocfunc = allocfunc;
+    tree->freefunc = freefunc;
+
+    // Store user context data
+    tree->arg = arg;
+
+    return tree;
+}
+```

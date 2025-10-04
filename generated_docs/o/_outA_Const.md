@@ -38,3 +38,21 @@ This function converts an A_Const node into its textual representation by output
 - Location information is always written for debugging and error reporting
 - Part of PostgreSQL's node serialization system used for debugging, logging, and inter-process communication
 - The recursive call to outNode handles serialization of different constant types (Integer, Float, String, etc.)
+
+## Simplified Source
+
+```c
+static void _outA_Const(StringInfo str, const A_Const *node) {
+    WRITE_NODE_TYPE("A_CONST");
+
+    // Handle NULL vs non-NULL constants
+    if (node->isnull) {
+        appendStringInfoString(str, " NULL");
+    } else {
+        appendStringInfoString(str, " :val ");
+        outNode(str, &node->val);  // Serialize the constant value
+    }
+
+    WRITE_LOCATION_FIELD(location);  // Include source location for debugging
+}
+```

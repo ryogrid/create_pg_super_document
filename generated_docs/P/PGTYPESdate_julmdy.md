@@ -31,3 +31,19 @@ This function takes a Julian date value and converts it to the conventional mont
 - The function modifies the provided integer array in-place
 - Uses a reference date of January 1, 2000 for Julian date calculations
 - Part of the date manipulation utilities for embedded SQL applications
+
+## Simplified Source
+
+```c
+void PGTYPESdate_julmdy(date jd, int *mdy) {
+    int year, month, day;
+
+    // Convert Julian date to calendar components
+    j2date((int)(jd + date2j(2000, 1, 1)), &year, &month, &day);
+
+    // Store in month/day/year order
+    mdy[0] = month;
+    mdy[1] = day;
+    mdy[2] = year;
+}
+```

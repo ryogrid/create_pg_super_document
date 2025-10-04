@@ -59,3 +59,97 @@ The function maintains SP-GiST page statistics (nRedirection, nPlaceholder) and 
 - Part of the SP-GiST vacuum subsystem focused on cleaning up non-live tuples
 - Handles both transaction visibility and logical decoding requirements
 - The backward scan optimization allows efficient identification of removable trailing placeholders
+
+## Simplified Source
+
+```c
+static void
+vacuumRedirectAndPlaceholder(Relation index, Relation heaprel, Buffer buffer)
+{
+    Page page = BufferGetPage(buffer);
+    SpGistPageOpaque opaque = SpGistPageGetOpaque(page);
+    OffsetNumber max = PageGetMaxOffsetNumber(page);
+    OffsetNumber firstPlaceholder = InvalidOffsetNumber;
+    bool hasNonPlaceholder = false;
+    bool hasUpdate = false;
+    OffsetNumber itemToPlaceholder[MaxIndexTuplesPerPage];
+    OffsetNumber itemnos[MaxIndexTuplesPerPage];
+    spgxlogVacuumRedirect xlrec;
+    GlobalVisState *vistest;
+
+    // Initialize WAL record and visibility test
+    xlrec.isCatalogRel = RelationIsAccessibleInLogicalDecoding(heaprel);
+    xlrec.nToPlaceholder = 0;
+    xlrec.snapshotConflictHorizon = InvalidTransactionId;
+    vistest = GlobalVisTestFor(heaprel);
+
+    START_CRIT_SECTION();
+
+    // Phase 1: Convert old redirect tuples to placeholders
+    for (OffsetNumber i = max; i >= FirstOffsetNumber; i--) {
+        SpGistDeadTuple dt = (SpGistDeadTuple) PageGetItem(page, PageGetItemId(page, i));
+
+        // Convert REDIRECT to PLACEHOLDER if transaction is old enough
+        if (dt->tupstate == SPGIST_REDIRECT &&
+            (!TransactionIdIsValid(dt->xid) ||
+             GlobalVisTestIsRemovableXid(vistest, dt->xid))) {
+
+            // Convert to placeholder
+            dt->tupstate = SPGIST_PLACEHOLDER;
+            opaque->nRedirection--;
+            opaque->nPlaceholder++;
+
+            // Track for WAL logging
+            if (!TransactionIdIsValid(xlrec.snapshotConflictHorizon) ||
+                TransactionIdPrecedes(xlrec.snapshotConflictHorizon, dt->xid))
+                xlrec.snapshotConflictHorizon = dt->xid;
+
+            ItemPointerSetInvalid(&dt->pointer);
+            itemToPlaceholder[xlrec.nToPlaceholder] = i;
+            xlrec.nToPlaceholder++;
+            hasUpdate = true;
+        }
+
+        // Track placeholder positions for removal
+        if (dt->tupstate == SPGIST_PLACEHOLDER) {
+            if (!hasNonPlaceholder)
+                firstPlaceholder = i;
+        } else {
+            hasNonPlaceholder = true;
+        }
+    }
+
+    // Phase 2: Remove trailing placeholder tuples
+    if (firstPlaceholder != InvalidOffsetNumber) {
+        // Build array of trailing placeholder offsets
+        for (OffsetNumber i = firstPlaceholder; i <= max; i++)
+            itemnos[i - firstPlaceholder] = i;
+
+        OffsetNumber numToDelete = max - firstPlaceholder + 1;
+        opaque->nPlaceholder -= numToDelete;
+
+        // Bulk delete trailing placeholders
+        PageIndexMultiDelete(page, itemnos, numToDelete);
+        hasUpdate = true;
+    }
+
+    xlrec.firstPlaceholder = firstPlaceholder;
+
+    // Mark buffer dirty and log changes
+    if (hasUpdate)
+        MarkBufferDirty(buffer);
+
+    if (hasUpdate && RelationNeedsWAL(index)) {
+        XLogBeginInsert();
+        XLogRegisterData((char *) &xlrec, SizeOfSpgxlogVacuumRedirect);
+        XLogRegisterData((char *) itemToPlaceholder,
+                         sizeof(OffsetNumber) * xlrec.nToPlaceholder);
+        XLogRegisterBuffer(0, buffer, REGBUF_STANDARD);
+
+        XLogRecPtr recptr = XLogInsert(RM_SPGIST_ID, XLOG_SPGIST_VACUUM_REDIRECT);
+        PageSetLSN(page, recptr);
+    }
+
+    END_CRIT_SECTION();
+}
+```

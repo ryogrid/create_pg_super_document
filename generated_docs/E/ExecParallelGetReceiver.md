@@ -41,3 +41,23 @@ The function calculates the worker-specific queue location by adding an offset b
 - The function assumes ParallelWorkerNumber is properly set for the current worker
 - The returned DestReceiver should be used as the destination for tuple output during parallel execution
 - Part of the broader parallel query execution framework that enables PostgreSQL to distribute query processing across multiple worker processes
+
+## Simplified Source
+
+```c
+static DestReceiver *ExecParallelGetReceiver(dsm_segment *seg, shm_toc *toc)
+{
+    // Find the tuple queue space in shared memory
+    char *mqspace = shm_toc_lookup(toc, PARALLEL_KEY_TUPLE_QUEUE, false);
+
+    // Calculate worker-specific queue location
+    mqspace += ParallelWorkerNumber * PARALLEL_TUPLE_QUEUE_SIZE;
+    shm_mq *mq = (shm_mq *) mqspace;
+
+    // Configure this worker as sender for the queue
+    shm_mq_set_sender(mq, MyProc);
+
+    // Create and return tuple destination receiver
+    return CreateTupleQueueDestReceiver(shm_mq_attach(mq, seg, NULL));
+}
+```

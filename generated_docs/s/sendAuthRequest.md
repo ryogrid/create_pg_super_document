@@ -54,3 +54,32 @@ A key optimization is implemented where most authentication messages are immedia
 - Includes interrupt checking to handle query cancellation during authentication
 - The extradata parameter allows for method-specific authentication data (salts, nonces, certificates, etc.)
 - Part of PostgreSQL's broader authentication infrastructure that supports multiple authentication methods
+
+## Simplified Source
+
+```c
+void
+sendAuthRequest(Port *port, AuthRequest areq, const char *extradata, int extralen)
+{
+    StringInfoData buf;
+
+    CHECK_FOR_INTERRUPTS();
+
+    // Build authentication request message
+    pq_beginmessage(&buf, PqMsg_AuthenticationRequest);
+    pq_sendint32(&buf, (int32) areq);
+
+    // Include any additional authentication data
+    if (extralen > 0)
+        pq_sendbytes(&buf, extradata, extralen);
+
+    pq_endmessage(&buf);
+
+    // Flush immediately for most requests, except OK and SASL_FIN
+    // which are deferred until ready for queries
+    if (areq != AUTH_REQ_OK && areq != AUTH_REQ_SASL_FIN)
+        pq_flush();
+
+    CHECK_FOR_INTERRUPTS();
+}
+```

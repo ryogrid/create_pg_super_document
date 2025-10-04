@@ -39,3 +39,35 @@ The function is optimized for spatial indexing operations in PostgreSQL's SP-GiS
 - The function assumes the box is axis-aligned (edges parallel to coordinate axes)
 - NaN handling ensures robust behavior with invalid geometric data
 - The distance calculation is used for nearest-neighbor queries and spatial ordering operations in PostgreSQL's geometric indexing
+
+## Simplified Source
+
+```c
+static double point_box_distance(Point *point, BOX *box) {
+    double dx, dy;
+
+    // Handle NaN values in coordinates
+    if (isnan(point->x) || isnan(box->low.x) ||
+        isnan(point->y) || isnan(box->low.y))
+        return get_float8_nan();
+
+    // Calculate X distance component
+    if (point->x < box->low.x)
+        dx = box->low.x - point->x;        // Point is left of box
+    else if (point->x > box->high.x)
+        dx = point->x - box->high.x;       // Point is right of box
+    else
+        dx = 0.0;                          // Point is within X range
+
+    // Calculate Y distance component
+    if (point->y < box->low.y)
+        dy = box->low.y - point->y;        // Point is below box
+    else if (point->y > box->high.y)
+        dy = point->y - box->high.y;       // Point is above box
+    else
+        dy = 0.0;                          // Point is within Y range
+
+    // Return Euclidean distance (0.0 if point is inside box)
+    return HYPOT(dx, dy);
+}
+```

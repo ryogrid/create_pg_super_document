@@ -36,3 +36,73 @@ This function processes the server-final-message, which is the last message in t
 - Returns false if message is malformed or contains authentication errors
 - The server signature will be compared against client-calculated expected signature
 - Memory is allocated temporarily for decoding but freed before function returns
+
+## Simplified Source
+
+```c
+static bool
+read_server_final_message(fe_scram_state *state, char *input)
+{
+    PGconn *conn = state->conn;
+    char *encoded_server_signature;
+    char *decoded_server_signature;
+    int server_signature_len;
+
+    // Save the complete server message
+    state->server_final_message = strdup(input);
+    if (!state->server_final_message)
+    {
+        libpq_append_conn_error(conn, "out of memory");
+        return false;
+    }
+
+    // Check for authentication error (e=<error_message>)
+    if (*input == 'e')
+    {
+        char *errmsg = read_attr_value(&input, 'e', &conn->errorMessage);
+        if (errmsg == NULL)
+            return false;
+
+        libpq_append_conn_error(conn, "error received from server in SCRAM exchange: %s",
+                                errmsg);
+        return false;
+    }
+
+    // Parse server signature (v=<base64_signature>)
+    encoded_server_signature = read_attr_value(&input, 'v', &conn->errorMessage);
+    if (encoded_server_signature == NULL)
+        return false;
+
+    // Ensure no garbage data at end of message
+    if (*input != '\0')
+        libpq_append_conn_error(conn, "malformed SCRAM message (garbage at end of server-final-message)");
+
+    // Decode server signature from base64
+    server_signature_len = pg_b64_dec_len(strlen(encoded_server_signature));
+    decoded_server_signature = malloc(server_signature_len);
+    if (!decoded_server_signature)
+    {
+        libpq_append_conn_error(conn, "out of memory");
+        return false;
+    }
+
+    server_signature_len = pg_b64_decode(encoded_server_signature,
+                                         strlen(encoded_server_signature),
+                                         decoded_server_signature,
+                                         server_signature_len);
+
+    // Validate signature length matches expected key length
+    if (server_signature_len != state->key_length)
+    {
+        free(decoded_server_signature);
+        libpq_append_conn_error(conn, "malformed SCRAM message (invalid server signature)");
+        return false;
+    }
+
+    // Store server signature for mutual authentication verification
+    memcpy(state->ServerSignature, decoded_server_signature, state->key_length);
+    free(decoded_server_signature);
+
+    return true;
+}
+```

@@ -82,3 +82,27 @@ _=/usr/bin/env: Array of Datum values representing environment variable strings
 - The returned array contains all environment variables visible to the PostgreSQL process
 - Useful for testing environment variable access and array construction functionality
 - The function follows PostgreSQL's V1 calling convention for user-defined functions
+
+## Simplified Source
+
+```c
+Datum get_environ(PG_FUNCTION_ARGS) {
+    extern char **environ;
+    int nvals = 0;
+
+    // Count environment variables
+    for (char **s = environ; *s; s++)
+        nvals++;
+
+    // Allocate array for Datum values
+    Datum *env = palloc(nvals * sizeof(Datum));
+
+    // Convert each environment string to text Datum
+    for (int i = 0; i < nvals; i++)
+        env[i] = CStringGetTextDatum(environ[i]);
+
+    // Create PostgreSQL text array and return
+    ArrayType *result = construct_array_builtin(env, nvals, TEXTOID);
+    PG_RETURN_POINTER(result);
+}
+```

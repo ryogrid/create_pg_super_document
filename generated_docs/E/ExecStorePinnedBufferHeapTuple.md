@@ -43,3 +43,27 @@ This function is particularly useful in scenarios where the caller already holds
 - More efficient than ExecStoreBufferHeapTuple when the caller already has a pin
 - Part of PostgreSQL's buffer pin optimization strategy for tuple access
 - Returns the passed-in slot pointer for convenience
+
+## Simplified Source
+
+```c
+TupleTableSlot *
+ExecStorePinnedBufferHeapTuple(HeapTuple tuple, TupleTableSlot *slot, Buffer buffer)
+{
+    // Validate inputs
+    Assert(tuple != NULL);
+    Assert(slot != NULL);
+    Assert(slot->tts_tupleDescriptor != NULL);
+    Assert(BufferIsValid(buffer));
+
+    // Ensure correct slot type
+    if (unlikely(!TTS_IS_BUFFERTUPLE(slot)))
+        elog(ERROR, "trying to store an on-disk heap tuple into wrong type of slot");
+
+    // Store tuple in buffer slot and transfer caller's pin
+    tts_buffer_heap_store_tuple(slot, tuple, buffer, true);
+    slot->tts_tableOid = tuple->t_tableOid;
+
+    return slot;
+}
+```

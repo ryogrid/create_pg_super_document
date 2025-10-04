@@ -55,3 +55,44 @@ Key aspects of node tuple formation:
 - The size validation prevents index corruption by ensuring tuples fit within PostgreSQL's indexing constraints
 - Uses the same storage conventions as other inner tuple components via memcpyInnerDatum()
 - The INDEX_VAR_MASK bit is deliberately not set as mentioned in the code comment
+
+## Simplified Source
+
+```c
+SpGistNodeTuple
+spgFormNodeTuple(SpGistState *state, Datum label, bool isnull)
+{
+    SpGistNodeTuple tup;
+    unsigned int size;
+    unsigned short infomask = 0;
+
+    // Calculate space needed: header + label data if not null
+    size = SGNTHDRSZ;
+    if (!isnull)
+        size += SpGistGetInnerTypeSize(&state->attLabelType, label);
+
+    // Validate size fits in reserved field
+    if ((size & INDEX_SIZE_MASK) != size)
+        ereport(ERROR, (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                errmsg("index row requires %zu bytes, maximum size is %zu",
+                       (Size) size, (Size) INDEX_SIZE_MASK)));
+
+    // Allocate and initialize tuple
+    tup = (SpGistNodeTuple) palloc0(size);
+
+    // Set info mask with null flag and size
+    if (isnull)
+        infomask |= INDEX_NULL_MASK;
+    infomask |= size;
+    tup->t_info = infomask;
+
+    // Set TID to invalid (caller will fill later)
+    ItemPointerSetInvalid(&tup->t_tid);
+
+    // Copy label data if not null
+    if (!isnull)
+        memcpyInnerDatum(SGNTDATAPTR(tup), &state->attLabelType, label);
+
+    return tup;
+}
+```

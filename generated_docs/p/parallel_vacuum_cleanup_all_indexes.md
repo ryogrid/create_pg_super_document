@@ -35,3 +35,21 @@ The function assumes that indexes are more interested in the number of surviving
 - This function must not be called from a parallel worker (enforced by Assert(!IsParallelWorker()))
 - The function updates the shared state's reltuples and estimated_count fields before delegating to the general parallel processing function
 - It's specifically designed for cleanup operations (as opposed to vacuum operations) as indicated by the false parameter passed to parallel_vacuum_process_all_indexes
+
+## Simplified Source
+
+```c
+void
+parallel_vacuum_cleanup_all_indexes(ParallelVacuumState *pvs, long num_table_tuples,
+                                   int num_index_scans, bool estimated_count)
+{
+    Assert(!IsParallelWorker());
+
+    // Store better estimate of surviving tuples for cleanup phase
+    pvs->shared->reltuples = num_table_tuples;
+    pvs->shared->estimated_count = estimated_count;
+
+    // Delegate to general parallel processing with cleanup enabled
+    parallel_vacuum_process_all_indexes(pvs, num_index_scans, false);
+}
+```

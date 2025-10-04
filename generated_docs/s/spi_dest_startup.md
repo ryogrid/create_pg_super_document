@@ -42,3 +42,42 @@ The function performs several critical setup tasks: creates a new memory context
 - Registers the tuple table for automatic cleanup during subtransaction abort
 - Part of the destination receiver pattern used throughout PostgreSQL's executor
 - Essential for SPI query execution that returns result sets
+
+## Simplified Source
+
+```c
+void spi_dest_startup(DestReceiver *self, int operation, TupleDesc typeinfo) {
+    // Validate SPI connection
+    if (_SPI_current == NULL)
+        elog(ERROR, "spi_dest_startup called while not connected to SPI");
+
+    if (_SPI_current->tuptable != NULL)
+        elog(ERROR, "improper call to spi_dest_startup");
+
+    // Switch to procedure memory context
+    MemoryContext oldcxt = _SPI_procmem();
+
+    // Create dedicated context for tuple table
+    MemoryContext tuptabcxt = AllocSetContextCreate(CurrentMemoryContext,
+                                                    "SPI TupTable",
+                                                    ALLOCSET_DEFAULT_SIZES);
+    MemoryContextSwitchTo(tuptabcxt);
+
+    // Allocate and initialize tuple table
+    SPITupleTable *tuptable = (SPITupleTable *) palloc0(sizeof(SPITupleTable));
+    _SPI_current->tuptable = tuptable;
+    tuptable->tuptabcxt = tuptabcxt;
+    tuptable->subid = GetCurrentSubTransactionId();
+
+    // Register for cleanup during subtransaction abort
+    slist_push_head(&_SPI_current->tuptables, &tuptable->next);
+
+    // Setup initial storage (128 tuples)
+    tuptable->alloced = 128;
+    tuptable->vals = (HeapTuple *) palloc(tuptable->alloced * sizeof(HeapTuple));
+    tuptable->numvals = 0;
+    tuptable->tupdesc = CreateTupleDescCopy(typeinfo);
+
+    MemoryContextSwitchTo(oldcxt);
+}
+```

@@ -51,3 +51,36 @@ The returned array is terminated by an entry with a NULL keyword field.
 - Applications using this function should always call PQconninfoFree() to avoid memory leaks
 - The function doesn't report specific errors but handles them internally
 - Each option in the returned array contains keyword, environment variable name, compiled default, current value, label, and display information
+
+## Simplified Source
+
+```c
+PQconninfoOption *PQconndefaults(void)
+{
+    PQExpBufferData errorBuf;
+    PQconninfoOption *connOptions;
+
+    // Initialize error buffer for internal operations
+    initPQExpBuffer(&errorBuf);
+    if (PQExpBufferDataBroken(errorBuf)) {
+        return NULL;  // Out of memory
+    }
+
+    // Create initial connection options structure
+    connOptions = conninfo_init(&errorBuf);
+
+    if (connOptions != NULL) {
+        // Add default values from environment and system settings
+        if (!conninfo_add_defaults(connOptions, NULL)) {
+            // Failed to add defaults - clean up and return NULL
+            PQconninfoFree(connOptions);
+            connOptions = NULL;
+        }
+    }
+
+    // Clean up error buffer
+    termPQExpBuffer(&errorBuf);
+
+    return connOptions;
+}
+```

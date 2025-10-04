@@ -36,3 +36,35 @@ The function attempts to load the timezone using  and performs additional valida
 - Returns false if the timezone cannot be loaded or uses leap seconds (which PostgreSQL doesn't support)
 - Memory allocated in the extra parameter is used by the corresponding assign_log_timezone function
 - The function follows the standard GUC check hook pattern for PostgreSQL configuration validation
+
+## Simplified Source
+
+```c
+bool
+check_log_timezone(char **newval, void **extra, GucSource source)
+{
+    pg_tz *new_tz;
+
+    // Load timezone by name
+    new_tz = pg_tzset(*newval);
+
+    if (!new_tz)
+        return false;
+
+    // Validate timezone doesn't use leap seconds
+    if (!pg_tz_acceptable(new_tz))
+    {
+        GUC_check_errmsg("time zone \"%s\" appears to use leap seconds", *newval);
+        GUC_check_errdetail("PostgreSQL does not support leap seconds.");
+        return false;
+    }
+
+    // Store timezone for assign function
+    *extra = guc_malloc(LOG, sizeof(pg_tz *));
+    if (!*extra)
+        return false;
+    *((pg_tz **) *extra) = new_tz;
+
+    return true;
+}
+```

@@ -42,3 +42,30 @@ Important behavioral notes:
 - Preserves duplicates from list1 if they exist in list2
 - Performance warning: time complexity is O(n*m), consider other data structures for large lists
 - Uses `equal()` function for element comparison rather than pointer equality
+
+## Simplified Source
+
+```c
+List *
+list_intersection(const List *list1, const List *list2)
+{
+    // Handle empty list cases
+    if (list1 == NIL || list2 == NIL)
+        return NIL;
+
+    // Verify both are pointer lists
+    Assert(IsPointerList(list1));
+    Assert(IsPointerList(list2));
+
+    // Build intersection by checking membership
+    List *result = NIL;
+    const ListCell *cell;
+    foreach(cell, list1) {
+        if (list_member(list2, lfirst(cell)))
+            result = lappend(result, lfirst(cell));
+    }
+
+    check_list_invariants(result);
+    return result;
+}
+```

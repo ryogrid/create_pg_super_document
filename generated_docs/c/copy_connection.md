@@ -38,3 +38,42 @@ The function allocates memory for keyword and value arrays, iterates through all
 - Memory is allocated for keyword and value arrays but the cleanup is not explicitly shown in this function
 - Used primarily for testing pipeline functionality where multiple connections are required
 - Located in src/test/modules/libpq_pipeline/libpq_pipeline.c at lines 206-244
+
+## Simplified Source
+
+```c
+static PGconn *copy_connection(PGconn *conn) {
+    PGconn *copyConn;
+    PQconninfoOption *opts = PQconninfo(conn);
+    const char **keywords;
+    const char **vals;
+    int nopts = 1;
+    int i = 0;
+
+    // Count connection options
+    for (PQconninfoOption *opt = opts; opt->keyword != NULL; ++opt)
+        nopts++;
+
+    // Allocate arrays for keywords and values
+    keywords = pg_malloc(sizeof(char *) * nopts);
+    vals = pg_malloc(sizeof(char *) * nopts);
+
+    // Copy non-null connection parameters
+    for (PQconninfoOption *opt = opts; opt->keyword != NULL; ++opt) {
+        if (opt->val) {
+            keywords[i] = opt->keyword;
+            vals[i] = opt->val;
+            i++;
+        }
+    }
+    keywords[i] = vals[i] = NULL;
+
+    // Create new connection with copied parameters
+    copyConn = PQconnectdbParams(keywords, vals, false);
+
+    if (PQstatus(copyConn) != CONNECTION_OK)
+        pg_fatal("Connection to database failed: %s", PQerrorMessage(copyConn));
+
+    return copyConn;
+}
+```

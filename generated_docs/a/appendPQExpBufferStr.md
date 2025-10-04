@@ -35,3 +35,14 @@ The function automatically handles memory allocation, expanding the buffer as ne
 - Memory allocation failures are handled by the underlying appendBinaryPQExpBuffer function
 - Widely used across PostgreSQL utilities for string manipulation and query construction
 - Located in src/interfaces/libpq/pqexpbuffer.c:367-377
+
+## Simplified Source
+
+```c
+void
+appendPQExpBufferStr(PQExpBuffer str, const char *data)
+{
+    // Simply append the string as binary data
+    appendBinaryPQExpBuffer(str, data, strlen(data));
+}
+```

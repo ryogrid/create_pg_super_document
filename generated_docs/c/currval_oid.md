@@ -38,3 +38,37 @@ The function maintains session-level state through the SeqTable structure, which
 - Thread-safe through proper sequence locking via init_sequence()
 - Returns the last value obtained by nextval(), not necessarily the actual current value in the sequence table
 - Part of PostgreSQL's sequence management system in src/backend/commands/sequence.c:866
+
+## Simplified Source
+
+```c
+Datum currval_oid(PG_FUNCTION_ARGS) {
+    Oid relid = PG_GETARG_OID(0);
+    int64 result;
+    SeqTable elm;
+    Relation seqrel;
+
+    // Initialize and lock sequence
+    init_sequence(relid, &elm, &seqrel);
+
+    // Check permissions (SELECT or USAGE required)
+    if (pg_class_aclcheck(elm->relid, GetUserId(), ACL_SELECT | ACL_USAGE) != ACLCHECK_OK)
+        ereport(ERROR,
+                (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                 errmsg("permission denied for sequence %s",
+                        RelationGetRelationName(seqrel))));
+
+    // Ensure sequence has been accessed in this session
+    if (!elm->last_valid)
+        ereport(ERROR,
+                (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                 errmsg("currval of sequence \"%s\" is not yet defined in this session",
+                        RelationGetRelationName(seqrel))));
+
+    // Return the last value from this session
+    result = elm->last;
+    sequence_close(seqrel, NoLock);
+
+    PG_RETURN_INT64(result);
+}
+```

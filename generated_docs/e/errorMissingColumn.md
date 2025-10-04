@@ -52,3 +52,86 @@ The function leverages PostgreSQL's fuzzy attribute matching system to provide t
 - Handles both single and multiple alternative spelling suggestions
 - Part of PostgreSQL's comprehensive error reporting system designed to minimize user confusion
 - Particularly useful for catching common mistakes like typos in column names or missing table qualifications
+
+## Simplified Source
+
+```c
+void
+errorMissingColumn(ParseState *pstate,
+                   const char *relname, const char *colname, int location)
+{
+    FuzzyAttrMatchState *state;
+
+    // Search for possible column matches using fuzzy matching
+    state = searchRangeTableForCol(pstate, relname, colname, location);
+
+    // Handle exact matches that are inaccessible
+    if (state->rexact1) {
+        if (state->rexact2) {
+            // Multiple exact matches - all inaccessible
+            ereport(ERROR,
+                    (errcode(ERRCODE_UNDEFINED_COLUMN),
+                     relname ?
+                     errmsg("column %s.%s does not exist", relname, colname) :
+                     errmsg("column \"%s\" does not exist", colname),
+                     errdetail("There are columns named \"%s\", but they are in tables that cannot be referenced from this part of the query.",
+                               colname),
+                     !relname ? errhint("Try using a table-qualified name.") : 0,
+                     parser_errposition(pstate, location)));
+        }
+
+        // Single exact match - explain why it's inaccessible
+        ereport(ERROR,
+                (errcode(ERRCODE_UNDEFINED_COLUMN),
+                 relname ?
+                 errmsg("column %s.%s does not exist", relname, colname) :
+                 errmsg("column \"%s\" does not exist", colname),
+                 errdetail("There is a column named \"%s\" in table \"%s\", but it cannot be referenced from this part of the query.",
+                           colname, state->rexact1->eref->aliasname),
+                 rte_visible_if_lateral(pstate, state->rexact1) ?
+                 errhint("To reference that column, you must mark this subquery with LATERAL.") :
+                 (!relname && rte_visible_if_qualified(pstate, state->rexact1)) ?
+                 errhint("To reference that column, you must use a table-qualified name.") : 0,
+                 parser_errposition(pstate, location)));
+    }
+
+    if (!state->rsecond) {
+        if (!state->rfirst) {
+            // No matches found at all
+            ereport(ERROR,
+                    (errcode(ERRCODE_UNDEFINED_COLUMN),
+                     relname ?
+                     errmsg("column %s.%s does not exist", relname, colname) :
+                     errmsg("column \"%s\" does not exist", colname),
+                     parser_errposition(pstate, location)));
+        }
+
+        // Single fuzzy match suggestion
+        ereport(ERROR,
+                (errcode(ERRCODE_UNDEFINED_COLUMN),
+                 relname ?
+                 errmsg("column %s.%s does not exist", relname, colname) :
+                 errmsg("column \"%s\" does not exist", colname),
+                 errhint("Perhaps you meant to reference the column \"%s.%s\".",
+                         state->rfirst->eref->aliasname,
+                         strVal(list_nth(state->rfirst->eref->colnames,
+                                         state->first - 1))),
+                 parser_errposition(pstate, location)));
+    } else {
+        // Multiple fuzzy match suggestions
+        ereport(ERROR,
+                (errcode(ERRCODE_UNDEFINED_COLUMN),
+                 relname ?
+                 errmsg("column %s.%s does not exist", relname, colname) :
+                 errmsg("column \"%s\" does not exist", colname),
+                 errhint("Perhaps you meant to reference the column \"%s.%s\" or the column \"%s.%s\".",
+                         state->rfirst->eref->aliasname,
+                         strVal(list_nth(state->rfirst->eref->colnames,
+                                         state->first - 1)),
+                         state->rsecond->eref->aliasname,
+                         strVal(list_nth(state->rsecond->eref->colnames,
+                                         state->second - 1))),
+                 parser_errposition(pstate, location)));
+    }
+}
+```

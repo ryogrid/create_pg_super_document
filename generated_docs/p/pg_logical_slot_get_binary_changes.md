@@ -51,3 +51,13 @@ The function decodes WAL records starting from the slots restart_lsn and returns
 - Used primarily for high-performance logical replication scenarios where binary format is preferred
 - Complementary to pg_logical_slot_peek_binary_changes which does not consume changes
 - Defined in src/backend/replication/logical/logicalfuncs.c:349-357
+
+## Simplified Source
+
+```c
+Datum pg_logical_slot_get_binary_changes(PG_FUNCTION_ARGS)
+{
+    // Call core implementation with confirm=true (advance slot) and binary=true (binary output)
+    return pg_logical_slot_get_changes_guts(fcinfo, true, true);
+}
+```

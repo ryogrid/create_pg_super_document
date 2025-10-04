@@ -38,3 +38,38 @@ The implementation uses a sense-reversing algorithm where the `sense` field alte
 - Uses condition variable to avoid busy waiting
 - The sense-reversing technique prevents race conditions when reusing the barrier
 - All threads must use the same barrier object for proper synchronization
+
+## Simplified Source
+
+```c
+int pthread_barrier_wait(pthread_barrier_t *barrier)
+{
+    bool initial_sense;
+
+    pthread_mutex_lock(&barrier->mutex);
+
+    // Increment arrival counter
+    barrier->arrived++;
+    Assert(barrier->arrived <= barrier->count);
+
+    // Check if we're the last thread to arrive
+    if (barrier->arrived == barrier->count) {
+        // Master thread: reset barrier and wake all waiters
+        barrier->arrived = 0;
+        barrier->sense = !barrier->sense;  // Flip sense for next cycle
+        pthread_mutex_unlock(&barrier->mutex);
+        pthread_cond_broadcast(&barrier->cond);
+
+        return PTHREAD_BARRIER_SERIAL_THREAD;  // Special return for master
+    }
+
+    // Non-master thread: wait for sense to change
+    initial_sense = barrier->sense;
+    do {
+        pthread_cond_wait(&barrier->cond, &barrier->mutex);
+    } while (barrier->sense == initial_sense);
+
+    pthread_mutex_unlock(&barrier->mutex);
+    return 0;  // Normal return for non-master threads
+}
+```

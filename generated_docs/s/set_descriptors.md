@@ -31,3 +31,12 @@ The `set_descriptors` function stores a descriptor structure in thread-local sto
 - Setting the value to NULL effectively clears the thread-local descriptor list for the current thread
 - This function works in conjunction with `get_descriptors` to provide complete thread-local descriptor management
 - The descriptor key must be properly initialized (via `descriptor_key_init`) before this function can be used safely
+
+## Simplified Source
+
+```c
+static void set_descriptors(struct descriptor *value) {
+    // Store descriptor list in thread-local storage
+    pthread_setspecific(descriptor_key, value);
+}
+```

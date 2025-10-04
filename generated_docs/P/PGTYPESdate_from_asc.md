@@ -39,3 +39,57 @@ PGTYPESdate_from_asc is a comprehensive date parsing function that converts stri
 - Uses PostgreSQL's Julian date system with 2000-01-01 as the reference point
 - Part of the ECPG pgtypeslib interface for string-to-date conversions
 - Located in src/interfaces/ecpg/pgtypeslib/datetime.c:47-100
+
+## Simplified Source
+
+```c
+date
+PGTYPESdate_from_asc(char *str, char **endptr)
+{
+    date dDate;
+    fsec_t fsec;
+    struct tm tt, *tm = &tt;
+    int dtype, nf;
+    char *field[MAXDATEFIELDS];
+    int ftype[MAXDATEFIELDS];
+    char lowstr[MAXDATELEN + MAXDATEFIELDS];
+    char *realptr;
+    char **ptr = (endptr != NULL) ? endptr : &realptr;
+    bool EuroDates = false;
+
+    errno = 0;
+
+    // Validate input length
+    if (strlen(str) > MAXDATELEN) {
+        errno = PGTYPES_DATE_BAD_DATE;
+        return INT_MIN;
+    }
+
+    // Parse and decode date string
+    if (ParseDateTime(str, lowstr, field, ftype, &nf, ptr) != 0 ||
+        DecodeDateTime(field, ftype, nf, &dtype, tm, &fsec, EuroDates) != 0) {
+        errno = PGTYPES_DATE_BAD_DATE;
+        return INT_MIN;
+    }
+
+    // Handle different date types
+    switch (dtype) {
+        case DTK_DATE:
+            break;
+        case DTK_EPOCH:
+            if (GetEpochTime(tm) < 0) {
+                errno = PGTYPES_DATE_BAD_DATE;
+                return INT_MIN;
+            }
+            break;
+        default:
+            errno = PGTYPES_DATE_BAD_DATE;
+            return INT_MIN;
+    }
+
+    // Convert to PostgreSQL date format (days since 2000-01-01)
+    dDate = (date2j(tm->tm_year, tm->tm_mon, tm->tm_mday) - date2j(2000, 1, 1));
+
+    return dDate;
+}
+```

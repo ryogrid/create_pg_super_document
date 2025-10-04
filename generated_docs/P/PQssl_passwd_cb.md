@@ -36,3 +36,18 @@ This function serves as the interface between OpenSSL's password callback mechan
 - Returns the length of the password written to buf, or 0 if no password could be provided
 - Located in fe-secure-openssl.c:2106-2120
 - Provides the bridge between OpenSSL's callback system and libpq's configurable hook mechanism
+
+## Simplified Source
+
+```c
+static int PQssl_passwd_cb(char *buf, int size, int rwflag, void *userdata) {
+    PGconn *conn = userdata;
+
+    // Use custom hook if available, otherwise use default
+    if (PQsslKeyPassHook) {
+        return PQsslKeyPassHook(buf, size, conn);
+    } else {
+        return PQdefaultSSLKeyPassHook_OpenSSL(buf, size, conn);
+    }
+}
+```

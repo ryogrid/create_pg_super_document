@@ -34,3 +34,26 @@ The `ecpg_type_infocache_push` function creates a new type information cache ent
 - Part of ECPG's type system for tracking PostgreSQL data type information
 - Used extensively for caching type metadata to optimize type handling
 - Memory allocation failure is gracefully handled by returning false
+
+## Simplified Source
+
+```c
+static bool
+ecpg_type_infocache_push(struct ECPGtype_information_cache **cache, int oid, enum ARRAY_TYPE isarray, int lineno)
+{
+    // Allocate new cache entry
+    struct ECPGtype_information_cache *new_entry =
+        ecpg_alloc(sizeof(struct ECPGtype_information_cache), lineno);
+
+    if (new_entry == NULL)
+        return false;
+
+    // Initialize entry and add to front of list
+    new_entry->oid = oid;
+    new_entry->isarray = isarray;
+    new_entry->next = *cache;
+    *cache = new_entry;
+
+    return true;
+}
+```

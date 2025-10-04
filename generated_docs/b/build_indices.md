@@ -50,5 +50,25 @@ This function takes no parameters and operates on global state:
 - The index list () is built up during bootstrap by calls to 
 - After building all indexes, the function leaves  as NULL since it has consumed the entire list
 - The two-phase approach (register then build) is essential for system catalog consistency
-- Located in 
+- Located in
 - Part of the bootstrap subsystem that initializes the PostgreSQL system catalogs
+
+## Simplified Source
+
+```c
+void build_indices(void) {
+    // Iterate through all registered indexes and build them
+    for (; ILHead != NULL; ILHead = ILHead->il_next) {
+        // Open heap table and index relations (no locking needed during bootstrap)
+        Relation heap = table_open(ILHead->il_heap, NoLock);
+        Relation ind = index_open(ILHead->il_ind, NoLock);
+
+        // Build the index on the heap table
+        index_build(heap, ind, ILHead->il_info, false, false);
+
+        // Close both relations
+        index_close(ind, NoLock);
+        table_close(heap, NoLock);
+    }
+}
+```

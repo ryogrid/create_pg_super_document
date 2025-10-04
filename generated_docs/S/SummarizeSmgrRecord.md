@@ -43,3 +43,39 @@ The function specifically excludes Free Space Map (FSM) fork operations since FS
 - Critical for ensuring incremental backups handle file creation and truncation correctly
 - The limit block mechanism prevents unnecessary tracking of blocks that don't need incremental processing
 - SMGR_TRUNCATE_FSM is intentionally ignored since FSM modifications aren't fully WAL-logged
+
+## Simplified Source
+
+```c
+static void SummarizeSmgrRecord(XLogReaderState *xlogreader, BlockRefTable *brtab)
+{
+    uint8 info = XLogRecGetInfo(xlogreader) & ~XLR_INFO_MASK;
+
+    if (info == XLOG_SMGR_CREATE) {
+        // Handle relation file creation
+        xl_smgr_create *xlrec = (xl_smgr_create *) XLogRecGetData(xlogreader);
+
+        // Set limit block to 0 for new fork (entire fork is new)
+        // Skip FSM fork since it's not fully WAL-logged
+        if (xlrec->forkNum != FSM_FORKNUM) {
+            BlockRefTableSetLimitBlock(brtab, &xlrec->rlocator,
+                                     xlrec->forkNum, 0);
+        }
+    }
+    else if (info == XLOG_SMGR_TRUNCATE) {
+        // Handle relation file truncation
+        xl_smgr_truncate *xlrec = (xl_smgr_truncate *) XLogRecGetData(xlogreader);
+
+        // Set limit blocks at truncation point for affected forks
+        // No point tracking modifications beyond truncation
+        if (xlrec->flags & SMGR_TRUNCATE_HEAP) {
+            BlockRefTableSetLimitBlock(brtab, &xlrec->rlocator,
+                                     MAIN_FORKNUM, xlrec->blkno);
+        }
+        if (xlrec->flags & SMGR_TRUNCATE_VM) {
+            BlockRefTableSetLimitBlock(brtab, &xlrec->rlocator,
+                                     VISIBILITYMAP_FORKNUM, xlrec->blkno);
+        }
+    }
+}
+```

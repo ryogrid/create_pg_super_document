@@ -30,6 +30,22 @@ This function serves as a callback for shared memory area initialization in the 
 - The function initializes three key components of the shared state:
   - A spinlock for thread-safe access to shared data
   - Wait count arrays (zeroed out)
-  - Name fields (zeroed out) 
+  - Name fields (zeroed out)
   - A condition variable for coordinating waiting processes
 - This function follows PostgreSQL's pattern of using callback functions for shared memory initialization
+
+## Simplified Source
+
+```c
+static void injection_point_init_state(void *ptr) {
+    InjectionPointSharedState *state = (InjectionPointSharedState *) ptr;
+
+    // Initialize synchronization primitives
+    SpinLockInit(&state->lock);
+    ConditionVariableInit(&state->wait_point);
+
+    // Clear data arrays
+    memset(state->wait_counts, 0, sizeof(state->wait_counts));
+    memset(state->name, 0, sizeof(state->name));
+}
+```

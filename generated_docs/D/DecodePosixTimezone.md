@@ -35,3 +35,41 @@ DecodePosixTimezone handles POSIX-style timezone specifications that combine a t
 - Returns -1 on error, 0 on success
 - Part of PostgreSQL's ECPG embedded SQL preprocessing system
 - The timezone offset calculation follows the convention: -(abbreviation_value + numeric_offset)
+
+## Simplified Source
+
+```c
+static int
+DecodePosixTimezone(char *str, int *tzp)
+{
+    int tz, val, type;
+    char *cp, delim;
+
+    // Find the boundary between alphabetic timezone name and numeric offset
+    cp = str;
+    while (*cp != '\0' && isalpha((unsigned char) *cp))
+        cp++;
+
+    // Parse the numeric timezone offset portion
+    if (DecodeTimezone(cp, &tz) != 0)
+        return -1;
+
+    // Temporarily null-terminate the alphabetic part for lookup
+    delim = *cp;
+    *cp = '\0';
+    type = DecodeSpecial(MAXDATEFIELDS - 1, str, &val);
+    *cp = delim;  // Restore original character
+
+    // Combine timezone abbreviation value with numeric offset
+    switch (type) {
+        case DTZ:
+        case TZ:
+            *tzp = -(val + tz);  // Combine and negate for final offset
+            break;
+        default:
+            return -1;  // Invalid timezone type
+    }
+
+    return 0;
+}
+```

@@ -31,3 +31,14 @@ The `get_includeserver_path` function calculates the absolute path to PostgreSQL
 - This directory is crucial for PostgreSQL extension development as it contains internal server headers
 - This is part of PostgreSQL's portable path resolution system that allows development tools to locate server-specific header files
 - Distinguished from client-side includes, this path is specifically for server-side development needs
+
+## Simplified Source
+
+```c
+void
+get_includeserver_path(const char *my_exec_path, char *ret_path)
+{
+    // Calculate relative path from executable to server include directory
+    make_relative_path(ret_path, INCLUDEDIRSERVER, PGBINDIR, my_exec_path);
+}
+```

@@ -38,3 +38,28 @@ The function provides a bridge between PostgreSQL's internal numeric representat
 - Part of the ECPG compatibility layer for embedded SQL applications
 - Primarily used for Informix compatibility in the ECPG system
 - Located in src/interfaces/ecpg/pgtypeslib/numeric.c:1547-1569
+
+## Simplified Source
+
+```c
+int PGTYPESnumeric_to_decimal(numeric *src, decimal *dst) {
+    // Check if source has too many digits for decimal structure
+    if (src->ndigits > DECSIZE) {
+        errno = PGTYPES_NUM_OVERFLOW;
+        return -1;
+    }
+
+    // Copy all numeric properties to decimal
+    dst->weight = src->weight;
+    dst->rscale = src->rscale;
+    dst->dscale = src->dscale;
+    dst->sign = src->sign;
+    dst->ndigits = src->ndigits;
+
+    // Copy digit array
+    for (int i = 0; i < src->ndigits; i++)
+        dst->digits[i] = src->digits[i];
+
+    return 0;
+}
+```

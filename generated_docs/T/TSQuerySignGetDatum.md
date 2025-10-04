@@ -34,3 +34,14 @@ This function is primarily used in the GiST (Generalized Search Tree) implementa
 - The function provides type safety by ensuring TSQuerySign values are properly converted to Datum format
 - Primarily used in GiST indexing operations for efficient tsquery processing
 - Part of PostgreSQL's full-text search functionality infrastructure
+
+## Simplified Source
+
+```c
+static inline Datum
+TSQuerySignGetDatum(TSQuerySign X)
+{
+    // Convert TSQuerySign (uint64) to Datum representation
+    return Int64GetDatum((int64) X);
+}
+```

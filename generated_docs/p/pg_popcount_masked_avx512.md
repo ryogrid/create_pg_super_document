@@ -47,3 +47,52 @@ This is particularly useful for operations that need to count specific bit patte
 - Part of PostgreSQL's runtime CPU feature detection and function pointer selection system
 - Performance scales well with buffer size due to SIMD processing of 64 bytes per iteration
 - Commonly used in database bitmap index operations and visibility map processing where only certain bits are relevant
+
+## Simplified Source
+
+```c
+uint64 pg_popcount_masked_avx512(const char *buf, int bytes, bits8 mask)
+{
+    __m512i accum = _mm512_setzero_si512();
+    const char *final;
+    int tail_idx;
+    __mmask64 bmask = ~UINT64CONST(0);
+    const __m512i maskv = _mm512_set1_epi8(mask);
+
+    // Align buffer and calculate masks for unaligned access
+    bmask <<= ((uintptr_t) buf) % sizeof(__m512i);
+    tail_idx = (((uintptr_t) buf + bytes - 1) % sizeof(__m512i)) + 1;
+    final = (const char *) TYPEALIGN_DOWN(sizeof(__m512i), buf + bytes - 1);
+    buf = (const char *) TYPEALIGN_DOWN(sizeof(__m512i), buf);
+
+    // Process all chunks except the final one
+    if (buf < final) {
+        // First iteration with buffer mask for alignment
+        __m512i val = _mm512_maskz_loadu_epi8(bmask, (const __m512i *) buf);
+        __m512i vmasked = _mm512_and_si512(val, maskv);
+        __m512i cnt = _mm512_popcnt_epi64(vmasked);
+        accum = _mm512_add_epi64(accum, cnt);
+
+        buf += sizeof(__m512i);
+        bmask = ~UINT64CONST(0);
+
+        // Main loop - process full 64-byte chunks with mask
+        for (; buf < final; buf += sizeof(__m512i)) {
+            val = _mm512_load_si512((const __m512i *) buf);
+            vmasked = _mm512_and_si512(val, maskv);
+            cnt = _mm512_popcnt_epi64(vmasked);
+            accum = _mm512_add_epi64(accum, cnt);
+        }
+    }
+
+    // Final iteration with buffer mask for remaining bytes
+    bmask &= (~UINT64CONST(0) >> (sizeof(__m512i) - tail_idx));
+    __m512i val = _mm512_maskz_loadu_epi8(bmask, (const __m512i *) buf);
+    __m512i vmasked = _mm512_and_si512(val, maskv);
+    __m512i cnt = _mm512_popcnt_epi64(vmasked);
+    accum = _mm512_add_epi64(accum, cnt);
+
+    // Sum all lanes and return total
+    return _mm512_reduce_add_epi64(accum);
+}
+```

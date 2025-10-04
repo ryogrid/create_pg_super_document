@@ -44,3 +44,44 @@ The function performs several important checks:
 - The function is static, meaning it's only accessible within the decode.c compilation unit
 - Truncate operations can affect multiple relations simultaneously, hence the relids array handling
 - Origin filtering allows selective replication based on the source of changes
+
+## Simplified Source
+
+```c
+static void DecodeTruncate(LogicalDecodingContext *ctx, XLogRecordBuffer *buf) {
+    XLogReaderState *r = buf->record;
+    xl_heap_truncate *xlrec;
+    ReorderBufferChange *change;
+
+    xlrec = (xl_heap_truncate *) XLogRecGetData(r);
+
+    // Check if this is for our target database
+    if (xlrec->dbId != ctx->slot->data.database)
+        return;
+
+    // Apply origin filtering
+    if (FilterByOrigin(ctx, XLogRecGetOrigin(r)))
+        return;
+
+    // Create reorder buffer change
+    change = ReorderBufferGetChange(ctx->reorder);
+    change->action = REORDER_BUFFER_CHANGE_TRUNCATE;
+    change->origin_id = XLogRecGetOrigin(r);
+
+    // Set truncate options based on flags
+    if (xlrec->flags & XLH_TRUNCATE_CASCADE)
+        change->data.truncate.cascade = true;
+    if (xlrec->flags & XLH_TRUNCATE_RESTART_SEQS)
+        change->data.truncate.restart_seqs = true;
+
+    // Copy relation IDs that were truncated
+    change->data.truncate.nrelids = xlrec->nrelids;
+    change->data.truncate.relids = ReorderBufferGetRelids(ctx->reorder, xlrec->nrelids);
+    memcpy(change->data.truncate.relids, xlrec->relids,
+           xlrec->nrelids * sizeof(Oid));
+
+    // Queue the change for processing
+    ReorderBufferQueueChange(ctx->reorder, XLogRecGetXid(r),
+                            buf->origptr, change, false);
+}
+```

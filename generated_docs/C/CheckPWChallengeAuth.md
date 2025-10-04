@@ -37,3 +37,45 @@ CheckPWChallengeAuth is a sophisticated authentication function that handles bot
 - Returns STATUS_OK on successful authentication, error status otherwise
 - Ensures authentication cannot succeed when get_role_password() fails
 - Part of the password-based challenge-response authentication mechanisms in PostgreSQL
+
+## Simplified Source
+
+```c
+static int
+CheckPWChallengeAuth(Port *port, const char **logdetail)
+{
+    int auth_result;
+    char *shadow_pass;
+    PasswordType pwtype;
+
+    Assert(port->hba->auth_method == uaSCRAM || port->hba->auth_method == uaMD5);
+
+    // Get user's password hash
+    shadow_pass = get_role_password(port->user_name, logdetail);
+
+    // Determine password type for authentication method selection
+    if (!shadow_pass)
+        pwtype = Password_encryption;  // Use current setting for non-existent users
+    else
+        pwtype = get_password_type(shadow_pass);
+
+    // Choose authentication method based on password type and HBA config
+    if (port->hba->auth_method == uaMD5 && pwtype == PASSWORD_TYPE_MD5) {
+        auth_result = CheckMD5Auth(port, shadow_pass, logdetail);
+    } else {
+        auth_result = CheckSASLAuth(&pg_be_scram_mech, port, shadow_pass, logdetail);
+    }
+
+    // Clean up memory
+    if (shadow_pass)
+        pfree(shadow_pass);
+    else
+        Assert(auth_result != STATUS_OK);  // Must fail if no password retrieved
+
+    // Set authenticated identity on success
+    if (auth_result == STATUS_OK)
+        set_authn_id(port, port->user_name);
+
+    return auth_result;
+}
+```

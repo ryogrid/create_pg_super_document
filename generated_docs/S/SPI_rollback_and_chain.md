@@ -39,3 +39,12 @@ The key difference from SPI_rollback is that transaction characteristics are sav
 - Less commonly used than SPI_rollback, primarily for cases where transaction properties need to be maintained across rollback boundaries
 - Useful in scenarios where procedural language code needs to restart a transaction with the same properties after an error
 - Provides consistency with the commit and chain functionality offered by SPI_commit_and_chain
+
+## Simplified Source
+
+```c
+void SPI_rollback_and_chain(void) {
+    // Rollback current transaction and start new one with preserved characteristics
+    _SPI_rollback(true);  // true = chain transaction
+}
+```

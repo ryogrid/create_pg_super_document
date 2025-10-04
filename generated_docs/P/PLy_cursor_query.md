@@ -45,3 +45,62 @@ The function operates within a subtransaction to ensure proper error handling an
 - The portal is pinned to prevent automatic cleanup and must be explicitly unpinned when the cursor is closed
 - Sets up result tuple conversion infrastructure using PLy_input_setup_func() for RECORDOID type
 - Returns NULL on any error, with appropriate error handling through the subtransaction mechanism
+
+## Simplified Source
+
+```c
+static PyObject *PLy_cursor_query(const char *query) {
+    PLyCursorObject *cursor;
+    PLyExecutionContext *exec_ctx = PLy_current_execution_context();
+    volatile MemoryContext oldcontext = CurrentMemoryContext;
+    volatile ResourceOwner oldowner = CurrentResourceOwner;
+
+    // Create and initialize cursor object
+    if ((cursor = PyObject_New(PLyCursorObject, &PLy_CursorType)) == NULL)
+        return NULL;
+
+    cursor->portalname = NULL;
+    cursor->closed = false;
+    cursor->mcxt = AllocSetContextCreate(TopMemoryContext,
+                                        "PL/Python cursor context",
+                                        ALLOCSET_DEFAULT_SIZES);
+
+    // Set up tuple conversion
+    PLy_input_setup_func(&cursor->result, cursor->mcxt, RECORDOID, -1, exec_ctx->curr_proc);
+
+    PLy_spi_subtransaction_begin(oldcontext, oldowner);
+
+    PG_TRY();
+    {
+        SPIPlanPtr plan;
+        Portal portal;
+
+        // Validate and prepare query
+        pg_verifymbstr(query, strlen(query), false);
+        plan = SPI_prepare(query, 0, NULL);
+        if (plan == NULL)
+            elog(ERROR, "SPI_prepare failed: %s", SPI_result_code_string(SPI_result));
+
+        // Open cursor portal
+        portal = SPI_cursor_open(NULL, plan, NULL, NULL, exec_ctx->curr_proc->fn_readonly);
+        SPI_freeplan(plan);
+
+        if (portal == NULL)
+            elog(ERROR, "SPI_cursor_open() failed: %s", SPI_result_code_string(SPI_result));
+
+        // Store portal name and pin it
+        cursor->portalname = MemoryContextStrdup(cursor->mcxt, portal->name);
+        PinPortal(portal);
+
+        PLy_spi_subtransaction_commit(oldcontext, oldowner);
+    }
+    PG_CATCH();
+    {
+        PLy_spi_subtransaction_abort(oldcontext, oldowner);
+        return NULL;
+    }
+    PG_END_TRY();
+
+    return (PyObject *) cursor;
+}
+```

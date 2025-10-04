@@ -44,3 +44,44 @@ This is essential for window functions that need to understand row equivalence, 
 - Raises ERROR if either specified position is outside the window bounds
 - Returns true immediately if no ORDER BY clause exists, treating all rows as peers
 - Critical for implementing SQL window functions that depend on row ordering semantics
+
+## Simplified Source
+
+```c
+bool
+WinRowsArePeers(WindowObject winobj, int64 pos1, int64 pos2)
+{
+    WindowAggState *winstate;
+    WindowAgg *node;
+    TupleTableSlot *slot1, *slot2;
+    bool result;
+
+    // Validate window object
+    Assert(WindowObjectIsValid(winobj));
+    winstate = winobj->winstate;
+    node = (WindowAgg *) winstate->ss.ps.plan;
+
+    // If no ORDER BY clause, all rows are peers
+    if (node->ordNumCols == 0)
+        return true;
+
+    // Use temporary slots for tuple comparison
+    slot1 = winstate->temp_slot_1;
+    slot2 = winstate->temp_slot_2;
+
+    // Fetch tuples at specified positions
+    if (!window_gettupleslot(winobj, pos1, slot1))
+        elog(ERROR, "specified position is out of window: " INT64_FORMAT, pos1);
+    if (!window_gettupleslot(winobj, pos2, slot2))
+        elog(ERROR, "specified position is out of window: " INT64_FORMAT, pos2);
+
+    // Compare the tuples based on ORDER BY columns
+    result = are_peers(winstate, slot1, slot2);
+
+    // Clean up temporary slots
+    ExecClearTuple(slot1);
+    ExecClearTuple(slot2);
+
+    return result;
+}
+```

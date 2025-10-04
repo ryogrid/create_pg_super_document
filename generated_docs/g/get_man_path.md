@@ -36,3 +36,12 @@ The function enables PostgreSQL utilities and applications to locate Unix manual
 - Essential for Unix/Linux environments where man pages provide command-line documentation
 - Supports relocatable installations where documentation paths need dynamic resolution
 - Complements other documentation path functions (get_doc_path, get_html_path)
+
+## Simplified Source
+
+```c
+void get_man_path(const char *my_exec_path, char *ret_path) {
+    // Calculate manual pages directory path relative to executable location
+    make_relative_path(ret_path, MANDIR, PGBINDIR, my_exec_path);
+}
+```

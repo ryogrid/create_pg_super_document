@@ -37,3 +37,44 @@ The function includes assertion checking in debug builds to verify correctness o
 - The SIMD version cleverly uses saturating subtraction to convert the <= comparison into a zero-detection problem
 - Includes comprehensive assertion checking to validate optimized implementations
 - Part of PostgreSQLs SIMD abstraction layer for efficient vectorized comparisons
+
+## Simplified Source
+
+```c
+static inline bool vector8_has_le(const Vector8 v, const uint8 c) {
+    bool result = false;
+
+#ifdef USE_ASSERT_CHECKING
+    // Debug: verify result with scalar comparison
+    bool assert_result = false;
+    for (Size i = 0; i < sizeof(Vector8); i++) {
+        if (((const uint8 *) &v)[i] <= c) {
+            assert_result = true;
+            break;
+        }
+    }
+#endif
+
+#if defined(USE_NO_SIMD)
+    // Optimized bitwise approach for small values with no high bits set
+    if ((int64) v >= 0 && c < 0x80) {
+        result = (v - vector8_broadcast(c + 1)) & ~v & vector8_broadcast(0x80);
+    } else {
+        // Fallback: byte-by-byte comparison
+        for (Size i = 0; i < sizeof(Vector8); i++) {
+            if (((const uint8 *) &v)[i] <= c) {
+                result = true;
+                break;
+            }
+        }
+    }
+#else
+    // SIMD: use saturating subtraction to find bytes <= c
+    // Values <= c become zero after subtraction
+    result = vector8_has_zero(vector8_ssub(v, vector8_broadcast(c)));
+#endif
+
+    Assert(assert_result == result);
+    return result;
+}
+```

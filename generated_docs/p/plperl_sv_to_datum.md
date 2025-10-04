@@ -61,3 +61,103 @@ The function includes sophisticated record type handling that can resolve RECORD
 - Always sets the isnull output parameter to indicate NULL results
 - Supports extensibility through transform functions for custom types
 - Central hub for all PL/Perl to PostgreSQL data conversion
+
+## Simplified Source
+
+```c
+static Datum
+plperl_sv_to_datum(SV *sv, Oid typid, int32 typmod,
+                   FunctionCallInfo fcinfo,
+                   FmgrInfo *finfo, Oid typioparam,
+                   bool *isnull)
+{
+    // Prevent stack overflow in recursive calls
+    check_stack_depth();
+    *isnull = false;
+
+    // Handle NULL/undef values or VOID return type
+    if (!sv || !SvOK(sv) || typid == VOIDOID) {
+        if (!finfo) {
+            FmgrInfo tmp;
+            _sv_to_datum_finfo(typid, &tmp, &typioparam);
+            finfo = &tmp;
+        }
+        *isnull = true;
+        return InputFunctionCall(finfo, NULL, typioparam, typmod);
+    }
+
+    // Check for custom transform functions
+    Oid transform_func = get_transform_tosql(typid,
+                                           current_call_data->prodesc->lang_oid,
+                                           current_call_data->prodesc->trftypes);
+    if (transform_func) {
+        return OidFunctionCall1(transform_func, PointerGetDatum(sv));
+    }
+
+    // Handle references (arrays, hashes, other references)
+    if (SvROK(sv)) {
+        SV *array_ref = get_perl_array_ref(sv);
+
+        if (array_ref) {
+            // Convert array reference to PostgreSQL array
+            return plperl_array_to_datum(array_ref, typid, typmod);
+        }
+        else if (SvTYPE(SvRV(sv)) == SVt_PVHV) {
+            // Convert hash reference to composite type
+            if (!type_is_rowtype(typid)) {
+                ereport(ERROR, "cannot convert Perl hash to non-composite type");
+            }
+
+            // Resolve tuple descriptor for the composite type
+            TupleDesc td = lookup_rowtype_tupdesc_domain(typid, typmod, true);
+            bool is_domain = false;
+
+            if (td == NULL) {
+                // Must be RECORD type - resolve from call context
+                TypeFuncClass funcclass = fcinfo ?
+                    get_call_result_type(fcinfo, &typid, &td) : TYPEFUNC_OTHER;
+
+                if (funcclass != TYPEFUNC_COMPOSITE &&
+                    funcclass != TYPEFUNC_COMPOSITE_DOMAIN) {
+                    ereport(ERROR, "function returning record called in invalid context");
+                }
+                is_domain = (funcclass == TYPEFUNC_COMPOSITE_DOMAIN);
+            } else {
+                is_domain = (typid != td->tdtypeid);
+            }
+
+            // Convert hash to datum
+            Datum result = plperl_hash_to_datum(sv, td);
+
+            // Validate domain constraints if needed
+            if (is_domain) {
+                domain_check(result, false, typid, NULL, NULL);
+            }
+
+            ReleaseTupleDesc(td);
+            return result;
+        }
+        else {
+            // Other reference types - recursively dereference
+            return plperl_sv_to_datum(SvRV(sv), typid, typmod,
+                                      fcinfo, finfo, typioparam, isnull);
+        }
+    }
+    else {
+        // Handle scalar values (strings/numbers)
+        char *str = sv2cstr(sv);
+
+        // Setup conversion function if not provided
+        if (!finfo) {
+            FmgrInfo tmp;
+            _sv_to_datum_finfo(typid, &tmp, &typioparam);
+            finfo = &tmp;
+        }
+
+        // Convert string to PostgreSQL datum using input function
+        Datum result = InputFunctionCall(finfo, str, typioparam, typmod);
+        pfree(str);
+        return result;
+    }
+}
+```

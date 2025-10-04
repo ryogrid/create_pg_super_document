@@ -47,3 +47,38 @@ It attempts to complete the connection using  and then analyzes the results. The
 - The function is designed to work with modern PostgreSQL servers (post-7.4) that provide SQLSTATEs
 - Authentication requests are considered proof that the server is up and running
 - Client-side vs server-side error distinction is noted as a future enhancement area
+
+## Simplified Source
+
+```c
+static PGPing
+internal_ping(PGconn *conn)
+{
+    // Validate connection
+    if (!conn || !conn->options_valid)
+        return PQPING_NO_ATTEMPT;
+
+    // Attempt to complete connection
+    if (conn->status != CONNECTION_BAD)
+        (void) pqConnectDBComplete(conn);
+
+    // Success if connection established
+    if (conn->status != CONNECTION_BAD)
+        return PQPING_OK;
+
+    // Authentication request indicates server is up
+    if (conn->auth_req_received)
+        return PQPING_OK;
+
+    // No meaningful error response from server
+    if (strlen(conn->last_sqlstate) != 5)
+        return PQPING_NO_RESPONSE;
+
+    // Server explicitly rejecting connections
+    if (strcmp(conn->last_sqlstate, ERRCODE_CANNOT_CONNECT_NOW) == 0)
+        return PQPING_REJECT;
+
+    // Any other SQLSTATE means server is up (auth/permission issues)
+    return PQPING_OK;
+}
+```

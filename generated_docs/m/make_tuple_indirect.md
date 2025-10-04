@@ -51,3 +51,79 @@ The  function is a specialized test utility that transforms a regular PostgreSQL
 - The function intentionally violates the general rule about composite Datums containing TOAST pointers for testing purposes
 - Critical for testing TOAST functionality, particularly indirect pointer detoasting
 - The returned tuple contains indirect pointers that must be handled carefully to avoid premature flattening
+
+## Simplified Source
+
+```c
+Datum make_tuple_indirect(PG_FUNCTION_ARGS) {
+    // Extract tuple header and set up temporary tuple structure
+    HeapTupleHeader rec = PG_GETARG_HEAPTUPLEHEADER(0);
+    HeapTupleData tuple;
+    tuple.t_len = HeapTupleHeaderGetDatumLength(rec);
+    tuple.t_data = rec;
+    ItemPointerSetInvalid(&(tuple.t_self));
+    tuple.t_tableOid = InvalidOid;
+
+    // Get tuple type information and descriptor
+    Oid tupType = HeapTupleHeaderGetTypeId(rec);
+    int32 tupTypmod = HeapTupleHeaderGetTypMod(rec);
+    TupleDesc tupdesc = lookup_rowtype_tupdesc(tupType, tupTypmod);
+    int ncolumns = tupdesc->natts;
+
+    // Extract tuple values and null flags
+    Datum *values = (Datum *) palloc(ncolumns * sizeof(Datum));
+    bool *nulls = (bool *) palloc(ncolumns * sizeof(bool));
+    heap_deform_tuple(&tuple, tupdesc, values, nulls);
+
+    // Switch to long-lived memory context for indirect pointers
+    MemoryContext old_context = MemoryContextSwitchTo(TopTransactionContext);
+
+    // Process each column to create indirect pointers
+    for (int i = 0; i < ncolumns; i++) {
+        // Skip inappropriate attributes: dropped, null, fixed-length, or plain storage
+        if (TupleDescAttr(tupdesc, i)->attisdropped ||
+            nulls[i] ||
+            TupleDescAttr(tupdesc, i)->attlen != -1 ||
+            TupleDescAttr(tupdesc, i)->attstorage == TYPSTORAGE_PLAIN)
+            continue;
+
+        struct varlena *attr = (struct varlena *) DatumGetPointer(values[i]);
+
+        // Skip if already an indirect pointer
+        if (VARATT_IS_EXTERNAL_INDIRECT(attr))
+            continue;
+
+        // Copy the attribute data to persistent storage
+        if (VARATT_IS_EXTERNAL_ONDISK(attr)) {
+            attr = detoast_external_attr(attr);
+        } else {
+            struct varlena *oldattr = attr;
+            attr = palloc0(VARSIZE_ANY(oldattr));
+            memcpy(attr, oldattr, VARSIZE_ANY(oldattr));
+        }
+
+        // Create indirect pointer structure
+        struct varlena *new_attr = (struct varlena *) palloc0(INDIRECT_POINTER_SIZE);
+        struct varatt_indirect redirect_pointer;
+        redirect_pointer.pointer = attr;
+
+        // Set up the indirect pointer
+        SET_VARTAG_EXTERNAL(new_attr, VARTAG_INDIRECT);
+        memcpy(VARDATA_EXTERNAL(new_attr), &redirect_pointer, sizeof(redirect_pointer));
+
+        values[i] = PointerGetDatum(new_attr);
+    }
+
+    // Create new tuple with indirect pointers
+    HeapTuple newtup = heap_form_tuple(tupdesc, values, nulls);
+
+    // Cleanup
+    pfree(values);
+    pfree(nulls);
+    ReleaseTupleDesc(tupdesc);
+    MemoryContextSwitchTo(old_context);
+
+    // Return tuple header with indirect pointers intact
+    PG_RETURN_POINTER(newtup->t_data);
+}
+```

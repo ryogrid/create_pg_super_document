@@ -42,3 +42,33 @@ The function includes a comment noting that IndexInfo arrays are not explicitly 
 - The function releases RowExclusiveLock that was acquired during ExecOpenIndices
 - Part of the executor resource cleanup protocol and should be called during executor shutdown
 - Does not return any error status - [cleanup](../c/cleanup.md) operations are expected to succeed
+
+## Simplified Source
+
+```c
+void ExecCloseIndices(ResultRelInfo *resultRelInfo) {
+    int i;
+    int numIndices;
+    RelationPtr indexDescs;
+    IndexInfo **indexInfos;
+
+    // Get index information from result relation
+    numIndices = resultRelInfo->ri_NumIndices;
+    indexDescs = resultRelInfo->ri_IndexRelationDescs;
+    indexInfos = resultRelInfo->ri_IndexRelationInfo;
+
+    // Close each opened index relation
+    for (i = 0; i < numIndices; i++) {
+        if (indexDescs[i] == NULL)
+            continue;  // Skip null descriptors (shouldn't happen)
+
+        // Allow index to perform post-insert cleanup
+        index_insert_cleanup(indexDescs[i], indexInfos[i]);
+
+        // Close index and release RowExclusiveLock
+        index_close(indexDescs[i], RowExclusiveLock);
+    }
+
+    // Note: IndexInfo arrays are cleaned up automatically in FreeExecutorState
+}
+```

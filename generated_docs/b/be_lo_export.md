@@ -46,3 +46,55 @@ Key operational aspects:
 - Returns 1 on success as per PostgreSQL convention
 - Will overwrite existing files (uses O_TRUNC flag)
 - Proper umask handling ensures consistent file permissions across different system configurations
+
+## Simplified Source
+
+```c
+Datum be_lo_export(PG_FUNCTION_ARGS) {
+    Oid lobjId = PG_GETARG_OID(0);
+    text *filename = PG_GETARG_TEXT_PP(1);
+    int fd, nbytes, tmp;
+    char buf[BUFSIZE];
+    char fnamebuf[MAXPGPATH];
+    LargeObjectDesc *lobj;
+    mode_t oumask;
+
+    // Open large object for reading
+    lo_cleanup_needed = true;
+    lobj = inv_open(lobjId, INV_READ, CurrentMemoryContext);
+
+    // Create output file with friendly permissions (022 umask)
+    text_to_cstring_buffer(filename, fnamebuf, sizeof(fnamebuf));
+    oumask = umask(S_IWGRP | S_IWOTH);
+    PG_TRY();
+    {
+        fd = OpenTransientFilePerm(fnamebuf, O_CREAT | O_WRONLY | O_TRUNC | PG_BINARY,
+                                   S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+    }
+    PG_FINALLY();
+    {
+        umask(oumask);
+    }
+    PG_END_TRY();
+
+    if (fd < 0)
+        ereport(ERROR, (errcode_for_file_access(),
+                errmsg("could not create server file \"%s\": %m", fnamebuf)));
+
+    // Copy data from large object to file
+    while ((nbytes = inv_read(lobj, buf, BUFSIZE)) > 0) {
+        tmp = write(fd, buf, nbytes);
+        if (tmp != nbytes)
+            ereport(ERROR, (errcode_for_file_access(),
+                    errmsg("could not write server file \"%s\": %m", fnamebuf)));
+    }
+
+    // Clean up resources
+    if (CloseTransientFile(fd) != 0)
+        ereport(ERROR, (errcode_for_file_access(),
+                errmsg("could not close file \"%s\": %m", fnamebuf)));
+
+    inv_close(lobj);
+    PG_RETURN_INT32(1);
+}
+```

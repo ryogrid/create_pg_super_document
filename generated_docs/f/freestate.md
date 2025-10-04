@@ -35,3 +35,40 @@ The  function performs controlled deallocation of an NFA state that must have no
 - Sets state number to FREESTATE constant to mark it as freed
 - Critical for memory efficiency during NFA construction and optimization
 - State memory is reused by newstate function for better performance
+
+## Simplified Source
+
+```c
+static void freestate(struct nfa *nfa, struct state *s) {
+    // Ensure state is valid and has no connected arcs
+    assert(s != NULL);
+    assert(s->nins == 0 && s->nouts == 0);
+
+    // Mark state as freed
+    s->no = FREESTATE;
+    s->flag = 0;
+
+    // Remove from doubly-linked state list - update next pointer
+    if (s->next != NULL)
+        s->next->prev = s->prev;
+    else {
+        // This was the last state in the list
+        assert(s == nfa->slast);
+        nfa->slast = s->prev;
+    }
+
+    // Remove from doubly-linked state list - update previous pointer
+    if (s->prev != NULL)
+        s->prev->next = s->next;
+    else {
+        // This was the first state in the list
+        assert(s == nfa->states);
+        nfa->states = s->next;
+    }
+
+    // Add to free list for reuse instead of deallocating memory
+    s->prev = NULL;
+    s->next = nfa->freestates;
+    nfa->freestates = s;
+}
+```

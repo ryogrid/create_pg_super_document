@@ -35,3 +35,15 @@ The `get_descriptors` function provides access to the thread-local descriptor st
 - The `pthread_once` ensures thread-safe initialization of the descriptor key even in multi-threaded environments
 - This function is fundamental to the thread-safe operation of ECPG descriptors, allowing each thread to maintain its own descriptor namespace
 - The returned pointer should be treated as thread-specific and not shared between threads
+
+## Simplified Source
+
+```c
+static struct descriptor *get_descriptors(void) {
+    // Ensure descriptor key is initialized exactly once
+    pthread_once(&descriptor_once, descriptor_key_init);
+
+    // Return thread-specific descriptor list
+    return (struct descriptor *) pthread_getspecific(descriptor_key);
+}
+```

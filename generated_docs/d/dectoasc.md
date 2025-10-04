@@ -49,3 +49,52 @@ The `dectoasc` function converts a decimal number to its ASCII string representa
 - Contains a TODO comment about implementing exponential notation for very long numbers
 - Located in src/interfaces/ecpg/compatlib/informix.c:381-431
 - Performs proper memory cleanup of intermediate numeric values
+
+## Simplified Source
+
+```c
+int dectoasc(decimal *np, char *cp, int len, int right)
+{
+    char *str;
+    numeric *nres;
+
+    // Handle null input
+    rsetnull(CSTRINGTYPE, (char *) cp);
+    if (risnull(CDECIMALTYPE, (char *) np))
+        return 0;
+
+    // Convert decimal to numeric for processing
+    nres = PGTYPESnumeric_new();
+    if (nres == NULL)
+        return ECPG_INFORMIX_OUT_OF_MEMORY;
+
+    if (PGTYPESnumeric_from_decimal(np, nres) != 0) {
+        PGTYPESnumeric_free(nres);
+        return ECPG_INFORMIX_OUT_OF_MEMORY;
+    }
+
+    // Convert to ASCII string with specified precision
+    if (right >= 0)
+        str = PGTYPESnumeric_to_asc(nres, right);
+    else
+        str = PGTYPESnumeric_to_asc(nres, nres->dscale);
+
+    PGTYPESnumeric_free(nres);
+    if (!str)
+        return -1;
+
+    // Check buffer length and copy result
+    if ((int) (strlen(str) + 1) > len) {
+        if (len > 1) {
+            cp[0] = '*';  // Overflow indicator
+            cp[1] = '\0';
+        }
+        free(str);
+        return -1;
+    } else {
+        strcpy(cp, str);
+        free(str);
+        return 0;
+    }
+}
+```

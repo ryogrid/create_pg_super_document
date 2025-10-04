@@ -49,3 +49,46 @@ This function is essential for setting up the context needed to process INSERT c
 - The function assumes pg_type is already populated, which is ensured by calling populate_typ_list()
 - Located in src/backend/bootstrap/bootstrap.c:408-452
 - Works in conjunction with closerel() to manage relation state during bootstrap
+
+## Simplified Source
+```c
+void boot_openrel(char *relname) {
+    // Ensure relation name fits within PostgreSQL's naming limits
+    if (strlen(relname) >= NAMEDATALEN) {
+        relname[NAMEDATALEN - 1] = '\0';
+    }
+
+    // Ensure pg_type is populated before opening any relation
+    if (Typ == NIL) {
+        populate_typ_list();
+    }
+
+    // Close any previously opened relation
+    if (boot_reldesc != NULL) {
+        closerel(NULL);
+    }
+
+    elog(DEBUG4, "open relation %s, attrsize %d", relname, (int) ATTRIBUTE_FIXED_PART_SIZE);
+
+    // Open the relation (no locking needed in bootstrap mode)
+    boot_reldesc = table_openrv(makeRangeVar(NULL, relname, -1), NoLock);
+    numattr = RelationGetNumberOfAttributes(boot_reldesc);
+
+    // Copy attribute information for bootstrap processing
+    for (int i = 0; i < numattr; i++) {
+        if (attrtypes[i] == NULL) {
+            attrtypes[i] = AllocateAttribute();
+        }
+
+        // Copy attribute descriptor
+        memmove((char *) attrtypes[i],
+                (char *) TupleDescAttr(boot_reldesc->rd_att, i),
+                ATTRIBUTE_FIXED_PART_SIZE);
+
+        // Debug logging for attribute details
+        Form_pg_attribute at = attrtypes[i];
+        elog(DEBUG4, "create attribute %d name %s len %d num %d type %u",
+             i, NameStr(at->attname), at->attlen, at->attnum, at->atttypid);
+    }
+}
+```

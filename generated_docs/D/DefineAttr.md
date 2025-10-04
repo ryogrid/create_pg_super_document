@@ -51,3 +51,83 @@ For system catalogs, the function ensures collation-aware columns use C collatio
 - System catalog columns are forced to use C collation (C_COLLATION_OID) for database-independent behavior
 - The function implements automatic nullability detection for fixed-width columns when BOOTCOL_NULL_AUTO is specified
 - Warning is issued if relations are left open when this command is executed
+
+## Simplified Source
+
+```c
+void DefineAttr(char *name, char *type, int attnum, int nullness) {
+    // Close any open relations (bootstrap validation)
+    if (boot_reldesc != NULL) {
+        elog(WARNING, "no open relations allowed with CREATE command");
+        closerel(NULL);
+    }
+
+    // Allocate and initialize attribute structure
+    if (attrtypes[attnum] == NULL)
+        attrtypes[attnum] = AllocateAttribute();
+    MemSet(attrtypes[attnum], 0, ATTRIBUTE_FIXED_PART_SIZE);
+
+    // Set basic attribute properties
+    namestrcpy(&attrtypes[attnum]->attname, name);
+    attrtypes[attnum]->attnum = attnum + 1;
+
+    // Resolve type information from type name
+    Oid typeoid = gettype(type);
+
+    // Set type properties from either Typ cache or TypInfo array
+    if (Typ != NIL) {
+        // Use cached pg_type data
+        attrtypes[attnum]->atttypid = Ap->am_oid;
+        attrtypes[attnum]->attlen = Ap->am_typ.typlen;
+        attrtypes[attnum]->attbyval = Ap->am_typ.typbyval;
+        attrtypes[attnum]->attalign = Ap->am_typ.typalign;
+        attrtypes[attnum]->attstorage = Ap->am_typ.typstorage;
+        attrtypes[attnum]->attcollation = Ap->am_typ.typcollation;
+
+        // Handle array dimensions
+        if (Ap->am_typ.typelem != InvalidOid && Ap->am_typ.typlen < 0)
+            attrtypes[attnum]->attndims = 1;
+    } else {
+        // Use hardcoded TypInfo array
+        attrtypes[attnum]->atttypid = TypInfo[typeoid].oid;
+        attrtypes[attnum]->attlen = TypInfo[typeoid].len;
+        attrtypes[attnum]->attbyval = TypInfo[typeoid].byval;
+        attrtypes[attnum]->attalign = TypInfo[typeoid].align;
+        attrtypes[attnum]->attstorage = TypInfo[typeoid].storage;
+        attrtypes[attnum]->attcollation = TypInfo[typeoid].collation;
+
+        // Handle array dimensions
+        if (TypInfo[typeoid].elem != InvalidOid && attrtypes[attnum]->attlen < 0)
+            attrtypes[attnum]->attndims = 1;
+    }
+
+    // Force system catalog columns to use C collation
+    if (OidIsValid(attrtypes[attnum]->attcollation))
+        attrtypes[attnum]->attcollation = C_COLLATION_OID;
+
+    // Set remaining attribute properties
+    attrtypes[attnum]->attcacheoff = -1;
+    attrtypes[attnum]->atttypmod = -1;
+    attrtypes[attnum]->attislocal = true;
+    attrtypes[attnum]->attcompression = InvalidCompressionMethod;
+
+    // Determine nullability based on nullness parameter
+    if (nullness == BOOTCOL_NULL_FORCE_NOT_NULL) {
+        attrtypes[attnum]->attnotnull = true;
+    } else if (nullness == BOOTCOL_NULL_FORCE_NULL) {
+        attrtypes[attnum]->attnotnull = false;
+    } else {
+        // Auto-determine: fixed-width columns are not-null if all prior columns are fixed and not-null
+        if (attrtypes[attnum]->attlen > 0) {
+            bool all_prior_fixed_notnull = true;
+            for (int i = 0; i < attnum; i++) {
+                if (attrtypes[i]->attlen <= 0 || !attrtypes[i]->attnotnull) {
+                    all_prior_fixed_notnull = false;
+                    break;
+                }
+            }
+            attrtypes[attnum]->attnotnull = all_prior_fixed_notnull;
+        }
+    }
+}
+```

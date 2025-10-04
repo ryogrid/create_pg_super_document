@@ -39,3 +39,29 @@ The function validates the attribute number to ensure it's within valid bounds a
 - System attributes include ctid, oid, xmin, xmax, cmin, cmax, tableoid
 - The returned string is a copy, so modifications won't affect the original tuple descriptor
 - Useful for dynamic schema inspection and error reporting in stored procedures
+
+## Simplified Source
+
+```c
+char *SPI_fname(TupleDesc tupdesc, int fnumber) {
+    SPI_result = 0;
+
+    // Validate attribute number range
+    if (fnumber > tupdesc->natts || fnumber == 0 ||
+        fnumber <= FirstLowInvalidHeapAttributeNumber) {
+        SPI_result = SPI_ERROR_NOATTRIBUTE;
+        return NULL;
+    }
+
+    // Get attribute definition (regular or system attribute)
+    const FormData_pg_attribute *attr;
+    if (fnumber > 0) {
+        attr = TupleDescAttr(tupdesc, fnumber - 1);  // Regular attribute
+    } else {
+        attr = SystemAttributeDefinition(fnumber);   // System attribute
+    }
+
+    // Return a copy of the attribute name
+    return pstrdup(NameStr(attr->attname));
+}
+```

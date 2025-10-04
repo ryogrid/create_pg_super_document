@@ -50,3 +50,28 @@ This function works in conjunction with InsertOneNull and InsertOneTuple to buil
 - Debug logging shows both the original string value and the converted internal representation
 - Operates on the assumption that a relation is currently open (boot_reldesc is valid)
 - The function handles all PostgreSQL data types through their registered input functions
+
+## Simplified Source
+
+```c
+void InsertOneValue(char *value, int i) {
+    Assert(i >= 0 && i < MAXATTR);
+
+    // Get type OID for this column
+    Oid typoid = TupleDescAttr(boot_reldesc->rd_att, i)->atttypid;
+
+    // Get type I/O information
+    int16 typlen;
+    bool typbyval;
+    char typalign, typdelim;
+    Oid typioparam, typinput, typoutput;
+
+    boot_get_type_io_data(typoid, &typlen, &typbyval, &typalign,
+                          &typdelim, &typioparam, &typinput, &typoutput);
+
+    // Convert string value to internal representation
+    values[i] = OidInputFunctionCall(typinput, value, typioparam, -1);
+
+    elog(DEBUG4, "inserting column %d value \"%s\"", i, value);
+}
+```

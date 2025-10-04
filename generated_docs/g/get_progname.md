@@ -42,3 +42,38 @@ The function performs the following operations:
 - Critical for proper program identification in logging and error messages
 - Used extensively throughout PostgreSQL's command-line utilities for consistent program name handling
 - The memory allocation failure results in an abort() call, which could terminate the postmaster process
+
+## Simplified Source
+
+```c
+const char *
+get_progname(const char *argv0)
+{
+    const char *program_name;
+    char *result;
+
+    // Strip directory path - find last separator
+    program_name = last_dir_separator(argv0);
+    if (program_name)
+        program_name++;  // Skip the separator
+    else
+        program_name = skip_drive(argv0);  // Handle Windows drive letters
+
+    // Make a copy (intentionally leaked - called only once)
+    result = strdup(program_name);
+    if (result == NULL) {
+        fprintf(stderr, "%s: out of memory\n", program_name);
+        abort();
+    }
+
+    // Strip .exe suffix on Windows/Cygwin
+    #if defined(__CYGWIN__) || defined(WIN32)
+    if (strlen(result) > 4 &&
+        pg_strcasecmp(result + strlen(result) - 4, ".exe") == 0) {
+        result[strlen(result) - 4] = '\0';
+    }
+    #endif
+
+    return result;
+}
+```

@@ -37,3 +37,19 @@ The `onechr` function creates NFA arcs for a single character, providing an opti
 - Fast path uses `subcoloronechr` for case-sensitive matching
 - Slower path uses `allcases` + `subcolorcvec` for case-insensitive matching
 - Located in src/backend/regex/regcomp.c:1911-1936
+
+## Simplified Source
+
+```c
+static void onechr(struct vars *v, chr c, struct state *lp, struct state *rp) {
+    if (!(v->cflags & REG_ICASE)) {
+        // Fast path for case-sensitive matching
+        color lastsubcolor = COLORLESS;
+        subcoloronechr(v, c, lp, rp, &lastsubcolor);
+        return;
+    }
+
+    // Case-insensitive matching: handle all case variants
+    subcolorcvec(v, allcases(v, c), lp, rp);
+}
+```

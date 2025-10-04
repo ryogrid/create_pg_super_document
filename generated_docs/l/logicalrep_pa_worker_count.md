@@ -32,3 +32,28 @@ This static function iterates through the logical replication worker pool to cou
 - Part of PostgreSQL's logical replication infrastructure for managing parallel apply processes
 - Parallel apply workers help improve replication performance by processing changes concurrently
 - Returns an integer count of matching parallel apply workers
+
+## Simplified Source
+
+```c
+static int logicalrep_pa_worker_count(Oid subid)
+{
+    int i;
+    int res = 0;
+
+    // Ensure caller holds the required lock
+    Assert(LWLockHeldByMe(LogicalRepWorkerLock));
+
+    // Iterate through all worker slots
+    for (i = 0; i < max_logical_replication_workers; i++)
+    {
+        LogicalRepWorker *w = &LogicalRepCtx->workers[i];
+
+        // Count parallel apply workers for this subscription
+        if (isParallelApplyWorker(w) && w->subid == subid)
+            res++;
+    }
+
+    return res;
+}
+```

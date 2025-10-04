@@ -58,3 +58,54 @@ The function ensures that only valid role options are accepted for the configura
 - Provides detailed error messages to help users correct invalid configurations
 - Part of PostgreSQL's role-based access control configuration infrastructure
 - The function ensures that the createrole_self_grant parameter maintains valid syntax and values
+
+## Simplified Source
+
+```c
+bool
+check_createrole_self_grant(char **newval, void **extra, GucSource source)
+{
+    char *rawstring;
+    List *elemlist;
+    ListCell *l;
+    unsigned options = 0;
+    unsigned *result;
+
+    // Parse comma-separated list
+    rawstring = pstrdup(*newval);
+    if (!SplitIdentifierString(rawstring, ',', &elemlist)) {
+        GUC_check_errdetail("List syntax is invalid.");
+        pfree(rawstring);
+        list_free(elemlist);
+        return false;
+    }
+
+    // Validate each keyword and build options bitmask
+    foreach(l, elemlist) {
+        char *tok = (char *) lfirst(l);
+
+        if (pg_strcasecmp(tok, "SET") == 0)
+            options |= GRANT_ROLE_SPECIFIED_SET;
+        else if (pg_strcasecmp(tok, "INHERIT") == 0)
+            options |= GRANT_ROLE_SPECIFIED_INHERIT;
+        else {
+            GUC_check_errdetail("Unrecognized key word: \"%s\".", tok);
+            pfree(rawstring);
+            list_free(elemlist);
+            return false;
+        }
+    }
+
+    // Store parsed options for GUC system
+    pfree(rawstring);
+    list_free(elemlist);
+
+    result = (unsigned *) guc_malloc(LOG, sizeof(unsigned));
+    if (!result)
+        return false;
+    *result = options;
+    *extra = result;
+
+    return true;
+}
+```

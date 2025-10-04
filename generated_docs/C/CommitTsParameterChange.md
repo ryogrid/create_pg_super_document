@@ -41,3 +41,24 @@ This synchronization is crucial for maintaining consistency between primary and 
 - The function checks commitTsShared->commitTsActive to determine current activation state
 - Declared in src/include/access/commit_ts.h for external access
 - Part of the WAL replay infrastructure for configuration parameter changes
+
+## Simplified Source
+
+```c
+void CommitTsParameterChange(bool newvalue, bool oldvalue)
+{
+    // Synchronize commit timestamp tracking state with primary during WAL replay
+
+    if (newvalue)
+    {
+        // Primary enabled commit timestamp tracking
+        if (!commitTsShared->commitTsActive)
+            ActivateCommitTs();
+    }
+    else if (commitTsShared->commitTsActive)
+    {
+        // Primary disabled commit timestamp tracking
+        DeactivateCommitTs();
+    }
+}
+```

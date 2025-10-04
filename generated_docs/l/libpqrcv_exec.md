@@ -43,3 +43,68 @@ The  function provides a unified interface for executing SQL queries and command
 - Error handling includes capturing SQL state codes for diagnostic purposes
 - Memory allocation for the result structure uses palloc0 for zero-initialization
 - The function is static, indicating it's only used within the libpqwalreceiver module
+
+## Simplified Source
+```c
+static WalRcvExecResult *
+libpqrcv_exec(WalReceiverConn *conn, const char *query,
+              const int nRetTypes, const Oid *retTypes)
+{
+    WalRcvExecResult *walres = palloc0(sizeof(WalRcvExecResult));
+
+    /* Ensure we have a database connection */
+    if (MyDatabaseId == InvalidOid)
+        ereport(ERROR, "the query interface requires a database connection");
+
+    /* Execute the query */
+    PGresult *pgres = libpqrcv_PQexec(conn->streamConn, query);
+
+    /* Process results based on status */
+    switch (PQresultStatus(pgres))
+    {
+        case PGRES_TUPLES_OK:
+        case PGRES_SINGLE_TUPLE:
+        case PGRES_TUPLES_CHUNK:
+            walres->status = WALRCV_OK_TUPLES;
+            libpqrcv_processTuples(pgres, walres, nRetTypes, retTypes);
+            break;
+
+        case PGRES_COPY_IN:
+            walres->status = WALRCV_OK_COPY_IN;
+            break;
+
+        case PGRES_COPY_OUT:
+            walres->status = WALRCV_OK_COPY_OUT;
+            break;
+
+        case PGRES_COPY_BOTH:
+            walres->status = WALRCV_OK_COPY_BOTH;
+            break;
+
+        case PGRES_COMMAND_OK:
+            walres->status = WALRCV_OK_COMMAND;
+            break;
+
+        case PGRES_EMPTY_QUERY:
+            walres->status = WALRCV_ERROR;
+            walres->err = "empty query";
+            break;
+
+        default:
+            /* Handle all error cases */
+            walres->status = WALRCV_ERROR;
+            walres->err = pchomp(PQerrorMessage(conn->streamConn));
+
+            /* Extract SQL state if available */
+            char *diag_sqlstate = PQresultErrorField(pgres, PG_DIAG_SQLSTATE);
+            if (diag_sqlstate)
+                walres->sqlstate = MAKE_SQLSTATE(diag_sqlstate[0], diag_sqlstate[1],
+                                               diag_sqlstate[2], diag_sqlstate[3],
+                                               diag_sqlstate[4]);
+            break;
+    }
+
+    PQclear(pgres);
+    return walres;
+}
+```

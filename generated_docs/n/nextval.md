@@ -38,3 +38,19 @@ A notable design trade-off exists in this function: it uses NoLock when resolvin
 - The performance vs. safety trade-off is documented as potentially needing future revision
 - Returns INT64 (bigint) values to support the full range of sequence values
 - Part of the legacy text-based sequence interface alongside the newer OID-based approach
+
+## Simplified Source
+
+```c
+Datum nextval(PG_FUNCTION_ARGS) {
+    // Get sequence name from text argument
+    text *seqin = PG_GETARG_TEXT_PP(0);
+
+    // Convert text name to RangeVar and resolve to OID
+    RangeVar *sequence = makeRangeVarFromNameList(textToQualifiedNameList(seqin));
+    Oid relid = RangeVarGetRelid(sequence, NoLock, false);
+
+    // Get next value from sequence
+    PG_RETURN_INT64(nextval_internal(relid, true));
+}
+```

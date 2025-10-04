@@ -45,3 +45,47 @@ This function uses the PostgreSQL function call convention and doesn't take expl
 - Only processes primary control files, ignoring auxiliary control files with "--" in their names
 - The result set structure and columns are determined by get_available_versions_for_extension
 - This function is the foundation for PostgreSQL's extension version management system
+
+## Simplified Source
+
+```c
+Datum pg_available_extension_versions(PG_FUNCTION_ARGS) {
+    ReturnSetInfo *rsinfo = (ReturnSetInfo *) fcinfo->resultinfo;
+
+    // Initialize result set
+    InitMaterializedSRF(fcinfo, 0);
+
+    // Open extension control directory
+    char *location = get_extension_control_directory();
+    DIR *dir = AllocateDir(location);
+
+    // Handle missing directory gracefully
+    if (dir == NULL && errno == ENOENT) {
+        return (Datum) 0; // Return empty set
+    }
+
+    // Process each control file in directory
+    struct dirent *de;
+    while ((de = ReadDir(dir, location)) != NULL) {
+        if (!is_extension_control_filename(de->d_name))
+            continue;
+
+        // Extract extension name from filename
+        char *extname = pstrdup(de->d_name);
+        *strrchr(extname, '.') = '\0';
+
+        // Skip auxiliary control files
+        if (strstr(extname, "--"))
+            continue;
+
+        // Read extension control file
+        ExtensionControlFile *control = read_extension_control_file(extname);
+
+        // Scan for all available versions and add to result set
+        get_available_versions_for_extension(control, rsinfo->setResult, rsinfo->setDesc);
+    }
+
+    FreeDir(dir);
+    return (Datum) 0;
+}
+```

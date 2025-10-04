@@ -42,3 +42,61 @@ This function handles the processing of individual TOAST chunks as they are enco
 - Performs extensive error checking for malformed TOAST data
 - Critical for logical replication's ability to handle large column values
 - The function is static, used only within the reorder buffer implementation
+
+## Simplified Source
+
+```c
+static void
+ReorderBufferToastAppendChunk(ReorderBuffer *rb, ReorderBufferTXN *txn,
+							  Relation relation, ReorderBufferChange *change)
+{
+	// Initialize toast hash table if needed
+	if (txn->toast_hash == NULL)
+		ReorderBufferToastInitHash(rb, txn);
+
+	// Extract chunk data from TOAST tuple
+	HeapTuple newtup = change->data.tp.newtuple;
+	TupleDesc desc = RelationGetDescr(relation);
+	bool isnull;
+
+	Oid chunk_id = DatumGetObjectId(fastgetattr(newtup, 1, desc, &isnull));
+	int32 chunk_seq = DatumGetInt32(fastgetattr(newtup, 2, desc, &isnull));
+	Pointer chunk = DatumGetPointer(fastgetattr(newtup, 3, desc, &isnull));
+
+	// Find or create hash entry for this chunk_id
+	bool found;
+	ReorderBufferToastEnt *ent = hash_search(txn->toast_hash, &chunk_id, HASH_ENTER, &found);
+
+	// Initialize new entry or validate sequence number
+	if (!found) {
+		ent->chunk_id = chunk_id;
+		ent->num_chunks = 0;
+		ent->last_chunk_seq = 0;
+		ent->size = 0;
+		ent->reconstructed = NULL;
+		dlist_init(&ent->chunks);
+
+		if (chunk_seq != 0)
+			elog(ERROR, "got sequence entry %d for toast chunk %u instead of seq 0",
+				 chunk_seq, chunk_id);
+	} else if (chunk_seq != ent->last_chunk_seq + 1) {
+		elog(ERROR, "got sequence entry %d for toast chunk %u instead of seq %d",
+			 chunk_seq, chunk_id, ent->last_chunk_seq + 1);
+	}
+
+	// Calculate chunk size and update entry
+	int32 chunksize;
+	if (!VARATT_IS_EXTENDED(chunk))
+		chunksize = VARSIZE(chunk) - VARHDRSZ;
+	else if (VARATT_IS_SHORT(chunk))
+		chunksize = VARSIZE_SHORT(chunk) - VARHDRSZ_SHORT;
+	else
+		elog(ERROR, "unexpected type of toast chunk");
+
+	// Update entry metadata and add chunk to list
+	ent->size += chunksize;
+	ent->last_chunk_seq = chunk_seq;
+	ent->num_chunks++;
+	dlist_push_tail(&ent->chunks, &change->node);
+}
+```

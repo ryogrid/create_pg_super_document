@@ -34,3 +34,24 @@ This approach ensures that single characters receive the same escaping treatment
 - By delegating to outToken, this function automatically benefits from all the special character escaping rules
 - The temporary string creation is efficient as it only requires a 2-byte stack allocation
 - Part of the broader node serialization infrastructure that ensures round-trip fidelity for all data types
+
+## Simplified Source
+
+```c
+static void
+outChar(StringInfo str, char c)
+{
+    // Special case: represent null character as <>
+    if (c == '\0')
+    {
+        appendStringInfoString(str, "<>");
+        return;
+    }
+
+    // Convert character to string and delegate to outToken for escaping
+    char in[2];
+    in[0] = c;
+    in[1] = '\0';
+    outToken(str, in);
+}
+```

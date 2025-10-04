@@ -52,3 +52,39 @@ The function respects the table's replica identity setting to determine what old
 - Transaction ID is only written if valid (used in streaming replication scenarios)
 - The function is part of PostgreSQL's logical replication protocol encoder
 - Located in src/backend/replication/logical/proto.c:458-491
+
+## Simplified Source
+
+```c
+void logicalrep_write_update(StringInfo out, TransactionId xid, Relation rel,
+                            TupleTableSlot *oldslot, TupleTableSlot *newslot,
+                            bool binary, Bitmapset *columns) {
+    // Write UPDATE message type
+    pq_sendbyte(out, LOGICAL_REP_MSG_UPDATE);
+
+    // Validate replica identity setting
+    Assert(rel->rd_rel->relreplident == REPLICA_IDENTITY_DEFAULT ||
+           rel->rd_rel->relreplident == REPLICA_IDENTITY_FULL ||
+           rel->rd_rel->relreplident == REPLICA_IDENTITY_INDEX);
+
+    // Send transaction ID if streaming
+    if (TransactionIdIsValid(xid))
+        pq_sendint32(out, xid);
+
+    // Send relation identifier
+    pq_sendint32(out, RelationGetRelid(rel));
+
+    // Send old tuple if available
+    if (oldslot != NULL) {
+        if (rel->rd_rel->relreplident == REPLICA_IDENTITY_FULL)
+            pq_sendbyte(out, 'O');  // Full old tuple
+        else
+            pq_sendbyte(out, 'K');  // Key-only old tuple
+        logicalrep_write_tuple(out, rel, oldslot, binary, columns);
+    }
+
+    // Send new tuple
+    pq_sendbyte(out, 'N');
+    logicalrep_write_tuple(out, rel, newslot, binary, columns);
+}
+```

@@ -52,3 +52,89 @@ The function first counts live attributes to write the tuple header, then proces
 - Part of the logical replication wire protocol implementation
 - Critical for data consistency between publisher and subscriber in logical replication
 - Optimizes bandwidth usage by avoiding retransmission of unchanged large objects (TOAST)
+
+## Simplified Source
+
+```c
+static void logicalrep_write_tuple(StringInfo out, Relation rel, TupleTableSlot *slot,
+                                  bool binary, Bitmapset *columns) {
+    TupleDesc desc;
+    Datum *values;
+    bool *isnull;
+    int i;
+    uint16 nliveatts = 0;
+
+    desc = RelationGetDescr(rel);
+
+    // Count live attributes to include
+    for (i = 0; i < desc->natts; i++) {
+        Form_pg_attribute att = TupleDescAttr(desc, i);
+
+        if (att->attisdropped || att->attgenerated)
+            continue;
+        if (!column_in_column_list(att->attnum, columns))
+            continue;
+
+        nliveatts++;
+    }
+    pq_sendint16(out, nliveatts);
+
+    // Extract all attribute values from slot
+    slot_getallattrs(slot);
+    values = slot->tts_values;
+    isnull = slot->tts_isnull;
+
+    // Write each column value
+    for (i = 0; i < desc->natts; i++) {
+        HeapTuple typtup;
+        Form_pg_type typclass;
+        Form_pg_attribute att = TupleDescAttr(desc, i);
+
+        if (att->attisdropped || att->attgenerated)
+            continue;
+        if (!column_in_column_list(att->attnum, columns))
+            continue;
+
+        // Handle NULL values
+        if (isnull[i]) {
+            pq_sendbyte(out, LOGICALREP_COLUMN_NULL);
+            continue;
+        }
+
+        // Handle unchanged TOAST data
+        if (att->attlen == -1 && VARATT_IS_EXTERNAL_ONDISK(values[i])) {
+            pq_sendbyte(out, LOGICALREP_COLUMN_UNCHANGED);
+            continue;
+        }
+
+        // Look up type information
+        typtup = SearchSysCache1(TYPEOID, ObjectIdGetDatum(att->atttypid));
+        if (!HeapTupleIsValid(typtup))
+            elog(ERROR, "cache lookup failed for type %u", att->atttypid);
+        typclass = (Form_pg_type) GETSTRUCT(typtup);
+
+        // Use binary format if requested and available
+        if (binary && OidIsValid(typclass->typsend)) {
+            bytea *outputbytes;
+            int len;
+
+            pq_sendbyte(out, LOGICALREP_COLUMN_BINARY);
+            outputbytes = OidSendFunctionCall(typclass->typsend, values[i]);
+            len = VARSIZE(outputbytes) - VARHDRSZ;
+            pq_sendint(out, len, 4);
+            pq_sendbytes(out, VARDATA(outputbytes), len);
+            pfree(outputbytes);
+        } else {
+            // Use text format
+            char *outputstr;
+
+            pq_sendbyte(out, LOGICALREP_COLUMN_TEXT);
+            outputstr = OidOutputFunctionCall(typclass->typoutput, values[i]);
+            pq_sendcountedtext(out, outputstr, strlen(outputstr));
+            pfree(outputstr);
+        }
+
+        ReleaseSysCache(typtup);
+    }
+}
+```

@@ -42,3 +42,26 @@ This function is responsible for the final phase of transaction processing in Po
 - Resource cleanup via pa_free_worker ensures proper memory management
 - Called in various transaction completion scenarios including prepare, commit, and abort operations
 - Part of the critical path for maintaining consistency in parallel logical replication streams
+
+## Simplified Source
+
+```c
+void pa_xact_finish(ParallelApplyWorkerInfo *winfo, XLogRecPtr remote_lsn)
+{
+    // Ensure we're in the leader apply worker context
+    Assert(am_leader_apply_worker());
+
+    // Unlock stream so parallel worker can continue processing
+    pa_unlock_stream(winfo->shared->xid, AccessExclusiveLock);
+
+    // Wait for worker to finish to maintain commit order
+    pa_wait_for_xact_finish(winfo);
+
+    // Store flush position if valid LSN provided
+    if (!XLogRecPtrIsInvalid(remote_lsn))
+        store_flush_position(remote_lsn, winfo->shared->last_commit_end);
+
+    // Clean up worker resources
+    pa_free_worker(winfo);
+}
+```

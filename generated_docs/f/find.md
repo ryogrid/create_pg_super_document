@@ -43,3 +43,87 @@ The `find` function implements the core pattern matching algorithm for regular e
 - Handles REG_EXPECT flag by setting extended match information in v->details
 - Delegates to cdissect for submatch extraction when v->nmatch > 1
 - The function is static and part of the regex execution engine core
+
+## Simplified Source
+
+```c
+static int find(struct vars *v, struct cnfa *cnfa, struct colormap *cm) {
+    chr *begin, *end = NULL, *cold = NULL;
+    chr *open, *close;
+    int hitend;
+    int shorter = (v->g->tree->flags & SHORTER) ? 1 : 0;
+
+    // Phase 1: Use search RE to find potential match range
+    struct dfa *s = newdfa(v, &v->g->search, cm, &v->dfa1);
+    if (s == NULL)
+        return v->err;
+
+    close = shortest(v, s, v->search_start, v->search_start, v->stop,
+                     &cold, (int *) NULL);
+    freedfa(s);
+    NOERR();
+
+    // Handle REG_EXPECT flag
+    if (v->g->cflags & REG_EXPECT) {
+        if (cold != NULL)
+            v->details->rm_extend.rm_so = OFF(cold);
+        else
+            v->details->rm_extend.rm_so = OFF(v->stop);
+        v->details->rm_extend.rm_eo = OFF(v->stop);
+    }
+
+    if (close == NULL)  // No match found
+        return REG_NOMATCH;
+
+    if (v->nmatch == 0)  // Match found, no details needed
+        return REG_OKAY;
+
+    // Phase 2: Find exact match within potential range
+    open = cold;
+    cold = NULL;
+
+    struct dfa *d = newdfa(v, cnfa, cm, &v->dfa1);
+    if (d == NULL)
+        return v->err;
+
+    // Try each position in the range
+    for (begin = open; begin <= close; begin++) {
+        if (shorter)
+            end = shortest(v, d, begin, begin, v->stop, (chr **) NULL, &hitend);
+        else
+            end = longest(v, d, begin, v->stop, &hitend);
+
+        if (ISERR()) {
+            freedfa(d);
+            return v->err;
+        }
+
+        if (hitend && cold == NULL)
+            cold = begin;
+
+        if (end != NULL)
+            break;  // Found a match
+    }
+
+    freedfa(d);
+
+    // Record match positions
+    v->pmatch[0].rm_so = OFF(begin);
+    v->pmatch[0].rm_eo = OFF(end);
+
+    // Update extended info for REG_EXPECT
+    if (v->g->cflags & REG_EXPECT) {
+        if (cold != NULL)
+            v->details->rm_extend.rm_so = OFF(cold);
+        else
+            v->details->rm_extend.rm_so = OFF(v->stop);
+        v->details->rm_extend.rm_eo = OFF(v->stop);
+    }
+
+    if (v->nmatch == 1)  // No submatches needed
+        return REG_OKAY;
+
+    // Extract submatches
+    return cdissect(v, v->g->tree, begin, end);
+}
+```

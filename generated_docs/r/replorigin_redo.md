@@ -40,3 +40,44 @@ replorigin_redo is a WAL record replay function that processes replication origi
 - XLOG_REPLORIGIN_DROP operations iterate through all replication slots to find and reset the matching origin
 - Uses PANIC level error reporting for unknown operation codes, indicating critical system consistency issues
 - Essential for maintaining replication state consistency during crash recovery and standby replay
+
+## Simplified Source
+
+```c
+void
+replorigin_redo(XLogReaderState *record)
+{
+    uint8 info = XLogRecGetInfo(record) & ~XLR_INFO_MASK;
+
+    switch (info) {
+        case XLOG_REPLORIGIN_SET:
+            {
+                // Advance replication origin progress
+                xl_replorigin_set *xlrec = (xl_replorigin_set *) XLogRecGetData(record);
+                replorigin_advance(xlrec->node_id, xlrec->remote_lsn, record->EndRecPtr,
+                                 xlrec->force /* backward */, false /* WAL log */);
+                break;
+            }
+        case XLOG_REPLORIGIN_DROP:
+            {
+                // Reset replication origin state
+                xl_replorigin_drop *xlrec = (xl_replorigin_drop *) XLogRecGetData(record);
+
+                // Find and reset the matching replication state
+                for (int i = 0; i < max_replication_slots; i++) {
+                    ReplicationState *state = &replication_states[i];
+                    if (state->roident == xlrec->node_id) {
+                        // Reset entry
+                        state->roident = InvalidRepOriginId;
+                        state->remote_lsn = InvalidXLogRecPtr;
+                        state->local_lsn = InvalidXLogRecPtr;
+                        break;
+                    }
+                }
+                break;
+            }
+        default:
+            elog(PANIC, "replorigin_redo: unknown op code %u", info);
+    }
+}
+```

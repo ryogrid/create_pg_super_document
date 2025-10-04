@@ -58,3 +58,63 @@ The function uses sophisticated numeric detection logic that considers digits, d
 - Memory allocation only occurs for non-expanded output modes that require alignment or HTML formatting
 - The function includes a goto label  for handling empty field output in non-HTML modes
 - Supports both left and right alignment based on numeric content detection
+
+## Simplified Source
+
+```c
+static bool do_field(const PQprintOpt *po, const PGresult *res,
+                     const int i, const int j, const int fs_len,
+                     char **fields, const int nFields, char const **fieldNames,
+                     unsigned char *fieldNotNum, int *fieldMax,
+                     const int fieldMaxLen, FILE *fout) {
+    // Get field value and length
+    int plen = PQgetlength(res, i, j);
+    const char *pval = PQgetvalue(res, i, j);
+
+    // Check if field is empty
+    bool skipit = (plen < 1 || !pval || !*pval) && (po->align || po->expanded);
+
+    if (!skipit) {
+        // Detect numeric fields for alignment
+        if (po->align && !fieldNotNum[j]) {
+            for (const char *p = pval; *p; p++) {
+                char ch = *p;
+                if (!(ch >= '0' && ch <= '9' || ch == '.' || ch == 'E' ||
+                      ch == 'e' || ch == ' ' || ch == '-')) {
+                    fieldNotNum[j] = 1;
+                    break;
+                }
+            }
+            // Additional validation for true numeric fields
+            if (*pval == 'E' || *pval == 'e' || !(pval[plen-1] >= '0' && pval[plen-1] <= '9'))
+                fieldNotNum[j] = 1;
+        }
+
+        // Handle output formatting
+        if (!po->expanded && (po->align || po->html3)) {
+            // Store field for aligned output
+            if (plen > fieldMax[j]) fieldMax[j] = plen;
+            fields[i * nFields + j] = malloc(plen + 1);
+            if (!fields[i * nFields + j]) return false;
+            strcpy(fields[i * nFields + j], pval);
+        } else {
+            // Direct output
+            if (po->expanded) {
+                // Print in expanded format
+                if (po->html3) {
+                    fprintf(fout, "<tr><td><b>%s</b></td><td>%s</td></tr>\n",
+                            fieldNames[j], pval);
+                } else {
+                    fprintf(fout, "%s%s%s\n", fieldNames[j], po->fieldSep, pval);
+                }
+            } else {
+                // Regular field output
+                fputs(pval, fout);
+                if ((j + 1) < nFields) fputs(po->fieldSep, fout);
+                else fputc('\n', fout);
+            }
+        }
+    }
+    return true;
+}
+```

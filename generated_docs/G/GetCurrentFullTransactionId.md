@@ -36,3 +36,19 @@ The function works with the CurrentTransactionState to check if the transaction 
 - Returns the full 64-bit transaction ID, not just the 32-bit XID portion
 - Located in src/backend/access/transam/xact.c:509-526
 - This function appears to be part of the internal transaction management API but may not have direct external callers in the current codebase
+
+## Simplified Source
+
+```c
+FullTransactionId
+GetCurrentFullTransactionId(void)
+{
+    TransactionState s = CurrentTransactionState;
+
+    // Assign transaction ID if not already set for current transaction
+    if (!FullTransactionIdIsValid(s->fullTransactionId))
+        AssignTransactionId(s);
+
+    return s->fullTransactionId;
+}
+```

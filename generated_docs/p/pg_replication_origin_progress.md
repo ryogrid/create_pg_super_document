@@ -41,3 +41,34 @@ The function performs prerequisite checks to ensure replication origins are prop
 - Can be used to monitor replication lag and progress across multiple origins
 - This is the general-purpose counterpart to pg_replication_origin_session_progress which only works for session-configured origins
 - Located in src/backend/replication/logical/origin.c:1491-1515
+
+## Simplified Source
+
+```c
+Datum pg_replication_origin_progress(PG_FUNCTION_ARGS) {
+    char *name;
+    bool flush;
+    RepOriginId roident;
+    XLogRecPtr remote_lsn;
+
+    // Check prerequisites: require slots and allow during recovery
+    replorigin_check_prerequisites(true, true);
+
+    // Extract function arguments
+    name = text_to_cstring((text *) DatumGetPointer(PG_GETARG_DATUM(0)));
+    flush = PG_GETARG_BOOL(1);
+
+    // Look up origin by name and get its progress
+    roident = replorigin_by_name(name, false);
+    Assert(OidIsValid(roident));
+
+    remote_lsn = replorigin_get_progress(roident, flush);
+
+    // Return NULL if no valid LSN available
+    if (remote_lsn == InvalidXLogRecPtr) {
+        PG_RETURN_NULL();
+    }
+
+    PG_RETURN_LSN(remote_lsn);
+}
+```

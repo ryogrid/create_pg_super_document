@@ -33,3 +33,28 @@ tts_buffer_is_current_xact_tuple checks if a tuple stored in a buffer-backed hea
 - Returns a boolean indicating whether the tuple belongs to the current transaction
 - The xmin field represents the transaction ID that inserted/created the tuple
 - Critical for MVCC (Multi-Version Concurrency Control) implementation in PostgreSQL
+
+## Simplified Source
+
+```c
+static bool
+tts_buffer_is_current_xact_tuple(TupleTableSlot *slot)
+{
+    BufferHeapTupleTableSlot *bslot = (BufferHeapTupleTableSlot *) slot;
+    TransactionId xmin;
+
+    Assert(!TTS_EMPTY(slot));
+
+    // Require materialized tuple for transaction ID access
+    if (!bslot->base.tuple)
+        ereport(ERROR,
+                (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                 errmsg("don't have a storage tuple in this context")));
+
+    // Extract the creating transaction ID from tuple header
+    xmin = HeapTupleHeaderGetRawXmin(bslot->base.tuple->t_data);
+
+    // Check if it matches the current transaction
+    return TransactionIdIsCurrentTransactionId(xmin);
+}
+```

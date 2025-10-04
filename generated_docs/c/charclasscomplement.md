@@ -61,3 +61,36 @@ This approach allows efficient computation of character class complements while 
 - Uses a temporary state strategy to efficiently compute complements
 - Multiple error checking points ensure robust operation
 - The colorcomplement function does the heavy lifting of creating complement arcs
+
+## Simplified Source
+
+```c
+static void charclasscomplement(struct vars *v, enum char_classes cls, struct state *lp, struct state *rp) {
+    struct state *cstate;
+    struct cvec *cv;
+
+    // Create temporary state for intermediate processing
+    cstate = newstate(v->nfa);
+    NOERR();
+
+    // Get character vector for the original character class
+    NOTE(REG_ULOCALE);
+    cv = cclasscvec(v, cls, (v->cflags & REG_ICASE));
+    NOERR();
+
+    // Build arcs for the original character class on temp state
+    subcolorcvec(v, cv, cstate, cstate);
+    NOERR();
+
+    // Clean up subcolors created during processing
+    okcolors(v->nfa, v->cm);
+    NOERR();
+
+    // Create complement arcs (all characters NOT in the class)
+    colorcomplement(v->nfa, v->cm, PLAIN, cstate, lp, rp);
+    NOERR();
+
+    // Clean up temporary state
+    dropstate(v->nfa, cstate);
+}
+```

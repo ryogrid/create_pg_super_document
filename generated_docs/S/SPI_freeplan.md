@@ -43,3 +43,26 @@ SPI_freeplan completely deallocates an SPI execution plan and all its associated
 - Commonly used in procedural language handlers and cleanup routines
 - Should be called in error handling paths to prevent resource leaks
 - The function is safe to call on plans that have already been executed multiple times
+
+## Simplified Source
+
+```c
+int SPI_freeplan(SPIPlanPtr plan) {
+    ListCell *lc;
+
+    // Validate plan parameter
+    if (plan == NULL || plan->magic != _SPI_PLAN_MAGIC)
+        return SPI_ERROR_ARGUMENT;
+
+    // Release all cached plan sources in the plan
+    foreach(lc, plan->plancache_list) {
+        CachedPlanSource *plansource = (CachedPlanSource *) lfirst(lc);
+        DropCachedPlan(plansource);
+    }
+
+    // Delete the entire memory context containing the plan and subsidiary data
+    MemoryContextDelete(plan->plancxt);
+
+    return 0;  // Success
+}
+```

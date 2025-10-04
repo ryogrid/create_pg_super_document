@@ -37,3 +37,19 @@ After this initialization, the worker process can participate in coordinated bit
 
 ## Notes and Other Information
 This function is the counterpart to ExecBitmapHeapInitializeDSM - while the leader process creates and initializes the shared state, worker processes use this function to connect to that pre-existing shared state. The function includes a critical assertion that verifies DSA availability, as this is required for all shared memory operations. The plan_node_id serves as a unique identifier ensuring each worker connects to the correct shared state when multiple parallel bitmap scans exist in the same query.
+
+## Simplified Source
+
+```c
+void ExecBitmapHeapInitializeWorker(BitmapHeapScanState *node,
+                                   ParallelWorkerContext *pwcxt) {
+    // Verify parallel execution is properly set up
+    Assert(node->ss.ps.state->es_query_dsa != NULL);
+
+    // Connect worker to shared bitmap heap scan state
+    ParallelBitmapHeapState *pstate = shm_toc_lookup(pwcxt->toc,
+                                                      node->ss.ps.plan->plan_node_id,
+                                                      false);
+    node->pstate = pstate;
+}
+```

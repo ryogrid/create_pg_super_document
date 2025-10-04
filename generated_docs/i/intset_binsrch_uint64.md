@@ -39,3 +39,40 @@ The implementation uses the standard binary search algorithm with low and high p
 - Returns an index that is always valid for insertion (0 to arr_elems inclusive)
 - Uses overflow-safe midpoint calculation
 - Time complexity is O(log n) where n is the number of array elements
+
+## Simplified Source
+
+```c
+static int
+intset_binsrch_uint64(uint64 item, uint64 *arr, int arr_elems, bool nextkey)
+{
+    int low, high, mid;
+
+    low = 0;
+    high = arr_elems;
+
+    while (high > low)
+    {
+        mid = low + (high - low) / 2;  // Overflow-safe midpoint
+
+        if (nextkey)
+        {
+            // Find position after equal key (or insertion point)
+            if (item >= arr[mid])
+                low = mid + 1;
+            else
+                high = mid;
+        }
+        else
+        {
+            // Find position of equal key (or insertion point)
+            if (item > arr[mid])
+                low = mid + 1;
+            else
+                high = mid;
+        }
+    }
+
+    return low;
+}
+```

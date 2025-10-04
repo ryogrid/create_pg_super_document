@@ -52,3 +52,51 @@ The function follows strict rules for managing match data, ensuring that capture
 - Part of PostgreSQL's sophisticated regex backtracking implementation
 - Critical for handling complex regex patterns with capture groups and backreferences
 - The extensive comment block explains the intricate match data management rules
+
+## Simplified Source
+
+```c
+static int cdissect(struct vars *v, struct subre *t, chr *begin, chr *end) {
+    int er;
+
+    // Safety checks
+    INTERRUPT(v->re);
+    if (STACK_TOO_DEEP(v->re))
+        return REG_ETOOBIG;
+
+    // Dispatch based on node type
+    switch (t->op) {
+        case '=':  // Terminal node - no action needed
+            er = REG_OKAY;
+            break;
+        case 'b':  // Back reference
+            er = cbrdissect(v, t, begin, end);
+            break;
+        case '.':  // Concatenation
+            er = (t->child->flags & SHORTER) ?
+                 crevcondissect(v, t, begin, end) :
+                 ccondissect(v, t, begin, end);
+            break;
+        case '|':  // Alternation
+            er = caltdissect(v, t, begin, end);
+            break;
+        case '*':  // Iteration
+            er = (t->child->flags & SHORTER) ?
+                 creviterdissect(v, t, begin, end) :
+                 citerdissect(v, t, begin, end);
+            break;
+        case '(':  // Capture node
+            er = cdissect(v, t->child, begin, end);
+            break;
+        default:
+            er = REG_ASSERT;
+            break;
+    }
+
+    // Save match if this is a capture node and matching succeeded
+    if (t->capno > 0 && er == REG_OKAY)
+        subset(v, t, begin, end);
+
+    return er;
+}
+```

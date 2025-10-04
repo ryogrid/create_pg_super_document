@@ -50,3 +50,39 @@ Like its uppercase counterpart, for ASCII characters (0-127), the function force
 - For characters outside the supported range of the current strategy, returns the original character unchanged
 - The function ensures predictable case conversion behavior across different PostgreSQL installations
 - Used more frequently than pg_wc_toupper, including in case-insensitive comparison operations
+
+## Simplified Source
+
+```c
+static pg_wchar
+pg_wc_tolower(pg_wchar c)
+{
+    switch (pg_regex_strategy) {
+        case PG_REGEX_LOCALE_C:
+            // ASCII characters use C locale behavior
+            if (c <= 127)
+                return pg_ascii_tolower((unsigned char) c);
+            return c;
+
+        case PG_REGEX_BUILTIN:
+            // Use Unicode lowercase conversion
+            return unicode_lowercase_simple(c);
+
+        case PG_REGEX_LOCALE_WIDE:
+        case PG_REGEX_LOCALE_1BYTE:
+            // Force C behavior for ASCII, locale-specific for others
+            if (c <= 127)
+                return pg_ascii_tolower((unsigned char) c);
+            if (c <= UCHAR_MAX)
+                return tolower((unsigned char) c);
+            return c;
+
+        case PG_REGEX_LOCALE_ICU:
+            // Use ICU conversion if available
+            return u_tolower(c);
+
+        default:
+            return c;
+    }
+}
+```

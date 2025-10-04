@@ -42,3 +42,44 @@ This function takes raw PL/Python source code and transforms it into executable 
 - Provides distinct error messages for named functions vs anonymous code blocks
 - Critical for the PL/Python compilation pipeline, transforming SQL function definitions into executable Python code
 - The compiled bytecode is stored in the procedure cache for reuse across multiple calls
+
+## Simplified Source
+
+```c
+void PLy_procedure_compile(PLyProcedure *proc, const char *src) {
+    // Set up isolated execution environment
+    proc->globals = PyDict_Copy(PLy_interp_globals);
+
+    // Create static data dictionary for persistent data between calls
+    proc->statics = PyDict_New();
+    if (!proc->statics)
+        PLy_elog(ERROR, NULL);
+    PyDict_SetItemString(proc->globals, "SD", proc->statics);
+
+    // Transform source code into proper Python function
+    char *mangled_src = PLy_procedure_munge_source(proc->pyname, src);
+    proc->src = MemoryContextStrdup(proc->mcxt, mangled_src);
+
+    // Compile the function definition
+    PyObject *result = PyRun_String(mangled_src, Py_file_input, proc->globals, NULL);
+    pfree(mangled_src);
+
+    if (result != NULL) {
+        Py_DECREF(result);
+
+        // Compile function call template for efficient execution
+        char call[NAMEDATALEN + 256];
+        snprintf(call, sizeof(call), "%s()", proc->pyname);
+        proc->code = Py_CompileString(call, "<string>", Py_eval_input);
+
+        if (proc->code != NULL)
+            return;
+    }
+
+    // Report compilation errors
+    if (proc->proname)
+        PLy_elog(ERROR, "could not compile PL/Python function \"%s\"", proc->proname);
+    else
+        PLy_elog(ERROR, "could not compile anonymous PL/Python code block");
+}
+```

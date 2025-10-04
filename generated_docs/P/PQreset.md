@@ -38,3 +38,31 @@ The `PQreset` function provides a way to reestablish a PostgreSQL connection usi
 - The connection object remains valid but the underlying network connection is replaced
 - All session-specific state (transactions, prepared statements, etc.) is lost during reset
 - Applications should check the connection status after calling this function to verify success
+
+## Simplified Source
+
+```c
+void
+PQreset(PGconn *conn)
+{
+    if (conn)
+    {
+        // Close existing connection
+        pqClosePGconn(conn);
+
+        // Attempt to reestablish connection
+        if (pqConnectDBStart(conn) && pqConnectDBComplete(conn))
+        {
+            // Notify event procedures of successful reset
+            int i;
+            for (i = 0; i < conn->nEvents; i++)
+            {
+                PGEventConnReset evt;
+                evt.conn = conn;
+                (void) conn->events[i].proc(PGEVT_CONNRESET, &evt,
+                                            conn->events[i].passThrough);
+            }
+        }
+    }
+}
+```

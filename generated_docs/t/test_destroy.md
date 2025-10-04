@@ -37,3 +37,25 @@ The function follows PostgreSQL's memory management practices by using pfree() t
 - Ensures no memory leaks in the testing infrastructure
 - Returns void as its primary purpose is cleanup rather than data processing
 - Critical for maintaining clean test state between different test runs
+
+## Simplified Source
+
+```c
+Datum
+test_destroy(PG_FUNCTION_ARGS)
+{
+    check_tidstore_available();
+
+    // Destroy tidstore and reset state
+    TidStoreDestroy(tidstore);
+    tidstore = NULL;
+    items.num_tids = 0;
+
+    // Free all verification arrays
+    pfree(items.insert_tids);
+    pfree(items.lookup_tids);
+    pfree(items.iter_tids);
+
+    PG_RETURN_VOID();
+}
+```

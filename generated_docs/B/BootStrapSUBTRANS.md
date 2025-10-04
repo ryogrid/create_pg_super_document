@@ -41,3 +41,23 @@ This function must be called exactly once during system installation (initdb). I
 - Part of the database cluster initialization sequence
 - While not strictly necessary (SLRU would create on first write), it ensures proper setup
 - Located in src/backend/access/transam/subtrans.c:270-295
+
+## Simplified Source
+
+```c
+void BootStrapSUBTRANS(void)
+{
+    // Get exclusive lock on bank 0 for bootstrap operation
+    LWLock *lock = SimpleLruGetBankLock(SubTransCtl, 0);
+    LWLockAcquire(lock, LW_EXCLUSIVE);
+
+    // Create and zero the first page of subtrans log
+    int slotno = ZeroSUBTRANSPage(0);
+
+    // Force the page to disk to ensure it's written
+    SimpleLruWritePage(SubTransCtl, slotno);
+    Assert(!SubTransCtl->shared->page_dirty[slotno]);
+
+    LWLockRelease(lock);
+}
+```

@@ -49,3 +49,69 @@ The scan ensures all leaf pages are visited, which is critical for correctness s
 - Updates FSM only when empty pages are found to optimize performance
 - Critical for maintaining SP-GiST index consistency during vacuum operations
 - Similar in concept to btree's btvacuumscan but adapted for SP-GiST's tree structure
+
+## Simplified Source
+
+```c
+static void
+spgvacuumscan(spgBulkDeleteState *bds)
+{
+    Relation index = bds->info->index;
+    bool needLock;
+    BlockNumber num_pages, blkno;
+
+    // Initialize SP-GiST state and bulk delete tracking
+    initSpGistState(&bds->spgstate, index);
+    bds->pendingList = NULL;
+    bds->myXmin = GetActiveSnapshot()->xmin;
+    bds->lastFilledBlock = SPGIST_LAST_FIXED_BLKNO;
+
+    // Reset statistics for this scan
+    bds->stats->estimated_count = false;
+    bds->stats->num_index_tuples = 0;
+    bds->stats->pages_deleted = 0;
+
+    // Determine if we need locking for relation extension
+    needLock = !RELATION_IS_LOCAL(index);
+
+    // Main scan loop: process all pages except metapage
+    blkno = SPGIST_METAPAGE_BLKNO + 1;
+    for (;;) {
+        // Get current relation length (may grow during scan)
+        if (needLock)
+            LockRelationForExtension(index, ExclusiveLock);
+        num_pages = RelationGetNumberOfBlocks(index);
+        if (needLock)
+            UnlockRelationForExtension(index, ExclusiveLock);
+
+        // Exit if we've scanned all pages
+        if (blkno >= num_pages)
+            break;
+
+        // Process pages until we reach current end
+        for (; blkno < num_pages; blkno++) {
+            // Vacuum individual page
+            spgvacuumpage(bds, blkno);
+
+            // Process pending list after each page
+            if (bds->pendingList != NULL)
+                spgprocesspending(bds);
+        }
+    }
+
+    // Update metapage with cached lastUsedPages information
+    SpGistUpdateMetaPage(index);
+
+    // Vacuum Free Space Map if we deleted any pages
+    if (bds->stats->pages_deleted > 0)
+        IndexFreeSpaceMapVacuum(index);
+
+    // Note: Index truncation is disabled due to concurrency issues
+    // (could invalidate cached page pointers in metapage/other backends)
+
+    // Finalize statistics
+    bds->stats->num_pages = num_pages;
+    bds->stats->pages_newly_deleted = bds->stats->pages_deleted;
+    bds->stats->pages_free = bds->stats->pages_deleted;
+}
+```

@@ -45,3 +45,28 @@ The function demonstrates proper memory allocation patterns for ECPG application
 - Includes error handling via sqlca.sqlcode checking
 - The function is specifically designed for testing cursor operations with pointer-based variable passing
 - Memory allocated by this function should be properly freed by the caller
+
+## Simplified Source
+
+```c
+static void get_var1(MYTYPE **myvar0, MYNULLTYPE **mynullvar0) {
+    // Allocate memory for data structures
+    MYTYPE *myvar = malloc(sizeof(MYTYPE));
+    MYNULLTYPE *mynullvar = malloc(sizeof(MYNULLTYPE));
+
+    // Register variables with ECPG runtime
+    ECPGset_var(0, myvar, __LINE__);
+    ECPGset_var(1, mynullvar, __LINE__);
+
+    // Declare cursor for database operations
+    /* declare mycur cursor for select * from a1 */
+
+    // Basic error checking
+    if (sqlca.sqlcode < 0) exit(1);
+    if (sqlca.sqlcode != 0) exit(1);
+
+    // Return allocated structures via output parameters
+    *myvar0 = myvar;
+    *mynullvar0 = mynullvar;
+}
+```

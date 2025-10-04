@@ -45,3 +45,26 @@ This is a critical component of partitionwise join optimization, ensuring that c
 - The cost and width estimates are inherited directly from the parent without adjustment, based on the assumption that partitioned child relations have similar characteristics
 - The AppendRelInfo array provides the necessary mapping to translate Var references from parent relation attribute numbers to child relation attribute numbers
 - Essential for ensuring that partitionwise joins produce correctly structured output with proper column references to child partitions rather than abstract parent tables
+
+## Simplified Source
+
+```c
+static void
+build_child_join_reltarget(PlannerInfo *root,
+                           RelOptInfo *parentrel,
+                           RelOptInfo *childrel,
+                           int nappinfos,
+                           AppendRelInfo **appinfos)
+{
+    // Translate parent's target expressions to reference child relations
+    childrel->reltarget->exprs = (List *)
+        adjust_appendrel_attrs(root,
+                               (Node *) parentrel->reltarget->exprs,
+                               nappinfos, appinfos);
+
+    // Copy cost and width estimates from parent
+    childrel->reltarget->cost.startup = parentrel->reltarget->cost.startup;
+    childrel->reltarget->cost.per_tuple = parentrel->reltarget->cost.per_tuple;
+    childrel->reltarget->width = parentrel->reltarget->width;
+}
+```

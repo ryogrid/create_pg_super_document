@@ -38,3 +38,12 @@ The function is not exported from the libpq library, making it an internal utili
 - Allows for more sophisticated error reporting strategies in multi-step operations
 - The query parameter must be a null-terminated C string
 - Maintains asynchronous execution semantics like PQsendQuery
+
+## Simplified Source
+
+```c
+int PQsendQueryContinue(PGconn *conn, const char *query) {
+    // Simple wrapper that preserves error context
+    return PQsendQueryInternal(conn, query, false);
+}
+```

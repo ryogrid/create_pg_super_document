@@ -38,3 +38,12 @@ This is the standard entry point for hex decoding when error context handling is
 - Part of PostgreSQL's core hex decoding infrastructure
 - Suitable for cases where detailed error context is not needed
 - The underlying `hex_decode_safe` handles the actual character-by-character conversion using `get_hex`
+
+## Simplified Source
+
+```c
+uint64 hex_decode(const char *src, size_t len, char *dst) {
+    // Simple wrapper around the safe version without error context
+    return hex_decode_safe(src, len, dst, NULL);
+}
+```

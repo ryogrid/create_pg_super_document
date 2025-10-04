@@ -38,3 +38,23 @@ The function also manages memory by freeing any existing data in the descriptor 
 - Sets binary flag and data length for bytea types
 - The tobeinserted parameter becomes the responsibility of the descriptor item after assignment
 - Used as a helper function in the descriptor setting process
+
+## Simplified Source
+
+```c
+static void set_desc_attr(struct descriptor_item *desc_item, struct variable *var, char *tobeinserted) {
+    // Handle binary data (bytea type)
+    if (var->type == ECPGt_bytea) {
+        struct ECPGgeneric_bytea *variable = (struct ECPGgeneric_bytea *)(var->value);
+        desc_item->is_binary = true;
+        desc_item->data_len = variable->len;
+    } else {
+        // Handle non-binary data types
+        desc_item->is_binary = false;
+    }
+
+    // Free existing data and assign new data
+    ecpg_free(desc_item->data);
+    desc_item->data = tobeinserted;
+}
+```

@@ -71,3 +71,146 @@ The test demonstrates:
 - Shows proper handling of mixed successful and failed operations in a single pipeline
 - Uses parameterized queries with bigint parameters for the INSERT operations
 - Implements proper cleanup and error detection throughout the complex I/O loop
+
+## Simplified Source
+
+```c
+static void test_uniqviol(PGconn *conn) {
+    int sock = PQsocket(conn);
+    PGresult *res;
+    Oid paramTypes[2] = {INT8OID, INT8OID};
+    const char *paramValues[2];
+    char paramValue0[MAXINT8LEN];
+    char paramValue1[MAXINT8LEN];
+    int ctr = 0;
+    int numsent = 0;
+    int results = 0;
+    bool read_done = false;
+    bool write_done = false;
+    bool error_sent = false;
+    bool got_error = false;
+    int switched = 0;
+    int socketful = 0;
+    fd_set in_fds;
+    fd_set out_fds;
+
+    fprintf(stderr, "uniqviol ...");
+
+    PQsetnonblocking(conn, 1);
+
+    paramValues[0] = paramValue0;
+    paramValues[1] = paramValue1;
+    sprintf(paramValue1, "42");
+
+    // Setup table and transaction
+    res = PQexec(conn, "drop table if exists ppln_uniqviol;"
+                      "create table ppln_uniqviol(id bigint primary key, idata bigint)");
+    if (PQresultStatus(res) != PGRES_COMMAND_OK)
+        pg_fatal("failed to create table");
+
+    res = PQexec(conn, "begin");
+    if (PQresultStatus(res) != PGRES_COMMAND_OK)
+        pg_fatal("failed to begin transaction");
+
+    // Prepare INSERT statement
+    res = PQprepare(conn, "insertion",
+                   "insert into ppln_uniqviol values ($1, $2) returning id",
+                   2, paramTypes);
+    if (res == NULL || PQresultStatus(res) != PGRES_COMMAND_OK)
+        pg_fatal("failed to prepare query");
+
+    if (PQenterPipelineMode(conn) != 1)
+        pg_fatal("failed to enter pipeline mode");
+
+    // Main I/O loop: mix reading and writing with non-blocking sockets
+    while (!read_done) {
+        // Read available results first to avoid deadlocks
+        while (PQisBusy(conn) == 0) {
+            bool new_error;
+
+            if (results >= numsent) {
+                if (write_done)
+                    read_done = true;
+                break;
+            }
+
+            res = PQgetResult(conn);
+            new_error = process_result(conn, res, results, numsent);
+            if (new_error && got_error)
+                pg_fatal("got two errors");
+            got_error |= new_error;
+            if (results++ >= numsent - 1) {
+                if (write_done)
+                    read_done = true;
+                break;
+            }
+        }
+
+        if (read_done)
+            break;
+
+        // Use select() to multiplex I/O
+        FD_ZERO(&out_fds);
+        FD_SET(sock, &out_fds);
+        FD_ZERO(&in_fds);
+        FD_SET(sock, &in_fds);
+
+        if (select(sock + 1, &in_fds, write_done ? NULL : &out_fds, NULL, NULL) == -1) {
+            if (errno == EINTR)
+                continue;
+            pg_fatal("select() failed: %m");
+        }
+
+        if (FD_ISSET(sock, &in_fds) && PQconsumeInput(conn) == 0)
+            pg_fatal("PQconsumeInput failed");
+
+        // Send queries when socket is writable
+        if (!write_done && FD_ISSET(sock, &out_fds)) {
+            for (;;) {
+                int flush;
+
+                // Inject uniqueness violation once after switching to read mode
+                if (switched >= 1 && !error_sent && ctr % socketful >= socketful / 2) {
+                    sprintf(paramValue0, "%d", numsent / 2);
+                    fprintf(stderr, "E");
+                    error_sent = true;
+                } else {
+                    fprintf(stderr, ".");
+                    sprintf(paramValue0, "%d", ctr++);
+                }
+
+                if (PQsendQueryPrepared(conn, "insertion", 2, paramValues, NULL, NULL, 0) != 1)
+                    pg_fatal("failed to execute prepared query");
+                numsent++;
+
+                // Check if done writing
+                if (socketful != 0 && numsent % socketful == 42 && error_sent) {
+                    if (PQsendFlushRequest(conn) != 1)
+                        pg_fatal("failed to send flush request");
+                    write_done = true;
+                    fprintf(stderr, "\ndone writing\n");
+                    PQflush(conn);
+                    break;
+                }
+
+                // Check if socket buffer is full
+                flush = PQflush(conn);
+                if (flush == -1)
+                    pg_fatal("failed to flush");
+                if (flush == 1) {
+                    if (socketful == 0)
+                        socketful = numsent;
+                    fprintf(stderr, "\nswitch to reading\n");
+                    switched++;
+                    break;
+                }
+            }
+        }
+    }
+
+    if (!got_error)
+        pg_fatal("did not get expected error");
+
+    fprintf(stderr, "ok\n");
+}
+```

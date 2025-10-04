@@ -44,3 +44,28 @@ The  function is a comprehensive unit test for PostgreSQL's atomic flag implemen
   5. clear_flag properly unlocks the flag for reuse
 - Located in src/test/regress/regress.c as part of PostgreSQL's test infrastructure
 - Critical for ensuring atomic operations work correctly across different platforms and compiler optimizations
+
+## Simplified Source
+
+```c
+static void test_atomic_flag(void) {
+    pg_atomic_flag flag;
+
+    // Initialize flag to unlocked state
+    pg_atomic_init_flag(&flag);
+
+    // Test initial state and first set operation
+    EXPECT_TRUE(pg_atomic_unlocked_test_flag(&flag));  // Should be unlocked
+    EXPECT_TRUE(pg_atomic_test_set_flag(&flag));       // Should set and return true
+
+    // Test locked state and double-set prevention
+    EXPECT_TRUE(!pg_atomic_unlocked_test_flag(&flag)); // Should be locked
+    EXPECT_TRUE(!pg_atomic_test_set_flag(&flag));      // Should fail and return false
+
+    // Test clear and repeat cycle
+    pg_atomic_clear_flag(&flag);
+    EXPECT_TRUE(pg_atomic_unlocked_test_flag(&flag));  // Should be unlocked again
+    EXPECT_TRUE(pg_atomic_test_set_flag(&flag));       // Should set successfully
+    pg_atomic_clear_flag(&flag);                       // Clean up
+}
+```

@@ -36,3 +36,17 @@ ExecEvalBoolSubroutineTemplate serves as a template function in PostgreSQL's LLV
 - The function only contains a type assertion and returns a constant false value, emphasizing its role as a template rather than a functional component
 - Part of a family of template functions in llvmjit_types.c that provide examples of different function signatures for the JIT compiler
 - Specifically designed for boolean-returning evaluation subroutines, distinguishing it from the general ExecEvalSubroutineTemplate which returns void
+
+## Simplified Source
+
+```c
+bool ExecEvalBoolSubroutineTemplate(ExprState *state,
+                                   struct ExprEvalStep *op,
+                                   ExprContext *econtext) {
+    // Type assertion for JIT template compatibility
+    AssertVariableIsOfType(&ExecEvalBoolSubroutineTemplate, ExecEvalBoolSubroutine);
+
+    // Return false - this is a template function
+    return false;
+}
+```

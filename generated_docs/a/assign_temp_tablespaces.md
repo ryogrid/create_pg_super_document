@@ -38,3 +38,19 @@ This design ensures that temporary file placement always uses validated, accessi
 - When extra is NULL, the function clears the temporary tablespace list as a safety measure
 - The actual tablespace OID array and count are passed via the temp_tablespaces_extra structure
 - Works in conjunction with PrepareTempTablespaces to ensure temporary files are placed in appropriate tablespaces
+
+## Simplified Source
+
+```c
+void assign_temp_tablespaces(const char *newval, void *extra)
+{
+    temp_tablespaces_extra *myextra = (temp_tablespaces_extra *) extra;
+
+    // If we have validated tablespace data, use it
+    // Otherwise clear the list (outside transaction or cleanup scenario)
+    if (myextra)
+        SetTempTablespaces(myextra->tblSpcs, myextra->numSpcs);
+    else
+        SetTempTablespaces(NULL, 0);
+}
+```

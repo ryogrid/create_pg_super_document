@@ -30,3 +30,12 @@ This function sends a CopyDone message as part of the PostgreSQL frontend/backen
 - The function sends an empty message, as CopyDone messages carry no payload
 - Used to properly terminate COPY protocol sessions during base backup operations
 - Part of the cleanup process when ending backup streaming operations
+
+## Simplified Source
+
+```c
+static void SendCopyDone(void) {
+    // Send empty CopyDone message to end COPY operation
+    pq_putemptymessage(PqMsg_CopyDone);
+}
+```

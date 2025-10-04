@@ -42,3 +42,67 @@ The  function allocates and initializes a new NFA structure used in PostgreSQL's
 - Sets up rainbow transitions and anchor arcs for proper regex matching
 - Proper error handling ensures no memory leaks if initialization fails
 - The NFA structure is made minimally valid early to ensure safe cleanup via freenfa()
+
+## Simplified Source
+
+```c
+static struct nfa *newnfa(struct vars *v, struct colormap *cm, struct nfa *parent) {
+    // Allocate new NFA structure
+    struct nfa *nfa = (struct nfa *) MALLOC(sizeof(struct nfa));
+    if (nfa == NULL) {
+        ERR(REG_ESPACE);
+        return NULL;
+    }
+
+    // Initialize all fields to safe defaults
+    nfa->states = NULL;
+    nfa->slast = NULL;
+    nfa->freestates = NULL;
+    nfa->freearcs = NULL;
+    nfa->nstates = 0;
+    nfa->cm = cm;
+    nfa->v = v;
+    nfa->parent = parent;
+
+    // Initialize color arrays and flags
+    nfa->bos[0] = nfa->bos[1] = COLORLESS;
+    nfa->eos[0] = nfa->eos[1] = COLORLESS;
+    nfa->flags = 0;
+    nfa->minmatchall = nfa->maxmatchall = -1;
+
+    // Create the four required states: post (@), pre (>), init, final
+    nfa->post = newfstate(nfa, '@');    // State 0
+    nfa->pre = newfstate(nfa, '>');     // State 1
+    nfa->init = newstate(nfa);          // Initial state
+    nfa->final = newstate(nfa);         // Final state
+
+    // Check for errors in state creation
+    if (ISERR()) {
+        freenfa(nfa);
+        return NULL;
+    }
+
+    // Set up basic transitions:
+    // Rainbow transition from pre to init (matches any character)
+    rainbow(nfa, nfa->cm, PLAIN, COLORLESS, nfa->pre, nfa->init);
+
+    // Start-of-string anchors (^) from pre to init
+    newarc(nfa, '^', 1, nfa->pre, nfa->init);
+    newarc(nfa, '^', 0, nfa->pre, nfa->init);
+
+    // Rainbow transition from final to post
+    rainbow(nfa, nfa->cm, PLAIN, COLORLESS, nfa->final, nfa->post);
+
+    // End-of-string anchors ($) from final to post
+    newarc(nfa, '$', 1, nfa->final, nfa->post);
+    newarc(nfa, '$', 0, nfa->final, nfa->post);
+
+    // Final error check
+    if (ISERR()) {
+        freenfa(nfa);
+        return NULL;
+    }
+
+    return nfa;
+}
+```

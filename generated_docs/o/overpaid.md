@@ -41,3 +41,21 @@ This function is part of PostgreSQL's regression testing suite and serves as an 
 - The function can be called from SQL queries to filter employee records based on salary criteria
 - Located in src/test/regress/regress.c as part of the PostgreSQL test suite
 - Serves as an example of how to write custom functions that operate on database tuples
+
+## Simplified Source
+
+```c
+Datum overpaid(PG_FUNCTION_ARGS) {
+    // Extract tuple from function arguments
+    HeapTupleHeader tuple = PG_GETARG_HEAPTUPLEHEADER(0);
+
+    // Get salary attribute from tuple
+    bool isnull;
+    int32 salary = DatumGetInt32(GetAttributeByName(tuple, "salary", &isnull));
+
+    // Return NULL if salary is NULL, otherwise check if > 699
+    if (isnull)
+        PG_RETURN_NULL();
+    PG_RETURN_BOOL(salary > 699);
+}
+```

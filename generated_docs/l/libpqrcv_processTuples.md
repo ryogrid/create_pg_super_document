@@ -48,3 +48,49 @@ This function serves as a bridge between libpq query results and PostgreSQL's in
 - The function assumes C string representation for all input data types
 - Essential for functions that return tabular data through the WAL receiver interface
 - Location: src/backend/replication/libpqwalreceiver/libpqwalreceiver.c:1159-1234
+
+## Simplified Source
+```c
+static void
+libpqrcv_processTuples(PGresult *pgres, WalRcvExecResult *walres,
+                       const int nRetTypes, const Oid *retTypes)
+{
+    int nfields = PQnfields(pgres);
+
+    /* Validate field count matches expected types */
+    if (nfields != nRetTypes)
+        ereport(ERROR, "Expected %d fields, got %d fields.", nRetTypes, nfields);
+
+    /* Create tuplestore and tuple descriptor */
+    walres->tuplestore = tuplestore_begin_heap(true, false, work_mem);
+    walres->tupledesc = CreateTemplateTupleDesc(nRetTypes);
+
+    /* Initialize tuple descriptor with column names and types */
+    for (int coln = 0; coln < nRetTypes; coln++)
+        TupleDescInitEntry(walres->tupledesc, coln + 1,
+                          PQfname(pgres, coln), retTypes[coln], -1, 0);
+
+    AttInMetadata *attinmeta = TupleDescGetAttInMetadata(walres->tupledesc);
+
+    /* Process each row from the result set */
+    for (int tupn = 0; tupn < PQntuples(pgres); tupn++)
+    {
+        char *cstrs[MaxTupleAttributeNumber];
+
+        ProcessWalRcvInterrupts();
+
+        /* Extract column values as C strings */
+        for (int coln = 0; coln < nfields; coln++)
+        {
+            if (PQgetisnull(pgres, tupn, coln))
+                cstrs[coln] = NULL;
+            else
+                cstrs[coln] = PQgetvalue(pgres, tupn, coln);
+        }
+
+        /* Convert to PostgreSQL tuple and store */
+        HeapTuple tuple = BuildTupleFromCStrings(attinmeta, cstrs);
+        tuplestore_puttuple(walres->tuplestore, tuple);
+    }
+}
+```

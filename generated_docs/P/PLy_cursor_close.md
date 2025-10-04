@@ -38,3 +38,27 @@ When closing an active cursor, the function validates that the associated portal
 - Sets cursor->closed flag to prevent further operations after closure
 - The function is exposed to Python as the "close" method on cursor objects
 - Error handling covers cases where cursor is in an aborted subtransaction
+
+## Simplified Source
+
+```c
+static PyObject *PLy_cursor_close(PyObject *self, PyObject *unused) {
+    PLyCursorObject *cursor = (PLyCursorObject *) self;
+
+    if (!cursor->closed) {
+        Portal portal = GetPortalByName(cursor->portalname);
+
+        if (!PortalIsValid(portal)) {
+            PLy_exception_set(PyExc_ValueError,
+                             "closing a cursor in an aborted subtransaction");
+            return NULL;
+        }
+
+        UnpinPortal(portal);
+        SPI_cursor_close(portal);
+        cursor->closed = true;
+    }
+
+    Py_RETURN_NONE;
+}
+```

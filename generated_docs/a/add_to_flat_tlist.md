@@ -34,3 +34,32 @@ The `add_to_flat_tlist` function takes a flattened target list and a list of exp
 - Creates deep copies of expressions to prevent memory sharing issues
 - Part of the target list flattening utilities used in query optimization
 - The comment suggests uncertainty about whether copying is needed, indicating potential for optimization
+
+## Simplified Source
+
+```c
+List *
+add_to_flat_tlist(List *tlist, List *exprs)
+{
+    int next_resno = list_length(tlist) + 1;
+    ListCell *lc;
+
+    // Add each expression to target list if not already present
+    foreach(lc, exprs)
+    {
+        Expr *expr = (Expr *) lfirst(lc);
+
+        // Check for duplicates using tlist_member
+        if (!tlist_member(expr, tlist))
+        {
+            // Create new TargetEntry with sequential resource number
+            TargetEntry *tle = makeTargetEntry(copyObject(expr),
+                                               next_resno++,
+                                               NULL,
+                                               false);
+            tlist = lappend(tlist, tle);
+        }
+    }
+    return tlist;
+}
+```

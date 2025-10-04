@@ -45,3 +45,24 @@ This design allows parallel operations to specify worker functions as strings th
 - The design addresses portability issues with function addresses across process boundaries
 - Future consideration mentioned for unifying core and external function loading mechanisms
 - Critical for the parallel query infrastructure's ability to spawn workers with specific entry points
+
+## Simplified Source
+
+```c
+static parallel_worker_main_type LookupParallelWorkerFunction(const char *libraryname, const char *funcname)
+{
+    // Check if function is in core PostgreSQL
+    if (strcmp(libraryname, "postgres") == 0) {
+        // Search internal parallel workers array
+        for (int i = 0; i < lengthof(InternalParallelWorkers); i++) {
+            if (strcmp(InternalParallelWorkers[i].fn_name, funcname) == 0)
+                return InternalParallelWorkers[i].fn_addr;
+        }
+        // Programming error - core function not found
+        elog(ERROR, "internal function \"%s\" not found", funcname);
+    }
+
+    // Load from external library
+    return (parallel_worker_main_type) load_external_function(libraryname, funcname, true, NULL);
+}
+```

@@ -47,3 +47,128 @@ ReorderBufferProcessTXN is the central engine for transaction processing in Post
 - Includes extensive error checking and validation to ensure data consistency
 - The function is marked with volatile parameters due to PG_TRY exception handling requirements
 - Critical for maintaining transactional consistency and proper ordering in logical replication streams
+
+## Simplified Source
+
+```c
+static void ReorderBufferProcessTXN(ReorderBuffer *rb, ReorderBufferTXN *txn,
+                                   XLogRecPtr commit_lsn, volatile Snapshot snapshot_now,
+                                   volatile CommandId command_id, bool streaming)
+{
+    bool using_subtxn;
+    ReorderBufferIterTXNState *iterstate = NULL;
+    XLogRecPtr prev_lsn = InvalidXLogRecPtr;
+    ReorderBufferChange *specinsert = NULL;
+    bool stream_started = false;
+
+    // Build tuple command ID hash for catalog lookups
+    ReorderBufferBuildTupleCidHash(rb, txn);
+
+    // Setup historic snapshot for decoding
+    SetupHistoricSnapshot(snapshot_now, txn->tuplecid_hash);
+
+    // Start transaction context for decoding
+    using_subtxn = IsTransactionOrTransactionBlock();
+
+    PG_TRY();
+    {
+        // Begin transaction/subtransaction
+        if (using_subtxn)
+            BeginInternalSubTransaction(streaming ? "stream" : "replay");
+        else
+            StartTransactionCommand();
+
+        // Send begin callback for non-streaming transactions
+        if (!streaming) {
+            if (rbtxn_prepared(txn))
+                rb->begin_prepare(rb, txn);
+            else
+                rb->begin(rb, txn);
+        }
+
+        // Initialize transaction iterator and process all changes
+        ReorderBufferIterTXNInit(rb, txn, &iterstate);
+        while ((change = ReorderBufferIterTXNNext(rb, iterstate)) != NULL) {
+            CHECK_FOR_INTERRUPTS();
+
+            // Start streaming on first change
+            if (prev_lsn == InvalidXLogRecPtr && streaming) {
+                txn->origin_id = change->origin_id;
+                rb->stream_start(rb, txn, change->lsn);
+                stream_started = true;
+            }
+
+            // Ensure proper LSN ordering
+            Assert(prev_lsn == InvalidXLogRecPtr || prev_lsn <= change->lsn);
+            prev_lsn = change->lsn;
+
+            // Set current xid for concurrent abort detection
+            if (streaming || rbtxn_prepared(change->txn)) {
+                SetupCheckXidLive(change->txn->xid);
+            }
+
+            // Process change based on type
+            switch (change->action) {
+                case REORDER_BUFFER_CHANGE_INSERT:
+                case REORDER_BUFFER_CHANGE_UPDATE:
+                case REORDER_BUFFER_CHANGE_DELETE:
+                    // Handle DML changes: validate relation, apply change
+                    ProcessDMLChange(rb, txn, change, streaming);
+                    break;
+
+                case REORDER_BUFFER_CHANGE_TRUNCATE:
+                    // Handle truncate operations
+                    ProcessTruncateChange(rb, txn, change, streaming);
+                    break;
+
+                case REORDER_BUFFER_CHANGE_MESSAGE:
+                    // Handle logical replication messages
+                    ReorderBufferApplyMessage(rb, txn, change, streaming);
+                    break;
+
+                case REORDER_BUFFER_CHANGE_INVALIDATION:
+                    // Execute invalidation messages
+                    ReorderBufferExecuteInvalidations(change->data.inval.ninvalidations,
+                                                    change->data.inval.invalidations);
+                    break;
+
+                case REORDER_BUFFER_CHANGE_INTERNAL_SNAPSHOT:
+                    // Update snapshot for visibility
+                    UpdateHistoricSnapshot(rb, txn, change, &snapshot_now, command_id);
+                    break;
+
+                case REORDER_BUFFER_CHANGE_INTERNAL_COMMAND_ID:
+                    // Update command ID for tuple visibility
+                    UpdateCommandId(rb, txn, change, &snapshot_now, &command_id);
+                    break;
+
+                // Handle speculative insertion cases
+                case REORDER_BUFFER_CHANGE_INTERNAL_SPEC_INSERT:
+                case REORDER_BUFFER_CHANGE_INTERNAL_SPEC_CONFIRM:
+                case REORDER_BUFFER_CHANGE_INTERNAL_SPEC_ABORT:
+                    ProcessSpeculativeInsertion(rb, change, &specinsert);
+                    break;
+            }
+        }
+
+        // Finalize transaction processing
+        if (iterstate)
+            ReorderBufferIterTXNFinish(rb, iterstate);
+
+        // Cleanup any remaining speculative insertion
+        if (specinsert != NULL)
+            ReorderBufferReturnChange(rb, specinsert, true);
+
+    }
+    PG_CATCH();
+    {
+        // Error cleanup and re-throw
+        if (stream_started)
+            rb->stream_abort(rb, txn, prev_lsn);
+
+        ReorderBufferResetTXN(rb, txn, snapshot_now, command_id, prev_lsn, specinsert);
+        PG_RE_THROW();
+    }
+    PG_END_TRY();
+}
+```

@@ -43,3 +43,33 @@ This function encodes a relation description into the logical replication protoc
 - The columns parameter allows selective transmission of column metadata
 - Namespace information ensures proper schema qualification on the subscriber side
 - Transaction ID is conditionally sent only when valid (for streaming transactions)
+
+## Simplified Source
+
+```c
+void logicalrep_write_rel(StringInfo out, TransactionId xid, Relation rel,
+                         Bitmapset *columns) {
+    char *relname;
+
+    // Write relation message type
+    pq_sendbyte(out, LOGICAL_REP_MSG_RELATION);
+
+    // Include transaction ID if we're streaming
+    if (TransactionIdIsValid(xid))
+        pq_sendint32(out, xid);
+
+    // Write relation identifier
+    pq_sendint32(out, RelationGetRelid(rel));
+
+    // Write qualified relation name
+    logicalrep_write_namespace(out, RelationGetNamespace(rel));
+    relname = RelationGetRelationName(rel);
+    pq_sendstring(out, relname);
+
+    // Write replica identity setting
+    pq_sendbyte(out, rel->rd_rel->relreplident);
+
+    // Write column attribute information
+    logicalrep_write_attrs(out, rel, columns);
+}
+```

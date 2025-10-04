@@ -46,3 +46,40 @@ The dummy index AM is designed as a minimal test implementation that demonstrate
 - Many callback functions are set to NULL, indicating unsupported operations (amgettuple, amgetbitmap, etc.)
 - Part of PostgreSQL's extensible index access method framework testing infrastructure
 - The function would typically be registered with PostgreSQL's access method catalog to make the dummy AM available for use
+
+## Simplified Source
+
+```c
+Datum
+dihandler(PG_FUNCTION_ARGS)
+{
+    // Create new IndexAmRoutine structure
+    IndexAmRoutine *amroutine = makeNode(IndexAmRoutine);
+
+    // Set all capability flags to false (minimal functionality)
+    amroutine->amcanorder = false;
+    amroutine->amcanunique = false;
+    amroutine->amcanmulticol = false;
+    // ... (other capability flags set to false)
+
+    // Set required callback functions
+    amroutine->ambuild = dibuild;
+    amroutine->ambuildempty = dibuildempty;
+    amroutine->aminsert = diinsert;
+    amroutine->ambulkdelete = dibulkdelete;
+    amroutine->amvacuumcleanup = divacuumcleanup;
+    amroutine->amcostestimate = dicostestimate;
+    amroutine->amoptions = dioptions;
+    amroutine->amvalidate = divalidate;
+    amroutine->ambeginscan = dibeginscan;
+    amroutine->amrescan = direscan;
+    amroutine->amendscan = diendscan;
+
+    // Many advanced callbacks set to NULL (unsupported)
+    amroutine->amgettuple = NULL;
+    amroutine->amgetbitmap = NULL;
+    // ... (other callbacks set to NULL)
+
+    PG_RETURN_POINTER(amroutine);
+}
+```

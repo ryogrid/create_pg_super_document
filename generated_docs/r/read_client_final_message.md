@@ -57,3 +57,68 @@ The function ensures message integrity and prevents replay attacks through compr
 - The function modifies the scram_state structure in-place with parsed values
 - Supports optional extensions in the message format while ensuring backward compatibility
 - All memory allocations use PostgreSQL's memory context system for automatic cleanup
+
+## Simplified Source
+
+```c
+static void
+read_client_final_message(scram_state *state, const char *input)
+{
+    char attr;
+    char *channel_binding;
+    char *value;
+    char *begin, *proof;
+    char *p;
+    char *client_proof;
+    int client_proof_len;
+
+    begin = p = pstrdup(input);
+
+    // Read and validate channel binding
+    channel_binding = read_attr_value(&p, 'c');
+    if (state->channel_binding_in_use)
+    {
+        // SSL channel binding validation
+        #ifdef USE_SSL
+        const char *cbind_data = be_tls_get_certificate_hash(state->port, &cbind_data_len);
+        // Validate received channel binding against expected server certificate hash
+        // (simplified: complex base64 encoding and comparison logic)
+        if (strcmp(channel_binding, expected_b64_message) != 0)
+            ereport(ERROR, (errcode(ERRCODE_INVALID_AUTHORIZATION_SPECIFICATION),
+                            errmsg("SCRAM channel binding check failed")));
+        #endif
+    }
+    else
+    {
+        // No channel binding: verify expected values
+        if (!(strcmp(channel_binding, "biws") == 0 && state->cbind_flag == 'n') &&
+            !(strcmp(channel_binding, "eSws") == 0 && state->cbind_flag == 'y'))
+            ereport(ERROR, (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                            errmsg("unexpected SCRAM channel-binding attribute")));
+    }
+
+    // Extract final nonce
+    state->client_final_nonce = read_attr_value(&p, 'r');
+
+    // Find proof attribute, skipping optional extensions
+    do {
+        proof = p - 1;
+        value = read_any_attr(&p, &attr);
+    } while (attr != 'p');
+
+    // Decode and validate client proof
+    client_proof_len = pg_b64_dec_len(strlen(value));
+    client_proof = palloc(client_proof_len);
+    if (pg_b64_decode(value, strlen(value), client_proof, client_proof_len) != state->key_length)
+        ereport(ERROR, (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                        errmsg("malformed SCRAM message")));
+
+    memcpy(state->ClientProof, client_proof, state->key_length);
+    pfree(client_proof);
+
+    // Save message without proof for signature calculation
+    state->client_final_message_without_proof = palloc(proof - begin + 1);
+    memcpy(state->client_final_message_without_proof, input, proof - begin);
+    state->client_final_message_without_proof[proof - begin] = '\0';
+}
+```

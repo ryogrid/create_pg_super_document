@@ -33,3 +33,20 @@ ECPGsetconn is a core ECPG connection management function that switches the curr
 - The connection must already exist before calling this function
 - Part of the ECPG embedded SQL interface for PostgreSQL
 - Thread-safe implementation allows multiple threads to have different active connections
+
+## Simplified Source
+
+```c
+bool ECPGsetconn(int lineno, const char *connection_name) {
+    // Get the connection object by name
+    struct connection *con = ecpg_get_connection(connection_name);
+
+    // Initialize and validate the connection
+    if (!ecpg_init(con, connection_name, lineno))
+        return false;
+
+    // Set as the active connection for current thread
+    pthread_setspecific(actual_connection_key, con);
+    return true;
+}
+```

@@ -59,3 +59,68 @@ The chain parameter controls whether transaction characteristics (isolation leve
 - **Memory Context**: Preserves caller's memory context across transaction boundaries
 - **Exception Safety**: Uses PostgreSQL's PG_TRY/PG_CATCH mechanism for exception handling
 - Located in src/backend/executor/spi.c:227-319
+
+## Simplified Source
+
+```c
+static void
+_SPI_commit(bool chain)
+{
+    MemoryContext oldcontext = CurrentMemoryContext;
+    SavedTransactionCharacteristics savetc;
+
+    // Validate SPI context - cannot commit in atomic mode or subtransaction
+    if (_SPI_current->atomic)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_TRANSACTION_TERMINATION),
+                       errmsg("invalid transaction termination")));
+
+    if (IsSubTransaction())
+        ereport(ERROR, (errcode(ERRCODE_INVALID_TRANSACTION_TERMINATION),
+                       errmsg("cannot commit while a subtransaction is active")));
+
+    // Save transaction characteristics if chaining
+    if (chain)
+        SaveTransactionCharacteristics(&savetc);
+
+    // Perform commit with error handling
+    PG_TRY();
+    {
+        // Prepare for transaction boundary
+        _SPI_current->internal_xact = true;
+        HoldPinnedPortals();
+        ForgetPortalSnapshots();
+
+        // Commit current transaction and start new one
+        CommitTransactionCommand();
+        StartTransactionCommand();
+
+        // Restore characteristics if chaining
+        if (chain)
+            RestoreTransactionCharacteristics(&savetc);
+
+        MemoryContextSwitchTo(oldcontext);
+        _SPI_current->internal_xact = false;
+    }
+    PG_CATCH();
+    {
+        // Error recovery: abort failed transaction and start fresh
+        ErrorData *edata;
+
+        MemoryContextSwitchTo(oldcontext);
+        edata = CopyErrorData();
+        FlushErrorState();
+
+        AbortCurrentTransaction();
+        StartTransactionCommand();
+
+        if (chain)
+            RestoreTransactionCharacteristics(&savetc);
+
+        MemoryContextSwitchTo(oldcontext);
+        _SPI_current->internal_xact = false;
+
+        ReThrowError(edata);
+    }
+    PG_END_TRY();
+}
+```

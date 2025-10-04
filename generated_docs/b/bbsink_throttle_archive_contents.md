@@ -34,3 +34,15 @@ This function serves as the main data flow control point for archive contents, e
 - The throttling is applied before forwarding, ensuring rate limits are enforced
 - Works in conjunction with the throttle() function to implement the actual rate limiting logic
 - Handles specifically archive contents data, as opposed to manifest or other types of backup data
+
+## Simplified Source
+
+```c
+static void bbsink_throttle_archive_contents(bbsink *sink, size_t len) {
+    // Apply throttling based on data length
+    throttle((bbsink_throttle *) sink, len);
+
+    // Forward archive contents to next sink in pipeline
+    bbsink_forward_archive_contents(sink, len);
+}
+```

@@ -50,3 +50,9 @@ This macro is primarily used within PostgreSQL's common utility functions, parti
 - The use of  suggests this macro is intended for internal system messages rather than user-facing error messages
 - Heavily used in Windows-specific code paths for security and process management operations
 - The macro provides a clean abstraction that maintains consistency in error reporting across the codebase
+
+## Simplified Source
+```c
+#define log_error(errcodefn, ...) \
+    ereport(LOG, (errcodefn, errmsg_internal(__VA_ARGS__)))
+```

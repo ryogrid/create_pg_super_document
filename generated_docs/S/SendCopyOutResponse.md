@@ -34,3 +34,17 @@ This function constructs and sends a CopyOutResponse message as part of the Post
 - The function sets the overall format to 0, indicating text format for the COPY operation
 - The natts (number of attributes) is set to 0, which is typical for streaming operations
 - Used specifically in base backup streaming operations where data is sent via the COPY protocol
+
+## Simplified Source
+
+```c
+static void SendCopyOutResponse(void) {
+    StringInfoData buf;
+
+    // Send CopyOutResponse message to initiate COPY protocol
+    pq_beginmessage(&buf, PqMsg_CopyOutResponse);
+    pq_sendbyte(&buf, 0);     // Text format
+    pq_sendint16(&buf, 0);    // No attributes
+    pq_endmessage(&buf);
+}
+```

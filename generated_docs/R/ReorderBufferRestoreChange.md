@@ -43,3 +43,124 @@ The function performs type-specific deserialization based on the change action, 
 - Memory accounting is updated to track the restored change size for proper resource management
 - The deserialization process must match exactly with the serialization format used when spilling to disk
 - Critical for the logical replication memory management system when dealing with large transactions
+
+## Simplified Source
+
+```c
+static void
+ReorderBufferRestoreChange(ReorderBuffer *rb, ReorderBufferTXN *txn, char *data)
+{
+    ReorderBufferDiskChange *ondisk;
+    ReorderBufferChange *change;
+
+    ondisk = (ReorderBufferDiskChange *) data;
+    change = ReorderBufferGetChange(rb);
+
+    // Copy the basic change structure
+    memcpy(change, &ondisk->change, sizeof(ReorderBufferChange));
+    data += sizeof(ReorderBufferDiskChange);
+
+    // Restore type-specific data
+    switch (change->action)
+    {
+        case REORDER_BUFFER_CHANGE_INSERT:
+        case REORDER_BUFFER_CHANGE_UPDATE:
+        case REORDER_BUFFER_CHANGE_DELETE:
+        case REORDER_BUFFER_CHANGE_INTERNAL_SPEC_INSERT:
+            // Restore heap tuple data
+            if (change->data.tp.oldtuple)
+            {
+                uint32 tuplelen = ((HeapTuple) data)->t_len;
+                change->data.tp.oldtuple = ReorderBufferGetTupleBuf(rb, tuplelen - SizeofHeapTupleHeader);
+
+                // Copy tuple header and reset data pointer
+                memcpy(change->data.tp.oldtuple, data, sizeof(HeapTupleData));
+                data += sizeof(HeapTupleData);
+                change->data.tp.oldtuple->t_data = (HeapTupleHeader) ((char *) change->data.tp.oldtuple + HEAPTUPLESIZE);
+
+                // Copy tuple data
+                memcpy(change->data.tp.oldtuple->t_data, data, tuplelen);
+                data += tuplelen;
+            }
+
+            if (change->data.tp.newtuple)
+            {
+                uint32 tuplelen;
+                memcpy(&tuplelen, data + offsetof(HeapTupleData, t_len), sizeof(uint32));
+                change->data.tp.newtuple = ReorderBufferGetTupleBuf(rb, tuplelen - SizeofHeapTupleHeader);
+
+                // Copy tuple header and reset data pointer
+                memcpy(change->data.tp.newtuple, data, sizeof(HeapTupleData));
+                data += sizeof(HeapTupleData);
+                change->data.tp.newtuple->t_data = (HeapTupleHeader) ((char *) change->data.tp.newtuple + HEAPTUPLESIZE);
+
+                // Copy tuple data
+                memcpy(change->data.tp.newtuple->t_data, data, tuplelen);
+                data += tuplelen;
+            }
+            break;
+
+        case REORDER_BUFFER_CHANGE_MESSAGE:
+            {
+                // Restore message data
+                Size prefix_size;
+                memcpy(&prefix_size, data, sizeof(Size));
+                data += sizeof(Size);
+
+                change->data.msg.prefix = MemoryContextAlloc(rb->context, prefix_size);
+                memcpy(change->data.msg.prefix, data, prefix_size);
+                data += prefix_size;
+
+                memcpy(&change->data.msg.message_size, data, sizeof(Size));
+                data += sizeof(Size);
+                change->data.msg.message = MemoryContextAlloc(rb->context, change->data.msg.message_size);
+                memcpy(change->data.msg.message, data, change->data.msg.message_size);
+                data += change->data.msg.message_size;
+                break;
+            }
+
+        case REORDER_BUFFER_CHANGE_INVALIDATION:
+            {
+                // Restore invalidation data
+                Size inval_size = sizeof(SharedInvalidationMessage) * change->data.inval.ninvalidations;
+                change->data.inval.invalidations = MemoryContextAlloc(rb->context, inval_size);
+                memcpy(change->data.inval.invalidations, data, inval_size);
+                break;
+            }
+
+        case REORDER_BUFFER_CHANGE_INTERNAL_SNAPSHOT:
+            {
+                // Restore snapshot data
+                Snapshot oldsnap = (Snapshot) data;
+                Size size = sizeof(SnapshotData) + sizeof(TransactionId) * oldsnap->xcnt +
+                           sizeof(TransactionId) * oldsnap->subxcnt;
+
+                change->data.snapshot = MemoryContextAllocZero(rb->context, size);
+                Snapshot newsnap = change->data.snapshot;
+                memcpy(newsnap, data, size);
+                newsnap->xip = (TransactionId *) (((char *) newsnap) + sizeof(SnapshotData));
+                newsnap->subxip = newsnap->xip + newsnap->xcnt;
+                newsnap->copied = true;
+                break;
+            }
+
+        case REORDER_BUFFER_CHANGE_TRUNCATE:
+            {
+                // Restore truncate relation list
+                Oid *relids = ReorderBufferGetRelids(rb, change->data.truncate.nrelids);
+                memcpy(relids, data, change->data.truncate.nrelids * sizeof(Oid));
+                change->data.truncate.relids = relids;
+                break;
+            }
+
+        default:
+            // Other change types need no additional restoration
+            break;
+    }
+
+    // Add to transaction's change list and update memory accounting
+    dlist_push_tail(&txn->changes, &change->node);
+    txn->nentries_mem++;
+    ReorderBufferChangeMemoryUpdate(rb, change, NULL, true, ReorderBufferChangeSize(change));
+}
+```

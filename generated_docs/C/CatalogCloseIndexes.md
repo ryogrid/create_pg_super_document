@@ -36,3 +36,15 @@ The function performs two key operations: delegating the actual index closing to
 - This function is part of PostgreSQL's internal catalog maintenance infrastructure
 - Failure to call this function after CatalogOpenIndexes will result in memory and file descriptor leaks
 - Should be called even if errors occur during index operations to ensure proper cleanup
+
+## Simplified Source
+
+```c
+void
+CatalogCloseIndexes(CatalogIndexState indstate)
+{
+    // Close all opened indexes and clean up resources
+    ExecCloseIndices(indstate);
+    pfree(indstate);
+}
+```

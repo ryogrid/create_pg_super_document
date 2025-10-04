@@ -35,3 +35,43 @@ For dollar-quoted literals, position mapping is straightforward since there are 
 - Uses simple string scanning rather than full SQL parsing for performance
 - Supports both $$ and '' literal syntax commonly used for function bodies
 - Character positions are counted in characters, not bytes, for proper Unicode handling
+
+## Simplified Source
+
+```c
+static int match_prosrc_to_query(const char *prosrc, const char *queryText, int cursorpos) {
+    int prosrclen = strlen(prosrc);
+    int querylen = strlen(queryText);
+    int matchpos = 0;
+    int curpos;
+    int newcursorpos;
+
+    // Scan through query text looking for function body matches
+    for (curpos = 0; curpos < querylen - prosrclen; curpos++) {
+
+        // Check for dollar-quoted literal: $prosrc$
+        if (queryText[curpos] == '$' &&
+            strncmp(prosrc, &queryText[curpos + 1], prosrclen) == 0 &&
+            queryText[curpos + 1 + prosrclen] == '$') {
+
+            if (matchpos) return 0;  // Multiple matches found, fail
+
+            // Calculate position in multibyte-aware manner
+            matchpos = pg_mbstrlen_with_len(queryText, curpos + 1) + cursorpos;
+        }
+
+        // Check for single-quoted literal: 'prosrc'
+        else if (queryText[curpos] == '\'' &&
+                 match_prosrc_to_literal(prosrc, &queryText[curpos + 1],
+                                       cursorpos, &newcursorpos)) {
+
+            if (matchpos) return 0;  // Multiple matches found, fail
+
+            // Use adjusted position from literal matching
+            matchpos = pg_mbstrlen_with_len(queryText, curpos + 1) + newcursorpos;
+        }
+    }
+
+    return matchpos;  // Return mapped position or 0 if not found
+}
+```

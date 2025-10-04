@@ -33,3 +33,15 @@ This function serves as the public API for registering custom scan node types in
 - Custom scan providers are used by the PostgreSQL optimizer when planning queries
 - Registration is permanent for the duration of the PostgreSQL session
 - Examples of custom scan providers include foreign data wrappers and parallel processing extensions
+
+## Simplified Source
+
+```c
+void RegisterCustomScanMethods(const CustomScanMethods *methods) {
+    // Register the custom scan methods in the global hash table
+    RegisterExtensibleNodeEntry(&custom_scan_methods,
+                               "Custom Scan Methods",
+                               methods->CustomName,
+                               methods);
+}
+```

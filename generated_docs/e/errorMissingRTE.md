@@ -45,3 +45,59 @@ The function leverages PostgreSQL's namespace resolution system to provide conte
 - Uses location information to provide precise error positioning in the source query
 - Supports LATERAL join hint suggestions when appropriate
 - Part of PostgreSQL's comprehensive error reporting system that aims to guide users toward correct SQL syntax
+
+## Simplified Source
+
+```c
+void
+errorMissingRTE(ParseState *pstate, RangeVar *relation)
+{
+    RangeTblEntry *rte;
+    const char *badAlias = NULL;
+
+    // Search for potential matches in the range table
+    rte = searchRangeTableForRel(pstate, relation);
+
+    // Check if the problem is using real name instead of alias
+    if (rte && rte->alias &&
+        strcmp(rte->eref->aliasname, relation->relname) != 0) {
+        ParseNamespaceItem *nsitem;
+        int sublevels_up;
+
+        nsitem = refnameNamespaceItem(pstate, NULL, rte->eref->aliasname,
+                                      relation->location, &sublevels_up);
+        if (nsitem && nsitem->p_rte == rte)
+            badAlias = rte->eref->aliasname;
+    }
+
+    // Generate appropriate error message with hints
+    if (badAlias) {
+        // User likely forgot to use alias
+        ereport(ERROR,
+                (errcode(ERRCODE_UNDEFINED_TABLE),
+                 errmsg("invalid reference to FROM-clause entry for table \"%s\"",
+                        relation->relname),
+                 errhint("Perhaps you meant to reference the table alias \"%s\".",
+                         badAlias),
+                 parser_errposition(pstate, relation->location)));
+    } else if (rte) {
+        // Table exists but is out of scope
+        ereport(ERROR,
+                (errcode(ERRCODE_UNDEFINED_TABLE),
+                 errmsg("invalid reference to FROM-clause entry for table \"%s\"",
+                        relation->relname),
+                 errdetail("There is an entry for table \"%s\", but it cannot be referenced from this part of the query.",
+                           rte->eref->aliasname),
+                 rte_visible_if_lateral(pstate, rte) ?
+                 errhint("To reference that table, you must mark this subquery with LATERAL.") : 0,
+                 parser_errposition(pstate, relation->location)));
+    } else {
+        // Table simply doesn't exist in FROM clause
+        ereport(ERROR,
+                (errcode(ERRCODE_UNDEFINED_TABLE),
+                 errmsg("missing FROM-clause entry for table \"%s\"",
+                        relation->relname),
+                 parser_errposition(pstate, relation->location)));
+    }
+}
+```

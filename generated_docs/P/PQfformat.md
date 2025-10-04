@@ -33,3 +33,19 @@ PQfformat retrieves the format code for the specified field in a query result, i
 - This function is thread-safe as it only reads from the PGresult structure
 - Binary format is typically used for performance-critical applications and bulk data operations
 - Defined in src/interfaces/libpq/fe-exec.c:3708-3718
+
+## Simplified Source
+
+```c
+int PQfformat(const PGresult *res, int field_num) {
+    // Validate field number is in range
+    if (!check_field_number(res, field_num))
+        return 0;
+
+    // Return format code if attribute descriptors exist
+    if (res->attDescs)
+        return res->attDescs[field_num].format;
+    else
+        return 0;
+}
+```

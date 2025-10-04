@@ -33,3 +33,17 @@ The  function is a PostgreSQL backend function that retrieves the complete conte
 - Returns the data as a bytea type, suitable for binary content
 - Part of PostgreSQL's large object filesystem stub interface
 - Located in src/backend/libpq/be-fsstubs.c:792-805
+
+## Simplified Source
+
+```c
+Datum be_lo_get(PG_FUNCTION_ARGS) {
+    Oid loOid = PG_GETARG_OID(0);
+    bytea *result;
+
+    // Read entire large object using internal fragment function
+    result = lo_get_fragment_internal(loOid, 0, -1);
+
+    PG_RETURN_BYTEA_P(result);
+}
+```

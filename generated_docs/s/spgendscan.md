@@ -41,3 +41,43 @@ The function deletes the temporary and traversal memory contexts that were creat
 - Also frees order-by related arrays from the scan descriptor: xs_orderbyvals and xs_orderbynulls
 - Ensures complete cleanup to prevent memory leaks when ending SP-GiST index scans
 - Should be called when the scan is no longer needed to free all associated resources
+
+## Simplified Source
+
+```c
+void
+spgendscan(IndexScanDesc scan)
+{
+    SpGistScanOpaque so = (SpGistScanOpaque) scan->opaque;
+
+    // Delete memory contexts
+    MemoryContextDelete(so->tempCxt);
+    MemoryContextDelete(so->traversalCxt);
+
+    // Free scan key data
+    if (so->keyData)
+        pfree(so->keyData);
+
+    // Free tuple descriptor if specially allocated
+    if (so->state.leafTupDesc &&
+        so->state.leafTupDesc != RelationGetDescr(so->state.index))
+        FreeTupleDesc(so->state.leafTupDesc);
+
+    // Free dead tuple storage
+    if (so->state.deadTupleStorage)
+        pfree(so->state.deadTupleStorage);
+
+    // Free order-by scan arrays
+    if (scan->numberOfOrderBys > 0) {
+        pfree(so->orderByTypes);
+        pfree(so->nonNullOrderByOffsets);
+        pfree(so->zeroDistances);
+        pfree(so->infDistances);
+        pfree(scan->xs_orderbyvals);
+        pfree(scan->xs_orderbynulls);
+    }
+
+    // Free main scan opaque structure
+    pfree(so);
+}
+```

@@ -49,3 +49,25 @@ The function is essential for proper operation of asynchronous and non-blocking 
 - Used extensively throughout PostgreSQL tools and test suites for non-blocking I/O
 - The function handles connection validation (returns 0 if conn is NULL)
 - Critical for maintaining responsiveness in applications that need to handle multiple connections or avoid blocking
+
+## Simplified Source
+
+```c
+int PQconsumeInput(PGconn *conn) {
+    if (!conn)
+        return 0;
+
+    // For non-blocking connections, flush send queue first
+    if (pqIsnonblocking(conn)) {
+        if (pqFlush(conn) < 0)
+            return 0;
+    }
+
+    // Read available data without blocking
+    if (pqReadData(conn) < 0)
+        return 0;
+
+    // Data parsing happens later
+    return 1;
+}
+```

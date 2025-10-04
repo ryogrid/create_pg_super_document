@@ -43,3 +43,49 @@ The function validates the resource manager name, ensures the ID is in the custo
 - The function logs successful registrations at LOG level
 - Extensions must provide a non-empty rm_name in the RmgrData structure
 - Validates that the rmid is within the custom resource manager ID range
+
+## Simplified Source
+
+```c
+void RegisterCustomRmgr(RmgrId rmid, const RmgrData *rmgr)
+{
+    // Validate resource manager name
+    if (rmgr->rm_name == NULL || strlen(rmgr->rm_name) == 0)
+        ereport(ERROR, (errmsg("custom resource manager name is invalid"),
+                       errhint("Provide a non-empty name for the custom resource manager.")));
+
+    // Validate resource manager ID is in custom range
+    if (!RmgrIdIsCustom(rmid))
+        ereport(ERROR, (errmsg("custom resource manager ID %d is out of range", rmid),
+                       errhint("Provide a custom resource manager ID between %d and %d.",
+                              RM_MIN_CUSTOM_ID, RM_MAX_CUSTOM_ID)));
+
+    // Must be called during shared_preload_libraries initialization
+    if (!process_shared_preload_libraries_in_progress)
+        ereport(ERROR, (errmsg("failed to register custom resource manager \"%s\" with ID %d",
+                              rmgr->rm_name, rmid),
+                       errdetail("Custom resource manager must be registered while initializing modules in \"shared_preload_libraries\".")));
+
+    // Check if ID is already in use
+    if (RmgrTable[rmid].rm_name != NULL)
+        ereport(ERROR, (errmsg("failed to register custom resource manager \"%s\" with ID %d",
+                              rmgr->rm_name, rmid),
+                       errdetail("Custom resource manager \"%s\" already registered with the same ID.",
+                                RmgrTable[rmid].rm_name)));
+
+    // Check for existing resource manager with same name
+    for (int existing_rmid = 0; existing_rmid <= RM_MAX_ID; existing_rmid++) {
+        if (!RmgrIdExists(existing_rmid))
+            continue;
+        if (!pg_strcasecmp(RmgrTable[existing_rmid].rm_name, rmgr->rm_name))
+            ereport(ERROR, (errmsg("failed to register custom resource manager \"%s\" with ID %d",
+                                  rmgr->rm_name, rmid),
+                           errdetail("Existing resource manager with ID %d has the same name.", existing_rmid)));
+    }
+
+    // Register the resource manager
+    RmgrTable[rmid] = *rmgr;
+    ereport(LOG, (errmsg("registered custom resource manager \"%s\" with ID %d",
+                        rmgr->rm_name, rmid)));
+}
+```

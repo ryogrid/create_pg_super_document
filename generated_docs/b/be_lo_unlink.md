@@ -39,4 +39,33 @@ The function is designed to be called through the SQL  function and handles all 
 - Any open file descriptors to the large object are automatically closed before deletion
 - The function does not require end-of-transaction cleanup since  handles this internally
 - Returns an integer result from  indicating success/failure of the deletion operation
-- Located in 
+- Located in src/backend/libpq/be-fsstubs.c:314-356
+
+## Simplified Source
+
+```c
+Datum be_lo_unlink(PG_FUNCTION_ARGS) {
+    Oid lobjId = PG_GETARG_OID(0);
+
+    // Prevent deletion in read-only transactions
+    PreventCommandIfReadOnly("lo_unlink()");
+
+    // Check ownership permissions (unless compatibility mode enabled)
+    if (!lo_compat_privileges &&
+        !object_ownercheck(LargeObjectRelationId, lobjId, GetUserId()))
+        ereport(ERROR,
+                (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                 errmsg("must be owner of large object %u", lobjId)));
+
+    // Close any open file descriptors for this large object
+    if (fscxt != NULL) {
+        for (int i = 0; i < cookies_size; i++) {
+            if (cookies[i] != NULL && cookies[i]->id == lobjId)
+                closeLOfd(i);
+        }
+    }
+
+    // Delete the large object and return result
+    PG_RETURN_INT32(inv_drop(lobjId));
+}
+``` 

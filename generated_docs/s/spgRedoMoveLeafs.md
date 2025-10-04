@@ -56,3 +56,71 @@ The function carefully handles unaligned tuple data and maintains proper orderin
 - The replaceDead flag affects the number of tuples to insert (1 if replacing dead tuple, nMoves+1 otherwise)
 - Critical for maintaining SP-GiST index consistency during page reorganization and splits
 - Updates parent downlinks to point to the final destination tuple location
+
+## Simplified Source
+
+```c
+static void spgRedoMoveLeafs(XLogReaderState *record) {
+    // Extract WAL record data and setup
+    spgxlogMoveLeafs *xldata = (spgxlogMoveLeafs *) XLogRecGetData(record);
+    SpGistState state;
+    fillFakeState(&state, xldata->stateSrc);
+
+    // Parse offset arrays for tuples to move
+    int nInsert = xldata->replaceDead ? 1 : xldata->nMoves + 1;
+    OffsetNumber *toDelete = /* extracted from record data */;
+    OffsetNumber *toInsert = /* extracted from record data */;
+
+    // Step 1: Handle destination page - insert moved tuples
+    Buffer destBuffer;
+    if (xldata->newPage) {
+        // Create new destination page
+        destBuffer = XLogInitBufferForRedo(record, 1);
+        SpGistInitBuffer(destBuffer, SPGIST_LEAF | (xldata->storesNulls ? SPGIST_NULLS : 0));
+    } else {
+        // Use existing destination page
+        XLogReadBufferForRedo(record, 1, &destBuffer);
+    }
+
+    // Insert all leaf tuples to destination
+    Page destPage = BufferGetPage(destBuffer);
+    for (int i = 0; i < nInsert; i++) {
+        SpGistLeafTupleData leafTupleHdr;
+        memcpy(&leafTupleHdr, leafTuple, sizeof(SpGistLeafTupleData));
+        addOrReplaceTuple(destPage, leafTuple, leafTupleHdr.size, toInsert[i]);
+    }
+    PageSetLSN(destPage, record->EndRecPtr);
+    MarkBufferDirty(destBuffer);
+    UnlockReleaseBuffer(destBuffer);
+
+    // Step 2: Clean up source page - delete tuples and add redirections
+    Buffer srcBuffer;
+    if (XLogReadBufferForRedo(record, 0, &srcBuffer) == BLK_NEEDS_REDO) {
+        Page srcPage = BufferGetPage(srcBuffer);
+
+        // Delete original tuples and insert redirection pointers
+        spgPageIndexMultiDelete(&state, srcPage, toDelete, xldata->nMoves,
+                               state.isBuild ? SPGIST_PLACEHOLDER : SPGIST_REDIRECT,
+                               SPGIST_PLACEHOLDER, blknoDst, toInsert[nInsert - 1]);
+
+        PageSetLSN(srcPage, record->EndRecPtr);
+        MarkBufferDirty(srcBuffer);
+    }
+    UnlockReleaseBuffer(srcBuffer);
+
+    // Step 3: Update parent downlink to point to new location
+    Buffer parentBuffer;
+    if (XLogReadBufferForRedo(record, 2, &parentBuffer) == BLK_NEEDS_REDO) {
+        Page parentPage = BufferGetPage(parentBuffer);
+        SpGistInnerTuple parentTuple = (SpGistInnerTuple) PageGetItem(parentPage,
+                                       PageGetItemId(parentPage, xldata->offnumParent));
+
+        // Update parent's downlink to new destination
+        spgUpdateNodeLink(parentTuple, xldata->nodeI, blknoDst, toInsert[nInsert - 1]);
+
+        PageSetLSN(parentPage, record->EndRecPtr);
+        MarkBufferDirty(parentBuffer);
+    }
+    UnlockReleaseBuffer(parentBuffer);
+}
+```

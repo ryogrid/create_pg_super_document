@@ -47,3 +47,59 @@ The function ensures consistency during recovery by processing pages in the corr
 - Supports both same-page and cross-page tuple splits
 - Uses proper WAL recovery ordering to ensure consistency
 - Part of the SP-GiST index WAL recovery subsystem located in src/backend/access/spgist/spgxlog.c:451-528
+
+## Simplified Source
+
+```c
+static void spgRedoSplitTuple(XLogReaderState *record) {
+    // Extract WAL record data and setup
+    spgxlogSplitTuple *xldata = (spgxlogSplitTuple *) XLogRecGetData(record);
+
+    // Extract prefix and postfix tuples from record data
+    char *prefixTuple = /* extracted from record data */;
+    SpGistInnerTupleData prefixTupleHdr;
+    memcpy(&prefixTupleHdr, prefixTuple, sizeof(SpGistInnerTupleData));
+
+    char *postfixTuple = /* extracted after prefix tuple */;
+    SpGistInnerTupleData postfixTupleHdr;
+    memcpy(&postfixTupleHdr, postfixTuple, sizeof(SpGistInnerTupleData));
+
+    // Step 1: Insert postfix tuple first (to avoid dangling links)
+    if (!xldata->postfixBlkSame) {
+        // Postfix goes to separate page
+        Buffer postfixBuffer;
+        if (xldata->newPage) {
+            postfixBuffer = XLogInitBufferForRedo(record, 1);
+            SpGistInitBuffer(postfixBuffer, 0);  // SplitTuple not used for nulls pages
+        } else {
+            XLogReadBufferForRedo(record, 1, &postfixBuffer);
+        }
+
+        Page postfixPage = BufferGetPage(postfixBuffer);
+        addOrReplaceTuple(postfixPage, postfixTuple, postfixTupleHdr.size, xldata->offnumPostfix);
+
+        PageSetLSN(postfixPage, record->EndRecPtr);
+        MarkBufferDirty(postfixBuffer);
+        UnlockReleaseBuffer(postfixBuffer);
+    }
+
+    // Step 2: Handle original page - replace prefix tuple and add postfix if same page
+    Buffer prefixBuffer;
+    if (XLogReadBufferForRedo(record, 0, &prefixBuffer) == BLK_NEEDS_REDO) {
+        Page prefixPage = BufferGetPage(prefixBuffer);
+
+        // Replace old tuple with new prefix tuple
+        PageIndexTupleDelete(prefixPage, xldata->offnumPrefix);
+        PageAddItem(prefixPage, prefixTuple, prefixTupleHdr.size, xldata->offnumPrefix, false, false);
+
+        // If postfix is on same page, add it here
+        if (xldata->postfixBlkSame) {
+            addOrReplaceTuple(prefixPage, postfixTuple, postfixTupleHdr.size, xldata->offnumPostfix);
+        }
+
+        PageSetLSN(prefixPage, record->EndRecPtr);
+        MarkBufferDirty(prefixBuffer);
+    }
+    UnlockReleaseBuffer(prefixBuffer);
+}
+```

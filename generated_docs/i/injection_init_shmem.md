@@ -33,5 +33,23 @@ This function sets up the shared memory segment for injection points functionali
 - This is a static function, only accessible within injection_points.c
 - Uses lazy initialization pattern - only initializes shared memory when first accessed
 - The  variable indicates whether the DSM segment already existed or was newly created
-- The shared memory segment is named "injection_points" and sized according to 
+- The shared memory segment is named "injection_points" and sized according to
 - Part of PostgreSQL's testing infrastructure for simulating various runtime conditions and race scenarios
+
+## Simplified Source
+
+```c
+static void injection_init_shmem(void) {
+    bool found;
+
+    // Skip if already initialized
+    if (inj_state != NULL)
+        return;
+
+    // Get or create named DSM segment for injection points
+    inj_state = GetNamedDSMSegment("injection_points",
+                                   sizeof(InjectionPointSharedState),
+                                   injection_point_init_state,
+                                   &found);
+}
+```

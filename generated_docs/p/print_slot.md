@@ -34,3 +34,24 @@ When the slot is valid, the function delegates the actual tuple printing to the 
 - Error messages are descriptive, helping developers identify whether the issue is a null tuple or missing tuple descriptor
 - The actual tuple formatting is handled by the debugtup function, keeping this function focused on validation and delegation
 - Located in src/backend/nodes/print.c as part of PostgreSQL's node printing utilities
+
+## Simplified Source
+
+```c
+void print_slot(TupleTableSlot *slot) {
+    // Check for null tuple
+    if (TupIsNull(slot)) {
+        printf("tuple is null.\n");
+        return;
+    }
+
+    // Check for valid tuple descriptor
+    if (!slot->tts_tupleDescriptor) {
+        printf("no tuple descriptor.\n");
+        return;
+    }
+
+    // Print the tuple contents
+    debugtup(slot, NULL);
+}
+```

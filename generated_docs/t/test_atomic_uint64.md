@@ -57,3 +57,49 @@ The  function is a thorough unit test that systematically validates all atomic o
 - Located in src/test/regress/regress.c as part of PostgreSQL's test infrastructure
 - Critical for ensuring 64-bit atomic operations work correctly across different CPU architectures, especially on 32-bit systems where 64-bit atomics may require special handling
 - Complements the 32-bit atomic tests to ensure full coverage of PostgreSQL's atomic operation capabilities
+
+## Simplified Source
+
+```c
+static void test_atomic_uint64(void) {
+    pg_atomic_uint64 var;
+    uint64 expected;
+    int i;
+
+    // Basic read/write operations
+    pg_atomic_init_u64(&var, 0);
+    EXPECT_EQ_U64(pg_atomic_read_u64(&var), 0);
+    pg_atomic_write_u64(&var, 3);
+    EXPECT_EQ_U64(pg_atomic_read_u64(&var), 3);
+
+    // Arithmetic operations (add/subtract with fetch variations)
+    EXPECT_EQ_U64(pg_atomic_fetch_add_u64(&var, 1), 3);  // Returns old value
+    EXPECT_EQ_U64(pg_atomic_fetch_sub_u64(&var, 1), 4);  // Returns old value
+    EXPECT_EQ_U64(pg_atomic_sub_fetch_u64(&var, 3), 0);  // Returns new value
+    EXPECT_EQ_U64(pg_atomic_add_fetch_u64(&var, 10), 10); // Returns new value
+
+    // Exchange operations
+    EXPECT_EQ_U64(pg_atomic_exchange_u64(&var, 5), 10);
+    EXPECT_EQ_U64(pg_atomic_exchange_u64(&var, 0), 5);
+
+    // Test failed compare-exchange with wrong expected value
+    expected = 10;
+    EXPECT_TRUE(!pg_atomic_compare_exchange_u64(&var, &expected, 1));
+
+    // Compare-and-swap with retry loop for spurious failures
+    for (i = 0; i < 100; i++) {
+        expected = 0;
+        if (!pg_atomic_compare_exchange_u64(&var, &expected, 1))
+            break;
+    }
+    if (i == 100)
+        elog(ERROR, "atomic_compare_exchange_u64() never succeeded");
+
+    // Bitwise operations (OR/AND for flag manipulation)
+    pg_atomic_write_u64(&var, 0);
+    EXPECT_TRUE(!(pg_atomic_fetch_or_u64(&var, 1) & 1));   // Set bit 0
+    EXPECT_TRUE(pg_atomic_fetch_or_u64(&var, 2) & 1);      // Set bit 1
+    EXPECT_EQ_U64(pg_atomic_fetch_and_u64(&var, ~2), 3);   // Clear bit 1
+    EXPECT_EQ_U64(pg_atomic_fetch_and_u64(&var, ~1), 1);   // Clear bit 0
+}
+```

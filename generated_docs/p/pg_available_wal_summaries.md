@@ -39,3 +39,37 @@ This function provides a view of all WAL summary files currently available in th
 - Includes CHECK_FOR_INTERRUPTS() to allow query cancellation during processing
 - The function iterates through all available WAL summary files without filtering parameters
 - WAL summary files contain metadata about WAL segments and are used for incremental backup operations
+
+## Simplified Source
+```c
+Datum pg_available_wal_summaries(PG_FUNCTION_ARGS) {
+    ReturnSetInfo *rsi;
+    List *wslist;
+    Datum values[NUM_WS_ATTS];
+    bool nulls[NUM_WS_ATTS];
+
+    // Initialize set-returning function
+    InitMaterializedSRF(fcinfo, 0);
+    rsi = (ReturnSetInfo *) fcinfo->resultinfo;
+    memset(nulls, 0, sizeof(nulls));
+
+    // Get list of available WAL summary files
+    wslist = GetWalSummaries(0, InvalidXLogRecPtr, InvalidXLogRecPtr);
+
+    // Return timeline, start_lsn, end_lsn for each summary file
+    foreach(lc, wslist) {
+        WalSummaryFile *ws = (WalSummaryFile *) lfirst(lc);
+
+        CHECK_FOR_INTERRUPTS();
+
+        values[0] = Int64GetDatum((int64) ws->tli);
+        values[1] = LSNGetDatum(ws->start_lsn);
+        values[2] = LSNGetDatum(ws->end_lsn);
+
+        HeapTuple tuple = heap_form_tuple(rsi->setDesc, values, nulls);
+        tuplestore_puttuple(rsi->setResult, tuple);
+    }
+
+    return (Datum) 0;
+}
+```

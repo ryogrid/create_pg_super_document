@@ -40,3 +40,20 @@ The COMMIT message serves as the counterpart to the BEGIN message and is essenti
 - The message format is standardized and must be compatible with logical replication subscribers
 - Located in src/backend/replication/logical/proto.c as part of the protocol encoding functions
 - Works in conjunction with logicalrep_write_begin to define transaction boundaries
+
+## Simplified Source
+
+```c
+void logicalrep_write_commit(StringInfo out, ReorderBufferTXN *txn, XLogRecPtr commit_lsn) {
+    // Send COMMIT message type
+    pq_sendbyte(out, LOGICAL_REP_MSG_COMMIT);
+
+    // Send flags field (unused for now)
+    pq_sendbyte(out, 0);
+
+    // Send transaction completion data
+    pq_sendint64(out, commit_lsn);        // Commit LSN
+    pq_sendint64(out, txn->end_lsn);      // Transaction end LSN
+    pq_sendint64(out, txn->xact_time.commit_time);  // Commit timestamp
+}
+```

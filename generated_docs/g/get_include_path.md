@@ -30,3 +30,14 @@ The `get_include_path` function calculates the absolute path to PostgreSQL's inc
 - The function relies on compile-time constants INCLUDEDIR and PGBINDIR which are set during the build process
 - This is part of PostgreSQL's portable path resolution system that allows development tools to locate header files correctly
 - Commonly used by tools like ecpg (Embedded SQL preprocessor) that need to find PostgreSQL header files
+
+## Simplified Source
+
+```c
+void
+get_include_path(const char *my_exec_path, char *ret_path)
+{
+    // Calculate relative path from executable to include directory
+    make_relative_path(ret_path, INCLUDEDIR, PGBINDIR, my_exec_path);
+}
+```

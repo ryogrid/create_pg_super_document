@@ -40,3 +40,13 @@ The function accepts parameters through the standard PostgreSQL function interfa
 - The function is registered as volatile () since it modifies the WAL and cannot be optimized away
 - Returns the LSN where the message was written, which can be used for tracking or synchronization purposes
 - This is one of two overloaded variants of  - the other being the binary () version
+
+## Simplified Source
+
+```c
+Datum pg_logical_emit_message_text(PG_FUNCTION_ARGS) {
+    // Text and bytea types are compatible in PostgreSQL
+    // Simply delegate to the binary version
+    return pg_logical_emit_message_bytea(fcinfo);
+}
+```

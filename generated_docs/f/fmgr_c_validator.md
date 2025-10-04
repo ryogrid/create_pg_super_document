@@ -50,3 +50,40 @@ The validation process helps catch common issues like missing shared libraries, 
 - Essential for preventing runtime errors when C functions are eventually called
 - The validator does not cache loaded libraries - each validation loads and unloads the library
 - Used internally by PostgreSQL's function creation process when language is set to 'C'
+
+## Simplified Source
+```c
+Datum fmgr_c_validator(PG_FUNCTION_ARGS) {
+    Oid funcoid = PG_GETARG_OID(0);
+    void *libraryhandle;
+    HeapTuple tuple;
+    Datum tmp;
+    char *prosrc;
+    char *probin;
+
+    // Check if we have permission to validate this function
+    if (!CheckFunctionValidatorAccess(fcinfo->flinfo->fn_oid, funcoid))
+        PG_RETURN_VOID();
+
+    // Get the function tuple from pg_proc
+    tuple = SearchSysCache1(PROCOID, ObjectIdGetDatum(funcoid));
+    if (!HeapTupleIsValid(tuple))
+        elog(ERROR, "cache lookup failed for function %u", funcoid);
+
+    // Extract function name (prosrc) and library path (probin)
+    tmp = SysCacheGetAttrNotNull(PROCOID, tuple, Anum_pg_proc_prosrc);
+    prosrc = TextDatumGetCString(tmp);
+
+    tmp = SysCacheGetAttrNotNull(PROCOID, tuple, Anum_pg_proc_probin);
+    probin = TextDatumGetCString(tmp);
+
+    // Load the library and find the function symbol
+    load_external_function(probin, prosrc, true, &libraryhandle);
+
+    // Validate the function information record
+    fetch_finfo_record(libraryhandle, prosrc);
+
+    ReleaseSysCache(tuple);
+    PG_RETURN_VOID();
+}
+```

@@ -40,3 +40,45 @@ The function also serves as an error-handling utility by accepting an error code
 - Combines cleanup with error handling for terser error-handling code patterns
 - Always returns the error code from  for convenient error propagation
 - The ERR(err) call is a no-op when err==0, making it safe for normal cleanup paths
+
+## Simplified Source
+
+```c
+static int
+freev(struct vars *v, int err)
+{
+    // Free compiled regex if allocated
+    if (v->re != NULL)
+        rfree(v->re);
+
+    // Free dynamic subRE array (but not static sub10)
+    if (v->subs != v->sub10)
+        FREE(v->subs);
+
+    // Free NFA structure
+    if (v->nfa != NULL)
+        freenfa(v->nfa);
+
+    // Free parse tree
+    if (v->tree != NULL)
+        freesubre(v, v->tree);
+
+    // Clean up state tree chain
+    if (v->treechain != NULL)
+        cleanst(v);
+
+    // Free character vectors
+    if (v->cv != NULL)
+        freecvec(v->cv);
+    if (v->cv2 != NULL)
+        freecvec(v->cv2);
+
+    // Free lookahead/lookbehind constraints
+    if (v->lacons != NULL)
+        freelacons(v->lacons, v->nlacons);
+
+    // Set error code and return current error status
+    ERR(err);
+    return v->err;
+}
+```

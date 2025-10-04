@@ -53,3 +53,37 @@ The round-robin distribution ensures that resources are evenly distributed acros
 - Debug logging is performed at DEBUG1 level for each resource creation
 - Memory is allocated using PostgreSQL's palloc, making resources subject to memory context cleanup
 - The function assumes all parameters are valid and properly initialized
+
+## Simplified Source
+
+```c
+// Simplified version of RememberManyTestResources
+static void
+RememberManyTestResources(ResourceOwner owner,
+                          ManyTestResourceKind *kinds, int nkinds,
+                          int nresources)
+{
+    int kind_idx = 0;
+
+    // Create and register resources in round-robin fashion
+    for (int i = 0; i < nresources; i++) {
+        // Allocate new test resource
+        ManyTestResource *mres = palloc(sizeof(ManyTestResource));
+        mres->kind = &kinds[kind_idx];
+        dlist_node_init(&mres->node);
+
+        // Register with ResourceOwner system
+        ResourceOwnerEnlarge(owner);
+        ResourceOwnerRemember(owner, PointerGetDatum(mres), &kinds[kind_idx].desc);
+
+        // Update tracking and statistics
+        kinds[kind_idx].nremembered++;
+        dlist_push_tail(&kinds[kind_idx].current_resources, &mres->node);
+
+        elog(DEBUG1, "remembered resource %p from %s", mres, mres->kind->desc.name);
+
+        // Round-robin to next kind
+        kind_idx = (kind_idx + 1) % nkinds;
+    }
+}
+```

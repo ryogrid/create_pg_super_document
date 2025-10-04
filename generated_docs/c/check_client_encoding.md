@@ -50,3 +50,49 @@ The function performs several critical operations:
 - Memory allocated for the encoding ID in *extra is freed automatically by the GUC system
 - Located in src/backend/commands/variable.c as part of the encoding-related GUC functions
 - The canonical encoding name replacement helps maintain consistency across the system
+
+## Simplified Source
+
+```c
+bool check_client_encoding(char **newval, void **extra, GucSource source)
+{
+    int encoding;
+    const char *canonical_name;
+
+    // Validate the encoding name
+    encoding = pg_valid_client_encoding(*newval);
+    if (encoding < 0)
+        return false;
+
+    // Get canonical encoding name
+    canonical_name = pg_encoding_to_char(encoding);
+
+    // Check if conversion procedures are available
+    if (PrepareClientEncoding(encoding) < 0) {
+        if (IsTransactionState()) {
+            GUC_check_errcode(ERRCODE_FEATURE_NOT_SUPPORTED);
+            GUC_check_errdetail("Conversion between %s and %s is not supported.",
+                              canonical_name, GetDatabaseEncodingName());
+        } else {
+            GUC_check_errdetail("Cannot change \"client_encoding\" now.");
+        }
+        return false;
+    }
+
+    // Replace with canonical name (except for JDBC compatibility)
+    if (strcmp(*newval, canonical_name) != 0 && strcmp(*newval, "UNICODE") != 0) {
+        guc_free(*newval);
+        *newval = guc_strdup(LOG, canonical_name);
+        if (!*newval)
+            return false;
+    }
+
+    // Store encoding ID for assign hook
+    *extra = guc_malloc(LOG, sizeof(int));
+    if (!*extra)
+        return false;
+    *((int *) *extra) = encoding;
+
+    return true;
+}
+```

@@ -33,3 +33,34 @@ The function also includes a compatibility fix for pre-PostgreSQL 11 versions by
 
 ## Notes and Other Information
 This is an optimization function that operates on a "best effort" basis - if the metapage cannot be locked immediately, the update is simply skipped without error. The lastUsedPages information helps with efficient page allocation but is not critical for index correctness. The function includes important backward compatibility handling for pg_upgraded indexes from pre-v11 PostgreSQL versions.
+
+## Simplified Source
+
+```c
+void SpGistUpdateMetaPage(Relation index) {
+    SpGistCache *cache = (SpGistCache *) index->rd_amcache;
+
+    if (cache != NULL) {
+        Buffer metabuffer = ReadBuffer(index, SPGIST_METAPAGE_BLKNO);
+
+        // Try to lock the metapage buffer (non-blocking)
+        if (ConditionalLockBuffer(metabuffer)) {
+            Page metapage = BufferGetPage(metabuffer);
+            SpGistMetaPageData *metadata = SpGistPageGetMeta(metapage);
+
+            // Update cached page info to metapage
+            metadata->lastUsedPages = cache->lastUsedPages;
+
+            // Fix pd_lower for compatibility with pre-v11 pg_upgraded indexes
+            ((PageHeader) metapage)->pd_lower =
+                ((char *) metadata + sizeof(SpGistMetaPageData)) - (char *) metapage;
+
+            MarkBufferDirty(metabuffer);
+            UnlockReleaseBuffer(metabuffer);
+        } else {
+            // Buffer locked by another process, skip update
+            ReleaseBuffer(metabuffer);
+        }
+    }
+}
+```

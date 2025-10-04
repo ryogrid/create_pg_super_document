@@ -53,3 +53,70 @@ The function uses a character buffer to build the string representation from rig
 - Builds numeric string representation from right to left in the buffer
 - Supports both uppercase (X) and lowercase (x) hexadecimal output
 - Integrates with PostgreSQL's padding and alignment system for consistent formatting behavior
+
+## Simplified Source
+
+```c
+static void
+fmtint(long long value, char type, int forcesign, int leftjust,
+       int minlen, int zpad, int precision, int pointflag,
+       PrintfTarget *target)
+{
+    unsigned long long uvalue;
+    int base, dosign;
+    const char *cvt = "0123456789abcdef";
+    int signvalue = 0;
+    char convert[64];
+    int vallen = 0;
+    int padlen, zeropad;
+
+    // Determine base and sign handling based on format type
+    switch (type) {
+        case 'd': case 'i': base = 10; dosign = 1; break;
+        case 'o': base = 8; dosign = 0; break;
+        case 'u': base = 10; dosign = 0; break;
+        case 'x': base = 16; dosign = 0; break;
+        case 'X': cvt = "0123456789ABCDEF"; base = 16; dosign = 0; break;
+        default: return;
+    }
+
+    // Handle sign and convert to unsigned
+    if (dosign && adjust_sign((value < 0), forcesign, &signvalue))
+        uvalue = -(unsigned long long) value;
+    else
+        uvalue = (unsigned long long) value;
+
+    // Convert to string (special case: 0 with precision 0 = empty)
+    if (value == 0 && pointflag && precision == 0) {
+        vallen = 0;
+    } else {
+        // Convert using optimized loops for each base
+        if (base == 10) {
+            do {
+                convert[sizeof(convert) - (++vallen)] = cvt[uvalue % 10];
+                uvalue = uvalue / 10;
+            } while (uvalue);
+        } else if (base == 16) {
+            do {
+                convert[sizeof(convert) - (++vallen)] = cvt[uvalue % 16];
+                uvalue = uvalue / 16;
+            } while (uvalue);
+        } else { // base == 8
+            do {
+                convert[sizeof(convert) - (++vallen)] = cvt[uvalue % 8];
+                uvalue = uvalue / 8;
+            } while (uvalue);
+        }
+    }
+
+    // Apply formatting: precision zeros, padding, output
+    zeropad = Max(0, precision - vallen);
+    padlen = compute_padlen(minlen, vallen + zeropad, leftjust);
+
+    leading_pad(zpad, signvalue, &padlen, target);
+    if (zeropad > 0)
+        dopr_outchmulti('0', zeropad, target);
+    dostr(convert + sizeof(convert) - vallen, vallen, target);
+    trailing_pad(padlen, target);
+}
+```

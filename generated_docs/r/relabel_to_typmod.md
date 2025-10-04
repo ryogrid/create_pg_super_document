@@ -52,3 +52,15 @@ This ensures that the relabeling operation is both safe and maintains proper exp
 - Commonly used by data type support functions to enforce precision/scale constraints
 - The returned node may be the original expression if no relabeling is needed
 - Located in src/backend/nodes/nodeFuncs.c:684-699
+
+## Simplified Source
+
+```c
+Node *
+relabel_to_typmod(Node *expr, int32 typmod)
+{
+    // Apply relabel with new typmod, preserving type and collation
+    return applyRelabelType(expr, exprType(expr), typmod, exprCollation(expr),
+                           COERCE_EXPLICIT_CAST, -1, false);
+}
+```

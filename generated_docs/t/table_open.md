@@ -36,3 +36,17 @@ The function provides a convenient and safe way to open table relations while en
 - Callers should still check if the relation is a view or foreign table before assuming physical storage
 - The function will raise an error if the relation is an index or composite type
 - Part of the table access method interface introduced to abstract table operations
+
+## Simplified Source
+
+```c
+Relation table_open(Oid relationId, LOCKMODE lockmode) {
+    // Open the relation using the generic relation_open function
+    Relation r = relation_open(relationId, lockmode);
+
+    // Validate that the relation is a table (not an index or composite type)
+    validate_relation_kind(r);
+
+    return r;
+}
+```

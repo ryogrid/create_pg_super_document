@@ -39,3 +39,26 @@ This function is the counterpart to logicalrep_write_rel, responsible for parsin
 - Namespace and relation names are duplicated using pstrdup for independent memory management
 - Used by logical replication workers to understand table schemas before applying data changes
 - Critical for maintaining schema consistency between publisher and subscriber
+
+## Simplified Source
+
+```c
+LogicalRepRelation *logicalrep_read_rel(StringInfo in) {
+    LogicalRepRelation *rel = palloc(sizeof(LogicalRepRelation));
+
+    // Read remote relation ID
+    rel->remoteid = pq_getmsgint(in, 4);
+
+    // Read qualified relation name
+    rel->nspname = pstrdup(logicalrep_read_namespace(in));
+    rel->relname = pstrdup(pq_getmsgstring(in));
+
+    // Read replica identity setting
+    rel->replident = pq_getmsgbyte(in);
+
+    // Read column attribute descriptions
+    logicalrep_read_attrs(in, rel);
+
+    return rel;
+}
+```

@@ -31,3 +31,12 @@ FunctionReturningBool serves a specific purpose in PostgreSQL's LLVM JIT compila
 - Critical for cross-platform compatibility, especially for architectures that do not use stdbool.h
 - Part of the type template infrastructure that allows the JIT compiler to generate correctly-typed functions for different target architectures
 - The function is deliberately simple, containing only a return statement, to serve as a clean type reference
+
+## Simplified Source
+
+```c
+bool FunctionReturningBool(void) {
+    // Return false - template function for boolean type analysis
+    return false;
+}
+```

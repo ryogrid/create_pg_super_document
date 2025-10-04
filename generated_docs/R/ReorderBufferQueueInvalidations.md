@@ -35,3 +35,28 @@ This internal function creates a REORDER_BUFFER_CHANGE_INVALIDATION change entry
 - Memory for invalidation messages is allocated using palloc and copied using memcpy
 - The function creates a complete copy of the invalidation messages for storage
 - Used as a building block for both regular and distributed invalidation handling
+
+## Simplified Source
+
+```c
+static void ReorderBufferQueueInvalidations(ReorderBuffer *rb, TransactionId xid,
+                                           XLogRecPtr lsn, Size nmsgs,
+                                           SharedInvalidationMessage *msgs)
+{
+    // Allocate a new change structure
+    ReorderBufferChange *change = ReorderBufferGetChange(rb);
+
+    // Set up the change as an invalidation change
+    change->action = REORDER_BUFFER_CHANGE_INVALIDATION;
+    change->data.inval.ninvalidations = nmsgs;
+
+    // Allocate memory and copy invalidation messages
+    change->data.inval.invalidations = (SharedInvalidationMessage *)
+        palloc(sizeof(SharedInvalidationMessage) * nmsgs);
+    memcpy(change->data.inval.invalidations, msgs,
+           sizeof(SharedInvalidationMessage) * nmsgs);
+
+    // Queue the change to be processed at the appropriate LSN
+    ReorderBufferQueueChange(rb, xid, lsn, change, false);
+}
+```

@@ -35,3 +35,13 @@ The function is optimized for bootstrap scenarios where per-column ACLs are neve
 - The ATTRIBUTE_FIXED_PART_SIZE constant excludes variable-length ACL data
 - Essential for creating the in-memory representation of table schemas during bootstrap
 - Memory is not explicitly freed since bootstrap is a short-lived process
+
+## Simplified Source
+
+```c
+static Form_pg_attribute AllocateAttribute(void) {
+    // Allocate and zero-initialize attribute structure in TopMemoryContext
+    return (Form_pg_attribute)
+        MemoryContextAllocZero(TopMemoryContext, ATTRIBUTE_FIXED_PART_SIZE);
+}
+```

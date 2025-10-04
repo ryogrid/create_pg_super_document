@@ -42,3 +42,31 @@ After setting up the core data structures, the function registers a relcache inv
 - Registers an invalidation callback to maintain cache consistency
 - Lazy initialization pattern - only creates context if it doesn't already exist
 - Part of PostgreSQL's logical replication subsystem cache management
+
+## Simplified Source
+
+```c
+static void logicalrep_relmap_init(void) {
+    HASHCTL ctl;
+
+    // Create memory context if not already created
+    if (!LogicalRepRelMapContext) {
+        LogicalRepRelMapContext = AllocSetContextCreate(
+            CacheMemoryContext,
+            "LogicalRepRelMapContext",
+            ALLOCSET_DEFAULT_SIZES);
+    }
+
+    // Configure hash table parameters
+    ctl.keysize = sizeof(LogicalRepRelId);
+    ctl.entrysize = sizeof(LogicalRepRelMapEntry);
+    ctl.hcxt = LogicalRepRelMapContext;
+
+    // Create the relation map hash table
+    LogicalRepRelMap = hash_create("logicalrep relation map cache", 128, &ctl,
+                                   HASH_ELEM | HASH_BLOBS | HASH_CONTEXT);
+
+    // Register invalidation callback for cache consistency
+    CacheRegisterRelcacheCallback(logicalrep_relmap_invalidate_cb, (Datum) 0);
+}
+```

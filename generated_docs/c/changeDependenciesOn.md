@@ -55,3 +55,60 @@ Unlike changeDependenciesOf, this function uses DependReferenceIndexId for effic
 - Primarily used in concurrent index operations alongside changeDependenciesOf to completely swap dependency relationships between objects
 - The function ensures referential integrity by either updating or removing dependency records appropriately based on the pinned status of the new object
 - Returns the count of affected records, providing feedback on the scope of the dependency transfer operation
+
+## Simplified Source
+```c
+long changeDependenciesOn(Oid refClassId, Oid oldRefObjectId, Oid newRefObjectId) {
+    long count = 0;
+    Relation depRel;
+    ScanKeyData key[2];
+    SysScanDesc scan;
+    HeapTuple tup;
+    ObjectAddress objAddr;
+    bool newIsPinned;
+
+    // Open dependency relation for modification
+    depRel = table_open(DependRelationId, RowExclusiveLock);
+
+    // Check if old object is pinned (system object)
+    objAddr.classId = refClassId;
+    objAddr.objectId = oldRefObjectId;
+    objAddr.objectSubId = 0;
+
+    if (isObjectPinned(&objAddr))
+        ereport(ERROR, "cannot remove dependency on system object");
+
+    // Check if new object is pinned
+    objAddr.objectId = newRefObjectId;
+    newIsPinned = isObjectPinned(&objAddr);
+
+    // Set up scan keys to find all dependencies on old object
+    ScanKeyInit(&key[0], Anum_pg_depend_refclassid, BTEqualStrategyNumber,
+                F_OIDEQ, ObjectIdGetDatum(refClassId));
+    ScanKeyInit(&key[1], Anum_pg_depend_refobjid, BTEqualStrategyNumber,
+                F_OIDEQ, ObjectIdGetDatum(oldRefObjectId));
+
+    // Scan for dependency records referencing the old object
+    scan = systable_beginscan(depRel, DependReferenceIndexId, true, NULL, 2, key);
+
+    while (HeapTupleIsValid((tup = systable_getnext(scan)))) {
+        if (newIsPinned) {
+            // If new object is pinned, delete the dependency record
+            CatalogTupleDelete(depRel, &tup->t_self);
+        } else {
+            // Update dependency to point to new object
+            Form_pg_depend depform;
+            tup = heap_copytuple(tup);
+            depform = (Form_pg_depend) GETSTRUCT(tup);
+            depform->refobjid = newRefObjectId;
+            CatalogTupleUpdate(depRel, &tup->t_self, tup);
+            heap_freetuple(tup);
+        }
+        count++;
+    }
+
+    systable_endscan(scan);
+    table_close(depRel, RowExclusiveLock);
+    return count;
+}
+```

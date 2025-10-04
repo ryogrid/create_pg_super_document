@@ -30,3 +30,14 @@ The  function calculates the absolute path to PostgreSQL's configuration directo
 - This function assumes that the caller has provided a sufficiently large buffer in ret_path to hold the resulting path
 - The function relies on compile-time constants SYSCONFDIR and PGBINDIR which are set during the build process
 - This is part of PostgreSQL's portable path resolution system that allows the software to work correctly even when moved from its original installation location
+
+## Simplified Source
+
+```c
+void
+get_etc_path(const char *my_exec_path, char *ret_path)
+{
+    // Calculate relative path from executable to config directory
+    make_relative_path(ret_path, SYSCONFDIR, PGBINDIR, my_exec_path);
+}
+```

@@ -51,3 +51,113 @@ Key responsibilities include:
 - Updates shared memory state after each summarization cycle
 - Uses condition variables to wake up waiting processes
 - Location: src/backend/postmaster/walsummarizer.c:211-446
+
+## Simplified Source
+
+```c
+void WalSummarizerMain(char *startup_data, size_t startup_data_len)
+{
+    sigjmp_buf local_sigjmp_buf;
+    MemoryContext context;
+    XLogRecPtr current_lsn, switch_lsn = InvalidXLogRecPtr;
+    TimeLineID current_tli, switch_tli = 0;
+    bool exact;
+
+    Assert(startup_data_len == 0);
+
+    // Initialize as WAL summarizer background process
+    MyBackendType = B_WAL_SUMMARIZER;
+    AuxiliaryProcessMainCommon();
+
+    // Set up signal handlers for process management
+    pqsignal(SIGHUP, SignalHandlerForConfigReload);
+    pqsignal(SIGINT, SignalHandlerForShutdownRequest);
+    pqsignal(SIGTERM, SignalHandlerForShutdownRequest);
+    pqsignal(SIGUSR1, procsignal_sigusr1_handler);
+
+    // Register for cleanup and advertise in shared memory
+    on_shmem_exit(WalSummarizerShutdown, (Datum) 0);
+    LWLockAcquire(WALSummarizerLock, LW_EXCLUSIVE);
+    WalSummarizerCtl->summarizer_pgprocno = MyProcNumber;
+    LWLockRelease(WALSummarizerLock);
+
+    // Create memory context for error recovery
+    context = AllocSetContextCreate(TopMemoryContext, "Wal Summarizer",
+                                   ALLOCSET_DEFAULT_SIZES);
+
+    // Set up error recovery point
+    if (sigsetjmp(local_sigjmp_buf, 1) != 0) {
+        // Error recovery: cleanup resources and retry after delay
+        EmitErrorReport();
+        LWLockReleaseAll();
+        ReleaseAuxProcessResources(false);
+        MemoryContextReset(context);
+
+        // Wait 10 seconds before retry to avoid log spam
+        WaitLatch(MyLatch, WL_TIMEOUT | WL_EXIT_ON_PM_DEATH, 10000,
+                 WAIT_EVENT_WAL_SUMMARIZER_ERROR);
+    }
+
+    PG_exception_stack = &local_sigjmp_buf;
+    sigprocmask(SIG_SETMASK, &UnBlockSig, NULL);
+
+    // Get starting position for summarization
+    current_lsn = GetOldestUnsummarizedLSN(&current_tli, &exact);
+    if (XLogRecPtrIsInvalid(current_lsn))
+        proc_exit(0);
+
+    // Main summarization loop
+    for (;;) {
+        XLogRecPtr latest_lsn, end_of_summary_lsn;
+        TimeLineID latest_tli;
+
+        MemoryContextReset(context);
+        HandleWalSummarizerInterrupts();
+        MaybeRemoveOldWalSummaries();
+
+        // Find latest available WAL position
+        latest_lsn = GetLatestLSN(&latest_tli);
+
+        // Handle timeline switches for standby scenarios
+        if (current_tli != latest_tli && XLogRecPtrIsInvalid(switch_lsn)) {
+            List *tles = readTimeLineHistory(latest_tli);
+            switch_lsn = tliSwitchPoint(current_tli, tles, &switch_tli);
+        }
+
+        // Switch to next timeline if needed
+        if (!XLogRecPtrIsInvalid(switch_lsn) && current_lsn >= switch_lsn) {
+            current_tli = switch_tli;
+            current_lsn = switch_lsn;
+            switch_lsn = InvalidXLogRecPtr;
+            switch_tli = 0;
+
+            // Update shared memory state
+            LWLockAcquire(WALSummarizerLock, LW_EXCLUSIVE);
+            WalSummarizerCtl->summarized_lsn = current_lsn;
+            WalSummarizerCtl->summarized_tli = current_tli;
+            WalSummarizerCtl->lsn_is_exact = true;
+            WalSummarizerCtl->pending_lsn = current_lsn;
+            LWLockRelease(WALSummarizerLock);
+            continue;
+        }
+
+        // Core summarization work
+        end_of_summary_lsn = SummarizeWAL(current_tli, current_lsn, exact,
+                                         switch_lsn, latest_lsn);
+
+        // Update state for next iteration
+        current_lsn = end_of_summary_lsn;
+        exact = true;
+
+        // Update shared memory and wake waiters
+        LWLockAcquire(WALSummarizerLock, LW_EXCLUSIVE);
+        WalSummarizerCtl->summarized_lsn = end_of_summary_lsn;
+        WalSummarizerCtl->summarized_tli = current_tli;
+        WalSummarizerCtl->lsn_is_exact = true;
+        WalSummarizerCtl->pending_lsn = end_of_summary_lsn;
+        LWLockRelease(WALSummarizerLock);
+
+        ConditionVariableBroadcast(&WalSummarizerCtl->summary_file_cv);
+    }
+}
+```

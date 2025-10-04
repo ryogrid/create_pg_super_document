@@ -37,3 +37,26 @@ The function handles error cases where the namespace lookup fails, which could i
 - The function will terminate the process with ERROR if namespace lookup fails, ensuring data consistency
 - Part of PostgreSQL's logical replication subsystem for efficiently transmitting schema information
 - The null byte optimization is understood by the corresponding read function to reconstruct pg_catalog namespace name
+
+## Simplified Source
+
+```c
+static void logicalrep_write_namespace(StringInfo out, Oid nspid)
+{
+    if (nspid == PG_CATALOG_NAMESPACE)
+    {
+        // Optimization: send null byte for pg_catalog to save space
+        pq_sendbyte(out, '\0');
+    }
+    else
+    {
+        // Look up and send the namespace name
+        char *nspname = get_namespace_name(nspid);
+
+        if (nspname == NULL)
+            elog(ERROR, "cache lookup failed for namespace %u", nspid);
+
+        pq_sendstring(out, nspname);
+    }
+}
+```

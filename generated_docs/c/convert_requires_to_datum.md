@@ -47,3 +47,32 @@ This function is essential for properly formatting extension dependency informat
 - The resulting array can be returned directly as part of a SQL result set
 - The function assumes all strings in the input list are valid extension names
 - Used exclusively by get_available_versions_for_extension to format dependency arrays in the pg_available_extension_versions view
+
+## Simplified Source
+
+```c
+static Datum
+convert_requires_to_datum(List *requires)
+{
+    Datum *datums;
+    int ndatums;
+    ArrayType *a;
+    ListCell *lc;
+
+    // Allocate array for converted names
+    ndatums = list_length(requires);
+    datums = (Datum *) palloc(ndatums * sizeof(Datum));
+
+    // Convert each extension name to a name datum
+    ndatums = 0;
+    foreach(lc, requires)
+    {
+        char *curreq = (char *) lfirst(lc);
+        datums[ndatums++] = DirectFunctionCall1(namein, CStringGetDatum(curreq));
+    }
+
+    // Build PostgreSQL array and return as datum
+    a = construct_array_builtin(datums, ndatums, NAMEOID);
+    return PointerGetDatum(a);
+}
+```

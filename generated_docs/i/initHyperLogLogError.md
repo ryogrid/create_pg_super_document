@@ -34,3 +34,27 @@ The function iterates through possible bit widths starting from 4, calculating t
 - Provides a more user-friendly interface compared to specifying bit width directly
 - The function finds the lowest bit width that satisfies the error requirement, optimizing for memory usage
 - Currently appears to be unused in the PostgreSQL codebase, possibly provided for future extensibility or external API usage
+
+## Simplified Source
+
+```c
+void
+initHyperLogLogError(hyperLogLogState *cState, double error)
+{
+    uint8 bwidth = 4;
+
+    // Find the minimum bit width that achieves the target error rate
+    // Using formula: e = 1.04 / sqrt(m) where m = 2^bwidth
+    while (bwidth < 16) {
+        double m = (Size) 1 << bwidth;  // m = 2^bwidth (number of registers)
+
+        if (1.04 / sqrt(m) < error) {
+            break;  // Found suitable bit width
+        }
+        bwidth++;
+    }
+
+    // Initialize HyperLogLog with calculated bit width
+    initHyperLogLog(cState, bwidth);
+}
+```

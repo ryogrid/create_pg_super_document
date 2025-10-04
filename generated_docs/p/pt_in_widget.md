@@ -38,3 +38,21 @@ pt_in_widget is a PostgreSQL function that implements a geometric containment te
 - Uses PostgreSQL's function call interface (PG_FUNCTION_ARGS) for proper integration with the database engine
 - Leverages existing point_distance function rather than reimplementing distance calculation
 - Located in src/test/regress/regress.c, indicating it's primarily for testing purposes
+
+## Simplified Source
+
+```c
+Datum pt_in_widget(PG_FUNCTION_ARGS) {
+    // Extract point and widget from function arguments
+    Point *point = PG_GETARG_POINT_P(0);
+    WIDGET *widget = (WIDGET *) PG_GETARG_POINTER(1);
+
+    // Calculate distance between point and widget center
+    float8 distance = DatumGetFloat8(DirectFunctionCall2(point_distance,
+                                                         PointPGetDatum(point),
+                                                         PointPGetDatum(&widget->center)));
+
+    // Check if point is within widget's radius
+    PG_RETURN_BOOL(distance < widget->radius);
+}
+```

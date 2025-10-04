@@ -43,3 +43,55 @@ This function serves as a callback for the Windows API function EnumSystemLocale
 - Always returns TRUE to continue enumeration, never stopping the process early
 - Part of PostgreSQL's platform-specific collation import system for Windows
 - Creates both the original Windows-style collation and a POSIX-style alias when hyphens are present
+
+## Simplified Source
+
+```c
+static BOOL CALLBACK
+win32_read_locale(LPWSTR pStr, DWORD dwFlags, LPARAM lparam)
+{
+    CollParam *param = (CollParam *) lparam;
+    char localebuf[NAMEDATALEN];
+    int result;
+    int enc;
+
+    // Convert wide-character locale name to multibyte string
+    result = WideCharToMultiByte(CP_ACP, 0, pStr, -1, localebuf, NAMEDATALEN, NULL, NULL);
+
+    // Skip if conversion failed or name too long
+    if (result == 0 || localebuf[0] == '\0')
+        return TRUE;
+
+    // Create collation from locale
+    enc = create_collation_from_locale(localebuf, param->nspid, param->nvalidp, param->ncreatedp);
+    if (enc < 0)
+        return TRUE;
+
+    // Create POSIX alias if locale contains hyphens (convert "en-US" to "en_US")
+    if (strchr(localebuf, '-'))
+    {
+        char alias[NAMEDATALEN];
+        Oid collid;
+
+        strcpy(alias, localebuf);
+        // Replace hyphens with underscores
+        for (char *p = alias; *p; p++)
+            if (*p == '-')
+                *p = '_';
+
+        // Create the POSIX-style collation alias
+        collid = CollationCreate(alias, param->nspid, GetUserId(),
+                                COLLPROVIDER_LIBC, true, enc,
+                                localebuf, localebuf, NULL, NULL,
+                                get_collation_actual_version(COLLPROVIDER_LIBC, localebuf),
+                                true, true);
+        if (OidIsValid(collid))
+        {
+            (*param->ncreatedp)++;
+            CommandCounterIncrement();
+        }
+    }
+
+    return TRUE; // Continue enumeration
+}
+```

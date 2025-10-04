@@ -45,3 +45,66 @@ The function is designed as boilerplate code where only the attach_to_queues() a
 - Uses spinlocks for thread-safe access to shared header data
 - Implements a cooperative parallel processing pattern where multiple workers can process messages in a pipeline
 - The PG_TEST_SHM_MQ_MAGIC constant is used to validate the shared memory segment integrity
+
+## Simplified Source
+
+```c
+void
+test_shm_mq_main(Datum main_arg)
+{
+    dsm_segment *seg;
+    shm_toc *toc;
+    shm_mq_handle *inqh;
+    shm_mq_handle *outqh;
+    volatile test_shm_mq_header *hdr;
+    int myworkernumber;
+    PGPROC *registrant;
+
+    // Set up signal handling
+    pqsignal(SIGTERM, die);
+    BackgroundWorkerUnblockSignals();
+
+    // Attach to dynamic shared memory segment
+    seg = dsm_attach(DatumGetUInt32(main_arg));
+    if (seg == NULL)
+        ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                errmsg("unable to map dynamic shared memory segment")));
+
+    toc = shm_toc_attach(PG_TEST_SHM_MQ_MAGIC, dsm_segment_address(seg));
+    if (toc == NULL)
+        ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                errmsg("bad magic number in dynamic shared memory segment")));
+
+    // Acquire worker number
+    hdr = shm_toc_lookup(toc, 0, false);
+    SpinLockAcquire(&hdr->mutex);
+    myworkernumber = ++hdr->workers_attached;
+    SpinLockRelease(&hdr->mutex);
+
+    if (myworkernumber > hdr->workers_total)
+        ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                errmsg("too many message queue testing workers already")));
+
+    // Attach to message queues
+    attach_to_queues(seg, toc, myworkernumber, &inqh, &outqh);
+
+    // Signal that worker is ready
+    SpinLockAcquire(&hdr->mutex);
+    ++hdr->workers_ready;
+    SpinLockRelease(&hdr->mutex);
+
+    registrant = BackendPidGetProc(MyBgworkerEntry->bgw_notify_pid);
+    if (registrant == NULL) {
+        elog(DEBUG1, "registrant backend has exited prematurely");
+        proc_exit(1);
+    }
+    SetLatch(&registrant->procLatch);
+
+    // Do the actual work
+    copy_messages(inqh, outqh);
+
+    // Clean up and exit
+    dsm_detach(seg);
+    proc_exit(1);
+}
+```

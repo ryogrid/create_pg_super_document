@@ -36,3 +36,47 @@ This function takes raw PL/Python procedure source code and transforms it into a
 - Includes buffer overflow detection as a safety measure
 - Returns a palloc'd string that must be freed by the caller
 - Essential for converting PostgreSQL function definitions into executable Python code
+
+## Simplified Source
+
+```c
+static char *PLy_procedure_munge_source(const char *name, const char *src) {
+    // Calculate buffer size for transformed source
+    size_t buffer_len = (strlen(src) * 2) + strlen(name) + 16;
+    char *result = palloc(buffer_len);
+
+    // Create Python function definition header
+    int header_len = snprintf(result, buffer_len, "def %s():\n\t", name);
+    Assert(header_len >= 0 && header_len < buffer_len);
+
+    // Transform source by adding proper indentation
+    const char *src_ptr = src;
+    char *dest_ptr = result + header_len;
+
+    while (*src_ptr != '\0') {
+        // Handle different line ending conventions
+        if (*src_ptr == '\r' && *(src_ptr + 1) == '\n')
+            src_ptr++;  // Skip \r in \r\n sequence
+
+        if (*src_ptr == '\n' || *src_ptr == '\r') {
+            // Add newline and tab indentation
+            *dest_ptr++ = '\n';
+            *dest_ptr++ = '\t';
+            src_ptr++;
+        } else {
+            *dest_ptr++ = *src_ptr++;
+        }
+    }
+
+    // Terminate with double newline
+    *dest_ptr++ = '\n';
+    *dest_ptr++ = '\n';
+    *dest_ptr = '\0';
+
+    // Safety check for buffer overflow
+    if (dest_ptr > (result + buffer_len))
+        elog(FATAL, "buffer overrun in PLy_procedure_munge_source");
+
+    return result;
+}
+```

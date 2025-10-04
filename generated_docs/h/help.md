@@ -90,3 +90,56 @@ The function uses internationalization support through the  macro for translatab
 - Provides comprehensive coverage including debugging levels, connection parameters, memory settings, and operational modes
 - Help text includes references to documentation and bug reporting information
 - Function design ensures consistency across PostgreSQL command-line tools
+
+## Simplified Source
+```c
+static void help(const char *progname) {
+    // Basic program introduction
+    printf(_("%s is the PostgreSQL server.\n\n"), progname);
+    printf(_("Usage:\n  %s [OPTION]...\n\n"), progname);
+
+    // Core server options
+    printf(_("Options:\n"));
+    printf(_("  -B NBUFFERS        number of shared buffers\n"));
+    printf(_("  -c NAME=VALUE      set run-time parameter\n"));
+    printf(_("  -C NAME            print value of run-time parameter, then exit\n"));
+    printf(_("  -d 1-5             debugging level\n"));
+    printf(_("  -D DATADIR         database directory\n"));
+    printf(_("  -e                 use European date input format (DMY)\n"));
+    printf(_("  -F                 turn fsync off\n"));
+    printf(_("  -h HOSTNAME        host name or IP address to listen on\n"));
+    printf(_("  -k DIRECTORY       Unix-domain socket location\n"));
+#ifdef USE_SSL
+    printf(_("  -l                 enable SSL connections\n"));
+#endif
+    printf(_("  -N MAX-CONNECT     maximum number of allowed connections\n"));
+    printf(_("  -p PORT            port number to listen on\n"));
+    printf(_("  -V, --version      output version information, then exit\n"));
+    printf(_("  -?, --help         show this help, then exit\n"));
+
+    // Developer options
+    printf(_("\nDeveloper options:\n"));
+    printf(_("  -f s|i|o|b|t|n|m|h forbid use of some plan types\n"));
+    printf(_("  -O                 allow system table structure changes\n"));
+    printf(_("  -P                 disable system indexes\n"));
+    printf(_("  -T                 send SIGABRT to all backend processes if one dies\n"));
+
+    // Single-user mode
+    printf(_("\nOptions for single-user mode:\n"));
+    printf(_("  --single           selects single-user mode (must be first argument)\n"));
+    printf(_("  DBNAME             database name (defaults to user name)\n"));
+    printf(_("  -E                 echo statement before execution\n"));
+
+    // Bootstrap mode
+    printf(_("\nOptions for bootstrapping mode:\n"));
+    printf(_("  --boot             selects bootstrapping mode (must be first argument)\n"));
+    printf(_("  --check            selects check mode (must be first argument)\n"));
+
+    // Documentation references
+    printf(_("\nPlease read the documentation for the complete list of run-time\n"
+             "configuration settings and how to set them on the command line or in\n"
+             "the configuration file.\n\n"
+             "Report bugs to <%s>.\n"), PACKAGE_BUGREPORT);
+    printf(_("%s home page: <%s>\n"), PACKAGE_NAME, PACKAGE_URL);
+}
+```

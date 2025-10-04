@@ -43,3 +43,59 @@ The algorithm restarts the search after each loop is found and broken, ensuring 
 - The function intentionally restarts the search after each loop break rather than attempting to maintain search state
 - Temporary fields in states are cleared as part of the cleanup process
 - The cleanup phase is intentionally not thorough since the general cleanup() function will handle remaining issues
+
+## Simplified Source
+
+```c
+static void
+fixconstraintloops(struct nfa *nfa, FILE *f)
+{
+    struct state *s, *nexts;
+    struct arc *a, *nexta;
+    int hasconstraints = 0;
+
+    // Phase 1: Remove trivial self-loops and check for remaining constraints
+    for (s = nfa->states; s != NULL && !NISERR(); s = nexts) {
+        nexts = s->next;
+        s->tmp = NULL;  // Clear tmp fields for next phase
+
+        for (a = s->outs; a != NULL && !NISERR(); a = nexta) {
+            nexta = a->outchain;
+            if (isconstraintarc(a)) {
+                if (a->to == s)
+                    freearc(nfa, a);  // Remove self-loop
+                else
+                    hasconstraints = 1;  // Mark that constraints remain
+            }
+        }
+
+        // Remove useless states with no outarcs
+        if (s->nouts == 0 && !s->flag)
+            dropstate(nfa, s);
+    }
+
+    if (NISERR() || !hasconstraints)
+        return;
+
+    // Phase 2: Find and break multi-state constraint loops
+restart:
+    for (s = nfa->states; s != NULL && !NISERR(); s = s->next) {
+        if (findconstraintloop(nfa, s))
+            goto restart;  // Loop was broken, restart search
+    }
+
+    if (NISERR())
+        return;
+
+    // Phase 3: Clean up states that became useless and clear tmp fields
+    for (s = nfa->states; s != NULL; s = nexts) {
+        nexts = s->next;
+        s->tmp = NULL;
+        if ((s->nins == 0 || s->nouts == 0) && !s->flag)
+            dropstate(nfa, s);
+    }
+
+    if (f != NULL)
+        dumpnfa(nfa, f);  // Debug output if requested
+}
+```

@@ -65,3 +65,119 @@ The function manages complex memory contexts to ensure proper resource lifecycle
 - Plans are made persistent with SPI_keepplan for reuse across transactions
 - Returns unique query identifier string for use with execution functions
 - Supports complex parameter type resolution including domains and custom types
+
+## Simplified Source
+
+```c
+SV *
+plperl_spi_prepare(char *query, int argc, SV **argv)
+{
+    volatile SPIPlanPtr plan = NULL;
+    volatile MemoryContext plan_cxt = NULL;
+    plperl_query_desc *volatile qdesc = NULL;
+    plperl_query_entry *volatile hash_entry = NULL;
+    MemoryContext oldcontext = CurrentMemoryContext;
+    ResourceOwner oldowner = CurrentResourceOwner;
+    MemoryContext work_cxt;
+    int i;
+
+    check_spi_usage_allowed();
+
+    // Execute in subtransaction for error handling
+    BeginInternalSubTransaction(NULL);
+    MemoryContextSwitchTo(oldcontext);
+
+    PG_TRY();
+    {
+        // Create memory context for query descriptor
+        plan_cxt = AllocSetContextCreate(TopMemoryContext,
+                                       "PL/Perl spi_prepare query",
+                                       ALLOCSET_SMALL_SIZES);
+        MemoryContextSwitchTo(plan_cxt);
+
+        // Allocate and initialize query descriptor
+        qdesc = (plperl_query_desc *) palloc0(sizeof(plperl_query_desc));
+        snprintf(qdesc->qname, sizeof(qdesc->qname), "%p", qdesc);
+        qdesc->plan_cxt = plan_cxt;
+        qdesc->nargs = argc;
+        qdesc->argtypes = (Oid *) palloc(argc * sizeof(Oid));
+        qdesc->arginfuncs = (FmgrInfo *) palloc(argc * sizeof(FmgrInfo));
+        qdesc->argtypioparams = (Oid *) palloc(argc * sizeof(Oid));
+
+        MemoryContextSwitchTo(oldcontext);
+
+        // Create workspace for parameter type resolution
+        work_cxt = AllocSetContextCreate(CurrentMemoryContext,
+                                       "PL/Perl spi_prepare workspace",
+                                       ALLOCSET_DEFAULT_SIZES);
+        MemoryContextSwitchTo(work_cxt);
+
+        // Resolve parameter types
+        for (i = 0; i < argc; i++)
+        {
+            Oid typId, typInput, typIOParam;
+            int32 typmod;
+            char *typstr;
+
+            typstr = sv2cstr(argv[i]);
+            (void) parseTypeString(typstr, &typId, &typmod, NULL);
+            pfree(typstr);
+
+            getTypeInputInfo(typId, &typInput, &typIOParam);
+
+            qdesc->argtypes[i] = typId;
+            fmgr_info_cxt(typInput, &(qdesc->arginfuncs[i]), plan_cxt);
+            qdesc->argtypioparams[i] = typIOParam;
+        }
+
+        // Validate and prepare the query
+        pg_verifymbstr(query, strlen(query), false);
+        plan = SPI_prepare(query, argc, qdesc->argtypes);
+        if (plan == NULL)
+            elog(ERROR, "SPI_prepare() failed:%s", SPI_result_code_string(SPI_result));
+
+        // Make plan persistent and store in hash table
+        if (SPI_keepplan(plan))
+            elog(ERROR, "SPI_keepplan() failed");
+        qdesc->plan = plan;
+
+        hash_entry = hash_search(plperl_active_interp->query_hash,
+                               qdesc->qname, HASH_ENTER, NULL);
+        hash_entry->query_data = qdesc;
+
+        // Clean up workspace
+        MemoryContextDelete(work_cxt);
+
+        // Commit subtransaction
+        ReleaseCurrentSubTransaction();
+        MemoryContextSwitchTo(oldcontext);
+        CurrentResourceOwner = oldowner;
+    }
+    PG_CATCH();
+    {
+        // Handle errors: cleanup and propagate to Perl
+        ErrorData *edata;
+        MemoryContextSwitchTo(oldcontext);
+        edata = CopyErrorData();
+        FlushErrorState();
+
+        // Clean up allocated resources
+        if (hash_entry)
+            hash_search(plperl_active_interp->query_hash, qdesc->qname, HASH_REMOVE, NULL);
+        if (plan_cxt)
+            MemoryContextDelete(plan_cxt);
+        if (plan)
+            SPI_freeplan(plan);
+
+        RollbackAndReleaseCurrentSubTransaction();
+        MemoryContextSwitchTo(oldcontext);
+        CurrentResourceOwner = oldowner;
+
+        croak_cstr(edata->message);
+        return NULL;
+    }
+    PG_END_TRY();
+
+    return cstr2sv(qdesc->qname);
+}
+```

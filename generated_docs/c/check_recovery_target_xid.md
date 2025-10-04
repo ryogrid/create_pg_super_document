@@ -35,3 +35,32 @@ This function serves as a GUC check hook for the  parameter. It validates that t
 - Allocates memory to store the validated TransactionId for the assign hook
 - Empty string values are valid and indicate the recovery target XID should be unset
 - Located in src/backend/access/transam/xlogrecovery.c:5012-5034
+
+## Simplified Source
+
+```c
+bool check_recovery_target_xid(char **newval, void **extra, GucSource source) {
+    // Allow empty string (unsets recovery target)
+    if (strcmp(*newval, "") != 0) {
+        TransactionId xid;
+
+        // Parse transaction ID as 64-bit unsigned integer
+        errno = 0;
+        xid = (TransactionId) strtou64(*newval, NULL, 0);
+        if (errno == EINVAL || errno == ERANGE)
+            return false;
+
+        // Store parsed XID for assign hook
+        TransactionId *myextra = (TransactionId *) guc_malloc(ERROR, sizeof(TransactionId));
+        *myextra = xid;
+        *extra = (void *) myextra;
+    }
+    return true;
+}
+```
+
+**Simplified Logic:**
+1. **Empty Check**: Allows empty strings to unset the recovery target XID
+2. **Parse XID**: Uses strtou64 to parse the transaction ID as a 64-bit unsigned integer
+3. **Error Handling**: Returns false if the XID value is invalid or out of range
+4. **Store Result**: Allocates memory to store the parsed TransactionId for the assign hook

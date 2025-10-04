@@ -40,3 +40,27 @@ The function replaces the original input with a cleaned version, ensuring that a
 - Returns `true` if the validation succeeds, `false` if it fails (e.g., due to memory allocation issues)
 - The `cluster_name` parameter is typically used in high-availability and replication scenarios to identify different database clusters
 - The ASCII sanitization helps prevent issues with character encoding and ensures consistent display across different systems and interfaces
+
+## Simplified Source
+
+```c
+bool check_cluster_name(char **newval, void **extra, GucSource source) {
+    // Clean ASCII characters from the cluster name
+    char *clean = pg_clean_ascii(*newval, MCXT_ALLOC_NO_OOM);
+    if (!clean)
+        return false;
+
+    // Duplicate the cleaned string using GUC memory management
+    char *ret = guc_strdup(WARNING, clean);
+    if (!ret) {
+        pfree(clean);
+        return false;
+    }
+
+    // Replace the original string with the cleaned version
+    guc_free(*newval);
+    pfree(clean);
+    *newval = ret;
+    return true;
+}
+```

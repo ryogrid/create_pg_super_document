@@ -47,3 +47,76 @@ The cloning process is recursive and handles complex scenarios including overlap
 - Can eliminate loops entirely if cloned successor states have no useful outarcs
 - The algorithm is designed to handle NP-hard scenarios without exhaustive loop detection
 - All tmp fields are guaranteed to be NULL after function completion
+
+## Simplified Source
+
+```c
+static void
+breakconstraintloop(struct nfa *nfa, struct state *sinitial)
+{
+    struct state *s, *shead, *stail, *sclone, *nexts;
+    struct arc *refarc = NULL, *a, *nexta;
+
+    // Phase 1: Find optimal break point (prefer single constraint arc)
+    s = sinitial;
+    do {
+        nexts = s->tmp;
+        assert(nexts != s);
+
+        if (refarc == NULL) {
+            int narcs = 0;
+            for (a = s->outs; a != NULL; a = a->outchain) {
+                if (a->to == nexts && isconstraintarc(a)) {
+                    refarc = a;
+                    narcs++;
+                }
+            }
+            if (narcs > 1)
+                refarc = NULL;  // Multiple arcs, not optimal
+        }
+        s = nexts;
+    } while (s != sinitial);
+
+    // Choose break point
+    if (refarc) {
+        shead = refarc->from;
+        stail = refarc->to;
+    } else {
+        shead = sinitial;
+        stail = sinitial->tmp;
+    }
+
+    // Phase 2: Clear tmp fields for cloning process
+    for (s = nfa->states; s != NULL; s = s->next)
+        s->tmp = NULL;
+
+    // Phase 3: Create clone state and recursively build successors
+    sclone = newstate(nfa);
+    if (sclone == NULL)
+        return;
+
+    clonesuccessorstates(nfa, stail, sclone, shead, refarc,
+                         NULL, NULL, nfa->nstates);
+
+    if (NISERR())
+        return;
+
+    // Phase 4: Optimize - remove useless clone if it has no outarcs
+    if (sclone->nouts == 0) {
+        freestate(nfa, sclone);
+        sclone = NULL;
+    }
+
+    // Phase 5: Redirect constraint arcs to clone (or drop if no clone)
+    for (a = shead->outs; a != NULL; a = nexta) {
+        nexta = a->outchain;
+        if (a->to == stail && isconstraintarc(a)) {
+            if (sclone)
+                cparc(nfa, a, shead, sclone);
+            freearc(nfa, a);
+            if (NISERR())
+                break;
+        }
+    }
+}
+```

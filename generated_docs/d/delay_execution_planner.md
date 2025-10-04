@@ -48,3 +48,32 @@ This mechanism allows tests to control the timing of query planning operations, 
 - Advisory locks are used instead of sleep functions to create delays that are more predictable and testable
 - The function properly chains with other planner hooks by checking for 
 - Cache invalidation processing ensures the delay doesn't interfere with PostgreSQL's cache consistency mechanisms
+
+## Simplified Source
+
+```c
+static PlannedStmt *
+delay_execution_planner(Query *parse, const char *query_string,
+                        int cursorOptions, ParamListInfo boundParams)
+{
+    PlannedStmt *result;
+
+    // Call the planner (previous hook or standard planner)
+    if (prev_planner_hook)
+        result = prev_planner_hook(parse, query_string, cursorOptions, boundParams);
+    else
+        result = standard_planner(parse, query_string, cursorOptions, boundParams);
+
+    // Apply configured delay using advisory locks
+    if (post_planning_lock_id != 0) {
+        // Acquire and immediately release lock to create delay
+        DirectFunctionCall1(pg_advisory_lock_int8, Int64GetDatum(post_planning_lock_id));
+        DirectFunctionCall1(pg_advisory_unlock_int8, Int64GetDatum(post_planning_lock_id));
+
+        // Process any pending cache invalidations
+        AcceptInvalidationMessages();
+    }
+
+    return result;
+}
+```

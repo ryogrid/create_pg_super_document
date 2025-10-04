@@ -38,3 +38,27 @@ The  function is a PostgreSQL C function designed for use in regression testing 
 - Returns only when the target process has terminated (errno == ESRCH) or when an unexpected error occurs
 - Located in src/test/regress/regress.c as part of PostgreSQL's test infrastructure
 - Any error other than "No such process" (ESRCH) results in an ERROR being raised
+
+## Simplified Source
+
+```c
+Datum wait_pid(PG_FUNCTION_ARGS) {
+    int pid = PG_GETARG_INT32(0);
+
+    // Security check: only superusers can monitor processes
+    if (!superuser())
+        elog(ERROR, "must be superuser to check PID liveness");
+
+    // Poll until process no longer exists
+    while (kill(pid, 0) == 0) {
+        CHECK_FOR_INTERRUPTS();  // Allow query cancellation
+        pg_usleep(50000);        // Sleep 50ms between checks
+    }
+
+    // Verify process actually terminated (not other error)
+    if (errno != ESRCH)
+        elog(ERROR, "could not check PID %d liveness: %m", pid);
+
+    PG_RETURN_VOID();
+}
+```

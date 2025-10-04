@@ -51,3 +51,39 @@ In this case, it shares the buffer reference via tts_buffer_heap_store_tuple() b
 - The buffer sharing optimization reduces memory allocation and copying overhead when both slots can reference the same underlying buffer page
 - The function handles cross-slot-type copying by falling back to the full copy strategy when slot types differ
 - This is a static function implementing part of the BufferHeapTupleTableSlot virtual method table in src/backend/executor/execTuples.c
+
+## Simplified Source
+
+```c
+static void
+tts_buffer_heap_copyslot(TupleTableSlot *dstslot, TupleTableSlot *srcslot)
+{
+    BufferHeapTupleTableSlot *bsrcslot = (BufferHeapTupleTableSlot *) srcslot;
+    BufferHeapTupleTableSlot *bdstslot = (BufferHeapTupleTableSlot *) dstslot;
+
+    // Check if we can share buffer reference or need full copy
+    if (dstslot->tts_ops != srcslot->tts_ops ||
+        TTS_SHOULDFREE(srcslot) ||
+        !bsrcslot->base.tuple) {
+        // Different slot types or incompatible state - make full copy
+        MemoryContext oldContext;
+
+        ExecClearTuple(dstslot);
+        dstslot->tts_flags &= ~TTS_FLAG_EMPTY;
+        oldContext = MemoryContextSwitchTo(dstslot->tts_mcxt);
+        bdstslot->base.tuple = ExecCopySlotHeapTuple(srcslot);
+        dstslot->tts_flags |= TTS_FLAG_SHOULDFREE;
+        MemoryContextSwitchTo(oldContext);
+    } else {
+        // Share buffer reference for efficiency
+        Assert(BufferIsValid(bsrcslot->buffer));
+
+        tts_buffer_heap_store_tuple(dstslot, bsrcslot->base.tuple,
+                                   bsrcslot->buffer, false);
+
+        // Copy HeapTupleData locally to ensure independence
+        memcpy(&bdstslot->base.tupdata, bdstslot->base.tuple, sizeof(HeapTupleData));
+        bdstslot->base.tuple = &bdstslot->base.tupdata;
+    }
+}
+```

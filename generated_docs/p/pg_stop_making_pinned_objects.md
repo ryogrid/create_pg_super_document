@@ -41,3 +41,21 @@ This function follows the PostgreSQL function calling convention:
 - **Object ID Management**: Critical for proper separation between system (pinned) and user (unpinned) objects
 - **Error Handling**: Includes comprehensive error reporting for insufficient privileges
 - **Documentation Status**: Intentionally undocumented in user manuals due to its specialized internal use case
+
+## Simplified Source
+
+```c
+Datum pg_stop_making_pinned_objects(PG_FUNCTION_ARGS) {
+    // Security check: only superusers can call this function
+    if (!superuser()) {
+        ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                       errmsg("must be superuser to call %s()",
+                              "pg_stop_making_pinned_objects")));
+    }
+
+    // Stop generating pinned object IDs and switch to unpinned mode
+    StopGeneratingPinnedObjectIds();
+
+    PG_RETURN_VOID();
+}
+```

@@ -34,3 +34,12 @@ This inline function provides a convenient wrapper to convert an ExpandedRecordH
 - Used primarily when you need to pass expanded records as Datums but want to ensure immutability
 - Commonly used in domain checking and field setting operations where read-only access is sufficient
 - Located in src/include/utils/expandedrecord.h:149-153
+
+## Simplified Source
+
+```c
+static inline Datum ExpandedRecordGetRODatum(const ExpandedRecordHeader *erh) {
+    // Convert expanded record header to read-only Datum
+    return EOHPGetRODatum(&erh->hdr);
+}
+```

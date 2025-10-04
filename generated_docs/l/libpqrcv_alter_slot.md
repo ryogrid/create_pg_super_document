@@ -41,3 +41,31 @@ This function constructs and executes an ALTER_REPLICATION_SLOT command to modif
 - This functionality is typically used in high-availability setups where slots need dynamic reconfiguration
 - Memory is properly managed with pfree() for the command string and PQclear() for the result
 - Location: src/backend/replication/libpqwalreceiver/libpqwalreceiver.c:1123-1149
+
+## Simplified Source
+
+```c
+static void
+libpqrcv_alter_slot(WalReceiverConn *conn, const char *slotname, bool failover)
+{
+    StringInfoData cmd;
+    PGresult *res;
+
+    // Build ALTER_REPLICATION_SLOT command
+    initStringInfo(&cmd);
+    appendStringInfo(&cmd, "ALTER_REPLICATION_SLOT %s ( FAILOVER %s )",
+                     quote_identifier(slotname),
+                     failover ? "true" : "false");
+
+    // Execute command
+    res = libpqrcv_PQexec(conn->streamConn, cmd.data);
+    pfree(cmd.data);
+
+    // Check result
+    if (PQresultStatus(res) != PGRES_COMMAND_OK)
+        ereport(ERROR, (errmsg("could not alter replication slot \"%s\": %s",
+                               slotname, pchomp(PQerrorMessage(conn->streamConn)))));
+
+    PQclear(res);
+}
+```

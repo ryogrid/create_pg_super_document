@@ -29,3 +29,20 @@ This function extracts a MinimalTuple from a MinimalTupleTableSlot and converts 
 - Returns a newly allocated HeapTuple that the caller is responsible for freeing
 - The conversion adds system columns with default values since minimal tuples don't store them
 - Used when code requires a full HeapTuple but the slot contains only a minimal tuple
+
+## Simplified Source
+
+```c
+static HeapTuple
+tts_minimal_copy_heap_tuple(TupleTableSlot *slot)
+{
+    MinimalTupleTableSlot *mslot = (MinimalTupleTableSlot *) slot;
+
+    // Ensure the minimal tuple is materialized
+    if (!mslot->mintuple)
+        tts_minimal_materialize(slot);
+
+    // Convert minimal tuple to full heap tuple format
+    return heap_tuple_from_minimal_tuple(mslot->mintuple);
+}
+```

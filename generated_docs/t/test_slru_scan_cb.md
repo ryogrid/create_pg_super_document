@@ -32,3 +32,14 @@ This function serves as a callback for SLRU directory scanning operations in the
 - The function always returns the result of , which is typically a boolean indicating success
 - The logging message helps track callback invocation during testing scenarios
 - Part of the SLRU (Simple Log-structured Record Update) testing infrastructure
+
+## Simplified Source
+
+```c
+static bool
+test_slru_scan_cb(SlruCtl ctl, char *filename, int64 segpage, void *data)
+{
+    elog(NOTICE, "Calling test_slru_scan_cb()");
+    return SlruScanDirCbDeleteAll(ctl, filename, segpage, data);
+}
+```

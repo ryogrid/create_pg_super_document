@@ -35,3 +35,13 @@ ECPGdeallocate_all(int lineno, int compat, const char *connection_name)
 - The function will fail if the specified connection_name does not exist
 - Commonly used during application shutdown or when resetting connection state
 - More convenient than manually iterating through and deallocating individual prepared statements
+
+## Simplified Source
+
+```c
+bool ECPGdeallocate_all(int lineno, int compat, const char *connection_name) {
+    // Simple wrapper - get connection and delegate to internal function
+    return ecpg_deallocate_all_conn(lineno, compat,
+                                   ecpg_get_connection(connection_name));
+}
+```

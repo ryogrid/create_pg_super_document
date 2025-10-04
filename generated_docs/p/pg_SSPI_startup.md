@@ -48,6 +48,57 @@ The function provides flexibility in authentication protocols while maintaining 
 - Sets  flag to ensure proper authentication flow continuation
 - Supports outbound credentials only ()
 - Provides Unix compatibility when  (Kerberos-only mode)
-- Memory allocated for credentials and target principal is cleaned up by 
+- Memory allocated for credentials and target principal is cleaned up by
 - Returns STATUS_OK on successful setup, STATUS_ERROR on validation or setup failures
-- The actual SSPI token exchange begins immediately via delegation to 
+- The actual SSPI token exchange begins immediately via delegation to
+
+## Simplified Source
+
+```c
+static int pg_SSPI_startup(PGconn *conn, int use_negotiate, int payloadlen) {
+    SECURITY_STATUS r;
+    TimeStamp expire;
+    char *host = conn->connhost[conn->whichhost].host;
+
+    // Prevent duplicate SSPI authentication attempts
+    if (conn->sspictx) {
+        libpq_append_conn_error(conn, "duplicate SSPI authentication request");
+        return STATUS_ERROR;
+    }
+
+    // Acquire SSPI credentials for selected security package
+    conn->sspicred = malloc(sizeof(CredHandle));
+    if (conn->sspicred == NULL) {
+        libpq_append_conn_error(conn, "out of memory");
+        return STATUS_ERROR;
+    }
+
+    r = AcquireCredentialsHandle(NULL, use_negotiate ? "negotiate" : "kerberos",
+                                 SECPKG_CRED_OUTBOUND, NULL, NULL, NULL, NULL,
+                                 conn->sspicred, &expire);
+    if (r != SEC_E_OK) {
+        pg_SSPI_error(conn, libpq_gettext("could not acquire SSPI credentials"), r);
+        free(conn->sspicred);
+        conn->sspicred = NULL;
+        return STATUS_ERROR;
+    }
+
+    // Validate hostname and construct target principal name
+    if (!(host && host[0] != '\0')) {
+        libpq_append_conn_error(conn, "host name must be specified");
+        return STATUS_ERROR;
+    }
+    conn->sspitarget = malloc(strlen(conn->krbsrvname) + strlen(host) + 2);
+    if (!conn->sspitarget) {
+        libpq_append_conn_error(conn, "out of memory");
+        return STATUS_ERROR;
+    }
+    sprintf(conn->sspitarget, "%s/%s", conn->krbsrvname, host);
+
+    // Set SSPI authentication mode flag
+    conn->usesspi = 1;
+
+    // Delegate to continuation function for token exchange
+    return pg_SSPI_continue(conn, payloadlen);
+}
+``` 

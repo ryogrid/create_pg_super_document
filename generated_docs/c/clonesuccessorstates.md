@@ -67,3 +67,113 @@ Key optimizations include:
 - Prevents infinite recursion through both stack depth checking and visited state tracking
 - Non-constraint outarcs and states without constraint outarcs are linked as-is rather than cloned
 - The donemap inheritance mechanism prevents revisiting states being processed at outer recursion levels
+
+## Simplified Source
+
+```c
+static void
+clonesuccessorstates(struct nfa *nfa, struct state *ssource, struct state *sclone,
+                     struct state *spredecessor, struct arc *refarc,
+                     char *curdonemap, char *outerdonemap, int nstates)
+{
+    char *donemap;
+    struct arc *a;
+
+    // Stack overflow protection
+    if (STACK_TOO_DEEP(nfa->v->re)) {
+        NERR(REG_ETOOBIG);
+        return;
+    }
+
+    // Initialize donemap for tracking visited states
+    donemap = curdonemap;
+    if (donemap == NULL) {
+        donemap = (char *) MALLOC(nstates * sizeof(char));
+        if (donemap == NULL) {
+            NERR(REG_ESPACE);
+            return;
+        }
+
+        if (outerdonemap != NULL)
+            memcpy(donemap, outerdonemap, nstates * sizeof(char));
+        else {
+            memset(donemap, 0, nstates * sizeof(char));
+            donemap[spredecessor->no] = 1;  // Mark predecessor as off-limits
+        }
+    }
+
+    // Mark current source state as visited
+    donemap[ssource->no] = 1;
+
+    // Phase 1: Clone all outarcs, creating child clone states as needed
+    for (a = ssource->outs; a != NULL && !NISERR(); a = a->outchain) {
+        struct state *sto = a->to;
+
+        if (isconstraintarc(a) && hasconstraintout(sto)) {
+            // Don't revisit already processed states
+            if (donemap[sto->no] != 0)
+                continue;
+
+            // Check if we already have a clone for this destination
+            struct state *prevclone = NULL;
+            struct arc *a2;
+            for (a2 = sclone->outs; a2 != NULL; a2 = a2->outchain) {
+                if (a2->to->tmp == sto) {
+                    prevclone = a2->to;
+                    break;
+                }
+            }
+
+            // Determine if we can merge states based on constraint satisfaction
+            int canmerge = 0;
+            if (refarc && a->type == refarc->type && a->co == refarc->co)
+                canmerge = 1;
+            else {
+                struct state *s;
+                for (s = sclone; s->ins; s = s->ins->from) {
+                    if (s->nins == 1 && a->type == s->ins->type && a->co == s->ins->co) {
+                        canmerge = 1;
+                        break;
+                    }
+                }
+            }
+
+            if (canmerge) {
+                // Merge into current clone state
+                if (prevclone)
+                    dropstate(nfa, prevclone);
+                clonesuccessorstates(nfa, sto, sclone, spredecessor, refarc,
+                                     donemap, outerdonemap, nstates);
+            } else if (prevclone) {
+                // Reuse existing clone
+                cparc(nfa, a, sclone, prevclone);
+            } else {
+                // Create new clone state
+                struct state *stoclone = newstate(nfa);
+                if (stoclone == NULL)
+                    break;
+                stoclone->tmp = sto;
+                cparc(nfa, a, sclone, stoclone);
+            }
+        } else {
+            // Non-constraint arcs: copy as-is
+            cparc(nfa, a, sclone, sto);
+        }
+    }
+
+    // Phase 2: Recursively process child clone states
+    if (curdonemap == NULL) {
+        for (a = sclone->outs; a != NULL && !NISERR(); a = a->outchain) {
+            struct state *stoclone = a->to;
+            struct state *sto = stoclone->tmp;
+
+            if (sto != NULL) {
+                stoclone->tmp = NULL;
+                clonesuccessorstates(nfa, sto, stoclone, spredecessor, refarc,
+                                     NULL, donemap, nstates);
+            }
+        }
+        FREE(donemap);
+    }
+}
+```

@@ -35,3 +35,37 @@ The function treats Datum values as unsigned integers and compares them directly
 
 ## Notes and Other Information
 This function is a performance optimization for unsigned data types, avoiding the overhead of function pointer calls used in the general ApplySortComparator. It's specifically designed for sorting operations where the data type is known to be unsigned and can be safely compared using direct integer comparison. The direct comparison approach (datum1 < datum2 ? -1 : datum1 > datum2 ? 1 : 0) provides better performance than calling through a function pointer while maintaining the same 3-way comparison semantics.
+
+## Simplified Source
+
+```c
+static inline int ApplyUnsignedSortComparator(Datum datum1, bool isNull1,
+                                              Datum datum2, bool isNull2,
+                                              SortSupport ssup) {
+    int compare;
+
+    // Handle NULL value comparisons first
+    if (isNull1) {
+        if (isNull2)
+            compare = 0;                    // NULL == NULL
+        else if (ssup->ssup_nulls_first)
+            compare = -1;                   // NULL < NOT_NULL
+        else
+            compare = 1;                    // NULL > NOT_NULL
+    } else if (isNull2) {
+        if (ssup->ssup_nulls_first)
+            compare = 1;                    // NOT_NULL > NULL
+        else
+            compare = -1;                   // NOT_NULL < NULL
+    } else {
+        // Direct unsigned comparison of Datum values for performance
+        compare = datum1 < datum2 ? -1 : datum1 > datum2 ? 1 : 0;
+
+        // Apply reverse sort order if configured
+        if (ssup->ssup_reverse)
+            INVERT_COMPARE_RESULT(compare);
+    }
+
+    return compare;
+}
+```

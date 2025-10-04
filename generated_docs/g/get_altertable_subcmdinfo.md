@@ -54,3 +54,76 @@ The function handles over 40 different ALTER TABLE subcommand types, covering co
 - Comprehensive coverage of all ALTER TABLE subcommand types makes it valuable for thorough testing
 - Part of the test_ddl_deparse extension module infrastructure
 - The extensive switch statement covers the complete spectrum of ALTER TABLE operations in PostgreSQL
+
+## Simplified Source
+
+```c
+Datum get_altertable_subcmdinfo(PG_FUNCTION_ARGS)
+{
+    CollectedCommand *cmd = (CollectedCommand *) PG_GETARG_POINTER(0);
+    ListCell *cell;
+    ReturnSetInfo *rsinfo = (ReturnSetInfo *) fcinfo->resultinfo;
+
+    // Validate input is ALTER TABLE command
+    if (cmd->type != SCT_AlterTable)
+        elog(ERROR, "command is not ALTER TABLE");
+
+    InitMaterializedSRF(fcinfo, 0);
+
+    if (cmd->d.alterTable.subcmds == NIL)
+        elog(ERROR, "empty alter table subcommand list");
+
+    // Process each subcommand
+    foreach(cell, cmd->d.alterTable.subcmds)
+    {
+        CollectedATSubcmd *sub = lfirst(cell);
+        AlterTableCmd *subcmd = castNode(AlterTableCmd, sub->parsetree);
+        const char *strtype = "unrecognized";
+        Datum values[2];
+        bool nulls[2];
+
+        memset(values, 0, sizeof(values));
+        memset(nulls, 0, sizeof(nulls));
+
+        // Map subcommand type to string (extensive switch statement)
+        switch (subcmd->subtype)
+        {
+            case AT_AddColumn:
+                strtype = "ADD COLUMN";
+                break;
+            case AT_DropColumn:
+                strtype = "DROP COLUMN";
+                break;
+            case AT_AddConstraint:
+                strtype = "ADD CONSTRAINT";
+                break;
+            case AT_DropConstraint:
+                strtype = "DROP CONSTRAINT";
+                break;
+            // ... many more cases for all ALTER TABLE operations
+            default:
+                strtype = "unrecognized";
+                break;
+        }
+
+        // Format result: add recursion info if needed
+        if (subcmd->recurse)
+            values[0] = CStringGetTextDatum(psprintf("%s (and recurse)", strtype));
+        else
+            values[0] = CStringGetTextDatum(strtype);
+
+        // Add object description if available
+        if (OidIsValid(sub->address.objectId))
+        {
+            char *objdesc = getObjectDescription((const ObjectAddress *) &sub->address, false);
+            values[1] = CStringGetTextDatum(objdesc);
+        }
+        else
+            nulls[1] = true;
+
+        tuplestore_putvalues(rsinfo->setResult, rsinfo->setDesc, values, nulls);
+    }
+
+    return (Datum) 0;
+}
+```

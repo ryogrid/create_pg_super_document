@@ -53,3 +53,76 @@ The function ensures proper resource management by unpinning and closing cursors
 - Memory management includes automatic cleanup of SPI tuple tables
 - Uses dTHX macro for thread-safe Perl API access
 - Error propagation maintains consistency with Perl exception handling
+
+## Simplified Source
+
+```c
+SV *
+plperl_spi_fetchrow(char *cursor)
+{
+    SV *row;
+    MemoryContext oldcontext = CurrentMemoryContext;
+    ResourceOwner oldowner = CurrentResourceOwner;
+
+    check_spi_usage_allowed();
+
+    // Execute fetch in subtransaction for error handling
+    BeginInternalSubTransaction(NULL);
+    MemoryContextSwitchTo(oldcontext);
+
+    PG_TRY();
+    {
+        dTHX;
+        Portal p = SPI_cursor_find(cursor);
+
+        if (!p)
+        {
+            // Cursor not found
+            row = &PL_sv_undef;
+        }
+        else
+        {
+            // Fetch one row forward
+            SPI_cursor_fetch(p, true, 1);
+            if (SPI_processed == 0)
+            {
+                // No more rows - close cursor
+                UnpinPortal(p);
+                SPI_cursor_close(p);
+                row = &PL_sv_undef;
+            }
+            else
+            {
+                // Convert tuple to Perl hash
+                row = plperl_hash_from_tuple(SPI_tuptable->vals[0],
+                                           SPI_tuptable->tupdesc,
+                                           true);
+            }
+            SPI_freetuptable(SPI_tuptable);
+        }
+
+        // Commit subtransaction
+        ReleaseCurrentSubTransaction();
+        MemoryContextSwitchTo(oldcontext);
+        CurrentResourceOwner = oldowner;
+    }
+    PG_CATCH();
+    {
+        // Handle errors: rollback and propagate to Perl
+        ErrorData *edata;
+        MemoryContextSwitchTo(oldcontext);
+        edata = CopyErrorData();
+        FlushErrorState();
+
+        RollbackAndReleaseCurrentSubTransaction();
+        MemoryContextSwitchTo(oldcontext);
+        CurrentResourceOwner = oldowner;
+
+        croak_cstr(edata->message);
+        return NULL;
+    }
+    PG_END_TRY();
+
+    return row;
+}
+```

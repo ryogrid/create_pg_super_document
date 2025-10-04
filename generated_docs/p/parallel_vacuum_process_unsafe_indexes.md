@@ -41,3 +41,34 @@ Unlike the parallel-safe index processing, this function uses a simple sequentia
 - Executes before parallel workers start processing safe indexes
 - Uses sequential processing since parallelization is not safe for these indexes
 - Essential for ensuring all indexes are processed even when they can't participate in parallel operations
+
+## Simplified Source
+
+```c
+static void
+parallel_vacuum_process_unsafe_indexes(ParallelVacuumState *pvs)
+{
+    Assert(!IsParallelWorker());
+
+    // Register as active worker for vacuum delay calculations
+    if (VacuumActiveNWorkers)
+        pg_atomic_add_fetch_u32(VacuumActiveNWorkers, 1);
+
+    // Process each unsafe index sequentially
+    for (int i = 0; i < pvs->nindexes; i++) {
+        PVIndStats *indstats = &(pvs->indstats[i]);
+
+        // Skip indexes that are safe for parallel processing
+        // (these will be handled by parallel_vacuum_process_safe_indexes)
+        if (indstats->parallel_workers_can_process)
+            continue;
+
+        // Process this unsafe index
+        parallel_vacuum_process_one_index(pvs, pvs->indrels[i], indstats);
+    }
+
+    // Unregister as active worker
+    if (VacuumActiveNWorkers)
+        pg_atomic_sub_fetch_u32(VacuumActiveNWorkers, 1);
+}
+```

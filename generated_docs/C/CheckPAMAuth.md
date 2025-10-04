@@ -45,3 +45,104 @@ The function supports configurable PAM services through pg_hba.conf and can opti
 - Sets authenticated identity using set_authn_id only upon successful authentication
 - Includes comprehensive error logging with PAM-specific error messages for troubleshooting
 - Handles the pam_no_password flag to suppress logging when clients intentionally don't provide passwords
+
+## Simplified Source
+
+```c
+// Simplified version of CheckPAMAuth
+static int CheckPAMAuth(Port *port, const char *user, const char *password) {
+    pam_handle_t *pamh = NULL;
+    int retval;
+
+    // Step 1: Set up global variables for conversation callback
+    pam_passwd = password;
+    pam_port_cludge = port;
+    pam_no_password = false;
+    pam_passw_conv.appdata_ptr = unconstify(char *, password);
+
+    // Step 2: Initialize PAM session
+    const char *service = (port->hba->pamservice && port->hba->pamservice[0] != '\0') ?
+                         port->hba->pamservice : PGSQL_PAM_SERVICE;
+
+    retval = pam_start(service, "pgsql@", &pam_passw_conv, &pamh);
+    if (retval != PAM_SUCCESS) {
+        ereport(LOG, (errmsg("could not create PAM authenticator: %s",
+                            pam_strerror(pamh, retval))));
+        goto cleanup_and_fail;
+    }
+
+    // Step 3: Set PAM user
+    retval = pam_set_item(pamh, PAM_USER, user);
+    if (retval != PAM_SUCCESS) {
+        ereport(LOG, (errmsg("pam_set_item(PAM_USER) failed: %s",
+                            pam_strerror(pamh, retval))));
+        goto cleanup_and_fail;
+    }
+
+    // Step 4: Set remote host information for non-local connections
+    if (port->hba->conntype != ctLocal) {
+        char hostinfo[NI_MAXHOST];
+        int flags = port->hba->pam_use_hostname ? 0 : (NI_NUMERICHOST | NI_NUMERICSERV);
+
+        retval = pg_getnameinfo_all(&port->raddr.addr, port->raddr.salen,
+                                   hostinfo, sizeof(hostinfo), NULL, 0, flags);
+        if (retval != 0) {
+            ereport(WARNING, (errmsg_internal("pg_getnameinfo_all() failed: %s",
+                                             gai_strerror(retval))));
+            goto cleanup_and_fail;
+        }
+
+        retval = pam_set_item(pamh, PAM_RHOST, hostinfo);
+        if (retval != PAM_SUCCESS) {
+            ereport(LOG, (errmsg("pam_set_item(PAM_RHOST) failed: %s",
+                                pam_strerror(pamh, retval))));
+            goto cleanup_and_fail;
+        }
+    }
+
+    // Step 5: Set conversation function
+    retval = pam_set_item(pamh, PAM_CONV, &pam_passw_conv);
+    if (retval != PAM_SUCCESS) {
+        ereport(LOG, (errmsg("pam_set_item(PAM_CONV) failed: %s",
+                            pam_strerror(pamh, retval))));
+        goto cleanup_and_fail;
+    }
+
+    // Step 6: Perform authentication
+    retval = pam_authenticate(pamh, 0);
+    if (retval != PAM_SUCCESS) {
+        if (!pam_no_password) {
+            ereport(LOG, (errmsg("pam_authenticate failed: %s",
+                                pam_strerror(pamh, retval))));
+        }
+        pam_passwd = NULL;
+        return pam_no_password ? STATUS_EOF : STATUS_ERROR;
+    }
+
+    // Step 7: Perform account management check
+    retval = pam_acct_mgmt(pamh, 0);
+    if (retval != PAM_SUCCESS) {
+        if (!pam_no_password) {
+            ereport(LOG, (errmsg("pam_acct_mgmt failed: %s",
+                                pam_strerror(pamh, retval))));
+        }
+        pam_passwd = NULL;
+        return pam_no_password ? STATUS_EOF : STATUS_ERROR;
+    }
+
+    // Step 8: Clean up PAM session
+    retval = pam_end(pamh, retval);
+    if (retval != PAM_SUCCESS) {
+        ereport(LOG, (errmsg("could not release PAM authenticator: %s",
+                            pam_strerror(pamh, retval))));
+    }
+
+    pam_passwd = NULL;
+    set_authn_id(port, user);
+    return STATUS_OK;
+
+cleanup_and_fail:
+    pam_passwd = NULL;
+    return STATUS_ERROR;
+}
+```

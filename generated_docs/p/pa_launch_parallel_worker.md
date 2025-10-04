@@ -39,3 +39,60 @@ This function implements a worker pool management strategy for parallel apply wo
 - Manages ParallelApplyWorkerPool list to track all created workers
 - Cleans up resources (calls pa_free_worker_info) if worker launch fails
 - Part of PostgreSQL's logical replication parallel processing system located in src/backend/replication/logical/applyparallelworker.c:404-469
+
+## Simplified Source
+
+```c
+static ParallelApplyWorkerInfo *
+pa_launch_parallel_worker(void)
+{
+    MemoryContext oldcontext;
+    bool launched;
+    ParallelApplyWorkerInfo *winfo;
+    ListCell *lc;
+
+    // Try to reuse an available worker from the pool
+    foreach(lc, ParallelApplyWorkerPool)
+    {
+        winfo = (ParallelApplyWorkerInfo *) lfirst(lc);
+        if (!winfo->in_use)
+            return winfo;
+    }
+
+    // No available worker found, create a new one
+    oldcontext = MemoryContextSwitchTo(ApplyContext);
+    winfo = (ParallelApplyWorkerInfo *) palloc0(sizeof(ParallelApplyWorkerInfo));
+
+    // Set up shared memory for communication
+    if (!pa_setup_dsm(winfo))
+    {
+        MemoryContextSwitchTo(oldcontext);
+        pfree(winfo);
+        return NULL;
+    }
+
+    // Launch new parallel apply worker process
+    launched = logicalrep_worker_launch(WORKERTYPE_PARALLEL_APPLY,
+                                       MyLogicalRepWorker->dbid,
+                                       MySubscription->oid,
+                                       MySubscription->name,
+                                       MyLogicalRepWorker->userid,
+                                       InvalidOid,
+                                       dsm_segment_handle(winfo->dsm_seg));
+
+    if (launched)
+    {
+        // Add to worker pool on success
+        ParallelApplyWorkerPool = lappend(ParallelApplyWorkerPool, winfo);
+    }
+    else
+    {
+        // Clean up on failure
+        pa_free_worker_info(winfo);
+        winfo = NULL;
+    }
+
+    MemoryContextSwitchTo(oldcontext);
+    return winfo;
+}
+```

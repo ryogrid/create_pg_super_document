@@ -41,3 +41,42 @@ The function also manages the active worker count for vacuum delay calculations,
 - Continues processing until all indexes in the array have been claimed (idx >= pvs->nindexes)
 - Thread-safe due to atomic operations for index claiming and worker count management
 - The leader process participates as a worker after handling unsafe indexes separately
+
+## Simplified Source
+
+```c
+static void
+parallel_vacuum_process_safe_indexes(ParallelVacuumState *pvs)
+{
+    // Register as active worker for vacuum delay calculations
+    if (VacuumActiveNWorkers)
+        pg_atomic_add_fetch_u32(VacuumActiveNWorkers, 1);
+
+    // Main work-stealing loop
+    for (;;) {
+        int idx;
+        PVIndStats *indstats;
+
+        // Atomically claim next index to process
+        idx = pg_atomic_fetch_add_u32(&(pvs->shared->idx), 1);
+
+        // Exit if all indexes have been claimed
+        if (idx >= pvs->nindexes)
+            break;
+
+        indstats = &(pvs->indstats[idx]);
+
+        // Skip indexes not safe for parallel processing
+        // (these are handled by parallel_vacuum_process_unsafe_indexes)
+        if (!indstats->parallel_workers_can_process)
+            continue;
+
+        // Process this index (vacuum or cleanup operation)
+        parallel_vacuum_process_one_index(pvs, pvs->indrels[idx], indstats);
+    }
+
+    // Unregister as active worker
+    if (VacuumActiveNWorkers)
+        pg_atomic_sub_fetch_u32(VacuumActiveNWorkers, 1);
+}
+```

@@ -41,3 +41,34 @@ The function opens the policy catalog table (`pg_policy`) with an `AccessShareLo
 - This is a utility function primarily used for quick policy existence checks in the row-level security subsystem
 - The function is thread-safe and follows PostgreSQL's standard catalog access patterns
 - Returns immediately upon finding the first policy, making it efficient for relations with many policies
+
+## Simplified Source
+
+```c
+bool
+relation_has_policies(Relation rel)
+{
+    Relation catalog;
+    ScanKeyData skey;
+    SysScanDesc sscan;
+    HeapTuple policy_tuple;
+    bool ret = false;
+
+    // Open pg_policy catalog and search for policies on this relation
+    catalog = table_open(PolicyRelationId, AccessShareLock);
+    ScanKeyInit(&skey, Anum_pg_policy_polrelid, BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(RelationGetRelid(rel)));
+
+    sscan = systable_beginscan(catalog, PolicyPolrelidPolnameIndexId, true, NULL, 1, &skey);
+    policy_tuple = systable_getnext(sscan);
+
+    // Return true if any policy found
+    if (HeapTupleIsValid(policy_tuple))
+        ret = true;
+
+    systable_endscan(sscan);
+    table_close(catalog, AccessShareLock);
+
+    return ret;
+}
+```

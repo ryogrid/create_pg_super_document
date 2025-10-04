@@ -45,3 +45,40 @@ The function follows a structured initialization pattern: it first establishes t
 - The function exits with code 0 upon successful completion, indicating successful recovery to the postmaster
 - The startup process is a critical component of PostgreSQL's crash recovery and standby server functionality
 - Signal handling is carefully configured to ignore some signals (SIGINT, SIGPIPE) while properly handling others
+
+## Simplified Source
+
+```c
+void StartupProcessMain(char *startup_data, size_t startup_data_len) {
+    // Initialize startup process environment
+    MyBackendType = B_STARTUP;
+    AuxiliaryProcessMainCommon();
+
+    // Register cleanup handler
+    on_shmem_exit(StartupProcExit, 0);
+
+    // Configure signal handlers for process control
+    pqsignal(SIGHUP, StartupProcSigHupHandler);   // config reload
+    pqsignal(SIGINT, SIG_IGN);                   // ignore cancel
+    pqsignal(SIGTERM, StartupProcShutdownHandler); // shutdown
+    pqsignal(SIGUSR1, procsignal_sigusr1_handler);
+    pqsignal(SIGUSR2, StartupProcTriggerHandler);
+    pqsignal(SIGPIPE, SIG_IGN);
+    pqsignal(SIGCHLD, SIG_DFL);
+
+    // Initialize timeouts and standby handlers
+    InitializeTimeouts();
+    RegisterTimeout(STANDBY_DEADLOCK_TIMEOUT, StandbyDeadLockHandler);
+    RegisterTimeout(STANDBY_TIMEOUT, StandbyTimeoutHandler);
+    RegisterTimeout(STANDBY_LOCK_TIMEOUT, StandbyLockTimeoutHandler);
+
+    // Enable signal processing
+    sigprocmask(SIG_SETMASK, &UnBlockSig, NULL);
+
+    // Perform recovery operations
+    StartupXLOG();
+
+    // Exit successfully
+    proc_exit(0);
+}
+```

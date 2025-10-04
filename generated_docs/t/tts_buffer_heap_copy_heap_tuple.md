@@ -41,3 +41,22 @@ The returned HeapTuple is completely independent of the original slot and can be
 - This is a static function implementing part of the BufferHeapTupleTableSlot virtual method table in src/backend/executor/execTuples.c
 - The returned HeapTuple is allocated in the current memory context and should be freed with heap_freetuple() when no longer needed
 - This function is essential for scenarios where tuple data needs to outlive the original slot or buffer references
+
+## Simplified Source
+
+```c
+static HeapTuple
+tts_buffer_heap_copy_heap_tuple(TupleTableSlot *slot)
+{
+    BufferHeapTupleTableSlot *bslot = (BufferHeapTupleTableSlot *) slot;
+
+    Assert(!TTS_EMPTY(slot));
+
+    // Materialize if only virtual data exists
+    if (!bslot->base.tuple)
+        tts_buffer_heap_materialize(slot);
+
+    // Create an independent copy for caller
+    return heap_copytuple(bslot->base.tuple);
+}
+```

@@ -35,3 +35,40 @@ The function handles three types of blockers: PSB_ONCE (handled specially elsewh
 - PSB_NUM_NOTICES blockers compare received notice count against target threshold
 - Essential for coordinating step execution order and ensuring test determinism in isolation testing
 - Works in conjunction with the broader step completion mechanism to handle complex test scenarios
+
+## Simplified Source
+
+```c
+static bool
+step_has_blocker(PermutationStep *pstep)
+{
+    // Check each blocker condition
+    for (int i = 0; i < pstep->nblockers; i++) {
+        PermutationStepBlocker *blocker = pstep->blockers[i];
+        IsoConnInfo *iconn;
+
+        switch (blocker->blocktype) {
+            case PSB_ONCE:
+                // Handled specially in try_complete_step
+                break;
+
+            case PSB_OTHER_STEP:
+                // Block if referenced step is currently active
+                iconn = &conns[1 + blocker->step->session];
+                if (iconn->active_step &&
+                    iconn->active_step->step == blocker->step)
+                    return true;
+                break;
+
+            case PSB_NUM_NOTICES:
+                // Block if not enough notices received yet
+                iconn = &conns[1 + blocker->step->session];
+                if (iconn->total_notices < blocker->target_notices)
+                    return true;
+                break;
+        }
+    }
+
+    return false; // No blockers active
+}
+```

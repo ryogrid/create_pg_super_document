@@ -36,3 +36,24 @@ This function is used in testing scenarios to clean up injection points that are
 - Part of the PostgreSQL test infrastructure, located in src/test/modules/injection_points/
 - Returns void through the PostgreSQL function interface
 - Works in conjunction with the injection point cleanup system to maintain consistent state
+
+## Simplified Source
+
+```c
+Datum injection_points_detach(PG_FUNCTION_ARGS) {
+    char *name = text_to_cstring(PG_GETARG_TEXT_PP(0));
+
+    // Detach the injection point from global system
+    if (!InjectionPointDetach(name))
+        elog(ERROR, "could not detach injection point \"%s\"", name);
+
+    // Remove from local tracking list if needed
+    if (inj_list_local != NIL) {
+        MemoryContext oldctx = MemoryContextSwitchTo(TopMemoryContext);
+        inj_list_local = list_delete(inj_list_local, makeString(name));
+        MemoryContextSwitchTo(oldctx);
+    }
+
+    PG_RETURN_VOID();
+}
+```

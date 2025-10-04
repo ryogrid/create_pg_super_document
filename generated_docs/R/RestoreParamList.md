@@ -34,3 +34,35 @@ The resulting ParamListInfo is allocated in the current memory context and conta
 - Must be used with data created by SerializeParamList
 - The start_address pointer is advanced past the consumed data
 - Suitable for cross-process parameter transmission in parallel execution
+
+## Simplified Source
+
+```c
+ParamListInfo RestoreParamList(char **start_address) {
+    // Read number of parameters from serialized data
+    int nparams;
+    memcpy(&nparams, *start_address, sizeof(int));
+    *start_address += sizeof(int);
+
+    // Create parameter list structure
+    ParamListInfo paramLI = makeParamList(nparams);
+
+    // Restore each parameter
+    for (int i = 0; i < nparams; i++) {
+        ParamExternData *prm = &paramLI->params[i];
+
+        // Read parameter type OID
+        memcpy(&prm->ptype, *start_address, sizeof(Oid));
+        *start_address += sizeof(Oid);
+
+        // Read parameter flags
+        memcpy(&prm->pflags, *start_address, sizeof(uint16));
+        *start_address += sizeof(uint16);
+
+        // Restore parameter value and null flag
+        prm->value = datumRestore(start_address, &prm->isnull);
+    }
+
+    return paramLI;
+}
+```

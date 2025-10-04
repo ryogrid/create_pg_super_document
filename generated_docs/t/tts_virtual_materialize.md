@@ -47,3 +47,72 @@ The function handles expanded objects specially by flattening them during materi
 - Pass-by-value attributes and NULL values are skipped since they don't require separate storage
 - Sets the TTS_FLAG_SHOULDFREE flag to indicate the slot now owns its data
 - The single contiguous allocation approach reduces memory fragmentation and allocation overhead
+
+## Simplified Source
+
+```c
+static void tts_virtual_materialize(TupleTableSlot *slot)
+{
+    VirtualTupleTableSlot *vslot = (VirtualTupleTableSlot *) slot;
+    TupleDesc desc = slot->tts_tupleDescriptor;
+
+    // Return if already materialized
+    if (TTS_SHOULDFREE(slot))
+        return;
+
+    // Calculate total memory needed for all variable-length attributes
+    Size sz = 0;
+    for (int natt = 0; natt < desc->natts; natt++) {
+        Form_pg_attribute att = TupleDescAttr(desc, natt);
+
+        // Skip pass-by-value types and nulls
+        if (att->attbyval || slot->tts_isnull[natt])
+            continue;
+
+        Datum val = slot->tts_values[natt];
+        sz = att_align_nominal(sz, att->attalign);
+
+        // Handle expanded objects differently
+        if (att->attlen == -1 && VARATT_IS_EXTERNAL_EXPANDED(DatumGetPointer(val))) {
+            sz += EOH_get_flat_size(DatumGetEOHP(val));
+        } else {
+            sz = att_addlength_datum(sz, att->attlen, val);
+        }
+    }
+
+    // No variable-length data to materialize
+    if (sz == 0)
+        return;
+
+    // Allocate single contiguous block for all data
+    char *data = MemoryContextAlloc(slot->tts_mcxt, sz);
+    vslot->data = data;
+    slot->tts_flags |= TTS_FLAG_SHOULDFREE;
+
+    // Copy all variable-length attributes into the allocated space
+    for (int natt = 0; natt < desc->natts; natt++) {
+        Form_pg_attribute att = TupleDescAttr(desc, natt);
+
+        if (att->attbyval || slot->tts_isnull[natt])
+            continue;
+
+        Datum val = slot->tts_values[natt];
+        data = (char *) att_align_nominal(data, att->attalign);
+
+        if (att->attlen == -1 && VARATT_IS_EXTERNAL_EXPANDED(DatumGetPointer(val))) {
+            // Flatten expanded objects
+            ExpandedObjectHeader *eoh = DatumGetEOHP(val);
+            Size data_length = EOH_get_flat_size(eoh);
+            EOH_flatten_into(eoh, data, data_length);
+            slot->tts_values[natt] = PointerGetDatum(data);
+            data += data_length;
+        } else {
+            // Copy regular variable-length data
+            Size data_length = att_addlength_datum(0, att->attlen, val);
+            memcpy(data, DatumGetPointer(val), data_length);
+            slot->tts_values[natt] = PointerGetDatum(data);
+            data += data_length;
+        }
+    }
+}
+```

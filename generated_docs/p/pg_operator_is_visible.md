@@ -43,3 +43,25 @@ The function uses an up-to-date snapshot internally, which may see objects as al
 - The function signature in SQL is: pg_operator_is_visible(operator oid) → boolean
 - Critical for operator resolution when multiple operators with the same name exist in different schemas
 - Operators can be overloaded based on operand types, making visibility determination important for correct resolution
+
+## Simplified Source
+
+```c
+Datum pg_operator_is_visible(PG_FUNCTION_ARGS)
+{
+    // Extract the operator OID from function arguments
+    Oid oid = PG_GETARG_OID(0);
+    bool result;
+    bool is_missing = false;
+
+    // Check if operator is visible in current search path
+    result = OperatorIsVisibleExt(oid, &is_missing);
+
+    // Return NULL if operator doesn't exist (avoids race conditions)
+    if (is_missing)
+        PG_RETURN_NULL();
+
+    // Return boolean result indicating visibility
+    PG_RETURN_BOOL(result);
+}
+```

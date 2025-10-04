@@ -33,3 +33,18 @@ The function is part of PostgreSQL's generic list infrastructure and provides ty
 - Returns a new list with the integer appended if the value is unique
 - This function is commonly used in PostgreSQL's planner and optimizer components where maintaining unique sets of integer identifiers is crucial
 - Part of the generic List API that provides type-safe operations for different data types
+
+## Simplified Source
+
+```c
+List *
+list_append_unique_int(List *list, int datum)
+{
+    // Check if integer already exists in list
+    if (list_member_int(list, datum))
+        return list;
+    else
+        // Append if unique
+        return lappend_int(list, datum);
+}
+```

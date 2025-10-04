@@ -50,3 +50,43 @@ The function is responsible for:
 - The leafTuple field is always NULL for inner items since they don't correspond to heap tuples
 - The function handles both ordered and non-ordered scans through the distances parameter
 - Memory context management is crucial - reconstructed values must be copied out of temporary context
+
+## Simplified Source
+
+```c
+static SpGistSearchItem *
+spgMakeInnerItem(SpGistScanOpaque so,
+                 SpGistSearchItem *parentItem,
+                 SpGistNodeTuple tuple,
+                 spgInnerConsistentOut *out, int i, bool isnull,
+                 double *distances)
+{
+    // Allocate new search item for inner node
+    SpGistSearchItem *item = spgAllocSearchItem(so, isnull, distances);
+
+    // Set basic properties from node tuple
+    item->heapPtr = tuple->t_tid;
+
+    // Calculate level (with optional adjustment from opclass)
+    item->level = out->levelAdds ? parentItem->level + out->levelAdds[i]
+                                 : parentItem->level;
+
+    // Copy reconstructed value from temp context to persistent context
+    item->value = out->reconstructedValues
+        ? datumCopy(out->reconstructedValues[i],
+                   so->state.attLeafType.attbyval,
+                   so->state.attLeafType.attlen)
+        : (Datum) 0;
+
+    // Set traversal value for next inner_consistent call
+    item->traversalValue = out->traversalValues ? out->traversalValues[i] : NULL;
+
+    // Initialize inner node flags
+    item->leafTuple = NULL;
+    item->isLeaf = false;
+    item->recheck = false;
+    item->recheckDistances = false;
+
+    return item;
+}
+```

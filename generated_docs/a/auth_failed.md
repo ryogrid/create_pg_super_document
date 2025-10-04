@@ -43,3 +43,60 @@ For EOF status (client disconnection), the function simply exits without sending
 - Different error codes are used: ERRCODE_INVALID_AUTHORIZATION_SPECIFICATION (default) and ERRCODE_INVALID_PASSWORD (for password-based methods)
 - The function includes HBA (Host-Based Authentication) line information in the detailed log to help administrators identify which pg_hba.conf rule was matched
 - Special handling for STATUS_EOF prevents log spam from normal client disconnections during password challenges
+
+## Simplified Source
+
+```c
+static void
+auth_failed(Port *port, int status, const char *logdetail)
+{
+    const char *errstr;
+    char *cdetail;
+    int errcode_return = ERRCODE_INVALID_AUTHORIZATION_SPECIFICATION;
+
+    // Handle client disconnection - just exit without logging
+    if (status == STATUS_EOF)
+        proc_exit(0);
+
+    // Select appropriate error message based on auth method
+    switch (port->hba->auth_method) {
+        case uaReject:
+        case uaImplicitReject:
+            errstr = gettext_noop("authentication failed for user \"%s\": host rejected");
+            break;
+        case uaPassword:
+        case uaMD5:
+        case uaSCRAM:
+            errstr = gettext_noop("password authentication failed for user \"%s\"");
+            errcode_return = ERRCODE_INVALID_PASSWORD;
+            break;
+        case uaGSS:
+            errstr = gettext_noop("GSSAPI authentication failed for user \"%s\"");
+            break;
+        case uaSSPI:
+            errstr = gettext_noop("SSPI authentication failed for user \"%s\"");
+            break;
+        // Additional auth methods: uaTrust, uaIdent, uaPeer, uaPAM,
+        // uaBSD, uaLDAP, uaCert, uaRADIUS...
+        default:
+            errstr = gettext_noop("authentication failed for user \"%s\": invalid authentication method");
+            break;
+    }
+
+    // Build connection details for logging
+    cdetail = psprintf("Connection matched file \"%s\" line %d: \"%s\"",
+                      port->hba->sourcefile, port->hba->linenumber,
+                      port->hba->rawline);
+
+    if (logdetail)
+        logdetail = psprintf("%s\n%s", logdetail, cdetail);
+    else
+        logdetail = cdetail;
+
+    // Send fatal error to client and terminate
+    ereport(FATAL,
+            (errcode(errcode_return),
+             errmsg(errstr, port->user_name),
+             logdetail ? errdetail_log("%s", logdetail) : 0));
+}
+```

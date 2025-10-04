@@ -34,3 +34,20 @@ This function provides the total row count for the current partition being proce
 - Forces materialization of the entire partition in memory via tuplestore
 - Validates WindowObject before proceeding with spooling operation
 - Uses spool_tuples(-1) to ensure all partition rows are loaded
+
+## Simplified Source
+
+```c
+int64
+WinGetPartitionRowCount(WindowObject winobj)
+{
+    // Validate the window object
+    Assert(WindowObjectIsValid(winobj));
+
+    // Force spooling of all remaining tuples in the partition
+    spool_tuples(winobj->winstate, -1);
+
+    // Return cached row count
+    return winobj->winstate->spooled_rows;
+}
+```

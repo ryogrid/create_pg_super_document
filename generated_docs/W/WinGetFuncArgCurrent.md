@@ -44,3 +44,26 @@ This function is specifically designed for "ordinary" window function arguments 
 - Uses the current scan tuple slot directly, avoiding the overhead of temporary tuple management
 - Essential for window functions that need to evaluate parameter expressions in the context of the current row
 - Simpler and faster than using WinGetFuncArgInPartition with WINDOW_SEEK_CURRENT and relpos=0
+
+## Simplified Source
+
+```c
+Datum
+WinGetFuncArgCurrent(WindowObject winobj, int argno, bool *isnull)
+{
+    WindowAggState *winstate;
+    ExprContext *econtext;
+
+    // Validate window object
+    Assert(WindowObjectIsValid(winobj));
+    winstate = winobj->winstate;
+
+    // Set up expression context with current tuple
+    econtext = winstate->ss.ps.ps_ExprContext;
+    econtext->ecxt_outertuple = winstate->ss.ss_ScanTupleSlot;
+
+    // Evaluate the argument expression on the current row
+    return ExecEvalExpr((ExprState *) list_nth(winobj->argstates, argno),
+                       econtext, isnull);
+}
+```

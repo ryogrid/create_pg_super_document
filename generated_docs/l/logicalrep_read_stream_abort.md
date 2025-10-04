@@ -38,3 +38,24 @@ The function supports conditional reading of abort LSN and timestamp information
 - Corresponds to the data written by logicalrep_write_stream_abort on the publisher side
 - Handles both top-level transaction aborts and subtransaction aborts
 - Located in src/backend/replication/logical/proto.c:1192-1216
+
+## Simplified Source
+
+```c
+void logicalrep_read_stream_abort(StringInfo in,
+                                  LogicalRepStreamAbortData *abort_data,
+                                  bool read_abort_info) {
+    // Extract transaction IDs from message
+    abort_data->xid = pq_getmsgint(in, 4);
+    abort_data->subxid = pq_getmsgint(in, 4);
+
+    // Conditionally read abort details or set defaults
+    if (read_abort_info) {
+        abort_data->abort_lsn = pq_getmsgint64(in);
+        abort_data->abort_time = pq_getmsgint64(in);
+    } else {
+        abort_data->abort_lsn = InvalidXLogRecPtr;
+        abort_data->abort_time = 0;
+    }
+}
+```

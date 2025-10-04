@@ -36,3 +36,14 @@ The conversion is performed by first extracting the underlying 64-bit value from
 - Commonly used through the PG_RETURN_FULLTRANSACTIONID macro for returning function results
 - Complementary function to DatumGetFullTransactionId, forming a bidirectional conversion pair
 - Essential for PostgreSQL functions that work with transaction snapshots and extended transaction IDs
+
+## Simplified Source
+
+```c
+static inline Datum
+FullTransactionIdGetDatum(FullTransactionId X)
+{
+    // Convert FullTransactionId to 64-bit integer, then to Datum
+    return UInt64GetDatum(U64FromFullTransactionId(X));
+}
+```

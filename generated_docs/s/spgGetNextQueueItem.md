@@ -36,3 +36,18 @@ This function serves as a queue management utility for SP-GiST (Space-partitione
 - The function assumes the caller will properly free the returned SpGistSearchItem
 - The pairing heap implementation ensures items are returned in the correct order for the scan
 - Located at src/backend/access/spgist/spgscan.c:746-754
+
+## Simplified Source
+
+```c
+static SpGistSearchItem *
+spgGetNextQueueItem(SpGistScanOpaque so)
+{
+    // Check if scan queue is empty
+    if (pairingheap_is_empty(so->scanQueue))
+        return NULL;  // Scan is complete
+
+    // Remove and return next item from priority queue
+    return (SpGistSearchItem *) pairingheap_remove_first(so->scanQueue);
+}
+```

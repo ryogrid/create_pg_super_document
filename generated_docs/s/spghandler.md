@@ -39,3 +39,73 @@ The function is called by PostgreSQL's access method infrastructure to obtain th
 - Sets amsearchnulls to true, allowing searches for NULL values
 - Enables parallel vacuum operations but disables parallel building and scanning
 - The amcaninclude flag is set to true, supporting INCLUDE columns in SP-GiST indexes
+
+## Simplified Source
+
+```c
+Datum spghandler(PG_FUNCTION_ARGS) {
+    IndexAmRoutine *amroutine = makeNode(IndexAmRoutine);
+
+    // Set access method capabilities
+    amroutine->amstrategies = 0;
+    amroutine->amsupport = SPGISTNProc;
+    amroutine->amoptsprocnum = SPGIST_OPTIONS_PROC;
+
+    // Index features: no ordering/backward scans, no unique constraints
+    amroutine->amcanorder = false;
+    amroutine->amcanorderbyop = true;
+    amroutine->amcanbackward = false;
+    amroutine->amcanunique = false;
+    amroutine->amcanmulticol = false;
+
+    // Search capabilities
+    amroutine->amoptionalkey = true;
+    amroutine->amsearcharray = false;
+    amroutine->amsearchnulls = true;
+    amroutine->amstorage = true;
+
+    // Clustering and locking
+    amroutine->amclusterable = false;
+    amroutine->ampredlocks = false;
+
+    // Parallel operations
+    amroutine->amcanparallel = false;
+    amroutine->amcanbuildparallel = false;
+    amroutine->amcaninclude = true;
+    amroutine->amusemaintenanceworkmem = false;
+    amroutine->amsummarizing = false;
+    amroutine->amparallelvacuumoptions =
+        VACUUM_OPTION_PARALLEL_BULKDEL | VACUUM_OPTION_PARALLEL_COND_CLEANUP;
+
+    amroutine->amkeytype = InvalidOid;
+
+    // Assign callback functions
+    amroutine->ambuild = spgbuild;
+    amroutine->ambuildempty = spgbuildempty;
+    amroutine->aminsert = spginsert;
+    amroutine->aminsertcleanup = NULL;
+    amroutine->ambulkdelete = spgbulkdelete;
+    amroutine->amvacuumcleanup = spgvacuumcleanup;
+    amroutine->amcanreturn = spgcanreturn;
+    amroutine->amcostestimate = spgcostestimate;
+    amroutine->amoptions = spgoptions;
+    amroutine->amproperty = spgproperty;
+    amroutine->ambuildphasename = NULL;
+    amroutine->amvalidate = spgvalidate;
+    amroutine->amadjustmembers = spgadjustmembers;
+    amroutine->ambeginscan = spgbeginscan;
+    amroutine->amrescan = spgrescan;
+    amroutine->amgettuple = spggettuple;
+    amroutine->amgetbitmap = spggetbitmap;
+    amroutine->amendscan = spgendscan;
+
+    // Unsupported features
+    amroutine->ammarkpos = NULL;
+    amroutine->amrestrpos = NULL;
+    amroutine->amestimateparallelscan = NULL;
+    amroutine->aminitparallelscan = NULL;
+    amroutine->amparallelrescan = NULL;
+
+    PG_RETURN_POINTER(amroutine);
+}
+```

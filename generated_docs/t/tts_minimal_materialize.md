@@ -48,3 +48,42 @@ After materialization, the function sets up the slot's tuple header structure to
 - The minhdr structure provides a HeapTuple-compatible view of the MinimalTuple for use with existing heap tuple functions
 - MINIMAL_TUPLE_OFFSET accounts for the different header layouts between minimal tuples and heap tuples
 - Materialization is a common operation when tuples need to be stored or passed between different execution contexts
+
+## Simplified Source
+
+```c
+static void
+tts_minimal_materialize(TupleTableSlot *slot)
+{
+    MinimalTupleTableSlot *mslot = (MinimalTupleTableSlot *) slot;
+
+    // Skip if already materialized
+    if (TTS_SHOULDFREE(slot))
+        return;
+
+    MemoryContext oldContext = MemoryContextSwitchTo(slot->tts_mcxt);
+
+    // Reset deformation state to force fresh tuple access
+    slot->tts_nvalid = 0;
+    mslot->off = 0;
+
+    // Create or copy minimal tuple into slot's memory context
+    if (!mslot->mintuple) {
+        // Form new minimal tuple from deconstructed values
+        mslot->mintuple = heap_form_minimal_tuple(slot->tts_tupleDescriptor,
+                                                  slot->tts_values, slot->tts_isnull);
+    } else {
+        // Copy existing minimal tuple to ensure proper ownership
+        mslot->mintuple = heap_copy_minimal_tuple(mslot->mintuple);
+    }
+
+    // Mark slot as owning the tuple
+    slot->tts_flags |= TTS_FLAG_SHOULDFREE;
+
+    // Set up tuple header to reference minimal tuple data
+    mslot->minhdr.t_len = mslot->mintuple->t_len + MINIMAL_TUPLE_OFFSET;
+    mslot->minhdr.t_data = (HeapTupleHeader) ((char *) mslot->mintuple - MINIMAL_TUPLE_OFFSET);
+
+    MemoryContextSwitchTo(oldContext);
+}
+```

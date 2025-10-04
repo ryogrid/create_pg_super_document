@@ -38,3 +38,19 @@ InstrEndParallelQuery finalizes parallel query instrumentation by calculating th
 - Essential for accurate resource usage tracking in parallel execution where multiple workers contribute to overall consumption
 - Provides precise measurements by isolating only the resource usage attributable to the parallel operation
 - Used in PostgreSQLs instrumentation infrastructure to support EXPLAIN ANALYZE and performance monitoring
+
+## Simplified Source
+
+```c
+void InstrEndParallelQuery(BufferUsage *bufusage, WalUsage *walusage) {
+    // Clear output structures
+    memset(bufusage, 0, sizeof(BufferUsage));
+    memset(walusage, 0, sizeof(WalUsage));
+
+    // Calculate buffer usage difference from baseline
+    BufferUsageAccumDiff(bufusage, &pgBufferUsage, &save_pgBufferUsage);
+
+    // Calculate WAL usage difference from baseline
+    WalUsageAccumDiff(walusage, &pgWalUsage, &save_pgWalUsage);
+}
+```

@@ -52,3 +52,33 @@ The RAINBOW optimization significantly reduces the number of arcs in the NFA, wh
 - Critical for implementing negated character classes efficiently
 - Part of the arc creation optimization system that reduces NFA complexity
 - The RAINBOW arc type is a special optimization that represents "match any color"
+
+## Simplified Source
+
+```c
+static void
+rainbow(struct nfa *nfa, struct colormap *cm, int type, color but,
+        struct state *from, struct state *to)
+{
+    // Optimization: if no exception color, create single RAINBOW arc
+    if (but == COLORLESS) {
+        newarc(nfa, type, RAINBOW, from, to);
+        return;
+    }
+
+    // Create individual arcs for each valid color, excluding exceptions
+    struct colordesc *cd = cm->cd;
+    struct colordesc *end = CDEND(cm);
+    color co = 0;
+
+    while (cd < end && !CISERR()) {
+        // Skip unused colors, subcolors, pseudocolors, and exception color
+        if (!UNUSEDCOLOR(cd) && cd->sub != co && co != but &&
+            !(cd->flags & PSEUDO)) {
+            newarc(nfa, type, co, from, to);
+        }
+        cd++;
+        co++;
+    }
+}
+```

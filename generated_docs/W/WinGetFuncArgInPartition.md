@@ -55,3 +55,67 @@ This function is essential for implementing window functions like LAG/LEAD that 
 - The mark position can be optionally updated as a side effect when set_mark is true
 - Critical for implementing offset-based window functions like LAG, LEAD, FIRST_VALUE, and LAST_VALUE
 - Provides both the evaluated result and metadata about position validity through output parameters
+
+## Simplified Source
+
+```c
+Datum
+WinGetFuncArgInPartition(WindowObject winobj, int argno, int relpos, int seektype,
+                        bool set_mark, bool *isnull, bool *isout)
+{
+    WindowAggState *winstate;
+    ExprContext *econtext;
+    TupleTableSlot *slot;
+    bool gottuple;
+    int64 abs_pos;
+
+    // Validate window object and get state
+    Assert(WindowObjectIsValid(winobj));
+    winstate = winobj->winstate;
+    econtext = winstate->ss.ps.ps_ExprContext;
+    slot = winstate->temp_slot_1;
+
+    // Calculate absolute position based on seek type
+    switch (seektype)
+    {
+        case WINDOW_SEEK_CURRENT:
+            abs_pos = winstate->currentpos + relpos;
+            break;
+        case WINDOW_SEEK_HEAD:
+            abs_pos = relpos;
+            break;
+        case WINDOW_SEEK_TAIL:
+            spool_tuples(winstate, -1);  // Spool all tuples
+            abs_pos = winstate->spooled_rows - 1 + relpos;
+            break;
+        default:
+            elog(ERROR, "unrecognized window seek type: %d", seektype);
+            abs_pos = 0;  // Keep compiler quiet
+            break;
+    }
+
+    // Try to get the tuple at the calculated position
+    gottuple = window_gettupleslot(winobj, abs_pos, slot);
+
+    if (!gottuple)
+    {
+        // Position is out of bounds
+        if (isout)
+            *isout = true;
+        *isnull = true;
+        return (Datum) 0;
+    }
+    else
+    {
+        // Evaluate argument expression on the fetched tuple
+        if (isout)
+            *isout = false;
+        if (set_mark)
+            WinSetMarkPosition(winobj, abs_pos);
+
+        econtext->ecxt_outertuple = slot;
+        return ExecEvalExpr((ExprState *) list_nth(winobj->argstates, argno),
+                           econtext, isnull);
+    }
+}
+```

@@ -33,3 +33,29 @@ The function implements an all-or-nothing approach: if any path in the list cann
 - The function is static (internal to pathnode.c) and serves as a building block for higher-level path reparameterization operations
 - Memory management is handled carefully: if any path fails reparameterization, previously allocated results are freed before returning NIL
 - This function is part of PostgreSQL's sophisticated query optimization system for handling partitioned tables and inheritance hierarchies efficiently
+
+## Simplified Source
+
+```c
+static List *reparameterize_pathlist_by_child(PlannerInfo *root,
+                                              List *pathlist,
+                                              RelOptInfo *child_rel) {
+    List *result = NIL;
+    ListCell *lc;
+
+    // Reparameterize each path in the list
+    foreach(lc, pathlist) {
+        Path *path = reparameterize_path_by_child(root, lfirst(lc), child_rel);
+
+        // If any path fails, abort and clean up
+        if (path == NULL) {
+            list_free(result);
+            return NIL;  // Indicates failure
+        }
+
+        result = lappend(result, path);
+    }
+
+    return result;
+}
+```

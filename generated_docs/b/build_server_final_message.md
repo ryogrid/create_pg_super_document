@@ -55,3 +55,46 @@ The signature is computed as: HMAC(ServerKey, AuthMessage), where AuthMessage is
 - The function is static and only used within the auth-scram.c module
 - Successful completion of this function indicates that SCRAM authentication has succeeded
 - The signature calculation uses the same hash algorithm (SHA-1 or SHA-256) as specified in the SCRAM variant
+
+## Simplified Source
+
+```c
+static char *
+build_server_final_message(scram_state *state)
+{
+    uint8 ServerSignature[SCRAM_MAX_KEY_LEN];
+    char *server_signature_base64;
+    int siglen;
+    pg_hmac_ctx *ctx = pg_hmac_create(state->hash_type);
+
+    // Calculate ServerSignature using HMAC
+    if (pg_hmac_init(ctx, state->ServerKey, state->key_length) < 0 ||
+        pg_hmac_update(ctx, (uint8 *) state->client_first_message_bare,
+                       strlen(state->client_first_message_bare)) < 0 ||
+        pg_hmac_update(ctx, (uint8 *) ",", 1) < 0 ||
+        pg_hmac_update(ctx, (uint8 *) state->server_first_message,
+                       strlen(state->server_first_message)) < 0 ||
+        pg_hmac_update(ctx, (uint8 *) ",", 1) < 0 ||
+        pg_hmac_update(ctx, (uint8 *) state->client_final_message_without_proof,
+                       strlen(state->client_final_message_without_proof)) < 0 ||
+        pg_hmac_final(ctx, ServerSignature, state->key_length) < 0)
+    {
+        elog(ERROR, "could not calculate server signature: %s",
+             pg_hmac_error(ctx));
+    }
+
+    pg_hmac_free(ctx);
+
+    // Base64 encode the server signature
+    siglen = pg_b64_enc_len(state->key_length);
+    server_signature_base64 = palloc(siglen + 1);
+    siglen = pg_b64_encode((const char *) ServerSignature,
+                           state->key_length, server_signature_base64, siglen);
+    if (siglen < 0)
+        elog(ERROR, "could not encode server signature");
+    server_signature_base64[siglen] = '\0';
+
+    // Return formatted server-final-message
+    return psprintf("v=%s", server_signature_base64);
+}
+```

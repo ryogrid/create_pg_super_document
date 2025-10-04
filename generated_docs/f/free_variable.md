@@ -28,3 +28,18 @@ The `free_variable` function iterates through a linked list of `variable` struct
 - Handles NULL input gracefully (the while loop simply won't execute)
 - Part of ECPG's memory management system for cleaning up statement resources
 - Works with the variable structure that represents parameters and host variables in prepared statements
+
+## Simplified Source
+
+```c
+static void
+free_variable(struct variable *var)
+{
+    // Traverse and free entire linked list of variables
+    while (var) {
+        struct variable *next = var->next;
+        ecpg_free(var);
+        var = next;
+    }
+}
+```

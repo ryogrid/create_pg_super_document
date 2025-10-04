@@ -41,3 +41,24 @@ Unlike plperl_trusted_init, this function does not:
 - Custom initialization via plperl.on_plperlu_init allows site-specific setup for untrusted functions
 - Any errors during custom initialization result in PostgreSQL ERROR reports
 - The function name uses 'plperlu' in the configuration parameter to distinguish from trusted initialization
+
+## Simplified Source
+
+```c
+static void
+plperl_untrusted_init(void)
+{
+    dTHX;
+
+    // Execute custom initialization code for untrusted Perl if configured
+    if (plperl_on_plperlu_init && *plperl_on_plperlu_init)
+    {
+        eval_pv(plperl_on_plperlu_init, FALSE);
+        if (SvTRUE(ERRSV))
+            ereport(ERROR,
+                    (errcode(ERRCODE_EXTERNAL_ROUTINE_EXCEPTION),
+                     errmsg("%s", strip_trailing_ws(sv2cstr(ERRSV))),
+                     errcontext("while executing plperl.on_plperlu_init")));
+    }
+}
+```

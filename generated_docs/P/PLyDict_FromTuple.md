@@ -32,3 +32,60 @@ This function performs the core work of converting a PostgreSQL tuple to a Pytho
 
 ## Notes and Other Information
 The function includes comprehensive error handling using PostgreSQL's exception system to ensure that partially constructed Python objects are properly cleaned up if an error occurs during conversion. It respects PostgreSQL's attribute metadata, properly skipping dropped attributes and handling generated columns according to the caller's preference. The function manages Python reference counting correctly, decrementing references for converted values after adding them to the dictionary. NULL values in the PostgreSQL tuple are represented as Python None objects in the resulting dictionary.
+
+## Simplified Source
+
+```c
+static PyObject *
+PLyDict_FromTuple(PLyDatumToOb *arg, HeapTuple tuple, TupleDesc desc, bool include_generated)
+{
+    PyObject *dict;
+
+    // Validate descriptor matches argument structure
+    Assert(desc->natts == arg->u.tuple.natts);
+
+    // Create new Python dictionary
+    dict = PyDict_New();
+    if (dict == NULL)
+        return NULL;
+
+    PG_TRY();
+    {
+        // Iterate through all tuple attributes
+        for (int i = 0; i < arg->u.tuple.natts; i++)
+        {
+            PLyDatumToOb *att = &arg->u.tuple.atts[i];
+            Form_pg_attribute attr = TupleDescAttr(desc, i);
+
+            // Skip dropped attributes
+            if (attr->attisdropped)
+                continue;
+
+            // Skip generated columns unless requested
+            if (attr->attgenerated && !include_generated)
+                continue;
+
+            char *key = NameStr(attr->attname);
+            Datum vattr = heap_getattr(tuple, (i + 1), desc, &is_null);
+
+            if (is_null)
+                PyDict_SetItemString(dict, key, Py_None);
+            else
+            {
+                PyObject *value = att->func(att, vattr);
+                PyDict_SetItemString(dict, key, value);
+                Py_DECREF(value);
+            }
+        }
+    }
+    PG_CATCH();
+    {
+        // Clean up on error
+        Py_DECREF(dict);
+        PG_RE_THROW();
+    }
+    PG_END_TRY();
+
+    return dict;
+}
+```

@@ -34,3 +34,21 @@ This function determines if an expression is suitable for use as a comparison va
 - This is a weaker test than is_pseudo_constant_clause(), which would reject any non-constant expressions
 - Essential for index scan planning where the comparison value must be stable for the duration of the scan
 - Used in conjunction with other index matching functions during query optimization
+
+## Simplified Source
+
+```c
+bool
+is_pseudo_constant_for_index(PlannerInfo *root, Node *expr, IndexOptInfo *index)
+{
+    // Check if expression contains variables from the index's own table
+    if (bms_is_member(index->rel->relid, pull_varnos(root, expr)))
+        return false;  // Contains variable from indexed table
+
+    // Check if expression contains volatile functions
+    if (contain_volatile_functions(expr))
+        return false;  // Contains volatile functions
+
+    return true;  // Expression is pseudo-constant for index usage
+}
+```

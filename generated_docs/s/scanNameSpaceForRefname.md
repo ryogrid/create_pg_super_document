@@ -33,3 +33,44 @@ This static function scans through the p_namespace list in the current parsing s
 - Reports ERRCODE_AMBIGUOUS_ALIAS when multiple items match the same name
 - Part of PostgreSQL's namespace resolution system that allows more flexible alias usage than standard SQL
 - Implements historical PostgreSQL behavior for backward compatibility
+
+## Simplified Source
+
+```c
+static ParseNamespaceItem *
+scanNameSpaceForRefname(ParseState *pstate, const char *refname, int location)
+{
+    ParseNamespaceItem *result = NULL;
+    ListCell *l;
+
+    // Scan through all namespace items
+    foreach(l, pstate->p_namespace)
+    {
+        ParseNamespaceItem *nsitem = (ParseNamespaceItem *) lfirst(l);
+
+        // Skip columns-only items
+        if (!nsitem->p_rel_visible)
+            continue;
+
+        // Skip lateral-only items if not in lateral context
+        if (nsitem->p_lateral_only && !pstate->p_lateral_active)
+            continue;
+
+        // Check for name match
+        if (strcmp(nsitem->p_names->aliasname, refname) == 0)
+        {
+            // Error if ambiguous (multiple matches)
+            if (result)
+                ereport(ERROR,
+                        (errcode(ERRCODE_AMBIGUOUS_ALIAS),
+                         errmsg("table reference \"%s\" is ambiguous",
+                                refname),
+                         parser_errposition(pstate, location)));
+
+            check_lateral_ref_ok(pstate, nsitem, location);
+            result = nsitem;
+        }
+    }
+    return result;
+}
+```

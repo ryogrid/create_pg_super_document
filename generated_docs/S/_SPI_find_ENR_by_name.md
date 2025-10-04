@@ -30,3 +30,19 @@ This is an internal static function used by the SPI (Server Programming Interfac
 - Includes fast-path optimization when no query environment exists (_SPI_current->queryEnv == NULL)
 - Returns NULL if no matching ENR is found or if no query environment exists
 - Uses assertions for parameter validation, indicating this is for internal use where NULL names should never occur
+
+## Simplified Source
+
+```c
+static EphemeralNamedRelation _SPI_find_ENR_by_name(const char *name) {
+    // Validate input (internal function - any error is a SPI bug)
+    Assert(name != NULL);
+
+    // Fast exit if no query environment exists
+    if (_SPI_current->queryEnv == NULL)
+        return NULL;
+
+    // Lookup the ENR by name
+    return get_ENR(_SPI_current->queryEnv, name);
+}
+```

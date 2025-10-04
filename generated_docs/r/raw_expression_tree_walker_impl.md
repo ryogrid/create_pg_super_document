@@ -55,3 +55,101 @@ This walker is particularly important during CTE analysis and other early-stage 
 - [Node](../N/Node.md) type coverage is specifically focused on DML statements as these are the primary use case for CTE analysis
 - Primitive node types (literals, constants, parameters) are handled as leaf nodes with no further traversal
 - Located in src/backend/nodes/nodeFuncs.c:3964-4675
+
+## Simplified Source
+
+```c
+bool
+raw_expression_tree_walker_impl(Node *node, tree_walker_callback walker, void *context)
+{
+    // Handle null input
+    if (node == NULL)
+        return false;
+
+    // Prevent stack overflow on deeply nested expressions
+    check_stack_depth();
+
+    // Main dispatch based on node type
+    switch (nodeTag(node))
+    {
+        // Primitive leaf nodes - no sub-nodes to traverse
+        case T_Integer:
+        case T_Float:
+        case T_Boolean:
+        case T_String:
+        case T_ParamRef:
+        case T_A_Const:
+        case T_A_Star:
+            break;
+
+        // Basic expression types
+        case T_SubLink:
+            return WALK(((SubLink *) node)->testexpr) ||
+                   WALK(((SubLink *) node)->subselect);
+
+        case T_CaseExpr:
+            return handle_case_expression_walking(node);
+
+        case T_BoolExpr:
+            return WALK(((BoolExpr *) node)->args);
+
+        // DML Statements
+        case T_SelectStmt:
+            return walk_select_statement(node);
+
+        case T_InsertStmt:
+            return walk_insert_statement(node);
+
+        case T_UpdateStmt:
+            return walk_update_statement(node);
+
+        case T_DeleteStmt:
+            return walk_delete_statement(node);
+
+        // JSON operations (extensive support)
+        case T_JsonFuncExpr:
+        case T_JsonConstructorExpr:
+        case T_JsonTable:
+            return walk_json_operations(node);
+
+        // Function calls and operators
+        case T_FuncCall:
+            return walk_function_call(node);
+
+        case T_A_Expr:
+            return WALK(((A_Expr *) node)->lexpr) ||
+                   WALK(((A_Expr *) node)->rexpr);
+
+        // Complex structural nodes
+        case T_List:
+            return walk_list_elements(node);
+
+        case T_JoinExpr:
+            return walk_join_expression(node);
+
+        // Type and casting operations
+        case T_TypeCast:
+            return WALK(((TypeCast *) node)->arg) ||
+                   WALK(((TypeCast *) node)->typeName);
+
+        // Range and table references
+        case T_RangeVar:
+        case T_RangeSubselect:
+        case T_RangeFunction:
+            return walk_range_expressions(node);
+
+        // Common Table Expressions
+        case T_WithClause:
+            return WALK(((WithClause *) node)->ctes);
+
+        case T_CommonTableExpr:
+            return WALK(((CommonTableExpr *) node)->ctequery);
+
+        default:
+            elog(ERROR, "unrecognized node type: %d", (int) nodeTag(node));
+            break;
+    }
+
+    return false;
+}
+```

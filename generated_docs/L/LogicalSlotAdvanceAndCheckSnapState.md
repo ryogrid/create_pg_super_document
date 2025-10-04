@@ -51,3 +51,86 @@ The operation is performed within a PG_TRY/PG_CATCH block to ensure proper clean
 - Error handling ensures proper cleanup of system caches even in failure cases
 - The function is essential for slot synchronization and SQL-interface slot management
 - Located in src/backend/replication/logical/logical.c at lines 2108-2223
+
+## Simplified Source
+
+```c
+XLogRecPtr LogicalSlotAdvanceAndCheckSnapState(XLogRecPtr moveto,
+                                               bool *found_consistent_snapshot)
+{
+    LogicalDecodingContext *ctx;
+    ResourceOwner old_resowner = CurrentResourceOwner;
+    XLogRecPtr retlsn;
+
+    Assert(moveto != InvalidXLogRecPtr);
+
+    if (found_consistent_snapshot)
+        *found_consistent_snapshot = false;
+
+    PG_TRY();
+    {
+        // Create decoding context in fast_forward mode
+        ctx = CreateDecodingContext(InvalidXLogRecPtr,  // start from confirmed_flush
+                                    NIL,
+                                    true,  // fast_forward mode
+                                    XL_ROUTINE(.page_read = read_local_xlog_page,
+                                               .segment_open = wal_segment_open,
+                                               .segment_close = wal_segment_close),
+                                    NULL, NULL, NULL);
+
+        // Wait for standby confirmation
+        WaitForStandbyConfirmation(moveto);
+
+        // Start reading from slot's restart_lsn
+        XLogBeginRead(ctx->reader, MyReplicationSlot->data.restart_lsn);
+
+        InvalidateSystemCaches();
+
+        // Process records until target LSN reached
+        while (ctx->reader->EndRecPtr < moveto)
+        {
+            char *errm = NULL;
+            XLogRecord *record;
+
+            // Read WAL record
+            record = XLogReadRecord(ctx->reader, &errm);
+            if (errm)
+                elog(ERROR, "could not find record while advancing replication slot: %s", errm);
+
+            // Process record for snapshot building (no changes generated in fast_forward)
+            if (record)
+                LogicalDecodingProcessRecord(ctx, ctx->reader);
+
+            CHECK_FOR_INTERRUPTS();
+        }
+
+        // Check if consistent snapshot was built
+        if (found_consistent_snapshot && DecodingContextReady(ctx))
+            *found_consistent_snapshot = true;
+
+        // Restore resource owner
+        CurrentResourceOwner = old_resowner;
+
+        // Update slot position and mark dirty
+        if (ctx->reader->EndRecPtr != InvalidXLogRecPtr)
+        {
+            LogicalConfirmReceivedLocation(moveto);
+            ReplicationSlotMarkDirty();  // Ensure persistence at checkpoint
+        }
+
+        retlsn = MyReplicationSlot->data.confirmed_flush;
+
+        // Cleanup
+        FreeDecodingContext(ctx);
+        InvalidateSystemCaches();
+    }
+    PG_CATCH();
+    {
+        InvalidateSystemCaches();
+        PG_RE_THROW();
+    }
+    PG_END_TRY();
+
+    return retlsn;
+}
+```

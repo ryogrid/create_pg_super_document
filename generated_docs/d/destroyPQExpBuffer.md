@@ -37,3 +37,19 @@ The function safely handles NULL pointers by checking if the buffer exists befor
 - After calling this function, the PQExpBuffer pointer becomes invalid and should not be used
 - This function is part of the public libpq API for client applications
 - The function ensures complete cleanup by calling  first, then freeing the structure
+
+## Simplified Source
+
+```c
+void
+destroyPQExpBuffer(PQExpBuffer str)
+{
+    if (str) {
+        // Clean up the data buffer first
+        termPQExpBuffer(str);
+
+        // Free the structure itself
+        free(str);
+    }
+}
+```

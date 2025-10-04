@@ -32,3 +32,18 @@ This function implements the cursor() method for PLyPlan Python objects. It serv
 - Returns a cursor object that can be used to fetch rows incrementally
 - Useful for handling large result sets that don't fit in memory all at once
 - The actual cursor implementation is delegated to PLy_cursor_plan for separation of concerns
+
+## Simplified Source
+
+```c
+static PyObject *PLy_plan_cursor(PyObject *self, PyObject *args) {
+    PyObject *planargs = NULL;
+
+    // Parse optional plan arguments from Python
+    if (!PyArg_ParseTuple(args, "|O", &planargs))
+        return NULL;
+
+    // Delegate to actual cursor creation function
+    return PLy_cursor_plan(self, planargs);
+}
+```

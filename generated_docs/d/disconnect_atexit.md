@@ -36,3 +36,14 @@ This pattern is commonly used in PostgreSQL client utilities to prevent connecti
 - Part of defensive programming practices to prevent resource leaks
 - Used consistently across multiple PostgreSQL client utilities (pg_basebackup, pg_receivewal, pg_recvlogical, pg_rewind, etc.)
 - Simple but important for maintaining connection hygiene in client applications
+
+## Simplified Source
+
+```c
+static void disconnect_atexit(void) {
+    // Clean up PostgreSQL connection if it exists
+    if (conn != NULL) {
+        PQfinish(conn);
+    }
+}
+```

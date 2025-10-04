@@ -29,3 +29,12 @@ DatumGetCash is a simple conversion function that extracts a Cash value from a D
 - Pass-by-reference behavior matches that of int64 type
 - This is a header-only inline function defined in src/include/utils/cash.h
 - Part of PostgreSQL's monetary data type implementation
+
+## Simplified Source
+
+```c
+static inline Cash DatumGetCash(Datum X) {
+    // Convert Datum to Cash (which is int64)
+    return DatumGetInt64(X);
+}
+```

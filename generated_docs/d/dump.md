@@ -42,3 +42,56 @@ The  function is a diagnostic utility within PostgreSQL's regex engine that outp
 - Dumps lookaround assertion information for positive/negative lookahead and lookbehind
 - Part of PostgreSQL's internal regex debugging infrastructure
 - Output format includes clear section headers and hierarchical structure representation
+
+## Simplified Source
+
+```c
+static void dump(regex_t *re, FILE *f) {
+    struct guts *g;
+    int i;
+
+    // Validate structure and output diagnostics
+    if (re->re_magic != REMAGIC)
+        fprintf(f, "bad magic number (0x%x not 0x%x)\n", re->re_magic, REMAGIC);
+    if (re->re_guts == NULL) {
+        fprintf(f, "NULL guts!!!\n");
+        return;
+    }
+
+    g = (struct guts *) re->re_guts;
+    if (g->magic != GUTSMAGIC)
+        fprintf(f, "bad guts magic number (0x%x not 0x%x)\n", g->magic, GUTSMAGIC);
+
+    // Output basic information
+    fprintf(f, "\n\n\n========= DUMP ==========\n");
+    fprintf(f, "nsub %d, info 0%lo, csize %d, ntree %d\n",
+            (int) re->re_nsub, re->re_info, re->re_csize, g->ntree);
+
+    // Dump color map and search NFA
+    dumpcolors(&g->cmap, f);
+    if (!NULLCNFA(g->search)) {
+        fprintf(f, "\nsearch:\n");
+        dumpcnfa(&g->search, f);
+    }
+
+    // Dump lookaround constraints
+    for (i = 1; i < g->nlacons; i++) {
+        struct subre *lasub = &g->lacons[i];
+        const char *latype = "???";
+
+        switch (lasub->latype) {
+            case LATYPE_AHEAD_POS: latype = "positive lookahead"; break;
+            case LATYPE_AHEAD_NEG: latype = "negative lookahead"; break;
+            case LATYPE_BEHIND_POS: latype = "positive lookbehind"; break;
+            case LATYPE_BEHIND_NEG: latype = "negative lookbehind"; break;
+        }
+
+        fprintf(f, "\nla%d (%s):\n", i, latype);
+        dumpcnfa(&lasub->cnfa, f);
+    }
+
+    // Dump syntax tree
+    fprintf(f, "\n");
+    dumpst(g->tree, f, 0);
+}
+```

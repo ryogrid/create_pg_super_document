@@ -49,3 +49,108 @@ The function handles complex data structures like HeapTuples by serializing both
 - HeapTuple data is serialized as both header and data portions
 - [Variable](../V/Variable.md)-length data (messages, snapshots, truncate relations) is properly handled
 - Wait events are reported for performance monitoring during disk writes
+
+## Simplified Source
+
+```c
+static void
+ReorderBufferSerializeChange(ReorderBuffer *rb, ReorderBufferTXN *txn,
+                             int fd, ReorderBufferChange *change)
+{
+    ReorderBufferDiskChange *ondisk;
+    Size sz = sizeof(ReorderBufferDiskChange);
+
+    ReorderBufferSerializeReserve(rb, sz);
+    ondisk = (ReorderBufferDiskChange *) rb->outbuf;
+    memcpy(&ondisk->change, change, sizeof(ReorderBufferChange));
+
+    // Handle different change types with their specific data
+    switch (change->action)
+    {
+        case REORDER_BUFFER_CHANGE_INSERT:
+        case REORDER_BUFFER_CHANGE_UPDATE:
+        case REORDER_BUFFER_CHANGE_DELETE:
+        case REORDER_BUFFER_CHANGE_INTERNAL_SPEC_INSERT:
+            {
+                // Serialize heap tuple data (old and new tuples)
+                HeapTuple oldtup = change->data.tp.oldtuple;
+                HeapTuple newtup = change->data.tp.newtuple;
+                char *data;
+
+                if (oldtup)
+                {
+                    sz += sizeof(HeapTupleData) + oldtup->t_len;
+                }
+                if (newtup)
+                {
+                    sz += sizeof(HeapTupleData) + newtup->t_len;
+                }
+
+                ReorderBufferSerializeReserve(rb, sz);
+                ondisk = (ReorderBufferDiskChange *) rb->outbuf;
+                data = ((char *) rb->outbuf) + sizeof(ReorderBufferDiskChange);
+
+                // Copy tuple headers and data
+                if (oldtup)
+                {
+                    memcpy(data, oldtup, sizeof(HeapTupleData));
+                    data += sizeof(HeapTupleData);
+                    memcpy(data, oldtup->t_data, oldtup->t_len);
+                    data += oldtup->t_len;
+                }
+                if (newtup)
+                {
+                    memcpy(data, newtup, sizeof(HeapTupleData));
+                    data += sizeof(HeapTupleData);
+                    memcpy(data, newtup->t_data, newtup->t_len);
+                    data += newtup->t_len;
+                }
+                break;
+            }
+        case REORDER_BUFFER_CHANGE_MESSAGE:
+            {
+                // Serialize logical decoding message
+                Size prefix_size = strlen(change->data.msg.prefix) + 1;
+                sz += prefix_size + change->data.msg.message_size + sizeof(Size) + sizeof(Size);
+                ReorderBufferSerializeReserve(rb, sz);
+
+                char *data = ((char *) rb->outbuf) + sizeof(ReorderBufferDiskChange);
+                ondisk = (ReorderBufferDiskChange *) rb->outbuf;
+
+                memcpy(data, &prefix_size, sizeof(Size));
+                data += sizeof(Size);
+                memcpy(data, change->data.msg.prefix, prefix_size);
+                data += prefix_size;
+                memcpy(data, &change->data.msg.message_size, sizeof(Size));
+                data += sizeof(Size);
+                memcpy(data, change->data.msg.message, change->data.msg.message_size);
+                break;
+            }
+        case REORDER_BUFFER_CHANGE_INVALIDATION:
+        case REORDER_BUFFER_CHANGE_INTERNAL_SNAPSHOT:
+        case REORDER_BUFFER_CHANGE_TRUNCATE:
+            // Handle other change types with appropriate data copying
+            // (simplified for brevity)
+            break;
+        default:
+            // Other change types need no additional data
+            break;
+    }
+
+    ondisk->size = sz;
+
+    // Write to disk with error handling
+    pgstat_report_wait_start(WAIT_EVENT_REORDER_BUFFER_WRITE);
+    if (write(fd, rb->outbuf, ondisk->size) != ondisk->size)
+    {
+        CloseTransientFile(fd);
+        ereport(ERROR, (errcode_for_file_access(),
+                        errmsg("could not write to data file for XID %u: %m", txn->xid)));
+    }
+    pgstat_report_wait_end();
+
+    // Update transaction's final LSN for cleanup
+    if (txn->final_lsn < change->lsn)
+        txn->final_lsn = change->lsn;
+}
+```

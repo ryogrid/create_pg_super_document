@@ -51,3 +51,66 @@ The function is intentionally not documented in user-facing documentation as it 
 - The function is designed for rare usage scenarios and emergency situations
 - Implementation includes comprehensive error handling with specific error codes and messages
 - Located in src/backend/catalog/catalog.c:616-694
+
+## Simplified Source
+
+```c
+Datum pg_nextoid(PG_FUNCTION_ARGS) {
+    Oid reloid = PG_GETARG_OID(0);
+    Name attname = PG_GETARG_NAME(1);
+    Oid idxoid = PG_GETARG_OID(2);
+
+    // Security check - must be superuser
+    if (!superuser())
+        ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                       errmsg("must be superuser to call %s()", "pg_nextoid")));
+
+    // Open relation and index with exclusive locks
+    Relation rel = table_open(reloid, RowExclusiveLock);
+    Relation idx = index_open(idxoid, RowExclusiveLock);
+
+    // Validate relation is a system catalog
+    if (!IsSystemRelation(rel))
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("pg_nextoid() can only be used on system catalogs")));
+
+    // Validate index belongs to the relation
+    if (idx->rd_index->indrelid != RelationGetRelid(rel))
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("index \"%s\" does not belong to table \"%s\"",
+                              RelationGetRelationName(idx),
+                              RelationGetRelationName(rel))));
+
+    // Look up attribute information
+    HeapTuple atttuple = SearchSysCacheAttName(reloid, NameStr(*attname));
+    if (!HeapTupleIsValid(atttuple))
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_COLUMN),
+                       errmsg("column \"%s\" of relation \"%s\" does not exist",
+                              NameStr(*attname), RelationGetRelationName(rel))));
+
+    Form_pg_attribute attform = (Form_pg_attribute) GETSTRUCT(atttuple);
+    AttrNumber attno = attform->attnum;
+
+    // Validate column is of OID type
+    if (attform->atttypid != OIDOID)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("column \"%s\" is not of type oid", NameStr(*attname))));
+
+    // Validate index is suitable for the column
+    if (IndexRelationGetNumberOfKeyAttributes(idx) != 1 ||
+        idx->rd_index->indkey.values[0] != attno)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("index \"%s\" is not the index for column \"%s\"",
+                              RelationGetRelationName(idx), NameStr(*attname))));
+
+    // Generate new unique OID
+    Oid newoid = GetNewOidWithIndex(rel, idxoid, attno);
+
+    // Cleanup
+    ReleaseSysCache(atttuple);
+    table_close(rel, RowExclusiveLock);
+    index_close(idx, RowExclusiveLock);
+
+    PG_RETURN_OID(newoid);
+}
+```

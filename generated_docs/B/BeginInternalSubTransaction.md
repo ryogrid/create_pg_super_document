@@ -55,3 +55,49 @@ Unlike regular subtransactions, internal subtransactions are allowed during para
 - The function performs automatic CommitTransactionCommand/StartTransactionCommand cycling, making it suitable for use in contexts where transaction state management is complex
 - Memory for savepoint names is allocated in TopTransactionContext to ensure proper lifetime management
 - Primarily used by procedural languages and internal PostgreSQL subsystems that need subtransaction capabilities without explicit transaction management
+
+## Simplified Source
+
+```c
+void BeginInternalSubTransaction(const char *name)
+{
+    TransactionState s = CurrentTransactionState;
+    bool save_ExitOnAnyError = ExitOnAnyError;
+
+    // Force FATAL exit on errors to prevent transaction state corruption
+    ExitOnAnyError = true;
+
+    // Check current transaction state and proceed if valid
+    switch (s->blockState)
+    {
+        case TBLOCK_STARTED:
+        case TBLOCK_INPROGRESS:
+        case TBLOCK_IMPLICIT_INPROGRESS:
+        case TBLOCK_PARALLEL_INPROGRESS:
+        case TBLOCK_END:
+        case TBLOCK_PREPARE:
+        case TBLOCK_SUBINPROGRESS:
+            // Create new subtransaction
+            PushTransaction();
+            s = CurrentTransactionState;  // Updated by push
+
+            // Store savepoint name if provided
+            if (name)
+                s->name = MemoryContextStrdup(TopTransactionContext, name);
+            break;
+
+        default:
+            // Invalid states - force fatal error
+            elog(FATAL, "BeginInternalSubTransaction: unexpected state %s",
+                 BlockStateAsString(s->blockState));
+            break;
+    }
+
+    // Cycle transaction commands
+    CommitTransactionCommand();
+    StartTransactionCommand();
+
+    // Restore original error handling mode
+    ExitOnAnyError = save_ExitOnAnyError;
+}
+```

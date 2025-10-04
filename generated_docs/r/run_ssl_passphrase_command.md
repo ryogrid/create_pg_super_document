@@ -38,3 +38,62 @@ This function executes the external command specified by the `ssl_passphrase_com
 - Error logging level is contextual: ERROR during server startup, LOG during runtime operations
 - The function returns the length of the retrieved passphrase
 - Proper error handling ensures the pipe is closed and memory is cleaned up even on failure
+
+## Simplified Source
+
+```c
+int run_ssl_passphrase_command(const char *prompt, bool is_server_start, char *buf, int size) {
+    int loglevel = is_server_start ? ERROR : LOG;
+    char *command;
+    FILE *fh;
+    size_t len = 0;
+
+    // Initialize buffer and validate inputs
+    Assert(prompt);
+    Assert(size > 0);
+    buf[0] = '\0';
+
+    // Build command with placeholder substitution
+    command = replace_percent_placeholders(ssl_passphrase_command,
+                                         "ssl_passphrase_command", "p", prompt);
+
+    // Execute command and read passphrase
+    fh = OpenPipeStream(command, "r");
+    if (fh == NULL) {
+        ereport(loglevel, (errcode_for_file_access(),
+                          errmsg("could not execute command \"%s\": %m", command)));
+        goto error;
+    }
+
+    // Read result from command output
+    if (!fgets(buf, size, fh)) {
+        if (ferror(fh)) {
+            explicit_bzero(buf, size);
+            ereport(loglevel, (errcode_for_file_access(),
+                              errmsg("could not read from command \"%s\": %m", command)));
+            goto error;
+        }
+    }
+
+    // Close pipe and handle errors
+    int pclose_rc = ClosePipeStream(fh);
+    if (pclose_rc != 0) {
+        explicit_bzero(buf, size);
+        if (pclose_rc != -1) {
+            char *reason = wait_result_to_str(pclose_rc);
+            ereport(loglevel, (errcode_for_file_access(),
+                              errmsg("command \"%s\" failed", command),
+                              errdetail_internal("%s", reason)));
+            pfree(reason);
+        }
+        goto error;
+    }
+
+    // Strip trailing whitespace and return length
+    len = pg_strip_crlf(buf);
+
+error:
+    pfree(command);
+    return len;
+}
+```

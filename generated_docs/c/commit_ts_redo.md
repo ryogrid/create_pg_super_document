@@ -43,3 +43,42 @@ This function serves as the main WAL replay handler for the commit timestamp res
 - Will panic with an unknown operation code if an unrecognized WAL record type is encountered
 - Part of the commit timestamp infrastructure that supports logical replication and other features requiring transaction commit time tracking
 - The function ensures that commit timestamp SLRU state is properly maintained during all forms of WAL replay
+
+## Simplified Source
+
+```c
+void commit_ts_redo(XLogReaderState *record)
+{
+    uint8 info = XLogRecGetInfo(record) & ~XLR_INFO_MASK;
+
+    // Process different types of commit timestamp WAL records
+    if (info == COMMIT_TS_ZEROPAGE)
+    {
+        // Zero out a commit timestamp page during recovery
+        int64 pageno;
+        memcpy(&pageno, XLogRecGetData(record), sizeof(pageno));
+
+        LWLock *lock = SimpleLruGetBankLock(CommitTsCtl, pageno);
+        LWLockAcquire(lock, LW_EXCLUSIVE);
+
+        int slotno = ZeroCommitTsPage(pageno, false);
+        SimpleLruWritePage(CommitTsCtl, slotno);
+
+        LWLockRelease(lock);
+    }
+    else if (info == COMMIT_TS_TRUNCATE)
+    {
+        // Truncate old commit timestamp pages during recovery
+        xl_commit_ts_truncate *trunc = (xl_commit_ts_truncate *) XLogRecGetData(record);
+
+        AdvanceOldestCommitTsXid(trunc->oldestXid);
+
+        // Set latest page number for WAL replay
+        pg_atomic_write_u64(&CommitTsCtl->shared->latest_page_number, trunc->pageno);
+
+        SimpleLruTruncate(CommitTsCtl, trunc->pageno);
+    }
+    else
+        elog(PANIC, "commit_ts_redo: unknown op code %u", info);
+}
+```

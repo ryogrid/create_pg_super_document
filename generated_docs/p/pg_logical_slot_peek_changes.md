@@ -41,3 +41,13 @@ This function is typically used for monitoring, debugging, or preview purposes w
 - Complementary function to pg_logical_slot_get_changes (peek vs consume behavior)
 - Part of PostgreSQL logical replication SQL API
 - Located in src/backend/replication/logical/logicalfuncs.c:340-348
+
+## Simplified Source
+
+```c
+Datum pg_logical_slot_peek_changes(PG_FUNCTION_ARGS)
+{
+    // Call core implementation with confirm=false (don't advance slot) and binary=false (text output)
+    return pg_logical_slot_get_changes_guts(fcinfo, false, false);
+}
+```

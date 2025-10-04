@@ -51,3 +51,72 @@ The function performs several key operations:
 - The immediate_flush parameter allows callers to control when data is actually sent to the server
 - Returns 1 on success, 0 on failure with error message set in the connection object
 - The function is located at src/interfaces/libpq/fe-exec.c:3294-3370
+
+## Simplified Source
+
+```c
+static int pqPipelineSyncInternal(PGconn *conn, bool immediate_flush)
+{
+    PGcmdQueueEntry *entry;
+
+    if (!conn)
+        return 0;
+
+    // Verify connection is in pipeline mode
+    if (conn->pipelineStatus == PQ_PIPELINE_OFF)
+    {
+        libpq_append_conn_error(conn, "cannot send pipeline when not in pipeline mode");
+        return 0;
+    }
+
+    // Validate connection state - reject COPY operations
+    switch (conn->asyncStatus)
+    {
+        case PGASYNC_COPY_IN:
+        case PGASYNC_COPY_OUT:
+        case PGASYNC_COPY_BOTH:
+            appendPQExpBufferStr(&conn->errorMessage, "internal error: cannot send pipeline while in COPY\n");
+            return 0;
+        case PGASYNC_READY:
+        case PGASYNC_READY_MORE:
+        case PGASYNC_BUSY:
+        case PGASYNC_IDLE:
+        case PGASYNC_PIPELINE_IDLE:
+            // OK to proceed
+            break;
+    }
+
+    // Allocate command queue entry for sync operation
+    entry = pqAllocCmdQueueEntry(conn);
+    if (entry == NULL)
+        return 0;
+
+    entry->queryclass = PGQUERY_SYNC;
+    entry->query = NULL;
+
+    // Construct and send Sync message
+    if (pqPutMsgStart(PqMsg_Sync, conn) < 0 ||
+        pqPutMsgEnd(conn) < 0)
+        goto sendFailed;
+
+    // Flush data according to immediate_flush setting
+    if (immediate_flush)
+    {
+        if (pqFlush(conn) < 0)
+            goto sendFailed;
+    }
+    else
+    {
+        if (pqPipelineFlush(conn) < 0)
+            goto sendFailed;
+    }
+
+    // Success: add to command queue
+    pqAppendCmdQueueEntry(conn, entry);
+    return 1;
+
+sendFailed:
+    pqRecycleCmdQueueEntry(conn, entry);
+    return 0;
+}
+```

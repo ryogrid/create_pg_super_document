@@ -65,3 +65,108 @@ The function handles different parentBlk values (0, 1, 2) to optimize parent upd
 - Critical for SP-GiST index structure modifications during node splits and reorganization
 - Error checking ensures all tuple additions succeed or abort with elog(ERROR)
 - The parentBlk field indicates which buffer contains the parent tuple (0=source, 1=dest, 2=separate page)
+
+## Simplified Source
+
+```c
+static void spgRedoAddNode(XLogReaderState *record) {
+    // Extract WAL record data and setup
+    spgxlogAddNode *xldata = (spgxlogAddNode *) XLogRecGetData(record);
+    char *innerTuple = /* extracted from record data */;
+    SpGistInnerTupleData innerTupleHdr;
+    memcpy(&innerTupleHdr, innerTuple, sizeof(SpGistInnerTupleData));
+
+    SpGistState state;
+    fillFakeState(&state, xldata->stateSrc);
+
+    if (!XLogRecHasBlockRef(record, 1)) {
+        // Simple case: update in place (single page)
+        Buffer buffer;
+        if (XLogReadBufferForRedo(record, 0, &buffer) == BLK_NEEDS_REDO) {
+            Page page = BufferGetPage(buffer);
+
+            // Replace old tuple with new one at same offset
+            PageIndexTupleDelete(page, xldata->offnum);
+            PageAddItem(page, innerTuple, innerTupleHdr.size, xldata->offnum, false, false);
+
+            PageSetLSN(page, record->EndRecPtr);
+            MarkBufferDirty(buffer);
+        }
+        UnlockReleaseBuffer(buffer);
+    } else {
+        // Complex case: cross-page move
+        BlockNumber srcBlkno, destBlkno;
+        XLogRecGetBlockTag(record, 0, NULL, NULL, &srcBlkno);
+        XLogRecGetBlockTag(record, 1, NULL, NULL, &destBlkno);
+
+        // Step 1: Install new tuple on destination page
+        Buffer destBuffer;
+        if (xldata->newPage) {
+            destBuffer = XLogInitBufferForRedo(record, 1);
+            SpGistInitBuffer(destBuffer, 0);  // AddNode not used for nulls pages
+        } else {
+            XLogReadBufferForRedo(record, 1, &destBuffer);
+        }
+
+        Page destPage = BufferGetPage(destBuffer);
+        addOrReplaceTuple(destPage, innerTuple, innerTupleHdr.size, xldata->offnumNew);
+
+        // Update parent link if it's on the same destination page
+        if (xldata->parentBlk == 1) {
+            SpGistInnerTuple parentTuple = (SpGistInnerTuple) PageGetItem(destPage,
+                                          PageGetItemId(destPage, xldata->offnumParent));
+            spgUpdateNodeLink(parentTuple, xldata->nodeI, destBlkno, xldata->offnumNew);
+        }
+        PageSetLSN(destPage, record->EndRecPtr);
+        MarkBufferDirty(destBuffer);
+        UnlockReleaseBuffer(destBuffer);
+
+        // Step 2: Replace old tuple with redirect/placeholder on source page
+        Buffer srcBuffer;
+        if (XLogReadBufferForRedo(record, 0, &srcBuffer) == BLK_NEEDS_REDO) {
+            Page srcPage = BufferGetPage(srcBuffer);
+
+            // Create appropriate dead tuple type
+            SpGistDeadTuple deadTuple = state.isBuild ?
+                spgFormDeadTuple(&state, SPGIST_PLACEHOLDER, InvalidBlockNumber, InvalidOffsetNumber) :
+                spgFormDeadTuple(&state, SPGIST_REDIRECT, destBlkno, xldata->offnumNew);
+
+            // Replace old tuple with dead tuple
+            PageIndexTupleDelete(srcPage, xldata->offnum);
+            PageAddItem(srcPage, deadTuple, deadTuple->size, xldata->offnum, false, false);
+
+            // Update counters
+            if (state.isBuild)
+                SpGistPageGetOpaque(srcPage)->nPlaceholder++;
+            else
+                SpGistPageGetOpaque(srcPage)->nRedirection++;
+
+            // Update parent link if it's on the same source page
+            if (xldata->parentBlk == 0) {
+                SpGistInnerTuple parentTuple = (SpGistInnerTuple) PageGetItem(srcPage,
+                                              PageGetItemId(srcPage, xldata->offnumParent));
+                spgUpdateNodeLink(parentTuple, xldata->nodeI, destBlkno, xldata->offnumNew);
+            }
+            PageSetLSN(srcPage, record->EndRecPtr);
+            MarkBufferDirty(srcBuffer);
+        }
+        UnlockReleaseBuffer(srcBuffer);
+
+        // Step 3: Update parent downlink if on separate page
+        if (xldata->parentBlk == 2) {
+            Buffer parentBuffer;
+            if (XLogReadBufferForRedo(record, 2, &parentBuffer) == BLK_NEEDS_REDO) {
+                Page parentPage = BufferGetPage(parentBuffer);
+                SpGistInnerTuple parentTuple = (SpGistInnerTuple) PageGetItem(parentPage,
+                                              PageGetItemId(parentPage, xldata->offnumParent));
+
+                spgUpdateNodeLink(parentTuple, xldata->nodeI, destBlkno, xldata->offnumNew);
+
+                PageSetLSN(parentPage, record->EndRecPtr);
+                MarkBufferDirty(parentBuffer);
+            }
+            UnlockReleaseBuffer(parentBuffer);
+        }
+    }
+}
+```

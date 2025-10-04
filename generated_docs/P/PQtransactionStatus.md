@@ -46,3 +46,22 @@ The function performs several checks: first ensuring the connection is valid and
 - Essential for transaction management and determining when it is safe to issue new commands
 - Widely used by PostgreSQL client tools and interfaces for proper transaction handling
 - Critical for applications that need to understand transaction state before issuing commands
+
+## Simplified Source
+
+```c
+PGTransactionStatusType
+PQtransactionStatus(const PGconn *conn)
+{
+    // Check if connection is valid and ready
+    if (!conn || conn->status != CONNECTION_OK)
+        return PQTRANS_UNKNOWN;
+
+    // Check if any asynchronous operation is active
+    if (conn->asyncStatus != PGASYNC_IDLE)
+        return PQTRANS_ACTIVE;
+
+    // Return the stored transaction status
+    return conn->xactStatus;
+}
+```

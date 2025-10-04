@@ -36,3 +36,27 @@ This function handles the first phase of connection option processing for libpq.
 - The function properly manages memory by freeing the temporary connOptions structure
 - Designed to allow PQsetdbLogin to override defaults between the two connection setup phases
 - Location: src/interfaces/libpq/fe-connect.c:997-1033
+
+## Simplified Source
+
+```c
+static bool connectOptions1(PGconn *conn, const char *conninfo) {
+    // Parse the connection string into options
+    PQconninfoOption *connOptions = parse_connection_string(conninfo, &conn->errorMessage, true);
+    if (connOptions == NULL) {
+        conn->status = CONNECTION_BAD;
+        return false;
+    }
+
+    // Transfer parsed options into connection structure
+    if (!fillPGconn(conn, connOptions)) {
+        conn->status = CONNECTION_BAD;
+        PQconninfoFree(connOptions);
+        return false;
+    }
+
+    // Clean up temporary options structure
+    PQconninfoFree(connOptions);
+    return true;
+}
+```

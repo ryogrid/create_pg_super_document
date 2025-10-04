@@ -30,3 +30,24 @@ The `be_lo_close` function closes a large object that was previously opened with
 - Includes debug logging when FSDB is defined
 - Always returns 0 (success) after successful closure
 - Part of PostgreSQL's large object API accessible via SQL functions
+
+## Simplified Source
+
+```c
+Datum
+be_lo_close(PG_FUNCTION_ARGS)
+{
+    int32   fd = PG_GETARG_INT32(0);
+
+    // Validate file descriptor
+    if (fd < 0 || fd >= cookies_size || cookies[fd] == NULL)
+        ereport(ERROR,
+                (errcode(ERRCODE_UNDEFINED_OBJECT),
+                 errmsg("invalid large-object descriptor: %d", fd)));
+
+    // Close the large object and cleanup resources
+    closeLOfd(fd);
+
+    PG_RETURN_INT32(0);
+}
+```

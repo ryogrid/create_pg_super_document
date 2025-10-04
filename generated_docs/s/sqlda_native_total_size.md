@@ -34,3 +34,21 @@ The function is part of PostgreSQL's ECPG (Embedded SQL in C) interface, specifi
 - Returns a long value representing the total bytes needed for memory allocation
 - The function handles the case where only structure size is needed (when row < 0)
 - Part of the ECPG library for embedded SQL functionality in PostgreSQL client applications
+
+## Simplified Source
+
+```c
+static long sqlda_native_total_size(const PGresult *res, int row,
+                                   enum COMPAT_MODE compat) {
+    // Start with empty SQLDA structure size
+    long offset = sqlda_native_empty_size(res);
+
+    // If no specific row, return just the structure size
+    if (row < 0)
+        return offset;
+
+    // Add space for data values in the specified row
+    offset = sqlda_common_total_size(res, row, compat, offset);
+    return offset;
+}
+```

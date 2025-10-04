@@ -36,3 +36,20 @@ The function leverages the internal  function to perform the actual visibility c
 - This function is part of PostgreSQL's text search infrastructure
 - Located in 
 - The function uses the "Ext" variant of the visibility checker to handle missing objects gracefully
+
+## Simplified Source
+
+```c
+Datum pg_ts_dict_is_visible(PG_FUNCTION_ARGS) {
+    Oid dict_oid = PG_GETARG_OID(0);
+    bool is_missing = false;
+
+    // Check if text search dictionary is visible in current search path
+    bool result = TSDictionaryIsVisibleExt(dict_oid, &is_missing);
+
+    // Return NULL if dictionary doesn't exist, otherwise return visibility status
+    if (is_missing)
+        PG_RETURN_NULL();
+    PG_RETURN_BOOL(result);
+}
+```

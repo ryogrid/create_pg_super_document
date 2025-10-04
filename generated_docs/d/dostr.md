@@ -49,3 +49,47 @@ The function is designed to handle both buffered output (when target->bufend is 
 - Buffer flushing is handled automatically when the buffer fills up and a stream is available
 - Critical building block used throughout PostgreSQL's printf implementation for string output
 - Maintains buffer state correctly by advancing bufptr and updating available space calculations
+
+## Simplified Source
+
+```c
+static void
+dostr(const char *str, int slen, PrintfTarget *target)
+{
+    // Fast path for single character
+    if (slen == 1) {
+        dopr_outch(*str, target);
+        return;
+    }
+
+    // Copy string in chunks, respecting buffer limits
+    while (slen > 0) {
+        int avail;
+
+        // Calculate available buffer space
+        if (target->bufend != NULL)
+            avail = target->bufend - target->bufptr;
+        else
+            avail = slen;
+
+        // Handle full buffer
+        if (avail <= 0) {
+            if (target->stream == NULL) {
+                // No stream available - just count lost characters
+                target->nchars += slen;
+                return;
+            }
+            // Flush buffer to stream and continue
+            flushbuffer(target);
+            continue;
+        }
+
+        // Copy as much as possible
+        avail = Min(avail, slen);
+        memmove(target->bufptr, str, avail);
+        target->bufptr += avail;
+        str += avail;
+        slen -= avail;
+    }
+}
+```

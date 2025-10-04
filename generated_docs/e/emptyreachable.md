@@ -45,3 +45,30 @@ The function includes stack overflow protection, as the maximum recursion depth 
 - The recursion depth is bounded by the length of the longest loop-free EMPTY arc chain
 - Part of the EMPTY arc elimination system in PostgreSQL's regex engine
 - Located in src/backend/regex/regc_nfa.c:2303-2330
+
+## Simplified Source
+```c
+static struct state *emptyreachable(struct nfa *nfa, struct state *s,
+                                   struct state *lastfound, struct arc **inarcsorig) {
+    struct arc *a;
+
+    // Stack overflow protection
+    if (STACK_TOO_DEEP(nfa->v->re)) {
+        NERR(REG_ETOOBIG);
+        return lastfound;
+    }
+
+    // Add current state to linked list
+    s->tmp = lastfound;
+    lastfound = s;
+
+    // Recursively find all predecessors via EMPTY arcs
+    for (a = inarcsorig[s->no]; a != NULL; a = a->inchain) {
+        if (a->type == EMPTY && a->from->tmp == NULL) {
+            lastfound = emptyreachable(nfa, a->from, lastfound, inarcsorig);
+        }
+    }
+
+    return lastfound;
+}
+```

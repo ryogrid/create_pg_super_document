@@ -37,3 +37,24 @@ The function switches the communication method from the default socket-based app
 - Sets the frontend protocol version to the latest supported version
 - Registers a cleanup callback that will be invoked when the DSM segment is detached
 - This is a critical setup function for parallel query execution infrastructure
+
+## Simplified Source
+
+```c
+void pq_redirect_to_shm_mq(dsm_segment *seg, shm_mq_handle *mqh) {
+    // Switch communication method to use shared memory message queues
+    PqCommMethods = &PqCommMqMethods;
+
+    // Store the message queue handle for later use
+    pq_mq_handle = mqh;
+
+    // Configure output destination for remote communication
+    whereToSendOutput = DestRemote;
+
+    // Set protocol version to latest
+    FrontendProtocol = PG_PROTOCOL_LATEST;
+
+    // Register cleanup function to run when DSM segment is detached
+    on_dsm_detach(seg, pq_cleanup_redirect_to_shm_mq, (Datum) 0);
+}
+```

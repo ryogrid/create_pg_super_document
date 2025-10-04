@@ -43,3 +43,35 @@ This function is crucial for maintaining proper memory management in the logical
 - Integrates with the related processed symbol 'free_attrmap' for complete cleanup
 - Essential for preventing memory leaks in long-running logical replication processes
 - Part of the logical replication cache management infrastructure
+
+## Simplified Source
+
+```c
+static void logicalrep_relmap_free_entry(LogicalRepRelMapEntry *entry) {
+    LogicalRepRelation *remoterel = &entry->remoterel;
+
+    // Free relation name strings
+    pfree(remoterel->nspname);
+    pfree(remoterel->relname);
+
+    // Free attribute information if any attributes exist
+    if (remoterel->natts > 0) {
+        // Free individual attribute names
+        for (int i = 0; i < remoterel->natts; i++) {
+            pfree(remoterel->attnames[i]);
+        }
+
+        // Free attribute arrays
+        pfree(remoterel->attnames);
+        pfree(remoterel->atttyps);
+    }
+
+    // Free attribute key bitmap
+    bms_free(remoterel->attkeys);
+
+    // Free attribute mapping if it exists
+    if (entry->attrmap) {
+        free_attrmap(entry->attrmap);
+    }
+}
+```

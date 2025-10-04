@@ -42,3 +42,59 @@ The function implements several important constraints: it won't allow parallel o
 - Indexes must be larger than min_parallel_index_scan_size to be considered for parallel processing
 - The final worker count is the minimum of: requested workers, eligible indexes (minus 1 for leader), and max_parallel_maintenance_workers
 - The will_parallel_vacuum array is populated as a side effect to indicate which indexes will participate
+
+## Simplified Source
+
+```c
+static int
+parallel_vacuum_compute_workers(Relation *indrels, int nindexes, int nrequested,
+                               bool *will_parallel_vacuum)
+{
+    int nindexes_parallel_bulkdel = 0;
+    int nindexes_parallel_cleanup = 0;
+    int parallel_workers;
+
+    // Don't allow parallel in standalone mode or when disabled
+    if (!IsUnderPostmaster || max_parallel_maintenance_workers == 0)
+        return 0;
+
+    // Count indexes eligible for parallel processing
+    for (int i = 0; i < nindexes; i++) {
+        Relation indrel = indrels[i];
+        uint8 vacoptions = indrel->rd_indam->amparallelvacuumoptions;
+
+        // Skip if index doesn't support parallel or is too small
+        if (vacoptions == VACUUM_OPTION_NO_PARALLEL ||
+            RelationGetNumberOfBlocks(indrel) < min_parallel_index_scan_size)
+            continue;
+
+        will_parallel_vacuum[i] = true;
+
+        // Count by operation type
+        if (vacoptions & VACUUM_OPTION_PARALLEL_BULKDEL)
+            nindexes_parallel_bulkdel++;
+        if ((vacoptions & VACUUM_OPTION_PARALLEL_CLEANUP) ||
+            (vacoptions & VACUUM_OPTION_PARALLEL_COND_CLEANUP))
+            nindexes_parallel_cleanup++;
+    }
+
+    // Use the maximum count for either phase
+    int nindexes_parallel = Max(nindexes_parallel_bulkdel, nindexes_parallel_cleanup);
+
+    // Leader takes one index, so subtract it
+    nindexes_parallel--;
+
+    // No suitable indexes for parallel processing
+    if (nindexes_parallel <= 0)
+        return 0;
+
+    // Compute final worker count
+    parallel_workers = (nrequested > 0) ?
+        Min(nrequested, nindexes_parallel) : nindexes_parallel;
+
+    // Cap by system limit
+    parallel_workers = Min(parallel_workers, max_parallel_maintenance_workers);
+
+    return parallel_workers;
+}
+```

@@ -36,3 +36,15 @@ The conversion is necessary because SP-GiST operations work with text datums int
 - Creates text datum with exact length determined by `strlen`
 - Part of test module demonstrating custom SP-GiST operator class implementation
 - No validation or error checking performed on input name
+
+## Simplified Source
+
+```c
+Datum spgist_name_compress(PG_FUNCTION_ARGS) {
+    // Convert PostgreSQL name type to text datum for SP-GiST processing
+    Name inName = PG_GETARG_NAME(0);
+    char *inStr = NameStr(*inName);
+
+    PG_RETURN_DATUM(formTextDatum(inStr, strlen(inStr)));
+}
+```

@@ -30,3 +30,27 @@ This function creates a deep copy of a Bitmapset in the AfterTriggerEvents memor
 - Memory context switching ensures the copied bitmap persists in the correct context
 - This is part of PostgreSQL's after-trigger event management system
 - The function follows PostgreSQL's pattern of careful memory context management
+
+## Simplified Source
+
+```c
+static Bitmapset *afterTriggerCopyBitmap(Bitmapset *src)
+{
+    Bitmapset *dst;
+    MemoryContext oldcxt;
+
+    if (src == NULL)
+        return NULL;
+
+    // Switch to AfterTriggerEvents context for allocation
+    oldcxt = MemoryContextSwitchTo(afterTriggers.event_cxt);
+
+    // Copy the bitmap
+    dst = bms_copy(src);
+
+    // Restore original context
+    MemoryContextSwitchTo(oldcxt);
+
+    return dst;
+}
+```

@@ -34,3 +34,18 @@ The comment in the source code notes that this function is largely obsolete for 
 - The function specifically excludes the current backend's temporary namespaces from the result
 - It includes both regular temporary table namespaces and temporary toast table namespaces from other backends
 - Has limited usage in the current codebase, primarily in SQL-visible functions and some relation lookup operations
+
+## Simplified Source
+
+```c
+bool
+isOtherTempNamespace(Oid namespaceId)
+{
+    // Return false if it's my own temp namespace
+    if (isTempOrTempToastNamespace(namespaceId))
+        return false;
+
+    // Return true if it's any other temp namespace
+    return isAnyTempNamespace(namespaceId);
+}
+```

@@ -35,3 +35,30 @@ This function parses a COMMIT PREPARED message from the logical replication prot
 - The GID is copied into a pre-allocated buffer with size checking via strlcpy
 - Located in src/backend/replication/logical/proto.c:278-303
 - Used by logical replication workers to process commit prepared messages during two-phase commit operations
+
+## Simplified Source
+
+```c
+void logicalrep_read_commit_prepared(StringInfo in, LogicalRepCommitPreparedTxnData *prepare_data) {
+    // Read and validate flags field
+    uint8 flags = pq_getmsgbyte(in);
+    if (flags != 0)
+        elog(ERROR, "unrecognized flags %u in commit prepared message", flags);
+
+    // Read and validate LSNs
+    prepare_data->commit_lsn = pq_getmsgint64(in);
+    if (prepare_data->commit_lsn == InvalidXLogRecPtr)
+        elog(ERROR, "commit_lsn is not set in commit prepared message");
+
+    prepare_data->end_lsn = pq_getmsgint64(in);
+    if (prepare_data->end_lsn == InvalidXLogRecPtr)
+        elog(ERROR, "end_lsn is not set in commit prepared message");
+
+    // Read transaction completion data
+    prepare_data->commit_time = pq_getmsgint64(in);  // Commit timestamp
+    prepare_data->xid = pq_getmsgint(in, 4);         // Transaction ID
+
+    // Read and copy global transaction identifier
+    strlcpy(prepare_data->gid, pq_getmsgstring(in), sizeof(prepare_data->gid));
+}
+```

@@ -34,3 +34,22 @@ The function uses the PQprintOpt structure to control formatting options, ensuri
 - Enables both headers and column alignment for maximum readability
 - Essential for producing consistent, parseable test output across different isolation test scenarios
 - Part of the standardized output formatting infrastructure for PostgreSQL isolation testing
+
+## Simplified Source
+
+```c
+static void
+printResultSet(PGresult *res)
+{
+    PQprintOpt popt;
+
+    // Initialize print options for table format
+    memset(&popt, 0, sizeof(popt));
+    popt.header = true;        // Show column headers
+    popt.align = true;         // Align columns
+    popt.fieldSep = "|";       // Use pipe separator
+
+    // Print formatted result to stdout
+    PQprint(stdout, res, &popt);
+}
+```

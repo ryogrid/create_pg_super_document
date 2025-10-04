@@ -43,3 +43,45 @@ The attachment process involves:
 - Upon successful attachment, an exit handler (logicalrep_worker_onexit) is registered to ensure proper cleanup
 - The global variable MyLogicalRepWorker is set to point to the attached slot
 - This function is typically called during the initialization phase of logical replication worker processes
+
+## Simplified Source
+
+```c
+void logicalrep_worker_attach(int slot)
+{
+    // Acquire exclusive lock to prevent concurrent access
+    LWLockAcquire(LogicalRepWorkerLock, LW_EXCLUSIVE);
+
+    // Validate slot index is within bounds
+    Assert(slot >= 0 && slot < max_logical_replication_workers);
+    MyLogicalRepWorker = &LogicalRepCtx->workers[slot];
+
+    // Check if slot is allocated (in_use flag set by launcher)
+    if (!MyLogicalRepWorker->in_use)
+    {
+        LWLockRelease(LogicalRepWorkerLock);
+        ereport(ERROR,
+                (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                 errmsg("logical replication worker slot %d is empty, cannot attach",
+                        slot)));
+    }
+
+    // Check if slot is already occupied by another process
+    if (MyLogicalRepWorker->proc)
+    {
+        LWLockRelease(LogicalRepWorkerLock);
+        ereport(ERROR,
+                (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                 errmsg("logical replication worker slot %d is already used by "
+                        "another worker, cannot attach", slot)));
+    }
+
+    // Attach current process to the slot
+    MyLogicalRepWorker->proc = MyProc;
+
+    // Register cleanup handler for process exit
+    before_shmem_exit(logicalrep_worker_onexit, (Datum) 0);
+
+    LWLockRelease(LogicalRepWorkerLock);
+}
+```

@@ -30,8 +30,27 @@ The function includes interrupt checking via  to allow for graceful cancellation
   - [create_and_test_bloom](../c/create_and_test_bloom.md)
 
 ## Notes and Other Information
-- The function uses  to define the buffer size for generated strings
-- [String](../S/String.md) format uses  for cross-platform 64-bit integer formatting
+- The function uses to define the buffer size for generated strings
+- String format uses for cross-platform 64-bit integer formatting
 - This is a static function, meaning it's only accessible within the test_bloomfilter.c file
 - The function is specifically designed for testing scenarios and generates predictable, sequential dummy data
 - Interrupt checking ensures the function can be cancelled during long-running tests with large element counts
+
+## Simplified Source
+
+```c
+static void populate_with_dummy_strings(bloom_filter *filter, int64 nelements) {
+    char element[MAX_ELEMENT_BYTES];
+
+    // Generate and add sequential dummy strings to bloom filter
+    for (int64 i = 0; i < nelements; i++) {
+        CHECK_FOR_INTERRUPTS(); // Allow cancellation during long operations
+
+        // Create dummy string in format "i<number>"
+        snprintf(element, sizeof(element), "i" INT64_FORMAT, i);
+
+        // Add element to bloom filter
+        bloom_add_element(filter, (unsigned char *) element, strlen(element));
+    }
+}
+```

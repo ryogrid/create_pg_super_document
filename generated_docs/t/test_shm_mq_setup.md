@@ -47,3 +47,37 @@ The setup process involves four main phases:
 - Worker processes are configured to automatically terminate when message queues shut down, eliminating the need for explicit cleanup after successful setup
 - The function is located in `src/test/modules/test_shm_mq/setup.c:51-91`
 - Memory allocated for worker state tracking is freed after setup completion since cleanup is handled through the DSM detach callback mechanism
+
+## Simplified Source
+
+```c
+void
+test_shm_mq_setup(int64 queue_size, int32 nworkers, dsm_segment **segp,
+                  shm_mq_handle **output, shm_mq_handle **input)
+{
+    dsm_segment *seg;
+    test_shm_mq_header *hdr;
+    shm_mq *outq;
+    shm_mq *inq;
+
+    // Create dynamic shared memory segment with message queues
+    setup_dynamic_shared_memory(queue_size, nworkers, &seg, &hdr, &outq, &inq);
+    *segp = seg;
+
+    // Start background worker processes
+    worker_state *wstate = setup_background_workers(nworkers, seg);
+
+    // Attach message queue handles for communication
+    *output = shm_mq_attach(outq, seg, wstate->handle[0]);
+    *input = shm_mq_attach(inq, seg, wstate->handle[nworkers - 1]);
+
+    // Wait for all workers to be ready
+    wait_for_workers_to_become_ready(wstate, hdr);
+
+    // Set up cleanup callback for when segment is detached
+    cancel_on_dsm_detach(seg, cleanup_background_workers, PointerGetDatum(wstate));
+
+    // Free worker state since cleanup is now handled by callback
+    pfree(wstate);
+}
+```

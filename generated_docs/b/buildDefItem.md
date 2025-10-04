@@ -36,3 +36,37 @@ This function creates a DefElem (Definition Element) structure from a name-value
 
 ## Notes and Other Information
 Located at src/backend/commands/tsearchcmds.c:1834-1870. The function uses a hierarchical type detection approach: first attempting integer parsing with strtoint(), then float parsing with strtod(), then boolean literal matching ("true"/"false"), and finally defaulting to string representation. The was_quoted parameter ensures that explicitly quoted values maintain their string type regardless of content, preserving user intent and preventing unintended type conversions. All string values are duplicated using pstrdup() to ensure proper memory management within PostgreSQL's memory contexts.
+
+## Simplified Source
+
+```c
+static DefElem *buildDefItem(const char *name, const char *val, bool was_quoted)
+{
+    // If input was quoted, always treat as string
+    if (!was_quoted && val[0] != '\0') {
+        int v;
+        char *endptr;
+
+        // Try parsing as integer
+        errno = 0;
+        v = strtoint(val, &endptr, 10);
+        if (errno == 0 && *endptr == '\0')
+            return makeDefElem(pstrdup(name), (Node *) makeInteger(v), -1);
+
+        // Try parsing as float
+        errno = 0;
+        (void) strtod(val, &endptr);
+        if (errno == 0 && *endptr == '\0')
+            return makeDefElem(pstrdup(name), (Node *) makeFloat(pstrdup(val)), -1);
+
+        // Check for boolean literals
+        if (strcmp(val, "true") == 0)
+            return makeDefElem(pstrdup(name), (Node *) makeBoolean(true), -1);
+        if (strcmp(val, "false") == 0)
+            return makeDefElem(pstrdup(name), (Node *) makeBoolean(false), -1);
+    }
+
+    // Default to string type
+    return makeDefElem(pstrdup(name), (Node *) makeString(pstrdup(val)), -1);
+}
+```

@@ -39,3 +39,18 @@ The conditional reconfiguration ensures that prefetching parameters are only upd
 - This function works in conjunction with  to provide complete GUC parameter management
 - The reconfiguration trigger ensures that changes to the recovery_prefetch setting take effect immediately without requiring a restart
 - Global variable assignment happens unconditionally, but system reconfiguration is process-specific
+
+## Simplified Source
+
+```c
+void
+assign_recovery_prefetch(int new_value, void *extra)
+{
+    // Update the global recovery_prefetch setting
+    recovery_prefetch = new_value;
+
+    // Reconfigure prefetching if we're in the startup process
+    if (AmStartupProcess())
+        XLogPrefetchReconfigure();
+}
+```

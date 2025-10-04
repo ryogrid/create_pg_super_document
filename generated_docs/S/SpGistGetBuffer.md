@@ -50,3 +50,75 @@ The function sets the isNew output parameter to indicate whether the returned pa
 
 ## Notes and Other Information
 The function includes error checking to prevent requests for impossible space amounts exceeding SPGIST_PAGE_CAPACITY. It uses ConditionalLockBuffer to avoid blocking on busy pages, preferring to allocate new pages rather than wait. The fillfactor consideration helps maintain index performance by preserving space for related tuples. Cache entries are updated with actual free space measurements after successful allocations to maintain accuracy.
+
+## Simplified Source
+
+```c
+Buffer SpGistGetBuffer(Relation index, int flags, int needSpace, bool *isNew) {
+    SpGistCache *cache = spgGetCache(index);
+    SpGistLastUsedPage *lup;
+
+    // Validate space requirement
+    if (needSpace > SPGIST_PAGE_CAPACITY)
+        elog(ERROR, "desired SPGiST tuple size is too big");
+
+    // Apply fillfactor to space request
+    needSpace += SpGistGetTargetPageFreeSpace(index);
+    needSpace = Min(needSpace, SPGIST_PAGE_CAPACITY);
+
+    // Get cache entry for this flag combination
+    lup = GET_LUP(cache, flags);
+
+    // No cached page available
+    if (lup->blkno == InvalidBlockNumber) {
+        *isNew = true;
+        return allocNewBuffer(index, flags);
+    }
+
+    // Check if cached page has enough free space
+    if (lup->freeSpace >= needSpace) {
+        Buffer buffer = ReadBuffer(index, lup->blkno);
+
+        // Try to lock buffer (non-blocking)
+        if (!ConditionalLockBuffer(buffer)) {
+            ReleaseBuffer(buffer);
+            *isNew = true;
+            return allocNewBuffer(index, flags);
+        }
+
+        Page page = BufferGetPage(buffer);
+
+        // Check if page needs initialization
+        if (PageIsNew(page) || SpGistPageIsDeleted(page) || PageIsEmpty(page)) {
+            uint16 pageflags = 0;
+            if (GBUF_REQ_LEAF(flags))
+                pageflags |= SPGIST_LEAF;
+            if (GBUF_REQ_NULLS(flags))
+                pageflags |= SPGIST_NULLS;
+
+            SpGistInitBuffer(buffer, pageflags);
+            lup->freeSpace = PageGetExactFreeSpace(page) - needSpace;
+            *isNew = true;
+            return buffer;
+        }
+
+        // Validate page type and space
+        if ((GBUF_REQ_LEAF(flags) ? SpGistPageIsLeaf(page) : !SpGistPageIsLeaf(page)) &&
+            (GBUF_REQ_NULLS(flags) ? SpGistPageStoresNulls(page) : !SpGistPageStoresNulls(page))) {
+
+            int freeSpace = PageGetExactFreeSpace(page);
+            if (freeSpace >= needSpace) {
+                lup->freeSpace = freeSpace - needSpace;
+                *isNew = false;
+                return buffer;
+            }
+        }
+
+        UnlockReleaseBuffer(buffer);
+    }
+
+    // Fallback to new buffer allocation
+    *isNew = true;
+    return allocNewBuffer(index, flags);
+}
+```

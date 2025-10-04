@@ -56,3 +56,39 @@ Other record types like STANDBY_LOCK and INVALIDATIONS are present but don't req
 - The oldestRunningXid from RUNNING_XACTS records determines which old transactions can be safely discarded
 - These records provide more complete information than shutdown checkpoints since they include prepared transactions
 - Critical for establishing safe restart points during logical replication setup and recovery
+
+## Simplified Source
+
+```c
+void standby_decode(LogicalDecodingContext *ctx, XLogRecordBuffer *buf)
+{
+    SnapBuild *builder = ctx->snapshot_builder;
+    XLogReaderState *r = buf->record;
+    uint8 info = XLogRecGetInfo(r) & ~XLR_INFO_MASK;
+
+    // Process transaction for reordering
+    ReorderBufferProcessXid(ctx->reorder, XLogRecGetXid(r), buf->origptr);
+
+    switch (info) {
+        case XLOG_RUNNING_XACTS:
+            // Process running transaction snapshot for consistent state
+            xl_running_xacts *running = (xl_running_xacts *) XLogRecGetData(r);
+            SnapBuildProcessRunningXacts(builder, buf->origptr, running);
+
+            // Clean up old transactions to prevent memory bloat
+            ReorderBufferAbortOld(ctx->reorder, running->oldestRunningXid);
+            break;
+
+        case XLOG_STANDBY_LOCK:
+            // Standby locks don't affect logical decoding
+            break;
+
+        case XLOG_INVALIDATIONS:
+            // Invalidations handled at transaction level via XLOG_XACT_INVALIDATIONS
+            break;
+
+        default:
+            elog(ERROR, "unexpected RM_STANDBY_ID record type: %u", info);
+    }
+}
+```

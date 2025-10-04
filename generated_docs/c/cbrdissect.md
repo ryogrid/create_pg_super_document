@@ -50,3 +50,48 @@ The algorithm is optimized for the common cases where either the backreference o
 - Uses the grammar's comparison function to handle case-insensitive matching when appropriate
 - Includes bounds checking for minimum and maximum repetition counts
 - The backref node operation is identified by op == 'b' and contains a backno field indicating which captured group to reference
+
+## Simplified Source
+
+```c
+static int cbrdissect(struct vars *v, struct subre *t, chr *begin, chr *end) {
+    int n = t->backno;
+    size_t numreps, tlen, brlen;
+    chr *brstring, *p;
+    int min = t->min, max = t->max;
+
+    // Get the backreferenced string
+    if (v->pmatch[n].rm_so == -1)
+        return REG_NOMATCH;  // Referenced group not captured
+
+    brstring = v->start + v->pmatch[n].rm_so;
+    brlen = v->pmatch[n].rm_eo - v->pmatch[n].rm_so;
+
+    // Handle zero-length cases
+    if (brlen == 0) {
+        return (begin == end && min <= max) ? REG_OKAY : REG_NOMATCH;
+    }
+    if (begin == end) {
+        return (min == 0) ? REG_OKAY : REG_NOMATCH;
+    }
+
+    // Check if target length allows valid repetition count
+    tlen = end - begin;
+    if (tlen % brlen != 0)
+        return REG_NOMATCH;
+
+    numreps = tlen / brlen;
+    if (numreps < min || (numreps > max && max != DUPINF))
+        return REG_NOMATCH;
+
+    // Compare actual string contents
+    p = begin;
+    while (numreps-- > 0) {
+        if ((*v->g->compare)(brstring, p, brlen) != 0)
+            return REG_NOMATCH;
+        p += brlen;
+    }
+
+    return REG_OKAY;
+}
+```

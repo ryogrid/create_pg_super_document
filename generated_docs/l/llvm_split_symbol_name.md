@@ -44,3 +44,30 @@ This parsing is essential for the JIT compilation system to correctly resolve sy
 - Memory for both  and  is allocated using PostgreSQL's memory management functions
 - If the symbol is not from an external module,  is set to NULL and the entire name becomes the function name
 - This function is a key component in PostgreSQL's dynamic symbol resolution for JIT-compiled code
+
+## Simplified Source
+
+```c
+void llvm_split_symbol_name(const char *name, char **modname, char **funcname) {
+    // Initialize output parameters
+    *modname = NULL;
+    *funcname = NULL;
+
+    // Check if this is an external module symbol (starts with "pgextern.")
+    if (strncmp(name, "pgextern.", strlen("pgextern.")) == 0) {
+        // Extract function name (everything after the last dot)
+        *funcname = rindex(name, '.');
+        (*funcname)++;  // Skip the dot
+
+        // Extract module name (between "pgextern." and last dot)
+        *modname = pnstrdup(name + strlen("pgextern."),
+                            *funcname - name - strlen("pgextern.") - 1);
+
+        // Duplicate the function name
+        *funcname = pstrdup(*funcname);
+    } else {
+        // Not an external module - just copy the whole name as function name
+        *funcname = pstrdup(name);
+    }
+}
+```

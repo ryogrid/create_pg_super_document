@@ -43,3 +43,39 @@ The function handles memory management by freeing any previously materialized tu
 - Handles both transfer_pin and non-transfer_pin modes for flexible buffer management
 - Clears TTS_FLAG_EMPTY and resets tts_nvalid to indicate the slot now contains valid data
 - The function assumes the caller already holds a pin on the buffer when transfer_pin is true
+
+## Simplified Source
+
+```c
+static inline void
+tts_buffer_heap_store_tuple(TupleTableSlot *slot, HeapTuple tuple,
+                            Buffer buffer, bool transfer_pin)
+{
+    BufferHeapTupleTableSlot *bslot = (BufferHeapTupleTableSlot *) slot;
+
+    // Free any previously materialized tuple
+    if (TTS_SHOULDFREE(slot)) {
+        heap_freetuple(bslot->base.tuple);
+        slot->tts_flags &= ~TTS_FLAG_SHOULDFREE;
+    }
+
+    // Initialize slot with new tuple
+    slot->tts_flags &= ~TTS_FLAG_EMPTY;
+    slot->tts_nvalid = 0;
+    bslot->base.tuple = tuple;
+    slot->tts_tid = tuple->t_self;
+
+    // Optimize buffer pin management for same-page access
+    if (bslot->buffer != buffer) {
+        // Different buffer: release old, acquire new
+        if (BufferIsValid(bslot->buffer))
+            ReleaseBuffer(bslot->buffer);
+        bslot->buffer = buffer;
+        if (!transfer_pin && BufferIsValid(buffer))
+            IncrBufferRefCount(buffer);
+    } else if (transfer_pin && BufferIsValid(buffer)) {
+        // Same buffer but transferring pin: release caller's pin
+        ReleaseBuffer(buffer);
+    }
+}
+```

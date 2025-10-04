@@ -43,3 +43,60 @@ The function includes interrupt checking to allow for cancellation of long-runni
 - The function performs interrupt checking to allow cancellation during long operations
 - Uses a sort-merge approach for efficiency when dealing with large numbers of arcs
 - Located in src/backend/regex/regc_nfa.c:971-1065
+
+## Simplified Source
+
+```c
+static void
+mergeins(struct nfa *nfa, struct state *s,
+         struct arc **arcarray, int arccount)
+{
+    if (arccount <= 0) return;
+
+    INTERRUPT(nfa->v->re);  // cancellation check
+
+    // Sort existing incoming arcs and new arc array
+    sortins(nfa, s);
+    if (NISERR()) return;
+
+    qsort(arcarray, arccount, sizeof(struct arc *), sortins_cmp);
+
+    // Remove duplicates from arc array
+    int j = 0;
+    for (int i = 1; i < arccount; i++) {
+        if (sortins_cmp(&arcarray[j], &arcarray[i]) < 0) {
+            arcarray[++j] = arcarray[i];  // keep non-duplicate
+        }
+        // skip duplicates
+    }
+    arccount = j + 1;
+
+    // Merge unique arcs into state's incoming arc list
+    int i = 0;
+    struct arc *na = s->ins;
+
+    while (i < arccount && na != NULL) {
+        struct arc *a = arcarray[i];
+        switch (sortins_cmp(&a, &na)) {
+            case -1:  // arc not in state, add it
+                createarc(nfa, a->type, a->co, a->from, s);
+                i++;
+                break;
+            case 0:   // arc already exists, skip
+                i++;
+                na = na->inchain;
+                break;
+            case +1:  // advance state arc list
+                na = na->inchain;
+                break;
+        }
+    }
+
+    // Add remaining unique arcs
+    while (i < arccount) {
+        struct arc *a = arcarray[i];
+        createarc(nfa, a->type, a->co, a->from, s);
+        i++;
+    }
+}
+```

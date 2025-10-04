@@ -46,3 +46,69 @@ The function implements a two-step approach: first attempting to receive data di
 - Handles both normal end-of-stream (PGRES_COMMAND_OK) and error conditions
 - Automatically manages receive buffer memory by freeing previous buffer before each call
 - Critical component of PostgreSQL's streaming replication infrastructure
+
+## Simplified Source
+
+```c
+static int
+libpqrcv_receive(WalReceiverConn *conn, char **buffer, pgsocket *wait_fd)
+{
+    int rawlen;
+
+    // Free previous receive buffer
+    PQfreemem(conn->recvBuf);
+    conn->recvBuf = NULL;
+
+    // Try to receive COPY data
+    rawlen = PQgetCopyData(conn->streamConn, &conn->recvBuf, 1);
+    if (rawlen == 0) {
+        // No data available, try consuming input first
+        if (PQconsumeInput(conn->streamConn) == 0)
+            ereport(ERROR, (errmsg("could not receive data from WAL stream: %s",
+                                   pchomp(PQerrorMessage(conn->streamConn)))));
+
+        // Try again after consuming input
+        rawlen = PQgetCopyData(conn->streamConn, &conn->recvBuf, 1);
+        if (rawlen == 0) {
+            // Still no data, return socket for waiting
+            *wait_fd = PQsocket(conn->streamConn);
+            return 0;
+        }
+    }
+
+    if (rawlen == -1) {
+        // End of streaming or error
+        PGresult *res = libpqrcv_PQgetResult(conn->streamConn);
+
+        if (PQresultStatus(res) == PGRES_COMMAND_OK) {
+            PQclear(res);
+
+            // Verify no additional results
+            res = libpqrcv_PQgetResult(conn->streamConn);
+            if (res != NULL) {
+                PQclear(res);
+                if (PQstatus(conn->streamConn) == CONNECTION_BAD)
+                    return -1;
+                ereport(ERROR, (errmsg("unexpected result after CommandComplete: %s",
+                                       PQerrorMessage(conn->streamConn))));
+            }
+            return -1;
+        } else if (PQresultStatus(res) == PGRES_COPY_IN) {
+            PQclear(res);
+            return -1;
+        } else {
+            PQclear(res);
+            ereport(ERROR, (errmsg("could not receive data from WAL stream: %s",
+                                   pchomp(PQerrorMessage(conn->streamConn)))));
+        }
+    }
+
+    if (rawlen < -1)
+        ereport(ERROR, (errmsg("could not receive data from WAL stream: %s",
+                               pchomp(PQerrorMessage(conn->streamConn)))));
+
+    // Return received data
+    *buffer = conn->recvBuf;
+    return rawlen;
+}
+```

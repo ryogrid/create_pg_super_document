@@ -34,3 +34,36 @@ This function is part of the SPI (Server Programming Interface) API that allows 
 - The function preserves the current memory context by passing false to _SPI_begin_call
 - Creates a query environment lazily if one doesn't already exist
 - Part of the public SPI API for managing ephemeral named relations
+
+## Simplified Source
+
+```c
+int SPI_register_relation(EphemeralNamedRelation enr) {
+    // Validate input parameters
+    if (enr == NULL || enr->md.name == NULL)
+        return SPI_ERROR_ARGUMENT;
+
+    // Begin SPI call context
+    int res = _SPI_begin_call(false);
+    if (res < 0)
+        return res;
+
+    // Check for duplicate relation name
+    EphemeralNamedRelation match = _SPI_find_ENR_by_name(enr->md.name);
+    if (match) {
+        res = SPI_ERROR_REL_DUPLICATE;
+    } else {
+        // Create query environment if it doesn't exist
+        if (_SPI_current->queryEnv == NULL)
+            _SPI_current->queryEnv = create_queryEnv();
+
+        // Register the ephemeral named relation
+        register_ENR(_SPI_current->queryEnv, enr);
+        res = SPI_OK_REL_REGISTER;
+    }
+
+    // End SPI call context
+    _SPI_end_call(false);
+    return res;
+}
+```

@@ -32,3 +32,16 @@ The function then calls bbsink_begin_backup() on the next sink in the chain, pas
 - Buffer size matches the input buffer size since deflate() is flexible with output buffer sizing
 - Part of the bbsink interface implementation for gzip compression
 - Ensures proper initialization of the entire sink chain
+
+## Simplified Source
+
+```c
+static void bbsink_gzip_begin_backup(bbsink *sink) {
+    // Allocate our own buffer for compressed output
+    sink->bbs_buffer = palloc(sink->bbs_buffer_length);
+
+    // Initialize next sink in chain with same buffer size
+    bbsink_begin_backup(sink->bbs_next, sink->bbs_state,
+                        sink->bbs_buffer_length);
+}
+```

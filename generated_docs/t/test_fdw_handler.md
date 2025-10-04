@@ -36,3 +36,13 @@ This function uses the standard PostgreSQL function interface:
 - This appears to be a placeholder for future FDW testing functionality
 - The function follows PostgreSQL's standard function interface conventions despite being unimplemented
 - Foreign Data Wrappers are a SQL standard feature for accessing external data, making this test function potentially important for compliance and functionality verification
+
+## Simplified Source
+
+```c
+Datum test_fdw_handler(PG_FUNCTION_ARGS) {
+    // Function is not implemented - raise error
+    elog(ERROR, "test_fdw_handler is not implemented");
+    PG_RETURN_NULL();
+}
+```

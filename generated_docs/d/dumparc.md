@@ -47,3 +47,66 @@ The function handles special cases like RAINBOW (match-all) colors and provides 
 - Handles NULL destination states gracefully
 - Essential for understanding NFA transition structure during regex compilation and optimization
 - Part of PostgreSQL's regex engine debugging infrastructure for analyzing state machine connectivity
+
+## Simplified Source
+
+```c
+static void
+dumparc(struct arc *a, struct state *s, FILE *f)
+{
+    fprintf(f, "\t");
+
+    // Print arc type with specific notation
+    switch (a->type) {
+        case PLAIN:
+            fprintf(f, a->co == RAINBOW ? "[*]" : "[%ld]", (long) a->co);
+            break;
+        case AHEAD:
+            fprintf(f, a->co == RAINBOW ? ">*>" : ">%ld>", (long) a->co);
+            break;
+        case BEHIND:
+            fprintf(f, a->co == RAINBOW ? "<*<" : "<%ld<", (long) a->co);
+            break;
+        case LACON:
+            fprintf(f, ":%ld:", (long) a->co);
+            break;
+        case '^':
+        case '$':
+            fprintf(f, "%c%d", a->type, (int) a->co);
+            break;
+        case EMPTY:
+            break;
+        case CANTMATCH:
+            fprintf(f, "X");
+            break;
+        default:
+            fprintf(f, "0x%x/0%lo", a->type, (long) a->co);
+            break;
+    }
+
+    // Validate source state consistency
+    if (a->from != s)
+        fprintf(f, "?%d?", a->from->no);
+
+    // Check if arc exists in source state's outgoing chain
+    struct arc *aa;
+    for (aa = a->from->outs; aa != NULL; aa = aa->outchain)
+        if (aa == a) break;
+    if (aa == NULL)
+        fprintf(f, "?!?");
+
+    // Print destination
+    fprintf(f, "->");
+    if (a->to == NULL) {
+        fprintf(f, "NULL");
+        return;
+    }
+    fprintf(f, "%d", a->to->no);
+
+    // Check if arc exists in destination state's incoming chain
+    for (aa = a->to->ins; aa != NULL; aa = aa->inchain)
+        if (aa == a) break;
+    if (aa == NULL)
+        fprintf(f, "?!?");
+}
+```

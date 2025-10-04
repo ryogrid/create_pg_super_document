@@ -32,3 +32,12 @@ This function provides a straightforward way to retrieve the Portal associated w
 - This function does not modify the cursor state - it only provides access to the Portal handle
 - The returned Portal can be used with other SPI cursor functions like SPI_cursor_fetch
 - Part of the public SPI API and commonly used by procedural languages and extensions
+
+## Simplified Source
+
+```c
+Portal SPI_cursor_find(const char *name) {
+    // Simple wrapper around portal lookup
+    return GetPortalByName(name);
+}
+```

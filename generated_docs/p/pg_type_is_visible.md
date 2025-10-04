@@ -40,3 +40,25 @@ The function uses an up-to-date snapshot internally, which may see objects as al
 - Used throughout PostgreSQL tools for filtering visible data types
 - Part of the family of visibility functions for different object types
 - The function signature in SQL is: pg_type_is_visible(type oid) → boolean
+
+## Simplified Source
+
+```c
+Datum pg_type_is_visible(PG_FUNCTION_ARGS)
+{
+    // Extract the type OID from function arguments
+    Oid oid = PG_GETARG_OID(0);
+    bool result;
+    bool is_missing = false;
+
+    // Check if type is visible in current search path
+    result = TypeIsVisibleExt(oid, &is_missing);
+
+    // Return NULL if type doesn't exist (avoids race conditions)
+    if (is_missing)
+        PG_RETURN_NULL();
+
+    // Return boolean result indicating visibility
+    PG_RETURN_BOOL(result);
+}
+```

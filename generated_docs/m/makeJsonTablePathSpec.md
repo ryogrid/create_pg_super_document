@@ -32,3 +32,27 @@ The `makeJsonTablePathSpec` function is a constructor that creates and initializ
 
 ## Notes and Other Information
 This function is specifically designed for PostgreSQL's JSON_TABLE functionality, which implements the SQL/JSON standard's JSON_TABLE expression. The path specification created by this function defines how to navigate through JSON documents to extract tabular data. The function includes an assertion to ensure the path string is not NULL, as a valid path is essential for JSON_TABLE operations. The use of makeStringConst for the path string ensures proper integration with PostgreSQL's expression evaluation system, while pstrdup for the name ensures proper memory management in PostgreSQL's memory contexts.
+
+## Simplified Source
+
+```c
+JsonTablePathSpec *
+makeJsonTablePathSpec(char *string, char *name, int string_location, int name_location)
+{
+    // Create new JsonTablePathSpec node
+    JsonTablePathSpec *pathspec = makeNode(JsonTablePathSpec);
+
+    // Set required path string as string constant
+    pathspec->string = makeStringConst(string, string_location);
+
+    // Set optional name if provided
+    if (name != NULL)
+        pathspec->name = pstrdup(name);
+
+    // Set location information
+    pathspec->name_location = name_location;
+    pathspec->location = string_location;
+
+    return pathspec;
+}
+```

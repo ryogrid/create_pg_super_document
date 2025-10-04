@@ -39,3 +39,15 @@ The function is commonly used when constructing PostgreSQL wire protocol message
 - Commonly used in authentication routines and protocol message construction
 - The caller is responsible for ensuring the source buffer contains at least 'len' bytes
 - Complements pqGetnchar for binary data handling in the PostgreSQL client library
+
+## Simplified Source
+
+```c
+int pqPutnchar(const char *s, size_t len, PGconn *conn) {
+    // Write exact number of bytes to current message (no null termination)
+    if (pqPutMsgBytes(s, len, conn))
+        return EOF;
+
+    return 0;
+}
+```

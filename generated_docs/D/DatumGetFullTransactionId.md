@@ -32,3 +32,14 @@ The conversion is performed by first extracting the underlying 64-bit unsigned i
 - Used primarily in SQL function implementations that need to work with extended transaction IDs
 - The function ensures type safety by preventing direct casting between Datum and FullTransactionId
 - Commonly used through the PG_GETARG_FULLTRANSACTIONID macro for extracting function arguments
+
+## Simplified Source
+
+```c
+static inline FullTransactionId
+DatumGetFullTransactionId(Datum X)
+{
+    // Convert Datum to 64-bit integer, then to FullTransactionId
+    return FullTransactionIdFromU64(DatumGetUInt64(X));
+}
+```

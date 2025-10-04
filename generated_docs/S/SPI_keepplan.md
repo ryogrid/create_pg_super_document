@@ -41,3 +41,29 @@ SPI_keepplan extends the lifetime of an SPI execution plan beyond the current pr
 - Commonly used by procedural language handlers and system functions that need persistent plans
 - The saved plan can be reused across different database connections and transactions
 - Memory reparenting ensures the plan survives context switches and procedure exits
+
+## Simplified Source
+
+```c
+int SPI_keepplan(SPIPlanPtr plan) {
+    ListCell *lc;
+
+    // Validate plan parameters
+    if (plan == NULL || plan->magic != _SPI_PLAN_MAGIC ||
+        plan->saved || plan->oneshot)
+        return SPI_ERROR_ARGUMENT;
+
+    // Mark plan as saved and move to cache memory context
+    // This sequence is atomic and cannot fail partway through
+    plan->saved = true;
+    MemoryContextSetParent(plan->plancxt, CacheMemoryContext);
+
+    // Save all cached plan sources in the plan
+    foreach(lc, plan->plancache_list) {
+        CachedPlanSource *plansource = (CachedPlanSource *) lfirst(lc);
+        SaveCachedPlan(plansource);
+    }
+
+    return 0;  // Success
+}
+```

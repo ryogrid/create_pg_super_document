@@ -37,3 +37,17 @@ The function ensures that the page has the proper SP-GiST page identification an
 - The SPGIST_PAGE_ID constant is used to identify pages as belonging to SP-GiST indexes
 - This function is typically called when creating new pages during index construction or expansion
 - The flags parameter determines page-specific behavior and is essential for proper page identification
+
+## Simplified Source
+
+```c
+void SpGistInitPage(Page page, uint16 f) {
+    // Initialize basic page structure
+    PageInit(page, BLCKSZ, sizeof(SpGistPageOpaqueData));
+
+    // Set up SP-GiST specific opaque data
+    SpGistPageOpaque opaque = SpGistPageGetOpaque(page);
+    opaque->flags = f;                    // Page type flags (leaf, inner, etc.)
+    opaque->spgist_page_id = SPGIST_PAGE_ID;  // Mark as SP-GiST page
+}
+```

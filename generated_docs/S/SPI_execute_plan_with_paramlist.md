@@ -44,3 +44,35 @@ The function creates an SPIExecuteOptions structure internally and delegates to 
 - Supports all the same execution features as other SPI plan execution functions
 - Part of the modern SPI interface designed for better integration with internal PostgreSQL parameter handling
 - Provides a bridge between external SPI usage and internal parameter management systems
+
+## Simplified Source
+
+```c
+int SPI_execute_plan_with_paramlist(SPIPlanPtr plan, ParamListInfo params,
+                                    bool read_only, long tcount) {
+    SPIExecuteOptions options;
+    int res;
+
+    // Validate input parameters
+    if (plan == NULL || plan->magic != _SPI_PLAN_MAGIC || tcount < 0)
+        return SPI_ERROR_ARGUMENT;
+
+    // Begin SPI execution context
+    res = _SPI_begin_call(true);
+    if (res < 0)
+        return res;
+
+    // Set up execution options with provided parameters
+    memset(&options, 0, sizeof(options));
+    options.params = params;
+    options.read_only = read_only;
+    options.tcount = tcount;
+
+    // Execute the plan with configured options
+    res = _SPI_execute_plan(plan, &options, InvalidSnapshot, InvalidSnapshot, true);
+
+    // Clean up SPI context and return result
+    _SPI_end_call(true);
+    return res;
+}
+```

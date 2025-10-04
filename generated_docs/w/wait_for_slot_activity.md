@@ -46,3 +46,33 @@ This adaptive approach balances responsiveness (for active replication scenarios
 - The adaptive timing helps balance system load with synchronization responsiveness
 - Sleep duration ranges from 200ms (minimum) to 30 seconds (maximum)
 - Essential for efficient resource utilization in slot synchronization workflows
+
+## Simplified Source
+
+```c
+static void wait_for_slot_activity(bool some_slot_updated)
+{
+    int rc;
+
+    if (!some_slot_updated)
+    {
+        // No activity - double sleep time up to maximum (30s)
+        sleep_ms = Min(sleep_ms * 2, MAX_SLOTSYNC_WORKER_NAPTIME_MS);
+    }
+    else
+    {
+        // Activity detected - reset to minimum sleep time (200ms)
+        sleep_ms = MIN_SLOTSYNC_WORKER_NAPTIME_MS;
+    }
+
+    // Wait with latch for interruptible sleep
+    rc = WaitLatch(MyLatch,
+                   WL_LATCH_SET | WL_TIMEOUT | WL_EXIT_ON_PM_DEATH,
+                   sleep_ms,
+                   WAIT_EVENT_REPLICATION_SLOTSYNC_MAIN);
+
+    // Reset latch if it was set
+    if (rc & WL_LATCH_SET)
+        ResetLatch(MyLatch);
+}
+```

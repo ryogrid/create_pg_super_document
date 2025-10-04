@@ -40,3 +40,27 @@ This functionality is crucial for maintenance operations, debugging recovery iss
 - Recovery process must be awakened to process the pause request promptly
 - Commonly used for maintenance operations on standby servers
 - Located in src/backend/access/transam/xlogfuncs.c:517-546
+
+## Simplified Source
+
+```c
+Datum
+pg_wal_replay_pause(PG_FUNCTION_ARGS)
+{
+    // Must be in recovery mode to pause replay
+    if (!RecoveryInProgress())
+        ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                       errmsg("recovery is not in progress")));
+
+    // Cannot pause during ongoing promotion
+    if (PromoteIsTriggered())
+        ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                       errmsg("standby promotion is ongoing")));
+
+    // Set recovery pause flag and wake up recovery process
+    SetRecoveryPause(true);
+    WakeupRecovery();
+
+    PG_RETURN_VOID();
+}
+```

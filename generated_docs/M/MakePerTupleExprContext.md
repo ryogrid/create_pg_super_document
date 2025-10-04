@@ -37,3 +37,17 @@ The function is typically accessed through the GetPerTupleExprContext() macro ra
 - Part of PostgreSQL's memory management optimization for expression evaluation
 - The returned context is tied to the EState's lifecycle and will be cleaned up when the EState is freed
 - Suitable for expressions that don't require isolation between tuple evaluations
+
+## Simplified Source
+
+```c
+ExprContext *
+MakePerTupleExprContext(EState *estate)
+{
+    // Lazy initialization: create context only if needed
+    if (estate->es_per_tuple_exprcontext == NULL)
+        estate->es_per_tuple_exprcontext = CreateExprContext(estate);
+
+    return estate->es_per_tuple_exprcontext;
+}
+```

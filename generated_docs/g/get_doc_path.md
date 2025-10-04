@@ -33,4 +33,12 @@ The function enables PostgreSQL utilities and applications to locate documentati
 - Primarily used by configuration reporting and help systems
 - The function assumes ret_path buffer is sufficiently large (MAXPGPATH)
 - Enables dynamic location of documentation files in relocatable installations
-- Less frequently used compared to other path functions but essential for completeness of path resolution
+
+## Simplified Source
+
+```c
+void get_doc_path(const char *my_exec_path, char *ret_path) {
+    // Calculate documentation directory path relative to executable location
+    make_relative_path(ret_path, DOCDIR, PGBINDIR, my_exec_path);
+}
+```

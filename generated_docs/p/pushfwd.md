@@ -50,3 +50,51 @@ The function works in tandem with  to ensure that all constraint arcs are either
 - Critical for ensuring the final NFA contains only arc types the executor can process
 - Handles cleanup of temporary intermediate states created during the pushing process
 - Processes incoming arcs () rather than outgoing arcs, complementing 's approach
+
+## Simplified Source
+```c
+static void pushfwd(struct nfa *nfa, FILE *f) {
+    struct state *s, *nexts;
+    struct arc *a, *nexta;
+    struct state *intermediates;
+    int progress;
+
+    // Push constraints forward until no more progress
+    do {
+        progress = 0;
+        for (s = nfa->states; s != NULL && !NISERR(); s = nexts) {
+            nexts = s->next;
+            intermediates = NULL;
+
+            // Check each incoming arc for constraints to push
+            for (a = s->ins; a != NULL && !NISERR(); a = nexta) {
+                nexta = a->inchain;
+                if (a->type == '$' || a->type == AHEAD) {
+                    if (push(nfa, a, &intermediates))
+                        progress = 1;
+                }
+            }
+
+            // Clean up intermediate states
+            while (intermediates != NULL) {
+                struct state *ns = intermediates->tmp;
+                intermediates->tmp = NULL;
+                intermediates = ns;
+            }
+
+            // Remove useless states
+            if ((s->nins == 0 || s->nouts == 0) && !s->flag)
+                dropstate(nfa, s);
+        }
+    } while (progress && !NISERR());
+
+    // Convert remaining '$' constraints at post to PLAIN arcs
+    for (a = nfa->post->ins; a != NULL; a = nexta) {
+        nexta = a->inchain;
+        if (a->type == '$') {
+            newarc(nfa, PLAIN, nfa->eos[a->co], a->from, a->to);
+            freearc(nfa, a);
+        }
+    }
+}
+```

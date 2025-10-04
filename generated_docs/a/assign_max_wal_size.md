@@ -33,3 +33,17 @@ This ensures that changes to the WAL size limit immediately affect the checkpoin
 - The function updates the global max_wal_size_mb variable before recalculating checkpoint parameters
 - Essential for dynamic reconfiguration of WAL management parameters
 - Works in conjunction with assign_checkpoint_completion_target for complete checkpoint behavior tuning
+
+## Simplified Source
+
+```c
+void
+assign_max_wal_size(int newval, void *extra)
+{
+    // Update the global WAL size limit
+    max_wal_size_mb = newval;
+
+    // Recalculate checkpoint segments based on new WAL size
+    CalculateCheckpointSegments();
+}
+```

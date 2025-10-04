@@ -40,3 +40,48 @@ The `bernoulli_nextsampletuple` function implements the core logic of Bernoulli 
 - The sampling decision is made by comparing hash < cutoff, where cutoff was calculated during scan initialization
 - This is a static function, only callable within the bernoulli.c module
 - The algorithm ensures that invisible or non-existent tuples don't bias the sampling distribution
+
+## Simplified Source
+
+```c
+static OffsetNumber bernoulli_nextsampletuple(SampleScanState *node,
+                                             BlockNumber blockno,
+                                             OffsetNumber maxoffset) {
+    BernoulliSamplerData *sampler = (BernoulliSamplerData *) node->tsm_state;
+    OffsetNumber tupoffset = sampler->lt;
+    uint32 hashinput[3];
+
+    // Move to first/next tuple in block
+    if (tupoffset == InvalidOffsetNumber) {
+        tupoffset = FirstOffsetNumber;
+    } else {
+        tupoffset++;
+    }
+
+    // Set up hash input (block and seed are constant for this block)
+    hashinput[0] = blockno;
+    hashinput[2] = sampler->seed;
+
+    // Test each tuple offset until finding one to sample
+    for (; tupoffset <= maxoffset; tupoffset++) {
+        // Generate hash for this tuple position
+        hashinput[1] = tupoffset;
+        uint32 hash = DatumGetUInt32(hash_any((const unsigned char *) hashinput,
+                                             sizeof(hashinput)));
+
+        // Include tuple if hash falls below cutoff threshold
+        if (hash < sampler->cutoff) {
+            break;
+        }
+    }
+
+    // Check if we reached end of block
+    if (tupoffset > maxoffset) {
+        tupoffset = InvalidOffsetNumber;
+    }
+
+    // Remember current position for next call
+    sampler->lt = tupoffset;
+    return tupoffset;
+}
+```

@@ -43,3 +43,38 @@ This static function performs the actual writing of logical decoding output into
 - Maintains a count of returned rows in the DecodingOutputState structure
 - Uses PostgreSQL Datum system for type-safe data handling
 - Located in src/backend/replication/logical/logicalfuncs.c:62-98
+
+## Simplified Source
+
+```c
+static void LogicalOutputWrite(LogicalDecodingContext *ctx, XLogRecPtr lsn,
+                               TransactionId xid, bool last_write)
+{
+    Datum values[3];
+    bool nulls[3];
+    DecodingOutputState *p;
+
+    // Check output size limit
+    if (ctx->out->len > MaxAllocSize - VARHDRSZ)
+        elog(ERROR, "too much output for sql interface");
+
+    p = (DecodingOutputState *) ctx->output_writer_private;
+
+    // Prepare tuple values: LSN, TransactionID, Data
+    memset(nulls, 0, sizeof(nulls));
+    values[0] = LSNGetDatum(lsn);
+    values[1] = TransactionIdGetDatum(xid);
+
+    // Verify encoding for textual output
+    if (!p->binary_output)
+        Assert(pg_verify_mbstr(GetDatabaseEncoding(),
+                               ctx->out->data, ctx->out->len, false));
+
+    // Convert output data to PostgreSQL text type
+    values[2] = PointerGetDatum(cstring_to_text_with_len(ctx->out->data, ctx->out->len));
+
+    // Store tuple in tuplestore and increment row count
+    tuplestore_putvalues(p->tupstore, p->tupdesc, values, nulls);
+    p->returned_rows++;
+}
+```

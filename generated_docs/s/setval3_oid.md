@@ -41,3 +41,20 @@ This function is primarily designed for pg_dump operations during database resto
 - Returns the value that was set for consistency with the 2-argument form
 - Provides the only mechanism to clear the is_called flag in an existing sequence
 - Part of PostgreSQL's sequence management system in src/backend/commands/sequence.c:1064
+
+## Simplified Source
+
+```c
+Datum setval3_oid(PG_FUNCTION_ARGS) {
+    // Get sequence OID, new value, and iscalled flag from arguments
+    Oid relid = PG_GETARG_OID(0);
+    int64 next = PG_GETARG_INT64(1);
+    bool iscalled = PG_GETARG_BOOL(2);
+
+    // Set the sequence value with explicit iscalled control
+    do_setval(relid, next, iscalled);
+
+    // Return the value that was set
+    PG_RETURN_INT64(next);
+}
+```

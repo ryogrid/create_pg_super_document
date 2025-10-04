@@ -37,3 +37,31 @@ The function performs prerequisite checks to ensure that replication origins are
 - The flush parameter is particularly useful when using asynchronous commits during logical replication
 - This function is typically exposed as a SQL function for monitoring replication progress
 - Located in src/backend/replication/logical/origin.c:1405-1425
+
+## Simplified Source
+
+```c
+Datum pg_replication_origin_session_progress(PG_FUNCTION_ARGS) {
+    bool flush = PG_GETARG_BOOL(0);
+    XLogRecPtr remote_lsn;
+
+    // Check prerequisites: require slots and disallow during recovery
+    replorigin_check_prerequisites(true, false);
+
+    // Error if no replication origin is configured
+    if (session_replication_state == NULL) {
+        ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                       errmsg("no replication origin is configured")));
+    }
+
+    // Get the current replication progress LSN
+    remote_lsn = replorigin_session_get_progress(flush);
+
+    // Return NULL if no valid LSN available
+    if (remote_lsn == InvalidXLogRecPtr) {
+        PG_RETURN_NULL();
+    }
+
+    PG_RETURN_LSN(remote_lsn);
+}
+```

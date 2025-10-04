@@ -35,3 +35,20 @@ The function is designed to be called when the WAL receiver is shutting down or 
 - The function assumes the connection structure and its components were properly allocated
 - Does not perform any error checking, assuming valid input
 - Part of the cleanup sequence for WAL receiver operations
+
+## Simplified Source
+
+```c
+static void
+libpqrcv_disconnect(WalReceiverConn *conn)
+{
+    // Close libpq connection
+    PQfinish(conn->streamConn);
+
+    // Free receive buffer
+    PQfreemem(conn->recvBuf);
+
+    // Free connection structure
+    pfree(conn);
+}
+```

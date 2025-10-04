@@ -39,3 +39,22 @@ The function uses a negative key length parameter to signal to Perl's hv_store()
 - UTF-8 encoding is indicated by using a negative key length in the hv_store() call
 - Essential for proper internationalization support in PL/Perl hash operations
 - Used extensively throughout PL/Perl for building hash structures from PostgreSQL data
+
+## Simplified Source
+
+```c
+static SV **hv_store_string(HV *hv, const char *key, SV *val) {
+    // Convert database encoding to UTF-8 for Perl
+    char *utf8_key = pg_server_to_any(key, strlen(key), PG_UTF8);
+
+    // Store in hash with negative length to indicate UTF-8
+    int utf8_len = -(int)strlen(utf8_key);
+    SV **result = hv_store(hv, utf8_key, utf8_len, val, 0);
+
+    // Clean up converted key if different from original
+    if (utf8_key != key)
+        pfree(utf8_key);
+
+    return result;
+}
+```

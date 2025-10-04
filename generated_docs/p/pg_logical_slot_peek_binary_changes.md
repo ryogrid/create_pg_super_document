@@ -51,3 +51,13 @@ This "peek" functionality is useful for inspecting upcoming changes without comm
 - Useful for change inspection and debugging scenarios
 - Complementary to pg_logical_slot_get_binary_changes which consumes changes
 - Defined in src/backend/replication/logical/logicalfuncs.c:358-367
+
+## Simplified Source
+
+```c
+Datum pg_logical_slot_peek_binary_changes(PG_FUNCTION_ARGS) {
+    // Return binary changes without consuming them (peek mode)
+    // false = don't confirm/consume changes, true = binary format
+    return pg_logical_slot_get_changes_guts(fcinfo, false, true);
+}
+```

@@ -40,3 +40,36 @@ This function establishes the complete exception handling framework for PL/Pytho
 - Sets up the base exception hierarchy: Error (base), Fatal, and SPIError
 - The hash table uses PostgreSQL error codes as keys and PLyExceptionEntry structures as values
 - Critical for enabling proper error handling between PostgreSQL and Python code
+
+## Simplified Source
+
+```c
+static void PLy_add_exceptions(PyObject *plpy) {
+    PyObject *excmod;
+    HASHCTL hash_ctl;
+
+    // Create spiexceptions module
+    excmod = PyModule_Create(&PLy_exc_module);
+    if (excmod == NULL)
+        PLy_elog(ERROR, "could not create the spiexceptions module");
+
+    // Add module to plpy (manually increment refcount)
+    Py_INCREF(excmod);
+    if (PyModule_AddObject(plpy, "spiexceptions", excmod) < 0)
+        PLy_elog(ERROR, "could not add the spiexceptions module");
+
+    // Create core exception classes
+    PLy_exc_error = PLy_create_exception("plpy.Error", NULL, NULL, "Error", plpy);
+    PLy_exc_fatal = PLy_create_exception("plpy.Fatal", NULL, NULL, "Fatal", plpy);
+    PLy_exc_spi_error = PLy_create_exception("plpy.SPIError", NULL, NULL, "SPIError", plpy);
+
+    // Setup hash table for SPI exception mapping
+    hash_ctl.keysize = sizeof(int);
+    hash_ctl.entrysize = sizeof(PLyExceptionEntry);
+    PLy_spi_exceptions = hash_create("PL/Python SPI exceptions", 256,
+                                     &hash_ctl, HASH_ELEM | HASH_BLOBS);
+
+    // Generate all SPI-specific exceptions
+    PLy_generate_spi_exceptions(excmod, PLy_exc_spi_error);
+}
+```

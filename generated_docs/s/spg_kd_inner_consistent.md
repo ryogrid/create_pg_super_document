@@ -72,3 +72,163 @@ Key features:
 - The function will error if allTheSame is encountered, as this should not occur in properly balanced k-d trees
 - Handles the RTContainedByStrategyNumber case where the query is a box rather than a point
 - Located in src/backend/access/spgist/spgkdtreeproc.c:160-349
+
+## Simplified Source
+
+```c
+Datum spg_kd_inner_consistent(PG_FUNCTION_ARGS) {
+    spgInnerConsistentIn *in = (spgInnerConsistentIn *) PG_GETARG_POINTER(0);
+    spgInnerConsistentOut *out = (spgInnerConsistentOut *) PG_GETARG_POINTER(1);
+    double coord;
+    int which, i;
+    BOX bboxes[2];
+
+    // Extract splitting coordinate
+    Assert(in->hasPrefix);
+    coord = DatumGetFloat8(in->prefixDatum);
+
+    // K-d trees should never have allTheSame
+    if (in->allTheSame)
+        elog(ERROR, "allTheSame should not occur for k-d trees");
+
+    Assert(in->nNodes == 2);
+
+    // Start with both children candidates (bitmask: bit 1=left, bit 2=right)
+    which = (1 << 1) | (1 << 2);
+
+    // Process each query constraint
+    for (i = 0; i < in->nkeys; i++) {
+        Point *query = DatumGetPointP(in->scankeys[i].sk_argument);
+        BOX *boxQuery;
+
+        switch (in->scankeys[i].sk_strategy) {
+            case RTLeftStrategyNumber:
+                // Point must be left of coordinate (X dimension only)
+                if ((in->level % 2) != 0 && FPlt(query->x, coord))
+                    which &= (1 << 1);
+                break;
+
+            case RTRightStrategyNumber:
+                // Point must be right of coordinate (X dimension only)
+                if ((in->level % 2) != 0 && FPgt(query->x, coord))
+                    which &= (1 << 2);
+                break;
+
+            case RTSameStrategyNumber:
+                // Exact point match - choose appropriate child
+                if ((in->level % 2) != 0) {  // X dimension
+                    if (FPlt(query->x, coord))
+                        which &= (1 << 1);
+                    else if (FPgt(query->x, coord))
+                        which &= (1 << 2);
+                } else {  // Y dimension
+                    if (FPlt(query->y, coord))
+                        which &= (1 << 1);
+                    else if (FPgt(query->y, coord))
+                        which &= (1 << 2);
+                }
+                break;
+
+            case RTBelowStrategyNumber:
+            case RTOldBelowStrategyNumber:
+                // Point must be below coordinate (Y dimension only)
+                if ((in->level % 2) == 0 && FPlt(query->y, coord))
+                    which &= (1 << 1);
+                break;
+
+            case RTAboveStrategyNumber:
+            case RTOldAboveStrategyNumber:
+                // Point must be above coordinate (Y dimension only)
+                if ((in->level % 2) == 0 && FPgt(query->y, coord))
+                    which &= (1 << 2);
+                break;
+
+            case RTContainedByStrategyNumber:
+                // Query is a box - check containment
+                boxQuery = DatumGetBoxP(in->scankeys[i].sk_argument);
+                if ((in->level % 2) != 0) {  // X dimension
+                    if (FPlt(boxQuery->high.x, coord))
+                        which &= (1 << 1);
+                    else if (FPgt(boxQuery->low.x, coord))
+                        which &= (1 << 2);
+                } else {  // Y dimension
+                    if (FPlt(boxQuery->high.y, coord))
+                        which &= (1 << 1);
+                    else if (FPgt(boxQuery->low.y, coord))
+                        which &= (1 << 2);
+                }
+                break;
+
+            default:
+                elog(ERROR, "unrecognized strategy number: %d", in->scankeys[i].sk_strategy);
+        }
+
+        // Early exit if no children match
+        if (which == 0)
+            break;
+    }
+
+    // Setup output for matching children
+    out->nNodes = 0;
+    if (!which)
+        PG_RETURN_VOID();
+
+    out->nodeNumbers = (int *) palloc(sizeof(int) * 2);
+
+    // Handle distance calculations for nearest neighbor queries
+    if (in->norderbys > 0) {
+        BOX infArea, *area;
+
+        out->distances = (double **) palloc(sizeof(double *) * in->nNodes);
+        out->traversalValues = (void **) palloc(sizeof(void *) * in->nNodes);
+
+        // Setup bounding box for current level
+        if (in->level == 0) {
+            float8 inf = get_float8_infinity();
+            infArea.high.x = infArea.high.y = inf;
+            infArea.low.x = infArea.low.y = -inf;
+            area = &infArea;
+        } else {
+            area = (BOX *) in->traversalValue;
+        }
+
+        // Split parent bounding box by current coordinate
+        bboxes[0].low = area->low;
+        bboxes[1].high = area->high;
+
+        if (in->level % 2) {  // Split by X
+            bboxes[0].high.x = bboxes[1].low.x = coord;
+            bboxes[0].high.y = area->high.y;
+            bboxes[1].low.y = area->low.y;
+        } else {  // Split by Y
+            bboxes[0].high.y = bboxes[1].low.y = coord;
+            bboxes[0].high.x = area->high.x;
+            bboxes[1].low.x = area->low.x;
+        }
+    }
+
+    // Build output for each matching child
+    for (i = 1; i <= 2; i++) {
+        if (which & (1 << i)) {
+            out->nodeNumbers[out->nNodes] = i - 1;
+
+            if (in->norderbys > 0) {
+                MemoryContext oldCtx = MemoryContextSwitchTo(in->traversalMemoryContext);
+                BOX *box = box_copy(&bboxes[i - 1]);
+                MemoryContextSwitchTo(oldCtx);
+
+                out->traversalValues[out->nNodes] = box;
+                out->distances[out->nNodes] = spg_key_orderbys_distances(BoxPGetDatum(box), false,
+                                                                        in->orderbys, in->norderbys);
+            }
+            out->nNodes++;
+        }
+    }
+
+    // Set level increments
+    out->levelAdds = (int *) palloc(sizeof(int) * 2);
+    out->levelAdds[0] = out->levelAdds[1] = 1;
+
+    PG_RETURN_VOID();
+}
+```

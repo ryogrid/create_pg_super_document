@@ -50,3 +50,53 @@ The function handles the complete relation schema including:
 - Performs deep copying of all string and array data to prevent dangling pointers
 - Critical for maintaining synchronization between publisher and subscriber schemas
 - Part of PostgreSQL's logical replication infrastructure for handling schema changes
+
+## Simplified Source
+
+```c
+void logicalrep_relmap_update(LogicalRepRelation *remoterel) {
+    MemoryContext oldctx;
+    LogicalRepRelMapEntry *entry;
+    bool found;
+
+    // Initialize cache if not already done
+    if (LogicalRepRelMap == NULL)
+        logicalrep_relmap_init();
+
+    // Find existing entry or create new one
+    entry = hash_search(LogicalRepRelMap, &remoterel->remoteid,
+                        HASH_ENTER, &found);
+
+    // Clean up existing entry if found
+    if (found)
+        logicalrep_relmap_free_entry(entry);
+
+    // Clear entry structure
+    memset(entry, 0, sizeof(LogicalRepRelMapEntry));
+
+    // Switch to cache memory context for persistent storage
+    oldctx = MemoryContextSwitchTo(LogicalRepRelMapContext);
+
+    // Copy basic relation information
+    entry->remoterel.remoteid = remoterel->remoteid;
+    entry->remoterel.nspname = pstrdup(remoterel->nspname);
+    entry->remoterel.relname = pstrdup(remoterel->relname);
+
+    // Copy attribute information
+    entry->remoterel.natts = remoterel->natts;
+    entry->remoterel.attnames = palloc(remoterel->natts * sizeof(char *));
+    entry->remoterel.atttyps = palloc(remoterel->natts * sizeof(Oid));
+
+    for (int i = 0; i < remoterel->natts; i++) {
+        entry->remoterel.attnames[i] = pstrdup(remoterel->attnames[i]);
+        entry->remoterel.atttyps[i] = remoterel->atttyps[i];
+    }
+
+    // Copy replica identity information
+    entry->remoterel.replident = remoterel->replident;
+    entry->remoterel.attkeys = bms_copy(remoterel->attkeys);
+
+    // Restore previous memory context
+    MemoryContextSwitchTo(oldctx);
+}
+```

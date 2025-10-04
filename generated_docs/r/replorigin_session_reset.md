@@ -43,3 +43,29 @@ The function ensures proper cleanup and allows other processes to acquire the sa
 - Uses exclusive locking to ensure thread-safe state changes
 - Broadcasts condition variable signal to wake up any processes waiting for this origin slot
 - Required for proper resource cleanup when switching between different replication origins
+
+## Simplified Source
+
+```c
+void
+replorigin_session_reset(void)
+{
+    ConditionVariable *cv;
+
+    // Verify a session is actually active
+    if (session_replication_state == NULL)
+        ereport(ERROR, "no replication origin is configured");
+
+    // Release the session state under exclusive lock
+    LWLockAcquire(ReplicationOriginLock, LW_EXCLUSIVE);
+
+    session_replication_state->acquired_by = 0;
+    cv = &session_replication_state->origin_cv;
+    session_replication_state = NULL;
+
+    LWLockRelease(ReplicationOriginLock);
+
+    // Notify waiting processes that slot is available
+    ConditionVariableBroadcast(cv);
+}
+```

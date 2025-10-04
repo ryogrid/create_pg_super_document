@@ -48,3 +48,64 @@ This function takes no parameters but operates on several configuration and stat
 - Memory management is handled through pfree() calls to prevent memory leaks during the cleanup process
 - The cutoff time calculation uses wall clock time minus the retention period, making cleanup independent of WAL generation rate
 - Summary files are only removed if their corresponding WAL segments are no longer available, ensuring data consistency
+
+## Simplified Source
+
+```c
+static void MaybeRemoveOldWalSummaries(void)
+{
+    XLogRecPtr redo_pointer = GetRedoRecPtr();
+    List *wslist;
+    time_t cutoff_time;
+
+    // Skip if cleanup is disabled or redo pointer hasn't moved
+    if (wal_summary_keep_time == 0)
+        return;
+
+    if (redo_pointer == redo_pointer_at_last_summary_removal)
+        return;
+    redo_pointer_at_last_summary_removal = redo_pointer;
+
+    // Calculate cutoff time for file removal
+    cutoff_time = time(NULL) - wal_summary_keep_time * SECS_PER_MINUTE;
+
+    // Get all existing summary files
+    wslist = GetWalSummaries(0, InvalidXLogRecPtr, InvalidXLogRecPtr);
+
+    // Process each timeline
+    while (wslist != NIL) {
+        ListCell *lc;
+        XLogSegNo oldest_segno;
+        XLogRecPtr oldest_lsn = InvalidXLogRecPtr;
+        TimeLineID selected_tli;
+
+        HandleWalSummarizerInterrupts();
+
+        // Pick a timeline and find oldest available WAL segment
+        selected_tli = ((WalSummaryFile *) linitial(wslist))->tli;
+        oldest_segno = XLogGetOldestSegno(selected_tli);
+        if (oldest_segno != 0) {
+            XLogSegNoOffsetToRecPtr(oldest_segno, 0, wal_segment_size, oldest_lsn);
+        }
+
+        // Process summaries for this timeline
+        foreach(lc, wslist) {
+            WalSummaryFile *ws = lfirst(lc);
+
+            HandleWalSummarizerInterrupts();
+
+            if (selected_tli != ws->tli)
+                continue;
+
+            // Remove if WAL no longer exists and file is old enough
+            if (XLogRecPtrIsInvalid(oldest_lsn) || ws->end_lsn <= oldest_lsn) {
+                RemoveWalSummaryIfOlderThan(ws, cutoff_time);
+            }
+
+            // Remove from list and free memory
+            wslist = foreach_delete_current(wslist, lc);
+            pfree(ws);
+        }
+    }
+}
+```

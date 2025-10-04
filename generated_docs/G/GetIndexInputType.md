@@ -40,3 +40,47 @@ The function handles both simple index columns (referencing heap table columns) 
 - Includes optimization to avoid copying index expressions when they're already cached
 - Contains error checking for mismatched expression counts
 - The comment suggests this function might be moved elsewhere if other index access methods need similar functionality
+
+## Simplified Source
+
+```c
+static Oid GetIndexInputType(Relation index, AttrNumber indexcol) {
+    Oid opcintype;
+    AttrNumber heapcol;
+    List *indexprs;
+    ListCell *indexpr_item;
+
+    // Get opclass input type
+    opcintype = index->rd_opcintype[indexcol - 1];
+    if (!IsPolymorphicType(opcintype))
+        return opcintype; // Use non-polymorphic opclass type
+
+    // For polymorphic types, determine actual input type
+    heapcol = index->rd_index->indkey.values[indexcol - 1];
+    if (heapcol != 0) {
+        // Simple column reference
+        return getBaseType(get_atttype(index->rd_index->indrelid, heapcol));
+    }
+
+    // Expression column - find the corresponding expression
+    if (index->rd_indexprs)
+        indexprs = index->rd_indexprs;
+    else
+        indexprs = RelationGetIndexExpressions(index);
+
+    indexpr_item = list_head(indexprs);
+    for (int i = 1; i <= index->rd_index->indnkeyatts; i++) {
+        if (index->rd_index->indkey.values[i - 1] == 0) {
+            // Expression column
+            if (indexpr_item == NULL)
+                elog(ERROR, "wrong number of index expressions");
+            if (i == indexcol)
+                return getBaseType(exprType((Node *) lfirst(indexpr_item)));
+            indexpr_item = lnext(indexprs, indexpr_item);
+        }
+    }
+
+    elog(ERROR, "wrong number of index expressions");
+    return InvalidOid;
+}
+```

@@ -47,3 +47,14 @@ When this setting changes, trigger firing decisions embedded in cached plans may
 - The conditional check prevents unnecessary cache flushes when the parameter is set to its current value, which can happen during configuration reloading
 - This function is critical for maintaining correct trigger behavior in replication scenarios where different trigger firing rules may apply
 - The function is declared in guc_hooks.h, indicating its role as part of the configuration management infrastructure
+
+## Simplified Source
+
+```c
+void assign_session_replication_role(int newval, void *extra)
+{
+    // Flush plan cache only if replication role actually changed
+    if (SessionReplicationRole != newval)
+        ResetPlanCache();
+}
+```

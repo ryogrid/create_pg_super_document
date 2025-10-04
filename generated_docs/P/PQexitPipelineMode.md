@@ -46,3 +46,59 @@ The function returns 1 on success (pipeline mode ended or connection wasn't in p
 - Blocks exit during busy operations or COPY operations
 - Flushes any pending output buffer data before completing the exit
 - Sets connection status to PQ_PIPELINE_OFF and async status to PGASYNC_IDLE upon successful exit
+
+## Simplified Source
+
+```c
+int PQexitPipelineMode(PGconn *conn)
+{
+    if (!conn)
+        return 0;
+
+    // Check if already not in pipeline mode and idle
+    if (conn->pipelineStatus == PQ_PIPELINE_OFF &&
+        (conn->asyncStatus == PGASYNC_IDLE || conn->asyncStatus == PGASYNC_PIPELINE_IDLE) &&
+        conn->cmd_queue_head == NULL)
+        return 1;
+
+    // Validate current async status allows pipeline exit
+    switch (conn->asyncStatus)
+    {
+        case PGASYNC_READY:
+        case PGASYNC_READY_MORE:
+            libpq_append_conn_error(conn, "cannot exit pipeline mode with uncollected results");
+            return 0;
+
+        case PGASYNC_BUSY:
+            libpq_append_conn_error(conn, "cannot exit pipeline mode while busy");
+            return 0;
+
+        case PGASYNC_COPY_IN:
+        case PGASYNC_COPY_OUT:
+        case PGASYNC_COPY_BOTH:
+            libpq_append_conn_error(conn, "cannot exit pipeline mode while in COPY");
+            return 0;
+
+        case PGASYNC_IDLE:
+        case PGASYNC_PIPELINE_IDLE:
+            // OK to proceed
+            break;
+    }
+
+    // Ensure no pending commands remain
+    if (conn->cmd_queue_head != NULL)
+    {
+        libpq_append_conn_error(conn, "cannot exit pipeline mode with uncollected results");
+        return 0;
+    }
+
+    // Exit pipeline mode and flush pending data
+    conn->pipelineStatus = PQ_PIPELINE_OFF;
+    conn->asyncStatus = PGASYNC_IDLE;
+
+    if (pqFlush(conn) < 0)
+        return 0;
+
+    return 1;
+}
+```

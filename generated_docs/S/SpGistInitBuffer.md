@@ -42,3 +42,15 @@ The function first validates that the buffer contains a page of the expected siz
 - Provides a buffer-centric interface that's more convenient when working with the PostgreSQL buffer manager
 - The validation step helps catch potential buffer management errors early
 - Used extensively in SP-GiST index construction, splitting operations, and crash recovery
+
+## Simplified Source
+
+```c
+void SpGistInitBuffer(Buffer b, uint16 f) {
+    // Validate buffer page size
+    Assert(BufferGetPageSize(b) == BLCKSZ);
+
+    // Initialize the buffer's page
+    SpGistInitPage(BufferGetPage(b), f);
+}
+```

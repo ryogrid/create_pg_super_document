@@ -47,3 +47,52 @@ The function performs several key operations:
 - Uses two-phase commit protocol where transactions can be prepared first, then later committed or aborted
 - Critical for maintaining consistency in logical replication scenarios involving prepared transactions
 - Part of the logical decoding infrastructure that enables logical replication and change data capture
+
+## Simplified Source
+
+```c
+static void DecodePrepare(LogicalDecodingContext *ctx, XLogRecordBuffer *buf,
+                         xl_xact_parsed_prepare *parsed) {
+    SnapBuild *builder = ctx->snapshot_builder;
+    XLogRecPtr origin_lsn = parsed->origin_lsn;
+    TimestampTz prepare_time = parsed->xact_time;
+    RepOriginId origin_id = XLogRecGetOrigin(buf->record);
+    int i;
+    TransactionId xid = parsed->twophase_xid;
+
+    // Use origin timestamp if available
+    if (parsed->origin_timestamp != 0)
+        prepare_time = parsed->origin_timestamp;
+
+    // Remember prepare info for potential commit prepared later
+    if (!ReorderBufferRememberPrepareInfo(ctx->reorder, xid, buf->origptr,
+                                         buf->endptr, prepare_time, origin_id,
+                                         origin_lsn))
+        return;
+
+    // Skip if not in consistent state yet
+    if (SnapBuildCurrentState(builder) < SNAPBUILD_CONSISTENT) {
+        ReorderBufferSkipPrepare(ctx->reorder, xid);
+        return;
+    }
+
+    // Check if transaction should be skipped
+    if (DecodeTXNNeedSkip(ctx, buf, parsed->dbId, origin_id)) {
+        ReorderBufferSkipPrepare(ctx->reorder, xid);
+        ReorderBufferInvalidate(ctx->reorder, xid, buf->origptr);
+        return;
+    }
+
+    // Commit all subtransactions
+    for (i = 0; i < parsed->nsubxacts; i++) {
+        ReorderBufferCommitChild(ctx->reorder, xid, parsed->subxacts[i],
+                                buf->origptr, buf->endptr);
+    }
+
+    // Execute the prepare operation
+    ReorderBufferPrepare(ctx->reorder, xid, parsed->twophase_gid);
+
+    // Update decoding statistics
+    UpdateDecodingStats(ctx);
+}
+```

@@ -34,3 +34,48 @@ The  function is a debugging utility used in PostgreSQL's ECPG (Embedded SQL in 
 - The function safely handles NULL SQLDA pointers and NULL indicator values
 - Output format varies based on the SQL data type of each descriptor entry
 - Part of the PostgreSQL ECPG test suite for validating SQLDA functionality
+
+## Simplified Source
+
+```c
+static void dump_sqlda(sqlda_t *sqlda) {
+    // Handle NULL input
+    if (sqlda == NULL) {
+        printf("dump_sqlda called with NULL sqlda\n");
+        return;
+    }
+
+    // Iterate through all SQLDA descriptors
+    for (int i = 0; i < sqlda->sqld; i++) {
+        // Check for NULL values first
+        if (sqlda->sqlvar[i].sqlind && *(sqlda->sqlvar[i].sqlind) == -1) {
+            printf("name sqlda descriptor: '%s' value NULL'\n",
+                   sqlda->sqlvar[i].sqlname);
+        } else {
+            // Print value based on type
+            switch (sqlda->sqlvar[i].sqltype) {
+                case SQLCHAR:
+                    printf("name sqlda descriptor: '%s' value '%s'\n",
+                           sqlda->sqlvar[i].sqlname, sqlda->sqlvar[i].sqldata);
+                    break;
+                case SQLINT:
+                    printf("name sqlda descriptor: '%s' value %d\n",
+                           sqlda->sqlvar[i].sqlname, *(int *)sqlda->sqlvar[i].sqldata);
+                    break;
+                case SQLFLOAT:
+                    printf("name sqlda descriptor: '%s' value %f\n",
+                           sqlda->sqlvar[i].sqlname, *(double *)sqlda->sqlvar[i].sqldata);
+                    break;
+                case SQLDECIMAL:
+                    {
+                        char val[64];
+                        dectoasc((decimal *)sqlda->sqlvar[i].sqldata, val, 64, -1);
+                        printf("name sqlda descriptor: '%s' value DECIMAL '%s'\n",
+                               sqlda->sqlvar[i].sqlname, val);
+                        break;
+                    }
+            }
+        }
+    }
+}
+```

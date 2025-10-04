@@ -49,3 +49,30 @@ This function follows PostgreSQL's standard node output conventions using the WR
 
 ## Notes and Other Information
 This function is part of PostgreSQL's node serialization infrastructure and is primarily used for debugging, EXPLAIN output, and internal query plan representation. The distinction between null and non-null constants is handled explicitly - null constants output "<>" while non-null constants use outDatum to show the raw byte representation. The function is marked static, indicating it's an internal helper within the outfuncs.c module and accessed through function pointer dispatch tables for node type-specific serialization.
+
+## Simplified Source
+
+```c
+static void
+_outConst(StringInfo str, const Const *node)
+{
+    // Write node type identifier
+    WRITE_NODE_TYPE("CONST");
+
+    // Output all metadata fields
+    WRITE_OID_FIELD(consttype);
+    WRITE_INT_FIELD(consttypmod);
+    WRITE_OID_FIELD(constcollid);
+    WRITE_INT_FIELD(constlen);
+    WRITE_BOOL_FIELD(constbyval);
+    WRITE_BOOL_FIELD(constisnull);
+    WRITE_LOCATION_FIELD(location);
+
+    // Output the actual constant value
+    appendStringInfoString(str, " :constvalue ");
+    if (node->constisnull)
+        appendStringInfoString(str, "<>");
+    else
+        outDatum(str, node->constvalue, node->constlen, node->constbyval);
+}
+```

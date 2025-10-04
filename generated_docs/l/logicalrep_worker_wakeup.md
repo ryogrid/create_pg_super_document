@@ -36,3 +36,23 @@ The function operates under LogicalRepWorkerLock protection to ensure thread-saf
 - Provides asynchronous notification mechanism for worker coordination
 - Essential for responsive logical replication by minimizing worker idle time
 - Thread-safe through proper LWLock usage during the entire operation
+
+## Simplified Source
+
+```c
+void logicalrep_worker_wakeup(Oid subid, Oid relid)
+{
+    LogicalRepWorker *worker;
+
+    // Find worker for subscription/relation pair under lock protection
+    LWLockAcquire(LogicalRepWorkerLock, LW_SHARED);
+
+    worker = logicalrep_worker_find(subid, relid, true);
+
+    // Wake up the worker if found
+    if (worker)
+        logicalrep_worker_wakeup_ptr(worker);
+
+    LWLockRelease(LogicalRepWorkerLock);
+}
+```

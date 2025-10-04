@@ -40,3 +40,30 @@ The function allocates a new color using newcolor() and then configures it with 
 - The function pretends the color is in the upper character map by setting nuchrs to 1
 - These colors are typically used for things like word boundaries, line boundaries, and other special regex constructs
 - Part of PostgreSQL's regular expression engine color management system
+
+## Simplified Source
+
+```c
+static color pseudocolor(struct colormap *cm)
+{
+    color co;
+    struct colordesc *cd;
+
+    // Allocate a new color
+    co = newcolor(cm);
+    if (CISERR()) {
+        return COLORLESS;
+    }
+
+    // Configure as pseudo color with special properties
+    cd = &cm->cd[co];
+    cd->nschrs = 0;         // No single-byte characters
+    cd->nuchrs = 1;         // Pretend it's in upper map
+    cd->sub = NOSUB;        // No subcolor
+    cd->arcs = NULL;        // No arc list
+    cd->firstchr = CHR_MIN; // Minimum character value
+    cd->flags = PSEUDO;     // Mark as pseudo color
+
+    return co;
+}
+```

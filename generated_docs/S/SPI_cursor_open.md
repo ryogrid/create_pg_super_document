@@ -46,3 +46,25 @@ This approach provides a convenient interface for applications that work with th
 - Read-only cursors provide better performance and safety for queries that don't modify data.
 - The returned Portal can be used with SPI_cursor_fetch to retrieve results incrementally.
 - This function is commonly used in procedural languages and applications that need to process large result sets without loading everything into memory.
+
+## Simplified Source
+
+```c
+Portal SPI_cursor_open(const char *name, SPIPlanPtr plan,
+                      Datum *Values, const char *Nulls, bool read_only) {
+    Portal portal;
+    ParamListInfo paramLI;
+
+    // Convert traditional parameters to internal format
+    paramLI = _SPI_convert_params(plan->nargs, plan->argtypes, Values, Nulls);
+
+    // Create the cursor portal
+    portal = SPI_cursor_open_internal(name, plan, paramLI, read_only);
+
+    // Clean up temporary parameter structure
+    if (paramLI)
+        pfree(paramLI);
+
+    return portal;
+}
+```

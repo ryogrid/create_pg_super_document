@@ -38,3 +38,22 @@ Like its store counterpart, it uses a negative key length parameter to signal to
 - Essential for proper internationalization support when retrieving values from PL/Perl hash structures
 - Returns a pointer to SV* (double pointer) following Perl's hash API conventions
 - Returns NULL if the key is not found in the hash
+
+## Simplified Source
+
+```c
+static SV **hv_fetch_string(HV *hv, const char *key) {
+    // Convert database encoding to UTF-8 for Perl
+    char *utf8_key = pg_server_to_any(key, strlen(key), PG_UTF8);
+
+    // Fetch from hash with negative length to indicate UTF-8
+    int utf8_len = -(int)strlen(utf8_key);
+    SV **result = hv_fetch(hv, utf8_key, utf8_len, 0);
+
+    // Clean up converted key if different from original
+    if (utf8_key != key)
+        pfree(utf8_key);
+
+    return result;
+}
+```

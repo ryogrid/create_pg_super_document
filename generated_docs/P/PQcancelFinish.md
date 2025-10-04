@@ -35,3 +35,12 @@ PQcancelFinish performs the final cleanup of a cancel connection by closing the 
 - Commonly used in cleanup routines and error handling paths
 - The function handles all internal cleanup, including closing network connections and freeing allocated memory
 - Should be paired with successful PQcancelCreate calls to ensure proper resource management
+
+## Simplified Source
+
+```c
+void PQcancelFinish(PGcancelConn *cancelConn) {
+    // Delegate to standard connection cleanup function
+    PQfinish(&cancelConn->conn);
+}
+```

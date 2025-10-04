@@ -39,3 +39,34 @@ For streamed transactions, the function notifies the remote node about the crash
 - For streamed transactions, uses InvalidXLogRecPtr when notifying remote nodes about the abort
 - Uses DEBUG2 logging to report aborted transaction IDs
 - Optimization: stops iteration once a valid transaction is found, as later transactions are likely still valid
+
+## Simplified Source
+
+```c
+void ReorderBufferAbortOld(ReorderBuffer *rb, TransactionId oldestRunningXid)
+{
+    dlist_mutable_iter it;
+
+    // Iterate through all toplevel transactions in LSN order
+    dlist_foreach_modify(it, &rb->toplevel_by_lsn)
+    {
+        ReorderBufferTXN *txn = dlist_container(ReorderBufferTXN, node, it.cur);
+
+        // Check if transaction is older than oldest running transaction
+        if (TransactionIdPrecedes(txn->xid, oldestRunningXid))
+        {
+            // Notify remote node if transaction was streamed
+            if (rbtxn_is_streamed(txn))
+                rb->stream_abort(rb, txn, InvalidXLogRecPtr);
+
+            // Clean up transaction data
+            ReorderBufferCleanupTXN(rb, txn);
+        }
+        else
+        {
+            // Found first valid transaction, stop iteration
+            return;
+        }
+    }
+}
+```

@@ -44,3 +44,32 @@ The CommandId tracking is essential for maintaining MVCC (Multi-Version Concurre
 - Increments the command ID by 1 when recording the new command ID
 - Part of the logical decoding infrastructure that ensures catalog changes are properly tracked
 - Critical for maintaining transaction isolation and visibility rules during logical replication
+
+## Simplified Source
+
+```c
+void SnapBuildProcessNewCid(SnapBuild *builder, TransactionId xid,
+                           XLogRecPtr lsn, xl_heap_new_cid *xlrec) {
+    // Mark transaction as having catalog changes
+    ReorderBufferXidSetCatalogChanges(builder->reorder, xid, lsn);
+
+    // Record tuple-specific command ID information
+    ReorderBufferAddNewTupleCids(builder->reorder, xlrec->top_xid, lsn,
+                                xlrec->target_locator, xlrec->target_tid,
+                                xlrec->cmin, xlrec->cmax, xlrec->combocid);
+
+    // Determine the new command ID from cmin/cmax values
+    CommandId cid;
+    if (xlrec->cmin != InvalidCommandId && xlrec->cmax != InvalidCommandId)
+        cid = Max(xlrec->cmin, xlrec->cmax);
+    else if (xlrec->cmax != InvalidCommandId)
+        cid = xlrec->cmax;
+    else if (xlrec->cmin != InvalidCommandId)
+        cid = xlrec->cmin;
+    else
+        elog(ERROR, "xl_heap_new_cid record without a valid CommandId");
+
+    // Record the next command ID for this transaction
+    ReorderBufferAddNewCommandId(builder->reorder, xid, lsn, cid + 1);
+}
+```

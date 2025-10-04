@@ -56,3 +56,153 @@ The function uses a state machine approach to process incoming messages, handlin
 - Maintains protocol synchronization and handles partial message reads
 - Part of the libpq protocol 3 implementation for PostgreSQL client-server communication
 - Includes debug tracing support when conn->Pfdebug is enabled
+
+## Simplified Source
+
+```c
+PGresult *pqFunctionCall3(PGconn *conn, Oid fnid,
+                         int *result_buf, int *actual_result_len,
+                         int result_is_int,
+                         const PQArgBlock *args, int nargs) {
+    bool needInput = false;
+    ExecStatusType status = PGRES_FATAL_ERROR;
+    char id;
+    int msgLength;
+    int avail;
+    int i;
+
+    // Build and send FunctionCall message
+    if (pqPutMsgStart(PqMsg_FunctionCall, conn) < 0 ||
+        pqPutInt(fnid, 4, conn) < 0 ||        // Function OID
+        pqPutInt(1, 2, conn) < 0 ||           // Format codes count
+        pqPutInt(1, 2, conn) < 0 ||           // Binary format
+        pqPutInt(nargs, 2, conn) < 0)         // Argument count
+        return NULL;
+
+    // Send each argument
+    for (i = 0; i < nargs; ++i) {
+        if (pqPutInt(args[i].len, 4, conn))
+            return NULL;
+
+        if (args[i].len == -1)
+            continue;  // NULL argument
+
+        // Send argument data (integer or binary)
+        if (args[i].isint) {
+            if (pqPutInt(args[i].u.integer, args[i].len, conn))
+                return NULL;
+        } else {
+            if (pqPutnchar((char *) args[i].u.ptr, args[i].len, conn))
+                return NULL;
+        }
+    }
+
+    // Send result format (binary) and flush
+    if (pqPutInt(1, 2, conn) < 0 || pqPutMsgEnd(conn) < 0 || pqFlush(conn))
+        return NULL;
+
+    // Process server responses
+    for (;;) {
+        if (needInput) {
+            if (pqWait(true, false, conn) || pqReadData(conn) < 0)
+                break;
+        }
+
+        needInput = true;
+        conn->inCursor = conn->inStart;
+
+        // Read message header
+        if (pqGetc(&id, conn) || pqGetInt(&msgLength, 4, conn))
+            continue;
+
+        // Validate message
+        if (msgLength < 4) {
+            handleSyncLoss(conn, id, msgLength);
+            break;
+        }
+
+        msgLength -= 4;
+        avail = conn->inEnd - conn->inCursor;
+        if (avail < msgLength) {
+            if (pqCheckInBufferSpace(conn->inCursor + msgLength, conn)) {
+                handleSyncLoss(conn, id, msgLength);
+                break;
+            }
+            continue;
+        }
+
+        // Process message by type
+        switch (id) {
+            case 'V':  // Function result
+                if (pqGetInt(actual_result_len, 4, conn))
+                    continue;
+                if (*actual_result_len != -1) {
+                    if (result_is_int) {
+                        if (pqGetInt(result_buf, *actual_result_len, conn))
+                            continue;
+                    } else {
+                        if (pqGetnchar((char *) result_buf, *actual_result_len, conn))
+                            continue;
+                    }
+                }
+                status = PGRES_COMMAND_OK;
+                break;
+
+            case 'E':  // Error
+                if (pqGetErrorNotice3(conn, true))
+                    continue;
+                status = PGRES_FATAL_ERROR;
+                break;
+
+            case 'Z':  // Ready for query (end of transaction)
+                if (getReadyForQuery(conn))
+                    continue;
+                conn->inStart += 5 + msgLength;
+
+                // Create result object
+                if (!pgHavePendingResult(conn)) {
+                    if (status == PGRES_COMMAND_OK) {
+                        conn->result = PQmakeEmptyPGresult(conn, status);
+                        if (!conn->result) {
+                            libpq_append_conn_error(conn, "out of memory");
+                            pqSaveErrorResult(conn);
+                        }
+                    } else {
+                        libpq_append_conn_error(conn, "protocol error: no function result");
+                        pqSaveErrorResult(conn);
+                    }
+                }
+                return pqPrepareAsyncResult(conn);
+
+            case 'A':  // Notify
+                if (getNotify(conn))
+                    continue;
+                break;
+
+            case 'N':  // Notice
+                if (pqGetErrorNotice3(conn, false))
+                    continue;
+                break;
+
+            case 'S':  // Parameter status
+                if (getParameterStatus(conn))
+                    continue;
+                break;
+
+            default:
+                libpq_append_conn_error(conn, "protocol error: id=0x%x", id);
+                pqSaveErrorResult(conn);
+                conn->inStart += 5 + msgLength;
+                return pqPrepareAsyncResult(conn);
+        }
+
+        // Mark message as processed
+        conn->inStart += 5 + msgLength;
+        needInput = false;
+    }
+
+    // Network error occurred
+    pqSaveErrorResult(conn);
+    return pqPrepareAsyncResult(conn);
+}
+```

@@ -38,3 +38,94 @@ This function implements the main event loop for the logical replication launche
 - Creates temporary memory contexts per iteration to prevent memory leaks during long-running operation
 - Only launches workers for enabled subscriptions and skips subscriptions that already have running workers
 - Adjusts wait times dynamically based on when workers can next be started
+
+## Simplified Source
+
+```c
+void ApplyLauncherMain(Datum main_arg) {
+    ereport(DEBUG1, (errmsg_internal("logical replication launcher started")));
+
+    // Setup cleanup and process identification
+    before_shmem_exit(logicalrep_launcher_onexit, (Datum) 0);
+    LogicalRepCtx->launcher_pid = MyProcPid;
+
+    // Setup signal handlers
+    pqsignal(SIGHUP, SignalHandlerForConfigReload);
+    pqsignal(SIGTERM, die);
+    BackgroundWorkerUnblockSignals();
+
+    // Connect to database (only need pg_subscription access)
+    BackgroundWorkerInitializeConnection(NULL, NULL, 0);
+
+    // Main event loop - runs indefinitely
+    for (;;) {
+        List *sublist;
+        ListCell *lc;
+        MemoryContext subctx;
+        long wait_time = DEFAULT_NAPTIME_PER_CYCLE;
+
+        CHECK_FOR_INTERRUPTS();
+
+        // Create temporary context to prevent memory leaks
+        subctx = AllocSetContextCreate(TopMemoryContext,
+                                     "Logical Replication Launcher sublist",
+                                     ALLOCSET_DEFAULT_SIZES);
+        MemoryContextSwitchTo(subctx);
+
+        // Check each enabled subscription and start missing workers
+        sublist = get_subscription_list();
+        foreach(lc, sublist) {
+            Subscription *sub = (Subscription *) lfirst(lc);
+            LogicalRepWorker *w;
+            TimestampTz last_start, now;
+
+            if (!sub->enabled) continue;
+
+            // Check if worker already running
+            LWLockAcquire(LogicalRepWorkerLock, LW_SHARED);
+            w = logicalrep_worker_find(sub->oid, InvalidOid, false);
+            LWLockRelease(LogicalRepWorkerLock);
+
+            if (w != NULL) continue;  // Worker already running
+
+            // Apply restart throttling - respect retry interval
+            last_start = ApplyLauncherGetWorkerStartTime(sub->oid);
+            now = GetCurrentTimestamp();
+
+            if (last_start == 0 ||
+                TimestampDifferenceMilliseconds(last_start, now) >= wal_retrieve_retry_interval) {
+                // Launch new worker
+                ApplyLauncherSetWorkerStartTime(sub->oid, now);
+                if (!logicalrep_worker_launch(WORKERTYPE_APPLY, sub->dbid, sub->oid,
+                                            sub->name, sub->owner, InvalidOid, DSM_HANDLE_INVALID)) {
+                    // Failed to launch - wait before retry
+                    wait_time = Min(wait_time, wal_retrieve_retry_interval);
+                }
+            } else {
+                // Still in throttling period - calculate remaining wait
+                long elapsed = TimestampDifferenceMilliseconds(last_start, now);
+                wait_time = Min(wait_time, wal_retrieve_retry_interval - elapsed);
+            }
+        }
+
+        // Cleanup temporary memory and wait for next cycle
+        MemoryContextSwitchTo(TopMemoryContext);
+        MemoryContextDelete(subctx);
+
+        // Sleep until next check or signal
+        int rc = WaitLatch(MyLatch, WL_LATCH_SET | WL_TIMEOUT | WL_EXIT_ON_PM_DEATH,
+                          wait_time, WAIT_EVENT_LOGICAL_LAUNCHER_MAIN);
+
+        if (rc & WL_LATCH_SET) {
+            ResetLatch(MyLatch);
+            CHECK_FOR_INTERRUPTS();
+        }
+
+        // Handle configuration reload requests
+        if (ConfigReloadPending) {
+            ConfigReloadPending = false;
+            ProcessConfigFile(PGC_SIGHUP);
+        }
+    }
+}
+```

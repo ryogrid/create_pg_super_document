@@ -41,3 +41,23 @@ This function executes bulk deletion on a single index relation as part of the v
 - Returns updated statistics that accumulate results across multiple bulk delete operations
 - Part of the vacuum infrastructure for maintaining index consistency during heap cleanup
 - Log messages include index name and count of removed row versions for monitoring purposes
+
+## Simplified Source
+
+```c
+IndexBulkDeleteResult *
+vac_bulkdel_one_index(IndexVacuumInfo *ivinfo, IndexBulkDeleteResult *istat,
+                      TidStore *dead_items, VacDeadItemsInfo *dead_items_info)
+{
+    // Perform bulk deletion using callback to check if TIDs are dead
+    istat = index_bulk_delete(ivinfo, istat, vac_tid_reaped, (void *) dead_items);
+
+    // Report progress
+    ereport(ivinfo->message_level,
+            (errmsg("scanned index \"%s\" to remove %lld row versions",
+                    RelationGetRelationName(ivinfo->index),
+                    (long long) dead_items_info->num_items)));
+
+    return istat;
+}
+```

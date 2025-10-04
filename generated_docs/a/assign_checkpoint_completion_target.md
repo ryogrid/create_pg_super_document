@@ -34,3 +34,17 @@ The checkpoint_completion_target parameter controls the fraction of the checkpoi
 - Essential for dynamic tuning of checkpoint performance characteristics
 - Works in conjunction with assign_max_wal_size for complete checkpoint behavior configuration
 - The completion target must be between 0.0 and 1.0, with typical values ranging from 0.5 to 0.9
+
+## Simplified Source
+
+```c
+void
+assign_checkpoint_completion_target(double newval, void *extra)
+{
+    // Update the global checkpoint completion target
+    CheckPointCompletionTarget = newval;
+
+    // Recalculate checkpoint segments based on new completion target
+    CalculateCheckpointSegments();
+}
+```

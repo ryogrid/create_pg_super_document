@@ -44,3 +44,41 @@ When not in an active transaction, all changes are permitted since  will be rese
 - Returns  for valid transitions,  for invalid ones
 - Special handling for parallel worker initialization where changes are always allowed
 - The function is registered in the GUC system to be called whenever the transaction_read_only setting is modified
+
+## Simplified Source
+
+```c
+bool
+check_transaction_read_only(bool *newval, void **extra, GucSource source)
+{
+    // Allow any change if not changing to read-write or not in transaction
+    if (*newval == false && XactReadOnly && IsTransactionState() && !InitializingParallelWorker)
+    {
+        // Prevent read-write mode in subtransactions
+        if (IsSubTransaction())
+        {
+            GUC_check_errcode(ERRCODE_ACTIVE_SQL_TRANSACTION);
+            GUC_check_errmsg("cannot set transaction read-write mode inside a read-only transaction");
+            return false;
+        }
+
+        // Prevent read-write mode after first snapshot
+        if (FirstSnapshotSet)
+        {
+            GUC_check_errcode(ERRCODE_ACTIVE_SQL_TRANSACTION);
+            GUC_check_errmsg("transaction read-write mode must be set before any query");
+            return false;
+        }
+
+        // Prevent read-write mode during recovery
+        if (RecoveryInProgress())
+        {
+            GUC_check_errcode(ERRCODE_FEATURE_NOT_SUPPORTED);
+            GUC_check_errmsg("cannot set transaction read-write mode during recovery");
+            return false;
+        }
+    }
+
+    return true;
+}
+```

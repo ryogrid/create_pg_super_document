@@ -44,3 +44,44 @@ The comments explicitly note that this function exists as a workaround for platf
 - Special handling exists for MinGW compiler environments where some Windows-specific functions are not available
 - The Windows-specific code addresses several classes of problems: buffering issues, network initialization, crash reporting configuration, and popup dialog suppression
 - Error handling is configured to prefer stderr output over popup dialogs for better automation and debugging support
+
+## Simplified Source
+```c
+static void startup_hacks(const char *progname) {
+#ifdef WIN32
+    WSADATA wsaData;
+    int err;
+
+    // Make output streams unbuffered for immediate visibility
+    setvbuf(stdout, NULL, _IONBF, 0);
+    setvbuf(stderr, NULL, _IONBF, 0);
+
+    // Initialize Winsock for network operations
+    err = WSAStartup(MAKEWORD(2, 2), &wsaData);
+    if (err != 0) {
+        write_stderr("%s: WSAStartup failed: %d\n", progname, err);
+        exit(1);
+    }
+
+    // Configure abort() to generate crash dumps in debug builds
+#if !defined(__MINGW32__) && !defined(__MINGW64__)
+    _set_abort_behavior(_CALL_REPORTFAULT | _WRITE_ABORT_MSG,
+                        _CALL_REPORTFAULT | _WRITE_ABORT_MSG);
+#endif
+
+    // Set error mode to report critical errors to callers
+    SetErrorMode(SEM_FAILCRITICALERRORS);
+
+    // Redirect runtime errors to stderr instead of popup dialogs
+    _set_error_mode(_OUT_TO_STDERR);
+
+    // Configure debug report output to stderr for all error types
+    _CrtSetReportMode(_CRT_ERROR, _CRTDBG_MODE_FILE | _CRTDBG_MODE_DEBUG);
+    _CrtSetReportFile(_CRT_ERROR, _CRTDBG_FILE_STDERR);
+    _CrtSetReportMode(_CRT_ASSERT, _CRTDBG_MODE_FILE | _CRTDBG_MODE_DEBUG);
+    _CrtSetReportFile(_CRT_ASSERT, _CRTDBG_FILE_STDERR);
+    _CrtSetReportMode(_CRT_WARN, _CRTDBG_MODE_FILE | _CRTDBG_MODE_DEBUG);
+    _CrtSetReportFile(_CRT_WARN, _CRTDBG_FILE_STDERR);
+#endif
+}
+```

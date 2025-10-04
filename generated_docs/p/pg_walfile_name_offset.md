@@ -49,3 +49,46 @@ The function ensures that it cannot be executed during recovery mode, similar to
 - Located in `src/backend/access/transam/xlogfuncs.c:373-436`
 - Input LSN can come from functions like `pg_backup_stop()` or `pg_switch_wal()`
 - The offset represents the byte position within the specific WAL segment file
+
+## Simplified Source
+
+```c
+Datum
+pg_walfile_name_offset(PG_FUNCTION_ARGS)
+{
+    XLogSegNo xlogsegno;
+    uint32 xrecoff;
+    XLogRecPtr locationpoint = PG_GETARG_LSN(0);
+    char xlogfilename[MAXFNAMELEN];
+    Datum values[2];
+    bool isnull[2];
+    TupleDesc resultTupleDesc;
+    HeapTuple resultHeapTuple;
+
+    // Cannot run during recovery
+    if (RecoveryInProgress())
+        ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                       errmsg("recovery is in progress")));
+
+    // Create tuple descriptor for return values (file_name, file_offset)
+    resultTupleDesc = CreateTemplateTupleDesc(2);
+    TupleDescInitEntry(resultTupleDesc, 1, "file_name", TEXTOID, -1, 0);
+    TupleDescInitEntry(resultTupleDesc, 2, "file_offset", INT4OID, -1, 0);
+    resultTupleDesc = BlessTupleDesc(resultTupleDesc);
+
+    // Calculate WAL filename from LSN
+    XLByteToSeg(locationpoint, xlogsegno, wal_segment_size);
+    XLogFileName(xlogfilename, GetWALInsertionTimeLine(), xlogsegno, wal_segment_size);
+    values[0] = CStringGetTextDatum(xlogfilename);
+    isnull[0] = false;
+
+    // Calculate byte offset within the WAL segment
+    xrecoff = XLogSegmentOffset(locationpoint, wal_segment_size);
+    values[1] = UInt32GetDatum(xrecoff);
+    isnull[1] = false;
+
+    // Return tuple with filename and offset
+    resultHeapTuple = heap_form_tuple(resultTupleDesc, values, isnull);
+    PG_RETURN_DATUM(HeapTupleGetDatum(resultHeapTuple));
+}
+```

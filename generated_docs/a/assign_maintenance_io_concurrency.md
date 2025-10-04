@@ -36,3 +36,18 @@ The function only triggers reconfiguration when running in the startup process (
 - The hook only takes action during recovery operations (when `AmStartupProcess()` returns true)
 - The global variable `maintenance_io_concurrency` is updated directly before triggering the reconfiguration
 - This is part of PostgreSQL's broader I/O optimization infrastructure that attempts to balance I/O load with system capabilities
+
+## Simplified Source
+
+```c
+void assign_maintenance_io_concurrency(int newval, void *extra) {
+#ifdef USE_PREFETCH
+    // Update the global maintenance I/O concurrency setting
+    maintenance_io_concurrency = newval;
+
+    // Reconfigure recovery prefetching if running in startup process
+    if (AmStartupProcess())
+        XLogPrefetchReconfigure();
+#endif
+}
+```

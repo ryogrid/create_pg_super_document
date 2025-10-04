@@ -37,3 +37,33 @@ The atomic rename operation (via durable_rename) also ensures the file is proper
 - Part of the bbsink callback interface pattern used throughout the base backup system
 - The file handle is set to 0 after closing to prevent accidental reuse
 - Memory management includes proper cleanup of dynamically allocated filename strings
+
+## Simplified Source
+
+```c
+// Simplified version of bbsink_server_end_manifest
+static void bbsink_server_end_manifest(bbsink *sink)
+{
+    bbsink_server *mysink = (bbsink_server *) sink;
+    char *tmp_filename;
+    char *filename;
+
+    // Close the temporary manifest file
+    FileClose(mysink->file);
+    mysink->file = 0;
+
+    // Construct filenames for atomic rename
+    tmp_filename = psprintf("%s/backup_manifest.tmp", mysink->pathname);
+    filename = psprintf("%s/backup_manifest", mysink->pathname);
+
+    // Atomically rename temp file to final location (includes fsync)
+    durable_rename(tmp_filename, filename, ERROR);
+
+    // Clean up allocated strings
+    pfree(filename);
+    pfree(tmp_filename);
+
+    // Forward to next sink
+    bbsink_forward_end_manifest(sink);
+}
+```

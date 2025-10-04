@@ -30,3 +30,14 @@ This function serves as a show hook for the PostgreSQL GUC (Grand Unified Config
 - The underlying GUC variable (in_hot_standby_guc) only changes when transmitting new values to clients
 - Used specifically for displaying the in_hot_standby GUC parameter value
 - Located in src/backend/access/transam/xlog.c:4777-4800
+
+## Simplified Source
+
+```c
+const char *
+show_in_hot_standby(void)
+{
+    // Check recovery state from shared memory for real-time status
+    return RecoveryInProgress() ? "on" : "off";
+}
+```

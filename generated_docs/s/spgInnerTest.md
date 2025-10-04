@@ -49,3 +49,75 @@ The function includes validation for allTheSame inner tuples, ensuring that the 
 - Child nodes with invalid tuple IDs are skipped during processing
 - The function properly handles arrays returned by inner_consistent (nodeNumbers, levelAdds, reconstructedValues, traversalValues, distances)
 - Error checking ensures that array indices are within valid bounds before accessing child nodes
+
+## Simplified Source
+
+```c
+static void
+spgInnerTest(SpGistScanOpaque so, SpGistSearchItem *item,
+             SpGistInnerTuple innerTuple, bool isnull)
+{
+    MemoryContext oldCxt = MemoryContextSwitchTo(so->tempCxt);
+    spgInnerConsistentOut out;
+    int nNodes = innerTuple->nNodes;
+    int i;
+
+    memset(&out, 0, sizeof(out));
+
+    if (!isnull) {
+        // Test inner tuple using opclass-specific inner_consistent method
+        spgInnerConsistentIn in;
+        spgInitInnerConsistentIn(&in, so, item, innerTuple);
+
+        // Call user-defined inner consistent method
+        FunctionCall2Coll(&so->innerConsistentFn,
+                         so->indexCollation,
+                         PointerGetDatum(&in),
+                         PointerGetDatum(&out));
+    } else {
+        // For NULL inner tuples, visit all children
+        out.nNodes = nNodes;
+        out.nodeNumbers = (int *) palloc(sizeof(int) * nNodes);
+        for (i = 0; i < nNodes; i++)
+            out.nodeNumbers[i] = i;
+    }
+
+    // Validate allTheSame consistency
+    if (innerTuple->allTheSame && out.nNodes != 0 && out.nNodes != nNodes)
+        elog(ERROR, "inconsistent inner_consistent results for allTheSame inner tuple");
+
+    if (out.nNodes) {
+        // Collect all child node pointers
+        SpGistNodeTuple node;
+        SpGistNodeTuple *nodes = (SpGistNodeTuple *) palloc(sizeof(SpGistNodeTuple) * nNodes);
+
+        SGITITERATE(innerTuple, i, node) {
+            nodes[i] = node;
+        }
+
+        MemoryContextSwitchTo(so->traversalCxt);
+
+        // Create search items for each qualifying child node
+        for (i = 0; i < out.nNodes; i++) {
+            int nodeN = out.nodeNumbers[i];
+            SpGistSearchItem *innerItem;
+            double *distances;
+
+            node = nodes[nodeN];
+
+            // Skip invalid child nodes
+            if (!ItemPointerIsValid(&node->t_tid))
+                continue;
+
+            // Use provided distances or default to infinity
+            distances = out.distances ? out.distances[i] : so->infDistances;
+
+            // Create search item and add to queue
+            innerItem = spgMakeInnerItem(so, item, node, &out, i, isnull, distances);
+            spgAddSearchItemToQueue(so, innerItem);
+        }
+    }
+
+    MemoryContextSwitchTo(oldCxt);
+}
+```

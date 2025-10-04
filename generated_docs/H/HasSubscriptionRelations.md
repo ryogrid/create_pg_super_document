@@ -38,3 +38,32 @@ The function uses a system catalog scan with an equality condition on the subscr
 - Uses AccessShareLock for safe concurrent access to the system catalog
 - Returns immediately after finding the first matching tuple for optimal performance
 - The function comment explicitly notes it should be used when you have no need for the List returned by GetSubscriptionRelations
+
+## Simplified Source
+
+```c
+bool HasSubscriptionRelations(Oid subid) {
+    // Open subscription_rel catalog with shared lock
+    Relation rel = table_open(SubscriptionRelRelationId, AccessShareLock);
+
+    // Set up scan key to find relations for this subscription
+    ScanKeyData skey[1];
+    ScanKeyInit(&skey[0],
+                Anum_pg_subscription_rel_srsubid,
+                BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(subid));
+
+    // Start the scan
+    SysScanDesc scan = systable_beginscan(rel, InvalidOid, false,
+                                         NULL, 1, skey);
+
+    // Check if any tuple exists (efficient - only need first match)
+    bool has_subrels = HeapTupleIsValid(systable_getnext(scan));
+
+    // Cleanup
+    systable_endscan(scan);
+    table_close(rel, AccessShareLock);
+
+    return has_subrels;
+}
+```

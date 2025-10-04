@@ -42,3 +42,24 @@ The function uses the  macro to optimize branch prediction, as overflow and unde
 - Extensively used in PostgreSQL's geometric data types and operations
 - The function follows PostgreSQL's convention of throwing errors rather than returning special values for exceptional conditions
 - More widely used than  due to the prevalence of double-precision arithmetic in database operations
+
+## Simplified Source
+
+```c
+static inline float8 float8_mul(const float8 val1, const float8 val2) {
+    // Perform the multiplication
+    float8 result = val1 * val2;
+
+    // Check for overflow: if result is infinite but both inputs were finite
+    if (unlikely(isinf(result)) && !isinf(val1) && !isinf(val2)) {
+        float_overflow_error();
+    }
+
+    // Check for underflow: if result is zero but both inputs were non-zero
+    if (unlikely(result == 0.0) && val1 != 0.0 && val2 != 0.0) {
+        float_underflow_error();
+    }
+
+    return result;
+}
+```

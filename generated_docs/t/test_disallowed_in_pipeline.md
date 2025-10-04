@@ -58,3 +58,67 @@ The function performs the following test sequence:
 - Part of the comprehensive pipeline mode test suite
 - Located in src/test/modules/libpq_pipeline/libpq_pipeline.c at lines 409-468
 - Essential for ensuring pipeline mode safety and proper API usage
+
+## Simplified Source
+
+```c
+static void test_disallowed_in_pipeline(PGconn *conn) {
+    PGresult *res = NULL;
+
+    fprintf(stderr, "test error cases... ");
+
+    // Verify connection is in blocking mode
+    if (PQisnonblocking(conn))
+        pg_fatal("Expected blocking connection mode");
+
+    // Enter pipeline mode
+    if (PQenterPipelineMode(conn) != 1)
+        pg_fatal("Unable to enter pipeline mode");
+
+    if (PQpipelineStatus(conn) == PQ_PIPELINE_OFF)
+        pg_fatal("Pipeline mode not activated properly");
+
+    // Test: PQexec should fail in pipeline mode
+    res = PQexec(conn, "SELECT 1");
+    if (PQresultStatus(res) != PGRES_FATAL_ERROR)
+        pg_fatal("PQexec should fail in pipeline mode but succeeded");
+    // Verify expected error message for PQexec
+    if (strcmp(PQerrorMessage(conn),
+               "synchronous command execution functions are not allowed in pipeline mode\n") != 0)
+        pg_fatal("did not get expected error message; got: \"%s\"", PQerrorMessage(conn));
+
+    // Test: PQsendQuery should fail in pipeline mode
+    if (PQsendQuery(conn, "SELECT 1") != 0)
+        pg_fatal("PQsendQuery should fail in pipeline mode but succeeded");
+    // Verify expected error message for PQsendQuery
+    if (strcmp(PQerrorMessage(conn), "PQsendQuery not allowed in pipeline mode\n") != 0)
+        pg_fatal("did not get expected error message; got: \"%s\"", PQerrorMessage(conn));
+
+    // Test: Re-entering pipeline mode should be allowed (no-op)
+    if (PQenterPipelineMode(conn) != 1)
+        pg_fatal("re-entering pipeline mode should be a no-op but failed");
+
+    // Test: PQisBusy should return 0 when idle in pipeline mode
+    if (PQisBusy(conn) != 0)
+        pg_fatal("PQisBusy should return 0 when idle in pipeline mode, returned 1");
+
+    // Exit pipeline mode
+    if (PQexitPipelineMode(conn) != 1)
+        pg_fatal("couldn't exit idle empty pipeline mode");
+
+    if (PQpipelineStatus(conn) != PQ_PIPELINE_OFF)
+        pg_fatal("Pipeline mode not terminated properly");
+
+    // Test: Exiting pipeline mode when not in pipeline mode should be no-op
+    if (PQexitPipelineMode(conn) != 1)
+        pg_fatal("pipeline mode exit when not in pipeline mode should succeed but failed");
+
+    // Test: PQexec should work again after exiting pipeline mode
+    res = PQexec(conn, "SELECT 1");
+    if (PQresultStatus(res) != PGRES_TUPLES_OK)
+        pg_fatal("PQexec should succeed after exiting pipeline mode but failed with: %s",
+                 PQerrorMessage(conn));
+
+    fprintf(stderr, "ok\n");
+}
+```

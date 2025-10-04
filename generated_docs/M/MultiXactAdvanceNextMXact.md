@@ -38,3 +38,29 @@ The function only advances the counters forward - it will not decrease them if t
 - Only advances counters forward, never backwards
 - Includes debug logging to track when values are updated
 - Critical for maintaining MultiXact consistency during crash recovery
+
+## Simplified Source
+
+```c
+void
+MultiXactAdvanceNextMXact(MultiXactId minMulti,
+                         MultiXactOffset minMultiOffset)
+{
+    LWLockAcquire(MultiXactGenLock, LW_EXCLUSIVE);
+
+    // Advance nextMXact if current value is behind minimum
+    if (MultiXactIdPrecedes(MultiXactState->nextMXact, minMulti)) {
+        debug_elog3(DEBUG2, "MultiXact: setting next multi to %u", minMulti);
+        MultiXactState->nextMXact = minMulti;
+    }
+
+    // Advance nextOffset if current value is behind minimum
+    if (MultiXactOffsetPrecedes(MultiXactState->nextOffset, minMultiOffset)) {
+        debug_elog3(DEBUG2, "MultiXact: setting next offset to %u",
+                    minMultiOffset);
+        MultiXactState->nextOffset = minMultiOffset;
+    }
+
+    LWLockRelease(MultiXactGenLock);
+}
+```

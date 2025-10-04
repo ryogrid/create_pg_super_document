@@ -46,3 +46,36 @@ The function works by:
 - Uses transient marking (COLMARK flag) to track which colors are referenced during analysis
 - The resulting RAINBOW arc is semantically equivalent to the original set of arcs but more efficient to process
 - This optimization handles patterns that might seem redundant but are common in some regex dialects
+
+## Simplified Source
+
+```c
+static void optimizebracket(struct vars *v, struct state *lp, struct state *rp) {
+    struct colordesc *cd;
+    struct colordesc *end = CDEND(v->cm);
+    struct arc *a;
+    bool israinbow;
+
+    // Mark all colors referenced by outgoing arcs
+    for (a = lp->outs; a != NULL; a = a->outchain) {
+        cd = &v->cm->cd[a->co];
+        cd->flags |= COLMARK;
+    }
+
+    // Check if all colors are covered
+    israinbow = true;
+    for (cd = v->cm->cd; cd < end; cd++) {
+        if (cd->flags & COLMARK)
+            cd->flags &= ~COLMARK;  // Clear mark
+        else if (!UNUSEDCOLOR(cd) && !(cd->flags & PSEUDO))
+            israinbow = false;      // Found uncovered color
+    }
+
+    // If all colors covered, replace with single RAINBOW arc
+    if (israinbow) {
+        while ((a = lp->outs) != NULL)
+            freearc(v->nfa, a);
+        newarc(v->nfa, PLAIN, RAINBOW, lp, rp);
+    }
+}
+```

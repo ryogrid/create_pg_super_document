@@ -42,3 +42,32 @@ The function processes deltas in order (since they were stored in reverse order 
 - The bit mask  extracts exactly the required number of bits for each delta
 - Critical component for accessing compressed integer data in IntegerSet B-tree leaf nodes
 - Time complexity is O(k) where k is the number of integers encoded in the codeword
+
+## Simplified Source
+
+```c
+static int
+simple8b_decode(uint64 codeword, uint64 *decoded, uint64 base)
+{
+    int selector = (codeword >> 60);  // Extract 4-bit mode selector
+    int nints = simple8b_modes[selector].num_ints;
+    int bits = simple8b_modes[selector].bits_per_int;
+    uint64 mask = (UINT64CONST(1) << bits) - 1;
+    uint64 curr_value;
+
+    if (codeword == EMPTY_CODEWORD)
+        return 0;
+
+    curr_value = base;
+    for (int i = 0; i < nints; i++)
+    {
+        uint64 diff = codeword & mask;  // Extract delta value
+
+        curr_value += 1 + diff;  // Reconstruct original value
+        decoded[i] = curr_value;
+        codeword >>= bits;  // Move to next delta
+    }
+
+    return nints;
+}
+```

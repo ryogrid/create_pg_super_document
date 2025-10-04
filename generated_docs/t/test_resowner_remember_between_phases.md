@@ -41,3 +41,29 @@ This function takes no parameters (uses PG_FUNCTION_ARGS macro but doesn't extra
 - Demonstrates PostgreSQL's defensive programming approach by validating operation sequences
 - The function should terminate with an error before reaching the PG_RETURN_VOID() statement
 - Useful for verifying that resource owners properly enforce phase ordering and prevent invalid state transitions
+
+## Simplified Source
+
+```c
+// Simplified version of test_resowner_remember_between_phases
+Datum
+test_resowner_remember_between_phases(PG_FUNCTION_ARGS)
+{
+    ResourceOwner resowner;
+
+    // Create test resource owner
+    resowner = ResourceOwnerCreate(CurrentResourceOwner, "TestOwner");
+
+    // Start resource release process
+    ResourceOwnerRelease(resowner, RESOURCE_RELEASE_BEFORE_LOCKS, true, false);
+
+    // Try to remember a new resource after release has started
+    // This should fail with an error
+    ResourceOwnerEnlarge(resowner);
+    ResourceOwnerRemember(resowner, CStringGetDatum("my string"), &string_desc);
+
+    // This line should never be reached
+    elog(ERROR, "ResourceOwnerEnlarge should have errored out");
+    PG_RETURN_VOID();
+}
+```

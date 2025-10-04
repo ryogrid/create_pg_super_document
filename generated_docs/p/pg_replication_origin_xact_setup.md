@@ -38,3 +38,26 @@ The function ensures that a replication origin session is properly configured be
 - This function is typically called at the beginning of replaying a transaction from a remote source
 - The stored LSN and timestamp information is used for progress tracking and conflict resolution
 - Located in src/backend/replication/logical/origin.c:1426-1443
+
+## Simplified Source
+
+```c
+Datum pg_replication_origin_xact_setup(PG_FUNCTION_ARGS) {
+    XLogRecPtr location = PG_GETARG_LSN(0);
+
+    // Check prerequisites: require slots and disallow during recovery
+    replorigin_check_prerequisites(true, false);
+
+    // Error if no replication origin is configured
+    if (session_replication_state == NULL) {
+        ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                       errmsg("no replication origin is configured")));
+    }
+
+    // Store transaction origin info for current transaction
+    replorigin_session_origin_lsn = location;
+    replorigin_session_origin_timestamp = PG_GETARG_TIMESTAMPTZ(1);
+
+    PG_RETURN_VOID();
+}
+```

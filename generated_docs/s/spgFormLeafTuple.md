@@ -54,3 +54,61 @@ Key aspects of the tuple formation process:
 - The compatibility logic ensures backward compatibility with PostgreSQL versions before v14
 - Memory is zero-initialized to avoid uninitialized data in padding areas
 - The tuple can later be replaced with a dead tuple marker due to minimum size enforcement
+
+## Simplified Source
+
+```c
+SpGistLeafTuple spgFormLeafTuple(SpGistState *state, ItemPointer heapPtr,
+                                const Datum *datums, const bool *isnulls) {
+    TupleDesc tupleDescriptor = state->leafTupDesc;
+    Size size, hoff, data_size;
+    bool needs_null_mask = false;
+    int natts = tupleDescriptor->natts;
+
+    // Determine null mask requirement (same logic as SpGistGetLeafTupleSize)
+    if (natts > 1) {
+        for (int i = 0; i < natts; i++) {
+            if (isnulls[i]) {
+                needs_null_mask = true;
+                break;
+            }
+        }
+    }
+
+    // Calculate sizes
+    data_size = heap_compute_data_size(tupleDescriptor, datums, isnulls);
+    hoff = SGLTHDRSZ(needs_null_mask);
+    size = hoff + data_size;
+    size = MAXALIGN(size);
+
+    // Ensure minimum size for dead tuple replacement
+    if (size < SGDTSIZE)
+        size = SGDTSIZE;
+
+    // Allocate and initialize tuple
+    SpGistLeafTuple tup = (SpGistLeafTuple) palloc0(size);
+    tup->size = size;
+    SGLT_SET_NEXTOFFSET(tup, InvalidOffsetNumber);
+    tup->heapPtr = *heapPtr;
+
+    // Fill tuple data
+    char *tp = (char *) tup + hoff;
+
+    if (needs_null_mask) {
+        // Set null mask flag and fill data with null bitmap
+        SGLT_SET_HASNULLMASK(tup, true);
+        bits8 *bp = (bits8 *) ((char *) tup + sizeof(SpGistLeafTupleData));
+        uint16 tupmask = 0;
+        heap_fill_tuple(tupleDescriptor, datums, isnulls, tp, data_size,
+                       &tupmask, bp);
+    } else if (natts > 1 || !isnulls[spgKeyColumn]) {
+        // Fill data area without null bitmap
+        uint16 tupmask = 0;
+        heap_fill_tuple(tupleDescriptor, datums, isnulls, tp, data_size,
+                       &tupmask, (bits8 *) NULL);
+    }
+    // If single null attribute, no data to fill
+
+    return tup;
+}
+```

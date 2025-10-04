@@ -44,3 +44,34 @@ The function ensures proper resource management by preventing file descriptor le
 - The cleanup is performed in a specific order: files first, then leaked changes, then heap structure, and finally the state structure itself
 - The function handles the case where some transaction entries may not have open file descriptors (vfd == -1)
 - This function is part of the logical replication infrastructure in PostgreSQL
+
+## Simplified Source
+
+```c
+static void
+ReorderBufferIterTXNFinish(ReorderBuffer *rb, ReorderBufferIterTXNState *state)
+{
+    int32 off;
+
+    // Close any open file descriptors for serialized transaction data
+    for (off = 0; off < state->nr_txns; off++)
+    {
+        if (state->entries[off].file.vfd != -1)
+            FileClose(state->entries[off].file.vfd);
+    }
+
+    // Clean up any remaining change from the last iteration
+    if (!dlist_is_empty(&state->old_change))
+    {
+        ReorderBufferChange *change;
+
+        change = dlist_container(ReorderBufferChange, node,
+                                 dlist_pop_head_node(&state->old_change));
+        ReorderBufferReturnChange(rb, change, true);
+    }
+
+    // Free the binary heap and iterator state
+    binaryheap_free(state->heap);
+    pfree(state);
+}
+```

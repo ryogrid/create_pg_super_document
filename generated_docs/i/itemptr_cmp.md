@@ -36,3 +36,26 @@ The function follows the standard C library qsort comparator interface, returnin
 - The comparison logic ensures consistent ordering of TIDs across different operations
 - Used primarily with qsort() to sort arrays of ItemPointers for verification and testing purposes
 - The function handles the two-level hierarchy of PostgreSQL's tuple identification system (block + offset)
+
+## Simplified Source
+
+```c
+static int itemptr_cmp(const void *left, const void *right) {
+    // Extract block numbers from both ItemPointers
+    BlockNumber left_block = ItemPointerGetBlockNumber((ItemPointer) left);
+    BlockNumber right_block = ItemPointerGetBlockNumber((ItemPointer) right);
+
+    // Compare block numbers first
+    if (left_block < right_block) return -1;
+    if (left_block > right_block) return 1;
+
+    // Blocks are equal, compare offset numbers
+    OffsetNumber left_offset = ItemPointerGetOffsetNumber((ItemPointer) left);
+    OffsetNumber right_offset = ItemPointerGetOffsetNumber((ItemPointer) right);
+
+    if (left_offset < right_offset) return -1;
+    if (left_offset > right_offset) return 1;
+
+    return 0;  // Both ItemPointers are equal
+}
+```

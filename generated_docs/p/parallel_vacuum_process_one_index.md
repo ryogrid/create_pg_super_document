@@ -50,3 +50,68 @@ Key design aspects include:
 - Error traceback information is maintained throughout the operation to provide meaningful error messages
 - Progress reporting uses the parallel variant to ensure proper coordination with the leader process
 - The function operates without locks on index statistics since each worker processes different indexes
+
+## Simplified Source
+
+```c
+static void
+parallel_vacuum_process_one_index(ParallelVacuumState *pvs, Relation indrel,
+                                  PVIndStats *indstats)
+{
+    IndexBulkDeleteResult *istat = NULL;
+    IndexBulkDeleteResult *istat_res;
+    IndexVacuumInfo ivinfo;
+
+    // Use existing bulk-deletion result if available
+    if (indstats->istat_updated)
+        istat = &(indstats->istat);
+
+    // Setup index vacuum info structure
+    ivinfo.index = indrel;
+    ivinfo.heaprel = pvs->heaprel;
+    ivinfo.analyze_only = false;
+    ivinfo.report_progress = false;
+    ivinfo.message_level = DEBUG2;
+    ivinfo.estimated_count = pvs->shared->estimated_count;
+    ivinfo.num_heap_tuples = pvs->shared->reltuples;
+    ivinfo.strategy = pvs->bstrategy;
+
+    // Update error context for this index
+    pvs->indname = pstrdup(RelationGetRelationName(indrel));
+    pvs->status = indstats->status;
+
+    // Perform index operation based on status
+    switch (indstats->status)
+    {
+        case PARALLEL_INDVAC_STATUS_NEED_BULKDELETE:
+            istat_res = vac_bulkdel_one_index(&ivinfo, istat, pvs->dead_items,
+                                              &pvs->shared->dead_items_info);
+            break;
+        case PARALLEL_INDVAC_STATUS_NEED_CLEANUP:
+            istat_res = vac_cleanup_one_index(&ivinfo, istat);
+            break;
+        default:
+            elog(ERROR, "unexpected parallel vacuum index status %d for index \"%s\"",
+                 indstats->status, RelationGetRelationName(indrel));
+    }
+
+    // Copy result to shared memory on first cycle
+    if (!indstats->istat_updated && istat_res != NULL)
+    {
+        memcpy(&(indstats->istat), istat_res, sizeof(IndexBulkDeleteResult));
+        indstats->istat_updated = true;
+        pfree(istat_res);
+    }
+
+    // Mark index as completed
+    indstats->status = PARALLEL_INDVAC_STATUS_COMPLETED;
+
+    // Reset error context
+    pvs->status = PARALLEL_INDVAC_STATUS_COMPLETED;
+    pfree(pvs->indname);
+    pvs->indname = NULL;
+
+    // Report progress to leader
+    pgstat_progress_parallel_incr_param(PROGRESS_VACUUM_INDEXES_PROCESSED, 1);
+}
+```

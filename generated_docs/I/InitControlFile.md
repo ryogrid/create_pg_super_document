@@ -40,3 +40,38 @@ InitControlFile is a static function that initializes the shared memory buffer C
 - Must be called before WriteControlFile() during database initialization
 - The function will panic if it cannot generate the required authentication nonce
 - Parameters stored include connection limits, worker processes, WAL settings, and data integrity options
+
+## Simplified Source
+
+```c
+static void
+InitControlFile(uint64 sysidentifier)
+{
+    char mock_auth_nonce[MOCK_AUTH_NONCE_LEN];
+
+    // Generate secure random nonce for authentication security
+    if (!pg_strong_random(mock_auth_nonce, MOCK_AUTH_NONCE_LEN))
+        ereport(PANIC, (errcode(ERRCODE_INTERNAL_ERROR),
+                       errmsg("could not generate secret authorization token")));
+
+    // Clear the control file structure
+    memset(ControlFile, 0, sizeof(ControlFileData));
+
+    // Set basic system identification
+    ControlFile->system_identifier = sysidentifier;
+    memcpy(ControlFile->mock_authentication_nonce, mock_auth_nonce, MOCK_AUTH_NONCE_LEN);
+    ControlFile->state = DB_SHUTDOWNED;
+    ControlFile->unloggedLSN = FirstNormalUnloggedLSN;
+
+    // Store critical configuration parameters for WAL replay
+    ControlFile->MaxConnections = MaxConnections;
+    ControlFile->max_worker_processes = max_worker_processes;
+    ControlFile->max_wal_senders = max_wal_senders;
+    ControlFile->max_prepared_xacts = max_prepared_xacts;
+    ControlFile->max_locks_per_xact = max_locks_per_xact;
+    ControlFile->wal_level = wal_level;
+    ControlFile->wal_log_hints = wal_log_hints;
+    ControlFile->track_commit_timestamp = track_commit_timestamp;
+    ControlFile->data_checksum_version = bootstrap_data_checksum_version;
+}
+```

@@ -41,3 +41,47 @@ After finalizing compression, it sends all remaining compressed data to the next
 - Ensures all compressed data is sent before ending the archive
 - Part of the sink operation callbacks, called through function pointer indirection
 - Resets bytes_written counter after flushing final data
+
+## Simplified Source
+
+```c
+static void
+bbsink_lz4_end_archive(bbsink *sink)
+{
+    bbsink_lz4 *mysink = (bbsink_lz4 *) sink;
+    size_t compressedSize;
+    size_t lz4_footer_bound;
+
+    // Calculate space needed for LZ4 footer
+    lz4_footer_bound = LZ4F_compressBound(0, &mysink->prefs);
+
+    // Ensure enough space for footer, flush if needed
+    if ((mysink->base.bbs_next->bbs_buffer_length - mysink->bytes_written) <
+        lz4_footer_bound) {
+        bbsink_archive_contents(sink->bbs_next, mysink->bytes_written);
+        mysink->bytes_written = 0;
+    }
+
+    // Finalize compression and write footer
+    compressedSize = LZ4F_compressEnd(mysink->ctx,
+                                     mysink->base.bbs_next->bbs_buffer + mysink->bytes_written,
+                                     mysink->base.bbs_next->bbs_buffer_length - mysink->bytes_written,
+                                     NULL);
+
+    if (LZ4F_isError(compressedSize))
+        elog(ERROR, "could not end lz4 compression: %s",
+             LZ4F_getErrorName(compressedSize));
+
+    // Update bytes written and send final data
+    mysink->bytes_written += compressedSize;
+    bbsink_archive_contents(sink->bbs_next, mysink->bytes_written);
+    mysink->bytes_written = 0;
+
+    // Clean up compression context
+    LZ4F_freeCompressionContext(mysink->ctx);
+    mysink->ctx = NULL;
+
+    // Signal end of archive to next sink
+    bbsink_forward_end_archive(sink);
+}
+```

@@ -29,3 +29,15 @@ This function applies all invalidation messages that have been collected during 
 - The function applies all invalidations without selective filtering, as noted in the comment that it may only need parts at the current point in the changestream but doesn't know which ones
 - Essential for maintaining catalog cache consistency during logical replication replay
 - Part of PostgreSQL's logical replication infrastructure
+
+## Simplified Source
+
+```c
+static void
+ReorderBufferExecuteInvalidations(uint32 nmsgs, SharedInvalidationMessage *msgs)
+{
+    // Apply all invalidation messages to maintain cache consistency
+    for (int i = 0; i < nmsgs; i++)
+        LocalExecuteInvalidationMessage(&msgs[i]);
+}
+```

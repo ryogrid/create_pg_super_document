@@ -32,3 +32,15 @@ spg_xlog_cleanup(void)
 - Part of the SP-GiST access method's recovery cleanup infrastructure
 - Located in src/backend/access/spgist/spgxlog.c:984-993
 - Failure to call this function during shutdown could result in memory leaks in the recovery process
+
+## Simplified Source
+
+```c
+void spg_xlog_cleanup(void) {
+    // Delete the SP-GiST operation memory context and its memory
+    MemoryContextDelete(opCtx);
+
+    // Set pointer to NULL to prevent accidental access
+    opCtx = NULL;
+}
+```

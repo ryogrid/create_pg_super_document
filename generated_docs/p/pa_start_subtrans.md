@@ -51,3 +51,36 @@ The function handles the complex PostgreSQL transaction state transitions requir
 - The function includes detailed transaction block state checking and initialization
 - Integrates with PostgreSQL's standard transaction management infrastructure
 - Essential for handling nested transactions in streaming logical replication scenarios
+
+## Simplified Source
+
+```c
+void pa_start_subtrans(TransactionId current_xid, TransactionId top_xid) {
+    // Only create savepoint for new subtransactions
+    if (current_xid != top_xid && !list_member_xid(subxactlist, current_xid)) {
+        char spname[NAMEDATALEN];
+
+        // Generate unique savepoint name
+        pa_savepoint_name(MySubscription->oid, current_xid, spname, sizeof(spname));
+
+        elog(DEBUG1, "defining savepoint %s in logical replication parallel apply worker", spname);
+
+        // Ensure we're in a transaction block
+        if (!IsTransactionBlock()) {
+            if (!IsTransactionState())
+                StartTransactionCommand();
+            BeginTransactionBlock();
+            CommitTransactionCommand();
+        }
+
+        // Create the savepoint
+        DefineSavepoint(spname);
+        CommitTransactionCommand();
+
+        // Track this subtransaction
+        MemoryContext oldctx = MemoryContextSwitchTo(TopTransactionContext);
+        subxactlist = lappend_xid(subxactlist, current_xid);
+        MemoryContextSwitchTo(oldctx);
+    }
+}
+```

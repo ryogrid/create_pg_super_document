@@ -48,3 +48,46 @@ This function is the primary interface for adding changes to transactions during
 - Integrates with the streaming system by processing partial changes and checking memory limits
 - Memory accounting tracks the size of each change to enforce logical_decoding_work_mem limits
 - Changes are stored in LSN order within each transaction for proper replay sequencing
+
+## Simplified Source
+
+```c
+void ReorderBufferQueueChange(ReorderBuffer *rb, TransactionId xid, XLogRecPtr lsn,
+                             ReorderBufferChange *change, bool toast_insert) {
+    // Get or create transaction for this XID
+    ReorderBufferTXN *txn = ReorderBufferTXNByXid(rb, xid, true, NULL, lsn, true);
+
+    // Skip if transaction was aborted during streaming
+    if (txn->concurrent_abort) {
+        ReorderBufferReturnChange(rb, change, false);
+        return;
+    }
+
+    // Mark transaction as having streamable changes for certain change types
+    if (change->action == REORDER_BUFFER_CHANGE_INSERT ||
+        change->action == REORDER_BUFFER_CHANGE_UPDATE ||
+        change->action == REORDER_BUFFER_CHANGE_DELETE ||
+        change->action == REORDER_BUFFER_CHANGE_INTERNAL_SPEC_INSERT ||
+        change->action == REORDER_BUFFER_CHANGE_TRUNCATE ||
+        change->action == REORDER_BUFFER_CHANGE_MESSAGE) {
+        ReorderBufferTXN *toptxn = rbtxn_get_toptxn(txn);
+        toptxn->txn_flags |= RBTXN_HAS_STREAMABLE_CHANGE;
+    }
+
+    // Set change metadata and add to transaction
+    change->lsn = lsn;
+    change->txn = txn;
+    dlist_push_tail(&txn->changes, &change->node);
+    txn->nentries++;
+    txn->nentries_mem++;
+
+    // Update memory accounting
+    ReorderBufferChangeMemoryUpdate(rb, change, NULL, true, ReorderBufferChangeSize(change));
+
+    // Process partial change for streaming
+    ReorderBufferProcessPartialChange(rb, txn, change, toast_insert);
+
+    // Check if memory limits need enforcement
+    ReorderBufferCheckMemoryLimit(rb);
+}
+```

@@ -52,3 +52,48 @@ The function opens and locks the target sequence, reads its current state from t
 - The function handles recovery scenarios gracefully by returning NULL instead of throwing errors
 - Proper locking ensures consistent reads even in concurrent environments
 - Located in src/backend/commands/sequence.c:1785-1833
+
+## Simplified Source
+
+```c
+Datum pg_sequence_last_value(PG_FUNCTION_ARGS) {
+    Oid relid = PG_GETARG_OID(0);
+    SeqTable elm;
+    Relation seqrel;
+    bool is_called = false;
+    int64 result = 0;
+
+    // Open and lock the sequence
+    init_sequence(relid, &elm, &seqrel);
+
+    // Check permissions: user needs SELECT or USAGE on sequence
+    if (pg_class_aclcheck(relid, GetUserId(), ACL_SELECT | ACL_USAGE) != ACLCHECK_OK)
+        ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                errmsg("permission denied for sequence %s", RelationGetRelationName(seqrel))));
+
+    // Return NULL for temp sequences of other sessions or unlogged sequences on standby
+    // This provides safe access for system views like pg_sequences
+    if (!RELATION_IS_OTHER_TEMP(seqrel) &&
+        (RelationIsPermanent(seqrel) || !RecoveryInProgress())) {
+
+        Buffer buf;
+        HeapTupleData seqtuple;
+        Form_pg_sequence_data seq;
+
+        // Read sequence data tuple
+        seq = read_seq_tuple(seqrel, &buf, &seqtuple);
+        is_called = seq->is_called;
+        result = seq->last_value;
+
+        UnlockReleaseBuffer(buf);
+    }
+
+    sequence_close(seqrel, NoLock);
+
+    // Return last value only if sequence has been called
+    if (is_called)
+        PG_RETURN_INT64(result);
+    else
+        PG_RETURN_NULL();
+}
+```

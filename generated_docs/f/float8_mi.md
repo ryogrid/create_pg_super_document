@@ -39,3 +39,19 @@ This inline function implements safe double-precision floating-point subtraction
 - Implements IEEE 754 compliant arithmetic with PostgreSQL-specific error handling
 - The function allows infinite results when at least one operand is already infinite
 - Subtraction operation: result = val1 - val2
+
+## Simplified Source
+
+```c
+static inline float8 float8_mi(const float8 val1, const float8 val2) {
+    // Perform the subtraction
+    float8 result = val1 - val2;
+
+    // Check for overflow: if result is infinite but both inputs were finite
+    if (unlikely(isinf(result)) && !isinf(val1) && !isinf(val2)) {
+        float_overflow_error();
+    }
+
+    return result;
+}
+```

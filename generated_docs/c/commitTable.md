@@ -37,3 +37,17 @@ The function includes error handling through sqlca.sqlcode checks, calling sqlpr
 - The function ensures both connections are committed even if one fails (no early return on error)
 - Located in src/interfaces/ecpg/test/expected/sql-declare.c:581-599
 - Called multiple times in main(), suggesting it's used for both setup and cleanup phases of testing
+
+## Simplified Source
+
+```c
+void commitTable() {
+    // Commit transaction on con1 connection
+    ECPGtrans(__LINE__, "con1", "commit");
+    if (sqlca.sqlcode < 0) sqlprint();
+
+    // Commit transaction on con2 connection
+    ECPGtrans(__LINE__, "con2", "commit");
+    if (sqlca.sqlcode < 0) sqlprint();
+}
+```

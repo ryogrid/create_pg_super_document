@@ -33,3 +33,17 @@ The function returns the TidStore directly and populates the provided pointer wi
 - Provides unified access to both the TidStore storage and its associated metadata
 - Used by vacuum operations to coordinate dead tuple tracking across multiple parallel workers
 - The returned TidStore is shared across all parallel workers and must be accessed with appropriate synchronization
+
+## Simplified Source
+
+```c
+TidStore *
+parallel_vacuum_get_dead_items(ParallelVacuumState *pvs, VacDeadItemsInfo **dead_items_info_p)
+{
+    // Return pointer to dead items metadata
+    *dead_items_info_p = &(pvs->shared->dead_items_info);
+
+    // Return the shared TidStore
+    return pvs->dead_items;
+}
+```

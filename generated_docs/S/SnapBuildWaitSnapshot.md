@@ -9,9 +9,8 @@ Waits for all transactions older than a specified cutoff to finish and optionall
 ## Definition
 
 ```c
-struct SnapBuild on disk in the following manner:
- *
- * struct SnapBuildOnDisk;
+static void
+SnapBuildWaitSnapshot(xl_running_xacts *running, TransactionId cutoff)
 ```
 ## Detailed Description
 SnapBuildWaitSnapshot is a utility function that implements controlled waiting for specific transactions to complete during snapshot building. It serves both correctness and operational purposes in the logical replication system:
@@ -54,3 +53,34 @@ During recovery, the function cannot force generation of new WAL records, so it 
 - Critical for the incremental snapshot building algorithm used in logical replication
 - The function ensures that snapshot building doesn't proceed until it's safe to do so
 - Part of the broader mechanism that ensures logical replication starts from a truly consistent point
+
+## Simplified Source
+
+```c
+static void
+SnapBuildWaitSnapshot(xl_running_xacts *running, TransactionId cutoff)
+{
+    // Wait for all transactions older than cutoff to finish
+    for (int i = 0; i < running->xcnt; i++)
+    {
+        TransactionId xid = running->xids[i];
+
+        // Safety check: never wait for ourselves
+        if (TransactionIdIsCurrentTransactionId(xid))
+            elog(ERROR, "waiting for ourselves");
+
+        // Skip transactions newer than cutoff
+        if (TransactionIdFollows(xid, cutoff))
+            continue;
+
+        // Wait for this transaction to finish
+        XactLockTableWait(xid, NULL, NULL, XLTW_None);
+    }
+
+    // Generate new xl_running_xacts record if not in recovery
+    if (!RecoveryInProgress())
+    {
+        LogStandbySnapshot();
+    }
+}
+```

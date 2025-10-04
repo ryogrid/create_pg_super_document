@@ -39,3 +39,38 @@ The materialization process resets the deformation state (tts_nvalid and off) to
 - Switches to the slot's memory context during tuple creation/copying to ensure proper memory management
 - Resets deformation state to prevent accessing stale deconstructed values after materialization
 - Sets TTS_FLAG_SHOULDFREE to indicate the slot owns the tuple and should free it when cleared
+
+## Simplified Source
+
+```c
+static void
+tts_heap_materialize(TupleTableSlot *slot)
+{
+    HeapTupleTableSlot *hslot = (HeapTupleTableSlot *) slot;
+
+    // Skip if already materialized
+    if (TTS_SHOULDFREE(slot))
+        return;
+
+    MemoryContext oldContext = MemoryContextSwitchTo(slot->tts_mcxt);
+
+    // Reset deformation state to force fresh tuple access
+    slot->tts_nvalid = 0;
+    hslot->off = 0;
+
+    // Create or copy tuple into slot's memory context
+    if (!hslot->tuple) {
+        // Form new tuple from deconstructed values
+        hslot->tuple = heap_form_tuple(slot->tts_tupleDescriptor,
+                                       slot->tts_values, slot->tts_isnull);
+    } else {
+        // Copy existing tuple to ensure proper ownership
+        hslot->tuple = heap_copytuple(hslot->tuple);
+    }
+
+    // Mark slot as owning the tuple
+    slot->tts_flags |= TTS_FLAG_SHOULDFREE;
+
+    MemoryContextSwitchTo(oldContext);
+}
+```

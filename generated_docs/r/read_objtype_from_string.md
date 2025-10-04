@@ -39,3 +39,27 @@ When an unrecognized object type string is provided, the function reports an err
 - Used primarily by SQL-callable functions that accept object type strings as parameters
 - The function includes a "keep compiler quiet" return statement that should never be reached due to the error reporting
 - Essential for bridging between user-facing string representations and internal PostgreSQL object type handling
+
+## Simplified Source
+
+```c
+int
+read_objtype_from_string(const char *objtype)
+{
+    int i;
+
+    // Search through ObjectTypeMap for matching string
+    for (i = 0; i < lengthof(ObjectTypeMap); i++)
+    {
+        if (strcmp(ObjectTypeMap[i].tm_name, objtype) == 0)
+            return ObjectTypeMap[i].tm_type;
+    }
+
+    // Report error for unrecognized object type
+    ereport(ERROR,
+            (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+             errmsg("unrecognized object type \"%s\"", objtype)));
+
+    return -1;  /* never reached */
+}
+```

@@ -44,3 +44,34 @@ This function encodes a TRUNCATE operation into the logical replication protocol
 - Flags are encoded as a single byte with bitwise OR operations
 - Transaction ID is conditionally sent only when valid (for streaming transactions)
 - The message format follows the logical replication protocol specification
+
+## Simplified Source
+
+```c
+void logicalrep_write_truncate(StringInfo out, TransactionId xid, int nrelids,
+                              Oid relids[], bool cascade, bool restart_seqs) {
+    int i;
+    uint8 flags = 0;
+
+    // Write message type
+    pq_sendbyte(out, LOGICAL_REP_MSG_TRUNCATE);
+
+    // Include transaction ID if we're streaming
+    if (TransactionIdIsValid(xid))
+        pq_sendint32(out, xid);
+
+    // Write number of relations
+    pq_sendint32(out, nrelids);
+
+    // Encode truncate options as flags
+    if (cascade)
+        flags |= TRUNCATE_CASCADE;
+    if (restart_seqs)
+        flags |= TRUNCATE_RESTART_SEQS;
+    pq_sendint8(out, flags);
+
+    // Write all relation OIDs
+    for (i = 0; i < nrelids; i++)
+        pq_sendint32(out, relids[i]);
+}
+```

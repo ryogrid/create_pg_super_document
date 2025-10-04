@@ -35,3 +35,17 @@ The function works by checking if XactTopFullTransactionId is valid, and if not,
 - Returns the full 64-bit transaction ID, not just the 32-bit XID portion
 - Located in src/backend/access/transam/xact.c:480-495
 - Used primarily for SQL functions that need to expose the current transaction ID to users
+
+## Simplified Source
+
+```c
+FullTransactionId
+GetTopFullTransactionId(void)
+{
+    // Assign transaction ID if not already set
+    if (!FullTransactionIdIsValid(XactTopFullTransactionId))
+        AssignTransactionId(&TopTransactionStateData);
+
+    return XactTopFullTransactionId;
+}
+```

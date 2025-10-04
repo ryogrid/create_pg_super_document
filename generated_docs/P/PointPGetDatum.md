@@ -39,3 +39,15 @@ PointPGetDatum is part of PostgreSQL's function manager (fmgr) interface functio
 
 ## Notes and Other Information
 This function is defined as a static inline function in src/include/utils/geo_decls.h:181-184. It is widely used in spatial indexing implementations and geometric operations throughout PostgreSQL. The function takes a const pointer, indicating that it does not modify the Point data. It is commonly used in conjunction with PG_RETURN_POINT_P macro and in various geometric functions that need to return Point results. The function assumes the input pointer is valid and points to a properly initialized Point structure.
+
+## Simplified Source
+
+```c
+static inline Datum
+PointPGetDatum(const Point *X)
+{
+    // Convert Point pointer to generic Datum
+    // Used to package Point data into PostgreSQL's internal format
+    return PointerGetDatum(X);
+}
+```

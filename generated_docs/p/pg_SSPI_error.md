@@ -38,3 +38,27 @@ When FormatMessage succeeds in translating the SECURITY_STATUS code into a syste
 - Error messages are generated using errmsg_internal rather than errmsg, suggesting these are internal system errors not meant for direct user consumption
 - The caller is responsible for making the errmsg parameter translatable by applying the _() macro
 - Uses a fixed 256-byte buffer for system messages, which should be sufficient for most Windows error messages
+
+## Simplified Source
+
+```c
+static void
+pg_SSPI_error(int severity, const char *errmsg, SECURITY_STATUS r)
+{
+    char sysmsg[256];
+
+    // Try to get Windows system error message
+    if (FormatMessage(FORMAT_MESSAGE_IGNORE_INSERTS | FORMAT_MESSAGE_FROM_SYSTEM,
+                      NULL, r, 0, sysmsg, sizeof(sysmsg), NULL) == 0) {
+        // FormatMessage failed - report with just error code
+        ereport(severity,
+                (errmsg_internal("%s", errmsg),
+                 errdetail_internal("SSPI error %x", (unsigned int) r)));
+    } else {
+        // FormatMessage succeeded - include system message
+        ereport(severity,
+                (errmsg_internal("%s", errmsg),
+                 errdetail_internal("%s (%x)", sysmsg, (unsigned int) r)));
+    }
+}
+```

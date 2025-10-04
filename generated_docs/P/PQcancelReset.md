@@ -33,3 +33,19 @@ PQcancelReset reinitializes a cancel connection object by closing any existing c
 - Essential for connection pooling and reuse scenarios in cancellation operations
 - Ensures clean state between multiple cancellation attempts on the same connection object
 - Does not free the PGcancelConn structure itself, only resets its internal state
+
+## Simplified Source
+
+```c
+void PQcancelReset(PGcancelConn *cancelConn) {
+    // Close any existing connection
+    pqClosePGconn(&cancelConn->conn);
+
+    // Reset connection to initial allocated state
+    cancelConn->conn.status = CONNECTION_ALLOCATED;
+    cancelConn->conn.whichhost = 0;
+    cancelConn->conn.whichaddr = 0;
+    cancelConn->conn.try_next_host = false;
+    cancelConn->conn.try_next_addr = false;
+}
+```

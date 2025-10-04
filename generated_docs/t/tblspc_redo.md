@@ -55,3 +55,48 @@ The function includes robust error handling for tablespace drop operations, reco
 - Handles recovery conflicts gracefully when standby users have temporary files in the tablespace
 - Logs warnings rather than errors for persistent directory removal failures to prevent recovery crashes
 - Part of the PostgreSQL Write-Ahead Logging subsystem ensuring tablespace operations are crash-safe and recoverable
+
+## Simplified Source
+
+```c
+void tblspc_redo(XLogReaderState *record)
+{
+    uint8 info = XLogRecGetInfo(record) & ~XLR_INFO_MASK;
+
+    // No backup blocks expected in tablespace records
+    Assert(!XLogRecHasAnyBlockRefs(record));
+
+    if (info == XLOG_TBLSPC_CREATE) {
+        // Replay tablespace creation
+        xl_tblspc_create_rec *xlrec = (xl_tblspc_create_rec *) XLogRecGetData(record);
+        char *location = xlrec->ts_path;
+
+        create_tablespace_directories(location, xlrec->ts_id);
+    }
+    else if (info == XLOG_TBLSPC_DROP) {
+        // Replay tablespace deletion
+        xl_tblspc_drop_rec *xlrec = (xl_tblspc_drop_rec *) XLogRecGetData(record);
+
+        // Close all storage manager file descriptors across backends
+        WaitForProcSignalBarrier(EmitProcSignalBarrier(PROCSIGNAL_BARRIER_SMGRRELEASE));
+
+        // Try to destroy tablespace directories
+        if (!destroy_tablespace_directories(xlrec->ts_id, true)) {
+            // Handle conflicts with standby temporary files
+            ResolveRecoveryConflictWithTablespace(xlrec->ts_id);
+
+            // Retry after conflict resolution
+            if (!destroy_tablespace_directories(xlrec->ts_id, true)) {
+                // Log warning instead of error to avoid crashing recovery
+                ereport(LOG,
+                    (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                     errmsg("directories for tablespace %u could not be removed",
+                            xlrec->ts_id),
+                     errhint("You can remove the directories manually if necessary.")));
+            }
+        }
+    }
+    else
+        elog(PANIC, "tblspc_redo: unknown op code %u", info);
+}
+```

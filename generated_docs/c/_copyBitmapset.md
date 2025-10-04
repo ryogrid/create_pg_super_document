@@ -31,3 +31,12 @@ This design maintains consistency with the node copying framework while leveragi
 - Bitmapsets are specialized data structures used throughout PostgreSQL for efficient set operations on integers
 - The function delegates to  which handles the complex internal structure of Bitmapsets including their variable-length word arrays
 - This approach maintains the separation of concerns between generic node copying and Bitmapset-specific operations
+
+## Simplified Source
+
+```c
+static Bitmapset *_copyBitmapset(const Bitmapset *from) {
+    // Simply delegate to the specialized Bitmapset copy function
+    return bms_copy(from);
+}
+```

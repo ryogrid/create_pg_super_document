@@ -49,3 +49,87 @@ The function performs comprehensive validation including permission checks (ACL_
 - The 3-argument form with iscalled=false is primarily for pg_dump restoration
 - Prevents execution in parallel mode due to backend-local sequence cache limitations
 - Part of PostgreSQL's sequence management system in src/backend/commands/sequence.c:945
+
+## Simplified Source
+
+```c
+static void do_setval(Oid relid, int64 next, bool iscalled) {
+    SeqTable elm;
+    Relation seqrel;
+    Buffer buf;
+    HeapTupleData seqdatatuple;
+    Form_pg_sequence_data seq;
+    int64 maxv, minv;
+
+    // Initialize and lock sequence
+    init_sequence(relid, &elm, &seqrel);
+
+    // Check UPDATE permissions
+    if (pg_class_aclcheck(elm->relid, GetUserId(), ACL_UPDATE) != ACLCHECK_OK)
+        ereport(ERROR,
+                (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                 errmsg("permission denied for sequence %s",
+                        RelationGetRelationName(seqrel))));
+
+    // Get sequence bounds from system catalog
+    HeapTuple pgstuple = SearchSysCache1(SEQRELID, ObjectIdGetDatum(relid));
+    if (!HeapTupleIsValid(pgstuple))
+        elog(ERROR, "cache lookup failed for sequence %u", relid);
+    Form_pg_sequence pgsform = (Form_pg_sequence) GETSTRUCT(pgstuple);
+    maxv = pgsform->seqmax;
+    minv = pgsform->seqmin;
+    ReleaseSysCache(pgstuple);
+
+    // Validate execution context
+    if (!seqrel->rd_islocaltemp)
+        PreventCommandIfReadOnly("setval()");
+    PreventCommandIfParallelMode("setval()");
+
+    // Read current sequence tuple
+    seq = read_seq_tuple(seqrel, &buf, &seqdatatuple);
+
+    // Validate new value is within bounds
+    if ((next < minv) || (next > maxv))
+        ereport(ERROR,
+                (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                 errmsg("setval: value %lld is out of bounds for sequence \"%s\" (%lld..%lld)",
+                        (long long) next, RelationGetRelationName(seqrel),
+                        (long long) minv, (long long) maxv)));
+
+    // Update session cache if marking as called
+    if (iscalled) {
+        elm->last = next;
+        elm->last_valid = true;
+    }
+    elm->cached = elm->last;
+
+    // Ensure transaction ID for WAL logging
+    if (RelationNeedsWAL(seqrel))
+        GetTopTransactionId();
+
+    // Update sequence data in buffer
+    START_CRIT_SECTION();
+    seq->last_value = next;
+    seq->is_called = iscalled;
+    seq->log_cnt = 0;
+    MarkBufferDirty(buf);
+
+    // Write WAL record if needed
+    if (RelationNeedsWAL(seqrel)) {
+        xl_seq_rec xlrec;
+        XLogBeginInsert();
+        XLogRegisterBuffer(0, buf, REGBUF_WILL_INIT);
+        xlrec.locator = seqrel->rd_locator;
+        XLogRegisterData((char *) &xlrec, sizeof(xl_seq_rec));
+        XLogRegisterData((char *) seqdatatuple.t_data, seqdatatuple.t_len);
+        XLogRecPtr recptr = XLogInsert(RM_SEQ_ID, XLOG_SEQ_LOG);
+        PageSetLSN(BufferGetPage(buf), recptr);
+    }
+
+    END_CRIT_SECTION();
+
+    // Clean up
+    UnlockReleaseBuffer(buf);
+    sequence_close(seqrel, NoLock);
+}
+```

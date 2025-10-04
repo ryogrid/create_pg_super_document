@@ -44,3 +44,28 @@ This design ensures that functions like age(xid) get consistent results even if 
 - Falls back to next available XID if current transaction has no assigned XID
 - Essential for maintenance operations that need stable transaction reference points
 - Located in src/backend/access/transam/xact.c:604-631
+
+## Simplified Source
+
+```c
+TransactionId
+GetStableLatestTransactionId(void)
+{
+    static LocalTransactionId lxid = InvalidLocalTransactionId;
+    static TransactionId stablexid = InvalidTransactionId;
+
+    // Check if we're in a new transaction
+    if (lxid != MyProc->vxid.lxid) {
+        lxid = MyProc->vxid.lxid;
+
+        // Try to get current transaction's XID
+        stablexid = GetTopTransactionIdIfAny();
+
+        // If no XID assigned, use next available XID
+        if (!TransactionIdIsValid(stablexid))
+            stablexid = ReadNextTransactionId();
+    }
+
+    return stablexid;
+}
+```

@@ -63,3 +63,47 @@ The function includes version-specific handling for LLVM API changes, particular
 - Memory management is handled through PostgreSQL's allocation functions rather than standard C library functions
 - Error handling follows LLVM's error model, returning error references that can be checked by the caller
 - This is a critical component for PostgreSQL's JIT compilation system, enabling dynamic symbol resolution during code generation
+
+## Simplified Source
+
+```c
+static LLVMErrorRef llvm_resolve_symbols(LLVMOrcDefinitionGeneratorRef GeneratorObj, void *Ctx,
+                                         LLVMOrcLookupStateRef *LookupState, LLVMOrcLookupKind Kind,
+                                         LLVMOrcJITDylibRef JD, LLVMOrcJITDylibLookupFlags JDLookupFlags,
+                                         LLVMOrcCLookupSet LookupSet, size_t LookupSetSize) {
+    // Allocate symbol map array (handle LLVM version differences)
+#if LLVM_VERSION_MAJOR > 14
+    LLVMOrcCSymbolMapPairs symbols = palloc0(sizeof(LLVMOrcCSymbolMapPair) * LookupSetSize);
+#else
+    LLVMOrcCSymbolMapPairs symbols = palloc0(sizeof(LLVMJITCSymbolMapPair) * LookupSetSize);
+#endif
+    LLVMErrorRef error;
+    LLVMOrcMaterializationUnitRef mu;
+
+    // Resolve each symbol in the lookup set
+    for (int i = 0; i < LookupSetSize; i++) {
+        const char *name = LLVMOrcSymbolStringPoolEntryStr(LookupSet[i].Name);
+
+        // Retain symbol name for newer LLVM versions
+#if LLVM_VERSION_MAJOR > 12
+        LLVMOrcRetainSymbolStringPoolEntry(LookupSet[i].Name);
+#endif
+
+        // Create symbol map entry with resolved address
+        symbols[i].Name = LookupSet[i].Name;
+        symbols[i].Sym.Address = llvm_resolve_symbol(name, NULL);
+        symbols[i].Sym.Flags.GenericFlags = LLVMJITSymbolGenericFlagsExported;
+    }
+
+    // Create materialization unit and define symbols in JIT dylib
+    mu = LLVMOrcAbsoluteSymbols(symbols, LookupSetSize);
+    error = LLVMOrcJITDylibDefine(JD, mu);
+
+    // Clean up on error
+    if (error != LLVMErrorSuccess)
+        LLVMOrcDisposeMaterializationUnit(mu);
+
+    pfree(symbols);
+    return error;
+}
+```

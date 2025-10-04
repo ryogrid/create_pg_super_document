@@ -39,3 +39,24 @@ The function includes a conditional mechanism to optionally include abort LSN an
 - Part of the logical replication streaming transaction protocol for handling transaction failures
 - Used to notify subscribers that a streaming transaction should be rolled back
 - Located in src/backend/replication/logical/proto.c:1166-1191
+
+## Simplified Source
+
+```c
+void logicalrep_write_stream_abort(StringInfo out, TransactionId xid,
+                                   TransactionId subxid, XLogRecPtr abort_lsn,
+                                   TimestampTz abort_time, bool write_abort_info) {
+    // Send stream abort message type
+    pq_sendbyte(out, LOGICAL_REP_MSG_STREAM_ABORT);
+
+    // Send transaction IDs (xid and subxid are same for top-level aborts)
+    pq_sendint32(out, xid);
+    pq_sendint32(out, subxid);
+
+    // Optionally include abort details
+    if (write_abort_info) {
+        pq_sendint64(out, abort_lsn);    // Where abort occurred
+        pq_sendint64(out, abort_time);   // When abort occurred
+    }
+}
+```

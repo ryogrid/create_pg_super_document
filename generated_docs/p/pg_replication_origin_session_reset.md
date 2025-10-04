@@ -41,3 +41,24 @@ This function serves as a PostgreSQL SQL function wrapper for resetting replicat
 - After reset, a new origin can be set up for the session using `pg_replication_origin_session_setup()`
 - Part of PostgreSQL's logical replication origin session management system
 - Located in `src/backend/replication/logical/origin.c:1372-1388`
+
+## Simplified Source
+
+```c
+Datum
+pg_replication_origin_session_reset(PG_FUNCTION_ARGS)
+{
+    // Check prerequisites (max_replication_slots > 0, not in recovery)
+    replorigin_check_prerequisites(true, false);
+
+    // Reset the session state
+    replorigin_session_reset();
+
+    // Clear all session-specific global variables
+    replorigin_session_origin = InvalidRepOriginId;
+    replorigin_session_origin_lsn = InvalidXLogRecPtr;
+    replorigin_session_origin_timestamp = 0;
+
+    PG_RETURN_VOID();
+}
+```

@@ -39,3 +39,45 @@ The function includes stack depth checking to prevent stack overflow from overly
 - Stack overflow protection is essential due to the recursive nature of deep copying complex expression trees  
 - The function returns void* to maintain genericity while working with PostgreSQL's type-tagged node system
 - Error handling ensures that unrecognized node types are caught and reported rather than causing silent corruption
+
+## Simplified Source
+
+```c
+void *copyObjectImpl(const void *from) {
+    void *retval;
+
+    // Handle null input
+    if (from == NULL) {
+        return NULL;
+    }
+
+    // Prevent stack overflow from deep recursion
+    check_stack_depth();
+
+    // Dispatch based on node type
+    switch (nodeTag(from)) {
+        // Auto-generated cases for all node types
+        #include "copyfuncs.switch.c"
+
+        case T_List:
+            // Deep copy for generic lists
+            retval = list_copy_deep(from);
+            break;
+
+        case T_IntList:
+        case T_OidList:
+        case T_XidList:
+            // Shallow copy for primitive type lists
+            retval = list_copy(from);
+            break;
+
+        default:
+            // Error for unrecognized types
+            elog(ERROR, "unrecognized node type: %d", (int) nodeTag(from));
+            retval = 0;
+            break;
+    }
+
+    return retval;
+}
+```

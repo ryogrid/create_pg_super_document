@@ -39,3 +39,18 @@ Second, it explicitly detaches from the dynamic shared memory (DSM) segment, whi
 - The function design follows PostgreSQL's pattern for cleanup callbacks that take (int code, Datum arg) parameters
 - Critical for maintaining communication protocol between leader and parallel workers during shutdown
 - Part of PostgreSQL's robust error handling and resource management for parallel logical replication processes
+
+## Simplified Source
+
+```c
+static void pa_shutdown(int code, Datum arg) {
+    // Signal leader to read error queue one final time
+    // This ensures proper communication even if worker exits uncleanly
+    SendProcSignal(MyLogicalRepWorker->leader_pid,
+                   PROCSIG_PARALLEL_APPLY_MESSAGE,
+                   INVALID_PROC_NUMBER);
+
+    // Detach from shared memory segment to trigger cleanup callbacks
+    dsm_detach((dsm_segment *) DatumGetPointer(arg));
+}
+```

@@ -79,3 +79,22 @@ These special colors are used internally by the regex engine to handle anchor as
 - The function uses assertions to ensure parent NFA colors are properly initialized before inheritance
 - The dual indexing (0 and 1) likely corresponds to different line ending conventions or string vs line boundaries
 - This function is part of PostgreSQL's regex engine implementation, which is based on Henry Spencer's regex library
+
+## Simplified Source
+```c
+static void specialcolors(struct nfa *nfa) {
+    if (nfa->parent == NULL) {
+        // Root NFA: create new pseudo-colors for boundaries
+        nfa->bos[0] = pseudocolor(nfa->cm);  // Beginning of string
+        nfa->bos[1] = pseudocolor(nfa->cm);  // Beginning of line
+        nfa->eos[0] = pseudocolor(nfa->cm);  // End of string
+        nfa->eos[1] = pseudocolor(nfa->cm);  // End of line
+    } else {
+        // Child NFA: inherit boundary colors from parent
+        nfa->bos[0] = nfa->parent->bos[0];
+        nfa->bos[1] = nfa->parent->bos[1];
+        nfa->eos[0] = nfa->parent->eos[0];
+        nfa->eos[1] = nfa->parent->eos[1];
+    }
+}
+```

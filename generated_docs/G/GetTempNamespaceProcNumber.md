@@ -42,3 +42,30 @@ The function retrieves the namespace name using `get_namespace_name()`, checks f
 - Used extensively in relation cache building and temporary object management
 - The function assumes that the numeric suffix in the namespace name directly corresponds to a valid process number
 - Critical for identifying which backend owns temporary objects for cleanup and access control purposes
+
+## Simplified Source
+
+```c
+ProcNumber
+GetTempNamespaceProcNumber(Oid namespaceId)
+{
+    int result;
+    char *nspname;
+
+    // Get the namespace name
+    nspname = get_namespace_name(namespaceId);
+    if (!nspname)
+        return INVALID_PROC_NUMBER;
+
+    // Parse process number from namespace name patterns
+    if (strncmp(nspname, "pg_temp_", 8) == 0)
+        result = atoi(nspname + 8);  // Extract from "pg_temp_[number]"
+    else if (strncmp(nspname, "pg_toast_temp_", 14) == 0)
+        result = atoi(nspname + 14); // Extract from "pg_toast_temp_[number]"
+    else
+        result = INVALID_PROC_NUMBER; // Not a temp namespace
+
+    pfree(nspname);
+    return result;
+}
+```

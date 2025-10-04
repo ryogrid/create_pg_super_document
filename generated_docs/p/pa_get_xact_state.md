@@ -36,3 +36,18 @@ Being declared as static, this function is only accessible within the applyparal
 - Complementary function to pa_set_xact_state, providing the getter counterpart for transaction state access
 - Uses the same spinlock-based synchronization pattern as its setter counterpart for consistency
 - Critical for coordination between the main apply worker and parallel workers in logical replication scenarios
+
+## Simplified Source
+
+```c
+static ParallelTransState pa_get_xact_state(ParallelApplyWorkerShared *wshared) {
+    ParallelTransState xact_state;
+
+    // Thread-safe read of transaction state
+    SpinLockAcquire(&wshared->mutex);
+    xact_state = wshared->xact_state;
+    SpinLockRelease(&wshared->mutex);
+
+    return xact_state;
+}
+```

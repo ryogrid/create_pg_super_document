@@ -48,3 +48,34 @@ The authenticated identity and method are logged if connection logging is enable
 - Connection logging (Log_connections) controls whether successful authentication events are logged
 - The function should be called as soon as authentication succeeds, even if authorization might fail later
 - External library-managed strings are safe to pass since they are copied to PostgreSQL's memory context
+
+## Simplified Source
+
+```c
+static void
+set_authn_id(Port *port, const char *id)
+{
+    Assert(id);
+
+    // Prevent multiple authentication ID settings
+    if (MyClientConnectionInfo.authn_id) {
+        ereport(FATAL,
+                (errmsg("authentication identifier set more than once"),
+                 errdetail_log("previous identifier: \"%s\"; new identifier: \"%s\"",
+                               MyClientConnectionInfo.authn_id, id)));
+    }
+
+    // Store authenticated identity and method
+    MyClientConnectionInfo.authn_id = MemoryContextStrdup(TopMemoryContext, id);
+    MyClientConnectionInfo.auth_method = port->hba->auth_method;
+
+    // Log successful authentication if enabled
+    if (Log_connections) {
+        ereport(LOG,
+                (errmsg("connection authenticated: identity=\"%s\" method=%s (%s:%d)",
+                        MyClientConnectionInfo.authn_id,
+                        hba_authname(MyClientConnectionInfo.auth_method),
+                        port->hba->sourcefile, port->hba->linenumber)));
+    }
+}
+```

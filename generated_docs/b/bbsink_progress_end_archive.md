@@ -31,3 +31,22 @@ This static function handles progress reporting at the end of each archive strea
 - Updates the shared bbsink_state's tablespace_num counter, which is shared across all bbsink objects
 - The function is positioned as the outermost sink operation and performs state updates as the last operation
 - Part of the progress tracking system that provides real-time feedback during PostgreSQL base backup operations
+
+## Simplified Source
+
+```c
+// Simplified version of bbsink_progress_end_archive
+static void bbsink_progress_end_archive(bbsink *sink)
+{
+    // Update progress for completed tablespace (guard against over-counting)
+    if (sink->bbs_state->tablespace_num < list_length(sink->bbs_state->tablespaces))
+        pgstat_progress_update_param(PROGRESS_BASEBACKUP_TBLSPC_STREAMED,
+                                     sink->bbs_state->tablespace_num + 1);
+
+    // Forward to next sink
+    bbsink_forward_end_archive(sink);
+
+    // Increment tablespace counter for next archive
+    sink->bbs_state->tablespace_num++;
+}
+```

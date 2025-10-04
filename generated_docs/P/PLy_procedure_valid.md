@@ -32,3 +32,21 @@ This function implements cache validation logic for PL/Python procedures by chec
 - The fn_xmin and fn_tid fields store the transaction ID and tuple identifier from when the procedure was cached
 - Returns false if the procedure is NULL or if the catalog entry has been modified
 - Part of PostgreSQL's procedure caching mechanism to avoid unnecessary recompilation
+
+## Simplified Source
+
+```c
+static bool PLy_procedure_valid(PLyProcedure *proc, HeapTuple procTup) {
+    // Check if procedure exists
+    if (proc == NULL)
+        return false;
+
+    // Verify cached procedure matches current catalog entry
+    // by comparing transaction ID and tuple identifier
+    if (!(proc->fn_xmin == HeapTupleHeaderGetRawXmin(procTup->t_data) &&
+          ItemPointerEquals(&proc->fn_tid, &procTup->t_self)))
+        return false;
+
+    return true;
+}
+```

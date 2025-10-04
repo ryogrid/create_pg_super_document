@@ -58,3 +58,100 @@ The function first checks for an existing cached entry and updates the local rel
 - Uses FindLogicalRepLocalIndex in the original memory context to avoid memory leaks
 - Sets localrelvalid to true to indicate the entry is current and valid
 - The function is designed to handle both new partition entries and updates to existing cached entries
+
+## Simplified Source
+
+```c
+LogicalRepRelMapEntry *
+logicalrep_partition_open(LogicalRepRelMapEntry *root, Relation partrel, AttrMap *map)
+{
+    LogicalRepRelMapEntry *entry;
+    LogicalRepPartMapEntry *part_entry;
+    LogicalRepRelation *remoterel = &root->remoterel;
+    Oid partOid = RelationGetRelid(partrel);
+    AttrMap *attrmap = root->attrmap;
+    bool found;
+    MemoryContext oldctx;
+
+    // Initialize partition map if needed
+    if (LogicalRepPartMap == NULL)
+        logicalrep_partmap_init();
+
+    // Find or create partition entry
+    part_entry = (LogicalRepPartMapEntry *) hash_search(LogicalRepPartMap, &partOid,
+                                                       HASH_ENTER, &found);
+    entry = &part_entry->relmapentry;
+
+    // For existing valid entries, just update relation pointer
+    if (found && entry->localrelvalid) {
+        entry->localrel = partrel;
+        return entry;
+    }
+
+    // Switch to persistent memory context
+    oldctx = MemoryContextSwitchTo(LogicalRepPartMapContext);
+
+    // Initialize new entry
+    if (!found) {
+        memset(part_entry, 0, sizeof(LogicalRepPartMapEntry));
+        part_entry->partoid = partOid;
+    }
+
+    // Clean up old attribute map
+    if (entry->attrmap) {
+        free_attrmap(entry->attrmap);
+        entry->attrmap = NULL;
+    }
+
+    // Copy remote relation info if not already done
+    if (!entry->remoterel.remoteid) {
+        entry->remoterel.remoteid = remoterel->remoteid;
+        entry->remoterel.nspname = pstrdup(remoterel->nspname);
+        entry->remoterel.relname = pstrdup(remoterel->relname);
+        entry->remoterel.natts = remoterel->natts;
+
+        // Copy attribute names and types
+        entry->remoterel.attnames = palloc(remoterel->natts * sizeof(char *));
+        entry->remoterel.atttyps = palloc(remoterel->natts * sizeof(Oid));
+        for (int i = 0; i < remoterel->natts; i++) {
+            entry->remoterel.attnames[i] = pstrdup(remoterel->attnames[i]);
+            entry->remoterel.atttyps[i] = remoterel->atttyps[i];
+        }
+
+        entry->remoterel.replident = remoterel->replident;
+        entry->remoterel.attkeys = bms_copy(remoterel->attkeys);
+    }
+
+    entry->localrel = partrel;
+    entry->localreloid = partOid;
+
+    // Create attribute mapping for partition
+    if (map) {
+        // Use provided partition-to-root mapping
+        entry->attrmap = make_attrmap(map->maplen);
+        for (AttrNumber attno = 0; attno < entry->attrmap->maplen; attno++) {
+            AttrNumber root_attno = map->attnums[attno];
+            if (root_attno == 0)  // dropped attribute
+                entry->attrmap->attnums[attno] = -1;
+            else
+                entry->attrmap->attnums[attno] = attrmap->attnums[root_attno - 1];
+        }
+    } else {
+        // Copy root table's attribute mapping directly
+        entry->attrmap = make_attrmap(attrmap->maplen);
+        memcpy(entry->attrmap->attnums, attrmap->attnums,
+               attrmap->maplen * sizeof(AttrNumber));
+    }
+
+    // Check if partition supports UPDATE/DELETE operations
+    logicalrep_rel_mark_updatable(entry);
+
+    MemoryContextSwitchTo(oldctx);
+
+    // Find appropriate index for replication operations
+    entry->localindexoid = FindLogicalRepLocalIndex(partrel, remoterel, entry->attrmap);
+    entry->localrelvalid = true;
+
+    return entry;
+}
+```

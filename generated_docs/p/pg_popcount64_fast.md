@@ -33,3 +33,16 @@ This function provides an optimized implementation for counting the number of 1-
 - Part of PostgreSQL's runtime-optimized bit manipulation utilities
 - Returns int rather than uint64 to match conventional popcount API
 - Uses popcntq instruction for 64-bit operands on x86-64 architecture
+
+## Simplified Source
+
+```c
+static inline int pg_popcount64_fast(uint64 word) {
+    // Use hardware 64-bit popcount instruction
+#ifdef _MSC_VER
+    return __popcnt64(word);             // Microsoft Visual C++
+#else
+    return __builtin_popcountll(word);   // GCC/Clang builtin
+#endif
+}
+```

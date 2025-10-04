@@ -39,3 +39,23 @@ The  function provides selective reading capability for PostgreSQL large objects
 - More efficient than reading entire large objects when only a portion is needed
 - Part of PostgreSQL's large object filesystem stub interface
 - Located in src/backend/libpq/be-fsstubs.c:806-826
+
+## Simplified Source
+
+```c
+Datum be_lo_get_fragment(PG_FUNCTION_ARGS) {
+    Oid loOid = PG_GETARG_OID(0);
+    int64 offset = PG_GETARG_INT64(1);
+    int32 nbytes = PG_GETARG_INT32(2);
+
+    // Validate length parameter
+    if (nbytes < 0)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("requested length cannot be negative")));
+
+    // Delegate to internal function for actual fragment reading
+    bytea *result = lo_get_fragment_internal(loOid, offset, nbytes);
+
+    PG_RETURN_BYTEA_P(result);
+}
+```

@@ -51,3 +51,38 @@ The  function retrieves a text string of specified length from a PostgreSQL mess
 - Advances the message cursor automatically to maintain proper position tracking
 - Commonly used for receiving text-based data types in PostgreSQL protocol messages
 - The returned string length in  reflects the post-conversion size, not the original raw bytes
+
+## Simplified Source
+
+```c
+char *pq_getmsgtext(StringInfo msg, int rawbytes, int *nbytes) {
+    char *str;
+    char *p;
+
+    // Validate we have enough data in the message buffer
+    if (rawbytes < 0 || rawbytes > (msg->len - msg->cursor))
+        ereport(ERROR,
+                (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                 errmsg("insufficient data left in message")));
+
+    // Get pointer to the data and advance cursor
+    str = &msg->data[msg->cursor];
+    msg->cursor += rawbytes;
+
+    // Convert from client encoding to server encoding
+    p = pg_client_to_server(str, rawbytes);
+
+    if (p != str) {
+        // Conversion happened - use converted string
+        *nbytes = strlen(p);
+        return p;  // pg_client_to_server already allocated memory
+    } else {
+        // No conversion needed - make a copy
+        p = palloc(rawbytes + 1);
+        memcpy(p, str, rawbytes);
+        p[rawbytes] = '\0';  // Null-terminate
+        *nbytes = rawbytes;
+        return p;
+    }
+}
+```

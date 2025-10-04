@@ -41,3 +41,19 @@ PQfname returns the column name associated with the given field number in a quer
 - Part of the public libpq API (declared in libpq-fe.h)
 - Widely used across PostgreSQL tools and applications for result set introspection
 - Column names are stored in the attDescs array within the PGresult structure
+
+## Simplified Source
+
+```c
+char *PQfname(const PGresult *res, int field_num) {
+    // Validate field number is in range
+    if (!check_field_number(res, field_num))
+        return NULL;
+
+    // Return column name if attribute descriptors exist
+    if (res->attDescs)
+        return res->attDescs[field_num].name;
+    else
+        return NULL;
+}
+```

@@ -37,3 +37,24 @@ The test ensures that the leftmost operation correctly traverses to the leftmost
 - The test assumes rbt_populate starts from key 0 when called with parameters (size, 1)
 - Simple but essential test ensuring the basic tree traversal property is maintained
 - Validates both edge case (empty tree) and normal operation (populated tree)
+
+## Simplified Source
+
+```c
+static void testleftmost(int size) {
+    RBTree *tree = create_int_rbtree();
+    IntRBTreeNode *result;
+
+    // Test empty tree - should return NULL
+    if (rbt_leftmost(tree) != NULL)
+        elog(ERROR, "leftmost node of empty tree is not NULL");
+
+    // Populate tree with consecutive numbers 0..size-1
+    rbt_populate(tree, size, 1);
+
+    // Test populated tree - leftmost should be smallest element (0)
+    result = (IntRBTreeNode *) rbt_leftmost(tree);
+    if (result == NULL || result->key != 0)
+        elog(ERROR, "rbt_leftmost gave wrong result");
+}
+```

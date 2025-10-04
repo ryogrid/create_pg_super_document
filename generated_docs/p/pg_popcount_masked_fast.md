@@ -37,3 +37,30 @@ This function provides a fast implementation for counting the number of 1-bits i
 - Part of PostgreSQL's dynamic function selection mechanism for selective bit manipulation
 - Static function used internally within the popcount optimization framework
 - Essential for bitmap operations where only specific bit positions are relevant
+
+## Simplified Source
+
+```c
+static uint64 pg_popcount_masked_fast(const char *buf, int bytes, bits8 mask) {
+    uint64 total_bits = 0;
+
+    // Create 64-bit mask pattern by replicating 8-bit mask
+    uint64 maskv = ~UINT64CONST(0) / 0xFF * mask;
+
+    // Process aligned 8-byte chunks with mask
+    if (buf == (const char *) TYPEALIGN(8, buf)) {
+        const uint64 *words = (const uint64 *) buf;
+        while (bytes >= 8) {
+            total_bits += pg_popcount64_fast(*words++ & maskv);
+            bytes -= 8;
+        }
+        buf = (const char *) words;
+    }
+
+    // Process remaining bytes with mask
+    while (bytes--)
+        total_bits += pg_number_of_ones[(unsigned char) *buf++ & mask];
+
+    return total_bits;
+}
+```

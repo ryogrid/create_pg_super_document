@@ -43,3 +43,39 @@ The test is particularly important because red-black trees are binary search tre
 - Performs completeness validation by counting visited elements and checking boundary values
 - Essential component of red-black tree correctness validation
 - The test assumes elements 0 through size-1, so lastKey should end at size-1 and count should equal size
+
+## Simplified Source
+
+```c
+static void testleftright(int size) {
+    RBTree *tree = create_int_rbtree();
+    IntRBTreeNode *node;
+    RBTreeIterator iter;
+    int lastKey = -1;
+    int count = 0;
+
+    // Test empty tree - should produce no elements
+    rbt_begin_iterate(tree, LeftRightWalk, &iter);
+    if (rbt_iterate(&iter) != NULL)
+        elog(ERROR, "left-right walk over empty tree produced an element");
+
+    // Populate tree with consecutive numbers 0..size-1
+    rbt_populate(tree, size, 1);
+
+    // Traverse tree and verify elements are in increasing order
+    rbt_begin_iterate(tree, LeftRightWalk, &iter);
+    while ((node = (IntRBTreeNode *) rbt_iterate(&iter)) != NULL) {
+        // Ensure strict increasing order
+        if (node->key <= lastKey)
+            elog(ERROR, "left-right walk gives elements not in sorted order");
+        lastKey = node->key;
+        count++;
+    }
+
+    // Verify completeness: reached end and visited all elements
+    if (lastKey != size - 1)
+        elog(ERROR, "left-right walk did not reach end");
+    if (count != size)
+        elog(ERROR, "left-right walk missed some elements");
+}
+```

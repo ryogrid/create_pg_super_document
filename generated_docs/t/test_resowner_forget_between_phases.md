@@ -50,3 +50,32 @@ This function takes no meaningful parameters (uses PG_FUNCTION_ARGS macro for Po
 - This is a negative test case - success is measured by the function throwing an expected error
 - The function demonstrates proper resource owner lifecycle management and phase-based resource cleanup validation
 - Related to test_resowner_remember_between_phases which tests a similar scenario for the remember operation
+
+## Simplified Source
+
+```c
+// Simplified version of test_resowner_forget_between_phases
+Datum
+test_resowner_forget_between_phases(PG_FUNCTION_ARGS)
+{
+    ResourceOwner resowner;
+    Datum str_resource;
+
+    // Create test resource owner and remember a resource
+    resowner = ResourceOwnerCreate(CurrentResourceOwner, "TestOwner");
+    ResourceOwnerEnlarge(resowner);
+    str_resource = CStringGetDatum("my string");
+    ResourceOwnerRemember(resowner, str_resource, &string_desc);
+
+    // Start resource release process
+    ResourceOwnerRelease(resowner, RESOURCE_RELEASE_BEFORE_LOCKS, true, false);
+
+    // Try to forget the resource after release has started
+    // This should fail with an error
+    ResourceOwnerForget(resowner, str_resource, &string_desc);
+
+    // This line should never be reached
+    elog(ERROR, "ResourceOwnerForget should have errored out");
+    PG_RETURN_VOID();
+}
+```

@@ -38,3 +38,19 @@ Unlike , this function doesn't need to return a redo action because the intent i
 - Commonly used for new page creation during index operations and heap tuple insertion
 - The buffer must be properly unlocked and released by the caller after initialization
 - More efficient than reading existing page content when complete reinitialization is required
+
+## Simplified Source
+
+```c
+Buffer
+XLogInitBufferForRedo(XLogReaderState *record, uint8 block_id)
+{
+    Buffer buf;
+
+    // Get a zeroed and locked buffer for complete reinitialization
+    // Used when creating new pages during WAL replay
+    XLogReadBufferForRedoExtended(record, block_id, RBM_ZERO_AND_LOCK, false, &buf);
+
+    return buf;
+}
+```

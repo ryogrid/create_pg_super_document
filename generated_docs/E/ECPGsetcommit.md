@@ -45,3 +45,44 @@ This function manages the autocommit setting for ECPG database connections. When
 - Part of ECPG's transaction management infrastructure
 - Essential for applications that need to control transaction boundaries explicitly
 - Safe to call multiple times with the same mode (idempotent operation)
+
+## Simplified Source
+
+```c
+bool ECPGsetcommit(int lineno, const char *mode, const char *connection_name) {
+    struct connection *con = ecpg_get_connection(connection_name);
+    PGresult *results;
+
+    // Initialize connection and validate
+    if (!ecpg_init(con, connection_name, lineno))
+        return false;
+
+    ecpg_log("ECPGsetcommit on line %d: action \"%s\"; connection \"%s\"\n",
+             lineno, mode, con->name);
+
+    // Switching to manual commit mode (autocommit OFF)
+    if (con->autocommit && strncmp(mode, "off", strlen("off")) == 0) {
+        // Start transaction if connection is idle
+        if (PQtransactionStatus(con->connection) == PQTRANS_IDLE) {
+            results = PQexec(con->connection, "begin transaction");
+            if (!ecpg_check_PQresult(results, lineno, con->connection, ECPG_COMPAT_PGSQL))
+                return false;
+            PQclear(results);
+        }
+        con->autocommit = false;
+    }
+    // Switching to automatic commit mode (autocommit ON)
+    else if (!con->autocommit && strncmp(mode, "on", strlen("on")) == 0) {
+        // Commit any active transaction
+        if (PQtransactionStatus(con->connection) != PQTRANS_IDLE) {
+            results = PQexec(con->connection, "commit");
+            if (!ecpg_check_PQresult(results, lineno, con->connection, ECPG_COMPAT_PGSQL))
+                return false;
+            PQclear(results);
+        }
+        con->autocommit = true;
+    }
+
+    return true;
+}
+```

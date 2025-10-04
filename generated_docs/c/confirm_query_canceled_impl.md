@@ -49,3 +49,31 @@ This function is typically called via the `confirm_query_canceled(conn)` macro w
 - Uses line number parameter for precise error location reporting during test failures
 - Ensures connection is left in clean state after cancellation verification
 - Critical for validating proper behavior of query cancellation in pipeline mode testing
+
+## Simplified Source
+
+```c
+static void confirm_query_canceled_impl(int line, PGconn *conn) {
+    PGresult *res = NULL;
+
+    // Get the query result
+    res = PQgetResult(conn);
+    if (res == NULL)
+        pg_fatal_impl(line, "PQgetResult returned null: %s", PQerrorMessage(conn));
+
+    // Verify it's a fatal error
+    if (PQresultStatus(res) != PGRES_FATAL_ERROR)
+        pg_fatal_impl(line, "query did not fail when it was expected");
+
+    // Verify it's specifically a cancellation error (SQL state 57014)
+    if (strcmp(PQresultErrorField(res, PG_DIAG_SQLSTATE), "57014") != 0)
+        pg_fatal_impl(line, "query failed with a different error than cancellation: %s",
+                      PQerrorMessage(conn));
+
+    PQclear(res);
+
+    // Clean up any remaining input
+    while (PQisBusy(conn))
+        PQconsumeInput(conn);
+}
+```

@@ -45,3 +45,29 @@ The function follows PostgreSQL's wire protocol by starting each message with a 
 - The function ensures atomicity by either sending the complete message or failing entirely
 - Critical for maintaining protocol compliance during client-server communication
 - Internal function not exposed in the public libpq API
+
+## Simplified Source
+
+```c
+int
+pqPacketSend(PGconn *conn, char pack_type, const void *buf, size_t buf_len)
+{
+    // Start the message with type and length
+    if (pqPutMsgStart(pack_type, conn))
+        return STATUS_ERROR;
+
+    // Send the message body
+    if (pqPutnchar(buf, buf_len, conn))
+        return STATUS_ERROR;
+
+    // Finish the message
+    if (pqPutMsgEnd(conn))
+        return STATUS_ERROR;
+
+    // Flush to ensure backend gets it
+    if (pqFlush(conn))
+        return STATUS_ERROR;
+
+    return STATUS_OK;
+}
+```

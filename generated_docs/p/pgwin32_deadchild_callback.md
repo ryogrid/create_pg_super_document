@@ -36,3 +36,24 @@ This function serves as a Windows API callback executed on a thread pool when a 
 - This is a static function, only accessible within postmaster.c
 - Part of the Windows-specific child process management system in PostgreSQL
 - Located in src/backend/postmaster/postmaster.c:4648-4676
+
+## Simplified Source
+
+```c
+static void WINAPI
+pgwin32_deadchild_callback(PVOID lpParameter, BOOLEAN TimerOrWaitFired)
+{
+    // Should not happen with INFINITE timeout
+    if (TimerOrWaitFired)
+        return;
+
+    // Post child termination info to completion queue for waitpid() to handle
+    if (!PostQueuedCompletionStatus(win32ChildQueue, 0,
+                                   (ULONG_PTR) lpParameter, NULL)) {
+        write_stderr("could not post child completion status\n");
+    }
+
+    // Signal main thread about child termination
+    pg_queue_signal(SIGCHLD);
+}
+```

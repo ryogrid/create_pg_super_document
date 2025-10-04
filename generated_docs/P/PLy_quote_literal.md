@@ -37,3 +37,26 @@ The function is exposed to Python as `plpy.quote_literal()` and is essential for
 - Returns a new Python string object with the quoted result
 - Memory management: allocates result via quote_literal_cstr, then frees it after converting to Python string
 - Part of the PL/Python extension's public API for safe SQL construction
+
+## Simplified Source
+
+```c
+static PyObject *PLy_quote_literal(PyObject *self, PyObject *args) {
+    const char *str;
+    char *quoted;
+    PyObject *ret;
+
+    // Parse single string argument from Python
+    if (!PyArg_ParseTuple(args, "s:quote_literal", &str))
+        return NULL;
+
+    // Quote the string using PostgreSQL's core function
+    quoted = quote_literal_cstr(str);
+
+    // Convert back to Python string and clean up
+    ret = PLyUnicode_FromString(quoted);
+    pfree(quoted);
+
+    return ret;
+}
+```

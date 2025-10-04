@@ -38,3 +38,47 @@ The peer authentication method is particularly useful for local connections wher
 - Authentication is considered successful once the user identity is obtained from the OS; the usermap check determines authorization
 - The function sets the authenticated identity before performing the usermap check to ensure proper logging
 - Returns STATUS_OK if authentication and authorization succeed, STATUS_ERROR otherwise
+
+## Simplified Source
+
+```c
+// Simplified version of auth_peer
+static int auth_peer(hbaPort *port) {
+    uid_t uid;
+    gid_t gid;
+
+    // Step 1: Get credentials of the connecting process
+    if (getpeereid(port->sock, &uid, &gid) != 0) {
+        if (errno == ENOSYS) {
+            ereport(LOG, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                         errmsg("peer authentication is not supported on this platform")));
+        } else {
+            ereport(LOG, (errcode_for_socket_access(),
+                         errmsg("could not get peer credentials: %m")));
+        }
+        return STATUS_ERROR;
+    }
+
+#ifndef WIN32
+    // Step 2: Look up username from user ID
+    errno = 0;
+    struct passwd *pw = getpwuid(uid);
+    if (!pw) {
+        int save_errno = errno;
+        ereport(LOG, (errmsg("could not look up local user ID %ld: %s",
+                            (long) uid,
+                            save_errno ? strerror(save_errno) : "user does not exist")));
+        return STATUS_ERROR;
+    }
+
+    // Step 3: Set authenticated identity and check usermap
+    set_authn_id(port, pw->pw_name);
+    return check_usermap(port->hba->usermap, port->user_name,
+                        MyClientConnectionInfo.authn_id, false);
+#else
+    // Windows doesn't support peer authentication
+    Assert(false);
+    return STATUS_ERROR;
+#endif
+}
+```

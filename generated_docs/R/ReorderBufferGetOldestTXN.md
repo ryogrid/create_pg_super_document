@@ -43,3 +43,25 @@ This function is essential for maintaining the correct order of transaction proc
 - The function includes debug assertions to validate transaction state and LSN ordering
 - Critical for maintaining transaction order consistency in logical replication scenarios
 - The returned transaction represents the next candidate for processing based on commit order
+
+## Simplified Source
+
+```c
+ReorderBufferTXN *ReorderBufferGetOldestTXN(ReorderBuffer *rb) {
+    // Validate LSN ordering in debug builds
+    AssertTXNLsnOrder(rb);
+
+    // Check if any transactions are available
+    if (dlist_is_empty(&rb->toplevel_by_lsn))
+        return NULL;
+
+    // Get the oldest transaction from LSN-ordered list
+    ReorderBufferTXN *txn = dlist_head_element(ReorderBufferTXN, node, &rb->toplevel_by_lsn);
+
+    // Verify it's a top-level transaction with valid LSN
+    Assert(!rbtxn_is_known_subxact(txn));
+    Assert(txn->first_lsn != InvalidXLogRecPtr);
+
+    return txn;
+}
+```

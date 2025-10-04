@@ -45,3 +45,70 @@ The function handles parameter passing, logging, error checking, and cleanup. It
 - Handles all parameter cleanup automatically
 - Critical component in ECPG's SQL execution pipeline
 - Supports both prepared and direct statement execution modes
+
+## Simplified Source
+
+```c
+bool
+ecpg_execute(struct statement *stmt)
+{
+    // Log execution details
+    ecpg_log("ecpg_execute on line %d: query: %s; with %d parameter(s) on connection %s\n",
+             stmt->lineno, stmt->command, stmt->nparams, stmt->connection->name);
+
+    // Execute prepared statement
+    if (stmt->statement_type == ECPGst_execute)
+    {
+        stmt->results = PQexecPrepared(stmt->connection->connection,
+                                      stmt->name,
+                                      stmt->nparams,
+                                      (const char *const *) stmt->paramvalues,
+                                      (const int *) stmt->paramlengths,
+                                      (const int *) stmt->paramformats,
+                                      0);
+        ecpg_log("ecpg_execute on line %d: using PQexecPrepared for \"%s\"\n",
+                stmt->lineno, stmt->command);
+    }
+    // Execute regular statement
+    else
+    {
+        if (stmt->nparams == 0)
+        {
+            // Simple query without parameters
+            stmt->results = PQexec(stmt->connection->connection, stmt->command);
+            ecpg_log("ecpg_execute on line %d: using PQexec\n", stmt->lineno);
+        }
+        else
+        {
+            // Parameterized query
+            stmt->results = PQexecParams(stmt->connection->connection,
+                                        stmt->command, stmt->nparams, NULL,
+                                        (const char *const *) stmt->paramvalues,
+                                        (const int *) stmt->paramlengths,
+                                        (const int *) stmt->paramformats,
+                                        0);
+            ecpg_log("ecpg_execute on line %d: using PQexecParams\n", stmt->lineno);
+        }
+
+        // Register prepared statement if this was a PREPARE command
+        if (stmt->statement_type == ECPGst_prepare)
+        {
+            if (!ecpg_register_prepared_stmt(stmt))
+            {
+                ecpg_free_params(stmt, true);
+                return false;
+            }
+        }
+    }
+
+    // Clean up parameters
+    ecpg_free_params(stmt, true);
+
+    // Check execution result
+    if (!ecpg_check_PQresult(stmt->results, stmt->lineno,
+                            stmt->connection->connection, stmt->compat))
+        return false;
+
+    return true;
+}
+```

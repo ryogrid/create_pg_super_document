@@ -50,3 +50,87 @@ The function operates during various recovery modes and ensures that the replayi
 - Some record types like XLOG_RESTORE_POINT and XLOG_BACKUP_END are handled elsewhere (in xlogrecovery.c)
 - Critical for maintaining data consistency across primary and standby servers in streaming replication scenarios
 - Includes special handling for prepared transactions during shutdown checkpoint processing in hot standby mode
+
+## Simplified Source
+
+```c
+void
+xlog_redo(XLogReaderState *record)
+{
+    uint8 info = XLogRecGetInfo(record) & ~XLR_INFO_MASK;
+    XLogRecPtr lsn = record->EndRecPtr;
+
+    if (info == XLOG_NEXTOID) {
+        // Update next OID counter from WAL record
+        Oid nextOid;
+        memcpy(&nextOid, XLogRecGetData(record), sizeof(Oid));
+        LWLockAcquire(OidGenLock, LW_EXCLUSIVE);
+        TransamVariables->nextOid = nextOid;
+        TransamVariables->oidCount = 0;
+        LWLockRelease(OidGenLock);
+    }
+    else if (info == XLOG_CHECKPOINT_SHUTDOWN) {
+        // Process shutdown checkpoint - trust counters exactly
+        CheckPoint checkPoint;
+        memcpy(&checkPoint, XLogRecGetData(record), sizeof(CheckPoint));
+
+        // Update transaction and OID counters
+        LWLockAcquire(XidGenLock, LW_EXCLUSIVE);
+        TransamVariables->nextXid = checkPoint.nextXid;
+        LWLockRelease(XidGenLock);
+
+        // Update multixact state and transaction limits
+        MultiXactSetNextMXact(checkPoint.nextMulti, checkPoint.nextMultiOffset);
+        SetTransactionIdLimit(checkPoint.oldestXid, checkPoint.oldestXidDB);
+
+        // Handle standby recovery state for prepared transactions
+        if (standbyState >= STANDBY_INITIALIZED) {
+            // Create running transactions snapshot and apply recovery info
+            // ... prepare transaction handling logic
+        }
+
+        // Update control file and validate timeline
+        ControlFile->checkPointCopy = checkPoint;
+        RecoveryRestartPoint(&checkPoint, record);
+    }
+    else if (info == XLOG_CHECKPOINT_ONLINE) {
+        // Process online checkpoint - treat counters as minimums
+        CheckPoint checkPoint;
+        memcpy(&checkPoint, XLogRecGetData(record), sizeof(CheckPoint));
+
+        // Update XID only if checkpoint is newer
+        LWLockAcquire(XidGenLock, LW_EXCLUSIVE);
+        if (FullTransactionIdPrecedes(TransamVariables->nextXid, checkPoint.nextXid))
+            TransamVariables->nextXid = checkPoint.nextXid;
+        LWLockRelease(XidGenLock);
+
+        // Update multixact and transaction limits
+        MultiXactAdvanceNextMXact(checkPoint.nextMulti, checkPoint.nextMultiOffset);
+        RecoveryRestartPoint(&checkPoint, record);
+    }
+    else if (info == XLOG_FPI || info == XLOG_FPI_FOR_HINT) {
+        // Restore full-page images for crash consistency
+        for (uint8 block_id = 0; block_id <= XLogRecMaxBlockId(record); block_id++) {
+            Buffer buffer;
+            if (XLogRecHasBlockImage(record, block_id)) {
+                XLogReadBufferForRedo(record, block_id, &buffer);
+                UnlockReleaseBuffer(buffer);
+            }
+        }
+    }
+    else if (info == XLOG_PARAMETER_CHANGE) {
+        // Update configuration parameters from WAL
+        xl_parameter_change xlrec;
+        memcpy(&xlrec, XLogRecGetData(record), sizeof(xl_parameter_change));
+
+        // Update control file with new parameters
+        LWLockAcquire(ControlFileLock, LW_EXCLUSIVE);
+        ControlFile->MaxConnections = xlrec.MaxConnections;
+        ControlFile->wal_level = xlrec.wal_level;
+        // ... other parameter updates
+        UpdateControlFile();
+        LWLockRelease(ControlFileLock);
+    }
+    // ... other record types handled with minimal processing
+}
+```

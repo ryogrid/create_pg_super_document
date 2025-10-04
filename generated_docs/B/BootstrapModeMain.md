@@ -66,3 +66,72 @@ Key operations include:
 - Initializes attribute arrays (attrtypes, Nulls) for bootstrap file processing
 - Located in src/backend/bootstrap/bootstrap.c:199-380
 - The bootstrap language processing is handled by boot_yyparse(), which is generated from a yacc grammar
+
+## Simplified Source
+```c
+void BootstrapModeMain(int argc, char *argv[], bool check_only) {
+    char *progname = argv[0];
+    char *userDoption = NULL;
+
+    Assert(!IsUnderPostmaster);
+    InitStandaloneProcess(argv[0]);
+    InitializeGUCOptions();
+
+    // Parse command line arguments
+    while ((flag = getopt(argc, argv, "B:c:d:D:Fkr:X:-:")) != -1) {
+        switch (flag) {
+            case 'B': SetConfigOption("shared_buffers", optarg, PGC_POSTMASTER, PGC_S_ARGV); break;
+            case 'c': /* Parse and set config option */ break;
+            case 'D': userDoption = pstrdup(optarg); break;
+            case 'd': /* Set debug logging */ break;
+            case 'F': SetConfigOption("fsync", "false", PGC_POSTMASTER, PGC_S_ARGV); break;
+            case 'k': bootstrap_data_checksum_version = PG_DATA_CHECKSUM_VERSION; break;
+            case 'r': strlcpy(OutputFileName, optarg, MAXPGPATH); break;
+            case 'X': SetConfigOption("wal_segment_size", optarg, PGC_INTERNAL, PGC_S_DYNAMIC_DEFAULT); break;
+            default: write_stderr("Try \"%s --help\" for more information.\n", progname); proc_exit(1);
+        }
+    }
+
+    // Configuration and directory setup
+    if (!SelectConfigFiles(userDoption, progname)) proc_exit(1);
+    checkDataDir();
+    ChangeToDataDir();
+    CreateDataDirLockFile(false);
+
+    // Initialize bootstrap processing
+    SetProcessingMode(BootstrapProcessing);
+    IgnoreSystemIndexes = true;
+    InitializeMaxBackends();
+    CreateSharedMemoryAndSemaphores();
+
+    // Check-only mode: validate configuration and exit
+    if (check_only) {
+        SetProcessingMode(NormalProcessing);
+        CheckerModeMain();
+        abort();
+    }
+
+    // Full bootstrap initialization
+    InitProcess();
+    BaseInit();
+    bootstrap_signals();
+    BootStrapXLOG();
+    InitPostgres(NULL, InvalidOid, NULL, InvalidOid, 0, NULL);
+
+    // Initialize attribute processing arrays
+    for (int i = 0; i < MAXATTR; i++) {
+        attrtypes[i] = NULL;
+        Nulls[i] = false;
+    }
+
+    // Process bootstrap input file
+    StartTransactionCommand();
+    boot_yyparse();
+    CommitTransactionCommand();
+
+    // Finalize and cleanup
+    RelationMapFinishBootstrap();
+    cleanup();
+    proc_exit(0);
+}
+```

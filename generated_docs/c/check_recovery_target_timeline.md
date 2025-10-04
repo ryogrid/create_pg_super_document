@@ -36,3 +36,41 @@ This function serves as a GUC check hook for the  parameter. It validates the in
 - Returns false if the numeric value is invalid, causing the GUC assignment to fail
 - Allocates memory for the RecoveryTargetTimeLineGoal enum to pass to the assign hook
 - Located in src/backend/access/transam/xlogrecovery.c:4966-4998
+
+## Simplified Source
+
+```c
+bool check_recovery_target_timeline(char **newval, void **extra, GucSource source) {
+    RecoveryTargetTimeLineGoal rttg;
+
+    // Parse timeline specification
+    if (strcmp(*newval, "current") == 0)
+        rttg = RECOVERY_TARGET_TIMELINE_CONTROLFILE;
+    else if (strcmp(*newval, "latest") == 0)
+        rttg = RECOVERY_TARGET_TIMELINE_LATEST;
+    else {
+        // Validate numeric timeline ID
+        rttg = RECOVERY_TARGET_TIMELINE_NUMERIC;
+        errno = 0;
+        strtoul(*newval, NULL, 0);
+        if (errno == EINVAL || errno == ERANGE) {
+            GUC_check_errdetail("\"recovery_target_timeline\" is not a valid number.");
+            return false;
+        }
+    }
+
+    // Store parsed goal for assign hook
+    RecoveryTargetTimeLineGoal *myextra = (RecoveryTargetTimeLineGoal *)
+        guc_malloc(ERROR, sizeof(RecoveryTargetTimeLineGoal));
+    *myextra = rttg;
+    *extra = (void *) myextra;
+
+    return true;
+}
+```
+
+**Simplified Logic:**
+1. **Parse Keywords**: Recognizes "current" and "latest" special timeline values
+2. **Numeric Validation**: For other values, validates as numeric timeline IDs using strtoul
+3. **Error Handling**: Returns false with detailed error message for invalid numbers
+4. **Store Goal**: Allocates memory to store the timeline goal enum for the assign hook

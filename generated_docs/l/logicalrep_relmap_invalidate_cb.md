@@ -38,3 +38,34 @@ The implementation uses a sequential scan through the hash table, which includes
 - Uses PostgreSQL's hash table sequential scanning mechanism
 - The function includes a safety check to ensure LogicalRepRelMap is not NULL
 - Part of the logical replication subsystem's cache management infrastructure
+
+## Simplified Source
+
+```c
+static void logicalrep_relmap_invalidate_cb(Datum arg, Oid reloid) {
+    LogicalRepRelMapEntry *entry;
+    HASH_SEQ_STATUS status;
+
+    // Safety check - ensure map exists
+    if (LogicalRepRelMap == NULL)
+        return;
+
+    if (reloid != InvalidOid) {
+        // Invalidate specific relation
+        hash_seq_init(&status, LogicalRepRelMap);
+        while ((entry = hash_seq_search(&status)) != NULL) {
+            if (entry->localreloid == reloid) {
+                entry->localrelvalid = false;
+                hash_seq_term(&status);
+                break;
+            }
+        }
+    } else {
+        // Invalidate all entries
+        hash_seq_init(&status, LogicalRepRelMap);
+        while ((entry = hash_seq_search(&status)) != NULL) {
+            entry->localrelvalid = false;
+        }
+    }
+}
+```

@@ -40,3 +40,41 @@ DisableSubscription modifies a subscription's enabled status in the pg_subscript
 - Essential for logical replication error handling and subscription lifecycle management
 - Part of PostgreSQL's logical replication subscription management system
 - Raises ERROR if the subscription is not found in the cache
+
+## Simplified Source
+
+```c
+void DisableSubscription(Oid subid) {
+    Relation rel;
+    bool nulls[Natts_pg_subscription];
+    bool replaces[Natts_pg_subscription];
+    Datum values[Natts_pg_subscription];
+    HeapTuple tup;
+
+    // Open subscription catalog and find the subscription
+    rel = table_open(SubscriptionRelationId, RowExclusiveLock);
+    tup = SearchSysCacheCopy1(SUBSCRIPTIONOID, ObjectIdGetDatum(subid));
+
+    if (!HeapTupleIsValid(tup))
+        elog(ERROR, "cache lookup failed for subscription %u", subid);
+
+    // Lock the subscription object
+    LockSharedObject(SubscriptionRelationId, subid, 0, AccessShareLock);
+
+    // Prepare tuple modification arrays
+    memset(values, 0, sizeof(values));
+    memset(nulls, false, sizeof(nulls));
+    memset(replaces, false, sizeof(replaces));
+
+    // Set subscription to disabled
+    values[Anum_pg_subscription_subenabled - 1] = BoolGetDatum(false);
+    replaces[Anum_pg_subscription_subenabled - 1] = true;
+
+    // Update the catalog
+    tup = heap_modify_tuple(tup, RelationGetDescr(rel), values, nulls, replaces);
+    CatalogTupleUpdate(rel, &tup->t_self, tup);
+    heap_freetuple(tup);
+
+    table_close(rel, NoLock);
+}
+```

@@ -35,3 +35,20 @@ PQconnectdb is a high-level convenience function that creates a complete databas
 - The connection string format supports both traditional parameter lists and URI notation
 - Single quotes in parameter values must be escaped with backslashes
 - Memory allocation failure is the only case where NULL is returned
+
+## Simplified Source
+
+```c
+PGconn *PQconnectdb(const char *conninfo)
+{
+    // Start the connection process asynchronously
+    PGconn *conn = PQconnectStart(conninfo);
+
+    // If connection started successfully, complete it synchronously
+    if (conn && conn->status != CONNECTION_BAD) {
+        (void) pqConnectDBComplete(conn);
+    }
+
+    return conn;
+}
+```

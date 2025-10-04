@@ -40,3 +40,25 @@ The DELETE message format includes:
 - Part of the logical replication protocol decoder that processes streaming changes
 - The relation ID returned helps identify which table the DELETE operation targets
 - Located in src/backend/replication/logical/proto.c:564-585
+
+## Simplified Source
+
+```c
+LogicalRepRelId logicalrep_read_delete(StringInfo in, LogicalRepTupleData *oldtup) {
+    char action;
+    LogicalRepRelId relid;
+
+    // Read the relation identifier
+    relid = pq_getmsgint(in, 4);
+
+    // Read and validate the action type
+    action = pq_getmsgbyte(in);
+    if (action != 'K' && action != 'O')
+        elog(ERROR, "expected action 'O' or 'K', got %c", action);
+
+    // Read the old tuple data
+    logicalrep_read_tuple(in, oldtup);
+
+    return relid;
+}
+```

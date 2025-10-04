@@ -37,3 +37,69 @@ This function performs the core cryptographic computation of the SCRAM protocol 
 - Critical security function - any errors in implementation could compromise authentication
 - Returns false on any cryptographic operation failure with detailed error message
 - The result buffer must be at least state->key_length bytes
+
+## Simplified Source
+
+```c
+static bool
+calculate_client_proof(fe_scram_state *state,
+                       const char *client_final_message_without_proof,
+                       uint8 *result, const char **errstr)
+{
+    uint8 StoredKey[SCRAM_MAX_KEY_LEN];
+    uint8 ClientKey[SCRAM_MAX_KEY_LEN];
+    uint8 ClientSignature[SCRAM_MAX_KEY_LEN];
+    int i;
+    pg_hmac_ctx *ctx;
+
+    // Create HMAC context
+    ctx = pg_hmac_create(state->hash_type);
+    if (ctx == NULL)
+    {
+        *errstr = pg_hmac_error(NULL);
+        return false;
+    }
+
+    // Derive cryptographic keys using PBKDF2 and SCRAM key derivation
+    if (scram_SaltedPassword(state->password, state->hash_type,
+                             state->key_length, state->salt, state->saltlen,
+                             state->iterations, state->SaltedPassword,
+                             errstr) < 0 ||
+        scram_ClientKey(state->SaltedPassword, state->hash_type,
+                        state->key_length, ClientKey, errstr) < 0 ||
+        scram_H(ClientKey, state->hash_type, state->key_length,
+                StoredKey, errstr) < 0)
+    {
+        pg_hmac_free(ctx);
+        return false;
+    }
+
+    // Calculate HMAC over authentication conversation
+    // AuthMessage = client-first-bare + "," + server-first + "," + client-final-without-proof
+    if (pg_hmac_init(ctx, StoredKey, state->key_length) < 0 ||
+        pg_hmac_update(ctx,
+                       (uint8 *) state->client_first_message_bare,
+                       strlen(state->client_first_message_bare)) < 0 ||
+        pg_hmac_update(ctx, (uint8 *) ",", 1) < 0 ||
+        pg_hmac_update(ctx,
+                       (uint8 *) state->server_first_message,
+                       strlen(state->server_first_message)) < 0 ||
+        pg_hmac_update(ctx, (uint8 *) ",", 1) < 0 ||
+        pg_hmac_update(ctx,
+                       (uint8 *) client_final_message_without_proof,
+                       strlen(client_final_message_without_proof)) < 0 ||
+        pg_hmac_final(ctx, ClientSignature, state->key_length) < 0)
+    {
+        *errstr = pg_hmac_error(ctx);
+        pg_hmac_free(ctx);
+        return false;
+    }
+
+    // ClientProof = ClientKey XOR ClientSignature
+    for (i = 0; i < state->key_length; i++)
+        result[i] = ClientKey[i] ^ ClientSignature[i];
+
+    pg_hmac_free(ctx);
+    return true;
+}
+```

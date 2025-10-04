@@ -47,3 +47,23 @@ The function handles character set conversion intelligently by checking if  actu
 - Uses appendBinaryStringInfo (which maintains a trailing null-byte) unlike pq_sendcountedtext which uses appendBinaryStringInfoNT
 - Commonly used by data type send functions that need to transmit textual data in binary format
 - Part of PostgreSQL's type system for converting internal representations to wire format
+
+## Simplified Source
+
+```c
+void pq_sendtext(StringInfo buf, const char *str, int slen) {
+    // Convert from server encoding to client encoding
+    char *p = pg_server_to_client(str, slen);
+
+    // Check if conversion actually occurred
+    if (p != str) {
+        // Conversion happened - use converted string
+        slen = strlen(p);
+        appendBinaryStringInfo(buf, p, slen);
+        pfree(p);  // Free converted string
+    } else {
+        // No conversion needed - use original string
+        appendBinaryStringInfo(buf, str, slen);
+    }
+}
+```

@@ -54,3 +54,51 @@ The function also updates replication origin state to ensure proper crash recove
 - Uses savepoint mechanism for subtransaction rollback operations
 - Part of PostgreSQL's logical replication parallel worker infrastructure
 - Ensures proper cleanup of transaction state and memory management
+
+## Simplified Source
+
+```c
+void pa_stream_abort(LogicalRepStreamAbortData *abort_data) {
+    TransactionId xid = abort_data->xid;
+    TransactionId subxid = abort_data->subxid;
+
+    // Update replication origin for crash recovery
+    replorigin_session_origin_lsn = abort_data->abort_lsn;
+    replorigin_session_origin_timestamp = abort_data->abort_time;
+
+    if (subxid == xid) {
+        // Toplevel transaction abort - complete cleanup
+        pa_set_xact_state(MyParallelShared, PARALLEL_TRANS_FINISHED);
+
+        // Release lock before aborting to prevent deadlocks
+        pa_unlock_transaction(xid, AccessExclusiveLock);
+
+        AbortCurrentTransaction();
+
+        if (IsTransactionBlock()) {
+            EndTransactionBlock(false);
+            CommitTransactionCommand();
+        }
+
+        pa_reset_subtrans();
+        pgstat_report_activity(STATE_IDLE, NULL);
+    } else {
+        // Subtransaction abort - rollback to savepoint
+        char spname[NAMEDATALEN];
+        pa_savepoint_name(MySubscription->oid, subxid, spname, sizeof(spname));
+
+        elog(DEBUG1, "rolling back to savepoint %s in logical replication parallel apply worker", spname);
+
+        // Find and rollback to the appropriate savepoint
+        for (int i = list_length(subxactlist) - 1; i >= 0; i--) {
+            TransactionId xid_tmp = lfirst_xid(list_nth_cell(subxactlist, i));
+            if (xid_tmp == subxid) {
+                RollbackToSavepoint(spname);
+                CommitTransactionCommand();
+                subxactlist = list_truncate(subxactlist, i);
+                break;
+            }
+        }
+    }
+}
+```

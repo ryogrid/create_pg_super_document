@@ -36,3 +36,16 @@ The function uses an exclusive lock to safely update the shared memory structure
 - Uses exclusive locking to ensure atomic update of the shared state
 - Critical for maintaining consistency of the WAL summarizer's process tracking
 - The function parameters follow the standard PostgreSQL exit callback signature but are not used in the implementation
+
+## Simplified Source
+
+```c
+static void WalSummarizerShutdown(int code, Datum arg)
+{
+    // Clear the summarizer process number in shared memory
+    // to indicate the process is no longer running
+    LWLockAcquire(WALSummarizerLock, LW_EXCLUSIVE);
+    WalSummarizerCtl->summarizer_pgprocno = INVALID_PROC_NUMBER;
+    LWLockRelease(WALSummarizerLock);
+}
+```

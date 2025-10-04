@@ -34,3 +34,32 @@ This function is part of the SPI (Server Programming Interface) API that allows 
 - This is rarely needed since SPI_finish automatically clears all ENRs
 - Part of the public SPI API for managing ephemeral named relations
 - Uses the relation's metadata name (match->md.name) when calling unregister_ENR
+
+## Simplified Source
+
+```c
+int SPI_unregister_relation(const char *name) {
+    // Validate input parameter
+    if (name == NULL)
+        return SPI_ERROR_ARGUMENT;
+
+    // Begin SPI call context
+    int res = _SPI_begin_call(false);
+    if (res < 0)
+        return res;
+
+    // Find the relation by name
+    EphemeralNamedRelation match = _SPI_find_ENR_by_name(name);
+    if (match) {
+        // Unregister the found relation
+        unregister_ENR(_SPI_current->queryEnv, match->md.name);
+        res = SPI_OK_REL_UNREGISTER;
+    } else {
+        res = SPI_ERROR_REL_NOT_FOUND;
+    }
+
+    // End SPI call context
+    _SPI_end_call(false);
+    return res;
+}
+```

@@ -42,3 +42,33 @@ Unlike other validators, this function does not honor the check_function_bodies 
 - Failure to find a matching built-in function results in an ERROR with code ERRCODE_UNDEFINED_FUNCTION
 - Used internally by PostgreSQL's function creation process when language is set to 'internal'
 - Essential for maintaining system security by preventing invalid internal function references
+
+## Simplified Source
+```c
+Datum fmgr_internal_validator(PG_FUNCTION_ARGS) {
+    Oid funcoid = PG_GETARG_OID(0);
+    HeapTuple tuple;
+    Datum tmp;
+    char *prosrc;
+
+    // Check if we have permission to validate this function
+    if (!CheckFunctionValidatorAccess(fcinfo->flinfo->fn_oid, funcoid))
+        PG_RETURN_VOID();
+
+    // Get the function tuple from pg_proc
+    tuple = SearchSysCache1(PROCOID, ObjectIdGetDatum(funcoid));
+    if (!HeapTupleIsValid(tuple))
+        elog(ERROR, "cache lookup failed for function %u", funcoid);
+
+    // Extract the function source name (prosrc)
+    tmp = SysCacheGetAttrNotNull(PROCOID, tuple, Anum_pg_proc_prosrc);
+    prosrc = TextDatumGetCString(tmp);
+
+    // Verify the internal function name exists
+    if (fmgr_internal_function(prosrc) == InvalidOid)
+        ereport(ERROR, "there is no built-in function named \"%s\"", prosrc);
+
+    ReleaseSysCache(tuple);
+    PG_RETURN_VOID();
+}
+```

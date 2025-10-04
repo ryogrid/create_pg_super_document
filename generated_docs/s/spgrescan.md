@@ -48,3 +48,40 @@ For distance-ordered scans, it determines the return types of the ordering opera
 - Calls resetSpGistScanOpaque to clear previous scan state and initialize the search queue
 - Updates PostgreSQL statistics by counting the index scan operation
 - This is the function called to start or restart scanning after spgbeginscan has been called
+
+## Simplified Source
+
+```c
+void
+spgrescan(IndexScanDesc scan, ScanKey scankey, int nscankeys,
+          ScanKey orderbys, int norderbys)
+{
+    SpGistScanOpaque so = (SpGistScanOpaque) scan->opaque;
+
+    // Copy scan keys to local storage
+    if (scankey && scan->numberOfKeys > 0)
+        memmove(scan->keyData, scankey,
+                scan->numberOfKeys * sizeof(ScanKeyData));
+
+    // Setup order-by data for distance-ordered scans
+    if (orderbys && scan->numberOfOrderBys > 0) {
+        memmove(scan->orderByData, orderbys,
+                scan->numberOfOrderBys * sizeof(ScanKeyData));
+
+        // Determine result types of ordering operators
+        for (int i = 0; i < scan->numberOfOrderBys; i++) {
+            ScanKey skey = &scan->orderByData[i];
+            so->orderByTypes[i] = get_func_rettype(skey->sk_func.fn_oid);
+        }
+    }
+
+    // Process scan keys and setup search conditions
+    spgPrepareScanKeys(scan);
+
+    // Reset scan state and initialize search queue
+    resetSpGistScanOpaque(so);
+
+    // Update PostgreSQL statistics
+    pgstat_count_index_scan(scan->indexRelation);
+}
+```

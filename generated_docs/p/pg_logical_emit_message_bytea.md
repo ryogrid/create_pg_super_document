@@ -49,3 +49,22 @@ The function is implemented by extracting the parameters and calling `LogLogical
 - The prefix and message data are stored in WAL and will be decoded by logical replication consumers
 - Complementary to pg_logical_emit_message_text which handles text messages
 - Defined in src/backend/replication/logical/logicalfuncs.c:368-381
+
+## Simplified Source
+
+```c
+Datum pg_logical_emit_message_bytea(PG_FUNCTION_ARGS) {
+    // Extract function arguments
+    bool transactional = PG_GETARG_BOOL(0);
+    char *prefix = text_to_cstring(PG_GETARG_TEXT_PP(1));
+    bytea *data = PG_GETARG_BYTEA_PP(2);
+    bool flush = PG_GETARG_BOOL(3);
+
+    // Write logical message to WAL with binary data
+    XLogRecPtr lsn = LogLogicalMessage(prefix, VARDATA_ANY(data),
+                                       VARSIZE_ANY_EXHDR(data),
+                                       transactional, flush);
+
+    PG_RETURN_LSN(lsn);
+}
+```

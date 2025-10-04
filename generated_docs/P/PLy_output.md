@@ -49,3 +49,112 @@ The function is designed to integrate seamlessly with PostgreSQLs error reportin
 - Returns Py_None on successful completion or NULL on error
 - Critical for all logging and error reporting functionality in PL/Python procedures
 - Integrates with PostgreSQL error reporting system to provide consistent error handling across the database system
+
+## Simplified Source
+
+```c
+static PyObject *PLy_output(volatile int level, PyObject *self, PyObject *args, PyObject *kw) {
+    int sqlstate = 0;
+    char *message = NULL;
+    char *detail = NULL;
+    char *hint = NULL;
+    char *schema_name = NULL;
+    char *table_name = NULL;
+    char *column_name = NULL;
+    char *datatype_name = NULL;
+    char *constraint_name = NULL;
+
+    // Handle message arguments
+    if (PyTuple_Size(args) == 1) {
+        PyObject *o;
+        if (!PyArg_UnpackTuple(args, "plpy.elog", 1, 1, &o))
+            PLy_elog(ERROR, "could not unpack arguments in plpy.elog");
+        PyObject *so = PyObject_Str(o);
+        message = PLyUnicode_AsString(so);
+        Py_XDECREF(so);
+    } else {
+        PyObject *so = PyObject_Str(args);
+        message = PLyUnicode_AsString(so);
+        Py_XDECREF(so);
+    }
+
+    if (message == NULL) {
+        level = ERROR;
+        message = "could not parse error message in plpy.elog";
+    }
+    message = pstrdup(message);
+
+    // Process keyword arguments for error context
+    if (kw != NULL) {
+        PyObject *key, *value;
+        Py_ssize_t pos = 0;
+
+        while (PyDict_Next(kw, &pos, &key, &value)) {
+            char *keyword = PLyUnicode_AsString(key);
+
+            if (strcmp(keyword, "message") == 0)
+                message = object_to_string(value);
+            else if (strcmp(keyword, "detail") == 0)
+                detail = object_to_string(value);
+            else if (strcmp(keyword, "hint") == 0)
+                hint = object_to_string(value);
+            else if (strcmp(keyword, "sqlstate") == 0) {
+                char *sqlstatestr = object_to_string(value);
+                if (strlen(sqlstatestr) == 5 &&
+                    strspn(sqlstatestr, "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ") == 5) {
+                    sqlstate = MAKE_SQLSTATE(sqlstatestr[0], sqlstatestr[1],
+                                           sqlstatestr[2], sqlstatestr[3], sqlstatestr[4]);
+                }
+            }
+            else if (strcmp(keyword, "schema_name") == 0)
+                schema_name = object_to_string(value);
+            else if (strcmp(keyword, "table_name") == 0)
+                table_name = object_to_string(value);
+            else if (strcmp(keyword, "column_name") == 0)
+                column_name = object_to_string(value);
+            else if (strcmp(keyword, "datatype_name") == 0)
+                datatype_name = object_to_string(value);
+            else if (strcmp(keyword, "constraint_name") == 0)
+                constraint_name = object_to_string(value);
+            else {
+                PLy_exception_set(PyExc_TypeError, "'%s' is an invalid keyword argument", keyword);
+                return NULL;
+            }
+        }
+    }
+
+    // Validate strings and report error
+    PG_TRY();
+    {
+        // Validate all string inputs
+        if (message) pg_verifymbstr(message, strlen(message), false);
+        if (detail) pg_verifymbstr(detail, strlen(detail), false);
+        if (hint) pg_verifymbstr(hint, strlen(hint), false);
+        // ... additional validations for other fields
+
+        // Report the error with all context
+        ereport(level,
+            ((sqlstate != 0) ? errcode(sqlstate) : 0,
+             (message != NULL) ? errmsg_internal("%s", message) : 0,
+             (detail != NULL) ? errdetail_internal("%s", detail) : 0,
+             (hint != NULL) ? errhint("%s", hint) : 0,
+             (column_name != NULL) ? err_generic_string(PG_DIAG_COLUMN_NAME, column_name) : 0,
+             (constraint_name != NULL) ? err_generic_string(PG_DIAG_CONSTRAINT_NAME, constraint_name) : 0,
+             (datatype_name != NULL) ? err_generic_string(PG_DIAG_DATATYPE_NAME, datatype_name) : 0,
+             (table_name != NULL) ? err_generic_string(PG_DIAG_TABLE_NAME, table_name) : 0,
+             (schema_name != NULL) ? err_generic_string(PG_DIAG_SCHEMA_NAME, schema_name) : 0));
+    }
+    PG_CATCH();
+    {
+        // Handle any errors during reporting
+        ErrorData *edata = CopyErrorData();
+        FlushErrorState();
+        PLy_exception_set_with_details(PLy_exc_error, edata);
+        FreeErrorData(edata);
+        return NULL;
+    }
+    PG_END_TRY();
+
+    Py_RETURN_NONE;
+}
+```

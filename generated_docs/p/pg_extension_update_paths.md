@@ -40,3 +40,77 @@ The function reads the extension's control file and extracts version information
 - The path string format shows versions connected by '--' (e.g., '1.0--1.1--1.2')
 - The function examines all possible version pairs, making it potentially expensive for extensions with many versions
 - Located in src/backend/commands/extension.c:2339-2423
+
+## Simplified Source
+
+```c
+Datum
+pg_extension_update_paths(PG_FUNCTION_ARGS)
+{
+    Name extname = PG_GETARG_NAME(0);
+    ReturnSetInfo *rsinfo = (ReturnSetInfo *) fcinfo->resultinfo;
+    List *evi_list;
+    ExtensionControlFile *control;
+    ListCell *lc1;
+
+    // Validate extension name and setup
+    check_valid_extension_name(NameStr(*extname));
+    InitMaterializedSRF(fcinfo, 0);
+
+    // Read extension control file and get version list
+    control = read_extension_control_file(NameStr(*extname));
+    evi_list = get_ext_ver_list(control);
+
+    // Check all version pairs for update paths
+    foreach(lc1, evi_list)
+    {
+        ExtensionVersionInfo *evi1 = (ExtensionVersionInfo *) lfirst(lc1);
+        ListCell *lc2;
+
+        foreach(lc2, evi_list)
+        {
+            ExtensionVersionInfo *evi2 = (ExtensionVersionInfo *) lfirst(lc2);
+            List *path;
+            Datum values[3];
+            bool nulls[3];
+
+            if (evi1 == evi2)
+                continue;
+
+            // Find shortest update path from evi1 to evi2
+            path = find_update_path(evi_list, evi1, evi2, false, true);
+
+            memset(values, 0, sizeof(values));
+            memset(nulls, 0, sizeof(nulls));
+
+            // Fill result: source, target, path
+            values[0] = CStringGetTextDatum(evi1->name);
+            values[1] = CStringGetTextDatum(evi2->name);
+
+            if (path == NIL)
+                nulls[2] = true;
+            else
+            {
+                // Build path string: "1.0--1.1--1.2"
+                StringInfoData pathbuf;
+                ListCell *lcv;
+
+                initStringInfo(&pathbuf);
+                appendStringInfoString(&pathbuf, evi1->name);
+                foreach(lcv, path)
+                {
+                    char *versionName = (char *) lfirst(lcv);
+                    appendStringInfoString(&pathbuf, "--");
+                    appendStringInfoString(&pathbuf, versionName);
+                }
+                values[2] = CStringGetTextDatum(pathbuf.data);
+                pfree(pathbuf.data);
+            }
+
+            tuplestore_putvalues(rsinfo->setResult, rsinfo->setDesc, values, nulls);
+        }
+    }
+
+    return (Datum) 0;
+}
+```

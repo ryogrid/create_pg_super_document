@@ -46,3 +46,48 @@ When a state becomes unreachable (no incoming arcs) and is not currently being p
 - Part of the NFA cleanup and deletion subsystem
 - Critical for memory management during regex compilation and optimization
 - Located in src/backend/regex/regc_nfa.c:1304-1354
+
+## Simplified Source
+
+```c
+static void
+deltraverse(struct nfa *nfa, struct state *leftend, struct state *s)
+{
+    // Guard against stack overflow in recursive calls
+    if (STACK_TOO_DEEP(nfa->v->re)) {
+        NERR(REG_ETOOBIG);
+        return;
+    }
+
+    // Skip if nothing to do or already processing this state
+    if (s->nouts == 0) return;
+    if (s->tmp != NULL) return;
+
+    s->tmp = s;  // mark as being processed
+
+    // Process all outgoing arcs
+    while (s->outs != NULL) {
+        struct arc *a = s->outs;
+        struct state *to = a->to;
+
+        // Recursively process destination state
+        deltraverse(nfa, leftend, to);
+        if (NISERR()) return;
+
+        // Free the arc
+        freearc(nfa, a);
+
+        // Clean up unreachable destination state
+        if (to->nins == 0 && to->tmp == NULL) {
+            freestate(nfa, to);
+        }
+    }
+
+    // Verify state integrity and mark as completed
+    assert(s->no != FREESTATE);
+    assert(s == leftend || s->nins != 0);
+    assert(s->nouts == 0);
+
+    s->tmp = NULL;  // processing complete
+}
+```

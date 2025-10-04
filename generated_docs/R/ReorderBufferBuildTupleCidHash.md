@@ -61,3 +61,61 @@ The resulting hash table provides O(1) lookup time for tuple command ID informat
 - The resulting hash table is stored in txn->tuplecid_hash for later use
 - Essential component of PostgreSQL's logical replication system for maintaining MVCC consistency
 - The hash table lifetime is tied to the transaction and is cleaned up when the transaction is truncated or cleaned up
+
+## Simplified Source
+
+```c
+static void
+ReorderBufferBuildTupleCidHash(ReorderBuffer *rb, ReorderBufferTXN *txn)
+{
+    dlist_iter iter;
+    HASHCTL hash_ctl;
+
+    // Skip if no catalog changes or no tuplecids to process
+    if (!rbtxn_has_catalog_changes(txn) || dlist_is_empty(&txn->tuplecids))
+        return;
+
+    // Configure hash table structure
+    hash_ctl.keysize = sizeof(ReorderBufferTupleCidKey);
+    hash_ctl.entrysize = sizeof(ReorderBufferTupleCidEnt);
+    hash_ctl.hcxt = rb->context;
+
+    // Create hash table with exact size for efficiency
+    txn->tuplecid_hash = hash_create("ReorderBufferTupleCid", txn->ntuplecids, &hash_ctl,
+                                     HASH_ELEM | HASH_BLOBS | HASH_CONTEXT);
+
+    // Populate hash table with tuplecid information
+    dlist_foreach(iter, &txn->tuplecids)
+    {
+        ReorderBufferTupleCidKey key;
+        ReorderBufferTupleCidEnt *ent;
+        bool found;
+        ReorderBufferChange *change;
+
+        change = dlist_container(ReorderBufferChange, node, iter.cur);
+
+        // Prepare hash key (relfilelocator + ctid)
+        memset(&key, 0, sizeof(ReorderBufferTupleCidKey));
+        key.rlocator = change->data.tuplecid.locator;
+        ItemPointerCopy(&change->data.tuplecid.tid, &key.tid);
+
+        // Insert or find existing entry
+        ent = (ReorderBufferTupleCidEnt *)
+            hash_search(txn->tuplecid_hash, &key, HASH_ENTER, &found);
+
+        if (!found)
+        {
+            // New entry - store all command ID information
+            ent->cmin = change->data.tuplecid.cmin;
+            ent->cmax = change->data.tuplecid.cmax;
+            ent->combocid = change->data.tuplecid.combocid;
+        }
+        else
+        {
+            // Existing entry - update cmax if it has grown
+            // cmin must remain consistent, cmax can only increase
+            ent->cmax = change->data.tuplecid.cmax;
+        }
+    }
+}
+```

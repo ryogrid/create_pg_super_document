@@ -27,3 +27,20 @@ ReorderBufferGetRelids allocates memory for an array of Oid values that will hol
 
 ## Notes and Other Information
 The function specifically uses the ReorderBuffer's global context (rb->context) rather than more specialized contexts. As noted in the comments, this choice is made because TRUNCATE is not a particularly common operation, making a dedicated context overkill. The SLAB contexts cannot be used for this purpose, and the tuple context is reserved for tuple data rather than relation ID arrays.
+
+## Simplified Source
+
+```c
+Oid *ReorderBufferGetRelids(ReorderBuffer *rb, int nrelids) {
+    Oid *relids;
+    Size alloc_len;
+
+    // Calculate allocation size for array of relation IDs
+    alloc_len = sizeof(Oid) * nrelids;
+
+    // Allocate from global context (TRUNCATE operations are uncommon)
+    relids = (Oid *) MemoryContextAlloc(rb->context, alloc_len);
+
+    return relids;
+}
+```

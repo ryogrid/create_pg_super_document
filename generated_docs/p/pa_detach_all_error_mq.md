@@ -34,3 +34,26 @@ The function ensures that no error message queue connections remain active when 
 - Part of the cleanup infrastructure for logical replication shutdown
 - Public function (not static) indicating it's called from other modules
 - Essential for proper resource management during worker pool shutdown
+
+## Simplified Source
+
+```c
+void
+pa_detach_all_error_mq(void)
+{
+    ListCell *lc;
+
+    // Iterate through all workers in the pool
+    foreach(lc, ParallelApplyWorkerPool)
+    {
+        ParallelApplyWorkerInfo *winfo = (ParallelApplyWorkerInfo *) lfirst(lc);
+
+        // Detach error message queue if it exists
+        if (winfo->error_mq_handle)
+        {
+            shm_mq_detach(winfo->error_mq_handle);
+            winfo->error_mq_handle = NULL;
+        }
+    }
+}
+```

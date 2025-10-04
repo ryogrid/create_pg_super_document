@@ -48,3 +48,29 @@ The  function provides selective writing capability for PostgreSQL large objects
 - Can be used for both partial updates and appending data (depending on offset)
 - Part of PostgreSQL's large object filesystem stub interface
 - Located in src/backend/libpq/be-fsstubs.c:850-868
+
+## Simplified Source
+
+```c
+Datum be_lo_put(PG_FUNCTION_ARGS) {
+    Oid loOid = PG_GETARG_OID(0);
+    int64 offset = PG_GETARG_INT64(1);
+    bytea *str = PG_GETARG_BYTEA_PP(2);
+
+    // Prevent operation in read-only transactions
+    PreventCommandIfReadOnly("lo_put()");
+
+    // Set cleanup flag and open large object for writing
+    lo_cleanup_needed = true;
+    LargeObjectDesc *loDesc = inv_open(loOid, INV_WRITE, CurrentMemoryContext);
+
+    // Seek to position and write data
+    inv_seek(loDesc, offset, SEEK_SET);
+    int written = inv_write(loDesc, VARDATA_ANY(str), VARSIZE_ANY_EXHDR(str));
+    Assert(written == VARSIZE_ANY_EXHDR(str));
+
+    // Close and return
+    inv_close(loDesc);
+    PG_RETURN_VOID();
+}
+```

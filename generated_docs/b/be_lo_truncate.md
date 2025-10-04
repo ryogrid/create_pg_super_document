@@ -40,3 +40,20 @@ This is the 32-bit version of the truncate function, suitable for large objects 
 - For large objects exceeding 2GB, use be_lo_truncate64 instead
 - The actual truncation logic is handled by lo_truncate_internal
 - Truncation cannot extend a large object - only reduce its size
+
+## Simplified Source
+
+```c
+Datum be_lo_truncate(PG_FUNCTION_ARGS) {
+    int32 fd = PG_GETARG_INT32(0);
+    int32 len = PG_GETARG_INT32(1);
+
+    // Prevent truncation in read-only transactions
+    PreventCommandIfReadOnly("lo_truncate()");
+
+    // Delegate to internal truncation function
+    lo_truncate_internal(fd, len);
+
+    PG_RETURN_INT32(0);
+}
+```

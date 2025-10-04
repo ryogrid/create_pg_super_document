@@ -38,3 +38,48 @@ This function completes the zstd compression for an archive by flushing any rema
 - Calls bbsink_forward_end_archive to properly terminate the archive in the sink chain
 - Function is static and called through the bbsink operations table
 - Critical for proper zstd frame termination and ensuring no compressed data is lost
+
+## Simplified Source
+
+```c
+static void bbsink_zstd_end_archive(bbsink *sink) {
+    bbsink_zstd *mysink = (bbsink_zstd *) sink;
+    size_t yet_to_flush;
+
+    // Flush zstd internal buffers and end compression frame
+    do {
+        ZSTD_inBuffer in = {NULL, 0, 0}; // Empty input - just flushing
+        size_t max_needed = ZSTD_compressBound(0);
+
+        // Check if output buffer has enough space
+        if (mysink->zstd_outBuf.size - mysink->zstd_outBuf.pos < max_needed) {
+            // Flush current data to next sink
+            bbsink_archive_contents(mysink->base.bbs_next,
+                                   mysink->zstd_outBuf.pos);
+
+            // Reset output buffer
+            mysink->zstd_outBuf.dst = mysink->base.bbs_next->bbs_buffer;
+            mysink->zstd_outBuf.size = mysink->base.bbs_next->bbs_buffer_length;
+            mysink->zstd_outBuf.pos = 0;
+        }
+
+        // End compression and flush remaining data
+        yet_to_flush = ZSTD_compressStream2(mysink->cctx,
+                                           &mysink->zstd_outBuf,
+                                           &in, ZSTD_e_end);
+
+        if (ZSTD_isError(yet_to_flush))
+            elog(ERROR, "could not compress data: %s",
+                 ZSTD_getErrorName(yet_to_flush));
+
+    } while (yet_to_flush > 0); // Continue until all data is flushed
+
+    // Send any remaining compressed bytes to next sink
+    if (mysink->zstd_outBuf.pos > 0)
+        bbsink_archive_contents(mysink->base.bbs_next,
+                               mysink->zstd_outBuf.pos);
+
+    // Notify next sink that archive has ended
+    bbsink_forward_end_archive(sink);
+}
+```

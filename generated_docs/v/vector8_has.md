@@ -41,3 +41,33 @@ The function includes comprehensive assertion checking in debug builds to verify
 - Critical component for implementing efficient search algorithms in PostgreSQL's SIMD infrastructure
 - Used extensively in linear search operations where finding the existence of a target byte is more important than finding its position
 - The function abstracts the complexity of SIMD equality testing and provides a simple boolean interface for higher-level algorithms
+
+## Simplified Source
+
+```c
+static inline bool vector8_has(const Vector8 v, const uint8 c) {
+#ifdef USE_ASSERT_CHECKING
+    // Debug: verify result with scalar comparison
+    bool assert_result = false;
+    for (Size i = 0; i < sizeof(Vector8); i++) {
+        if (((const uint8 *) &v)[i] == c) {
+            assert_result = true;
+            break;
+        }
+    }
+#endif
+
+    bool result;
+
+#if defined(USE_NO_SIMD)
+    // Fallback: XOR with broadcast value, then check for zeros
+    result = vector8_has_zero(v ^ vector8_broadcast(c));
+#else
+    // SIMD: use equality comparison and check high bits
+    result = vector8_is_highbit_set(vector8_eq(v, vector8_broadcast(c)));
+#endif
+
+    Assert(assert_result == result);
+    return result;
+}
+```

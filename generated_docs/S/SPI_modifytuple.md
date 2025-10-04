@@ -46,3 +46,62 @@ The function preserves important tuple identification information (t_ctid, t_sel
 - Returns NULL on any error condition
 - The returned tuple is allocated in the upper executor's memory context
 - Commonly used in BEFORE UPDATE triggers to modify the NEW tuple
+
+## Simplified Source
+
+```c
+HeapTuple SPI_modifytuple(Relation rel, HeapTuple tuple, int natts, int *attnum,
+                         Datum *Values, const char *Nulls) {
+    // Validate input parameters
+    if (rel == NULL || tuple == NULL || natts < 0 || attnum == NULL || Values == NULL) {
+        SPI_result = SPI_ERROR_ARGUMENT;
+        return NULL;
+    }
+
+    // Check SPI connection
+    if (_SPI_current == NULL) {
+        SPI_result = SPI_ERROR_UNCONNECTED;
+        return NULL;
+    }
+
+    // Switch to saved memory context
+    MemoryContext old_context = MemoryContextSwitchTo(_SPI_current->savedcxt);
+    SPI_result = 0;
+
+    // Allocate arrays for all attribute values and nulls
+    int num_attrs = rel->rd_att->natts;
+    Datum *values = palloc(num_attrs * sizeof(Datum));
+    bool *nulls = palloc(num_attrs * sizeof(bool));
+
+    // Extract existing values from tuple
+    heap_deform_tuple(tuple, rel->rd_att, values, nulls);
+
+    // Replace specified attributes
+    HeapTuple modified_tuple = NULL;
+    for (int i = 0; i < natts; i++) {
+        if (attnum[i] <= 0 || attnum[i] > num_attrs) {
+            SPI_result = SPI_ERROR_NOATTRIBUTE;
+            break;
+        }
+        values[attnum[i] - 1] = Values[i];
+        nulls[attnum[i] - 1] = (Nulls && Nulls[i] == 'n');
+    }
+
+    // Create modified tuple if no errors occurred
+    if (SPI_result == 0) {
+        modified_tuple = heap_form_tuple(rel->rd_att, values, nulls);
+
+        // Copy identification info from original tuple
+        modified_tuple->t_data->t_ctid = tuple->t_data->t_ctid;
+        modified_tuple->t_self = tuple->t_self;
+        modified_tuple->t_tableOid = tuple->t_tableOid;
+    }
+
+    // Clean up and restore context
+    pfree(values);
+    pfree(nulls);
+    MemoryContextSwitchTo(old_context);
+
+    return modified_tuple;
+}
+```

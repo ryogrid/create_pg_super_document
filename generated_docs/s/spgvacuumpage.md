@@ -45,3 +45,65 @@ The function ensures proper buffer management, applies vacuum delay points for t
 - Root pages are never deleted or marked as available in FSM to maintain index structure integrity
 - Updates vacuum statistics including pages_deleted counter
 - Maintains lastFilledBlock tracking for efficient space management
+
+## Simplified Source
+
+```c
+static void
+spgvacuumpage(spgBulkDeleteState *bds, BlockNumber blkno)
+{
+    Relation index = bds->info->index;
+    Buffer buffer;
+    Page page;
+
+    // Throttle vacuum operations
+    vacuum_delay_point();
+
+    // Read and lock the page
+    buffer = ReadBufferExtended(index, MAIN_FORKNUM, blkno,
+                               RBM_NORMAL, bds->info->strategy);
+    LockBuffer(buffer, BUFFER_LOCK_EXCLUSIVE);
+    page = (Page) BufferGetPage(buffer);
+
+    // Handle different page types
+    if (PageIsNew(page)) {
+        // Empty page found - could be from database crash
+        // Will be recycled below
+    }
+    else if (PageIsEmpty(page)) {
+        // Nothing to do for empty pages
+    }
+    else if (SpGistPageIsLeaf(page)) {
+        if (SpGistBlockIsRoot(blkno)) {
+            // Special handling for leaf root page
+            vacuumLeafRoot(bds, index, buffer);
+            // No redirect/placeholder cleanup needed for root
+        }
+        else {
+            // Regular leaf page processing
+            vacuumLeafPage(bds, index, buffer, false);
+            vacuumRedirectAndPlaceholder(index, bds->info->heaprel, buffer);
+        }
+    }
+    else {
+        // Inner page - only cleanup redirects and placeholders
+        vacuumRedirectAndPlaceholder(index, bds->info->heaprel, buffer);
+    }
+
+    // Free Space Map maintenance (never delete root pages)
+    if (!SpGistBlockIsRoot(blkno)) {
+        if (PageIsNew(page) || PageIsEmpty(page)) {
+            // Mark empty pages as free
+            RecordFreeIndexPage(index, blkno);
+            bds->stats->pages_deleted++;
+        }
+        else {
+            // Track last used page for space allocation
+            SpGistSetLastUsedPage(index, buffer);
+            bds->lastFilledBlock = blkno;
+        }
+    }
+
+    UnlockReleaseBuffer(buffer);
+}
+```

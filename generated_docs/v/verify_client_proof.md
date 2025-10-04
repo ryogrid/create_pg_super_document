@@ -51,3 +51,47 @@ This cryptographic approach ensures that only a client knowing the correct passw
 - StoredKey = H(ClientKey), where H is the hash function
 - Includes comprehensive error handling for cryptographic operation failures
 - Designed to work with mock authentication scenarios for timing attack prevention
+
+## Simplified Source
+
+```c
+static bool
+verify_client_proof(scram_state *state)
+{
+    uint8 ClientSignature[SCRAM_MAX_KEY_LEN];
+    uint8 ClientKey[SCRAM_MAX_KEY_LEN];
+    uint8 client_StoredKey[SCRAM_MAX_KEY_LEN];
+    pg_hmac_ctx *ctx = pg_hmac_create(state->hash_type);
+    int i;
+
+    // Calculate ClientSignature using HMAC with stored key and auth messages
+    if (pg_hmac_init(ctx, state->StoredKey, state->key_length) < 0 ||
+        pg_hmac_update(ctx, (uint8 *) state->client_first_message_bare,
+                       strlen(state->client_first_message_bare)) < 0 ||
+        pg_hmac_update(ctx, (uint8 *) ",", 1) < 0 ||
+        pg_hmac_update(ctx, (uint8 *) state->server_first_message,
+                       strlen(state->server_first_message)) < 0 ||
+        pg_hmac_update(ctx, (uint8 *) ",", 1) < 0 ||
+        pg_hmac_update(ctx, (uint8 *) state->client_final_message_without_proof,
+                       strlen(state->client_final_message_without_proof)) < 0 ||
+        pg_hmac_final(ctx, ClientSignature, state->key_length) < 0)
+    {
+        elog(ERROR, "could not calculate client signature: %s",
+             pg_hmac_error(ctx));
+    }
+
+    pg_hmac_free(ctx);
+
+    // Extract ClientKey by XORing proof with signature
+    for (i = 0; i < state->key_length; i++)
+        ClientKey[i] = state->ClientProof[i] ^ ClientSignature[i];
+
+    // Hash ClientKey and compare with stored key
+    if (scram_H(ClientKey, state->hash_type, state->key_length,
+                client_StoredKey, &errstr) < 0)
+        elog(ERROR, "could not hash stored key: %s", errstr);
+
+    // Verify authentication by comparing hashed keys
+    return (memcmp(client_StoredKey, state->StoredKey, state->key_length) == 0);
+}
+```

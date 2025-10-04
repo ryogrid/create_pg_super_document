@@ -46,3 +46,37 @@ This function is particularly useful for detecting orphaned temporary tables or 
 - Results can become stale quickly as backend processes can connect/disconnect dynamically
 - Primarily used by autovacuum to identify and clean up orphaned temporary objects
 - The function handles cases where the namespace exists but the owning backend has disconnected or switched databases
+
+## Simplified Source
+
+```c
+TempNamespaceStatus
+checkTempNamespaceStatus(Oid namespaceId)
+{
+    PGPROC *proc;
+    ProcNumber procNumber;
+
+    // Extract process number from namespace name
+    procNumber = GetTempNamespaceProcNumber(namespaceId);
+
+    // Check if namespace is actually a temp namespace
+    if (procNumber == INVALID_PROC_NUMBER)
+        return TEMP_NAMESPACE_NOT_TEMP;
+
+    // Check if the backend process is still alive
+    proc = ProcNumberGetProc(procNumber);
+    if (proc == NULL)
+        return TEMP_NAMESPACE_IDLE;
+
+    // Check if backend is connected to same database
+    if (proc->databaseId != MyDatabaseId)
+        return TEMP_NAMESPACE_IDLE;
+
+    // Check if backend owns this temp namespace
+    if (proc->tempNamespaceId != namespaceId)
+        return TEMP_NAMESPACE_IDLE;
+
+    // Namespace is actively in use
+    return TEMP_NAMESPACE_IN_USE;
+}
+```

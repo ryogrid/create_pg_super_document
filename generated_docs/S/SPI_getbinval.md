@@ -40,3 +40,22 @@ The function validates that the field number is within the valid range (1 to nat
 - The function validates against FirstLowInvalidHeapAttributeNumber to prevent access to invalid system attributes
 - Field numbers are 1-based, not 0-based
 - This is a higher-level wrapper around heap_getattr that adds SPI-specific error handling and validation
+
+## Simplified Source
+
+```c
+Datum SPI_getbinval(HeapTuple tuple, TupleDesc tupdesc, int fnumber, bool *isnull) {
+    SPI_result = 0;
+
+    // Validate attribute number range
+    if (fnumber > tupdesc->natts || fnumber == 0 ||
+        fnumber <= FirstLowInvalidHeapAttributeNumber) {
+        SPI_result = SPI_ERROR_NOATTRIBUTE;
+        *isnull = true;
+        return (Datum) NULL;
+    }
+
+    // Extract the attribute value using heap function
+    return heap_getattr(tuple, fnumber, tupdesc, isnull);
+}
+```

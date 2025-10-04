@@ -55,3 +55,116 @@ The algorithm follows the same two-phase approach as  but with reversed preferen
 - Includes sophisticated logic to avoid unnecessary zero-length matches
 - The function ensures that when multiple valid divisions exist, the one with shortest individual sub-matches is preferred
 - Critical for implementing non-greedy quantifiers like '*?', '+?', and '{m,n}?' in regular expressions
+
+## Simplified Source
+
+```c
+static int creviterdissect(struct vars *v, struct subre *t, chr *begin, chr *end) {
+    struct dfa *d;
+    chr **endpts;
+    chr *limit;
+    int min_matches, nverified, k, i, er;
+    size_t max_matches;
+
+    // Handle zero matches early if allowed and string is empty
+    min_matches = t->min;
+    if (min_matches <= 0) {
+        if (begin == end)
+            return REG_OKAY;
+        min_matches = 1;
+    }
+
+    // Calculate workspace size
+    max_matches = end - begin;
+    if (max_matches > t->max && t->max != DUPINF)
+        max_matches = t->max;
+    if (max_matches < min_matches)
+        max_matches = min_matches;
+
+    // Allocate endpoint tracking array
+    endpts = (chr **) MALLOC((max_matches + 1) * sizeof(chr *));
+    if (endpts == NULL) return REG_ESPACE;
+    endpts[0] = begin;
+
+    d = getsubdfa(v, t->child);
+    if (ISERR()) {
+        FREE(endpts);
+        return v->err;
+    }
+
+    // Find valid sub-match divisions using shortest-first strategy
+    nverified = 0;
+    k = 1;
+    limit = begin;
+
+    while (k > 0) {
+        // Avoid zero-length matches unless necessary
+        if (limit == endpts[k - 1] && limit != end &&
+            (k >= min_matches || min_matches - k < end - limit))
+            limit++;
+
+        // Force last sub-match to reach the end
+        if (k >= max_matches)
+            limit = end;
+
+        // Find shortest endpoint for k'th sub-match
+        endpts[k] = shortest(v, d, endpts[k - 1], limit, end, NULL, NULL);
+        if (endpts[k] == NULL) {
+            k--; // Backtrack
+            goto backtrack;
+        }
+
+        if (nverified >= k) nverified = k - 1;
+
+        if (endpts[k] != end) {
+            // Need more iterations if allowed
+            if (k >= max_matches) {
+                k--;
+                goto backtrack;
+            }
+            k++;
+            limit = endpts[k - 1];
+            continue;
+        }
+
+        // Verify if we have enough matches
+        if (k < min_matches) goto backtrack;
+
+        // Verify each sub-match
+        for (i = nverified + 1; i <= k; i++) {
+            zaptreesubs(v, t->child);
+            er = cdissect(v, t->child, endpts[i - 1], endpts[i]);
+            if (er == REG_OKAY) {
+                nverified = i;
+                continue;
+            }
+            if (er != REG_NOMATCH) {
+                FREE(endpts);
+                return er;
+            }
+            break;
+        }
+
+        if (i > k) {
+            // All verified successfully
+            FREE(endpts);
+            return REG_OKAY;
+        }
+
+        k = i; // Failed at position i
+
+backtrack:
+        // Try longer versions of k'th sub-match
+        while (k > 0) {
+            if (endpts[k] < end) {
+                limit = endpts[k] + 1;
+                break;
+            }
+            k--;
+        }
+    }
+
+    FREE(endpts);
+    return REG_NOMATCH;
+}
+```

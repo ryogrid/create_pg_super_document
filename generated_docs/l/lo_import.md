@@ -41,3 +41,13 @@ The internal implementation opens the specified file in binary read mode, create
 - For importing with a specific OID, use  instead
 - The operation is transactional - if it fails partway through, the transaction is aborted
 - File reading is done in chunks using LO_BUFSIZE buffer size for memory efficiency
+
+## Simplified Source
+
+```c
+Oid lo_import(PGconn *conn, const char *filename)
+{
+    // Simple wrapper - delegate to internal function with auto-assigned OID
+    return lo_import_internal(conn, filename, InvalidOid);
+}
+```

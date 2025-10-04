@@ -49,3 +49,164 @@ The function intelligently handles different variable types (regular variables, 
 - Processes asynchronous notifications after main result processing
 - Critical component in ECPG's data transfer pipeline between PostgreSQL and embedded applications
 - Validates argument counts and raises appropriate errors for mismatches
+
+## Simplified Source
+
+```c
+bool
+ecpg_process_output(struct statement *stmt, bool clear_result)
+{
+    struct variable *var;
+    bool status = false;
+    char *cmdstat;
+    struct sqlca_t *sqlca = ECPGget_sqlca();
+    int nfields, ntuples, act_field;
+
+    if (!sqlca)
+    {
+        ecpg_raise(stmt->lineno, ECPG_OUT_OF_MEMORY,
+                   ECPG_SQLSTATE_ECPG_OUT_OF_MEMORY, NULL);
+        return false;
+    }
+
+    var = stmt->outlist;
+    switch (PQresultStatus(stmt->results))
+    {
+        case PGRES_TUPLES_OK:
+            // Process SELECT results
+            nfields = PQnfields(stmt->results);
+            sqlca->sqlerrd[2] = ntuples = PQntuples(stmt->results);
+
+            ecpg_log("ecpg_process_output on line %d: correctly got %d tuples with %d fields\n",
+                     stmt->lineno, ntuples, nfields);
+            status = true;
+
+            if (ntuples < 1)
+            {
+                ecpg_raise(stmt->lineno, ECPG_NOT_FOUND, ECPG_SQLSTATE_NO_DATA, NULL);
+                status = false;
+                break;
+            }
+
+            // Handle descriptor output
+            if (var && var->type == ECPGt_descriptor)
+            {
+                struct descriptor *desc = ecpg_find_desc(stmt->lineno, var->pointer);
+                if (!desc)
+                    status = false;
+                else
+                {
+                    PQclear(desc->result);
+                    desc->result = stmt->results;
+                    clear_result = false;
+                    ecpg_log("ecpg_process_output on line %d: putting result (%d tuples) into descriptor %s\n",
+                             stmt->lineno, PQntuples(stmt->results), (const char *) var->pointer);
+                }
+                var = var->next;
+            }
+            // Handle SQLDA output (simplified - handles both Informix and native modes)
+            else if (var && var->type == ECPGt_sqlda)
+            {
+                // Build and populate SQLDA structure based on compatibility mode
+                // Creates linked list of SQLDA structures for multiple tuples
+                var = var->next;
+            }
+            // Handle regular variable output
+            else
+            {
+                for (act_field = 0; act_field < nfields && status; act_field++)
+                {
+                    if (var)
+                    {
+                        status = ecpg_store_result(stmt->results, act_field, stmt, var);
+                        var = var->next;
+                    }
+                    else if (!INFORMIX_MODE(stmt->compat))
+                    {
+                        ecpg_raise(stmt->lineno, ECPG_TOO_FEW_ARGUMENTS,
+                                  ECPG_SQLSTATE_USING_CLAUSE_DOES_NOT_MATCH_TARGETS, NULL);
+                        return false;
+                    }
+                }
+            }
+
+            // Check for too many output variables
+            if (status && var)
+            {
+                ecpg_raise(stmt->lineno, ECPG_TOO_MANY_ARGUMENTS,
+                          ECPG_SQLSTATE_USING_CLAUSE_DOES_NOT_MATCH_TARGETS, NULL);
+                status = false;
+            }
+            break;
+
+        case PGRES_COMMAND_OK:
+            // Process INSERT/UPDATE/DELETE results
+            status = true;
+            cmdstat = PQcmdStatus(stmt->results);
+            sqlca->sqlerrd[1] = PQoidValue(stmt->results);
+            sqlca->sqlerrd[2] = atol(PQcmdTuples(stmt->results));
+
+            ecpg_log("ecpg_process_output on line %d: OK: %s\n", stmt->lineno, cmdstat);
+
+            // Check for zero rows affected in data modification commands
+            if (stmt->compat != ECPG_COMPAT_INFORMIX_SE &&
+                !sqlca->sqlerrd[2] &&
+                (strncmp(cmdstat, "UPDATE", 6) == 0 ||
+                 strncmp(cmdstat, "INSERT", 6) == 0 ||
+                 strncmp(cmdstat, "DELETE", 6) == 0))
+                ecpg_raise(stmt->lineno, ECPG_NOT_FOUND, ECPG_SQLSTATE_NO_DATA, NULL);
+            break;
+
+        case PGRES_COPY_OUT:
+            // Handle COPY TO STDOUT
+            ecpg_log("ecpg_process_output on line %d: COPY OUT data transfer in progress\n",
+                     stmt->lineno);
+
+            char *buffer;
+            int res;
+            while ((res = PQgetCopyData(stmt->connection->connection, &buffer, 0)) > 0)
+            {
+                printf("%s", buffer);
+                PQfreemem(buffer);
+            }
+
+            if (res == -1)
+            {
+                // COPY completed successfully
+                PQclear(stmt->results);
+                stmt->results = PQgetResult(stmt->connection->connection);
+                ecpg_log("ecpg_process_output on line %d: COPY completed\n", stmt->lineno);
+            }
+            break;
+
+        default:
+            // Unexpected result status
+            ecpg_log("ecpg_process_output on line %d: unknown execution status type\n",
+                     stmt->lineno);
+            ecpg_raise_backend(stmt->lineno, stmt->results,
+                              stmt->connection->connection, stmt->compat);
+            status = false;
+            break;
+    }
+
+    // Clean up result if requested
+    if (clear_result)
+    {
+        PQclear(stmt->results);
+        stmt->results = NULL;
+    }
+
+    // Process asynchronous notifications
+    PQconsumeInput(stmt->connection->connection);
+    PGnotify *notify;
+    while ((notify = PQnotifies(stmt->connection->connection)) != NULL)
+    {
+        ecpg_log("ecpg_process_output on line %d: asynchronous notification of \"%s\" from backend PID %d received\n",
+                 stmt->lineno, notify->relname, notify->be_pid);
+        PQfreemem(notify);
+        PQconsumeInput(stmt->connection->connection);
+    }
+
+    return status;
+}
+```

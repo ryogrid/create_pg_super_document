@@ -37,3 +37,14 @@ The function provides a focused interface for block-level updates without affect
 - Commonly used in index operations and WAL replay scenarios
 - Essential for tuple relocation operations during page splits and maintenance
 - Provides atomic block number updates without affecting offset positioning
+
+## Simplified Source
+
+```c
+static inline void
+ItemPointerSetBlockNumber(ItemPointerData *pointer, BlockNumber blockNumber)
+{
+    Assert(PointerIsValid(pointer));
+    BlockIdSet(&pointer->ip_blkid, blockNumber);
+}
+```

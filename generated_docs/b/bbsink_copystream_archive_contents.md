@@ -39,3 +39,44 @@ This function handles the transmission of archive content chunks during a baseba
 - Only sends data to client when send_to_client flag is true, allowing for other destination types
 - Progress reports include a 'p' type byte followed by the total bytes processed so far
 - Calls pq_flush_if_writable after progress reports to ensure timely delivery to clients
+
+## Simplified Source
+
+```c
+static void
+bbsink_copystream_archive_contents(bbsink *sink, size_t len)
+{
+    bbsink_copystream *mysink = (bbsink_copystream *) sink;
+    bbsink_state *state = mysink->base.bbs_state;
+    StringInfoData buf;
+    uint64 targetbytes;
+
+    // Send archive content to client if enabled
+    if (mysink->send_to_client) {
+        pq_putmessage('d', mysink->msgbuffer, len + 1);  // +1 for type byte
+    }
+
+    // Check if it's time for a progress report (after enough bytes processed)
+    targetbytes = mysink->bytes_done_at_last_time_check + PROGRESS_REPORT_BYTE_INTERVAL;
+    if (targetbytes <= state->bytes_done) {
+        TimestampTz now = GetCurrentTimestamp();
+        long ms;
+
+        // Check time since last progress report
+        mysink->bytes_done_at_last_time_check = state->bytes_done;
+        ms = TimestampDifferenceMilliseconds(mysink->last_progress_report_time, now);
+
+        // Send progress report if enough time elapsed or clock went backward
+        if (ms >= PROGRESS_REPORT_MILLISECOND_THRESHOLD || now < mysink->last_progress_report_time) {
+            mysink->last_progress_report_time = now;
+
+            // Send progress message with current byte count
+            pq_beginmessage(&buf, PqMsg_CopyData);
+            pq_sendbyte(&buf, 'p');  // 'p' = Progress report
+            pq_sendint64(&buf, state->bytes_done);
+            pq_endmessage(&buf);
+            pq_flush_if_writable();
+        }
+    }
+}
+```

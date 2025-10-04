@@ -44,3 +44,21 @@ pa_wait_for_xact_finish ensures proper transaction coordination and deadlock det
 - Static function indicating its an internal coordination mechanism within the parallel apply system
 - Critical for maintaining transaction consistency and detecting worker failures in parallel logical replication
 - The immediate unlock after lock acquisition indicates this is purely a synchronization point, not resource protection
+
+## Simplified Source
+
+```c
+static void pa_wait_for_xact_finish(ParallelApplyWorkerInfo *winfo) {
+    // Wait for worker to acquire transaction lock
+    pa_wait_for_xact_state(winfo, PARALLEL_TRANS_STARTED);
+
+    // Use lock acquisition/release for deadlock detection
+    pa_lock_transaction(winfo->shared->xid, AccessShareLock);
+    pa_unlock_transaction(winfo->shared->xid, AccessShareLock);
+
+    // Verify transaction completed successfully
+    if (pa_get_xact_state(winfo->shared) != PARALLEL_TRANS_FINISHED)
+        ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                       errmsg("lost connection to the logical replication parallel apply worker")));
+}
+```

@@ -37,3 +37,22 @@ The filtering process follows a hierarchical approach:
 - When two-phase decoding is disabled, transactions are processed as regular commits at COMMIT PREPARED time
 - The filter callback allows output plugins to implement custom logic for selective two-phase transaction processing
 - This filtering mechanism provides flexibility for different replication scenarios and plugin requirements
+
+## Simplified Source
+
+```c
+static inline bool FilterPrepare(LogicalDecodingContext *ctx, TransactionId xid, const char *gid)
+{
+    // Skip PREPARE if two-phase decoding is disabled
+    // Transaction will be processed as regular commit at COMMIT PREPARED time
+    if (!ctx->twophase)
+        return true;
+
+    // If no filter callback provided, allow all prepared transactions
+    if (ctx->callbacks.filter_prepare_cb == NULL)
+        return false;
+
+    // Use plugin-specific filtering logic
+    return filter_prepare_cb_wrapper(ctx, xid, gid);
+}
+```

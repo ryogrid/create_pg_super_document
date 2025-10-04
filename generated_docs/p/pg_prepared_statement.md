@@ -58,3 +58,64 @@ This function follows PostgreSQL's SRF (Set-Returning Function) convention:
 - [Plan](../P/Plan.md) statistics (generic_plans, custom_plans) provide insight into PostgreSQL's adaptive planning behavior
 - The from_sql flag distinguishes between statements prepared via SQL PREPARE vs. protocol-level preparation
 - This function is typically exposed through the pg_prepared_statements system view
+
+## Simplified Source
+
+```c
+Datum
+pg_prepared_statement(PG_FUNCTION_ARGS)
+{
+    ReturnSetInfo *rsinfo = (ReturnSetInfo *) fcinfo->resultinfo;
+
+    // Initialize materialized set-returning function
+    InitMaterializedSRF(fcinfo, 0);
+
+    // Scan prepared statements hash table if it exists
+    if (prepared_queries)
+    {
+        HASH_SEQ_STATUS hash_seq;
+        PreparedStatement *prep_stmt;
+
+        hash_seq_init(&hash_seq, prepared_queries);
+        while ((prep_stmt = hash_seq_search(&hash_seq)) != NULL)
+        {
+            TupleDesc result_desc;
+            Datum values[8];
+            bool nulls[8] = {0};
+
+            result_desc = prep_stmt->plansource->resultDesc;
+
+            // Fill result columns: name, statement, prepare_time, param_types
+            values[0] = CStringGetTextDatum(prep_stmt->stmt_name);
+            values[1] = CStringGetTextDatum(prep_stmt->plansource->query_string);
+            values[2] = TimestampTzGetDatum(prep_stmt->prepare_time);
+            values[3] = build_regtype_array(prep_stmt->plansource->param_types,
+                                          prep_stmt->plansource->num_params);
+
+            // Handle result types (nullable for DML statements)
+            if (result_desc)
+            {
+                Oid *result_types;
+
+                result_types = palloc_array(Oid, result_desc->natts);
+                for (int i = 0; i < result_desc->natts; i++)
+                    result_types[i] = result_desc->attrs[i].atttypid;
+                values[4] = build_regtype_array(result_types, result_desc->natts);
+            }
+            else
+            {
+                nulls[4] = true;
+            }
+
+            // Fill remaining columns: from_sql, generic_plans, custom_plans
+            values[5] = BoolGetDatum(prep_stmt->from_sql);
+            values[6] = Int64GetDatumFast(prep_stmt->plansource->num_generic_plans);
+            values[7] = Int64GetDatumFast(prep_stmt->plansource->num_custom_plans);
+
+            tuplestore_putvalues(rsinfo->setResult, rsinfo->setDesc, values, nulls);
+        }
+    }
+
+    return (Datum) 0;
+}
+```

@@ -40,3 +40,26 @@ This analysis enables PostgreSQL to provide targeted hints like "To reference th
 - Part of PostgreSQL's intelligent error reporting system that guides users toward correct SQL syntax
 - Particularly useful for users transitioning from other SQL databases that may have different scoping rules
 - Does not perform deep analysis of visibility flags (p_rel_visible, p_cols_visible) as precision is not critical for hint generation
+
+## Simplified Source
+
+```c
+static bool
+rte_visible_if_lateral(ParseState *pstate, RangeTblEntry *rte)
+{
+    ParseNamespaceItem *nsitem;
+
+    // If LATERAL is already active, this hint wouldn't help
+    if (pstate->p_lateral_active)
+        return false;
+
+    // Find the namespace item for this RTE
+    nsitem = findNSItemForRTE(pstate, rte);
+    if (nsitem) {
+        // Return true if it's LATERAL-only but LATERAL would make it accessible
+        return nsitem->p_lateral_only && nsitem->p_lateral_ok;
+    }
+
+    return false;
+}
+```

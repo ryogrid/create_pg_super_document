@@ -55,3 +55,56 @@ The function uses parameterized queries to safely check the process status and i
 - Queries pg_stat_activity system view which requires appropriate database permissions
 - The polling approach ensures tests wait for actual state changes rather than relying on fixed timeouts
 - Commonly used to ensure queries are actually running before attempting cancellation
+
+## Simplified Source
+
+```c
+static void wait_for_connection_state(int line, PGconn *monitorConn, int procpid,
+                                      char *state, char *event) {
+    const Oid paramTypes[] = {INT4OID, TEXTOID};
+    const char *paramValues[2];
+    char *pidstr = psprintf("%d", procpid);
+
+    Assert((state == NULL) ^ (event == NULL));  // Exactly one must be non-NULL
+
+    paramValues[0] = pidstr;
+    paramValues[1] = state ? state : event;
+
+    while (true) {
+        PGresult *res;
+        char *value;
+
+        // Query pg_stat_activity for the target condition
+        if (state != NULL)
+            res = PQexecParams(monitorConn,
+                              "SELECT count(*) FROM pg_stat_activity WHERE "
+                              "pid = $1 AND state = $2",
+                              2, paramTypes, paramValues, NULL, NULL, 0);
+        else
+            res = PQexecParams(monitorConn,
+                              "SELECT count(*) FROM pg_stat_activity WHERE "
+                              "pid = $1 AND wait_event = $2",
+                              2, paramTypes, paramValues, NULL, NULL, 0);
+
+        // Validate query results
+        if (PQresultStatus(res) != PGRES_TUPLES_OK)
+            pg_fatal_impl(line, "could not query pg_stat_activity: %s", PQerrorMessage(monitorConn));
+        if (PQntuples(res) != 1)
+            pg_fatal_impl(line, "unexpected number of rows received: %d", PQntuples(res));
+        if (PQnfields(res) != 1)
+            pg_fatal_impl(line, "unexpected number of columns received: %d", PQnfields(res));
+
+        // Check if condition is met (count > 0)
+        value = PQgetvalue(res, 0, 0);
+        if (strcmp(value, "0") != 0) {
+            PQclear(res);
+            break;  // Condition met, exit loop
+        }
+
+        PQclear(res);
+        pg_usleep(10000);  // Wait 10ms before polling again
+    }
+
+    pfree(pidstr);
+}
+```

@@ -33,3 +33,22 @@ The function serves as a safe accessor for the tuple field of HeapTupleTableSlot
 - Part of the heap-specific tuple table slot operations infrastructure
 - Assumes the input slot is actually a HeapTupleTableSlot (performs unsafe cast)
 - Used when callers need direct access to the HeapTuple structure for operations like tuple copying or low-level manipulation
+
+## Simplified Source
+
+```c
+static HeapTuple
+tts_heap_get_heap_tuple(TupleTableSlot *slot)
+{
+    HeapTupleTableSlot *hslot = (HeapTupleTableSlot *) slot;
+
+    // Ensure slot contains data
+    Assert(!TTS_EMPTY(slot));
+
+    // Materialize tuple if not already present
+    if (!hslot->tuple)
+        tts_heap_materialize(slot);
+
+    return hslot->tuple;
+}
+```

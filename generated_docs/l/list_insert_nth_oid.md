@@ -42,3 +42,25 @@ The function enforces type safety by asserting that the target list contains onl
 - Returns the modified list (same list object, not a new copy)
 - Part of PostgreSQL's type-safe list API that prevents mixing different data types in lists
 - Commonly used in query planning and execution for managing object references
+
+## Simplified Source
+
+```c
+List *
+list_insert_nth_oid(List *list, int pos, Oid datum)
+{
+    // Handle empty list case
+    if (list == NIL) {
+        Assert(pos == 0);
+        return list_make1_oid(datum);
+    }
+
+    // Verify this is an Oid list
+    Assert(IsOidList(list));
+
+    // Insert new cell and set Oid value
+    lfirst_oid(insert_new_cell(list, pos)) = datum;
+    check_list_invariants(list);
+    return list;
+}
+```

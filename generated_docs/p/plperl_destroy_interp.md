@@ -57,3 +57,36 @@ This approach allows Perl modules and user code to clean up resources through EN
 - Designed to be called only when the target interpreter is the active one
 - Sets interpreter pointer to NULL to prevent accidental reuse after destruction
 - Based on Perl's own perl_destruct() implementation but significantly simplified
+
+## Simplified Source
+
+```c
+static void
+plperl_destroy_interp(PerlInterpreter **interp)
+{
+    if (interp && *interp)
+    {
+        dTHX;
+
+        // Run END blocks safely using Perl's exception handling
+        if (PL_exit_flags & PERL_EXIT_DESTRUCT_END)
+        {
+            dJMPENV;
+            int x = 0;
+
+            JMPENV_PUSH(x);
+            PERL_UNUSED_VAR(x);
+            if (PL_endav && !PL_minus_c)
+                call_list(PL_scopestack_ix, PL_endav);
+            JMPENV_POP;
+        }
+
+        // Clean up temporaries and scope
+        LEAVE;
+        FREETMPS;
+
+        // Mark interpreter as destroyed
+        *interp = NULL;
+    }
+}
+```

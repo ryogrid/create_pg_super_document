@@ -35,3 +35,13 @@ The function ensures that memory is freed using the same memory management syste
 - Always use PQfreemem to free memory returned by PQescapeBytea(), PQunescapeBytea(), and other libpq functions that allocate memory
 - Using standard free() instead of PQfreemem on certain platforms can lead to heap corruption or crashes
 - The function is a simple wrapper around the standard free() function but ensures compatibility across different runtime environments
+
+## Simplified Source
+
+```c
+void PQfreemem(void *ptr) {
+    // Safe memory deallocation wrapper
+    // Ensures compatibility across different runtime environments
+    free(ptr);
+}
+```

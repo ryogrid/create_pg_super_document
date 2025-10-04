@@ -39,3 +39,45 @@ Key behaviors:
 - Implements the PostgreSQL polling pattern for non-blocking operations
 - The double-read logic on EOF helps distinguish between temporary unavailability and true connection closure
 - Return values: PGRES_POLLING_OK (success), PGRES_POLLING_READING (retry needed), PGRES_POLLING_FAILED (permanent error)
+
+## Simplified Source
+```c
+static PostgresPollingStatusType gss_read(PGconn *conn, void *recv_buffer,
+                                          size_t length, ssize_t *ret) {
+    // Attempt to read data from the socket
+    *ret = pqsecure_raw_read(conn, recv_buffer, length);
+
+    if (*ret < 0) {
+        // Handle retryable errors vs permanent failures
+        if (errno == EAGAIN || errno == EWOULDBLOCK || errno == EINTR)
+            return PGRES_POLLING_READING;
+        else
+            return PGRES_POLLING_FAILED;
+    }
+
+    // Handle EOF condition with retry logic
+    if (*ret == 0) {
+        // Check if data is actually available to read
+        int result = pqReadReady(conn);
+        if (result < 0)
+            return PGRES_POLLING_FAILED;
+        if (!result)
+            return PGRES_POLLING_READING;
+
+        // Try reading again after confirming readiness
+        *ret = pqsecure_raw_read(conn, recv_buffer, length);
+        if (*ret < 0) {
+            if (errno == EAGAIN || errno == EWOULDBLOCK || errno == EINTR)
+                return PGRES_POLLING_READING;
+            else
+                return PGRES_POLLING_FAILED;
+        }
+
+        // Still EOF after second attempt = connection closed
+        if (*ret == 0)
+            return PGRES_POLLING_FAILED;
+    }
+
+    return PGRES_POLLING_OK;
+}
+```

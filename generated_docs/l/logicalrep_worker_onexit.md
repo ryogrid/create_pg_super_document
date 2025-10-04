@@ -46,3 +46,29 @@ The function includes special handling for parallel apply workers, where session
 - InitializingApplyWorker flag is checked to avoid releasing locks during worker initialization phase
 - Waking up the launcher ensures that the system can respond appropriately to worker termination (e.g., restarting failed workers)
 - The comprehensive cleanup prevents resource leaks and ensures system consistency after worker termination
+
+## Simplified Source
+
+```c
+static void logicalrep_worker_onexit(int code, Datum arg)
+{
+    // Step 1: Disconnect gracefully from remote database
+    if (LogRepWorkerWalRcvConn)
+        walrcv_disconnect(LogRepWorkerWalRcvConn);
+
+    // Step 2: Detach from worker slot and stop parallel workers
+    logicalrep_worker_detach();
+
+    // Step 3: Clean up streaming transaction files
+    if (MyLogicalRepWorker->stream_fileset != NULL)
+        FileSetDeleteAll(MyLogicalRepWorker->stream_fileset);
+
+    // Step 4: Release session-level locks (important for parallel apply)
+    // Locks may be acquired outside transactions and need manual release
+    if (!InitializingApplyWorker)
+        LockReleaseAll(DEFAULT_LOCKMETHOD, true);
+
+    // Step 5: Notify launcher about worker termination
+    ApplyLauncherWakeup();
+}
+```

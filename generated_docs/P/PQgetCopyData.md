@@ -50,3 +50,28 @@ Key features:
 - Used primarily in COPY TO STDOUT operations and replication contexts
 - Critical component for efficient bulk data retrieval from PostgreSQL
 - The async parameter enables integration with event-driven applications
+
+## Simplified Source
+
+```c
+int PQgetCopyData(PGconn *conn, char **buffer, int async)
+{
+    // Initialize buffer to NULL for all failure cases
+    *buffer = NULL;
+
+    // Basic connection validation
+    if (!conn)
+        return -2;
+
+    // Verify connection is in COPY OUT or COPY BOTH state
+    if (conn->asyncStatus != PGASYNC_COPY_OUT &&
+        conn->asyncStatus != PGASYNC_COPY_BOTH)
+    {
+        libpq_append_conn_error(conn, "no COPY in progress");
+        return -2;
+    }
+
+    // Delegate to protocol version 3 implementation
+    return pqGetCopyData3(conn, buffer, async);
+}
+```

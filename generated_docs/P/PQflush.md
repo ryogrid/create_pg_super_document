@@ -40,3 +40,16 @@ When used with blocking connections, PQflush may block until the data is success
 - Essential for pipeline operations and streaming replication scenarios
 - In blocking mode, the function will wait until data is sent or an error occurs
 - Should be called after sending commands in non-blocking mode to ensure delivery
+
+## Simplified Source
+
+```c
+int PQflush(PGconn *conn) {
+    // Validate connection
+    if (!conn || conn->status == CONNECTION_BAD)
+        return -1;
+
+    // Delegate to internal flush implementation
+    return pqFlush(conn);
+}
+```

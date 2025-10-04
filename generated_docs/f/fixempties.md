@@ -54,3 +54,97 @@ The algorithm is designed to avoid O(N³) complexity by only considering origina
 - The algorithm's choice to push arcs forward rather than pull them back is somewhat arbitrary but required for consistency
 - Debug output can be enabled by providing a non-NULL file pointer
 - Located in src/backend/regex/regc_nfa.c:2076-2302
+
+## Simplified Source
+```c
+static void fixempties(struct nfa *nfa, FILE *f) {
+    struct state *s, *s2, *nexts;
+    struct arc *a, *nexta;
+    struct arc **inarcsorig, **arcarray;
+    int totalinarcs, arccount, prevnins, nskip;
+
+    // Phase 1: Remove states with single EMPTY out-arc
+    for (s = nfa->states; s != NULL && !NISERR(); s = nexts) {
+        nexts = s->next;
+        if (s->flag || s->nouts != 1) continue;
+
+        a = s->outs;
+        if (a->type != EMPTY) continue;
+
+        if (s != a->to)
+            moveins(nfa, s, a->to);
+        dropstate(nfa, s);
+    }
+
+    // Phase 2: Remove states with single EMPTY in-arc
+    for (s = nfa->states; s != NULL && !NISERR(); s = nexts) {
+        nexts = s->next;
+        if (s->flag || s->nins != 1) continue;
+
+        a = s->ins;
+        if (a->type != EMPTY) continue;
+
+        if (s != a->from)
+            moveouts(nfa, s, a->from);
+        dropstate(nfa, s);
+    }
+
+    // Phase 3: Handle complex EMPTY chains
+    // Allocate workspace for original arcs tracking
+    inarcsorig = MALLOC(nfa->nstates * sizeof(struct arc *));
+    totalinarcs = 0;
+    for (s = nfa->states; s != NULL; s = s->next) {
+        inarcsorig[s->no] = s->ins;
+        totalinarcs += s->nins;
+    }
+
+    arcarray = MALLOC(totalinarcs * sizeof(struct arc *));
+
+    // Process each target state
+    for (s = nfa->states; s != NULL && !NISERR(); s = s->next) {
+        // Skip states without non-EMPTY outarcs
+        if (!s->flag && !hasnonemptyout(s)) continue;
+
+        // Find all states reachable via EMPTY arcs
+        arccount = 0;
+        for (s2 = emptyreachable(nfa, s, s, inarcsorig); s2 != s; s2 = nexts) {
+            // Collect non-EMPTY arcs from reachable states
+            for (a = inarcsorig[s2->no]; a != NULL; a = a->inchain) {
+                if (a->type != EMPTY)
+                    arcarray[arccount++] = a;
+            }
+            nexts = s2->tmp;
+            s2->tmp = NULL;
+        }
+        s->tmp = NULL;
+
+        prevnins = s->nins;
+        mergeins(nfa, s, arcarray, arccount);
+
+        // Update original arcs pointer
+        nskip = s->nins - prevnins;
+        a = s->ins;
+        while (nskip-- > 0) a = a->inchain;
+        inarcsorig[s->no] = a;
+    }
+
+    FREE(arcarray);
+    FREE(inarcsorig);
+
+    // Phase 4: Remove all EMPTY arcs
+    for (s = nfa->states; s != NULL; s = s->next) {
+        for (a = s->outs; a != NULL; a = nexta) {
+            nexta = a->outchain;
+            if (a->type == EMPTY)
+                freearc(nfa, a);
+        }
+    }
+
+    // Phase 5: Remove useless states
+    for (s = nfa->states; s != NULL; s = nexts) {
+        nexts = s->next;
+        if ((s->nins == 0 || s->nouts == 0) && !s->flag)
+            dropstate(nfa, s);
+    }
+}
+```

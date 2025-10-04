@@ -36,3 +36,21 @@ The function uses a static boolean flag to ensure the handler is only registered
 - Essential for maintaining backup counter consistency and preventing resource leaks
 - Part of the backup infrastructure's defensive programming approach
 - File location: src/backend/access/transam/xlog.c:9437-9450
+
+## Simplified Source
+
+```c
+void
+register_persistent_abort_backup_handler(void)
+{
+    static bool already_done = false;
+
+    // Only register the handler once per backend process
+    if (already_done)
+        return;
+
+    // Register cleanup handler for session exit
+    before_shmem_exit(do_pg_abort_backup, DatumGetBool(false));
+    already_done = true;
+}
+```

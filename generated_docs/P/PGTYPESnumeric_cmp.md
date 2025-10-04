@@ -35,3 +35,29 @@ This function performs comparison between two numeric variables by analyzing the
 - Critical component for sorting and conditional operations in client applications
 - Part of the ECPG pgtypes library providing PostgreSQL-compatible numeric operations
 - Handles all edge cases including zero values and sign combinations
+
+## Simplified Source
+
+```c
+int
+PGTYPESnumeric_cmp(numeric *var1, numeric *var2)
+{
+    // Both positive: direct comparison
+    if (var1->sign == NUMERIC_POS && var2->sign == NUMERIC_POS)
+        return cmp_abs(var1, var2);
+
+    // Both negative: invert parameter order for correct result
+    if (var1->sign == NUMERIC_NEG && var2->sign == NUMERIC_NEG)
+        return cmp_abs(var2, var1);
+
+    // Mixed signs: positive > negative
+    if (var1->sign == NUMERIC_POS && var2->sign == NUMERIC_NEG)
+        return 1;
+    if (var1->sign == NUMERIC_NEG && var2->sign == NUMERIC_POS)
+        return -1;
+
+    // Error case: invalid sign combination
+    errno = PGTYPES_NUM_BAD_NUMERIC;
+    return INT_MAX;
+}
+```

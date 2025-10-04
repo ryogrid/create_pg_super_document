@@ -46,3 +46,41 @@ The function handles parameter validation, type conversion, and ensures proper S
 - Parameter conversion handles the mapping between external parameter representations and internal Datum format
 - The read_only flag provides an additional safety mechanism for preventing modifications in read-only contexts
 - This is one of the most commonly used SPI functions for executing parameterized queries
+
+## Simplified Source
+
+```c
+int SPI_execute_plan(SPIPlanPtr plan, Datum *Values, const char *Nulls,
+                     bool read_only, long tcount) {
+    SPIExecuteOptions options;
+    int res;
+
+    // Validate plan and arguments
+    if (plan == NULL || plan->magic != _SPI_PLAN_MAGIC || tcount < 0)
+        return SPI_ERROR_ARGUMENT;
+
+    // Check parameters are provided if plan expects them
+    if (plan->nargs > 0 && Values == NULL)
+        return SPI_ERROR_PARAM;
+
+    // Begin SPI execution context
+    res = _SPI_begin_call(true);
+    if (res < 0)
+        return res;
+
+    // Set up execution options
+    memset(&options, 0, sizeof(options));
+    options.params = _SPI_convert_params(plan->nargs, plan->argtypes,
+                                        Values, Nulls);
+    options.read_only = read_only;
+    options.tcount = tcount;
+
+    // Execute the prepared plan
+    res = _SPI_execute_plan(plan, &options,
+                           InvalidSnapshot, InvalidSnapshot, true);
+
+    // Clean up execution context
+    _SPI_end_call(true);
+    return res;
+}
+```

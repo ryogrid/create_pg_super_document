@@ -39,3 +39,28 @@ The function provides a more modern and extensible interface for plan execution,
 - Provides a cleaner interface for complex execution scenarios with many options
 - The function signature is more future-proof than functions with individual parameters
 - Represents the preferred approach for new code requiring plan execution with multiple options
+
+## Simplified Source
+
+```c
+int SPI_execute_plan_extended(SPIPlanPtr plan, const SPIExecuteOptions *options) {
+    int res;
+
+    // Validate plan and options
+    if (plan == NULL || plan->magic != _SPI_PLAN_MAGIC || options == NULL)
+        return SPI_ERROR_ARGUMENT;
+
+    // Begin SPI execution context
+    res = _SPI_begin_call(true);
+    if (res < 0)
+        return res;
+
+    // Execute plan with provided options
+    res = _SPI_execute_plan(plan, options,
+                           InvalidSnapshot, InvalidSnapshot, true);
+
+    // Clean up execution context
+    _SPI_end_call(true);
+    return res;
+}
+```

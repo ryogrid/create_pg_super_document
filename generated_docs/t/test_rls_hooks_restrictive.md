@@ -58,3 +58,58 @@ As noted in the source comments, for restrictive policies to be effective, at le
 - Includes proper collation assignment for expression evaluation
 - Test module design allows verification of restrictive policy logic without affecting production systems
 - Important for testing the AND logic behavior of restrictive policies versus the OR logic of permissive policies
+
+## Simplified Source
+
+```c
+List *
+test_rls_hooks_restrictive(CmdType cmdtype, Relation relation)
+{
+    // Only process specific test tables
+    if (strcmp(RelationGetRelationName(relation), "rls_test_restrictive") != 0 &&
+        strcmp(RelationGetRelationName(relation), "rls_test_both") != 0)
+        return NIL;
+
+    // Create policy structure
+    RowSecurityPolicy *policy = palloc0(sizeof(RowSecurityPolicy));
+    ParseState *qual_pstate = make_parsestate(NULL);
+
+    // Set up table access for parsing
+    ParseNamespaceItem *nsitem = addRangeTableEntryForRelation(qual_pstate,
+                                                              relation, AccessShareLock,
+                                                              NULL, false, false);
+    addNSItemToQuery(qual_pstate, nsitem, false, true, true);
+
+    // Configure basic policy properties
+    policy->policy_name = pstrdup("extension policy");
+    policy->polcmd = '*';  // Apply to all command types
+
+    // Set policy to apply to PUBLIC role
+    Datum role = ObjectIdGetDatum(ACL_ID_PUBLIC);
+    policy->roles = construct_array_builtin(&role, 1, OIDOID);
+
+    // Build restrictive policy expression: current_user = supervisor
+    FuncCall *current_user_func = makeFuncCall(list_make2(makeString("pg_catalog"),
+                                                         makeString("current_user")),
+                                              NIL, COERCE_EXPLICIT_CALL, -1);
+
+    ColumnRef *supervisor_col = makeNode(ColumnRef);
+    supervisor_col->fields = list_make1(makeString("supervisor"));
+    supervisor_col->location = 0;
+
+    // Create equality expression
+    Node *equality_expr = (Node *) makeSimpleA_Expr(AEXPR_OP, "=",
+                                                    (Node *) current_user_func,
+                                                    (Node *) supervisor_col, 0);
+
+    // Transform and assign policy qualifications
+    policy->qual = (Expr *) transformWhereClause(qual_pstate, copyObject(equality_expr),
+                                                 EXPR_KIND_POLICY, "POLICY");
+    assign_expr_collations(qual_pstate, (Node *) policy->qual);
+
+    policy->with_check_qual = copyObject(policy->qual);
+    policy->hassublinks = false;
+
+    return list_make1(policy);
+}
+```

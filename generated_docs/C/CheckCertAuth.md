@@ -63,3 +63,70 @@ The function also handles error reporting for different certificate validation s
 - Integrates with PostgreSQL's usermap system to allow flexible username mapping rules
 - Used in conjunction with other authentication methods when certificate validation is required
 - Certificate information (`peer_dn`, `peer_cn`) must be populated by SSL handshake process before this function is called
+
+## Simplified Source
+
+```c
+static int
+CheckCertAuth(Port *port)
+{
+    int         status_check_usermap = STATUS_ERROR;
+    char       *peer_username = NULL;
+
+    Assert(port->ssl);
+
+    // Select certificate identity field to use (DN or CN)
+    switch (port->hba->clientcertname)
+    {
+        case clientCertDN:
+            peer_username = port->peer_dn;
+            break;
+        case clientCertCN:
+            peer_username = port->peer_cn;
+    }
+
+    // Validate that certificate contains user identity
+    if (peer_username == NULL || strlen(peer_username) <= 0)
+    {
+        ereport(LOG, (errmsg("certificate authentication failed for user \"%s\": "
+                             "client certificate contains no user name", port->user_name)));
+        return STATUS_ERROR;
+    }
+
+    if (port->hba->auth_method == uaCert)
+    {
+        // For pure cert auth, set authenticated identity to subject DN
+        if (!port->peer_dn)
+        {
+            ereport(LOG, (errmsg("certificate authentication failed for user \"%s\": "
+                                 "unable to retrieve subject DN", port->user_name)));
+            return STATUS_ERROR;
+        }
+
+        set_authn_id(port, port->peer_dn);
+    }
+
+    // Check if certificate identity maps to requested username
+    status_check_usermap = check_usermap(port->hba->usermap, port->user_name, peer_username, false);
+
+    if (status_check_usermap != STATUS_OK)
+    {
+        // Log specific error for verify-full mode
+        if (port->hba->clientcert == clientCertFull && port->hba->auth_method != uaCert)
+        {
+            switch (port->hba->clientcertname)
+            {
+                case clientCertDN:
+                    ereport(LOG, (errmsg("certificate validation (clientcert=verify-full) "
+                                         "failed for user \"%s\": DN mismatch", port->user_name)));
+                    break;
+                case clientCertCN:
+                    ereport(LOG, (errmsg("certificate validation (clientcert=verify-full) "
+                                         "failed for user \"%s\": CN mismatch", port->user_name)));
+            }
+        }
+    }
+
+    return status_check_usermap;
+}
+```

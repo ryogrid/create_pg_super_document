@@ -36,3 +36,18 @@ The function operates as part of a two-phase cleanup process (markst followed by
 - Changes the behavior of freesubre() for all subsequent operations
 - Error handling must be carefully managed during the markst/cleanst transition period
 - Used exclusively during regex compilation, not during execution
+
+## Simplified Source
+
+```c
+static void markst(struct subre *t) {
+    struct subre *t2;
+
+    // Mark this node as in use
+    t->flags |= INUSE;
+
+    // Recursively mark all children
+    for (t2 = t->child; t2 != NULL; t2 = t2->sibling)
+        markst(t2);
+}
+```

@@ -33,3 +33,25 @@ The function starts by calling CHECK_FOR_INTERRUPTS() macro to check for any pen
 - The function handles graceful shutdown by logging the shutdown reason before exiting
 - Configuration changes are applied immediately when ConfigReloadPending is set
 - The wrconn parameter is currently unused but may be reserved for future functionality
+
+## Simplified Source
+
+```c
+static void ProcessSlotSyncInterrupts(WalReceiverConn *wrconn)
+{
+    // Check for any pending interrupts
+    CHECK_FOR_INTERRUPTS();
+
+    // Handle shutdown request
+    if (ShutdownRequestPending)
+    {
+        ereport(LOG,
+                errmsg("replication slot synchronization worker is shutting down on receiving SIGINT"));
+        proc_exit(0);
+    }
+
+    // Handle configuration reload request
+    if (ConfigReloadPending)
+        slotsync_reread_config();
+}
+```

@@ -56,3 +56,61 @@ The sub-transaction mechanism ensures that errors don't corrupt the main transac
 - Error messages are converted from PostgreSQL ErrorData to Perl exceptions
 - Returns NULL in the error path but this is never reached due to croak_cstr() call
 - Forms the foundation for SQL execution in PL/Perl stored procedures and functions
+
+## Simplified Source
+
+```c
+HV *
+plperl_spi_exec(char *query, int limit)
+{
+    HV *ret_hv;
+    MemoryContext oldcontext = CurrentMemoryContext;
+    ResourceOwner oldowner = CurrentResourceOwner;
+
+    check_spi_usage_allowed();
+
+    // Start sub-transaction for safe execution
+    BeginInternalSubTransaction(NULL);
+    MemoryContextSwitchTo(oldcontext);
+
+    PG_TRY();
+    {
+        int spi_rv;
+
+        // Validate query encoding
+        pg_verifymbstr(query, strlen(query), false);
+
+        // Execute query with appropriate read-only setting
+        spi_rv = SPI_execute(query, current_call_data->prodesc->fn_readonly, limit);
+
+        // Convert results to Perl hash
+        ret_hv = plperl_spi_execute_fetch_result(SPI_tuptable, SPI_processed, spi_rv);
+
+        // Commit sub-transaction on success
+        ReleaseCurrentSubTransaction();
+        MemoryContextSwitchTo(oldcontext);
+        CurrentResourceOwner = oldowner;
+    }
+    PG_CATCH();
+    {
+        ErrorData *edata;
+
+        // Handle error: save error info
+        MemoryContextSwitchTo(oldcontext);
+        edata = CopyErrorData();
+        FlushErrorState();
+
+        // Rollback sub-transaction
+        RollbackAndReleaseCurrentSubTransaction();
+        MemoryContextSwitchTo(oldcontext);
+        CurrentResourceOwner = oldowner;
+
+        // Convert to Perl exception
+        croak_cstr(edata->message);
+        return NULL;
+    }
+    PG_END_TRY();
+
+    return ret_hv;
+}
+```

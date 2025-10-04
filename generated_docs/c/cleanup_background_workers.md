@@ -37,3 +37,19 @@ This function is critical for preventing orphaned worker processes that could co
 - Essential for preventing resource leaks and zombie processes in test scenarios
 - The DSM segment parameter follows the standard callback signature but is not utilized in the cleanup logic
 - Designed to be idempotent - can be called multiple times safely without adverse effects
+
+## Simplified Source
+
+```c
+static void
+cleanup_background_workers(dsm_segment *seg, Datum arg)
+{
+    worker_state *wstate = (worker_state *) DatumGetPointer(arg);
+
+    // Terminate all registered workers
+    while (wstate->nworkers > 0) {
+        --wstate->nworkers;
+        TerminateBackgroundWorker(wstate->handle[wstate->nworkers]);
+    }
+}
+```

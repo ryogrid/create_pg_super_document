@@ -36,3 +36,15 @@ The function delegates the cleanup to forget_invalid_pages(), passing the relati
 - Part of the WAL replay infrastructure that ensures proper cleanup of tracking data structures during relation modifications
 - Helps prevent memory leaks by removing obsolete invalid page records for truncated portions of relations
 - Works in conjunction with the broader invalid page tracking system to maintain database consistency during recovery operations
+
+## Simplified Source
+
+```c
+void
+XLogTruncateRelation(RelFileLocator rlocator, ForkNumber forkNum, BlockNumber nblocks)
+{
+    // Clean up invalid page records for pages beyond the new relation size
+    // Pages at position nblocks and higher are considered truncated
+    forget_invalid_pages(rlocator, forkNum, nblocks);
+}
+```

@@ -57,3 +57,65 @@ The test includes several validation checks to ensure pipeline mode behaves corr
 - Part of the libpq_pipeline test module located in `src/test/modules/libpq_pipeline/`
 - The test validates that pipeline mode cannot be exited prematurely (while work is in progress)
 - Ensures that sync results are properly received and processed after query results
+
+## Simplified Source
+
+```c
+static void test_simple_pipeline(PGconn *conn) {
+    PGresult *res = NULL;
+    const char *dummy_params[1] = {"1"};
+    Oid dummy_param_oids[1] = {INT4OID};
+
+    fprintf(stderr, "simple pipeline... ");
+
+    // Verify blocking mode and enter pipeline mode
+    if (PQisnonblocking(conn))
+        pg_fatal("Expected blocking connection mode");
+    if (PQenterPipelineMode(conn) != 1)
+        pg_fatal("failed to enter pipeline mode: %s", PQerrorMessage(conn));
+
+    // Send query and attempt early pipeline exit (should fail)
+    if (PQsendQueryParams(conn, "SELECT $1", 1, dummy_param_oids,
+                         dummy_params, NULL, NULL, 0) != 1)
+        pg_fatal("dispatching SELECT failed: %s", PQerrorMessage(conn));
+
+    if (PQexitPipelineMode(conn) != 0)
+        pg_fatal("exiting pipeline mode with work in progress should fail, but succeeded");
+
+    // Send pipeline sync and process results
+    if (PQpipelineSync(conn) != 1)
+        pg_fatal("pipeline sync failed: %s", PQerrorMessage(conn));
+
+    // Get and validate query result
+    res = PQgetResult(conn);
+    if (res == NULL || PQresultStatus(res) != PGRES_TUPLES_OK)
+        pg_fatal("Unexpected result from first pipeline item");
+    PQclear(res);
+
+    // Ensure no extra results after query
+    if (PQgetResult(conn) != NULL)
+        pg_fatal("PQgetResult returned something extra after first query result.");
+
+    // Get and validate sync result
+    res = PQgetResult(conn);
+    if (res == NULL || PQresultStatus(res) != PGRES_PIPELINE_SYNC)
+        pg_fatal("Expected PGRES_PIPELINE_SYNC");
+    PQclear(res);
+
+    // Ensure no extra results after sync
+    if (PQgetResult(conn) != NULL)
+        pg_fatal("PQgetResult returned something extra after pipeline end");
+
+    // Verify still in pipeline mode, then exit successfully
+    if (PQpipelineStatus(conn) == PQ_PIPELINE_OFF)
+        pg_fatal("Fell out of pipeline mode somehow");
+
+    if (PQexitPipelineMode(conn) != 1)
+        pg_fatal("attempt to exit pipeline mode failed when it should've succeeded");
+
+    if (PQpipelineStatus(conn) != PQ_PIPELINE_OFF)
+        pg_fatal("Exiting pipeline mode didn't seem to work");
+
+    fprintf(stderr, "ok\n");
+}
+```

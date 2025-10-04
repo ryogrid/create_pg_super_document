@@ -43,3 +43,48 @@ The function includes an early exit optimization - if no meaningful activity has
 - Early exit optimization prevents unnecessary work when no activity occurred
 - Part of PostgreSQL's comprehensive monitoring and observability infrastructure
 - Statistics reported include both transaction counts and byte volumes for different operation types
+
+## Simplified Source
+
+```c
+void
+UpdateDecodingStats(LogicalDecodingContext *ctx)
+{
+    ReorderBuffer *rb = ctx->reorder;
+    PgStat_StatReplSlotEntry repSlotStat;
+
+    // Early exit if no activity to report
+    if (rb->spillBytes <= 0 && rb->streamBytes <= 0 && rb->totalBytes <= 0)
+        return;
+
+    // Debug logging of current statistics
+    elog(DEBUG2, "UpdateDecodingStats: updating stats %p %lld %lld %lld %lld %lld %lld %lld %lld",
+         rb,
+         (long long) rb->spillTxns, (long long) rb->spillCount, (long long) rb->spillBytes,
+         (long long) rb->streamTxns, (long long) rb->streamCount, (long long) rb->streamBytes,
+         (long long) rb->totalTxns, (long long) rb->totalBytes);
+
+    // Copy statistics from reorder buffer to report structure
+    repSlotStat.spill_txns = rb->spillTxns;
+    repSlotStat.spill_count = rb->spillCount;
+    repSlotStat.spill_bytes = rb->spillBytes;
+    repSlotStat.stream_txns = rb->streamTxns;
+    repSlotStat.stream_count = rb->streamCount;
+    repSlotStat.stream_bytes = rb->streamBytes;
+    repSlotStat.total_txns = rb->totalTxns;
+    repSlotStat.total_bytes = rb->totalBytes;
+
+    // Report statistics to PostgreSQL stats collector
+    pgstat_report_replslot(ctx->slot, &repSlotStat);
+
+    // Reset counters for delta reporting
+    rb->spillTxns = 0;
+    rb->spillCount = 0;
+    rb->spillBytes = 0;
+    rb->streamTxns = 0;
+    rb->streamCount = 0;
+    rb->streamBytes = 0;
+    rb->totalTxns = 0;
+    rb->totalBytes = 0;
+}
+```

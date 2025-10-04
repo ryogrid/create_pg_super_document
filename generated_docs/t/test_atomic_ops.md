@@ -38,3 +38,27 @@ This function uses the standard PostgreSQL function interface:
 - The function always returns  if all tests pass, indicating successful validation of atomic operations
 - The inclusion of spinlock testing alongside atomic operations reflects their close relationship in PostgreSQL's synchronization mechanisms
 - This function is essential for verifying platform-specific atomic operation implementations during PostgreSQL builds and testing
+
+## Simplified Source
+
+```c
+Datum test_atomic_ops(PG_FUNCTION_ARGS) {
+    // Test atomic flag operations
+    test_atomic_flag();
+
+    // Test 32-bit atomic operations
+    test_atomic_uint32();
+
+    // Test 64-bit atomic operations
+    test_atomic_uint64();
+
+    // Test spinlock functionality
+    test_spinlock();
+
+    // Test nested spinlock operations
+    test_atomic_spin_nest();
+
+    // Return success
+    PG_RETURN_BOOL(true);
+}
+```

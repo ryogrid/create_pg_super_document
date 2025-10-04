@@ -30,3 +30,12 @@ This function serves as the specific entry point for executing PL/PerlU (untrust
 - The actual differentiation between trusted and untrusted execution happens within the main inline handler
 - Located in src/pl/plperl/plperl.c:2075-2082
 - Forms part of PostgreSQL's procedural language interface for executing anonymous Perl code blocks
+
+## Simplified Source
+
+```c
+Datum plperlu_inline_handler(PG_FUNCTION_ARGS)
+{
+    return plperl_inline_handler(fcinfo);
+}
+```

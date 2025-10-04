@@ -43,3 +43,32 @@ The `bernoulli_beginsamplescan` function initializes the Bernoulli sampler with 
 - Enables page-mode visibility checking only for sampling percentages >= 25% (optimization based on experimentation)
 - The cutoff calculation provides strictly correct behavior at probability limits (0 or 1)
 - This is a static function, only callable within the bernoulli.c module
+
+## Simplified Source
+
+```c
+static void bernoulli_beginsamplescan(SampleScanState *node,
+                                     Datum *params,
+                                     int nparams,
+                                     uint32 seed) {
+    BernoulliSamplerData *sampler = (BernoulliSamplerData *) node->tsm_state;
+    double percent = DatumGetFloat4(params[0]);
+
+    // Validate sampling percentage
+    if (percent < 0 || percent > 100 || isnan(percent)) {
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_TABLESAMPLE_ARGUMENT),
+                 errmsg("sample percentage must be between 0 and 100")));
+    }
+
+    // Calculate probability cutoff for sampling decisions
+    double dcutoff = rint(((double) PG_UINT32_MAX + 1) * percent / 100);
+    sampler->cutoff = (uint64) dcutoff;
+    sampler->seed = seed;
+    sampler->lt = InvalidOffsetNumber;
+
+    // Configure scan optimizations
+    node->use_bulkread = true;              // Always use bulk read
+    node->use_pagemode = (percent >= 25);   // Page-mode for larger samples
+}
+```

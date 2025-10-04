@@ -42,3 +42,43 @@ ECPGtrans is a core ECPG function that handles transaction control operations. I
 - Extensively used throughout ECPG test suite for transaction management
 - Part of the ECPG embedded SQL interface
 - Located in src/interfaces/ecpg/ecpglib/misc.c at lines 160-203
+
+## Simplified Source
+
+```c
+bool ECPGtrans(int lineno, const char *connection_name, const char *transaction) {
+    struct connection *con = ecpg_get_connection(connection_name);
+
+    // Initialize connection
+    if (!ecpg_init(con, connection_name, lineno))
+        return false;
+
+    ecpg_log("ECPGtrans on line %d: action \"%s\"; connection \"%s\"\n",
+             lineno, transaction, con ? con->name : "null");
+
+    // Execute transaction if we have a connection
+    if (con && con->connection) {
+        // Auto-start transaction if needed (not in autocommit, not special commands)
+        if (PQtransactionStatus(con->connection) == PQTRANS_IDLE &&
+            !con->autocommit &&
+            strncmp(transaction, "begin", 5) != 0 &&
+            strncmp(transaction, "start", 5) != 0 &&
+            strncmp(transaction, "commit prepared", 15) != 0 &&
+            strncmp(transaction, "rollback prepared", 17) != 0) {
+
+            PGresult *res = PQexec(con->connection, "begin transaction");
+            if (!ecpg_check_PQresult(res, lineno, con->connection, ECPG_COMPAT_PGSQL))
+                return false;
+            PQclear(res);
+        }
+
+        // Execute the actual transaction command
+        PGresult *res = PQexec(con->connection, transaction);
+        if (!ecpg_check_PQresult(res, lineno, con->connection, ECPG_COMPAT_PGSQL))
+            return false;
+        PQclear(res);
+    }
+
+    return true;
+}
+```

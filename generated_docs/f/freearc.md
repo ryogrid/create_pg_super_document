@@ -40,3 +40,70 @@ The freearc function safely removes an arc from an NFA structure by performing c
 - The arc type is set to 0 to mark it as freed/invalid
 - Memory recycling through the freelist improves allocation performance
 - Careful pointer management prevents memory corruption during unlinking operations
+
+## Simplified Source
+
+```c
+static void freearc(struct nfa *nfa, struct arc *victim) {
+    struct state *from = victim->from;
+    struct state *to = victim->to;
+    struct arc *predecessor;
+
+    assert(victim->type != 0);
+
+    // Remove from color chain if this is a colored arc in the root NFA
+    if (COLORED(victim) && nfa->parent == NULL)
+        uncolorchain(nfa->cm, victim);
+
+    // Remove from source state's outgoing arc chain
+    predecessor = victim->outchainRev;
+    if (predecessor == NULL) {
+        // This was the first outgoing arc
+        assert(from->outs == victim);
+        from->outs = victim->outchain;
+    } else {
+        // This was in the middle or end of the chain
+        assert(predecessor->outchain == victim);
+        predecessor->outchain = victim->outchain;
+    }
+
+    // Update the next arc's reverse pointer
+    if (victim->outchain != NULL) {
+        assert(victim->outchain->outchainRev == victim);
+        victim->outchain->outchainRev = predecessor;
+    }
+    from->nouts--;  // Decrement outgoing arc count
+
+    // Remove from target state's incoming arc chain
+    predecessor = victim->inchainRev;
+    if (predecessor == NULL) {
+        // This was the first incoming arc
+        assert(to->ins == victim);
+        to->ins = victim->inchain;
+    } else {
+        // This was in the middle or end of the chain
+        assert(predecessor->inchain == victim);
+        predecessor->inchain = victim->inchain;
+    }
+
+    // Update the next arc's reverse pointer
+    if (victim->inchain != NULL) {
+        assert(victim->inchain->inchainRev == victim);
+        victim->inchain->inchainRev = predecessor;
+    }
+    to->nins--;  // Decrement incoming arc count
+
+    // Clear all fields and add to free list for reuse
+    victim->type = 0;
+    victim->from = NULL;
+    victim->to = NULL;
+    victim->inchain = NULL;
+    victim->inchainRev = NULL;
+    victim->outchain = NULL;
+    victim->outchainRev = NULL;
+
+    // Add to NFA's free arc list
+    victim->freechain = nfa->freearcs;
+    nfa->freearcs = victim;
+}
+```

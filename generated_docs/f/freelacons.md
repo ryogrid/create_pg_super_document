@@ -41,3 +41,23 @@ The iteration starts from index 1 because index 0 is intentionally unused in the
 - Essential for preventing memory leaks in regex patterns with lookaround assertions
 - The assert(n > 0) ensures the function is not called with invalid array sizes
 - Memory cleanup is performed in reverse dependency order (cnfas first, then array)
+
+## Simplified Source
+
+```c
+static void freelacons(struct subre *subs, int n) {
+    struct subre *sub;
+    int i;
+
+    assert(n > 0);
+
+    // Free individual cnfas (skip index 0 which is unused)
+    for (sub = subs + 1, i = n - 1; i > 0; sub++, i--) {
+        if (!NULLCNFA(sub->cnfa))
+            freecnfa(&sub->cnfa);
+    }
+
+    // Free the entire array
+    FREE(subs);
+}
+```

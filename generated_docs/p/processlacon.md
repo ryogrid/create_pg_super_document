@@ -62,3 +62,58 @@ For complex cases that cannot be optimized, it falls back to creating a general 
 - The optimization detection relies on single_color_transition to identify simple patterns
 - Falls back to general LACON processing for complex lookaround expressions that cannot be optimized
 - LACON arcs reference numbered subreges for complex lookaround evaluation during matching
+
+## Simplified Source
+
+```c
+static void processlacon(struct vars *v, struct state *begin, struct state *end,
+                        int latype, struct state *lp, struct state *rp) {
+    struct state *s1;
+    int n;
+
+    // Check if lookaround is a simple color transition
+    s1 = single_color_transition(begin, end);
+
+    switch (latype) {
+        case LATYPE_AHEAD_POS:
+            // Positive lookahead: convert to AHEAD arc
+            if (s1 != NULL) {
+                cloneouts(v->nfa, s1, lp, rp, AHEAD);
+                return;
+            }
+            break;
+
+        case LATYPE_AHEAD_NEG:
+            // Negative lookahead: complement + end-of-line markers
+            if (s1 != NULL) {
+                colorcomplement(v->nfa, v->cm, AHEAD, s1, lp, rp);
+                newarc(v->nfa, '$', 1, lp, rp);
+                newarc(v->nfa, '$', 0, lp, rp);
+                return;
+            }
+            break;
+
+        case LATYPE_BEHIND_POS:
+            // Positive lookbehind: convert to BEHIND arc
+            if (s1 != NULL) {
+                cloneouts(v->nfa, s1, lp, rp, BEHIND);
+                return;
+            }
+            break;
+
+        case LATYPE_BEHIND_NEG:
+            // Negative lookbehind: complement + start-of-line markers
+            if (s1 != NULL) {
+                colorcomplement(v->nfa, v->cm, BEHIND, s1, lp, rp);
+                newarc(v->nfa, '^', 1, lp, rp);
+                newarc(v->nfa, '^', 0, lp, rp);
+                return;
+            }
+            break;
+    }
+
+    // General case: create LACON arc for complex patterns
+    n = newlacon(v, begin, end, latype);
+    newarc(v->nfa, LACON, n, lp, rp);
+}
+```

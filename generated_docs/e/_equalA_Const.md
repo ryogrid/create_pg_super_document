@@ -37,3 +37,22 @@ The function first checks if both nodes have the same null status. If neither is
 - Part of the custom equality checking for nodes that have the  attribute
 - [A_Const](../A/A_Const.md) nodes are used during parsing and are typically transformed into Const nodes during later processing stages
 - The location field tracks the position in the original SQL text for error reporting and debugging purposes
+
+## Simplified Source
+
+```c
+static bool _equalA_Const(const A_Const *a, const A_Const *b) {
+    // Compare null status first
+    COMPARE_SCALAR_FIELD(isnull);
+
+    // Compare values only if both are non-null
+    if (!a->isnull && !equal(&a->val, &b->val)) {
+        return false;
+    }
+
+    // Compare location information
+    COMPARE_LOCATION_FIELD(location);
+
+    return true;
+}
+```

@@ -42,3 +42,37 @@ The function includes special handling for the trivial case where there's only a
 - The special case for single-attribute nulls trees is currently unreachable but maintained for completeness
 - Critical for index scan operations where tuple values need to be extracted and processed
 - Works in conjunction with the tuple formation functions to provide round-trip conversion between storage and working formats
+
+## Simplified Source
+
+```c
+void
+spgDeformLeafTuple(SpGistLeafTuple tup, TupleDesc tupleDescriptor,
+                   Datum *datums, bool *isnulls, bool keyColumnIsNull)
+{
+    bool hasNullsMask = SGLT_GET_HASNULLMASK(tup);
+    char *tp;  // pointer to tuple data
+    bits8 *bp; // pointer to null bitmap
+
+    // Special case: single key attribute in nulls tree
+    if (keyColumnIsNull && tupleDescriptor->natts == 1)
+    {
+        Assert(!hasNullsMask);
+        datums[spgKeyColumn] = (Datum) 0;
+        isnulls[spgKeyColumn] = true;
+        return;
+    }
+
+    // Set up pointers to tuple data and null bitmap
+    tp = (char *) tup + SGLTHDRSZ(hasNullsMask);
+    bp = (bits8 *) ((char *) tup + sizeof(SpGistLeafTupleData));
+
+    // Extract values using standard tuple deformation
+    index_deform_tuple_internal(tupleDescriptor,
+                                datums, isnulls,
+                                tp, bp, hasNullsMask);
+
+    // Validate key column consistency
+    Assert(keyColumnIsNull == isnulls[spgKeyColumn]);
+}
+```

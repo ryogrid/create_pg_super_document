@@ -29,3 +29,12 @@ This function serves as the specific entry point for the PL/PerlU (untrusted Per
 - The actual differentiation between trusted and untrusted Perl happens at the language registration level, not within this function
 - Located in src/pl/plperl/plperl.c:2067-2074
 - Forms part of PostgreSQL's procedural language interface for Perl
+
+## Simplified Source
+
+```c
+Datum plperlu_call_handler(PG_FUNCTION_ARGS)
+{
+    return plperl_call_handler(fcinfo);
+}
+```

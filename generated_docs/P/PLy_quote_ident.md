@@ -37,3 +37,25 @@ The function is exposed to Python as `plpy.quote_ident()` and is essential for c
 - Unlike quote_literal, uses double quotes for SQL identifier quoting rules
 - Does not require explicit memory deallocation as quote_identifier returns a statically managed string
 - Part of the PL/Python extension's public API for safe SQL identifier construction
+
+## Simplified Source
+
+```c
+static PyObject *PLy_quote_ident(PyObject *self, PyObject *args) {
+    const char *str;
+    const char *quoted;
+    PyObject *ret;
+
+    // Parse single string argument from Python
+    if (!PyArg_ParseTuple(args, "s:quote_ident", &str))
+        return NULL;
+
+    // Quote the identifier using PostgreSQL's core function
+    quoted = quote_identifier(str);
+
+    // Convert to Python string and return
+    ret = PLyUnicode_FromString(quoted);
+
+    return ret;
+}
+```

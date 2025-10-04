@@ -34,3 +34,19 @@ The function works by first marking the page as lossy using , then checking if t
 - The lossy representation trades precision for memory efficiency
 - Pages added through this function will have the recheck flag set when scanned
 - Memory management is automatically handled through the tbm_lossify mechanism when limits are exceeded
+
+## Simplified Source
+
+```c
+void
+tbm_add_page(TIDBitmap *tbm, BlockNumber pageno)
+{
+    // Mark the entire page as lossy (all tuples match but need recheck)
+    tbm_mark_page_lossy(tbm, pageno);
+
+    // Check if we exceeded memory limit and lossify if needed
+    if (tbm->nentries > tbm->maxentries) {
+        tbm_lossify(tbm);
+    }
+}
+```

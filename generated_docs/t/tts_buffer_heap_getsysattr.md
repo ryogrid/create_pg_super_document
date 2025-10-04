@@ -33,3 +33,25 @@ tts_buffer_heap_getsysattr extracts system attribute values from buffer-backed h
 - System attributes include ctid (tuple identifier), xmin/xmax (transaction IDs), cmin/cmax (command IDs)
 - Returns a Datum value that contains the system attribute data
 - The isnull parameter is set by the underlying heap_getsysattr function
+
+## Simplified Source
+
+```c
+static Datum
+tts_buffer_heap_getsysattr(TupleTableSlot *slot, int attnum, bool *isnull)
+{
+    BufferHeapTupleTableSlot *bslot = (BufferHeapTupleTableSlot *) slot;
+
+    Assert(!TTS_EMPTY(slot));
+
+    // Require materialized tuple for system attribute access
+    if (!bslot->base.tuple)
+        ereport(ERROR,
+                (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                 errmsg("cannot retrieve a system column in this context")));
+
+    // Delegate to heap system attribute getter
+    return heap_getsysattr(bslot->base.tuple, attnum,
+                          slot->tts_tupleDescriptor, isnull);
+}
+```

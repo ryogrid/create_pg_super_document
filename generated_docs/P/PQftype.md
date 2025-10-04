@@ -38,3 +38,19 @@ PQftype retrieves the PostgreSQL type OID (Object Identifier) for the specified 
 - Type information is essential for binary format processing and proper data marshaling
 - The type OID can be used with PostgreSQL system catalogs to get detailed type information
 - Defined in src/interfaces/libpq/fe-exec.c:3719-3729
+
+## Simplified Source
+
+```c
+Oid PQftype(const PGresult *res, int field_num) {
+    // Validate field number is in range
+    if (!check_field_number(res, field_num))
+        return InvalidOid;
+
+    // Return type OID if attribute descriptors exist
+    if (res->attDescs)
+        return res->attDescs[field_num].typid;
+    else
+        return InvalidOid;
+}
+```

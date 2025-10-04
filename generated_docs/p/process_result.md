@@ -58,3 +58,51 @@ The function is specifically designed to work with the prepared INSERT statement
 - Used in conjunction with non-blocking I/O and prepared statement execution
 - Handles pipeline-aborted results that occur after errors in pipeline mode
 - The logging format includes result position and total count for progress tracking
+
+## Simplified Source
+
+```c
+static bool process_result(PGconn *conn, PGresult *res, int results, int numsent) {
+    PGresult *res2;
+    bool got_error = false;
+
+    if (res == NULL)
+        pg_fatal("got unexpected NULL");
+
+    switch (PQresultStatus(res)) {
+        case PGRES_FATAL_ERROR:
+            got_error = true;
+            fprintf(stderr, "result %d/%d (error): %s\n", results, numsent, PQerrorMessage(conn));
+            PQclear(res);
+
+            // Consume expected NULL result
+            res2 = PQgetResult(conn);
+            if (res2 != NULL)
+                pg_fatal("expected NULL, got %s", PQresStatus(PQresultStatus(res2)));
+            break;
+
+        case PGRES_TUPLES_OK:
+            fprintf(stderr, "result %d/%d: %s\n", results, numsent, PQgetvalue(res, 0, 0));
+            PQclear(res);
+
+            // Consume expected NULL result
+            res2 = PQgetResult(conn);
+            if (res2 != NULL)
+                pg_fatal("expected NULL, got %s", PQresStatus(PQresultStatus(res2)));
+            break;
+
+        case PGRES_PIPELINE_ABORTED:
+            fprintf(stderr, "result %d/%d: pipeline aborted\n", results, numsent);
+            // Consume expected NULL result
+            res2 = PQgetResult(conn);
+            if (res2 != NULL)
+                pg_fatal("expected NULL, got %s", PQresStatus(PQresultStatus(res2)));
+            break;
+
+        default:
+            pg_fatal("got unexpected %s", PQresStatus(PQresultStatus(res)));
+    }
+
+    return got_error;
+}
+```

@@ -41,3 +41,25 @@ The function is designed for performance-critical scenarios where only the type 
 - Sets global SPI_result to 0 on success
 - Does not provide access to typmod or typcollation - direct TupleDesc inspection is recommended for those
 - Commonly used in type checking and validation scenarios in SPI-based code
+
+## Simplified Source
+
+```c
+Oid SPI_gettypeid(TupleDesc tupdesc, int fnumber) {
+    SPI_result = 0;
+
+    // Validate attribute number range
+    if (fnumber > tupdesc->natts || fnumber == 0 ||
+        fnumber <= FirstLowInvalidHeapAttributeNumber) {
+        SPI_result = SPI_ERROR_NOATTRIBUTE;
+        return InvalidOid;
+    }
+
+    // Return type OID from attribute
+    if (fnumber > 0) {
+        return TupleDescAttr(tupdesc, fnumber - 1)->atttypid;  // Regular attribute
+    } else {
+        return (SystemAttributeDefinition(fnumber))->atttypid;  // System attribute
+    }
+}
+```

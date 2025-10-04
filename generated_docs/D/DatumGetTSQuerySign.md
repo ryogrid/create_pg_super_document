@@ -34,3 +34,14 @@ This function is primarily used in GiST index operations where TSQuerySign value
 - Essential for GiST index functionality including consistency checks, penalty calculations, and entry management
 - Part of PostgreSQL's full-text search system that enables efficient indexing and querying of text data
 - The cast to TSQuerySign ensures type safety when converting from the generic Datum representation
+
+## Simplified Source
+
+```c
+static inline TSQuerySign
+DatumGetTSQuerySign(Datum X)
+{
+    // Extract TSQuerySign (uint64) from Datum representation
+    return (TSQuerySign) DatumGetInt64(X);
+}
+```

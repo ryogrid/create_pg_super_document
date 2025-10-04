@@ -38,3 +38,19 @@ This function is commonly used in applications and pg_dump operations where you 
 - Requires UPDATE permission on the sequence (checked by do_setval)
 - For cases where you need to control the iscalled flag explicitly, use setval3_oid instead
 - Part of PostgreSQL's sequence management system in src/backend/commands/sequence.c:1049
+
+## Simplified Source
+
+```c
+Datum setval_oid(PG_FUNCTION_ARGS) {
+    // Get sequence OID and new value from arguments
+    Oid relid = PG_GETARG_OID(0);
+    int64 next = PG_GETARG_INT64(1);
+
+    // Set the sequence value with iscalled=true
+    do_setval(relid, next, true);
+
+    // Return the value that was set
+    PG_RETURN_INT64(next);
+}
+```

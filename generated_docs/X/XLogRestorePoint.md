@@ -38,3 +38,30 @@ The function creates an xl_restore_point structure containing the timestamp and 
 - Restore points are primarily used in backup and recovery scenarios where you need to recover to a specific named point rather than an arbitrary time
 - The xl_restore_point structure includes both rp_time (timestamp) and rp_name (name) fields
 - This is commonly used in conjunction with pg_create_restore_point() SQL function for creating application-controlled recovery points
+
+## Simplified Source
+
+```c
+XLogRecPtr
+XLogRestorePoint(const char *rpName)
+{
+    XLogRecPtr RecPtr;
+    xl_restore_point xlrec;
+
+    // Create restore point record with current timestamp and name
+    xlrec.rp_time = GetCurrentTimestamp();
+    strlcpy(xlrec.rp_name, rpName, MAXFNAMELEN);
+
+    // Insert record into WAL
+    XLogBeginInsert();
+    XLogRegisterData((char *) &xlrec, sizeof(xl_restore_point));
+    RecPtr = XLogInsert(RM_XLOG_ID, XLOG_RESTORE_POINT);
+
+    // Log creation for administrative visibility
+    ereport(LOG,
+            (errmsg("restore point \"%s\" created at %X/%X",
+                    rpName, LSN_FORMAT_ARGS(RecPtr))));
+
+    return RecPtr;
+}
+```

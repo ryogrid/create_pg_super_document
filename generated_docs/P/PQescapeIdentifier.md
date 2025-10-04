@@ -38,3 +38,12 @@ PQescapeIdentifier is a wrapper function that calls PQescapeInternal with the  p
 - Does not require escape string syntax since backslashes are not special in identifiers
 - Essential for safely constructing dynamic SQL that references table names, column names, or other database objects
 - Handles multibyte character validation to ensure proper encoding
+
+## Simplified Source
+
+```c
+char *PQescapeIdentifier(PGconn *conn, const char *str, size_t len) {
+    // Delegate to internal escaping function for SQL identifiers
+    return PQescapeInternal(conn, str, len, true);
+}
+```

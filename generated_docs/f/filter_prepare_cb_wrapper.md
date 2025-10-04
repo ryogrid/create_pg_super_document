@@ -39,3 +39,38 @@ This wrapper is specifically designed for the prepare phase of two-phase commit 
 - Part of PostgreSQL's two-phase commit support in logical replication
 - The GID parameter may be NULL for transactions that weren't explicitly prepared with a global identifier
 - Error context management ensures meaningful error messages if the plugin's filter callback fails
+
+## Simplified Source
+
+```c
+bool
+filter_prepare_cb_wrapper(LogicalDecodingContext *ctx, TransactionId xid,
+                          const char *gid)
+{
+    Assert(!ctx->fast_forward);
+
+    // Set up error context for meaningful error reporting
+    LogicalErrorCallbackState state;
+    ErrorContextCallback errcallback;
+
+    state.ctx = ctx;
+    state.callback_name = "filter_prepare";
+    state.report_location = InvalidXLogRecPtr;
+    errcallback.callback = output_plugin_error_callback;
+    errcallback.arg = (void *) &state;
+    errcallback.previous = error_context_stack;
+    error_context_stack = &errcallback;
+
+    // Configure output state for filtering operation
+    ctx->accept_writes = false;
+    ctx->end_xact = false;
+
+    // Call the actual plugin filter callback
+    bool ret = ctx->callbacks.filter_prepare_cb(ctx, xid, gid);
+
+    // Restore error context
+    error_context_stack = errcallback.previous;
+
+    return ret;
+}
+```

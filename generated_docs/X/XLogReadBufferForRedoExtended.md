@@ -58,3 +58,83 @@ The function returns different XLogRedoAction values indicating what action the 
 - INIT_FORKNUM special handling ensures unlogged relation consistency
 - Cleanup locks provide stronger concurrency control for vacuum-related operations
 - The function handles all error conditions with appropriate PANIC messages for data integrity violations
+
+## Simplified Source
+
+```c
+XLogRedoAction
+XLogReadBufferForRedoExtended(XLogReaderState *record, uint8 block_id,
+                             ReadBufferMode mode, bool get_cleanup_lock,
+                             Buffer *buf)
+{
+    XLogRecPtr lsn = record->EndRecPtr;
+    RelFileLocator rlocator;
+    ForkNumber forknum;
+    BlockNumber blkno;
+    Buffer prefetch_buffer;
+    Page page;
+
+    // Get block location info from WAL record
+    if (!XLogRecGetBlockTagExtended(record, block_id, &rlocator, &forknum, &blkno, &prefetch_buffer)) {
+        elog(PANIC, "failed to locate backup block with ID %d in WAL record", block_id);
+    }
+
+    // Validate WILL_INIT flag consistency with buffer mode
+    bool zeromode = (mode == RBM_ZERO_AND_LOCK || mode == RBM_ZERO_AND_CLEANUP_LOCK);
+    bool willinit = (XLogRecGetBlock(record, block_id)->flags & BKPBLOCK_WILL_INIT) != 0;
+    if (willinit && !zeromode || !willinit && zeromode) {
+        elog(PANIC, "WILL_INIT flag mismatch with buffer mode");
+    }
+
+    // If full-page image should be restored, do it
+    if (XLogRecBlockImageApply(record, block_id)) {
+        *buf = XLogReadBufferExtended(rlocator, forknum, blkno,
+                                     get_cleanup_lock ? RBM_ZERO_AND_CLEANUP_LOCK : RBM_ZERO_AND_LOCK,
+                                     prefetch_buffer);
+        page = BufferGetPage(*buf);
+
+        // Restore the full-page image
+        if (!RestoreBlockImage(record, block_id, page)) {
+            ereport(ERROR, (errcode(ERRCODE_INTERNAL_ERROR),
+                          errmsg_internal("%s", record->errormsg_buf)));
+        }
+
+        // Set LSN if page is not uninitialized
+        if (!PageIsNew(page)) {
+            PageSetLSN(page, lsn);
+        }
+
+        MarkBufferDirty(*buf);
+
+        // Force flush INIT_FORKNUM for unlogged relations
+        if (forknum == INIT_FORKNUM) {
+            FlushOneBuffer(*buf);
+        }
+
+        return BLK_RESTORED;
+    } else {
+        // Read buffer normally without full-page image
+        *buf = XLogReadBufferExtended(rlocator, forknum, blkno, mode, prefetch_buffer);
+
+        if (BufferIsValid(*buf)) {
+            // Lock buffer if not already locked by zero modes
+            if (mode != RBM_ZERO_AND_LOCK && mode != RBM_ZERO_AND_CLEANUP_LOCK) {
+                if (get_cleanup_lock) {
+                    LockBufferForCleanup(*buf);
+                } else {
+                    LockBuffer(*buf, BUFFER_LOCK_EXCLUSIVE);
+                }
+            }
+
+            // Check if replay is needed by comparing LSNs
+            if (lsn <= PageGetLSN(BufferGetPage(*buf))) {
+                return BLK_DONE;  // Already applied
+            } else {
+                return BLK_NEEDS_REDO;  // Needs replay
+            }
+        } else {
+            return BLK_NOTFOUND;  // Block was truncated
+        }
+    }
+}
+```

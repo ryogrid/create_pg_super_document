@@ -38,3 +38,17 @@ Key behaviors:
 - Critical for providing accurate role information in SHOW commands and pg_settings views
 - The "kluge" comment indicates this is a practical solution to architectural constraints
 - Ensures consistent behavior between internal role tracking and user-visible role display
+
+## Simplified Source
+
+```c
+const char *show_role(void)
+{
+    // Check if SET ROLE is currently active
+    if (!OidIsValid(GetCurrentRoleId()))
+        return "none";
+
+    // Return the role string or "none" if null
+    return role_string ? role_string : "none";
+}
+```

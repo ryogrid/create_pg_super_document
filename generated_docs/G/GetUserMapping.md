@@ -33,3 +33,48 @@ GetUserMapping is a core function in PostgreSQL's foreign data wrapper system th
 
 ## Notes and Other Information
 The function uses the system cache USERMAPPINGUSERSERVER for efficient lookup. The PUBLIC mapping fallback mechanism allows administrators to define default connection parameters for all users of a foreign server. Options are stored in a transformed format and need to be untransformed using untransformRelOptions() before use. The function is located in src/backend/foreign/foreign.c:200-253 and is essential for FDW authentication and connection parameter resolution.
+
+## Simplified Source
+
+```c
+UserMapping *
+GetUserMapping(Oid userid, Oid serverid)
+{
+    HeapTuple tp;
+    UserMapping *um;
+
+    // Try to find user-specific mapping first
+    tp = SearchSysCache2(USERMAPPINGUSERSERVER,
+                         ObjectIdGetDatum(userid),
+                         ObjectIdGetDatum(serverid));
+
+    // If not found, try PUBLIC mapping
+    if (!HeapTupleIsValid(tp)) {
+        tp = SearchSysCache2(USERMAPPINGUSERSERVER,
+                             ObjectIdGetDatum(InvalidOid),
+                             ObjectIdGetDatum(serverid));
+    }
+
+    // Error if no mapping found
+    if (!HeapTupleIsValid(tp)) {
+        ForeignServer *server = GetForeignServer(serverid);
+        ereport(ERROR,
+                (errmsg("user mapping not found for user \"%s\", server \"%s\"",
+                        MappingUserName(userid), server->servername)));
+    }
+
+    // Build UserMapping structure
+    um = (UserMapping *) palloc(sizeof(UserMapping));
+    um->umid = ((Form_pg_user_mapping) GETSTRUCT(tp))->oid;
+    um->userid = userid;
+    um->serverid = serverid;
+
+    // Extract and parse options
+    Datum datum = SysCacheGetAttr(USERMAPPINGUSERSERVER, tp,
+                                  Anum_pg_user_mapping_umoptions, &isnull);
+    um->options = isnull ? NIL : untransformRelOptions(datum);
+
+    ReleaseSysCache(tp);
+    return um;
+}
+```

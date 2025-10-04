@@ -40,3 +40,54 @@ This function serves as the main entry point for allocating parallel apply worke
 - Will return early (no allocation) if pa_can_start() returns false or worker launch fails
 - Throws ERROR if hash table entry already exists for the given transaction ID (indicates corruption)
 - Part of PostgreSQL's logical replication parallel processing system located in src/backend/replication/logical/applyparallelworker.c:470-517
+
+## Simplified Source
+
+```c
+void
+pa_allocate_worker(TransactionId xid)
+{
+    bool found;
+    ParallelApplyWorkerInfo *winfo = NULL;
+    ParallelApplyWorkerEntry *entry;
+
+    // Check if parallel processing is allowed
+    if (!pa_can_start())
+        return;
+
+    // Try to get or launch a worker
+    winfo = pa_launch_parallel_worker();
+    if (!winfo)
+        return;
+
+    // Initialize hash table on first use
+    if (!ParallelApplyTxnHash)
+    {
+        HASHCTL ctl;
+        MemSet(&ctl, 0, sizeof(ctl));
+        ctl.keysize = sizeof(TransactionId);
+        ctl.entrysize = sizeof(ParallelApplyWorkerEntry);
+        ctl.hcxt = ApplyContext;
+
+        ParallelApplyTxnHash = hash_create("logical replication parallel apply workers hash",
+                                          16, &ctl,
+                                          HASH_ELEM | HASH_BLOBS | HASH_CONTEXT);
+    }
+
+    // Create hash entry for this transaction
+    entry = hash_search(ParallelApplyTxnHash, &xid, HASH_ENTER, &found);
+    if (found)
+        elog(ERROR, "hash table corrupted");
+
+    // Update worker's shared memory with transaction info
+    SpinLockAcquire(&winfo->shared->mutex);
+    winfo->shared->xact_state = PARALLEL_TRANS_UNKNOWN;
+    winfo->shared->xid = xid;
+    SpinLockRelease(&winfo->shared->mutex);
+
+    // Mark worker as in use and link to hash entry
+    winfo->in_use = true;
+    winfo->serialize_changes = false;
+    entry->winfo = winfo;
+}
+```

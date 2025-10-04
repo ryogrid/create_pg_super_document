@@ -31,3 +31,40 @@ The escape_string_conn function provides a wrapper around libpq's PQescapeString
 
 ## Notes and Other Information
 This function is part of PostgreSQL's test infrastructure for validating escape functionality. It returns true on success and false on failure, with error details stored in the escape_err buffer. The function manually manages the single quote delimiters and pre-enlarges the buffer to accommodate the worst-case scenario where every character needs escaping (unescaped_len * 2 + 1). This approach provides more direct control over the escaping process compared to the higher-level PQescapeLiteral function used in escape_literal.
+
+## Simplified Source
+```c
+static bool
+escape_string_conn(PGconn *conn, PQExpBuffer target,
+                   const char *unescaped, size_t unescaped_len,
+                   PQExpBuffer escape_err)
+{
+    int error;
+
+    /* Add opening quote */
+    appendPQExpBufferChar(target, '\'');
+
+    /* Pre-allocate space for worst case (every char escaped) */
+    enlargePQExpBuffer(target, unescaped_len * 2 + 1);
+
+    /* Escape the string content */
+    size_t sz = PQescapeStringConn(conn, target->data + target->len,
+                                   unescaped, unescaped_len, &error);
+
+    /* Update buffer length and add closing quote */
+    target->len += sz;
+    appendPQExpBufferChar(target, '\'');
+
+    /* Handle errors */
+    if (error)
+    {
+        appendPQExpBuffer(escape_err, "%s", PQerrorMessage(conn));
+        /* Remove trailing newline from error message */
+        escape_err->data[escape_err->len - 1] = 0;
+        escape_err->len--;
+        return false;
+    }
+
+    return true;
+}
+```

@@ -44,3 +44,15 @@ The returned buffer is always locked in exclusive mode, even when no replay is n
 - Full-page images are trusted over database pages due to CRC validation
 - The function prioritizes data integrity by replaying all subsequent WAL modifications when full-page images are restored
 - Buffer remains locked after return to prevent concurrent modifications during redo processing
+
+## Simplified Source
+
+```c
+XLogRedoAction
+XLogReadBufferForRedo(XLogReaderState *record, uint8 block_id, Buffer *buf)
+{
+    // Simple wrapper that calls the extended version with default parameters
+    // Uses normal buffer read mode and doesn't extend the relation
+    return XLogReadBufferForRedoExtended(record, block_id, RBM_NORMAL, false, buf);
+}
+```

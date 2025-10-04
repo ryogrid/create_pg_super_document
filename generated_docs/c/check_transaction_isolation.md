@@ -46,3 +46,44 @@ The function allows changes when not in an active transaction, similar to other 
 - Returns  for valid isolation level changes,  for invalid ones
 - The function specifically checks for serializable mode during recovery and suggests using REPEATABLE READ as an alternative
 - Error handling includes specific error codes for different violation types (ERRCODE_ACTIVE_SQL_TRANSACTION, ERRCODE_FEATURE_NOT_SUPPORTED)
+
+## Simplified Source
+
+```c
+bool
+check_transaction_isolation(int *newval, void **extra, GucSource source)
+{
+    int newXactIsoLevel = *newval;
+
+    // Check if isolation level is changing and we're in a transaction
+    if (newXactIsoLevel != XactIsoLevel && IsTransactionState())
+    {
+        // Prevent changes after first snapshot
+        if (FirstSnapshotSet)
+        {
+            GUC_check_errcode(ERRCODE_ACTIVE_SQL_TRANSACTION);
+            GUC_check_errmsg("SET TRANSACTION ISOLATION LEVEL must be called before any query");
+            return false;
+        }
+
+        // Prevent changes in subtransactions
+        if (IsSubTransaction())
+        {
+            GUC_check_errcode(ERRCODE_ACTIVE_SQL_TRANSACTION);
+            GUC_check_errmsg("SET TRANSACTION ISOLATION LEVEL must not be called in a subtransaction");
+            return false;
+        }
+
+        // Prevent serializable mode during recovery
+        if (newXactIsoLevel == XACT_SERIALIZABLE && RecoveryInProgress())
+        {
+            GUC_check_errcode(ERRCODE_FEATURE_NOT_SUPPORTED);
+            GUC_check_errmsg("cannot use serializable mode in a hot standby");
+            GUC_check_errhint("You can use REPEATABLE READ instead.");
+            return false;
+        }
+    }
+
+    return true;
+}
+```

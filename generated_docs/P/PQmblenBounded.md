@@ -37,3 +37,12 @@ This function combines the functionality of pg_encoding_mblen() with strnlen() t
 - Extensively used in psql command parsing and string processing operations
 - Essential for safe text processing in multibyte character environments
 - Combines encoding-aware length calculation with boundary checking for robust string handling
+
+## Simplified Source
+
+```c
+int PQmblenBounded(const char *s, int encoding) {
+    // Get safe multibyte character length, bounded by actual string length
+    return strnlen(s, pg_encoding_mblen(encoding, s));
+}
+```

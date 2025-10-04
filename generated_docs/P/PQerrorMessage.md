@@ -38,3 +38,22 @@ The error messages are persistent until the next operation that might generate a
 - This is one of the most frequently used libpq functions for error handling and debugging
 - The function is safe to call even with invalid connection pointers
 - Error messages typically include context about what operation failed and why
+
+## Simplified Source
+
+```c
+char *
+PQerrorMessage(const PGconn *conn)
+{
+    // Handle NULL connection pointer
+    if (!conn)
+        return libpq_gettext("connection pointer is NULL\n");
+
+    // Check if error message buffer is broken (usually due to memory issues)
+    if (PQExpBufferBroken(&conn->errorMessage))
+        return libpq_gettext("out of memory\n");
+
+    // Return the actual error message
+    return conn->errorMessage.data;
+}
+```

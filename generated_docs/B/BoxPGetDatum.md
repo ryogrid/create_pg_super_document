@@ -29,3 +29,15 @@ This function performs the reverse operation of DatumGetBoxP, converting a BOX p
 
 ## Notes and Other Information
 This function is essential for PostgreSQL's geometric indexing infrastructure, particularly in GiST and SP-GiST implementations. It's defined in src/include/utils/geo_decls.h:239-242 and enables seamless integration between geometric data types and PostgreSQL's internal storage and retrieval mechanisms.
+
+## Simplified Source
+
+```c
+static inline Datum
+BoxPGetDatum(const BOX *X)
+{
+    // Convert BOX pointer to generic Datum
+    // Used to package BOX data into PostgreSQL's internal format
+    return PointerGetDatum(X);
+}
+```

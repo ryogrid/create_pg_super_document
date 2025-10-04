@@ -44,3 +44,56 @@ The function reads the server's protocol version, then reads a list of unsupport
 - Error messages include specific version numbers in major.minor format
 - Temporary buffer is used to accumulate extension names with space separation
 - Function entry assumes 'v' message type and length have already been consumed
+
+## Simplified Source
+
+```c
+int pqGetNegotiateProtocolVersion3(PGconn *conn) {
+    int tmp;
+    ProtocolVersion their_version;
+    int num;
+    PQExpBufferData buf;
+
+    // Read server's supported protocol version
+    if (pqGetInt(&tmp, 4, conn) != 0) return EOF;
+    their_version = tmp;
+
+    // Read number of unsupported extensions
+    if (pqGetInt(&num, 4, conn) != 0) return EOF;
+
+    // Build list of unsupported extension names
+    initPQExpBuffer(&buf);
+    for (int i = 0; i < num; i++) {
+        if (pqGets(&conn->workBuffer, conn)) {
+            termPQExpBuffer(&buf);
+            return EOF;
+        }
+        if (buf.len > 0) appendPQExpBufferChar(&buf, ' ');
+        appendPQExpBufferStr(&buf, conn->workBuffer.data);
+    }
+
+    // Generate appropriate error messages
+    if (their_version < conn->pversion) {
+        libpq_append_conn_error(conn,
+            "protocol version not supported by server: client uses %u.%u, server supports up to %u.%u",
+            PG_PROTOCOL_MAJOR(conn->pversion), PG_PROTOCOL_MINOR(conn->pversion),
+            PG_PROTOCOL_MAJOR(their_version), PG_PROTOCOL_MINOR(their_version));
+    }
+
+    if (num > 0) {
+        appendPQExpBuffer(&conn->errorMessage,
+            libpq_ngettext("protocol extension not supported by server: %s",
+                          "protocol extensions not supported by server: %s", num),
+            buf.data);
+        appendPQExpBufferChar(&conn->errorMessage, '\n');
+    }
+
+    // Validate server sent message for valid reason
+    if (!(their_version < conn->pversion) && !(num > 0)) {
+        libpq_append_conn_error(conn, "invalid %s message", "NegotiateProtocolVersion");
+    }
+
+    termPQExpBuffer(&buf);
+    return 0;
+}
+```

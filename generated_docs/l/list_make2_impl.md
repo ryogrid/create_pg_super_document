@@ -39,3 +39,20 @@ This function creates a new List of the specified type with exactly two elements
 - Provides efficient creation of two-element lists without requiring multiple append operations
 - The resulting list is immediately valid and ready for use or further modification
 - More efficient than creating an empty list and calling lappend() twice
+
+## Simplified Source
+
+```c
+List *list_make2_impl(NodeTag t, ListCell datum1, ListCell datum2) {
+    // Create new list with capacity for 2 elements
+    List *list = new_list(t, 2);
+
+    // Store the two elements in order
+    list->elements[0] = datum1;
+    list->elements[1] = datum2;
+
+    // Validate the list structure
+    check_list_invariants(list);
+    return list;
+}
+```

@@ -57,3 +57,92 @@ This function is crucial for verifying that PostgreSQL's resource management sys
 - Uses assertions to validate that all resources are properly cleaned up
 - Located in src/test/modules/test_resowner/test_resowner_many.c at lines 203-296
 - Part of PostgreSQL's test suite for validating resource owner functionality under complex scenarios
+
+## Simplified Source
+
+```c
+// Simplified version of test_resowner_many
+Datum
+test_resowner_many(PG_FUNCTION_ARGS)
+{
+    int32 nkinds = PG_GETARG_INT32(0);
+    int32 nremember_bl = PG_GETARG_INT32(1);
+    int32 nforget_bl = PG_GETARG_INT32(2);
+    int32 nremember_al = PG_GETARG_INT32(3);
+    int32 nforget_al = PG_GETARG_INT32(4);
+
+    ResourceOwner resowner;
+    ManyTestResourceKind *before_kinds, *after_kinds;
+
+    // Validate parameters
+    if (nkinds < 0 || nremember_bl < 0 || nremember_al < 0)
+        elog(ERROR, "negative values not allowed");
+    if (nforget_bl < 0 || nforget_bl > nremember_bl)
+        elog(ERROR, "nforget_bl must be between 0 and nremember_bl");
+    if (nforget_al < 0 || nforget_al > nremember_al)
+        elog(ERROR, "nforget_al must be between 0 and nremember_al");
+
+    // Initialize resource kinds for both phases
+    before_kinds = palloc(nkinds * sizeof(ManyTestResourceKind));
+    for (int i = 0; i < nkinds; i++) {
+        InitManyTestResourceKind(&before_kinds[i],
+                                 psprintf("resource before locks %d", i),
+                                 RESOURCE_RELEASE_BEFORE_LOCKS,
+                                 RELEASE_PRIO_FIRST + i);
+    }
+
+    after_kinds = palloc(nkinds * sizeof(ManyTestResourceKind));
+    for (int i = 0; i < nkinds; i++) {
+        InitManyTestResourceKind(&after_kinds[i],
+                                 psprintf("resource after locks %d", i),
+                                 RESOURCE_RELEASE_AFTER_LOCKS,
+                                 RELEASE_PRIO_FIRST + i);
+    }
+
+    // Create test resource owner
+    resowner = ResourceOwnerCreate(CurrentResourceOwner, "TestOwner");
+
+    // Remember resources
+    if (nremember_bl > 0) {
+        elog(NOTICE, "remembering %d before-locks resources", nremember_bl);
+        RememberManyTestResources(resowner, before_kinds, nkinds, nremember_bl);
+    }
+    if (nremember_al > 0) {
+        elog(NOTICE, "remembering %d after-locks resources", nremember_al);
+        RememberManyTestResources(resowner, after_kinds, nkinds, nremember_al);
+    }
+
+    // Forget some resources
+    if (nforget_bl > 0) {
+        elog(NOTICE, "forgetting %d before-locks resources", nforget_bl);
+        ForgetManyTestResources(resowner, before_kinds, nkinds, nforget_bl);
+    }
+    if (nforget_al > 0) {
+        elog(NOTICE, "forgetting %d after-locks resources", nforget_al);
+        ForgetManyTestResources(resowner, after_kinds, nkinds, nforget_al);
+    }
+
+    // Release resources in proper order
+    elog(NOTICE, "releasing resources before locks");
+    current_release_phase = RESOURCE_RELEASE_BEFORE_LOCKS;
+    last_release_priority = 0;
+    ResourceOwnerRelease(resowner, RESOURCE_RELEASE_BEFORE_LOCKS, false, false);
+
+    elog(NOTICE, "releasing locks");
+    current_release_phase = RESOURCE_RELEASE_LOCKS;
+    last_release_priority = 0;
+    ResourceOwnerRelease(resowner, RESOURCE_RELEASE_LOCKS, false, false);
+
+    elog(NOTICE, "releasing resources after locks");
+    current_release_phase = RESOURCE_RELEASE_AFTER_LOCKS;
+    last_release_priority = 0;
+    ResourceOwnerRelease(resowner, RESOURCE_RELEASE_AFTER_LOCKS, false, false);
+
+    // Verify all resources were cleaned up
+    Assert(GetTotalResourceCount(before_kinds, nkinds) == 0);
+    Assert(GetTotalResourceCount(after_kinds, nkinds) == 0);
+
+    ResourceOwnerDelete(resowner);
+    PG_RETURN_VOID();
+}
+```

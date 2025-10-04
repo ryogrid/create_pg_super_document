@@ -32,3 +32,23 @@ This function performs a deep copy of a SearchPathMatcher structure, creating a 
 - Used primarily in plan caching scenarios where search path configurations need to be preserved
 - Part of PostgreSQL's namespace resolution and query plan caching infrastructure
 - Essential for maintaining search path consistency across different execution contexts
+
+## Simplified Source
+
+```c
+SearchPathMatcher *CopySearchPathMatcher(SearchPathMatcher *path)
+{
+    // Allocate new SearchPathMatcher in current memory context
+    SearchPathMatcher *result = palloc(sizeof(SearchPathMatcher));
+
+    // Deep copy the schema list to ensure independence
+    result->schemas = list_copy(path->schemas);
+
+    // Copy the boolean flags and generation number
+    result->addCatalog = path->addCatalog;
+    result->addTemp = path->addTemp;
+    result->generation = path->generation;
+
+    return result;
+}
+```

@@ -39,3 +39,20 @@ The operation is typically used when testing block-level operations on the tidst
 - The function preserves the relative order of remaining ItemPointers
 - No memory reallocation is performed; the array capacity remains unchanged
 - Used in testing scenarios where entire blocks are cleared or modified in the tidstore
+
+## Simplified Source
+
+```c
+static void
+purge_from_verification_array(BlockNumber blkno)
+{
+    int dst = 0;
+
+    // Compact array by keeping only TIDs not from specified block
+    for (int src = 0; src < items.num_tids; src++)
+        if (ItemPointerGetBlockNumber(&items.insert_tids[src]) != blkno)
+            items.insert_tids[dst++] = items.insert_tids[src];
+
+    items.num_tids = dst;  // Update count after purging
+}
+```

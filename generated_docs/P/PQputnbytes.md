@@ -34,3 +34,16 @@ The function returns 0 if the operation is successful and EOF if it fails. Like 
 - Returns simplified error codes (0 for success, EOF for failure)
 - Located in src/interfaces/libpq/fe-exec.c:2928-2948
 - Part of the PostgreSQL COPY protocol implementation in libpq
+
+## Simplified Source
+
+```c
+int PQputnbytes(PGconn *conn, const char *buffer, int nbytes)
+{
+    // Wrapper around PQputCopyData with simplified return codes
+    if (PQputCopyData(conn, buffer, nbytes) > 0)
+        return 0;    // Success
+    else
+        return EOF;  // Failure
+}
+```

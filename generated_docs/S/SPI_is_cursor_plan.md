@@ -45,3 +45,29 @@ The function does not force revalidation of the cached plan, as invalidation typ
 - Essential for preventing runtime errors when attempting cursor operations on incompatible plans
 - Used internally by SPI cursor functions to validate plan compatibility
 - The function does not modify the plan and is safe to call multiple times
+
+## Simplified Source
+
+```c
+bool SPI_is_cursor_plan(SPIPlanPtr plan) {
+    // Validate plan pointer and magic number
+    if (plan == NULL || plan->magic != _SPI_PLAN_MAGIC) {
+        SPI_result = SPI_ERROR_ARGUMENT;
+        return false;
+    }
+
+    // Check for exactly one command in the plan
+    if (list_length(plan->plancache_list) != 1) {
+        SPI_result = 0;
+        return false;  // not exactly 1 pre-rewrite command
+    }
+
+    // Get the cached plan source
+    CachedPlanSource *plansource = (CachedPlanSource *) linitial(plan->plancache_list);
+
+    SPI_result = 0;
+
+    // Check if plan returns tuples (has result descriptor)
+    return (plansource->resultDesc != NULL);
+}
+```

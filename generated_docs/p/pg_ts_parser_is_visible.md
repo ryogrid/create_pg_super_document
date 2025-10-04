@@ -36,3 +36,20 @@ The visibility check considers the current search path and ensures that the pars
 - Text search parsers are part of PostgreSQL's full-text search infrastructure and are used to tokenize documents
 - The underlying visibility check explicitly excludes temporary namespaces from the search
 - Located in src/backend/catalog/namespace.c:5020-5033
+
+## Simplified Source
+
+```c
+Datum pg_ts_parser_is_visible(PG_FUNCTION_ARGS) {
+    Oid parser_oid = PG_GETARG_OID(0);
+    bool is_missing = false;
+
+    // Check if text search parser is visible in current search path
+    bool result = TSParserIsVisibleExt(parser_oid, &is_missing);
+
+    // Return NULL if parser doesn't exist, otherwise return visibility status
+    if (is_missing)
+        PG_RETURN_NULL();
+    PG_RETURN_BOOL(result);
+}
+```

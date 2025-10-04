@@ -45,3 +45,43 @@ The function categorizes pages by type (leaf vs inner) and special properties (n
 - The cache is organized by page type flags (leaf/inner, null-storing)
 - Updates occur when the cached page is the same as the current page, when no page is cached, or when the current page has more free space than the cached page
 - This optimization is crucial for SP-GiST insert performance as it avoids repeated page scans to find space for new tuples
+
+## Simplified Source
+
+```c
+void SpGistSetLastUsedPage(Relation index, Buffer buffer) {
+    SpGistCache *cache = spgGetCache(index);
+    Page page = BufferGetPage(buffer);
+    BlockNumber blkno = BufferGetBlockNumber(buffer);
+
+    // Never cache fixed pages (root pages)
+    if (SpGistBlockIsFixed(blkno))
+        return;
+
+    // Determine page type flags
+    int flags;
+    if (SpGistPageIsLeaf(page))
+        flags = GBUF_LEAF;
+    else
+        flags = GBUF_INNER_PARITY(blkno);
+
+    if (SpGistPageStoresNulls(page))
+        flags |= GBUF_NULLS;
+
+    // Get cache entry for this flag combination
+    SpGistLastUsedPage *lup = GET_LUP(cache, flags);
+
+    // Update cache if:
+    // - No page cached yet
+    // - Same page as currently cached
+    // - Current page has more free space
+    int freeSpace = PageGetExactFreeSpace(page);
+    if (lup->blkno == InvalidBlockNumber ||
+        lup->blkno == blkno ||
+        lup->freeSpace < freeSpace) {
+
+        lup->blkno = blkno;
+        lup->freeSpace = freeSpace;
+    }
+}
+```

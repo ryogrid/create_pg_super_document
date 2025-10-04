@@ -52,3 +52,37 @@ The function creates a hierarchical text representation where indentation level 
 - The function is designed to work with any user-defined node content via the callback mechanism
 - Not used in production code paths; intended for development and debugging only
 - Provides complete heap structure visualization for troubleshooting heap corruption or algorithm issues
+
+## Simplified Source
+
+```c
+static void pairingheap_dump_recurse(StringInfo buf,
+                                    pairingheap_node *node,
+                                    void (*dumpfunc) (pairingheap_node *node, StringInfo buf, void *opaque),
+                                    void *opaque,
+                                    int depth,
+                                    pairingheap_node *prev_or_parent)
+{
+    // Traverse all sibling nodes at this level
+    while (node) {
+        // Validate heap structure integrity
+        Assert(node->prev_or_parent == prev_or_parent);
+
+        // Add indentation for visual tree structure (4 spaces per level)
+        appendStringInfoSpaces(buf, depth * 4);
+
+        // Output node content using user-provided function
+        dumpfunc(node, buf, opaque);
+        appendStringInfoChar(buf, '\n');
+
+        // Recursively dump children with increased depth
+        if (node->first_child) {
+            pairingheap_dump_recurse(buf, node->first_child, dumpfunc, opaque, depth + 1, node);
+        }
+
+        // Move to next sibling
+        prev_or_parent = node;
+        node = node->next_sibling;
+    }
+}
+```

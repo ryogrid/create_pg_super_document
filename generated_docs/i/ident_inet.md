@@ -61,3 +61,113 @@ The function includes comprehensive error handling for network operations and pr
 - All network errors are logged at LOG level to help with debugging connection issues
 - The Ident protocol is considered deprecated in modern environments due to security concerns
 - Successfully authenticated users still must pass through the configured user mapping rules
+
+## Simplified Source
+
+```c
+// Simplified version of ident_inet
+static int ident_inet(hbaPort *port) {
+    char ident_user[IDENT_USERNAME_MAX + 1];
+    pgsocket sock_fd = PGINVALID_SOCKET;
+    char remote_addr_s[NI_MAXHOST], remote_port[NI_MAXSERV];
+    char local_addr_s[NI_MAXHOST], local_port[NI_MAXSERV];
+    char ident_query[80], ident_response[80 + IDENT_USERNAME_MAX];
+    struct addrinfo *ident_serv = NULL, *local_addr = NULL;
+    bool success = false;
+
+    // Step 1: Convert addresses to string format
+    pg_getnameinfo_all(&port->raddr.addr, port->raddr.salen,
+                       remote_addr_s, sizeof(remote_addr_s),
+                       remote_port, sizeof(remote_port),
+                       NI_NUMERICHOST | NI_NUMERICSERV);
+    pg_getnameinfo_all(&port->laddr.addr, port->laddr.salen,
+                       local_addr_s, sizeof(local_addr_s),
+                       local_port, sizeof(local_port),
+                       NI_NUMERICHOST | NI_NUMERICSERV);
+
+    // Step 2: Resolve Ident server address (port 113)
+    struct addrinfo hints = {0};
+    hints.ai_flags = AI_NUMERICHOST;
+    hints.ai_family = port->raddr.addr.ss_family;
+    hints.ai_socktype = SOCK_STREAM;
+
+    char ident_port[NI_MAXSERV];
+    snprintf(ident_port, sizeof(ident_port), "%d", IDENT_PORT);
+
+    if (pg_getaddrinfo_all(remote_addr_s, ident_port, &hints, &ident_serv) != 0 ||
+        pg_getaddrinfo_all(local_addr_s, NULL, &hints, &local_addr) != 0) {
+        goto cleanup;
+    }
+
+    // Step 3: Create and configure socket
+    sock_fd = socket(ident_serv->ai_family, ident_serv->ai_socktype, ident_serv->ai_protocol);
+    if (sock_fd == PGINVALID_SOCKET) {
+        ereport(LOG, (errcode_for_socket_access(),
+                     errmsg("could not create socket for Ident connection: %m")));
+        goto cleanup;
+    }
+
+    // Step 4: Bind to local address and connect to Ident server
+    if (bind(sock_fd, local_addr->ai_addr, local_addr->ai_addrlen) != 0) {
+        ereport(LOG, (errcode_for_socket_access(),
+                     errmsg("could not bind to local address \"%s\": %m", local_addr_s)));
+        goto cleanup;
+    }
+
+    if (connect(sock_fd, ident_serv->ai_addr, ident_serv->ai_addrlen) != 0) {
+        ereport(LOG, (errcode_for_socket_access(),
+                     errmsg("could not connect to Ident server at address \"%s\", port %s: %m",
+                            remote_addr_s, ident_port)));
+        goto cleanup;
+    }
+
+    // Step 5: Send Ident query
+    snprintf(ident_query, sizeof(ident_query), "%s,%s\r\n", remote_port, local_port);
+
+    int rc;
+    do {
+        CHECK_FOR_INTERRUPTS();
+        rc = send(sock_fd, ident_query, strlen(ident_query), 0);
+    } while (rc < 0 && errno == EINTR);
+
+    if (rc < 0) {
+        ereport(LOG, (errcode_for_socket_access(),
+                     errmsg("could not send query to Ident server: %m")));
+        goto cleanup;
+    }
+
+    // Step 6: Receive and parse response
+    do {
+        CHECK_FOR_INTERRUPTS();
+        rc = recv(sock_fd, ident_response, sizeof(ident_response) - 1, 0);
+    } while (rc < 0 && errno == EINTR);
+
+    if (rc < 0) {
+        ereport(LOG, (errcode_for_socket_access(),
+                     errmsg("could not receive response from Ident server: %m")));
+        goto cleanup;
+    }
+
+    ident_response[rc] = '\0';
+    success = interpret_ident_response(ident_response, ident_user);
+
+    if (!success) {
+        ereport(LOG, (errmsg("invalidly formatted response from Ident server: \"%s\"",
+                            ident_response)));
+    }
+
+cleanup:
+    // Step 7: Cleanup resources
+    if (sock_fd != PGINVALID_SOCKET) closesocket(sock_fd);
+    if (ident_serv) pg_freeaddrinfo_all(port->raddr.addr.ss_family, ident_serv);
+    if (local_addr) pg_freeaddrinfo_all(port->laddr.addr.ss_family, local_addr);
+
+    // Step 8: Complete authentication if successful
+    if (success) {
+        set_authn_id(port, ident_user);
+        return check_usermap(port->hba->usermap, port->user_name, ident_user, false);
+    }
+
+    return STATUS_ERROR;
+}
+```

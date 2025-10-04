@@ -29,3 +29,13 @@ The function is used in the context of streaming logical replication where large
 - Part of the logical replication streaming transaction protocol
 - Used to mark the end of a streaming transaction sequence
 - Located in src/backend/replication/logical/proto.c:1103-1111
+
+## Simplified Source
+
+```c
+void logicalrep_write_stream_stop(StringInfo out)
+{
+    // Send stream stop message type
+    pq_sendbyte(out, LOGICAL_REP_MSG_STREAM_STOP);
+}
+```
